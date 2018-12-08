@@ -1,5 +1,4 @@
-// page/common/pages/choose/choose.js
-import {recruiter, applicant} from '../../../../config.js'
+// page/common/pages/startup/startup.js
 Page({
 
   /**
@@ -9,21 +8,11 @@ Page({
 
   },
 
-  jump1: () => {
-    wx.navigateTo({
-      url: `${applicant}index/index`
-    })
-  },
-  jump0: () => {
-    wx.navigateTo({
-      url: `${recruiter}index/index`
-    })
-  },
-
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+
   },
 
   /**

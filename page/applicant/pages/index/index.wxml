@@ -7,4 +7,5 @@
     <text class="user-motto">{{motto}}我是应聘者</text>
   </view>
   <tab-bar tabType="0"></tab-bar>
+  <choose-page></choose-page>
 </view>

@@ -1,6 +1,6 @@
 {
   "pages": [
-    "page/common/pages/choose/choose"
+    "page/applicant/pages/index/index"
   ],
   "window": {
     "navigationBarTextStyle": "black",
@@ -9,12 +9,6 @@
     "backgroundColor": "#F8F8F8"
   },
   "subPackages": [
-    {
-      "root": "page/applicant/",
-      "pages": [
-        "pages/index/index"
-      ]
-    },
     {
       "root": "page/recruiter/",
       "pages": [

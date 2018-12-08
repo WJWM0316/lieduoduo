@@ -1,5 +1,5 @@
 // components/business/tabBar/tabBar.js
-import {recruiter, applicant} from '../../../config.js'
+import {RECRUITER, APPLICANT} from '../../../config.js'
 Component({
   /**
    * 组件的属性列表
@@ -21,25 +21,25 @@ Component({
         title: '首页',
         icon: '',
         selectIcon: '',
-        path: `${applicant}index/index`
+        path: `${APPLICANT}index/index`
       },
       {
         title: '首页1',
         icon: '',
         selectIcon: '',
-        path: `${applicant}index/index`
+        path: `${APPLICANT}index/index`
       },
       {
         title: '首页2',
         icon: '',
         selectIcon: '',
-        path: `${applicant}index/index`
+        path: `${APPLICANT}index/index`
       },
       {
         title: '首页3',
         icon: '',
         selectIcon: '',
-        path: `${applicant}index/index`
+        path: `${APPLICANT}index/index`
       }
     ],
     list1: [
@@ -85,7 +85,6 @@ Component({
    */
   methods: {
     toggle (e) {
-      console.log(e.target.dataset)
       wx.redirectTo({
         url: e.target.dataset.path
       })

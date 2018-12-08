@@ -1,0 +1,5 @@
+<!--components/business/choose/choose.wxml-->
+<view class="choose" wx:if="{{!isChose}}">
+  <button bindtap='jump0'>招聘者</button>
+  <button bindtap='jump1'>应聘者</button>
+</view>

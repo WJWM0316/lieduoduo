@@ -1,5 +1,6 @@
 {
   "usingComponents": {
-    "tab-bar": "../../../../components/business/tabBar/tabBar"
+    "tab-bar": "../../../../components/business/tabBar/tabBar",
+    "choose-page": "../../../../components/business/choose/choose"
   }
 }

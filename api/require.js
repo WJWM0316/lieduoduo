@@ -1,4 +1,4 @@
-import config from '../config.js'
+import {baseHost} from '../config.js'
 
 /* eslint-disable no-undef */
 const util = {
@@ -33,7 +33,7 @@ export const request = ({ method = 'post', url, data = {}, needKey = true, isLoa
       cv: 109
     }
     wx.request({
-      url: config.baseHost+url,
+      url: baseHost+url,
       header: addHttpHead,
       data: data,
       method: method,

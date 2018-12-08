@@ -1,5 +1,6 @@
 //index.js
 //获取应用实例
+import {RECRUITER, APPLICANT} from '../../../../config.js'
 const app = getApp()
 Page({
   data: {
@@ -9,6 +10,22 @@ Page({
     canIUse: wx.canIUse('button.open-type.getUserInfo')
   },
   onLoad: function () {
+    let choseType = wx.getStorageSync('choseType') || null
+    if (choseType === 'RECRUITER') {
+      wx.showModal({
+        title: '提示',
+        content: '检测到你是招聘官，是否切换招聘端',
+        success (res) {
+          if (res.confirm) {
+            wx.reLaunch({
+              url: `${RECRUITER}index/index`
+            })
+          } else if (res.cancel) {
+            console.log('用户点击取消')
+          }
+        }
+      })
+    }
     if (app.globalData.userInfo) {
       this.setData({
         userInfo: app.globalData.userInfo,
@@ -37,7 +54,6 @@ Page({
     }
   },
   getUserInfo: function(e) {
-    console.log(e)
     app.globalData.userInfo = e.detail.userInfo
     this.setData({
       userInfo: e.detail.userInfo,

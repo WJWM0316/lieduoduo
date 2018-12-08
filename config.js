@@ -3,16 +3,11 @@
  */
 
 // 测试服接口
-export const baseHost = 'https://applet-test.card.ziwork.com'
-
-// 正式服接口 -- 当前使用
-// export const baseHost = 'https://wxapp.card.zike.com'
-
-
+export const BASEHOST = 'https://applet-test.card.ziwork.com'
 
 
 // 内嵌h5基本路径测试服
-export const staticHost = 'https://stg.ziwork.com'
+export const STATICHOST = 'https://stg.ziwork.com'
 
 // 内嵌h5基本路径生产服
 // var staticHost = 'https://light.house.zike.com'
@@ -21,16 +16,16 @@ export const staticHost = 'https://stg.ziwork.com'
 export const CDNPATH = ''
 
 // 招聘端page
-export const recruiter = '/page/recruiter/pages/'
+export const RECRUITER = '/page/recruiter/pages/'
 
 // 应聘端page
-export const applicant = '/page/applicant/pages/'
+export const APPLICANT = '/page/applicant/pages/'
 
 // 公共包page
-export const common = '/page/common/pages/'
+export const COMMON = '/page/common/pages/'
 
 // components
-export const components = '/components/'
+export const COMPONENTS = '/components/'
 
 // api
-export const api = '/api/'
+export const API = '/api/'
