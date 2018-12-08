@@ -1,0 +1,10 @@
+<!--index.wxml-->
+<view class="container">
+  <view class="userinfo">
+    <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
+  </view>
+  <view class="usermotto">
+    <text class="user-motto">{{motto}}我是应聘者</text>
+  </view>
+  <tab-bar tabType="0"></tab-bar>
+</view>

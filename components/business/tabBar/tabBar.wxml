@@ -1,0 +1,4 @@
+<!--components/business/tabBar/tabBar.wxml-->
+<view class="tabBar">
+  <view class="tabBar-item" wx:for="{{list}}" wx:key="{{index}}" catchtap="toggle" data-path="{{item.path}}">{{item.title}}</view>
+</view>
