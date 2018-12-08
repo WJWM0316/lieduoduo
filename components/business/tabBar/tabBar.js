@@ -47,25 +47,25 @@ Component({
         title: '首页4',
         icon: '',
         selectIcon: '',
-        path: ''
+        path: `${RECRUITER}index/index`
       },
       {
         title: '首页5',
         icon: '',
         selectIcon: '',
-        path: ''
+        path: `${RECRUITER}index/index`
       },
       {
         title: '首页6',
         icon: '',
         selectIcon: '',
-        path: ''
+        path: `${RECRUITER}index/index`
       },
       {
         title: '首页7',
         icon: '',
         selectIcon: '',
-        path: ''
+        path: `${RECRUITER}index/index`
       }
     ]
   },
