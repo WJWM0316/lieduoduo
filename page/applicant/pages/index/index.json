@@ -1,6 +1,7 @@
 {
   "usingComponents": {
     "tab-bar": "../../../../components/business/tabBar/tabBar",
-    "choose-page": "../../../../components/business/choose/choose"
+    "choose-page": "../../../../components/business/choose/choose",
+    "avatar-upload": "../../../../components/functional/avatarUpload/avatarUpload"
   }
 }

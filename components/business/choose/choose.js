@@ -16,7 +16,6 @@ Component({
   },
   attached: function () {
     let choseType = wx.getStorageSync('choseType') || null
-    console.log(this.data)
     if (choseType) {
       this.setData({
         isChose: true

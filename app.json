@@ -1,6 +1,7 @@
 {
   "pages": [
-    "page/applicant/pages/index/index"
+    "page/applicant/pages/index/index",
+    "page/common/pages/cutInside/cutInside"
   ],
   "window": {
     "navigationBarTextStyle": "black",

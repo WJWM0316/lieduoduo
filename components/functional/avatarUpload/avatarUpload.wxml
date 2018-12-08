@@ -1,0 +1,3 @@
+<view class="avatarUpload">
+  <image class="avatarImg" src="{{src}}" bindtap="upload" mode="aspectFill"></image>
+</view>

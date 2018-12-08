@@ -19,3 +19,9 @@
 .usermotto {
   margin-top: 200px;
 }
+
+.avatar {
+  width: 100rpx;
+  height: 100rpx;
+  display: block;
+}
