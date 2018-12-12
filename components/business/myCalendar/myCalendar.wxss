@@ -1,0 +1,16 @@
+/* components/business/myCalendar/myCalendar.wxss */
+.myCalendar {
+  width: 100%;
+}
+.wrap {
+  height: 100rpx;
+  white-space: nowrap;
+}
+.item {
+  width: 14.285%;
+  display: inline-block;
+}
+.day, .week {
+  display: block;
+  text-align: center;
+}

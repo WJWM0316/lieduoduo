@@ -1,0 +1,4 @@
+/* page/common/pages/map/map.wxss */
+.map {
+  width: 100rpx;
+}

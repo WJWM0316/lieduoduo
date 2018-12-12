@@ -1,6 +1,8 @@
 //index.js
 //获取应用实例
-import {RECRUITER, APPLICANT} from '../../../../config.js'
+import {RECRUITER, APPLICANT, COMMON} from '../../../../config.js'
+import {getSelectorQuery}  from '../../../../utils/util.js'
+
 const app = getApp()
 Page({
   data: {
@@ -58,6 +60,11 @@ Page({
     this.setData({
       userInfo: e.detail.userInfo,
       hasUserInfo: true
+    })
+  },
+  jumpMap: function() {
+    wx.redirectTo({
+      url: `${COMMON}map/map`
     })
   }
 })

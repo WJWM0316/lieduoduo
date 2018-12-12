@@ -1,6 +1,7 @@
 {
   "usingComponents": {
-    "tab-bar": "../../../../components/business/tabBar/tabBar",
+    "calendar": "plugin://calendar/calendar",
+    "myCalendar": "../../../../components/business/myCalendar/myCalendar",
     "choose-page": "../../../../components/business/choose/choose",
     "avatar-upload": "../../../../components/functional/avatarUpload/avatarUpload"
   }
