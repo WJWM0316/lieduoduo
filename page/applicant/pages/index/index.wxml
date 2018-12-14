@@ -3,7 +3,7 @@
   <view class="usermotto">
     <text class="user-motto">{{motto}}我是应聘者</text>
   </view>
-  <myPicker pickerType='sex' bindresultevent="getResult"></myPicker>
+  <myPicker pickerType='dateTime' bindresultevent="getResult" setResult="2018年12月14日 17:22"></myPicker>
   <!-- <view bindtap="jumpMap">地图</view>
   <myCalendar class="myCalendar"></myCalendar>
   <choose-page></choose-page>

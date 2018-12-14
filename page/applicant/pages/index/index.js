@@ -9,9 +9,7 @@ Page({
     motto: 'Hello World',
     userInfo: {},
     hasUserInfo: false,
-    canIUse: wx.canIUse('button.open-type.getUserInfo'),
-    result: 0,
-    list: ['12月', '11月', '10月', '09月', '08月', '07月', '06月', '05月','04月', '03月', '02月', '01月']
+    canIUse: wx.canIUse('button.open-type.getUserInfo')
   },
   onLoad: function () {
     let choseType = wx.getStorageSync('choseType') || null
@@ -70,6 +68,6 @@ Page({
     })
   },
   getResult(e) {
-    console.log(e, 122222222222)
+    console.log(e, '返回的数据')
   }
 })

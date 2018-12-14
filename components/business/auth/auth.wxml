@@ -1,2 +1,6 @@
 <!--components/business/auth/auth.wxml-->
-<text>components/business/auth/auth.wxml</text>
+<view class="auth">
+  <view class="authPop">
+    <button>我是授权的</button>
+  </view>
+</view>
