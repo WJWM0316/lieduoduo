@@ -1,6 +1,6 @@
 Component({
 	behaviors: [],
-	externalClasses: ['iconfont'],
+	externalClasses: ['iconfont1'],
   properties: {
     list: Array
   },

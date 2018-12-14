@@ -4,7 +4,7 @@
     <text class="user-motto">{{motto}}我是应聘者</text>
   </view>
   <!-- <myPicker pickerType='sex' bindresultevent="getResult"></myPicker> -->
-  <defaultList list="{{companyList}}"></defaultList>
+  <companyList list="{{companyList}}"></companyList>
   <!-- <view bindtap="jumpMap">地图</view>
   <myCalendar class="myCalendar"></myCalendar>
   <choose-page></choose-page>
