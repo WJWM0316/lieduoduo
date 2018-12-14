@@ -1,0 +1,33 @@
+var dateFormat = function(timestamp) {
+  var date = getDate(timestamp * 1000)
+  var year = date.getFullYear()
+  var month = date.getMonth() + 1
+  var day = date.getDate()
+
+  var hour = function() {
+    if(date.getHours() < 10) {
+      return '0' + date.getHours()
+    }
+    return date.getHours()
+  }
+
+  var minute = function() {
+    if(date.getMinutes() < 10) {
+      return '0' + date.getMinutes()
+    }
+    return date.getMinutes()
+  }
+
+  var second = function() {
+    if(date.getSeconds() < 10) {
+      return '0' + date.getSeconds()
+    }
+    return date.getSeconds()
+  }
+ 
+  return year + '-' + month + '-' + day + ' ' + hour() + ':' + minute() + ":" + second()
+}
+ 
+module.exports = {
+  dateFormat: dateFormat,
+}

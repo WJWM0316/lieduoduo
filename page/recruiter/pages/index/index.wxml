@@ -1,7 +1,9 @@
 <!--index.wxml-->
+<wxs src='../../../../utils/filters.wxs' module='filter' />
 <view class="container">
   <view class="usermotto">
-    <text class="user-motto">{{motto}}我是招聘者</text>
+  	<view>日期：{{filter.dateFormat(1544596264)}}</view>
+    <text class="user-motto">{{motto}}我是招聘者1</text>
   </view>
   <tab-bar tabType="1"></tab-bar>
 </view>
