@@ -1,10 +1,10 @@
 @import '../../../iconfont.wxss';
 
-.default-list-ul {
+.company-list-ul {
 	overflow: hidden;
 }
 
-.default-list-ul .li {
+.company-list-ul .li {
 	overflow: hidden;
 	position: relative;
 	background:rgba(255,255,255,1);
@@ -14,11 +14,11 @@
 	margin-bottom: 18rpx;
 }
 
-.default-list-ul .li:last-child {
+.company-list-ul .li:last-child {
 	margin-bottom: 0;
 }
 
-.default-list-ul .li .img-box {
+.company-list-ul .li .img-box {
 	width: 120rpx;
 	height: 120rpx;
 	background: rgba(0,0,0,.1);
@@ -31,7 +31,7 @@
 	position: relative;
 }
 
-.default-list-ul .li .is-certification {
+.company-list-ul .li .is-certification {
 	width:36rpx;
 	height:36rpx;
 	background:rgba(255,127,76,1);
@@ -43,7 +43,7 @@
 	right: 0;
 }
 
-.default-list-ul .li .content {
+.company-list-ul .li .content {
 	display: inline-block;
 	width: calc(100% - 120rpx - 30rpx);
 	height: 120rpx;
@@ -51,12 +51,12 @@
 	vertical-align: middle;
 }
 
-.default-list-ul .li .header {
+.company-list-ul .li .header {
 	overflow: hidden;
 	margin-top: 15rpx;
 }
 
-.default-list-ul .li .recruiter-name {
+.company-list-ul .li .recruiter-name {
 	font-size:36rpx;
 	font-weight:500;
 	color:rgba(40,40,40,1);
@@ -64,7 +64,7 @@
 	display: inline-block;
 }
 
-.default-list-ul .li .recruiter-position {
+.company-list-ul .li .recruiter-position {
 	font-size:28rpx;
 	font-weight:300;
 	color:rgba(40,40,40,1);
@@ -75,7 +75,7 @@
 	padding-left: 15px;
 }
 
-.default-list-ul .li .company-name {
+.company-list-ul .li .company-name {
 	font-size:24rpx;
 	font-weight:300;
 	color:rgba(146,146,146,1);
@@ -83,7 +83,7 @@
 	display: inline-block;
 }
 
-.default-list-ul .li .position-number {
+.company-list-ul .li .position-number {
 	font-size:24rpx;
 	font-weight:300;
 	color:rgba(146,146,146,1);
@@ -92,7 +92,7 @@
 	margin-left: 40rpx;
 }
 
-.default-list-ul .li .number-strong {
+.company-list-ul .li .number-strong {
 	color: #2878FF;
 	display: inline-block;
 }

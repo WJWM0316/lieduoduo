@@ -1,4 +1,4 @@
-<view class="default-list-ul">
+<view class="company-list-ul">
 	<view class="li"
 		wx:for="{{ list }}"
 		wx:for-item="company"
