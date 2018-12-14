@@ -1,8 +1,9 @@
 {
   "usingComponents": {
     "calendar": "plugin://calendar/calendar",
-    "myCalendar": "../../../../components/business/myCalendar/myCalendar",
+    "myCalendar": "../../../../components/layout/myCalendar/myCalendar",
     "choose-page": "../../../../components/business/choose/choose",
-    "avatar-upload": "../../../../components/functional/avatarUpload/avatarUpload"
+    "avatar-upload": "../../../../components/functional/avatarUpload/avatarUpload",
+    "myPicker": "../../../../components/layout/myPicker/myPicker"
   }
 }

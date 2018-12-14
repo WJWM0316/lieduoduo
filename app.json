@@ -2,8 +2,7 @@
   "pages": [
     "page/applicant/pages/index/index",
     "page/common/pages/cutInside/cutInside",
-    "page/common/pages/map/map",
-    "components/business/myCalendar/myCalendar"
+    "page/common/pages/map/map"
   ],
   "window": {
     "navigationBarTextStyle": "black",

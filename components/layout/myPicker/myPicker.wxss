@@ -1,0 +1,10 @@
+/* components/layout/myPicker/myPicker.wxss */
+.myPicker {
+  width: 100%;
+  height: 100rpx;
+  border: 1px solid #ccc;
+}
+.picker {
+  width: 100%;
+  height: 100%;
+}
