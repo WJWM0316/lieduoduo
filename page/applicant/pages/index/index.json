@@ -5,6 +5,6 @@
     "choose-page": "../../../../components/business/choose/choose",
     "avatar-upload": "../../../../components/functional/avatarUpload/avatarUpload",
     "myPicker": "../../../../components/layout/myPicker/myPicker",
-    "companyList": "../../../../components/business/companyList/companyList"
+    "interviewList": "../../../../components/business/interviewList/interviewList"
   }
 }

@@ -1,0 +1,28 @@
+<view class="apply-list-ul">
+	<view class="li"
+		wx:for="{{ list }}"
+		wx:for-item="company"
+		wx:key="{{company.id}}"
+		data-company-id="{{company.id}}"
+		bindtap="routeJump">
+			<view class="row first">
+				<view class="recruitment-position">高级产品经理</view>
+				<view class="company-salary">12K~20K</view>
+			</view>
+			<view class="row second">
+				<view class="company-name">老虎科技有限公司</view>
+				<view class="company-nature">不需要融资</view>
+			</view>
+			<view class="row three">
+				<view class="company-address">广州市天河区</view>
+				<view class="company-experience">3-4 年</view>
+				<view class="company-degress">本科</view>
+			</view>
+			<view class="row four">
+				<view class="img-box">
+					<view class="is-certification" wx:if="{{company.certification}}"></view>
+				</view>
+				<view class="realname-position">宋军·招聘者</view>
+			</view>
+	</view>
+</view>

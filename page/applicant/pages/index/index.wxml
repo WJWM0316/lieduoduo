@@ -1,10 +1,10 @@
 <!--index.wxml-->
 <view class="container">
-  <view class="usermotto">
+<!--   <view class="usermotto">
     <text class="user-motto">{{motto}}我是应聘者</text>
-  </view>
+  </view> -->
   <!-- <myPicker pickerType='sex' bindresultevent="getResult"></myPicker> -->
-  <companyList list="{{companyList}}"></companyList>
+  <interviewList list="{{companyList}}"></interviewList>
   <!-- <view bindtap="jumpMap">地图</view>
   <myCalendar class="myCalendar"></myCalendar>
   <choose-page></choose-page>

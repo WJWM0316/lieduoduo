@@ -19,7 +19,8 @@ Page({
         certification: false,
         recruiterPosition: '创始人、CEO',
         companyName: '老虎科技',
-        positionNumber: 18
+        positionNumber: 18,
+        status: 1
       },
       {
         id: 2,
@@ -27,7 +28,8 @@ Page({
         certification: true,
         recruiterPosition: '创始人、CEO',
         companyName: '老虎科技',
-        positionNumber: 18
+        positionNumber: 18,
+        status: 0
       }
     ]
   },
