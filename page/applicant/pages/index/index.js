@@ -11,52 +11,70 @@ Page({
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
     result: 0,
-    list: ['12月', '11月', '10月', '09月', '08月', '07月', '06月', '05月','04月', '03月', '02月', '01月']
-  },
-  onLoad: function () {
-    let choseType = wx.getStorageSync('choseType') || null
-    if (choseType === 'RECRUITER') {
-      wx.showModal({
-        title: '提示',
-        content: '检测到你是招聘官，是否切换招聘端',
-        success (res) {
-          if (res.confirm) {
-            wx.reLaunch({
-              url: `${RECRUITER}index/index`
-            })
-          } else if (res.cancel) {
-            console.log('用户点击取消')
-          }
-        }
-      })
-    }
-    if (app.globalData.userInfo) {
-      this.setData({
-        userInfo: app.globalData.userInfo,
-        hasUserInfo: true
-      })
-    } else if (this.data.canIUse){
-      // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
-      // 所以此处加入 callback 以防止这种情况
-      app.userInfoReadyCallback = res => {
-        this.setData({
-          userInfo: res.userInfo,
-          hasUserInfo: true
-        })
+    list: ['12月', '11月', '10月', '09月', '08月', '07月', '06月', '05月','04月', '03月', '02月', '01月'],
+    companyList: [
+      {
+        id: 1,
+        recruiterName: '文双',
+        certification: false,
+        recruiterPosition: '创始人、CEO',
+        companyName: '老虎科技',
+        positionNumber: 18
+      },
+      {
+        id: 2,
+        recruiterName: '文双',
+        certification: true,
+        recruiterPosition: '创始人、CEO',
+        companyName: '老虎科技',
+        positionNumber: 18
       }
-    } else {
-      // 在没有 open-type=getUserInfo 版本的兼容处理
-      wx.getUserInfo({
-        success: res => {
-          app.globalData.userInfo = res.userInfo
-          this.setData({
-            userInfo: res.userInfo,
-            hasUserInfo: true
-          })
-        }
-      })
-    }
+    ]
   },
+  // onLoad: function () {
+  //   let choseType = wx.getStorageSync('choseType') || null
+  //   if (choseType === 'RECRUITER') {
+  //     wx.showModal({
+  //       title: '提示',
+  //       content: '检测到你是招聘官，是否切换招聘端',
+  //       success (res) {
+  //         if (res.confirm) {
+  //           wx.reLaunch({
+  //             url: `${RECRUITER}index/index`
+  //           })
+  //         } else if (res.cancel) {
+  //           console.log('用户点击取消')
+  //         }
+  //       }
+  //     })
+  //   }
+  //   if (app.globalData.userInfo) {
+  //     this.setData({
+  //       userInfo: app.globalData.userInfo,
+  //       hasUserInfo: true
+  //     })
+  //   } else if (this.data.canIUse){
+  //     // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
+  //     // 所以此处加入 callback 以防止这种情况
+  //     app.userInfoReadyCallback = res => {
+  //       this.setData({
+  //         userInfo: res.userInfo,
+  //         hasUserInfo: true
+  //       })
+  //     }
+  //   } else {
+  //     // 在没有 open-type=getUserInfo 版本的兼容处理
+  //     wx.getUserInfo({
+  //       success: res => {
+  //         app.globalData.userInfo = res.userInfo
+  //         this.setData({
+  //           userInfo: res.userInfo,
+  //           hasUserInfo: true
+  //         })
+  //       }
+  //     })
+  //   }
+  // },
   getUserInfo: function(e) {
     app.globalData.userInfo = e.detail.userInfo
     this.setData({
