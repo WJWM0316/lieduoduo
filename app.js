@@ -2,6 +2,16 @@
 import {getSessionKeyApi} from 'api/pages/auth.js'
 App({
   onLaunch: function () {
+    // 获取导航栏高度
+    wx.getSystemInfo({
+      success: res => {
+        //导航高度
+        this.globalData.navHeight = res.statusBarHeight + 46
+      },
+      fail: err => {
+        console.log(err)
+      }
+    })
     this.checkLogin()
     // 获取用户信息
     wx.getSetting({
@@ -26,6 +36,7 @@ App({
   },
   globalData: {
     userInfo: null,
+    navHeight: 0,
     cdnImagePath: 'https://attach.lieduoduo.ziwork.com/'
   },
   checkLogin () {

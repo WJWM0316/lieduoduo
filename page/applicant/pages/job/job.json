@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "applyList": "../../../../components/business/applyList/applyList",
+    "navbar": "../../../../components/business/navbar/navbar"
+  }
+}

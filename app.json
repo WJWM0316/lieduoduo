@@ -2,12 +2,13 @@
   "pages": [
     "page/common/pages/login/login",
     "page/applicant/pages/index/index",
+    "page/applicant/pages/job/job",
     "page/common/pages/cutInside/cutInside",
     "page/common/pages/map/map"
   ],
   "window": {
     "navigationBarTextStyle": "black",
-    "navigationBarTitleText": "演示",
+    "navigationBarTitleText": "猎多多",
     "navigationBarBackgroundColor": "#F8F8F8",
     "backgroundColor": "#F8F8F8",
     "navigationStyle": "custom"
@@ -25,7 +26,7 @@
         "selectedIconPath": "images/tab_home_sel@3x.png"
       },
       {
-        "pagePath": "page/applicant/pages/index/index",
+        "pagePath": "page/applicant/pages/job/job",
         "text": "职业机会",
         "iconPath": "images/tab_job_nor@3x.png",
         "selectedIconPath": "images/tab_job_sel@3x.png"
