@@ -6,13 +6,25 @@
   align-items: center;
   padding: 40rpx;
   box-sizing: border-box;
+  border-bottom: 1rpx solid #E8E9EB;
 }
 
 .left{
+  position: relative;
   width: 398rpx;
   display: flex;
   align-items: center;
   flex-wrap: wrap;
+}
+.left::before{
+  display: block;
+  content: '';
+  width: 2rpx;
+  height: 68rpx;
+  position: absolute;
+  top: 10rpx;
+  left: -40rpx;
+  background-color: #2878FF;
 }
 
 .left .title{

@@ -7,6 +7,8 @@ import { getAllDegree } from '../../../../api/test.js';
 const app = getApp()
 Page({
   data: {
+    // 页面的默认数据列表
+    pageList: 'mySeen',
     motto: 'Hello World',
     userInfo: {},
     hasUserInfo: false,
@@ -40,6 +42,10 @@ Page({
       index: 2,
       text: '99+'
     })
+  },
+  changeCompanyLists(e) {
+    let pageList = e.currentTarget.dataset.pageList
+    this.setData({ pageList })
   },
   // onLoad: function () {
   //   let choseType = wx.getStorageSync('choseType') || null

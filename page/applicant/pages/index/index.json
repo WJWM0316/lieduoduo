@@ -6,6 +6,6 @@
     "avatar-upload": "../../../../components/functional/avatarUpload/avatarUpload",
     "myPicker": "../../../../components/layout/myPicker/myPicker",
     "moreActive": "../../../../components/business/moreActive/moreActive",
-    "interviewList": "../../../../components/business/interviewList/interviewList"
+    "companyList": "../../../../components/business/companyList/companyList"
   }
 }

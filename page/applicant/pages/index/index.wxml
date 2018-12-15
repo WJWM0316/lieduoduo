@@ -9,15 +9,15 @@
     <moreActive type="2" avatarList="{{avatarList}}"></moreActive>
   </view>
 	<view class="ul-tab-bar">
-		<view class="li active">我看过的</view>
-		<view class="li">我感兴趣的</view>
+		<view class="li {{pageList === 'mySeen' ? 'active' : ''}}" bindtap="changeCompanyLists" data-page-list="mySeen">我看过的</view>
+		<view class="li {{pageList === 'myInterested' ? 'active' : ''}}" bindtap="changeCompanyLists" data-page-list="myInterested">我感兴趣的</view>
 	</view>
+  <companyList list="{{companyList}}"></companyList>
 <!--   <view class="usermotto">
     <text class="user-motto">{{motto}}我是应聘者</text>
 </view>
   </view> -->
   <!-- <myPicker pickerType='sex' bindresultevent="getResult"></myPicker> -->
-  <!-- <interviewList list="{{companyList}}"></interviewList> -->
   <!-- <view bindtap="jumpMap">地图</view>
   <myCalendar class="myCalendar"></myCalendar>
   <choose-page></choose-page>
