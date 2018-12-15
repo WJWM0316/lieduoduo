@@ -5,7 +5,6 @@
 }
 
 .interview-list-ul .li {
-	overflow: hidden;
 	position: relative;
 	background:rgba(255,255,255,1);
 	padding: 28rpx;
@@ -14,23 +13,39 @@
 	border-radius:10rpx;
 }
 
-.interview-list-ul .li:last-child {
-	margin-bottom: 0;
+.interview-list-ul .li .header {
+	position: relative;
+	display: flex;
 }
 
-.interview-list-ul .li .header {
-	overflow: hidden;
+.interview-list-ul .interview {
+	margin-bottom: 44rpx;
+	padding: 24rpx;
+}
+
+.interview-list-ul .interview .img-box {
+	transform: translateY(-40rpx);
+	border:4rpx solid rgba(255,255,255,1);
+}
+
+.interview-list-ul .interview .content {
+	transform: translateY(-24rpx);
+}
+
+.interview-list-ul .li:last-child {
+	margin-bottom: 0;
 }
 
 .interview-list-ul .li .img-box {
 	width: 120rpx;
 	height: 120rpx;
-	background: rgba(0,0,0,.1);
+	background: rgba(0,0,0,.2);
 	border-radius: 50%;
 	display: inline-block;
 	vertical-align: middle;
 	box-sizing: border-box;
 	position: relative;
+	/*transform: translateY(-50rpx);*/
 }
 
 .interview-list-ul .li .is-certification {
@@ -47,9 +62,16 @@
 
 .interview-list-ul .li .content {
 	display: inline-block;
-	width: calc(100% - 120rpx -24rpx );
 	vertical-align: middle;
 	margin-left: 24rpx;
+	flex-grow: 1;
+}
+
+.interview-list-ul .li .content {
+	display: inline-block;
+	vertical-align: middle;
+	margin-left: 24rpx;
+	flex-grow: 1;
 }
 
 .interview-list-ul .li .realname {
@@ -57,10 +79,19 @@
 	font-size:36rpx;
 	font-weight:600;
 	color:rgba(40,40,40,1);
-	line-height:36rpx;
+	line-height:1;
 	position: relative;
 	padding-right: 20rpx;
 	margin-right: 15rpx;
+}
+
+.interview-list-ul .interview .realname-position {
+	line-height: 1;
+	margin-top: 20rpx;
+}
+
+.interview-list-ul .interview .company-name {
+	font-size: 24rpx;
 }
 
 .interview-list-ul .li .realname::after {
@@ -84,6 +115,20 @@
 	line-height:28rpx;
 }
 
+.interview-list-ul .li .clock {
+	display: inline-block;
+	background:rgba(255,127,76,1);
+	border-radius:26rpx;
+	text-align: center;
+	line-height: 52rpx;
+	font-size:32rpx;
+	font-weight:bold;
+	color:rgba(255,255,255,1);
+	float: right;
+	padding: 0 20rpx;
+	display: inline-block;
+}
+
 .interview-list-ul .li .company-name {
 	display: inline-block;
 	line-height:28rpx;
@@ -96,6 +141,12 @@
 .interview-list-ul .li .footer {
 	overflow: hidden;
 	margin-top: 38rpx;
+	line-height: 1;
+}
+
+.interview-list-ul .interview .footer {
+	overflow: hidden;
+	margin-top: 20rpx;
 	line-height: 1;
 }
 
@@ -126,4 +177,29 @@
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
+}
+
+.interview-list-ul .li .red-dot {
+	width:14rpx;
+	height:14rpx;
+	background:rgba(255,73,73,1);
+	position: absolute;
+	right: 24rpx;
+	top: 24rpx;
+	border-radius: 50%;
+}
+
+.interview-list-ul .li .interview-position {
+	font-size:24rpx;
+	font-weight:400;
+	color:rgba(98,98,98,1);
+	line-height:24rpx;
+	margin-bottom: 25rpx;
+}
+
+.interview-list-ul .li .interview-address {
+	font-size:24rpx;
+	font-weight:400;
+	color:rgba(98,98,98,1);
+	line-height:24rpx;
 }

@@ -12,7 +12,7 @@ App({
         console.log(err)
       }
     })
-    this.checkLogin()
+    // this.checkLogin()
     // 获取用户信息
     wx.getSetting({
       success: res => {
