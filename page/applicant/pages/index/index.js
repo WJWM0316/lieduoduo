@@ -36,6 +36,10 @@ Page({
   },
   onShow() {
     getAllDegree()
+    wx.setTabBarBadge({
+      index: 2,
+      text: 'a'
+    })
   },
   // onLoad: function () {
   //   let choseType = wx.getStorageSync('choseType') || null
