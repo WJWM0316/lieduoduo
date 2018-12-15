@@ -8,7 +8,8 @@
 		"es6": true,
 		"postcss": true,
 		"minified": true,
-		"newFeature": true
+		"newFeature": true,
+		"autoAudits": false
 	},
 	"compileType": "miniprogram",
 	"libVersion": "2.4.1",
@@ -51,9 +52,10 @@
 					"query": ""
 				},
 				{
-					"id": -1,
-					"name": "1111111111",
-					"pathName": "page/recruiter/pages/index/index"
+					"id": 2,
+					"name": "joinUs",
+					"pathName": "page/recruiter/pages/joinUs/joinUs",
+					"query": ""
 				}
 			]
 		}

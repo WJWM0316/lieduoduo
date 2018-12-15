@@ -3,11 +3,12 @@
   <view class="usermotto">
     <text class="user-motto">{{motto}}我是应聘者</text>
   </view>
-  <myPicker pickerType='dateTime' bindresultevent="getResult" setResult="2018年12月14日 17:22"></myPicker>
-  <!-- <view bindtap="jumpMap">地图</view>
+  <!-- <myPicker pickerType='endTime' bindresultevent="getResult" setResult="2018年12月"></myPicker> -->
   <myCalendar class="myCalendar"></myCalendar>
+  <auth wx:if="{{!globalData}}"></auth>
+  <!-- <defaultList list="{{companyList}}"></defaultList>
+  <view bindtap="jumpMap">地图</view>
   <choose-page></choose-page>
   <avatar-upload class="avatar"></avatar-upload>
   <calendar></calendar> -->
-
 </view>

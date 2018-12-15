@@ -1,5 +1,6 @@
 // components/business/myCalendar/myCalendar.js
 import {getSelectorQuery}  from '../../../utils/util.js'
+let isLoadData = false  // 由于setData是异步的需要加个锁来控制
 Component({
   externalClasses: ['myCalendar'],
   /**
@@ -19,11 +20,29 @@ Component({
     date: new Date(),
     year: new Date().getFullYear(),
     month: new Date().getMonth() + 1,
+    day: new Date().getDate(),
+    nextMonth: 0,
+    prevMonth: 0,
+    nextYear: 0,
+    prevYear: 0,
     list: [],
-    query: wx.createSelectorQuery()
+    query: wx.createSelectorQuery(),
+    itemWidth: 0
   },
   attached () {
-    this.getThisMonthDays(this.data.year, this.data.month)
+    let list = this.getThisMonthDays(this.data.year, this.data.month)
+    console.log(this.data.month, this.data.day)
+    this.setData({list}, function() {
+      getSelectorQuery(".myCalendar >>> .wrap >>> .last").then(res => {
+        let scrollLeft = res.width * (this.data.day - 2)
+        this.setData({
+          itemWidth: res.width,
+          scrollLeft
+        })
+        console.log(res)
+      })
+    })
+    
   },
   ready () {
   },
@@ -33,42 +52,47 @@ Component({
   methods: {
     // 下个月
     nextMonth () {
-      console.log('下个月')
-      let month = this.data.month
-      let year = this.data.year
-      month++
-      if (month > 12) {
-        month = 0
-        year++
+      let nextMonth = this.data.nextMonth
+      if (!nextMonth) {
+        nextMonth = this.data.month
       }
-      this.setData({
-        year,
-        month
-      })
-      this.getThisMonthDays(this.data.year, this.data.month, 'seq')
+      let nextYear = this.data.nextYear
+      if (!nextYear) {
+        nextYear = this.data.year
+      }
+      nextMonth++
+      if (nextMonth > 12) {
+        nextMonth = 1
+        nextYear++
+      }
+      console.log('下个月', this.data.nextMonth)
+      let list = this.getThisMonthDays(nextYear, nextMonth, 'seq')
+      this.setData({list, nextYear, nextMonth})
     },
     // 上个月
     prevMonth () {
-      let month = this.data.month
-      let year = this.data.year
-      month--
-      if (month < 0) {
-        month = 12
-        year--
+      if (isLoadData) return
+      isLoadData = true
+      let prevMonth = this.data.prevMonth
+      if (!prevMonth) {
+        prevMonth = this.data.month
       }
-      this.setData({
-        year,
-        month
+      let prevYear = this.data.prevYear
+      if (!prevYear) {
+        prevYear = this.data.year
+      }
+      prevMonth--
+      if (prevMonth < 0) {
+        prevMonth = 12
+        prevYear--
+      }
+      let scrollLeft = this.data.itemWidth * 28
+      console.log('上个月', this.data.prevMonth, scrollLeft)
+      let list = this.getThisMonthDays(prevYear, prevMonth, 'ord')
+      this.setData({list, prevYear, prevMonth}, function() {
+        this.setData({scrollLeft})
+        isLoadData = false
       })
-      this.getThisMonthDays(this.data.year, this.data.month, 'ord')
-
-      setTimeout(() => {
-        getSelectorQuery(".myCalendar >>> .wrap > .last").then(res => {
-          this.setData({
-            scrollLeft: res.left + res.width
-          })
-        })
-      }, 300)
     },
     scroll (e) {
       this.setData({
@@ -79,11 +103,12 @@ Component({
     getThisMonthDays: function(year, month, sort) {
       let dayNum = new Date(year, month, 0).getDate()
       let firstDatWeek = this.getFirstDayOfWeek(year, month)
-      let thisMonthlist = []
+      let thisMonthlist = [{'month': month}]
       let list = this.data.list
       for(let i = 1; i < dayNum + 1; i++) {
         let obj = {
           year,
+          month,
           day: i,
           date: `${year}年${month}月${i}日`
         }
@@ -99,10 +124,7 @@ Component({
       } else {
         list = thisMonthlist.concat(list)
       }
-      this.setData({list})
-      setTimeout(() => {
-        getSelectorQuery(".wrap")
-      }, 1000)
+      return list
     },
     // 获取当月第一天星期几
     getFirstDayOfWeek: function(year, month) {

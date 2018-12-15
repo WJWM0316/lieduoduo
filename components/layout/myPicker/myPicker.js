@@ -41,6 +41,7 @@ Component({
   attached: function () {
     let list = []
     let result = null
+    let firstOption = null
     let curYear = new Date().getFullYear()
     let curMonth = new Date().getMonth() + 1
     let year = []
@@ -68,18 +69,20 @@ Component({
         this.setData({list, year, result, mode: 'multiSelector', placeholder: '请选择开始时间'})
         break
       case 'endTime':
-        year.unshift(this.data.firstOption)
+        firstOption = '至今'
+        year.unshift(firstOption)
         list.push(year)
         list.push(this.data.month)
         result = setResult()
-        this.setData({list, year, result, mode: 'multiSelector', firstOption: '至今', placeholder: '请选择结束时间'})
+        this.setData({list, year, result, mode: 'multiSelector', firstOption, placeholder: '请选择结束时间'})
         break
       case 'workTime':
-        year.unshift(this.data.firstOption)
+        firstOption = '在校生'
+        year.unshift(firstOption)
         list.push(year)
         list.push(this.data.month)
         result = setResult()
-        this.setData({list, year, result, mode: 'multiSelector', firstOption: '在校生', placeholder: '请选择参加工作时间'})
+        this.setData({list, year, result, mode: 'multiSelector', firstOption, placeholder: '请选择参加工作时间'})
         break
       case 'dateTime':
         result = []
@@ -194,6 +197,7 @@ Component({
       if (this.data.mode !== 'multiSelector') return
       let list = []
       const changeData = (year, month) => {
+        list = this.data.list
         list[2] = this.getThisMonthDays(parseInt(year), parseInt(month))
         this.setData({list})
       }
@@ -202,7 +206,6 @@ Component({
         if (this.data.result === 0) {
           result = [0, 0, 0, 0, 0]
         }
-        console.log(result)
         let year = this.data.year[result[0]]
         let month = this.data.month[result[1]]
         if (e.detail.column === 0) { // 选择年份
@@ -216,6 +219,8 @@ Component({
         // 滑动第一项的时候
         if (e.detail.column === 0) {
           list.push(this.data.year)
+          /// let result = this.data.result
+          // result[0] = e.detail.value
           if (e.detail.value === 0) {
             list.push([this.data.firstOption])
           } else {

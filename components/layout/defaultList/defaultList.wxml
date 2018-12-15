@@ -1,0 +1,25 @@
+<view class="default-list-ul">
+	<view class="li"
+		wx:for="{{ list }}"
+		wx:for-item="company"
+		wx:key="{{company.id}}"
+		data-company-id="{{company.id}}"
+		bindtap="routeJump">
+			<view class="img-box">
+				<view class="is-certification" wx:if="{{company.certification}}"></view>
+			</view>
+			<view class="content">
+				<view class="header">
+					<view class="recruiter-name">{{company.recruiterName}}</view>
+					<view class="recruiter-position">{{company.recruiterPosition}}</view>
+				</view>
+				<view class="main">
+					<view class="company-name">
+						<view class="icon iconfont icon-wode"></view>{{company.companyName}}</view>
+					<view class="position-number">
+						<view class="number-strong">{{company.positionNumber}}</view>个职位
+					</view>
+				</view>
+			</view>
+	</view>
+</view>
