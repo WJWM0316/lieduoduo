@@ -6,6 +6,7 @@
     "choose-page": "../../../../components/business/choose/choose",
     "avatar-upload": "../../../../components/functional/avatarUpload/avatarUpload",
     "myPicker": "../../../../components/layout/myPicker/myPicker",
-    "defaultList": "../../../../components/layout/defaultList/defaultList"
+    "moreActive": "../../../../components/business/moreActive/moreActive",
+    "companyList": "../../../../components/business/companyList/companyList"
   }
 }

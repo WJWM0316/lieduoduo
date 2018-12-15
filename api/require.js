@@ -29,8 +29,7 @@ export const request = ({ method = 'post', url, data = {}, needKey = true, isLoa
     }
     util.loading(isLoading)
     const addHttpHead = {
-      token: wx.getStorageSync('token') || '',
-      cv: 109
+      token: wx.getStorageSync('token') || ''
     }
     wx.request({
       url: baseHost+url,
@@ -45,8 +44,8 @@ export const request = ({ method = 'post', url, data = {}, needKey = true, isLoa
         if (res) {
           let msg = res.data
           //有字符串的情况下 转数字
-          msg.http_status = parseInt(msg.http_status)
-          switch (msg.http_status) {
+          msg.httpStatus = parseInt(msg.httpStatus)
+          switch (msg.httpStatus) {
             case 200:
               // 接口请求成功
               util.unloading(isLoading)

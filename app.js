@@ -26,7 +26,7 @@ App({
   },
   globalData: {
     userInfo: null,
-    cdnPath: ''
+    cdnImagePath: 'https://attach.lieduoduo.ziwork.com/'
   },
   checkLogin () {
     return new Promise((resolve, reject) => {

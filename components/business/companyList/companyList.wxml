@@ -1,4 +1,4 @@
-<view class="default-list-ul">
+<view class="company-list-ul">
 	<view class="li"
 		wx:for="{{ list }}"
 		wx:for-item="company"
@@ -15,9 +15,9 @@
 				</view>
 				<view class="main">
 					<view class="company-name">
-						<view class="icon iconfont icon-wode"></view>{{company.companyName}}</view>
+						<i class="icon iconfont icon-wode"></i>{{company.companyName}}</view>
 					<view class="position-number">
-						<view class="number-strong">{{company.positionNumber}}</view>个职位
+						<i class="icon iconfont icon-wode"></i><view class="number-strong">{{company.positionNumber}}</view>个职位
 					</view>
 				</view>
 			</view>

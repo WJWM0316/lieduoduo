@@ -1,14 +1,27 @@
 <!--index.wxml-->
 <view class="container">
-  <view class="usermotto">
-    <text class="user-motto">{{motto}}我是应聘者</text>
+<view class="applicant-index">
+	<view class="index-bannar">
+		<image src="../../../../images/bg_homepageh.png"></image>
+	</view>
+  <view class='more'>
+    <moreActive type="1" avatarList="{{avatarList}}"></moreActive>
+    <moreActive type="2" avatarList="{{avatarList}}"></moreActive>
   </view>
   <!-- <myPicker pickerType='endTime' bindresultevent="getResult" setResult="2018年12月"></myPicker> -->
+	<view class="ul-tab-bar">
+		<view class="li {{pageList === 'mySeen' ? 'active' : ''}}" bindtap="changeCompanyLists" data-page-list="mySeen">我看过的</view>
+		<view class="li {{pageList === 'myInterested' ? 'active' : ''}}" bindtap="changeCompanyLists" data-page-list="myInterested">我感兴趣的</view>
+	</view>
+  <companyList list="{{companyList}}"></companyList>
+  <!-- <myPicker pickerType='sex' bindresultevent="getResult"></myPicker> -->
+  <!-- <view bindtap="jumpMap">地图</view>
   <myCalendar class="myCalendar"></myCalendar>
-  <auth wx:if="{{!globalData}}"></auth>
-  <!-- <defaultList list="{{companyList}}"></defaultList>
+  <defaultList list="{{companyList}}"></defaultList>
   <view bindtap="jumpMap">地图</view>
   <choose-page></choose-page>
   <avatar-upload class="avatar"></avatar-upload>
   <calendar></calendar> -->
+  <auth wx:if="{{!globalData}}"></auth>
+</view>
 </view>

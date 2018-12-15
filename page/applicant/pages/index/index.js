@@ -2,10 +2,13 @@
 //获取应用实例
 import {RECRUITER, APPLICANT, COMMON} from '../../../../config.js'
 import {getSelectorQuery}  from '../../../../utils/util.js'
+import { getAllDegree } from '../../../../api/test.js';
 
 const app = getApp()
 Page({
   data: {
+    // 页面的默认数据列表
+    pageList: 'mySeen',
     motto: 'Hello World',
     userInfo: {},
     hasUserInfo: false,
@@ -17,7 +20,8 @@ Page({
         certification: false,
         recruiterPosition: '创始人、CEO',
         companyName: '老虎科技',
-        positionNumber: 18
+        positionNumber: 18,
+        status: 1
       },
       {
         id: 2,
@@ -25,7 +29,8 @@ Page({
         certification: true,
         recruiterPosition: '创始人、CEO',
         companyName: '老虎科技',
-        positionNumber: 18
+        positionNumber: 18,
+        status: 0
       }
     ]
   },
@@ -61,6 +66,17 @@ Page({
         })
       }
     }
+  },
+  onShow() {
+    getAllDegree()
+    wx.setTabBarBadge({
+      index: 2,
+      text: '99+'
+    })
+  },
+  changeCompanyLists(e) {
+    let pageList = e.currentTarget.dataset.pageList
+    this.setData({ pageList })
   },
   getUserInfo: function(e) {
     app.globalData.userInfo = e.detail.userInfo

@@ -1,0 +1,15 @@
+<view class="join-us">
+	<form bindsubmit="submit">
+	  <view class="mini-input-row">
+	    <view class="mini-row-label">手机号</view>
+	    <input name="email" class="mini-row-value" placeholder="请输入手机号" bindinput="bindInput" data-field="email" value="{{email}}" />
+	  </view>
+	  <view class="mini-input-row">
+	    <view class="mini-row-label">密码</view>
+	    <input name="password" class="mini-row-value" placeholder="请输入密码" bindinput="bindInput" data-field="password" value="{{password}}" />
+	  </view>
+	  <view class="btn-area">
+	    <button form-type="submit">下一步</button>
+	  </view>
+	</form>
+</view>

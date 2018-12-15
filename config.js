@@ -11,7 +11,7 @@ if (choseType === 'APPLICANT') {
   host = 'https://zhaopin-api.lieduoduo.ziwork.com'
 }
 
-export const BASEHOST = host
+export const baseHost = host
 
 // 内嵌h5基本路径测试服
 export const STATICHOST = 'https://stg.ziwork.com'

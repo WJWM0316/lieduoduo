@@ -1,0 +1,16 @@
+<view class="moreActive">
+  <view class="left" wx:if="{{type == 1}}">
+    <text class="title">发现更多招聘官</text>
+    <text class="info">Ta们都在积极抢人，欢迎围观</text>
+  </view>
+  <view class="left" wx:if="{{type == 2}}">
+    <text class="title">招聘官动态</text>
+    <text class="info">看过我、对我感兴趣的招聘官</text>
+  </view>
+  <view class="right">
+    <image class="avatar"></image>
+    <image class="avatar"></image>
+    <image class="avatar"></image>
+    <image class="avatar"></image>
+  </view>
+</view>    
