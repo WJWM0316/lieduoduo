@@ -27,11 +27,13 @@
 }
 
 .more{
+  background-color: #FFFFFF;
   width: 690rpx;
   margin: 0 auto;
   border-radius: 10rpx;
   box-shadow:0px 8px 22px 0px rgba(34,56,101,0.08);
   margin-bottom: 36rpx;
+  margin-top: -117rpx;
 }
 
 .applicant-index .index-bannar image {
