@@ -37,7 +37,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 2,
+			"current": 3,
 			"list": [
 				{
 					"id": -1,
@@ -55,6 +55,12 @@
 					"id": 2,
 					"name": "joinUs",
 					"pathName": "page/recruiter/pages/joinUs/joinUs",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "index",
+					"pathName": "page/applicant/pages/index/index",
 					"query": ""
 				}
 			]

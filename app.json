@@ -1,5 +1,6 @@
 {
   "pages": [
+    "page/common/pages/login/login",
     "page/applicant/pages/index/index",
     "page/common/pages/cutInside/cutInside",
     "page/common/pages/map/map"

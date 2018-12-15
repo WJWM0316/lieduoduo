@@ -2,6 +2,7 @@
 //获取应用实例
 import {RECRUITER, APPLICANT, COMMON} from '../../../../config.js'
 import {getSelectorQuery}  from '../../../../utils/util.js'
+import { getAllDegree } from '../../../../api/test.js';
 
 const app = getApp()
 Page({
@@ -32,6 +33,9 @@ Page({
         status: 0
       }
     ]
+  },
+  onShow() {
+    getAllDegree()
   },
   // onLoad: function () {
   //   let choseType = wx.getStorageSync('choseType') || null
