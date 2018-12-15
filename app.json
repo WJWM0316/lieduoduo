@@ -17,10 +17,10 @@
     "backgroundColor": "#ffffff",
     "list": [{
       "pagePath": "page/applicant/pages/index/index",
-      "text": "组件1"
+      "text": "首页"
     }, {
-      "pagePath": "page/applicant/pages/index/index",
-      "text": "接口2"
+      "pagePath": "page/common/pages/map/map",
+      "text": "map"
     }, {
       "pagePath": "page/applicant/pages/index/index",
       "text": "组件3"
