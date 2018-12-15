@@ -1,5 +1,5 @@
 //app.js
-import {getSessionKeyApi} from 'api/pages/login.js'
+import {getSessionKeyApi} from 'api/pages/auth.js'
 App({
   onLaunch: function () {
     this.checkLogin()
