@@ -19,6 +19,10 @@ Component({
    * 组件的方法列表
    */
   methods: {
-
+    toMore () {
+      wx.navigateTo({
+        url: "/page/applicant/pages/more/more?type=this.properties.type"
+      })
+    }
   }
 })

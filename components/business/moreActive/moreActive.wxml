@@ -1,4 +1,4 @@
-<view class="moreActive">
+<view class="moreActive" bindtap='toMore'>
   <view class="left" wx:if="{{type == 1}}">
     <text class="title">发现更多招聘官</text>
     <text class="info">Ta们都在积极抢人，欢迎围观</text>
