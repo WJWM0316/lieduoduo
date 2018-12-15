@@ -33,7 +33,8 @@
     {
       "root": "page/recruiter/",
       "pages": [
-        "pages/index/index"
+        "pages/index/index",
+        "pages/joinUs/joinUs"
       ]
     }
   ],

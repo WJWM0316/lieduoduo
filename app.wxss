@@ -1,3 +1,8 @@
 /**app.wxss**/
+
 .container {
 } 
+
+page {
+	background:rgba(250,252,255,1);
+}

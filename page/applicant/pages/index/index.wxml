@@ -1,7 +1,19 @@
 <!--index.wxml-->
 <view class="container">
-  <view class="usermotto">
-    <text class="user-motto">{{motto}}我是应聘者</text>
+  <view class='more'>
+    <moreActive type="1" avatarList="{{avatarList}}"></moreActive>
+    <moreActive type="2" avatarList="{{avatarList}}"></moreActive>
   </view>
-  <moreActive></moreActive>
+<!--   <view class="usermotto">
+    <text class="user-motto">{{motto}}我是应聘者</text>
+</view>
+  </view> -->
+  <!-- <myPicker pickerType='sex' bindresultevent="getResult"></myPicker> -->
+  <interviewList list="{{companyList}}"></interviewList>
+  <!-- <view bindtap="jumpMap">地图</view>
+  <myCalendar class="myCalendar"></myCalendar>
+  <choose-page></choose-page>
+  <avatar-upload class="avatar"></avatar-upload>
+  <calendar></calendar> -->
+
 </view>
