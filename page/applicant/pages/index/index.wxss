@@ -91,6 +91,7 @@
   font-weight:500;
   color:rgba(40,120,255,1);
   background: rgba(228,238,255,1);
+  pointer-events: none;
 }
 
 .applicant-index .ul-tab-bar .active:before {
