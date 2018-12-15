@@ -38,7 +38,7 @@ Page({
     getAllDegree()
     wx.setTabBarBadge({
       index: 2,
-      text: 'a'
+      text: '99+'
     })
   },
   // onLoad: function () {

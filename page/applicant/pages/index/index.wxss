@@ -28,11 +28,11 @@
 
 .applicant-index .index-bannar image {
   width: 100%;
+  display: block;
 }
 
 .applicant-index .ul-tab-bar {
   display: flex;
-  margin-top: 200rpx;
   line-height: 80rpx;
   border-bottom: 1rpx solid #BACED8;
 }

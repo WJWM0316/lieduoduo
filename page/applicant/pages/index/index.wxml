@@ -1,7 +1,7 @@
 <!--index.wxml-->
 <view class="applicant-index">
 	<view class="index-bannar">
-		<image src="../../../../images/bg_homepageh.png" mode="aspectFit"></image>
+		<image src="../../../../images/bg_homepageh.png"></image>
 	</view>
 	<view class="ul-tab-bar">
 		<view class="li active">我看过的</view>
