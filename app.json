@@ -1,5 +1,6 @@
 {
   "pages": [
+    "page/common/pages/login/login",
     "page/applicant/pages/index/index",
     "page/common/pages/cutInside/cutInside",
     "page/common/pages/map/map"
@@ -8,26 +9,40 @@
     "navigationBarTextStyle": "black",
     "navigationBarTitleText": "演示",
     "navigationBarBackgroundColor": "#F8F8F8",
-    "backgroundColor": "#F8F8F8"
+    "backgroundColor": "#F8F8F8",
+    "navigationStyle": "custom"
   },
   "tabBar": {
-    "color": "#7A7E83",
-    "selectedColor": "#3cc51f",
+    "color": "#B9BFCB",
+    "selectedColor": "#2878FF",
     "borderStyle": "black",
     "backgroundColor": "#ffffff",
-    "list": [{
-      "pagePath": "page/applicant/pages/index/index",
-      "text": "首页"
-    }, {
-      "pagePath": "page/common/pages/map/map",
-      "text": "map"
-    }, {
-      "pagePath": "page/applicant/pages/index/index",
-      "text": "组件3"
-    }, {
-      "pagePath": "page/applicant/pages/index/index",
-      "text": "组件4"
-    }]
+    "list": [
+      {
+        "pagePath": "page/applicant/pages/index/index",
+        "text": "首页",
+        "iconPath": "images/tab_home_nor@3x.png",
+        "selectedIconPath": "images/tab_home_sel@3x.png"
+      },
+      {
+        "pagePath": "page/applicant/pages/index/index",
+        "text": "职业机会",
+        "iconPath": "images/tab_job_nor@3x.png",
+        "selectedIconPath": "images/tab_job_sel@3x.png"
+      },
+      {
+        "pagePath": "page/applicant/pages/index/index",
+        "text": "面试",
+        "iconPath": "images/tab_interview_nor@3x.png",
+        "selectedIconPath": "images/tab_interview_sel@3x.png"
+      },
+      {
+        "pagePath": "page/applicant/pages/index/index",
+        "text": "我的",
+        "iconPath": "images/tab_me_nor@3x.png",
+        "selectedIconPath": "images/tab_me_sel@3x.png"
+      }
+    ]
   },
   "subPackages": [
     {
