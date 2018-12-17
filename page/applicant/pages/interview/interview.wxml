@@ -1,0 +1,35 @@
+<view class="applicant-job">
+	<navbar title="猎多多" background="green"></navbar>
+	<view class="interview-tab-bar">
+	<!-- 	<view class="li red-dot {{mark === 'apply' ? 'active' : ''}}" bindtap="chooseTab" data-mark="apply"><view class="span">申请记录</view></view>
+		<view class="li {{mark === 'receive' ? 'active' : ''}}" bindtap="chooseTab" data-mark="receive"><view class="span">收到邀请</view></view>
+		<view class="li {{mark === 'interview' ? 'active' : ''}}" bindtap="chooseTab" data-mark="interview"><view class="span">面试日程</view></view> -->
+		<view
+			class="li {{tab.active ? 'active' : ''}}"
+			bindtap="chooseParentTab"
+			data-mark="{{tab.id}}"
+			wx:for="{{tabLists}}"
+			wx:for-item="tab"
+			data-index="{{index}}"
+			wx:key="{{tab.id}}">
+				<view class="span">{{tab.text}}</view>
+		</view>
+	</view>
+	<view class="tab-tab-list">
+		<view class="ul">
+			<view
+				class="item {{tab.active ? 'active' : ''}}"
+				bindtap="chooseChildTab"
+				data-mark="{{tab.id}}"
+				wx:for="{{tabLists[tabParentIndex].children}}"
+				wx:for-item="tab"
+				data-index="{{index}}"
+				wx:key="{{tab.id}}">
+				{{tab.text}}
+			</view>
+		</view>
+	</view>
+  <interviewList list="{{companyList}}" list-type="interview1" current-tab="all"></interviewList>
+  <image src="{{cdnImagePath}}/topicBg.png" lazy-load></image>
+  <view>{{getApp().globalData.cdnImagePath}}</view>
+</view>

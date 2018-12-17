@@ -2,6 +2,7 @@
   "pages": [
     "page/applicant/pages/index/index",
     "page/applicant/pages/job/job",
+    "page/applicant/pages/interview/interview",
     "page/common/pages/cutInside/cutInside",
     "page/common/pages/map/map",
     "page/common/pages/test/test"
@@ -32,7 +33,7 @@
         "selectedIconPath": "images/tab_job_sel@3x.png"
       },
       {
-        "pagePath": "page/applicant/pages/index/index",
+        "pagePath": "page/applicant/pages/interview/interview",
         "text": "面试",
         "iconPath": "images/tab_interview_nor@3x.png",
         "selectedIconPath": "images/tab_interview_sel@3x.png"
