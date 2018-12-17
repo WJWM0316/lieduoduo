@@ -1,6 +1,6 @@
 <!--components/business/auth/auth.wxml-->
 <view class="auth">
   <view class="authPop">
-    <button open-type="getUserInfo">我是授权的</button>
+    <button open-type="getUserInfo" bindgetuserinfo="onGotUserInfo">我是授权的</button>
   </view>
 </view>

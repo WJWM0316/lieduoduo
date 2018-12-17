@@ -59,9 +59,21 @@ Component({
         result[0] = year.indexOf(this.data.setResult.slice(0, 5))
         result[1] = this.data.month.indexOf(this.data.setResult.slice(5, 8))
       }
+      if (result[0] === -1) { // 开启palceholder
+        result = 0
+      }
       return result
     }
     switch (this.data.pickerType) {
+      case 'birthday':
+        for (let i = curYear - 18; i > curYear - 65; i--) {
+          year.push(`${i}年`)
+        }
+        list.push(year)
+        list.push(this.data.month)
+        result = setResult()
+        this.setData({list, year, result, mode: 'multiSelector', placeholder: '请选择生日'})
+        break
       case 'startTime':
         list.push(year)
         list.push(this.data.month)
@@ -72,26 +84,37 @@ Component({
         firstOption = '至今'
         year.unshift(firstOption)
         list.push(year)
-        list.push(this.data.month)
         result = setResult()
+        if (result !== 0) {
+          list.push(this.data.month)
+        } else {
+          list.push([firstOption])
+        }
         this.setData({list, year, result, mode: 'multiSelector', firstOption, placeholder: '请选择结束时间'})
         break
       case 'workTime':
         firstOption = '在校生'
         year.unshift(firstOption)
         list.push(year)
-        list.push(this.data.month)
         result = setResult()
+        if (result !== 0) {
+          list.push(this.data.month)
+        } else {
+          list.push([firstOption])
+        }
         this.setData({list, year, result, mode: 'multiSelector', firstOption, placeholder: '请选择参加工作时间'})
         break
       case 'dateTime':
         result = []
         result[0] = year.indexOf(this.data.setResult.slice(0, 5))
         result[1] = this.data.month.indexOf(this.data.setResult.slice(5, 8))
+        if (result[0] === -1) result[0] = 0
+        if (result[1] === -1) result[1] = 0
         let days = this.getThisMonthDays(parseInt(year[result[0]]), parseInt(this.data.month[result[1]]))
         result[2] = days.indexOf(this.data.setResult.slice(8, 11))
         result[3] = this.data.hours.indexOf(this.data.setResult.slice(12, 14))
         result[4] = this.data.minutes.indexOf(this.data.setResult.slice(15, 17))
+        if (result[2] === -1) result = 0 // 开启palceholder
         list.push(year)
         list.push(this.data.month)
         list.push(days)
@@ -169,24 +192,6 @@ Component({
       }
       this.triggerEvent('resultevent', {propsResult, propsDesc})
     },
-    // 点击placeholder要处理的事情
-    setPlaceholder() {
-      // if (this.data.mode === 'multiSelector') {
-      //   if (this.data.pickerType === 'dateTime') {
-      //     this.setData({result: [0, 0, 0, 0, 0]})
-      //   } else {
-      //     this.setData({result: [0, 0]})
-      //   }
-      //   if (this.data.firstOption) {
-      //     let list = this.data.list
-      //     list[1] = [this.data.firstOption]
-      //     this.setData({list})
-      //   }
-      // } else {
-      //   this.setData({result: '0'})
-      // }
-      // this.setResult()
-    },
     // picker 变动监听
     change(e) {
       this.setData({result: e.detail.value})
@@ -216,17 +221,17 @@ Component({
           changeData(year, month)
         }
       } else {
-        // 滑动第一项的时候
-        if (e.detail.column === 0) {
+        if (this.data.firstOption) {
           list.push(this.data.year)
-          /// let result = this.data.result
-          // result[0] = e.detail.value
-          if (e.detail.value === 0) {
-            list.push([this.data.firstOption])
-          } else {
-            list.push(this.data.month)
+          // 滑动第一项的时候
+          if (e.detail.column === 0) {
+            if (e.detail.value === 0) {
+              list.push([this.data.firstOption])
+            } else {
+              list.push(this.data.month)
+            }
+            this.setData({list})
           }
-          this.setData({list})
         }
       }
     },

@@ -5,10 +5,10 @@
 // 测试服接口
 let host = ''
 let choseType = wx.getStorageSync('choseType') || null
-if (choseType === 'APPLICANT') {
-  host = 'https://qiuzhi-api.lieduoduo.ziwork.com'
-} else {
+if (choseType !== 'APPLICANT') {
   host = 'https://zhaopin-api.lieduoduo.ziwork.com'
+} else {
+  host = 'https://qiuzhi-api.lieduoduo.ziwork.com'
 }
 
 export const baseHost = host

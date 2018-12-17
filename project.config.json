@@ -58,9 +58,9 @@
 					"query": ""
 				},
 				{
-					"id": -1,
-					"name": "index",
-					"pathName": "page/applicant/pages/index/index",
+					"id": 3,
+					"name": "test",
+					"pathName": "page/common/pages/test/test",
 					"query": ""
 				}
 			]

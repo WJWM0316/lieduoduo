@@ -1,11 +1,6 @@
 {
   "usingComponents": {
-    "calendar": "plugin://calendar/calendar",
     "auth": "../../../../components/functional/auth/auth",
-    "myCalendar": "../../../../components/layout/myCalendar/myCalendar",
-    "choose-page": "../../../../components/business/choose/choose",
-    "avatar-upload": "../../../../components/functional/avatarUpload/avatarUpload",
-    "myPicker": "../../../../components/layout/myPicker/myPicker",
     "moreActive": "../../../../components/business/moreActive/moreActive",
     "companyList": "../../../../components/business/companyList/companyList"
   }
