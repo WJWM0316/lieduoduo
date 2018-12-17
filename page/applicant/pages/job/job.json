@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "interviewList": "../../../../components/business/interviewList/interviewList",
+    "navbar": "../../../../components/business/navbar/navbar"
+  }
+}
