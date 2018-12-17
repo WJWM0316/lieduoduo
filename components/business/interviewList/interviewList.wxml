@@ -1,4 +1,5 @@
 <view class="interview-list-ul">
+
 	<block wx:if="{{listType === 'interview'}}">
 		<view class="li {{ listType }} {{currentTab}}"
 			wx:for="{{ list }}"
@@ -12,7 +13,7 @@
 						<view class="realname-position">
 							<view class="realname">柳林东122</view>
 							<view class="degress"> 产品总监</view>
-							<view class="clock enabled">14:00</view>
+							<view class="clock disabled">14:00</view>
 						</view>
 						<view class="company-name">深圳市腾讯有限公司</view>
 					</view>
@@ -23,6 +24,7 @@
 				</view>
 		</view>
 	</block>
+
 	<block wx:else>
 		<view class="li {{ listType }} {{currentTab}}"
 			wx:for="{{ list }}"
@@ -53,4 +55,5 @@
 				<view class="red-dot"></view>
 		</view>
 	</block>
+	
 </view>
