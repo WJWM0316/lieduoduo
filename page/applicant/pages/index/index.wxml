@@ -13,6 +13,6 @@
 		<view class="li {{pageList === 'myInterested' ? 'active' : ''}}" bindtap="changeCompanyLists" data-page-list="myInterested">我感兴趣的</view>
 	</view>
   <companyList list="{{companyList}}"></companyList>
-  <auth wx:if="{{!userInfo}}"></auth>
+  <auth wx:if="{{!hasUserInfo}}"></auth>
 </view>
 </view>

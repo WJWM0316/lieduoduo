@@ -35,6 +35,9 @@ Page({
     ]
   },
   onLoad: function () {
+    getApp().checkLogin().then(res => {
+      console.log(res)
+    })
     let choseType = wx.getStorageSync('choseType') || null
     if (choseType === 'RECRUITER') {
       wx.showModal({

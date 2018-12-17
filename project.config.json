@@ -37,13 +37,13 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 4,
+			"current": 0,
 			"list": [
 				{
-					"id": -1,
+					"id": 0,
 					"name": "应聘者首页",
 					"pathName": "page/applicant/pages/index/index",
-					"query": ""
+					"query": "id=1"
 				},
 				{
 					"id": -1,

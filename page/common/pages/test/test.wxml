@@ -1,3 +1,3 @@
 <!--page/common/pages/test/test.wxml-->
 <text>page/common/pages/test/test.wxml</text>
-<myPicker pickerType="endTime"></myPicker>
+<myPicker pickerType="dateTime" setResult="2018年12月17日 13:22"></myPicker>

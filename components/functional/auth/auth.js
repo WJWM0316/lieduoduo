@@ -27,7 +27,6 @@ Component({
       }
       loginApi(data).then(res => {
         getApp().globalData.userInfo = res.data
-        console.log(getApp().globalData)
       })
     }
   }

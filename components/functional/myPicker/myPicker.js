@@ -8,10 +8,6 @@ Component({
       type: String,
       value: ''
     },
-    mode: {
-      type: String,
-      value: ''
-    },
     setResult: {
       type: String
     }
@@ -23,6 +19,7 @@ Component({
   data: {
     result: 0, // picker选择value
     list: [], // picker列表
+    mode: '', // picker mode
     firstOption: '', // 自定义选型
     placeholder: '', // placeholder
     financing: ['未融资', '天使轮', 'A轮', 'B轮', 'C轮', 'D轮及以上', '已上市', '不需要融资'],
