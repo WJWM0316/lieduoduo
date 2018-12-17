@@ -63,12 +63,15 @@ props值
   - experience-经验要求
   - staffMembers-公司人员规模
   - financing-公司融资情况
+  - salaryRangeC-求职者端的薪资范围，格式： 2k~3k
+  - salaryRangeB-招聘者端的薪资范围，格式： 2k~3k
 
 + setResult：String类型，picker的默认值设置，按照实际具体的字符串传入即可，一定要跟选择器选择展示的字符串一致才可
+
 ``` html
 <myPicker pickerType="dateTime" setResult="2018年12月17日 13:22"></myPicker>
 ```
 
 4.myCalendar ----- 自定义日历组件， prpos值 setDateList，Array类型， 用于标注需要面试的时间
 
-5.calendar ---- 极点日历插件 自己查看官方文档
+5.calendar ---- 极点日历插件 自己查看文档

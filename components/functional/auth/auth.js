@@ -27,6 +27,9 @@ Component({
       }
       loginApi(data).then(res => {
         getApp().globalData.userInfo = res.data
+        wx.reLaunch({
+          url: `/${res.data.page}`
+        })
       })
     }
   }

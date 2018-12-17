@@ -149,6 +149,48 @@ Component({
         result = `${list.indexOf(this.data.setResult)}`
         this.setData({list, result, mode: 'selector', placeholder: '请选择融资情况'})
         break
+      case 'salaryRangeC':
+        let startNum = []
+        let endNum = []
+        for (let i = 1; i <= 60; i++) {
+          startNum.push(`${i}k`)
+        }
+        result = []
+        result[0] = startNum.indexOf(this.data.setResult.split('~')[0])
+        if (result[0] === -1) result[0] = 0
+        for (let i = parseInt(startNum[result[0]]) + 1; i <= parseInt(startNum[result[0]]) * 2; i++) {
+          endNum.push(`${i}k`)
+        }
+        result[1] = endNum.indexOf(this.data.setResult.split('~')[1])
+        if (result[1] === -1) result = 0
+        list = [startNum, endNum]
+        this.setData({list, result, mode: 'multiSelector', placeholder: '请选择期望月薪'})
+        break
+      case 'salaryRangeB':
+        let startNumB = []
+        let endNumB = []
+        for (let i = 1; i <= 29; i++) {
+          startNumB.push(`${i}k`)
+        }
+        for (let i = 30; i <= 95; i+=5) {
+          startNumB.push(`${i}k`)
+        }
+        for (let i = 100; i <= 260; i+=10) {
+          startNumB.push(`${i}k`)
+        }
+        result = []
+        result[0] = startNumB.indexOf(this.data.setResult.split('~')[0])
+        if (result[0] === -1) result[0] = 0
+        for (let i = parseInt(startNumB[result[0]]) + 1; i <= parseInt(startNumB[result[0]]) + 5; i++) {
+          if (i <= 260) {
+            endNumB.push(`${i}k`)
+          }
+        }
+        result[1] = endNumB.indexOf(this.data.setResult.split('~')[1])
+        if (result[1] === -1) result = 0
+        list = [startNumB, endNumB]
+        this.setData({list, result, mode: 'multiSelector', placeholder: '请选择期望月薪'})
+        break
     }
   },
   /**
@@ -175,17 +217,17 @@ Component({
           }
         }
       } else {
-        if (this.data.pickerType === 'education') {
-          propsResult = list[result]
-          propsDesc = result
-        } else if (this.data.pickerType === 'sex') {
+        if (this.data.pickerType === 'sex') {
           propsResult = list[result]
           if (result === 0) {
             propsDesc = 1
           } else {
             propsDesc = 2
           }
-        } 
+        } else {
+          propsResult = list[result]
+          propsDesc = result
+        }
       }
       this.triggerEvent('resultevent', {propsResult, propsDesc})
     },
@@ -218,6 +260,7 @@ Component({
           changeData(year, month)
         }
       } else {
+        // 有自定义选型的
         if (this.data.firstOption) {
           list.push(this.data.year)
           // 滑动第一项的时候
@@ -227,6 +270,30 @@ Component({
             } else {
               list.push(this.data.month)
             }
+            this.setData({list})
+          }
+        }
+        if (this.data.pickerType === 'salaryRangeC') {
+          if (e.detail.column === 0) { // 选择起始工资
+            list = this.data.list
+            let startNum = list[0][e.detail.value]
+            let endNum = []
+            for (let i = parseInt(startNum) + 1; i <= parseInt(startNum) * 2; i++) {
+              endNum.push(`${i}k`)
+            }
+            list[1] = endNum
+            this.setData({list})
+          }
+        }
+        if (this.data.pickerType === 'salaryRangeB') {
+          if (e.detail.column === 0) { // 选择起始工资
+            list = this.data.list
+            let startNum = list[0][e.detail.value]
+            let endNum = []
+            for (let i = parseInt(startNum) + 1; i <= parseInt(startNum) + 5; i++) {
+              endNum.push(`${i}k`)
+            }
+            list[1] = endNum
             this.setData({list})
           }
         }

@@ -37,6 +37,7 @@ App({
                 if (this.userInfoReadyCallback) {
                   this.userInfoReadyCallback(res)
                 }
+                console.log('用户已经授权成功', res.userInfo)
                 resolve(res.userInfo)
               }
             })
@@ -46,7 +47,6 @@ App({
               success: function (res) {
                 // 请求接口获取服务器session_key
                 var pages = getCurrentPages() //获取加载的页面
-                console.log(pages[0],pages[0].options)
                 let pageUrl = pages[0].route
                 let params = ''
                 for (let i in pages[0].options) {
@@ -58,7 +58,7 @@ App({
                   page: pageUrl
                 }
                 getSessionKeyApi(getSessionKeyParams).then(res => {
-                  console.log('require:获取sessionkey成功')
+                  console.log('用户还未授权,require:获取sessionkey成功')
                   wx.setStorageSync('code', res.data.sessionToken)
                   resolve(res)
                 }).catch(e => {
