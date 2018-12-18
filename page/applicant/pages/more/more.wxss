@@ -4,7 +4,10 @@
   background: #E5EEFF;
 }
 .more .scrollView{
-  height: 84vh;
+  height: 82vh;/*82vh*/
+}
+.more .bigTab{
+  height: 75vh;
 }
 .more .tabBar{
   background-color: #FFFFFF;

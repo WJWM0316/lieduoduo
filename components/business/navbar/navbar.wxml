@@ -9,6 +9,6 @@
           <i name="back"  color="#fff" size="18px" custom-class="navbar-action_item first" bindtap="navBack"></i>
         </block>
       </view> -->
-      <view class='navbar-title'> {{ title }} </view>
+      <view class='navbar-title' style='color: {{color}}'> {{ title }} </view>
   </view>
 </view>

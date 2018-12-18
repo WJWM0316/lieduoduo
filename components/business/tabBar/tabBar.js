@@ -49,7 +49,7 @@ Component({
         icon: '',
         selectIcon: '',
         active: true,
-        iconfont: 'icon-wode',
+        iconfont: 'icon-shouye',
         path: `${RECRUITER}index/index`
       },
       {
@@ -57,7 +57,7 @@ Component({
         icon: '',
         selectIcon: '',
         active: false,
-        iconfont: 'icon-wode',
+        iconfont: 'icon-mianshi',
         path: `${RECRUITER}interview/interview`
       },
       {
@@ -65,7 +65,7 @@ Component({
         icon: '',
         selectIcon: '',
         active: false,
-        iconfont: 'icon-wode',
+        iconfont: 'icon-zhiyejihui',
         path: `${RECRUITER}officeManager/officeManager`
       },
       {

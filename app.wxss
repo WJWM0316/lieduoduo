@@ -6,3 +6,9 @@
 page {
 	background:rgba(250,252,255,1);
 }
+
+::-webkit-scrollbar {
+	width: 0;
+	height: 0;
+	color: transparent;
+}

@@ -10,7 +10,7 @@
 		"minified": true,
 		"newFeature": true,
 		"nodeModules": false,
-		"autoAudits": true
+		"autoAudits": false
 	},
 	"compileType": "miniprogram",
 	"libVersion": "2.4.1",
@@ -81,6 +81,11 @@
 					"name": "面试",
 					"pathName": "page/applicant/pages/interview/interview",
 					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "interview",
+					"pathName": "page/recruiter/pages/interview/interview"
 				}
 			]
 		}
