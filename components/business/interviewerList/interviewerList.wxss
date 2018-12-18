@@ -1,0 +1,181 @@
+@import '../../../iconfont.wxss';
+
+.interviewer-list-ul {
+	overflow: hidden;
+}
+
+.interviewer-list-ul .li {
+	overflow: hidden;
+	position: relative;
+	background:rgba(255,255,255,1);
+	box-shadow:0px 8rpx 20rpx 0rpx rgba(34,56,101,0.08);
+	padding: 30rpx 40rpx;
+	margin-bottom: 18rpx;
+	position: relative;
+}
+
+.interviewer-list-ul .top-radius {
+	border-top-left-radius: 10rpx; 
+}
+
+.interviewer-list-ul .right-radius {
+	border-top-right-radius: 10rpx; 
+}
+
+.interviewer-list-ul .bottom-radius {
+	border-bottom-right-radius: 10rpx; 
+}
+
+.interviewer-list-ul .left-radius {
+	border-bottom-left-radius: 10rpx;
+}
+
+.interviewer-list-ul .li:last-child {
+	margin-bottom: 0;
+}
+
+.interviewer-list-ul .li .img-box {
+	width: 120rpx;
+	height: 120rpx;
+	background: rgba(0,0,0,.1);
+	border-radius: 50%;
+	display: inline-block;
+	vertical-align: middle;
+	box-shadow:0px 2rpx 12rpx 0rpx rgba(0,0,0,0.23);
+	border:2rpx solid rgba(232,233,235,1);
+	box-sizing: border-box;
+	position: relative;
+}
+
+.interviewer-list-ul .li .is-certification {
+	width:36rpx;
+	height:36rpx;
+	background:rgba(255,127,76,1);
+	border:2rpx solid rgba(255,255,255,1);
+	box-sizing: border-box;
+	border-radius: 50%;
+	position: absolute;
+	bottom: 0;
+	right: 0;
+}
+
+.interviewer-list-ul .li .content {
+	display: inline-block;
+	width: calc(100% - 120rpx - 30rpx);
+	height: 120rpx;
+	margin-left: 30rpx;
+	vertical-align: middle;
+}
+
+.interviewer-list-ul .li .header {
+	overflow: hidden;
+	margin-top: 15rpx;
+}
+
+.interviewer-list-ul .li .recruiter-name {
+	font-size:36rpx;
+	font-weight:500;
+	color:rgba(40,40,40,1);
+	line-height:36rpx;
+	display: inline-block;
+}
+
+.interviewer-list-ul .li .recruiter-infos {
+	font-size:28rpx;
+	font-weight:300;
+	color:#223865;
+	line-height:28rpx;
+	display: inline-block;
+	border-left: 1px solid #979797;
+	margin-left: 15px;
+	padding-left: 15px;
+}
+
+.interviewer-list-ul .li .company-name {
+	font-size:24rpx;
+	font-weight:300;
+	color:rgba(146,146,146,1);
+	line-height:24rpx;
+	display: inline-block;
+}
+
+.interviewer-list-ul .li .position-number {
+	font-size:24rpx;
+	font-weight:300;
+	color:rgba(146,146,146,1);
+	line-height:24rpx;
+	display: inline-block;
+	margin-left: 40rpx;
+}
+
+.interviewer-list-ul .li .number-strong {
+	color: #2878FF;
+	display: inline-block;
+}
+
+.interviewer-list-ul .li .red-dot-circle {
+	width:14rpx;
+	height:14rpx;
+	background:rgba(255,73,73,1);
+	position: absolute;
+	right: 24rpx;
+	top: 24rpx;
+	border-radius: 50%;
+}
+
+.interviewer-list-ul .li .red-dot-text {
+	position: absolute;
+	right: 24rpx;
+	top: 24rpx;
+	border-radius: 50%;
+	width:34rpx;
+	height:34rpx;
+	background:rgba(255,73,73,1);
+	font-size:20rpx;
+	font-weight:500;
+	color:rgba(255,255,255,1);
+	text-align: center;
+	line-height: 34rpx;
+}
+
+.interviewer-list-ul .li .footer {
+	font-size:24rpx;
+	font-weight:300;
+	color:rgba(146,146,146,1);
+	line-height:1;
+	margin-top: 20rpx;
+	padding-top: 25rpx;
+}
+
+.interviewer-list-ul .li .show-dividing-line {
+	border-top: 1rpx dotted #BACED8;
+}
+
+.interviewer-list-ul .footer view {
+	display: inline-block;
+	margin-right: 16rpx;
+}
+
+.interviewer-list-ul .footer .strong {
+	font-size:24rpx;
+	font-weight:400;
+	color:rgba(40,120,255,1);
+	margin-left: 8rpx;
+}
+
+.interviewer-list-ul .footer .status {
+	float: right;
+	margin: 0;
+}
+
+.interviewer-list-ul .footer .processed {
+	color: #2878FF;
+}
+
+.interviewer-list-ul .footer .pending {
+	color: #2878FF;
+}
+
+.interviewer-list-ul .footer .unsuitable {
+	color: #16274D;
+}

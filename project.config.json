@@ -38,7 +38,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 5,
+			"current": 6,
 			"list": [
 				{
 					"id": -1,
@@ -73,7 +73,13 @@
 				{
 					"id": -1,
 					"name": "more",
-					"pathName": "page/applicant/pages/more/more"
+					"pathName": "page/applicant/pages/more/more",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "recruiter",
+					"pathName": "page/recruiter/pages/index/index"
 				}
 			]
 		}

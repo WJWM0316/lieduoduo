@@ -1,7 +1,7 @@
 <view class="interview-list-ul">
 
 	<block wx:if="{{listType === 'interview'}}">
-		<view class="li {{ listType }} {{currentTab}}"
+		<view class="li interview"
 			wx:for="{{ list }}"
 			wx:for-item="company"
 			wx:key="{{company.id}}"
@@ -26,7 +26,7 @@
 	</block>
 
 	<block wx:else>
-		<view class="li {{ listType }} {{currentTab}}"
+		<view class="li default"
 			wx:for="{{ list }}"
 			wx:for-item="company"
 			wx:key="{{company.id}}"

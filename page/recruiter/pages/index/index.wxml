@@ -1,9 +1,14 @@
-<!--index.wxml-->
-<wxs src='../../../../utils/filters.wxs' module='filter' />
-<view class="container">
-  <view class="usermotto">
-  	<view>日期：{{filter.dateFormat(1544596264)}}</view>
-    <text class="user-motto">{{motto}}我是招聘者1</text>
-  </view>
+<view class="recruiter-index">
+	<view class="index-bannar">
+		<image src="../../../../images/bg_homepageh.png"></image>
+	</view>
+	<view class="index-list-box">
+		<view class="ul-tab-bar">
+			<view class="li {{pageList === 'all' ? 'active' : ''}}" bindtap="changeCompanyLists" data-page-list="all">全部</view>
+			<view class="li {{pageList === 'mySeen' ? 'active' : ''}}" bindtap="changeCompanyLists" data-page-list="mySeen">看过我的</view>
+			<view class="li {{pageList === 'myInterested' ? 'active' : ''}}" bindtap="changeCompanyLists" data-page-list="myInterested">对我感兴趣</view>
+		</view>
+		<interviewerList list="{{companyList}}"></interviewerList>
+	</view>
   <tab-bar tabType="1"></tab-bar>
 </view>
