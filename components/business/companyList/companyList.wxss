@@ -12,6 +12,7 @@
 	border-radius:8rpx;
 	padding: 30rpx 40rpx;
 	margin-bottom: 18rpx;
+	position: relative;
 }
 
 .company-list-ul .li:last-child {
@@ -95,4 +96,14 @@
 .company-list-ul .li .number-strong {
 	color: #2878FF;
 	display: inline-block;
+}
+
+.company-list-ul .li .red-dot {
+	width:14rpx;
+	height:14rpx;
+	background:rgba(255,73,73,1);
+	position: absolute;
+	right: 24rpx;
+	top: 24rpx;
+	border-radius: 50%;
 }

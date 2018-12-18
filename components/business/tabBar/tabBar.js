@@ -1,5 +1,6 @@
 // components/business/tabBar/tabBar.js
 import {RECRUITER, APPLICANT} from '../../../config.js'
+
 Component({
   /**
    * 组件的属性列表
@@ -44,50 +45,52 @@ Component({
     ],
     list1: [
       {
-        title: '首页4',
+        title: '首页',
         icon: '',
         selectIcon: '',
+        active: true,
+        iconfont: 'icon-wode',
         path: `${RECRUITER}index/index`
       },
       {
-        title: '首页5',
+        title: '面试',
         icon: '',
         selectIcon: '',
-        path: `${RECRUITER}index/index`
+        active: false,
+        iconfont: 'icon-wode',
+        path: `${RECRUITER}interview/interview`
       },
       {
-        title: '首页6',
+        title: '职位管理',
         icon: '',
         selectIcon: '',
-        path: `${RECRUITER}index/index`
+        active: false,
+        iconfont: 'icon-wode',
+        path: `${RECRUITER}officeManager/officeManager`
       },
       {
-        title: '首页7',
+        title: '我的',
         icon: '',
         selectIcon: '',
+        active: false,
+        iconfont: 'icon-wode',
         path: `${RECRUITER}index/index`
       }
-    ]
+    ],
+    url: ''
   },
-  attached: function () {
-    if (this.data.tabType === 0) {
-      this.setData({
-        list: this.data.list0
-      })
-    } else {
-      this.setData({
-        list: this.data.list1
-      })
-    }
+  attached() {
+    const list = this.data.tabType === 0 ? this.data.list0 : this.data.list1
+    const currentRoute = '/' + getCurrentPages()[0].route
+    list.map(field => field.active = field.path === currentRoute ? true : false)
+    this.setData({ list })
   },
   /**
    * 组件的方法列表
    */
   methods: {
-    toggle (e) {
-      wx.redirectTo({
-        url: e.target.dataset.path
-      })
+    toggle(e) {
+      wx.redirectTo({ url: e.target.dataset.path })
     }
   }
 

@@ -44,7 +44,7 @@ getApp().checkLogin().then(res => {
 })
 ```
 
-2.avatarUpload ----- 头像截图组件
+2.avatarCut ----- 头像裁剪组件
 直接引入即可， props值 src， 用于展示默认图
 
 3.myPicker ----- 自定义的picker选择器， 基本包含项目所有选择器
@@ -68,6 +68,9 @@ props值
 
 + setResult：String类型，picker的默认值设置，按照实际具体的字符串传入即可，一定要跟选择器选择展示的字符串一致才可
 
++ 自定义方法 bindresultevent  获取上传结果
+
+
 ``` html
 <myPicker pickerType="dateTime" setResult="2018年12月17日 13:22"></myPicker>
 ```
@@ -75,3 +78,11 @@ props值
 4.myCalendar ----- 自定义日历组件， prpos值 setDateList，Array类型， 用于标注需要面试的时间
 
 5.calendar ---- 极点日历插件 自己查看文档
+
+6.unloadFile ----- 上传组件
+
+props值
+
++ url: String类型， 默认数据
+   
++ 自定义方法 bindresultEvent  获取上传结果   

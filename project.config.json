@@ -4,12 +4,13 @@
 		"ignore": []
 	},
 	"setting": {
-		"urlCheck": true,
+		"urlCheck": false,
 		"es6": true,
 		"postcss": true,
 		"minified": true,
 		"newFeature": true,
-		"autoAudits": false
+		"nodeModules": false,
+		"autoAudits": true
 	},
 	"compileType": "miniprogram",
 	"libVersion": "2.4.1",
@@ -37,12 +38,12 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 5,
+			"current": 0,
 			"list": [
 				{
-					"id": -1,
-					"name": "应聘者首页",
-					"pathName": "page/applicant/pages/index/index",
+					"id": 0,
+					"name": "test测试页面",
+					"pathName": "page/common/pages/test/test",
 					"query": ""
 				},
 				{
@@ -72,7 +73,8 @@
 				{
 					"id": -1,
 					"name": "more",
-					"pathName": "page/applicant/pages/more/more"
+					"pathName": "page/applicant/pages/more/more",
+					"query": ""
 				}
 			]
 		}

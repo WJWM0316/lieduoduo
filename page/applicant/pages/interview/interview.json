@@ -1,6 +1,7 @@
 {
   "usingComponents": {
     "interviewList": "../../../../components/business/interviewList/interviewList",
-    "navbar": "../../../../components/business/navbar/navbar"
+    "navbar": "../../../../components/business/navbar/navbar",
+    "myCalendar": "../../../../components/functional/myCalendar/myCalendar"
   }
 }

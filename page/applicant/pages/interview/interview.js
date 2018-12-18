@@ -2,13 +2,13 @@ const app = getApp()
 Page({
   data: {
     cdnImagePath: app.globalData.cdnImagePath,
-    tabParentIndex: 0,
+    tabParentIndex: 2,
     tabChildIndex: null,
     tabLists: [
       {
         id: 'apply',
         text: '申请记录',
-        showRedDot: false,
+        showRedDot: true,
         active: true,
         children: [
           {
@@ -21,7 +21,7 @@ Page({
             id: 'pending',
             text: '待安排面试',
             active: false,
-            showRedDot: false
+            showRedDot: true
           },
           {
             id: 'resolve',
@@ -150,7 +150,6 @@ Page({
       tabChildIndex = params.index
       field.active = index === params.index ? true : false
     })
-    console.log(app.globalData.cdnImagePath)
     this.setData({
       tabLists,
       tabChildIndex

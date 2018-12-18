@@ -52,7 +52,9 @@
       "root": "page/recruiter/",
       "pages": [
         "pages/index/index",
-        "pages/joinUs/joinUs"
+        "pages/joinUs/joinUs",
+        "pages/interview/interview",
+        "pages/officeManager/officeManager"
       ]
     }
   ],

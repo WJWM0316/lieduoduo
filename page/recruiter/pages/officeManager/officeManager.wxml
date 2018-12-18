@@ -1,0 +1,15 @@
+<navbar title="职位管理" background="#2878FF"></navbar>
+<view class="office-manager-list">
+	<view class="li"
+		wx:for="{{ companyList }}"
+		wx:for-item="company"
+		wx:key="{{company.id}}"
+		data-company-id="{{company.id}}"
+		bindtap="routeJump">
+		<view class="header">
+			<view class="office-name">微信小程序前端开发工程师</view>
+			<view class="office-sarary">12K~20K</view>
+		</view>
+	</view>
+</view>
+<tab-bar tabType="1"></tab-bar>
