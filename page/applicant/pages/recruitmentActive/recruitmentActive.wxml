@@ -1,0 +1,9 @@
+<!--page/applicant/pages/recruitmentActive/recruitmentActive.wxml-->
+<view class="recruitmentActive">
+  <navbar title="发现更多招聘官" color="#000000" background="#FFFFFF"></navbar>
+  <view class="tabBar">
+    <text class="active">看过我的</text>
+    <text>我感兴趣</text>
+  </view>
+  <companyList class="companyList" list="{{companyList}}"></companyList>
+</view>

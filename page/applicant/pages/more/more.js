@@ -37,8 +37,12 @@ Page({
     return getCityLabelApi()
   },
   onShow () {
-    Promise.all([this.getCityLabel(), this.getJobLabelList()]).then((res1, res2) => {
-      console.log(res1, res2, '999999')
+    let that = this
+    Promise.all([this.getCityLabel(), this.getJobLabelList()]).then(res => {
+      that.setData({
+        cityLabel: res[0].data,
+        jobLabel: res[1].data
+      })
     })
   }
 })

@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "navbar": "../../../../components/business/navbar/navbar",
+    "companyList": "../../../../components/business/companyList/companyList"
+  }
+}
