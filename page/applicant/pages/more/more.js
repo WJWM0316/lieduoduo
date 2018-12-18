@@ -15,7 +15,7 @@ Component({
     childTabList:['广州','深圳','上海','北京','杭州','重庆','合肥'],
     nowIndex: 0,
     jobLabel: [],
-    cityLabel: []
+    cityLabel: ['广州', '深圳', '上海', '北京', '杭州', '重庆', '合肥']
   },
 
   /**
@@ -36,7 +36,7 @@ Component({
     scroll (e) {},
     /* 翻页 */
     loadNext (e) {
-      console.log(e, '1111111111111')
+//    console.log(e, '1111111111111')
     }
   },
   /* 标签初始化 */

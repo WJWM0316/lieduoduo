@@ -6,11 +6,11 @@
     <text bindtap='cutover' data-tab = "office" class='{{tab === "office"? "active" : ""}}'>职位榜单</text>
   </view>
   <view class='childTabBar' wx:if='{{tab !== "all"}}'>
-    <text wx:for="{{childTabList}}" bindtap='toggle' data-nowIndex='{{index}}' class ='{{index === nowIndex? "nowChildActive" : ""}} {{index === 0 && nowIndex === 0? "firstChildActive" : ""}} {{index === childTabList.length - 1 && nowIndex === childTabList.length - 1? "lastChildActive" : ""}}'>{{item}}</text>
+    <text wx:for="{{cityLabel}}" bindtap='toggle' wx:key="{{index}}" data-nowIndex='{{index}}' class ='{{index === nowIndex? "nowChildActive" : ""}} {{index === 0 && nowIndex === 0? "firstChildActive" : ""}} {{index === childTabList.length - 1 && nowIndex === childTabList.length - 1? "lastChildActive" : ""}}'>{{item}}</text>
   </view>
   
   <scroll-view
-    class="scrollView"
+    class="scrollView {{tab !== 'all'? 'bigTab' : ''}}"
     scroll-y='true'
     bindscroll="scroll"
     enable-back-to-top='true'
