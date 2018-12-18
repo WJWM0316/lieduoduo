@@ -2,6 +2,7 @@
   "usingComponents": {
     "tab-bar": "../../../../components/business/tabBar/tabBar",
     "navbar": "../../../../components/business/navbar/navbar",
-    "interviewerList": "../../../../components/business/interviewerList/interviewerList"
+    "interviewerList": "../../../../components/business/interviewerList/interviewerList",
+    "myCalendar": "../../../../components/functional/myCalendar/myCalendar"
   }
 }

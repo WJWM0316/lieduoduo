@@ -2,11 +2,6 @@ const app = getApp()
 
 Page({
   data: {
-    pageList: 'all',
-    statusList: [
-      '所有状态', '状态1', '状态2', '状态3'
-    ],
-    index: 0,
     tabParentIndex: 0,
     tabChildIndex: 0,
     companyList: [
@@ -89,27 +84,13 @@ Page({
         text: '收到意向',
         showRedDot: true,
         active: true,
+        statusIndex: 0,
+        officeIndex: 0,
         statusList: [
-          {
-            id: 'all',
-            text: '所有状态'
-          },
-          {
-            id: 'all1',
-            text: '所有状态1'
-          },
-          {
-            id: 'all2',
-            text: '所有状态2'
-          },
-          {
-            id: 'all3',
-            text: '所有状态3'
-          },
-          {
-            id: 'all4',
-            text: '所有状态4'
-          }
+          '所有状态', '所有状态1', '所有状态2', '所有状态3'
+        ],
+        officeLists: [
+          '前端开发', '后端开发', '产品运营', '设计大咖'
         ]
       },
       {
@@ -117,27 +98,13 @@ Page({
         text: '我的邀请',
         showRedDot: false,
         active: false,
+        statusIndex: 0,
+        officeIndex: 0,
         statusList: [
-          {
-            id: 'all',
-            text: '所有状态'
-          },
-          {
-            id: 'all1',
-            text: '所有状态1'
-          },
-          {
-            id: 'all2',
-            text: '所有状态2'
-          },
-          {
-            id: 'all3',
-            text: '所有状态3'
-          },
-          {
-            id: 'all4',
-            text: '所有状态4'
-          }
+          '所有状态', '所有状态1', '所有状态2', '所有状态3'
+        ],
+        officeLists: [
+          '前端开发', '后端开发', '产品运营', '设计大咖'
         ]
       },
       {
@@ -145,27 +112,13 @@ Page({
         text: '面试日程',
         showRedDot: false,
         active: false,
+        statusIndex: 0,
+        officeIndex: 0,
         statusList: [
-          {
-            id: 'all',
-            text: '所有状态'
-          },
-          {
-            id: 'all1',
-            text: '所有状态1'
-          },
-          {
-            id: 'all2',
-            text: '所有状态2'
-          },
-          {
-            id: 'all3',
-            text: '所有状态3'
-          },
-          {
-            id: 'all4',
-            text: '所有状态4'
-          }
+          '所有状态', '所有状态1', '所有状态2', '所有状态3'
+        ],
+        officeLists: [
+          '前端开发', '后端开发', '产品运营', '设计大咖'
         ]
       }
     ]
@@ -189,7 +142,18 @@ Page({
   },
   bindChange(e) {
     const params = e.currentTarget.dataset
-    const value = e.detail.value
-    console.log(params, value)
+    const tabChildIndex = e.detail.value
+    const tabLists = this.data.tabLists
+    switch(params.type) {
+      case 'status':
+        tabLists[this.data.tabParentIndex].statusIndex = parseInt(e.detail.value)
+        break
+      case 'office':
+        tabLists[this.data.tabParentIndex].officeIndex = parseInt(e.detail.value)
+        break
+      default:
+        break
+    }
+    this.setData({tabLists})
   }
 })
