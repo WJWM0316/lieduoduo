@@ -40,10 +40,6 @@ export const request = ({method = 'post', url, data = {}, needKey = true, hasLoa
             case 200:
               break
             case 401:
-              // 未登录 跳去首页
-              wx.reLaunch({
-                url: `/pages/index/main`
-              })
               wx.removeStorageSync('token')
               break
           }
