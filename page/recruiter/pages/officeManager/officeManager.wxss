@@ -1,0 +1,32 @@
+@import '../../../../iconfont.wxss';
+
+.office-manager-list {
+  overflow: hidden;
+}
+
+.office-manager-list .li {
+  overflow: hidden;
+  position: relative;
+  background:rgba(255,255,255,1);
+  box-shadow:0px 8rpx 20rpx 0rpx rgba(34,56,101,0.08);
+  border-radius:8rpx;
+  padding: 35rpx 28rpx;
+  margin-bottom: 18rpx;
+  position: relative;
+}
+
+.office-manager-list .li:last-child {
+  margin-bottom: 0;
+}
+
+.office-manager-list .li .header {
+  font-size:32rpx;
+  font-weight:bold;
+  color:rgba(40,40,40,1);
+  line-height:1rpx;
+}
+
+.office-manager-list .li .header view {
+  display: inline-block;
+  margin-right: 15rpx;
+}

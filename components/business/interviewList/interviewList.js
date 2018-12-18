@@ -7,11 +7,6 @@ Component({
       // 'apply, invite, interview'
       value: 'apply'
     },
-    currentTab: {
-    	type: String,
-      // 'all, pending resolve reject'
-    	value: 'all'
-    },
     list: {
       type: Array,
       value: []

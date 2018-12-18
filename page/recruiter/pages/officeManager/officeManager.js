@@ -3,7 +3,6 @@ const app = getApp()
 
 Page({
   data: {
-    pageList: 'all',
     companyList: [
       {
         id: 1,
@@ -79,11 +78,8 @@ Page({
       }
     ]
   },
-  onShow() {
-    getAllDegree()
-  },
-  changeCompanyLists(e) {
-    let pageList = e.currentTarget.dataset.pageList
-    this.setData({ pageList })
+  routeJump(e) {
+    let companyId = e.currentTarget.dataset.companyId
+    console.log(companyId)
   }
 })

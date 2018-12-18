@@ -1,4 +1,11 @@
 <!--components/business/tabBar/tabBar.wxml-->
 <view class="tabBar">
-  <view class="tabBar-item" wx:for="{{list}}" wx:key="{{index}}" catchtap="toggle" data-path="{{item.path}}">{{item.title}}</view>
+  <view
+  	class="tabBar-item {{item.active ? 'tabBar-item-active' : ''}}"
+  	wx:for="{{list}}"
+  	wx:key="{{index}}">
+  		<view class="tap" data-path="{{item.path}}" bindtap="toggle" data-index="{{index}}"></view>
+  		<i class="icon iconfont {{item.iconfont}}"></i>
+  		<view class="p">{{item.title}}</view>
+  </view>
 </view>

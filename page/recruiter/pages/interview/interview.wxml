@@ -1,0 +1,11 @@
+<view class="recruiter-interview">
+	<navbar title="面试" background="#2878FF"></navbar>
+	<interviewerList
+		list="{{companyList}}"
+		showTopRadius="{{true}}"
+		showRightRadius="{{true}}"
+		showBottomRadius="{{true}}"
+		showLeftRadius="{{true}}"
+		dotType="{{'circle'}}"></interviewerList>
+  <tab-bar tabType="1"></tab-bar>
+</view>
