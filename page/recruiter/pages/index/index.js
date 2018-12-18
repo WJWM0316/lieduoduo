@@ -1,4 +1,3 @@
-import { getAllDegree } from '../../../../api/recruiter/index.js';
 const app = getApp()
 
 Page({
@@ -78,9 +77,6 @@ Page({
         status: 0
       }
     ]
-  },
-  onShow() {
-    getAllDegree()
   },
   changeCompanyLists(e) {
     let pageList = e.currentTarget.dataset.pageList
