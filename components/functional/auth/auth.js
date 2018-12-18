@@ -27,6 +27,7 @@ Component({
       }
       loginApi(data).then(res => {
         getApp().globalData.userInfo = res.data
+        wx.setStorageSync('token', res.data.token)
         wx.reLaunch({
           url: `/${res.data.page}`
         })
