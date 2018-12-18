@@ -1,5 +1,6 @@
 {
   "usingComponents": {
+    "choose": "../../../../components/business/choose/choose",
     "auth": "../../../../components/functional/auth/auth",
     "moreActive": "../../../../components/business/moreActive/moreActive",
     "companyList": "../../../../components/business/companyList/companyList"

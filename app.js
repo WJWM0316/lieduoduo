@@ -16,7 +16,8 @@ App({
   globalData: {
     userInfo: null,
     navHeight: 0,
-    cdnImagePath: 'https://attach.lieduoduo.ziwork.com/images'
+    cdnImagePath: 'https://attach.lieduoduo.ziwork.com/images',
+    systemInfo: wx.getSystemInfoSync()
   },
   checkLogin () {
     return new Promise((resolve, reject) => {
@@ -59,10 +60,7 @@ App({
                 }
                 getSessionKeyApi(getSessionKeyParams).then(res => {
                   console.log('用户还未授权,require:获取sessionkey成功')
-                  wx.setStorageSync('code', res.data.sessionToken)
-                  resolve(res)
-                }).catch(e => {
-                  reject(e)
+                  wx.setStorageSync('sessionToken', res.data.sessionToken)
                 })
               },
               fail: function (e) {

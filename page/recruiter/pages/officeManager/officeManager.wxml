@@ -1,15 +1,34 @@
-<navbar title="职位管理" background="#2878FF"></navbar>
-<view class="office-manager-list">
-	<view class="li"
-		wx:for="{{ companyList }}"
-		wx:for-item="company"
-		wx:key="{{company.id}}"
-		data-company-id="{{company.id}}"
-		bindtap="routeJump">
-		<view class="header">
-			<view class="office-name">微信小程序前端开发工程师</view>
-			<view class="office-sarary">12K~20K</view>
+<navbar title="职位管理" background="#2878FF" color="#fff"></navbar>
+<view class='office-status-bar'>
+  <view
+  	wx:for="{{listStatus}}"
+  	bindtap="onClickTab"
+  	wx:key="{{index}}"
+  	wx:for-item="item"
+  	data-index='{{index}}'
+  	class ="item {{item.active ? 'active' : ''}}">
+  	{{item.text}}
+  </view>
+</view>
+<scroll-view class="scroll-view_H" scroll-y='true'>
+  <view class="office-manager-list">
+		<view class="li"
+			wx:for="{{ companyList }}"
+			wx:for-item="company"
+			wx:key="{{company.id}}"
+			data-company-id="{{company.id}}"
+			bindtap="routeJump">
+			<view class="header">
+				<view class="office-name">微信小程序前端开发工程师</view>
+				<view class="office-sarary">12K~20K</view>
+			</view>
+			<view class="tags-box">
+				<view class="item">广州市天河区</view>
+				<view class="item">应届生</view>
+				<view class="item">本科</view>
+			</view>
+			<view class="item-status">不及格</view>
 		</view>
 	</view>
-</view>
+</scroll-view>
 <tab-bar tabType="1"></tab-bar>

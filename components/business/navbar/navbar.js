@@ -20,6 +20,10 @@ Component({
     background: {
       type: String,
       value: '#2878FF'
+    },
+    color: {
+      type: String,
+      value: 'white'
     }
   },
 
