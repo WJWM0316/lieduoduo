@@ -1,5 +1,31 @@
 <view class="recruiter-interview">
-	<navbar title="面试" background="#2878FF"></navbar>
+	<navbar title="面试" background="#2878FF" color="#fff"></navbar>
+	<view class="interview-tab-bar">
+		<view
+			class="li {{tab.active ? 'active' : ''}} {{tab.showRedDot ? 'red-dot' : ''}}"
+			bindtap="chooseParentTab"
+			data-mark="{{tab.id}}"
+			wx:for="{{tabLists}}"
+			wx:for-item="tab"
+			data-index="{{index}}"
+			wx:key="{{tab.id}}">
+				<view class="span">{{tab.text}}</view>
+		</view>
+	</view>
+	<view class="select-box">
+		<view class="item">
+			<picker value="{{item}}" range="{{tabLists[tabParentIndex].statusList}}" bindchange="bindChange" data-type="status">
+		    <view class="picker">{{tabLists[tabParentIndex].statusList[tabChildIndex]}} </view>
+		    <view class="arrow"></view>
+		  </picker>
+		</view>
+<!-- 		<view class="item">
+			<picker value="{{item}}" range="{{tabLists[tabParentIndex]statusList}}" bindchange="bindChange" data-type="office">
+		    <view class="picker">{{tabLists[tabParentIndex]statusList[tabChildIndex]}} </view>
+		    <view class="arrow"></view>
+		  </picker>
+		</view> -->
+	</view>
 	<interviewerList
 		list="{{companyList}}"
 		showTopRadius="{{true}}"
