@@ -8,10 +8,6 @@ Component({
       type: String,
       value: ''
     },
-    mode: {
-      type: String,
-      value: ''
-    },
     setResult: {
       type: String
     }
@@ -23,6 +19,7 @@ Component({
   data: {
     result: 0, // picker选择value
     list: [], // picker列表
+    mode: '', // picker mode
     firstOption: '', // 自定义选型
     placeholder: '', // placeholder
     financing: ['未融资', '天使轮', 'A轮', 'B轮', 'C轮', 'D轮及以上', '已上市', '不需要融资'],
@@ -59,9 +56,21 @@ Component({
         result[0] = year.indexOf(this.data.setResult.slice(0, 5))
         result[1] = this.data.month.indexOf(this.data.setResult.slice(5, 8))
       }
+      if (result[0] === -1) { // 开启palceholder
+        result = 0
+      }
       return result
     }
     switch (this.data.pickerType) {
+      case 'birthday':
+        for (let i = curYear - 18; i > curYear - 65; i--) {
+          year.push(`${i}年`)
+        }
+        list.push(year)
+        list.push(this.data.month)
+        result = setResult()
+        this.setData({list, year, result, mode: 'multiSelector', placeholder: '请选择生日'})
+        break
       case 'startTime':
         list.push(year)
         list.push(this.data.month)
@@ -72,26 +81,37 @@ Component({
         firstOption = '至今'
         year.unshift(firstOption)
         list.push(year)
-        list.push(this.data.month)
         result = setResult()
+        if (result !== 0) {
+          list.push(this.data.month)
+        } else {
+          list.push([firstOption])
+        }
         this.setData({list, year, result, mode: 'multiSelector', firstOption, placeholder: '请选择结束时间'})
         break
       case 'workTime':
         firstOption = '在校生'
         year.unshift(firstOption)
         list.push(year)
-        list.push(this.data.month)
         result = setResult()
+        if (result !== 0) {
+          list.push(this.data.month)
+        } else {
+          list.push([firstOption])
+        }
         this.setData({list, year, result, mode: 'multiSelector', firstOption, placeholder: '请选择参加工作时间'})
         break
       case 'dateTime':
         result = []
         result[0] = year.indexOf(this.data.setResult.slice(0, 5))
         result[1] = this.data.month.indexOf(this.data.setResult.slice(5, 8))
+        if (result[0] === -1) result[0] = 0
+        if (result[1] === -1) result[1] = 0
         let days = this.getThisMonthDays(parseInt(year[result[0]]), parseInt(this.data.month[result[1]]))
         result[2] = days.indexOf(this.data.setResult.slice(8, 11))
         result[3] = this.data.hours.indexOf(this.data.setResult.slice(12, 14))
         result[4] = this.data.minutes.indexOf(this.data.setResult.slice(15, 17))
+        if (result[2] === -1) result = 0 // 开启palceholder
         list.push(year)
         list.push(this.data.month)
         list.push(days)
@@ -129,6 +149,48 @@ Component({
         result = `${list.indexOf(this.data.setResult)}`
         this.setData({list, result, mode: 'selector', placeholder: '请选择融资情况'})
         break
+      case 'salaryRangeC':
+        let startNum = []
+        let endNum = []
+        for (let i = 1; i <= 60; i++) {
+          startNum.push(`${i}k`)
+        }
+        result = []
+        result[0] = startNum.indexOf(this.data.setResult.split('~')[0])
+        if (result[0] === -1) result[0] = 0
+        for (let i = parseInt(startNum[result[0]]) + 1; i <= parseInt(startNum[result[0]]) * 2; i++) {
+          endNum.push(`${i}k`)
+        }
+        result[1] = endNum.indexOf(this.data.setResult.split('~')[1])
+        if (result[1] === -1) result = 0
+        list = [startNum, endNum]
+        this.setData({list, result, mode: 'multiSelector', placeholder: '请选择期望月薪'})
+        break
+      case 'salaryRangeB':
+        let startNumB = []
+        let endNumB = []
+        for (let i = 1; i <= 29; i++) {
+          startNumB.push(`${i}k`)
+        }
+        for (let i = 30; i <= 95; i+=5) {
+          startNumB.push(`${i}k`)
+        }
+        for (let i = 100; i <= 260; i+=10) {
+          startNumB.push(`${i}k`)
+        }
+        result = []
+        result[0] = startNumB.indexOf(this.data.setResult.split('~')[0])
+        if (result[0] === -1) result[0] = 0
+        for (let i = parseInt(startNumB[result[0]]) + 1; i <= parseInt(startNumB[result[0]]) + 5; i++) {
+          if (i <= 260) {
+            endNumB.push(`${i}k`)
+          }
+        }
+        result[1] = endNumB.indexOf(this.data.setResult.split('~')[1])
+        if (result[1] === -1) result = 0
+        list = [startNumB, endNumB]
+        this.setData({list, result, mode: 'multiSelector', placeholder: '请选择期望月薪'})
+        break
     }
   },
   /**
@@ -155,37 +217,19 @@ Component({
           }
         }
       } else {
-        if (this.data.pickerType === 'education') {
-          propsResult = list[result]
-          propsDesc = result
-        } else if (this.data.pickerType === 'sex') {
+        if (this.data.pickerType === 'sex') {
           propsResult = list[result]
           if (result === 0) {
             propsDesc = 1
           } else {
             propsDesc = 2
           }
-        } 
+        } else {
+          propsResult = list[result]
+          propsDesc = result
+        }
       }
       this.triggerEvent('resultevent', {propsResult, propsDesc})
-    },
-    // 点击placeholder要处理的事情
-    setPlaceholder() {
-      // if (this.data.mode === 'multiSelector') {
-      //   if (this.data.pickerType === 'dateTime') {
-      //     this.setData({result: [0, 0, 0, 0, 0]})
-      //   } else {
-      //     this.setData({result: [0, 0]})
-      //   }
-      //   if (this.data.firstOption) {
-      //     let list = this.data.list
-      //     list[1] = [this.data.firstOption]
-      //     this.setData({list})
-      //   }
-      // } else {
-      //   this.setData({result: '0'})
-      // }
-      // this.setResult()
     },
     // picker 变动监听
     change(e) {
@@ -216,17 +260,42 @@ Component({
           changeData(year, month)
         }
       } else {
-        // 滑动第一项的时候
-        if (e.detail.column === 0) {
+        // 有自定义选型的
+        if (this.data.firstOption) {
           list.push(this.data.year)
-          /// let result = this.data.result
-          // result[0] = e.detail.value
-          if (e.detail.value === 0) {
-            list.push([this.data.firstOption])
-          } else {
-            list.push(this.data.month)
+          // 滑动第一项的时候
+          if (e.detail.column === 0) {
+            if (e.detail.value === 0) {
+              list.push([this.data.firstOption])
+            } else {
+              list.push(this.data.month)
+            }
+            this.setData({list})
           }
-          this.setData({list})
+        }
+        if (this.data.pickerType === 'salaryRangeC') {
+          if (e.detail.column === 0) { // 选择起始工资
+            list = this.data.list
+            let startNum = list[0][e.detail.value]
+            let endNum = []
+            for (let i = parseInt(startNum) + 1; i <= parseInt(startNum) * 2; i++) {
+              endNum.push(`${i}k`)
+            }
+            list[1] = endNum
+            this.setData({list})
+          }
+        }
+        if (this.data.pickerType === 'salaryRangeB') {
+          if (e.detail.column === 0) { // 选择起始工资
+            list = this.data.list
+            let startNum = list[0][e.detail.value]
+            let endNum = []
+            for (let i = parseInt(startNum) + 1; i <= parseInt(startNum) + 5; i++) {
+              endNum.push(`${i}k`)
+            }
+            list[1] = endNum
+            this.setData({list})
+          }
         }
       }
     },

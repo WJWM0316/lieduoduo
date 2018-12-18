@@ -10,7 +10,7 @@ Page({
     // 页面的默认数据列表
     pageList: 'mySeen',
     motto: 'Hello World',
-    userInfo: {},
+    userInfo: getApp().globalData.userInfo,
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
     companyList: [
@@ -35,6 +35,9 @@ Page({
     ]
   },
   onLoad: function () {
+    getApp().checkLogin().then(res => {
+      console.log(res)
+    })
     let choseType = wx.getStorageSync('choseType') || null
     if (choseType === 'RECRUITER') {
       wx.showModal({

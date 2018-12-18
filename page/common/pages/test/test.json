@@ -1,0 +1,5 @@
+{
+  "usingComponents": {
+    "myPicker": "../../../../components/functional/myPicker/myPicker"
+  }
+}

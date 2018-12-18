@@ -1,12 +1,12 @@
 <view style='height:{{navH}}px;'>
   <view class="navbar" style='height:{{navH}}px;background: {{background}}'>
-    <!--   <view class="navbar-action-wrap  {{showHome ? 'navbar-action-group' : ''}} row item-center" wx:if="{{showNav}}">
+      <!-- <view class="navbar-action-wrap  {{showHome ? 'navbar-action-group' : ''}} row item-center" wx:if="{{showNav}}">
         <block wx:if="{{showHome}}">
-        <ss-icon name="back" color="#333" size="15px" custom-class="navbar-action_item first" bind:click="navBack"></ss-icon>
-        <ss-icon name="index"  color="#333" size="16px" custom-class="navbar-action_item" bind:click="toIndex" ></ss-icon>
+          <i name="back" color="#333" size="15px" custom-class="navbar-action_item first" bindtap="navBack">1</i>
+          <i name="index"  color="#333" size="16px" custom-class="navbar-action_item" bindtap="backToHomepage" >2</i>
         </block>
         <block wx:else>
-          <ss-icon name="back"  color="#fff" size="18px" custom-class="navbar-action_item first" bind:click="navBack"></ss-icon>
+          <i name="back"  color="#fff" size="18px" custom-class="navbar-action_item first" bindtap="navBack"></i>
         </block>
       </view> -->
       <view class='navbar-title'> {{ title }} </view>

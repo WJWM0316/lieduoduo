@@ -72,8 +72,7 @@
 				{
 					"id": -1,
 					"name": "more",
-					"pathName": "page/applicant/pages/more/more",
-					"query": ""
+					"pathName": "page/applicant/pages/more/more"
 				}
 			]
 		}

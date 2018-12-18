@@ -1,29 +1,59 @@
 <view class="interview-list-ul">
-	<view class="li"
-		wx:for="{{ list }}"
-		wx:for-item="company"
-		wx:key="{{company.id}}"
-		data-company-id="{{company.id}}"
-		bindtap="routeJump">
-			<view class="header">
-				<view class="img-box"></view>
-				<view class="content">
-					<view class="realname-position">
-						<view class="realname">柳林东</view>
-						<view class="degress"> 产品总监</view>
+
+	<block wx:if="{{listType === 'interview'}}">
+		<view class="li {{ listType }} {{currentTab}}"
+			wx:for="{{ list }}"
+			wx:for-item="company"
+			wx:key="{{company.id}}"
+			data-company-id="{{company.id}}"
+			bindtap="routeJump">
+				<view class="header">
+					<view class="img-box"></view>
+					<view class="content">
+						<view class="realname-position">
+							<view class="realname">柳林东122</view>
+							<view class="degress"> 产品总监</view>
+							<view class="clock disabled">14:00</view>
+						</view>
+						<view class="company-name">深圳市腾讯有限公司</view>
 					</view>
-					<view class="company-name">深圳市腾讯有限公司</view>
 				</view>
-			</view>
-			<view class="footer">
-				<view class="job-infos">
-					<view class="day">03-15</view>
-					<view class="time">19:00</view>
-					<view class="action">申请约面</view>
-					<view class="job">微信小程序前微信小程序前</view>
+				<view class="footer">
+					<view class="interview-position">面试职位：微信小程序前端开发工程师</view>
+					<view class="interview-address">广州市天河区天河北路光大银行大厦1607</view>
 				</view>
-				<view class="job-status" wx:if="{{company.status === 1}}">待安排面试</view>
-				<view class="job-status" wx:if="{{company.status === 0}}">不合适</view>
-			</view>
-	</view>
+		</view>
+	</block>
+
+	<block wx:else>
+		<view class="li {{ listType }} {{currentTab}}"
+			wx:for="{{ list }}"
+			wx:for-item="company"
+			wx:key="{{company.id}}"
+			data-company-id="{{company.id}}"
+			bindtap="routeJump">
+				<view class="header">
+					<view class="img-box"></view>
+					<view class="content">
+						<view class="realname-position">
+							<view class="realname">柳林东</view>
+							<view class="degress"> 产品总监</view>
+						</view>
+						<view class="company-name">深圳市腾讯有限公司</view>
+					</view>
+				</view>
+				<view class="footer">
+					<view class="job-infos">
+						<view class="day">03-15</view>
+						<view class="time">19:00</view>
+						<view class="action">申请约面</view>
+						<view class="job">微信小程序前微信小程序前</view>
+					</view>
+					<view class="job-status" wx:if="{{company.status === 1}}">待安排面试</view>
+					<view class="job-status" wx:if="{{company.status === 0}}">不合适</view>
+				</view>
+				<view class="red-dot"></view>
+		</view>
+	</block>
+	
 </view>

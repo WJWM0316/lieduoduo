@@ -1,0 +1,3 @@
+<!--page/common/pages/test/test.wxml-->
+<text>page/common/pages/test/test.wxml</text>
+<myPicker pickerType="salaryRangeB"></myPicker>

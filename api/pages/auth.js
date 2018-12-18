@@ -11,7 +11,7 @@ export const getSessionKeyApi = (data, isLoading) => {
 export const loginApi = data => {
   return request({
   	method: 'post',
-    url: '/auth/login',
+    url: '/wechat/login/mini',
     data
   })
 }

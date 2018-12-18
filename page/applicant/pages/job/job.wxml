@@ -1,4 +1,4 @@
 <view class="applicant-job">
 	<navbar title="猎多多" background="green"></navbar>
-  <applyList list="{{companyList}}"></applyList>
+  <interviewList list="{{companyList}}" list-type="interview" current-tab="all"></interviewList>
 </view>

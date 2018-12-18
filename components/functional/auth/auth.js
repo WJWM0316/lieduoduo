@@ -1,4 +1,5 @@
 // components/business/auth/auth.js
+import {loginApi} from '../../../api/pages/auth.js'
 Component({
   /**
    * 组件的属性列表
@@ -18,6 +19,18 @@ Component({
    * 组件的方法列表
    */
   methods: {
-
+    onGotUserInfo(e) {
+      let data = {
+        ssToken: wx.getStorageSync('code'),
+        iv_key: e.detail.iv,
+        data: e.detail.encryptedData
+      }
+      loginApi(data).then(res => {
+        getApp().globalData.userInfo = res.data
+        wx.reLaunch({
+          url: `/${res.data.page}`
+        })
+      })
+    }
   }
 })

@@ -42,15 +42,11 @@ Component({
   methods: {
     //回退
     navBack() {
-        wx.navigateBack({
-          delta: 1
-        })      
+      wx.navigateBack({delta: 1})
     },
     //回主页
-    toIndex() {
-      wx.navigateTo({
-        url: '/pages/admin/home/index/index'
-      })
-    },
+    backToHomepage() {
+      console.log('回到主页')
+    }
   }
 })
