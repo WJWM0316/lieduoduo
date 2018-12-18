@@ -4,6 +4,7 @@ let loadNum = 0
 export const request = ({method = 'post', url, data = {}, needKey = true, hasLoading = true, loadingContent = '加载中...'}) => {
   const promise = new Promise((resolve, reject) => {
     const addHttpHead = {
+      'Authorization-Wechat': wx.getStorageSync('sessionToken'),
       'Authorization': wx.getStorageSync('token')
     }
     // 开启菊花图

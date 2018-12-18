@@ -1,6 +1,6 @@
 <!--components/business/myCalendar/myCalendar.wxml-->
 <scroll-view class="wrap" scroll-x style="width: 100%" scroll-left="{{scrollLeft}}px" bindscrolltolower="nextMonth" bindscrolltoupper="prevMonth" bindscroll="scroll" upper-threshold lower-threshold>
-  <view wx:for="{{list}}" wx:key="{{index}}" class="item {{item.month ? 'next' : ''}} {{index === list.length - 1 ? 'last': ''}}">
+  <view wx:for="{{list}}" wx:key="{{index}}" class="item {{item.month && !item.day ? 'head' : ''}} {{index === list.length - 1 ? 'last': ''}}">
     <block wx:if="{{item.day}}">
       <view class="week">{{item.week}}</view>
       <view class="day {{item.day === day && item.month === month ? 'curDay' : ''}}">{{item.day}}</view>

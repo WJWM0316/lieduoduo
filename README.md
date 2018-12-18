@@ -35,7 +35,7 @@
 >
 
 ### 组件使用
-1. auth ----- 授权组件
+**1.auth ----- 授权组件**
 在需要授权的页面引入授权组件，需要在onLoad里写上以前代码，在授权回调那里请求页面数据
 
 ``` javascript  
@@ -44,45 +44,65 @@ getApp().checkLogin().then(res => {
 })
 ```
 
-2.avatarCut ----- 头像裁剪组件
-直接引入即可， props值 src， 用于展示默认图
+**2.avatarCut ----- 头像裁剪组件**
 
-3.myPicker ----- 自定义的picker选择器， 基本包含项目所有选择器
++ 传值 
+src ： String类型， 用于展示默认图
 
-props值
++ 自定义方法
 
-+ pickerType： String类型， value值如下：
-  - startTime - 开始时间， 格式： XXXX年XX日
-  - endTime- 结束时间， 格式： XXXX年XX日 
-  - workTime- 开始工作时间，格式： XXXX年XX日
-  -  dateTime-选择面试时间，格式： XXXX年XX日XX日 XX:XX
-  - birthday-生日时间， 格式： XXXX年XX日XX日
-  - education-选择学历
-  - sex-选择性别
-  - jobStatus-求职状态
-  - experience-经验要求
-  - staffMembers-公司人员规模
-  - financing-公司融资情况
-  - salaryRangeC-求职者端的薪资范围，格式： 2k~3k
-  - salaryRangeB-招聘者端的薪资范围，格式： 2k~3k
+bindresultEvent ： 用于父组件接收结果
 
-+ setResult：String类型，picker的默认值设置，按照实际具体的字符串传入即可，一定要跟选择器选择展示的字符串一致才可
+**3.myPicker ----- 自定义的picker选择器， 基本包含项目所有选择器**
 
-+ 自定义方法 bindresultevent  获取上传结果
++ 传值 
 
+    + pickerType：pick类型， String， value值如下：
+      - startTime - 开始时间， 格式： XXXX年XX日
+      - endTime- 结束时间， 格式： XXXX年XX日 
+      - workTime- 开始工作时间，格式： XXXX年XX日
+      -  dateTime-选择面试时间，格式： XXXX年XX日XX日 XX:XX
+      - birthday-生日时间， 格式： XXXX年XX日XX日
+      - education-选择学历
+      - sex-选择性别
+      - jobStatus-求职状态
+      - experience-经验要求
+      - staffMembers-公司人员规模
+      - financing-公司融资情况
+      - salaryRangeC-求职者端的薪资范围，格式： 2k~3k
+      - salaryRangeB-招聘者端的薪资范围，格式： 2k~3k
+
+    + setResult：String类型，picker的默认值设置，按照实际具体的字符串传入即可，一定要跟选择器选择展示的字符串一致才可
+
++ 自定义方法 
+
+bindresultevent ： 获取上传结果
 
 ``` html
-<myPicker pickerType="dateTime" setResult="2018年12月17日 13:22"></myPicker>
+<myPicker pickerType="dateTime" setResult="2018年12月17日 13:22" bindresuleEvent="getResult"></myPicker>
 ```
 
-4.myCalendar ----- 自定义日历组件， prpos值 setDateList，Array类型， 用于标注需要面试的时间
+**4.myCalendar ----- 自定义日历组件**
 
-5.calendar ---- 极点日历插件 自己查看文档
++ 传值 
 
-6.unloadFile ----- 上传组件
+setDateList ： Array类型， 用于标注需要面试的时间
 
-props值
+**5.calendar ---- 极点日历插件** 
+自己查看文档
 
-+ url: String类型， 默认数据
+**6.unloadFile ----- 上传组件**
+
++ 传值 
+
++ url : String类型， 默认数据
+
++ unloadType ： 上传类型， String， value值如下：
    
-+ 自定义方法 bindresultEvent  获取上传结果   
++ 自定义方法 bindresultEvent  获取上传结果  
+
+``` html
+<unloadFile bindresultEvent="getResult" unloadType="img" url="https://attach.lieduoduo.ziwork.com/img/2018/1218/11/5c18707cc2424.jpg%21330xauto?OSSAccessKeyId=LTAI8J03ETJEHV51&Expires=1545105834&Signature=8mpXIv8Ok7rcCd%2BT5NCm1280Tb0%3D">
+  <view>上传文件</view>
+</unloadFile> 
+```

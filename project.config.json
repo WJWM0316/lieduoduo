@@ -38,7 +38,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 0,
+			"current": 6,
 			"list": [
 				{
 					"id": 0,
@@ -74,6 +74,12 @@
 					"id": -1,
 					"name": "more",
 					"pathName": "page/applicant/pages/more/more",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "面试",
+					"pathName": "page/applicant/pages/interview/interview",
 					"query": ""
 				}
 			]

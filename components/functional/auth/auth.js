@@ -20,17 +20,24 @@ Component({
    */
   methods: {
     onGotUserInfo(e) {
+      console.log(e, 1111)
       let data = {
-        ssToken: wx.getStorageSync('code'),
+        ssToken: wx.getStorageSync('sessionToken'),
         iv_key: e.detail.iv,
         data: e.detail.encryptedData
       }
       loginApi(data).then(res => {
-        getApp().globalData.userInfo = res.data
-        wx.setStorageSync('token', res.data.token)
-        wx.reLaunch({
-          url: `/${res.data.page}`
-        })
+        if (res.detail.errMsg === 'getUserInfo:ok') {
+          // 有token说明已经绑定过用户了
+          if (res.data.token) {
+            getApp().globalData.userInfo = res.data
+            wx.setStorageSync('token', res.data.token)
+            wx.removeStorageSync('sessionToken')
+            wx.reLaunch({
+              url: `/${res.data.page}`
+            })
+          }
+        }
       })
     }
   }

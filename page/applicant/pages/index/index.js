@@ -2,17 +2,14 @@
 //获取应用实例
 import {RECRUITER, APPLICANT, COMMON} from '../../../../config.js'
 import {getSelectorQuery}  from '../../../../utils/util.js'
-import { getAllDegree } from '../../../../api/test.js';
-
+import {getUserInfoApi} from '../../../../api/pages/user.js'
 const app = getApp()
 Page({
   data: {
     // 页面的默认数据列表
     pageList: 'mySeen',
-    motto: 'Hello World',
-    userInfo: getApp().globalData.userInfo,
-    hasUserInfo: false,
-    canIUse: wx.canIUse('button.open-type.getUserInfo'),
+    choseType: wx.getStorageSync('choseType') || null,
+    userInfo: null,
     companyList: [
       {
         id: 1,
@@ -36,7 +33,8 @@ Page({
   },
   onLoad: function () {
     getApp().checkLogin().then(res => {
-      console.log(res)
+      getUserInfoApi()
+      this.setData({userInfo: res})
     })
     let choseType = wx.getStorageSync('choseType') || null
     if (choseType === 'RECRUITER') {
@@ -54,24 +52,8 @@ Page({
         }
       })
     }
-    if (app.globalData.userInfo) {
-      this.setData({
-        userInfo: app.globalData.userInfo,
-        hasUserInfo: true
-      })
-    } else if (this.data.canIUse) {
-      // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
-      // 所以此处加入 callback 以防止这种情况
-      app.userInfoReadyCallback = res => {
-        this.setData({
-          userInfo: res.userInfo,
-          hasUserInfo: true
-        })
-      }
-    }
   },
   onShow() {
-    getAllDegree()
     wx.setTabBarBadge({
       index: 2,
       text: '99+'
@@ -80,20 +62,5 @@ Page({
   changeCompanyLists(e) {
     let pageList = e.currentTarget.dataset.pageList
     this.setData({ pageList })
-  },
-  getUserInfo: function(e) {
-    app.globalData.userInfo = e.detail.userInfo
-    this.setData({
-      userInfo: e.detail.userInfo,
-      hasUserInfo: true
-    })
-  },
-  jumpMap: function() {
-    wx.redirectTo({
-      url: `${COMMON}map/map`
-    })
-  },
-  getResult(e) {
-    console.log(e, '返回的数据')
   }
 })

@@ -5,12 +5,13 @@
   padding: 34rpx 0 41rpx;
   box-sizing: border-box;
   white-space: nowrap;
+  background: #fff;
 }
 .item {
   width: 14.285%;
   display: inline-block;
 }
-.item.next {
+.item.head {
   width: 132rpx;
   vertical-align: top;
 }

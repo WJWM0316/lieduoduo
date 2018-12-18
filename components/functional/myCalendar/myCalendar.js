@@ -1,6 +1,11 @@
 // components/business/myCalendar/myCalendar.js
 import {getSelectorQuery}  from '../../../utils/util.js'
 let isLoadData = false  // 由于setData是异步的需要加个锁来控制
+let itemWidth = 0 // 计算单个item的宽度
+let nextMonth = 0 // 下个月份保存
+let prevMonth = 0 // 上个月份保存
+let nextYear = 0 // 下个年份保存
+let prevYear = 0 // 上个年份保存
 Component({
   externalClasses: ['myCalendar'],
   /**
@@ -17,36 +22,19 @@ Component({
    */
   data: {
     scrollLeft: 0,
-    curScrollLeft: 0,
     weeks_ch: ['日', '一', '二', '三', '四', '五', '六'],
     date: new Date(),
     year: new Date().getFullYear(),
     month: new Date().getMonth() + 1,
     day: new Date().getDate(),
-    nextMonth: 0,
-    prevMonth: 0,
-    nextYear: 0,
-    prevYear: 0,
-    list: [],
-    query: wx.createSelectorQuery(),
-    itemWidth: 0
+    list: []
   },
   attached () {
+    let systemInfo = getApp().globalData.systemInfo
     let list = this.getThisMonthDays(this.data.year, this.data.month)
-    console.log(this.data.month, this.data.day)
-    this.setData({list}, function() {
-      getSelectorQuery(".myCalendar >>> .wrap >>> .last").then(res => {
-        let scrollLeft = res.width * (this.data.day - 2)
-        this.setData({
-          itemWidth: res.width,
-          scrollLeft
-        })
-        console.log(res)
-      })
-    })
-    
-  },
-  ready () {
+    itemWidth = 0.14285 * systemInfo.windowWidth
+    let scrollLeft = itemWidth * (this.data.day - 3)
+    this.setData({list, scrollLeft})
   },
   /**
    * 组件的方法列表
@@ -54,11 +42,9 @@ Component({
   methods: {
     // 下个月
     nextMonth () {
-      let nextMonth = this.data.nextMonth
       if (!nextMonth) {
         nextMonth = this.data.month
       }
-      let nextYear = this.data.nextYear
       if (!nextYear) {
         nextYear = this.data.year
       }
@@ -67,19 +53,16 @@ Component({
         nextMonth = 1
         nextYear++
       }
-      console.log('下个月', this.data.nextMonth)
       let list = this.getThisMonthDays(nextYear, nextMonth, 'seq')
-      this.setData({list, nextYear, nextMonth})
+      this.setData({list})
     },
     // 上个月
     prevMonth () {
       if (isLoadData) return
       isLoadData = true
-      let prevMonth = this.data.prevMonth
       if (!prevMonth) {
         prevMonth = this.data.month
       }
-      let prevYear = this.data.prevYear
       if (!prevYear) {
         prevYear = this.data.year
       }
@@ -88,17 +71,10 @@ Component({
         prevMonth = 12
         prevYear--
       }
-      let scrollLeft = this.data.itemWidth * 28
-      console.log('上个月', this.data.prevMonth, scrollLeft)
+      let scrollLeft = itemWidth * 28
       let list = this.getThisMonthDays(prevYear, prevMonth, 'ord')
-      this.setData({list, prevYear, prevMonth}, function() {
-        this.setData({scrollLeft})
+      this.setData({list, scrollLeft}, function() {
         isLoadData = false
-      })
-    },
-    scroll (e) {
-      this.setData({
-        curScrollLeft: e.detail.scrollLeft
       })
     },
     // 获取当月共多少天
