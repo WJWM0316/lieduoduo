@@ -1,0 +1,46 @@
+.navbar {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  position: fixed;
+}
+
+
+.navbar-title {
+  width: 100%;
+  height: 92rpx;
+  line-height: 92rpx;
+  text-align: center;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  z-index: 10;
+  color: #333;
+  font-size: 30rpx;
+}
+
+.navbar-action-wrap{
+  position: absolute;
+  left: 20rpx;
+  bottom: 14rpx;
+  z-index: 100;
+  line-height: 1;
+  padding-top: 8rpx;
+  padding-bottom: 8rpx;
+}
+.navbar-action-group {  
+  border:1rpx solid #e8e8e8;
+  border-radius: 40rpx;
+  overflow: hidden
+}
+.navbar-action_item{
+  padding:6rpx 0;
+  color: #333;
+}
+.navbar-action-group .navbar-action_item{
+ border-right: 1rpx solid #e8e8e8;
+ padding:6rpx 24rpx;
+}

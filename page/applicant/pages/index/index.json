@@ -1,6 +1,7 @@
 {
   "usingComponents": {
     "calendar": "plugin://calendar/calendar",
+    "auth": "../../../../components/functional/auth/auth",
     "myCalendar": "../../../../components/layout/myCalendar/myCalendar",
     "choose-page": "../../../../components/business/choose/choose",
     "avatar-upload": "../../../../components/functional/avatarUpload/avatarUpload",

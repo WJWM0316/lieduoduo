@@ -13,8 +13,10 @@
         <text>{{list[0][result[0]]}}{{list[1][result[1]]}}{{list[2][result[2]]}} {{list[3][result[3]]}}:{{list[4][result[4]]}}</text>
       </block>
       <block wx:else>
-        <text wx:if="{{typeof(result) === 'object' && result.length === 2}}">
-          <text wx:if="{{list[0][result[0]] !== firstOption}}">{{list[0][result[0]]}}</text><text>{{list[1][result[1]]}}</text>
+        <text wx:if="{{result.length === 2}}">
+          <text wx:if="{{list[1][result[1]] !== firstOption}}">{{list[0][result[0]]}}</text>
+          <text wx:if="{{list[0][result[0]] !== firstOption}}">{{list[1][result[1]]}}</text>
+          <text wx:if="{{list[0][result[0]] === firstOption && list[1][result[1]] === firstOption}}">{{list[0][result[0]]}}</text>
         </text>
         <text wx:if="{{typeof(result) !== 'object'}}">{{list[result]}}</text>
       </block>

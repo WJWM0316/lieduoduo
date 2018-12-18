@@ -1,4 +1,4 @@
-import { loginApi } from '../../../../api/auth.js';
+import { loginApi } from '../../../../api/pages/auth.js';
 
 const app = getApp()
 

@@ -1,1 +1,109 @@
-/* page/applicant/pages/more/more.wxss */
+.more{
+  width: 100%;
+  min-height: 100vh;
+  background: #E5EEFF;
+}
+.more .scrollView{
+  height: 84vh;
+}
+.more .tabBar{
+  background-color: #FFFFFF;
+  width: 100%;
+  height: 98rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow:0px 11px 30px 0px rgba(153,193,214,0.08);
+}
+.more .tabBar text{
+  height: 100%;
+  line-height: 98rpx;
+  margin-right: 86rpx;
+  font-size: 32rpx;
+  color: #626262;
+  font-weight: 400;
+  position: relative;
+}
+.more .tabBar .active{
+  color: #353943;
+  font-weight: 600;
+}
+.more .tabBar .active::after{
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 4rpx;
+  width: 32rpx;
+  height: 8rpx;
+  background-color: #2878FF;
+}
+.more .tabBar text:nth-of-type(3){
+  margin-right: 0;
+}
+
+.more .childTabBar{
+  box-sizing: border-box;
+  width: 100%;
+  height: 88rpx;
+  background-color: #FFFFFF;
+  box-shadow:0px 11px 30px 0px rgba(153,193,214,0.08);
+  white-space: nowrap;
+  overflow-x: scroll;
+  display: flex;
+  align-items: center;
+}
+.more .childTabBar::-webkit-scrollbar{
+  width: 0;
+  display: none;
+}
+.more .childTabBar::after{
+  content: '.';
+  display: block;
+  opacity: 0;
+}
+.more .childTabBar text{
+  box-sizing: border-box;
+  padding: 0 30rpx;
+  height: 54rpx;
+  text-align: center;
+  background-color: #FFFFFF;
+  line-height: 88rpx;
+  margin-left: 10rpx;
+  font-size: 26rpx;
+  color: #282828;
+  line-height: 54rpx;
+  border-radius: 27rpx;
+}
+.more .childTabBar text:nth-of-type(1){
+  margin-left: 0;
+}
+.more .childTabBar .nowChildActive{
+  background-color: #E4EEFF;
+}
+.more .childTabBar .firstChildActive{
+  margin-left: 40rpx !important;
+}
+.more .childTabBar .lastChildActive{
+  margin-right: 40rpx;
+}
+.more .childTabBar::after{
+  content: '.';
+  display: block;
+  opacity: 0;
+}
+
+.more .topicBox{
+  display: block;
+  width: 100%;
+  height: 441rpx;
+  box-sizing: border-box;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding-bottom: 61rpx;
+  background: url('https://attach.lieduoduo.ziwork.com/images/topicBg.png') no-repeat;
+  background-color: #E5EEFF;
+  background-size: 100% 100%;
+}
