@@ -5,6 +5,7 @@
     "page/applicant/pages/interview/interview",
     "page/common/pages/cutInside/cutInside",
     "page/common/pages/map/map",
+    "page/applicant/pages/more/more",
     "page/common/pages/test/test"
   ],
   "window": {

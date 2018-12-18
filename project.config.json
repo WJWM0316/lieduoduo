@@ -38,13 +38,13 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 0,
+			"current": 5,
 			"list": [
 				{
-					"id": 0,
+					"id": -1,
 					"name": "应聘者首页",
 					"pathName": "page/applicant/pages/index/index",
-					"query": "id=1"
+					"query": ""
 				},
 				{
 					"id": -1,
@@ -59,9 +59,9 @@
 					"query": ""
 				},
 				{
-					"id": 3,
-					"name": "test",
-					"pathName": "page/common/pages/test/test",
+					"id": -1,
+					"name": "index",
+					"pathName": "page/applicant/pages/index/index",
 					"query": ""
 				},
 				{
@@ -69,6 +69,11 @@
 					"name": "job",
 					"pathName": "page/applicant/pages/job/job",
 					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "more",
+					"pathName": "page/applicant/pages/more/more"
 				}
 			]
 		}

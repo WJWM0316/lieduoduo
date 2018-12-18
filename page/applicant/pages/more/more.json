@@ -1,0 +1,8 @@
+{
+  "component": true,
+  "usingComponents": {
+    "navbar": "../../../../components/business/navbar/navbar",
+    "rankingTab": "../../../../components/business/rankingTab/rankingTab",
+    "topicTab": "../../../../components/business/topicTab/topicTab"
+  }
+}

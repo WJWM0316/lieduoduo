@@ -1,0 +1,32 @@
+<view class="more">
+  <navbar title="发现更多招聘官" background="#FFFFFF"></navbar>
+  <view class='tabBar'>
+    <text bindtap='cutover' data-tab = "all" class='{{tab === "all"? "active" : ""}}'>总榜单</text>
+    <text bindtap='cutover' data-tab = "city" class='{{tab === "city"? "active" : ""}}'>城市榜单</text>
+    <text bindtap='cutover' data-tab = "office" class='{{tab === "office"? "active" : ""}}'>职位榜单</text>
+  </view>
+  <view class='childTabBar' wx:if='{{tab !== "all"}}'>
+    <text wx:for="{{childTabList}}" bindtap='toggle' data-nowIndex='{{index}}' class ='{{index === nowIndex? "nowChildActive" : ""}} {{index === 0 && nowIndex === 0? "firstChildActive" : ""}} {{index === childTabList.length - 1 && nowIndex === childTabList.length - 1? "lastChildActive" : ""}}'>{{item}}</text>
+  </view>
+  
+  <scroll-view
+    class="scrollView"
+    scroll-y='true'
+    bindscroll="scroll"
+    enable-back-to-top='true'
+    bindscrolltolower='loadNext'
+  >
+    <view class='topicBox'>
+      <topicTab index="2"></topicTab>
+      <topicTab index="1"></topicTab>
+      <topicTab index="3"></topicTab>
+    </view>
+    <rankingTab></rankingTab>
+    <rankingTab></rankingTab>
+    <rankingTab></rankingTab>
+    <rankingTab></rankingTab>
+    <rankingTab></rankingTab>
+    <rankingTab></rankingTab>
+    <rankingTab></rankingTab>
+  </scroll-view>
+</view>
