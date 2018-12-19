@@ -27,36 +27,36 @@
 	</view>
 	<view class="entry-list">
 		<view class="li">
-			<i class="icon iconfont icon-zhiyejihui"></i>
+			<i class="icon iconfont icon-zhiyejihui label-icon"></i>
 			<view class="text">我感兴趣的</view>
-			<view class="arrow"></view>
+			<i class="icon iconfont icon-zhishibiao"></i>
 		</view>
 		<view class="li">
-			<i class="icon iconfont icon-zhiyejihui"></i>
+			<i class="icon iconfont icon-gongsi label-icon"></i>
 			<view class="text">我的公司</view>
-			<view class="arrow"></view>
+			<i class="icon iconfont icon-zhishibiao"></i>
 		</view>
 		<view class="li">
-			<i class="icon iconfont icon-zhiyejihui"></i>
+			<i class="icon iconfont icon-renzheng label-icon"></i>
+			<i class="icon iconfont icon-zhishibiao"></i>
 			<view class="text">认证</view>
 			<view class="text2">认证</view>
-			<view class="arrow"></view>
 		</view>
 		<view class="li">
-			<i class="icon iconfont icon-zhiyejihui"></i>
+			<i class="icon iconfont icon-kefu label-icon"></i>
 			<view class="text">在线咨询</view>
-			<view class="arrow"></view>
+			<i class="icon iconfont icon-zhishibiao"></i>
 		</view>
 		<view class="li">
-			<i class="icon iconfont icon-zhiyejihui"></i>
+			<i class="icon iconfont icon-dianhua label-icon"></i>
+			<i class="icon iconfont icon-zhishibiao"></i>
 			<view class="text">客服电话</view>
 			<view class="text2">020-61279889</view>
-			<view class="arrow"></view>
 		</view>
 		<view class="li">
-			<i class="icon iconfont icon-zhiyejihui"></i>
+			<i class="icon iconfont icon-shezhi label-icon"></i>
 			<view class="text">账号设置</view>
-			<view class="arrow"></view>
+			<i class="icon iconfont icon-zhishibiao"></i>
 		</view>
 	</view>
 	<view class="copy-right">

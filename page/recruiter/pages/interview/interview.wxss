@@ -1,3 +1,5 @@
+@import '../../../../iconfont.wxss';
+
 .recruiter-index .index-bannar image {
   width: 100%;
   display: block;
@@ -153,7 +155,7 @@
 
 .select-box .item {
   line-height: 64rpx;
-  padding: 0 60rpx 0 18rpx;
+  padding: 0 18rpx;
   background:rgba(255,255,255,1);
   box-shadow:0px -5rpx 40rpx 0rpx rgba(22,39,77,0.05);
   border-radius:32rpx;
@@ -165,15 +167,13 @@
   position: relative;
 }
 
-.select-box .arrow {
-  width: 12rpx;
-  height: 12rpx;
-  border-top: 4rpx solid #2878FF;
-  border-right: 4rpx solid #2878FF;
-  position: absolute;
-  right: 25rpx;
-  transform: translateY(-50%) rotate(135deg);
-  top:50%;
+.select-box .picker {
+  display: inline-block;
+}
+
+.select-box .iconfont {
+  display: inline-block;
+  margin-left: 5rpx;
 }
 
 

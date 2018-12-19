@@ -1,3 +1,7 @@
+.recruiter-index {
+  height: 100vh;
+}
+
 .recruiter-index .index-bannar image {
   width: 100%;
   display: block;
@@ -81,4 +85,8 @@
 .recruiter-index .ul-tab-bar .active:after {
   opacity: 1;
   visibility: visible;
+}
+
+.scroll-view_H {
+  height: calc(100vh - 98rpx - 410rpx - 170rpx - 20rpx + 130rpx);
 }
