@@ -37,20 +37,19 @@ Page({
     })
   },
   bindPhone() {
-    console.log(222)
     let data = {
       mobile: this.data.phone,
       code: this.data.code
     }
     bindPhoneApi(data).then(res => {
-      console.log(res)
+      console.log('手机号码绑定成功')
+      wx.setStorageSync('token', res.data.token)
     })
   },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-
   },
 
   /**

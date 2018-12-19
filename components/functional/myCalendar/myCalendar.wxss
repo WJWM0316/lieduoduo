@@ -2,7 +2,7 @@
 .calendar {
   position: relative;
 }
-.open {
+.calendar .open {
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
@@ -10,7 +10,7 @@
   padding: 10rpx;
   display: block;
 }
-.icon {
+.calendar .icon {
   display: block;
   border-top: 4rpx solid;
   border-right: 4rpx solid;
@@ -19,7 +19,7 @@
   border-color: #2878FF;
   transform: rotate(135deg);
 }
-.wrap {
+.calendar .wrap {
   width: 100%;
   height: 190rpx;
   padding: 34rpx 0 41rpx;
@@ -27,18 +27,18 @@
   white-space: nowrap;
   background: #fff;
 }
-.item {
+.calendar .item {
   width: 14.285%;
   display: inline-block;
 }
-.item.head {
+.calendar .item.head {
   width: 132rpx;
   vertical-align: top;
 }
-.item .have {
+.calendar .item .have {
   position: relative;
 }
-.item .overdue::after {
+.calendar .item .overdue::after {
   content: '';
   width: 12rpx;
   height: 12rpx;
@@ -49,7 +49,7 @@
   background: #BCBCBC;
   position: absolute;
 }
-.item .noOverdue::after {
+.calendar .item .noOverdue::after {
   content: '';
   width: 12rpx;
   height: 12rpx;
@@ -61,18 +61,18 @@
   position: absolute;
 }
 
-.day, .week, .month {
+.calendar .day, .week, .month {
   display: block;
   text-align: center;
 }
 
-.week {
+.calendar .week {
   height: 22rpx;
   font-size: 22rpx;
   line-height: 22rpx;
   color: #282828;
 }
-.day {
+.calendar .day {
   width: 68rpx;
   height: 68rpx;
   line-height: 68rpx;
@@ -81,30 +81,92 @@
   color: #282828;
   margin: 25rpx auto 0;
 }
-.day.curDay {
+.calendar .day.curDay {
   border-radius: 50%;
   background: #E4EEFF;
 }
-.day.choseDate {
+.calendar .day.choseDate {
   border-radius: 50%;
   background: #2878FF;
   color: #fff;
 }
-.month {
+.calendar .month {
   height: 90rpx;
   line-height: 90rpx;
   background:rgba(228,238,255,0.3);
 }
 
-.bigCalendar {
-  background-color: #fff;
+
+.newCalendar {
+  background: #fff;
 }
-.calendar-header {
-  font-size: 32rpx; /*修改了标题文字和按钮的大小*/
-  color: #2878FF;   /*修改了标题文字和按钮的颜色*/
-  font-weight: 700;
+.calendar-week {
+  display: flex;
 }
-.calendar-board {
+.calendar-week .week {
+  text-align: center;
+  width: 14.285%;
+  height: 42rpx;
+  line-height: 42rpx;
   color: #282828;
   font-weight: 500;
+  font-size: 22rpx;
+}
+.calendar-body {
+  display: flex;
+  flex-wrap: wrap;
+}
+.calendar-body .day {
+  width: 14.285%;
+  text-align: center;
+  height: 82rpx;
+  line-height: 82rpx;
+  font-size:32rpx;
+  font-weight:500;
+  color: #282828;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.calendar-body .day .inner {
+  width: 68rpx;
+  height: 68rpx;
+  line-height: 68rpx;
+  text-align: center;
+  display: block;
+  position: relative;
+}
+.calendar-body .day .inner.curDay {
+  border-radius: 50%;
+  background: #E4EEFF;
+}
+.calendar-body .day .inner.choseDate {
+  border-radius: 50%;
+  background: #2878FF;
+  color: #fff;
+  box-shadow: 0px 10rpx 18rpx 0px rgba(40,120,255,0.3)
+}
+
+.calendar-body .day .inner.overdue::after {
+  content: '';
+  width: 12rpx;
+  height: 12rpx;
+  bottom: 0rpx;
+  left: 50%;
+  margin-left: -6rpx;
+  border-radius: 50%;
+  background: #BCBCBC;
+  position: absolute;
+}
+.calendar-body .day .inner.noOverdue::after {
+  content: '';
+  width: 12rpx;
+  height: 12rpx;
+  bottom: 0rpx;
+  left: 50%;
+  margin-left: -6rpx;
+  border-radius: 50%;
+  background: #FF7F4C;
+  position: absolute;
 }

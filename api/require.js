@@ -1,12 +1,16 @@
 import {baseHost} from '../config.js'
 
 let loadNum = 0
+let addHttpHead = {}
+if (wx.getStorageSync('sessionToken')) {
+  addHttpHead['Authorization-Wechat'] = wx.getStorageSync('sessionToken')
+}
+if (wx.getStorageSync('token')) {
+  addHttpHead['Authorization'] = wx.getStorageSync('token')
+}
 export const request = ({method = 'post', url, data = {}, needKey = true, hasLoading = true, loadingContent = '加载中...'}) => {
   const promise = new Promise((resolve, reject) => {
-    const addHttpHead = {
-      'Authorization-Wechat': wx.getStorageSync('sessionToken'),
-      'Authorization': wx.getStorageSync('token')
-    }
+    
     // 开启菊花图
     if (hasLoading) {
       if (loadNum === 0) {

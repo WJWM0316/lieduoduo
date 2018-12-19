@@ -12,6 +12,7 @@ App({
         console.log(err)
       }
     })
+    // this.checkLogin()
   },
   globalData: {
     userInfo: null,
@@ -38,7 +39,6 @@ App({
                 if (this.userInfoReadyCallback) {
                   this.userInfoReadyCallback(res)
                 }
-                console.log('用户已经授权成功', res.userInfo)
                 resolve(res.userInfo)
               }
             })
