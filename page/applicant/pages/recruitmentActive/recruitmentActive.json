@@ -1,6 +1,6 @@
 {
   "usingComponents": {
     "navbar": "../../../../components/business/navbar/navbar",
-    "companyList": "../../../../components/business/companyList/companyList"
+    "interviewerList": "../../../../components/business/interviewerList/interviewerList"
   }
 }

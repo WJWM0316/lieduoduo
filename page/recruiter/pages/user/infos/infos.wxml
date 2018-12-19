@@ -5,7 +5,7 @@
 			<view class="content">
 				<view class="realname">陈靖</view>
 				<view class="degree-name">老虎科技 | 人力资源管理部门经理</view>
-				<view class="edit">编辑资料</view>
+				<view class="edit" bindtap="jumpUpdateInfos">编辑资料</view>
 			</view>
 			<view class="img-box"></view>
 		</view>
