@@ -2,8 +2,8 @@
 <view class="recruitmentActive">
   <navbar title="发现更多招聘官" color="#000000" background="#FFFFFF"></navbar>
   <view class="tabBar">
-    <text class="active">看过我的</text>
-    <text>我感兴趣</text>
+    <text bindtap='toggle' data-active='watched' class='{{active === "watched"? "active" : ""}}'>看过我的</text>
+    <text bindtap='toggle' data-active='interest' class='{{active === "interest"? "active" : ""}}'>我感兴趣</text>
   </view>
-  <companyList class="companyList" list="{{companyList}}"></companyList>
+  <companyList list="{{companyList}}"></companyList>
 </view>

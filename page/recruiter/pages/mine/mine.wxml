@@ -1,0 +1,59 @@
+<view class="page-mine">
+	<navbar title="我的" background="#2878FF" color="#fff"></navbar>
+	<view class="floating-box">
+		<view class="header">
+			<view class="content">
+				<view class="realname">陈靖</view>
+				<view class="degree-name">老虎科技 | 人力资源管理部门经理</view>
+				<view class="edit">编辑资料</view>
+			</view>
+			<view class="img-box"></view>
+		</view>
+		<view class="share-homepage">分享我的主页</view>
+		<view class="share-homepage-pic">生成朋友圈分享图</view>
+	</view>
+	<view class="show-off-block">
+		<view class="content">
+			<view class="first">
+				<view class="strong">222</view>人想和我约面
+			</view>
+			<view class="second">
+				主页 <view class="strong">222</view> 次预览 已有 <view class="strong">222</view>  人支持
+			</view>
+		</view>
+		<view class="btn-box">
+			<view class="btn">炫耀一下</view>
+		</view>
+	</view>
+	<view class="entry-list">
+		<view class="li">
+			<i class="icon iconfont icon-zhiyejihui"></i>
+			<view class="text">我感兴趣的</view>
+		</view>
+		<view class="li">
+			<i class="icon iconfont icon-zhiyejihui"></i>
+			<view class="text">我的公司</view>
+		</view>
+		<view class="li">
+			<i class="icon iconfont icon-zhiyejihui"></i>
+			<view class="text">认证</view>
+		</view>
+		<view class="li">
+			<i class="icon iconfont icon-zhiyejihui"></i>
+			<view class="text">在线咨询</view>
+		</view>
+		<view class="li">
+			<i class="icon iconfont icon-zhiyejihui"></i>
+			<view class="text">客服电话</view>
+		</view>
+		<view class="li">
+			<i class="icon iconfont icon-zhiyejihui"></i>
+			<view class="text">账号设置</view>
+		</view>
+	</view>
+	<view class="copy-right">
+		<view class="li">使用帮助</view>
+		<view class="li">用户协议</view>
+		<view class="li">意见反馈</view>
+	</view>
+</view>

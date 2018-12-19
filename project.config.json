@@ -38,7 +38,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 5,
+			"current": 8,
 			"list": [
 				{
 					"id": 0,
@@ -87,6 +87,11 @@
 					"name": "interview",
 					"pathName": "page/recruiter/pages/interview/interview",
 					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "mine",
+					"pathName": "page/recruiter/pages/mine/mine"
 				}
 			]
 		}

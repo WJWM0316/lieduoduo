@@ -24,7 +24,13 @@ Page({
         positionNumber: 18,
         status: 0
       }
-    ]
+    ],
+    active: 'watched'
+  },
+  toggle (e) {
+    this.setData({
+      active: e.currentTarget.dataset.active
+    })
   },
 
   /**
