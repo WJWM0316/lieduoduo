@@ -5,5 +5,5 @@
     <text bindtap='toggle' data-active='watched' class='{{active === "watched"? "active" : ""}}'>看过我的</text>
     <text bindtap='toggle' data-active='interest' class='{{active === "interest"? "active" : ""}}'>我感兴趣</text>
   </view>
-  <companyList list="{{companyList}}"></companyList>
+  <interviewerList list="{{companyList}}" showFooter="{{false}}" dotType="circle"></interviewerList>
 </view>

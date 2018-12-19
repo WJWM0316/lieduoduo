@@ -1,4 +1,4 @@
-@import '../../../../iconfont.wxss';
+@import '../../../../../iconfont.wxss';
 
 .page-mine .floating-box {
 	overflow: hidden;
@@ -66,7 +66,6 @@
 .page-mine .floating-box .share-homepage-pic {
 	line-height: 90rpx;
 	background:white;
-	box-shadow:0px 20rpx 18rpx 0rpx rgba(24,93,254,0.1);
 	border-radius:45rpx;
 	font-size:32rpx;
 	font-weight:400;

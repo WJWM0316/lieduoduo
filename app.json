@@ -58,8 +58,9 @@
         "pages/joinUs/joinUs",
         "pages/interview/interview",
         "pages/officeManager/officeManager",
-        "pages/mine/mine",
-        "pages/interviewHistory/interviewHistory"
+        "pages/interviewHistory/interviewHistory",
+        "pages/user/infos/infos",
+        "pages/user/update/update"
       ]
     }
   ],

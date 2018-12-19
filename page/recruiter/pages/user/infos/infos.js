@@ -1,4 +1,4 @@
-import { getUserInfoApi } from '../../../../api/pages/user.js'
+import { getUserInfoApi } from '../../../../../api/pages/user.js'
 const app = getApp()
 
 Page({
@@ -21,6 +21,17 @@ Page({
       desc: '自定义分享描述',
       path: '/page/user?id=123'
     }
+  },
+  /**
+   * @Author   小书包
+   * @DateTime 2018-12-19
+   * @detail   前往更新用户资料
+   * @return   {[type]}   [description]
+   */
+  jumpUpdateInfos() {
+    wx.navigateTo({
+      url: '/page/recruiter/pages/user/base/base'
+    })
   },
   share() {
     wx.showShareMenu({
