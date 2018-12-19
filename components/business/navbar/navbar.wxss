@@ -1,3 +1,5 @@
+@import '../../../iconfont.wxss';
+
 .navbar {
   width: 100%;
   overflow: hidden;
@@ -31,4 +33,10 @@
   padding-top: 8rpx;
   padding-bottom: 8rpx;
   color: white;
+}
+
+.return-back .iconfont {
+  position: relative;
+  transform: rotate(90deg);
+  display: block;
 }

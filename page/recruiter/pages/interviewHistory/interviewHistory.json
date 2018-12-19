@@ -2,7 +2,6 @@
   "usingComponents": {
     "tab-bar": "../../../../components/business/tabBar/tabBar",
     "navbar": "../../../../components/business/navbar/navbar",
-    "interviewerList": "../../../../components/business/interviewerList/interviewerList",
     "interviewList": "../../../../components/business/interviewList/interviewList"
   }
 }
