@@ -22,7 +22,7 @@
   font-size: 30rpx;
 }
 
-.navbar-action-wrap{
+.return-back {
   position: absolute;
   left: 20rpx;
   bottom: 14rpx;
@@ -30,17 +30,5 @@
   line-height: 1;
   padding-top: 8rpx;
   padding-bottom: 8rpx;
-}
-.navbar-action-group {  
-  border:1rpx solid #e8e8e8;
-  border-radius: 40rpx;
-  overflow: hidden
-}
-.navbar-action_item{
-  padding:6rpx 0;
-  color: #333;
-}
-.navbar-action-group .navbar-action_item{
- border-right: 1rpx solid #e8e8e8;
- padding:6rpx 24rpx;
+  color: white;
 }
