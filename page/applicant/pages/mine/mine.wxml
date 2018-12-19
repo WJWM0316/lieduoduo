@@ -30,10 +30,10 @@
         </view>
       </view>
     </view>
-		<view class="share-resume">发简历</view>
-    <view class="share-resume">立即完善简历 <i class="icon iconfont icon-xiangyou"></i></view>
-    <view class="share-resume">立即登录 <i class="icon iconfont icon-xiangyou"></i></view>
-		<view class="save-resume-pic">保存简历到相册</view>
+		<view class="share-resume" wx:if='{{isComplete}}'>发简历</view>
+    <view class="share-resume" wx:if='{{!isComplete}}'>立即完善简历 <i class="icon iconfont icon-xiangyou"></i></view>
+    <!--<view class="share-resume">立即登录 <i class="icon iconfont icon-xiangyou"></i></view>
+		<view class="save-resume-pic">保存简历到相册</view>-->
 	</view>
   <!-- bottom -->
   <view class="entry-list">
