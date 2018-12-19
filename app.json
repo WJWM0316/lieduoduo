@@ -57,7 +57,8 @@
         "pages/joinUs/joinUs",
         "pages/interview/interview",
         "pages/officeManager/officeManager",
-        "pages/mine/mine"
+        "pages/mine/mine",
+        "pages/interviewHistory/interviewHistory"
       ]
     }
   ],

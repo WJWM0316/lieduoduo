@@ -1,0 +1,5 @@
+<navbar title="面试历史" background="#FFFFFF" color="#22292C"></navbar>
+<scroll-view class="scroll-view_H" scroll-y='true'>
+  <interviewList list="{{companyList}}" list-type="{{tabParentIndex === 2 ? 'interview' : 'default'}}"></interviewList>
+</scroll-view>
+<tab-bar tabType="1"></tab-bar>
