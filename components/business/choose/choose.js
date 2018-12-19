@@ -34,7 +34,8 @@ Component({
     },
     jump0() {
       wx.setStorageSync('choseType', 'RECRUITER')
-      wx.redirectTo({
+      getApp().globalData.identity = 'RECRUITER'
+      wx.reLaunch({
         url: `${RECRUITER}index/index`
       })
     }

@@ -15,6 +15,7 @@ App({
     // this.checkLogin()
   },
   globalData: {
+    identity: 'APPLICAN',
     userInfo: null,
     navHeight: 0,
     cdnImagePath: 'https://attach.lieduoduo.ziwork.com/images',

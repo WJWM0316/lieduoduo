@@ -2,7 +2,7 @@ const app = getApp()
 Page({
   data: {
     cdnImagePath: app.globalData.cdnImagePath,
-    tabParentIndex: 2,
+    tabParentIndex: 0,
     tabChildIndex: null,
     dateList: ['2018年12月17日', '2018年12月16日', '2018年12月30日'],
     tabLists: [

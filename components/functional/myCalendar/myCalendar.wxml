@@ -1,4 +1,4 @@
-<view class="calendar">
+<view class="calendar" wx:if="{{calendarType === 'roll'}}">
   <scroll-view class="wrap" scroll-x style="width: 100%" scroll-left="{{scrollLeft}}px" bindscrolltolower="nextMonth" bindscrolltoupper="prevMonth" upper-threshold lower-threshold>
     <view wx:for="{{list}}" wx:key="{{index}}" class="item {{item.month && !item.day ? 'head' : ''}}">
       <view wx:if="{{item.day}}" bindtap="toggle" data-year="{{item.year}}" data-month="{{item.month}}" data-days="{{item.days}}" class="have {{item.haveView && item.haveViewed ? 'overdue' : ''}} {{item.haveView && !item.haveViewed ? 'noOverdue' : ''}}">
@@ -10,10 +10,16 @@
       </block>
     </view>
   </scroll-view>
-  <view class="open"><view class="icon"></view></view>
+  <text wx:if="{{switchable}}" class="open icon iconfont icon-xiangyou" bindtap="changeType"></text>
 </view>
-
-<view class="newCalendar">
+<view class="newCalendar" wx:if="{{calendarType === 'normal'}}">
+  <view class="calendar-head">
+    <view class="inner">
+      <text class="icon iconfont icon-xiangyou prev" bindtap="prevMonth"></text>
+      <text class="date">{{headYear}}年{{headMonth}}月</text>
+      <text class="icon iconfont icon-xiangyou next" bindtap="nextMonth"></text>
+    </view> 
+  </view>
   <view class="calendar-week">
     <view class="week" wx:for="{{weeks_ch}}" wx:key="{{index}}">{{item}}</view>
   </view>
@@ -22,4 +28,5 @@
       <text class="inner {{item.date === curDate && item.date !== choseDate ? 'curDay' : ''}} {{item.date === choseDate ? 'choseDate' : ''}} {{item.date !== choseDate && item.haveView && item.haveViewed ? 'overdue' : ''}} {{item.date !== choseDate && item.haveView && !item.haveViewed ? 'noOverdue' : ''}}" bindtap="toggle" data-year="{{item.year}}" data-month="{{item.month}}" data-days="{{item.days}}">{{item.day}}</text>
     </view>
   </view>
+  <text wx:if="{{switchable}}" class="open icon iconfont icon-xiangyou up" bindtap="changeType"></text>
 </view>

@@ -3,15 +3,10 @@
  */
 
 // 测试服接口
-let host = ''
-let choseType = wx.getStorageSync('choseType') || null
-if (choseType !== 'APPLICANT') {
-  host = 'https://zhaopin-api.lieduoduo.ziwork.com'
-} else {
-  host = 'https://qiuzhi-api.lieduoduo.ziwork.com'
-}
+export const APPLICANTHOST = 'https://qiuzhi-api.lieduoduo.ziwork.com'
 
-export const baseHost = host
+export const RECRUITERHOST = 'https://zhaopin-api.lieduoduo.ziwork.com'
+
 
 // 内嵌h5基本路径测试服
 export const STATICHOST = 'https://stg.ziwork.com'
@@ -19,8 +14,6 @@ export const STATICHOST = 'https://stg.ziwork.com'
 // 内嵌h5基本路径生产服
 // var staticHost = 'https://light.house.zike.com'
 
-// cdn资源路径
-export const CDNPATH = ''
 
 // 招聘端page
 export const RECRUITER = '/page/recruiter/pages/'

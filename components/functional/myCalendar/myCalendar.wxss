@@ -1,23 +1,20 @@
-/* components/business/myCalendar/myCalendar.wxss */
+@import '../../../iconfont.wxss';
 .calendar {
   position: relative;
 }
-.calendar .open {
+.open {
   position: absolute;
   left: 50%;
-  transform: translateX(-50%);
-  bottom: 9rpx;
+  transform: translateX(-50%) rotate(90deg);
+  bottom: -10rpx;
   padding: 10rpx;
   display: block;
+  font-size: 32rpx;
+  color: #2878FF;
 }
-.calendar .icon {
-  display: block;
-  border-top: 4rpx solid;
-  border-right: 4rpx solid;
-  width: 11rpx;
-  height: 11rpx;
-  border-color: #2878FF;
-  transform: rotate(135deg);
+.open.up {
+  bottom: 9rpx;
+  transform: translateX(-50%) rotate(270deg);
 }
 .calendar .wrap {
   width: 100%;
@@ -99,6 +96,31 @@
 
 .newCalendar {
   background: #fff;
+  padding-bottom: 34rpx;
+  position: relative;
+}
+.calendar-head {
+  width: 100%;
+  height: 86rpx;
+  line-height: 86rpx;
+  padding: 0 210rpx;
+  box-sizing: border-box;
+  color: #2878FF;
+  font-size: 32rpx;
+  font-weight: 700;
+}
+.calendar-head .inner {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.calendar-head .inner .prev {
+  transform: rotate(180deg);
+  font-weight: 500;
+}
+.calendar-head .inner .next {
+  font-weight: 500;
 }
 .calendar-week {
   display: flex;

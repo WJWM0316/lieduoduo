@@ -84,14 +84,18 @@ bindresultevent ： 获取上传结果
 
 **4.myCalendar ----- 自定义日历组件**
 
-+ 传值 
++ 传值
 
-setDateList ： Array类型， 用于标注需要面试的时间
+    + calendarType ： String类型
+      - normal - 常规日历
+      - roll  - 横向滚动日历
 
-**5.calendar ---- 极点日历插件** 
-自己查看文档
+    + switchable ： Boolean类型， 是否需要两种日历相互切换
 
-**6.unloadFile ----- 上传组件**
+    + setDateList ： Array类型， 用于标注需要的日期
+
+
+**5.unloadFile ----- 上传组件**
 
 + 传值 
 

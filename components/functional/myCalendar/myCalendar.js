@@ -10,6 +10,8 @@ let curYear = new Date().getFullYear()
 let curMonth = new Date().getMonth() + 1
 let curDay = new Date().getDate()
 let firstWeek = 0
+let toggleYear = curYear
+let toggleMonth = curMonth
 if (curDay < 10) {
   curDay = `0${curDay}`
 }
@@ -20,8 +22,14 @@ Component({
    */
   properties: {
     setDateList: {
-      type: Array,
-      value: ['2018年12月17日', '2018年12月16日', '2018年12月30日']
+      type: Array
+    },
+    calendarType: {
+      type: String,
+      value: 'normal' // normal 标准日历 ， roll 横向滚动日历,  
+    },
+    switchable: { // 两种日历是否可切换
+      type: Boolean
     }
   },
 
@@ -34,21 +42,20 @@ Component({
     weeks_ch: ['日', '一', '二', '三', '四', '五', '六'],
     choseDate: null,
     list: [],
-    calendarBody: []
+    calendarBody: [],
+    headYear: curYear,
+    headMonth: curMonth,
   },
   attached () {
-    console.log(this.data.setDateList)
-    let systemInfo = getApp().globalData.systemInfo
     let list = this.getThisMonthDays(curYear, curMonth)
-    let calendarBody = list.slice(1)
-    for (let i = 0; i < firstWeek; i++) {
-      calendarBody.unshift('')
-    }
-    // console.log(firstWeek, calendarBody)
+    let systemInfo = getApp().globalData.systemInfo
     itemWidth = 0.14285 * systemInfo.windowWidth
     let scrollLeft = itemWidth * (curDay - 3)
-    this.setData({list, scrollLeft, choseDate: this.data.curDate, calendarBody})
-    console.log(this.data.calendarBody)
+    if (this.data.switchable || this.data.calendarType === 'roll') {
+      this.setData({list, scrollLeft, choseDate: this.data.curDate})
+    } else {
+      this.setData({choseDate: this.data.curDate})
+    }
   },
   /**
    * 组件的方法列表
@@ -60,45 +67,76 @@ Component({
       this.setData({choseDate})
       this.triggerEvent('resultEvent', {year, month, days})
     },
+    changeType () {
+      if (this.data.calendarType === 'roll') {
+        this.setData({
+          calendarType: 'normal'
+        })
+      } else if (this.data.calendarType === 'normal') {
+        this.setData({
+          calendarType: 'roll'
+        })
+      }
+    },
     // 下个月
     nextMonth () {
-      if (!nextMonth) {
-        nextMonth = curMonth
+      if (this.data.calendarType === 'roll') {
+        if (!nextMonth) {
+          nextMonth = curMonth
+        }
+        if (!nextYear) {
+          nextYear = curYear
+        }
+        nextMonth++
+        if (nextMonth > 12) {
+          nextMonth = 1
+          nextYear++
+        }
+        let list = this.getThisMonthDays(nextYear, nextMonth, 'seq')
+        this.setData({list})
+      } else {
+        toggleMonth++
+        if (toggleMonth > 12) {
+          toggleMonth = 1
+          toggleYear++
+        }
+        this.getThisMonthDays(toggleYear, toggleMonth, 'seq')
+        this.setData({headYear: toggleYear, headMonth: toggleMonth})
       }
-      if (!nextYear) {
-        nextYear = curYear
-      }
-      nextMonth++
-      if (nextMonth > 12) {
-        nextMonth = 1
-        nextYear++
-      }
-      let list = this.getThisMonthDays(nextYear, nextMonth, 'seq')
-      this.setData({list})
     },
     // 上个月
     prevMonth () {
-      if (isLoadData) return
-      isLoadData = true
-      if (!prevMonth) {
-        prevMonth = curMonth
+      if (this.data.calendarType === 'roll') {
+        if (isLoadData) return
+        isLoadData = true
+        if (!prevMonth) {
+          prevMonth = curMonth
+        }
+        if (!prevYear) {
+          prevYear = curYear
+        }
+        prevMonth--
+        if (prevMonth === 0) {
+          prevMonth = 12
+          prevYear--
+        }
+        let scrollLeft = itemWidth * 28
+        let list = this.getThisMonthDays(prevYear, prevMonth, 'ord')
+        this.setData({list, scrollLeft}, function() {
+          isLoadData = false
+        })
+      } else {
+        toggleMonth--
+        if (toggleMonth === 0) {
+          toggleMonth = 12
+          toggleYear--
+        }
+        this.getThisMonthDays(toggleYear, toggleMonth, 'ord')
+        this.setData({headYear: toggleYear, headMonth: toggleMonth})
       }
-      if (!prevYear) {
-        prevYear = curYear
-      }
-      prevMonth--
-      if (prevMonth < 0) {
-        prevMonth = 12
-        prevYear--
-      }
-      let scrollLeft = itemWidth * 28
-      let list = this.getThisMonthDays(prevYear, prevMonth, 'ord')
-      this.setData({list, scrollLeft}, function() {
-        isLoadData = false
-      })
     },
     // 获取当月共多少天
-    getThisMonthDays: function(year, month, sort) {
+    getThisMonthDays (year, month, sort) {
       let dayNum = new Date(year, month, 0).getDate()
       let firstDayWeek = this.getFirstDayOfWeek(year, month)
       firstWeek = firstDayWeek
@@ -133,6 +171,14 @@ Component({
         }
         thisMonthlist.push(obj)
       }
+      // 只有nolmal 格式才需要执行
+      if (this.data.switchable || this.data.calendarType === 'normal') {
+        let calendarBody = thisMonthlist.slice(1)
+        for (let i = 0; i < firstWeek; i++) {
+          calendarBody.unshift('')
+        }
+        this.setData({calendarBody})
+      }
       if (sort === 'seq') {
         list = list.concat(thisMonthlist)
       } else {
@@ -141,7 +187,7 @@ Component({
       return list
     },
     // 获取当月第一天星期几
-    getFirstDayOfWeek: function(year, month) {
+    getFirstDayOfWeek (year, month) {
       return new Date(Date.UTC(year, month - 1, 1)).getDay();
     }
   }

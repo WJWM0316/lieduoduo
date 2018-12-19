@@ -1,4 +1,4 @@
-import {baseHost} from '../config.js'
+import {APPLICANTHOST, RECRUITERHOST} from '../config.js'
 
 let loadNum = 0
 let addHttpHead = {}
@@ -8,9 +8,15 @@ if (wx.getStorageSync('sessionToken')) {
 if (wx.getStorageSync('token')) {
   addHttpHead['Authorization'] = wx.getStorageSync('token')
 }
+let BASEHOST = ''
 export const request = ({method = 'post', url, data = {}, needKey = true, hasLoading = true, loadingContent = '加载中...'}) => {
+  console.log(getApp().globalData)
+  if (getApp().globalData.identity === 'APPLICAN') {
+    BASEHOST = APPLICANTHOST
+  } else {
+    BASEHOST = RECRUITERHOST
+  }
   const promise = new Promise((resolve, reject) => {
-    
     // 开启菊花图
     if (hasLoading) {
       if (loadNum === 0) {
@@ -22,7 +28,7 @@ export const request = ({method = 'post', url, data = {}, needKey = true, hasLoa
       loadNum++
     }
     wx.request({
-      url: baseHost+url,
+      url: BASEHOST+url,
       header: addHttpHead,
       data: data,
       method: method,
