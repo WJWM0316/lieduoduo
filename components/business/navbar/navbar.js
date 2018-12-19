@@ -44,10 +44,6 @@ Component({
     //回退
     navBack() {
       wx.navigateBack({delta: 1})
-    },
-    //回主页
-    backToHomepage() {
-      console.log('回到主页')
     }
   }
 })

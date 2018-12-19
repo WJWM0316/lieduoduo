@@ -9,11 +9,12 @@
 		"postcss": true,
 		"minified": true,
 		"newFeature": true,
-		"nodeModules": false,
-		"autoAudits": false
+		"nodeModules": true,
+		"autoAudits": false,
+		"uglifyFileName": true
 	},
 	"compileType": "miniprogram",
-	"libVersion": "2.4.1",
+	"libVersion": "2.4.2",
 	"appid": "wxde5ab3ef647fba86",
 	"projectname": "lieduoduo",
 	"debugOptions": {

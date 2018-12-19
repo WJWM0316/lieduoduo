@@ -9,6 +9,7 @@ let prevYear = 0 // 上个年份保存
 let curYear = new Date().getFullYear()
 let curMonth = new Date().getMonth() + 1
 let curDay = new Date().getDate()
+let firstWeek = 0
 if (curDay < 10) {
   curDay = `0${curDay}`
 }
@@ -19,7 +20,8 @@ Component({
    */
   properties: {
     setDateList: {
-      type: Array
+      type: Array,
+      value: ['2018年12月17日', '2018年12月16日', '2018年12月30日']
     }
   },
 
@@ -32,17 +34,21 @@ Component({
     weeks_ch: ['日', '一', '二', '三', '四', '五', '六'],
     choseDate: null,
     list: [],
-    dayStyle: [
-      { month: 'current', day: new Date().getDate(), background: '#E4EEFF' },
-      { month: 'current', day: 17, background: '#2878FF', color: '#fff' }
-    ],
+    calendarBody: []
   },
   attached () {
+    console.log(this.data.setDateList)
     let systemInfo = getApp().globalData.systemInfo
     let list = this.getThisMonthDays(curYear, curMonth)
+    let calendarBody = list.slice(1)
+    for (let i = 0; i < firstWeek; i++) {
+      calendarBody.unshift('')
+    }
+    // console.log(firstWeek, calendarBody)
     itemWidth = 0.14285 * systemInfo.windowWidth
     let scrollLeft = itemWidth * (curDay - 3)
-    this.setData({list, scrollLeft, choseDate: this.data.curDate})
+    this.setData({list, scrollLeft, choseDate: this.data.curDate, calendarBody})
+    console.log(this.data.calendarBody)
   },
   /**
    * 组件的方法列表
@@ -53,16 +59,6 @@ Component({
       let choseDate = `${year}年${month}月${days}日`
       this.setData({choseDate})
       this.triggerEvent('resultEvent', {year, month, days})
-    },
-    //给点击的日期设置一个背景颜色
-    dayClick: function (event) {
-      let clickDay = event.detail.day;
-      let changeDay = `dayStyle[1].day`;
-      let changeBg = `dayStyle[1].background`;
-      this.setData({
-        [changeDay]: clickDay,
-        [changeBg]: "#84e7d0"
-      })
     },
     // 下个月
     nextMonth () {
@@ -104,7 +100,8 @@ Component({
     // 获取当月共多少天
     getThisMonthDays: function(year, month, sort) {
       let dayNum = new Date(year, month, 0).getDate()
-      let firstDatWeek = this.getFirstDayOfWeek(year, month)
+      let firstDayWeek = this.getFirstDayOfWeek(year, month)
+      firstWeek = firstDayWeek
       let thisMonthlist = [{'month': month}]
       let list = this.data.list
       for(let i = 1; i < dayNum + 1; i++) {
@@ -119,7 +116,7 @@ Component({
           days: j,
           date: `${year}年${month}月${j}日`
         }
-        obj.week = this.data.weeks_ch[firstDatWeek]
+        obj.week = this.data.weeks_ch[firstDayWeek]
         // 标注面试时间
         if (this.data.setDateList.indexOf(obj.date) !== -1) {
           obj.haveView = true
@@ -130,9 +127,9 @@ Component({
             obj.haveViewed = true
           }
         }
-        firstDatWeek++
-        if (firstDatWeek > 6) {
-          firstDatWeek = 0
+        firstDayWeek++
+        if (firstDayWeek > 6) {
+          firstDayWeek = 0
         }
         thisMonthlist.push(obj)
       }

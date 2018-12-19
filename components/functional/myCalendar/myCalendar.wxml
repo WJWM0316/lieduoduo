@@ -10,7 +10,16 @@
       </block>
     </view>
   </scroll-view>
-  <!-- <view class="open"><view class="icon"></view></view> -->
+  <view class="open"><view class="icon"></view></view>
 </view>
-<!-- <calendar class="jidian" calendar-style="bigCalendar"  header-style="calendar-header"  board-style="calendar-board"
- days-color="{{dayStyle}}" weeks-type="cn" show-more-days binddayClick="dayClick" /> -->
+
+<view class="newCalendar">
+  <view class="calendar-week">
+    <view class="week" wx:for="{{weeks_ch}}" wx:key="{{index}}">{{item}}</view>
+  </view>
+  <view class="calendar-body">
+    <view class="day" wx:for="{{calendarBody}}" wx:key="{{index}}">
+      <text class="inner {{item.date === curDate && item.date !== choseDate ? 'curDay' : ''}} {{item.date === choseDate ? 'choseDate' : ''}} {{item.date !== choseDate && item.haveView && item.haveViewed ? 'overdue' : ''}} {{item.date !== choseDate && item.haveView && !item.haveViewed ? 'noOverdue' : ''}}" bindtap="toggle" data-year="{{item.year}}" data-month="{{item.month}}" data-days="{{item.days}}">{{item.day}}</text>
+    </view>
+  </view>
+</view>
