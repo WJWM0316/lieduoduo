@@ -7,7 +7,8 @@
     "page/common/pages/map/map",
     "page/applicant/pages/more/more",
     "page/common/pages/test/test",
-    "page/applicant/pages/recruitmentActive/recruitmentActive"
+    "page/applicant/pages/recruitmentActive/recruitmentActive",
+    "page/applicant/pages/mine/mine"
   ],
   "window": {
     "navigationBarTextStyle": "black",
