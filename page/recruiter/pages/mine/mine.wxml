@@ -9,7 +9,7 @@
 			</view>
 			<view class="img-box"></view>
 		</view>
-		<view class="share-homepage">分享我的主页</view>
+		<view class="share-homepage" bindtap="share">分享我的主页</view>
 		<view class="share-homepage-pic">生成朋友圈分享图</view>
 	</view>
 	<view class="show-off-block">
@@ -65,3 +65,4 @@
 		<view class="li">意见反馈</view>
 	</view>
 </view>
+<tab-bar tabType="1"></tab-bar>
