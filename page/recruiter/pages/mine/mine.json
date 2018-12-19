@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+  	"navbar": "../../../../components/business/navbar/navbar",
+  	"tab-bar": "../../../../components/business/tabBar/tabBar"
+  }
+}

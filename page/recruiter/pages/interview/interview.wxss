@@ -175,3 +175,25 @@
   transform: translateY(-50%) rotate(135deg);
   top:50%;
 }
+
+
+.interview-page-title {
+  overflow: hidden;
+  line-height: 1;
+  margin: 40rpx 32rpx 60rpx 32rpx;
+}
+
+.interview-page-title .text {
+  font-size:32rpx;
+  font-weight:600;
+  color:rgba(53,64,72,1);
+  line-height:32rpx;
+  float: left;
+}
+
+.interview-page-title .button {
+  font-size:28rpx;
+  font-weight:400;
+  color:rgba(40,120,255,1);
+  float: right;
+}

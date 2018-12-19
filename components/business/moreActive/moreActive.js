@@ -11,18 +11,22 @@ Component({
   /**
    * 组件的初始数据
    */
-  data: {
-
-  },
+  data: {},
 
   /**
    * 组件的方法列表
    */
   methods: {
     toMore () {
-      wx.navigateTo({
-        url: "/page/applicant/pages/more/more?type=this.properties.type"
-      })
+      if (this.properties.type === 1) {
+        wx.navigateTo({
+          url: "/page/applicant/pages/more/more"
+        })
+      } else {
+        wx.navigateTo({
+          url: "/page/applicant/pages/recruitmentActive/recruitmentActive"
+        })
+      }
     }
   }
 })

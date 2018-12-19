@@ -1,0 +1,41 @@
+.recruitmentActive{
+  min-height: 100vh;
+}
+.recruitmentActive .tabBar{
+  margin-bottom: 20rpx;
+  height: 88rpx;
+  width: 100%;
+  background-color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.recruitmentActive .tabBar text{
+  font-size: 32rpx;
+  color: #BCBCBC;
+  font-weight: 400;
+  display: inline-block;
+  height: 100%;
+  margin-right: 146rpx;
+  position: relative;
+  line-height: 88rpx;
+}
+.recruitmentActive .tabBar text:nth-of-type(2){
+  margin-right: 0;
+}
+.recruitmentActive .tabBar .active{
+  font-weight: 500;
+  color: #282828;
+}
+.recruitmentActive .tabBar .active::after{
+  width: 50rpx;
+  height: 8rpx;
+  background-color: #2878FF;
+  content: '';
+  display: block;
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.recruitmentActive .companyList{}

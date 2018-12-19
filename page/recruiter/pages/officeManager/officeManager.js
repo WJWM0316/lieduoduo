@@ -1,4 +1,3 @@
-import { getAllDegree } from '../../../../api/recruiter/index.js';
 const app = getApp()
 
 Page({

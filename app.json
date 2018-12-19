@@ -7,7 +7,8 @@
     "page/common/pages/map/map",
     "page/applicant/pages/more/more",
     "page/common/pages/test/test",
-    "page/common/pages/bindPhone/bindPhone"
+    "page/common/pages/bindPhone/bindPhone",
+    "page/applicant/pages/recruitmentActive/recruitmentActive"
   ],
   "window": {
     "navigationBarTextStyle": "black",
@@ -55,7 +56,8 @@
         "pages/index/index",
         "pages/joinUs/joinUs",
         "pages/interview/interview",
-        "pages/officeManager/officeManager"
+        "pages/officeManager/officeManager",
+        "pages/mine/mine"
       ]
     }
   ],
