@@ -20,14 +20,13 @@ Component({
    */
   methods: {
     onGotUserInfo(e) {
-      console.log(e, 1111)
-      let data = {
-        ssToken: wx.getStorageSync('sessionToken'),
-        iv_key: e.detail.iv,
-        data: e.detail.encryptedData
-      }
-      loginApi(data).then(res => {
-        if (res.detail.errMsg === 'getUserInfo:ok') {
+      if (e.detail.errMsg === 'getUserInfo:ok') {
+        let data = {
+          ssToken: wx.getStorageSync('sessionToken'),
+          iv_key: e.detail.iv,
+          data: e.detail.encryptedData
+        }
+        loginApi(data).then(res => {
           // 有token说明已经绑定过用户了
           if (res.data.token) {
             getApp().globalData.userInfo = res.data
@@ -36,9 +35,11 @@ Component({
             wx.reLaunch({
               url: `/${res.data.page}`
             })
+          } else {
+            console.log('用户为绑定')
           }
-        }
-      })
+        })
+      }
     }
   }
 })

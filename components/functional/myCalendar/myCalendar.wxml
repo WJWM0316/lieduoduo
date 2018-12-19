@@ -1,12 +1,16 @@
-<!--components/business/myCalendar/myCalendar.wxml-->
-<scroll-view class="wrap" scroll-x style="width: 100%" scroll-left="{{scrollLeft}}px" bindscrolltolower="nextMonth" bindscrolltoupper="prevMonth" bindscroll="scroll" upper-threshold lower-threshold>
-  <view wx:for="{{list}}" wx:key="{{index}}" class="item {{item.month && !item.day ? 'head' : ''}} {{index === list.length - 1 ? 'last': ''}}">
-    <block wx:if="{{item.day}}">
-      <view class="week">{{item.week}}</view>
-      <view class="day {{item.day === day && item.month === month ? 'curDay' : ''}}">{{item.day}}</view>
-    </block>
-    <block wx:else>
-      <view class="month">{{item.month}}月</view>
-    </block>
-  </view>
-</scroll-view>
+<view class="calendar">
+  <scroll-view class="wrap" scroll-x style="width: 100%" scroll-left="{{scrollLeft}}px" bindscrolltolower="nextMonth" bindscrolltoupper="prevMonth" upper-threshold lower-threshold>
+    <view wx:for="{{list}}" wx:key="{{index}}" class="item {{item.month && !item.day ? 'head' : ''}}">
+      <view wx:if="{{item.day}}" bindtap="toggle" data-year="{{item.year}}" data-month="{{item.month}}" data-days="{{item.days}}" class="have {{item.haveView && item.haveViewed ? 'overdue' : ''}} {{item.haveView && !item.haveViewed ? 'noOverdue' : ''}}">
+        <view class="week">{{item.week}}</view>
+        <view class="day {{item.date === curDate && item.date !== choseDate ? 'curDay' : ''}} {{item.date === choseDate ? 'choseDate' : ''}}">{{item.day}}</view>
+      </view>
+      <block wx:else>
+        <view class="month">{{item.month}}月</view>
+      </block>
+    </view>
+  </scroll-view>
+  <!-- <view class="open"><view class="icon"></view></view> -->
+</view>
+<!-- <calendar class="jidian" calendar-style="bigCalendar"  header-style="calendar-header"  board-style="calendar-board"
+ days-color="{{dayStyle}}" weeks-type="cn" show-more-days binddayClick="dayClick" /> -->

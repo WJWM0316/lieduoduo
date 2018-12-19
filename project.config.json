@@ -77,15 +77,16 @@
 					"query": ""
 				},
 				{
-					"id": -1,
-					"name": "面试",
-					"pathName": "page/applicant/pages/interview/interview",
+					"id": 6,
+					"name": "绑定手机",
+					"pathName": "page/common/pages/bindPhone/bindPhone",
 					"query": ""
 				},
 				{
 					"id": -1,
 					"name": "interview",
-					"pathName": "page/recruiter/pages/interview/interview"
+					"pathName": "page/recruiter/pages/interview/interview",
+					"query": ""
 				}
 			]
 		}

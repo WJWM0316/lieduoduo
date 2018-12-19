@@ -6,7 +6,8 @@
     "page/common/pages/cutInside/cutInside",
     "page/common/pages/map/map",
     "page/applicant/pages/more/more",
-    "page/common/pages/test/test"
+    "page/common/pages/test/test",
+    "page/common/pages/bindPhone/bindPhone"
   ],
   "window": {
     "navigationBarTextStyle": "black",

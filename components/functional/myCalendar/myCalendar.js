@@ -6,8 +6,14 @@ let nextMonth = 0 // 下个月份保存
 let prevMonth = 0 // 上个月份保存
 let nextYear = 0 // 下个年份保存
 let prevYear = 0 // 上个年份保存
+let curYear = new Date().getFullYear()
+let curMonth = new Date().getMonth() + 1
+let curDay = new Date().getDate()
+if (curDay < 10) {
+  curDay = `0${curDay}`
+}
 Component({
-  externalClasses: ['myCalendar'],
+  externalClasses: ['myCalendar', 'jidian'],
   /**
    * 组件的属性列表
    */
@@ -22,31 +28,49 @@ Component({
    */
   data: {
     scrollLeft: 0,
+    curDate: `${curYear}年${curMonth}月${curDay}日`,
     weeks_ch: ['日', '一', '二', '三', '四', '五', '六'],
-    date: new Date(),
-    year: new Date().getFullYear(),
-    month: new Date().getMonth() + 1,
-    day: new Date().getDate(),
-    list: []
+    choseDate: null,
+    list: [],
+    dayStyle: [
+      { month: 'current', day: new Date().getDate(), background: '#E4EEFF' },
+      { month: 'current', day: 17, background: '#2878FF', color: '#fff' }
+    ],
   },
   attached () {
     let systemInfo = getApp().globalData.systemInfo
-    let list = this.getThisMonthDays(this.data.year, this.data.month)
+    let list = this.getThisMonthDays(curYear, curMonth)
     itemWidth = 0.14285 * systemInfo.windowWidth
-    let scrollLeft = itemWidth * (this.data.day - 3)
-    this.setData({list, scrollLeft})
+    let scrollLeft = itemWidth * (curDay - 3)
+    this.setData({list, scrollLeft, choseDate: this.data.curDate})
   },
   /**
    * 组件的方法列表
    */
   methods: {
+    toggle (e) {
+      let { year, month, days } = e.currentTarget.dataset
+      let choseDate = `${year}年${month}月${days}日`
+      this.setData({choseDate})
+      this.triggerEvent('resultEvent', {year, month, days})
+    },
+    //给点击的日期设置一个背景颜色
+    dayClick: function (event) {
+      let clickDay = event.detail.day;
+      let changeDay = `dayStyle[1].day`;
+      let changeBg = `dayStyle[1].background`;
+      this.setData({
+        [changeDay]: clickDay,
+        [changeBg]: "#84e7d0"
+      })
+    },
     // 下个月
     nextMonth () {
       if (!nextMonth) {
-        nextMonth = this.data.month
+        nextMonth = curMonth
       }
       if (!nextYear) {
-        nextYear = this.data.year
+        nextYear = curYear
       }
       nextMonth++
       if (nextMonth > 12) {
@@ -61,10 +85,10 @@ Component({
       if (isLoadData) return
       isLoadData = true
       if (!prevMonth) {
-        prevMonth = this.data.month
+        prevMonth = curMonth
       }
       if (!prevYear) {
-        prevYear = this.data.year
+        prevYear = curYear
       }
       prevMonth--
       if (prevMonth < 0) {
@@ -84,13 +108,28 @@ Component({
       let thisMonthlist = [{'month': month}]
       let list = this.data.list
       for(let i = 1; i < dayNum + 1; i++) {
+        let j = i
+        if (j < 10) {
+          j = `0${j}`
+        }
         let obj = {
           year,
           month,
           day: i,
-          date: `${year}年${month}月${i}日`
+          days: j,
+          date: `${year}年${month}月${j}日`
         }
         obj.week = this.data.weeks_ch[firstDatWeek]
+        // 标注面试时间
+        if (this.data.setDateList.indexOf(obj.date) !== -1) {
+          obj.haveView = true
+          // 已过期的面试时间
+          let curTime = `${curYear}/${curMonth}/${curDay}`
+          let objTime = `${obj.year}/${obj.month}/${obj.days}`
+          if (new Date(curTime).getTime() > new Date(objTime).getTime()) {
+            obj.haveViewed = true
+          }
+        }
         firstDatWeek++
         if (firstDatWeek > 6) {
           firstDatWeek = 0
