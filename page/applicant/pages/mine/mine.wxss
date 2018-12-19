@@ -112,6 +112,11 @@
   box-sizing: border-box;
   overflow: hidden;
 }
+.mine .floating-box i{
+  font-size: 28rpx;
+  width: 28rpx;
+  height: 28rpx;
+}
 
 /* 保存简历到相册按钮 */
 .mine .floating-box .save-resume-pic {
@@ -218,6 +223,6 @@
 }
 
 .entry-list .arrow-box i{
-  transform: rotate(-90deg);
+  font-size: 30rpx;
   margin-right: 40rpx;
 }

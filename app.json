@@ -43,7 +43,7 @@
         "selectedIconPath": "images/tab_interview_sel@3x.png"
       },
       {
-        "pagePath": "page/applicant/pages/index/index",
+        "pagePath": "page/applicant/pages/mine/mine",
         "text": "我的",
         "iconPath": "images/tab_me_nor@3x.png",
         "selectedIconPath": "images/tab_me_sel@3x.png"
