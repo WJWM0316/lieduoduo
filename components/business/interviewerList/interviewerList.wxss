@@ -2,6 +2,7 @@
 
 .interviewer-list-ul {
 	overflow: hidden;
+	background:rgba(250,252,255,1);
 }
 
 .interviewer-list-ul .li {

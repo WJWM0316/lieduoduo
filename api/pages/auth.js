@@ -24,3 +24,19 @@ export const testLoginApi = data => {
   })
 }
 
+export const sendCodeApi = data => {
+  return request({
+    method: 'post',
+    url: '/bind/sendMessage',
+    data
+  })
+}
+
+export const bindPhoneApi = data => {
+  return request({
+    method: 'post',
+    url: '/bind/register',
+    data
+  })
+}
+

@@ -77,9 +77,9 @@
 					"query": ""
 				},
 				{
-					"id": -1,
-					"name": "面试",
-					"pathName": "page/applicant/pages/interview/interview",
+					"id": 6,
+					"name": "绑定手机",
+					"pathName": "page/common/pages/bindPhone/bindPhone",
 					"query": ""
 				},
 				{
@@ -102,9 +102,21 @@
 				},
 				{
 					"id": -1,
+					"name": "index-1",
+					"pathName": "page/recruiter/pages/index/index",
+					"query": ""
+				},
+				{
+					"id": -1,
 					"name": "more",
 					"pathName": "page/applicant/pages/more/more",
 					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "interviewHistory",
+					"query": "",
+					"pathName": "page/recruiter/pages/interviewHistory/interviewHistory"
 				}
 			]
 		}

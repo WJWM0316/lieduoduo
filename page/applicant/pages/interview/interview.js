@@ -4,6 +4,7 @@ Page({
     cdnImagePath: app.globalData.cdnImagePath,
     tabParentIndex: 2,
     tabChildIndex: null,
+    dateList: ['2018年12月17日', '2018年12月16日', '2018年12月30日'],
     tabLists: [
       {
         id: 'apply',
@@ -128,6 +129,9 @@ Page({
         status: 0
       }
     ]
+  },
+  getResult(e) {
+    console.log(e)
   },
   chooseParentTab(e) {
     const params = e.currentTarget.dataset

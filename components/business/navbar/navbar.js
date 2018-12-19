@@ -4,14 +4,18 @@ Component({
   options: {
     addGlobalClass: true,
   },
-  /**
-   * 组件的属性列表
-   */
   properties: {
-    title:String,
-    showNav:{
-      type:Boolean,
+    title: {
+      type: String,
+      value: '猎多多'
+    },
+    showNav: {
+      type: Boolean,
       value:true
+    },
+    showBackBtn: {
+      type: Boolean,
+      value: false
     },
     showHome: {
       type: Boolean,
@@ -25,13 +29,6 @@ Component({
       type: String,
       value: 'white'
     }
-  },
-
-  /**
-   * 组件的初始数据
-   */
-  data: {
-   
   },
   lifetimes: {
     attached() {

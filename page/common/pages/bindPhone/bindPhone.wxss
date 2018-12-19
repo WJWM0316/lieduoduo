@@ -1,0 +1,6 @@
+/* page/common/pages/bindPhone/bindPhone.wxss */
+.bindPhone input {
+  width: 600rpx;
+  height: 100rpx;
+  border: 1rpx solid #000;
+}

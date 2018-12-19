@@ -123,6 +123,12 @@ Page({
       }
     ]
   },
+  // 查看面试历史
+  jumpInterviewPage(e) {
+    wx.navigateTo({
+      url: '/page/recruiter/pages/interviewHistory/interviewHistory'
+    })
+  },
   changeCompanyLists(e) {
     let pageList = e.currentTarget.dataset.pageList
     this.setData({ pageList })

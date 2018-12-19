@@ -82,3 +82,7 @@
   opacity: 1;
   visibility: visible;
 }
+
+.scroll-view_H {
+  height: 65vh;
+}

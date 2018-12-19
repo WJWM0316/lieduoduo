@@ -33,7 +33,6 @@ Page({
   },
   onLoad: function () {
     getApp().checkLogin().then(res => {
-      getUserInfoApi()
       this.setData({userInfo: res})
     })
     let choseType = wx.getStorageSync('choseType') || null

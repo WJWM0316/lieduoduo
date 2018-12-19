@@ -14,22 +14,22 @@
 	</view>
 	<view class="select-box" wx:if="{{tabParentIndex !== 2}}">
 		<view class="item">
-			<picker value="{{ item }}" range="{{tabLists[tabParentIndex].statusList}}" bindchange="bindChange" data-type="status">
+			<picker range="{{tabLists[tabParentIndex].statusList}}" bindchange="bindChange" data-type="status">
 		    <view class="picker">{{tabLists[tabParentIndex].statusList[tabLists[tabParentIndex].statusIndex]}} </view>
-		    <view class="arrow"></view>
+		    <i class="icon iconfont icon-zhishibiao"></i>
 		  </picker>
 		</view>
 		<view class="item">
-			<picker value="{{ item }}" range="{{tabLists[tabParentIndex].officeLists}}" bindchange="bindChange" data-type="office">
+			<picker range="{{tabLists[tabParentIndex].officeLists}}" bindchange="bindChange" data-type="office">
 		    <view class="picker">{{tabLists[tabParentIndex].officeLists[tabLists[tabParentIndex].officeIndex]}} </view>
-		    <view class="arrow"></view>
+		    <i class="icon iconfont icon-zhishibiao"></i>
 		  </picker>
 		</view>
 	</view>
 	<myCalendar  wx:if="{{tabParentIndex === 2}}"></myCalendar>
 	<view class="interview-page-title" wx:if="{{tabParentIndex === 2}}">
 		<view class="text">面试安排（0）</view>
-		<view class="button">面试历史</view>
+		<view class="button" bindtap="jumpInterviewPage">面试历史</view>
 	</view>
 	<interviewerList
 		list="{{companyList}}"
