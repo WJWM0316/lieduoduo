@@ -8,9 +8,7 @@
 			<view class="li {{pageList === 'mySeen' ? 'active' : ''}}" bindtap="changeCompanyLists" data-page-list="mySeen">看过我的</view>
 			<view class="li {{pageList === 'myInterested' ? 'active' : ''}}" bindtap="changeCompanyLists" data-page-list="myInterested">对我感兴趣</view>
 		</view>
-		<scroll-view class="scroll-view_H" scroll-y='true'>
-			<interviewerList list="{{companyList}}"></interviewerList>
-		</scroll-view>
+		<interviewerList list="{{companyList}}"></interviewerList>
 	</view>
   <tab-bar tabType="1"></tab-bar>
 </view>

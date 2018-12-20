@@ -66,7 +66,7 @@ Component({
         selectIcon: '',
         active: false,
         iconfont: 'icon-zhiyejihui',
-        path: `${RECRUITER}officeManager/officeManager`
+        path: `${RECRUITER}office/office`
       },
       {
         title: '我的',
