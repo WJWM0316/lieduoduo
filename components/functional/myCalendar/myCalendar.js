@@ -30,6 +30,10 @@ Component({
     },
     switchable: { // 两种日历是否可切换
       type: Boolean
+    },
+    isClick: { // 是否可以点击日期
+      type: Boolean,
+      value: true
     }
   },
 
@@ -62,6 +66,7 @@ Component({
    */
   methods: {
     toggle (e) {
+      if (!this.data.isClick) return
       let { year, month, days } = e.currentTarget.dataset
       let choseDate = `${year}年${month}月${days}日`
       this.setData({choseDate})

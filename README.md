@@ -94,6 +94,9 @@ bindresultevent ： 获取上传结果
 
     + setDateList ： Array类型， 用于标注需要的日期
 
+    + isClick : Boolean类型， 是否可以点击选择日期， 默认值true
+
++ 自定义方法 bindresultEvent  获取选择日期的结果 
 
 **5.unloadFile ----- 上传组件**
 
