@@ -1,0 +1,60 @@
+<!--完善简历第一步-->
+<navbar title="完善简历第三步" background="#2878FF"></navbar>
+<view bindTab="send">完善简历第三步</view>
+<view>
+  <form bindsubmit="formSubmit" bindreset="formReset">
+    <view class="school">
+      <view class="section__title">学校</view>
+      <input name="school" placeholder="学校" />
+    </view>
+    <view class="major">
+      <view class="section__title">专业</view>
+      <input name="major" placeholder="专业" />
+    </view>
+    <view class="degree">
+      <view class="section__title">学历</view>
+      <radio-group name="degree">
+        <label>
+          <radio value="5" />
+          初中及以下
+        </label>
+        <label>
+          <radio value="10" />
+          中专/中技
+        </label>
+        <label>
+          <radio value="15" />
+          高中
+        </label>
+        <label>
+          <radio value="20" />
+          大专
+        </label>
+        <label>
+          <radio value="25" />
+          本科
+        </label>
+        <label>
+          <radio value="30" />
+          硕士
+        </label>
+        <label>
+          <radio value="35" />
+          博士
+        </label>
+      </radio-group>
+    </view>
+    <view class="startTime">
+      <view class="section__title">开始时间</view>
+      <input name="startTime" value="20181111" placeholder="开始时间" />
+    </view>
+    <view class="endTime">
+      <view class="section__title">结束时间</view>
+      <input name="endTime" value="20181212" placeholder="结束时间" />
+    </view>
+    <view class="btn-area">
+      <button formType="submit">Submit</button>
+      <button formType="reset">Reset</button>
+    </view>
+  </form>
+</view>

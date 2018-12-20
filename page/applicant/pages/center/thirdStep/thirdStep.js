@@ -1,28 +1,21 @@
-// page/common/pages/test/test.js
-import {testLoginApi} from '../../../../api/pages/auth.js'
+// page/applicant/pages/center/thirdStep/thirdStep.js
+import { postThirdStepApi } from '../../../../../api/pages/center'
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
+
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    let data = {
-      email: 18520287895,
-      password: 123456
-    }
-    testLoginApi(data).then(res => {
-      wx.setStorageSync('token', res.data.token)
-    })
+
   },
-  getResult: (e) => {
-    console.log(e, 1111111)
-  },
+
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
@@ -70,5 +63,13 @@ Page({
    */
   onShareAppMessage: function () {
 
+  },
+  
+  formSubmit (e) {
+    postThirdStepApi(e.detail.value).then(res => {
+      console.log('完善简历成功')
+    }).catch (err => {
+      console.log(err, '88888888888888888')
+    })
   }
 })

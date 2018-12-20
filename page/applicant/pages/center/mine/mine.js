@@ -1,5 +1,5 @@
 // page/applicant/pages/mine/mine.js
-import { getBaseInfoApi } from '../../../../../api/pages/center'
+import { getBaseInfoApi, getResumeStepApi, getMyInfoApi } from '../../../../../api/pages/center'
 Page({
 
   /**
@@ -7,14 +7,28 @@ Page({
    */
   data: {
     isComplete: false,
-    isLogin: true
+    isLogin: true,
+    myInfo: {}
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+     getMyInfoApi().then(res => {
+      this.setData({
+        isComplete: true,
+        myInfo: res.data
+      })
+    }).catch(err => {
+      // 为完善简历
+      if (err.code === 701) {
+        this.setData({
+          isComplete: false
+        })
+        this.init()
+      }
+    })
   },
 
   /**
@@ -28,23 +42,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    getBaseInfoApi().then(res => {
-      console.log(res, '请求成功')
-      this.setData({
-        isComplete: true
-      })
-    }).catch(err => {
-      console.log(err.code, '失败状态')
-      if (err.code === 701) {
-        this.setData({
-          isComplete: false
-        })
-      } else if (err.code === 901) {
-        this.setData({
-          isLogin: false
-        })
-      }
-    })
+   
   },
 
   /**
@@ -80,5 +78,33 @@ Page({
    */
   onShareAppMessage: function () {
 
+  },
+  
+  init () {
+    getResumeStepApi().then(res => {
+      console.log(res, '5555555555555555')
+    })
+  },
+  /* 去完善简历 */
+  completeResume () {
+    getResumeStepApi().then(res => {
+      if (!res.data.isFinished) {
+        let step = ''
+        switch (res.data.step){
+          case 2:
+            step = '/page/applicant/pages/center/secondStep/secondStep'
+            break;
+          case 3:
+            step = '/page/applicant/pages/center/thirdStep/thirdStep'
+            break;
+          default : 
+            step = '/page/applicant/pages/center/firstStep/firstStep'
+            break;
+        }
+        wx.navigateTo({
+          url: step
+        })
+      }
+    })
   }
 })

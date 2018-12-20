@@ -10,7 +10,11 @@
     "page/applicant/pages/officerActive/recruitmentActive/recruitmentActive",
     "page/applicant/pages/center/mine/mine",
     "page/common/pages/bindPhone/bindPhone",
-    "page/common/pages/auth/auth"
+    "page/common/pages/auth/auth",
+    "page/applicant/pages/center/beResume/beResume",
+    "page/applicant/pages/center/firstStep/fitstStep",
+    "page/applicant/pages/center/secondStep/secondStep",
+    "page/applicant/pages/center/thirdStep/thirdStep"
   ],
   "window": {
     "navigationBarTextStyle": "black",

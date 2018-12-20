@@ -1,0 +1,31 @@
+<!--完善简历第一步-->
+<navbar title="完善简历第二步" background="#2878FF"></navbar>
+<view bindTab="send">完善简历第二步</view>
+<view>
+  <form bindsubmit="formSubmit" bindreset="formReset">
+    <view class="company">
+      <view class="section__title">公司名称</view>
+      <input name="company" placeholder="公司名称" />
+    </view>
+    <view class="positionType">
+      <view class="section__title">职位类型</view>
+      <input name="positionType" placeholder="职位类型" />
+    </view>
+    <view class="duty">
+      <view class="section__title">工作内容</view>
+      <input name="duty" placeholder="工作内容" />
+    </view>
+    <view class="startTime">
+      <view class="section__title">开始时间</view>
+      <input name="startTime" placeholder="开始时间" />
+    </view>
+    <view class="endTime">
+      <view class="section__title">结束时间</view>
+      <input name="endTime" placeholder="结束时间" />
+    </view>
+    <view class="btn-area">
+      <button formType="submit">Submit</button>
+      <button formType="reset">Reset</button>
+    </view>
+  </form>
+</view>
