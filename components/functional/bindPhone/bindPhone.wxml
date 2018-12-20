@@ -11,5 +11,3 @@
   </view>
   <button bindtap="bindPhone">绑定</button>
 </view>
-<!--components/functional/bindPhone/bindPhone.wxml-->
-<text>components/functional/bindPhone/bindPhone.wxml</text>

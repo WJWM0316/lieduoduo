@@ -30,14 +30,15 @@ Component({
           // 有token说明已经绑定过用户了
           if (res.data.token) {
             getApp().globalData.userInfo = res.data
+            getApp().globalData.hasLogin = true
             wx.setStorageSync('token', res.data.token)
             wx.removeStorageSync('sessionToken')
-            getApp().globalData.hasLogin = true
+            console.log('用户已认证')
             wx.reLaunch({
               url: `/${res.data.page}`
             })
           } else {
-            console.log('用户为绑定')
+            console.log('用户未绑定手机号')
           }
         })
       }

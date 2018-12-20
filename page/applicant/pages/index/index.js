@@ -10,6 +10,7 @@ Page({
     pageList: 'mySeen',
     choseType: wx.getStorageSync('choseType') || null,
     userInfo: null,
+    needLogin: false,
     companyList: [
       {
         id: 1,
