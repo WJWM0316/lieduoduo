@@ -126,7 +126,7 @@ Page({
   // 查看面试历史
   jumpInterviewPage(e) {
     wx.navigateTo({
-      url: '/page/recruiter/pages/interviewHistory/interviewHistory'
+      url: '/page/recruiter/pages/interview/history/history'
     })
   },
   changeCompanyLists(e) {

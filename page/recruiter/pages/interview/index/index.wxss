@@ -1,4 +1,4 @@
-@import '../../../../iconfont.wxss';
+@import '../../../../../iconfont.wxss';
 
 .recruiter-index .index-bannar image {
   width: 100%;
