@@ -22,9 +22,9 @@
         <view class='headIMg {{index === 1? "first" : ""}}'>
           <image></image>
           <view class='icon'>
-            <image wx:if="{{index === 1}}" src="../../../images/icon_no1.png" />
-            <image wx:if="{{index === 2}}" src="../../../images/icon_no2.png" />
-            <image wx:if="{{index === 3}}" src="../../../images/icon_no3.png" />
+            <image wx:if="{{index === 1}}" src="../../../../../images/icon_no1.png" />
+            <image wx:if="{{index === 2}}" src="../../../../../images/icon_no2.png" />
+            <image wx:if="{{index === 3}}" src="../../../../../images/icon_no3.png" />
           </view>
         </view>
         <text class='name'>张文杰</text>
@@ -39,7 +39,7 @@
         <view class='headIMg'>
           <image></image>
           <view class='icon'>
-            <image src="../../../../images/icon_no2.png" />
+            <image src="../../../../../images/icon_no2.png" />
           </view>
         </view>
         <text class='name'>张文杰</text>
@@ -54,7 +54,7 @@
         <view class='headIMg first'>
           <image></image>
           <view class='icon'>
-            <image src="../../../../images/icon_no1.png" />
+            <image src="../../../../../images/icon_no1.png" />
           </view>
         </view>
         <text class='name'>张文杰</text>
@@ -69,7 +69,7 @@
         <view class='headIMg'>
           <image></image>
           <view class='icon'>
-            <image src="../../../../images/icon_no3.png" />
+            <image src="../../../../../images/icon_no3.png" />
           </view>
         </view>
         <text class='name'>张文杰</text>

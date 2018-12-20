@@ -39,7 +39,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 10,
+			"current": 9,
 			"list": [
 				{
 					"id": 0,
@@ -66,9 +66,9 @@
 					"query": ""
 				},
 				{
-					"id": -1,
+					"id": 4,
 					"name": "job",
-					"pathName": "page/applicant/pages/job/job",
+					"pathName": "page/applicant/pages/jobs/job/job",
 					"query": ""
 				},
 				{
@@ -96,9 +96,9 @@
 					"query": ""
 				},
 				{
-					"id": -1,
+					"id": 9,
 					"name": "求职者个人中心",
-					"pathName": "page/applicant/pages/mine/mine",
+					"pathName": "page/applicant/pages/center/mine/mine",
 					"query": ""
 				},
 				{
@@ -108,16 +108,16 @@
 					"query": ""
 				},
 				{
-					"id": -1,
+					"id": 11,
 					"name": "more",
-					"pathName": "page/applicant/pages/more/more",
+					"pathName": "page/applicant/pages/moreNews/more/more",
 					"query": ""
 				},
 				{
 					"id": -1,
 					"name": "interviewHistory",
-					"query": "",
-					"pathName": "page/recruiter/pages/interviewHistory/interviewHistory"
+					"pathName": "page/recruiter/pages/interviewHistory/interviewHistory",
+					"query": ""
 				}
 			]
 		}

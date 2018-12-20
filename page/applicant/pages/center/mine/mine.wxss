@@ -1,4 +1,4 @@
-@import '../../../../iconfont.wxss';
+@import '../../../../../iconfont.wxss';
 .mine .header-bg{
   height: 414rpx;
   width: 100%;

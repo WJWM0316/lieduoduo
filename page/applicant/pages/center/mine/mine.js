@@ -1,12 +1,13 @@
 // page/applicant/pages/mine/mine.js
-import { getBaseInfoApi } from '../../../../api/pages/center'
+import { getBaseInfoApi } from '../../../../../api/pages/center'
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    isComplete: false
+    isComplete: false,
+    isLogin: true
   },
 
   /**
@@ -37,6 +38,10 @@ Page({
       if (err.code === 701) {
         this.setData({
           isComplete: false
+        })
+      } else if (err.code === 901) {
+        this.setData({
+          isLogin: false
         })
       }
     })
