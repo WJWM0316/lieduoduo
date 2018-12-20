@@ -40,6 +40,7 @@ App({
                 if (this.userInfoReadyCallback) {
                   this.userInfoReadyCallback(res)
                 }
+                console.log('用户已授权', res.userInfo)
                 resolve(res.userInfo)
               }
             })
@@ -60,8 +61,9 @@ App({
                   page: pageUrl
                 }
                 getSessionKeyApi(getSessionKeyParams).then(res => {
-                  console.log('用户还未授权,require:获取sessionkey成功')
+                  console.log('用户未授权,获取sessionkey成功', res.data.sessionToken)
                   wx.setStorageSync('sessionToken', res.data.sessionToken)
+                  resolve(res)
                 })
               },
               fail: function (e) {

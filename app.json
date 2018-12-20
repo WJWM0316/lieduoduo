@@ -9,7 +9,8 @@
     "page/common/pages/test/test",
     "page/applicant/pages/recruitmentActive/recruitmentActive",
     "page/applicant/pages/mine/mine",
-    "page/common/pages/bindPhone/bindPhone"
+    "page/common/pages/bindPhone/bindPhone",
+    "page/common/pages/auth/auth"
   ],
   "window": {
     "navigationBarTextStyle": "black",

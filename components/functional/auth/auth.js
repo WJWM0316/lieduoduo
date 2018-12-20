@@ -32,6 +32,7 @@ Component({
             getApp().globalData.userInfo = res.data
             wx.setStorageSync('token', res.data.token)
             wx.removeStorageSync('sessionToken')
+            getApp().globalData.hasLogin = true
             wx.reLaunch({
               url: `/${res.data.page}`
             })

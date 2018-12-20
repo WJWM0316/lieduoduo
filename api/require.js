@@ -1,4 +1,4 @@
-import {APPLICANTHOST, RECRUITERHOST} from '../config.js'
+import {APPLICANTHOST, RECRUITERHOST, COMMON} from '../config.js'
 
 let loadNum = 0
 let addHttpHead = {}
@@ -10,7 +10,6 @@ if (wx.getStorageSync('token')) {
 }
 let BASEHOST = ''
 export const request = ({method = 'post', url, data = {}, needKey = true, hasLoading = true, loadingContent = '加载中...'}) => {
-  console.log(getApp().globalData)
   if (getApp().globalData.identity === 'APPLICAN') {
     BASEHOST = APPLICANTHOST
   } else {
@@ -52,6 +51,18 @@ export const request = ({method = 'post', url, data = {}, needKey = true, hasLoa
               break
             case 401:
               wx.removeStorageSync('token')
+              // 需要用到token， 需要绑定手机号
+              if (msg.code === 901) {
+                wx.navigateTo({
+                  url: `${COMMON}bindPhone/bindPhone`
+                })
+              }
+              // 需要用到微信token， 需要授权
+              if (msg.code === 902) {
+                wx.navigateTo({
+                  url: `${COMMON}auth/auth`
+                })
+              }
               break
           }
         }
