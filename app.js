@@ -15,12 +15,14 @@ App({
     // this.checkLogin()
   },
   globalData: {
-    identity: 'APPLICAN',
-    userInfo: null,
+    identity: 'APPLICAN', // 身份标识
+    hasLogin: false, // 判断是否登录
+    userInfo: null, // 用户信息， 判断是否授权
     navHeight: 0,
     cdnImagePath: 'https://attach.lieduoduo.ziwork.com/images',
-    systemInfo: wx.getSystemInfoSync()
+    systemInfo: wx.getSystemInfoSync() // 系统信息
   },
+  // 检查登录
   checkLogin () {
     return new Promise((resolve, reject) => {
       if (this.globalData.userInfo) {

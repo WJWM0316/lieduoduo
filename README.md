@@ -34,6 +34,41 @@
 > utils 各类js封装文件夹
 >
 
+### 授权登录说明
+该小程序授权跟登录分开两个概念:
+1、授权只可浏览，自读访问接口，无法编辑， 后端只返回 weChat token
+2、登录即绑定了手机号，已经成为我们的用户，可正常使用， 后端返回token, token的作用大于weChat token, 有了token就不需要weChat token
+
+在入口页面引入auth组件， 进行授权， 注意要在onload或者onshow里调用checkLogin  回调回来再做操作
+``` javascript  
+getApp().checkLogin().then(res => {
+   console.log(res) // 数据请求返回用户信息之后再发送请求
+})
+```
+需要认证的操作 需要先判断 是否是认证用户， 判断一下globalData里的hasLogin是否为true即可
+``` javascript  
+if (getApp().globalData.hasLogin) {
+    // 是认证用户
+} else {
+    // 不是认证用户 调用 bindPhone组件来绑定手机号认证
+}
+```
+### config 配置文件说明
+ps: 主要用来配置小程序需要的一些公共变量以及api host, 开发需要的页面路径尽量使用config定义的字段
+
+### app.js 文件说明
+``` javascript
+globalData: {
+    identity: 'APPLICAN', // 身份标识
+    hasLogin: false, // 判断是否登录
+    userInfo: null, // 用户信息， 判断是否授权
+    navHeight: 0,
+    cdnImagePath: 'https://attach.lieduoduo.ziwork.com/images',
+    systemInfo: wx.getSystemInfoSync() // 系统信息
+}
+```
+
+
 ### 组件使用
 **1.auth ----- 授权组件**
 在需要授权的页面引入授权组件，需要在onLoad里写上以前代码，在授权回调那里请求页面数据
