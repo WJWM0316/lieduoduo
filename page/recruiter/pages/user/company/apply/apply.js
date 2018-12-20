@@ -1,5 +1,5 @@
-import { applyCompanyApi } from '../../../../../api/pages/certification.js'
-import {realNameReg, emailReg, positionReg} from '../../../../../utils/fieldRegular.js'
+import { applyCompanyApi } from '../../../../../../api/pages/certification.js'
+import {realNameReg, emailReg, positionReg} from '../../../../../../utils/fieldRegular.js'
 
 const app = getApp()
 

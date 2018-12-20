@@ -39,7 +39,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 9,
+			"current": -1,
 			"list": [
 				{
 					"id": 0,
@@ -51,12 +51,6 @@
 					"id": -1,
 					"name": "地图",
 					"pathName": "page/common/pages/map/map",
-					"query": ""
-				},
-				{
-					"id": 2,
-					"name": "joinUs",
-					"pathName": "page/recruiter/pages/joinUs/joinUs",
 					"query": ""
 				},
 				{
@@ -72,51 +66,15 @@
 					"query": ""
 				},
 				{
-					"id": 5,
-					"name": "recruitmentActive",
-					"pathName": "page/applicant/pages/recruitmentActive/recruitmentActive",
-					"query": ""
-				},
-				{
 					"id": 6,
 					"name": "绑定手机",
 					"pathName": "page/common/pages/bindPhone/bindPhone",
 					"query": ""
 				},
 				{
-					"id": -1,
-					"name": "interview",
-					"pathName": "page/recruiter/pages/interview/interview",
-					"query": ""
-				},
-				{
-					"id": -1,
-					"name": "mine",
-					"pathName": "page/recruiter/pages/mine/mine",
-					"query": ""
-				},
-				{
 					"id": 9,
 					"name": "求职者个人中心",
 					"pathName": "page/applicant/pages/center/mine/mine",
-					"query": ""
-				},
-				{
-					"id": -1,
-					"name": "index-1",
-					"pathName": "page/recruiter/pages/index/index",
-					"query": ""
-				},
-				{
-					"id": 11,
-					"name": "more",
-					"pathName": "page/applicant/pages/moreNews/more/more",
-					"query": ""
-				},
-				{
-					"id": -1,
-					"name": "interviewHistory",
-					"pathName": "page/recruiter/pages/interviewHistory/interviewHistory",
 					"query": ""
 				}
 			]
