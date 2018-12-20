@@ -1,3 +1,5 @@
+// var moment = require('moment')
+
 var dateFormat = function(timestamp) {
   var date = getDate(timestamp * 1000)
   var year = date.getFullYear()
