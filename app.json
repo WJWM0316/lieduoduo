@@ -61,7 +61,9 @@
         "pages/office/office",
         "pages/user/mine/infos/infos",
         "pages/user/mine/update/update",
-        "pages/user/mine/base/base"
+        "pages/user/mine/base/base",
+        "pages/certification/apply/apply",
+        "pages/certification/company/company"
       ]
     }
   ],
