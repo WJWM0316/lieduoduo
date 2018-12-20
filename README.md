@@ -102,9 +102,9 @@ bindresultevent ： 获取上传结果
 
 + 传值 
 
-+ url : String类型， 默认数据
+  + url : String类型， 默认数据
 
-+ unloadType ： 上传类型， String， value值如下：
+  + unloadType ： 上传类型， String， value值如下：
    
 + 自定义方法 bindresultEvent  获取上传结果  
 
