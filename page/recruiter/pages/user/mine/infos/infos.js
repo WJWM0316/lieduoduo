@@ -1,4 +1,6 @@
 import { getUserInfoApi } from '../../../../../../api/pages/user.js'
+import {RECRUITER} from '../../../../../../config.js'
+
 const app = getApp()
 
 Page({
@@ -30,7 +32,7 @@ Page({
    */
   jumpUpdateInfos() {
     wx.navigateTo({
-      url: '/page/recruiter/pages/user/base/base'
+      url: `${RECRUITER}user/mine/base/base`
     })
   },
   share() {

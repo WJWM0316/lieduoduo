@@ -57,9 +57,10 @@
         "pages/index/index",
         "pages/interview/index/index",
         "pages/interview/history/history",
-        "pages/officeManager/officeManager",
+        "pages/office/office",
         "pages/user/mine/infos/infos",
-        "pages/user/mine/update/update"
+        "pages/user/mine/update/update",
+        "pages/user/mine/base/base"
       ]
     }
   ],
