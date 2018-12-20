@@ -1,3 +1,4 @@
+import {RECRUITER} from '../../../../../config.js'
 const app = getApp()
 
 Page({
@@ -126,7 +127,7 @@ Page({
   // 查看面试历史
   jumpInterviewPage(e) {
     wx.navigateTo({
-      url: '/page/recruiter/pages/interview/history/history'
+      url: `${RECRUITER}interview/history/history`
     })
   },
   changeCompanyLists(e) {

@@ -1,0 +1,13 @@
+<view class="bindPhone">
+  <navbar title="绑定手机号"></navbar>
+  <view class="phone">
+    手机号码
+    <input type="tel" value="{{phone}}" bindblur="getPhone"></input>
+  </view>
+  <view class="code">
+    验证码
+    <input type="text" value="{{code}}" bindblur="getCode"></input>
+    <text bindtap="sendCode">发送验证码</text>
+  </view>
+  <button bindtap="bindPhone">绑定</button>
+</view>

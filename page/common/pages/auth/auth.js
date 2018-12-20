@@ -1,14 +1,11 @@
-// page/common/pages/bindPhone/bindPhone.js
-import {sendCodeApi, bindPhoneApi} from "../../../../api/pages/auth.js"
-let realCode = '' // 短信验证码
+// page/common/pages/auth/auth.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    phone: '',
-    code: ''
+
   },
 
   /**
@@ -17,41 +14,34 @@ Page({
   onLoad: function (options) {
 
   },
-  getPhone(e) {
-    console.log(e)
-    this.setData({
-      phone: e.detail.value
-    })
-  },
-  getCode(e) {
-    console.log(e)
-    this.setData({
-      code: e.detail.value
-    })
-  },
-  sendCode() {
-    let data = {
-      mobile: this.data.phone
+  onGotUserInfo(e) {
+    if (e.detail.errMsg === 'getUserInfo:ok') {
+      let data = {
+        ssToken: wx.getStorageSync('sessionToken'),
+        iv_key: e.detail.iv,
+        data: e.detail.encryptedData
+      }
+      loginApi(data).then(res => {
+        // 有token说明已经绑定过用户了
+        if (res.data.token) {
+          getApp().globalData.userInfo = res.data
+          getApp().globalData.hasLogin = true
+          wx.setStorageSync('token', res.data.token)
+          wx.removeStorageSync('sessionToken')
+          wx.reLaunch({
+            url: `/${res.data.page}`
+          })
+        } else {
+          console.log('用户为绑定')
+        }
+      })
     }
-    sendCodeApi(data).then(res => {
-    })
-  },
-  bindPhone() {
-    let data = {
-      mobile: this.data.phone,
-      code: this.data.code
-    }
-    bindPhoneApi(data).then(res => {
-      console.log('手机号码绑定成功')
-      wx.setStorageSync('token', res.data.token)
-      getApp().globalData.userInfo = res.data
-      getApp().globalData.hasLogin = true
-    })
   },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
+
   },
 
   /**

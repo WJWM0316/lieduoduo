@@ -34,11 +34,11 @@ Page({
       {
         id: 4,
         recruiterName: '文双',
-        certification: true,
+        certification: false,
         recruiterPosition: '创始人、CEO',
         companyName: '老虎科技',
         positionNumber: 18,
-        status: 0
+        status: 1
       },
       {
         id: 5,
@@ -57,26 +57,14 @@ Page({
         companyName: '老虎科技',
         positionNumber: 18,
         status: 0
-      },
-      {
-        id: 7,
-        recruiterName: '文双',
-        certification: true,
-        recruiterPosition: '创始人、CEO',
-        companyName: '老虎科技',
-        positionNumber: 18,
-        status: 0
-      },
-      {
-        id: 8,
-        recruiterName: '文双',
-        certification: true,
-        recruiterPosition: '创始人、CEO',
-        companyName: '老虎科技',
-        positionNumber: 18,
-        status: 0
       }
     ]
+  },
+  onPullDownRefresh() {
+    console.log("下拉")
+  },
+  onReachBottom() {
+    console.log("上拉")
   },
   changeCompanyLists(e) {
     let pageList = e.currentTarget.dataset.pageList
