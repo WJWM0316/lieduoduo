@@ -39,7 +39,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 10,
+			"current": 13,
 			"list": [
 				{
 					"id": 0,
@@ -116,8 +116,13 @@
 				{
 					"id": -1,
 					"name": "interviewHistory",
-					"query": "",
-					"pathName": "page/recruiter/pages/interviewHistory/interviewHistory"
+					"pathName": "page/recruiter/pages/interviewHistory/interviewHistory",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "标签页",
+					"pathName": "page/common/pages/tabsPage/tabsPage"
 				}
 			]
 		}

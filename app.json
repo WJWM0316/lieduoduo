@@ -10,7 +10,8 @@
     "page/applicant/pages/recruitmentActive/recruitmentActive",
     "page/applicant/pages/mine/mine",
     "page/common/pages/bindPhone/bindPhone",
-    "page/common/pages/auth/auth"
+    "page/common/pages/auth/auth",
+    "page/common/pages/tabsPage/tabsPage"
   ],
   "window": {
     "navigationBarTextStyle": "black",

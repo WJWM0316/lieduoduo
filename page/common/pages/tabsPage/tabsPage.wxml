@@ -1,0 +1,3 @@
+<view class="tabsPage">
+  <navbar title="标签页"></navbar>
+</view>
