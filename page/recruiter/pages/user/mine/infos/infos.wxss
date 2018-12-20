@@ -1,4 +1,4 @@
-@import '../../../../../iconfont.wxss';
+@import '../../../../../../iconfont.wxss';
 
 .page-mine .floating-box {
 	overflow: hidden;

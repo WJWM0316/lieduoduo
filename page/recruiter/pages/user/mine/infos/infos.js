@@ -1,4 +1,4 @@
-import { getUserInfoApi } from '../../../../../api/pages/user.js'
+import { getUserInfoApi } from '../../../../../../api/pages/user.js'
 const app = getApp()
 
 Page({
