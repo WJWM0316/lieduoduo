@@ -74,7 +74,7 @@ Component({
         selectIcon: '',
         active: false,
         iconfont: 'icon-wode',
-        path: `${RECRUITER}user/infos/infos`
+        path: `${RECRUITER}user/mine/infos/infos`
       }
     ],
     url: ''

@@ -59,8 +59,8 @@
         "pages/interview/interview",
         "pages/officeManager/officeManager",
         "pages/interviewHistory/interviewHistory",
-        "pages/user/infos/infos",
-        "pages/user/update/update"
+        "pages/user/mine/infos/infos",
+        "pages/user/mine/update/update"
       ]
     }
   ],
