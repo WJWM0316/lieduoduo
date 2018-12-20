@@ -14,7 +14,7 @@
 	    <input name="user_position" class="mini-row-value" placeholder="在公司担任的职务" bindinput="bindInput" data-field="user_position" value="{{user_position}}" />
 	  </view>
 	  <view class="btn-area">
-	    <button form-type="submit">下一步</button>
+	    <button form-type="submit" class="{{canClick ? 'button-enable' : ''}}">下一步</button>
 	  </view>
 	</form>
 </view>

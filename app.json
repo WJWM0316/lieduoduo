@@ -62,7 +62,9 @@
         "pages/user/mine/infos/infos",
         "pages/user/mine/update/update",
         "pages/user/mine/base/base",
-        "pages/user/company/apply/apply"
+        "pages/user/company/apply/apply",
+        "pages/user/company/find/find",
+        "pages/user/company/post/post"
       ]
     }
   ],

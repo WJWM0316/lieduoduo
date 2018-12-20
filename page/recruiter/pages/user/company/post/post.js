@@ -1,4 +1,9 @@
-import { applyCompanyApi } from '../../../../../../api/pages/certification.js'
+import {
+  getCompanyFinancingApi,
+  getCompanyEmployeesApi,
+  getLabelFieldApi
+} from '../../../../../../api/pages/user.js'
+
 import {realNameReg, emailReg, positionReg} from '../../../../../../utils/fieldRegular.js'
 
 const app = getApp()
@@ -9,10 +14,45 @@ Page({
     user_email: '',
     user_position: '',
     company_id: 1,
-    canClick: false
+    canClick: false,
+    companyFinance: {
+      index: 0,
+      list: []
+    },
+    companyEmployees: {
+      index: 0,
+      list: [
+        {
+          value: 1,
+          text: 0
+        }
+      ]
+    },
+    companyLabelField: {
+      index: 0,
+      list: []
+    }
   },
   onLoad() {
     getApp().globalData.identity = 'RECRUITER'
+    getCompanyFinancingApi()
+      .then(res => {
+        const companyFinance = {index: 0, list: res.data}
+        this.setData({ companyFinance })
+      })
+    getCompanyEmployeesApi()
+      .then(res => {
+        const list = res.data
+        list.map(field => field.text = `${field.text}人`)
+        let companyEmployees = {index: 0, list}
+        this.setData({ companyEmployees })
+      })
+    getLabelFieldApi()
+      .then(res => {
+        const companyLabelField = {index: 0, list: res.data}
+        this.setData({ companyLabelField })
+        console.log(res.data)
+      })
   },
   /**
    * @Author   小书包
@@ -64,5 +104,19 @@ Page({
            .catch(err => {
               wx.showToast({title: err, icon: 'none'})
            })
+  },
+  /**
+   * @Author   小书包
+   * @DateTime 2018-12-20
+   * @detail   下拉选项绑定
+   * @return   {[type]}     [description]
+   */
+  bindChange(e) {
+    const key = e.currentTarget.dataset.key
+    const value = this.data[key]
+    value.index = parseInt(e.detail.value)
+    this.setData({
+      [key]: value
+    })
   }
 })

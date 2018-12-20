@@ -41,10 +41,10 @@ export const request = ({method = 'post', url, data = {}, needKey = true, hasLoa
           msg.httpStatus = parseInt(msg.httpStatus)
           if (msg.httpStatus === 200) {
             resolve(msg)
-            console.log(msg)
+            // console.log(msg)
           } else {
             reject(msg)
-            console.log(msg)
+            // console.log(msg)
           }
           switch (msg.httpStatus) {
             case 200:

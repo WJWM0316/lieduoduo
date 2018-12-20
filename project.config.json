@@ -39,7 +39,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": -1,
+			"current": 6,
 			"list": [
 				{
 					"id": 0,
@@ -75,6 +75,12 @@
 					"id": 9,
 					"name": "求职者个人中心",
 					"pathName": "page/applicant/pages/center/mine/mine",
+					"query": ""
+				},
+				{
+					"id": 6,
+					"name": "公司认证",
+					"pathName": "page/recruiter/pages/user/company/post/post",
 					"query": ""
 				}
 			]
