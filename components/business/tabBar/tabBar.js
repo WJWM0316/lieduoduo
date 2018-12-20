@@ -58,7 +58,7 @@ Component({
         selectIcon: '',
         active: false,
         iconfont: 'icon-mianshi',
-        path: `${RECRUITER}interview/interview`
+        path: `${RECRUITER}interview/index/index`
       },
       {
         title: '职位管理',

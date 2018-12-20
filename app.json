@@ -55,10 +55,9 @@
       "root": "page/recruiter/",
       "pages": [
         "pages/index/index",
-        "pages/joinUs/joinUs",
-        "pages/interview/interview",
+        "pages/interview/index/index",
+        "pages/interview/history/history",
         "pages/officeManager/officeManager",
-        "pages/interviewHistory/interviewHistory",
         "pages/user/mine/infos/infos",
         "pages/user/mine/update/update"
       ]
