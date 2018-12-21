@@ -5,6 +5,7 @@
     value="{{result}}"
     mode='{{mode}}'
     range="{{list}}"
+    range-key="{{rangeKey}}"
     bindchange="change"
     bindcolumnchange="changeColumn"
   >
@@ -19,7 +20,10 @@
           <text wx:if="{{list[0][result[0]] !== firstOption}}">{{list[1][result[1]]}}</text>
           <text wx:if="{{list[0][result[0]] === firstOption && list[1][result[1]] === firstOption}}">{{list[0][result[0]]}}</text>
         </text>
-        <text wx:if="{{typeof(result) !== 'object'}}">{{list[result]}}</text>
+        <block wx:if="{{typeof(result) !== 'object'}}">
+          <text wx:if="{{pickerType === 'occupation'}}">{{list[result].name}}</text>
+          <text wx:else>{{list[result]}}</text>
+        </block>
       </block>
     </block>
     <block wx:else>

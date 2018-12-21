@@ -1,3 +1,41 @@
 <view class="tabsPage">
   <navbar title="标签页"></navbar>
-</view>
+  <block>
+    <view class="content"  hidden="{{labelType !== 'job'}}">
+      <view class="head">已选择标签<text class="num">{{choseNum}}</text>/5</view>
+      <view class="tabs">
+        <text class="tab" wx:for="{{choseJobList}}" wx:key="{{index}}">{{item}}</text>
+      </view>
+      <view class="head">职业技能
+        <myPicker class="myPicker" setResult="技术" pickerType="occupation" rangeKey="name" bindresultevent="getresult"></myPicker>
+      </view>
+      <view class="tabs">
+        <text class="tab" wx:for="{{twoLevelList}}" wx:key="{{index}}">{{item.name}}</text>
+      </view>
+      <view class="head">职业素养</view>
+      <view class="tabs">
+        <text class="tab" wx:for="{{literacy}}" wx:key="{{index}}">{{item.name}}</text>
+      </view>
+      <input type="text" value="{{customLabel}}" placeholder="请输入标签" bindblur="getCustomLabel"/>
+      <view class="addLabel" bindtap="addLabel">添加标签</view>
+    </view>
+  </block>
+  <block>
+    <view class="content"  hidden="{{labelType !== 'life'}}">
+      <view class="head">已选择标签<text class="num">{{choseNum}}</text>/5</view>
+      <view class="tabs">
+        <text class="tab" wx:for="{{choseLifeList}}" wx:key="{{index}}" bindtap="choseTab" data-tabData="{{item}}">{{item.name}}</text>
+      </view>
+      <view class="head">性格</view>
+      <view class="tabs">
+        <text class="tab" wx:for="{{character}}" wx:key="{{index}}" bindtap="choseTab" data-tabData="{{item}}">{{item.name}}</text>
+      </view>
+      <view class="head">兴趣</view>
+      <view class="tabs">
+        <text class="tab" wx:for="{{interest}}" wx:key="{{index}}" bindtap="choseTab" data-tabData="{{item}}">{{item.name}}</text>
+      </view>
+      <input type="text" value="{{customLabel}}" placeholder="请输入标签" bindblur="getCustomLabel"/>
+      <view class="addLabel" bindtap="addLabel">添加标签</view>
+    </view>
+  </block>
+</view> 

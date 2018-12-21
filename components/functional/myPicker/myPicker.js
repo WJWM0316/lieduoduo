@@ -1,5 +1,7 @@
 // components/layout/myPicker/myPicker.js
+import {getJobLabelApi} from '../../../api/pages/common.js'
 Component({
+  externalClasses: ['myPicker'],
   /**
    * 组件的属性列表
    */
@@ -9,6 +11,9 @@ Component({
       value: ''
     },
     setResult: {
+      type: String
+    },
+    rangeKey: {
       type: String
     }
   },
@@ -191,6 +196,17 @@ Component({
         list = [startNumB, endNumB]
         this.setData({list, result, mode: 'multiSelector', placeholder: '请选择期望月薪'})
         break
+      case 'occupation':
+        getJobLabelApi().then(res => {
+          list = res.data
+          list.map((item, index) => {
+            if (item.name === this.data.setResult) {
+              result = `${index}`
+            }
+          })
+          this.setData({list, result, mode: 'selector', placeholder: '请选择职业'})
+        })
+        break
     }
   },
   /**
@@ -224,6 +240,8 @@ Component({
           } else {
             propsDesc = 2
           }
+        } else if (this.data.pickerType === 'occupation') {
+          propsResult = list[result]
         } else {
           propsResult = list[result]
           propsDesc = result

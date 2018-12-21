@@ -1,1 +1,24 @@
 /* page/common/pages/tabsPage/tabsPage.wxss */
+.tabsPage {
+}
+.tabs {
+  width: 100%;
+  padding: 0 60rpx;
+}
+.tabs .tab {
+  padding: 0 20rpx;
+  height: 60rpx;
+  line-height: 60rpx;
+  text-align: center;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  display:inline-block;
+}
+
+.myPicker {
+  width: 300rpx;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 50rpx;
+  text-align: center;
+}

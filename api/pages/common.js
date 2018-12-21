@@ -10,18 +10,34 @@ export const unloadApi = (data, isLoading) => {
   })
 }
 // 职位标签接口
-export const getJobLabelApi = (isLoading) => {
+export const getJobLabelApi = (data) => {
   return request({
     method: 'get',
-    url: '/label/positionType',
-    isLoading: false
+    data,
+    url: '/label/positionType'
+  })
+}
+// 生活标签接口
+export const getLifeLableApi = (data) => {
+  return request({
+    method: 'get',
+    data,
+    url: '/label/life'
   })
 }
 // 城市标签
-export const getCityLabelApi = (isLoading) => {
+export const getCityLabelApi = (data) => {
   return request({
     method: 'get',
+    data,
     url: '/area/hotArea',
-    isLoading: false
+  })
+}
+// 创建职位标签接口
+export const addJobLabelApi = (data) => {
+  return request({
+    method: 'post',
+    data,
+    url: '/label/positionType'
   })
 }
