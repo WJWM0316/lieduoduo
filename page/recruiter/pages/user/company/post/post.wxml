@@ -5,47 +5,51 @@
 			<view class="text">公司全称</view>
 			<view class="text2">广州老虎信息科技有限公司</view>
 		</view>
-		<view class="li">
+		<view class="li link" bindtap="jumpModifyIntro">
 			<view class="text">公司简介</view>
 			<i class="icon iconfont icon-zhishibiao"></i>
+			<view class="text2">{{intro}}</view>
 		</view>
 		<view class="li">
 			<i class="icon iconfont icon-zhishibiao"></i>
 			<view class="text">所属行业</view>
 			<picker
-				range="{{ companyLabelField.list }}" 
+				range="{{ companyLabelField }}" 
 				mode="selector" 
-				value="{{ companyLabelField.list[companyLabelField.index] }}" 
+				value="{{ companyLabelField[industry_id] }}" 
 				range-key="{{ 'name' }}"
 				bindchange="bindChange"
-				data-key="companyLabelField">
-		    <view class="text2">{{ companyLabelField.list[companyLabelField.index].name }} </view>
+				data-key="industry_id">
+		    <view class="text2" wx:if="{{!selected_industry_id}}">请选择</view>
+		    <view class="text2" wx:else>{{ companyLabelField[industry_id].name }}</view>
 		  </picker>
 		</view>
 		<view class="li">
 			<view class="text">融资阶段</view>
 			<i class="icon iconfont icon-zhishibiao"></i>
 			<picker
-				range="{{ companyFinance.list }}" 
+				range="{{ companyFinance }}" 
 				mode="selector" 
-				value="{{ companyFinance.list[companyFinance.index] }}" 
+				value="{{ companyFinance[financing] }}" 
 				range-key="{{ 'text' }}"
 				bindchange="bindChange"
-				data-key="companyFinance">
-		    <view class="text2">{{ companyFinance.list[companyFinance.index].text }}</view>
+				data-key="financing">
+				<view class="text2" wx:if="{{!selected_financing}}">请选择</view>
+		    <view class="text2" wx:else>{{ companyFinance[financing].text }}</view>
 		  </picker>
 		</view>
 		<view class="li">
 			<i class="icon iconfont icon-zhishibiao"></i>
 			<view class="text">人员规模</view>
 			<picker 
-				range="{{ companyEmployees.list }}" 
+				range="{{ companyEmployees }}" 
 				bindchange="bindChange" 
-				data-key="companyEmployees" 
+				data-key="employees" 
 				mode="selector" 
-				value="{{ companyEmployees.list[companyEmployees.index] }}" 
+				value="{{ companyEmployees[employees] }}" 
 				range-key="{{ 'text' }}">
-		    <view class="text2">{{ companyEmployees.list[companyEmployees.index].text }}</view>
+				<view class="text2" wx:if="{{!selected_employees}}">请选择</view>
+		    <view class="text2"  wx:else>{{ companyEmployees[employees].text }}</view>
 		  </picker>
 		</view>
 	  <view class="btn-area">

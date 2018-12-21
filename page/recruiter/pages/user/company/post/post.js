@@ -6,6 +6,8 @@ import {
 
 import {realNameReg, emailReg, positionReg} from '../../../../../../utils/fieldRegular.js'
 
+import {RECRUITER} from '../../../../../../config.js'
+
 const app = getApp()
 
 Page({
@@ -14,44 +16,72 @@ Page({
     user_email: '',
     user_position: '',
     company_id: 1,
-    canClick: false,
-    companyFinance: {
-      index: 0,
-      list: []
-    },
-    companyEmployees: {
-      index: 0,
-      list: [
-        {
-          value: 1,
-          text: 0
-        }
-      ]
-    },
-    companyLabelField: {
-      index: 0,
-      list: []
-    }
+    companyFinance: [],
+    companyEmployees: [],
+    companyLabelField: [],
+    // 所属行业
+    industry_id: 0,
+    // 公司融资情况
+    financing: 0,
+    // 员工人数范围
+    employees: 0,
+    selected_industry_id: false,
+    selected_financing: false,
+    selected_employees: false,
+    intro: '',
+    canClick: false
   },
   onLoad() {
     getApp().globalData.identity = 'RECRUITER'
+    wx.getStorage({
+      key: 'createCompanyInfos',
+      success: res => {
+        const params = Object.keys(res.data).slice(0, Object.keys(res.data).length - 1)
+        const intro = wx.getStorageSync('intro')
+        params.map(field => {
+          this.setData({
+            [field]: res.data[field]
+          })
+        })
+        if(intro) {
+          this.setData({ intro })
+        }
+      },
+      fail: err => {
+        this.init()
+      }
+    })
+  },
+  /**
+   * @Author   小书包
+   * @DateTime 2018-12-21
+   * @detail   初始化页面数据
+   * @return   {[type]}   [description]
+   */
+  init() {
+    const intro = wx.getStorageSync('intro')
+    if(intro) {
+      this.setData({ intro })
+    }
     getCompanyFinancingApi()
       .then(res => {
-        const companyFinance = {index: 0, list: res.data}
-        this.setData({ companyFinance })
+        this.setData({
+          companyFinance: res.data
+        })
       })
     getCompanyEmployeesApi()
       .then(res => {
         const list = res.data
         list.map(field => field.text = `${field.text}人`)
-        let companyEmployees = {index: 0, list}
-        this.setData({ companyEmployees })
+        this.setData({
+          companyEmployees: list
+        })
       })
     getLabelFieldApi()
       .then(res => {
-        const companyLabelField = {index: 0, list: res.data}
-        this.setData({ companyLabelField })
-        console.log(res.data)
+        this.setData({
+          companyLabelField: res.data
+        })
       })
   },
   /**
@@ -113,10 +143,35 @@ Page({
    */
   bindChange(e) {
     const key = e.currentTarget.dataset.key
-    const value = this.data[key]
-    value.index = parseInt(e.detail.value)
     this.setData({
-      [key]: value
+      [key]: parseInt(e.detail.value),
+      [`selected_${key}`]: true
+    })
+  },
+  /**
+   * @Author   小书包
+   * @DateTime 2018-12-21
+   * @detail   修改公司简称
+   * @return   {[type]}   [description]
+   */
+  jumpModifyIntro() {
+    wx.navigateTo({
+      url: `${RECRUITER}user/company/abbreviation/abbreviation`,
+      success: () => {
+        this.saveFormData()
+      }
+    })
+  },
+  /**
+   * @Author   小书包
+   * @DateTime 2018-12-21
+   * @detail   保存当前页面的编辑数据
+   * @return   {[type]}   [description]
+   */
+  saveFormData() {
+    wx.setStorage({
+      key: 'createCompanyInfos',
+      data: this.data
     })
   }
 })

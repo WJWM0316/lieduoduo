@@ -80,7 +80,7 @@
 				{
 					"id": 6,
 					"name": "公司认证",
-					"pathName": "page/recruiter/pages/user/company/post/post",
+					"pathName": "page/recruiter/pages/user/company/upload/upload",
 					"query": ""
 				},
 				{
