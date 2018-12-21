@@ -9,11 +9,20 @@ export const unloadApi = (data, isLoading) => {
     isLoading: false
   })
 }
+export const upLoadApi = (data, isLoading) => {
+  return request({
+    method: 'post',
+    url: '/attaches',
+    data,
+    isLoading: false
+  })
+}
+
 // 职位标签接口
 export const getJobLabelApi = (isLoading) => {
   return request({
     method: 'get',
-    url: '/label/positionType',
+    url: '/label/position',
     isLoading: false
   })
 }
