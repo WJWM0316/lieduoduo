@@ -28,6 +28,10 @@ Component({
     color: {
       type: String,
       value: 'white'
+    },
+    customBack: {
+      type: Boolean,
+      value: false
     }
   },
   lifetimes: {
@@ -43,7 +47,11 @@ Component({
   methods: {
     //回退
     navBack() {
-      wx.navigateBack({delta: 1})
+      if (this.data.customBack) {
+        this.triggerEvent('backEvent')
+      } else {
+        wx.navigateBack({delta: 1})
+      }
     }
   }
 })

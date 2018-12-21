@@ -1,7 +1,7 @@
 //index.js
 //获取应用实例
-import {RECRUITER, APPLICANT, COMMON} from '../../../../config.js'
-import {getSelectorQuery}  from '../../../../utils/util.js'
+import {RECRUITER, APPLICANT, COMMON} from '../../../../../config.js'
+import {getSelectorQuery}  from '../../../../../utils/util.js'
 
 const app = getApp()
 Page({

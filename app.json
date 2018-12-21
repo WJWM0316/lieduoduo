@@ -1,17 +1,21 @@
 {
   "pages": [
     "page/applicant/pages/index/index",
-    "page/applicant/pages/job/job",
-    "page/applicant/pages/interview/interview",
+    "page/applicant/pages/jobs/job/job",
+    "page/applicant/pages/interview/interview/interview",
     "page/common/pages/cutInside/cutInside",
     "page/common/pages/map/map",
-    "page/applicant/pages/more/more",
+    "page/applicant/pages/officerActive/more/more",
     "page/common/pages/test/test",
-    "page/applicant/pages/recruitmentActive/recruitmentActive",
-    "page/applicant/pages/mine/mine",
+    "page/applicant/pages/officerActive/recruitmentActive/recruitmentActive",
+    "page/applicant/pages/center/mine/mine",
     "page/common/pages/bindPhone/bindPhone",
     "page/common/pages/auth/auth",
-    "page/common/pages/tabsPage/tabsPage"
+    "page/common/pages/tabsPage/tabsPage",
+    "page/applicant/pages/center/beResume/beResume",
+    "page/applicant/pages/center/firstStep/fitstStep",
+    "page/applicant/pages/center/secondStep/secondStep",
+    "page/applicant/pages/center/thirdStep/thirdStep"
   ],
   "window": {
     "navigationBarTextStyle": "black",
@@ -33,19 +37,19 @@
         "selectedIconPath": "images/tab_home_sel@3x.png"
       },
       {
-        "pagePath": "page/applicant/pages/job/job",
+        "pagePath": "page/applicant/pages/jobs/job/job",
         "text": "职业机会",
         "iconPath": "images/tab_job_nor@3x.png",
         "selectedIconPath": "images/tab_job_sel@3x.png"
       },
       {
-        "pagePath": "page/applicant/pages/interview/interview",
+        "pagePath": "page/applicant/pages/interview/interview/interview",
         "text": "面试",
         "iconPath": "images/tab_interview_nor@3x.png",
         "selectedIconPath": "images/tab_interview_sel@3x.png"
       },
       {
-        "pagePath": "page/applicant/pages/mine/mine",
+        "pagePath": "page/applicant/pages/center/mine/mine",
         "text": "我的",
         "iconPath": "images/tab_me_nor@3x.png",
         "selectedIconPath": "images/tab_me_sel@3x.png"
@@ -62,7 +66,10 @@
         "pages/office/office",
         "pages/user/mine/infos/infos",
         "pages/user/mine/update/update",
-        "pages/user/mine/base/base"
+        "pages/user/mine/base/base",
+        "pages/user/company/apply/apply",
+        "pages/user/company/find/find",
+        "pages/user/company/post/post"
       ]
     }
   ],

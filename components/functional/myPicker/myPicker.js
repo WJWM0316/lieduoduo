@@ -197,13 +197,15 @@ Component({
         this.setData({list, result, mode: 'multiSelector', placeholder: '请选择期望月薪'})
         break
       case 'occupation':
-        getJobLabelApi().then(res => {
-          list = res.data
+        getJobLabelApi({type: 'skills'}).then(res => {
+          list = res.data[0].children
           list.map((item, index) => {
             if (item.name === this.data.setResult) {
               result = `${index}`
             }
           })
+          let propsResult = list[result]
+          this.triggerEvent('resultevent', {propsResult})
           this.setData({list, result, mode: 'selector', placeholder: '请选择职业'})
         })
         break

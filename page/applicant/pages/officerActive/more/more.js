@@ -1,5 +1,5 @@
 // page/applicant/pages/more/more.js
-import { getJobLabelApi, getCityLabelApi } from '../../../../api/pages/common'
+import { getJobLabelApi, getCityLabelApi } from '../../../../../api/pages/common'
 const app = getApp()
 Page({
   /**

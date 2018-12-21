@@ -40,6 +40,7 @@
 		},
 		"miniprogram": {
 			"current": 13,
+			"current": 6,
 			"list": [
 				{
 					"id": 0,
@@ -54,27 +55,15 @@
 					"query": ""
 				},
 				{
-					"id": 2,
-					"name": "joinUs",
-					"pathName": "page/recruiter/pages/joinUs/joinUs",
-					"query": ""
-				},
-				{
 					"id": -1,
 					"name": "index",
 					"pathName": "page/applicant/pages/index/index",
 					"query": ""
 				},
 				{
-					"id": -1,
+					"id": 4,
 					"name": "job",
-					"pathName": "page/applicant/pages/job/job",
-					"query": ""
-				},
-				{
-					"id": 5,
-					"name": "recruitmentActive",
-					"pathName": "page/applicant/pages/recruitmentActive/recruitmentActive",
+					"pathName": "page/applicant/pages/jobs/job/job",
 					"query": ""
 				},
 				{
@@ -84,33 +73,21 @@
 					"query": ""
 				},
 				{
-					"id": -1,
-					"name": "interview",
-					"pathName": "page/recruiter/pages/interview/interview",
-					"query": ""
-				},
-				{
-					"id": -1,
-					"name": "mine",
-					"pathName": "page/recruiter/pages/mine/mine",
-					"query": ""
-				},
-				{
-					"id": -1,
+					"id": 9,
 					"name": "求职者个人中心",
-					"pathName": "page/applicant/pages/mine/mine",
+					"pathName": "page/applicant/pages/center/mine/mine",
 					"query": ""
 				},
 				{
-					"id": -1,
-					"name": "index-1",
-					"pathName": "page/recruiter/pages/index/index",
+					"id": 6,
+					"name": "公司认证",
+					"pathName": "page/recruiter/pages/user/company/post/post",
 					"query": ""
 				},
 				{
-					"id": -1,
-					"name": "more",
-					"pathName": "page/applicant/pages/more/more",
+					"id": 13,
+					"name": "第一步",
+					"pathName": "page/applicant/pages/center/firstStep/fitstStep",
 					"query": ""
 				},
 				{

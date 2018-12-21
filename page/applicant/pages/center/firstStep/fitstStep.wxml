@@ -1,0 +1,33 @@
+<!--完善简历第一步-->
+<navbar title="完善简历第一步" background="#2878FF"></navbar>
+<view bindTab="send">完善简历第一步</view>
+<view>
+  <form bindsubmit="formSubmit" bindreset="formReset">
+    <view class="image">
+      <image name="integer" src="https://attach.lieduoduo.ziwork.com/images/topicBg.png"></image>
+    </view>
+    <view class="name">
+      <view class="section__title">职位名称</view>
+      <input name="position" placeholder="职位名称" />
+    </view>
+    <view class="name">
+      <view class="section__title">参加工作年份</view>
+      <input name="startWorkYear" value="20181212" placeholder="参加工作年份" />
+    </view>
+    <view class="name">
+      <view class="section__title">名字</view>
+      <input name="name" placeholder="输入名字" />
+    </view>
+    <view class="section section_gap">
+      <view class="section__title">性别</view>
+      <radio-group name="gender">
+        <label><radio value="1"/>男</label>
+        <label><radio value="2"/>女</label>
+      </radio-group>
+    </view>
+    <view class="btn-area">
+      <button formType="submit">Submit</button>
+      <button formType="reset">Reset</button>
+    </view>
+  </form>
+</view>

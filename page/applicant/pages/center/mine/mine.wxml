@@ -3,37 +3,37 @@
   <view class="floating-box">
 		<view class="header">
     <!-- 简历已完善 -->
-			<!-- <view class="content">
-				<view class="realname">全职猎人</view>
-				<view class="degree-name">老虎科技 | 人力资源管理部门经理</view>
-        <view class="experience">6年经验 | 28岁 | 本科</view>
-			</view> -->
+			 <view class="content" wx:if='{{isLogin && isComplete}}'>
+				<view class="realname">{{myInfo.name}}</view>
+				<view class="degree-name">{{myInfo.lastCompanyName}} | {{myInfo.lastPosition}}</view>
+        <view class="experience">{{myInfo.workAge}}年经验 | {{myInfo.degree}}岁 | {{myInfo.degreeDesc}}</view>
+			</view> 
       <!-- 简历未完善 -->
-      <!-- <view class="content">
+       <view class="content" wx:if='{{isLogin && !isComplete}}'>
 				<view class="realname">简历未完善</view>
 				<view class="degree-name directions">你与offer之间还差一份简历， 快去完善吧~</view>
-			</view> -->
+			</view> 
       <!-- 未登陆 -->
-      <view class="content">
+      <view class="content" wx:if='{{!isLogin}}'>
 				<view class="realname">未登录</view>
 				<view class="degree-name directions">登录可后使用完整功能， 快去登录吧~</view>
 			</view>
 			<view class="img-box"></view>
 		</view>
-    <view class='edit-box'>
+    <view class='edit-box' wx:if='{{isLogin && isComplete}}'>
       <view class='left-text'>在职-暂不考虑</view>
       <view class='right-edit'>
-        <text class='progress-rate'>完善度 100%</text>
+        <text class='progress-rate'>完善度 {{myInfo.resumeCompletePercentageDesc}}</text>
         <view class='edit-btn'>
           <i class="icon iconfont icon-bianji"></i>
           <text class='edit-resume'>编辑简历</text>
         </view>
       </view>
     </view>
-		<view class="share-resume" wx:if='{{isComplete}}'>发简历</view>
-    <view class="share-resume" wx:if='{{!isComplete}}'>立即完善简历 <i class="icon iconfont icon-xiangyou"></i></view>
-    <!--<view class="share-resume">立即登录 <i class="icon iconfont icon-xiangyou"></i></view>
-		<view class="save-resume-pic">保存简历到相册</view>-->
+		<view class="share-resume" wx:if='{{isLogin && isComplete}}'>发简历</view>
+    <view class="share-resume" wx:if='{{isLogin && !isComplete}}' bindtap='completeResume'>立即完善简历 <i class="icon iconfont icon-xiangyou"></i></view>
+    <view class="share-resume" wx:if='{{!isLogin}}'>立即登录 <i class="icon iconfont icon-xiangyou"></i></view>
+		<view class="save-resume-pic" wx:if='{{isLogin && isComplete}}'>保存简历到相册</view>
 	</view>
   <!-- bottom -->
   <view class="entry-list">

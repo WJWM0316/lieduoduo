@@ -7,11 +7,12 @@ Page({
    */
   data: {
     choseNum: 0, // 选择的数量
-    labelType: 'life',
+    labelType: 'job',
     customLabel: '', // 自定义标签
     choseJobList: [], // 选择职业标签
     choseLifeList: [], // 选择生活标签
     twoLevelList: [], // 职业二级标签
+    checkedId: [], // 选择标签的id列表
     literacy: [], // 职业素养标签
     character: [], // 性格标签
     interest: [] // 兴趣标签
@@ -25,6 +26,7 @@ Page({
     let interest = []
     getJobLabelApi({type: 'literacy'}).then(res => {
       console.log(res)
+      this.setData({literacy: res.data[0].children})
     })
     getLifeLableApi().then(res => {
       res.data.map((item, index) => {
@@ -44,12 +46,18 @@ Page({
     })
   }, 
   getresult(e) {
+    let twoLevelList = []
+    twoLevelList.map((item, index) => {
+      item.index = index
+    })
     this.setData({
-      twoLevelList: e.detail.propsResult.children || []
+      twoLevelList: twoLevelList
     })
   },
   choseTab(e) {
     let list = []
+    let checkedId = this.data.checkedId
+    let twoLevelList = this.data.twoLevelList
     let type = ''
     if (this.data.labelType === 'life') {
       list = this.data.choseLifeList
@@ -67,15 +75,21 @@ Page({
       list.map((item, index) => {
         if (item.labelId === choseData.labelId) {
           existIndex = index
+          choseData.checked = false
         }
       })
+
       // 不超过五个的，且没被选择的添加进去
       if (existIndex === null) {
+        checkedId.push(choseData.labelId)
         list.push(choseData)
       } else {
         list.splice(existIndex, 1)
+        checkedId.splice(existIndex, 1)
+
       }
-      this.setData({choseNum: list.length, [type]: list})
+      this.setData({choseNum: list.length, [type]: list, checkedId})
+      console.log(checkedId, choseData.labelId, checkedId.indexOf(choseData.labelId))
     }
   },
   addLabel() {
@@ -88,6 +102,13 @@ Page({
         customLabel: ''
       })
     })
+  },
+  back() {
+    if (this.data.labelType === 'left') {
+      this.setData({
+        labelType: 'job'
+      })
+    }
   },
   /**
    * 生命周期函数--监听页面初次渲染完成

@@ -1,4 +1,4 @@
-@import '../../../../iconfont.wxss';
+@import '../../../../../iconfont.wxss';
 .mine .header-bg{
   height: 414rpx;
   width: 100%;
@@ -30,6 +30,7 @@
 }
 
 .mine .floating-box .content {
+  max-width: 400rpx;
   flex-grow: 1;
 }
 
@@ -44,7 +45,7 @@
   font-size: 26rpx;
   font-weight: 400;
   color: rgba(40, 40, 40, 1);
-  line-height: 1;
+  line-height: 36rpx;
   margin-top: 16rpx;
 }
 

@@ -1,0 +1,20 @@
+<view>
+	<navbar title="填写个人信息" background="#FFFFFF" color="#22292C" showBackBtn="{{true}}"></navbar>
+	<form bindsubmit="submit">
+	  <view class="mini-input-row">
+	    <view class="mini-row-label">真实姓名</view>
+	    <input name="real_name" class="mini-row-value" placeholder="申请人的真实姓名" bindinput="bindInput" data-field="real_name" value="{{real_name}}" />
+	  </view>
+	  <view class="mini-input-row">
+	    <view class="mini-row-label">邮箱地址</view>
+	    <input name="user_email" class="mini-row-value" placeholder="企业常用的邮箱地址" bindinput="bindInput" data-field="user_email" value="{{user_email}}" />
+	  </view>
+	  <view class="mini-input-row">
+	    <view class="mini-row-label">担任职务</view>
+	    <input name="user_position" class="mini-row-value" placeholder="在公司担任的职务" bindinput="bindInput" data-field="user_position" value="{{user_position}}" />
+	  </view>
+	  <view class="btn-area">
+	    <button form-type="submit" class="{{canClick ? 'button-enable' : ''}}">下一步</button>
+	  </view>
+	</form>
+</view>

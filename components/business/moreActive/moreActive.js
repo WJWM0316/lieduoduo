@@ -20,11 +20,11 @@ Component({
     toMore () {
       if (this.properties.type === 1) {
         wx.navigateTo({
-          url: "/page/applicant/pages/more/more"
+          url: "/page/applicant/pages/officerActive/more/more"
         })
       } else {
         wx.navigateTo({
-          url: "/page/applicant/pages/recruitmentActive/recruitmentActive"
+          url: "/page/applicant/pages/officerActive/recruitmentActive/recruitmentActive"
         })
       }
     }

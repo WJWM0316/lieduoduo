@@ -1,0 +1,5 @@
+<view>
+	<navbar title="输入公司全名称" background="#FFFFFF" color="#22292C" showBackBtn="{{true}}"></navbar>
+	<input name="real_name" class="mini-row-value" placeholder="请输入所属公司营业执照上的公司全称" bindinput="bindInput" data-field="real_name" value="{{real_name}}" />
+	<button form-type="submit" class="{{canClick ? 'button-enable' : ''}}">下一步</button>
+</view>
