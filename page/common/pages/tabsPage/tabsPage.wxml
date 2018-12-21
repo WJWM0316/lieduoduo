@@ -1,0 +1,44 @@
+<view class="tabsPage">
+  <navbar title="标签页" customBack bindbackEvent="back"></navbar>
+  <block>
+    <view class="content"  hidden="{{labelType !== 'job'}}">
+      <view class="head">已选择标签<text class="number"><text class="num">{{choseNum}}</text>/5</text></view>
+      <view class="tabs">
+        <text class="tab" wx:for="{{choseJobList}}" wx:key="{{index}}">{{item.name}}</text>
+        <text>{{checkedId}}</text>
+      </view>
+      <view class="head head1">职业技能
+        <myPicker class="myPicker" setResult="技术" pickerType="occupation" rangeKey="name" bindresultevent="getresult"></myPicker>
+      </view> 
+      <view class="tabs">
+        <text wx:for="{{twoLevelList}}" wx:key="{{index}}" bindtap="choseTab" data-tabData="{{item}}" class="tab {{item.checked ? 'checked' : ''}}" >{{item.name}}</text>
+      </view>
+      <view class="head head2">职业素养</view>
+      <view class="tabs">
+        <text class="tab" wx:for="{{literacy}}" wx:key="{{index}}" bindtap="choseTab" data-tabData="{{item}}">{{item.name}}</text>
+      </view>
+      <input type="text" value="{{customLabel}}" placeholder="请输入标签" bindblur="getCustomLabel"/>
+      <view class="addLabel" bindtap="addLabel">添加标签</view>
+      <bitton class="nextStep">下一步</bitton>
+    </view>
+  </block>
+  <block>
+    <view class="content"  hidden="{{labelType !== 'life'}}">
+      <view class="head">已选择标签<text class="num">{{choseNum}}</text>/5</view>
+      <view class="tabs">
+        <text class="tab" wx:for="{{choseLifeList}}" wx:key="{{index}}" bindtap="choseTab" data-tabData="{{item}}">{{item.name}}</text>
+      </view>
+      <view class="head">性格</view>
+      <view class="tabs">
+        <text class="tab" wx:for="{{character}}" wx:key="{{index}}" bindtap="choseTab" data-tabData="{{item}}">{{item.name}}</text>
+      </view>
+      <view class="head">兴趣</view>
+      <view class="tabs">
+        <text class="tab" wx:for="{{interest}}" wx:key="{{index}}" bindtap="choseTab" data-tabData="{{item}}">{{item.name}}</text>
+      </view>
+      <input type="text" value="{{customLabel}}" placeholder="请输入标签" bindblur="getCustomLabel"/>
+      <view class="addLabel" bindtap="addLabel">添加标签</view>
+      <bitton class="save">保存</bitton>
+    </view>
+  </block>
+</view> 

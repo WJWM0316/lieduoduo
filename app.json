@@ -11,6 +11,7 @@
     "page/applicant/pages/center/mine/mine",
     "page/common/pages/bindPhone/bindPhone",
     "page/common/pages/auth/auth",
+    "page/common/pages/tabsPage/tabsPage",
     "page/applicant/pages/center/firstStep/fitstStep",
     "page/applicant/pages/center/secondStep/secondStep",
     "page/applicant/pages/center/thirdStep/thirdStep",
@@ -68,7 +69,9 @@
         "pages/user/mine/base/base",
         "pages/user/company/apply/apply",
         "pages/user/company/find/find",
-        "pages/user/company/post/post"
+        "pages/user/company/post/post",
+        "pages/user/company/abbreviation/abbreviation",
+        "pages/user/company/upload/upload"
       ]
     }
   ],

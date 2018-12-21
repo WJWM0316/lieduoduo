@@ -80,7 +80,7 @@
 				{
 					"id": 6,
 					"name": "公司认证",
-					"pathName": "page/recruiter/pages/user/company/post/post",
+					"pathName": "page/recruiter/pages/user/company/upload/upload",
 					"query": ""
 				},
 				{
@@ -90,9 +90,15 @@
 					"query": ""
 				},
 				{
-					"id": 8,
-					"name": "截图",
-					"pathName": "page/applicant/pages/center/cutInside/cutInside",
+					"id": -1,
+					"name": "interviewHistory",
+					"pathName": "page/recruiter/pages/interviewHistory/interviewHistory",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "标签页",
+					"pathName": "page/common/pages/tabsPage/tabsPage",
 					"query": ""
 				}
 			]

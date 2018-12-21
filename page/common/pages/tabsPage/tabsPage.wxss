@@ -1,0 +1,59 @@
+/* page/common/pages/tabsPage/tabsPage.wxss */
+.tabsPage {
+}
+.content {
+  padding: 36rpx 44rpx;
+}
+.head {
+  color: #282828;
+  font-size: 32rpx;
+  margin-bottom: 40rpx;
+}
+.head1 {
+  margin-top: 70rpx;
+}
+.head2 {
+  margin-top: 40rpx;
+}
+.number {
+  color: #BCBCBC;
+  font-size: 28rpx;
+  font-weight: 300;
+  margin-left: 16rpx;
+  display: inline-block;
+}
+.num {
+  color: #FF7F4C;
+}
+.tabs {
+  width: 100%;
+  padding: 0 0 20rpx;
+  border-bottom: 1rpx solid #CED7DC;
+}
+.tabs .tab {
+  padding: 0 38rpx;
+  height: 58rpx;
+  line-height: 58rpx;
+  text-align: center;
+  box-sizing: border-box;
+  display:inline-block;
+  margin-right: 20rpx;
+  border-radius: 29rpx;
+  border: 1px solid #E8E9EB;
+  font-size: 28rpx;
+  font-weight: 300;
+  color: #929292;
+  margin-bottom: 20rpx;
+}
+.tabs .tab.checked {
+  color: #2878FF;
+  border-color: #2878FF;
+}
+.myPicker {
+  width: 300rpx;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 50rpx;
+  text-align: center;
+}
+

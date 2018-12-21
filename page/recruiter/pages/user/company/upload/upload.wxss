@@ -1,0 +1,12 @@
+.mini-input-row {
+	overflow: hidden;
+	height: 200rpx;
+}
+
+.mini-input-row image {
+	height: 100rpx;
+}
+
+.button-enable {
+	background: green;
+}
