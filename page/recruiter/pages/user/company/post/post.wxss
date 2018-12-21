@@ -102,3 +102,7 @@
 	box-sizing: border-box;
 	padding-right: 5rpx;
 }
+
+.company-post .entry-list .link .text2{
+	margin-right: 5rpx;
+}

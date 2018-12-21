@@ -1,0 +1,12 @@
+<view class="company-abbreviation">
+	<navbar title="公司简称" background="#FFFFFF" color="#22292C" showBackBtn="{{true}}"></navbar>
+	<form bindsubmit="submit" class="entry-list">
+		<view class="li">
+			<view class="text">公司全称</view>
+			<input name="intro" placeholder="这是一个可以自动聚焦的input" auto-focus data-field="intro" bindinput="bindInput" value="{{intro}}" />
+		</view>
+	  <view class="btn-area">
+	    <button form-type="submit" class="{{canClick ? 'button-enable' : ''}}">保存</button>
+	  </view>
+	</form>
+</view>
