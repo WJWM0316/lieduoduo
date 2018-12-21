@@ -1,7 +1,21 @@
 <view class="company-upload">
 	<navbar title="上传资质信息" background="#FFFFFF" color="#22292C" showBackBtn="{{true}}"></navbar>
-	<unloadFile bindresultEvent="upload" unloadType="img" url="https://attach.lieduoduo.ziwork.com/img/2018/1218/11/5c18707cc2424.jpg%21330xauto?OSSAccessKeyId=LTAI8J03ETJEHV51&Expires=1545105834&Signature=8mpXIv8Ok7rcCd%2BT5NCm1280Tb0%3D">
-	  <view>上传文件</view>
-	</unloadFile>
 
+	<form bindsubmit="submit">
+	  <view class="mini-input-row">
+	    <unloadFile bindresultEvent="upload" unloadType="img" data-type="business_license">
+			  <view>上传营业执照</view>
+			  <image src="{{business_license.smallUrl}}"></image>
+			</unloadFile>
+	  </view>
+	  <view class="mini-input-row">
+	    <unloadFile bindresultEvent="upload" unloadType="img" data-type="on_job">
+			  <view>上传图片</view>
+			  <image src="{{on_job.smallUrl}}"></image>
+			</unloadFile>
+	  </view>
+	  <view class="btn-area">
+	    <button form-type="submit" class="{{canClick ? 'button-enable' : ''}}">下一步</button>
+	  </view>
+	</form>
 </view>

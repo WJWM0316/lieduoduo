@@ -19,9 +19,13 @@ Page({
    * @return   {[type]}   [description]
    */
   init() {
-    const intro = wx.getStorageSync('intro')
-    if(!intro) return;
-    this.setData({canClick: true, intro})
+    wx.getStorage({
+      key: 'createCompanyIntro',
+      success: res => {
+        const params = ['canClick', 'intro']
+        params.map(field => this.setData({ [field]: res.data[field]}))
+      }
+    })
   },
   /**
    * @Author   小书包
@@ -54,7 +58,10 @@ Page({
    */
   submit() {
     if(!this.data.intro) return;
-    wx.setStorageSync('intro', this.data.intro)
+    wx.setStorage({
+      key: 'createCompanyIntro',
+      data: this.data
+    })
     wx.navigateTo({
       url: `${RECRUITER}user/company/post/post`
     })

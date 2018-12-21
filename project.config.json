@@ -39,7 +39,6 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 13,
 			"current": 6,
 			"list": [
 				{
@@ -99,7 +98,8 @@
 				{
 					"id": -1,
 					"name": "标签页",
-					"pathName": "page/common/pages/tabsPage/tabsPage"
+					"pathName": "page/common/pages/tabsPage/tabsPage",
+					"query": ""
 				}
 			]
 		}

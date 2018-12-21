@@ -1,1 +1,13 @@
-/* page/recruiter/pages/certification/base/base.wxss */
+.company-list-ul {
+	overflow: hidden;
+	margin-top: 50px;
+}
+
+.company-list-ul .li {
+	height: 100rpx;
+	line-height: 100rpx;
+}
+
+.button-enable {
+	background: green;
+}

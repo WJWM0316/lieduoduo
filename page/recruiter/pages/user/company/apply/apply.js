@@ -1,5 +1,8 @@
 import { applyCompanyApi } from '../../../../../../api/pages/certification.js'
+
 import {realNameReg, emailReg, positionReg} from '../../../../../../utils/fieldRegular.js'
+
+import {RECRUITER} from '../../../../../../config.js'
 
 const app = getApp()
 
@@ -8,11 +11,26 @@ Page({
     real_name: '',
     user_email: '',
     user_position: '',
-    company_id: 1,
     canClick: false
   },
   onLoad() {
     getApp().globalData.identity = 'RECRUITER'
+    this.init()
+  },
+  /**
+   * @Author   小书包
+   * @DateTime 2018-12-21
+   * @detail   初始化页面
+   * @return   {[type]}   [description]
+   */
+  init() {
+    wx.getStorage({
+      key: 'createdCompanyBase',
+      success: res => {
+        const params = ['real_name', 'user_email', 'user_position', 'canClick']
+        params.map(field => this.setData({ [field]: res.data[field] }))
+      }
+    })
   },
   /**
    * @Author   小书包
@@ -59,10 +77,28 @@ Page({
 
     Promise.all([checkRealName, checkUserEmail, checkUserPosition])
            .then(res => {
-              applyCompanyApi(this.form)
+            wx.navigateTo({
+              url: `${RECRUITER}user/company/find/find`,
+              success: () => {
+                this.saveFormData()
+              }
+            })
+              // applyCompanyApi(this.form)
            })
            .catch(err => {
               wx.showToast({title: err, icon: 'none'})
            })
+  },
+  /**
+   * @Author   小书包
+   * @DateTime 2018-12-21
+   * @detail   保存当前页面的编辑数据
+   * @return   {[type]}   [description]
+   */
+  saveFormData() {
+    wx.setStorage({
+      key: 'createdCompanyBase',
+      data: this.data
+    })
   }
 })
