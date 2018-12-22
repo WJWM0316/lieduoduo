@@ -14,14 +14,14 @@
         <text>{{list[0][result[0]]}}{{list[1][result[1]]}}{{list[2][result[2]]}} {{list[3][result[3]]}}:{{list[4][result[4]]}}</text>
       </block>
       <block wx:else>
-        <text wx:if="{{result.length === 2}}">
+        <block wx:if="{{mode === 'multiSelector'}}">
           <text wx:if="{{list[1][result[1]] !== firstOption}}">{{list[0][result[0]]}}</text>
           <text wx:if="{{pickerType === 'salaryRangeC' || pickerType === 'salaryRangeB'}}">~</text>
           <text wx:if="{{list[0][result[0]] !== firstOption}}">{{list[1][result[1]]}}</text>
           <text wx:if="{{list[0][result[0]] === firstOption && list[1][result[1]] === firstOption}}">{{list[0][result[0]]}}</text>
-        </text>
-        <block wx:if="{{typeof(result) !== 'object'}}">
-          <text wx:if="{{pickerType === 'occupation'}}">{{list[result].name}}</text>
+        </block>
+        <block wx:if="{{mode === 'selector'}}">
+          <text wx:if="{{rangeKey}}">{{list[result][rangeKey]}}</text>
           <text wx:else>{{list[result]}}</text>
         </block>
       </block>
