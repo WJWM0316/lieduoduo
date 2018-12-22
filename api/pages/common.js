@@ -46,6 +46,22 @@ export const addJobLabelApi = (data) => {
   return request({
     method: 'post',
     data,
-    url: '/label/positionType'
+    url: '/label/professionalSkills'
   })
 }
+// 创建生活标签接口
+export const addLifeLabelApi = (data) => {
+  return request({
+    method: 'post',
+    data,
+    url: '/label/life'
+  })
+}
+export const saveLabelApi = (data) => {
+  return request({
+    method: 'post',
+    data,
+    url: '/jobhunter/labels'
+  })
+}
+

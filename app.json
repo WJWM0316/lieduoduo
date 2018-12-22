@@ -15,7 +15,8 @@
     "page/applicant/pages/center/beResume/beResume",
     "page/applicant/pages/center/firstStep/fitstStep",
     "page/applicant/pages/center/secondStep/secondStep",
-    "page/applicant/pages/center/thirdStep/thirdStep"
+    "page/applicant/pages/center/thirdStep/thirdStep",
+    "page/applicant/pages/center/userInfoEdit/userInfoEdit"
   ],
   "window": {
     "navigationBarTextStyle": "black",
