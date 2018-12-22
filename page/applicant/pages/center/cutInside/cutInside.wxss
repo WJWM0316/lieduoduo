@@ -1,0 +1,19 @@
+.cropper{
+  background-color: #000;
+}
+
+.cropper-buttons {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: center;
+  background-color: #000;
+}
+.cropper-buttons view{
+  text-align: center;
+  width: 200rpx;
+  background: #2878FF;
+  border-radius: 10rpx;
+  margin-right: 50rpx;
+  color: #fff;
+}

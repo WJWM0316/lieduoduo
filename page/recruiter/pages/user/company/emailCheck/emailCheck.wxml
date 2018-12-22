@@ -1,0 +1,23 @@
+<view>
+	<navbar title="企业邮箱验证" background="#FFFFFF" color="#22292C" showBackBtn="{{true}}"></navbar>
+	<form bindsubmit="submit" wx:if="{{step === 1}}">
+	  <view class="mini-input-row">
+	    <input name="prev_email" class="mini-row-value" placeholder="输入管理员邮箱" bindinput="bindInput" data-field="prev_email" value="{{prev_email}}" />
+	  </view>
+	  <view class="mini-input-row">
+	    <view class="mini-row-label">@</view>
+	    <input name="next_email" class="mini-row-value" placeholder="企业邮箱后缀" bindinput="bindInput" data-field="next_email" value="{{next_email}}" />
+	  </view>
+	  <view class="btn-area">
+	    <button form-type="submit" class="{{canClick ? 'button-enable' : ''}}">下一步</button>
+	  </view>
+	</form>
+	<form bindsubmit="submit" wx:else>
+	  <view class="mini-input-row">
+	    <input name="code" class="mini-row-value" placeholder="输入邮箱验证码" bindinput="bindInput" data-field="code" value="{{code}}" />
+	  </view>
+	  <view class="btn-area">
+	    <button form-type="submit" class="{{canClick ? 'button-enable' : ''}}">完成认证</button>
+	  </view>
+	</form>
+</view>

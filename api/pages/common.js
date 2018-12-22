@@ -9,6 +9,14 @@ export const unloadApi = (data, isLoading) => {
     isLoading: false
   })
 }
+export const upLoadApi = (data, isLoading) => {
+  return request({
+    method: 'post',
+    url: '/attaches',
+    data,
+    isLoading: false
+  })
+}
 // 职位列表数据接口
 export const getPostionApi = (data) => {
   return request({
@@ -22,7 +30,7 @@ export const getJobLabelApi = (data) => {
   return request({
     method: 'get',
     data,
-    url: '/label/professionalSkills'
+    url: '/label/position'
   })
 }
 // 生活标签接口

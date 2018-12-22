@@ -1,0 +1,4 @@
+/* page/applicant/pages/center/firstStep/fitstStep.wxss */
+.myPicker{
+  height: 100rpx;
+}

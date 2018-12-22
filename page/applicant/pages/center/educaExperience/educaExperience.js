@@ -1,5 +1,6 @@
-// page/applicant/pages/center/firstStep/fitstStep.js
-import { postfirstStepApi } from '../../../../../api/pages/center'
+// page/applicant/pages/center/thirdStep/thirdStep.js
+import { postThirdStepApi } from '../../../../../api/pages/center'
+let degree =''
 Page({
 
   /**
@@ -64,13 +65,16 @@ Page({
   onShareAppMessage: function () {
 
   },
-  
+  /* 学历选择结果 */
+  getresult(val) {
+    console.log(val)
+    degree = val.detail.propsDesc
+  },
   formSubmit (e) {
-    e.detail.value.avatar = 12
-    postfirstStepApi(e.detail.value).then(res => {
-      console.log(res, '99999999999')
+    e.detail.value.degree = degree
+    postThirdStepApi(e.detail.value).then(res => {
       wx.navigateTo({
-        url: '/page/applicant/pages/center/secondStep/secondStep'
+        url: '/page/applicant/pages/center/mine/mine'
       })
     }).catch (err => {
       console.log(err, '88888888888888888')

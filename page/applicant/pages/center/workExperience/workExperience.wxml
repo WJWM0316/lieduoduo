@@ -16,12 +16,12 @@
       <input name="duty" placeholder="工作内容" />
     </view>
     <view class="startTime">
-      <view class="section__title">开始时间</view>
-      <input name="startTime" placeholder="开始时间" />
+      <view class="section__title">开始工作时间</view>
+      <myPicker class="myPicker" data-type="starTime" pickerType="startTime" bindresultevent="getresult"></myPicker>
     </view>
     <view class="endTime">
-      <view class="section__title">结束时间</view>
-      <input name="endTime" placeholder="结束时间" />
+      <view class="section__title">结束工作时间</view>
+      <myPicker class="myPicker" pickerType="endTime" bindresultevent="getresult"></myPicker>
     </view>
     <view class="btn-area">
       <button formType="submit">Submit</button>

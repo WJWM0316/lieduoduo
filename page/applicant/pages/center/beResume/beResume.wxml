@@ -1,3 +1,0 @@
-<!--完善简历-->
-<navbar title="完善简历" background="#2878FF"></navbar>
-<view bindTab="send">完善简历第一步</view>

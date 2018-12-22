@@ -12,11 +12,11 @@
     "page/common/pages/bindPhone/bindPhone",
     "page/common/pages/auth/auth",
     "page/common/pages/tabsPage/tabsPage",
-    "page/applicant/pages/center/beResume/beResume",
-    "page/applicant/pages/center/firstStep/fitstStep",
-    "page/applicant/pages/center/secondStep/secondStep",
-    "page/applicant/pages/center/thirdStep/thirdStep",
-    "page/applicant/pages/center/userInfoEdit/userInfoEdit"
+    "page/applicant/pages/center/createUser/createUser",
+    "page/applicant/pages/center/workExperience/workExperience",
+    "page/applicant/pages/center/educaExperience/educaExperience",
+    "page/applicant/pages/center/userInfoEdit/userInfoEdit",
+    "page/applicant/pages/center/cutInside/cutInside"
   ],
   "window": {
     "navigationBarTextStyle": "black",
@@ -74,7 +74,8 @@
         "pages/user/company/abbreviation/abbreviation",
         "pages/user/company/upload/upload",
         "pages/user/company/identity/identity",
-        "pages/user/company/status/status"
+        "pages/user/company/status/status",
+        "pages/user/company/emailCheck/emailCheck"
       ]
     }
   ],

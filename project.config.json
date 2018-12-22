@@ -20,7 +20,7 @@
 	"debugOptions": {
 		"hidedInDevtools": []
 	},
-	"isGameTourist": false,
+	"scripts": {},
 	"condition": {
 		"search": {
 			"current": -1,
@@ -35,12 +35,10 @@
 			"list": []
 		},
 		"game": {
-			"currentL": -1,
 			"list": []
 		},
 		"miniprogram": {
-			"current": 10,
-			"current": 6,
+			"current": 7,
 			"list": [
 				{
 					"id": 0,
@@ -85,9 +83,9 @@
 					"query": ""
 				},
 				{
-					"id": 13,
-					"name": "第一步",
-					"pathName": "page/applicant/pages/center/firstStep/fitstStep",
+					"id": 7,
+					"name": "编辑简历第一步",
+					"pathName": "page/applicant/pages/center/educaExperience/educaExperience",
 					"query": ""
 				},
 				{
@@ -101,12 +99,15 @@
 					"name": "标签页",
 					"pathName": "page/common/pages/tabsPage/tabsPage",
 					"query": ""
+<<<<<<< HEAD
+=======
 				},
 				{
 					"id": 10,
 					"name": "用户信息编辑",
 					"pathName": "page/applicant/pages/center/userInfoEdit/userInfoEdit",
 					"query": ""
+>>>>>>> ee205a72311f08d0e651d7d9e5b534bd41cc2184
 				}
 			]
 		}

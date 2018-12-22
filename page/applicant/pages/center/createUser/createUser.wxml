@@ -12,7 +12,7 @@
     </view>
     <view class="name">
       <view class="section__title">参加工作年份</view>
-      <input name="startWorkYear" value="20181212" placeholder="参加工作年份" />
+      <myPicker class="myPicker" setResult="选择参加工作年份" pickerType="workTime" bindresultevent="getresult"></myPicker>
     </view>
     <view class="name">
       <view class="section__title">名字</view>
