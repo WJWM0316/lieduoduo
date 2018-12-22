@@ -1,3 +1,4 @@
 <view>
 	<navbar title="审核通知" background="#FFFFFF" color="#22292C" showBackBtn="{{true}}"></navbar>
+	<view>222</view>
 </view>

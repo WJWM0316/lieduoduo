@@ -74,7 +74,8 @@
         "pages/user/company/abbreviation/abbreviation",
         "pages/user/company/upload/upload",
         "pages/user/company/identity/identity",
-        "pages/user/company/status/status"
+        "pages/user/company/status/status",
+        "pages/user/company/emailCheck/emailCheck"
       ]
     }
   ],
