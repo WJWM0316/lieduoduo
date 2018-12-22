@@ -16,5 +16,7 @@
 	  <view class="btn-area">
 	    <button form-type="submit" class="{{canClick ? 'button-enable' : ''}}">下一步</button>
 	  </view>
+	  <view style="margin-top: 50rpx;">换个账号试试</view>
+	  <view style="margin-top: 40rpx;">前往求职者星球</view>
 	</form>
 </view>

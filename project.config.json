@@ -40,6 +40,7 @@
 		},
 		"miniprogram": {
 			"current": 10,
+			"current": 6,
 			"list": [
 				{
 					"id": 0,
@@ -100,12 +101,15 @@
 					"name": "标签页",
 					"pathName": "page/common/pages/tabsPage/tabsPage",
 					"query": ""
+<<<<<<< HEAD
 				},
 				{
 					"id": 10,
 					"name": "用户信息编辑",
 					"pathName": "page/applicant/pages/center/userInfoEdit/userInfoEdit",
 					"query": ""
+=======
+>>>>>>> f89f0da890a5c73baf3e0831e0296bd6d77899cb
 				}
 			]
 		}
