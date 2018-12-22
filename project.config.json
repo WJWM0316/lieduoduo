@@ -20,7 +20,7 @@
 	"debugOptions": {
 		"hidedInDevtools": []
 	},
-	"isGameTourist": false,
+	"scripts": {},
 	"condition": {
 		"search": {
 			"current": -1,
@@ -35,7 +35,6 @@
 			"list": []
 		},
 		"game": {
-			"currentL": -1,
 			"list": []
 		},
 		"miniprogram": {
@@ -86,7 +85,7 @@
 				{
 					"id": 7,
 					"name": "编辑简历第一步",
-					"pathName": "page/applicant/pages/center/createUser/createUser",
+					"pathName": "page/applicant/pages/center/educaExperience/educaExperience",
 					"query": ""
 				},
 				{

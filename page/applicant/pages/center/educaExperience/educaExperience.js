@@ -1,5 +1,6 @@
 // page/applicant/pages/center/thirdStep/thirdStep.js
 import { postThirdStepApi } from '../../../../../api/pages/center'
+let degree =''
 Page({
 
   /**
@@ -64,10 +65,17 @@ Page({
   onShareAppMessage: function () {
 
   },
-  
+  /* 学历选择结果 */
+  getresult(val) {
+    console.log(val)
+    degree = val.detail.propsDesc
+  },
   formSubmit (e) {
+    e.detail.value.degree = degree
     postThirdStepApi(e.detail.value).then(res => {
-      console.log('完善简历成功')
+      wx.navigateTo({
+        url: '/page/applicant/pages/center/mine/mine'
+      })
     }).catch (err => {
       console.log(err, '88888888888888888')
     })

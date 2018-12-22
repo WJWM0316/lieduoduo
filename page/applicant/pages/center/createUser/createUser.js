@@ -10,11 +10,10 @@ Page({
   formSubmit (e) {
     e.detail.value.avatar = 12
     e.detail.value.startWorkYear = this.workTime
-    e.detail.value.gender = sex
     postfirstStepApi(e.detail.value).then(res => {
       console.log(res, '99999999999')
-      wx.navigateTo({
-        url: '/page/applicant/pages/center/secondStep/secondStep'
+      wx.navigateTo({ // 完善简历第二步
+        url: '/page/applicant/pages/center/workExperience/workExperience'
       })
     }).catch (err => {
       console.log(err, '88888888888888888')

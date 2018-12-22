@@ -13,36 +13,7 @@
     </view>
     <view class="degree">
       <view class="section__title">学历</view>
-      <radio-group name="degree">
-        <label>
-          <radio value="5" />
-          初中及以下
-        </label>
-        <label>
-          <radio value="10" />
-          中专/中技
-        </label>
-        <label>
-          <radio value="15" />
-          高中
-        </label>
-        <label>
-          <radio value="20" />
-          大专
-        </label>
-        <label>
-          <radio value="25" />
-          本科
-        </label>
-        <label>
-          <radio value="30" />
-          硕士
-        </label>
-        <label>
-          <radio value="35" />
-          博士
-        </label>
-      </radio-group>
+      <myPicker class="myPicker" data-type="education" pickerType="education" bindresultevent="getresult"></myPicker>
     </view>
     <view class="startTime">
       <view class="section__title">开始时间</view>

@@ -15,6 +15,7 @@
     "page/applicant/pages/center/createUser/createUser",
     "page/applicant/pages/center/workExperience/workExperience",
     "page/applicant/pages/center/educaExperience/educaExperience",
+    "page/applicant/pages/center/userInfoEdit/userInfoEdit",
     "page/applicant/pages/center/cutInside/cutInside"
   ],
   "window": {
@@ -71,7 +72,9 @@
         "pages/user/company/find/find",
         "pages/user/company/post/post",
         "pages/user/company/abbreviation/abbreviation",
-        "pages/user/company/upload/upload"
+        "pages/user/company/upload/upload",
+        "pages/user/company/identity/identity",
+        "pages/user/company/status/status"
       ]
     }
   ],

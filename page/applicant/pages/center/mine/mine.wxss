@@ -18,6 +18,7 @@
 
 .mine .floating-box .header {
   display: flex;
+  justify-content: space-between;
   overflow: hidden;
 }
 
