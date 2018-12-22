@@ -12,9 +12,9 @@
     "page/common/pages/bindPhone/bindPhone",
     "page/common/pages/auth/auth",
     "page/common/pages/tabsPage/tabsPage",
-    "page/applicant/pages/center/firstStep/fitstStep",
-    "page/applicant/pages/center/secondStep/secondStep",
-    "page/applicant/pages/center/thirdStep/thirdStep",
+    "page/applicant/pages/center/createUser/createUser",
+    "page/applicant/pages/center/workExperience/workExperience",
+    "page/applicant/pages/center/educaExperience/educaExperience",
     "page/applicant/pages/center/cutInside/cutInside"
   ],
   "window": {

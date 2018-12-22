@@ -12,7 +12,7 @@
     </view>
     <view class="name">
       <view class="section__title">参加工作年份</view>
-      <input name="startWorkYear" value="20181212" placeholder="参加工作年份" />
+      <myPicker class="myPicker" setResult="选择参加工作年份" pickerType="workTime" bindresultevent="getresult"></myPicker>
     </view>
     <view class="name">
       <view class="section__title">名字</view>
@@ -20,10 +20,11 @@
     </view>
     <view class="section section_gap">
       <view class="section__title">性别</view>
-      <radio-group name="gender">
+      <myPicker class="myPicker" pickerType="sex" bindresultevent="getresult"></myPicker>
+      <!-- <radio-group name="gender">
         <label><radio value="1"/>男</label>
         <label><radio value="2"/>女</label>
-      </radio-group>
+      </radio-group> -->
     </view>
     <view class="btn-area">
       <button formType="submit">Submit</button>
