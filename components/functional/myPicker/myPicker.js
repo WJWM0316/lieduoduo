@@ -227,7 +227,7 @@ Component({
           propsResult = new Date(propsDesc).getTime() / 1000
         } else {
           if ((this.data.pickerType === 'endTime' && this.data.result[0] === 0) || (this.data.pickerType === 'workTime' && this.data.result[0] === 0)) {
-            propsResult = list[0][0]
+            propsResult = 0
             propsDesc = list[0][0]
           } else {
             propsDesc = `${parseInt(list[0][result[0]])}-${parseInt(list[1][result[1]])}`
@@ -242,8 +242,6 @@ Component({
           } else {
             propsDesc = 2
           }
-        } else if (this.data.pickerType === 'occupation') {
-          propsResult = list[result]
         } else {
           propsResult = list[result]
           propsDesc = result

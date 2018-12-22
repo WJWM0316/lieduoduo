@@ -9,6 +9,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    title: '选择职业标签',
     jobChoseNum: 0, // 职业标签选择的数量
     lifeChoseNum: 0, // 生活标签选择的数量
     pageType: 'job',
@@ -101,6 +102,7 @@ Page({
   choseTab(e) {
     let list = []
     let labelList = []
+    let skills = []
     let labelType = ''
     let type = ''
     let typeNum = ''
@@ -116,7 +118,7 @@ Page({
     switch (e.target.dataset.labeltype) {
       case 'skills':
         labelType = 'skills'
-        labelList = allSkills[choseFirstIndex].children
+        labelList = this.data.skills
         break
       case 'literacy':
         labelType = 'literacy'
@@ -139,20 +141,72 @@ Page({
     labelList.map((item, index) => {
       if (item.labelId === choseData.labelId) {
         choseData.index = index
+        return
       }
     })
     if (choseData.checked) {
-      labelList[choseData.index].checked = false
       list.map((item, index) => {
         if (item.labelId === choseData.labelId) {
-          console.log(item, choseData.labelId, index)
           list.splice(index, 1)
-          allSkills[choseFirstIndex].children[index].checked = false
-          let skills = allSkills[choseFirstIndex].children
-          console.log(index, skills)
-          this.setData({skills})
+          return
         }
       })
+      // 不是点击 选中标签列表
+      if (labelType !== 'choseJobList') {
+        labelList[choseData.index].checked = false
+      // 选中标签列表
+      } else {
+        let relationList = [] // 所选标签对应的列表
+        let relationType = '' // 所选标签对应的列表的类型
+        if (this.data.pageType === 'job') {
+          switch (choseData.topPid) {
+            case 100000:
+              relationType = 'skills'
+              // relationList = allSkills[choseFirstIndex].children
+              break
+            case 200000:
+              relationType = 'literacy'
+              relationList = this.data.literacy
+              break
+          }
+        } else {
+          switch (choseData.topPid) {
+            case 100000:
+              relationType = 'character'
+              relationList = this.data.character
+              break
+            case 120000:
+              relationType = 'interest'
+              relationList = this.data.interest
+              break
+          }
+        }
+        if (relationType !== 'skills') {
+          relationList.map((item, index) => {
+            if (item.labelId === choseData.labelId) {
+              item.checked = false
+              return
+            }
+          })
+        } else {
+          allSkills.map((item, index) => {
+            if (item.labelId === choseData.pid) {
+              relationList = item.children
+              relationList.map((n, i) => {
+                if (n.labelId === choseData.labelId) {
+                  relationList[i].checked = false
+                  relationList = allSkills[choseFirstIndex].children
+                  return
+                }
+              })
+              return
+            }
+          })
+        }
+        this.setData({
+          [relationType]: relationList
+        })
+      }
     // 选中的
     } else {
       if (list.length === 5) { // 超过五个不给选择了
@@ -214,11 +268,30 @@ Page({
   back() {
     if (this.data.pageType === 'left') {
       this.setData({
-        pageType: 'job'
+        pageType: 'job',
+        title: '选择职业标签'
       })
     }
   },
+  nextStep() {
+    if (this.data.choseJobList.length === 0) {
+      getApp().wxToast({
+        title: '请选择职业标签'
+      })
+      return
+    }
+    this.setData({
+      pageType: 'life',
+      title: '选择生活标签'
+    })
+  },
   saveLabel() {
+    if (this.data.choseLifeList.length === 0) {
+      getApp().wxToast({
+        title: '请选择生活标签'
+      })
+      return
+    }
     let jobList = []
     let lifeList = []
     this.data.choseJobList.map((item, index) => {
@@ -232,12 +305,9 @@ Page({
       lifeLabels: lifeList
     }
     saveLabelApi(data).then(res => {
-      console.log('保存成功')
-    })
-  },
-  nextStep() {
-    this.setData({
-      pageType: 'life'
+      wx.navigateBack({
+        delta: 1
+      })
     })
   },
   /**

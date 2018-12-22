@@ -1,5 +1,5 @@
 <view class="tabsPage">
-  <navbar title="标签页" customBack bindbackEvent="back"></navbar>
+  <navbar title="{{title}}" customBack bindbackEvent="back"></navbar>
   <block>
     <view class="content"  hidden="{{pageType !== 'job'}}">
       <view class="head">已选择标签<text class="number"><text class="num">{{jobChoseNum}}</text>/5</text></view>
