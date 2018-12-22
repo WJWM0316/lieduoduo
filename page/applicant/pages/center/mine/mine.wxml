@@ -21,10 +21,10 @@
 			<view class="img-box"></view>
 		</view>
     <view class='edit-box' wx:if='{{isLogin && isComplete}}'>
-      <view class='left-text'>在职-暂不考虑</view>
+      <view class='left-text'>{{myInfo.jobStatusDesc || "待完善"}}</view>
       <view class='right-edit'>
         <text class='progress-rate'>完善度 {{myInfo.resumeCompletePercentageDesc}}</text>
-        <view class='edit-btn'>
+        <view class='edit-btn' bindtap='toEdit'>
           <i class="icon iconfont icon-bianji"></i>
           <text class='edit-resume'>编辑简历</text>
         </view>
