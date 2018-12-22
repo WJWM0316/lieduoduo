@@ -1,8 +1,11 @@
 import {
   getCompanyFinancingApi,
-  getCompanyEmployeesApi,
+  getCompanyEmployeesApi
+} from '../../../../../../api/pages/company.js'
+
+import {
   getLabelFieldApi
-} from '../../../../../../api/pages/user.js'
+} from '../../../../../../api/pages/common.js'
 
 import {realNameReg, emailReg, positionReg} from '../../../../../../utils/fieldRegular.js'
 
