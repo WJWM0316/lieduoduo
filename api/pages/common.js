@@ -65,3 +65,12 @@ export const saveLabelApi = (data) => {
   })
 }
 
+// 行业领域列表
+export const getLabelFieldApi = (data, isLoading) => {
+  return request({
+    method: 'get',
+    url: '/label/field',
+    data,
+    isLoading: false
+  })
+}

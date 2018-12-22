@@ -1,4 +1,4 @@
-import { applyCompanyApi } from '../../../../../../api/pages/certification.js'
+import { applyCompanyApi } from '../../../../../../api/pages/company.js'
 
 import {realNameReg, emailReg, positionReg} from '../../../../../../utils/fieldRegular.js'
 
