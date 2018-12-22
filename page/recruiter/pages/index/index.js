@@ -1,3 +1,5 @@
+import { getMyBrowseUsersApi } from '../../../../api/pages/recruiter.js'
+
 const app = getApp()
 
 Page({
@@ -60,11 +62,9 @@ Page({
       }
     ]
   },
-  onPullDownRefresh() {
-    console.log("下拉")
-  },
-  onReachBottom() {
-    console.log("上拉")
+  onShow() {
+    getApp().globalData.identity = 'RECRUITER'
+    getMyBrowseUsersApi()
   },
   changeCompanyLists(e) {
     let pageList = e.currentTarget.dataset.pageList

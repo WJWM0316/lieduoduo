@@ -1,6 +1,6 @@
 Component({
-	behaviors: [],
-	externalClasses: ['iconfont1'],
+  behaviors: [],
+  externalClasses: ['iconfont1'],
   properties: {
     // 传入的列表数据
     list: {
@@ -55,8 +55,8 @@ Component({
   },
 	methods: {
 		routeJump(e) {
-			let companyId = e.currentTarget.dataset.companyId
-			console.log(companyId)
+			let itemId = e.currentTarget.dataset.itemId
+			console.log(itemId)
 		}
 	}
 })
