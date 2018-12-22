@@ -44,6 +44,7 @@ export const request = ({method = 'post', url, data = {}, needKey = true, hasLoa
             // console.log(msg)
           } else {
             reject(msg)
+            getApp().wxToast({title: msg.msg})
             // console.log(msg)
           }
           switch (msg.httpStatus) {
