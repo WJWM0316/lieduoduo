@@ -1,4 +1,4 @@
-<view class="interviewer-list-ul">
+<view class="interviewer-list-ul iconfont1">
 	<view
 		class="li {{ showTopRadius ? 'top-radius' : ''}} {{ showRightRadius ? 'right-radius' : ''}} {{ showBottomRadius ? 'bottom-radius' : ''}} {{ showLeftRadius ? 'left-radius' : ''}}"
 		wx:for="{{ list }}"

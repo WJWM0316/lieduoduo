@@ -3,7 +3,7 @@
   <navbar title="招聘官动态" color="#000000" background="#FFFFFF"></navbar>
   <view class="tabBar">
     <text bindtap='toggle' data-active='watched' class='{{active === "watched"? "active" : ""}}'>看过我的</text>
-    <text bindtap='toggle' data-active='interest' class='{{active === "interest"? "active" : ""}}'>我感兴趣</text>
+    <text bindtap='toggle' data-active='interest' class='{{active === "interest"? "active" : ""}}'>对我感兴趣</text>
   </view>
-  <interviewerList list="{{companyList}}" showFooter="{{false}}" dotType="circle"></interviewerList>
+  <interviewerList iconfont1="more" list="{{companyList}}" showFooter="{{false}}" dotType="circle"></interviewerList>
 </view>

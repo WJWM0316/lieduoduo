@@ -2,3 +2,7 @@
 .myPicker{
   height: 100rpx;
 }
+.avatar{
+  width: 150rpx !important;
+  height: 150rpx !important;
+}

@@ -15,8 +15,7 @@
     "page/applicant/pages/center/createUser/createUser",
     "page/applicant/pages/center/workExperience/workExperience",
     "page/applicant/pages/center/educaExperience/educaExperience",
-    "page/applicant/pages/center/userInfoEdit/userInfoEdit",
-    "page/applicant/pages/center/cutInside/cutInside"
+    "page/applicant/pages/center/userInfoEdit/userInfoEdit"
   ],
   "window": {
     "navigationBarTextStyle": "black",

@@ -13,7 +13,7 @@
     </view>
     <view class="degree">
       <view class="section__title">学历</view>
-      <myPicker class="myPicker" data-type="education" pickerType="education" bindresultevent="getresult"></myPicker>
+      <myPicker class="myPicker" data-type="education" pickerType="education" bindresultevent="getresult"  rangeKey="name"></myPicker>
     </view>
     <view class="startTime">
       <view class="section__title">开始时间</view>
