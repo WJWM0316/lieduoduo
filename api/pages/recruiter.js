@@ -1,12 +1,21 @@
-// 招聘管首页
-import { request } from '../require'
+import { request } from '../require.js'
 
-// 浏览过的招聘官列表
-export const getMyBrowseUsersApi = data => {
+// 获取招聘官所有招聘宣言
+export const getRecruiterAllmanifestoApi = (data) => {
   return request({
+    url: '/recruiter/allmanifesto',
     method: 'get',
-    url: '/browse/myBrowseUsers',
     data,
-    isLoadData: true
+    hasLoading: true
+  })
+}
+
+// 招聘官-我的信息(“我的”页面)
+export const getRecruiterMyInfoApi = (data) => {
+  return request({
+    url: '/recruiter/myInfo',
+    method: 'get',
+    data,
+    hasLoading: true
   })
 }
