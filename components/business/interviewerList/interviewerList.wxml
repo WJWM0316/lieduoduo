@@ -2,22 +2,20 @@
 	<view
 		class="li {{ showTopRadius ? 'top-radius' : ''}} {{ showRightRadius ? 'right-radius' : ''}} {{ showBottomRadius ? 'bottom-radius' : ''}} {{ showLeftRadius ? 'left-radius' : ''}}"
 		wx:for="{{ list }}"
-		wx:for-item="company"
-		wx:key="{{company.id}}"
-		data-company-id="{{company.id}}"
+		wx:for-item="item"
+		wx:key="{{item.id}}"
+		data-item-id="{{item.id}}"
 		bindtap="routeJump">
 			<view class="img-box">
-				<view class="is-certification" wx:if="{{company.certification}}"></view>
+				<view class="is-certification" wx:if="{{item.certification}}"></view>
 			</view>
 			<view class="content">
 				<view class="header">
-					<view class="recruiter-name">{{company.recruiterName}}</view>
+					<view class="recruiter-name">{{item.recruiterName}}</view>
 					<view class="recruiter-infos">2年·本科·8-12k</view>
 				</view>
 				<view class="main">
-					<view class="company-name">
-						广州老虎科技有限公司 | 产品总监
-					</view>
+					<view class="company-name"> 广州老虎科技有限公司 | 产品总监 </view>
 				</view>
 			</view>
 			<view class="footer {{ showDividingLine ? 'show-dividing-line' : ''}}" wx:if="{{showFooter}}">

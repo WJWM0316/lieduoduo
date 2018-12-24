@@ -1,3 +1,5 @@
+import { getRecruiterAllmanifestoApi } from '../../../../../../api/pages/recruiter.js'
+
 const app = getApp()
 
 Page({
@@ -6,6 +8,10 @@ Page({
   	realName: '',
   	eMail: '',
   	job: ''
+  },
+  onLoad() {
+    getApp().globalData.identity = 'RECRUITER'
+    getRecruiterAllmanifestoApi()
   },
   bindInput(e) {
   	let field = e.currentTarget.dataset.field
