@@ -1,32 +1,41 @@
-<view class="company-post">
+<view class="position-post">
 	<navbar title="发布职位" background="#FFFFFF" color="#22292C" showBackBtn="{{true}}"></navbar>
 	<form bindsubmit="submit" class="entry-list">
-		<view class="li" bindtap="routeJump" data-route="search">
+		<view class="li link" bindtap="routeJump" data-route="search">
 			<view class="text">职位名称</view>
 			<i class="icon iconfont icon-zhishibiao"></i>
-			<view class="text2">{{intro}}</view>
+			<view class="text2">{{position_name || '请填写'}}</view>
 		</view>
 		<view class="li link" bindtap="routeJump" data-route="category">
 			<view class="text">职位类别</view>
 			<i class="icon iconfont icon-zhishibiao"></i>
-			<view class="text2">{{intro}}</view>
+			<view class="text2">{{describe || '请选择'}}</view>
 		</view>
 		<view class="li link" bindtap="routeJump" data-route="address">
 			<view class="text">工作地点</view>
 			<i class="icon iconfont icon-zhishibiao"></i>
-			<view class="text2">{{intro}}</view>
+			<view class="text2">{{describe || '请选择'}}</view>
 		</view>
 		<view class="li link" bindtap="routeJump" data-route="skill">
 			<view class="text">技能要求</view>
 			<i class="icon iconfont icon-zhishibiao"></i>
-			<view class="text2">{{intro}}</view>
+			<view class="text2">{{describe || '请选择'}}</view>
 		</view>
-		<view class="li link" bindtap="jumpModifyIntro">
+		<view class="li dropdown">
 			<view class="text">薪资范围</view>
 			<i class="icon iconfont icon-zhishibiao"></i>
-			<view class="text2">{{intro}}</view>
+			<picker
+				range="{{ experienceLists }}" 
+				mode="selector" 
+				value="{{ experienceLists[work_experience] }}" 
+				range-key="{{ 'text' }}"
+				bindchange="bindChange"
+				data-key="work_experience">
+		    <view class="text2" wx:if="{{!selected_work_experience}}">请选择</view>
+		    <view class="text2" wx:else>{{ experienceLists[work_experience].text }}</view>
+		  </picker>
 		</view>
-		<view class="li link">
+		<view class="li dropdown">
 			<view class="text">经验要求</view>
 			<i class="icon iconfont icon-zhishibiao"></i>
 			<picker
@@ -40,7 +49,7 @@
 		    <view class="text2" wx:else>{{ experienceLists[work_experience].text }}</view>
 		  </picker>
 		</view>
-		<view class="li link">
+		<view class="li dropdown">
 			<view class="text">最低学历</view>
 			<i class="icon iconfont icon-zhishibiao"></i>
 			<picker
@@ -57,50 +66,8 @@
 		<view class="li link" bindtap="routeJump" data-route="description">
 			<view class="text">职位描述</view>
 			<i class="icon iconfont icon-zhishibiao"></i>
-			<view class="text2">{{intro}}</view>
+			<view class="text2">{{describe || '请填写'}}</view>
 		</view>
-<!-- 		<view class="li">
-			<i class="icon iconfont icon-zhishibiao"></i>
-			<view class="text">所属行业</view>
-			<picker
-				range="{{ companyLabelField }}" 
-				mode="selector" 
-				value="{{ companyLabelField[industry_id] }}" 
-				range-key="{{ 'name' }}"
-				bindchange="bindChange"
-				data-key="industry_id">
-		    <view class="text2" wx:if="{{!selected_industry_id}}">请选择</view>
-		    <view class="text2" wx:else>{{ companyLabelField[industry_id].name }}</view>
-		  </picker>
-		</view>
-		<view class="li">
-			<view class="text">融资阶段</view>
-			<i class="icon iconfont icon-zhishibiao"></i>
-			<picker
-				range="{{ companyFinance }}" 
-				mode="selector" 
-				value="{{ companyFinance[financing] }}" 
-				range-key="{{ 'text' }}"
-				bindchange="bindChange"
-				data-key="financing">
-				<view class="text2" wx:if="{{!selected_financing}}">请选择</view>
-		    <view class="text2" wx:else>{{ companyFinance[financing].text }}</view>
-		  </picker>
-		</view>
-		<view class="li">
-			<i class="icon iconfont icon-zhishibiao"></i>
-			<view class="text">人员规模</view>
-			<picker 
-				range="{{ companyEmployees }}" 
-				bindchange="bindChange" 
-				data-key="employees" 
-				mode="selector" 
-				value="{{ companyEmployees[employees] }}" 
-				range-key="{{ 'text' }}">
-				<view class="text2" wx:if="{{!selected_employees}}">请选择</view>
-		    <view class="text2"  wx:else>{{ companyEmployees[employees].text }}</view>
-		  </picker>
-		</view> -->
 	  <view class="btn-area">
 	    <button form-type="submit" class="{{canClick ? 'button-enable' : ''}}">发布</button>
 	  </view>

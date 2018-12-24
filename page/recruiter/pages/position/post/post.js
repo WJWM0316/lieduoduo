@@ -19,23 +19,22 @@ const app = getApp()
 
 Page({
   data: {
-    company_name: '',
-    companyFinance: [],
-    companyEmployees: [],
-    companyLabelField: [],
-    // 所属行业
-    industry_id: 0,
-    // 公司融资情况
-    financing: 0,
-    // 员工人数范围
-    employees: 0,
-    selected_industry_id: false,
-    selected_financing: false,
-    selected_employees: false,
-    intro: '',
-    experienceLists: [],
-    work_experience: 0,
-    selected_work_experience: false,
+    position_name: '',
+    company_id: '',
+    type: '',
+    province: '',
+    city: '',
+    district: '',
+    address: '',
+    doorplate: '',
+    labels: '',
+    labels: '',
+    labels: '',
+    emolument_min: '',
+    emolument_max: '',
+    work_experience: '',
+    education: '',
+    describe: '',
     canClick: false
   },
   onLoad() {
@@ -52,7 +51,6 @@ Page({
     getPositionExperienceApi()
       .then(res => {
         this.setData({experienceLists: res.data})
-        console.log(res.data)
       })
     getCompanyFinancingApi()
       .then(res => {
