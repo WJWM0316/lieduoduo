@@ -9,7 +9,9 @@
   	class ="item {{item.active ? 'active' : ''}}">
   	{{item.text}}
   </view>
+  <view class="publish" data-action="add" bindtap="routeJump"><i class="icon iconfont icon-bianji"></i> 发布职位</view>
 </view>
+
 <scroll-view class="scroll-view_H" scroll-y='true'>
   <view class="office-manager-list">
 		<view class="li"
@@ -31,4 +33,5 @@
 		</view>
 	</view>
 </scroll-view>
+
 <tab-bar tabType="1"></tab-bar>

@@ -8,7 +8,7 @@ const app = getApp()
 
 Page({
   data: {
-    pageList: 'all',
+    pageList: 'seen-me',
     companyList: [
       {
         id: 1,
@@ -23,7 +23,7 @@ Page({
   },
   onShow() {
     getApp().globalData.identity = 'RECRUITER'
-    getMyBrowsePositionApi()
+    getBrowseMySelfApi()
   },
   changeCompanyLists(e) {
     let pageList = e.currentTarget.dataset.pageList

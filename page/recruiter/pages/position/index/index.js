@@ -1,3 +1,5 @@
+import {RECRUITER} from '../../../../../config.js'
+
 const app = getApp()
 
 Page({
@@ -7,27 +9,12 @@ Page({
       {
         id: 'all',
         active: true,
-        text: '全部'
+        text: '上线职位'
       },
       {
         id: 'opening',
         active: false,
-        text: '开放中'
-      },
-      {
-        id: 'pending',
-        active: false,
-        text: '审核中'
-      },
-      {
-        id: 'fail',
-        active: false,
-        text: '审核失败'
-      },
-      {
-        id: 'closed',
-        active: false,
-        text: '已关闭'
+        text: '下线职位'
       }
     ],
     companyList: [
@@ -124,8 +111,19 @@ Page({
     ]
   },
   routeJump(e) {
-    let companyId = e.currentTarget.dataset.companyId
-    console.log(companyId)
+    const action = e.currentTarget.dataset.action
+    switch(action) {
+      case 'add':
+        wx.navigateTo({
+          url: `${RECRUITER}office/post/post`,
+          fail(e) {
+            console.log(e)
+          }
+        })
+        break
+      default:
+        break
+    }
   },
   /* 子级tab栏切换 */
   onClickTab(e) {

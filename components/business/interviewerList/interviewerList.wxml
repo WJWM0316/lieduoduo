@@ -15,9 +15,7 @@
 					<view class="recruiter-infos">2年·本科·8-12k</view>
 				</view>
 				<view class="main">
-					<view class="company-name">
-						广州老虎科技有限公司 | 产品总监
-					</view>
+					<view class="company-name"> 广州老虎科技有限公司 | 产品总监 </view>
 				</view>
 			</view>
 			<view class="footer {{ showDividingLine ? 'show-dividing-line' : ''}}" wx:if="{{showFooter}}">

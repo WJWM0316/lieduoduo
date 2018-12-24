@@ -1,6 +1,5 @@
 Component({
   behaviors: [],
-  externalClasses: ['iconfont1'],
   properties: {
     // 传入的列表数据
     list: {
