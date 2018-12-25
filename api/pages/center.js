@@ -14,6 +14,14 @@ export const getBaseInfoApi = () => {
     url: '/jobhunter/baseInfo'
   })
 }
+// 编辑求职者个人基本信息
+export const editBaseInfoApi = (data) => {
+  return request({
+    method: 'post',
+    url: '/jobhunter/baseInfo',
+    data
+  })
+}
 // 查询当前简历完善度
 export const getResumeStepApi = (isLoadData) => {
   return request({

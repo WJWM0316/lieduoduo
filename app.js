@@ -65,7 +65,6 @@ App({
                 getSessionKeyApi(getSessionKeyParams).then(res => {
                   console.log('用户未授权,获取sessionkey成功', res.data.sessionToken)
                   wx.setStorageSync('sessionToken', res.data.sessionToken)
-                  resolve(res)
                 })
               },
               fail: function (e) {
@@ -77,6 +76,7 @@ App({
       })
     })
   },
+  // 微信toast
   wxToast({title, icon = 'none', image, mask = true, duration = 1500, callback = function(){} }) {
     // icon - success 显示成功图标，此时 title 文本最多显示 7 个汉字长度
     // icon - loading 显示加载图标，此时 title 文本最多显示 7 个汉字长度

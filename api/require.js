@@ -2,18 +2,18 @@ import {APPLICANTHOST, RECRUITERHOST, COMMON} from '../config.js'
 
 let loadNum = 0
 let addHttpHead = {}
-if (wx.getStorageSync('sessionToken')) {
-  addHttpHead['Authorization-Wechat'] = wx.getStorageSync('sessionToken')
-}
-if (wx.getStorageSync('token')) {
-  addHttpHead['Authorization'] = wx.getStorageSync('token')
-}
 let BASEHOST = ''
 export const request = ({method = 'post', url, data = {}, needKey = true, hasLoading = true, loadingContent = '加载中...'}) => {
   if (getApp().globalData.identity === 'APPLICAN') {
     BASEHOST = APPLICANTHOST
   } else {
     BASEHOST = RECRUITERHOST
+  }
+  if (wx.getStorageSync('sessionToken')) {
+    addHttpHead['Authorization-Wechat'] = wx.getStorageSync('sessionToken')
+  }
+  if (wx.getStorageSync('token')) {
+    addHttpHead['Authorization'] = wx.getStorageSync('token')
   }
   const promise = new Promise((resolve, reject) => {
     // 开启菊花图
@@ -45,7 +45,6 @@ export const request = ({method = 'post', url, data = {}, needKey = true, hasLoa
           } else {
             reject(msg)
             getApp().wxToast({title: msg.msg})
-            // console.log(msg)
           }
           switch (msg.httpStatus) {
             case 200:

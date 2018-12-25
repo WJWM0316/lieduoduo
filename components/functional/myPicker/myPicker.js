@@ -16,6 +16,9 @@ Component({
     rangeKey: {
       type: String,
       value: null
+    },
+    placeholderStyle: {
+      type: String
     }
   },
 
@@ -34,7 +37,7 @@ Component({
     jobStatus: [{name: '离职，随时到岗', value: 2}, {name: '在职，暂不考虑', value: 1}, {name: '在职，考虑机会', value: 4}, {name: '在职，月内到岗', value: 3}],
     education: [{name: '博士', value: 35}, {name: '硕士', value: 30}, {name: '本科', value: 25}, {name: '大专', value: 20}, {name: '中专/中技', value: 15}, {name: '高中', value: 10}, {name: '初中及以下', value: 5}],
     sex: [{name: '男', value: 1}, {name:'女', value: 2}],
-    dateType: ['startTime', 'endTime', 'workTime', 'dateTime'],
+    dateType: ['startTime', 'endTime', 'workTime', 'dateTime', 'birthday'],
     year: [],
     month: ['12月', '11月', '10月', '09月', '08月', '07月', '06月', '05月','04月', '03月', '02月', '01月'],
     days: ['01日', '02日', '03日', '04日', '05日', '06日', '07日', '08日', '09日', '10日', '11日', '12日', '13日', '14日', '15日', '16日', '17日', '18日', '19日', '20日', '21日', '22日', '23日', '24日', '25日', '26日', '27日', '28日', '29日', '30日'],
@@ -105,7 +108,7 @@ Component({
         } else {
           list.push([firstOption])
         }
-        this.setData({list, year, result, mode: 'multiSelector', firstOption, placeholder: '请选择参加工作时间'})
+        this.setData({list, year, result, mode: 'multiSelector', firstOption, placeholder: '请选择时间'})
         break
       case 'dateTime':
         result = []
@@ -205,13 +208,15 @@ Component({
         break
       case 'occupation':
         getJobLabelApi({type: 'skills'}).then(res => {
-          list = res.data[0].children
+          list = res.data
+          let propsResult = null
           list.map((item, index) => {
             if (item.name === this.data.setResult) {
               result = `${index}`
+              propsResult = item
             }
           })
-          let propsResult = list[result]
+          console.log(propsResult)
           this.triggerEvent('resultevent', {propsResult})
           this.setData({list, result, mode: 'selector', placeholder: '请选择职业'})
         })
@@ -229,16 +234,18 @@ Component({
       let list = this.data.list
       let result = this.data.result
       if (this.data.mode === 'multiSelector') {
-        if (this.data.pickerType === 'dateTime') {
-          propsDesc = `${parseInt(list[0][result[0]])}-${parseInt(list[1][result[1]])}-${parseInt(list[2][result[2]])} ${list[3][result[3]]}:${list[4][result[4]]}`
-          propsResult = new Date(propsDesc).getTime() / 1000
-        } else {
-          if ((this.data.pickerType === 'endTime' && this.data.result[0] === 0) || (this.data.pickerType === 'workTime' && this.data.result[0] === 0)) {
-            propsResult = 0
-            propsDesc = list[0][0]
-          } else {
-            propsDesc = `${parseInt(list[0][result[0]])}-${parseInt(list[1][result[1]])}`
+        if (this.data.dateType.indexOf(this.data.pickerType) !== -1) {
+          if (this.data.pickerType === 'dateTime') {
+            propsDesc = `${parseInt(list[0][result[0]])}-${parseInt(list[1][result[1]])}-${parseInt(list[2][result[2]])} ${list[3][result[3]]}:${list[4][result[4]]}`
             propsResult = new Date(propsDesc).getTime() / 1000
+          } else {
+            if ((this.data.pickerType === 'endTime' && this.data.result[0] === 0) || (this.data.pickerType === 'workTime' && this.data.result[0] === 0)) {
+              propsResult = 0
+              propsDesc = list[0][0]
+            } else {
+              propsDesc = `${parseInt(list[0][result[0]])}-${parseInt(list[1][result[1]])}`
+              propsResult = new Date(propsDesc).getTime() / 1000
+            }
           }
         }
       } else {
@@ -249,7 +256,11 @@ Component({
     },
     // picker 变动监听
     change(e) {
+      if (this.data.mode === 'multiSelector' && e.detail.value[1] === null) {
+        e.detail.value[1] = 0
+      }
       this.setData({result: e.detail.value})
+      
       this.setResult()
     },
     // picker 某一项数据滚动监听

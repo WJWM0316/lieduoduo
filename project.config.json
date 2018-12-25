@@ -99,15 +99,12 @@
 					"name": "标签页",
 					"pathName": "page/common/pages/tabsPage/tabsPage",
 					"query": ""
-<<<<<<< HEAD
-=======
 				},
 				{
 					"id": 10,
 					"name": "用户信息编辑",
 					"pathName": "page/applicant/pages/center/userInfoEdit/userInfoEdit",
 					"query": ""
->>>>>>> ee205a72311f08d0e651d7d9e5b534bd41cc2184
 				}
 			]
 		}
