@@ -78,7 +78,6 @@ Page({
         })
       }
     }
-    
   },
   getCustomLabel(e) {
     this.setData({

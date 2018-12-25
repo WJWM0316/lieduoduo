@@ -99,6 +99,12 @@
 					"name": "标签页",
 					"pathName": "page/common/pages/tabsPage/tabsPage",
 					"query": ""
+				},
+				{
+					"id": 10,
+					"name": "用户信息编辑",
+					"pathName": "page/applicant/pages/center/userInfoEdit/userInfoEdit",
+					"query": ""
 				}
 			]
 		}

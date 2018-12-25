@@ -3,12 +3,6 @@ import {unloadApi} from '../../../api/pages/common.js'
 import {APPLICANTHOST, RECRUITERHOST} from '../../../config.js'
 let fileNum = 0 // 选择文件的数量
 let result = [] // 返回父组件的结果
-let BASEHOST = ''
-if (getApp().globalData.identity === 'APPLICAN') {
-  BASEHOST = APPLICANTHOST
-} else {
-  BASEHOST = RECRUITERHOST
-}
 Component({
   /**
    * 组件的属性列表
@@ -56,6 +50,12 @@ Component({
       })
     },
     wxupLoad(file) {
+      let BASEHOST = ''
+      if (getApp().globalData.identity === 'APPLICAN') {
+        BASEHOST = APPLICANTHOST
+      } else {
+        BASEHOST = RECRUITERHOST
+      }
       wx.uploadFile({
         url: `${BASEHOST}/attaches`,
         filePath: file.path,//此处为图片的path

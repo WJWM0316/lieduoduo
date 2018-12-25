@@ -12,12 +12,11 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    let data = {
-      email: 18520287895,
-      password: 123456
-    }
-    testLoginApi(data).then(res => {
-      wx.setStorageSync('token', res.data.token)
+    getApp().wxToast({
+      title: '测试',
+      callback() {
+        console.log(11111111)
+      }
     })
   },
   getResult: (e) => {
