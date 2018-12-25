@@ -208,7 +208,7 @@ Component({
         break
       case 'occupation':
         getJobLabelApi({type: 'skills'}).then(res => {
-          list = res.data
+          list = res.data.labelProfessionalSkills
           let propsResult = null
           list.map((item, index) => {
             if (item.name === this.data.setResult) {
@@ -249,8 +249,12 @@ Component({
           }
         }
       } else {
-        propsResult = list[result].value
-        propsDesc = list[result].name
+        if (this.data.pickerType === 'occupation') {
+          propsResult = list[parseInt(result)]
+        } else {
+          propsResult = list[result].value
+          propsDesc = list[result].name
+        }
       }
       this.triggerEvent('resultevent', {propsResult, propsDesc})
     },
@@ -260,7 +264,6 @@ Component({
         e.detail.value[1] = 0
       }
       this.setData({result: e.detail.value})
-      
       this.setResult()
     },
     // picker 某一项数据滚动监听

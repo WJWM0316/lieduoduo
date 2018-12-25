@@ -13,10 +13,6 @@ Component({
       type: Boolean,
       value:true
     },
-    showBackBtn: {
-      type: Boolean,
-      value: false
-    },
     showHome: {
       type: Boolean,
       value: true
@@ -34,12 +30,22 @@ Component({
       value: false
     }
   },
+  data: {
+    showBackBtn: false
+  },
   lifetimes: {
     attached() {
       this.setData({
         navH: App.globalData.navHeight
       })
-     }
+    }
+  },
+  pageLifetimes: {
+    show() {
+      if (getCurrentPages().length > 1) {
+        this.setData({showBackBtn: true})
+      }
+    }
   },
   /**
    * 组件的方法列表

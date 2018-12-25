@@ -33,17 +33,11 @@ Page({
     let skills = []
     let literacy = []
     getJobLabelApi({type: 'all'}).then(res => {
-      res.data.map((item, index) => {
-        if (item.labelId === 100000) {
-          allSkills = item.children
-          allSkills.map((n, index) => {
-            if (n.labelId === choseFirstId) {
-              skills = allSkills[index].children
-            }
-          })
-        }
-        if (item.labelId === 200000) {
-          literacy = item.children
+      allSkills = res.data.labelProfessionalSkills
+      literacy = res.data.labelProfessionalLiteracy
+      allSkills.map((n, index) => {
+        if (n.labelId === choseFirstId) {
+          skills = allSkills[index].children
         }
       })
       this.setData({skills, literacy})
@@ -157,28 +151,23 @@ Page({
       } else {
         let relationList = [] // 所选标签对应的列表
         let relationType = '' // 所选标签对应的列表的类型
-        if (this.data.pageType === 'job') {
-          switch (choseData.topPid) {
-            case 100000:
-              relationType = 'skills'
-              // relationList = allSkills[choseFirstIndex].children
-              break
-            case 200000:
-              relationType = 'literacy'
-              relationList = this.data.literacy
-              break
-          }
-        } else {
-          switch (choseData.topPid) {
-            case 100000:
-              relationType = 'character'
+        switch (choseData.type) {
+          case 'label_professional_skills':
+            relationType = 'skills'
+            // relationList = allSkills[choseFirstIndex].children
+            break
+          case 'label_professional_literacy':
+            relationType = 'literacy'
+            relationList = this.data.literacy
+            break
+          case 100000:
+              relationType = 'label_professional_character'
               relationList = this.data.character
               break
             case 120000:
-              relationType = 'interest'
+              relationType = 'label_professional_interest'
               relationList = this.data.interest
               break
-          }
         }
         if (relationType !== 'skills') {
           relationList.map((item, index) => {
@@ -265,11 +254,13 @@ Page({
     })
   },
   back() {
-    if (this.data.pageType === 'left') {
+    if (this.data.pageType === 'life') {
       this.setData({
         pageType: 'job',
         title: '选择职业标签'
       })
+    } else {
+      wx.navigateBack({delta: 1})
     }
   },
   nextStep() {
