@@ -67,7 +67,6 @@ Page({
   },
   /* 学历选择结果 */
   getresult(val) {
-    console.log(val)
     degree = val.detail.propsDesc
   },
   formSubmit (e) {

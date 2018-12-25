@@ -92,19 +92,25 @@ Page({
         let step = ''
         switch (res.data.step){
           case 2:
-            step = '/page/applicant/pages/center/secondStep/secondStep'
+            step = '/page/applicant/pages/center/workExperience/workExperience'
             break;
           case 3:
-            step = '/page/applicant/pages/center/thirdStep/thirdStep'
+            step = '/page/applicant/pages/center/educaExperience/educaExperience'
             break;
           default : 
-            step = '/page/applicant/pages/center/firstStep/firstStep'
+            step = '/page/applicant/pages/center/createUser/createUser'
             break;
         }
         wx.navigateTo({
           url: step
         })
       }
+    })
+  },
+  /* 编辑简历 */
+  toEdit () {
+    wx.navigateTo({
+      url: '/page/applicant/pages/center/userInfoEdit/userInfoEdit',
     })
   }
 })

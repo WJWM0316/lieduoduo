@@ -4,9 +4,9 @@
 	</view>
 	<view class="index-list-box">
 		<view class="ul-tab-bar">
-			<view class="li {{pageList === 'all' ? 'active' : ''}}" bindtap="changeCompanyLists" data-page-list="all">全部</view>
-			<view class="li {{pageList === 'mySeen' ? 'active' : ''}}" bindtap="changeCompanyLists" data-page-list="mySeen">看过我的</view>
-			<view class="li {{pageList === 'myInterested' ? 'active' : ''}}" bindtap="changeCompanyLists" data-page-list="myInterested">对我感兴趣</view>
+			<view class="li {{pageList === 'seen-me' ? 'active' : ''}}" bindtap="changeCompanyLists" data-page-list="seen-me">看过我的</view>
+			<view class="li {{pageList === 'interested-me' ? 'active' : ''}}" bindtap="changeCompanyLists" data-page-list="interested-me">对我感兴趣</view>
+			<view class="li {{pageList === 'my-loved' ? 'active' : ''}}" bindtap="changeCompanyLists" data-page-list="my-loved">我感兴趣的</view>
 		</view>
 		<interviewerList list="{{companyList}}"></interviewerList>
 	</view>

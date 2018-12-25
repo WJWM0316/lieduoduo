@@ -1,4 +1,4 @@
-@import '../../../../iconfont.wxss';
+@import '../../../../../iconfont.wxss';
 
 .office-manager-list {
   overflow: hidden;
@@ -69,12 +69,9 @@
   box-sizing: border-box;
   width: 100%;
   height: 98rpx;
+  line-height: 98rpx;
   background-color: #FFFFFF;
   box-shadow:0px 11px 30px 0px rgba(153,193,214,0.08);
-  white-space: nowrap;
-  overflow-x: scroll;
-  display: flex;
-  align-items: center;
   margin-bottom: 24rpx;
 }
 
@@ -89,25 +86,58 @@
   padding: 0 30rpx;
   text-align: center;
   background-color: #FFFFFF;
-  line-height: 54rpx;
-  height: 54rpx;
   margin-left: 10rpx;
   font-size: 26rpx;
   color: #282828;
   border-radius: 27rpx;
+  position: relative;
+  font-size:32rpx;
+  font-weight:400;
+  color:rgba(98,98,98,1);
+  display: inline-block;
+}
+
+.office-status-bar .item::after {
+  content: '';
+  display: block;
+  width:20rpx;
+  height:8rpx;
+  background:rgba(40,120,255,1);
+  border-radius:4rpx;
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0;
+  visibility: hidden;
 }
 
 .office-status-bar .active {
-  background-color: #E4EEFF;
   font-size:26rpx;
   font-weight:500;
   color:rgba(40,120,255,1);
+  font-size:32rpx;
+  font-weight:600;
+  color:rgba(40,40,40,1);
+}
+
+.office-status-bar .active::after {
+  opacity: 1;
+  visibility: visible;
 }
 
 .office-status-bar::after{
   content: '.';
   display: block;
   opacity: 0;
+}
+
+.office-status-bar .publish {
+  float: right;
+  font-size:28rpx;
+  font-weight:bold;
+  margin-right: 40rpx;
+  color:rgba(40,120,255,1);
 }
 
 .scroll-view_H {

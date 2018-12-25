@@ -67,7 +67,6 @@ Page({
   },
 
   getresult(val) {
-    console.log(val)
     if (val.currentTarget.dataset.type === 'starTime') {
       starTime = val.detail.propsDesc
     } else {

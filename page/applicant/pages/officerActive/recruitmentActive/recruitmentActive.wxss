@@ -38,4 +38,6 @@
   left: 50%;
   transform: translateX(-50%);
 }
-.recruitmentActive .companyList{}
+.more{
+  padding: 0 30rpx;
+}
