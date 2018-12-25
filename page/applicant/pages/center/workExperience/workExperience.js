@@ -68,9 +68,9 @@ Page({
 
   getresult(val) {
     if (val.currentTarget.dataset.type === 'starTime') {
-      starTime = val.detail.propsDesc
+      starTime = val.detail.propsResult
     } else {
-      endTime = val.detail.propsDesc
+      endTime = val.detail.propsResult
     }
   },
   

@@ -17,11 +17,11 @@
     </view>
     <view class="startTime">
       <view class="section__title">开始时间</view>
-      <input name="startTime" value="20181111" placeholder="开始时间" />
+      <myPicker class="myPicker" data-type="starTime" pickerType="startTime" bindresultevent="getresult"></myPicker>
     </view>
     <view class="endTime">
       <view class="section__title">结束时间</view>
-      <input name="endTime" value="20181212" placeholder="结束时间" />
+      <myPicker class="myPicker" pickerType="endTime" bindresultevent="getresult"></myPicker>
     </view>
     <view class="btn-area">
       <button formType="submit">Submit</button>

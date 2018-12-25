@@ -13,7 +13,7 @@
 		<view class="li {{pageList === 'myInterested' ? 'active' : ''}}" bindtap="changeCompanyLists" data-page-list="myInterested">我感兴趣的</view>
 	</view>
   <interviewerList list="{{companyList}}" showFooter="{{false}}" dotType="circle"></interviewerList>
-  <auth wx:if="{{!userInfo}}"></auth>
+  <auth wx:if="{{userInfo}}"></auth>
   <bindPhone wx:if="{{needLogin}}"></bindPhone>
   <choose wx:if="{{!choseType}}"></choose>
 </view>

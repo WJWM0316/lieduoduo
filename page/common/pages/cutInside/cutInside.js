@@ -56,7 +56,6 @@ Page({
   },
   onLoad (option) {
     const { cropperOpt } = this.data
-
     if (option.src) {
       cropperOpt.src = option.src
       new WeCropper(cropperOpt)
