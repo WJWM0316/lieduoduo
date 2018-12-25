@@ -28,12 +28,12 @@ Page({
     selected_industry_id: false,
     selected_financing: false,
     selected_employees: false,
-    companyShortname: '',
+    companyShortName: '',
     canClick: false
   },
-  onLoad() {
+  onLoad(options) {
     getApp().globalData.identity = 'RECRUITER'
-    this.init()
+    this.init(options)
   },
   /**
    * @Author   小书包
@@ -41,7 +41,7 @@ Page({
    * @detail   初始化页面数据
    * @return   {[type]}   [description]
    */
-  init() {
+  init(options) {
     getCompanyFinancingApi()
       .then(res => {
         this.setData({companyFinance: res.data})
@@ -75,20 +75,18 @@ Page({
         this.bindBtnStatus()
       }
     })
-    wx.getStorage({
-      key: 'createdCompanyName',
-      success: res => {
-        this.setData({ company_name: res.data.company_name })
-        this.bindBtnStatus()
-      }
-    })
-    wx.getStorage({
-      key: 'createCompanyShortname',
-      success: res => {
-        this.setData({ companyShortname: res.data.companyShortname})
-        this.bindBtnStatus()
-      }
-    })
+
+    // 判断是否输入了公司名称
+    if(options.company_name) {
+      this.setData({company_name: options.company_name})
+      this.bindBtnStatus()
+    }
+
+    // 判断是否输入了公司简称
+    if(options.companyShortName) {
+      this.setData({companyShortName: options.companyShortName})
+      this.bindBtnStatus()
+    }
   },
   /**
    * @Author   小书包
@@ -98,7 +96,7 @@ Page({
    */
   bindBtnStatus() {
     const canClick =
-      !!this.data.companyShortname
+      !!this.data.companyShortName
       && this.data.selected_employees
       && this.data.selected_financing
       && this.data.selected_industry_id
@@ -112,7 +110,7 @@ Page({
    */
   submit() {
     if(!this.data.canClick) return;
-    wx.navigateTo({url: `${RECRUITER}user/company/upload/upload`})
+    wx.navigateTo({url: `${RECRUITER}user/company/upload/upload?companyShortName=${this.data.companyShortName}&company_name=${this.data.company_name}`})
     this.saveFormData()
   },
   /**
@@ -135,8 +133,8 @@ Page({
    * @detail   修改公司简称
    * @return   {[type]}   [description]
    */
-  jumpModifyCompanyShortname() {
-    wx.navigateTo({url: `${RECRUITER}user/company/abbreviation/abbreviation`})
+  jumpModifyCompanyShortName() {
+    wx.navigateTo({url: `${RECRUITER}user/company/abbreviation/abbreviation?companyShortName=${this.data.companyShortName}&company_name=${this.data.company_name}`})
     this.saveFormData()
   },
   /**

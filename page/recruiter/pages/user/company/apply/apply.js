@@ -80,6 +80,7 @@ Page({
 
     Promise.all([checkRealName, checkUserEmail, checkUserPosition])
            .then(res => {
+            // const url = `${RECRUITER}user/company/find/find?real_name=${this.data.real_name}&user_email=${this.data.user_email}&user_position=${this.data.user_position}`
             wx.navigateTo({url: `${RECRUITER}user/company/find/find`})
             this.saveFormData()
            })
