@@ -28,7 +28,7 @@ Page({
     selected_industry_id: false,
     selected_financing: false,
     selected_employees: false,
-    intro: '',
+    companyShortname: '',
     canClick: false
   },
   onLoad() {
@@ -44,23 +44,17 @@ Page({
   init() {
     getCompanyFinancingApi()
       .then(res => {
-        this.setData({
-          companyFinance: res.data
-        })
+        this.setData({companyFinance: res.data})
       })
     getCompanyEmployeesApi()
       .then(res => {
         const list = res.data
         list.map(field => field.text = `${field.text}人`)
-        this.setData({
-          companyEmployees: list
-        })
+        this.setData({companyEmployees: list})
       })
     getLabelFieldApi()
       .then(res => {
-        this.setData({
-          companyLabelField: res.data
-        })
+        this.setData({companyLabelField: res.data})
       })
     wx.getStorage({
       key: 'createCompanyInfos',
@@ -89,10 +83,9 @@ Page({
       }
     })
     wx.getStorage({
-      key: 'createCompanyIntro',
+      key: 'createCompanyShortname',
       success: res => {
-        const params = ['intro']
-        params.map(field => this.setData({ [field]: res.data[field]}))
+        this.setData({ companyShortname: res.data.companyShortname})
         this.bindBtnStatus()
       }
     })
@@ -105,20 +98,22 @@ Page({
    */
   bindBtnStatus() {
     const canClick =
-      !!this.data.intro
+      !!this.data.companyShortname
       && this.data.selected_employees
       && this.data.selected_financing
       && this.data.selected_industry_id
     this.setData({ canClick })
   },
+  /**
+   * @Author   小书包
+   * @DateTime 2018-12-25
+   * @detail   保存当前页面的数据
+   * @return   {[type]}   [description]
+   */
   submit() {
     if(!this.data.canClick) return;
-    wx.navigateTo({
-      url: `${RECRUITER}user/company/upload/upload`,
-      success: () => {
-        this.saveFormData()
-      }
-    })
+    wx.navigateTo({url: `${RECRUITER}user/company/upload/upload`})
+    this.saveFormData()
   },
   /**
    * @Author   小书包
@@ -132,6 +127,7 @@ Page({
       [key]: parseInt(e.detail.value),
       [`selected_${key}`]: true
     })
+    this.bindBtnStatus()
   },
   /**
    * @Author   小书包
@@ -139,13 +135,9 @@ Page({
    * @detail   修改公司简称
    * @return   {[type]}   [description]
    */
-  jumpModifyIntro() {
-    wx.navigateTo({
-      url: `${RECRUITER}user/company/abbreviation/abbreviation`,
-      success: () => {
-        this.saveFormData()
-      }
-    })
+  jumpModifyCompanyShortname() {
+    wx.navigateTo({url: `${RECRUITER}user/company/abbreviation/abbreviation`})
+    this.saveFormData()
   },
   /**
    * @Author   小书包

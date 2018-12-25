@@ -63,11 +63,8 @@ Page({
   },
   submit() {
     if(!this.data.canClick) return;
-    wx.navigateTo({
-      url: `${RECRUITER}user/company/post/post`,
-      success: () => {
-        this.saveFormData()
-      }
-    })
+    console.log(111)
+    wx.navigateTo({url: `${RECRUITER}user/company/post/post`})
+    this.saveFormData()
   }
 })

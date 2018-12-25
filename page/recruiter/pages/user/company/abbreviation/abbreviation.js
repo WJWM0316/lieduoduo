@@ -6,7 +6,7 @@ const app = getApp()
 
 Page({
   data: {
-    intro: '',
+    companyShortname: '',
     canClick: false
   },
   onShow() {
@@ -20,9 +20,9 @@ Page({
    */
   init() {
     wx.getStorage({
-      key: 'createCompanyIntro',
+      key: 'createCompanyShortname',
       success: res => {
-        const params = ['canClick', 'intro']
+        const params = ['canClick', 'companyShortname']
         params.map(field => this.setData({ [field]: res.data[field]}))
       }
     })
@@ -34,7 +34,7 @@ Page({
    * @return   {[type]}   [description]
    */
   bindBtnStatus() {
-    const canClick = abbreviationReg.test(this.data.intro) ? true : false
+    const canClick = abbreviationReg.test(this.data.companyShortname) ? true : false
     this.setData({ canClick })
   },
   /**
@@ -57,9 +57,9 @@ Page({
    * @return   {[type]}   [description]
    */
   submit() {
-    if(!this.data.intro) return;
+    if(!this.data.companyShortname) return;
     wx.setStorage({
-      key: 'createCompanyIntro',
+      key: 'createCompanyShortname',
       data: this.data
     })
     wx.navigateTo({

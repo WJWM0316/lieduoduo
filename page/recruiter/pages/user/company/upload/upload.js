@@ -1,3 +1,5 @@
+import { createCompanyApi } from '../../../../../../api/pages/company.js'
+const app = getApp()
 Page({
   data: {
     business_license: {
@@ -15,13 +17,10 @@ Page({
       company_shortname: '',
       industry_id: '',
       financing: '',
-      logo: '',
       employees: '',
       business_license: '',
       on_job: '',
-      email: '',
-      website: '',
-      intro: ''
+      intro: '这个是不必要的啊'
     }
   },
   onLoad() {
@@ -130,33 +129,29 @@ Page({
         this.setData({ formData })
       }
     })
+
     // 第五步
     wx.getStorage({
-      key: 'createCompanyInfos',
+      key: 'createCompanyShortname',
       success: res => {
-        const params = [
-          'industry_id',
-          'financing',
-          'employees'
-        ]
+        const params = ['company_shortname']
         const formData = this.data.formData
-        params.map(field => formData[field] = res.data[field])
-        this.setData({ formData })
-      }
-    })
-    // 第六步
-    wx.getStorage({
-      key: 'createCompanyIntro',
-      success: res => {
-        const params = ['intro']
-        const formData = this.data.formData
-        params.map(field => formData[field] = res.data[field])
+        params.map(field => formData.company_shortname = res.data.companyShortname)
         this.setData({ formData })
       }
     })
   },
   submit() {
     if(!this.data.canClick) return;
-    this.saveFormData()
+    const formData = this.data.formData
+    formData.on_job = this.data.on_job.id
+    formData.business_license = this.data.business_license.id
+    createCompanyApi(formData)
+      .then(res => {
+        app.wxToast({title: res.msg})
+      })
+      .catch(err => {
+        app.wxToast({title: err.msg})
+      })
   }
 })

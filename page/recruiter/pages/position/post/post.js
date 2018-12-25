@@ -37,9 +37,9 @@ Page({
     describe: '',
     canClick: false
   },
-  onLoad() {
+  onLoad(options) {
     getApp().globalData.identity = 'RECRUITER'
-    this.init()
+    this.init(options)
   },
   /**
    * @Author   小书包
@@ -47,65 +47,23 @@ Page({
    * @detail   初始化页面数据
    * @return   {[type]}   [description]
    */
-  init() {
+  init(options) {
+    // 已经编辑职位名
+    if(options.positionName) {
+      this.setData({position_name: options.positionName})
+    }
+    console.log(options)
+    // 已经编辑描述
+    wx.getStorage({
+      key: 'positionDescribe',
+      success: res => {
+        this.setData({describe: res.data})
+      }
+    })
     getPositionExperienceApi()
       .then(res => {
         this.setData({experienceLists: res.data})
       })
-    getCompanyFinancingApi()
-      .then(res => {
-        this.setData({
-          companyFinance: res.data
-        })
-      })
-    getCompanyEmployeesApi()
-      .then(res => {
-        const list = res.data
-        list.map(field => field.text = `${field.text}人`)
-        this.setData({
-          companyEmployees: list
-        })
-      })
-    getLabelFieldApi()
-      .then(res => {
-        this.setData({
-          companyLabelField: res.data
-        })
-      })
-    wx.getStorage({
-      key: 'createCompanyInfos',
-      success: res => {
-        const params = [
-          'companyFinance',
-          'companyEmployees',
-          'companyLabelField',
-          'industry_id',
-          'financing',
-          'employees',
-          'selected_industry_id',
-          'selected_financing',
-          'selected_employees',
-          'canClick'
-        ]
-        params.map(field => this.setData({ [field]: res.data[field] }))
-        this.bindBtnStatus()
-      }
-    })
-    wx.getStorage({
-      key: 'createdCompanyName',
-      success: res => {
-        this.setData({ company_name: res.data.company_name })
-        this.bindBtnStatus()
-      }
-    })
-    wx.getStorage({
-      key: 'createCompanyIntro',
-      success: res => {
-        const params = ['intro']
-        params.map(field => this.setData({ [field]: res.data[field]}))
-        this.bindBtnStatus()
-      }
-    })
   },
   /**
    * @Author   小书包
@@ -177,6 +135,23 @@ Page({
    */
   routeJump(e) {
     const route = e.currentTarget.dataset.route
-    wx.navigateTo({url: `${RECRUITER}position/${route}/${route}`})
+    const url = `${RECRUITER}position/${route}/${route}`
+    console.log(route)
+    switch(route) {
+      case 'search':
+        wx.navigateTo({url: this.data.position_name ? `${url}?positionName=${this.data.position_name}` : url})
+        break
+      case 'description':
+        wx.navigateTo({url: url})
+        break
+      case 'address':
+        wx.navigateTo({url: url})
+        break
+      case 'category':
+        wx.navigateTo({url: url})
+        break
+      default:
+        break
+    }
   }
 })

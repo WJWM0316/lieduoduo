@@ -41,9 +41,7 @@ Page({
   bindBtnStatus() {
     const bindKeys = ['real_name', 'user_position', 'user_email']
     const canClick = bindKeys.every(field => this.data[field])
-    this.setData({
-      canClick
-    })
+    this.setData({ canClick })
   },
   /**
    * @Author   小书包
@@ -53,13 +51,18 @@ Page({
    */
   bindInput(e) {
     const field = e.currentTarget.dataset.field
-    this.setData({[
-      field]: e.detail.value 
-    })
+    this.setData({[field]: e.detail.value})
     this.bindBtnStatus()
   },
+  /**
+   * @Author   小书包
+   * @DateTime 2018-12-25
+   * @detail   保存当前页面的数据
+   * @return   {[type]}   [description]
+   */
   submit() {
     if(!this.data.canClick) return;
+    
     // 验证用户名
     let checkRealName = new Promise((resolve, reject) => {
       !realNameReg.test(this.data.real_name) ? reject('请填写有效的姓名') : resolve()
@@ -77,13 +80,8 @@ Page({
 
     Promise.all([checkRealName, checkUserEmail, checkUserPosition])
            .then(res => {
-            wx.navigateTo({
-              url: `${RECRUITER}user/company/find/find`,
-              success: () => {
-                this.saveFormData()
-              }
-            })
-              // applyCompanyApi(this.form)
+            wx.navigateTo({url: `${RECRUITER}user/company/find/find`})
+            this.saveFormData()
            })
            .catch(err => {
               app.wxToast({title: err})
