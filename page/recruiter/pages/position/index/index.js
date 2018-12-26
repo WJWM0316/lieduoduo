@@ -114,12 +114,7 @@ Page({
     const action = e.currentTarget.dataset.action
     switch(action) {
       case 'add':
-        wx.navigateTo({
-          url: `${RECRUITER}office/post/post`,
-          fail(e) {
-            console.log(e)
-          }
-        })
+        wx.navigateTo({url: `${RECRUITER}position/post/post`})
         break
       default:
         break

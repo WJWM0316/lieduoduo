@@ -1,7 +1,7 @@
 <view>
 	<navbar title="输入公司全名称" background="#FFFFFF" color="#22292C" showBackBtn="{{true}}"></navbar>
 	<form bindsubmit="submit">
-		<input name="company_name" class="mini-row-value" placeholder="请输入所属公司营业执照上的公司全称" bindinput="bindInput" data-field="company_name" value="{{company_name}}" />
+		<input class="mini-row-value" placeholder="请输入所属公司营业执照上的公司全称" bindinput="bindInput" value="{{company_name}}" />
 		<button form-type="submit" class="{{canClick ? 'button-enable' : ''}}">下一步</button>
 		<view class="company-list-ul">
 			<view class="li" bindtap="selectCompany" data-name="公司1">公司1</view>

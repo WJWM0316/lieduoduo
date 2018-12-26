@@ -9,26 +9,22 @@ const app = getApp()
 Page({
   data: {
     company_name: '',
+    real_name: '',
+    user_email: '',
+    user_position: '',
     canClick: false
-  },
-  onLoad() {
-    getApp().globalData.identity = 'RECRUITER'
-    this.init()
   },
   /**
    * @Author   小书包
-   * @DateTime 2018-12-21
+   * @DateTime 2018-12-25
    * @detail   初始化页面数据
-   * @return   {[type]}   [description]
+   * @return   {[type]}           [description]
    */
-  init() {
-    wx.getStorage({
-      key: 'createdCompanyName',
-      success: res => {
-        const params = ['company_name', 'canClick']
-        params.map(field => this.setData({ [field]: res.data[field] }))
-      }
-    })
+  onLoad(options) {
+    getApp().globalData.identity = 'RECRUITER'
+    if(options.company_name) {
+      this.setData({company_name: options.company_name, canClick: true})
+    }
   },
   /**
    * @Author   小书包
@@ -37,7 +33,7 @@ Page({
    * @return   {[type]}     [description]
    */
   bindInput(e) {
-    console.log(e.detail.value)
+    // this.setData({company_name: e.detail.value})
   },
   /**
    * @Author   小书包
@@ -57,17 +53,14 @@ Page({
    */
   saveFormData() {
     wx.setStorage({
-      key: 'createdCompanyName',
+      key: 'createdCompany_name',
       data: this.data
     })
   },
   submit() {
     if(!this.data.canClick) return;
-    wx.navigateTo({
-      url: `${RECRUITER}user/company/post/post`,
-      success: () => {
-        this.saveFormData()
-      }
-    })
+    console.log(111)
+    wx.navigateTo({url: `${RECRUITER}user/company/post/post?company_name=${this.data.company_name}`})
+    this.saveFormData()
   }
 })

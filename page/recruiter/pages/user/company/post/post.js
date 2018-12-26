@@ -28,12 +28,12 @@ Page({
     selected_industry_id: false,
     selected_financing: false,
     selected_employees: false,
-    intro: '',
+    companyShortName: '',
     canClick: false
   },
-  onLoad() {
+  onLoad(options) {
     getApp().globalData.identity = 'RECRUITER'
-    this.init()
+    this.init(options)
   },
   /**
    * @Author   小书包
@@ -41,26 +41,20 @@ Page({
    * @detail   初始化页面数据
    * @return   {[type]}   [description]
    */
-  init() {
+  init(options) {
     getCompanyFinancingApi()
       .then(res => {
-        this.setData({
-          companyFinance: res.data
-        })
+        this.setData({companyFinance: res.data})
       })
     getCompanyEmployeesApi()
       .then(res => {
         const list = res.data
         list.map(field => field.text = `${field.text}人`)
-        this.setData({
-          companyEmployees: list
-        })
+        this.setData({companyEmployees: list})
       })
     getLabelFieldApi()
       .then(res => {
-        this.setData({
-          companyLabelField: res.data
-        })
+        this.setData({companyLabelField: res.data})
       })
     wx.getStorage({
       key: 'createCompanyInfos',
@@ -81,21 +75,18 @@ Page({
         this.bindBtnStatus()
       }
     })
-    wx.getStorage({
-      key: 'createdCompanyName',
-      success: res => {
-        this.setData({ company_name: res.data.company_name })
-        this.bindBtnStatus()
-      }
-    })
-    wx.getStorage({
-      key: 'createCompanyIntro',
-      success: res => {
-        const params = ['intro']
-        params.map(field => this.setData({ [field]: res.data[field]}))
-        this.bindBtnStatus()
-      }
-    })
+
+    // 判断是否输入了公司名称
+    if(options.company_name) {
+      this.setData({company_name: options.company_name})
+      this.bindBtnStatus()
+    }
+
+    // 判断是否输入了公司简称
+    if(options.companyShortName) {
+      this.setData({companyShortName: options.companyShortName})
+      this.bindBtnStatus()
+    }
   },
   /**
    * @Author   小书包
@@ -105,20 +96,22 @@ Page({
    */
   bindBtnStatus() {
     const canClick =
-      !!this.data.intro
+      !!this.data.companyShortName
       && this.data.selected_employees
       && this.data.selected_financing
       && this.data.selected_industry_id
     this.setData({ canClick })
   },
+  /**
+   * @Author   小书包
+   * @DateTime 2018-12-25
+   * @detail   保存当前页面的数据
+   * @return   {[type]}   [description]
+   */
   submit() {
     if(!this.data.canClick) return;
-    wx.navigateTo({
-      url: `${RECRUITER}user/company/upload/upload`,
-      success: () => {
-        this.saveFormData()
-      }
-    })
+    wx.navigateTo({url: `${RECRUITER}user/company/upload/upload?companyShortName=${this.data.companyShortName}&company_name=${this.data.company_name}`})
+    this.saveFormData()
   },
   /**
    * @Author   小书包
@@ -132,6 +125,7 @@ Page({
       [key]: parseInt(e.detail.value),
       [`selected_${key}`]: true
     })
+    this.bindBtnStatus()
   },
   /**
    * @Author   小书包
@@ -139,13 +133,9 @@ Page({
    * @detail   修改公司简称
    * @return   {[type]}   [description]
    */
-  jumpModifyIntro() {
-    wx.navigateTo({
-      url: `${RECRUITER}user/company/abbreviation/abbreviation`,
-      success: () => {
-        this.saveFormData()
-      }
-    })
+  jumpModifyCompanyShortName() {
+    wx.navigateTo({url: `${RECRUITER}user/company/abbreviation/abbreviation?companyShortName=${this.data.companyShortName}&company_name=${this.data.company_name}`})
+    this.saveFormData()
   },
   /**
    * @Author   小书包

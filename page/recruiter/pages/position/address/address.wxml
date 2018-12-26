@@ -1,3 +1,15 @@
-<view>
+<view class="address-post">
 	<navbar title="工作地点" background="#FFFFFF" color="#22292C" showBackBtn="{{true}}"></navbar>
+	<form bindsubmit="submit" class="entry-list">
+		<view class="mini-input-row">
+	    <view class="mini-row-label" bindtap="selectAddress">选择地址</view>
+	  </view>
+	  <view class="mini-input-row">
+	    <view class="mini-row-label">门派（选填）</view>
+	    <input name="real_name" class="mini-row-value" placeholder="输入楼号/门牌号等" bindinput="bindInput" data-field="real_name" value="{{real_name}}" />
+	  </view>
+		<view class="btn-area">
+	    <button form-type="submit" class="{{canClick ? 'button-enable' : ''}}">发布</button>
+	  </view>
+	</form>
 </view>
