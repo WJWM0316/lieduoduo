@@ -1,3 +1,17 @@
 <view>
-	<navbar title="技能要求" background="#FFFFFF" color="#22292C" showBackBtn="{{true}}"></navbar>
+	<navbar title="技能标签" background="#FFFFFF" color="#22292C" showBackBtn="{{true}}"></navbar>
+	<form bindsubmit="submit" class="entry-list">
+		<view class="position-type-ul">
+			<view
+				class="li"
+				wx:for="{{professionalSkills.children}}"
+				wx:for-item="item"
+				wx:key="{{item.id}}"
+				data-label-id="{{item.labelId}}"
+				bindtap="onClick">{{item.name}}</view>
+		</view>
+		<view class="btn-area">
+	    <button form-type="submit" class="{{canClick ? 'button-enable' : ''}}">发布</button>
+	  </view>
+	</form>
 </view>

@@ -22,19 +22,20 @@ Page({
     position_name: '',
     company_id: '',
     type: '',
+    typeName: '',
     province: '',
     city: '',
     district: '',
     address: '',
     doorplate: '',
-    labels: '',
-    labels: '',
-    labels: '',
+    labels: [],
     emolument_min: '',
     emolument_max: '',
+    emolument_range: '',
     work_experience: '',
     education: '',
     describe: '',
+    skills: [],
     canClick: false
   },
   onLoad(options) {
@@ -48,22 +49,34 @@ Page({
    * @return   {[type]}   [description]
    */
   init(options) {
-    // 已经编辑职位名
-    if(options.positionName) {
-      this.setData({position_name: options.positionName})
-    }
-    console.log(options)
-    // 已经编辑描述
     wx.getStorage({
-      key: 'positionDescribe',
+      key: 'createPosition',
       success: res => {
-        this.setData({describe: res.data})
+
+        const params = Object.keys(res.data).filter(filed => filed !== '__webviewId__' || filed !== 'describe' || field !== 'labels')
+        const labels = []
+        params.map(field => this.setData({[field]: res.data[field]}))
+
+        // 已经编辑职位名
+        if(options.position_name) {
+          this.setData({position_name: options.position_name})
+        }
+
+        // 已经编辑职位名
+        if(options.type) {
+          this.setData({type: options.type, typeName: options.typeName})
+        }
+
+        res.data.skills.map(field => labels.push({id: field.labelId}))
+        this.setData({labels})
       }
     })
-    getPositionExperienceApi()
-      .then(res => {
-        this.setData({experienceLists: res.data})
-      })
+
+    // 描述
+    wx.getStorage({
+      key: 'positionDescribe',
+      success: res => this.setData({describe: res.data})
+    })
   },
   /**
    * @Author   小书包
@@ -72,48 +85,7 @@ Page({
    * @return   {[type]}   [description]
    */
   bindBtnStatus() {
-    const canClick =
-      !!this.data.intro
-      && this.data.selected_employees
-      && this.data.selected_financing
-      && this.data.selected_industry_id
-    this.setData({ canClick })
-  },
-  submit() {
-    if(!this.data.canClick) return;
-    wx.navigateTo({
-      url: `${RECRUITER}user/company/upload/upload`,
-      success: () => {
-        this.saveFormData()
-      }
-    })
-  },
-  /**
-   * @Author   小书包
-   * @DateTime 2018-12-20
-   * @detail   下拉选项绑定
-   * @return   {[type]}     [description]
-   */
-  bindChange(e) {
-    const key = e.currentTarget.dataset.key
-    this.setData({
-      [key]: parseInt(e.detail.value),
-      [`selected_${key}`]: true
-    })
-  },
-  /**
-   * @Author   小书包
-   * @DateTime 2018-12-21
-   * @detail   修改公司简称
-   * @return   {[type]}   [description]
-   */
-  jumpModifyIntro() {
-    wx.navigateTo({
-      url: `${RECRUITER}user/company/abbreviation/abbreviation`,
-      success: () => {
-        this.saveFormData()
-      }
-    })
+    console.log(1)
   },
   /**
    * @Author   小书包
@@ -123,7 +95,7 @@ Page({
    */
   saveFormData() {
     wx.setStorage({
-      key: 'createCompanyInfos',
+      key: 'createPosition',
       data: this.data
     })
   },
@@ -135,23 +107,45 @@ Page({
    */
   routeJump(e) {
     const route = e.currentTarget.dataset.route
-    const url = `${RECRUITER}position/${route}/${route}`
-    console.log(route)
-    switch(route) {
-      case 'search':
-        wx.navigateTo({url: this.data.position_name ? `${url}?positionName=${this.data.position_name}` : url})
-        break
-      case 'description':
-        wx.navigateTo({url: url})
-        break
-      case 'address':
-        wx.navigateTo({url: url})
-        break
-      case 'category':
-        wx.navigateTo({url: url})
-        break
-      default:
-        break
+    if(route === 'skills' && !this.data.type) {
+      app.wxToast({title: '请先选择职业类型别'})
+    } else {
+      wx.navigateTo({url: `${RECRUITER}position/${route}/${route}`})
+      this.saveFormData()
     }
+  },
+  /**
+   * @Author   小书包
+   * @DateTime 2018-12-26
+   * @detail   获取薪资范围
+   * @return   {[type]}     [description]
+   */
+  getSalary(e) {
+    this.setData({
+      emolument_min: parseInt(e.detail.propsResult[0]),
+      emolument_max: parseInt(e.detail.propsResult[1]),
+      emolument_range: `${e.detail.propsResult[0]}~${e.detail.propsResult[0]}`
+    })
+  },
+  /**
+   * @Author   小书包
+   * @DateTime 2018-12-26
+   * @detail   获取工作经验
+   * @return   {[type]}     [description]
+   */
+  getExperience(e) {
+    this.setData({work_experience: e.detail.propsResult})
+  },
+  /**
+   * @Author   小书包
+   * @DateTime 2018-12-26
+   * @detail   获取教育经历
+   * @return   {[type]}     [description]
+   */
+  getEducation(e) {
+    this.setData({work_experience: e.detail.propsResult})
+  },
+  submit() {
+    console.log(this.data)
   }
 })

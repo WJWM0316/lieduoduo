@@ -1,66 +1,56 @@
-// page/recruiter/pages/position/skill/skill.js
+import { getLabelProfessionalSkillsApi } from '../../../../../api/pages/label.js'
+
+import {RECRUITER} from '../../../../../config.js'
+
 Page({
-
-  /**
-   * 页面的初始数据
-   */
   data: {
-
+    professionalSkills: [],
+    skills: []
   },
-
   /**
-   * 生命周期函数--监听页面加载
+   * @Author   小书包
+   * @DateTime 2018-12-25
+   * @detail   选择职业类别
+   * @return   {[type]}     [description]
    */
-  onLoad: function (options) {
-
+  onClick(e) {
+    const params = e.currentTarget.dataset
+    const result = this.data.professionalSkills.children.find(field => field.labelId === params.labelId)
+    const skills = this.data.skills
+    if(!skills.length) skills.push(result)
+    const isExist = skills.every(field => field.labelId !== params.labelId)
+    if(isExist) {
+      skills.push(result)
+      this.setData({skills})
+    }
   },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
+  onLoad() {
+    getLabelProfessionalSkillsApi()
+      .then(response => {
+        wx.getStorage({
+          key: 'createPosition',
+          success: res => {
+            const typeId = parseInt(res.data.type)
+            const professionalSkills = response.data.labelProfessionalSkills.find(field => field.labelId === typeId)
+            this.setData({ professionalSkills, skills: res.data.skills })
+          }
+        })
+      })
   },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
+  submit() {
+    wx.getStorage({
+      key: 'createPosition',
+      success: res => {
+        const data = res.data
+        data.skills = this.data.skills
+        wx.setStorage({
+          key: 'createPosition',
+          data,
+          success: () => {
+             wx.navigateTo({url: `${RECRUITER}position/post/post`})
+          }
+        })
+      }
+    })
   }
 })

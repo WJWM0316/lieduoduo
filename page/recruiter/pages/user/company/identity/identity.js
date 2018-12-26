@@ -8,8 +8,8 @@ const app = getApp()
 
 Page({
   data: {
-    real_name: '李子发',
-    identity_num: '452226199201282413',
+    real_name: '',
+    identity_num: '',
     validity: '10',
     passport_front: {
       smallUrl: ''
@@ -20,24 +20,7 @@ Page({
     canClick: false
   },
   onLoad() {
-    console.log(app)
     getApp().globalData.identity = 'RECRUITER'
-    // this.init()
-  },
-  /**
-   * @Author   小书包
-   * @DateTime 2018-12-21
-   * @detail   初始化页面
-   * @return   {[type]}   [description]
-   */
-  init() {
-    wx.getStorage({
-      key: 'createdCompanyBase',
-      success: res => {
-        const params = ['real_name', 'user_email', 'user_position', 'canClick']
-        params.map(field => this.setData({ [field]: res.data[field] }))
-      }
-    })
   },
   /**
    * @Author   小书包
