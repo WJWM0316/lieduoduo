@@ -1,7 +1,13 @@
 <!--page/common/pages/test/test.wxml-->
 <text>page/common/pages/test/test.wxml</text>
-<myPicker pickerType="occupation" bindresultevent="getResult" rangeKey="name"></myPicker>
+<myPicker pickerType="salaryRangeB" bindresultevent="getResult" ></myPicker>
 <myPicker pickerType="requirement" bindresultevent="getResult" rangeKey="name"></myPicker>
+
 <unloadFile bindresultEvent="getResult" unloadType="img" url="https://attach.lieduoduo.ziwork.com/img/2018/1218/11/5c18707cc2424.jpg%21330xauto?OSSAccessKeyId=LTAI8J03ETJEHV51&Expires=1545105834&Signature=8mpXIv8Ok7rcCd%2BT5NCm1280Tb0%3D">
   <view>上传文件</view>
+</unloadFile>
+
+
+<unloadFile bindresultEvent="getResult" unloadType="img" url="https://attach.lieduoduo.ziwork.com/img/2018/1218/11/5c18707cc2424.jpg%21330xauto?OSSAccessKeyId=LTAI8J03ETJEHV51&Expires=1545105834&Signature=8mpXIv8Ok7rcCd%2BT5NCm1280Tb0%3D">
+  <view>上传文件2</view>
 </unloadFile>

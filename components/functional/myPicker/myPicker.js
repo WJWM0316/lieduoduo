@@ -247,6 +247,9 @@ Component({
               propsResult = new Date(propsDesc).getTime() / 1000
             }
           }
+        } else if (this.data.pickerType === 'salaryRangeB' || this.data.pickerType === 'salaryRangeC') {
+          propsResult = [list[0][result[0]], list[1][result[1]]]
+          propsDesc = `${list[0][result[0]]}~${list[1][result[1]]}`
         }
       } else {
         if (this.data.pickerType === 'occupation') {

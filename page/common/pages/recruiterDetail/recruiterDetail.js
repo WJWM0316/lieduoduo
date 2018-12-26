@@ -1,11 +1,13 @@
-// page/common/pages/recruiterDetail/recruiterDetail.js
+import {getSelectorQuery} from "../../../../utils/util.js"
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-
+    labels: ['你大爷的啊', '你大爷的啊', '你大爷的啊','你大爷的啊','你大爷的啊','你大爷的啊'],
+    isShrink: false,
+    btnTxt: '展开内容'
   },
 
   /**
@@ -19,10 +21,25 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-
+    getSelectorQuery('.msg').then(res => {
+      if (res.height > 143) {
+        this.setData({isShrink: true})
+      }
+    })
   },
-
+  toggle() {
+    let isShrink = this.data.isShrink
+    let btnTxt = ''
+    isShrink = !isShrink
+    if (!isShrink) {
+      btnTxt = '收起内容'
+    } else {
+      btnTxt = '展开内容'
+    }
+    this.setData({isShrink, btnTxt})
+  },
   /**
+   *  
    * 生命周期函数--监听页面显示
    */
   onShow: function () {

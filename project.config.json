@@ -38,7 +38,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 7,
+			"current": 11,
 			"list": [
 				{
 					"id": 0,
@@ -104,6 +104,12 @@
 					"id": 10,
 					"name": "用户信息编辑",
 					"pathName": "page/applicant/pages/center/userInfoEdit/userInfoEdit",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "招聘官首页",
+					"pathName": "page/common/pages/recruiterDetail/recruiterDetail",
 					"query": ""
 				}
 			]
