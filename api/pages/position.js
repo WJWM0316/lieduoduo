@@ -79,3 +79,13 @@ export const openPositionApi = (data, isLoading) => {
     isLoading: false
   })
 }
+
+// 搜搜职位名称
+export const getPositionNameListApi = (data, isLoading) => {
+  return request({
+    method: 'get',
+    url: `/position/namelist`,
+    data,
+    isLoading: false
+  })
+}

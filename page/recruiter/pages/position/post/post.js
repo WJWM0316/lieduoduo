@@ -1,5 +1,6 @@
 import {
-  createPositionApi
+  createPositionApi,
+  getPositionApi
 } from '../../../../../api/pages/position.js'
 
 import { getRecruiterMyInfoApi } from '../../../../../api/pages/recruiter.js'
@@ -15,8 +16,10 @@ Page({
     choseType: wx.getStorageSync('choseType') || null,
     userInfo: null,
     needLogin: false,
-    position_name: '测试啊',
+    position_name: '',
     company_id: '',
+    lng: '',
+    lat: '',
     type: '',
     typeName: '',
     area_id: '440106',
@@ -35,11 +38,13 @@ Page({
     canClick: false
   },
   onLoad() {
+    const mapInfos = wx.getStorageSync('mapInfos')
     getApp().globalData.identity = 'RECRUITER'
     getApp().checkLogin().then(res => {
       this.setData({userInfo: res})
     })
     this.init()
+    console.log(mapInfos)
   },
   /**
    * @Author   小书包
@@ -57,6 +62,10 @@ Page({
     getRecruiterMyInfoApi()
       .then(res => {
         this.setData({company_id: res.data.companyId})
+      })
+    getPositionApi({id: 11})
+      .then(res => {
+        console.log(res.data)
       })
   },
   /**
@@ -112,9 +121,7 @@ Page({
    * @return   {[type]}     [description]
    */
   getEducation(e) {
-    console.log(e.detail)
     this.setData({education: e.detail.propsResult, educationName: e.detail.propsDesc})
-    console.log(this.data)
   },
   submit() {
     getApp().globalData.hasLogin = true
@@ -137,7 +144,9 @@ Page({
     params.map(field => formData[field] = this.data[field])
     createPositionApi(formData)
       .then(res => {
-        console.log(res)
+        wx.removeStorageSync('createPosition')
+        wx.removeStorageSync('mapInfos')
+        wx.navigateTo({url: `${RECRUITER}position/index/index`})
       })
       .catch(err => app.wxToast({title: err.msg}))
   }

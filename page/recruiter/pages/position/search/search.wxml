@@ -3,6 +3,16 @@
 	<form bindsubmit="submit" class="entry-list">
 		<view class="user-input">
 			<input placeholder="请输入职位名称" auto-focus bindinput="bindInput" value="{{keyword}}" />
+			<view bindtap="search">点击搜索</view>
+		</view>
+		<view class="name-lists">
+			<view
+				class="item"
+				wx:for="{{nameLists}}"
+				wx:for-item="item"
+				wx:key="{{item.id}}"
+				bindtap="onClick"
+				data-name="{{item.positionName}}">{{item.positionName}}</view>
 		</view>
 		<view class="btn-area">
 	    <button form-type="submit" class="{{canClick ? 'button-enable' : ''}}">发布</button>
