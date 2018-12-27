@@ -1,6 +1,9 @@
 {
   "usingComponents": {
     "navbar": "../../../../../components/business/navbar/navbar",
-    "myPicker": "../../../../../components/functional/myPicker/myPicker"
+    "myPicker": "../../../../../components/functional/myPicker/myPicker",
+    "choose": "../../../../../components/business/choose/choose",
+    "auth": "../../../../../components/functional/auth/auth",
+    "bindPhone": "../../../../../components/functional/bindPhone/bindPhone"
   }
 }

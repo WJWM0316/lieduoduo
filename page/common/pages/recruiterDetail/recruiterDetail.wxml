@@ -2,8 +2,9 @@
   <navbar title="招聘官主页"></navbar>
   <view class="header">
     <image class="bgImg" src="../../../../images/bg_detail.png" mode="aspectFill"></image>
+    <shareBtn></shareBtn>
     <div class="content">
-      <view class="avatar">
+      <view class="avatar vip">
         <image src="../../../../images/bg_detail.png" mode="aspectFill"></image>
       </view>
       <view class="labels label{{index}}" wx:for="{{labels}}" wx:key="{{index}}">{{item}}</view>
@@ -11,7 +12,7 @@
     <view class="userInfo">
       <view class="name">阿达</view>
       <view class="position">老虎科技 | 创始人、CEO</view>
-      <view class="sign">工作不易，知音难觅，壮士约乎！</view>
+      <view class="sign">工作不易，知音难觅，壮士约乎！工作不易，知音难觅</view>
     </view>
   </view>
   <view class="mainContent">
@@ -22,7 +23,7 @@
         <view class="data"><text class="num">111</text>排名</view>
       </view>
       <button class="callBtn">为Ta打Call，提高影响力</button>
-      <view class="more">查看更多热门招聘官</view>
+      <view class="more">查看更多热门招聘官<icon class="icon iconfont icon-xiangyou"></icon></view>
     </view>
     <view class="profile">
       <view class="title">
@@ -53,14 +54,7 @@
       </view>
     </view>
     <view class="position">
-      <view class="company">
-        <image class="img" src="../../../../images/bg_detail.png"></image>
-        <view class="companyMsg">
-          <view class="name">撒大声地</view>
-          <view class="detail">移动互联网 · B论 · 20-99人</view>
-        </view>
-        <icon class="icon iconfont icon-xiangyou"></icon>
-      </view>
+      <company roleType="company"></company>
       <view class="positionList">
         <view class="positionItem">
           <view class="positionHead"><text class="positionTitle">高级产品经理（Saas方向)高级产品经理（Saas方向)</text><text class="money">20~40k</text></view>
@@ -74,7 +68,7 @@
     </view>
   </view>
   <view class="collection icon iconfont icon-ganxingqu"></view>
-  <view class="positionBtn">10个热招职位</view>
+  <view class="positionBtn" hidden="{{!isShowBtn}}">10个热招职位</view>
   <view class="footer">
     <image class="avatar" src="../../../../images/bg_detail.png" mode="aspectFill"></image>
     <view class="info">

@@ -1,0 +1,32 @@
+<view class="my-class">
+  <view class="company" wx:if="{{roleType === 'company'}}">
+    <image class="img" src="../../../images/bg_detail.png"></image>
+    <view class="companyMsg">
+      <view class="name">撒大声地在校生·本科·8-12k在校生·本科·8-12k</view>
+      <view class="detail">移动互联网 · B论 · 20-99人在校生·本科·8-12k在校生·本科·8-12k</view>
+    </view>
+    <icon class="icon iconfont icon-xiangyou"></icon>
+  </view>
+  <block  wx:if="{{roleType === 'applicant'}}">
+    <view class="applicant">
+      <image class="img" src="../../../images/bg_detail.png"></image>
+      <view class="applicantMsg">
+        <view class="name">撒大声地<text class="msg">在校生·本科·8-12k在校生·本科·8-12k</text></view>
+        <view class="detail">广州老虎科技有限公司 | 高级产品...广州老虎科技有限公司 | 高级产品...广州老虎科技有限公司 | 高级产品...</view>
+      </view>
+    </view>
+    <view class="contact">
+      <view class="mobile" bindtap="makePhoneCall">手机：<text class="txt">19817519956</text></view>
+      <view class="wechat" bindtap="setClipboardData">微信：<text class="txt">Desmond</text></view>
+    </view>
+  </block>
+  <view class="recruiter" wx:if="{{roleType === 'recruiter'}}">
+    <image class="img" src="../../../images/bg_detail.png"></image>
+    <view class="vip">V</view>
+    <view class="recruiterMsg">
+      <view class="name">撒大声地在校生<text class="msg">·本科8-12k在校生·本科·8-12k在校生·本科·8-12k</text></view>
+      <view class="detail">移动互联网 · B论 · 20-99人在校生·本科·8-12k在校生·本科·8-12k在校生·本科·8-12k</view>
+    </view>
+    <view class="status">邀你面试</view>
+  </view>
+</view>

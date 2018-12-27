@@ -1,4 +1,5 @@
 import {getSelectorQuery} from "../../../../utils/util.js"
+let positionTop = 0
 Page({
 
   /**
@@ -7,14 +8,14 @@ Page({
   data: {
     labels: ['你大爷的啊', '你大爷的啊', '你大爷的啊','你大爷的啊','你大爷的啊','你大爷的啊'],
     isShrink: false,
-    btnTxt: '展开内容'
+    btnTxt: '展开内容',
+    isShowBtn: true
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
   },
 
   /**
@@ -25,6 +26,9 @@ Page({
       if (res.height > 143) {
         this.setData({isShrink: true})
       }
+    })
+    getSelectorQuery(".mainContent .position").then(res => {
+      positionTop = res.top - res.height * 2
     })
   },
   toggle() {
@@ -37,6 +41,15 @@ Page({
       btnTxt = '展开内容'
     }
     this.setData({isShrink, btnTxt})
+  },
+  onPageScroll(e) { // 获取滚动条当前位置
+    if (e.scrollTop >= positionTop) {
+      if (!this.data.isShowBtn) return
+      this.setData({isShowBtn: false})
+    } else {
+      if (this.data.isShowBtn) return
+      this.setData({isShowBtn: true})
+    }
   },
   /**
    *  

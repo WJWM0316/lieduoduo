@@ -45,11 +45,6 @@ Component({
     showLeftRadius: {
         type: Boolean,
         value: true
-    },
-    // 操作
-    action: {
-        type: String,
-        value: ''
     }
   },
 	methods: {

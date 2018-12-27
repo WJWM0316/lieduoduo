@@ -1,1 +1,3 @@
-/* page/recruiter/pages/position/search/search.wxss */
+.button-enable {
+	background: green;
+}

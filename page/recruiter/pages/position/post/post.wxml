@@ -14,12 +14,12 @@
 		<view class="li link" bindtap="routeJump" data-route="address">
 			<view class="text">工作地点</view>
 			<i class="icon iconfont icon-zhishibiao"></i>
-			<view class="text2">{{describe || '请选择'}}</view>
+			<view class="text2">{{doorplate || '请选择'}}</view>
 		</view>
 		<view class="li link" bindtap="routeJump" data-route="skill">
 			<view class="text">技能要求</view>
 			<i class="icon iconfont icon-zhishibiao"></i>
-			<view class="text2" wx:if="{{!skills.length}}">{{describe || '请选择'}}</view>
+			<view class="text2" wx:if="{{!skills.length}}">请选择</view>
 			<view class="tags-list" wx:else>
 				<view
 				class="item"
@@ -37,12 +37,12 @@
 		<view class="li dropdown">
 			<view class="text">经验要求</view>
 			<i class="icon iconfont icon-zhishibiao"></i>
-			<myPicker class="myPicker" setResult="请选择经验要求" pickerType="experience" bindresultevent="getExperience" rangeKey="name"></myPicker>
+			<myPicker class="myPicker" setResult="{{work_experience_name}}" pickerType="experience" bindresultevent="getExperience" rangeKey="name"></myPicker>
 		</view>
 		<view class="li dropdown">
 			<view class="text">最低学历</view>
 			<i class="icon iconfont icon-zhishibiao"></i>
-			<myPicker class="myPicker" setResult="请选择学历" pickerType="education" bindresultevent="getEducation" rangeKey="name"></myPicker>
+			<myPicker class="myPicker" setResult="{{ educationName }}" pickerType="education" bindresultevent="getEducation" rangeKey="name"></myPicker>
 		</view>
 		<view class="li link" bindtap="routeJump" data-route="description">
 			<view class="text">职位描述</view>
@@ -53,4 +53,7 @@
 	    <button form-type="submit" class="{{canClick ? 'button-enable' : ''}}">发布</button>
 	  </view>
 	</form>
+	<auth wx:if="{{!userInfo}}"></auth>
+  <bindPhone wx:if="{{needLogin}}"></bindPhone>
+  <choose wx:if="{{!choseType}}"></choose>
 </view>
