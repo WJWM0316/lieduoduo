@@ -1,6 +1,8 @@
 // page/applicant/pages/center/thirdStep/thirdStep.js
 import { postThirdStepApi } from '../../../../../api/pages/center'
-let degree =''
+let degree = null,
+    starTime = null,
+    endTime = null
 Page({
 
   /**
@@ -67,10 +69,19 @@ Page({
   },
   /* 学历选择结果 */
   getresult(val) {
-    degree = val.detail.propsDesc
+    console.log(val)
+    if (val.currentTarget.dataset.type === 'starTime') {
+      starTime = val.detail.propsResult
+    } else if (val.currentTarget.dataset.type === 'education') {
+      degree = val.detail.propsResult
+    } else {
+      endTime = val.detail.propsResult
+    }
   },
   formSubmit (e) {
     e.detail.value.degree = degree
+    e.detail.value.startTime = starTime
+    e.detail.value.endTime = endTime
     postThirdStepApi(e.detail.value).then(res => {
       wx.navigateTo({
         url: '/page/applicant/pages/center/mine/mine'

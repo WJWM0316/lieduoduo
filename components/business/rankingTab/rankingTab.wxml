@@ -1,19 +1,19 @@
 <!-- 排行榜第三后的tab组件 -->
 <view class="ranking">
-  <view class="serialNum">8</view>
+  <view class="serialNum">{{index}}</view>
   <!-- 左边模块 -->
   <view class='left'>
     <view class='top'>
-      <text class="name">张文杰</text>
+      <text class="name">{{item.name}}</text>
       <text class="title">招聘主管</text>
     </view>
     <view class='bottom'>
       <view class='icon'></view>
-      <text class="company">老虎科技信息技术有限公司</text>
+      <text class="company">{{item.companyName}}</text>
       <view class='influence'>
         <view class='icon'></view>
         <text class='txt'>影响力</text>
-        <text class='value'>1228</text>
+        <text class='value'>{{item.influence}}</text>
       </view>
     </view>
   </view>

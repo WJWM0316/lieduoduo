@@ -5,7 +5,8 @@ Page({
     workTime: ''
   },
   getresult (val) {
-    this.workTime = val.detail.propsDesc
+    console.log(val, '777777777777777')
+    this.workTime = val.detail.propsResult
   },
   formSubmit (e) {
     e.detail.value.avatar = 12

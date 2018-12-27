@@ -1,6 +1,13 @@
 // page/applicant/pages/more/more.js
-import { getJobLabelApi, getCityLabelApi } from '../../../../../api/pages/common'
+import { getPostionApi, getCityLabelApi } from '../../../../../api/pages/common'
+import { getRankApi, getOfficeRankApi, getCityRankApi } from '../../../../../api/pages/active'
 const app = getApp()
+let param = {
+      area_id: '',
+      cate_id: '',
+      count: 20,
+      page: 1
+    }
 Page({
   /**
    * 初始数据
@@ -9,39 +16,89 @@ Page({
     tab: 'all',
     nowIndex: 0,
     jobLabel: [],
-    cityLabel: ['广州', '深圳', '上海', '北京', '杭州', '重庆', '合肥']
+    cityLabel: [],
+    list: []
   },
   /* 切换主tab */
   cutover(event) {
     this.setData({
       tab: event.target.dataset.tab
     })
+    this.handleListData()
   },
   /* 子级tab栏切换 */
   toggle(event) {
+    if (this.data.tab === 'city') {
+      param.area_id = event.currentTarget.dataset.item.areaId
+    } else if (this.data.tab === 'office') {
+      param.cate_id = event.currentTarget.dataset.item.labelId
+    }
     this.setData({
       nowIndex: event.target.dataset.nowindex
     })
+    this.handleListData()
   },
   scroll (e) {},
   /* 翻页 */
   loadNext (e) {
     console.log(e, '翻页')
   },
-  /* 标签初始化 */
+  /* 标签获取 */
   getJobLabelList () {
-    return getJobLabelApi()
+    return getPostionApi()
   },
   getCityLabel () {
     return getCityLabelApi()
   },
-  onShow () {
+  /* 获取排行榜列表 */
+  getRankData () {
+    switch (this.data.tab) {
+      case 'all':
+        return getRankApi(param)
+        break
+      case 'city':
+        return getCityRankApi(param)
+        break
+      case 'office':
+        return getOfficeRankApi(param)
+        break
+    }
+  },
+  /* 榜单数据处理 */
+  handleListData () {
+    this.getRankData ().then(res => {
+      let first = res.data.splice(1, 1)
+      res.data.unshift(first[0])
+      console.log(first, '99999999999')
+      let nowList = null
+      if (param.page === 1) {
+        nowList = res.data
+      } else {
+        nowList = [...this.data.list, ...res.data]
+      }
+      this.setData({
+        list: nowList
+      })
+    })
+  },
+  /* 初始化标签 */
+  getTag () {
+    return Promise.all([this.getCityLabel(), this.getJobLabelList()])
+  },
+  init () {
     let that = this
-    Promise.all([this.getCityLabel(), this.getJobLabelList()]).then(res => {
+    this.getTag().then(res => {
+      param.area_id = 440100
+      param.cate_id = 1
       that.setData({
         cityLabel: res[0].data,
         jobLabel: res[1].data
       })
+      that.handleListData()
     })
+//  getRankApi(param)
+  },
+  onShow () {
+    this.init()
   }
 })

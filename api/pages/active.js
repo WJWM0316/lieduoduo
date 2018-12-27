@@ -24,3 +24,27 @@ export const getMyBrowseUsersApi = (data) => {
     data
   })
 }
+/* 总榜单 */
+export const getRankApi = (data) => {
+  return request({
+    method: 'get',
+    url: '/rank/',
+    data
+  })
+}
+/* 职位榜单 */
+export const getOfficeRankApi = (data) => {
+  return request({
+    method: 'get',
+    url: '/rank/cateRank',
+    data
+  })
+}
+/* 城市榜单 */
+export const getCityRankApi = (data) => {
+  return request({
+    method: 'get',
+    url: '/rank/cityRank',
+    data
+  })
+}

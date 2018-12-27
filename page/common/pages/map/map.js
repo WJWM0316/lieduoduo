@@ -1,5 +1,5 @@
-// var QQMapWX = require('../../lib/qqmap-wx-jssdk.min.js')
-// var qqmapsdk
+var QQMapWX = require('../../lib/qqmap-wx-jssdk.min.js')
+var qqmapsdk
 Page({
   data: {
     markers: [],
@@ -38,17 +38,17 @@ Page({
   },
   onLoad: function () {
     // 实例化API核心类
-    // qqmapsdk = new QQMapWX({
-    //   key: 'P63BZ-4RM35-BIJIV-QOL7E-XNCZZ-WIF4L'
-    // })
-    // wx.chooseLocation({
-    //   success(res) {
-    //     console.log(res)
-    //   },
-    //   fail(e) {
-    //     console.log(e)
-    //   }
-    // })
+    qqmapsdk = new QQMapWX({
+      key: 'P63BZ-4RM35-BIJIV-QOL7E-XNCZZ-WIF4L'
+    })
+    wx.chooseLocation({
+      success: res => {
+        this.reverseGeocoder(res)
+      },
+      fail(e) {
+        console.log(e)
+      }
+    })
     wx.getLocation({
      type: 'gcj02', //返回可以用于wx.openLocation的经纬度
      success (res) {
@@ -76,5 +76,18 @@ Page({
     //     console.log(res)
     //   }
     // })
+  },
+  // 转化地址信息
+  reverseGeocoder(res) {
+    qqmapsdk.reverseGeocoder({
+      location: {
+        latitude: res.latitude,
+        longitude: res.longitude
+      },
+      success: res => {
+        wx.redirectTo({delta: 2})
+        console.log(res.result, 'ffffffffffff')
+      }
+    })
   }
 })

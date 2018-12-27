@@ -1,13 +1,17 @@
 import { getLabelPositionApi } from '../../../../../api/pages/label.js'
 
+import {RECRUITER} from '../../../../../config.js'
+
 Page({
   data: {
-    positionTypeList: []
+    positionTypeList: [],
+    query: ''
   },
-  onLoad() {
+  onLoad(options) {
+    console.log(options)
     getLabelPositionApi()
       .then(res => {
-        this.setData({positionTypeList: res.data})
+        this.setData({positionTypeList: res.data, query: options})
       })
   },
   /**
@@ -19,7 +23,6 @@ Page({
   onClick(e) {
     const params = e.currentTarget.dataset
     const result = this.data.positionTypeList.find(field => field.labelId === parseInt(params.labelId))
-    wx.navigateTo({url: `${RECRUITER}position/company/abbreviation/abbreviation`})
-    console.log(result)
+    wx.navigateTo({url: `${RECRUITER}position/post/post?type=${result.labelId}&typeName=${result.name}`})
   }
 })

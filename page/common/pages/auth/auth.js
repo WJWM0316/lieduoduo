@@ -15,6 +15,7 @@ Page({
 
   },
   onGotUserInfo(e) {
+    console.lop(e, '9999999999999')
     if (e.detail.errMsg === 'getUserInfo:ok') {
       let data = {
         ssToken: wx.getStorageSync('sessionToken'),

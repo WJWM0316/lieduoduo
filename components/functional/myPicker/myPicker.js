@@ -182,6 +182,7 @@ Component({
         this.setData({list, result, mode: 'multiSelector', placeholder: '请选择期望月薪'})
         break
       case 'salaryRangeB':
+        console.log(this.data.setResult)
         let startNumB = []
         let endNumB = []
         for (let i = 1; i <= 29; i++) {
