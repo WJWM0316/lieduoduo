@@ -17,74 +17,25 @@
     bindscrolltolower='loadNext'
   >
   <!-- 前3名 -->
-    <view class='topicBox'>
-      <!-- <view class='topicList'>
+    <view class="topicBox">
+       <view class="topicList" wx:for="{{list}}" wx:key="{{index}}" wx:if="{{index < 3}}">
         <view class='headIMg {{index === 1? "first" : ""}}'>
-          <image></image>
+          <image src="{{item.avatar}}"></image>
           <view class='icon'>
             <image wx:if="{{index === 1}}" src="../../../../../images/icon_no1.png" />
-            <image wx:if="{{index === 2}}" src="../../../../../images/icon_no2.png" />
-            <image wx:if="{{index === 3}}" src="../../../../../images/icon_no3.png" />
+            <image wx:if="{{index === 0}}" src="../../../../../images/icon_no2.png" />
+            <image wx:if="{{index === 2}}" src="../../../../../images/icon_no3.png" />
           </view>
         </view>
-        <text class='name'>张文杰</text>
-        <text class='title'>招聘主管</text>
-        <view class='influence'>
+        <text class="name">{{item.name}}</text>
+        <text class="title">招聘主管</text>
+        <view class="influence">
           <text>影响力</text>
-          <text class='num'>124563</text>
+          <text class="num">{{item.influence}}</text>
         </view>
-      </view> -->
-    <!-- 第二名 -->
-      <view class='topicList'>
-        <view class='headIMg'>
-          <image></image>
-          <view class='icon'>
-            <image src="../../../../../images/icon_no2.png" />
-          </view>
-        </view>
-        <text class='name'>张文杰</text>
-        <text class='title'>招聘主管</text>
-        <view class='influence'>
-          <text>影响力</text>
-          <text class='num'>124563</text>
-        </view>
-      </view>
-      <!-- 第一名 -->
-      <view class='topicList'>
-        <view class='headIMg first'>
-          <image></image>
-          <view class='icon'>
-            <image src="../../../../../images/icon_no1.png" />
-          </view>
-        </view>
-        <text class='name'>张文杰</text>
-        <text class='title'>招聘主管</text>
-        <view class='influence'>
-          <text>影响力</text>
-          <text class='num'>124563</text>
-        </view>
-      </view>
-      <!-- 第三名 -->
-      <view class='topicList'>
-        <view class='headIMg'>
-          <image></image>
-          <view class='icon'>
-            <image src="../../../../../images/icon_no3.png" />
-          </view>
-        </view>
-        <text class='name'>张文杰</text>
-        <text class='title'>招聘主管</text>
-        <view class='influence'>
-          <text>影响力</text>
-          <text class='num'>124563</text>
-        </view>
-      </view>
+      </view> 
     </view>
     <!-- 第三名之后的数据 -->
-    <rankingTab></rankingTab>
-    <rankingTab></rankingTab>
-    <rankingTab></rankingTab>
-    <rankingTab></rankingTab>
-    <rankingTab></rankingTab>
+    <rankingTab wx:for="{{list}}" wx:key="{{index}}" item="{{item}}" index="{{index}}" wx:if="{{index > 3}}"></rankingTab>
   </scroll-view>
 </view>
