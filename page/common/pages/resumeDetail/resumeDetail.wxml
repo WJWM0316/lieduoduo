@@ -1,0 +1,101 @@
+<!--求职者个人简历页-->
+<navbar title="老虎科技-CEO" background="#FFFFFF" color="#000"></navbar>
+<view class="resumeDetail">
+<!-- 基本信息 -->
+  <view class="personalInfo commentBox">
+    <view class="top">
+      <image src="{{info.avatar}}" class="avatar"></image>
+      <view class="info">
+        <text class="name">{{info.name}}</text>
+        <view>
+          <text>老虎科技</text> | <text>产品经理</text>
+        </view>
+      </view>
+    </view>
+    <view class="experience">
+      <view class="time"><i class="icon iconfont icon-fujian"></i> {{info.workAge}}年</view>
+      <view class="age"><i class="icon iconfont icon-fujian"></i> {{info.age}}岁</view>
+      <view class="education"> <i class="icon iconfont icon-fujian"></i> {{info.degreeDesc}}</view>
+      <view class="status">{{info.jobStatusDesc}}</view>
+    </view>
+    <view class="line"></view>
+    <view class="personalTip">
+      <view class="text">“{{info.signature}}”</view>
+      <view class="tipBox">
+        <text class="tip" wx:for="{{info.personalizedLabels}}" wx:key="{{index}}">{{item}}</text>
+      </view>
+    </view>
+  </view>
+  <!-- 意向 -->
+  <view class="intent commentBox">
+    <view class="intentTitle"><i class="icon iconfont icon-fujian"></i> 求职意向</view>
+    <!-- 意向列表 -->
+    <view class="officeTab" wx:for="{{info.expects}}" wx:key="{{index}}">
+      <view>
+        <view class="officeDetail"><text>{{item.position}} | {{item.city}}</text> <text class="salary">{{item.salaryFloor}}~{{item.saralyCeil}}K</text></view>
+      </view>
+      <view class="officeInfo">电子商务 · 社交网络 · 企业服务</view>
+    </view>
+  </view>
+  <!-- 工作经历 -->
+  <view class="workExp commentBox">
+    <view class="intentTitle"><i class="icon iconfont icon-fujian"></i> 工作经历</view>
+    <view class="expTab" wx:for="{{info.careers}}" wx:key="{{index}}">
+      <view class="expTitle"><text class="expName">{{item.company}}</text><text class="expTime">{{item.startTimeDesc}}-{{item.endTimeDesc}}</text></view>
+      <view class="expInfo">{{item.position}}</view>
+      <!-- 工作内容 -->
+      <view class='expContent'>{{item.duty}}</view>
+      <!-- 工作标签 -->
+      <view class='expTip'>
+        <text wx:for="{{item.technicalLabels}}" wx:key="{{index}}"># {{item}}</text>
+      </view>
+    </view>
+    <view class="moreExp" wx:if="{{info.careers.length > 3}}">展开全部{{info.careers.length}}个工作经历<i class="icon iconfont icon-zhishibiao"></i></view>
+  </view>
+  <!-- 项目经历 -->
+  <view class="projectExp commentBox">
+    <view class="intentTitle"><i class="icon iconfont icon-fujian"></i> 项目经历</view>
+    <view class="expTab" wx:for="{{info.projects}}" wx:key="{{index}}">
+      <view class="expTitle"><text class="expName">{{item.name}}</text><text class="expTime">{{item.startTimeDesc}}-{{item.endTimeDesc}}</text></view>
+      <view class="expInfo">{{item.role}}</view>
+      <!-- 工作内容 -->
+      <view class='expContent'>内容：{{item.description}}</view>
+      <!-- 相关链接 -->
+      <view class="link" wx:if="{{item.link}}">
+        链接：<text>{{item.link}}</text>
+      </view>
+    </view>
+  </view>
+  <!-- 教育经历 -->
+  <view class="projectExp commentBox">
+    <view class="intentTitle"><i class="icon iconfont icon-fujian"></i> 教育经历</view>
+    <view class="expTab" wx:for="{{info.educations}}" wx:key="{{index}}">
+      <view class="expTitle"><text class="expName">{{item.school}}</text><text class="expTime">{{item.startTimeDesc}}-{{item.endTimeDesc}}</text></view>
+      <view class="expInfo">{{item.degreeDesc}}·{{item.major}}</view>
+      <!-- 教育经历 -->
+      <view class='expContent'>{{item.experience}}</view>
+    </view>
+  </view>
+  <!-- 更多 -->
+  <view class="more commentBox">
+    <view class="intentTitle"><i class="icon iconfont icon-fujian"></i> 更多介绍</view>
+    <view class="expTab">
+      <!-- 工作内容 -->
+      <view class="expContent">{{info.moreIntroduce.introduce}}</view>
+      <view class="imgBox">
+        <image wx:for="{{info.moreIntroduce.imgs}}" wx:key="{{index}}" src="{{item}}"></image>
+      </view>
+    </view>
+  </view>
+</view>
+<!-- 底部开撩 -->
+<view class="bottomBox" wx:if="{{true}}">
+  <view class="communicate">
+    <image src="{{info.avatar}}" class="hrAvatar"></image>
+    <view>
+      <text class="name">{{info.name}}</text>
+      <text class="Info">我一直在等，等一个懂我的老大</text>
+    </view>
+    <view class="btn" bindtap="toCommunicate">开撩约面</view>
+  </view>
+</view>
