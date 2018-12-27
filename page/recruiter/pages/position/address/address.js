@@ -1,5 +1,7 @@
 import {COMMON, RECRUITER} from '../../../../../config.js'
 
+import { reverseGeocoder } from '../../../../../utils/map.js'
+
 const app = getApp()
 
 Page({
@@ -22,7 +24,17 @@ Page({
     this.setData({keyword: e.detail.value})
   },
   selectAddress() {
-    wx.navigateTo({url: `${COMMON}map/map`})
+    wx.chooseLocation({
+      success: res => {
+        reverseGeocoder(res)
+          .then(result => {
+            console.log(result)
+          })
+      },
+      fail(e) {
+        console.log(e)
+      }
+    })
   },
   submit(e) {
     const storage = wx.getStorageSync('createPosition')

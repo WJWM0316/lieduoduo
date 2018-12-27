@@ -85,6 +85,7 @@ Page({
         longitude: res.longitude
       },
       success: res => {
+        wx.navigateTo({url: `${RECRUITER}position/post/post`})
         wx.setStorageSync('mapInfos', res.result)
       }
     })

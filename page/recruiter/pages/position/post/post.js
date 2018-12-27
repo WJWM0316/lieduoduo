@@ -38,13 +38,11 @@ Page({
     canClick: false
   },
   onLoad() {
-    const mapInfos = wx.getStorageSync('mapInfos')
     getApp().globalData.identity = 'RECRUITER'
     getApp().checkLogin().then(res => {
       this.setData({userInfo: res})
     })
     this.init()
-    console.log(mapInfos)
   },
   /**
    * @Author   小书包
@@ -59,14 +57,14 @@ Page({
       const labels = storage.skills.map(field => field.labelId)
       this.setData({ labels })
     }
-    getRecruiterMyInfoApi()
-      .then(res => {
-        this.setData({company_id: res.data.companyId})
-      })
-    getPositionApi({id: 11})
-      .then(res => {
-        console.log(res.data)
-      })
+    // getRecruiterMyInfoApi()
+    //   .then(res => {
+    //     this.setData({company_id: res.data.companyId})
+    //   })
+    // getPositionApi({id: 11})
+    //   .then(res => {
+    //     console.log(res.data)
+    //   })
   },
   /**
    * @Author   小书包
