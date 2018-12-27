@@ -6,9 +6,10 @@ Page({
   data: {
     keyword: ''
   },
-  onLoad(options) {
-    if(options.positionName) {
-      this.setData({keyword: options.positionName})
+  onLoad() {
+    const storage = wx.getStorageSync('createPosition')
+    if(storage) {
+      this.setData({ keyword: storage.doorplate })
     }
   },
   /**
@@ -24,6 +25,9 @@ Page({
     wx.navigateTo({url: `${COMMON}map/map`})
   },
   submit(e) {
-    wx.navigateTo({url: `${RECRUITER}position/post/post?positionName=${this.data.keyword}`})
+    const storage = wx.getStorageSync('createPosition')
+    storage.doorplate = this.data.keyword
+    wx.setStorageSync('createPosition', storage)
+    wx.navigateTo({url: `${RECRUITER}position/post/post`})
   }
 })

@@ -10,5 +10,8 @@
 		</view>
 		<interviewerList list="{{companyList}}"></interviewerList>
 	</view>
+	<auth wx:if="{{!userInfo}}"></auth>
+  <bindPhone wx:if="{{needLogin}}"></bindPhone>
+  <choose wx:if="{{!choseType}}"></choose>
   <tab-bar tabType="1"></tab-bar>
 </view>

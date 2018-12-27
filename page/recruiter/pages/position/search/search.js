@@ -6,12 +6,11 @@ Page({
   data: {
     keyword: ''
   },
-  onLoad(options) {
-    // 粗暴实现是否已编辑
-    wx.getStorage({
-      key: 'createPosition',
-      success: res => this.setData({keyword: res.data.position_name})
-    })
+  onLoad() {
+    const storage = wx.getStorageSync('createPosition')
+    if(storage) {
+      this.setData({keyword: storage.position_name})
+    }
   },
   /**
    * @Author   小书包
@@ -23,6 +22,9 @@ Page({
     this.setData({keyword: e.detail.value})
   },
   submit(e) {
-    wx.navigateTo({url: `${RECRUITER}position/post/post?position_name=${this.data.keyword}`})
+    const storage = wx.getStorageSync('createPosition')
+    storage.position_name = this.data.keyword
+    wx.setStorageSync('createPosition', storage)
+    wx.navigateTo({url: `${RECRUITER}position/post/post`})
   }
 })

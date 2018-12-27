@@ -85,8 +85,7 @@ Page({
         longitude: res.longitude
       },
       success: res => {
-        wx.redirectTo({delta: 2})
-        console.log(res.result, 'ffffffffffff')
+        wx.setStorageSync('mapInfos', res.result)
       }
     })
   }

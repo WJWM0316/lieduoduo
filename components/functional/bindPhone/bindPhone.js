@@ -1,4 +1,10 @@
 // components/functional/bindPhone/bindPhone.js
+
+import {
+  sendCodeApi,
+  bindPhoneApi
+} from '../../../api/pages/auth.js'
+
 Component({
   /**
    * 组件的属性列表
