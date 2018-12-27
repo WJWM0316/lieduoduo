@@ -58,14 +58,12 @@ App({
                   params = `${params}${i}=${pages[0].options[i]}&`
                 }
                 pageUrl = `${pageUrl}?${params}`
-                const getSessionKeyParams = {
-                  code: res.code,
-                  page: pageUrl
-                }
-                getSessionKeyApi(getSessionKeyParams).then(res => {
-                  console.log('用户未授权,获取sessionkey成功', res.data.sessionToken)
-                  wx.setStorageSync('sessionToken', res.data.sessionToken)
-                })
+                wx.setStorageSync('code', res.code)
+                wx.setStorageSync('enterUrl', pageUrl)
+                // getSessionKeyApi(getSessionKeyParams).then(res => {
+                //   console.log('用户未授权,获取sessionkey成功', res.data.sessionToken)
+                //   wx.setStorageSync('sessionToken', res.data.sessionToken)
+                // })
               },
               fail: function (e) {
                 console.log('登录失败', e)

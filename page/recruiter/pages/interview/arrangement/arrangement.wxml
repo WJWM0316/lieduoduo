@@ -1,0 +1,18 @@
+<!--page/recruiter/pages/interview/arrangement/arrangement.wxml-->
+<view class="arrangement">
+  <navbar></navbar>
+  <view class="content">
+    <roleInfoCard my-class="roleDetail" roleType="applicant"></roleInfoCard>
+    <view class="detail">
+      <view class="title"><icon class="icon"></icon>面试信息</view>
+      <view class="msgItem">
+        <view class="txt">联系人</view>
+        <view class="msg">联系人联系人联系人联系人</view>
+      </view>
+      <view class="msgItem">
+        <view class="txt">联系电话</view>
+        <view class="msg">9891-23589475</view>
+      </view>
+    </view>
+  </view>
+</view>

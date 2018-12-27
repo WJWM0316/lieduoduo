@@ -1,0 +1,4 @@
+<!--components/layout/shareBtn/shareBtn.wxml-->
+<view class="shareBtn">
+  <view class="shareIcon iconfont icon-fenxiang"></view>
+</view>

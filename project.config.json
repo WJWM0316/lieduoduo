@@ -38,7 +38,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 11,
+			"current": 12,
 			"list": [
 				{
 					"id": 0,
@@ -107,9 +107,15 @@
 					"query": ""
 				},
 				{
-					"id": -1,
-					"name": "招聘官首页",
+					"id": 11,
+					"name": "招聘官主页",
 					"pathName": "page/common/pages/recruiterDetail/recruiterDetail",
+					"query": ""
+				},
+				{
+					"id": 12,
+					"name": "招聘端面试安排",
+					"pathName": "page/recruiter/pages/interview/arrangement/arrangement",
 					"query": ""
 				}
 			]

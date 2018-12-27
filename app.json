@@ -64,6 +64,7 @@
         "pages/index/index",
         "pages/interview/index/index",
         "pages/interview/history/history",
+        "pages/interview/arrangement/arrangement",
         "pages/position/index/index",
         "pages/position/post/post",
         "pages/position/search/search",

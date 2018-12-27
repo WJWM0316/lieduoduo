@@ -3,3 +3,4 @@
   <button bindtap='jump0'>招聘者</button>
   <button bindtap='jump1'>应聘者</button>
 </view>
+<auth wx:if="{{!userInfo}}"></auth>

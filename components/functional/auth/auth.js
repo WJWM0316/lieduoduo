@@ -21,7 +21,7 @@ Component({
     onGotUserInfo(e) {
       if (e.detail.errMsg === 'getUserInfo:ok') {
         let data = {
-          ssToken: wx.getStorageSync('sessionToken'),
+          code: wx.getStorageSync('code'),
           iv_key: e.detail.iv,
           data: e.detail.encryptedData
         }
@@ -33,12 +33,14 @@ Component({
             wx.setStorageSync('token', res.data.token)
             wx.removeStorageSync('sessionToken')
             console.log('用户已认证')
-            wx.reLaunch({
-              url: `/${res.data.page}`
-            })
           } else {
             console.log('用户未绑定手机号')
+            wx.setStorageSync('sessionToken', res.data.sessionToken)
           }
+          wx.reLaunch({
+            url: `/${wx.getStorageSync('enterUrl')}`
+          })
+          wx.removeStorageSync('enterUrl')
         })
       }
     }
