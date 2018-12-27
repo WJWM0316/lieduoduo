@@ -1,3 +1,5 @@
+import { getPositionListApi } from '../../../../../api/pages/position.js'
+
 import {RECRUITER} from '../../../../../config.js'
 
 const app = getApp()
@@ -110,16 +112,20 @@ Page({
       }
     ]
   },
+  onLoad() {
+    getPositionListApi()
+  },
+  /**
+   * @Author   小书包
+   * @DateTime 2018-12-25
+   * @detail   detail
+   * @return   {[type]}     [description]
+   */
   routeJump(e) {
     const action = e.currentTarget.dataset.action
     switch(action) {
       case 'add':
-        wx.navigateTo({
-          url: `${RECRUITER}office/post/post`,
-          fail(e) {
-            console.log(e)
-          }
-        })
+        wx.navigateTo({url: `${RECRUITER}position/post/post`})
         break
       default:
         break

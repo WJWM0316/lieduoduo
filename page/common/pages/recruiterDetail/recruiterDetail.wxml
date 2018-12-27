@@ -1,0 +1,88 @@
+<view class="recruiterDetail">
+  <navbar title="招聘官主页"></navbar>
+  <view class="header">
+    <image class="bgImg" src="../../../../images/bg_detail.png" mode="aspectFill"></image>
+    <div class="content">
+      <view class="avatar">
+        <image src="../../../../images/bg_detail.png" mode="aspectFill"></image>
+      </view>
+      <view class="labels label{{index}}" wx:for="{{labels}}" wx:key="{{index}}">{{item}}</view>
+    </div>
+    <view class="userInfo">
+      <view class="name">阿达</view>
+      <view class="position">老虎科技 | 创始人、CEO</view>
+      <view class="sign">工作不易，知音难觅，壮士约乎！</view>
+    </view>
+  </view>
+  <view class="mainContent">
+    <view class="dataShow">
+      <view class="dataBox">
+        <view class="data"><text class="num">111</text>人气</view>
+        <view class="data"><text class="num">111</text>影响力</view>
+        <view class="data"><text class="num">111</text>排名</view>
+      </view>
+      <button class="callBtn">为Ta打Call，提高影响力</button>
+      <view class="more">查看更多热门招聘官</view>
+    </view>
+    <view class="profile">
+      <view class="title">
+        <view class="icon">
+          <view class="fan"></view>
+        </view>
+        <text class="txt">个人简介</text>
+      </view>
+      <view class="msg {{isShrink ? 'shrink':''}}">老虎科技创始人兼CEO，小灯塔致力于帮助每个职场年轻人实现职业梦想，立足于APP与公众号等线上产品服务，为他们提供有趣、有料的职场话题和职场课程，是职场年轻人的进步神器、职场攻略。老虎科技创始人兼CEO，小灯塔致力于帮助每个职场年轻人实现职业梦想，立足于APP与公众号等线上产品服务，为他们提供有趣、有料的职场话题和职场课程，是职场年轻人的进步神器、职场攻略。</view>
+      <view class="openbtn" bindtap="toggle">{{btnTxt}}<icon class="icon iconfont icon-zhishibiao {{!isShrink ? 'shrink':''}}"></icon></view>
+    </view>
+    <view class="declaration">
+      <view class="title">
+        <view class="icon">
+          <view class="fan"></view>
+        </view>
+        <text class="txt">招聘宣言</text>
+      </view>
+      <view class="descList">
+        <view class="descItem">
+          <view class="descTitle"># 最欣赏候选人什么品质？#</view>
+          <view class="descAnswer">踏实、靠谱、善良，沟通能力强</view>
+        </view>
+        <view class="descItem">
+          <view class="descTitle"># 最欣赏候选人什么品质？## 最欣赏候选人什么品质？## 最欣赏候选人什么品质？#</view>
+          <view class="descAnswer">踏实、靠谱、善良，沟通能力强踏实、靠谱、善良，沟通能力强踏实、靠谱、善良，沟通能力强踏实、靠谱、善良，沟通能力强</view>
+        </view>
+      </view>
+    </view>
+    <view class="position">
+      <view class="company">
+        <image class="img" src="../../../../images/bg_detail.png"></image>
+        <view class="companyMsg">
+          <view class="name">撒大声地</view>
+          <view class="detail">移动互联网 · B论 · 20-99人</view>
+        </view>
+        <icon class="icon iconfont icon-xiangyou"></icon>
+      </view>
+      <view class="positionList">
+        <view class="positionItem">
+          <view class="positionHead"><text class="positionTitle">高级产品经理（Saas方向)高级产品经理（Saas方向)</text><text class="money">20~40k</text></view>
+          <view class="positionDeatil">广州-天河 · 3-5年 · 本科高级产品经理（Saas方向)高级产品经理（Saas方向)</view>
+        </view>
+        <view class="positionItem">
+          <view class="positionHead"><text class="positionTitle">高级产品经理（Saas方向)高级产品经理（Saas方向)</text><text class="money">20~40k</text></view>
+          <view class="positionDeatil">广州-天河 · 3-5年 · 本科高级产品经理（Saas方向)高级产品经理（Saas方向)</view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class="collection icon iconfont icon-ganxingqu"></view>
+  <view class="positionBtn">10个热招职位</view>
+  <view class="footer">
+    <image class="avatar" src="../../../../images/bg_detail.png" mode="aspectFill"></image>
+    <view class="info">
+      <view class="name">张炽杰张炽杰张炽杰张炽杰张炽杰张炽杰张炽杰张炽杰张炽杰张炽杰</view>
+      <view class="sign">工张炽杰张炽杰张炽杰张炽杰张炽杰张炽杰张炽杰张炽杰张炽杰张炽杰作不易，知音难觅，壮士约乎？</view>
+    </view>
+    <view class="btnBox">
+      <button class="btn">开撩约面</button>
+    </view>
+  </view>
+</view>

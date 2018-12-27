@@ -15,7 +15,8 @@
     "page/applicant/pages/center/createUser/createUser",
     "page/applicant/pages/center/workExperience/workExperience",
     "page/applicant/pages/center/educaExperience/educaExperience",
-    "page/applicant/pages/center/userInfoEdit/userInfoEdit"
+    "page/applicant/pages/center/userInfoEdit/userInfoEdit",
+    "page/common/pages/recruiterDetail/recruiterDetail"
   ],
   "window": {
     "navigationBarTextStyle": "black",
@@ -97,10 +98,10 @@
     }
   },
   "networkTimeout": {
-    "request": 10000,
-    "connectSocket": 10000,
-    "uploadFile": 10000,
-    "downloadFile": 10000
+    "request": 60000,
+    "connectSocket": 60000,
+    "uploadFile": 60000,
+    "downloadFile": 60000
   },
   "debug": false
 }

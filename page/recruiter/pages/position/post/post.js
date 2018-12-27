@@ -22,24 +22,25 @@ Page({
     position_name: '',
     company_id: '',
     type: '',
+    typeName: '',
     province: '',
     city: '',
     district: '',
     address: '',
     doorplate: '',
-    labels: '',
-    labels: '',
-    labels: '',
+    labels: [],
     emolument_min: '',
     emolument_max: '',
+    emolument_range: '',
     work_experience: '',
     education: '',
     describe: '',
+    skills: [],
     canClick: false
   },
-  onLoad() {
+  onLoad(options) {
     getApp().globalData.identity = 'RECRUITER'
-    this.init()
+    this.init(options)
   },
   /**
    * @Author   小书包
@@ -47,64 +48,34 @@ Page({
    * @detail   初始化页面数据
    * @return   {[type]}   [description]
    */
-  init() {
-    getPositionExperienceApi()
-      .then(res => {
-        this.setData({experienceLists: res.data})
-      })
-    getCompanyFinancingApi()
-      .then(res => {
-        this.setData({
-          companyFinance: res.data
-        })
-      })
-    getCompanyEmployeesApi()
-      .then(res => {
-        const list = res.data
-        list.map(field => field.text = `${field.text}人`)
-        this.setData({
-          companyEmployees: list
-        })
-      })
-    getLabelFieldApi()
-      .then(res => {
-        this.setData({
-          companyLabelField: res.data
-        })
-      })
+  init(options) {
     wx.getStorage({
-      key: 'createCompanyInfos',
+      key: 'createPosition',
       success: res => {
-        const params = [
-          'companyFinance',
-          'companyEmployees',
-          'companyLabelField',
-          'industry_id',
-          'financing',
-          'employees',
-          'selected_industry_id',
-          'selected_financing',
-          'selected_employees',
-          'canClick'
-        ]
-        params.map(field => this.setData({ [field]: res.data[field] }))
-        this.bindBtnStatus()
+
+        const params = Object.keys(res.data).filter(filed => filed !== '__webviewId__' || filed !== 'describe' || field !== 'labels')
+        const labels = []
+        params.map(field => this.setData({[field]: res.data[field]}))
+
+        // 已经编辑职位名
+        if(options.position_name) {
+          this.setData({position_name: options.position_name})
+        }
+
+        // 已经编辑职位名
+        if(options.type) {
+          this.setData({type: options.type, typeName: options.typeName})
+        }
+
+        res.data.skills.map(field => labels.push({id: field.labelId}))
+        this.setData({labels})
       }
     })
+
+    // 描述
     wx.getStorage({
-      key: 'createdCompanyName',
-      success: res => {
-        this.setData({ company_name: res.data.company_name })
-        this.bindBtnStatus()
-      }
-    })
-    wx.getStorage({
-      key: 'createCompanyIntro',
-      success: res => {
-        const params = ['intro']
-        params.map(field => this.setData({ [field]: res.data[field]}))
-        this.bindBtnStatus()
-      }
+      key: 'positionDescribe',
+      success: res => this.setData({describe: res.data})
     })
   },
   /**
@@ -114,48 +85,7 @@ Page({
    * @return   {[type]}   [description]
    */
   bindBtnStatus() {
-    const canClick =
-      !!this.data.intro
-      && this.data.selected_employees
-      && this.data.selected_financing
-      && this.data.selected_industry_id
-    this.setData({ canClick })
-  },
-  submit() {
-    if(!this.data.canClick) return;
-    wx.navigateTo({
-      url: `${RECRUITER}user/company/upload/upload`,
-      success: () => {
-        this.saveFormData()
-      }
-    })
-  },
-  /**
-   * @Author   小书包
-   * @DateTime 2018-12-20
-   * @detail   下拉选项绑定
-   * @return   {[type]}     [description]
-   */
-  bindChange(e) {
-    const key = e.currentTarget.dataset.key
-    this.setData({
-      [key]: parseInt(e.detail.value),
-      [`selected_${key}`]: true
-    })
-  },
-  /**
-   * @Author   小书包
-   * @DateTime 2018-12-21
-   * @detail   修改公司简称
-   * @return   {[type]}   [description]
-   */
-  jumpModifyIntro() {
-    wx.navigateTo({
-      url: `${RECRUITER}user/company/abbreviation/abbreviation`,
-      success: () => {
-        this.saveFormData()
-      }
-    })
+    console.log(1)
   },
   /**
    * @Author   小书包
@@ -165,7 +95,7 @@ Page({
    */
   saveFormData() {
     wx.setStorage({
-      key: 'createCompanyInfos',
+      key: 'createPosition',
       data: this.data
     })
   },
@@ -177,6 +107,45 @@ Page({
    */
   routeJump(e) {
     const route = e.currentTarget.dataset.route
-    wx.navigateTo({url: `${RECRUITER}position/${route}/${route}`})
+    if(route === 'skills' && !this.data.type) {
+      app.wxToast({title: '请先选择职业类型别'})
+    } else {
+      wx.navigateTo({url: `${RECRUITER}position/${route}/${route}`})
+      this.saveFormData()
+    }
+  },
+  /**
+   * @Author   小书包
+   * @DateTime 2018-12-26
+   * @detail   获取薪资范围
+   * @return   {[type]}     [description]
+   */
+  getSalary(e) {
+    this.setData({
+      emolument_min: parseInt(e.detail.propsResult[0]),
+      emolument_max: parseInt(e.detail.propsResult[1]),
+      emolument_range: `${e.detail.propsResult[0]}~${e.detail.propsResult[0]}`
+    })
+  },
+  /**
+   * @Author   小书包
+   * @DateTime 2018-12-26
+   * @detail   获取工作经验
+   * @return   {[type]}     [description]
+   */
+  getExperience(e) {
+    this.setData({work_experience: e.detail.propsResult})
+  },
+  /**
+   * @Author   小书包
+   * @DateTime 2018-12-26
+   * @detail   获取教育经历
+   * @return   {[type]}     [description]
+   */
+  getEducation(e) {
+    this.setData({work_experience: e.detail.propsResult})
+  },
+  submit() {
+    console.log(this.data)
   }
 })

@@ -1,6 +1,7 @@
 // page/common/pages/bindPhone/bindPhone.js
 import {sendCodeApi, bindPhoneApi} from "../../../../api/pages/auth.js"
 let realCode = '' // 短信验证码
+let app = getApp()
 Page({
 
   /**
@@ -18,13 +19,11 @@ Page({
 
   },
   getPhone(e) {
-    console.log(e)
     this.setData({
       phone: e.detail.value
     })
   },
   getCode(e) {
-    console.log(e)
     this.setData({
       code: e.detail.value
     })
@@ -42,10 +41,18 @@ Page({
       code: this.data.code
     }
     bindPhoneApi(data).then(res => {
-      console.log('手机号码绑定成功')
       wx.setStorageSync('token', res.data.token)
-      getApp().globalData.userInfo = res.data
-      getApp().globalData.hasLogin = true
+      app.globalData.userInfo = res.data
+      app.globalData.hasLogin = true
+      app.wxToast({
+        title: '注册成功',
+        icon: 'success',
+        callback() {
+          wx.navigateBack({
+            delta: 1
+          })
+        }
+      })
     })
   },
   /**

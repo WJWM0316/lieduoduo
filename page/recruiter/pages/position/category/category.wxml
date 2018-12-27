@@ -1,3 +1,12 @@
 <view>
 	<navbar title="职位类别" background="#FFFFFF" color="#22292C" showBackBtn="{{true}}"></navbar>
+	<view class="position-type-ul">
+		<view
+			class="li"
+			wx:for="{{positionTypeList}}"
+			wx:for-item="item"
+			wx:key="{{item.id}}"
+			data-label-id="{{item.labelId}}"
+			bindtap="onClick">{{item.name}}</view>
+	</view>
 </view>

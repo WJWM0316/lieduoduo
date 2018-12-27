@@ -1,5 +1,5 @@
 // page/applicant/pages/more/more.js
-import { getJobLabelApi, getCityLabelApi } from '../../../../../api/pages/common'
+import { getPostionApi, getCityLabelApi } from '../../../../../api/pages/common'
 import { getRankApi, getOfficeRankApi, getCityRankApi } from '../../../../../api/pages/active'
 const app = getApp()
 let param = {
@@ -45,7 +45,7 @@ Page({
   },
   /* 标签获取 */
   getJobLabelList () {
-    return getJobLabelApi()
+    return getPostionApi()
   },
   getCityLabel () {
     return getCityLabelApi()

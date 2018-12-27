@@ -5,10 +5,10 @@
 			<view class="text">公司全称</view>
 			<view class="text2">{{company_name}}</view>
 		</view>
-		<view class="li link" bindtap="jumpModifyIntro">
+		<view class="li link" bindtap="jumpModifyCompanyShortName">
 			<view class="text">公司简介</view>
 			<i class="icon iconfont icon-zhishibiao"></i>
-			<view class="text2">{{intro}}</view>
+			<view class="text2">{{companyShortName}}</view>
 		</view>
 		<view class="li">
 			<i class="icon iconfont icon-zhishibiao"></i>

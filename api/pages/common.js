@@ -30,7 +30,7 @@ export const getJobLabelApi = (data) => {
   return request({
     method: 'get',
     data,
-    url: '/label/positionType'
+    url: '/label/professionalSkills'
   })
 }
 // 生活标签接口

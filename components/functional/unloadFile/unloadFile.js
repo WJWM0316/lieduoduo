@@ -12,6 +12,10 @@ Component({
       type: String,
       value: 'img'
     },
+    number: {
+      type: Number,
+      value: 9
+    },
     url: {
       type: String,
       value: ''
@@ -30,7 +34,7 @@ Component({
   methods: {
     unloadFile() {
       wx.chooseImage({
-        count: 1,
+        count: this.data.number,
         sizeType: ['original', 'compressed'],
         sourceType: ['album', 'camera'],
         success: (res) => {
@@ -69,11 +73,10 @@ Component({
           'img1': file.path,
           'attach_type': this.data.unloadType,
           'size': file.size
-        }, 
+        },
         complete: (res) => {
           if (res.statusCode === 200) {
             console.log(res, "上传成功")
-            result.length = 0
             result.push(JSON.parse(res.data).data[0])
           } else {
             console.log(res, "上传失败")
@@ -82,6 +85,7 @@ Component({
           if (fileNum === 0) {
             wx.hideLoading()
             this.triggerEvent('resultEvent', result)
+            result = []
           }
         }
       })

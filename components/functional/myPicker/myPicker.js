@@ -182,6 +182,7 @@ Component({
         this.setData({list, result, mode: 'multiSelector', placeholder: '请选择期望月薪'})
         break
       case 'salaryRangeB':
+        console.log(this.data.setResult)
         let startNumB = []
         let endNumB = []
         for (let i = 1; i <= 29; i++) {
@@ -208,7 +209,7 @@ Component({
         break
       case 'occupation':
         getJobLabelApi({type: 'skills'}).then(res => {
-          list = res.data
+          list = res.data.labelProfessionalSkills
           let propsResult = null
           list.map((item, index) => {
             if (item.name === this.data.setResult) {
@@ -247,10 +248,17 @@ Component({
               propsResult = new Date(propsDesc).getTime() / 1000
             }
           }
+        } else if (this.data.pickerType === 'salaryRangeB' || this.data.pickerType === 'salaryRangeC') {
+          propsResult = [list[0][result[0]], list[1][result[1]]]
+          propsDesc = `${list[0][result[0]]}~${list[1][result[1]]}`
         }
       } else {
-        propsResult = list[result].value
-        propsDesc = list[result].name
+        if (this.data.pickerType === 'occupation') {
+          propsResult = list[parseInt(result)]
+        } else {
+          propsResult = list[result].value
+          propsDesc = list[result].name
+        }
       }
       this.triggerEvent('resultevent', {propsResult, propsDesc})
     },
@@ -260,7 +268,6 @@ Component({
         e.detail.value[1] = 0
       }
       this.setData({result: e.detail.value})
-      
       this.setResult()
     },
     // picker 某一项数据滚动监听

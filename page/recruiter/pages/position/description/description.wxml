@@ -2,7 +2,7 @@
 	<navbar title="职位描述" background="#FFFFFF" color="#22292C" showBackBtn="{{true}}"></navbar>
 	<form bindsubmit="formSubmit">
 		<view>
-			<textarea bindblur="bindTextAreaBlur" auto-height placeholder="自动变高" />
+			<textarea bindinput="bindTextAreaInput" auto-height placeholder="自动变高" value="{{describe}}" />
 		</view>
 		<view class="btn-area">
 	    <button form-type="submit" class="{{canClick ? 'button-enable' : ''}}">发布</button>

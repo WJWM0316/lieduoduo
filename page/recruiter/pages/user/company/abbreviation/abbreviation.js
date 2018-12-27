@@ -6,26 +6,22 @@ const app = getApp()
 
 Page({
   data: {
-    intro: '',
+    companyShortName: '',
+    company_name: '',
     canClick: false
-  },
-  onShow() {
-    this.init()
   },
   /**
    * @Author   小书包
-   * @DateTime 2018-12-21
-   * @detail   初始化页面
-   * @return   {[type]}   [description]
+   * @DateTime 2018-12-25
+   * @detail   获取路由参数
+   * @return   {[type]}           [description]
    */
-  init() {
-    wx.getStorage({
-      key: 'createCompanyIntro',
-      success: res => {
-        const params = ['canClick', 'intro']
-        params.map(field => this.setData({ [field]: res.data[field]}))
-      }
-    })
+  onLoad(options) {
+    if(options.companyShortName) {
+      this.setData({ companyShortName: options.companyShortName, canClick: true, company_name: options.company_name})
+    } else {
+      this.setData({company_name: options.company_name})
+    }
   },
   /**
    * @Author   小书包
@@ -34,7 +30,7 @@ Page({
    * @return   {[type]}   [description]
    */
   bindBtnStatus() {
-    const canClick = abbreviationReg.test(this.data.intro) ? true : false
+    const canClick = abbreviationReg.test(this.data.companyShortName) ? true : false
     this.setData({ canClick })
   },
   /**
@@ -44,10 +40,7 @@ Page({
    * @return   {[type]}     [description]
    */
   bindInput(e) {
-    const field = e.currentTarget.dataset.field
-    this.setData({
-      [field]: e.detail.value
-    })
+    this.setData({companyShortName: e.detail.value})
     this.bindBtnStatus()
   },
   /**
@@ -57,13 +50,7 @@ Page({
    * @return   {[type]}   [description]
    */
   submit() {
-    if(!this.data.intro) return;
-    wx.setStorage({
-      key: 'createCompanyIntro',
-      data: this.data
-    })
-    wx.navigateTo({
-      url: `${RECRUITER}user/company/post/post`
-    })
+    if(!this.data.companyShortName) return;
+    wx.navigateTo({url: `${RECRUITER}user/company/post/post?companyShortName=${this.data.companyShortName}&company_name=${this.data.company_name}`})
   }
 })

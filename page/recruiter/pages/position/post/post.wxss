@@ -1,13 +1,13 @@
 @import '../../../../../iconfont.wxss';
 
-.position-post .entry-list {
+.entry-list {
 	box-sizing: border-box;
 	width: 100%;
 	display: block;
 	margin-top: 24rpx;
 }
 
-.position-post .entry-list .li {
+.entry-list .li {
 	background: white;
 	line-height: 120rpx;
 	overflow: hidden;
@@ -18,43 +18,43 @@
 	padding-left: 24rpx;
 }
 
-.position-post .entry-list .li:last-child {
+.entry-list .li:last-child {
 	border-bottom: unset;
 }
 
-.position-post .entry-list .label-icon {
+.entry-list .label-icon {
 	margin-right: 24rpx;
 	color: #CED7DC;
 }
 
-.position-post .entry-list .text {
+.entry-list .text {
 	display: inline-block;
 	color: #353943;
 }
 
-.position-post .entry-list .text2 {
+.entry-list .text2 {
 	display: inline-block;
 	color: #353943;
 	float: right;
 	margin-right: 30rpx;
 }
 
-.position-post .entry-list .not-certified {
+.entry-list .not-certified {
 	display: inline-block;
 	color: #2878FF;
 }
 
-.position-post .entry-list .has-certified {
+.entry-list .has-certified {
 	display: inline-block;
 	color: #BCBCBC;
 }
 
-.position-post .entry-list .under-certified {
+.entry-list .under-certified {
 	display: inline-block;
 	color: #F5A623;
 }
 
-.position-post .copy-right {
+.copy-right {
 	font-size:26rpx;
 	font-weight:400;
 	color:#929292;
@@ -64,38 +64,41 @@
 	margin-bottom: 148rpx;
 }
 
-.position-post .copy-right view {
+.copy-right view {
 	display: inline-block;
 	border-right: 1px solid #E8E9EB;
 	margin-right: 24rpx;
 	padding-right: 24rpx;
 }
 
-.position-post .copy-right view:last-child {
+.copy-right view:last-child {
 	border-right: unset;
 }
 
-.position-post .entry-list .icon-zhishibiao {
+.entry-list .icon-zhishibiao {
   transform: rotate(-90deg);
   float: right;
   color: #CED7DC;
   margin-right: 20rpx;
 }
 
-.position-post .entry-list .btn-area {
+.entry-list .btn-area {
 	margin-top: 24rpx;
 }
 
-.position-post .entry-list picker {
+.entry-list picker {
+	width: unset !important;
 	position: absolute;
 	right: 20rpx;
 	left: 20rpx;
 	top: 0;
 	bottom: 0;
 	overflow: hidden;
+	text-align:right;
+	margin-right:35rpx;
 }
 
-.position-post .entry-list picker .text2{
+.entry-list picker .text2{
 	width: 100%;
 	height: 100%;
 	text-align: right;
@@ -103,8 +106,22 @@
 	padding-right: 5rpx;
 }
 
-.position-post .entry-list .link .text2{
+.entry-list .link .text2{
 	margin-right: 5rpx;
+}
+
+.entry-list .link .text2{
+	margin-right: 5rpx;
+}
+
+.tags-list {
+	display: inline-block;
+	float: right;
+}
+
+.tags-list .item {
+	display: inline-block;
+	margin-left: 20rpx;
 }
 
 .button-enable {

@@ -9,7 +9,7 @@
 		<view class="li link" bindtap="routeJump" data-route="category">
 			<view class="text">职位类别</view>
 			<i class="icon iconfont icon-zhishibiao"></i>
-			<view class="text2">{{describe || '请选择'}}</view>
+			<view class="text2">{{typeName || '请选择'}}</view>
 		</view>
 		<view class="li link" bindtap="routeJump" data-route="address">
 			<view class="text">工作地点</view>
@@ -19,49 +19,30 @@
 		<view class="li link" bindtap="routeJump" data-route="skill">
 			<view class="text">技能要求</view>
 			<i class="icon iconfont icon-zhishibiao"></i>
-			<view class="text2">{{describe || '请选择'}}</view>
+			<view class="text2" wx:if="{{!skills.length}}">{{describe || '请选择'}}</view>
+			<view class="tags-list" wx:else>
+				<view
+				class="item"
+				wx:for="{{skills}}"
+				wx:for-item="item"
+				wx:key="{{item.labelId}}"
+				data-label-id="{{item.labelId}}">{{item.name}}</view>
+			</view>
 		</view>
 		<view class="li dropdown">
 			<view class="text">薪资范围</view>
 			<i class="icon iconfont icon-zhishibiao"></i>
-			<picker
-				range="{{ experienceLists }}" 
-				mode="selector" 
-				value="{{ experienceLists[work_experience] }}" 
-				range-key="{{ 'text' }}"
-				bindchange="bindChange"
-				data-key="work_experience">
-		    <view class="text2" wx:if="{{!selected_work_experience}}">请选择</view>
-		    <view class="text2" wx:else>{{ experienceLists[work_experience].text }}</view>
-		  </picker>
+			<myPicker class="myPicker" setResult="{{ emolument_range }}" pickerType="salaryRangeB" bindresultevent="getSalary"></myPicker>
 		</view>
 		<view class="li dropdown">
 			<view class="text">经验要求</view>
 			<i class="icon iconfont icon-zhishibiao"></i>
-			<picker
-				range="{{ experienceLists }}" 
-				mode="selector" 
-				value="{{ experienceLists[work_experience] }}" 
-				range-key="{{ 'text' }}"
-				bindchange="bindChange"
-				data-key="work_experience">
-		    <view class="text2" wx:if="{{!selected_work_experience}}">请选择</view>
-		    <view class="text2" wx:else>{{ experienceLists[work_experience].text }}</view>
-		  </picker>
+			<myPicker class="myPicker" setResult="请选择经验要求" pickerType="experience" bindresultevent="getExperience" rangeKey="name"></myPicker>
 		</view>
 		<view class="li dropdown">
 			<view class="text">最低学历</view>
 			<i class="icon iconfont icon-zhishibiao"></i>
-			<picker
-				range="{{ experienceLists }}" 
-				mode="selector" 
-				value="{{ experienceLists[work_experience] }}" 
-				range-key="{{ 'text' }}"
-				bindchange="bindChange"
-				data-key="work_experience">
-		    <view class="text2" wx:if="{{!selected_work_experience}}">请选择</view>
-		    <view class="text2" wx:else>{{ experienceLists[work_experience].text }}</view>
-		  </picker>
+			<myPicker class="myPicker" setResult="请选择学历" pickerType="education" bindresultevent="getEducation" rangeKey="name"></myPicker>
 		</view>
 		<view class="li link" bindtap="routeJump" data-route="description">
 			<view class="text">职位描述</view>

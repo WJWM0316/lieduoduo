@@ -1,3 +1,9 @@
+import { createCompanyApi } from '../../../../../../api/pages/company.js'
+
+import {RECRUITER} from '../../../../../../config.js'
+
+const app = getApp()
+
 Page({
   data: {
     business_license: {
@@ -15,34 +21,15 @@ Page({
       company_shortname: '',
       industry_id: '',
       financing: '',
-      logo: '',
       employees: '',
       business_license: '',
       on_job: '',
-      email: '',
-      website: '',
-      intro: ''
+      intro: '这个是不必要的啊'
     }
   },
-  onLoad() {
+  onLoad(options) {
     getApp().globalData.identity = 'RECRUITER'
-    this.init()
-  },
-  /**
-   * @Author   小书包
-   * @DateTime 2018-12-21
-   * @detail   初始化页面
-   * @return   {[type]}   [description]
-   */
-  init() {
-    this.getCreateParams()
-    wx.getStorage({
-      key: 'uploadCompanyImages',
-      success: res => {
-        const params = ['canClick', 'business_license', 'on_job']
-        params.map(field => this.setData({ [field]: res.data[field]}))
-      }
-    })
+    this.init(options)
   },
   /**
    * @Author   小书包
@@ -68,24 +55,10 @@ Page({
   /**
    * @Author   小书包
    * @DateTime 2018-12-21
-   * @detail   保存当前页面的编辑数据
-   * @return   {[type]}   [description]
-   */
-  saveFormData() {
-    const data = this.data
-    delete data.formData
-    wx.setStorage({
-      key: 'uploadCompanyImages',
-      data
-    })
-  },
-  /**
-   * @Author   小书包
-   * @DateTime 2018-12-21
    * @detail   获取创建公司的所有参数
    * @return   {[type]}   [description]
    */
-  getCreateParams() {
+  init(options) {
     // 第一步
     wx.getStorage({
       key: 'createdCompanyBase',
@@ -96,28 +69,18 @@ Page({
         this.setData({ formData })
       }
     })
+
     // 第二步
-    wx.getStorage({
-      key: 'createdCompanyName',
-      success: res => {
-        const params = ['company_name']
-        const formData = this.data.formData
-        params.map(field => formData[field] = res.data[field])
-        this.setData({ formData })
-      }
-    })
+    if(options.company_name) {
+      const params = ['company_name']
+      const formData = this.data.formData
+      formData.company_name = options.company_name
+      this.setData({ formData })
+      this.bindBtnStatus()
+    }
+
     // 第三步
     wx.getStorage({
-      key: 'createdCompanyName',
-      success: res => {
-        const params = ['company_name']
-        const formData = this.data.formData
-        params.map(field => formData[field] = res.data[field])
-        this.setData({ formData })
-      }
-    })
-    // 第四步
-    wx.getStorage({
       key: 'createCompanyInfos',
       success: res => {
         const params = [
@@ -130,33 +93,37 @@ Page({
         this.setData({ formData })
       }
     })
-    // 第五步
-    wx.getStorage({
-      key: 'createCompanyInfos',
-      success: res => {
-        const params = [
-          'industry_id',
-          'financing',
-          'employees'
-        ]
-        const formData = this.data.formData
-        params.map(field => formData[field] = res.data[field])
-        this.setData({ formData })
-      }
-    })
-    // 第六步
-    wx.getStorage({
-      key: 'createCompanyIntro',
-      success: res => {
-        const params = ['intro']
-        const formData = this.data.formData
-        params.map(field => formData[field] = res.data[field])
-        this.setData({ formData })
-      }
-    })
+    if(options.companyShortName) {
+      const params = ['company_shortname']
+      const formData = this.data.formData
+      formData.company_shortname = options.companyShortName
+      this.setData({ formData })
+      this.bindBtnStatus()
+    }
+  },
+  /**
+   * @Author   小书包
+   * @DateTime 2018-12-25
+   * @detail   清除缓存
+   * @return   {[type]}   [description]
+   */
+  clearCache() {
+    wx.removeStorage({key: 'createCompanyInfos'})
+    wx.removeStorage({key: 'createdCompanyBase'})
   },
   submit() {
     if(!this.data.canClick) return;
-    this.saveFormData()
+    const formData = this.data.formData
+    formData.on_job = this.data.on_job.id
+    formData.business_license = this.data.business_license.id
+    createCompanyApi(formData)
+      .then(res => {
+        app.wxToast({title: res.msg})
+        wx.navigateTo({url: `${RECRUITER}user/company/identity/identity`})
+        this.clearCache()
+      })
+      .catch(err => {
+        app.wxToast({title: err.msg})
+      })
   }
 })
