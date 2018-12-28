@@ -212,6 +212,7 @@ Page({
   },
   addLabel() {
     if (this.data.customLabel === '') return
+
     let data = {
       name: this.data.customLabel
     }
@@ -220,20 +221,33 @@ Page({
     let typeNum = ''
     let addLabelApi = null
     if (this.data.pageType === 'life') {
+      list = this.data.choseLifeList
+      type = 'choseLifeList'
+      typeNum = 'lifeChoseNum'
       addLabelApi = addLifeLabelApi
     } else {
+      list = this.data.choseJobList
+      type = 'choseJobList'
+      typeNum = 'jobChoseNum'
       addLabelApi = addJobLabelApi
     }
-    addLabelApi(data).then(res => {
-      if (this.data.pageType === 'life') {
-        list = this.data.choseLifeList
-        type = 'choseLifeList'
-        typeNum = 'lifeChoseNum'
-      } else {
-        list = this.data.choseJobList
-        type = 'choseJobList'
-        typeNum = 'jobChoseNum'
+    let isReturn = false
+    list.map((item, index) => {
+      if (item.name === this.data.customLabel) {
+        getApp().wxToast({
+          title: '标签重复，添加失败'
+        })
+        isReturn = true
+        this.setData({
+          num: 10,
+          customLabel: '',
+          hidePop: true
+        })
+        return
       }
+    })
+    if (isReturn) return
+    addLabelApi(data).then(res => {
       let data = res.data
       data.name = this.data.customLabel
       list.push(data)
@@ -244,11 +258,15 @@ Page({
         [typeNum]: list.length,
         hidePop: true
       })
-    }).catch(e => {
-      if (e.code === 413) {
+    }).catch((e) => {
+      if (e.data.code === 413) {
+        getApp().wxToast({
+          title: '便签库已有此标签'
+        })
         this.setData({
           num: 10,
-          customLabel: ''
+          customLabel: '',
+          hidePop: true
         })
       }
     })

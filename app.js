@@ -1,5 +1,8 @@
 //app.js
-import {getSessionKeyApi} from 'api/pages/auth.js'
+import {loginApi} from 'api/pages/auth.js'
+import {getPersonalResumeApi} from 'api/pages/center.js'
+import {getRecruiterDetailApi} from 'api/pages/recruiter.js'
+let app = getApp()
 App({
   onLaunch: function () {
     // 获取导航栏高度
@@ -20,6 +23,7 @@ App({
     userInfo: null, // 用户信息， 判断是否授权
     navHeight: 0,
     cdnImagePath: 'https://attach.lieduoduo.ziwork.com/images',
+    resumeInfo: null, // 个人简历信息
     systemInfo: wx.getSystemInfoSync() // 系统信息
   },
   // 检查登录
@@ -42,6 +46,15 @@ App({
                 if (this.userInfoReadyCallback) {
                   this.userInfoReadyCallback(res)
                 }
+                if (wx.getStorageSync('choseType') === 'APPLICANT') {
+                  getPersonalResumeApi().then(res0 => {
+                    app.resumeInfo = res0.data
+                  })
+                } else {
+                  getRecruiterDetailApi().then(res0 => {
+                    console.log(res0)
+                  })
+                }
                 console.log('用户已授权', res.userInfo)
                 resolve(res.userInfo)
               }
@@ -49,6 +62,50 @@ App({
           }
         }
       })
+    })
+  },
+  // 授权button 回调
+  onGotUserInfo(e) {
+    return new Promise((resolve, reject) => {
+      if (e.detail.errMsg === 'getUserInfo:ok') {
+        // 调用微信登录获取本地session_key
+        wx.login({
+          success: function (res) {
+            // 请求接口获取服务器session_key
+            var pages = getCurrentPages() //获取加载的页面
+            let pageUrl = pages[0].route
+            let params = ''
+            for (let i in pages[0].options) {
+              params = `${params}${i}=${pages[0].options[i]}&`
+            }
+            pageUrl = `${pageUrl}?${params}`
+            let data = {
+              code: res.code,
+              iv_key: e.detail.iv,
+              data: e.detail.encryptedData
+            }
+            loginApi(data).then(res => {
+              // 有token说明已经绑定过用户了
+              if (res.data.token) {
+                getApp().globalData.userInfo = res.data
+                getApp().globalData.hasLogin = true
+                wx.setStorageSync('token', res.data.token)
+                console.log('用户已认证')
+              } else {
+                console.log('用户未绑定手机号')
+                wx.setStorageSync('sessionToken', res.data.sessionToken)
+              }
+              resolve(res)
+              wx.reLaunch({
+                url: `/${pageUrl}`
+              })
+            })
+          },
+          fail: function (e) {
+            console.log('登录失败', e)
+          }
+        })
+      }
     })
   },
   // 微信toast

@@ -2,7 +2,9 @@
 import { postfirstStepApi } from '../../../../../api/pages/center'
 Page({
   data: {
-    workTime: ''
+    workTime: '',
+    avatarUrl: '',
+    avatarId: ''
   },
   getresult (val) {
     console.log(val, '777777777777777')
@@ -19,5 +21,10 @@ Page({
     }).catch (err => {
       console.log(err, '88888888888888888')
     })
+  },
+  onShow() {
+    let avatarId = wx.getStorageSync('avatarId')
+    let avatarUrl = wx.getStorageSync('avatarUrl')
+    this.setData({avatarUrl, avatarId})
   }
 })

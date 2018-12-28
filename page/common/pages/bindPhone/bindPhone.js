@@ -16,12 +16,12 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
   },
   getPhone(e) {
     this.setData({
       phone: e.detail.value
     })
+    console.log(e)
   },
   getCode(e) {
     this.setData({
@@ -29,6 +29,12 @@ Page({
     })
   },
   sendCode() {
+    if (this.data.phone === '') {
+      app.wxToast({
+        title: '请填写手机号'
+      })
+      return
+    }
     let data = {
       mobile: this.data.phone
     }
@@ -39,6 +45,18 @@ Page({
     let data = {
       mobile: this.data.phone,
       code: this.data.code
+    }
+    if (this.data.phone === '') {
+      app.wxToast({
+        title: '请填写手机号'
+      })
+      return
+    }
+    if (this.data.code === '') {
+      app.wxToast({
+        title: '请填写验证码'
+      })
+      return
     }
     bindPhoneApi(data).then(res => {
       wx.setStorageSync('token', res.data.token)

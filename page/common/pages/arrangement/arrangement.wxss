@@ -1,4 +1,4 @@
-@import '../../../../../iconfont.wxss';
+@import '../../../../iconfont.wxss';
 .arrangement {
   background: #F5F5F9;
   padding-bottom: 148rpx;

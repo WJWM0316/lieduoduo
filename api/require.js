@@ -1,4 +1,4 @@
-import {APPLICANTHOST, RECRUITERHOST, COMMON} from '../config.js'
+import {APPLICANTHOST, RECRUITERHOST, COMMON, RECRUITER, APPLICANT} from '../config.js'
 
 let loadNum = 0
 let addHttpHead = {}
@@ -64,6 +64,17 @@ export const request = ({method = 'post', url, data = {}, needKey = true, hasLoa
                 })
               }
               break
+            case 400:
+              if (msg.code === 701 && url !== '/jobhunter/resume') {
+                wx.navigateTo({
+                  url: `${APPLICANT}center/createUser/createUser`
+                })
+              }
+              if (msg.code === 801) {
+                wx.navigateTo({
+                  url: `${RECRUITER}user/company/apply/apply`
+                })
+              }
           }
         }
       },

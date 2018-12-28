@@ -19,3 +19,14 @@ export const getRecruiterMyInfoApi = (data) => {
     hasLoading: true
   })
 }
+
+
+// 招聘官-详情
+export const getRecruiterDetailApi = (data) => {
+  return request({
+    url: '/recruiter/detail',
+    method: 'get',
+    data,
+    hasLoading: true
+  })
+}

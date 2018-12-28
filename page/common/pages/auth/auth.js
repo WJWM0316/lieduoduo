@@ -12,31 +12,9 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
   },
   onGotUserInfo(e) {
-    console.lop(e, '9999999999999')
-    if (e.detail.errMsg === 'getUserInfo:ok') {
-      let data = {
-        ssToken: wx.getStorageSync('sessionToken'),
-        iv_key: e.detail.iv,
-        data: e.detail.encryptedData
-      }
-      loginApi(data).then(res => {
-        // 有token说明已经绑定过用户了
-        if (res.data.token) {
-          getApp().globalData.userInfo = res.data
-          getApp().globalData.hasLogin = true
-          wx.setStorageSync('token', res.data.token)
-          wx.removeStorageSync('sessionToken')
-          wx.reLaunch({
-            url: `/${res.data.page}`
-          })
-        } else {
-          console.log('用户为绑定')
-        }
-      })
-    }
+    getApp().onGotUserInfo(e)
   },
   /**
    * 生命周期函数--监听页面初次渲染完成

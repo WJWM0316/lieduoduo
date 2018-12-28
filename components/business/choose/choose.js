@@ -1,5 +1,6 @@
 // components/business/choose/choose.js
 import {RECRUITER, APPLICANT} from '../../../config.js'
+let identity = 'APPLICANT'
 Component({
   /**
    * 组件的属性列表
@@ -26,17 +27,26 @@ Component({
    * 组件的方法列表
    */
   methods: {
-    jump1() {
-      wx.setStorageSync('choseType', 'APPLICANT')
-      this.setData({
-        isChose: true
-      })
+    jump(e) {
+      console.log(e)
+      console.log(e.currentTarget.dataset.identity, e.currentTarget.dataset.identity === 'APPLICANT')
+      if (e.currentTarget.dataset.identity === 'APPLICANT') {
+        identity = 'APPLICANT'
+      } else {
+        identity = 'RECRUITER'
+      }
+      wx.setStorageSync('choseType', identity)
     },
-    jump0() {
-      wx.setStorageSync('choseType', 'RECRUITER')
-      getApp().globalData.identity = 'RECRUITER'
-      wx.reLaunch({
-        url: `${RECRUITER}index/index`
+    onGotUserInfo(e) {
+      getApp().onGotUserInfo(e).then(res => {
+        if (identity === 'RECRUITER') {
+          wx.reLaunch({
+            url: `${RECRUITER}index/index`
+          })
+        }
+        this.setData({
+          isChose: true
+        })
       })
     }
   }
