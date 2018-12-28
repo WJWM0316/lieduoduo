@@ -1,14 +1,17 @@
 import {COMMON, RECRUITER} from '../../../../../config.js'
 
+import { reverseGeocoder } from '../../../../../utils/map.js'
+
 const app = getApp()
 
 Page({
   data: {
     keyword: ''
   },
-  onLoad(options) {
-    if(options.positionName) {
-      this.setData({keyword: options.positionName})
+  onLoad() {
+    const storage = wx.getStorageSync('createPosition')
+    if(storage) {
+      this.setData({ keyword: storage.doorplate })
     }
   },
   /**
@@ -21,9 +24,22 @@ Page({
     this.setData({keyword: e.detail.value})
   },
   selectAddress() {
-    wx.navigateTo({url: `${COMMON}map/map`})
+    wx.chooseLocation({
+      success: res => {
+        reverseGeocoder(res)
+          .then(result => {
+            console.log(result)
+          })
+      },
+      fail(e) {
+        console.log(e)
+      }
+    })
   },
   submit(e) {
-    wx.navigateTo({url: `${RECRUITER}position/post/post?positionName=${this.data.keyword}`})
+    const storage = wx.getStorageSync('createPosition')
+    storage.doorplate = this.data.keyword
+    wx.setStorageSync('createPosition', storage)
+    wx.navigateTo({url: `${RECRUITER}position/post/post`})
   }
 })

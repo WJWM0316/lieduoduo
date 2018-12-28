@@ -6,114 +6,23 @@ const app = getApp()
 
 Page({
   data: {
-    cityLabel: ['广州', '深圳', '上海', '北京', '杭州', '重庆', '合肥'],
-    listStatus: [
-      {
-        id: 'all',
-        active: true,
-        text: '上线职位'
-      },
-      {
-        id: 'opening',
-        active: false,
-        text: '下线职位'
-      }
-    ],
-    companyList: [
-      {
-        id: 1,
-        recruiterName: '文双',
-        certification: false,
-        recruiterPosition: '创始人、CEO',
-        companyName: '老虎科技',
-        positionNumber: 18,
-        status: 1
-      },
-      {
-        id: 2,
-        recruiterName: '文双',
-        certification: true,
-        recruiterPosition: '创始人、CEO',
-        companyName: '老虎科技',
-        positionNumber: 18,
-        status: 0
-      },
-      {
-        id: 3,
-        recruiterName: '文双',
-        certification: true,
-        recruiterPosition: '创始人、CEO',
-        companyName: '老虎科技',
-        positionNumber: 18,
-        status: 0
-      },
-      {
-        id: 4,
-        recruiterName: '文双',
-        certification: true,
-        recruiterPosition: '创始人、CEO',
-        companyName: '老虎科技',
-        positionNumber: 18,
-        status: 0
-      },
-      {
-        id: 5,
-        recruiterName: '文双',
-        certification: true,
-        recruiterPosition: '创始人、CEO',
-        companyName: '老虎科技',
-        positionNumber: 18,
-        status: 0
-      },
-      {
-        id: 6,
-        recruiterName: '文双',
-        certification: true,
-        recruiterPosition: '创始人、CEO',
-        companyName: '老虎科技',
-        positionNumber: 18,
-        status: 0
-      },
-      {
-        id: 7,
-        recruiterName: '文双',
-        certification: true,
-        recruiterPosition: '创始人、CEO',
-        companyName: '老虎科技',
-        positionNumber: 18,
-        status: 0
-      },
-      {
-        id: 8,
-        recruiterName: '文双',
-        certification: true,
-        recruiterPosition: '创始人、CEO',
-        companyName: '老虎科技',
-        positionNumber: 18,
-        status: 0
-      },
-      {
-        id: 9,
-        recruiterName: '文双',
-        certification: true,
-        recruiterPosition: '创始人、CEO',
-        companyName: '老虎科技',
-        positionNumber: 18,
-        status: 0
-      },
-      {
-        id: 10,
-        recruiterName: '文双',
-        certification: true,
-        recruiterPosition: '创始人、CEO',
-        companyName: '老虎科技',
-        positionNumber: 18,
-        status: 0
-      }
-    ]
+    positionStatus: '1',
+    positionList: []
   },
   onLoad() {
-    getPositionListApi()
+    this.getLists()
+  },
+  /**
+   * @Author   小书包
+   * @DateTime 2018-12-27
+   * @detail   获取列表数据
+   * @return   {[type]}   [description]
+   */
+  getLists() {
+    getPositionListApi({status: this.data.positionStatus})
+      .then(res => {
+        this.setData({positionList: res.data})
+      })
   },
   /**
    * @Author   小书包
@@ -122,10 +31,13 @@ Page({
    * @return   {[type]}     [description]
    */
   routeJump(e) {
-    const action = e.currentTarget.dataset.action
-    switch(action) {
+    const params = e.currentTarget.dataset
+    switch(params.action) {
       case 'add':
         wx.navigateTo({url: `${RECRUITER}position/post/post`})
+        break
+      case 'edit':
+        wx.navigateTo({url: `${RECRUITER}position/post/post?positionId=${params.positionId}`})
         break
       default:
         break
@@ -133,9 +45,8 @@ Page({
   },
   /* 子级tab栏切换 */
   onClickTab(e) {
-    let params = e.currentTarget.dataset
-    const listStatus = this.data.listStatus
-    listStatus.map((field, index) => field.active = index === params.index ? true : false)
-    this.setData({listStatus})
+    const status = e.currentTarget.dataset.status
+    this.setData({positionStatus: status})
+    this.getLists()
   }
 })

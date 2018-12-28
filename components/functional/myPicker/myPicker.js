@@ -48,7 +48,7 @@ Component({
     hours: ['00', '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23'],
     minutes: ['00', '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31', '32', '33', '34', '35', '36', '37', '38', '39', '40', '41', '42', '43', '44', '45', '46', '47', '48', '49', '50', '51', '52', '53', '54', '55', '56', '57', '58', '59']
   },
-  attached: function () {
+  ready: function () {
     let list = []
     let result = null
     let firstOption = null
@@ -135,6 +135,7 @@ Component({
       case 'education':
         list = this.data.education
         result = `${list.indexOf(this.data.setResult)}`
+        if(this.data.setResult) result = list.findIndex(field => field.name === this.data.setResult)
         if (result === `-1`) { result = 0 }
         this.setData({list, result, mode: 'selector', placeholder: '请选择学历'})
         break
@@ -153,6 +154,7 @@ Component({
       case 'experience':
         list = this.data.experience
         result = `${list.indexOf(this.data.setResult)}`
+        if(this.data.setResult) result = list.findIndex(field => field.name === this.data.setResult)
         if (result === `-1`) { result = 0 }
         this.setData({list, result, mode: 'selector', placeholder: '请选择经验要求'})
         break
@@ -186,7 +188,6 @@ Component({
         this.setData({list, result, mode: 'multiSelector', placeholder: '请选择期望薪'})
         break
       case 'salaryRangeB':
-        console.log(this.data.setResult)
         let startNumB = []
         let endNumB = []
         for (let i = 1; i <= 29; i++) {

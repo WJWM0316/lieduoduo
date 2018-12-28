@@ -9,6 +9,9 @@ const app = getApp()
 Page({
   data: {
     pageList: 'seen-me',
+    choseType: wx.getStorageSync('choseType') || null,
+    userInfo: null,
+    needLogin: false,
     companyList: [
       {
         id: 1,
@@ -21,9 +24,11 @@ Page({
       }
     ]
   },
-  onShow() {
+  onLoad() {
     getApp().globalData.identity = 'RECRUITER'
-    getBrowseMySelfApi()
+    getApp().checkLogin().then(res => {
+      this.setData({userInfo: res})
+    })
   },
   changeCompanyLists(e) {
     let pageList = e.currentTarget.dataset.pageList

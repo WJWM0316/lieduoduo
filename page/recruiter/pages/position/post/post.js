@@ -1,15 +1,9 @@
 import {
-  getCompanyFinancingApi,
-  getCompanyEmployeesApi
-} from '../../../../../api/pages/company.js'
-
-import {
-  getPositionExperienceApi
+  createPositionApi,
+  getPositionApi
 } from '../../../../../api/pages/position.js'
 
-import {
-  getLabelFieldApi
-} from '../../../../../api/pages/common.js'
+import { getRecruiterMyInfoApi } from '../../../../../api/pages/recruiter.js'
 
 import {realNameReg, emailReg, positionReg} from '../../../../../utils/fieldRegular.js'
 
@@ -19,28 +13,36 @@ const app = getApp()
 
 Page({
   data: {
+    choseType: wx.getStorageSync('choseType') || null,
+    userInfo: null,
+    needLogin: false,
     position_name: '',
     company_id: '',
+    lng: '',
+    lat: '',
     type: '',
     typeName: '',
-    province: '',
-    city: '',
-    district: '',
-    address: '',
+    area_id: '440106',
+    address: '广东省广州市天河区天河北路613号',
     doorplate: '',
     labels: [],
     emolument_min: '',
     emolument_max: '',
     emolument_range: '',
     work_experience: '',
+    work_experience_name: '',
     education: '',
+    educationName: '',
     describe: '',
     skills: [],
     canClick: false
   },
-  onLoad(options) {
+  onLoad() {
     getApp().globalData.identity = 'RECRUITER'
-    this.init(options)
+    getApp().checkLogin().then(res => {
+      this.setData({userInfo: res})
+    })
+    this.init()
   },
   /**
    * @Author   小书包
@@ -48,35 +50,21 @@ Page({
    * @detail   初始化页面数据
    * @return   {[type]}   [description]
    */
-  init(options) {
-    wx.getStorage({
-      key: 'createPosition',
-      success: res => {
-
-        const params = Object.keys(res.data).filter(filed => filed !== '__webviewId__' || filed !== 'describe' || field !== 'labels')
-        const labels = []
-        params.map(field => this.setData({[field]: res.data[field]}))
-
-        // 已经编辑职位名
-        if(options.position_name) {
-          this.setData({position_name: options.position_name})
-        }
-
-        // 已经编辑职位名
-        if(options.type) {
-          this.setData({type: options.type, typeName: options.typeName})
-        }
-
-        res.data.skills.map(field => labels.push({id: field.labelId}))
-        this.setData({labels})
-      }
-    })
-
-    // 描述
-    wx.getStorage({
-      key: 'positionDescribe',
-      success: res => this.setData({describe: res.data})
-    })
+  init() {
+    const storage = wx.getStorageSync('createPosition')
+    if(storage) {
+      Object.keys(storage).map(field => this.setData({[field]: storage[field]}))
+      const labels = storage.skills.map(field => field.labelId)
+      this.setData({ labels })
+    }
+    // getRecruiterMyInfoApi()
+    //   .then(res => {
+    //     this.setData({company_id: res.data.companyId})
+    //   })
+    // getPositionApi({id: 11})
+    //   .then(res => {
+    //     console.log(res.data)
+    //   })
   },
   /**
    * @Author   小书包
@@ -86,18 +74,6 @@ Page({
    */
   bindBtnStatus() {
     console.log(1)
-  },
-  /**
-   * @Author   小书包
-   * @DateTime 2018-12-21
-   * @detail   保存当前页面的编辑数据
-   * @return   {[type]}   [description]
-   */
-  saveFormData() {
-    wx.setStorage({
-      key: 'createPosition',
-      data: this.data
-    })
   },
   /**
    * @Author   小书包
@@ -111,7 +87,7 @@ Page({
       app.wxToast({title: '请先选择职业类型别'})
     } else {
       wx.navigateTo({url: `${RECRUITER}position/${route}/${route}`})
-      this.saveFormData()
+      wx.setStorageSync('createPosition', this.data)
     }
   },
   /**
@@ -124,7 +100,7 @@ Page({
     this.setData({
       emolument_min: parseInt(e.detail.propsResult[0]),
       emolument_max: parseInt(e.detail.propsResult[1]),
-      emolument_range: `${e.detail.propsResult[0]}~${e.detail.propsResult[0]}`
+      emolument_range: `${e.detail.propsResult[0]}~${e.detail.propsResult[1]}`
     })
   },
   /**
@@ -134,7 +110,7 @@ Page({
    * @return   {[type]}     [description]
    */
   getExperience(e) {
-    this.setData({work_experience: e.detail.propsResult})
+    this.setData({work_experience: e.detail.propsResult, work_experience_name: e.detail.propsDesc})
   },
   /**
    * @Author   小书包
@@ -143,9 +119,33 @@ Page({
    * @return   {[type]}     [description]
    */
   getEducation(e) {
-    this.setData({work_experience: e.detail.propsResult})
+    this.setData({education: e.detail.propsResult, educationName: e.detail.propsDesc})
   },
   submit() {
-    console.log(this.data)
+    getApp().globalData.hasLogin = true
+    const formData = {}
+    const params = [
+      'position_name',
+      'company_id',
+      'type',
+      'address',
+      'area_id',
+      'address',
+      'doorplate',
+      'labels',
+      'emolument_min',
+      'emolument_max',
+      'work_experience',
+      'education',
+      'describe'
+    ]
+    params.map(field => formData[field] = this.data[field])
+    createPositionApi(formData)
+      .then(res => {
+        wx.removeStorageSync('createPosition')
+        wx.removeStorageSync('mapInfos')
+        wx.navigateTo({url: `${RECRUITER}position/index/index`})
+      })
+      .catch(err => app.wxToast({title: err.msg}))
   }
 })

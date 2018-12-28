@@ -85,8 +85,8 @@ Page({
         longitude: res.longitude
       },
       success: res => {
-        wx.redirectTo({delta: 2})
-        console.log(res.result, 'ffffffffffff')
+        wx.navigateTo({url: `${RECRUITER}position/post/post`})
+        wx.setStorageSync('mapInfos', res.result)
       }
     })
   }

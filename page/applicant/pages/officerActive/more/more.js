@@ -28,6 +28,7 @@ Page({
   },
   /* 子级tab栏切换 */
   toggle(event) {
+    param.page = 1
     if (this.data.tab === 'city') {
       param.area_id = event.currentTarget.dataset.item.areaId
     } else if (this.data.tab === 'office') {
@@ -67,8 +68,11 @@ Page({
   /* 榜单数据处理 */
   handleListData () {
     this.getRankData ().then(res => {
-      let first = res.data.splice(1, 1)
-      res.data.unshift(first[0])
+      let first = null
+      if (res.data.length >2) {
+        first = res.data.splice(1, 1)
+        res.data.unshift(first[0])
+      }
       console.log(first, '99999999999')
       let nowList = null
       if (param.page === 1) {

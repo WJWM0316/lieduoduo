@@ -119,6 +119,7 @@
   font-size:32rpx;
   font-weight:600;
   color:rgba(40,40,40,1);
+  pointer-events: none;
 }
 
 .office-status-bar .active::after {

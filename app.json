@@ -16,7 +16,8 @@
     "page/applicant/pages/center/workExperience/workExperience",
     "page/applicant/pages/center/educaExperience/educaExperience",
     "page/applicant/pages/center/userInfoEdit/userInfoEdit",
-    "page/common/pages/recruiterDetail/recruiterDetail"
+    "page/common/pages/recruiterDetail/recruiterDetail",
+    "page/common/pages/resumeDetail/resumeDetail"
   ],
   "window": {
     "navigationBarTextStyle": "black",

@@ -8,10 +8,9 @@ Page({
     query: ''
   },
   onLoad(options) {
-    console.log(options)
     getLabelPositionApi()
       .then(res => {
-        this.setData({positionTypeList: res.data, query: options})
+        this.setData({positionTypeList: res.data})
       })
   },
   /**
@@ -23,6 +22,10 @@ Page({
   onClick(e) {
     const params = e.currentTarget.dataset
     const result = this.data.positionTypeList.find(field => field.labelId === parseInt(params.labelId))
-    wx.navigateTo({url: `${RECRUITER}position/post/post?type=${result.labelId}&typeName=${result.name}`})
+    const storage = wx.getStorageSync('createPosition')
+    storage.type = result.labelId
+    storage.typeName = result.name
+    wx.setStorageSync('createPosition', storage)
+    wx.navigateTo({url: `${RECRUITER}position/post/post`})
   }
 })

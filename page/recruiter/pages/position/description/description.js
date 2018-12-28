@@ -7,12 +7,8 @@ Page({
 		describe: ''
 	},
 	onLoad(options) {
-		wx.getStorage({
-      key: 'positionDescribe',
-      success: res => {
-        this.setData({ describe: res.data })
-      }
-    })
+    const storage = wx.getStorageSync('createPosition')
+    this.setData({ describe: storage ? storage.describe : '' })
 	},
 	/**
 	 * @Author   小书包
@@ -24,12 +20,9 @@ Page({
   	this.setData({describe: e.detail.value})
   },
   formSubmit(e) {
-    wx.setStorage({
-      key: 'positionDescribe',
-      data: this.data.describe,
-      success: () => {
-      	wx.navigateTo({url: `${RECRUITER}position/post/post`})
-      }
-    })
+    const storage = wx.getStorageSync('createPosition')
+    storage.describe = this.data.describe
+    wx.setStorageSync('createPosition', storage)
+    wx.navigateTo({url: `${RECRUITER}position/post/post`})
   }
 })

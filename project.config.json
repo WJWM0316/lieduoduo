@@ -38,7 +38,6 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 14,
 			"list": [
 				{
 					"id": 0,
@@ -73,7 +72,7 @@
 				{
 					"id": 5,
 					"name": "求职者个人中心",
-					"pathName": "page/applicant/pages/officerActive/more/more",
+					"pathName": "page/applicant/pages/center/mine/mine",
 					"query": ""
 				},
 				{
@@ -85,7 +84,7 @@
 				{
 					"id": 7,
 					"name": "编辑简历第一步",
-					"pathName": "page/applicant/pages/center/createUser/createUser",
+					"pathName": "page/common/pages/resumeDetail/resumeDetail",
 					"query": ""
 				},
 				{
@@ -105,6 +104,8 @@
 					"name": "用户信息编辑",
 					"pathName": "page/applicant/pages/center/userInfoEdit/userInfoEdit",
 					"query": ""
+<<<<<<< HEAD
+=======
 				},
 				{
 					"id": 11,
@@ -120,6 +121,7 @@
 				},
 				{
 					"id": -1,
+<<<<<<< HEAD
 					"name": "职位列表",
 					"pathName": "page/recruiter/pages/position/jobList/jobList",
 					"query": ""
@@ -129,6 +131,18 @@
 					"name": "地址列表",
 					"pathName": "page/recruiter/pages/position/addressList/addressList",
 					"query": ""
+=======
+					"name": "招聘官端的首页",
+					"pathName": "page/recruiter/pages/index/index",
+					"query": ""
+				},
+				{
+					"id": 14,
+					"name": "职位-发布",
+					"pathName": "page/recruiter/pages/position/index/index",
+					"query": ""
+>>>>>>> 08ae4a1a389fcc77a9367b82dc09de70a688e936
+>>>>>>> 440eabb67950d473c69480373c691ae8e7aa5a50
 				}
 			]
 		}
