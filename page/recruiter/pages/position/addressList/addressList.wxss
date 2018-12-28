@@ -1,0 +1,38 @@
+.jobList {
+  background: #F5F5F9;
+  min-height: 100vh;
+}
+.radio-group {
+  margin-top: 25rpx;
+  background: #fff;
+}
+
+.inner {
+  padding: 0 0 0 32rpx;
+}
+.item {
+  padding: 34rpx 30rpx 34rpx 70rpx;
+  border-bottom: 1rpx solid #E8E9EB;
+  position: relative;
+}
+.radio-group .radio:last-child .item {
+  border: none;
+}
+.title {
+  font-size: 28rpx;
+  font-weight: 500;
+  color: #626262;
+  line-height: 32rpx;
+  display: inline-block;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+.radioBtn {
+  display: inline-block;
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+}

@@ -1,30 +1,38 @@
-// page/recruiter/pages/interview/arrangement/arrangement.js
+// page/recruiter/pages/jobList/jobList.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    dateList: ['2018-02-05 13:30', '2018-02-05 13:30']
+    items: [
+      {
+        title: '微信小程序前端开发工程师如果超长就…',
+        price: '20k~30k',
+        address: '广州市天河区',
+        xueli: '不限'
+      },
+      {
+        title: '微信小程序前端开发工程师如果超长就…',
+        price: '20k~30k',
+        address: '广州市天河区',
+        xueli: '不限'
+      },
+      {
+        title: '微信小程序前端开发工程师如果超长就…',
+        price: '20k~30k',
+        address: '广州市天河区',
+        xueli: '不限'
+      },
+      {
+        title: '微信小程序前端开发工程师如果超长就…',
+        price: '20k~30k',
+        address: '广州市天河区',
+        xueli: '不限'
+      }
+    ]
   },
-  getResult(e) {
-    let date = e.detail.propsDesc
-    let dateList = this.data.dateList
-    if (dateList.indexOf(date) !== -1) {
-      getApp().wxToast({
-        title: '面试时间重复'
-      })
-      return
-    }
-    dateList.push(date)
-    this.setData({dateList})
-  },
-  removeDate(e) {
-    let dateList = this.data.dateList
-    let index = e.currentTarget.dataset.index
-    dateList.splice(index, 1)
-    this.setData({dateList})
-  },
+
   /**
    * 生命周期函数--监听页面加载
    */

@@ -46,29 +46,6 @@ App({
                 resolve(res.userInfo)
               }
             })
-          } else {
-            // 调用微信登录获取本地session_key
-            wx.login({
-              success: function (res) {
-                // 请求接口获取服务器session_key
-                var pages = getCurrentPages() //获取加载的页面
-                let pageUrl = pages[0].route
-                let params = ''
-                for (let i in pages[0].options) {
-                  params = `${params}${i}=${pages[0].options[i]}&`
-                }
-                pageUrl = `${pageUrl}?${params}`
-                wx.setStorageSync('code', res.code)
-                wx.setStorageSync('enterUrl', pageUrl)
-                // getSessionKeyApi(getSessionKeyParams).then(res => {
-                //   console.log('用户未授权,获取sessionkey成功', res.data.sessionToken)
-                //   wx.setStorageSync('sessionToken', res.data.sessionToken)
-                // })
-              },
-              fail: function (e) {
-                console.log('登录失败', e)
-              }
-            })
           }
         }
       })

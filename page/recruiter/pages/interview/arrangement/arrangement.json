@@ -1,6 +1,7 @@
 {
   "usingComponents": {
     "navbar": "../../../../../components/business/navbar/navbar",
-    "roleInfoCard": "../../../../components/business/roleInfoCard/roleInfoCard"
+    "roleInfoCard": "../../../../components/business/roleInfoCard/roleInfoCard",
+    "myPicker": "../../../../../components/functional/myPicker/myPicker"
   }
 }

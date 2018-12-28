@@ -1,0 +1,13 @@
+<view class="addressList">
+  <navbar></navbar>
+  <radio-group class="radio-group" bindchange="radioChange">
+    <label class="radio" wx:for="{{items}}" wx:key="{{index}}">
+      <view class="inner">
+        <view class="item">
+          <radio class="radioBtn" value="{{item.name}}" checked="{{item.checked}}" color="#652791"/>
+          <view class="title">{{item.title}}</view>
+        </view>
+      </view>
+    </label>
+  </radio-group>
+</view>

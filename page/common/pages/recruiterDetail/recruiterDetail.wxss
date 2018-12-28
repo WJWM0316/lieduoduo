@@ -172,15 +172,11 @@
   text-align: center;
 }
 .more .icon {
-  width: 26rpx;
-  height: 26rpx;
-  background: #652791;
-  border-radius: 50%;
-  color: #fff;
-  font-size: 12rpx;
-  text-align: center;
+  font-size: 26rpx;
   line-height: 26rpx;
-  vertical-align: top;
+  margin-left: 12rpx;
+  color: #652791;
+  display: inline-block;
 }
 .profile, .declaration, .mainContent .position {
   margin-top: 20rpx;

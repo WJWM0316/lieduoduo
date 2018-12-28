@@ -23,7 +23,7 @@
         <view class="data"><text class="num">111</text>排名</view>
       </view>
       <button class="callBtn">为Ta打Call，提高影响力</button>
-      <view class="more">查看更多热门招聘官<icon class="icon iconfont icon-xiangyou"></icon></view>
+      <view class="more">查看更多热门招聘官<view class="icon iconfont icon-disejiantou-you"></view></view>
     </view>
     <view class="profile">
       <view class="title">
