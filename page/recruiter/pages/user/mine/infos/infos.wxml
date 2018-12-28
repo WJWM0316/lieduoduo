@@ -4,7 +4,7 @@
 		<view class="header">
 			<view class="content">
 				<view class="realname">{{recruiterInfo.name || '老虎科技'}}</view>
-				<view class="degree-name">{{recruiterInfo.companyName}} | 人力资源管理部门经理</view>
+				<view class="degree-name">{{recruiterInfo.companyName}} | {{recruiterInfo.position}}</view>
 				<view class="edit" bindtap="jumpUpdateInfos">编辑资料</view>
 			</view>
 			<view class="img-box"></view>
@@ -18,7 +18,7 @@
 				<view class="strong">{{recruiterInfo.wantInterview}}</view>人想和我约面
 			</view>
 			<view class="second">
-				主页 <view class="strong">{{recruiterInfo.viewedCount}}</view> 次预览 已有 <view class="strong">222</view>  人支持
+				主页 <view class="strong">{{recruiterInfo.viewedCount}}</view> 次预览 已有 <view class="strong">{{recruiterInfo.influence}}</view>  人支持
 			</view>
 		</view>
 		<view class="btn-box">

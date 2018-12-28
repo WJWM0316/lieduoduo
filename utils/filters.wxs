@@ -1,5 +1,3 @@
-// var moment = require('moment')
-
 var dateFormat = function(timestamp) {
   var date = getDate(timestamp * 1000)
   var year = date.getFullYear()
@@ -30,6 +28,30 @@ var dateFormat = function(timestamp) {
   return year + '-' + month + '-' + day + ' ' + hour() + ':' + minute() + ":" + second()
 }
  
+var positionFilter = function(num) {
+  var status = null
+  switch(num) {
+    case 1:
+      status = '审核通过'
+      break
+    case 2:
+      status = '审核中'
+      break
+    case 3:
+      status = '审核失败'
+      break
+    default:
+      break
+  }
+  return status
+}
+
+var moneyFormat = function(money) {
+    console.log(333)
+}
+
 module.exports = {
   dateFormat: dateFormat,
+  positionFilter: positionFilter,
+  moneyFormat: moneyFormat
 }

@@ -1,5 +1,5 @@
 <view class="position-post">
-	<navbar title="发布职位" background="#FFFFFF" color="#22292C" showBackBtn="{{true}}"></navbar>
+	<navbar title="{{pageTitle}}" background="#FFFFFF" color="#22292C" showBackBtn="{{true}}"></navbar>
 	<form bindsubmit="submit" class="entry-list">
 		<view class="li link" bindtap="routeJump" data-route="search">
 			<view class="text">职位名称</view>
@@ -14,9 +14,9 @@
 		<view class="li link" bindtap="routeJump" data-route="address">
 			<view class="text">工作地点</view>
 			<i class="icon iconfont icon-zhishibiao"></i>
-			<view class="text2">{{doorplate || '请选择'}}</view>
+			<view class="text2">{{address || '请选择'}}</view>
 		</view>
-		<view class="li link" bindtap="routeJump" data-route="skill">
+		<view class="li link" bindtap="routeJump" data-route="skills">
 			<view class="text">技能要求</view>
 			<i class="icon iconfont icon-zhishibiao"></i>
 			<view class="text2" wx:if="{{!skills.length}}">请选择</view>
@@ -32,17 +32,26 @@
 		<view class="li dropdown">
 			<view class="text">薪资范围</view>
 			<i class="icon iconfont icon-zhishibiao"></i>
-			<myPicker class="myPicker" setResult="{{ emolument_range }}" pickerType="salaryRangeB" bindresultevent="getSalary"></myPicker>
+			<view class="text2">{{emolument_range}}</view>
+			<view class="picker-box">
+				<myPicker setResult="{{ emolument_range }}" pickerType="salaryRangeB" bindresultevent="getSalary"></myPicker>
+			</view>
 		</view>
 		<view class="li dropdown">
 			<view class="text">经验要求</view>
 			<i class="icon iconfont icon-zhishibiao"></i>
-			<myPicker class="myPicker" setResult="{{work_experience_name}}" pickerType="experience" bindresultevent="getExperience" rangeKey="name"></myPicker>
+			<view class="text2">{{work_experience_name}}</view>
+			<view class="picker-box">
+				<myPicker setResult="{{ work_experience_name }}" pickerType="experience" bindresultevent="getExperience" rangeKey="name"></myPicker>
+			</view>
 		</view>
 		<view class="li dropdown">
 			<view class="text">最低学历</view>
 			<i class="icon iconfont icon-zhishibiao"></i>
-			<myPicker class="myPicker" setResult="{{ educationName }}" pickerType="education" bindresultevent="getEducation" rangeKey="name"></myPicker>
+			<view class="text2">{{educationName}}</view>
+			<view class="picker-box">
+				<myPicker setResult="{{ educationName }}" pickerType="education" bindresultevent="getEducation" rangeKey="name"></myPicker>
+			</view>
 		</view>
 		<view class="li link" bindtap="routeJump" data-route="description">
 			<view class="text">职位描述</view>

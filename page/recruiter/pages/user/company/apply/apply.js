@@ -61,6 +61,7 @@ Page({
    * @return   {[type]}   [description]
    */
   submit() {
+    
     if(!this.data.canClick) return;
     
     // 验证用户名

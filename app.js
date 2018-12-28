@@ -42,7 +42,7 @@ App({
                 if (this.userInfoReadyCallback) {
                   this.userInfoReadyCallback(res)
                 }
-                console.log('用户已授权', res.userInfo)
+                // console.log('用户已授权', res.userInfo)
                 resolve(res.userInfo)
               }
             })

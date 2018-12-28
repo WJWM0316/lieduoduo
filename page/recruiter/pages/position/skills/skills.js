@@ -27,14 +27,10 @@ Page({
   onLoad() {
     getLabelProfessionalSkillsApi()
       .then(response => {
-        wx.getStorage({
-          key: 'createPosition',
-          success: res => {
-            const typeId = parseInt(res.data.type)
-            const professionalSkills = response.data.labelProfessionalSkills.find(field => field.labelId === typeId)
-            this.setData({ professionalSkills, skills: res.data.skills })
-          }
-        })
+        const storage = wx.getStorageSync('createPosition')
+        const typeId = parseInt(storage.type)
+        const professionalSkills = response.data.labelProfessionalSkills.find(field => field.labelId === typeId)
+        this.setData({ professionalSkills, skills: storage.skills })
       })
   },
   submit() {

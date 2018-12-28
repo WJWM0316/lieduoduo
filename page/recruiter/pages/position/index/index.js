@@ -7,9 +7,23 @@ const app = getApp()
 Page({
   data: {
     positionStatus: '1',
-    positionList: []
+    defaultList: {
+      total: 0,
+      list: []
+    },
+    onLinePosition: {
+      total: 0,
+      list: []
+    },
+    offLinePosition: {
+      total: 0,
+      list: []
+    },
+    positionList: [],
+    total: 0
   },
   onLoad() {
+    getApp().globalData.identity = 'RECRUITER'
     this.getLists()
   },
   /**
