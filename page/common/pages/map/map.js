@@ -1,4 +1,4 @@
-var QQMapWX = require('../../lib/qqmap-wx-jssdk.min.js')
+var QQMapWX = require('../../../../vendor/lib/qqmap-wx-jssdk.min.js')
 var qqmapsdk
 Page({
   data: {
@@ -17,7 +17,7 @@ Page({
     }],
     controls: [{
       id: 1,
-      iconPath: '../../resources/location.png',
+      iconPath: '../../../../vendor/resources/location.png',
       position: {
         left: 0,
         top: 300 - 50,
