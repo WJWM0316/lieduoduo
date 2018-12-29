@@ -172,3 +172,12 @@ export const deleteCompanyIdentityInfosApi = (data, isLoading) => {
     isLoading: true
   })
 }
+
+// 获取公司地址列表
+export const getCompanyAddressListApi = (data, isLoading) => {
+  return request({
+    method: 'get',
+    url: `/company/position/simplepage/addresses`,
+    isLoading: true
+  })
+}

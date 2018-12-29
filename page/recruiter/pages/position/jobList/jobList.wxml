@@ -4,13 +4,13 @@
     <label class="radio" wx:for="{{items}}" wx:key="{{index}}">
       <view class="inner">
         <view class="item">
-          <view class="title"><text class="txt1">微信小程序前端开发工程师如果超长就…</text><text class="txt2">12~20K</text></view>
+          <view class="title"><text class="txt1">{{item.positionName}}</text> <text class="txt2">{{item.emolumentMin}}~{{item.emolumentMax}}k</text></view>
           <view class="labels">
-            <text class="txt">广州市天河区</text>
-            <text class="txt">不限</text>
-            <text class="txt">不限</text>
+            <text class="txt">{{item.city}}{{item.district}}</text>
+            <text class="txt">{{item.workExperienceName}}</text>
+            <text class="txt">{{item.educationName}}</text>
           </view>
-          <radio class="radioBtn" value="{{item.name}}" checked="{{item.checked}}" color="#652791"/>
+          <radio class="radioBtn" value="{{item.positionName}} {{item.id}}" checked="{{item.checked}}" color="#652791"/>
         </view>
       </view>
     </label>

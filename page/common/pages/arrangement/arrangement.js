@@ -59,7 +59,14 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    let data = wx.getStorageSync('interviewData') || {}
+    let info = this.data.info
+    if (data) {
+      console.log(1111111111)
+      info.positionName = data.positionName
+      info.positionId = data.positionId
+      this.setData({info})
+    }
   },
 
   /**

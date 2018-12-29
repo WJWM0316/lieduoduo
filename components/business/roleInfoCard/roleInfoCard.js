@@ -20,7 +20,6 @@ Component({
 
   },
   attached() {
-    console.log(this.data.cardData, 1111111111111111)
   },
   /**
    * 组件的方法列表
