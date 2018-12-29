@@ -15,7 +15,7 @@ App({
         console.log(err)
       }
     })
-    // this.checkLogin()
+    this.checkLogin()
   },
   globalData: {
     identity: wx.getStorageSync('choseType') || 'APPLICAN', // 身份标识

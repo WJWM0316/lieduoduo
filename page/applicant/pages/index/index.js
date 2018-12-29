@@ -9,7 +9,6 @@ Page({
     // 页面的默认数据列表
     pageList: 'mySeen',
     choseType: wx.getStorageSync('choseType') || null,
-    userInfo: null,
     needLogin: false,
     companyList: [
       {
@@ -33,9 +32,6 @@ Page({
     ]
   },
   onLoad: function () {
-    getApp().checkLogin().then(res => {
-      this.setData({userInfo: res})
-    })
     let choseType = wx.getStorageSync('choseType') || null
     if (choseType === 'RECRUITER') {
       wx.showModal({
