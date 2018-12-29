@@ -18,7 +18,8 @@
     "page/applicant/pages/center/userInfoEdit/userInfoEdit",
     "page/common/pages/recruiterDetail/recruiterDetail",
     "page/common/pages/resumeDetail/resumeDetail",
-    "page/common/pages/arrangement/arrangement"
+    "page/common/pages/arrangement/arrangement",
+    "page/common/pages/homepage/homepage"
   ],
   "window": {
     "navigationBarTextStyle": "black",
@@ -91,7 +92,8 @@
         "pages/user/company/infos/infos",
         "pages/user/company/member/member",
         "pages/user/company/homepage/homepage",
-        "pages/user/company/features/features"
+        "pages/user/company/features/features",
+        "pages/detail/position/position"
       ]
     }
   ],
