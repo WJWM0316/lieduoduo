@@ -74,7 +74,7 @@
         "pages/position/description/description",
         "pages/position/category/category",
         "pages/position/addressList/addressList",
-        "pages/position/skill/skill",
+        "pages/position/skills/skills",
         "pages/user/mine/infos/infos",
         "pages/user/mine/update/update",
         "pages/user/mine/base/base",

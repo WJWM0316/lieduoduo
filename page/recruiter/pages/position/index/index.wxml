@@ -1,7 +1,10 @@
+<!-- 加载过滤器 -->
+<wxs src="../../../../../utils/filters.wxs" module="filters" />
+
 <navbar title="职位管理" background="#2878FF" color="#fff"></navbar>
 <view class='office-status-bar'>
-  <view class="item {{positionStatus === '1' ? 'active' : ''}}" bindtap="onClickTab" data-status="1">上线职位</view>
-  <view class="item {{positionStatus === '0' ? 'active' : ''}}" bindtap="onClickTab" data-status="0">下线职位</view>
+  <view class="item {{positionStatus === '1' ? 'active' : ''}}" bindtap="onClickTab" data-status="1">上线职位()</view>
+  <view class="item {{positionStatus === '0' ? 'active' : ''}}" bindtap="onClickTab" data-status="0">下线职位()</view>
   <view class="publish" data-action="add" bindtap="routeJump"><i class="icon iconfont icon-bianji"></i> 发布职位</view>
 </view>
 
@@ -11,6 +14,7 @@
 			wx:for="{{positionList}}"
 			wx:for-item="item"
 			wx:key="{{item.id}}"
+			data-action="edit"
 			data-position-id="{{item.id}}"
 			bindtap="routeJump">
 			<view class="header">
@@ -19,10 +23,10 @@
 			</view>
 			<view class="tags-box">
 				<view class="item">{{item.address}}</view>
-				<view class="item">{{item.workExperience}}</view>
-				<view class="item" wx:if="{{item.education}}">{{item.education}}</view>
+				<view class="item">{{item.workExperienceName}}</view>
+				<view class="item">{{item.educationName}}</view>
 			</view>
-			<view class="item-status">不及格</view>
+			<view class="item-status">{{filters.positionFilter(item.status)}}</view>
 		</view>
 	</view>
 </scroll-view>

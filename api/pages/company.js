@@ -6,7 +6,7 @@ export const applyCompanyApi = (data, isLoading) => {
     method: 'post',
     url: '/company/apply',
     data,
-    isLoading: false
+    isLoading: true
   })
 }
 
@@ -16,7 +16,7 @@ export const getCompanyFinancingApi = (data, isLoading) => {
     method: 'get',
     url: '/company/financing',
     data,
-    isLoading: false
+    isLoading: true
   })
 }
 
@@ -26,7 +26,7 @@ export const getCompanyEmployeesApi = (data, isLoading) => {
     method: 'get',
     url: '/company/employees',
     data,
-    isLoading: false
+    isLoading: true
   })
 }
 
@@ -36,7 +36,7 @@ export const identityCompanyApi = (data, isLoading) => {
     method: 'post',
     url: '/company/identity',
     data,
-    isLoading: false
+    isLoading: true
   })
 }
 
@@ -46,7 +46,7 @@ export const createCompanyApi = (data, isLoading) => {
     method: 'post',
     url: '/company',
     data,
-    isLoading: false
+    isLoading: true
   })
 }
 
@@ -55,7 +55,7 @@ export const getCompanyInfosApi = (data, isLoading) => {
   return request({
     method: 'get',
     url: `/company/${data.id}`,
-    isLoading: false
+    isLoading: true
   })
 }
 
@@ -65,7 +65,7 @@ export const editCompanyInfosApi = (data, isLoading) => {
     method: 'put',
     url: `/company/${data.id}`,
     data,
-    isLoading: false
+    isLoading: true
   })
 }
 
@@ -74,7 +74,7 @@ export const deleteCompanyApi = (data, isLoading) => {
   return request({
     method: 'delete',
     url: `/company/${data.id}`,
-    isLoading: false
+    isLoading: true
   })
 }
 
@@ -83,7 +83,7 @@ export const JustifyCompanyExistApi = (data, isLoading) => {
   return request({
     method: 'get',
     url: `/company/${data.name}`,
-    isLoading: false
+    isLoading: true
   })
 }
 
@@ -92,7 +92,7 @@ export const editCompanyAlbumApi = (data, isLoading) => {
   return request({
     method: 'put',
     url: `/company/${data.name}`,
-    isLoading: false
+    isLoading: true
   })
 }
 
@@ -102,7 +102,7 @@ export const addCompanyAddressApi = (data, isLoading) => {
     method: 'put',
     url: `/company/${data.id}`,
     data,
-    isLoading: false
+    isLoading: true
   })
 }
 
@@ -112,7 +112,7 @@ export const createCompanyProductApi = (data, isLoading) => {
     method: 'post',
     url: '/company/product',
     data,
-    isLoading: false
+    isLoading: true
   })
 }
 
@@ -121,7 +121,7 @@ export const getCompanyProductInfosApi = (data, isLoading) => {
   return request({
     method: 'get',
     url: `/company/product/${data.id}`,
-    isLoading: false
+    isLoading: true
   })
 }
 
@@ -131,7 +131,7 @@ export const editCompanyProductInfosApi = (data, isLoading) => {
     method: 'put',
     url: `/company/product/${data.id}`,
     data,
-    isLoading: false
+    isLoading: true
   })
 }
 
@@ -141,7 +141,7 @@ export const deleteCompanyProductInfosApi = (data, isLoading) => {
     method: 'delete',
     url: `/company/product/${data.id}`,
     data,
-    isLoading: false
+    isLoading: true
   })
 }
 
@@ -150,7 +150,7 @@ export const getCompanyIdentityInfosApi = (data, isLoading) => {
   return request({
     method: 'get',
     url: `/company/identity/${data.id}`,
-    isLoading: false
+    isLoading: true
   })
 }
 
@@ -160,7 +160,7 @@ export const editCompanyIdentityInfosApi = (data, isLoading) => {
     method: 'put',
     url: `/company/identity/${data.id}`,
     data,
-    isLoading: false
+    isLoading: true
   })
 }
 
@@ -169,6 +169,6 @@ export const deleteCompanyIdentityInfosApi = (data, isLoading) => {
   return request({
     method: 'delete',
     url: `/company/identity/${data.id}`,
-    isLoading: false
+    isLoading: true
   })
 }

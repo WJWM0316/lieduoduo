@@ -11,8 +11,11 @@ export const reverseGeocoder = (res) => {
 	      latitude: res.latitude,
 	      longitude: res.longitude
 	    },
-	    success: res => {
+	    success(res) {
 	    	resolve(res)
+	    },
+	    fail(res) {
+	    	reject(res)
 	    }
 	  })
 	})

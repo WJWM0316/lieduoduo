@@ -11,7 +11,7 @@
 					<view class="img-box"></view>
 					<view class="content">
 						<view class="realname-position">
-							<view class="realname">柳林东122</view>
+							<view class="realname">{{company.realname}}</view>
 							<view class="degress"> 产品总监</view>
 							<view class="clock disabled">14:00</view>
 						</view>

@@ -1,5 +1,6 @@
 import {
   createPositionApi,
+  editPositionApi,
   getPositionApi
 } from '../../../../../api/pages/position.js'
 
@@ -22,27 +23,30 @@ Page({
     lat: '',
     type: '',
     typeName: '',
-    area_id: '440106',
-    address: '广东省广州市天河区天河北路613号',
+    area_id: '',
+    address: '',
     doorplate: '',
     labels: [],
     emolument_min: '',
     emolument_max: '',
-    emolument_range: '',
+    emolument_range: '请选择薪资范围',
     work_experience: '',
-    work_experience_name: '',
+    work_experience_name: '请选择经验要求',
     education: '',
-    educationName: '',
+    educationName: '请选择学历',
     describe: '',
     skills: [],
+    query: {},
+    pageTitle: '',
     canClick: false
   },
-  onLoad() {
+  onLoad(options) {
     getApp().globalData.identity = 'RECRUITER'
     getApp().checkLogin().then(res => {
       this.setData({userInfo: res})
     })
-    this.init()
+    this.setData({pageTitle: options.positionId ? '编辑职位' : '创建职位'})
+    this.init(options)
   },
   /**
    * @Author   小书包
@@ -50,21 +54,58 @@ Page({
    * @detail   初始化页面数据
    * @return   {[type]}   [description]
    */
-  init() {
+  init(options) {
     const storage = wx.getStorageSync('createPosition')
+    console.log(storage)
+
+    const labels = []
+
+    this.setData({query: options})
+    // 以下是编辑页面数据
+    if(options.positionId) this.getUpdateInfos(options)
+
     if(storage) {
       Object.keys(storage).map(field => this.setData({[field]: storage[field]}))
-      const labels = storage.skills.map(field => field.labelId)
-      this.setData({ labels })
     }
-    // getRecruiterMyInfoApi()
-    //   .then(res => {
-    //     this.setData({company_id: res.data.companyId})
-    //   })
-    // getPositionApi({id: 11})
-    //   .then(res => {
-    //     console.log(res.data)
-    //   })
+
+    getRecruiterMyInfoApi()
+      .then(res => {
+        this.setData({company_id: res.data.companyId})
+      })
+  },
+  /**
+   * @Author   小书包
+   * @DateTime 2018-12-28
+   * @detail   获取编辑页面的信息
+   * @param    {[type]}   options [description]
+   * @return   {[type]}           [description]
+   */
+  getUpdateInfos(options) {
+    getPositionApi({id: options.positionId})
+      .then(res => {
+        const formData = {}
+        const infos = res.data
+        formData.position_name = infos.positionName
+        formData.area_id = infos.areaId
+        formData.work_experience_name = infos.workExperience
+        formData.type = infos.type
+        formData.typeName = infos.typeName
+        formData.emolument_min = infos.emolumentMin
+        formData.emolument_max = infos.emolumentMax
+        formData.emolument_range = `${formData.emolument_min}k~${formData.emolument_max}k`
+        formData.doorplate = infos.doorplate
+        formData.company_id = infos.companyId
+        formData.address = infos.address
+        formData.skills = infos.skillsLabel
+        formData.describe = infos.describe
+        formData.education = infos.education
+        formData.educationName = infos.educationName
+        formData.work_experience = infos.workExperience
+        formData.work_experience_name = infos.workExperienceName
+        formData.lng = infos.lng
+        formData.lat = infos.lat
+        Object.keys(formData).map(field => this.setData({[field]: formData[field]}))
+      })
   },
   /**
    * @Author   小书包
@@ -86,7 +127,7 @@ Page({
     if(route === 'skills' && !this.data.type) {
       app.wxToast({title: '请先选择职业类型别'})
     } else {
-      wx.navigateTo({url: `${RECRUITER}position/${route}/${route}`})
+      wx.navigateTo({url: `${RECRUITER}position/${route}/${route}?positionId=${this.data.query.positionId}`})
       wx.setStorageSync('createPosition', this.data)
     }
   },
@@ -124,6 +165,8 @@ Page({
   submit() {
     getApp().globalData.hasLogin = true
     const formData = {}
+    const labels = []
+    const action = this.data.query.positionId ? 'editPositionApi' : 'createPositionApi'
     const params = [
       'position_name',
       'company_id',
@@ -131,20 +174,49 @@ Page({
       'address',
       'area_id',
       'address',
-      'doorplate',
       'labels',
+      'doorplate',
       'emolument_min',
       'emolument_max',
       'work_experience',
       'education',
-      'describe'
+      'describe',
+      'lng',
+      'lat'
     ]
     params.map(field => formData[field] = this.data[field])
+    this.data.skills.map((field, index) => labels.push({id: field.labelId, is_diy: 0}))
+    formData.labels = JSON.stringify(labels)
+    if(this.data.query.positionId) formData.id = this.data.query.positionId
+    this[action](formData)
+  },
+  /**
+   * @Author   小书包
+   * @DateTime 2018-12-28
+   * @detail   创建职位
+   * @return   {[type]}   [description]
+   */
+  createPositionApi(formData) {
     createPositionApi(formData)
       .then(res => {
         wx.removeStorageSync('createPosition')
-        wx.removeStorageSync('mapInfos')
         wx.navigateTo({url: `${RECRUITER}position/index/index`})
+        app.wxToast({title: '创建成功'})
+      })
+      .catch(err => app.wxToast({title: err.msg}))
+  },
+  /**
+   * @Author   小书包
+   * @DateTime 2018-12-28
+   * @detail   编辑职位
+   * @return   {[type]}   [description]
+   */
+  editPositionApi(formData) {
+    editPositionApi(formData)
+      .then(res => {
+        wx.removeStorageSync('createPosition')
+        wx.navigateTo({url: `${RECRUITER}position/index/index`})
+        app.wxToast({title: '编辑成功'})
       })
       .catch(err => app.wxToast({title: err.msg}))
   }

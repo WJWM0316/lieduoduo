@@ -18,13 +18,26 @@ App({
     // this.checkLogin()
   },
   globalData: {
-    identity: 'APPLICAN', // 身份标识
+    identity: wx.getStorageSync('choseType') || 'APPLICAN', // 身份标识
     hasLogin: false, // 判断是否登录
-    userInfo: null, // 用户信息， 判断是否授权
+    userInfo: '', // 用户信息， 判断是否授权
     navHeight: 0,
     cdnImagePath: 'https://attach.lieduoduo.ziwork.com/images',
-    resumeInfo: null, // 个人简历信息
+    resumeInfo: {}, // 个人简历信息
+    recruiterDetails: {}, // 招聘官详情信息
     systemInfo: wx.getSystemInfoSync() // 系统信息
+  },
+  // 获取最全的角色信息
+  getAllInfo() {
+    if (wx.getStorageSync('choseType') === 'APPLICANT') {
+      getPersonalResumeApi().then(res0 => {
+        this.globalData.resumeInfo = res0.data
+      })
+    } else {
+      getRecruiterDetailApi().then(res0 => {
+        this.globalData.recruiterDetails = res0.data
+      })
+    }
   },
   // 检查登录
   checkLogin () {
@@ -46,16 +59,8 @@ App({
                 if (this.userInfoReadyCallback) {
                   this.userInfoReadyCallback(res)
                 }
-                if (wx.getStorageSync('choseType') === 'APPLICANT') {
-                  getPersonalResumeApi().then(res0 => {
-                    app.resumeInfo = res0.data
-                  })
-                } else {
-                  getRecruiterDetailApi().then(res0 => {
-                    console.log(res0)
-                  })
-                }
-                console.log('用户已授权', res.userInfo)
+                this.getAllInfo()
+                console.log('用户已授权')
                 resolve(res.userInfo)
               }
             })
@@ -66,6 +71,7 @@ App({
   },
   // 授权button 回调
   onGotUserInfo(e) {
+    let that = this
     return new Promise((resolve, reject) => {
       if (e.detail.errMsg === 'getUserInfo:ok') {
         // 调用微信登录获取本地session_key
@@ -87,9 +93,10 @@ App({
             loginApi(data).then(res => {
               // 有token说明已经绑定过用户了
               if (res.data.token) {
-                getApp().globalData.userInfo = res.data
-                getApp().globalData.hasLogin = true
+                that.globalData.userInfo = res.data
+                that.globalData.hasLogin = true
                 wx.setStorageSync('token', res.data.token)
+                that.getAllInfo()
                 console.log('用户已认证')
               } else {
                 console.log('用户未绑定手机号')

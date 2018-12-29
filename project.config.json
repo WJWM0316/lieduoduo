@@ -38,7 +38,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 16,
+			"current": 12,
 			"list": [
 				{
 					"id": 0,
@@ -116,7 +116,7 @@
 					"id": 12,
 					"name": "面试安排",
 					"pathName": "page/common/pages/arrangement/arrangement",
-					"query": ""
+					"query": "identity=zhaopin"
 				},
 				{
 					"id": -1,

@@ -7,3 +7,11 @@ export const inviteInterviewApi = (data, isLoading) => {
     data
   })
 }
+// 求职端面试详情
+export const interviewDetailApi = (data, isLoading) => {
+  return request({
+    method: 'get',
+    url: `/interview/detail/${data.interviewId}`,
+    data
+  })
+}

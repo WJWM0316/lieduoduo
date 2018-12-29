@@ -1,11 +1,13 @@
-// page/recruiter/pages/interview/arrangement/arrangement.js
+import {interviewDetailApi} from "../../../../api/pages/interview.js"
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    dateList: ['2018-02-05 13:30', '2018-02-05 13:30']
+    dateList: ['2018-02-05 13:30', '2018-02-05 13:30'],
+    options: {},
+    info: {}
   },
   getResult(e) {
     let date = e.detail.propsDesc
@@ -19,6 +21,17 @@ Page({
     dateList.push(date)
     this.setData({dateList})
   },
+  jump(e) {
+    let url = ''
+    if (e.currentTarget.dataset.type === 'jobList') {
+      url = '/page/recruiter/pages/position/jobList/jobList'
+    } else if (e.currentTarget.dataset.type === 'addressList') {
+      url = '/page/recruiter/pages/position/addressList/addressList'
+    }
+    wx.navigateTo({
+      url: url
+    })
+  },
   removeDate(e) {
     let dateList = this.data.dateList
     let index = e.currentTarget.dataset.index
@@ -29,7 +42,10 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    this.setData({options})
+    interviewDetailApi({interviewId: 81}).then(res => {
+      this.setData({info: res.data})
+    })
   },
 
   /**

@@ -48,30 +48,37 @@
   padding: 0 32rpx 0 30rpx;
 }
 .detail .inner {
-  padding: 40rpx 0 42rpx 0;
   border-bottom: 1rpx solid #E8E9EB;
   font-size: 28rpx;
   font-weight: 500;
   line-height: 28rpx;
-  overflow: hidden;
-  text-overflow:ellipsis;
-  white-space: nowrap;
+  height: 108rpx;
+  display: flex;
+  align-items: center;
   position: relative;
 }
 .detail .inner.noborder {
   border-bottom: none;
 }
 .detail .msgItem.jump .inner{
-  padding: 40rpx 44rpx 42rpx 0;
+  padding: 0 44rpx 0 0;
 }
 .detail .inner .txt {
   width: 144rpx;
+  flex-basis: 144rpx;
   color: #929292;
   display: inline-block;
 }
 .detail .inner .msg {
   display: inline-block;
   color: #282828;
+  overflow: hidden;
+  text-overflow:ellipsis;
+  white-space: nowrap;
+  flex: 1;
+}
+.detail .inner .msg input {
+  font-size: 28rpx;
 }
 .detail .inner .icon {
   font-size: 32rpx;

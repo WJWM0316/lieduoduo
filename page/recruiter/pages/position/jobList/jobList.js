@@ -1,4 +1,4 @@
-// page/recruiter/pages/jobList/jobList.js
+import {getPositionListApi} from "../../../../../api/pages/position.js"
 Page({
 
   /**
@@ -37,7 +37,12 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    let data = {
+      recruiter: 5
+    }
+    getPositionListApi(data).then(res => {
+      console.log(res)
+    })
   },
 
   /**

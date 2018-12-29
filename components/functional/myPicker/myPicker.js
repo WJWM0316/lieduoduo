@@ -135,7 +135,7 @@ Component({
       case 'education':
         list = this.data.education
         result = `${list.indexOf(this.data.setResult)}`
-        if(this.data.setResult) result = list.findIndex(field => field.name === this.data.setResult)
+        // if(this.data.setResult) result = list.findIndex(field => field.name === this.data.setResult)
         if (result === `-1`) { result = 0 }
         this.setData({list, result, mode: 'selector', placeholder: '请选择学历'})
         break
@@ -154,7 +154,7 @@ Component({
       case 'experience':
         list = this.data.experience
         result = `${list.indexOf(this.data.setResult)}`
-        if(this.data.setResult) result = list.findIndex(field => field.name === this.data.setResult)
+        // if(this.data.setResult) result = list.findIndex(field => field.name === this.data.setResult)
         if (result === `-1`) { result = 0 }
         this.setData({list, result, mode: 'selector', placeholder: '请选择经验要求'})
         break

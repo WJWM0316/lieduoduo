@@ -25,8 +25,8 @@ Page({
     ]
   },
   onLoad() {
-    getApp().globalData.identity = 'RECRUITER'
-    getApp().checkLogin().then(res => {
+    console.log(11111111111111111111)
+    app.checkLogin().then(res => {
       this.setData({userInfo: res})
     })
   },

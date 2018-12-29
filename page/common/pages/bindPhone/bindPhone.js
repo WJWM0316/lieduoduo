@@ -62,6 +62,7 @@ Page({
       wx.setStorageSync('token', res.data.token)
       app.globalData.userInfo = res.data
       app.globalData.hasLogin = true
+      app.getAllInfo()
       app.wxToast({
         title: '注册成功',
         icon: 'success',

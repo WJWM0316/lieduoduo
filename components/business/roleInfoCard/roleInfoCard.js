@@ -7,6 +7,9 @@ Component({
   properties: {
     roleType: {
       type: String
+    },
+    cardData: {
+      type: Object
     }
   },
 
@@ -16,19 +19,21 @@ Component({
   data: {
 
   },
-
+  attached() {
+    console.log(this.data.cardData, 1111111111111111)
+  },
   /**
    * 组件的方法列表
    */
   methods: {
     makePhoneCall() {
       wx.makePhoneCall({
-        phoneNumber: '13543498702'
+        phoneNumber: this.data.cardData.mobile
       })
     },
     setClipboardData() {
       wx.setClipboardData({
-        data: '1111111',
+        data: this.data.cardData.wechat,
         success(res) {
           getApp().wxToast({
             title: '复制成功',

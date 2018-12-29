@@ -6,7 +6,7 @@ export const getPositionListApi = (data, isLoading) => {
     method: 'get',
     url: '/position/list',
     data,
-    isLoading: false
+    isLoading: true
   })
 }
 
@@ -16,7 +16,7 @@ export const createPositionApi = (data, isLoading) => {
     method: 'post',
     url: '/position',
     data,
-    isLoading: false
+    isLoading: true
   })
 }
 
@@ -26,7 +26,7 @@ export const getPositionApi = (data, isLoading) => {
     method: 'get',
     url: `/position/${data.id}`,
     data,
-    isLoading: false
+    isLoading: true
   })
 }
 
@@ -36,7 +36,7 @@ export const editPositionApi = (data, isLoading) => {
     method: 'put',
     url: `/position/${data.id}`,
     data,
-    isLoading: false
+    isLoading: true
   })
 }
 
@@ -46,7 +46,7 @@ export const deletePositionApi = (data, isLoading) => {
     method: 'put',
     url: `/position/${data.id}`,
     data,
-    isLoading: false
+    isLoading: true
   })
 }
 
@@ -56,7 +56,7 @@ export const getPositionExperienceApi = (data, isLoading) => {
     method: 'get',
     url: '/position/experience',
     data,
-    isLoading: false
+    isLoading: true
   })
 }
 
@@ -66,7 +66,7 @@ export const closePositionApi = (data, isLoading) => {
     method: 'put',
     url: `/position/close/${data.id}`,
     data,
-    isLoading: false
+    isLoading: true
   })
 }
 
@@ -76,7 +76,7 @@ export const openPositionApi = (data, isLoading) => {
     method: 'put',
     url: `/position/open/${data.id}`,
     data,
-    isLoading: false
+    isLoading: true
   })
 }
 
@@ -86,6 +86,6 @@ export const getPositionNameListApi = (data, isLoading) => {
     method: 'get',
     url: `/position/namelist`,
     data,
-    isLoading: false
+    isLoading: true
   })
 }
