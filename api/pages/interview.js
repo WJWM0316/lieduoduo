@@ -15,3 +15,11 @@ export const interviewDetailApi = (data, isLoading) => {
     data
   })
 }
+// 招聘端面试安排设置
+export const setInterviewDetailApi = (data, isLoading) => {
+  return request({
+    method: 'post',
+    url: `/interview/setInterviewInfo/${data.interviewId}`,
+    data
+  })
+}

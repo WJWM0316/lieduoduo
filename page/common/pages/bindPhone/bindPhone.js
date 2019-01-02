@@ -1,4 +1,4 @@
-// page/common/pages/bindPhone/bindPhone.js
+import {COMMON} from '../../../../config.js'
 import {sendCodeApi, bindPhoneApi} from "../../../../api/pages/auth.js"
 let realCode = '' // 短信验证码
 let app = getApp()
@@ -16,6 +16,11 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    if (!app.globalData.userInfo) {
+      wx.navigateTo({
+        url: `${COMMON}auth/auth`
+      })
+    }
   },
   getPhone(e) {
     this.setData({

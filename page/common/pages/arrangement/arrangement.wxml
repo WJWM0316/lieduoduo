@@ -58,7 +58,7 @@
       </view>
     </view>
     <view class="btnBox">
-      <button class="btn">发送面试安排</button>
+      <button class="btn" bindtap="send">发送面试安排</button>
     </view>
   </block>
   <block wx:if="{{options.identity === 'qiuzhi'}}">
@@ -112,5 +112,4 @@
       <button class="btn">转发安排给其他同事</button>
     </view>
   </block>
-  
 </view>

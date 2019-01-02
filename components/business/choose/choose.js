@@ -28,8 +28,6 @@ Component({
    */
   methods: {
     jump(e) {
-      console.log(e)
-      console.log(e.currentTarget.dataset.identity, e.currentTarget.dataset.identity === 'APPLICANT')
       if (e.currentTarget.dataset.identity === 'APPLICANT') {
         identity = 'APPLICANT'
       } else {

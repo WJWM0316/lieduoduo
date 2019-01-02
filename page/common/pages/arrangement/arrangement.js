@@ -1,11 +1,11 @@
-import {interviewDetailApi} from "../../../../api/pages/interview.js"
+import {interviewDetailApi, setInterviewDetailApi} from "../../../../api/pages/interview.js"
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    dateList: ['2018-02-05 13:30', '2018-02-05 13:30'],
+    dateList: ['2018-02-05 13:30', '2018-02-05 13:31'],
     options: {},
     info: {}
   },
@@ -38,6 +38,25 @@ Page({
     dateList.splice(index, 1)
     this.setData({dateList})
   },
+  send() {
+    let dateList = []
+    this.data.dateList.map((item, index) => {
+      dateList.push(new Date(item).getTime())
+    })
+    dateList = dateList.join(",")
+    let info = this.data.info
+    let data = {
+      interviewId: 81,
+      realname: info.recruiterRealname,
+      mobile: info.recruiterMobile,
+      positionId: info.positionId,
+      interviewTime: dateList
+    }
+    setInterviewDetailApi(data).then(res => {
+      console.log(res)
+    })
+
+  },
   /**
    * 生命周期函数--监听页面加载
    */
@@ -62,7 +81,6 @@ Page({
     let data = wx.getStorageSync('interviewData') || {}
     let info = this.data.info
     if (data) {
-      console.log(1111111111)
       info.positionName = data.positionName
       info.positionId = data.positionId
       this.setData({info})

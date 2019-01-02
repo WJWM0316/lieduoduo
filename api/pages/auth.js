@@ -39,4 +39,10 @@ export const bindPhoneApi = data => {
     data
   })
 }
-
+export const quickLoginApi = data => {
+  return request({
+    method: 'post',
+    url: '/bind/quick_login',
+    data
+  })
+}

@@ -1,4 +1,4 @@
-//app.js
+      //app.js
 import {loginApi} from 'api/pages/auth.js'
 import {getPersonalResumeApi} from 'api/pages/center.js'
 import {getRecruiterDetailApi} from 'api/pages/recruiter.js'

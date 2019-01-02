@@ -51,7 +51,7 @@ export const request = ({method = 'post', url, data = {}, needKey = true, hasLoa
               break
             case 401:
               wx.removeStorageSync('token')
-              // 需要用到token， 需要绑定手机号
+              // 需要用到token， 需要绑定手机号 但是需要先授权
               if (msg.code === 901) {
                 wx.navigateTo({
                   url: `${COMMON}bindPhone/bindPhone`
