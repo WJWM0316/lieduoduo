@@ -26,6 +26,9 @@ Page({
     getApp().globalData.identity = 'RECRUITER'
     this.getTabLists()
   },
+  onReachBottom(e) {
+    console.log(e)
+  },
   /**
    * @Author   小书包
    * @DateTime 2018-12-27
@@ -33,9 +36,18 @@ Page({
    * @return   {[type]}   [description]
    */
   getTabLists() {
-    getPositionListApi({status: this.data.positionStatus})
+    // 获取上线列表
+    getPositionListApi({status: 1})
       .then(res => {
-        this.setData({positionList: res.data})
+        const value = {total: res.meta.total, list: res.data}
+        const key = this.data.positionStatus === '1' ? 'onLinePosition' : 'offLinePosition'
+        this.setData({[key]: value, defaultList: value})
+      })
+    // 获取下线列表
+    getPositionListApi({status: 0})
+      .then(res => {
+        const value = {total: res.meta.total, list: res.data}
+        this.setData({offLinePosition: value})
       })
   },
   /**
@@ -59,8 +71,8 @@ Page({
   },
   /* 子级tab栏切换 */
   onClickTab(e) {
-    const status = e.currentTarget.dataset.status
-    this.setData({positionStatus: status})
-    this.getTabLists()
+    const positionStatus = e.currentTarget.dataset.status
+    const key = positionStatus === '1' ? 'onLinePosition' : 'offLinePosition'
+    this.setData({positionStatus, [key]: this.data[key]})
   }
 })

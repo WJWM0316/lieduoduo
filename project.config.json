@@ -38,7 +38,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 17,
+			"current": 19,
 			"list": [
 				{
 					"id": 0,
@@ -86,12 +86,6 @@
 					"id": 7,
 					"name": "编辑简历第一步",
 					"pathName": "page/applicant/pages/center/createUser/createUser",
-					"query": ""
-				},
-				{
-					"id": -1,
-					"name": "interviewHistory",
-					"pathName": "page/recruiter/pages/interviewHistory/interviewHistory",
 					"query": ""
 				},
 				{
@@ -146,6 +140,24 @@
 					"id": 17,
 					"name": "公司主页",
 					"pathName": "page/common/pages/homepage/homepage",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "招聘管首页",
+					"pathName": "page/recruiter/pages/index/index",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "招聘管-职位管理",
+					"pathName": "page/recruiter/pages/position/index/index",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "招聘管-我的页面",
+					"pathName": "page/recruiter/pages/user/mine/infos/infos",
 					"query": ""
 				}
 			]

@@ -19,7 +19,8 @@
     "page/common/pages/recruiterDetail/recruiterDetail",
     "page/common/pages/resumeDetail/resumeDetail",
     "page/common/pages/arrangement/arrangement",
-    "page/common/pages/homepage/homepage"
+    "page/common/pages/homepage/homepage",
+    "page/common/pages/positionDetail/positionDetail"
   ],
   "window": {
     "navigationBarTextStyle": "black",

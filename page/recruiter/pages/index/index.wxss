@@ -37,7 +37,7 @@
   height: 0;
   border-width:16rpx;
   border-style: solid;
-  border-color: rgba(228,238,255,1) transparent transparent transparent;
+  border-color: #F7EBFF transparent transparent transparent;
   display: block;
   content: '';
   opacity: 0;
@@ -65,10 +65,11 @@
 }
 
 .recruiter-index .ul-tab-bar .active {
-  font-weight:500;
-  color:rgba(40,120,255,1);
-  background: rgba(228,238,255,1);
+  background: #F7EBFF;
   pointer-events: none;
+  font-size:28rpx;
+  font-weight:500;
+  color:rgba(101,39,145,1);
 }
 
 .recruiter-index .ul-tab-bar .active:before {

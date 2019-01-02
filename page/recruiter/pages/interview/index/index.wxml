@@ -31,12 +31,12 @@
 		<view class="text">面试安排（0）</view>
 		<view class="button" bindtap="jumpInterviewPage">面试历史</view>
 	</view>
-	<interviewerList
+	<commonList
 		list="{{companyList}}"
 		showTopRadius="{{true}}"
 		showRightRadius="{{true}}"
 		showBottomRadius="{{true}}"
 		showLeftRadius="{{true}}"
-		dotType="{{'circle'}}"></interviewerList>
+		dotType="{{'circle'}}"></commonList>
   <tab-bar tabType="1"></tab-bar>
 </view>
