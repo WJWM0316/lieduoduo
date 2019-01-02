@@ -102,7 +102,7 @@
   display: block;
   width:20rpx;
   height:8rpx;
-  background:rgba(40,120,255,1);
+  background:#652791;
   border-radius:4rpx;
   position: absolute;
   bottom: 0;
@@ -138,7 +138,7 @@
   font-size:28rpx;
   font-weight:bold;
   margin-right: 40rpx;
-  color:rgba(40,120,255,1);
+  color:#652791;
 }
 
 .scroll-view_H {

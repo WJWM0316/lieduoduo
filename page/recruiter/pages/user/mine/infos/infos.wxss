@@ -44,7 +44,7 @@
 .page-mine .floating-box .edit {
 	font-size:26rpx;
 	font-weight:500;
-	color:rgba(40,120,255,1);
+	color:rgba(101,39,145,1);
 	line-height:1;
 	margin-top: 30rpx;
 }
@@ -61,6 +61,9 @@
 	text-align: center;
 	box-sizing: border-box;
 	overflow: hidden;
+	background:rgba(101,39,145,1);
+	box-shadow:0px 20rpx 18rpx 0rpx rgba(101,39,145,0.1);
+	border-radius:45rpx;
 }
 
 .page-mine .floating-box .share-homepage-pic {
@@ -69,11 +72,14 @@
 	border-radius:45rpx;
 	font-size:32rpx;
 	font-weight:400;
-	color:rgba(40,120,255,1);
+	color:rgba(101,39,145,1);
 	text-align: center;
 	box-sizing: border-box;
 	overflow: hidden;
 	border: 1px solid rgba(40,120,255,1);
+	box-shadow:0px 10rpx 30rpx 0rpx rgba(22,39,77,0.05),0rpx -5rpx 40rpx 0rpx rgba(22,39,77,0.05);
+	border-radius:45rpx;
+	border:1rpx solid rgba(101,39,145,1);
 }
 
 .page-mine .show-off-block {
@@ -96,7 +102,7 @@
 .page-mine .show-off-block .first .strong {
 	font-size:38rpx;
 	font-weight:bold;
-	color:rgba(40,120,255,1);
+	color:#FF7F4D;
 	display: inline-block;
 	margin-right: 5rpx;
 }
@@ -129,18 +135,18 @@
 
 .page-mine .show-off-block .btn-box .btn {
 	width:100%;
-	background:linear-gradient(191deg,rgba(255,166,107,1) 0%,rgba(255,127,77,1) 100%);
-	box-shadow:0rpx 8rpx 20rpx 0rpx rgba(255,127,76,0.28);
-	border-radius:36rpx;
 	text-align: center;
 	line-height: 72rpx;
 	font-size:26rpx;
 	font-weight:bold;
-	color:rgba(255,255,255,1);
+	color:#652791;
 	position: absolute;
 	left: 50%;
 	top: 50%;
 	transform: translate(-50%, -50%);
+	background:linear-gradient(165deg,rgba(255,229,0,1) 0%,rgba(255,211,21,1) 100%,rgba(255,211,21,1) 100%,rgba(255,211,20,1) 100%);
+	box-shadow:0rpx 10rpx 20rpx 0rpx rgba(255,220,41,0.36);
+	border-radius:44rpx;
 }
 
 .page-mine .entry-list {

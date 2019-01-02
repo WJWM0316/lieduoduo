@@ -19,11 +19,11 @@ Component({
     },
     background: {
       type: String,
-      value: '#2878FF'
+      value: '#652791'
     },
     color: {
       type: String,
-      value: 'white'
+      value: '#fff'
     },
     customBack: {
       type: Boolean,

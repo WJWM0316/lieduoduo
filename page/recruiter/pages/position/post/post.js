@@ -4,8 +4,6 @@ import {
   getPositionApi
 } from '../../../../../api/pages/position.js'
 
-import { getRecruiterMyInfoApi } from '../../../../../api/pages/recruiter.js'
-
 import {realNameReg, emailReg, positionReg} from '../../../../../utils/fieldRegular.js'
 
 import {RECRUITER} from '../../../../../config.js'
@@ -56,7 +54,6 @@ Page({
    */
   init(options) {
     const storage = wx.getStorageSync('createPosition')
-    console.log(storage)
 
     const labels = []
 
@@ -68,10 +65,8 @@ Page({
       Object.keys(storage).map(field => this.setData({[field]: storage[field]}))
     }
 
-    getRecruiterMyInfoApi()
-      .then(res => {
-        this.setData({company_id: res.data.companyId})
-      })
+    // 去掉多余代码
+    this.setData({company_id: app.globalData.recruiterDetails.companyInfo.id})
   },
   /**
    * @Author   小书包

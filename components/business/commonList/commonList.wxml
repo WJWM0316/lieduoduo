@@ -1,4 +1,4 @@
-<view class="interviewer-list-ul iconfont1">
+<view class="common-lits-ul">
 	<view
 		class="li"
 		wx:for="{{ list }}"
