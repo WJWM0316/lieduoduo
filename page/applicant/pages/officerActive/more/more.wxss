@@ -44,7 +44,7 @@
   border-radius: 4rpx;
   width: 32rpx;
   height: 8rpx;
-  background-color: #2878FF;
+  background-color: #FFDC29;
 }
 .more .tabBar text:nth-of-type(3){
   margin-right: 0;
@@ -87,7 +87,8 @@
   margin-left: 0;
 }
 .more .childTabBar .nowChildActive{
-  background-color: #E4EEFF;
+  color: #652791;
+  background-color: #EFE9F4;
 }
 .more .childTabBar .firstChildActive{
   margin-left: 40rpx !important;
@@ -155,6 +156,9 @@
   margin-bottom: 19rpx;
 }
 .name{
+  height: 36rpx;
+  display: inline-block;
+  line-height: 36rpx;
   font-size: 36rpx;
   color: #282828;
   font-weight: 500;
@@ -170,7 +174,7 @@
   padding: 0 24rpx;
   height: 52rpx;
   border-radius: 26rpx;
-  background-color: #2878FF;
+  background-color: #652791;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -182,6 +186,7 @@
   font-weight: 300;
 }
 .influence .num{
+  color: #FFDC29;
   font-weight: 500;
   font-size: 26rpx;
   margin-left: 10rpx;
