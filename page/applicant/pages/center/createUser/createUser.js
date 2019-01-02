@@ -11,7 +11,7 @@ Page({
     this.workTime = val.detail.propsResult
   },
   formSubmit (e) {
-    e.detail.value.avatar = 12
+    e.detail.value.avatar =  wx.getStorageSync('avatarId')
     e.detail.value.startWorkYear = this.workTime
     postfirstStepApi(e.detail.value).then(res => {
       console.log(res, '99999999999')
