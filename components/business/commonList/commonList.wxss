@@ -13,6 +13,7 @@
 	padding: 30rpx 40rpx;
 	margin-bottom: 18rpx;
 	position: relative;
+	border-radius: 10rpx;
 }
 
 .interviewer-list-ul .top-radius {
@@ -131,7 +132,7 @@
 	border-radius: 50%;
 	width:34rpx;
 	height:34rpx;
-	background:rgba(255,73,73,1);
+	background:#FF7F4C;
 	font-size:20rpx;
 	font-weight:500;
 	color:rgba(255,255,255,1);
