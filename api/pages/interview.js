@@ -23,3 +23,12 @@ export const setInterviewDetailApi = (data, isLoading) => {
     data
   })
 }
+
+// 开撩约面
+export const applyInterviewApi = (data, isLoading) => {
+  return request({
+    method: 'post',
+    url: '/interview/applyInterview',
+    data
+  })
+}

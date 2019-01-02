@@ -70,7 +70,7 @@ export const closePositionApi = (data, isLoading) => {
   })
 }
 
-// 关闭职位
+// 开放职位
 export const openPositionApi = (data, isLoading) => {
   return request({
     method: 'put',
