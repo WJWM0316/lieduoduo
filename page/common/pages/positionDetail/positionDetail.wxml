@@ -1,0 +1,25 @@
+<view class="job-detail">
+	<navbar title="职位详情"></navbar>
+	<viiew class="company-infos">
+		<view class="header">
+			<view class="text">
+				<view class="position-name">{{detail.positionName}}</view>
+				<view class="position-salary">{{detail.emolumentMin}}k-{{detail.emolumentMax}}k</view>
+			</view>
+			<view class="img-box">3</view>
+		</view>
+		<view class="infos">
+			<view><i class="icon iconfont icon-dizhi"></i>{{detail.city}}</view>
+			<view><i class="icon iconfont icon-zhiwei"></i>{{detail.workExperienceName}}</view>
+			<view><i class="icon iconfont icon-zhiwei"></i>{{detail.educationName}}</view>
+		</view>
+		<view class="welfare-ul">
+			<view class="li" wx:for="{{[1,2,3]}}">年度奖金</view>
+		</view>
+	</viiew>
+	<viiew class="job-describe">
+		<view class="title">
+			<view class="icon"> <view class="fan"></view> </view> 职位描述
+		</view>
+	</viiew>
+</view>
