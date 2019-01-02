@@ -1,0 +1,116 @@
+<!--page/recruiter/pages/interview/arrangement/arrangement.wxml-->
+<view class="arrangement">
+  <navbar></navbar>
+  <view class="tip">备选时间不合适，请联系候选人重新确定时间</view>
+  <view class="headInfo"><roleInfoCard cardData="{{info}}" my-class="roleDetail" roleType="applicant"></roleInfoCard></view>
+  <block wx:if="{{options.identity === 'zhaopin'}}">
+    <view class="content">
+      <view class="detail">
+        <view class="title"><icon class="icon"></icon>面试信息</view>
+        <view class="msgItem">
+          <view class="inner">
+            <view class="txt">联系人</view>
+            <view class="msg">
+              <input type="text" value="" placeholder="请填写联系人" />
+            </view>
+          </view>
+        </view>
+        <view class="msgItem">
+          <view class="inner">
+            <view class="txt">联系电话</view>
+            <view class="msg">
+              <input type="text" value="" placeholder="请填写手机号或座机" />
+            </view>
+          </view>
+        </view>
+        <view class="msgItem jump">
+          <view class="inner">
+            <view class="txt">面试职位</view>
+            <view class="msg">小灯塔平台高级运营经理小灯塔平台高级运营经理</view>
+            <icon class="icon iconfont icon-xiangyou" bindtap="jump" data-type="jobList"></icon>
+          </view>
+        </view>
+        <view class="msgItem jump">
+          <view class="inner noborder">
+            <view class="txt">面试地址</view>
+            <view class="msg">广州天河区天河北路光大银行大广州天河区天河北路光大银行大</view>
+            <icon class="icon iconfont icon-xiangyou" bindtap="jump" data-type="addressList"></icon>
+          </view>
+        </view>
+      </view>
+      <view class="date">
+        <view class="title"><icon class="icon"></icon>约面时间</view>
+        <view class="dateItem" wx:for="{{dateList}}" wx:key="{{index}}">
+          <view class="inner">
+            <view class="removeIcon" bindtap="removeDate" data-index="{{index}}">
+              <view class="icon1"></view>
+            </view>
+            <view class="dateDetail">{{item}}</view>
+            <icon class="icon iconfont icon-xiangyou"></icon>
+          </view>
+        </view>
+        <view class="dateItem" hidden="{{dateList.length >= 3}}">
+          <view class="inner noborder">
+            <view class="txt">最多可添加3个时间供候选人选择</view>
+            <view class="msg"><myPicker pickerType="dateTime" class="myPicker" needSlot="{{true}}" bindresultevent="getResult"><text class="add">+</text>添加时间</myPicker></view>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class="btnBox">
+      <button class="btn">发送面试安排</button>
+    </view>
+  </block>
+  <block wx:if="{{options.identity === 'qiuzhi'}}">
+    <view class="content read">
+      <view class="detail">
+        <view class="title"><icon class="icon"></icon>面试信息</view>
+        <view class="msgItem">
+          <view class="inner">
+            <view class="icon1 iconfont icon-zhiwei"></view>
+            <view class="msg">
+              <text>联系人联系人联系人联系人</text>
+            </view>
+            <icon class="icon iconfont icon-xiangyou"></icon>
+          </view>
+        </view>
+        <view class="msgItem">
+          <view class="inner">
+            <view class="icon1 iconfont icon-zhiwei"></view>
+            <view class="msg">联系人联系人联系人联系人</view>
+            <icon class="icon iconfont icon-xiangyou"></icon>
+          </view>
+        </view>
+        <view class="msgItem jump">
+          <view class="inner noborder">
+            <view class="icon1 iconfont icon-zhiwei"></view>
+            <view class="msg">广州天河区天河北路光大银行大广州天河区天河北路光大银行大</view>
+            <icon class="icon iconfont icon-xiangyou"></icon>
+          </view>
+        </view>
+      </view>
+      <view class="date" wx:if="{{false}}">
+        <view class="title"><icon class="icon"></icon>约面时间</view>
+        <view class="dateItem" wx:for="{{dateList}}" wx:key="{{index}}">
+          <view class="inner">
+            <view class="xuhao">时间{{index + 1}}</view>
+            <view class="dateDetail">{{item}}</view>
+          </view>
+        </view>
+      </view>
+      <view class="realDate">
+        <view class="txt1">面试时间已确认</view>
+        <view class="txt2">时间已添加到面试日程，准备迎接候选人吧~</view>
+        <view class="txt3">2018-02-05</view>
+      </view>
+    </view>
+    <view class="btnBox1" wx:if="{{false}}">
+      <text class="txt">面试安排已发送，等待对方确认</text>
+      <button class="btn">修改信息</button>
+    </view>
+    <view class="btnBox">
+      <button class="btn">转发安排给其他同事</button>
+    </view>
+  </block>
+  
+</view>

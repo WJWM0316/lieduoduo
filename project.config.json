@@ -38,11 +38,7 @@
 			"list": []
 		},
 		"miniprogram": {
-<<<<<<< HEAD
-			"current": 7,
-=======
-			"current": 14,
->>>>>>> 08ae4a1a389fcc77a9367b82dc09de70a688e936
+			"current": 17,
 			"list": [
 				{
 					"id": 0,
@@ -77,7 +73,7 @@
 				{
 					"id": 5,
 					"name": "求职者个人中心",
-					"pathName": "page/applicant/pages/center/mine/mine",
+					"pathName": "page/applicant/pages/officerActive/more/more",
 					"query": ""
 				},
 				{
@@ -89,7 +85,7 @@
 				{
 					"id": 7,
 					"name": "编辑简历第一步",
-					"pathName": "page/common/pages/resumeDetail/resumeDetail",
+					"pathName": "page/applicant/pages/center/createUser/createUser",
 					"query": ""
 				},
 				{
@@ -109,8 +105,6 @@
 					"name": "用户信息编辑",
 					"pathName": "page/applicant/pages/center/userInfoEdit/userInfoEdit",
 					"query": ""
-<<<<<<< HEAD
-=======
 				},
 				{
 					"id": 11,
@@ -120,22 +114,39 @@
 				},
 				{
 					"id": 12,
-					"name": "招聘端面试安排",
-					"pathName": "page/recruiter/pages/interview/arrangement/arrangement",
+					"name": "面试安排",
+					"pathName": "page/common/pages/arrangement/arrangement",
+					"query": "identity=zhaopin"
+				},
+				{
+					"id": -1,
+					"name": "职位列表",
+					"pathName": "page/recruiter/pages/position/jobList/jobList",
 					"query": ""
 				},
 				{
 					"id": -1,
-					"name": "招聘官端的首页",
-					"pathName": "page/recruiter/pages/index/index",
+					"name": "地址列表",
+					"pathName": "page/recruiter/pages/position/addressList/addressList",
 					"query": ""
 				},
 				{
-					"id": 14,
-					"name": "职位-发布",
-					"pathName": "page/recruiter/pages/position/index/index",
+					"id": 15,
+					"name": "招聘官认证",
+					"pathName": "page/recruiter/pages/user/company/apply/apply",
 					"query": ""
->>>>>>> 08ae4a1a389fcc77a9367b82dc09de70a688e936
+				},
+				{
+					"id": -1,
+					"name": "授权",
+					"pathName": "page/common/pages/auth/auth",
+					"query": ""
+				},
+				{
+					"id": 17,
+					"name": "公司主页",
+					"pathName": "page/common/pages/homepage/homepage",
+					"query": ""
 				}
 			]
 		}

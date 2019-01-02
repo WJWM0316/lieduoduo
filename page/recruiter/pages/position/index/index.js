@@ -7,10 +7,24 @@ const app = getApp()
 Page({
   data: {
     positionStatus: '1',
-    positionList: []
+    defaultList: {
+      total: 0,
+      list: []
+    },
+    onLinePosition: {
+      total: 0,
+      list: []
+    },
+    offLinePosition: {
+      total: 0,
+      list: []
+    },
+    positionList: [],
+    total: 0
   },
   onLoad() {
-    this.getLists()
+    getApp().globalData.identity = 'RECRUITER'
+    this.getTabLists()
   },
   /**
    * @Author   小书包
@@ -18,7 +32,7 @@ Page({
    * @detail   获取列表数据
    * @return   {[type]}   [description]
    */
-  getLists() {
+  getTabLists() {
     getPositionListApi({status: this.data.positionStatus})
       .then(res => {
         this.setData({positionList: res.data})
@@ -37,7 +51,7 @@ Page({
         wx.navigateTo({url: `${RECRUITER}position/post/post`})
         break
       case 'edit':
-        wx.navigateTo({url: `${RECRUITER}position/post/post?positionId=${params.positionId}`})
+        wx.navigateTo({url: `${RECRUITER}detail/position/position?positionId=${params.positionId}`})
         break
       default:
         break
@@ -47,6 +61,6 @@ Page({
   onClickTab(e) {
     const status = e.currentTarget.dataset.status
     this.setData({positionStatus: status})
-    this.getLists()
+    this.getTabLists()
   }
 })

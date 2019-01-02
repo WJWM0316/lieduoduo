@@ -19,30 +19,7 @@ Component({
    */
   methods: {
     onGotUserInfo(e) {
-      if (e.detail.errMsg === 'getUserInfo:ok') {
-        let data = {
-          code: wx.getStorageSync('code'),
-          iv_key: e.detail.iv,
-          data: e.detail.encryptedData
-        }
-        loginApi(data).then(res => {
-          // 有token说明已经绑定过用户了
-          if (res.data.token) {
-            getApp().globalData.userInfo = res.data
-            getApp().globalData.hasLogin = true
-            wx.setStorageSync('token', res.data.token)
-            wx.removeStorageSync('sessionToken')
-            console.log('用户已认证')
-          } else {
-            console.log('用户未绑定手机号')
-            wx.setStorageSync('sessionToken', res.data.sessionToken)
-          }
-          wx.reLaunch({
-            url: `/${wx.getStorageSync('enterUrl')}`
-          })
-          wx.removeStorageSync('enterUrl')
-        })
-      }
+      getApp().onGotUserInfo(e)
     }
   }
 })

@@ -56,11 +56,11 @@ Page({
       }, 
       complete: (res) => {
         if (res.statusCode === 200) {
-          if (getApp().globalData.identity === 'APPLICAN') {
-            wx.redirectTo({
-              url: `/page/applicant/pages/center/userInfoEdit/userInfoEdit?avatarId=${JSON.parse(res.data).data[0].id}&avatarUrl=${file.path}`
-            })
-          }
+          wx.setStorageSync('avatarId', JSON.parse(res.data).data[0].id)
+          wx.setStorageSync('avatarUrl', file.path)
+          wx.navigateBack({
+            delta: 1
+          })
         } else {
           console.log(res, "上传失败")
         }

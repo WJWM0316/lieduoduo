@@ -1,14 +1,22 @@
 <!--page/common/pages/bindPhone/bindPhone.wxml-->
 <view class="bindPhone">
-  <navbar title="绑定手机号"></navbar>
-  <view class="phone">
-    手机号码
-    <input type="tel" value="{{phone}}" bindblur="getPhone"></input>
+  <view class="head">
+    <image class="img" mode="widthFix" src="../../../../images/authBg.png"></image>
+    <view class="msg">
+      <view class="title">欢迎来到猎多多</view>
+      <view class="txt">机会多 面试多</view>
+    </view>
   </view>
-  <view class="code">
-    验证码
-    <input type="text" value="{{code}}" bindblur="getCode"></input>
-    <text bindtap="sendCode">发送验证码</text>
+  <view class="form">
+    <view class="phone">
+      <input type="tel" value="{{phone}}" placeholder="请输入手机号码" bindblur="getPhone"></input>
+    </view>
+    <view class="code">
+      <input type="text" value="{{code}}" placeholder="请输入短信验证码" bindblur="getCode"></input>
+      <view bindtap="sendCode" class="sendBtn">发送验证码</view>
+    </view>
   </view>
-  <button bindtap="bindPhone">绑定</button>
+  <!-- <view class="tip">收不到短信? 试试<text class="voiceCode">语音验证码</text></view> -->
+  <view class="wxLogin">微信账号快捷登录<view class="icon iconfont icon-disejiantou-you"></view></view>
+  <button class="bindBtn" bindtap="bindPhone">绑定</button>
 </view>

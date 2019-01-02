@@ -14,7 +14,6 @@
 	</view>
   <interviewerList list="{{companyList}}" showFooter="{{false}}" dotType="circle"></interviewerList>
   <bindPhone wx:if="{{needLogin}}"></bindPhone>
-  <auth wx:if="{{!userInfo}}"></auth>
   <choose wx:if="{{!choseType}}"></choose>
 </view>
 </view>

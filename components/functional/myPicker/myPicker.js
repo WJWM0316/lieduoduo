@@ -1,7 +1,7 @@
 // components/layout/myPicker/myPicker.js
 import {getJobLabelApi} from '../../../api/pages/common.js'
 Component({
-  externalClasses: ['myPicker'],
+  externalClasses: ['my-class'],
   /**
    * 组件的属性列表
    */
@@ -19,6 +19,10 @@ Component({
     },
     placeholderStyle: {
       type: String
+    },
+    needSlot: {
+      type: Boolean,
+      value: false
     }
   },
 
@@ -33,14 +37,14 @@ Component({
     placeholder: '', // placeholder
     financing: [{name: '未融资', value: 1}, {name: '天使轮', value: 2}, {name: 'A轮', value: 3}, {name: 'B轮', value: 4}, {name: 'C轮', value: 5}, {name: 'D轮及以上', value: 6}, {name: '已上市', value: 7}, {name: '不需要融资', value: 8}],
     staffMembers: [{name: '0-20人', value: 1}, {name: '20-99人', value: 2}, {name: '100-499人', value: 3}, {name: '500-999人', value: 4}, {name: '1000人-9999人', value: 5}, {name: '10000人以上', value: 6}],
-    experience: [{name: '不限', value: 1}, {name: '应届生', value: 2}, {name: '1年以内', value: 3}, {name: '1-3年', value: 4}, {name: '3-5年', value: 5}, {name: '5-10年', value: 6}, {name: '10年以上', value: 7}],
-    jobStatus: [{name: '离职，随时到岗', value: 2}, {name: '在职，暂不考虑', value: 1}, {name: '在职，考虑机会', value: 4}, {name: '在职，月内到岗', value: 3}],
+    experience: [{name: '不限', value: 1}, {name: '应届生', value: 2}, {name: '1以内', value: 3}, {name: '1-3', value: 4}, {name: '3-5', value: 5}, {name: '5-10', value: 6}, {name: '10以上', value: 7}],
+    jobStatus: [{name: '离职，随时到岗', value: 2}, {name: '在职，暂不考虑', value: 1}, {name: '在职，考虑机会', value: 4}, {name: '在职，内到岗', value: 3}],
     education: [{name: '博士', value: 35}, {name: '硕士', value: 30}, {name: '本科', value: 25}, {name: '大专', value: 20}, {name: '中专/中技', value: 15}, {name: '高中', value: 10}, {name: '初中及以下', value: 5}],
     sex: [{name: '男', value: 1}, {name:'女', value: 2}],
     dateType: ['startTime', 'endTime', 'workTime', 'dateTime', 'birthday'],
     year: [],
-    month: ['12月', '11月', '10月', '09月', '08月', '07月', '06月', '05月','04月', '03月', '02月', '01月'],
-    days: ['01日', '02日', '03日', '04日', '05日', '06日', '07日', '08日', '09日', '10日', '11日', '12日', '13日', '14日', '15日', '16日', '17日', '18日', '19日', '20日', '21日', '22日', '23日', '24日', '25日', '26日', '27日', '28日', '29日', '30日'],
+    month: ['12', '11', '10', '09', '08', '07', '06', '05','04', '03', '02', '01'],
+    days: ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30'],
     hours: ['00', '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23'],
     minutes: ['00', '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31', '32', '33', '34', '35', '36', '37', '38', '39', '40', '41', '42', '43', '44', '45', '46', '47', '48', '49', '50', '51', '52', '53', '54', '55', '56', '57', '58', '59']
   },
@@ -53,7 +57,7 @@ Component({
     let year = []
     if (this.data.dateType.indexOf(this.data.pickerType) !== -1) {
       for (let i = 0; i < 65; i++) {
-        year.push(`${curYear}年`)
+        year.push(`${curYear}`)
         curYear--
       }
     }
@@ -73,12 +77,12 @@ Component({
     switch (this.data.pickerType) {
       case 'birthday':
         for (let i = curYear - 18; i > curYear - 65; i--) {
-          year.push(`${i}年`)
+          year.push(`${i}`)
         }
         list.push(year)
         list.push(this.data.month)
         result = setResult()
-        this.setData({list, year, result, mode: 'multiSelector', placeholder: '请选择生日'})
+        this.setData({list, year, result, mode: 'multiSelector', placeholder: '请选择生'})
         break
       case 'startTime':
         list.push(year)
@@ -131,7 +135,7 @@ Component({
       case 'education':
         list = this.data.education
         result = `${list.indexOf(this.data.setResult)}`
-        if(this.data.setResult) result = list.findIndex(field => field.name === this.data.setResult)
+        // if(this.data.setResult) result = list.findIndex(field => field.name === this.data.setResult)
         if (result === `-1`) { result = 0 }
         this.setData({list, result, mode: 'selector', placeholder: '请选择学历'})
         break
@@ -150,7 +154,7 @@ Component({
       case 'experience':
         list = this.data.experience
         result = `${list.indexOf(this.data.setResult)}`
-        if(this.data.setResult) result = list.findIndex(field => field.name === this.data.setResult)
+        // if(this.data.setResult) result = list.findIndex(field => field.name === this.data.setResult)
         if (result === `-1`) { result = 0 }
         this.setData({list, result, mode: 'selector', placeholder: '请选择经验要求'})
         break
@@ -181,7 +185,7 @@ Component({
         result[1] = endNum.indexOf(this.data.setResult.split('~')[1])
         if (result[1] === -1) result = 0
         list = [startNum, endNum]
-        this.setData({list, result, mode: 'multiSelector', placeholder: '请选择期望月薪'})
+        this.setData({list, result, mode: 'multiSelector', placeholder: '请选择期望薪'})
         break
       case 'salaryRangeB':
         let startNumB = []
@@ -206,7 +210,7 @@ Component({
         result[1] = endNumB.indexOf(this.data.setResult.split('~')[1])
         if (result[1] === -1) result = 0
         list = [startNumB, endNumB]
-        this.setData({list, result, mode: 'multiSelector', placeholder: '请选择期望月薪'})
+        this.setData({list, result, mode: 'multiSelector', placeholder: '请选择期望薪'})
         break
       case 'occupation':
         getJobLabelApi({type: 'skills'}).then(res => {
@@ -238,14 +242,14 @@ Component({
       if (this.data.mode === 'multiSelector') {
         if (this.data.dateType.indexOf(this.data.pickerType) !== -1) {
           if (this.data.pickerType === 'dateTime') {
-            propsDesc = `${parseInt(list[0][result[0]])}-${parseInt(list[1][result[1]])}-${parseInt(list[2][result[2]])} ${list[3][result[3]]}:${list[4][result[4]]}`
+            propsDesc = `${list[0][result[0]]}-${list[1][result[1]]}-${list[2][result[2]]} ${list[3][result[3]]}:${list[4][result[4]]}`
             propsResult = new Date(propsDesc).getTime() / 1000
           } else {
             if ((this.data.pickerType === 'endTime' && this.data.result[0] === 0) || (this.data.pickerType === 'workTime' && this.data.result[0] === 0)) {
               propsResult = 0
               propsDesc = list[0][0]
             } else {
-              propsDesc = `${parseInt(list[0][result[0]])}-${parseInt(list[1][result[1]])}`
+              propsDesc = `${list[0][result[0]]}-${list[1][result[1]]}`
               propsResult = new Date(propsDesc).getTime() / 1000
             }
           }
@@ -287,10 +291,10 @@ Component({
         }
         let year = this.data.year[result[0]]
         let month = this.data.month[result[1]]
-        if (e.detail.column === 0) { // 选择年份
+        if (e.detail.column === 0) { // 选择份
           year = this.data.year[e.detail.value]
           changeData(year, month)
-        } else if (e.detail.column === 1) { // 选择月份
+        } else if (e.detail.column === 1) { // 选择份
           month = this.data.month[e.detail.value]
           changeData(year, month)
         }
@@ -334,15 +338,15 @@ Component({
         }
       }
     },
-    // 获取某年某月的天数
+    // 获取某某的天数
     getThisMonthDays(year, month) {
       let dayNum = new Date(year, month, 0).getDate()
       let days = []
       for (let i = 1; i < dayNum + 1; i++) {
         if (i < 10) {
-          days.push(`0${i}日`)
+          days.push(`0${i}`)
         } else {
-          days.push(`${i}日`)
+          days.push(`${i}`)
         }
       }
       return days

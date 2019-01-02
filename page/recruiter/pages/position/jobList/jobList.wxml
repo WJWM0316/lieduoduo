@@ -1,0 +1,18 @@
+<view class="jpbList">
+  <navbar></navbar>
+  <radio-group class="radio-group" bindchange="radioChange">
+    <label class="radio" wx:for="{{items}}" wx:key="{{index}}">
+      <view class="inner">
+        <view class="item">
+          <view class="title"><text class="txt1">微信小程序前端开发工程师如果超长就…</text><text class="txt2">12~20K</text></view>
+          <view class="labels">
+            <text class="txt">广州市天河区</text>
+            <text class="txt">不限</text>
+            <text class="txt">不限</text>
+          </view>
+          <radio class="radioBtn" value="{{item.name}}" checked="{{item.checked}}" color="#652791"/>
+        </view>
+      </view>
+    </label>
+  </radio-group>
+</view>

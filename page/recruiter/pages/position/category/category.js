@@ -5,12 +5,13 @@ import {RECRUITER} from '../../../../../config.js'
 Page({
   data: {
     positionTypeList: [],
-    query: ''
+    query: '',
+    isSearch: false
   },
   onLoad(options) {
     getLabelPositionApi()
       .then(res => {
-        this.setData({positionTypeList: res.data})
+        this.setData({positionTypeList: res.data, query: options})
       })
   },
   /**
@@ -26,6 +27,6 @@ Page({
     storage.type = result.labelId
     storage.typeName = result.name
     wx.setStorageSync('createPosition', storage)
-    wx.navigateTo({url: `${RECRUITER}position/post/post`})
+    wx.navigateTo({url: `${RECRUITER}position/post/post?positionId=${this.data.query.positionId}`})
   }
 })

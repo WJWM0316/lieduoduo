@@ -27,7 +27,7 @@ export const getResumeStepApi = (isLoadData) => {
   return request({
     method: 'get',
     url: '/jobhunter/resume/step',
-    isLoadData: false
+    isLoadData: true
   })
 }
 // 完善简历第一步

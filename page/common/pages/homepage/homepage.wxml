@@ -1,0 +1,113 @@
+<view class="homepage">
+	<navbar title="公司主页"></navbar>
+	<view class="banner">
+		<image class="bgImg" src="../../../../images/company_banner.png" mode="aspectFill"></image>
+		<view class="box">
+			<view class="company-logo"></view>
+			<view class="title">36氪新闻事业部</view>
+			<view class="infos">移动互联网 | B轮 | 20-99人</view>
+		</view>
+		<shareBtn></shareBtn>
+	</view>
+	<view class="limit-width">
+		<view class="ul-tab-bar">
+			<view class="li {{tab === 'about' ? 'active' : ''}}" bindtap="onTabClick" data-tab="about">关于我们</view>
+			<view class="li {{tab === 'recruitment' ? 'active' : ''}}" bindtap="onTabClick" data-tab="recruitment">在招职位(18)</view>
+		</view>
+		<view class="homepage-team-box">
+			<view class="title">
+				<view class="icon"> <view class="fan"></view> </view> 招聘团队
+			</view>
+			<view class="ul">
+				<view class="li" wx:for="{{[1,2,3]}}" wx:key="{{index}}">
+					<view class="img-box">
+						<i class="certification-icon"></i>
+					</view>
+					<view class="content">
+						<view class="row-one">
+							<view class="username">文双</view>
+							<view class="recruitment-number">5 个在招职位</view>
+						</view>
+						<view class="row-two">小灯塔创始人、CEO</view>
+						<view class="row-three">工作易得，知音难觅！壮士约乎？</view>
+					</view>
+				</view>
+			</view>
+			<view class="footer">
+				<view class="button">查看全部招聘官<i class="icon iconfont icon-xiangyou"></i></view>
+			</view>
+		</view>
+	</view>
+
+	<view class="introduction">
+		<view class="title">
+			<view class="icon"> <view class="fan"></view> </view> 招聘团队
+		</view>
+		<swiper class="swiper-block" previous-margin="40rpx" next-margin="40rpx" current="0" bindchange="swiperChange" autoplay="{{autoplay}}">
+			<swiper-item class="swiper-item" wx:for="{{imgUrls}}" wx:key="{{index}}">
+				<image mode="aspectFill" class="slide-image {{swiperIndex == index ? 'active' : ''}}"/>
+			</swiper-item>
+		</swiper>
+		<view class="company-detail">
+			<view class="p">
+				老虎科技创始人兼CEO，小灯塔致力于帮助每个职场年轻人实现职业梦想，立足于APP与公众号等线上产品服务，为他们提供有趣、有料的职场话题和职场课程，是职场年轻人的进步神器、职场攻略。
+			</view>
+			<view class="p">
+				立足于APP与公众号等线上产品服务，为他们提供有趣、有料的职场话题和职场课程，是职场年轻人的进步神器、职场攻略。
+			</view>
+		</view>
+	</view>
+
+	<view class="production-box">
+		<view class="title">
+			<view class="icon"> <view class="fan"></view> </view> 产品介绍
+		</view>
+		<view class="ul">
+			<view class="li" wx:for="{{[1,2]}}" wx:key="{{index}}">
+				<view class="img-box"></view>
+				<view class="content">
+					<view class="row-one">
+						<view class="username">小灯塔</view>
+						<view class="recruitment-number">职场分享社区</view>
+					</view>
+					<view class="row-two">小灯塔创始人、CEO</view>
+				</view>
+			</view>
+		</view>
+	</view>
+	
+	<view class="company-address">
+		<view class="title">
+			<view class="icon"> <view class="fan"></view> </view> 公司地址
+		</view>
+		<view class="map">
+			<map
+			  id="map"
+			  longitude="113.324520"
+			  latitude="23.099994"
+			  scale="14"
+			  controls="{{controls}}"
+			  bindcontroltap="controltap"
+			  markers="{{markers}}"
+			  bindmarkertap="markertap"
+			  polyline="{{polyline}}"
+			  bindregionchange="regionchange"
+			  show-location></map>
+		</view>
+		<view class="footer" data-route="map" bindtap="routeJump">
+			<i class="icon iconfont icon-dizhi"></i>
+			广州天河区天河北路698号1606
+			<i class="icon iconfont icon-xiangyou"></i>
+		</view>
+	</view>
+	
+	<view class="company-website">
+		<view class="title">
+			<view class="icon"> <view class="fan"></view> </view> 公司官网
+		</view>
+		<view class="link-box">
+			<view class="link">https://www.xiaodengta.com</view>
+			<view class="button" bindtap="copyLink">复制</view>
+		</view>
+	</view>
+</view>
