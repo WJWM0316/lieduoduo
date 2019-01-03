@@ -65,7 +65,14 @@
 			我也要制作招聘主页
 			<i class="icon iconfont icon-disejiantou-you"></i>
 		</view>
-		<view class="collect" data-type="collect" bindtap="todoAction"><i class="icon iconfont icon-ganxingqu"></i></view>
+		<view
+			class="collect"
+			data-type="{{detail.isCollect ? 'uncollect' : 'collect'}}"
+			data-aa="{{detail.isCollect}}"
+			bindtap="todoAction">
+				<i class="icon iconfont icon-ganxingqu" wx:if="{{!detail.isCollect}}"></i>
+				<text wx:else>取</text>	
+		</view>
 	</view>
 	<interviewBar infos="{{ detail }}" isOwner="{{ isOwner }}" bindresultevent="getPositionDetail"></interviewBar>
 </view>

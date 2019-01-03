@@ -25,7 +25,6 @@ Page({
     }
   },
   onLoad(options) {
-    getApp().globalData.identity = 'RECRUITER'
     const storage = wx.getStorageSync('createdCompany')
     const formData = {}
     const params = ['real_name', 'user_email', 'user_position', 'company_name', 'industry_id', 'financing', 'employees']

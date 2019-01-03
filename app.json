@@ -89,7 +89,6 @@
         "pages/user/company/identity/identity",
         "pages/user/company/status/status",
         "pages/user/company/emailCheck/emailCheck",
-        "pages/user/company/edit/edit",
         "pages/user/company/infos/infos",
         "pages/user/company/member/member",
         "pages/user/company/homepage/homepage",
