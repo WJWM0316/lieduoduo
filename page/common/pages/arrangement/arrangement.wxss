@@ -2,6 +2,8 @@
 .arrangement {
   background: #F5F5F9;
   padding-bottom: 148rpx;
+  min-height: 100vh;
+  box-sizing: border-box;
 }
 .tip {
   padding: 0 50rpx;
@@ -73,8 +75,7 @@
   display: flex;
   color: #282828;
   overflow: hidden;
-  text-overflow:ellipsis;
-  white-space: nowrap;
+  line-height: 40rpx;
   align-items: center;
   flex: 1;
 }

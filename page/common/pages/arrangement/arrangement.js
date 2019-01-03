@@ -1,4 +1,5 @@
 import {interviewDetailApi, setInterviewDetailApi} from "../../../../api/pages/interview.js"
+let app = getApp()
 Page({
 
   /**
@@ -20,6 +21,15 @@ Page({
     }
     dateList.push(date)
     this.setData({dateList})
+  },
+  changeVal(e) {
+    let info = this.data.info
+    if (e.currentTarget.dataset.type === 'name') {
+      info.recruiterRealname = e.detail.value
+    } else {
+      info.recruiterMobile = e.detail.value
+    }
+    this.setData({info})
   },
   jump(e) {
     let url = ''
@@ -53,9 +63,16 @@ Page({
       interviewTime: dateList
     }
     setInterviewDetailApi(data).then(res => {
-      console.log(res)
+      app.wxConfirm({
+        title: '发送成功',
+        icon: 'success'
+      })
     })
-
+  },
+  revise() {
+    let info = this.data.info
+    info.status = 21
+    this.setData({info})
   },
   /**
    * 生命周期函数--监听页面加载

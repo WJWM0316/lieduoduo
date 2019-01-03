@@ -13,7 +13,7 @@ Page({
    */
   onLoad: function (options) {
     let data = {
-      recruiter: 5
+      recruiter: 90
     }
     getPositionListApi(data).then(res => {
       this.setData({items: res.data})

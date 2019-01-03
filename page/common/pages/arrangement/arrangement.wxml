@@ -1,17 +1,17 @@
 <!--page/recruiter/pages/interview/arrangement/arrangement.wxml-->
 <view class="arrangement">
   <navbar></navbar>
-  <view class="tip">备选时间不合适，请联系候选人重新确定时间</view>
+  <view class="tip" wx:if="{{info.status === 32}}">备选时间不合适，请联系候选人重新确定时间</view>
   <view class="headInfo"><roleInfoCard cardData="{{info}}" my-class="roleDetail" roleType="applicant"></roleInfoCard></view>
-  <block wx:if="{{options.identity === 'zhaopin'}}">
+  <block>
     <view class="content">
-      <view class="detail">
+      <view class="detail" wx:if="{{options.identity === 'zhaopin' && (info.status === 21)}}">
         <view class="title"><icon class="icon"></icon>面试信息</view>
         <view class="msgItem">
           <view class="inner">
             <view class="txt">联系人</view>
             <view class="msg">
-              <input type="text" value="{{info.recruiterRealname}}" placeholder="请填写联系人" />
+              <input type="text" value="{{info.recruiterRealname}}" bindblur="changeVal" data-type="name" placeholder="请填写联系人" />
             </view>
           </view>
         </view>
@@ -19,7 +19,7 @@
           <view class="inner">
             <view class="txt">联系电话</view>
             <view class="msg">
-              <input type="text" value="{{info.recruiterMobile}}" placeholder="请填写手机号或座机" />
+              <input type="text" value="{{info.recruiterMobile}}" bindblur="changeVal" data-type="phone" placeholder="请填写手机号或座机" />
             </view>
           </view>
         </view>
@@ -38,32 +38,7 @@
           </view>
         </view>
       </view>
-      <view class="date">
-        <view class="title"><icon class="icon"></icon>约面时间</view>
-        <view class="dateItem" wx:for="{{dateList}}" wx:key="{{index}}">
-          <view class="inner">
-            <view class="removeIcon" bindtap="removeDate" data-index="{{index}}">
-              <view class="icon1"></view>
-            </view>
-            <view class="dateDetail">{{item}}</view>
-            <icon class="icon iconfont icon-xiangyou"></icon>
-          </view>
-        </view>
-        <view class="dateItem" hidden="{{dateList.length >= 3}}">
-          <view class="inner noborder">
-            <view class="txt">最多可添加3个时间供候选人选择</view>
-            <view class="msg"><myPicker pickerType="dateTime" class="myPicker" needSlot="{{true}}" bindresultevent="getResult"><text class="add">+</text>添加时间</myPicker></view>
-          </view>
-        </view>
-      </view>
-    </view>
-    <view class="btnBox">
-      <button class="btn" bindtap="send">发送面试安排</button>
-    </view>
-  </block>
-  <block wx:if="{{options.identity === 'qiuzhi'}}">
-    <view class="content read">
-      <view class="detail">
+      <view class="detail read" wx:if="{{options.identity === 'zhaopin' && (info.status === 31 || info.status === 41)}}">
         <view class="title"><icon class="icon"></icon>面试信息</view>
         <view class="msgItem">
           <view class="inner">
@@ -89,7 +64,25 @@
           </view>
         </view>
       </view>
-      <view class="date" wx:if="{{false}}">
+      <view class="date" wx:if="{{options.identity === 'zhaopin' && (info.status === 21)}}">
+        <view class="title"><icon class="icon"></icon>约面时间</view>
+        <view class="dateItem" wx:for="{{dateList}}" wx:key="{{index}}">
+          <view class="inner">
+            <view class="removeIcon" bindtap="removeDate" data-index="{{index}}">
+              <view class="icon1"></view>
+            </view>
+            <view class="dateDetail">{{item}}</view>
+            <icon class="icon iconfont icon-xiangyou"></icon>
+          </view>
+        </view>
+        <view class="dateItem" hidden="{{dateList.length >= 3}}">
+          <view class="inner noborder">
+            <view class="txt">最多可添加3个时间供候选人选择</view>
+            <view class="msg"><myPicker pickerType="dateTime" class="myPicker" needSlot="{{true}}" bindresultevent="getResult"><text class="add">+</text>添加时间</myPicker></view>
+          </view>
+        </view>
+      </view>
+      <view class="date read" wx:if="{{options.identity === 'zhaopin' && (info.status === 31)}}">
         <view class="title"><icon class="icon"></icon>约面时间</view>
         <view class="dateItem" wx:for="{{dateList}}" wx:key="{{index}}">
           <view class="inner">
@@ -98,17 +91,24 @@
           </view>
         </view>
       </view>
-      <view class="realDate">
+      <view class="realDate" wx:if="{{options.identity === 'zhaopin' && (info.status === 41)}}">
         <view class="txt1">面试时间已确认</view>
         <view class="txt2">时间已添加到面试日程，准备迎接候选人吧~</view>
         <view class="txt3">2018-02-05</view>
       </view>
+      <view class="realDate" wx:if="{{info.status === 51}}">
+        <view class="txt1">面试时间已结束</view>
+        <view class="txt3">2018-02-05</view>
+      </view>
     </view>
-    <view class="btnBox1" wx:if="{{false}}">
+    <view class="btnBox" wx:if="{{options.identity === 'zhaopin' && (info.status === 21)}}">
+      <button class="btn" bindtap="send">发送面试安排</button>
+    </view>
+    <view class="btnBox1" wx:if="{{options.identity === 'zhaopin' && (info.status === 31)}}">
       <text class="txt">面试安排已发送，等待对方确认</text>
-      <button class="btn">修改信息</button>
+      <button class="btn" bindtap="revise">修改信息</button>
     </view>
-    <view class="btnBox">
+    <view class="btnBox" wx:if="{{options.identity === 'zhaopin' && (info.status === 41)}}">
       <button class="btn">转发安排给其他同事</button>
     </view>
   </block>
