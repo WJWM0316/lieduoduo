@@ -49,14 +49,32 @@ var positionFilter = function(num) {
 var chatFilter = function(num) {
   var status = null
   switch(num) {
-    case 1:
-      status = '审核通过'
+    case 11:
+      status = '求职者已申请成为招聘管'
       break
-    case 2:
-      status = '审核中'
+    case 12:
+      status = '求职者已收到招聘管的邀请'
       break
-    case 3:
-      status = '审核失败'
+    case 21:
+      status = '求职者等待招聘官安排面试'
+      break
+    case 31:
+      status = '招聘管等待求职者确认信息'
+      break
+    case 32:
+      status = '求职者等待招聘管修改面试信息'
+      break
+    case 41:
+      status = '招聘管已安排求职者面试'
+      break
+    case 51:
+      status = '招聘管已安排求职者面试结束'
+      break
+    case 52:
+      status = '招聘管设置求职者不合适'
+      break
+    case 53:
+      status = '系统设置求职者不合适'
       break
     default:
       break

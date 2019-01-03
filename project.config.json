@@ -38,7 +38,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 3,
+			"current": 20,
 			"list": [
 				{
 					"id": 0,
@@ -159,6 +159,12 @@
 					"name": "招聘管-我的页面",
 					"pathName": "page/recruiter/pages/user/mine/infos/infos",
 					"query": ""
+				},
+				{
+					"id": 20,
+					"name": "招聘管-职位详情",
+					"pathName": "page/common/pages/positionDetail/positionDetail",
+					"query": "positionId=37&companyId=13"
 				}
 			]
 		}
