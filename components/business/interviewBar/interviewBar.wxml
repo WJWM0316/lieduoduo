@@ -1,0 +1,11 @@
+<view class="interview-bar">
+	<view class="img-box"></view>
+	<view class="content">
+		<view class="first">
+			<view class="name">{{infos.recruiterInfo.name}}</view>
+			<view class="hunter-infos"><view class="strong">{{infos.recruiterInfo.positionNum}}</view>个职位</view>
+		</view>
+		<view class="second">{{slogoList[slogoIndex].text}}</view>
+	</view>
+	<view class="button-box" bindtap="todoAction" data-type="chat">开撩约面</view>
+</view>
