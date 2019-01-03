@@ -2,6 +2,7 @@
   "usingComponents": {
   	"shareBtn": "../../../../components/layout/shareBtn/shareBtn",
   	"navbar": "../../../../components/business/navbar/navbar",
+  	"interviewBar": "../../../../components/business/interviewBar/interviewBar",
   	"roleInfoCard": "../../../../components/business/roleInfoCard/roleInfoCard"
   }
 }

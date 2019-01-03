@@ -52,6 +52,7 @@ Page({
     }
   },
   onShow() {
+    if(!wx.getStorageSync('choseType')) return;
     geMyBrowseUsersApi().then(res => {
       this.setData({
         companyList:res.data

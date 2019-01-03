@@ -9,10 +9,6 @@ import {
 } from '../../../../api/pages/interview.js'
 
 import {
-  getCompanyInfosApi
-} from '../../../../api/pages/company.js'
-
-import {
   getMycollectPositionApi
 } from '../../../../api/pages/collect.js'
 
@@ -29,7 +25,10 @@ Page({
     identity: '',
     detail: {},
     query: {},
-    companyInfos: {}
+    // 是否是我发布
+    isOwerner: true,
+    companyInfos: {},
+    recruiterInfo: {}
   },
   /**
    * 生命周期函数--监听页面加载
@@ -38,7 +37,6 @@ Page({
     // getApp().globalData.identity = 'RECRUITER'
     this.setData({query: options, identity: getApp().globalData.identity})
     this.getPositionDetail()
-    this.getCompanyDetail()
   },
   /**
    * @Author   小书包
@@ -65,7 +63,7 @@ Page({
   getPositionDetail() {
     getPositionApi({id: this.data.query.positionId})
       .then(res => {
-        this.setData({detail: res.data})
+        this.setData({detail: res.data, companyInfos: res.data.companyInfo, recruiterInfo: res.data.recruiterInfo})
       })
       .catch(err => {
         app.wxToast({title: err.msg})
