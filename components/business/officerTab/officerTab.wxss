@@ -1,0 +1,56 @@
+/* components/business/officerTab/officerTab.wxss */
+@import '../../../iconfont.wxss';
+.ul{
+   padding: 0 30rpx;
+}
+.officerTab{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  margin-bottom: 18rpx;
+  border-radius: 10rpx;
+  box-shadow:0px 8px 20px 0px rgba(34,56,101,0.08);
+}
+.headerImg{
+  width: 120rpx;
+  height: 120rpx;
+  margin-right: 30rpx;
+}
+.headerImg image{
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
+.info .top .name{
+  font-size: 36rpx;
+  font-weight: 500;
+  color: #282828;
+}
+.info .top .title{
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  display: inline-block;
+  max-width: 363rpx;
+  font-size: 28rpx;
+  font-weight: 300;
+  color: #282828;
+}
+.info .bottom{
+  display: flex;
+  align-items: center;
+  margin-top: 18rpx;
+}
+.info .bottom .company{
+  margin-right: 42rpx;
+}
+.info .bottom .company,
+.info .bottom .position
+{
+  max-width: 240rpx;
+  font-size: 24rpx;
+  font-weight: 300;
+  color: #929292;
+}
+.info .bottom .position .num{
+  color: #8452A7;
+}

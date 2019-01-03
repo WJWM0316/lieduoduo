@@ -1,0 +1,71 @@
+/* components/business/jobList/jobList.wxss */
+.ul{
+  box-sizing: border-box;
+  width: 100%;
+  background: #FAFCFF;
+  padding: 30rpx;
+}
+.li{
+  padding: 28rpx;
+  box-sizing: border-box;
+  width: 100%;
+  background-color: #FFF;
+  border-radius: 10rpx;
+  box-shadow:0rpx -5rpx 40rpx 0rpx rgba(22,39,77,0.05);
+  margin-bottom: 24rpx;
+}
+.li .name{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 32rpx;
+  font-weight:600;
+  color: #354048;
+}
+.li .name .salary{
+  color: #FF7F4C;
+  font-weight:bold;
+}
+.li .company{
+  font-size: 24rpx;
+  color: #626262;
+  font-weight:400;
+  line-height:26rpx;
+  margin-top: 20rpx;
+}
+.li .labelList{
+  display: flex;
+  margin-top: 26rpx;
+}
+.li .labelList .label{
+  line-height: 34rpx;
+  padding: 0 12rpx;
+  font-size: 24rpx;
+  font-weight: 400;
+  background-color: #F8F8F8;
+  color: #929292;
+  border-radius: 4rpx;
+  margin-right: 16rpx;
+}
+.hr{
+  display: flex;
+  margin-top: 26rpx;
+}
+.hr .hrImg{
+  width: 52rpx;
+  height: 52rpx;
+  background-color: #ccc;
+  border-radius: 50%;
+  margin-right: 16rpx;
+}
+.hr .hrImg image{
+  width: 100%;
+  height: 100%;
+}
+.hr .hrName{
+  font-size: 24rpx;
+  font-weight: 400;
+  color: #626262;
+  display: flex;
+  align-items: center;
+}

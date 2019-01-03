@@ -1,4 +1,5 @@
 Component({
+  externalClasses: ['personality'],
   behaviors: [],
   properties: {
     // 传入的列表数据
@@ -23,26 +24,6 @@ Component({
     },
     // 是否显示底部
     showItemStatus: {
-        type: Boolean,
-        value: true
-    },
-    // 是否显示左上圆角
-    showTopRadius: {
-        type: Boolean,
-        value: false
-    },
-    // 是否显示右上圆角
-    showRightRadius: {
-        type: Boolean,
-        value: false
-    },
-    // 是否显示右下圆角
-    showBottomRadius: {
-        type: Boolean,
-        value: true
-    },
-    // 是否显示左下圆角
-    showLeftRadius: {
         type: Boolean,
         value: true
     }

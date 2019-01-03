@@ -1,6 +1,7 @@
 {
   "usingComponents": {
-    "interviewList": "../../../../components/business/interviewList/interviewList",
+    "jobList": "../../../../components/business/jobList/jobList",
+    "myPicker": "../../../../components/functional/myPicker/myPicker",
     "navbar": "../../../../components/business/navbar/navbar"
   }
 }

@@ -1,4 +1,11 @@
 <view class="applicant-job">
 	<navbar title="猎多多" background="green"></navbar>
-  <interviewList list="{{companyList}}" list-type="interview" current-tab="all"></interviewList>
+  <view class="header">
+    <view class="left">
+      <view class="chooseArea">选择地区<i class="icon iconfont icon-zhishibiao"></i></view>
+      <view class="chooseArea">职位类型<i class="icon iconfont icon-zhishibiao"></i></view>
+    </view>
+    <view class="interested"><i class="icon iconfont icon-ganxingqu"></i>感兴趣</view>
+  </view>
+  <jobList personality="jobItem" list="{{companyList}}" list-type="interview" current-tab="all"></jobList>
 </view>

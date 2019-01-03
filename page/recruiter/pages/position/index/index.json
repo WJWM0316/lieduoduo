@@ -2,6 +2,6 @@
   "usingComponents": {
     "tab-bar": "../../../../../components/business/tabBar/tabBar",
     "navbar": "../../../../../components/business/navbar/navbar",
-    "interviewerList": "../../../../../components/business/interviewerList/interviewerList"
+    "commonList": "../../../../../components/business/commonList/commonList"
   }
 }

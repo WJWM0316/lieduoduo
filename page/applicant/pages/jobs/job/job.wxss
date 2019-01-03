@@ -1,5 +1,42 @@
+@import '../../../../../iconfont.wxss';
 .job {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+.header{
+  display: flex;
+  justify-content: space-between;
+  padding-top: 28rpx;
+  padding-left: 30rpx;
+  background-color: #F7F9FD;
+}
+.left{
+  display: flex;
+}
+.chooseArea{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 26rpx;
+  color: #652791;
+  width: 182rpx;
+  height: 64rpx;
+  background-color: #FFFFFF;
+  border-radius: 32rpx;
+  margin-right: 16rpx;
+}
+.interested{
+  font-size: 26rpx;
+  color: #652791;
+  width: 164rpx;
+  height: 64rpx;
+  border-radius:32rpx 0rpx 0rpx 32rpx;
+  background-color: #FFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.interested i{
+  margin-right: 6rpx;
 }

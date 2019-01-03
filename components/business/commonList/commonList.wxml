@@ -1,6 +1,6 @@
-<view class="interviewer-list-ul iconfont1">
+<view class="common-lits-ul">
 	<view
-		class="li {{ showTopRadius ? 'top-radius' : ''}} {{ showRightRadius ? 'right-radius' : ''}} {{ showBottomRadius ? 'bottom-radius' : ''}} {{ showLeftRadius ? 'left-radius' : ''}}"
+		class="li personality"
 		wx:for="{{ list }}"
 		wx:for-item="item"
 		wx:key="{{item.id}}"

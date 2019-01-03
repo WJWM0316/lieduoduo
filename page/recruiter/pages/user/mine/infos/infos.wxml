@@ -1,11 +1,11 @@
-<navbar title="我的" background="#2878FF" color="#fff"></navbar>
+<navbar title="我的"></navbar>
 <view class="page-mine">
 	<view class="floating-box">
 		<view class="header">
 			<view class="content">
 				<view class="realname">{{recruiterInfo.name || '老虎科技'}}</view>
 				<view class="degree-name">{{recruiterInfo.companyName}} | {{recruiterInfo.position}}</view>
-				<view class="edit" bindtap="jumpUpdateInfos">编辑资料</view>
+				<view class="edit" bindtap="jumpUpdateInfos"><i class="icon iconfont icon-bianji"></i> 编辑资料</view>
 			</view>
 			<view class="img-box"></view>
 		</view>

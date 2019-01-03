@@ -1,0 +1,20 @@
+<!-- 首页招聘官选项卡 -->
+<view class="ul">
+  <view class="officerTab"
+    wx:for="{{ list }}"
+    wx:key="{{index}}"
+    bindtap="routeJump">
+    <view class="headerImg">
+      <image src="{{item.avatar}}"></image>
+    </view>
+    <view class="info">
+      <view class="top">
+        <text class="name">{{item.name}}</text><text class="title"> | {{item.position}}</text>
+      </view>
+      <view class="bottom">
+        <view class="company"><i class="icon iconfont icon-bianji"></i>老虎科技</view>
+        <view class="position"><i class="icon iconfont icon-bianji"></i><text class="num">18</text>个职位</view>
+      </view>
+    </view>
+  </view>
+</view>
