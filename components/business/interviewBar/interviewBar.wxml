@@ -8,7 +8,18 @@
 		</view>
 		<view class="second">{{slogoList[slogoIndex].text}}</view>
 	</view>
-	<view class="button-box" bindtap="todoAction" data-type="chat">开撩约面</view>
+		<block wx:if="{{infos.status === 0}}">
+			<view class="button-box" bindtap="todoAction" data-type="chat">已关闭</view>
+		</block>
+		<block wx:if="{{infos.status === 1}}">
+			<view class="button-box" bindtap="todoAction" data-type="chat">审核通过</view>
+		</block>
+		<block wx:if="{{infos.status === 2}}">
+			<view class="button-box" bindtap="todoAction" data-type="chat">审核中</view>
+		</block>
+		<block wx:if="{{infos.status === 3}}">
+			<view class="button-box" bindtap="todoAction" data-type="chat">审核失败</view>
+		</block>
 	</block>
 	<block wx:else>
 		<view class="edit-button" data-type="edit" bindtap="todoAction">编辑</view>
