@@ -1,6 +1,7 @@
 {
   "usingComponents": {
   	"shareBtn": "../../../../components/layout/shareBtn/shareBtn",
-  	"navbar": "../../../../components/business/navbar/navbar"
+  	"navbar": "../../../../components/business/navbar/navbar",
+  	"roleInfoCard": "../../../../components/business/roleInfoCard/roleInfoCard"
   }
 }

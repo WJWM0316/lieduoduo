@@ -11,7 +11,7 @@
           <view class="inner">
             <view class="txt">联系人</view>
             <view class="msg">
-              <input type="text" value="" placeholder="请填写联系人" />
+              <input type="text" value="{{info.recruiterRealname}}" placeholder="请填写联系人" />
             </view>
           </view>
         </view>
@@ -19,21 +19,21 @@
           <view class="inner">
             <view class="txt">联系电话</view>
             <view class="msg">
-              <input type="text" value="" placeholder="请填写手机号或座机" />
+              <input type="text" value="{{info.recruiterMobile}}" placeholder="请填写手机号或座机" />
             </view>
           </view>
         </view>
         <view class="msgItem jump">
           <view class="inner">
             <view class="txt">面试职位</view>
-            <view class="msg">小灯塔平台高级运营经理小灯塔平台高级运营经理</view>
-            <icon class="icon iconfont icon-xiangyou" bindtap="jump" data-type="jobList"></icon>
+            <view class="msg"  bindtap="jump" data-type="jobList">{{info.positionName}}</view>
+            <icon class="icon iconfont icon-xiangyou"  bindtap="jump" data-type="jobList"></icon>
           </view>
         </view>
         <view class="msgItem jump">
           <view class="inner noborder">
             <view class="txt">面试地址</view>
-            <view class="msg">广州天河区天河北路光大银行大广州天河区天河北路光大银行大</view>
+            <view class="msg"  bindtap="jump" data-type="addressList">{{info.address}}</view>
             <icon class="icon iconfont icon-xiangyou" bindtap="jump" data-type="addressList"></icon>
           </view>
         </view>
@@ -58,7 +58,7 @@
       </view>
     </view>
     <view class="btnBox">
-      <button class="btn">发送面试安排</button>
+      <button class="btn" bindtap="send">发送面试安排</button>
     </view>
   </block>
   <block wx:if="{{options.identity === 'qiuzhi'}}">
@@ -112,5 +112,4 @@
       <button class="btn">转发安排给其他同事</button>
     </view>
   </block>
-  
 </view>

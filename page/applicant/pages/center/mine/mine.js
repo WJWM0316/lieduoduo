@@ -30,7 +30,26 @@ Page({
       }
     })
   },
-
+  preview() {
+    console.log(1111111111)
+    wx.downloadFile({
+    // 示例 url，并非真实存在
+    url: 'https://lieduoduo-uploads-test.oss-cn-shenzhen.aliyuncs.com/front-assets/file/111.pdf',
+    success(res) {
+      const filePath = res.tempFilePath
+      console.log(res)
+      wx.openDocument({
+        filePath,
+        success(res) {
+          console.log('打开文档成功')
+        }
+      })
+    },
+    fail(e) {
+      console.log(e)
+    }
+  })
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

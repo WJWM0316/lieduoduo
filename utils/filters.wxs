@@ -46,12 +46,25 @@ var positionFilter = function(num) {
   return status
 }
 
-var moneyFormat = function(money) {
-    console.log(333)
+var chatFilter = function(num) {
+  var status = null
+  switch(num) {
+    case 1:
+      status = '审核通过'
+      break
+    case 2:
+      status = '审核中'
+      break
+    case 3:
+      status = '审核失败'
+      break
+    default:
+      break
+  }
+  return status
 }
 
 module.exports = {
   dateFormat: dateFormat,
-  positionFilter: positionFilter,
-  moneyFormat: moneyFormat
+  positionFilter: positionFilter
 }

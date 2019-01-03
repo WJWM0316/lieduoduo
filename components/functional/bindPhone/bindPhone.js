@@ -1,9 +1,6 @@
 // components/functional/bindPhone/bindPhone.js
-
-import {
-  sendCodeApi,
-  bindPhoneApi
-} from '../../../api/pages/auth.js'
+import {COMMON} from '../../../config.js'
+import {quickLoginApi} from '../../../api/pages/auth.js'
 
 Component({
   /**
@@ -17,44 +14,32 @@ Component({
    * 组件的初始数据
    */
   data: {
-    phone: '',
-    code: ''
+    hide: false
   },
 
   /**
    * 组件的方法列表
    */
   methods: {
-    getPhone(e) {
-      console.log(e)
+    close() {
       this.setData({
-        phone: e.detail.value
+        hide: true
       })
     },
-    getCode(e) {
+    getPhoneNumber(e) {
       console.log(e)
-      this.setData({
-        code: e.detail.value
+      let data = {
+        iv_key: e.detail.iv,
+        data: e.detail.encryptedData
+      }
+      quickLoginApi(data).then(res => {
+        console.log(res)
       })
     },
-    sendCode() {
-      let data = {
-        mobile: this.data.phone
-      }
-      sendCodeApi(data).then(res => {
+    phoneLogin() {
+      wx.navigateTo({
+        url: `${COMMON}bindPhone/bindPhone`
       })
-    },
-    bindPhone() {
-      let data = {
-        mobile: this.data.phone,
-        code: this.data.code
-      }
-      bindPhoneApi(data).then(res => {
-        console.log('手机号码绑定成功')
-        wx.setStorageSync('token', res.data.token)
-        getApp().globalData.userInfo = res.data
-        getApp().globalData.hasLogin = true
-      })
-    }
+    } 
   }
 })

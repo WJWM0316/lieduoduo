@@ -1,4 +1,4 @@
-// page/recruiter/pages/jobList/jobList.js
+import {getCompanyAddressListApi} from "../../../../../api/pages/company.js"
 Page({
 
   /**
@@ -22,7 +22,9 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    getCompanyAddressListApi().then(res => {
+      console.log(res, 1111111)
+    })
   },
 
   /**

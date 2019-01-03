@@ -1,6 +1,6 @@
 import { getPositionListApi } from '../../../../../api/pages/position.js'
 
-import {RECRUITER} from '../../../../../config.js'
+import {RECRUITER, COMMON} from '../../../../../config.js'
 
 const app = getApp()
 
@@ -62,8 +62,8 @@ Page({
       case 'add':
         wx.navigateTo({url: `${RECRUITER}position/post/post`})
         break
-      case 'edit':
-        wx.navigateTo({url: `${RECRUITER}detail/position/position?positionId=${params.positionId}`})
+      case 'detail':
+        wx.navigateTo({url: `${COMMON}positionDetail/positionDetail?positionId=${params.positionId}&companyId=${params.companyId}`})
         break
       default:
         break

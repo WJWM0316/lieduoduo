@@ -1,25 +1,92 @@
 <view class="job-detail">
-	<navbar title="职位详情"></navbar>
-	<viiew class="company-infos">
-		<view class="header">
-			<view class="text">
-				<view class="position-name">{{detail.positionName}}</view>
-				<view class="position-salary">{{detail.emolumentMin}}k-{{detail.emolumentMax}}k</view>
+	<navbar title="招聘{{detail.positionName}}"></navbar>
+	<view class="page-top">
+		<image class="bgImg" src="../../../../images/job-detail.png" mode="aspectFill"></image>
+		<shareBtn></shareBtn>
+		<view class="company-infos">
+			<view class="header">
+				<view class="text">
+					<view class="position-name">{{detail.positionName}}</view>
+					<view class="position-salary">{{detail.emolumentMin}}k-{{detail.emolumentMax}}k</view>
+				</view>
+				<view class="img-box"></view>
 			</view>
-			<view class="img-box">3</view>
+			<view class="infos">
+				<view><i class="icon iconfont icon-dizhi"></i>{{detail.city}}</view>
+				<view><i class="icon iconfont icon-zhiwei"></i>{{detail.workExperienceName}}</view>
+				<view><i class="icon iconfont icon-zhiwei"></i>{{detail.educationName}}</view>
+			</view>
+			<view class="welfare-ul">
+				<view class="li" wx:for="{{[1,2,3]}}" wx:key="{{index}}">年度奖金</view>
+			</view>
 		</view>
-		<view class="infos">
-			<view><i class="icon iconfont icon-dizhi"></i>{{detail.city}}</view>
-			<view><i class="icon iconfont icon-zhiwei"></i>{{detail.workExperienceName}}</view>
-			<view><i class="icon iconfont icon-zhiwei"></i>{{detail.educationName}}</view>
-		</view>
-		<view class="welfare-ul">
-			<view class="li" wx:for="{{[1,2,3]}}">年度奖金</view>
-		</view>
-	</viiew>
-	<viiew class="job-describe">
+	</view>
+
+	<view class="job-describe">
 		<view class="title">
 			<view class="icon"> <view class="fan"></view> </view> 职位描述
 		</view>
-	</viiew>
+		<view class="tags-ul">
+			<view
+			class="li"
+			wx:for="{{detail.skillsLabel}}"
+			wx:for-item="item"
+			wx:key="{{item.id}}">{{item.name}}</view>
+		</view>
+		<view class="rich-text">{{ detail.describe }}</view>
+	</view>
+	<view class="about-company">
+		<view class="title">
+			<view class="icon"> <view class="fan"></view> </view> 关于我们
+		</view>
+		<view class="tab-company-homepage" data-type="about" bindtap="todoAction">
+			<view class="left">
+				<view class="img-box"></view>
+			</view>
+			<view class="content">
+				<view class="company-name">{{detail.recruiterInfo.companyName}}</view>
+				<view class="infos">移动互联网 · B论 · 20-99人</view>
+			</view>
+			<view class="right">
+				<i class="icon iconfont icon-xiangyou"></i>
+			</view>
+		</view>
+		<view class="tab-company-address">
+			<i class="icon iconfont icon-dizhi"></i>
+			<text>{{detail.address}}</text>
+			<i class="icon iconfont icon-xiangyou"></i>
+		</view>
+		<view class="detail">
+			<view class="rich-text">{{companyInfos.intro}}</view>
+		</view>
+	</view>
+	<view class="make-homepage" wx:if="{{identity === 'APPLICANT'}}">
+		<view>
+			我也要制作招聘主页
+			<i class="icon iconfont icon-disejiantou-you"></i>
+		</view>
+		<view class="collect" data-type="collect" bindtap="todoAction"><i class="icon iconfont icon-ganxingqu"></i></view>
+	</view>
+	<view class="box-chat" wx:if="{{identity === 'APPLICANT'}}">
+		<view class="img-box"></view>
+		<view class="content">
+			<view class="first">
+				<view class="name">张炽杰</view>
+				<view class="hunter-infos"><view class="strong">{{detail.recruiterInfo.positionNum}}</view>个职位</view>
+			</view>
+			<view class="second">
+				工作不易，知音难觅，壮士约乎？工作不易，知音难觅，壮士约乎？
+			</view>
+		</view>
+		<view class="button-box" bindtap="todoAction" data-type="chat">开撩约面</view>
+	</view>
+	<view class="edit-position" wx:if="{{identity === 'RECRUITER'}}">
+		<view class="edit-button" data-type="edit" bindtap="todoAction">编辑职位</view>
+		<view
+			class="switch-open-button"
+			bindtap="todoAction"
+			data-type="{{detail.status === 0 ? 'open' : 'close'}}">
+				{{detail.status === 0 ? '开放职位' : '关闭职位'}}
+		</view>
+	</view>
 </view>

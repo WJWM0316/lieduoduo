@@ -1,4 +1,4 @@
-//app.js
+      //app.js
 import {loginApi} from 'api/pages/auth.js'
 import {getPersonalResumeApi} from 'api/pages/center.js'
 import {getRecruiterDetailApi} from 'api/pages/recruiter.js'
@@ -18,7 +18,7 @@ App({
     this.checkLogin()
   },
   globalData: {
-    identity: wx.getStorageSync('choseType') || 'APPLICAN', // 身份标识
+    identity: wx.getStorageSync('choseType'), // 身份标识
     hasLogin: false, // 判断是否登录
     userInfo: '', // 用户信息， 判断是否授权
     navHeight: 0,

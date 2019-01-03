@@ -7,7 +7,6 @@ Page({
     avatarId: ''
   },
   getresult (val) {
-    console.log(val, '777777777777777')
     this.workTime = val.detail.propsResult
   },
   formSubmit (e) {

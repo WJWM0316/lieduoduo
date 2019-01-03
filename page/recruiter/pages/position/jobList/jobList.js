@@ -5,32 +5,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    items: [
-      {
-        title: '微信小程序前端开发工程师如果超长就…',
-        price: '20k~30k',
-        address: '广州市天河区',
-        xueli: '不限'
-      },
-      {
-        title: '微信小程序前端开发工程师如果超长就…',
-        price: '20k~30k',
-        address: '广州市天河区',
-        xueli: '不限'
-      },
-      {
-        title: '微信小程序前端开发工程师如果超长就…',
-        price: '20k~30k',
-        address: '广州市天河区',
-        xueli: '不限'
-      },
-      {
-        title: '微信小程序前端开发工程师如果超长就…',
-        price: '20k~30k',
-        address: '广州市天河区',
-        xueli: '不限'
-      }
-    ]
+    items: []
   },
 
   /**
@@ -41,10 +16,19 @@ Page({
       recruiter: 5
     }
     getPositionListApi(data).then(res => {
-      console.log(res)
+      this.setData({items: res.data})
     })
   },
-
+  radioChange(e) {
+    let data = wx.getStorageSync('interviewData') || {}
+    let job = e.detail.value.split(' ')
+    data.positionName = job[0]
+    data.positionId = job[1]
+    wx.setStorageSync('interviewData', data)
+    wx.navigateBack({
+      delta: 1
+    })
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

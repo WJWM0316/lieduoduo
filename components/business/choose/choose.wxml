@@ -2,4 +2,5 @@
 <view class="choose" wx:if="{{!isChose}}">
   <button bindtap='jump' data-identity="RECRUITER" open-type="getUserInfo" bindgetuserinfo="onGotUserInfo" lang="zh_CN">招聘者</button>
   <button bindtap='jump' data-identity="APPLICANT" open-type="getUserInfo" bindgetuserinfo="onGotUserInfo" lang="zh_CN">应聘者</button>
+  <!-- <bindPhone></bindPhone> -->
 </view>
