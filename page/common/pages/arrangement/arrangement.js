@@ -46,7 +46,7 @@ Page({
     dateList = dateList.join(",")
     let info = this.data.info
     let data = {
-      interviewId: 81,
+      interviewId: this.data.options.id,
       realname: info.recruiterRealname,
       mobile: info.recruiterMobile,
       positionId: info.positionId,
@@ -62,7 +62,7 @@ Page({
    */
   onLoad: function (options) {
     this.setData({options})
-    interviewDetailApi({interviewId: 81}).then(res => {
+    interviewDetailApi({interviewId: options.id}).then(res => {
       this.setData({info: res.data})
     })
   },
