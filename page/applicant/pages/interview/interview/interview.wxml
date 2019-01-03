@@ -28,8 +28,8 @@
 	</view>
 	<myCalendar wx:if="{{tabParentIndex === 2}}" calendarType="roll" setDateList="{{dateList}}" switchable bindresultEvent="getResult"></myCalendar>
 	<view class="interview-page-title" wx:if="{{tabParentIndex === 2}}">
-		<view class="text">面试安排（0）</view>
+		<view class="text">面试安排(0)</view>
 		<view class="button">面试历史</view>
 	</view>
-  <interviewList list="{{companyList}}" list-type="{{tabParentIndex === 2 ? 'interview' : 'default'}}"></interviewList>
+  <interviewList personality="list" list="{{companyList}}" list-type="{{tabParentIndex === 2 ? 'interview' : 'default'}}"></interviewList>
 </view>
