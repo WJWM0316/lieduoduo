@@ -5,14 +5,6 @@ import {
 } from '../../../../api/pages/position.js'
 
 import {
-  applyInterviewApi
-} from '../../../../api/pages/interview.js'
-
-import {
-  getCompanyInfosApi
-} from '../../../../api/pages/company.js'
-
-import {
   getMycollectPositionApi
 } from '../../../../api/pages/collect.js'
 
@@ -29,7 +21,10 @@ Page({
     identity: '',
     detail: {},
     query: {},
-    companyInfos: {}
+    // 是否是我发布
+    isOwerner: true,
+    companyInfos: {},
+    recruiterInfo: {}
   },
   /**
    * 生命周期函数--监听页面加载
@@ -38,23 +33,6 @@ Page({
     // getApp().globalData.identity = 'RECRUITER'
     this.setData({query: options, identity: getApp().globalData.identity})
     this.getPositionDetail()
-    this.getCompanyDetail()
-  },
-  /**
-   * @Author   小书包
-   * @DateTime 2019-01-02
-   * @detail   获取公司详情
-   * @return   {[type]}   [description]
-   */
-  getCompanyDetail() {
-    getCompanyInfosApi({id: this.data.query.companyId})
-      .then(res => {
-        this.setData({companyInfos: res.data})
-        console.log(res.data)
-      })
-      .catch(err => {
-        app.wxToast({title: err.msg})
-      })
   },
   /**
    * @Author   小书包
@@ -65,10 +43,14 @@ Page({
   getPositionDetail() {
     getPositionApi({id: this.data.query.positionId})
       .then(res => {
-        this.setData({detail: res.data})
-      })
-      .catch(err => {
-        app.wxToast({title: err.msg})
+        this.setData({detail: res.data, companyInfos: res.data.companyInfo, recruiterInfo: res.data.recruiterInfo})
+        app.getAllInfo()
+          .then(userInfos => {
+            this.setData({isOwner: userInfos.uid === res.data.recruiterInfo.uid})
+            if(userInfos.uid === res.data.recruiterInfo.uid) {
+              wx.setStorageSync('choseType', 'RECRUITER')
+            }
+          })
       })
   },
   /**
@@ -85,17 +67,11 @@ Page({
           .then(res => {
             this.getPositionDetail()
           })
-          .catch(err => {
-            app.wxToast({title: err.msg})
-          })
         break
       case 'close':
         closePositionApi({id: this.data.detail.id})
           .then(res => {
             this.getPositionDetail()
-          })
-          .catch(err => {
-            app.wxToast({title: err.msg})
           })
         break
       case 'collect':
@@ -103,13 +79,10 @@ Page({
           .then(res => {
             this.getPositionDetail()
           })
-          .catch(err => {
-            app.wxToast({title: err.msg})
-          })
         break
       case 'chat':
-        // applyInterviewApi({recruiterUid: 90, positionId: 38})
-        applyInterviewApi({recruiterUid: this.data.detail.recruiterInfo.uid, positionId: this.data.detail.id})
+        applyInterviewApi({recruiterUid: 90, positionId: 39})
+        // applyInterviewApi({recruiterUid: this.data.detail.recruiterInfo.uid, positionId: this.data.detail.id})
         break
       case 'edit':
         wx.navigateTo({url: `${RECRUITER}position/post/post?positionId=${this.data.detail.id}`})

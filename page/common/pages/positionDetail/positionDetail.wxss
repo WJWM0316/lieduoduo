@@ -275,7 +275,7 @@
 	transform: translateY(-50%);
 }
 
-.box-chat {
+.interview-bar {
   height:138rpx;
   background:rgba(255,255,255,1);
   box-shadow:0rpx -6rpx 20rpx 0rpx rgba(34,56,101,0.08);
@@ -292,90 +292,7 @@
   display: flex;
 }
 
-.box-chat .img-box{
-  width:100rpx;
-	height:100rpx;
-	border:3rpx solid rgba(255,255,255,1);
-	background: gray;
-	border-radius: 50%;
-	margin-right: 12rpx;
-}
-
-.box-chat .button-box{
-  width:250rpx;
-	height:80rpx;
-	background:rgba(101,39,145,1);
-	border-radius:40rpx;
-	margin: 10rpx 0;
-	margin-left: 12rpx;
-	text-align: center;
-	line-height: 80rpx;
-	font-size:28rpx;
-	font-weight:500;
-	color:rgba(255,255,255,1);
-}
-
-.box-chat .content {
-  flex: 1;
-  position: relative;
-}
-
-.box-chat .first {
-  line-height: 1;
-  margin-top: 15rpx;
-}
-
-.box-chat .second {
-  line-height: 1;
-	font-size:22rpx;
-	font-weight:300;
-	color:rgba(40,40,40,1);
-	width: 100%;
-	overflow: hidden;
-	text-overflow: ellipsis;
-	white-space: nowrap;
-	width: 330rpx;
-	margin-top: 15rpx;
-}
-
-.box-chat .name {
-	font-size:32rpx;
-	font-weight:500;
-	color:rgba(40,40,40,1);
-	display: inline-block;
-}
-
-.box-chat .hunter-infos {
-	font-size:22rpx;
-	font-weight:500;
-	color:#929292;
-	display: inline-block;
-}
-
-.box-chat .strong {
-	color:#8452A7;
-	display: inline-block;
-	margin-left: 10rpx;
-}
-
-.edit-position {
-  height:138rpx;
-  background:rgba(255,255,255,1);
-  box-shadow:0rpx -6rpx 20rpx 0rpx rgba(34,56,101,0.08);
-  border-radius:28rpx 28rpx 0rpx 0rpx;
-  background: white;
-  width: 100%;
-  position:fixed;
-  z-index: 1000;
-  left: 0;
-  bottom: 0;
-  overflow: hidden;
-  box-sizing: border-box;
-  padding: 20rpx;
-  display: flex;
-}
-
-.edit-position .edit-button {
+.interview-bar .edit-button {
   width: 250rpx;
   margin-right: 20rpx;
   height:80rpx;
@@ -389,7 +306,7 @@
 	color:black;
 }
 
-.edit-position .switch-open-button {
+.interview-bar .switch-open-button {
   flex: 1;
 	height:80rpx;
 	background:rgba(101,39,145,1);

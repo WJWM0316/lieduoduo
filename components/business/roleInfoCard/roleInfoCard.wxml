@@ -16,7 +16,7 @@
       </view>
     </view>
     <view class="contact">
-      <view class="mobile" bindtap="makePhoneCall">手机：<text class="txt">{{cardData.mobile}}</text></view>
+      <view class="mobile" bindtap="makePhoneCall">手机：<text class="txt">{{cardData.mobile || cardData.jobhunterMobile}}</text></view>
       <view class="wechat" bindtap="setClipboardData" wx:if="{{cardData.wechat}}">微信：<text class="txt">{{cardData.wechat}}</text></view>
     </view>
   </block>

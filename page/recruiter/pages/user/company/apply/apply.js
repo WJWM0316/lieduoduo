@@ -15,22 +15,11 @@ Page({
   },
   onLoad() {
     getApp().globalData.identity = 'RECRUITER'
-    this.init()
-  },
-  /**
-   * @Author   小书包
-   * @DateTime 2018-12-21
-   * @detail   初始化页面
-   * @return   {[type]}   [description]
-   */
-  init() {
-    wx.getStorage({
-      key: 'createdCompanyBase',
-      success: res => {
-        const params = ['real_name', 'user_email', 'user_position', 'canClick']
-        params.map(field => this.setData({ [field]: res.data[field] }))
-      }
-    })
+    const storage = wx.getStorageSync('createdCompany')
+    const params = ['real_name', 'user_email', 'user_position']
+    if(!storage) return
+    params.map(field => this.setData({ [field]: storage[field] }))
+    this.bindBtnStatus()
   },
   /**
    * @Author   小书包
@@ -79,26 +68,14 @@ Page({
       !positionReg.test(this.data.user_position) ? reject('请填写有效的公司地址') : resolve()
     })
 
-    Promise.all([checkRealName, checkUserEmail, checkUserPosition])
-           .then(res => {
-            // const url = `${RECRUITER}user/company/find/find?real_name=${this.data.real_name}&user_email=${this.data.user_email}&user_position=${this.data.user_position}`
-            wx.navigateTo({url: `${RECRUITER}user/company/find/find`})
-            this.saveFormData()
-           })
-           .catch(err => {
-              app.wxToast({title: err})
-           })
-  },
-  /**
-   * @Author   小书包
-   * @DateTime 2018-12-21
-   * @detail   保存当前页面的编辑数据
-   * @return   {[type]}   [description]
-   */
-  saveFormData() {
-    wx.setStorage({
-      key: 'createdCompanyBase',
-      data: this.data
-    })
+    Promise
+      .all([checkRealName, checkUserEmail, checkUserPosition])
+      .then(res => {
+        wx.navigateTo({url: `${RECRUITER}user/company/find/find`})
+        wx.setStorageSync('createdCompany', this.data)
+      })
+      .catch(err => {
+        app.wxToast({title: err})
+      })
   }
 })

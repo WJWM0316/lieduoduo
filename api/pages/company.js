@@ -181,3 +181,12 @@ export const getCompanyAddressListApi = (data, isLoading) => {
     isLoading: true
   })
 }
+
+// 搜索公司
+export const getCompanyNameListApi = (data, isLoading) => {
+  return request({
+    method: 'get',
+    url: `/company/namelist`,
+    isLoading: true
+  })
+}

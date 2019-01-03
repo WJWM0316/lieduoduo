@@ -4,7 +4,7 @@
 		<image class="bgImg" src="../../../../images/company_banner.png" mode="aspectFill"></image>
 		<view class="box">
 			<view class="company-logo"></view>
-			<view class="title">36氪新闻事业部</view>
+			<view class="title">{{companyInfos.companyName}}</view>
 			<view class="infos">移动互联网 | B轮 | 20-99人</view>
 		</view>
 		<shareBtn></shareBtn>

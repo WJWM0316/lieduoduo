@@ -1,3 +1,8 @@
+
+import {
+  getCompanyInfosApi
+} from '../../../../api/pages/company.js'
+
 import {RECRUITERHOST, COMMON} from '../../../../config.js'
 
 Page({
@@ -40,7 +45,29 @@ Page({
         height: 50
       },
       clickable: true
-    }]
+    }],
+    query: {},
+    companyInfos: {}
+  },
+  onLoad(options) {
+    this.setData({query: options})
+    this.getCompanyDetail()
+  },
+  /**
+   * @Author   小书包
+   * @DateTime 2019-01-02
+   * @detail   获取公司详情
+   * @return   {[type]}   [description]
+   */
+  getCompanyDetail() {
+    getCompanyInfosApi({id: this.data.query.companyId})
+      .then(res => {
+        this.setData({companyInfos: res.data})
+        console.log(res.data)
+      })
+      .catch(err => {
+        app.wxToast({title: err.msg})
+      })
   },
   onTabClick(e) {
     const tab = e.currentTarget.dataset.tab
@@ -70,13 +97,13 @@ Page({
     })
   },
   regionchange(e) {
-    console.log(e.type)
+    // console.log(e.type)
   },
   markertap(e) {
-    console.log(e.markerId)
+    // console.log(e.markerId)
   },
   controltap(e) {
-    console.log(e.controlId)
+    // console.log(e.controlId)
   },
   /**
    * @Author   小书包

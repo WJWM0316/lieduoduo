@@ -1,0 +1,22 @@
+<view class="interview-bar">
+	<block wx:if="{{!isOwner}}">
+	<view class="img-box"></view>
+	<view class="content">
+		<view class="first">
+			<view class="name">{{infos.recruiterInfo.name}}</view>
+			<view class="hunter-infos"><view class="strong">{{infos.recruiterInfo.positionNum}}</view>个职位</view>
+		</view>
+		<view class="second">{{slogoList[slogoIndex].text}}</view>
+	</view>
+	<view class="button-box" bindtap="todoAction" data-type="chat">开撩约面</view>
+	</block>
+	<block wx:else>
+		<view class="edit-button" data-type="edit" bindtap="todoAction">编辑</view>
+		<view
+			class="switch-open-button"
+			bindtap="todoAction"
+			data-type="{{infos.status === 0 ? 'open' : 'close'}}">
+				{{infos.status === 0 ? '开放职位' : '关闭职位'}}
+		</view>
+	</block>
+</view>

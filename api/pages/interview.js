@@ -1,4 +1,5 @@
 import { request } from '../require.js'
+
 // 招聘官撩约接口
 export const inviteInterviewApi = (data, isLoading) => {
   return request({
@@ -7,6 +8,7 @@ export const inviteInterviewApi = (data, isLoading) => {
     data
   })
 }
+
 // 求职端面试详情
 export const interviewDetailApi = (data, isLoading) => {
   return request({
@@ -15,6 +17,7 @@ export const interviewDetailApi = (data, isLoading) => {
     data
   })
 }
+
 // 招聘端面试安排设置
 export const setInterviewDetailApi = (data, isLoading) => {
   return request({

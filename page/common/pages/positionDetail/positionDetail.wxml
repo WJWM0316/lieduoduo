@@ -60,33 +60,12 @@
 			<view class="rich-text">{{companyInfos.intro}}</view>
 		</view>
 	</view>
-	<view class="make-homepage" wx:if="{{identity === 'APPLICANT'}}">
+	<view class="make-homepage" wx:if="{{ !isOwner }}">
 		<view>
 			我也要制作招聘主页
 			<i class="icon iconfont icon-disejiantou-you"></i>
 		</view>
 		<view class="collect" data-type="collect" bindtap="todoAction"><i class="icon iconfont icon-ganxingqu"></i></view>
 	</view>
-	<view class="box-chat" wx:if="{{identity === 'APPLICANT'}}">
-		<view class="img-box"></view>
-		<view class="content">
-			<view class="first">
-				<view class="name">张炽杰</view>
-				<view class="hunter-infos"><view class="strong">{{detail.recruiterInfo.positionNum}}</view>个职位</view>
-			</view>
-			<view class="second">
-				工作不易，知音难觅，壮士约乎？工作不易，知音难觅，壮士约乎？
-			</view>
-		</view>
-		<view class="button-box" bindtap="todoAction" data-type="chat">开撩约面</view>
-	</view>
-	<view class="edit-position" wx:if="{{identity === 'RECRUITER'}}">
-		<view class="edit-button" data-type="edit" bindtap="todoAction">编辑职位</view>
-		<view
-			class="switch-open-button"
-			bindtap="todoAction"
-			data-type="{{detail.status === 0 ? 'open' : 'close'}}">
-				{{detail.status === 0 ? '开放职位' : '关闭职位'}}
-		</view>
-	</view>
+	<interviewBar infos="{{ detail }}" isOwner="{{ isOwner }}" bindresultevent="getPositionDetail"></interviewBar>
 </view>
