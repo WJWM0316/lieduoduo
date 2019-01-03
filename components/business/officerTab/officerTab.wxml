@@ -3,7 +3,8 @@
   <view class="officerTab"
     wx:for="{{ list }}"
     wx:key="{{index}}"
-    bindtap="routeJump">
+    bindtap="routeJump"
+    data-companyId="{{item.id}}">
     <view class="headerImg">
       <image src="{{item.avatar}}"></image>
     </view>

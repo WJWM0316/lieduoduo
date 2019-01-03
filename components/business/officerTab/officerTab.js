@@ -21,6 +21,10 @@ Component({
    * 组件的方法列表
    */
   methods: {
-
+    routeJump () {
+      wx.navigateTo({
+        url: '/page/common/pages/positionDetail/positionDetail?positionId=33&companyId=2'
+      })
+    }
   }
 })
