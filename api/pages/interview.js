@@ -45,3 +45,29 @@ export const sureInterviewApi = (data, isLoading) => {
   })
 }
 
+//求职者申请列表
+export const getApplyListApi = (data, isLoading) => {
+  return request({
+    method: 'get',
+    url: '/interview/apply',
+    data
+  })
+}
+
+//收到邀请列表
+export const getInviteListApi = (data, isLoading) => {
+  return request({
+    method: 'get',
+    url: '/interview/invite',
+    data
+  })
+}
+
+//收到邀请列表
+export const getScheduleListApi = (data, isLoading) => {
+  return request({
+    method: 'get',
+    url: '/interview/schedule',
+    data
+  })
+}

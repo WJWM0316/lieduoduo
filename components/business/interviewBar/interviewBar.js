@@ -1,8 +1,24 @@
+import {
+  applyInterviewApi
+} from '../../../api/pages/interview.js'
+
+import {
+  getPositionApi,
+  openPositionApi,
+  closePositionApi
+} from '../../../api/pages/position.js'
+
+import {RECRUITER, COMMON} from '../../../config.js'
+
 Component({
   properties: {
     infos: {
       type: Object,
       value: {}
+    },
+    isOwner: {
+      type: Boolean,
+      value: false
     }
   },
 
@@ -39,6 +55,50 @@ Component({
   methods: {
     getRandom() {
       return Math.floor(Math.random() * this.data.slogoList.length + 1)
+    },
+    /**
+     * @Author   小书包
+     * @DateTime 2019-01-02
+     * @detail   待办项
+     * @return   {[type]}     [description]
+     */
+    todoAction(e) {
+      const type = e.currentTarget.dataset.type
+      switch(type) {
+        case 'open':
+          openPositionApi({id: this.data.infos.id})
+            .then(res => {
+              this.triggerEvent('resultevent', res)
+            })
+          break
+        case 'close':
+          closePositionApi({id: this.data.infos.id})
+            .then(res => {
+              this.triggerEvent('resultevent', res)
+            })
+          break
+        case 'collect':
+          getMycollectPositionApi({id: this.data.infos.id})
+            .then(res => {
+              this.triggerEvent('resultevent', res)
+            })
+          break
+        case 'chat':
+          // applyInterviewApi({recruiterUid: 90, positionId: 39})
+          applyInterviewApi({recruiterUid: this.data.infos.recruiterInfo.uid, positionId: this.data.infos.id})
+            .then(res => {
+              this.triggerEvent('resultevent', res)
+            })
+          break
+        case 'edit':
+          wx.navigateTo({url: `${RECRUITER}position/post/post?positionId=${this.data.infos.id}`})
+          break
+        case 'about':
+          wx.navigateTo({url: `${COMMON}homepage/homepage?companyId=${this.data.infos.companyId}`})
+          break
+        default:
+          break
+      }
     }
   }
 })

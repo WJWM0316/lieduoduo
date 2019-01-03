@@ -94,7 +94,8 @@
         "pages/user/company/member/member",
         "pages/user/company/homepage/homepage",
         "pages/user/company/features/features",
-        "pages/detail/position/position"
+        "pages/detail/position/position",
+        "pages/test/test"
       ]
     }
   ],

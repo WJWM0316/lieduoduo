@@ -8,3 +8,12 @@ export const getUserInfoApi = (data, isLoading) => {
     isLoading: false
   })
 }
+
+export const postFormIdApi = (data, isLoading) => {
+  return request({
+    method: 'post',
+    url: '/wechat/mini/formIds',
+    data,
+    isLoading: false
+  })
+}

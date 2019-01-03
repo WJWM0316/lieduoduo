@@ -30,15 +30,36 @@ App({
   },
   // 获取最全的角色信息
   getAllInfo() {
-    if (wx.getStorageSync('choseType') === 'APPLICANT') {
-      getPersonalResumeApi().then(res0 => {
-        this.globalData.resumeInfo = res0.data
-      })
-    } else {
-      getRecruiterDetailApi().then(res0 => {
-        this.globalData.recruiterDetails = res0.data
-      })
-    }
+    return new Promise((resolve, reject) => {
+      if (wx.getStorageSync('choseType') === 'APPLICANT') {
+        if(!this.globalData.resumeInfo.uid) {
+          getPersonalResumeApi().then(res0 => {
+            this.globalData.resumeInfo = res0.data
+            resolve(res0.data)
+          })
+        } else {
+          resolve(this.globalData.resumeInfo)
+        }
+      } else {
+        if(!this.globalData.recruiterDetails.uid) {
+          getRecruiterDetailApi().then(res0 => {
+            this.globalData.recruiterDetails = res0.data
+            resolve(res0.data)
+          })
+        } else {
+          resolve(this.globalData.recruiterDetails)
+        }
+      }
+    })
+    // if (wx.getStorageSync('choseType') === 'APPLICANT') {
+    //   getPersonalResumeApi().then(res0 => {
+    //     this.globalData.resumeInfo = res0.data
+    //   })
+    // } else {
+    //   getRecruiterDetailApi().then(res0 => {
+    //     this.globalData.recruiterDetails = res0.data
+    //   })
+    // }
   },
   // 检查登录
   checkLogin () {
