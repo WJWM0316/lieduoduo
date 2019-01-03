@@ -3,9 +3,8 @@
   <view
 		class="li personality"
 		wx:for="{{ list }}"
-		wx:for-item="item"
 		wx:key="{{item.id}}"
-		data-item-id="{{item.id}}"
+		data-item="{{item}}"
 		bindtap="routeJump">
     <!-- 职位名称 -->
     <view class="name">
