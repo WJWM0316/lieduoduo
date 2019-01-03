@@ -60,21 +60,12 @@
 			<view class="rich-text">{{companyInfos.intro}}</view>
 		</view>
 	</view>
-	<view class="make-homepage" wx:if="{{identity === 'APPLICANT'}}">
+	<view class="make-homepage" wx:if="{{ !isOwner }}">
 		<view>
 			我也要制作招聘主页
 			<i class="icon iconfont icon-disejiantou-you"></i>
 		</view>
 		<view class="collect" data-type="collect" bindtap="todoAction"><i class="icon iconfont icon-ganxingqu"></i></view>
 	</view>
-	<interviewBar infos="{{detail}}" wx:if="detail.id"></interviewBar>
-<!-- 	<view class="edit-position" wx:else>
-		<view class="edit-button" data-type="edit" bindtap="todoAction">编辑职位</view>
-		<view
-			class="switch-open-button"
-			bindtap="todoAction"
-			data-type="{{detail.status === 0 ? 'open' : 'close'}}">
-				{{detail.status === 0 ? '开放职位' : '关闭职位'}}
-		</view>
-	</view> -->
+	<interviewBar infos="{{ detail }}" isOwner="{{ isOwner }}" bindresultevent="getPositionDetail"></interviewBar>
 </view>

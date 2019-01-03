@@ -5,10 +5,6 @@ import {
 } from '../../../../api/pages/position.js'
 
 import {
-  applyInterviewApi
-} from '../../../../api/pages/interview.js'
-
-import {
   getMycollectPositionApi
 } from '../../../../api/pages/collect.js'
 
@@ -41,22 +37,6 @@ Page({
   /**
    * @Author   小书包
    * @DateTime 2019-01-02
-   * @detail   获取公司详情
-   * @return   {[type]}   [description]
-   */
-  getCompanyDetail() {
-    getCompanyInfosApi({id: this.data.query.companyId})
-      .then(res => {
-        this.setData({companyInfos: res.data})
-        console.log(res.data)
-      })
-      .catch(err => {
-        app.wxToast({title: err.msg})
-      })
-  },
-  /**
-   * @Author   小书包
-   * @DateTime 2019-01-02
    * @detail   获取职位详情
    * @return   {[type]}   [description]
    */
@@ -64,9 +44,13 @@ Page({
     getPositionApi({id: this.data.query.positionId})
       .then(res => {
         this.setData({detail: res.data, companyInfos: res.data.companyInfo, recruiterInfo: res.data.recruiterInfo})
-      })
-      .catch(err => {
-        app.wxToast({title: err.msg})
+        app.getAllInfo()
+          .then(userInfos => {
+            this.setData({isOwner: userInfos.uid === res.data.recruiterInfo.uid})
+            if(userInfos.uid === res.data.recruiterInfo.uid) {
+              wx.setStorageSync('choseType', 'RECRUITER')
+            }
+          })
       })
   },
   /**
@@ -83,26 +67,17 @@ Page({
           .then(res => {
             this.getPositionDetail()
           })
-          .catch(err => {
-            app.wxToast({title: err.msg})
-          })
         break
       case 'close':
         closePositionApi({id: this.data.detail.id})
           .then(res => {
             this.getPositionDetail()
           })
-          .catch(err => {
-            app.wxToast({title: err.msg})
-          })
         break
       case 'collect':
         getMycollectPositionApi({id: this.data.detail.id})
           .then(res => {
             this.getPositionDetail()
-          })
-          .catch(err => {
-            app.wxToast({title: err.msg})
           })
         break
       case 'chat':
