@@ -7,7 +7,6 @@ const app = getApp()
 Page({
   data: {
     companyShortName: '',
-    company_name: '',
     canClick: false
   },
   /**
@@ -17,10 +16,11 @@ Page({
    * @return   {[type]}           [description]
    */
   onLoad(options) {
-    if(options.companyShortName) {
-      this.setData({ companyShortName: options.companyShortName, canClick: true, company_name: options.company_name})
-    } else {
-      this.setData({company_name: options.company_name})
+    const storage = wx.getStorageSync('createdCompany')
+
+    console.log(storage)
+    if(storage.companyShortName) {
+      this.setData({ companyShortName: storage.companyShortName, canClick: true})
     }
   },
   /**
@@ -50,7 +50,10 @@ Page({
    * @return   {[type]}   [description]
    */
   submit() {
+    const storage = wx.getStorageSync('createdCompany')
     if(!this.data.companyShortName) return;
-    wx.navigateTo({url: `${RECRUITER}user/company/post/post?companyShortName=${this.data.companyShortName}&company_name=${this.data.company_name}`})
+    storage.companyShortName = this.data.companyShortName
+    wx.setStorageSync('createdCompany', storage)
+    wx.navigateTo({url: `${RECRUITER}user/company/post/post`})
   }
 })

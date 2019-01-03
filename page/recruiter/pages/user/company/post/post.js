@@ -16,18 +16,21 @@ const app = getApp()
 Page({
   data: {
     company_name: '',
-    companyFinance: [],
-    companyEmployees: [],
     companyLabelField: [],
     // 所属行业
     industry_id: 0,
+    industry_id_name: '请选择行业范围',
+    // 行业领域
+    selected_industry_id: false,
     // 公司融资情况
     financing: 0,
-    // 员工人数范围
-    employees: 0,
-    selected_industry_id: false,
+    financingName: '请选择融资情况',
     selected_financing: false,
+    // 人员规模
+    employees: 0,
+    employeesName: '请选择人员规模',
     selected_employees: false,
+    // 公司简称
     companyShortName: '',
     canClick: false
   },
@@ -41,52 +44,33 @@ Page({
    * @detail   初始化页面数据
    * @return   {[type]}   [description]
    */
-  init(options) {
-    getCompanyFinancingApi()
-      .then(res => {
-        this.setData({companyFinance: res.data})
-      })
-    getCompanyEmployeesApi()
-      .then(res => {
-        const list = res.data
-        list.map(field => field.text = `${field.text}人`)
-        this.setData({companyEmployees: list})
-      })
+  init() {
+    const storage = wx.getStorageSync('createdCompany')
     getLabelFieldApi()
       .then(res => {
         this.setData({companyLabelField: res.data})
       })
-    wx.getStorage({
-      key: 'createCompanyInfos',
-      success: res => {
-        const params = [
-          'companyFinance',
-          'companyEmployees',
-          'companyLabelField',
-          'industry_id',
-          'financing',
-          'employees',
-          'selected_industry_id',
-          'selected_financing',
-          'selected_employees',
-          'canClick'
-        ]
-        params.map(field => this.setData({ [field]: res.data[field] }))
-        this.bindBtnStatus()
-      }
+    const params = [
+      'companyLabelField',
+      'industry_id',
+      'financing',
+      'employees',
+      'selected_industry_id',
+      'selected_financing',
+      'selected_employees',
+      'employeesName',
+      'financingName',
+      'industry_id_name',
+      'company_name',
+      'companyShortName',
+      'canClick'
+    ]
+    if(!storage) return;
+    params.map(field => {
+      if(storage[field]) this.setData({ [field]: storage[field] })
     })
-
-    // 判断是否输入了公司名称
-    if(options.company_name) {
-      this.setData({company_name: options.company_name})
-      this.bindBtnStatus()
-    }
-
-    // 判断是否输入了公司简称
-    if(options.companyShortName) {
-      this.setData({companyShortName: options.companyShortName})
-      this.bindBtnStatus()
-    }
+    console.log(storage)
+    this.bindBtnStatus()
   },
   /**
    * @Author   小书包
@@ -120,22 +104,10 @@ Page({
    * @return   {[type]}     [description]
    */
   bindChange(e) {
-    const key = e.currentTarget.dataset.key
-    this.setData({
-      [key]: parseInt(e.detail.value),
-      [`selected_${key}`]: true
-    })
+    const index = parseInt(e.detail.value)
+    const companyLabelField = this.data.companyLabelField
+    this.setData({industry_id: companyLabelField[index].labelId, selected_industry_id: true, industry_id_name: companyLabelField[index].name})
     this.bindBtnStatus()
-  },
-  /**
-   * @Author   小书包
-   * @DateTime 2018-12-21
-   * @detail   修改公司简称
-   * @return   {[type]}   [description]
-   */
-  jumpModifyCompanyShortName() {
-    wx.navigateTo({url: `${RECRUITER}user/company/abbreviation/abbreviation?companyShortName=${this.data.companyShortName}&company_name=${this.data.company_name}`})
-    this.saveFormData()
   },
   /**
    * @Author   小书包
@@ -144,9 +116,44 @@ Page({
    * @return   {[type]}   [description]
    */
   saveFormData() {
-    wx.setStorage({
-      key: 'createCompanyInfos',
-      data: this.data
-    })
+    const storage = wx.getStorageSync('createdCompany')
+    wx.setStorageSync('createdCompany', Object.assign(storage, this.data))
+  },
+  /**
+   * @Author   小书包
+   * @DateTime 2019-01-03
+   * @detail   获取人员规模
+   * @return   {[type]}   [description]
+   */
+  getStaffMembers(res) {
+    this.setData({employees: res.detail.propsResult, employeesName: res.detail.propsDesc, selected_employees: true})
+    this.bindBtnStatus()
+  },
+  /**
+   * @Author   小书包
+   * @DateTime 2019-01-03
+   * @detail   获取融资情况
+   * @return   {[type]}   [description]
+   */
+  getFinancing(res) {
+    this.setData({financing: res.detail.propsResult, financingName: res.detail.propsDesc, selected_financing: true})
+    this.bindBtnStatus()
+  },
+  /**
+   * @Author   小书包
+   * @DateTime 2019-01-03
+   * @detail   待办项
+   * @return   {[type]}   [description]
+   */
+  todoActions(e) {
+    const type = e.currentTarget.dataset.type
+    switch(type) {
+      case 'modify':
+        wx.navigateTo({url: `${RECRUITER}user/company/abbreviation/abbreviation`})
+        this.saveFormData()
+        break
+      default:
+        break
+    }
   }
 })

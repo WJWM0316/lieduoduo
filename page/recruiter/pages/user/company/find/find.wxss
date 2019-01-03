@@ -1,11 +1,19 @@
-.company-list-ul {
-	overflow: hidden;
-	margin-top: 50px;
-}
-
-.company-list-ul .li {
+.search-company-page .li {
 	height: 100rpx;
 	line-height: 100rpx;
+}
+
+.search-company-page .input-row {
+	display: flex;
+}
+
+.search-company-page .company-name {
+	flex: 1;
+	font-size: 30rpx;
+}
+
+.search-company-page .btn-search {
+	width: 150rpx;
 }
 
 .button-enable {

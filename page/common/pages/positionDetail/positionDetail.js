@@ -108,8 +108,8 @@ Page({
           })
         break
       case 'chat':
-        // applyInterviewApi({recruiterUid: 90, positionId: 38})
-        applyInterviewApi({recruiterUid: this.data.detail.recruiterInfo.uid, positionId: this.data.detail.id})
+        applyInterviewApi({recruiterUid: 90, positionId: 39})
+        // applyInterviewApi({recruiterUid: this.data.detail.recruiterInfo.uid, positionId: this.data.detail.id})
         break
       case 'edit':
         wx.navigateTo({url: `${RECRUITER}position/post/post?positionId=${this.data.detail.id}`})

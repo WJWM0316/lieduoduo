@@ -5,7 +5,7 @@
 			<view class="text">公司全称</view>
 			<view class="text2">{{company_name}}</view>
 		</view>
-		<view class="li link" bindtap="jumpModifyCompanyShortName">
+		<view class="li link" bindtap="todoActions" data-type="modify">
 			<view class="text">公司简介</view>
 			<i class="icon iconfont icon-zhishibiao"></i>
 			<view class="text2">{{companyShortName}}</view>
@@ -13,44 +13,35 @@
 		<view class="li">
 			<i class="icon iconfont icon-zhishibiao"></i>
 			<view class="text">所属行业</view>
-			<picker
-				range="{{ companyLabelField }}" 
-				mode="selector" 
-				value="{{ companyLabelField[industry_id] }}" 
-				range-key="{{ 'name' }}"
-				bindchange="bindChange"
-				data-key="industry_id">
-		    <view class="text2" wx:if="{{!selected_industry_id}}">请选择</view>
-		    <view class="text2" wx:else>{{ companyLabelField[industry_id].name }}</view>
-		  </picker>
+			<view class="text2">{{industry_id_name}}</view>
+			<view class="picker-box">
+				<picker
+					range="{{ companyLabelField }}" 
+					mode="selector" 
+					value="{{ companyLabelField[industry_id] }}" 
+					range-key="{{ 'name' }}"
+					bindchange="bindChange"
+					data-key="industry_id">
+			    <view class="text2" wx:if="{{!selected_industry_id}}">请选择</view>
+			    <view class="text2" wx:else>{{ companyLabelField[industry_id].name }}</view>
+			  </picker>
+			</view>
 		</view>
 		<view class="li">
 			<view class="text">融资阶段</view>
 			<i class="icon iconfont icon-zhishibiao"></i>
-			<picker
-				range="{{ companyFinance }}" 
-				mode="selector" 
-				value="{{ companyFinance[financing] }}" 
-				range-key="{{ 'text' }}"
-				bindchange="bindChange"
-				data-key="financing">
-				<view class="text2" wx:if="{{!selected_financing}}">请选择</view>
-		    <view class="text2" wx:else>{{ companyFinance[financing].text }}</view>
-		  </picker>
+		  <view class="text2">{{financingName}}</view>
+			<view class="picker-box">
+				<myPicker setResult="{{ financingName }}" pickerType="financing" bindresultevent="getFinancing" rangeKey="name"></myPicker>
+			</view>
 		</view>
 		<view class="li">
 			<i class="icon iconfont icon-zhishibiao"></i>
 			<view class="text">人员规模</view>
-			<picker 
-				range="{{ companyEmployees }}" 
-				bindchange="bindChange" 
-				data-key="employees" 
-				mode="selector" 
-				value="{{ companyEmployees[employees] }}" 
-				range-key="{{ 'text' }}">
-				<view class="text2" wx:if="{{!selected_employees}}">请选择</view>
-		    <view class="text2"  wx:else>{{ companyEmployees[employees].text }}</view>
-		  </picker>
+		  <view class="text2">{{employeesName}}</view>
+			<view class="picker-box">
+				<myPicker setResult="{{ employeesName }}" pickerType="staffMembers" bindresultevent="getStaffMembers" rangeKey="name"></myPicker>
+			</view>
 		</view>
 	  <view class="btn-area">
 	    <button form-type="submit" class="{{canClick ? 'button-enable' : ''}}">下一步</button>
