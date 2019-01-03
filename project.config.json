@@ -72,8 +72,8 @@
 				},
 				{
 					"id": 5,
-					"name": "求职者个人中心",
-					"pathName": "page/applicant/pages/officerActive/more/more",
+					"name": "职业机会",
+					"pathName": "page/applicant/pages/jobs/job/job",
 					"query": ""
 				},
 				{

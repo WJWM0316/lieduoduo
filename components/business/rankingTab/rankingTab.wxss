@@ -21,7 +21,7 @@
   width: 54rpx;
   height: 54rpx;
   border: 4rpx solid #FFFFFF;
-  background-color: #4E5258;
+  background-color: #8452A7;
   text-align: center;
   line-height: 54rpx;
   border-radius: 50%;
@@ -104,7 +104,7 @@
 }
 .ranking .left .bottom .value{
   margin-left: 10rpx;
-  color: #2878FF;
+  color: #652791;
 }
 .icon{
   width: 30rpx;

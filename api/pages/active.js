@@ -48,3 +48,11 @@ export const getCityRankApi = (data) => {
     data
   })
 }
+/* 浏览过的用户或招聘官信息 */
+export const geMyBrowseUsersApi = (data) => {
+  return request({
+    method: 'get',
+    url: '/browse/myBrowseUsers',
+    data
+  })
+}

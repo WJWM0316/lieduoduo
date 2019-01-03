@@ -4,6 +4,6 @@
     "auth": "../../../../components/functional/auth/auth",
     "bindPhone": "../../../../components/functional/bindPhone/bindPhone",
     "moreActive": "../../../../components/business/moreActive/moreActive",
-    "commonList": "../../../../components/business/commonList/commonList"
+    "commonList": "../../../../components/business/officerTab/officerTab"
   }
 }

@@ -96,7 +96,7 @@ bindresultEvent ： 用于父组件接收结果
       - startTime - 开始时间， 格式： XXXX年XX日
       - endTime- 结束时间， 格式： XXXX年XX日 
       - workTime- 开始工作时间，格式： XXXX年XX日
-      -  dateTime-选择面试时间，格式： XXXX年XX日XX日 XX:XX
+      - dateTime-选择面试时间，格式： XXXX年XX日XX日 XX:XX
       - birthday-生日时间， 格式： XXXX年XX日XX日
       - education-选择学历
       - sex-选择性别

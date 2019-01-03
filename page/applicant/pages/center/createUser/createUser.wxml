@@ -2,11 +2,9 @@
 <navbar title="完善简历第一步" background="#2878FF"></navbar>
 <view bindTab="send">完善简历第一步</view>
 <view>
+  <image c src="../../../../../images/pic_bg_new@3x.png"></image>
   <avatarCut avatar="avatar" src="{{avatarUrl}}"></avatarCut>
   <form bindsubmit="formSubmit" bindreset="formReset">
-    <view class="image">
-      <image name="integer" src="https://attach.lieduoduo.ziwork.com/images/topicBg.png"></image>
-    </view>
     <view class="name">
       <view class="section__title">职位名称</view>
       <input name="position" placeholder="职位名称" />

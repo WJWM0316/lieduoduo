@@ -3,7 +3,7 @@
   <picker
     class="picker"
     value="{{result}}"
-    mode='{{mode}}'
+    mode="{{mode}}"
     range="{{list}}"
     range-key="{{rangeKey}}"
     bindchange="change"

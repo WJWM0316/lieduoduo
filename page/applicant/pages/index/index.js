@@ -3,6 +3,7 @@
 import {RECRUITER, APPLICANT, COMMON} from '../../../../config.js'
 import {getSelectorQuery}  from '../../../../utils/util.js'
 import {getUserInfoApi} from '../../../../api/pages/user.js'
+import { geMyBrowseUsersApi } from '../../../../api/pages/active.js'
 const app = getApp()
 Page({
   data: {
@@ -51,6 +52,11 @@ Page({
     }
   },
   onShow() {
+    geMyBrowseUsersApi().then(res => {
+      this.setData({
+        companyList:res.data
+      })
+    })
     wx.setTabBarBadge({
       index: 2,
       text: '99+'

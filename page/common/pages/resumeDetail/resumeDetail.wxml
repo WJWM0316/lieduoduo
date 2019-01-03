@@ -1,6 +1,7 @@
 <!--求职者个人简历页-->
 <navbar title="老虎科技-CEO" background="#FFFFFF" color="#000"></navbar>
 <view class="resumeDetail">
+  <view class="share" wx:if="{{info.isOwner}}"><i class="icon iconfont icon-fenxiang"></i></view>
 <!-- 基本信息 -->
   <view class="personalInfo commentBox">
     <view class="top">
@@ -8,7 +9,7 @@
       <view class="info">
         <text class="name">{{info.name}}</text>
         <view>
-          <text>老虎科技</text> | <text>产品经理</text>
+          <text>{{info.lastCompanyName}}</text> | <text>{{info.lastPosition}}</text>
         </view>
       </view>
     </view>
@@ -18,7 +19,7 @@
       <view class="education"> <i class="icon iconfont icon-fujian"></i> {{info.degreeDesc}}</view>
       <view class="status">{{info.jobStatusDesc}}</view>
     </view>
-    <view class="line"></view>
+    <image class="line" src="../../../../images/line.png"></image>
     <view class="personalTip">
       <view class="text">“{{info.signature}}”</view>
       <view class="tipBox">
@@ -34,7 +35,11 @@
       <view>
         <view class="officeDetail"><text>{{item.position}} | {{item.city}}</text> <text class="salary">{{item.salaryFloor}}~{{item.saralyCeil}}K</text></view>
       </view>
-      <view class="officeInfo">电子商务 · 社交网络 · 企业服务</view>
+      <view class="officeInfo">
+        <text wx:if="{{item.fields[0]}}">{{item.fields[0].field}}</text>
+        <text wx:if="{{item.fields[1]}}"> · {{item.fields[1].field}}</text>
+        <text wx:if="{{item.fields[2]}}"> · {{item.fields[2].field}}</text>
+      </view>
     </view>
   </view>
   <!-- 工作经历 -->
@@ -89,7 +94,8 @@
   </view>
 </view>
 <!-- 底部开撩 -->
-<view class="bottomBox" wx:if="{{true}}">
+<view class="bottomBox" wx:if="{{info.interviewStatus}}">
+  <view class="collect"><i class="icon iconfont icon-ganxingqu"></i></view>
   <view class="communicate">
     <image src="{{info.avatar}}" class="hrAvatar"></image>
     <view>

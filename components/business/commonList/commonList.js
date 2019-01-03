@@ -1,4 +1,5 @@
 Component({
+  externalClasses: ['personality'],
   behaviors: [],
   properties: {
     // 传入的列表数据

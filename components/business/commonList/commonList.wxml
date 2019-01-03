@@ -1,6 +1,6 @@
 <view class="common-lits-ul">
 	<view
-		class="li"
+		class="li personality"
 		wx:for="{{ list }}"
 		wx:for-item="item"
 		wx:key="{{item.id}}"

@@ -1,11 +1,19 @@
-<view>
+<view class="search-company-page">
 	<navbar title="输入公司全名称" background="#FFFFFF" color="#22292C" showBackBtn="{{true}}"></navbar>
 	<form bindsubmit="submit">
-		<input class="mini-row-value" placeholder="请输入所属公司营业执照上的公司全称" bindinput="bindInput" value="{{company_name}}" />
-		<button form-type="submit" class="{{canClick ? 'button-enable' : ''}}">下一步</button>
-		<view class="company-list-ul">
-			<view class="li" bindtap="selectCompany" data-name="公司1" data-company-id="1">公司1</view>
-			<view class="li" bindtap="selectCompany" data-name="公司2" data-company-id="2">公司2</view>
+		<view class="input-row">
+			<input class="company-name" placeholder="请输入所属公司营业执照上的公司全称" bindinput="bindInput" value="{{company_name}}" />
+			<view class="btn-search" bindtap="search">搜索</view>
 		</view>
+		<view class="company-list-ul" wx:if="{{nameList.length > 0}}">
+			<view
+			class="li"
+			bindtap="selectCompany"
+			data-name="{{item.companyName}}"
+			wx:for="{{ nameList }}"
+			wx:for-item="item"
+			wx:key="{{index}}">{{item.companyName}}</view>
+		</view>
+		<button form-type="submit" class="{{canClick ? 'button-enable' : ''}}">下一步</button>
 	</form>
 </view>
