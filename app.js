@@ -5,6 +5,7 @@ import {getRecruiterDetailApi} from 'api/pages/recruiter.js'
 let app = getApp()
 App({
   onLaunch: function () {
+    wx.setStorageSync('choseType', 'APPLICANT')
     // 获取导航栏高度
     wx.getSystemInfo({
       success: res => {

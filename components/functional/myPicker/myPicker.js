@@ -38,7 +38,7 @@ Component({
     financing: [{name: '未融资', value: 1}, {name: '天使轮', value: 2}, {name: 'A轮', value: 3}, {name: 'B轮', value: 4}, {name: 'C轮', value: 5}, {name: 'D轮及以上', value: 6}, {name: '已上市', value: 7}, {name: '不需要融资', value: 8}],
     staffMembers: [{name: '0-20人', value: 1}, {name: '20-99人', value: 2}, {name: '100-499人', value: 3}, {name: '500-999人', value: 4}, {name: '1000人-9999人', value: 5}, {name: '10000人以上', value: 6}],
     experience: [{name: '不限', value: 1}, {name: '应届生', value: 2}, {name: '1以内', value: 3}, {name: '1-3', value: 4}, {name: '3-5', value: 5}, {name: '5-10', value: 6}, {name: '10以上', value: 7}],
-    jobStatus: [{name: '离职，随时到岗', value: 2}, {name: '在职，暂不考虑', value: 1}, {name: '在职，考虑机会', value: 4}, {name: '在职，内到岗', value: 3}],
+    jobStatus: [{name: '离职，随时到岗', value: 2}, {name: '在职，暂不考虑', value: 1}, {name: '在职，考虑机会', value: 4}, {name: '在职，月内到岗', value: 3}],
     education: [{name: '博士', value: 35}, {name: '硕士', value: 30}, {name: '本科', value: 25}, {name: '大专', value: 20}, {name: '中专/中技', value: 15}, {name: '高中', value: 10}, {name: '初中及以下', value: 5}],
     sex: [{name: '男', value: 1}, {name:'女', value: 2}],
     dateType: ['startTime', 'endTime', 'workTime', 'dateTime', 'birthday'],
@@ -66,7 +66,7 @@ Component({
       if (this.data.setResult === '至今' || this.data.setResult === '在校生') {
         result = [0, 0]
       } else {
-        result[0] = year.indexOf(this.data.setResult.slice(0, 5))
+        result[0] = year.indexOf(this.data.setResult.slice(0, 4))
         result[1] = this.data.month.indexOf(this.data.setResult.slice(5, 8))
       }
       if (result[0] === -1) { // 开启palceholder
@@ -116,7 +116,7 @@ Component({
         break
       case 'dateTime':
         result = []
-        result[0] = year.indexOf(this.data.setResult.slice(0, 5))
+        result[0] = year.indexOf(this.data.setResult.slice(0, 4))
         result[1] = this.data.month.indexOf(this.data.setResult.slice(5, 8))
         if (result[0] === -1) result[0] = 0
         if (result[1] === -1) result[1] = 0
@@ -134,9 +134,15 @@ Component({
         break
       case 'education':
         list = this.data.education
-        result = `${list.indexOf(this.data.setResult)}`
-        // if(this.data.setResult) result = list.findIndex(field => field.name === this.data.setResult)
-        if (result === `-1`) { result = 0 }
+        result = 0 
+        list.map((item, index) => {
+          console.log(item.name, this.data.setResult, item.name === this.data.setResult)
+          if (item.name === this.data.setResult) {
+            result = `${index}`
+            console.log(result, this.data.setResult)
+            return
+          }
+        })
         this.setData({list, result, mode: 'selector', placeholder: '请选择学历'})
         break
       case 'sex':
@@ -147,27 +153,47 @@ Component({
         break
       case 'jobStatus':
         list = this.data.jobStatus
-        result = `${list.indexOf(this.data.setResult)}`
-        if (result === `-1`) { result = 0 }
+        result = 0 
+        list.map((item, index) => {
+          if (item.name === this.data.setResult) {
+            result = `${index}`
+            return
+          }
+        })
         this.setData({list, result, mode: 'selector', placeholder: '请选择求职状态'})
         break
       case 'experience':
         list = this.data.experience
-        result = `${list.indexOf(this.data.setResult)}`
-        // if(this.data.setResult) result = list.findIndex(field => field.name === this.data.setResult)
-        if (result === `-1`) { result = 0 }
+        result = 0 
+        list.map((item, index) => {
+          if (item.name === this.data.setResult) {
+            result = `${index}`
+            return
+          }
+        })
         this.setData({list, result, mode: 'selector', placeholder: '请选择经验要求'})
         break
       case 'staffMembers':
         list = this.data.staffMembers
-        result = `${list.indexOf(this.data.setResult)}`
-        if (result === `-1`) { result = 0 }
+        result = 0 
+        list.map((item, index) => {
+          if (item.name === this.data.setResult) {
+            result = `${index}`
+            return
+          }
+        })
         this.setData({list, result, mode: 'selector', placeholder: '请选择人员规模'})
         break
       case 'financing':
         list = this.data.financing
-        result = `${list.indexOf(this.data.setResult)}`
-        if (result === `-1`) { result = 0 }
+        result = 0
+        list.map((item, index) => {
+          if (item.name === this.data.setResult) {
+            result = `${index}`
+            console.log(result, this.data.setResult)
+            return
+          }
+        })
         this.setData({list, result, mode: 'selector', placeholder: '请选择融资情况'})
         break
       case 'salaryRangeC':
@@ -222,7 +248,6 @@ Component({
               propsResult = item
             }
           })
-          console.log(propsResult)
           this.triggerEvent('resultevent', {propsResult})
           this.setData({list, result, mode: 'selector', placeholder: '请选择职业'})
         })

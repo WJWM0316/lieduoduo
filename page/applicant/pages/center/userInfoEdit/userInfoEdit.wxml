@@ -18,11 +18,11 @@
     <view class="edit">
       <radio-group class="radio-group" bindchange="radioChange">
         <label class="radio">
-          <radio value="1" color="#2878FF"/>
+          <radio value="1" color="#2878FF" checked="{{gender === 1}}"/>
           男
         </label>
         <label class="radio">
-          <radio value="2" color="#2878FF"/>
+          <radio value="2" color="#2878FF" checked="{{gender === 2}}"/>
           女
         </label>
       </radio-group>
@@ -31,19 +31,19 @@
   <view class="item">
     <view class="txt">出生年月</view>
     <view class="edit">
-      <myPicker pickerType="birthday" placeholderStyle="color: #B2B6C2" data-type="birthday" bindresultevent="getResult"></myPicker>
+      <myPicker pickerType="birthday" placeholderStyle="color: #B2B6C2" data-type="birthday" bindresultevent="getResult" setResult="{{birthDesc}}"></myPicker>
     </view>
   </view>
   <view class="item">
     <view class="txt">参加工作时间</view>
     <view class="edit">
-      <myPicker pickerType="workTime" placeholderStyle="color: #B2B6C2" data-type="workTime" bindresultevent="getResult"></myPicker>
+      <myPicker pickerType="workTime" placeholderStyle="color: #B2B6C2" data-type="workTime" bindresultevent="getResult" setResult="{{startWorkYearDesc}}"></myPicker>
     </view>
   </view>
   <view class="item">
     <view class="txt">求职状态</view>
     <view class="edit">
-      <myPicker pickerType="jobStatus" placeholderStyle="color: #B2B6C2" rangeKey="name" data-type="jobStatus" bindresultevent="getResult"></myPicker>
+      <myPicker pickerType="jobStatus" placeholderStyle="color: #B2B6C2" rangeKey="name" data-type="jobStatus" bindresultevent="getResult" setResult="{{jobStatusDesc}}"></myPicker>
     </view>
   </view>
   <view class="item">
