@@ -26,6 +26,7 @@ Component({
    * 组件的初始数据
    */
   data: {
+    identity: wx.getStorageSync('choseType'), // 身份标识
     slogoIndex: 0,
     slogoList: [
       {
@@ -77,14 +78,7 @@ Component({
               this.triggerEvent('resultevent', res)
             })
           break
-        case 'collect':
-          getMycollectPositionApi({id: this.data.infos.id})
-            .then(res => {
-              this.triggerEvent('resultevent', res)
-            })
-          break
         case 'chat':
-          console.log(this.data.infos.status)
           // applyInterviewApi({recruiterUid: 90, positionId: 39})
           applyInterviewApi({recruiterUid: this.data.infos.recruiterInfo.uid, positionId: this.data.infos.id})
             .then(res => {

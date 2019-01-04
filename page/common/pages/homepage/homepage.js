@@ -1,6 +1,7 @@
 
 import {
-  getCompanyInfosApi
+  getCompanyInfosApi,
+  getRecruitersListApi
 } from '../../../../api/pages/company.js'
 
 import {RECRUITERHOST, COMMON} from '../../../../config.js'
@@ -12,46 +13,19 @@ Page({
    */
   data: {
     tab: 'about',
-    imgUrls: [
-      'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
-      'http://img06.tooopen.com/images/20160818/tooopen_sy_175866434296.jpg',
-      'http://img06.tooopen.com/images/20160818/tooopen_sy_175833047715.jpg'
-    ],
     indicatorDots: false,
     autoplay: true,
     interval: 1000,
     duration: 1000,
     link: 'https://www.xiaodengta.com',
-    markers: [],
-    polyline: [{
-      points: [{
-        longitude: 113.3245211,
-        latitude: 23.10229
-      }, {
-        longitude: 113.324520,
-        latitude: 23.21229
-      }],
-      color: '#FF0000DD',
-      width: 2,
-      dottedLine: true
-    }],
-    controls: [{
-      id: 1,
-      iconPath: '../../../../vendor/resources/location.png',
-      position: {
-        left: 0,
-        top: 300 - 50,
-        width: 50,
-        height: 50
-      },
-      clickable: true
-    }],
     query: {},
-    companyInfos: {}
+    companyInfos: {},
+    recruitersList: []
   },
   onLoad(options) {
     this.setData({query: options})
     this.getCompanyDetail()
+    this.getRecruitersList()
   },
   /**
    * @Author   小书包
@@ -63,20 +37,38 @@ Page({
     getCompanyInfosApi({id: this.data.query.companyId})
       .then(res => {
         this.setData({companyInfos: res.data})
-        console.log(res.data)
-      })
-      .catch(err => {
-        app.wxToast({title: err.msg})
       })
   },
+  /**
+   * @Author   小书包
+   * @DateTime 2019-01-04
+   * @detail   获取招聘团队
+   * @return   {[type]}   [description]
+   */
+  getRecruitersList() {
+    getRecruitersListApi({id: this.data.query.companyId, page: 1, count: 3})
+      .then(res => {
+        this.setData({recruitersList: res.data})
+      })
+  },
+  /**
+   * @Author   小书包
+   * @DateTime 2019-01-04
+   * @detail   选项卡切换
+   * @return   {[type]}     [description]
+   */
   onTabClick(e) {
     const tab = e.currentTarget.dataset.tab
     this.setData({tab})
   },
+  /**
+   * @Author   小书包
+   * @DateTime 2019-01-04
+   * @detail   轮播图设置
+   * @return   {[type]}     [description]
+   */
   swiperChange(e) {
-    this.setData({
-      swiperIndex: e.detail.current
-    })
+    this.setData({swiperIndex: e.detail.current})
   },
   /**
    * @Author   小书包
