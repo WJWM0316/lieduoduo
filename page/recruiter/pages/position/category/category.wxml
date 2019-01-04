@@ -1,5 +1,5 @@
 <view>
-	<navbar title="职位类别" background="#FFFFFF" color="#22292C" showBackBtn="{{true}}"></navbar>
+	<navbar title="选择职位类型"></navbar>
 	<form bindsubmit="submit" class="search-box">
 		<view class="user-input">
 			<input placeholder="搜索" auto-focus bindinput="bindInput" />

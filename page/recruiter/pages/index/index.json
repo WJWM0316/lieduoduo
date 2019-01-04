@@ -1,9 +1,6 @@
 {
   "usingComponents": {
     "tab-bar": "../../../../components/business/tabBar/tabBar",
-    "commonList": "../../../../components/business/commonList/commonList",
-    "choose": "../../../../components/business/choose/choose",
-    "auth": "../../../../components/functional/auth/auth",
-    "bindPhone": "../../../../components/functional/bindPhone/bindPhone"
+    "commonList": "../../../../components/business/commonList/commonList"
   }
 }
