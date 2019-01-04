@@ -1,5 +1,5 @@
 import {getSelectorQuery} from "../../../../utils/util.js"
-import {getOthersRecruiterDetailApi, getRecruiterDetailApi, giveiMecallApi} from "../../../../api/pages/recruiter.js"
+import {getOthersRecruiterDetailApi, getRecruiterDetailApi, giveMecallApi} from "../../../../api/pages/recruiter.js"
 import {getPositionListApi} from "../../../../api/pages/position.js"
 import {getMyCollectUserApi, deleteMyCollectUserApi} from "../../../../api/pages/collect.js"
 import {getUserRoleApi} from "../../../../api/pages/user.js"
@@ -34,19 +34,10 @@ Page({
           }
         })
       })
-
-      if (!res.data.isOwner) {
-        getUserRoleApi().then(res0 => {
-          if (res0.data.isRecruiter) {
-            this.setData({isRecruiter: true})
-          }
-        })
-      }
     })
     getPositionListApi({recruiter: options.uid}).then(res => {
       this.setData({positionList: res.data}, function() {
         getSelectorQuery(".mainContent .position").then(res => {
-          console.log(res)
           positionTop = res.top - res.height
         })
       })
@@ -70,20 +61,20 @@ Page({
     this.setData({isShrink, btnTxt})
   },
   callBtn() {
-    giveiMecallApi({vkey: this.data.info.vkey}).then(res => {})
+    giveMecallApi({vkey: this.data.info.vkey}).then(res => {})
   },
   collect() {
     let data = {
       uid: this.data.options.uid
     }
-    if (!this.data.info.isCollect) {
+    if (!this.data.info.interested) {
       getMyCollectUserApi(data).then(res => {
         app.wxToast({
           title: '收藏成功',
           icon: 'success'
         })
         let info = this.data.info
-        info.isCollect = true
+        info.interested = true
         this.setData({info})
       })
     } else {
@@ -93,11 +84,15 @@ Page({
           icon: 'success'
         })
         let info = this.data.info
-        info.isCollect = false
+        info.interested = false
         this.setData({info})
       })
     }
-    
+  },
+  scrollPs() {
+    wx.pageScrollTo({
+      scrollTop: positionTop
+    })
   },
   create() {
     wx.navigateTo({

@@ -40,7 +40,7 @@ export const getOthersRecruiterDetailApi = (data) => {
 }
 
 // 招聘官打call
-export const giveiMecallApi = (data) => {
+export const giveMecallApi = (data) => {
   return request({
     url: `/recruiter/callRecruiter/${data.vkey}`,
     method: 'put',

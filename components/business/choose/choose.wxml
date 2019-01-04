@@ -5,11 +5,11 @@
 		<image src="../../../images/choseIcon1.png" class="icon"></image>
 		<view class="desc">小程序找工作神器</view>
 	</view>
-  <button class="role1" bindtap='jump' data-identity="RECRUITER" open-type="getUserInfo" bindgetuserinfo="onGotUserInfo" lang="zh_CN">
+  <button class="role1" bindtap='jump' data-identity="APPLICANT" open-type="getUserInfo" bindgetuserinfo="onGotUserInfo" lang="zh_CN">
   	<view class="desc">我是求职者<icon class="icon iconfont icon-disejiantou-you"></icon></view>
   	<image class="img" src="../../../images/choseIcon2.png"></image>
   </button>
-  <button class="role2" bindtap='jump' data-identity="APPLICANT" open-type="getUserInfo" bindgetuserinfo="onGotUserInfo" lang="zh_CN">
+  <button class="role2" bindtap='jump' data-identity="RECRUITER" open-type="getUserInfo" bindgetuserinfo="onGotUserInfo" lang="zh_CN">
   	<view class="desc">我是招聘官<icon class="icon iconfont icon-disejiantou-you"></icon></view>
   	<image class="img" src="../../../images/choseIcon3.png"></image>
   </button>

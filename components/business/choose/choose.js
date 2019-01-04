@@ -42,6 +42,10 @@ Component({
           wx.reLaunch({
             url: `${RECRUITER}index/index`
           })
+        } else {
+          wx.reLaunch({
+            url: `${APPLICANT}index/index`
+          })
         }
         this.setData({
           isChose: true

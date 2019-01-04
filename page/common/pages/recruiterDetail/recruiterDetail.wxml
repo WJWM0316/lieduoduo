@@ -66,5 +66,5 @@
   </view>
   <view class="more meToo" bindtap="create" wx:if="{{!info.isOwner && !isRecruiter}}">我也要制作招聘主页<view class="icon iconfont icon-disejiantou-you"></view></view>
   <view class="collection icon iconfont icon-ganxingqu" bindtap="collect"></view>
-  <view class="positionBtn" hidden="{{!isShowBtn}}">{{positionList.length}}个热招职位</view>
+  <view class="positionBtn" bindtap="scrollPs" hidden="{{!isShowBtn}}">{{positionList.length}}个热招职位</view>
 </view>
