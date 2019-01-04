@@ -5,7 +5,7 @@
   <view class="headInfo"><roleInfoCard cardData="{{info}}" my-class="roleDetail" roleType="applicant"></roleInfoCard></view>
   <block>
     <view class="content">
-      <view class="detail" wx:if="{{options.identity === 'zhaopin' && (info.status === 21)}}">
+      <view class="detail" wx:if="{{info.status === 21}}">
         <view class="title"><icon class="icon"></icon>面试信息</view>
         <view class="msgItem">
           <view class="inner">
@@ -38,33 +38,33 @@
           </view>
         </view>
       </view>
-      <view class="detail read" wx:if="{{options.identity === 'zhaopin' && (info.status === 31 || info.status === 41)}}">
+      <view class="detail read" wx:if="{{info.status === 31 || info.status === 41}}">
         <view class="title"><icon class="icon"></icon>面试信息</view>
         <view class="msgItem">
           <view class="inner">
             <view class="icon1 iconfont icon-zhiwei"></view>
             <view class="msg">
-              <text>联系人联系人联系人联系人</text>
+              <text>{{info.arrangementInfo.realname}} | <text class="phone">{{info.arrangementInfo.mobile}}</text></text>
             </view>
             <icon class="icon iconfont icon-xiangyou"></icon>
           </view>
         </view>
-        <view class="msgItem">
+        <view class="msgItem" wx:if="{{info.positionName}}">
           <view class="inner">
             <view class="icon1 iconfont icon-zhiwei"></view>
-            <view class="msg">联系人联系人联系人联系人</view>
+            <view class="msg">{{info.positionName}}</view>
             <icon class="icon iconfont icon-xiangyou"></icon>
           </view>
         </view>
-        <view class="msgItem jump">
+        <view class="msgItem jump" wx:if="{{info.address}}">
           <view class="inner noborder">
             <view class="icon1 iconfont icon-zhiwei"></view>
-            <view class="msg">广州天河区天河北路光大银行大广州天河区天河北路光大银行大</view>
+            <view class="msg">{{info.address}}</view>
             <icon class="icon iconfont icon-xiangyou"></icon>
           </view>
         </view>
       </view>
-      <view class="date" wx:if="{{options.identity === 'zhaopin' && (info.status === 21)}}">
+      <view class="date" wx:if="{{info.status === 21}}">
         <view class="title"><icon class="icon"></icon>约面时间</view>
         <view class="dateItem" wx:for="{{dateList}}" wx:key="{{index}}">
           <view class="inner">
@@ -82,16 +82,39 @@
           </view>
         </view>
       </view>
-      <view class="date read" wx:if="{{options.identity === 'zhaopin' && (info.status === 31)}}">
+      <view class="date read" wx:if="{{identity === 'RECRUITER' && info.status === 31}}">
         <view class="title"><icon class="icon"></icon>约面时间</view>
         <view class="dateItem" wx:for="{{dateList}}" wx:key="{{index}}">
           <view class="inner">
             <view class="xuhao">时间{{index + 1}}</view>
-            <view class="dateDetail">{{item}}</view>
+            <view class="dateDetail">{{item.appointment}}</view>
           </view>
         </view>
       </view>
-      <view class="realDate" wx:if="{{options.identity === 'zhaopin' && (info.status === 41)}}">
+      <view class="date read" wx:if="{{identity === 'APPLICANT' && info.status === 31}}">
+        <view class="title"><icon class="icon"></icon>约面时间<text class="newTip">请选择一个时间接受面试</text></view>
+        <radio-group class="radio-group dateItem" bindchange="radioChange">
+          <label wx:for="{{dateList}}" wx:key="{{index}}">
+            <view class="inner sure">
+              <view>
+                <view class="xuhao">时间{{index + 1}}</view>
+                <view class="dateDetail">{{item.appointment}}</view>
+              </view>
+              <radio class="radioBtn" value="{{item.id}}" color="#652791"/>
+            </view>
+          </label>
+          <label>
+            <view class="inner sure">
+              <view>
+                <view class="xuhao">其他</view>
+                <view class="dateDetail">以上时间都不合适，请联系我</view>
+              </view>
+              <radio class="radioBtn" value="0" color="#652791"/>
+            </view>
+          </label>
+        </radio-group>
+      </view>
+      <view class="realDate" wx:if="{{info.status === 41}}">
         <view class="txt1">面试时间已确认</view>
         <view class="txt2">时间已添加到面试日程，准备迎接候选人吧~</view>
         <view class="txt3">2018-02-05</view>
@@ -101,14 +124,17 @@
         <view class="txt3">2018-02-05</view>
       </view>
     </view>
-    <view class="btnBox" wx:if="{{options.identity === 'zhaopin' && (info.status === 21)}}">
+    <view class="btnBox" wx:if="{{info.status === 21}}">
       <button class="btn" bindtap="send">发送面试安排</button>
     </view>
-    <view class="btnBox1" wx:if="{{options.identity === 'zhaopin' && (info.status === 31)}}">
+    <view class="btnBox1" wx:if="{{identity === 'RECRUITER' && info.status === 31}}">
       <text class="txt">面试安排已发送，等待对方确认</text>
       <button class="btn" bindtap="revise">修改信息</button>
     </view>
-    <view class="btnBox" wx:if="{{options.identity === 'zhaopin' && (info.status === 41)}}">
+    <view class="btnBox" wx:if="{{identity === 'APPLICANT' && info.status === 31}}">
+      <button class="btn" bindtap="sureDate">确定接受面试</button>
+    </view>
+    <view class="btnBox" wx:if="{{identity === 'RECRUITER' && info.status === 41}}">
       <button class="btn">转发安排给其他同事</button>
     </view>
   </block>

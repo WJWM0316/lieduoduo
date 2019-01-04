@@ -1,4 +1,4 @@
-import {interviewDetailApi, setInterviewDetailApi} from "../../../../api/pages/interview.js"
+import {interviewDetailApi, setInterviewDetailApi, sureInterviewApi} from "../../../../api/pages/interview.js"
 let app = getApp()
 Page({
 
@@ -7,7 +7,9 @@ Page({
    */
   data: {
     dateList: ['2018-02-05 13:30', '2018-02-05 13:31'],
+    identity: wx.getStorageSync('choseType'), // 身份标识
     options: {},
+    appointmentId: '',
     info: {}
   },
   getResult(e) {
@@ -42,6 +44,10 @@ Page({
       url: url
     })
   },
+  radioChange(e) {
+    let appointmentId = e.detail.value
+    this.setData({appointmentId})
+  },
   removeDate(e) {
     let dateList = this.data.dateList
     let index = e.currentTarget.dataset.index
@@ -74,13 +80,25 @@ Page({
     info.status = 21
     this.setData({info})
   },
+  sureDate() {
+    let data = {
+      interviewId: this.data.options.id,
+      appointmentId: this.data.appointmentId 
+    }
+    sureInterviewApi(data).then(res => {
+      app.wxConfirm({
+        title: '确定成功',
+        icon: 'success'
+      })
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
     this.setData({options})
     interviewDetailApi({interviewId: options.id}).then(res => {
-      this.setData({info: res.data})
+      this.setData({info: res.data, dateList: res.data.arrangementInfo.appointmentList})
     })
   },
 

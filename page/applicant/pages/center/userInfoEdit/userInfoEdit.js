@@ -8,6 +8,7 @@ Page({
     userName: '',
     gender: 0,
     birth: 0,
+    birthDesc: '',
     startWorkYear: 0,
     jobStatus: 0,
     mobile: '',
@@ -16,16 +17,31 @@ Page({
     tabsList: ['测试1', '测试1', '测试1', '测试1', '测试1', '测试1'],
     signNum: 0,
     avatarUrl: '',
-    options: null
+    avatarId: '',
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    if (options.avatarUrl) {
-      this.setData({options, avatarUrl: options.avatarUrl})
-    }
+    let {avatar, avatarId, birth, birthDesc, gender, mobile, name, startWorkYear, startWorkYearDesc, jobStatus, jobStatusDesc, wechat, workAge, signature, personalizedLabels } = getApp().globalData.resumeInfo
+    this.setData({
+      avatarUrl: avatar,
+      avatarId,
+      birth,
+      birthDesc,
+      userName: name,
+      gender,
+      startWorkYear,
+      startWorkYearDesc,
+      jobStatus,
+      jobStatusDesc,
+      mobile: mobile,
+      wechat: wechat,
+      signature,
+      signNum: signature.length,
+      tabsList: personalizedLabels
+    })
   },
   jumpLabel() {
     wx.navigateTo({
@@ -72,11 +88,11 @@ Page({
   saveInfo() {
     let info = this.data
     let data = {
-      avatar: info.options.avatarId,
+      avatar: info.avatarId,
       name: info.userName,
       gender: info.gender,
-      birth: '2018/10/10', // info.birth, 
-      startWorkYear: '2018/10/10', // info.startWorkYear,
+      birth: info.birth,
+      startWorkYear: info.startWorkYear,
       jobStatus: info.jobStatus,
       mobile: info.mobile,
       wechat: info.wechat,
@@ -87,9 +103,11 @@ Page({
         title: '保存成功',
         icon: 'success',
         callback() {
-          wx.redirectTo({
-            url: '/page/applicant/pages/center/mine/mine'
+          wx.navigateBack({
+            delta: 1
           })
+          wx.removeStorageSync('avatarUrl')
+          wx.removeStorageSync('avatarId')
         }
       })
     })
@@ -105,7 +123,11 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    let avatarUrl = wx.getStorageSync('avatarUrl')
+    let avatarId = wx.getStorageSync('avatarId')
+    if (avatarUrl && avatarId) {
+      this.setData({avatarUrl: avatarUrl, avatarId: avatarId})
+    }
   },
 
   /**

@@ -19,9 +19,7 @@ Page({
     },
     canClick: false
   },
-  onLoad() {
-    getApp().globalData.identity = 'RECRUITER'
-  },
+  onLoad() {},
   /**
    * @Author   小书包
    * @DateTime 2018-12-20

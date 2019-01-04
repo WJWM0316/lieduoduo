@@ -84,6 +84,7 @@ Component({
             })
           break
         case 'chat':
+          console.log(this.data.infos.status)
           // applyInterviewApi({recruiterUid: 90, positionId: 39})
           applyInterviewApi({recruiterUid: this.data.infos.recruiterInfo.uid, positionId: this.data.infos.id})
             .then(res => {

@@ -9,7 +9,6 @@ Page({
     
   },
   onShow() {
-    getApp().globalData.identity = 'RECRUITER'
     getCompanyIdentityInfosApi({id: 2})
   }
 })

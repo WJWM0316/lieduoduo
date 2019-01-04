@@ -39,10 +39,6 @@ Page({
     canClick: false
   },
   onLoad(options) {
-    getApp().globalData.identity = 'RECRUITER'
-    getApp().checkLogin().then(res => {
-      this.setData({userInfo: res})
-    })
     this.setData({pageTitle: options.positionId ? '编辑职位' : '创建职位'})
     this.init(options)
   },

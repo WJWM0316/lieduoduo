@@ -36,6 +36,15 @@ export const applyInterviewApi = (data, isLoading) => {
   })
 }
 
+// 求职端确认面试安排
+export const sureInterviewApi = (data, isLoading) => {
+  return request({
+    method: 'post',
+    url: `/interview/confirmArrangementInfo/${data.interviewId}`,
+    data
+  })
+}
+
 //求职者申请列表
 export const getApplyListApi = (data, isLoading) => {
   return request({

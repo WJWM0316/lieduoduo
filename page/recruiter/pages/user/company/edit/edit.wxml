@@ -1,3 +1,0 @@
-<view>
-	<navbar title="编辑公司信息" background="#FFFFFF" color="#22292C" showBackBtn="{{true}}"></navbar>
-</view>

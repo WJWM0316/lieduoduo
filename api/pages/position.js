@@ -25,7 +25,6 @@ export const getPositionApi = (data, isLoading) => {
   return request({
     method: 'get',
     url: `/position/${data.id}`,
-    data,
     isLoading: true
   })
 }
