@@ -44,7 +44,7 @@ export const deleteMyCollectUserApi = (data, isLoading) => {
 export const getMycollectPositionApi = (data, isLoading) => {
   return request({
     method: 'put',
-    url: `/collect/collectPosition/${data.vkey}`,
+    url: `/collect/collectPosition/${data.id}`,
     data,
     isLoading: true
   })

@@ -1,8 +1,101 @@
 /* page/applicant/pages/center/firstStep/fitstStep.wxss */
+@import '../../../../../iconfont.wxss';
 .myPicker{
   height: 100rpx;
 }
+.header{
+  box-sizing: border-box;
+  padding-top: 185rpx;
+  position: relative;
+  width: 100%;
+  height: 482rpx;
+}
+.headerBg{
+  width: 100%;
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  left: 0;
+}
+.header .title{
+  text-align: center;
+  display: block;
+  font-size:56rpx;
+  font-weight:600;
+  color: #FFFFFF;
+}
+.header .subtitle{
+  text-align: center;
+  display: block;
+  margin-top: 17rpx;
+  font-size:26rpx;
+  font-weight:400;
+  color: #FFF;
+}
 .avatar{
-  width: 150rpx !important;
-  height: 150rpx !important;
+  margin: 0 auto;
+  margin-top: 44rpx;
+  display: block;
+  width: 208rpx !important;
+  height: 208rpx !important;
+}
+.gender{
+  width: 260rpx;
+  height: 80rpx;
+  border-radius:100rpx;
+  overflow: hidden;
+  margin: 0 auto;
+  margin-top: 92rpx;
+}
+.gender view{
+  text-align: center;
+  display: inline-block;
+  width: 50%;
+  height: 100%;
+  line-height: 80rpx;
+  background-color: #F7F9FC;
+  color: #BCBCBC;
+}
+.gender .active{
+  color: #FFFFFF;
+  background-color: #652791;
+}
+.name{
+  width: 550rpx;
+  margin: 0 auto;
+  margin-top: 40rpx;
+}
+.name input{
+  width: 550rpx;
+  height: 88rpx;
+  background-color: #E8E9EB;
+  border-radius: 50rpx;
+  text-align: center;
+  font-size: 32rpx;
+  color: #282828;
+}
+.time{
+  color: #282828;
+  width: 550rpx;
+  height: 80rpx;
+  background-color: #E8E9EB;
+  border-radius: 50rpx;
+  margin: 0 auto;
+  margin-top: 32rpx;
+  text-align: center;
+  line-height: 80rpx;
+  font-size: 32rpx;
+  font-weight: 400;
+}
+.btn-area button{
+  margin-top: 128rpx;
+  width: 128rpx;
+  height: 128rpx;
+  border-radius: 50%;
+  border: none;
+  outline: none;
+  line-height: 128rpx;
+  text-align: center;
+  box-shadow:0px 20px 18px 0px rgba(255,220,41,0.2);
+  background-color: #FFDC29;
 }

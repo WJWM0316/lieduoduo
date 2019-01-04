@@ -4,7 +4,8 @@ Page({
   data: {
     workTime: '',
     avatarUrl: '',
-    avatarId: ''
+    avatarId: '',
+    gender: '1'
   },
   getresult (val) {
     this.workTime = val.detail.propsResult
@@ -12,6 +13,7 @@ Page({
   formSubmit (e) {
     e.detail.value.avatar =  wx.getStorageSync('avatarId')
     e.detail.value.startWorkYear = this.workTime
+    e.detail.value.gender = this.data.gender
     postfirstStepApi(e.detail.value).then(res => {
       console.log(res, '99999999999')
       wx.navigateTo({ // 完善简历第二步
@@ -19,6 +21,11 @@ Page({
       })
     }).catch (err => {
       console.log(err, '88888888888888888')
+    })
+  },
+  chooseGender (e) {
+    this.setData({
+      gender: e.target.dataset.gender
     })
   },
   onShow() {

@@ -1,32 +1,28 @@
 <!--完善简历第一步-->
-<navbar title="完善简历第一步" background="#2878FF"></navbar>
-<view bindTab="send">完善简历第一步</view>
-<view>
-  <image c src="../../../../../images/pic_bg_new@3x.png"></image>
-  <avatarCut avatar="avatar" src="{{avatarUrl}}"></avatarCut>
+<!--<navbar title="完善简历第一步" background="#2878FF"></navbar>-->
+<view class="warp">
+  <view class="header">
+    <image class="headerBg" src="../../../../../images/pic_bg_new@3x.png"></image>
+    <text class="title">开启有趣的求职之旅</text>
+    <text class="subtitle">真实可靠的职场形象总能碰到机遇</text>
+    <avatarCut class="avatar" avatar="avatar" src="{{avatarUrl}}"></avatarCut>
+  </view>
   <form bindsubmit="formSubmit" bindreset="formReset">
+    <view class="gender" bindtap="chooseGender">
+      <view class="{{gender === '1'? 'active' : ''}}" data-gender="1">男</view>
+      <view class="{{gender === '2'? 'active' : ''}}" data-gender="2">女</view>
+    </view>
     <view class="name">
-      <view class="section__title">职位名称</view>
+      <input name="name" placeholder="请输入姓名" />
+    </view>
+    <view class="name">
       <input name="position" placeholder="职位名称" />
     </view>
-    <view class="name">
-      <view class="section__title">参加工作年份</view>
-      <myPicker class="myPicker" setResult="选择参加工作年份" pickerType="workTime" bindresultevent="getresult"></myPicker>
-    </view>
-    <view class="name">
-      <view class="section__title">名字</view>
-      <input name="name" placeholder="输入名字" />
-    </view>
-    <view class="section section_gap">
-      <view class="section__title">性别</view>
-      <radio-group name="gender">
-        <label><radio value="1"/>男</label>
-        <label><radio value="2"/>女</label>
-      </radio-group>
+    <view class="time">
+      <myPicker class="myPicker" setResult="选择参加工作年份" pickerType="workTime" placeholderStyle="color: #BCBCBC" bindresultevent="getresult"></myPicker>
     </view>
     <view class="btn-area">
-      <button formType="submit">Submit</button>
-      <button formType="reset">Reset</button>
+      <button formType="submit"><i class="icon iconfont icon-xiayibu"></i></button>
     </view>
   </form>
 </view>
