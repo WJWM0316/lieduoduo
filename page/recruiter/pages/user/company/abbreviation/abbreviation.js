@@ -17,8 +17,6 @@ Page({
    */
   onLoad(options) {
     const storage = wx.getStorageSync('createdCompany')
-
-    console.log(storage)
     if(storage.companyShortName) {
       this.setData({ companyShortName: storage.companyShortName, canClick: true})
     }

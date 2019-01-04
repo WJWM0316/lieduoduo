@@ -35,8 +35,7 @@ Page({
     canClick: false
   },
   onLoad(options) {
-    getApp().globalData.identity = 'RECRUITER'
-    this.init(options)
+    this.init()
   },
   /**
    * @Author   小书包

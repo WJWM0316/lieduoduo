@@ -1,27 +1,27 @@
 <!--完善简历第一步-->
-<navbar title="完善简历第二步" background="#2878FF"></navbar>
-<view bindTab="send">完善简历第二步</view>
+<view class="header">
+  <image class="headerBg" src="../../../../../images/pic_bg_new@3x.png"></image>
+  <text class="title">介绍下最近一份工作吧</text>
+  <text class="subtitle">真实可靠的职场形象总能碰到机遇</text>
+</view>
 <view>
   <form bindsubmit="formSubmit" bindreset="formReset">
-    <view class="company">
-      <view class="section__title">公司名称</view>
-      <input name="company" placeholder="公司名称" />
+    <view class="company commont">
+      <input name="company" placeholder="填写公司名称" />
     </view>
-    <view class="positionType">
-      <view class="section__title">职位类型</view>
-      <input name="positionType" placeholder="职位类型" />
+    <view class="positionType commont">
+      <input name="positionType" placeholder="选择职位类型" />
     </view>
-    <view class="duty">
-      <view class="section__title">工作内容</view>
+    <view class="duty commont">
       <input name="duty" placeholder="工作内容" />
     </view>
     <view class="startTime">
       <view class="section__title">开始工作时间</view>
-      <myPicker class="myPicker" data-type="starTime" pickerType="startTime" bindresultevent="getresult"></myPicker>
+      <myPicker class="myPicker" data-type="starTime" pickerType="startTime" placeholderStyle="color: #BCBCBC" bindresultevent="getresult"></myPicker>
     </view>
     <view class="endTime">
       <view class="section__title">结束工作时间</view>
-      <myPicker class="myPicker" pickerType="endTime" bindresultevent="getresult"></myPicker>
+      <myPicker class="myPicker" pickerType="endTime" placeholderStyle="color: #BCBCBC" bindresultevent="getresult"></myPicker>
     </view>
     <view class="btn-area">
       <button formType="submit">Submit</button>

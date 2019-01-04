@@ -62,7 +62,4 @@
 	    <button form-type="submit" class="{{canClick ? 'button-enable' : ''}}">发布</button>
 	  </view>
 	</form>
-	<auth wx:if="{{!userInfo}}"></auth>
-  <bindPhone wx:if="{{needLogin}}"></bindPhone>
-  <choose wx:if="{{!choseType}}"></choose>
 </view>

@@ -190,3 +190,12 @@ export const getCompanyNameListApi = (data, isLoading) => {
     isLoading: true
   })
 }
+
+// 分页招聘团队
+export const getRecruitersListApi = (data, isLoading) => {
+  return request({
+    method: 'get',
+    url: `/company/recruiters/${data.id}`,
+    isLoading: true
+  })
+}

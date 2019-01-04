@@ -23,7 +23,6 @@ Page({
     total: 0
   },
   onLoad() {
-    getApp().globalData.identity = 'RECRUITER'
     this.getTabLists()
   },
   onReachBottom(e) {

@@ -9,56 +9,58 @@
 		</view>
 		<shareBtn></shareBtn>
 	</view>
-	<view class="limit-width">
-		<view class="ul-tab-bar">
-			<view class="li {{tab === 'about' ? 'active' : ''}}" bindtap="onTabClick" data-tab="about">关于我们</view>
-			<view class="li {{tab === 'recruitment' ? 'active' : ''}}" bindtap="onTabClick" data-tab="recruitment">在招职位(18)</view>
+	
+	<view class="ul-tab-bar">
+		<view class="li {{tab === 'about' ? 'active' : ''}}" bindtap="onTabClick" data-tab="about">关于我们</view>
+		<view class="li {{tab === 'recruitment' ? 'active' : ''}}" bindtap="onTabClick" data-tab="recruitment">在招职位(18)</view>
+	</view>
+	
+	<view class="homepage-team-box">
+		<view class="title">
+			<view class="icon"> <view class="fan"></view> </view> 招聘团队
 		</view>
-		<view class="homepage-team-box">
-			<view class="title">
-				<view class="icon"> <view class="fan"></view> </view> 招聘团队
-			</view>
-			<view class="ul">
-				<view class="li" wx:for="{{[1,2,3]}}" wx:key="{{index}}">
-					<view class="img-box">
-						<i class="certification-icon"></i>
+		<view class="ul">
+			<view class="li" wx:for="{{ recruitersList }}" wx:key="{{index}}" wx:for-item="recruiter">
+				<view class="img-box">
+					<i class="certification-icon">V</i>
+				</view>
+				<view class="content">
+					<view class="row-one">
+						<view class="username">{{recruiter.name}}</view>
+						<view class="recruitment-number" wx:if="{{recruiter.positionNum}}">{{recruiter.positionNum}} 个在招职位</view>
 					</view>
-					<view class="content">
-						<view class="row-one">
-							<view class="username">文双</view>
-							<view class="recruitment-number">5 个在招职位</view>
-						</view>
-						<view class="row-two">小灯塔创始人、CEO</view>
-						<view class="row-three">工作易得，知音难觅！壮士约乎？</view>
-					</view>
+					<view class="row-two">{{recruiter.position}}</view>
+					<view class="row-three">{{recruiter.signature ? recruiter.signature : '测试数据'}}</view>
 				</view>
 			</view>
-			<view class="footer">
-				<view class="button">查看全部招聘官<i class="icon iconfont icon-xiangyou"></i></view>
-			</view>
+		</view>
+		<view class="footer">
+			<view class="button">查看全部招聘官<i class="icon iconfont icon-xiangyou"></i></view>
 		</view>
 	</view>
 
 	<view class="introduction">
 		<view class="title">
-			<view class="icon"> <view class="fan"></view> </view> 招聘团队
+			<view class="icon"> <view class="fan"></view> </view> 公司介绍
 		</view>
-		<swiper class="swiper-block" previous-margin="40rpx" next-margin="40rpx" current="0" bindchange="swiperChange" autoplay="{{autoplay}}">
-			<swiper-item class="swiper-item" wx:for="{{imgUrls}}" wx:key="{{index}}">
+		<swiper
+			class="swiper-block"
+			previous-margin="40rpx"
+			next-margin="40rpx"
+			current="0"
+			bindchange="swiperChange"
+			wx:if="{{companyInfos.album.length}}"
+			autoplay="{{autoplay}}">
+			<swiper-item class="swiper-item" wx:for="{{companyInfos.album}}" wx:key="{{index}}">
 				<image mode="aspectFill" class="slide-image {{swiperIndex == index ? 'active' : ''}}"/>
 			</swiper-item>
 		</swiper>
 		<view class="company-detail">
-			<view class="p">
-				老虎科技创始人兼CEO，小灯塔致力于帮助每个职场年轻人实现职业梦想，立足于APP与公众号等线上产品服务，为他们提供有趣、有料的职场话题和职场课程，是职场年轻人的进步神器、职场攻略。
-			</view>
-			<view class="p">
-				立足于APP与公众号等线上产品服务，为他们提供有趣、有料的职场话题和职场课程，是职场年轻人的进步神器、职场攻略。
-			</view>
+			<view class="p">{{companyInfos.intro}}</view>
 		</view>
 	</view>
 
-	<view class="production-box">
+	<view class="production-box" wx:if="{{companyInfos.product.length}}">
 		<view class="title">
 			<view class="icon"> <view class="fan"></view> </view> 产品介绍
 		</view>
@@ -76,7 +78,7 @@
 		</view>
 	</view>
 	
-	<view class="company-address">
+	<view class="company-address" wx:if="{{companyInfos.address.length}}">
 		<view class="title">
 			<view class="icon"> <view class="fan"></view> </view> 公司地址
 		</view>
@@ -86,11 +88,8 @@
 			  longitude="113.324520"
 			  latitude="23.099994"
 			  scale="14"
-			  controls="{{controls}}"
 			  bindcontroltap="controltap"
-			  markers="{{markers}}"
 			  bindmarkertap="markertap"
-			  polyline="{{polyline}}"
 			  bindregionchange="regionchange"
 			  show-location></map>
 		</view>
@@ -101,12 +100,12 @@
 		</view>
 	</view>
 	
-	<view class="company-website">
+	<view class="company-website" wx:if="{{companyInfos.website}}">
 		<view class="title">
 			<view class="icon"> <view class="fan"></view> </view> 公司官网
 		</view>
 		<view class="link-box">
-			<view class="link">https://www.xiaodengta.com</view>
+			<view class="link">{{companyInfos.website}}</view>
 			<view class="button" bindtap="copyLink">复制</view>
 		</view>
 	</view>

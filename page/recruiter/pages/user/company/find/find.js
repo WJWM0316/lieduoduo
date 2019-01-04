@@ -21,7 +21,6 @@ Page({
   onLoad(options) {
     const storage = wx.getStorageSync('createdCompany')
     const params = ['real_name', 'user_email', 'user_position', 'canClick']
-    getApp().globalData.identity = 'RECRUITER'
     if(!storage) return
     if(storage.company_name) this.setData({company_name: storage.company_name, canClick: true})
   },

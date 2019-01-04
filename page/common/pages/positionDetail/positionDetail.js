@@ -5,7 +5,8 @@ import {
 } from '../../../../api/pages/position.js'
 
 import {
-  getMycollectPositionApi
+  getMycollectPositionApi,
+  deleteMycollectPositionApi
 } from '../../../../api/pages/collect.js'
 
 import {RECRUITER, COMMON} from '../../../../config.js'
@@ -80,9 +81,18 @@ Page({
             this.getPositionDetail()
           })
         break
+      case 'uncollect':
+        deleteMycollectPositionApi({id: this.data.detail.id})
+          .then(res => {
+            this.getPositionDetail()
+          })
+        break
       case 'chat':
-        applyInterviewApi({recruiterUid: 90, positionId: 39})
-        // applyInterviewApi({recruiterUid: this.data.detail.recruiterInfo.uid, positionId: this.data.detail.id})
+        // applyInterviewApi({recruiterUid: 90, positionId: 39})
+        applyInterviewApi({recruiterUid: this.data.detail.recruiterInfo.uid, positionId: this.data.detail.id})
+          .then(res => {
+            this.getPositionDetail()
+          })
         break
       case 'edit':
         wx.navigateTo({url: `${RECRUITER}position/post/post?positionId=${this.data.detail.id}`})

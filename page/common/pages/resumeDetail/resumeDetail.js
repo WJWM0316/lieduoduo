@@ -1,6 +1,7 @@
 // page/common/pages/resumeDetail/resumeDetail.js
 import { getPersonalResumeApi, getJobhunterResumeApi } from '../../../../api/pages/center.js'
 import { inviteInterviewApi } from '../../../../api/pages/interview.js'
+let id = 92
 Page({
 
   /**
@@ -14,6 +15,8 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    id = options.uid
+    console.log(options.uid)
     this.init()
   },
 
@@ -24,7 +27,7 @@ Page({
 
   },
   init () {
-    if (getApp().globalData.identity === 'APPLICAN') {
+    if (wx.getStorageSync('choseType') === 'APPLICANT') {
       console.log('求职端')
       getPersonalResumeApi().then(res => {
         this.setData({
@@ -34,12 +37,17 @@ Page({
       })
     } else {
       console.log('招聘端')
-      getJobhunterResumeApi({uid: 92})
+      getJobhunterResumeApi({uid: id}).then(res => {
+        this.setData({
+          info: res.data
+        })
+        console.log(this.data.info)
+      })
     }
   },
   /* 开撩 */
   toCommunicate () {
-    inviteInterviewApi({jobhunterUid: 91, positionId: 110101})
+    inviteInterviewApi({jobhunterUid: id, positionId: 110101})
   }
   /* 获取简历 */
 })

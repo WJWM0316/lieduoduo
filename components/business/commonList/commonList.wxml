@@ -12,14 +12,14 @@
 			<view class="content">
 				<view class="header">
 					<view class="recruiter-name">{{item.recruiterRealname}}</view>
-					<view class="recruiter-infos">2年·本科·8-12k</view>
+					<view class="recruiter-infos">{{item.workExperience}}年·{{item.educationDesc}}·{{item.emolumentMin}}-{{item.emolumentMax}}K</view>
 				</view>
 				<view class="main">
-					<view class="company-name"> {{item.companyName}} | 产品经理 </view>
+					<view class="company-name"> {{item.companyName}} | {{item.recruiterPositionName}} </view>
 				</view>
 			</view>
 			<view class="footer {{ showDividingLine ? 'show-dividing-line' : ''}}" wx:if="{{showFooter}}">
-				<view class="time">刚刚</view>
+				<view class="time">{{item.createdAtTime}}</view>
 				<view class="action">查看了你的职位<view class="strong">{{item.positionName}}</view></view>
 				<view class="status">{{item.statusDesc}}</view>
 			</view>

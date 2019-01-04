@@ -39,10 +39,6 @@ Page({
     canClick: false
   },
   onLoad(options) {
-    getApp().globalData.identity = 'RECRUITER'
-    getApp().checkLogin().then(res => {
-      this.setData({userInfo: res})
-    })
     this.setData({pageTitle: options.positionId ? '编辑职位' : '创建职位'})
     this.init(options)
   },
@@ -119,10 +115,11 @@ Page({
    */
   routeJump(e) {
     const route = e.currentTarget.dataset.route
+    const url = this.data.query.positionId ? `${RECRUITER}position/${route}/${route}?positionId=${this.data.query.positionId}` : `${RECRUITER}position/${route}/${route}`
     if(route === 'skills' && !this.data.type) {
       app.wxToast({title: '请先选择职业类型别'})
     } else {
-      wx.navigateTo({url: `${RECRUITER}position/${route}/${route}?positionId=${this.data.query.positionId}`})
+      wx.redirectTo({ url })
       wx.setStorageSync('createPosition', this.data)
     }
   },
@@ -195,7 +192,7 @@ Page({
     createPositionApi(formData)
       .then(res => {
         wx.removeStorageSync('createPosition')
-        wx.navigateTo({url: `${RECRUITER}position/index/index`})
+        wx.redirectTo({url: `${RECRUITER}position/index/index`})
         app.wxToast({title: '创建成功'})
       })
       .catch(err => app.wxToast({title: err.msg}))
@@ -210,7 +207,7 @@ Page({
     editPositionApi(formData)
       .then(res => {
         wx.removeStorageSync('createPosition')
-        wx.navigateTo({url: `${RECRUITER}position/index/index`})
+        wx.redirectTo({url: `${RECRUITER}position/index/index`})
         app.wxToast({title: '编辑成功'})
       })
       .catch(err => app.wxToast({title: err.msg}))

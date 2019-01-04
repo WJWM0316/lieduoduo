@@ -1,22 +1,62 @@
 <view class="interview-bar">
-	<block wx:if="{{!isOwner}}">
-	<view class="img-box"></view>
-	<view class="content">
-		<view class="first">
-			<view class="name">{{infos.recruiterInfo.name}}</view>
-			<view class="hunter-infos"><view class="strong">{{infos.recruiterInfo.positionNum}}</view>个职位</view>
-		</view>
-		<view class="second">{{slogoList[slogoIndex].text}}</view>
-	</view>
-	<view class="button-box" bindtap="todoAction" data-type="chat">开撩约面</view>
+	<block wx:if="{{ !isOwner }}">
+		<view class="img-box" data-name="{{identity}}"></view>
+		<block wx:if="{{10 > 2}}">
+			<view class="content">
+				<view class="first">
+					<view class="name">李子发</view>
+					<view class="hunter-infos">
+						<view class="strong">12</view>个职位
+					</view>
+				</view>
+				<view class="second">{{slogoList[slogoIndex].text}}</view>
+			</view>
+			<view class="button-box button-box-color1">
+				<view bindtap="todoAction" data-type="chat">开撩约面</view>
+			</view>
+		</block>
+		<block wx:if="{{2 > 1000}}">
+			<view class="content">
+				<view class="first"><view class="name">李子发</view></view>
+				<view class="second">待确认申请</view>
+			</view>
+			<view class="button-box button-box-color2">
+				<view bindtap="todoAction" data-type="chat">已申请面试</view>
+			</view>
+		</block>
+		<block wx:if="{{2 > 1000}}">
+			<view class="content">
+				<view class="first"><view class="name">李子发</view></view>
+				<view class="second">已确认申请</view>
+			</view>
+			<view class="button-box button-box-color2">
+				<view bindtap="todoAction" data-type="chat">待安排面试</view>
+			</view>
+		</block>
+		<block wx:if="{{2 > 1000}}">
+			<view class="content">
+				<view class="first"><view class="name">李子发</view></view>
+				<view class="second">已安排面试</view>
+			</view>
+			<view class="button-box button-box-color3">
+				<view bindtap="todoAction" data-type="chat">查看面试详情</view>
+			</view>
+		</block>
+		<block wx:if="{{2 > 1000}}">
+			<view class="content">
+				<view class="first"><view class="name">李子发</view></view>
+				<view class="second">邀请你面试</view>
+			</view>
+			<view class="button-box">
+				<view class="reject">暂不考虑</view>
+				<view class="accept">接受约面</view>
+			</view>
+		</block>
 	</block>
 	<block wx:else>
 		<view class="edit-button" data-type="edit" bindtap="todoAction">编辑</view>
-		<view
-			class="switch-open-button"
-			bindtap="todoAction"
-			data-type="{{infos.status === 0 ? 'open' : 'close'}}">
-				{{infos.status === 0 ? '开放职位' : '关闭职位'}}
+		<view class="switch-button" bindtap="todoAction" data-type="{{infos.status === 0 ? 'open' : 'close'}}">
+			{{infos.status === 0 ? '开放职位' : '关闭职位'}}
 		</view>
 	</block>
 </view>

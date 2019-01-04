@@ -25,21 +25,50 @@
 }
 
 .interview-bar .button-box{
-  width:250rpx;
 	height:80rpx;
-	background:rgba(101,39,145,1);
 	border-radius:40rpx;
 	margin: 10rpx 0;
-	margin-left: 12rpx;
 	text-align: center;
 	line-height: 80rpx;
 	font-size:28rpx;
 	font-weight:500;
+	flex: 1;
+	margin-left: 30rpx;
+	overflow: hidden;
+	display: flex;
+}
+
+.interview-bar .button-box view {
+	flex: 1;
+}
+
+.interview-bar .button-box .accept {
+	background: #652791;
+	color: white;
+}
+
+.interview-bar .button-box .reject {
+	background: #EFE9F4;
+	color: #652791;
+}
+
+
+.interview-bar .button-box-color1 {
+	background:rgba(101,39,145,1);
 	color:rgba(255,255,255,1);
 }
 
+.interview-bar .button-box-color2 {
+	background: #EFE9F4;
+	color: #652791;
+}
+
+.interview-bar .button-box-color3 {
+	background: #652791;
+	color: #fff;
+}
+
 .interview-bar .content {
-  flex: 1;
   position: relative;
 }
 
@@ -57,7 +86,7 @@
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
-	width: 330rpx;
+	max-width: 330rpx;
 	margin-top: 15rpx;
 }
 
@@ -95,7 +124,7 @@
 	color:black;
 }
 
-.interview-bar .switch-open-button {
+.interview-bar .switch-button {
   flex: 1;
 	height:80rpx;
 	background:rgba(101,39,145,1);
