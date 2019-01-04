@@ -5,7 +5,6 @@ import {getRecruiterDetailApi} from 'api/pages/recruiter.js'
 let app = getApp()
 App({
   onLaunch: function () {
-    wx.setStorageSync('choseType', 'APPLICANT')
     // 获取导航栏高度
     wx.getSystemInfo({
       success: res => {
@@ -51,15 +50,6 @@ App({
         }
       }
     })
-    // if (wx.getStorageSync('choseType') === 'APPLICANT') {
-    //   getPersonalResumeApi().then(res0 => {
-    //     this.globalData.resumeInfo = res0.data
-    //   })
-    // } else {
-    //   getRecruiterDetailApi().then(res0 => {
-    //     this.globalData.recruiterDetails = res0.data
-    //   })
-    // }
   },
   // 检查登录
   checkLogin () {
@@ -81,7 +71,12 @@ App({
                 if (this.userInfoReadyCallback) {
                   this.userInfoReadyCallback(res)
                 }
-                this.getAllInfo()
+                this.getAllInfo().then(() => {
+                  wx.setStorageSync('choseType', 'APPLICANT')
+                  if (this.pageInit) { // 页面初始化
+                    this.pageInit() //执行定义的回调函数
+                  }
+                })
                 console.log('用户已授权')
                 resolve(res.userInfo)
               }

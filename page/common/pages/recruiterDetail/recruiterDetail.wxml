@@ -5,24 +5,25 @@
     <shareBtn></shareBtn>
     <div class="content">
       <view class="avatar vip">
-        <image src="../../../../images/bg_detail.png" mode="aspectFill"></image>
+        <image src="{{info.avatar}}" mode="aspectFill"></image>
       </view>
-      <view class="labels label{{index}}" wx:for="{{labels}}" wx:key="{{index}}">{{item}}</view>
+      <view class="labels label{{index}}" wx:for="{{info.personalizedLabels}}" wx:key="{{index}}">{{item}}</view>
     </div>
     <view class="userInfo">
-      <view class="name">阿达</view>
-      <view class="position">老虎科技 | 创始人、CEO</view>
-      <view class="sign">工作不易，知音难觅，壮士约乎！工作不易，知音难觅</view>
+      <view class="name">{{info.name}}</view>
+      <view class="position">{{info.companyName}} | {{info.position}}</view>
+      <view class="sign">{{info.signature}}</view>
     </view>
   </view>
   <view class="mainContent">
     <view class="dataShow">
       <view class="dataBox">
-        <view class="data"><text class="num">111</text>人气</view>
-        <view class="data"><text class="num">111</text>影响力</view>
-        <view class="data"><text class="num">111</text>排名</view>
+        <view class="data"><text class="num">{{info.viewedCount}}</text>人气</view>
+        <view class="data"><text class="num">{{info.influence}}</text>影响力</view>
+        <view class="data"><text class="num">{{info.ranking}}</text>排名</view>
       </view>
-      <button class="callBtn">为Ta打Call，提高影响力</button>
+      <button hidden="{{info.isCall}}" class="callBtn" bindtap="callBtn">为Ta打Call，提高影响力</button>
+      <button hidden="{{!info.isCall}}" class="callBtn isCalled" bindtap="shareBtn">帮Ta转发集Call</button>
       <view class="more">查看更多热门招聘官<view class="icon iconfont icon-disejiantou-you"></view></view>
     </view>
     <view class="profile">
@@ -32,8 +33,8 @@
         </view>
         <text class="txt">个人简介</text>
       </view>
-      <view class="msg {{isShrink ? 'shrink':''}}">老虎科技创始人兼CEO，小灯塔致力于帮助每个职场年轻人实现职业梦想，立足于APP与公众号等线上产品服务，为他们提供有趣、有料的职场话题和职场课程，是职场年轻人的进步神器、职场攻略。老虎科技创始人兼CEO，小灯塔致力于帮助每个职场年轻人实现职业梦想，立足于APP与公众号等线上产品服务，为他们提供有趣、有料的职场话题和职场课程，是职场年轻人的进步神器、职场攻略。</view>
-      <view class="openbtn" bindtap="toggle">{{btnTxt}}<icon class="icon iconfont icon-zhishibiao {{!isShrink ? 'shrink':''}}"></icon></view>
+      <view class="msg {{isShrink ? 'shrink':''}}">{{info.brief}}</view>
+      <view class="openbtn" wx:if="{{isShrink}}" bindtap="toggle">{{btnTxt}}<icon class="icon iconfont icon-zhishibiao {{!isShrink ? 'shrink':''}}"></icon></view>
     </view>
     <view class="declaration">
       <view class="title">
@@ -54,29 +55,16 @@
       </view>
     </view>
     <view class="position">
-      <company roleType="company"></company>
+      <company roleType="company" cardData="{{info.companyInfo}}"></company>
       <view class="positionList">
-        <view class="positionItem">
-          <view class="positionHead"><text class="positionTitle">高级产品经理（Saas方向)高级产品经理（Saas方向)</text><text class="money">20~40k</text></view>
-          <view class="positionDeatil">广州-天河 · 3-5年 · 本科高级产品经理（Saas方向)高级产品经理（Saas方向)</view>
-        </view>
-        <view class="positionItem">
-          <view class="positionHead"><text class="positionTitle">高级产品经理（Saas方向)高级产品经理（Saas方向)</text><text class="money">20~40k</text></view>
-          <view class="positionDeatil">广州-天河 · 3-5年 · 本科高级产品经理（Saas方向)高级产品经理（Saas方向)</view>
+        <view class="positionItem" wx:for="{{positionList}}" wx:key="{{index}}">
+          <view class="positionHead"><text class="positionTitle">{{item.positionName}}</text><text class="money">{{item.emolumentMin}}~{{item.emolumentMax}}k</text></view>
+          <view class="positionDeatil">{{item.city}}-{{item.district}} · {{item.workExperienceName}} · {{item.educationName}}</view>
         </view>
       </view>
     </view>
   </view>
-  <view class="collection icon iconfont icon-ganxingqu"></view>
-  <view class="positionBtn" hidden="{{!isShowBtn}}">10个热招职位</view>
-  <view class="footer">
-    <image class="avatar" src="../../../../images/bg_detail.png" mode="aspectFill"></image>
-    <view class="info">
-      <view class="name">张炽杰张炽杰张炽杰张炽杰张炽杰张炽杰张炽杰张炽杰张炽杰张炽杰</view>
-      <view class="sign">工张炽杰张炽杰张炽杰张炽杰张炽杰张炽杰张炽杰张炽杰张炽杰张炽杰作不易，知音难觅，壮士约乎？</view>
-    </view>
-    <view class="btnBox">
-      <button class="btn">开撩约面</button>
-    </view>
-  </view>
+  <view class="more meToo" bindtap="create" wx:if="{{!info.isOwner && !isRecruiter}}">我也要制作招聘主页<view class="icon iconfont icon-disejiantou-you"></view></view>
+  <view class="collection icon iconfont icon-ganxingqu" bindtap="collect"></view>
+  <view class="positionBtn" hidden="{{!isShowBtn}}">{{positionList.length}}个热招职位</view>
 </view>

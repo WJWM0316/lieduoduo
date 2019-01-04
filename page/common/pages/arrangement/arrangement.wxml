@@ -117,11 +117,11 @@
       <view class="realDate" wx:if="{{info.status === 41}}">
         <view class="txt1">面试时间已确认</view>
         <view class="txt2">时间已添加到面试日程，准备迎接候选人吧~</view>
-        <view class="txt3">2018-02-05</view>
+        <view class="txt3">{{info.arrangementInfo.appointment}}</view>
       </view>
       <view class="realDate" wx:if="{{info.status === 51}}">
-        <view class="txt1">面试时间已结束</view>
-        <view class="txt3">2018-02-05</view>
+        <view class="txt1">面试已结束</view>
+        <view class="txt3 end">{{info.arrangementInfo.appointment}}</view>
       </view>
     </view>
     <view class="btnBox" wx:if="{{info.status === 21}}">

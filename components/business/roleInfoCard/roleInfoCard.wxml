@@ -2,8 +2,8 @@
   <view class="company" wx:if="{{roleType === 'company'}}">
     <image class="img" src="{{cardData.avatar}}"></image>
     <view class="companyMsg">
-      <view class="name">撒大声地在校生·本科·8-12k在校生·本科·8-12k</view>
-      <view class="detail">移动互联网 · B论 · 20-99人在校生·本科·8-12k在校生·本科·8-12k</view>
+      <view class="name">{{cardData.name}}</view>
+      <view class="detail">{{cardData.industry}} · {{cardData.financingDesc}} · {{cardData.employeesDesc}}</view>
     </view>
     <icon class="icon iconfont icon-xiangyou"></icon>
   </view>

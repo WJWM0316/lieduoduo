@@ -38,7 +38,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 3,
+			"current": 10,
 			"list": [
 				{
 					"id": 0,
@@ -101,16 +101,16 @@
 					"query": ""
 				},
 				{
-					"id": 11,
+					"id": 10,
 					"name": "招聘官主页",
 					"pathName": "page/common/pages/recruiterDetail/recruiterDetail",
-					"query": ""
+					"query": "uid=5"
 				},
 				{
-					"id": 12,
+					"id": 11,
 					"name": "面试安排",
 					"pathName": "page/common/pages/arrangement/arrangement",
-					"query": "identity=zhaopin"
+					"query": "identity=zhaopin&id=84"
 				},
 				{
 					"id": -1,

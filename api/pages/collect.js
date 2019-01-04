@@ -24,7 +24,7 @@ export const getMyCollectPositionsApi = (data, isLoading) => {
 export const getMyCollectUserApi = (data, isLoading) => {
   return request({
     method: 'put',
-    url: `/collect/collectUser/${data.vkey}`,
+    url: `/collect/collectUser/${data.uid}`,
     data,
     isLoading: true
   })
@@ -34,7 +34,7 @@ export const getMyCollectUserApi = (data, isLoading) => {
 export const deleteMyCollectUserApi = (data, isLoading) => {
   return request({
     method: 'delete',
-    url: `/collect/collectUser/${data.vkey}`,
+    url: `/collect/collectUser/${data.uid}`,
     data,
     isLoading: true
   })
@@ -44,7 +44,7 @@ export const deleteMyCollectUserApi = (data, isLoading) => {
 export const getMycollectPositionApi = (data, isLoading) => {
   return request({
     method: 'put',
-    url: `/collect/collectPosition/${data.vkey}`,
+    url: `/collect/collectPosition/${data.id}`,
     data,
     isLoading: true
   })
@@ -54,7 +54,7 @@ export const getMycollectPositionApi = (data, isLoading) => {
 export const deleteMycollectPositionApi = (data, isLoading) => {
   return request({
     method: 'delete',
-    url: `/collect/collectPosition/${data.vkey}`,
+    url: `/collect/collectPosition/${data.id}`,
     data,
     isLoading: true
   })

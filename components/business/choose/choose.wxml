@@ -1,6 +1,18 @@
 <!--components/business/choose/choose.wxml-->
-<view class="choose" wx:if="{{!isChose}}">
-  <button bindtap='jump' data-identity="RECRUITER" open-type="getUserInfo" bindgetuserinfo="onGotUserInfo" lang="zh_CN">招聘者</button>
-  <button bindtap='jump' data-identity="APPLICANT" open-type="getUserInfo" bindgetuserinfo="onGotUserInfo" lang="zh_CN">应聘者</button>
+<view class="choose hasAd" wx:if="{{!isChose}}">
+	<navbar title="选择身份"></navbar>
+	<view class="title">
+		<image src="../../../images/choseIcon1.png" class="icon"></image>
+		<view class="desc">小程序找工作神器</view>
+	</view>
+  <button class="role1" bindtap='jump' data-identity="RECRUITER" open-type="getUserInfo" bindgetuserinfo="onGotUserInfo" lang="zh_CN">
+  	<view class="desc">我是求职者<icon class="icon iconfont icon-disejiantou-you"></icon></view>
+  	<image class="img" src="../../../images/choseIcon2.png"></image>
+  </button>
+  <button class="role2" bindtap='jump' data-identity="APPLICANT" open-type="getUserInfo" bindgetuserinfo="onGotUserInfo" lang="zh_CN">
+  	<view class="desc">我是招聘官<icon class="icon iconfont icon-disejiantou-you"></icon></view>
+  	<image class="img" src="../../../images/choseIcon3.png"></image>
+  </button>
+  <image class="ad" src="../../../images/ad.png"></image>
   <!-- <bindPhone></bindPhone> -->
 </view>
