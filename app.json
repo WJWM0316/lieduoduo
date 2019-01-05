@@ -79,7 +79,6 @@
         "pages/position/skills/skills",
         "pages/user/mine/infos/infos",
         "pages/user/mine/update/update",
-        "pages/user/mine/base/base",
         "pages/user/mine/declaration/declaration",
         "pages/user/company/apply/apply",
         "pages/user/company/find/find",

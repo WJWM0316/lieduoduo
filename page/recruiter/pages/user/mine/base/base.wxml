@@ -1,3 +1,0 @@
-<view>
-	<navbar title="基本信息" background="#fff" color="#22292C" showBackBtn="{{true}}"></navbar>
-</view>

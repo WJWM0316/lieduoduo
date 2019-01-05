@@ -23,7 +23,7 @@ Page({
    */
   jumpUpdateInfos() {
     wx.navigateTo({
-      url: `${RECRUITER}user/mine/base/base`
+      url: `${RECRUITER}user/userInfoEdit/userInfoEdit`
     })
   },
   /**
