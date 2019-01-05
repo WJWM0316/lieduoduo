@@ -10,7 +10,7 @@
 		</view>
 		<commonList list="{{browseMySelfLists}}" identity="{{identity}}" wx:if="{{pageList === 'seen-me'}}"></commonList>
 		<commonList list="{{browseMySelfLists}}" identity="{{identity}}" wx:if="{{pageList === 'interested-me'}}"></commonList>
-		<commonList list="{{browseMySelfLists}}" identity="{{identity}}" wx:if="{{pageList === 'my-loved'}}"></commonList>
+		<commonList list="{{mapyCollectUser}}" identity="{{identity}}" wx:if="{{pageList === 'my-loved'}}"></commonList>
 	</view>
   <tab-bar tabType="1"></tab-bar>
 </view>
