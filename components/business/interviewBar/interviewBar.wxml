@@ -1,9 +1,9 @@
 <view class="interview-bar">
-	<block wx:if="{{ !isOwner }}">
+	<block wx:if="{{ !isOwerner }}">
 		<view class="img-box"></view>
 
 		<!-- 求职者还没有发起开撩动作 start-->
-		<block wx:if="{{interviewInfos.interviewStatus === 0}}">
+		<block wx:if="{{interviewInfos.interviewStatus === 0 || interviewInfos.haveInterview === 0 || interviewInfos.interviewStatus === 51}}">
 			<view class="content">
 				<view class="first">
 					<view class="name">李子发</view>
@@ -42,13 +42,13 @@
 		<!-- 求职者等待招聘官安排面试 end-->
 		
 		<!-- 找【招聘官已经安排求职者面试结束 start-->
-		<block wx:elif="{{interviewInfos.interviewStatus === 51}}">
+		<block wx:elif="{{interviewInfos.interviewStatus === 31 || interviewInfos.interviewStatus === 32 || interviewInfos.interviewStatus === 41}}">
 			<view class="content">
 				<view class="first"><view class="name">李子发</view></view>
 				<view class="second">已安排面试</view>
 			</view>
 			<view class="button-box button-box-color3">
-				<view bindtap="todoAction" data-type="chat4">查看面试详情</view>
+				<view bindtap="todoAction" data-type="detail">查看面试详情</view>
 			</view>
 		</block>
 		<!-- 找【招聘官已经安排求职者面试结束 end-->

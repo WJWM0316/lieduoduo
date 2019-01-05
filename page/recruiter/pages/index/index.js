@@ -28,8 +28,10 @@ Page({
   },
   onLoad() {
     app.pageInit = () => {
+      wx.setStorageSync('choseType', 'RECRUITER')
       getBrowseMySelfListsApi()
         .then(res => {
+          wx.setStorageSync('choseType', 'RECRUITER')
           this.setData({browseMySelfLists: res.data})
           console.log(res.data)
         })
