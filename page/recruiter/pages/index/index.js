@@ -7,7 +7,6 @@ import {
 import {
   getBrowseMySelfListsApi
 } from '../../../../api/pages/recruiter.js'
-
 const app = getApp()
 
 Page({
@@ -27,6 +26,7 @@ Page({
     browseMySelfLists: []
   },
   onLoad() {
+//  getBrowseMySelfApi()
     app.pageInit = () => {
       wx.setStorageSync('choseType', 'RECRUITER')
       getBrowseMySelfListsApi()

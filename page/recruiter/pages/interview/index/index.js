@@ -96,6 +96,13 @@ Page({
     }
     this.setData({tabLists})
   },
+  getResult(e) {
+    console.log(e.detail)
+    param.chooseTime = `${e.detail.year}${e.detail.month}${e.detail.days}`
+    this.firstTab().then(res => {
+      companyList: res.data
+    })
+  },
   /* tab切换 0:我的邀请，1：收到意向,2：面试日程*/
   firstTab (index) {
     if (index !== undefined) {

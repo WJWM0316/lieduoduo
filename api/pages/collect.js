@@ -59,3 +59,13 @@ export const deleteMycollectPositionApi = (data, isLoading) => {
     isLoading: true
   })
 }
+
+// 取消收藏职位(招聘端)
+export const getBrowseMySelfApi = (data, isLoading) => {
+  return request({
+    method: 'get',
+    url: `/browse/browseMySelf`,
+    data,
+    isLoading: true
+  })
+}
