@@ -74,5 +74,10 @@
 				<text wx:else>取</text>	
 		</view>
 	</view>
-	<interviewBar infos="{{ detail }}" isOwner="{{ isOwner }}" bindresultevent="getPositionDetail"></interviewBar>
+	<interviewBar
+		infos="{{ detail }}"
+		isOwner="{{ isOwner }}"
+		bindresultevent="getPositionDetail"
+		type="position"
+		wx:if="{{detail.vkey}}"></interviewBar>
 </view>

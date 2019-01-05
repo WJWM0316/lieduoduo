@@ -71,3 +71,21 @@ export const getScheduleListApi = (data, isLoading) => {
     data
   })
 }
+
+
+//获取底部面试状态
+export const getInterviewStatusApi = (data, isLoading) => {
+  return request({
+    method: 'get',
+    url: '/interview/getInterviewStatus',
+    data
+  })
+}
+
+//确定约面
+export const confirmInterviewApi = (data, isLoading) => {
+  return request({
+    method: 'post',
+    url: `/interview/confirm/${data.id}`
+  })
+}

@@ -48,3 +48,13 @@ export const giveMecallApi = (data) => {
     hasLoading: true
   })
 }
+
+// 浏览过我的招聘官
+export const getBrowseMySelfListsApi = (data) => {
+  return request({
+    url: `/browse/browseMySelf`,
+    method: 'get',
+    data,
+    hasLoading: true
+  })
+}
