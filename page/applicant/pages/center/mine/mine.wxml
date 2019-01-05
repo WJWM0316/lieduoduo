@@ -18,7 +18,7 @@
 				<view class="realname">未登录</view>
 				<view class="degree-name directions">登录可后使用完整功能， 快去登录吧~</view>
 			</view>
-			<view class="img-box"></view>
+			<image class="img-box" src="{{myInfo.avatar.url}}"></image>
 		</view>
     <view class='edit-box' wx:if='{{isLogin && isComplete}}'>
       <view class='left-text'>{{myInfo.jobStatusDesc || "待完善"}}</view>
