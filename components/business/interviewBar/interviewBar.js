@@ -130,7 +130,8 @@ Component({
           app.wxToast({title: '等待招聘官安排面试'})
           break
         case 'accept':
-          confirmInterviewApi({id: this.data.interviewInfos.data[0][0].interviewId})
+          const id = Array.isArray(this.data.interviewInfos.data[0]) ? this.data.interviewInfos.data[0][0].interviewId : this.data.interviewInfos.data[0].interviewId
+          confirmInterviewApi({id})
             .then(() => {
               app.wxToast({title: '已接受约面'})
               this.triggerEvent('resultevent', res)
@@ -146,7 +147,8 @@ Component({
             cancelColor: '#BCBCBC',
             confirmColor: '#652791',
             confirmBack: () => {
-              refuseInterviewApi({id: this.data.interviewInfos.data[0][0].interviewId})
+              const id = Array.isArray(this.data.interviewInfos.data[0]) ? this.data.interviewInfos.data[0][0].interviewId : this.data.interviewInfos.data[0].interviewId
+              refuseInterviewApi({id})
                 .then(() => {
                   this.triggerEvent('resultevent', res)
                 })
