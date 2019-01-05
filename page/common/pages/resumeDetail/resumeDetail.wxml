@@ -95,7 +95,12 @@
 </view>
 <!-- 底部开撩 -->
 <view class="bottomBox" wx:if="{{info.interviewStatus}}">
-  <view class="collect"><i class="icon iconfont icon-ganxingqu"></i></view>
+  <view>
+    <interviewBar
+      type="resume"
+      wx:if="{{item.vkey}}"></interviewBar>
+  </view>
+  <!--<view class="collect"><i class="icon iconfont icon-ganxingqu"></i></view>
   <view class="communicate">
     <image src="{{info.avatar}}" class="hrAvatar"></image>
     <view>
@@ -103,5 +108,5 @@
       <text class="Info">我一直在等，等一个懂我的老大</text>
     </view>
     <view class="btn" bindtap="toCommunicate">开撩约面</view>
-  </view>
+  </view>-->
 </view>
