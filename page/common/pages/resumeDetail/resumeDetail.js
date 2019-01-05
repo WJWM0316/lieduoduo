@@ -33,23 +33,23 @@ Page({
       })
       console.log(this.data.info)
     })
-    // if (wx.getStorageSync('choseType') === 'APPLICANT') {
-    //   console.log('求职端')
-    //   getPersonalResumeApi().then(res => {
-    //     this.setData({
-    //       info: res.data
-    //     })
-    //     console.log(this.data.info)
-    //   })
-    // } else {
-    //   console.log('招聘端')
-    //   getJobhunterResumeApi({uid: id}).then(res => {
-    //     this.setData({
-    //       info: res.data
-    //     })
-    //     console.log(this.data.info)
-    //   })
-    // }
+//   if (wx.getStorageSync('choseType') === 'APPLICANT') {
+//     console.log('求职端')
+//     getPersonalResumeApi().then(res => {
+//       this.setData({
+//         info: res.data
+//       })
+//       console.log(this.data.info)
+//     })
+//   } else {
+//     console.log('招聘端')
+//     getJobhunterResumeApi({uid: id}).then(res => {
+//       this.setData({
+//         info: res.data
+//       })
+//       console.log(this.data.info)
+//     })
+//   }
   },
   /* 开撩 */
   toCommunicate () {

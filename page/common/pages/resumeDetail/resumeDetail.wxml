@@ -98,7 +98,7 @@
   <view>
     <interviewBar
       type="resume"
-      wx:if="{{item.vkey}}"></interviewBar>
+      wx:if="{{info.vkey}}"></interviewBar>
   </view>
   <!--<view class="collect"><i class="icon iconfont icon-ganxingqu"></i></view>
   <view class="communicate">
