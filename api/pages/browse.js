@@ -29,3 +29,23 @@ export const getBrowseMySelfApi = (data) => {
     hasLoading: true
   })
 }
+
+// 收藏我的(招聘端)
+export const getCollectMySelfApi = (data, isLoading) => {
+  return request({
+    method: 'get',
+    url: `/collect/getCollectMySelf`,
+    data,
+    isLoading: true
+  })
+}
+
+// 我的收藏的(招聘端)
+export const getMyCollectUsersApi = (data, isLoading) => {
+  return request({
+    method: 'get',
+    url: `/collect/myCollectUsers`,
+    data,
+    isLoading: true
+  })
+}

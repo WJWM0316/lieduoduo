@@ -2,7 +2,8 @@ import {
   getMyBrowseUsersListApi,
   getMyBrowsePositionApi,
   getBrowseMySelfApi,
-  getCollectMySelfApi
+  getCollectMySelfApi,
+  getMyCollectUsersApi
 } from '../../../../api/pages/browse.js'
 
 import {
@@ -16,6 +17,7 @@ Page({
     companyList: [],
     collectMyList: [],
     browseMySelfLists: [], //看过我的
+    mapyCollectUser: [], // 我收藏的求职者列表
     identity: 'RECRUITER'
   },
   onLoad() {
@@ -38,7 +40,7 @@ Page({
         return getCollectMySelfApi()
         break;
       case 'my-loved':
-        return getBrowseMySelfApi()
+        return getMyCollectUsersApi()
         break;
     }
   },
@@ -46,11 +48,12 @@ Page({
     let pageList = e.currentTarget.dataset.pageList
     this.setData({ pageList })
     this.toggle(pageList).then(res => {
-      wx.setStorageSync('choseType', 'RECRUITER')
       if (pageList === "seen-me") {
         this.setData({browseMySelfLists: res.data})
       } else if (pageList === "interested-me") {
         this.setData({collectMyList: res.data})
+      } else {
+        this.setData({mapyCollectUser: res.data})
       }
     })
   }
