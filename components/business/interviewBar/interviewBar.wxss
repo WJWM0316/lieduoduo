@@ -2,7 +2,6 @@
   height:138rpx;
   background:rgba(255,255,255,1);
   box-shadow:0rpx -6rpx 20rpx 0rpx rgba(34,56,101,0.08);
-  border-radius:28rpx 28rpx 0rpx 0rpx;
   background: white;
   width: 100%;
   position:fixed;
@@ -13,6 +12,10 @@
   box-sizing: border-box;
   padding: 20rpx;
   display: flex;
+}
+
+.interview-bar-radius {
+  border-radius:28rpx 28rpx 0rpx 0rpx;
 }
 
 .interview-bar .img-box{
@@ -117,17 +120,18 @@
 }
 
 .interview-bar .edit-button {
-  width: 100rpx;
   margin-right: 20rpx;
   height:80rpx;
 	border-radius:40rpx;
-	margin: 10rpx 0;
-	margin-left: 12rpx;
 	text-align: center;
 	line-height: 80rpx;
 	font-size:28rpx;
 	font-weight:500;
-	color:black;
+	color:#652791;
+	width:246rpx;
+	background:rgba(239,233,244,1);
+	border-radius:44px;
+	margin: 10rpx 30rpx 10rpx 60rpx;
 }
 
 .interview-bar .switch-button {
@@ -135,11 +139,14 @@
 	height:80rpx;
 	background:rgba(101,39,145,1);
 	border-radius:40rpx;
-	margin: 10rpx 0;
-	margin-left: 12rpx;
+	margin: 10rpx 60rpx 10rpx 0rpx;
 	text-align: center;
 	line-height: 80rpx;
 	font-size:28rpx;
 	font-weight:500;
 	color:rgba(255,255,255,1);
+	width:354rpx;
+	background:rgba(101,39,145,1);
+	box-shadow:0rpx 4rpx 12rpx 0rpx rgba(101,39,145,0.38);
+	border-radius:44rpx;
 }

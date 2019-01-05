@@ -7,7 +7,7 @@ Page({
    */
   data: {
     dateList: [],
-    identity: "", // 身份标识
+    identity: wx.getStorageSync('choseType'), // 身份标识
     options: {},
     appointmentId: '',
     info: {}
@@ -73,15 +73,17 @@ Page({
         title: '发送成功',
         icon: 'success'
       })
-      let info = this.data.info
-      info.status = 31
-      this.setData({info})
+      this.pageInit()
     })
   },
   revise() {
     let info = this.data.info
+    let dateList = []
+    info.arrangementInfo.appointmentList.map((item) => {
+      dateList.push(item.appointment)
+    })
     info.status = 21
-    this.setData({info})
+    this.setData({info, dateList})
   },
   sureDate() {
     let data = {
@@ -93,9 +95,7 @@ Page({
         title: '确定成功',
         icon: 'success'
       })
-      let info = this.data.info
-      info.status = 41
-      this.setData({info})
+      this.pageInit()
     })
   },
   /**
@@ -103,16 +103,17 @@ Page({
    */
   onLoad: function (options) {
     this.setData({options, identity: wx.getStorageSync('choseType')})
-    interviewDetailApi({interviewId: options.id}).then(res => {
+    this.pageInit()
+  },
+  pageInit() {
+    interviewDetailApi({interviewId: this.data.options.id}).then(res => {
       if(res.data.arrangementInfo) {
-        console.log(1111111, res.data.arrangementInfo)
         this.setData({info: res.data, dateList: res.data.arrangementInfo.appointmentList})
       } else {
         this.setData({info: res.data})
       }
     })
   },
-
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

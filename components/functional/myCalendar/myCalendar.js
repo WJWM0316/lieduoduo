@@ -69,8 +69,9 @@ Component({
       if (!this.data.isClick) return
       let { year, month, days } = e.currentTarget.dataset
       let choseDate = `${year}年${month}月${days}日`
+      let timeStamp = new Date(`${year}/${month}/${days}`).getTime()
       this.setData({choseDate})
-      this.triggerEvent('resultEvent', {year, month, days})
+      this.triggerEvent('resultEvent', {year, month, days, timeStamp})
     },
     changeType () {
       if (this.data.calendarType === 'roll') {

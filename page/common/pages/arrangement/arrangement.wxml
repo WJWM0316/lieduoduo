@@ -71,7 +71,7 @@
             <view class="removeIcon" bindtap="removeDate" data-index="{{index}}">
               <view class="icon1"></view>
             </view>
-            <view class="dateDetail">{{item.appointment}}</view>
+            <view class="dateDetail">{{item}}</view>
             <icon class="icon iconfont icon-xiangyou"></icon>
           </view>
         </view>

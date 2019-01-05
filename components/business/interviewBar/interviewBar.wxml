@@ -1,4 +1,4 @@
-<view class="interview-bar">
+<view class="interview-bar {{ !isOwerner ? 'interview-bar-radius' : ''}}">
 	<block wx:if="{{ !isOwerner }}">
 		<view class="img-box">
 			<image mode="aspectFill" src="{{infos.recruiterInfo.avatar}}"></image>
@@ -16,7 +16,7 @@
 					<view class="second">{{slogoList[slogoIndex].text}}</view>
 				</view>
 				<view class="button-box button-box-color1">
-					<view bindtap="todoAction" data-type="chat1">开撩约面</view>
+					<view bindtap="todoAction" data-type="chat">开撩约面</view>
 				</view>
 			</block>
 			<!-- 求职者还没有发起开撩动作 end-->
@@ -28,7 +28,7 @@
 					<view class="second">待确认申请</view>
 				</view>
 				<view class="button-box button-box-color2">
-					<view bindtap="todoAction" data-type="chat2">已申请面试</view>
+					<view bindtap="todoAction" data-type="pedding">已申请面试</view>
 				</view>
 			</block>
 			<!-- 求职者已经发起开撩动作 end-->
@@ -40,7 +40,7 @@
 					<view class="second">已确认申请</view>
 				</view>
 				<view class="button-box button-box-color2">
-					<view bindtap="todoAction" data-type="chat3">待安排面试</view>
+					<view bindtap="todoAction" data-type="waiting-interview">待安排面试</view>
 				</view>
 			</block>
 			<!-- 求职者等待招聘官安排面试 end-->
@@ -94,7 +94,7 @@
 					<view class="second">等待求职者确认</view>
 				</view>
 				<view class="button-box button-box-color2">
-					<view bindtap="todoAction" data-type="chat4">等待求职者确认</view>
+					<view>等待求职者确认</view>
 				</view>
 			</block>
 			
@@ -104,7 +104,7 @@
 					<view class="second">已安排面试</view>
 				</view>
 				<view class="button-box button-box-color2">
-					<view bindtap="todoAction" data-type="chat4">已安排面试</view>
+					<view>已安排面试</view>
 				</view>
 			</block>
 			
@@ -114,7 +114,7 @@
 					<view class="second">安排面试结束</view>
 				</view>
 				<view class="button-box button-box-color2">
-					<view bindtap="todoAction" data-type="chat4">安排面试结束</view>
+					<view>安排面试结束</view>
 				</view>
 			</block>
 			
