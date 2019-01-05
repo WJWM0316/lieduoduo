@@ -38,6 +38,8 @@ Component({
     interviewInfos: {},
     identity: wx.getStorageSync('choseType'), // 身份标识
     slogoIndex: 0,
+    // 是否是我发布
+    isOwerner: false,
     slogoList: [
       {
         id: 1,
@@ -59,11 +61,7 @@ Component({
   },
   ready() {
     this.setData({slogoIndex: this.getRandom()})
-    getInterviewStatusApi({type: this.data.type, vkey: this.data.infos.vkey})
-      .then(res => {
-        this.setData({interviewInfos: res.data})
-        console.log(res.data)
-      })
+    this.getInterviewStatus()
   },
   /**
    * 组件的方法列表
@@ -71,6 +69,19 @@ Component({
   methods: {
     getRandom() {
       return Math.floor(Math.random() * this.data.slogoList.length + 1)
+    },
+    /**
+     * @Author   小书包
+     * @DateTime 2019-01-05
+     * @detail   获取开料状态
+     * @return   {[type]}   [description]
+     */
+    getInterviewStatus() {
+      getInterviewStatusApi({type: this.data.type, vkey: this.data.infos.vkey})
+        .then(res => {
+          this.setData({interviewInfos: res.data})
+          if(res.code === 204) this.setData({isOwerner: true})
+        })
     },
     /**
      * @Author   小书包
@@ -97,8 +108,9 @@ Component({
           // applyInterviewApi({recruiterUid: 90, positionId: 39})
           applyInterviewApi({recruiterUid: this.data.infos.recruiterInfo.uid, positionId: this.data.infos.id})
             .then(res => {
+              this.getInterviewStatus()
               app.wxToast({title: '面试申请已发送'})
-              this.triggerEvent('resultevent', res)
+              // this.triggerEvent('resultevent', res)
             })
           break
         case 'chat2':
@@ -126,6 +138,9 @@ Component({
           break
         case 'edit':
           wx.navigateTo({url: `${RECRUITER}position/post/post?positionId=${this.data.infos.id}`})
+          break
+        case 'detail':
+          wx.navigateTo({url: `${COMMON}arrangement/arrangement?id=${this.data.interviewInfos.data[0].interviewId}`})
           break
         case 'about':
           wx.navigateTo({url: `${COMMON}homepage/homepage?companyId=${this.data.infos.companyId}`})

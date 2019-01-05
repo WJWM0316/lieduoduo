@@ -13,8 +13,7 @@ export const inviteInterviewApi = (data, isLoading) => {
 export const interviewDetailApi = (data, isLoading) => {
   return request({
     method: 'get',
-    url: `/interview/detail/${data.interviewId}`,
-    data
+    url: `/interview/detail/${data.interviewId}`
   })
 }
 
