@@ -24,7 +24,35 @@ export const getRecruiterMyInfoApi = (data) => {
 // 招聘官-详情
 export const getRecruiterDetailApi = (data) => {
   return request({
-    url: '/recruiter/detail',
+    url: `/recruiter/detail`,
+    method: 'get',
+    data,
+    hasLoading: true
+  })
+}
+export const getOthersRecruiterDetailApi = (data) => {
+  return request({
+    url: `/recruiter/detail/uid/${data.uid}`,
+    method: 'get',
+    data,
+    hasLoading: true
+  })
+}
+
+// 招聘官打call
+export const giveMecallApi = (data) => {
+  return request({
+    url: `/recruiter/callRecruiter/${data.vkey}`,
+    method: 'put',
+    data,
+    hasLoading: true
+  })
+}
+
+// 浏览过我的招聘官
+export const getBrowseMySelfListsApi = (data) => {
+  return request({
+    url: `/browse/browseMySelf`,
     method: 'get',
     data,
     hasLoading: true

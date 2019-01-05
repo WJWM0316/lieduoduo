@@ -28,25 +28,15 @@ Page({
     getLabelProfessionalSkillsApi()
       .then(response => {
         const storage = wx.getStorageSync('createPosition')
-        const typeId = parseInt(storage.type)
+        const typeId = parseInt(storage.parentType)
         const professionalSkills = response.data.labelProfessionalSkills.find(field => field.labelId === typeId)
         this.setData({ professionalSkills, skills: storage.skills })
       })
   },
   submit() {
-    wx.getStorage({
-      key: 'createPosition',
-      success: res => {
-        const data = res.data
-        data.skills = this.data.skills
-        wx.setStorage({
-          key: 'createPosition',
-          data,
-          success: () => {
-             wx.navigateTo({url: `${RECRUITER}position/post/post`})
-          }
-        })
-      }
-    })
+    const storage = wx.getStorageSync('createPosition')
+    storage.skills = this.data.skills
+    wx.setStorageSync('createPosition', storage)
+    wx.redirectTo({url: `${RECRUITER}position/post/post`})
   }
 })

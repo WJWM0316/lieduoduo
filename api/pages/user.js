@@ -17,3 +17,13 @@ export const postFormIdApi = (data, isLoading) => {
     isLoading: false
   })
 }
+
+export const getUserRoleApi = (data, isLoading) => {
+  return request({
+    method: 'get',
+    url: '/user/roleinfo',
+    data,
+    isLoading: true
+  })
+}
+

@@ -3,8 +3,7 @@
 .ul-tab-bar {
   display: flex;
   line-height: 80rpx;
-  border-radius:10rpx 10rpx 0 0;
-  /*overflow: hidden;*/
+  margin: 0 30rpx;
 }
 
 .ul-tab-bar .li {
@@ -15,6 +14,14 @@
   text-align: center;
   position: relative;
   background:rgba(243,245,248,1);
+}
+
+.ul-tab-bar .li:first-child {
+  border-top-left-radius: 10rpx;
+}
+
+.ul-tab-bar .li:last-child {
+  border-top-right-radius: 10rpx;
 }
 
 .ul-tab-bar .li:before {
@@ -130,6 +137,7 @@
 }
 
 .homepage-team-box {
+  margin: 0 30rpx;
   background:rgba(255,255,255,1);
   box-shadow:0rpx 4rpx 20rpx 0rpx rgba(101,39,145,0.1);
   border-radius:10rpx;
@@ -162,6 +170,19 @@
   bottom: 0;
   right: 0;
   border-radius: 50%;
+  position: absolute;
+  bottom: 10rpx;
+  right: 4rpx;
+  width: 36rpx;
+  height: 36rpx;
+  background-color: #FF7F4C;
+  line-height: 36rpx;
+  text-align: center;
+  border-radius: 50%;
+  border: 2rpx solid #FFFFFF;
+  font-size: 22rpx;
+  color: #fff;
+  font-weight: 700;
 }
 
 .homepage-team-box .li .content {

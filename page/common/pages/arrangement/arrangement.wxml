@@ -5,7 +5,7 @@
   <view class="headInfo"><roleInfoCard cardData="{{info}}" my-class="roleDetail" roleType="applicant"></roleInfoCard></view>
   <block>
     <view class="content">
-      <view class="detail" wx:if="{{info.status === 21}}">
+      <view class="detail" wx:if="{{info.status === 21 || info.status === 32}}">
         <view class="title"><icon class="icon"></icon>面试信息</view>
         <view class="msgItem">
           <view class="inner">
@@ -64,7 +64,7 @@
           </view>
         </view>
       </view>
-      <view class="date" wx:if="{{info.status === 21}}">
+      <view class="date" wx:if="{{info.status === 21 || info.status === 32}}">
         <view class="title"><icon class="icon"></icon>约面时间</view>
         <view class="dateItem" wx:for="{{dateList}}" wx:key="{{index}}">
           <view class="inner">
@@ -117,14 +117,14 @@
       <view class="realDate" wx:if="{{info.status === 41}}">
         <view class="txt1">面试时间已确认</view>
         <view class="txt2">时间已添加到面试日程，准备迎接候选人吧~</view>
-        <view class="txt3">2018-02-05</view>
+        <view class="txt3">{{info.arrangementInfo.appointment}}</view>
       </view>
       <view class="realDate" wx:if="{{info.status === 51}}">
-        <view class="txt1">面试时间已结束</view>
-        <view class="txt3">2018-02-05</view>
+        <view class="txt1">面试已结束</view>
+        <view class="txt3 end">{{info.arrangementInfo.appointment}}</view>
       </view>
     </view>
-    <view class="btnBox" wx:if="{{info.status === 21}}">
+    <view class="btnBox" wx:if="{{identity === 'RECRUITER' && (info.status === 21 || info.status === 32)}}">
       <button class="btn" bindtap="send">发送面试安排</button>
     </view>
     <view class="btnBox1" wx:if="{{identity === 'RECRUITER' && info.status === 31}}">

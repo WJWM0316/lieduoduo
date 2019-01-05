@@ -1,4 +1,5 @@
-// components/business/roleInfoCard/roleInfoCard.js
+import {COMMON} from "../../../config.js"
+
 Component({
   externalClasses: ['my-class'],
   /**
@@ -39,6 +40,21 @@ Component({
             icon: 'success'
           })
         }
+      })
+    },
+    jumpCompany() {
+      wx.navigateTo({
+        url: `${COMMON}homepage/homepage?companyId=${this.data.cardData.id}`
+      })
+    },
+    jumpApplicant() {
+      wx.navigateTo({
+        url: `${COMMON}resumeDetail/resumeDetail?uid=${this.data.cardData.id}`
+      })
+    },
+    jumpRecruiter() {
+      wx.navigateTo({
+        url: `${COMMON}recruiterDetail/recruiterDetail?uid=${this.data.cardData.id}`
       })
     }
   }

@@ -1,5 +1,6 @@
 {
   "usingComponents": {
+  	"jobList": "../../../../components/business/jobList/jobList",
   	"shareBtn": "../../../../components/layout/shareBtn/shareBtn",
   	"navbar": "../../../../components/business/navbar/navbar"
   }

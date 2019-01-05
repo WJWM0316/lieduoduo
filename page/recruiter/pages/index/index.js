@@ -4,14 +4,15 @@ import {
   getBrowseMySelfApi
 } from '../../../../api/pages/browse.js'
 
+import {
+  getBrowseMySelfListsApi
+} from '../../../../api/pages/recruiter.js'
+
 const app = getApp()
 
 Page({
   data: {
     pageList: 'seen-me',
-    choseType: wx.getStorageSync('choseType') || null,
-    userInfo: null,
-    needLogin: false,
     companyList: [
       {
         id: 1,
@@ -22,13 +23,17 @@ Page({
         positionNumber: 18,
         status: 1
       }
-    ]
+    ],
+    browseMySelfLists: []
   },
   onLoad() {
-    console.log(11111111111111111111)
-    app.checkLogin().then(res => {
-      this.setData({userInfo: res})
-    })
+    app.pageInit = () => {
+      getBrowseMySelfListsApi()
+        .then(res => {
+          this.setData({browseMySelfLists: res.data})
+          console.log(res.data)
+        })
+    }
   },
   changeCompanyLists(e) {
     let pageList = e.currentTarget.dataset.pageList

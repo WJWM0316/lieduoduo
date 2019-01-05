@@ -23,6 +23,7 @@ Component({
       })
     }
   },
+
   /**
    * 组件的方法列表
    */
@@ -40,6 +41,10 @@ Component({
         if (identity === 'RECRUITER') {
           wx.reLaunch({
             url: `${RECRUITER}index/index`
+          })
+        } else {
+          wx.reLaunch({
+            url: `${APPLICANT}index/index`
           })
         }
         this.setData({

@@ -164,12 +164,19 @@
   color: #282828;
   line-height: 88rpx;
 }
+.callBtn.isCalled {
+  color: #652791;
+  background: #EFE9F4;
+}
 .more {
   font-size: 26rpx;
   font-weight: 300;
   color: #626262;
   line-height: 26rpx;
   text-align: center;
+}
+.meToo {
+  margin-top: 50rpx;
 }
 .more .icon {
   font-size: 26rpx;

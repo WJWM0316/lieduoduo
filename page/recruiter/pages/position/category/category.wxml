@@ -1,8 +1,8 @@
 <view>
-	<navbar title="职位类别" background="#FFFFFF" color="#22292C" showBackBtn="{{true}}"></navbar>
-	<form bindsubmit="submit" class="entry-list">
+	<navbar title="选择职位类型"></navbar>
+	<form bindsubmit="submit" class="search-box">
 		<view class="user-input">
-			<input placeholder="搜索" auto-focus />
+			<input placeholder="搜索" auto-focus bindinput="bindInput" />
 		</view>
 	</form>
 	<view class="category-list">
@@ -10,11 +10,35 @@
 			class="li link"
 			wx:for="{{positionTypeList}}"
 			wx:for-item="item"
+			data-order="first"
 			wx:key="{{item.id}}"
-			data-label-id="{{item.labelId}}"
-			bindtap="onClick">
-			<view class="text">{{item.name}}</view>
+			data-index="{{index}}"
+			bindtap="onClick1">
+			<view class="text {{item.active ? 'active' : ''}}">{{item.name}}</view>
 			<i class="icon iconfont icon-zhishibiao"></i>
+		</view>
+	</view>
+	<view class="mask-board {{showMask ? 'mask-board-show' : ''}}" style="top: {{statusBarHeight}}px">
+		<view class="box">
+			<view class="column second">
+				<view
+					wx:for="{{positionTypeList[index1].children}}"
+					class="item {{item.active ? 'active' : ''}}"
+					wx:key="{{index}}"
+					wx:for-item="second"
+					data-index="{{index}}"
+					bindtap="onClick2"
+					data-order="second">{{second.name}}</view>
+			</view>
+			<view class="column third" wx:if="{{positionTypeList[index1].children.length}}">
+				<view 
+				wx:for="{{positionTypeList[index1].children[index2].children}}" 
+				class="item {{item.active ? 'active' : ''}}"
+			  wx:key="{{index}}"
+			  data-index="{{index}}"
+			  bindtap="onClick3"
+			  wx:for-item="third">{{third.name}}</view>
+			</view>
 		</view>
 	</view>
 </view>

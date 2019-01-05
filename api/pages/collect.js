@@ -45,6 +45,7 @@ export const getMycollectPositionApi = (data, isLoading) => {
   return request({
     method: 'put',
     url: `/collect/collectPosition/${data.id}`,
+    data,
     isLoading: true
   })
 }
@@ -54,6 +55,7 @@ export const deleteMycollectPositionApi = (data, isLoading) => {
   return request({
     method: 'delete',
     url: `/collect/collectPosition/${data.id}`,
+    data,
     isLoading: true
   })
 }

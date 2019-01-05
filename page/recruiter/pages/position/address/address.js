@@ -63,6 +63,6 @@ Page({
     const storage = wx.getStorageSync('createPosition')
     storage.doorplate = this.data.keyword
     wx.setStorageSync('createPosition', storage)
-    wx.navigateTo({url: `${RECRUITER}position/post/post`})
+    wx.redirectTo({url: `${RECRUITER}position/post/post`})
   }
 })

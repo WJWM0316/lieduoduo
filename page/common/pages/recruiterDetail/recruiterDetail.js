@@ -1,4 +1,11 @@
 import {getSelectorQuery} from "../../../../utils/util.js"
+import {getOthersRecruiterDetailApi, getRecruiterDetailApi, giveMecallApi} from "../../../../api/pages/recruiter.js"
+import {getPositionListApi} from "../../../../api/pages/position.js"
+import {getMyCollectUserApi, deleteMyCollectUserApi} from "../../../../api/pages/collect.js"
+import {getUserRoleApi} from "../../../../api/pages/user.js"
+import {COMMON} from "../../../../config.js"
+
+let app = getApp()
 let positionTop = 0
 Page({
 
@@ -6,30 +13,57 @@ Page({
    * 页面的初始数据
    */
   data: {
-    labels: ['你大爷的啊', '你大爷的啊', '你大爷的啊','你大爷的啊','你大爷的啊','你大爷的啊'],
     isShrink: false,
     btnTxt: '展开内容',
-    isShowBtn: true
+    info: {},
+    isOwner: false,
+    isRecruiter: false,
+    positionList: [],
+    isShowBtn: true,
+    options: {}
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    if (app.globalData.recruiterDetails.uid && app.globalData.recruiterDetails.uid === options.uid) {
+      this.setData({info: app.globalData.recruiterDetails, isOwner: true}, function() {
+        getSelectorQuery('.msg').then(res => {
+          if (res.height > 143) {
+            this.setData({isShrink: true})
+          }
+        })
+      })
+    } else {
+      getOthersRecruiterDetailApi({uid: options.uid}).then(res => {
+        this.setData({info: res.data, options}, function() {
+          getSelectorQuery('.msg').then(res => {
+            if (res.height > 143) {
+              this.setData({isShrink: true})
+            }
+          })
+        })
+      })
+    }
+    getPositionListApi({recruiter: options.uid}).then(res => {
+      this.setData({positionList: res.data}, function() {
+        getSelectorQuery(".mainContent .position").then(res => {
+          positionTop = res.top - res.height
+        })
+      })
+    })
+    getUserRoleApi().then(res => {
+      if (res.data.isRecruiter) {
+        this.setData({isRecruiter: res.data.isRecruiter})
+      }
+    })
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-    getSelectorQuery('.msg').then(res => {
-      if (res.height > 143) {
-        this.setData({isShrink: true})
-      }
-    })
-    getSelectorQuery(".mainContent .position").then(res => {
-      positionTop = res.top - res.height * 2
-    })
   },
   toggle() {
     let isShrink = this.data.isShrink
@@ -41,6 +75,51 @@ Page({
       btnTxt = '展开内容'
     }
     this.setData({isShrink, btnTxt})
+  },
+  callBtn() {
+    giveMecallApi({vkey: this.data.info.vkey}).then(res => {})
+  },
+  collect() {
+    let data = {
+      uid: this.data.options.uid
+    }
+    if (!this.data.info.interested) {
+      getMyCollectUserApi(data).then(res => {
+        app.wxToast({
+          title: '收藏成功',
+          icon: 'success'
+        })
+        let info = this.data.info
+        info.interested = true
+        this.setData({info})
+      })
+    } else {
+      deleteMyCollectUserApi(data).then(res => {
+        app.wxToast({
+          title: '取消收藏',
+          icon: 'success'
+        })
+        let info = this.data.info
+        info.interested = false
+        this.setData({info})
+      })
+    }
+  },
+  jumpPage(e) {
+    let id = e.currentTarget.dataset.id
+    wx.navigateTo({
+      url: `${COMMON}positionDetail/positionDetail?positionId=${id}`
+    })
+  },
+  scrollPs() {
+    wx.pageScrollTo({
+      scrollTop: positionTop
+    })
+  },
+  create() {
+    wx.navigateTo({
+      url: `${COMMON}bindPhone/bindPhone`
+    })
   },
   onPageScroll(e) { // 获取滚动条当前位置
     if (e.scrollTop >= positionTop) {

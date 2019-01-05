@@ -34,6 +34,11 @@ Page({
   },
   onLoad: function () {
     let choseType = wx.getStorageSync('choseType') || null
+    if (!choseType) {
+      wx.hideTabBar()
+    } else {
+      wx.showTabBar()
+    }
     if (choseType === 'RECRUITER') {
       wx.showModal({
         title: '提示',

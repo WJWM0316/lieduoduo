@@ -1,5 +1,5 @@
 <view class="recruiter-interview">
-	<navbar title="面试" background="#2878FF" color="#fff"></navbar>
+	<navbar title="面试"></navbar>
 	<view class="interview-tab-bar">
 		<view
 			class="li {{tab.active ? 'active' : ''}} {{tab.showRedDot ? 'red-dot' : ''}}"
@@ -33,6 +33,7 @@
 	</view>
 	<commonList
 		list="{{companyList}}"
+		identity="{{identity}}"
 		showTopRadius="{{true}}"
 		showRightRadius="{{true}}"
 		showBottomRadius="{{true}}"

@@ -45,7 +45,7 @@ export const sureInterviewApi = (data, isLoading) => {
   })
 }
 
-//求职者申请列表
+//求职者申请列表 (招聘端的邀请列表)
 export const getApplyListApi = (data, isLoading) => {
   return request({
     method: 'get',
@@ -68,6 +68,34 @@ export const getScheduleListApi = (data, isLoading) => {
   return request({
     method: 'get',
     url: '/interview/schedule',
+    data
+  })
+}
+
+
+//获取底部面试状态
+export const getInterviewStatusApi = (data, isLoading) => {
+  return request({
+    method: 'get',
+    url: '/interview/getInterviewStatus',
+    data
+  })
+}
+
+//确定约面
+export const confirmInterviewApi = (data, isLoading) => {
+  return request({
+    method: 'post',
+    url: `/interview/confirm/${data.id}`
+  })
+}
+
+/* 招聘端 */
+//收到意向列表
+export const getIntentionListApi = (data, isLoading) => {
+  return request({
+    method: 'get',
+    url: `/interview/intention`,
     data
   })
 }

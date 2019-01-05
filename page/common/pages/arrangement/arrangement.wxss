@@ -272,3 +272,6 @@
   line-height: 64rpx;
   margin-top: 54rpx;
 }
+.realDate .txt3.end {
+  color: #BCBCBC;
+}
