@@ -120,7 +120,7 @@ Component({
             .then(res => {
               this.getInterviewStatus()
               app.wxToast({title: '面试申请已发送'})
-              // this.triggerEvent('resultevent', res)
+              this.triggerEvent('resultevent', res)
             })
           break
         case 'chat2':
@@ -135,6 +135,7 @@ Component({
             .then(() => {
               app.wxToast({title: '已接受约面'})
               this.triggerEvent('resultevent', res)
+              this.getInterviewStatus()
             })
           break
         case 'reject':
@@ -150,6 +151,7 @@ Component({
               const id = Array.isArray(this.data.interviewInfos.data[0]) ? this.data.interviewInfos.data[0][0].interviewId : this.data.interviewInfos.data[0].interviewId
               refuseInterviewApi({id})
                 .then(() => {
+                  this.getInterviewStatus()
                   this.triggerEvent('resultevent', res)
                 })
             }
