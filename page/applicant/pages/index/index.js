@@ -71,5 +71,8 @@ Page({
   changeCompanyLists(e) {
     let pageList = e.currentTarget.dataset.pageList
     this.setData({ pageList })
+  },
+  onShareAppMessage: function(options) {
+　　return app.wxShare({options})
   }
 })

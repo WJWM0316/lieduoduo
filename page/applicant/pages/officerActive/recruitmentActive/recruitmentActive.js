@@ -7,80 +7,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-    companyList: [
-      {
-        id: 1,
-        recruiterName: '文双',
-        certification: false,
-        recruiterPosition: '创始人、CEO',
-        companyName: '老虎科技',
-        positionNumber: 18,
-        status: 1
-      },
-      {
-        id: 2,
-        recruiterName: '文双',
-        certification: true,
-        recruiterPosition: '创始人、CEO',
-        companyName: '老虎科技',
-        positionNumber: 18,
-        status: 0
-      },
-      {
-        id: 2,
-        recruiterName: '文双',
-        certification: true,
-        recruiterPosition: '创始人、CEO',
-        companyName: '老虎科技',
-        positionNumber: 18,
-        status: 0
-      },
-      {
-        id: 2,
-        recruiterName: '文双',
-        certification: true,
-        recruiterPosition: '创始人、CEO',
-        companyName: '老虎科技',
-        positionNumber: 18,
-        status: 0
-      },
-      {
-        id: 2,
-        recruiterName: '文双',
-        certification: true,
-        recruiterPosition: '创始人、CEO',
-        companyName: '老虎科技',
-        positionNumber: 18,
-        status: 0
-      },
-      {
-        id: 2,
-        recruiterName: '文双',
-        certification: true,
-        recruiterPosition: '创始人、CEO',
-        companyName: '老虎科技',
-        positionNumber: 18,
-        status: 0
-      },
-      {
-        id: 2,
-        recruiterName: '文双',
-        certification: true,
-        recruiterPosition: '创始人、CEO',
-        companyName: '老虎科技',
-        positionNumber: 18,
-        status: 0
-      },
-      {
-        id: 2,
-        recruiterName: '文双',
-        certification: true,
-        recruiterPosition: '创始人、CEO',
-        companyName: '老虎科技',
-        positionNumber: 18,
-        status: 0
-      }
-    ],
+    watchedList: [],
+    interestList: [],
     active: 'watched',
     page: 1, // 当前页数
     list: [], // 当前查看的列表
@@ -93,46 +21,33 @@ Page({
       list: [],
       isLastPage: false
     })
-    this.init()
+    this.getList()
   },
   /* 获取列表数据*/
   getList () {
     if (this.data.active === 'watched') {
-      return getBrowseMySelfApi({page: this.data.page})
-    } else {
-      return getCollectMySelfApi({page: this.data.page})
-    }
-  },
-  browseMySelf () {
-    isBusy = true
-    this.getList().then(res => {
-      let newList = [...this.data.list, ...res.data]
-      this.setData({
-        list: newList,
-        isLastPage: res.meta.currentPage === res.meta.lastPage
+      if (this.data.watchedList.length > 0) return
+      getBrowseMySelfApi({page: this.data.page}).then(res => {
+        this.setData({watchedList: res.data})
       })
-      isBusy = false
-      console.log(this.data.list, this.data.isLastPage, '111111111')
-    })
-  },
-  /* 初始化 */
-  init () {
-    this.browseMySelf()
+    } else {
+      if (this.data.interestList.length > 0) return
+      getCollectMySelfApi({page: this.data.page}).then(res => {
+        this.setData({interestList: res.data})
+      })
+    }
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.init()
+    this.getList()
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-    if (this.data.isLastPage || isBusy) return
-    this.data.page += 1
-    this.init()
   },
 
   /**

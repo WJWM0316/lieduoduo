@@ -1,5 +1,5 @@
 <!--求职者个人简历页-->
-<navbar title="老虎科技-CEO" background="#FFFFFF" color="#000"></navbar>
+<navbar title="老虎科技-CEO" background="#FFFFFF" color="#22292C" showHome="{{true}}"></navbar>
 <view class="resumeDetail">
   <view class="share" wx:if="{{info.isOwner}}"><i class="icon iconfont icon-fenxiang"></i></view>
 <!-- 基本信息 -->
