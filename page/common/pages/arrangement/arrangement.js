@@ -98,7 +98,11 @@ Page({
   onLoad: function (options) {
     this.setData({options})
     interviewDetailApi({interviewId: options.id}).then(res => {
-      this.setData({info: res.data, dateList: res.data.arrangementInfo.appointmentList})
+      if(res.data.arrangementInfo) {
+        this.setData({info: res.data, dateList: res.data.arrangementInfo.appointmentList})
+      } else {
+        this.setData({info: res.data})
+      }
     })
   },
 
