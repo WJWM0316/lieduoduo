@@ -99,6 +99,7 @@
     <interviewBar
       infos="{{info}}"
       type="resume"
+      bindresultevent="init"
       vkey="{{info.vkey}}"
       wx:if="{{info.vkey}}"></interviewBar>
   </view>
