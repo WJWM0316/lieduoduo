@@ -30,6 +30,17 @@ export const getBrowseMySelfApi = (data) => {
   })
 }
 
+//// 我的收藏（求职端）
+//export const getMyCollectUsersApi = (data) => {
+//return request({
+//  url: '/collect/myCollectUsers',
+//  method: 'get',
+//  data,
+//  hasLoading: true
+//})
+//}
+
+
 // 收藏我的(招聘端)
 export const getCollectMySelfApi = (data, isLoading) => {
   return request({
