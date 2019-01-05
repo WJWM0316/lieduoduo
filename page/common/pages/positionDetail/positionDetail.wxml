@@ -1,5 +1,5 @@
 <view class="job-detail">
-	<navbar title="招聘{{detail.positionName}}"></navbar>
+	<navbar title="招聘{{detail.positionName}}" showHome="{{true}}"></navbar>
 	<view class="page-top">
 		<image class="bgImg" src="../../../../images/job-detail.png" mode="aspectFill"></image>
 		<shareBtn></shareBtn>

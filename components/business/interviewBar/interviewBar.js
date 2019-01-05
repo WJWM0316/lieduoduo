@@ -28,10 +28,6 @@ Component({
     type: {
       type: String,
       value: ''
-    },
-    vkey: {
-      type: String,
-      value: ''
     }
   },
 
@@ -81,7 +77,7 @@ Component({
      * @return   {[type]}   [description]
      */
     getInterviewStatus() {
-      getInterviewStatusApi({type: this.data.type, vkey: this.data.vkey})
+      getInterviewStatusApi({type: this.data.type, vkey: this.data.infos.vkey})
         .then(res => {
           this.setData({interviewInfos: res.data})
           if(res.code === 204) this.setData({isOwerner: true})

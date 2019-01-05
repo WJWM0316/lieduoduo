@@ -19,26 +19,28 @@ Component({
     },
     // 是否显示底部分割线
     showDividingLine: {
-        type: Boolean,
-        value: true
+      type: Boolean,
+      value: true
     },
     // 是否显示底部
     showFooter: {
-        type: Boolean,
-        value: true
+      type: Boolean,
+      value: true
     },
     // 是否显示底部
     showItemStatus: {
-        type: Boolean,
-        value: true
+      type: Boolean,
+      value: true
     }
+  },
+  attached() {
+    console.log(this.data.list)
   },
 	methods: {
 		routeJump(e) {
 			const itemId = e.currentTarget.dataset.itemId
 			const status = e.currentTarget.dataset.status
 			const jobhunteruid = e.currentTarget.dataset.jobhunteruid
-			console.log(e)
 			if (status === 11) {
 			  wx.navigateTo({
           url: `/page/common/pages/resumeDetail/resumeDetail?uid=${jobhunteruid}`
