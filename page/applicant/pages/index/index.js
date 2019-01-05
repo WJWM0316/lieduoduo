@@ -4,6 +4,7 @@ import {RECRUITER, APPLICANT, COMMON} from '../../../../config.js'
 import {getSelectorQuery}  from '../../../../utils/util.js'
 import {getUserInfoApi} from '../../../../api/pages/user.js'
 import { geMyBrowseUsersApi } from '../../../../api/pages/active.js'
+import { getMyCollectUsersApi } from '../../../../api/pages/browse.js'
 const app = getApp()
 Page({
   data: {
@@ -11,26 +12,7 @@ Page({
     pageList: 'mySeen',
     choseType: wx.getStorageSync('choseType') || null,
     needLogin: false,
-    companyList: [
-      {
-        id: 1,
-        recruiterName: '文双',
-        certification: false,
-        recruiterPosition: '创始人、CEO',
-        companyName: '老虎科技',
-        positionNumber: 18,
-        status: 1
-      },
-      {
-        id: 2,
-        recruiterName: '文双',
-        certification: true,
-        recruiterPosition: '创始人、CEO',
-        companyName: '老虎科技',
-        positionNumber: 18,
-        status: 0
-      }
-    ]
+    companyList: []
   },
   onLoad: function () {
     let choseType = wx.getStorageSync('choseType')
@@ -68,9 +50,28 @@ Page({
       text: '99+'
     })
   },
+  toggle (tab) {
+    let tabName = tab || this.data.pageList
+    console.log(tabName)
+    switch (tabName) {
+      case 'mySeen':
+        return geMyBrowseUsersApi()
+        break;
+      case 'myInterested':
+        return getMyCollectUsersApi()
+        break;
+      default:
+        break;
+    }
+  },
   changeCompanyLists(e) {
     let pageList = e.currentTarget.dataset.pageList
-    this.setData({ pageList })
+    this.toggle(pageList).then(res => {
+      this.setData({
+        pageList,
+        companyList: res.data
+      })
+    })
   },
   onShareAppMessage: function(options) {
 　　return app.wxShare({options})
