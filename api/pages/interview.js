@@ -89,6 +89,14 @@ export const confirmInterviewApi = (data, isLoading) => {
   })
 }
 
+//编辑不合适
+export const refuseInterviewApi = (data, isLoading) => {
+  return request({
+    method: 'post',
+    url: `/interview/refuse/${data.id}`
+  })
+}
+
 /* 招聘端 */
 //收到意向列表
 export const getIntentionListApi = (data, isLoading) => {
