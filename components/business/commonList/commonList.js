@@ -41,6 +41,8 @@ Component({
 			const itemId = e.currentTarget.dataset.itemId
 			const status = e.currentTarget.dataset.status
 			const jobhunteruid = e.currentTarget.dataset.jobhunteruid || e.currentTarget.dataset.uid
+			const recruiteruid = e.currentTarget.dataset.recruiteruid
+			console.log(recruiteruid, 77777)
 			if (e.currentTarget.dataset.uid) { // 首页入口
 			  wx.navigateTo({
           url: `/page/common/pages/resumeDetail/resumeDetail?uid=${jobhunteruid}`
@@ -49,6 +51,10 @@ Component({
 			  if (status === 11) {
           wx.navigateTo({
             url: `/page/common/pages/resumeDetail/resumeDetail?uid=${jobhunteruid}`
+          })
+        } else if (status === 12 || status === 21 ||  status === 32 || status === 51 || status === 54) {
+          wx.navigateTo({
+            url: `/page/common/pages/recruiterDetail/recruiterDetail?uid=${recruiteruid}`
           })
         } else {
           wx.navigateTo({

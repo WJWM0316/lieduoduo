@@ -63,15 +63,20 @@
 }
 
 .common-lits-ul .li .content {
-  white-space: nowrap;
 	display: inline-block;
 	width: calc(100% - 120rpx - 30rpx);
 	height: 120rpx;
 	margin-left: 30rpx;
 	vertical-align: middle;
 }
+.li .content .main {
+  white-space: nowrap;
+}
 
 .common-lits-ul .li .header {
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
 	overflow: hidden;
 	margin-top: 15rpx;
 }
@@ -93,6 +98,10 @@
 	border-left: 1px solid #979797;
 	margin-left: 15px;
 	padding-left: 15px;
+	width: 200rpx;
+	overflow: hidden;
+  text-overflow:ellipsis;
+  white-space: nowrap;
 }
 
 .common-lits-ul .li .company-name {
