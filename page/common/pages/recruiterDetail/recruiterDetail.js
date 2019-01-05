@@ -16,6 +16,7 @@ Page({
     isShrink: false,
     btnTxt: '展开内容',
     info: {},
+    isOwner: false,
     isRecruiter: false,
     positionList: [],
     isShowBtn: true,
@@ -26,21 +27,36 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    getOthersRecruiterDetailApi({uid: options.uid}).then(res => {
-      this.setData({info: res.data, options}, function() {
+    if (app.globalData.recruiterDetails.uid && app.globalData.recruiterDetails.uid === options.uid) {
+      this.setData({info: app.globalData.recruiterDetails, isOwner: true}, function() {
         getSelectorQuery('.msg').then(res => {
           if (res.height > 143) {
             this.setData({isShrink: true})
           }
         })
       })
-    })
+    } else {
+      getOthersRecruiterDetailApi({uid: options.uid}).then(res => {
+        this.setData({info: res.data, options}, function() {
+          getSelectorQuery('.msg').then(res => {
+            if (res.height > 143) {
+              this.setData({isShrink: true})
+            }
+          })
+        })
+      })
+    }
     getPositionListApi({recruiter: options.uid}).then(res => {
       this.setData({positionList: res.data}, function() {
         getSelectorQuery(".mainContent .position").then(res => {
           positionTop = res.top - res.height
         })
       })
+    })
+    getUserRoleApi().then(res => {
+      if (res.data.isRecruiter) {
+        this.setData({isRecruiter: res.data.isRecruiter})
+      }
     })
   },
 
@@ -88,6 +104,12 @@ Page({
         this.setData({info})
       })
     }
+  },
+  jumpPage(e) {
+    let id = e.currentTarget.dataset.id
+    wx.navigateTo({
+      url: `${COMMON}positionDetail/positionDetail?positionId=${id}`
+    })
   },
   scrollPs() {
     wx.pageScrollTo({

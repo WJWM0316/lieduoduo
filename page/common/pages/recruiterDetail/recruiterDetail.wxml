@@ -57,14 +57,14 @@
     <view class="position">
       <company roleType="company" cardData="{{info.companyInfo}}"></company>
       <view class="positionList">
-        <view class="positionItem" wx:for="{{positionList}}" wx:key="{{index}}">
+        <view class="positionItem" wx:for="{{positionList}}" wx:key="{{index}}" bindtap="jumpPage" data-id="{{item.id}}">
           <view class="positionHead"><text class="positionTitle">{{item.positionName}}</text><text class="money">{{item.emolumentMin}}~{{item.emolumentMax}}k</text></view>
           <view class="positionDeatil">{{item.city}}-{{item.district}} · {{item.workExperienceName}} · {{item.educationName}}</view>
         </view>
       </view>
     </view>
   </view>
-  <view class="more meToo" bindtap="create" wx:if="{{!info.isOwner && !isRecruiter}}">我也要制作招聘主页<view class="icon iconfont icon-disejiantou-you"></view></view>
+  <view class="more meToo" bindtap="create" wx:if="{{!isOwner && !isRecruiter}}">我也要制作招聘主页<view class="icon iconfont icon-disejiantou-you"></view></view>
   <view class="collection icon iconfont icon-ganxingqu" bindtap="collect"></view>
   <view class="positionBtn" bindtap="scrollPs" hidden="{{!isShowBtn}}">{{positionList.length}}个热招职位</view>
 </view>
