@@ -69,3 +69,13 @@ export const getBrowseMySelfApi = (data, isLoading) => {
     isLoading: true
   })
 }
+
+// 收藏我的(招聘端)
+export const getCollectMySelfApi = (data, isLoading) => {
+  return request({
+    method: 'get',
+    url: `/collect/getCollectMySelf`,
+    data,
+    isLoading: true
+  })
+}
