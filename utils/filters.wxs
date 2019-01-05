@@ -1,9 +1,13 @@
-var dateFormat = function(timestamp) {
+/**
+ * 时间戳转化格式
+ */
+var dateFormat = function(timestamp, format) {
   var date = getDate(timestamp * 1000)
   var year = date.getFullYear()
   var month = date.getMonth() + 1
   var day = date.getDate()
-
+  if (month < 10) month = '0' + month
+  if (day < 10) day = '0' + day
   var hour = function() {
     if(date.getHours() < 10) {
       return '0' + date.getHours()
@@ -24,10 +28,70 @@ var dateFormat = function(timestamp) {
     }
     return date.getSeconds()
   }
- 
-  return year + '-' + month + '-' + day + ' ' + hour() + ':' + minute() + ":" + second()
+  switch(format) {
+    case 'YYYY-MM-DD':
+    return year + '-' + month + '-' + day
+    case 'YYYY-MM-DD hh:mm':
+    return year + '-' + month + '-' + day + ' ' + hour() + ':' + minute()
+    case 'MM-DD':
+    return month + '-' + day
+  }
 }
- 
+
+/**
+ * 时间戳转化活跃时间
+ */
+var activeTime = function(timestamp) {
+  var releaseTime = timestamp
+  var now = getDate()
+  var timeStr = '刚刚'
+  if (releaseTime) {
+    releaseTime = getDate(releaseTime * 1000)
+    var differ = parseInt((now.getTime() - releaseTime.getTime()) / 1000)
+    var timeCompany = {
+      m: 60,
+      h: 60 * 60,
+      d: 60 * 60 * 24
+    }
+    // 是否跨年 and 超过两天
+    var nowDate = {
+      y: now.getFullYear(),
+      m: now.getMonth(),
+      d: now.getDate()
+    }
+    var releaseTimeDate = {
+      y: releaseTime.getFullYear(),
+      m: releaseTime.getMonth(),
+      d: releaseTime.getDate()
+    }
+    // 是否当天
+    if (nowDate.y === releaseTimeDate.y && nowDate.m === releaseTimeDate.m && nowDate.d === releaseTimeDate.d) {
+      if (differ < timeCompany.m) { // 一分钟以内
+        timeStr = '刚刚'
+      } else if (differ < timeCompany.h) { // 一小时以内
+        timeStr = parseInt(differ / timeCompany.m) + '分钟前'
+      } else {
+        timeStr = parseInt(differ / timeCompany.h) + '小时前'
+      }
+    } else {
+      differ = parseInt((getDate(nowDate.y, nowDate.m, nowDate.d).getTime() - releaseTime.getTime()) / 1000)
+      if (differ < timeCompany.d) { // 昨天
+        timeStr = '昨天'
+      } else if (differ < timeCompany.d * 2) {
+        timeStr = '前天'
+      } else {
+        if (now.getFullYear() > releaseTime.getFullYear()) { // 超过两天且跨年
+          timeStr = dateFormat(releaseTime, 'YY-MM-DD')
+        } else {
+          timeStr = dateFormat(releaseTime, 'YY-MM-DD HH:mm')
+        }
+      }
+    }
+  }
+  return timeStr
+}
+
+
 var positionFilter = function(num) {
   var status = null
   switch(num) {
