@@ -38,7 +38,11 @@
 			"list": []
 		},
 		"miniprogram": {
+<<<<<<< HEAD
+			"current": 19,
+=======
 			"current": 7,
+>>>>>>> 7cd2e364032ed71f40dd4804c492ba5f5973aa71
 			"list": [
 				{
 					"id": 0,
@@ -155,10 +159,10 @@
 					"query": ""
 				},
 				{
-					"id": -1,
-					"name": "招聘管-我的页面",
-					"pathName": "page/recruiter/pages/user/mine/infos/infos",
-					"query": ""
+					"id": 19,
+					"name": "招聘官主页",
+					"pathName": "page/common/pages/recruiterDetail/recruiterDetail",
+					"query": "uid=92"
 				},
 				{
 					"id": -1,

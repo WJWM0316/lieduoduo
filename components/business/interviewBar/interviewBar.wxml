@@ -1,4 +1,4 @@
-<view class="interview-bar">
+<view class="interview-bar {{ !isOwerner ? 'interview-bar-radius' : ''}}">
 	<block wx:if="{{ !isOwerner }}">
 		<view class="img-box">
 			<image mode="aspectFill" src="{{infos.recruiterInfo.avatar}}"></image>
