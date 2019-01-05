@@ -21,10 +21,11 @@ Component({
    * 组件的方法列表
    */
   methods: {
-    routeJump () {
+    routeJump (e) {
+      const uid = e.currentTarget.dataset.uid
       wx.navigateTo({
-        url: '/page/common/pages/positionDetail/positionDetail?positionId=33&companyId=2'
-      })
+            url: `/page/common/pages/recruiterDetail/recruiterDetail?uid=${uid}`
+          })
     }
   }
 })

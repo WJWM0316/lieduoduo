@@ -4,7 +4,8 @@
     wx:for="{{ list }}"
     wx:key="{{index}}"
     bindtap="routeJump"
-    data-companyId="{{item.id}}">
+    data-companyId="{{item.id}}"
+    data-uid="{{item.uid}}">
     <view class="headerImg">
       <image src="{{item.avatar}}"></image>
     </view>
