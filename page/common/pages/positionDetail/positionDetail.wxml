@@ -78,7 +78,6 @@
 	</view>
 	<interviewBar
 		infos="{{ detail }}"
-		isOwner="{{ isOwner }}"
 		bindresultevent="getPositionDetail"
 		type="position"
 		wx:if="{{detail.vkey}}"></interviewBar>
