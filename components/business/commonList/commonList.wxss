@@ -63,6 +63,7 @@
 }
 
 .common-lits-ul .li .content {
+  white-space: nowrap;
 	display: inline-block;
 	width: calc(100% - 120rpx - 30rpx);
 	height: 120rpx;
