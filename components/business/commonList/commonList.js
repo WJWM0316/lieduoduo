@@ -38,7 +38,6 @@ Component({
 			const itemId = e.currentTarget.dataset.itemId
 			const status = e.currentTarget.dataset.status
 			const jobhunteruid = e.currentTarget.dataset.jobhunteruid
-			console.log(e)
 			if (status === 11) {
 			  wx.navigateTo({
           url: `/page/common/pages/resumeDetail/resumeDetail?uid=${jobhunteruid}`

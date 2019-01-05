@@ -2,7 +2,6 @@
 .resumeDetail{
   background: #F5F4F7;
   width: 100%;
-  min-height: 100vh;
   padding: 25rpx 30rpx 20rpx;
   box-sizing: border-box;
   position: relative;

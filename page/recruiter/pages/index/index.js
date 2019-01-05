@@ -39,6 +39,14 @@ Page({
   },
   changeCompanyLists(e) {
     let pageList = e.currentTarget.dataset.pageList
+    switch (pageList) {
+      case 'seen-me':
+        return getBrowseMySelfApi()
+        break;
+      case 'interested-me':
+        return getBrowseMySelfApi()
+        break;
+    }
     this.setData({ pageList })
   }
 })
