@@ -1,6 +1,8 @@
 <view class="interview-bar">
 	<block wx:if="{{ !isOwerner }}">
-		<view class="img-box"></view>
+		<view class="img-box">
+			<image mode="aspectFill" src="{{infos.recruiterInfo.avatar}}"></image>
+		</view>
 
 		<!-- 求职者还没有发起开撩动作 start-->
 		<block wx:if="{{interviewInfos.interviewStatus === 0 || interviewInfos.haveInterview === 0 || interviewInfos.interviewStatus === 51}}">
@@ -64,11 +66,13 @@
 			</view>
 		</block>
 	</block>
-
+	
+	<!-- 是我自己发布的职位 start-->
 	<block wx:else>
 		<view class="edit-button" data-type="edit" bindtap="todoAction">编辑</view>
 		<view class="switch-button" bindtap="todoAction" data-type="{{infos.status === 0 ? 'open' : 'close'}}">
 			{{infos.status === 0 ? '开放职位' : '关闭职位'}}
 		</view>
 	</block>
+	<!-- 是我自己发布的职位 end-->
 </view>
