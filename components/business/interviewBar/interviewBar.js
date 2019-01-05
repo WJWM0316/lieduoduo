@@ -2,7 +2,8 @@ import {
   applyInterviewApi,
   getInterviewStatusApi,
   inviteInterviewApi,
-  refuseInterviewApi
+  refuseInterviewApi,
+  confirmInterviewApi
 } from '../../../api/pages/interview.js'
 
 import {
@@ -129,7 +130,7 @@ Component({
           app.wxToast({title: '等待招聘官安排面试'})
           break
         case 'accept':
-          inviteInterviewApi()
+          confirmInterviewApi({id: this.data.interviewInfos.data[0][0].interviewId})
             .then(() => {
               app.wxToast({title: '已接受约面'})
             })
