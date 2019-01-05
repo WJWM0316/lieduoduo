@@ -20,7 +20,8 @@
     "page/common/pages/resumeDetail/resumeDetail",
     "page/common/pages/arrangement/arrangement",
     "page/common/pages/homepage/homepage",
-    "page/common/pages/positionDetail/positionDetail"
+    "page/common/pages/positionDetail/positionDetail",
+    "page/applicant/pages/center/workContent/workContent"
   ],
   "window": {
     "navigationBarTextStyle": "black",

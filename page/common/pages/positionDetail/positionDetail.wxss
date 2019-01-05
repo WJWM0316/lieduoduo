@@ -63,6 +63,12 @@
 	height:102rpx;
 	border-radius:20rpx;
 	background: gray;
+	overflow: hidden;
+}
+
+.company-infos .header image {
+	width: 100%;
+	height: 100%;
 }
 
 .company-infos .header .position-name {

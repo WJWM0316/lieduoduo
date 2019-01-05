@@ -59,13 +59,3 @@ export const deleteMycollectPositionApi = (data, isLoading) => {
     isLoading: true
   })
 }
-
-// 收藏我的
-export const getCollectMySelfApi = (data, isLoading) => {
-  return request({
-    method: 'get',
-    url: '/collect/getCollectMySelf',
-    data,
-    isLoading: true
-  })
-}

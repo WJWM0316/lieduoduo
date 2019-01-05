@@ -12,20 +12,19 @@
     <view class="positionType commont">
       <input name="positionType" placeholder="选择职位类型" />
     </view>
-    <view class="duty commont">
-      <input name="duty" placeholder="工作内容" />
+    <view class="timeBox">
+      <view class="startTime">
+        <myPicker class="myPicker" data-type="starTime" pickerType="startTime" placeholderStyle="color: #BCBCBC" bindresultevent="getresult"></myPicker>
+      </view> ~ 
+      <view class="endTime">
+        <myPicker class="myPicker" pickerType="endTime" placeholderStyle="color: #BCBCBC" bindresultevent="getresult"></myPicker>
+      </view>
     </view>
-    <view class="startTime">
-      <view class="section__title">开始工作时间</view>
-      <myPicker class="myPicker" data-type="starTime" pickerType="startTime" placeholderStyle="color: #BCBCBC" bindresultevent="getresult"></myPicker>
-    </view>
-    <view class="endTime">
-      <view class="section__title">结束工作时间</view>
-      <myPicker class="myPicker" pickerType="endTime" placeholderStyle="color: #BCBCBC" bindresultevent="getresult"></myPicker>
+    <view class="duty commont" bindtap="eidt">
+      <input name="duty" type="text" readonly placeholder="工作内容"/>
     </view>
     <view class="btn-area">
-      <button formType="submit">Submit</button>
-      <button formType="reset">Reset</button>
+      <button formType="submit"><i class="icon iconfont icon-xiayibu"></i></button>
     </view>
   </form>
 </view>

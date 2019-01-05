@@ -84,8 +84,8 @@
 				},
 				{
 					"id": 7,
-					"name": "编辑简历第二步",
-					"pathName": "page/applicant/pages/center/workExperience/workExperience",
+					"name": "编辑简历第三步",
+					"pathName": "page/applicant/pages/center/workContent/workContent",
 					"query": ""
 				},
 				{
@@ -101,16 +101,16 @@
 					"query": ""
 				},
 				{
-					"id": 10,
+					"id": 11,
 					"name": "招聘官主页",
 					"pathName": "page/common/pages/recruiterDetail/recruiterDetail",
-					"query": "uid=5"
+					"query": ""
 				},
 				{
 					"id": 11,
 					"name": "面试安排",
 					"pathName": "page/common/pages/arrangement/arrangement",
-					"query": "identity=zhaopin&id=84"
+					"query": "id=91"
 				},
 				{
 					"id": -1,
@@ -158,6 +158,12 @@
 					"id": -1,
 					"name": "招聘管-我的页面",
 					"pathName": "page/recruiter/pages/user/mine/infos/infos",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "招聘端面试列表",
+					"pathName": "page/recruiter/pages/interview/index/index",
 					"query": ""
 				},
 				{

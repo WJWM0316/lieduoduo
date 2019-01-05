@@ -4,22 +4,24 @@
 		wx:for="{{ list }}"
 		wx:for-item="item"
 		wx:key="{{item.id}}"
-		data-item-id="{{item.id}}"
+		data-item-id="{{item.interviewId}}"
 		bindtap="routeJump">
 			<view class="img-box">
 				<view class="is-certification" wx:if="{{item.certification}}"></view>
 			</view>
 			<view class="content">
 				<view class="header">
-					<view class="recruiter-name">{{item.recruiterRealname}}</view>
-					<view class="recruiter-infos">{{item.workExperience}}年·{{item.educationDesc}}·{{item.emolumentMin}}-{{item.emolumentMax}}K</view>
+					<view class="recruiter-name">{{item.recruiterRealname || item.jobhunterRealname}}</view>
+					<view wx:if="{{identity === 'APPLICANT'}}" class="recruiter-infos">{{item.recruiterPositionName}}</view>
+					<view wx:else class="recruiter-infos">{{item.workExperience}}年·{{item.educationDesc}}·{{item.emolumentMin}}-{{item.emolumentMax}}K</view>
 				</view>
-				<view class="main">
-					<view class="company-name"> {{item.companyName}} | {{item.recruiterPositionName}} </view>
+				<view class="main" wx:if="{{item.lastCompanyName}}">
+				  <view wx:if="{{identity === 'APPLICANT'}}" class="company-name"> {{item.companyName}}</view>
+					<view wx:else class="company-name"> {{item.lastCompanyName}}<text wx:if="{{item.lastPosition}}"> | {{item.lastPosition}} </text></view>
 				</view>
 			</view>
 			<view class="footer {{ showDividingLine ? 'show-dividing-line' : ''}}" wx:if="{{showFooter}}">
-				<view class="time">{{item.createdAtTime}}</view>
+				<view class="time">{{item.createdAt}}</view>
 				<view class="action">查看了你的职位<view class="strong">{{item.positionName}}</view></view>
 				<view class="status">{{item.statusDesc}}</view>
 			</view>

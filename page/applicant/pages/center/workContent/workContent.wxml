@@ -1,0 +1,25 @@
+<!--完善简历第二步，工作内容编辑-->
+<navbar title="填写工作内容" background="#FFFFFF" color="#22292C"></navbar>
+<view class="textArea">
+  <textarea placeholder="填写你工作内容" placeholder-class="placeholder" maxlength="300"></textarea>
+  <view class="bottom">
+    <view class="example"><i class="icon iconfont icon-chakan"></i>看看别人怎么写</view>
+    <view class="num">0/300</view>
+  </view>
+</view>
+<view class="popups">
+  <view class="top">
+    <view class="nameBox">
+      <image class="avatar"></image>
+      <text class="name">市场运营经理</text>
+    </view>
+    <view class="change" bindtap="nextExample">
+      <i class="icon iconfont icon-chakan"></i>
+      <text>换一个</text>
+    </view>
+  </view>
+  <view class="content">
+    <view class="corner"><image src="../../../../../images/corner.png"></image></view>
+    本人有6年工作经验，意向电商或高并发，责任心非常强，耐力持久，热爱技术，皮实，性格内敛，灵活，执着。热衷于研究技术，崇尚科技改变世界！
+  </view>
+</view>

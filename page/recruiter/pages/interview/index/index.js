@@ -1,84 +1,16 @@
 import {RECRUITER} from '../../../../../config.js'
+import { getInviteListApi, getApplyListApi, getScheduleListApi } from '../../../../../api/pages/interview.js'
 const app = getApp()
-
+let param = {
+  tab : 'all',
+  firstIndex : 0 //一级tab当前选中项
+}
 Page({
   data: {
     tabParentIndex: 0,
     tabChildIndex: 0,
-    companyList: [
-      {
-        id: 1,
-        recruiterName: '文双',
-        certification: false,
-        recruiterPosition: '创始人、CEO',
-        companyName: '老虎科技',
-        positionNumber: 18,
-        status: 1
-      },
-      {
-        id: 2,
-        recruiterName: '文双',
-        certification: true,
-        recruiterPosition: '创始人、CEO',
-        companyName: '老虎科技',
-        positionNumber: 18,
-        status: 0
-      },
-      {
-        id: 3,
-        recruiterName: '文双',
-        certification: true,
-        recruiterPosition: '创始人、CEO',
-        companyName: '老虎科技',
-        positionNumber: 18,
-        status: 0
-      },
-      {
-        id: 4,
-        recruiterName: '文双',
-        certification: true,
-        recruiterPosition: '创始人、CEO',
-        companyName: '老虎科技',
-        positionNumber: 18,
-        status: 0
-      },
-      {
-        id: 5,
-        recruiterName: '文双',
-        certification: true,
-        recruiterPosition: '创始人、CEO',
-        companyName: '老虎科技',
-        positionNumber: 18,
-        status: 0
-      },
-      {
-        id: 6,
-        recruiterName: '文双',
-        certification: true,
-        recruiterPosition: '创始人、CEO',
-        companyName: '老虎科技',
-        positionNumber: 18,
-        status: 0
-      },
-      {
-        id: 7,
-        recruiterName: '文双',
-        certification: true,
-        recruiterPosition: '创始人、CEO',
-        companyName: '老虎科技',
-        positionNumber: 18,
-        status: 0
-      },
-      {
-        id: 8,
-        recruiterName: '文双',
-        certification: true,
-        recruiterPosition: '创始人、CEO',
-        companyName: '老虎科技',
-        positionNumber: 18,
-        status: 0
-      }
-    ],
+    identity: '',
+    companyList: [],
     tabLists: [
       {
         id: 'apply',
@@ -148,6 +80,7 @@ Page({
     })
   },
   bindChange(e) {
+    console.log(e.currentTarget.dataset)
     const params = e.currentTarget.dataset
     const tabChildIndex = e.detail.value
     const tabLists = this.data.tabLists
@@ -162,5 +95,76 @@ Page({
         break
     }
     this.setData({tabLists})
+  },
+  /* tab切换 0:我的邀请，1：收到意向,2：面试日程*/
+  firstTab (index) {
+    if (index !== undefined) {
+      param.firstIndex = index
+      param.tab = 'all'
+    }
+    switch (param.firstIndex) {
+      case 0:
+        return getInviteListApi(param)
+        break;
+      case 1:
+        return getApplyListApi(param)
+        break;
+      case 2:
+        return getScheduleListApi(param)
+        break;
+    }
+  },
+  chooseParentTab(e) {
+    console.log(e.currentTarget.dataset.index)
+    const params = e.currentTarget.dataset
+    const tabLists = this.data.tabLists
+    let tabParentIndex = null
+    tabLists.map((field, index) => {
+      tabParentIndex = params.index
+      field.active = index === params.index ? true : false
+    })
+    this.firstTab(e.currentTarget.dataset.index).then(res => {
+      this.setData({
+        companyList: res.data,
+        tabLists,
+        tabParentIndex
+      })
+    })
+  },
+  chooseChildTab(e) {
+    param.tab = e.currentTarget.dataset.mark
+    const params = e.currentTarget.dataset
+    const tabLists = this.data.tabLists
+    let tabChildIndex = null
+    tabLists[this.data.tabParentIndex].children.map((field, index) => {
+      tabChildIndex = params.index
+      field.active = index === params.index ? true : false
+    })
+    this.firstTab().then(res => {
+      this.setData({
+        tabLists,
+        tabChildIndex,
+        companyList: res.data
+      })
+    })
+  },
+  init () {
+    this.firstTab().then(res => {
+      this.setData({
+        companyList: res.data
+      })
+    })
+  },
+  onLoad () {
+    this.init ()
+  },
+  onShow () {
+//  console.log(wx.getStorageSync('choseType'), 999)
+//  getInviteListApi().then(res => {
+//    this.setData({
+//      identity: wx.getStorageSync('choseType'),
+//      companyList: res.data
+//    })
+//  })
   }
 })

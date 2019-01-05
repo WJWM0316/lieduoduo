@@ -9,6 +9,8 @@ import {
   deleteMycollectPositionApi
 } from '../../../../api/pages/collect.js'
 
+import {getUserRoleApi} from "../../../../api/pages/user.js"
+
 import {RECRUITER, COMMON} from '../../../../config.js'
 
 const app = getApp()
@@ -22,8 +24,7 @@ Page({
     identity: '',
     detail: {},
     query: {},
-    // 是否是我发布
-    isOwerner: true,
+    isRecruiter: false,
     companyInfos: {},
     recruiterInfo: {}
   },
@@ -34,6 +35,10 @@ Page({
     // getApp().globalData.identity = 'RECRUITER'
     this.setData({query: options, identity: getApp().globalData.identity})
     this.getPositionDetail()
+    getUserRoleApi()
+      .then(res => {
+        if(res.data.isRecruiter) this.setData({isRecruiter: true})
+      })
   },
   /**
    * @Author   小书包

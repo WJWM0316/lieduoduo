@@ -25,7 +25,8 @@ App({
     cdnImagePath: 'https://attach.lieduoduo.ziwork.com/images',
     resumeInfo: {}, // 个人简历信息
     recruiterDetails: {}, // 招聘官详情信息
-    systemInfo: wx.getSystemInfoSync() // 系统信息
+    systemInfo: wx.getSystemInfoSync(), // 系统信息
+    workContent: '' //完善简历第二步里的编辑自己工作内容
   },
   // 获取最全的角色信息
   getAllInfo() {

@@ -15,7 +15,6 @@ Page({
     e.detail.value.startWorkYear = this.workTime
     e.detail.value.gender = this.data.gender
     postfirstStepApi(e.detail.value).then(res => {
-      console.log(res, '99999999999')
       wx.navigateTo({ // 完善简历第二步
         url: '/page/applicant/pages/center/workExperience/workExperience'
       })

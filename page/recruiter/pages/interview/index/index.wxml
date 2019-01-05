@@ -28,11 +28,12 @@
 	</view>
 	<myCalendar  wx:if="{{tabParentIndex === 2}}"></myCalendar>
 	<view class="interview-page-title" wx:if="{{tabParentIndex === 2}}">
-		<view class="text">面试安排（0）</view>
+		<view class="text">面试安排(0)</view>
 		<view class="button" bindtap="jumpInterviewPage">面试历史</view>
 	</view>
 	<commonList
 		list="{{companyList}}"
+		identity="{{identity}}"
 		showTopRadius="{{true}}"
 		showRightRadius="{{true}}"
 		showBottomRadius="{{true}}"

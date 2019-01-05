@@ -7,6 +7,11 @@ Component({
     	type: Array,
     	value: []
     },
+    // 当前用户的身份
+    identity: {
+      type: String,
+      value:'APPLICANT' //默认求职者
+    },
     // 红点类型 text circle
     dotType: {
     	type: String,
@@ -32,6 +37,9 @@ Component({
 		routeJump(e) {
 			let itemId = e.currentTarget.dataset.itemId
 			console.log(itemId)
+			wx.navigateTo({ // 完善简历第二步
+        url: `/page/common/pages/arrangement/arrangement?id=${itemId}`
+      })
 		}
 	}
 })
