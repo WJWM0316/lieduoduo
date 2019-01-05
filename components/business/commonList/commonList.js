@@ -40,7 +40,7 @@ Component({
 		routeJump(e) {
 			const itemId = e.currentTarget.dataset.itemId
 			const status = e.currentTarget.dataset.status
-			const jobhunteruid = e.currentTarget.dataset.jobhunteruid
+			const jobhunteruid = e.currentTarget.dataset.jobhunteruid || e.currentTarget.dataset.uid
 			if (e.currentTarget.dataset.uid) { // 首页入口
 			  wx.navigateTo({
           url: `/page/common/pages/resumeDetail/resumeDetail?uid=${jobhunteruid}`
