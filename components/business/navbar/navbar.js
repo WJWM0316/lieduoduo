@@ -1,5 +1,5 @@
+import {APPLICANT,RECRUITER} from "../../../config.js"
 const App = getApp();
-
 Component({
   options: {
     addGlobalClass: true,
@@ -15,7 +15,7 @@ Component({
     },
     showHome: {
       type: Boolean,
-      value: true
+      value: false
     },
     background: {
       type: String,
@@ -57,6 +57,18 @@ Component({
         this.triggerEvent('backEvent')
       } else {
         wx.navigateBack({delta: 1})
+      }
+    },
+    // 回到首页
+    backHome() {
+      if (wx.getStorageSync('choseType') === 'APPLICANT') {
+        wx.switchTab({
+          url: `${APPLICANT}index/index`
+        })
+      } else {
+        wx.redirectTo({
+          url: `${RECRUITER}index/index`
+        })
       }
     }
   }

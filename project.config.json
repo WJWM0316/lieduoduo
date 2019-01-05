@@ -38,11 +38,7 @@
 			"list": []
 		},
 		"miniprogram": {
-<<<<<<< HEAD
-			"current": 11,
-=======
-			"current": 20,
->>>>>>> 29352c4aa172a6e0212780606f2d7f55c81cd686
+			"current": 21,
 			"list": [
 				{
 					"id": 0,
@@ -165,17 +161,22 @@
 					"query": ""
 				},
 				{
-<<<<<<< HEAD
 					"id": -1,
 					"name": "招聘端面试列表",
 					"pathName": "page/recruiter/pages/interview/index/index",
 					"query": ""
-=======
+				},
+				{
 					"id": 20,
 					"name": "招聘管-职位详情",
 					"pathName": "page/common/pages/positionDetail/positionDetail",
-					"query": "positionId=43&companyId=25"
->>>>>>> 29352c4aa172a6e0212780606f2d7f55c81cd686
+					"query": "positionId=37&companyId=13"
+				},
+				{
+					"id": 21,
+					"name": "招聘官编辑",
+					"pathName": "page/recruiter/pages/user/userInfoEdit/userInfoEdit",
+					"query": "uid=5"
 				}
 			]
 		}

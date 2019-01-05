@@ -20,6 +20,15 @@ export const getRecruiterMyInfoApi = (data) => {
   })
 }
 
+// 招聘官-我的信息(“我的”页面)
+export const saveRecruiterInfoApi = (data) => {
+  return request({
+    url: '/recruiter/baseInfo',
+    method: 'post',
+    data,
+    hasLoading: true
+  })
+}
 
 // 招聘官-详情
 export const getRecruiterDetailApi = (data) => {

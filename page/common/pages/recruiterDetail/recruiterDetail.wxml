@@ -1,5 +1,5 @@
 <view class="recruiterDetail">
-  <navbar title="招聘官主页"></navbar>
+  <navbar title="招聘官主页" background="#fff" color="#22292C" showHome="{{true}}"></navbar>
   <view class="header">
     <image class="bgImg" src="../../../../images/bg_detail.png" mode="aspectFill"></image>
     <shareBtn></shareBtn>

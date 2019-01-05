@@ -1,8 +1,12 @@
 <view style="height:{{navH}}px;">
   <view class="navbar" style="height:{{navH}}px;background: {{background}}">
-    <view class="return-back" wx:if="{{showBackBtn}}" bindtap="navBack">
-    	<i class="icon iconfont icon-zhishibiao" style="color: {{color}}"></i>
-    </view>
-    <view class="navbar-title" style="color: {{color}}"> {{ title }} </view>
+    <view class="navbar-title" style="color: {{color}}"> 
+	    <view>{{ title }}</view>
+	    <view class="return-back">
+	    	<i class="backLast iconfont icon-daohanglan-fanhui" wx:if="{{showBackBtn}}"  bindtap="navBack" style="color: {{color}}"></i>
+    		<i class="line" wx:if="{{showBackBtn &&  showHome}}"></i>
+    		<i class="backHome iconfont icon-fanhuishouye"  wx:if="{{showHome}}" bindtap="backHome" style="color: {{color}}"></i>
+	    </view>
+	  </view>
   </view>
 </view>

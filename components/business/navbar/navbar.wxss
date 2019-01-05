@@ -20,23 +20,30 @@
   bottom: 0;
   left: 0;
   z-index: 10;
-  color: #333;
+  color: #22292C;
   font-size: 30rpx;
 }
 
 .return-back {
   position: absolute;
-  left: 20rpx;
-  bottom: 14rpx;
-  z-index: 100;
-  line-height: 1;
-  padding-top: 8rpx;
-  padding-bottom: 8rpx;
-  color: white;
+  left: 30rpx;
+  color: #22292C;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
 }
-
-.return-back .iconfont {
-  position: relative;
-  transform: rotate(90deg);
-  display: block;
+.line {
+  width: 2rpx;
+  height: 36rpx;
+  border: 2rpx solid rgba(151,151,151,1);
+  margin: 0 22rpx;
+  box-sizing: border-box;
+  display: inline-block;
+}
+.backLast {
+  font-size: 34rpx;
+}
+.backHome {
+  font-size: 39rpx;
 }

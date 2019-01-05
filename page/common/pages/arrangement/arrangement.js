@@ -6,7 +6,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    dateList: ['2018-02-05 13:30', '2018-02-05 13:31'],
+    dateList: [],
     identity: wx.getStorageSync('choseType'), // 身份标识
     options: {},
     appointmentId: '',
@@ -106,7 +106,6 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-
   },
 
   /**

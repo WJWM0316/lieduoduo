@@ -10,7 +10,6 @@ Page({
     isLogin: true,
     myInfo: {}
   },
-
   /**
    * 生命周期函数--监听页面加载
    */
@@ -26,18 +25,14 @@ Page({
         this.setData({
           isComplete: false
         })
-        this.init()
       }
     })
   },
   preview() {
-    console.log(1111111111)
     wx.downloadFile({
-    // 示例 url，并非真实存在
     url: 'https://lieduoduo-uploads-test.oss-cn-shenzhen.aliyuncs.com/front-assets/file/111.pdf',
     success(res) {
       const filePath = res.tempFilePath
-      console.log(res)
       wx.openDocument({
         filePath,
         success(res) {
@@ -97,12 +92,6 @@ Page({
    */
   onShareAppMessage: function () {
 
-  },
-  
-  init () {
-    getResumeStepApi().then(res => {
-      console.log(res, '5555555555555555')
-    })
   },
   /* 去完善简历 */
   completeResume () {
