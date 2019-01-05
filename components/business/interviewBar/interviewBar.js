@@ -1,7 +1,7 @@
 import {
   applyInterviewApi,
   getInterviewStatusApi,
-  confirmInterviewApi,
+  inviteInterviewApi,
   refuseInterviewApi
 } from '../../../api/pages/interview.js'
 
@@ -129,7 +129,7 @@ Component({
           app.wxToast({title: '等待招聘官安排面试'})
           break
         case 'accept':
-          confirmInterviewApi({id: this.data.positionId})
+          inviteInterviewApi()
             .then(() => {
               app.wxToast({title: '已接受约面'})
             })
@@ -144,7 +144,7 @@ Component({
             cancelColor: '#BCBCBC',
             confirmColor: '#652791',
             confirmBack: () => {
-              refuseInterviewApi({id: this.data.positionId})
+              refuseInterviewApi()
             }
           })
           break
