@@ -7,7 +7,7 @@ Page({
    */
   data: {
     dateList: [],
-    identity: wx.getStorageSync('choseType'), // 身份标识
+    identity: "", // 身份标识
     options: {},
     appointmentId: '',
     info: {}
@@ -73,6 +73,9 @@ Page({
         title: '发送成功',
         icon: 'success'
       })
+      let info = this.data.info
+      info.status = 31
+      this.setData({info})
     })
   },
   revise() {
@@ -90,15 +93,19 @@ Page({
         title: '确定成功',
         icon: 'success'
       })
+      let info = this.data.info
+      info.status = 41
+      this.setData({info})
     })
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.setData({options})
+    this.setData({options, identity: wx.getStorageSync('choseType')})
     interviewDetailApi({interviewId: options.id}).then(res => {
       if(res.data.arrangementInfo) {
+        console.log(1111111, res.data.arrangementInfo)
         this.setData({info: res.data, dateList: res.data.arrangementInfo.appointmentList})
       } else {
         this.setData({info: res.data})
