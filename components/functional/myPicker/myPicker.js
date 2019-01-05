@@ -88,7 +88,7 @@ Component({
         list.push(year)
         list.push(this.data.month)
         result = setResult()
-        this.setData({list, year, result, mode: 'multiSelector', placeholder: '请选择开始时间'})
+        this.setData({list, year, result, mode: 'multiSelector', placeholder: '开始时间'})
         break
       case 'endTime':
         firstOption = '至今'
@@ -100,7 +100,7 @@ Component({
         } else {
           list.push([firstOption])
         }
-        this.setData({list, year, result, mode: 'multiSelector', firstOption, placeholder: '请选择结束时间'})
+        this.setData({list, year, result, mode: 'multiSelector', firstOption, placeholder: '结束时间'})
         break
       case 'workTime':
         firstOption = '在校生'

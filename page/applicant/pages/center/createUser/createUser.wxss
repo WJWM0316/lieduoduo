@@ -45,7 +45,7 @@
   border-radius:100rpx;
   overflow: hidden;
   margin: 0 auto;
-  margin-top: 92rpx;
+  margin-top: 115rpx;
 }
 .gender view{
   text-align: center;

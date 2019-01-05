@@ -1,31 +1,36 @@
 <!--完善简历第一步-->
-<navbar title="完善简历第三步" background="#2878FF"></navbar>
-<view bindTab="send">完善简历第三步</view>
+<view class="header">
+  <image class="headerBg" src="../../../../../images/pic_bg_new@3x.png"></image>
+  <text class="title">说说你的教育经历</text>
+  <text class="subtitle">真实可靠的职场形象总能碰到机遇</text>
+</view>
 <view>
   <form bindsubmit="formSubmit" bindreset="formReset">
-    <view class="school">
-      <view class="section__title">学校</view>
-      <input name="school" placeholder="学校" />
+    <view class="school commont">
+      <input name="school" placeholder="填写学校名" />
     </view>
-    <view class="major">
-      <view class="section__title">专业</view>
-      <input name="major" placeholder="专业" />
+    <view class="major commont">
+      <input name="major" placeholder="填写专业名称" />
     </view>
     <view class="degree">
-      <view class="section__title">学历</view>
-      <myPicker class="myPicker" data-type="education" pickerType="education" bindresultevent="getresult"  rangeKey="name"></myPicker>
+      <myPicker class="myPicker" data-type="education" placeholderStyle="color: #BCBCBC" pickerType="education" bindresultevent="getresult"  rangeKey="name"></myPicker>
     </view>
-    <view class="startTime">
-      <view class="section__title">开始时间</view>
-      <myPicker class="myPicker" data-type="starTime" pickerType="startTime" bindresultevent="getresult"></myPicker>
+    <view class="timeBox">
+      <view class="startTime">
+        <myPicker class="myPicker" data-type="starTime" pickerType="startTime" placeholderStyle="color: #BCBCBC" bindresultevent="getresult"></myPicker>
+      </view> ~ 
+      <view class="endTime">
+        <myPicker class="myPicker" pickerType="endTime" placeholderStyle="color: #BCBCBC" bindresultevent="getresult"></myPicker>
+      </view>
+    </view>
+    <!--<view class="startTime">
+      <myPicker class="myPicker" data-type="starTime" placeholderStyle="color: #BCBCBC" pickerType="startTime" bindresultevent="getresult"></myPicker>
     </view>
     <view class="endTime">
-      <view class="section__title">结束时间</view>
-      <myPicker class="myPicker" pickerType="endTime" bindresultevent="getresult"></myPicker>
-    </view>
+      <myPicker class="myPicker" pickerType="endTime" placeholderStyle="color: #BCBCBC" bindresultevent="getresult"></myPicker>
+    </view>-->
     <view class="btn-area">
-      <button formType="submit">Submit</button>
-      <button formType="reset">Reset</button>
+      <button formType="submit"><i class="icon iconfont icon-wancheng"></i></button>
     </view>
   </form>
 </view>
