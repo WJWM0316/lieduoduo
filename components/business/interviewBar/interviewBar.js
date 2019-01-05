@@ -1,7 +1,8 @@
 import {
   applyInterviewApi,
   getInterviewStatusApi,
-  confirmInterviewApi
+  confirmInterviewApi,
+  refuseInterviewApi
 } from '../../../api/pages/interview.js'
 
 import {
@@ -30,6 +31,10 @@ Component({
       value: ''
     },
     vkey: {
+      type: String,
+      value: ''
+    },
+    positionId: {
       type: String,
       value: ''
     }
@@ -124,7 +129,7 @@ Component({
           app.wxToast({title: '等待招聘官安排面试'})
           break
         case 'accept':
-          confirmInterviewApi({id: this.data.infos.id})
+          confirmInterviewApi({id: this.data.positionId})
             .then(() => {
               app.wxToast({title: '已接受约面'})
             })
@@ -137,7 +142,10 @@ Component({
             cancelText: '我再想想',
             confirmText: '确定',
             cancelColor: '#BCBCBC',
-            confirmColor: '#652791'
+            confirmColor: '#652791',
+            confirmBack: () => {
+              refuseInterviewApi({id: this.data.positionId})
+            }
           })
           break
         case 'edit':
