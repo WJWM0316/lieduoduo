@@ -28,7 +28,7 @@
     </view>
   </view>
   <!-- 意向 -->
-  <view class="intent commentBox">
+  <view class="intent commentBox" wx:if="{{info.expects.length>0}}">
     <view class="intentTitle"><i class="icon iconfont icon-fujian"></i> 求职意向</view>
     <!-- 意向列表 -->
     <view class="officeTab" wx:for="{{info.expects}}" wx:key="{{index}}">
@@ -43,7 +43,7 @@
     </view>
   </view>
   <!-- 工作经历 -->
-  <view class="workExp commentBox">
+  <view class="workExp commentBox" wx:if="{{info.careers.length>0}}">
     <view class="intentTitle"><i class="icon iconfont icon-fujian"></i> 工作经历</view>
     <view class="expTab" wx:for="{{info.careers}}" wx:key="{{index}}">
       <view class="expTitle"><text class="expName">{{item.company}}</text><text class="expTime">{{item.startTimeDesc}}-{{item.endTimeDesc}}</text></view>
@@ -58,7 +58,7 @@
     <view class="moreExp" wx:if="{{info.careers.length > 3}}">展开全部{{info.careers.length}}个工作经历<i class="icon iconfont icon-zhishibiao"></i></view>
   </view>
   <!-- 项目经历 -->
-  <view class="projectExp commentBox">
+  <view class="projectExp commentBox" wx:if="{{info.projects.length>0}}">
     <view class="intentTitle"><i class="icon iconfont icon-fujian"></i> 项目经历</view>
     <view class="expTab" wx:for="{{info.projects}}" wx:key="{{index}}">
       <view class="expTitle"><text class="expName">{{item.name}}</text><text class="expTime">{{item.startTimeDesc}}-{{item.endTimeDesc}}</text></view>
@@ -72,7 +72,7 @@
     </view>
   </view>
   <!-- 教育经历 -->
-  <view class="projectExp commentBox">
+  <view class="projectExp commentBox" wx:if="{{info.educations.length>0}}">
     <view class="intentTitle"><i class="icon iconfont icon-fujian"></i> 教育经历</view>
     <view class="expTab" wx:for="{{info.educations}}" wx:key="{{index}}">
       <view class="expTitle"><text class="expName">{{item.school}}</text><text class="expTime">{{item.startTimeDesc}}-{{item.endTimeDesc}}</text></view>
@@ -82,7 +82,7 @@
     </view>
   </view>
   <!-- 更多 -->
-  <view class="more commentBox">
+  <view class="more commentBox" wx:if="{{info.moreIntroduce}}">
     <view class="intentTitle"><i class="icon iconfont icon-fujian"></i> 更多介绍</view>
     <view class="expTab">
       <!-- 工作内容 -->
@@ -97,8 +97,10 @@
 <view class="bottomBox" wx:if="{{info.interviewStatus}}">
   <view>
     <interviewBar
+      infos="{{info}}"
       type="resume"
-      wx:if="{{item.vkey}}"></interviewBar>
+      vkey="{{info.vkey}}"
+      wx:if="{{info.vkey}}"></interviewBar>
   </view>
   <!--<view class="collect"><i class="icon iconfont icon-ganxingqu"></i></view>
   <view class="communicate">

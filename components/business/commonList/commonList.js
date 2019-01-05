@@ -42,13 +42,21 @@ Component({
 			const status = e.currentTarget.dataset.status
 			const jobhunteruid = e.currentTarget.dataset.jobhunteruid
 			if (status === 11) {
+			const jobhunteruid = e.currentTarget.dataset.jobhunteruid || e.currentTarget.dataset.uid
+			if (e.currentTarget.dataset.uid) { // 首页入口
 			  wx.navigateTo({
           url: `/page/common/pages/resumeDetail/resumeDetail?uid=${jobhunteruid}`
         })
-			} else {
-			  wx.navigateTo({
-          url: `/page/common/pages/arrangement/arrangement?id=${itemId}`
-        })
+			} else { // 职位机会入口
+			  if (status === 11) {
+          wx.navigateTo({
+            url: `/page/common/pages/resumeDetail/resumeDetail?uid=${jobhunteruid}`
+          })
+        } else {
+          wx.navigateTo({
+            url: `/page/common/pages/arrangement/arrangement?id=${itemId}`
+          })
+        }
 			}
 		}
 	}

@@ -44,6 +44,11 @@
 	position: relative;
 }
 
+.common-lits-ul .li .img-box image{
+  width: 100%;
+  height: 100%;
+}
+
 .common-lits-ul .li .is-certification {
 	width:36rpx;
 	height:36rpx;
