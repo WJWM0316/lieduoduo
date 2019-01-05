@@ -17,7 +17,7 @@ Page({
   onLoad: function (options) {
     id = options.uid
     console.log(options.uid)
-    this.init()
+    this.init(options)
   },
 
   /**
@@ -26,24 +26,30 @@ Page({
   onShow: function () {
 
   },
-  init () {
-    if (wx.getStorageSync('choseType') === 'APPLICANT') {
-      console.log('求职端')
-      getPersonalResumeApi().then(res => {
-        this.setData({
-          info: res.data
-        })
-        console.log(this.data.info)
+  init (options) {
+    getPersonalResumeApi({uid: options.uid}).then(res => {
+      this.setData({
+        info: res.data
       })
-    } else {
-      console.log('招聘端')
-      getJobhunterResumeApi({uid: id}).then(res => {
-        this.setData({
-          info: res.data
-        })
-        console.log(this.data.info)
-      })
-    }
+      console.log(this.data.info)
+    })
+    // if (wx.getStorageSync('choseType') === 'APPLICANT') {
+    //   console.log('求职端')
+    //   getPersonalResumeApi().then(res => {
+    //     this.setData({
+    //       info: res.data
+    //     })
+    //     console.log(this.data.info)
+    //   })
+    // } else {
+    //   console.log('招聘端')
+    //   getJobhunterResumeApi({uid: id}).then(res => {
+    //     this.setData({
+    //       info: res.data
+    //     })
+    //     console.log(this.data.info)
+    //   })
+    // }
   },
   /* 开撩 */
   toCommunicate () {

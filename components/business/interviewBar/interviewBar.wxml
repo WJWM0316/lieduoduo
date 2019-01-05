@@ -55,7 +55,7 @@
 		</block>
 		<!-- 找【招聘官已经安排求职者面试结束 end-->
 
-		<block wx:elif="{{interviewInfos.interviewStatus === 81}}">
+		<block wx:elif="{{type === 'resume'}}">
 			<view class="content">
 				<view class="first"><view class="name">李子发</view></view>
 				<view class="second">邀请你面试</view>
@@ -65,6 +65,7 @@
 				<view class="accept" data-type="accept" bindtap="todoAction">接受约面</view>
 			</view>
 		</block>
+		
 	</block>
 	
 	<!-- 是我自己发布的职位 start-->
