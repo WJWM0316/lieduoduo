@@ -72,7 +72,9 @@ App({
                   this.userInfoReadyCallback(res)
                 }
                 this.getAllInfo().then(() => {
-                  wx.setStorageSync('choseType', 'APPLICANT')
+                  if (!wx.getStorageSync('choseType')) {
+                    wx.setStorageSync('choseType', 'APPLICANT')
+                  }
                   if (this.pageInit) { // 页面初始化
                     this.pageInit() //执行定义的回调函数
                   }

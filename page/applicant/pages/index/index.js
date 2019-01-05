@@ -33,7 +33,7 @@ Page({
     ]
   },
   onLoad: function () {
-    let choseType = wx.getStorageSync('choseType') || null
+    let choseType = wx.getStorageSync('choseType')
     if (!choseType) {
       wx.hideTabBar()
     } else {
@@ -50,7 +50,7 @@ Page({
               url: `${RECRUITER}index/index`
             })
           } else if (res.cancel) {
-            console.log('用户点击取消')
+            wx.setStorageSync('choseType', 'APPLICANT')
           }
         }
       })
