@@ -1,5 +1,7 @@
 @import '../../../../iconfont.wxss';
-
+.job-detail {
+	padding-bottom: 140rpx;
+}
 .title {
   font-size:28rpx;
   font-weight:500;

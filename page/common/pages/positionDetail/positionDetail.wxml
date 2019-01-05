@@ -62,7 +62,7 @@
 			<view class="rich-text">{{companyInfos.intro}}</view>
 		</view>
 	</view>
-	<view class="make-homepage" wx:if="{{ isRecruiter }}">
+	<view class="make-homepage" wx:if="{{ !isRecruiter }}">
 		<view>
 			我也要制作招聘主页
 			<i class="icon iconfont icon-disejiantou-you"></i>
