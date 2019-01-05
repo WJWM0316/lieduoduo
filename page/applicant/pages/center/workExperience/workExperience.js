@@ -24,9 +24,9 @@ Page({
 
   },
   eidt () {
-    wx.navigateTo({
-      url: '/page/applicant/pages/center/workContent/workContent'
-    })
+    // wx.navigateTo({
+    //   url: '/page/applicant/pages/center/workContent/workContent'
+    // })
   },
 
   getresult(val) {
