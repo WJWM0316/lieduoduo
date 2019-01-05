@@ -5,6 +5,8 @@
 		wx:for-item="item"
 		wx:key="{{item.id}}"
 		data-item-id="{{item.interviewId}}"
+		data-status="{{item.status}}"
+		data-jobhunterUid="{{item.jobhunterUid}}"
 		bindtap="routeJump">
 			<view class="img-box">
 				<view class="is-certification" wx:if="{{item.certification}}"></view>

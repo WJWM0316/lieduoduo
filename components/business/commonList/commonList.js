@@ -35,11 +35,19 @@ Component({
   },
 	methods: {
 		routeJump(e) {
-			let itemId = e.currentTarget.dataset.itemId
-			console.log(itemId)
-			wx.navigateTo({ // 完善简历第二步
-        url: `/page/common/pages/arrangement/arrangement?id=${itemId}`
-      })
+			const itemId = e.currentTarget.dataset.itemId
+			const status = e.currentTarget.dataset.status
+			const jobhunteruid = e.currentTarget.dataset.jobhunteruid
+			console.log(e)
+			if (status === 11) {
+			  wx.navigateTo({
+          url: `/page/common/pages/resumeDetail/resumeDetail?uid=${jobhunteruid}`
+        })
+			} else {
+			  wx.navigateTo({
+          url: `/page/common/pages/arrangement/arrangement?id=${itemId}`
+        })
+			}
 		}
 	}
 })
