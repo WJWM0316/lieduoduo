@@ -28,7 +28,7 @@
     </view>
   </view>
   <!-- 意向 -->
-  <view class="intent commentBox">
+  <view class="intent commentBox" wx:if="{{info.expects.length>0}}">
     <view class="intentTitle"><i class="icon iconfont icon-fujian"></i> 求职意向</view>
     <!-- 意向列表 -->
     <view class="officeTab" wx:for="{{info.expects}}" wx:key="{{index}}">
