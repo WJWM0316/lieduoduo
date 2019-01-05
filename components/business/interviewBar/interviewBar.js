@@ -133,6 +133,7 @@ Component({
           confirmInterviewApi({id: this.data.interviewInfos.data[0][0].interviewId})
             .then(() => {
               app.wxToast({title: '已接受约面'})
+              this.triggerEvent('resultevent', res)
             })
           break
         case 'reject':
@@ -145,7 +146,10 @@ Component({
             cancelColor: '#BCBCBC',
             confirmColor: '#652791',
             confirmBack: () => {
-              refuseInterviewApi()
+              refuseInterviewApi({id: this.data.interviewInfos.data[0][0].interviewId})
+                .then(() => {
+                  this.triggerEvent('resultevent', res)
+                })
             }
           })
           break

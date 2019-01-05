@@ -83,7 +83,7 @@
 				</view>
 				<view class="button-box">
 					<view class="reject" data-type="reject" bindtap="todoAction">拒绝</view>
-					<view class="accept" data-type="accept" bindtap="todoAction">录用</view>
+					<view class="accept" data-type="accept" bindtap="todoAction">接受</view>
 				</view>
 			</block>
 			<!-- 求职端已开启撩 end-->
@@ -91,7 +91,7 @@
 			<block wx:elif="{{interviewInfos.interviewStatus === 31}}">
 				<view class="content">
 					<view class="first"><view class="name">李子发</view></view>
-					<view class="second">已确认申请</view>
+					<view class="second">等待求职者确认</view>
 				</view>
 				<view class="button-box button-box-color2">
 					<view bindtap="todoAction" data-type="chat4">等待求职者确认</view>
@@ -101,7 +101,7 @@
 			<block wx:elif="{{interviewInfos.interviewStatus === 41}}">
 				<view class="content">
 					<view class="first"><view class="name">李子发</view></view>
-					<view class="second">已确认申请</view>
+					<view class="second">已安排面试</view>
 				</view>
 				<view class="button-box button-box-color2">
 					<view bindtap="todoAction" data-type="chat4">已安排面试</view>
@@ -111,7 +111,7 @@
 			<block wx:elif="{{interviewInfos.interviewStatus === 51}}">
 				<view class="content">
 					<view class="first"><view class="name">李子发</view></view>
-					<view class="second">已确认申请</view>
+					<view class="second">安排面试结束</view>
 				</view>
 				<view class="button-box button-box-color2">
 					<view bindtap="todoAction" data-type="chat4">安排面试结束</view>
