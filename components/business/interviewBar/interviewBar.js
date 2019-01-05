@@ -114,8 +114,7 @@ Component({
               this.triggerEvent('resultevent', res)
             })
           break
-        case 'chat1':
-          // applyInterviewApi({recruiterUid: 90, positionId: 39})
+        case 'chat':
           applyInterviewApi({recruiterUid: this.data.infos.recruiterInfo.uid, positionId: this.data.infos.id})
             .then(res => {
               this.getInterviewStatus()
@@ -123,11 +122,14 @@ Component({
               this.triggerEvent('resultevent', res)
             })
           break
-        case 'chat2':
+        case 'pedding':
           app.wxToast({title: '等待面试官处理'})
           break
-        case 'chat3':
+        case 'waiting-interview':
           app.wxToast({title: '等待招聘官安排面试'})
+          break
+        case 'waiting-staff-confirm':
+          app.wxToast({title: '等待求职者确认'})
           break
         case 'accept':
           const id = Array.isArray(this.data.interviewInfos.data[0]) ? this.data.interviewInfos.data[0][0].interviewId : this.data.interviewInfos.data[0].interviewId
