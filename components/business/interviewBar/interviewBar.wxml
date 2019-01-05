@@ -55,7 +55,7 @@
 		</block>
 		<!-- 找【招聘官已经安排求职者面试结束 end-->
 
-		<block wx:elif="{{type === 'resume'}}">
+		<block wx:elif="{{type === 'resume' && interviewInfos.interviewStatus === 11}}">
 			<view class="content">
 				<view class="first"><view class="name">李子发</view></view>
 				<view class="second">邀请你面试</view>
