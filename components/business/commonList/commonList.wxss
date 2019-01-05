@@ -42,6 +42,7 @@
 	border:2rpx solid rgba(232,233,235,1);
 	box-sizing: border-box;
 	position: relative;
+	overflow: hidden;
 }
 
 .common-lits-ul .li .img-box image{
