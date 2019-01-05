@@ -110,7 +110,7 @@
 					"id": 11,
 					"name": "面试安排",
 					"pathName": "page/common/pages/arrangement/arrangement",
-					"query": "id=90"
+					"query": "id=91"
 				},
 				{
 					"id": -1,

@@ -57,7 +57,7 @@ Page({
   send() {
     let dateList = []
     this.data.dateList.map((item, index) => {
-      dateList.push(new Date(item).getTime())
+      dateList.push(new Date(item).getTime()/1000)
     })
     dateList = dateList.join(",")
     let info = this.data.info

@@ -37,6 +37,9 @@ Component({
 		routeJump(e) {
 			let itemId = e.currentTarget.dataset.itemId
 			console.log(itemId)
+			wx.navigateTo({ // 完善简历第二步
+        url: `/page/common/pages/arrangement/arrangement?id=${itemId}`
+      })
 		}
 	}
 })

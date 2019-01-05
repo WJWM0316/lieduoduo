@@ -4,7 +4,7 @@
 		wx:for="{{ list }}"
 		wx:for-item="item"
 		wx:key="{{item.id}}"
-		data-item-id="{{item.id}}"
+		data-item-id="{{item.interviewId}}"
 		bindtap="routeJump">
 			<view class="img-box">
 				<view class="is-certification" wx:if="{{item.certification}}"></view>
@@ -15,9 +15,9 @@
 					<view wx:if="{{identity === 'APPLICANT'}}" class="recruiter-infos">{{item.recruiterPositionName}}</view>
 					<view wx:else class="recruiter-infos">{{item.workExperience}}年·{{item.educationDesc}}·{{item.emolumentMin}}-{{item.emolumentMax}}K</view>
 				</view>
-				<view class="main">
+				<view class="main" wx:if="{{item.lastCompanyName}}">
 				  <view wx:if="{{identity === 'APPLICANT'}}" class="company-name"> {{item.companyName}}</view>
-					<view wx:else class="company-name"> {{item.companyName}}<text wx:if="{{item.recruiterPositionName}}"> | {{item.recruiterPositionName}} </text></view>
+					<view wx:else class="company-name"> {{item.lastCompanyName}}<text wx:if="{{item.lastPosition}}"> | {{item.lastPosition}} </text></view>
 				</view>
 			</view>
 			<view class="footer {{ showDividingLine ? 'show-dividing-line' : ''}}" wx:if="{{showFooter}}">

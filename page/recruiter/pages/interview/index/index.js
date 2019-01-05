@@ -80,6 +80,7 @@ Page({
     })
   },
   bindChange(e) {
+    console.log(e.currentTarget.dataset)
     const params = e.currentTarget.dataset
     const tabChildIndex = e.detail.value
     const tabLists = this.data.tabLists
@@ -103,10 +104,10 @@ Page({
     }
     switch (param.firstIndex) {
       case 0:
-        return getApplyListApi(param)
+        return getInviteListApi(param)
         break;
       case 1:
-        return getInviteListApi(param)
+        return getApplyListApi(param)
         break;
       case 2:
         return getScheduleListApi(param)
@@ -114,6 +115,7 @@ Page({
     }
   },
   chooseParentTab(e) {
+    console.log(e.currentTarget.dataset.index)
     const params = e.currentTarget.dataset
     const tabLists = this.data.tabLists
     let tabParentIndex = null
@@ -157,12 +159,12 @@ Page({
     this.init ()
   },
   onShow () {
-    console.log(wx.getStorageSync('choseType'), 999)
-    getInviteListApi().then(res => {
-      this.setData({
-        identity: wx.getStorageSync('choseType'),
-        companyList: res.data
-      })
-    })
+//  console.log(wx.getStorageSync('choseType'), 999)
+//  getInviteListApi().then(res => {
+//    this.setData({
+//      identity: wx.getStorageSync('choseType'),
+//      companyList: res.data
+//    })
+//  })
   }
 })
