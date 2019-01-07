@@ -1,29 +1,29 @@
 import { request } from '../require.js'
 
-export const getUserInfoApi = (data, isLoading) => {
+export const getUserInfoApi = (data, hasLoading) => {
   return request({
     method: 'get',
     url: '/cur/user_info',
     data,
-    isLoading: false
+    hasLoading: false
   })
 }
 
-export const postFormIdApi = (data, isLoading) => {
+export const postFormIdApi = (data, hasLoading) => {
   return request({
     method: 'post',
     url: '/wechat/mini/formIds',
     data,
-    isLoading: false
+    hasLoading: false
   })
 }
 
-export const getUserRoleApi = (data, isLoading) => {
+export const getUserRoleApi = (data, hasLoading) => {
   return request({
     method: 'get',
     url: '/user/roleinfo',
     data,
-    isLoading: true
+    hasLoading: true
   })
 }
 

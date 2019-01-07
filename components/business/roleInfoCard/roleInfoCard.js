@@ -11,6 +11,10 @@ Component({
     },
     cardData: {
       type: Object
+    },
+    isMain: {
+      type: Boolean,
+      value: false
     }
   },
 

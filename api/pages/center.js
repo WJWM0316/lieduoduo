@@ -23,11 +23,11 @@ export const editBaseInfoApi = (data) => {
   })
 }
 // 查询当前简历完善度
-export const getResumeStepApi = (isLoadData) => {
+export const getResumeStepApi = (data) => {
   return request({
     method: 'get',
     url: '/jobhunter/resume/step',
-    isLoadData: true
+    data
   })
 }
 // 完善简历第一步
@@ -59,14 +59,7 @@ export const getPersonalResumeApi = (data) => {
   return request({
     method: 'get',
     url: '/jobhunter/resume',
-    data
-  })
-}
-// 招聘端获取求职者个人简历接口
-export const getJobhunterResumeApi = (data) => {
-  return request({
-    method: 'get',
-    url: '/jobhunter/resume',
-    data
+    data,
+    hasLoading: false
   })
 }

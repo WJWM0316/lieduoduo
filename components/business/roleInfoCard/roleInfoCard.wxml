@@ -1,6 +1,6 @@
 <view class="my-class">
   <view class="company" wx:if="{{roleType === 'company'}}" bindtap="jumpCompany">
-    <image class="img" src="{{cardData.avatar}}"></image>
+    <image class="img" src="{{cardData.avatar.middleUrl}}"></image>
     <view class="companyMsg">
       <view class="name">{{cardData.name}}</view>
       <view class="detail">{{cardData.industry}} · {{cardData.financingDesc}} · {{cardData.employeesDesc}}</view>
@@ -9,7 +9,7 @@
   </view>
   <block  wx:if="{{roleType === 'applicant'}}">
     <view class="applicant" bindtap="jumpApplicant">
-      <image class="img" src="{{cardData.avatar}}"></image>
+      <image class="img" src="{{cardData.avatar.middleUrl}}"></image>
       <view class="applicantMsg">
         <view class="name">{{cardData.jobhunterRealname}}<text class="msg">{{cardData.workAge}}·{{cardData.degreeDesc}}·{{cardData.emolument}}</text></view>
         <view class="detail">{{cardData.companyName}} | {{cardData.positionName}}</view>
@@ -21,12 +21,12 @@
     </view>
   </block>
   <view class="recruiter" wx:if="{{roleType === 'recruiter'}}" bindtap="jumpRecruiter">
-    <image class="img" src="../../../images/bg_detail.png"></image>
+    <image class="img" src="{{cardData.avatar.middleUrl}}"></image>
     <view class="vip">V</view>
     <view class="recruiterMsg">
-      <view class="name">撒大声地在校生<text class="msg">·本科8-12k在校生·本科·8-12k在校生·本科·8-12k</text></view>
-      <view class="detail">移动互联网 · B论 · 20-99人在校生·本科·8-12k在校生·本科·8-12k在校生·本科·8-12k</view>
+      <view class="name">{{cardData.name}}<text class="msg" wx:if="{{!isMain}}"> · {{cardData.position}}</text></view>
+      <view class="detail">{{cardData.companyName}}<text wx:if="{{isMain}}"> | {{cardData.position}}</text></view>
     </view>
-    <view class="status">邀你面试</view>
+    <view class="status" wx:if="{{!isMain}}">邀你面试</view>
   </view>
 </view>

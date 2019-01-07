@@ -1,20 +1,20 @@
 // 通用接口api
 import { request } from '../require'
 
-export const unloadApi = (data, isLoading) => {
+export const unloadApi = (data, hasLoading) => {
   return request({
     method: 'get',
     url: '/cur/user_info',
     data,
-    isLoading: false
+    hasLoading: false
   })
 }
-export const upLoadApi = (data, isLoading) => {
+export const upLoadApi = (data, hasLoading) => {
   return request({
     method: 'post',
     url: '/attaches',
     data,
-    isLoading: false
+    hasLoading: false
   })
 }
 // 职位列表数据接口
@@ -74,11 +74,11 @@ export const saveLabelApi = (data) => {
 }
 
 // 行业领域列表
-export const getLabelFieldApi = (data, isLoading) => {
+export const getLabelFieldApi = (data, hasLoading) => {
   return request({
     method: 'get',
     url: '/label/field',
     data,
-    isLoading: false
+    hasLoading: false
   })
 }

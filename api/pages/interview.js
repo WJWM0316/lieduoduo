@@ -1,7 +1,7 @@
 import { request } from '../require.js'
 
 // 招聘官撩约接口
-export const inviteInterviewApi = (data, isLoading) => {
+export const inviteInterviewApi = (data, hasLoading) => {
   return request({
     method: 'post',
     url: '/interview/inviteInterview',
@@ -10,7 +10,7 @@ export const inviteInterviewApi = (data, isLoading) => {
 }
 
 // 求职端面试详情
-export const interviewDetailApi = (data, isLoading) => {
+export const interviewDetailApi = (data, hasLoading) => {
   return request({
     method: 'get',
     url: `/interview/detail/${data.interviewId}`
@@ -18,7 +18,7 @@ export const interviewDetailApi = (data, isLoading) => {
 }
 
 // 招聘端面试安排设置
-export const setInterviewDetailApi = (data, isLoading) => {
+export const setInterviewDetailApi = (data, hasLoading) => {
   return request({
     method: 'post',
     url: `/interview/setInterviewInfo/${data.interviewId}`,
@@ -27,7 +27,7 @@ export const setInterviewDetailApi = (data, isLoading) => {
 }
 
 // 开撩约面
-export const applyInterviewApi = (data, isLoading) => {
+export const applyInterviewApi = (data, hasLoading) => {
   return request({
     method: 'post',
     url: '/interview/applyInterview',
@@ -36,7 +36,7 @@ export const applyInterviewApi = (data, isLoading) => {
 }
 
 // 求职端确认面试安排
-export const sureInterviewApi = (data, isLoading) => {
+export const sureInterviewApi = (data, hasLoading) => {
   return request({
     method: 'post',
     url: `/interview/confirmArrangementInfo/${data.interviewId}`,
@@ -45,7 +45,7 @@ export const sureInterviewApi = (data, isLoading) => {
 }
 
 //求职者申请列表 (招聘端的邀请列表)
-export const getApplyListApi = (data, isLoading) => {
+export const getApplyListApi = (data, hasLoading) => {
   return request({
     method: 'get',
     url: '/interview/apply',
@@ -54,7 +54,7 @@ export const getApplyListApi = (data, isLoading) => {
 }
 
 //收到邀请列表
-export const getInviteListApi = (data, isLoading) => {
+export const getInviteListApi = (data, hasLoading) => {
   return request({
     method: 'get',
     url: '/interview/invite',
@@ -63,7 +63,7 @@ export const getInviteListApi = (data, isLoading) => {
 }
 
 //收到邀请列表
-export const getScheduleListApi = (data, isLoading) => {
+export const getScheduleListApi = (data, hasLoading) => {
   return request({
     method: 'get',
     url: '/interview/schedule',
@@ -73,7 +73,7 @@ export const getScheduleListApi = (data, isLoading) => {
 
 
 //获取底部面试状态
-export const getInterviewStatusApi = (data, isLoading) => {
+export const getInterviewStatusApi = (data, hasLoading) => {
   return request({
     method: 'get',
     url: '/interview/getInterviewStatus',
@@ -82,7 +82,7 @@ export const getInterviewStatusApi = (data, isLoading) => {
 }
 
 //确定约面
-export const confirmInterviewApi = (data, isLoading) => {
+export const confirmInterviewApi = (data, hasLoading) => {
   return request({
     method: 'post',
     url: `/interview/confirm/${data.id}`
@@ -90,7 +90,7 @@ export const confirmInterviewApi = (data, isLoading) => {
 }
 
 //编辑不合适
-export const refuseInterviewApi = (data, isLoading) => {
+export const refuseInterviewApi = (data, hasLoading) => {
   return request({
     method: 'post',
     url: `/interview/refuse/${data.id}`
@@ -99,7 +99,7 @@ export const refuseInterviewApi = (data, isLoading) => {
 
 /* 招聘端 */
 //收到意向列表
-export const getIntentionListApi = (data, isLoading) => {
+export const getIntentionListApi = (data, hasLoading) => {
   return request({
     method: 'get',
     url: `/interview/intention`,

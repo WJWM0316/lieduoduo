@@ -22,29 +22,38 @@ Page({
       wx.showTabBar()
     }
     if (choseType === 'RECRUITER') {
-      wx.showModal({
+      app.wxConfirm({
         title: '提示',
         content: '检测到你是招聘官，是否切换招聘端',
-        success (res) {
-          if (res.confirm) {
-            getApp().globalData.identity = 'RECRUITER'
-            wx.reLaunch({
-              url: `${RECRUITER}index/index`
-            })
-          } else if (res.cancel) {
-            wx.setStorageSync('choseType', 'APPLICANT')
-          }
+        confirmBack() {
+          wx.reLaunch({
+            url: `${RECRUITER}index/index`
+          })
+        },
+        cancelBack() {
+          app.globalData.identity = 'APPLICANT'
+          wx.setStorageSync('choseType', 'APPLICANT')
+          app.getAllInfo()
         }
       })
     }
   },
   onShow() {
-    if(!wx.getStorageSync('choseType')) return;
-    geMyBrowseUsersApi().then(res => {
-      this.setData({
-        companyList:res.data
+    if (app.globalData.resumeInfo.uid) {
+      geMyBrowseUsersApi().then(res => {
+        this.setData({
+          companyList:res.data
+        })
       })
-    })
+    } else {
+      app.pageInit = () => {
+        geMyBrowseUsersApi().then(res => {
+          this.setData({
+            companyList:res.data
+          })
+        })
+      }
+    }
     wx.setTabBarBadge({
       index: 2,
       text: '99+'
@@ -52,7 +61,6 @@ Page({
   },
   toggle (tab) {
     let tabName = tab || this.data.pageList
-    console.log(tabName)
     switch (tabName) {
       case 'mySeen':
         return geMyBrowseUsersApi()

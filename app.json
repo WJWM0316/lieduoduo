@@ -21,7 +21,9 @@
     "page/common/pages/arrangement/arrangement",
     "page/common/pages/homepage/homepage",
     "page/common/pages/positionDetail/positionDetail",
-    "page/applicant/pages/center/workContent/workContent"
+    "page/applicant/pages/center/workContent/workContent",
+    "page/common/pages/settings/settings",
+    "page/common/pages/changeMobile/changeMobile"
   ],
   "window": {
     "navigationBarTextStyle": "black",
@@ -99,8 +101,7 @@
       ]
     }
   ],
-  "plugins": {
-  },
+  "plugins": {},
   "networkTimeout": {
     "request": 60000,
     "connectSocket": 60000,

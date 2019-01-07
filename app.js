@@ -2,6 +2,9 @@
 import {loginApi} from 'api/pages/auth.js'
 import {getPersonalResumeApi} from 'api/pages/center.js'
 import {getRecruiterDetailApi} from 'api/pages/recruiter.js'
+import {COMMON,RECRUITER,APPLICANT} from "config.js"
+import {getUserRoleApi} from "api/pages/user.js"
+
 let app = getApp()
 App({
   onLaunch: function () {
@@ -18,15 +21,16 @@ App({
     this.checkLogin()
   },
   globalData: {
-    identity: wx.getStorageSync('choseType'), // 身份标识
+    identity: "", // 身份标识
+    isRecruiter: false, // 是否认证成为招聘官
+    isJobhunter: false, // 是否注册成求职者
     hasLogin: false, // 判断是否登录
     userInfo: '', // 用户信息， 判断是否授权
     navHeight: 0,
     cdnImagePath: 'https://attach.lieduoduo.ziwork.com/images',
     resumeInfo: {}, // 个人简历信息
     recruiterDetails: {}, // 招聘官详情信息
-    systemInfo: wx.getSystemInfoSync(), // 系统信息
-    workContent: '' //完善简历第二步里的编辑自己工作内容
+    systemInfo: wx.getSystemInfoSync() // 系统信息
   },
   // 获取最全的角色信息
   getAllInfo() {
@@ -72,10 +76,23 @@ App({
                 if (this.userInfoReadyCallback) {
                   this.userInfoReadyCallback(res)
                 }
+                getUserRoleApi().then(res0 => {
+                  if (res0.data.isRecruiter) {
+                    this.globalData.isRecruiter = true
+                  }
+                  if (res0.data.isJobhunter) {
+                    this.globalData.isJobhunter = true
+                  }
+                  if (this.getRoleInit) { // 登陆初始化
+                    this.getRoleInit() //执行定义的回调函数
+                  }
+                })
                 this.getAllInfo().then(() => {
+                  // 没有身份默认求职者
                   if (!wx.getStorageSync('choseType')) {
                     wx.setStorageSync('choseType', 'APPLICANT')
                   }
+                  this.globalData.identity = wx.getStorageSync('choseType')
                   if (this.pageInit) { // 页面初始化
                     this.pageInit() //执行定义的回调函数
                   }
@@ -94,44 +111,56 @@ App({
     let that = this
     return new Promise((resolve, reject) => {
       if (e.detail.errMsg === 'getUserInfo:ok') {
-        // 调用微信登录获取本地session_key
-        wx.login({
-          success: function (res) {
-            // 请求接口获取服务器session_key
-            var pages = getCurrentPages() //获取加载的页面
-            let pageUrl = pages[0].route
-            let params = ''
-            for (let i in pages[0].options) {
-              params = `${params}${i}=${pages[0].options[i]}&`
-            }
-            pageUrl = `${pageUrl}?${params}`
-            let data = {
-              code: res.code,
-              iv_key: e.detail.iv,
-              data: e.detail.encryptedData
-            }
-            loginApi(data).then(res => {
-              // 有token说明已经绑定过用户了
-              if (res.data.token) {
-                that.globalData.userInfo = res.data
-                that.globalData.hasLogin = true
-                wx.setStorageSync('token', res.data.token)
-                that.getAllInfo()
-                console.log('用户已认证')
-              } else {
-                console.log('用户未绑定手机号')
-                wx.setStorageSync('sessionToken', res.data.sessionToken)
+        // 预防信息解密失败， 失败三次后不再授权
+        let loginNum = 0
+        let wxLogin = function () {
+          // 调用微信登录获取本地session_key
+          wx.login({
+            success: function (res) {
+              // 请求接口获取服务器session_key
+              var pages = getCurrentPages() //获取加载的页面
+              let pageUrl = pages[0].route
+              let params = ''
+              for (let i in pages[0].options) {
+                params = `${params}${i}=${pages[0].options[i]}&`
               }
-              resolve(res)
-              wx.reLaunch({
-                url: `/${pageUrl}`
+              pageUrl = `${pageUrl}?${params}`
+              let data = {
+                code: res.code,
+                iv_key: e.detail.iv,
+                data: e.detail.encryptedData
+              }
+              loginApi(data).then(res => {
+                // 有token说明已经绑定过用户了
+                if (res.data.token) {
+                  that.globalData.userInfo = res.data
+                  that.globalData.hasLogin = true
+                  wx.setStorageSync('token', res.data.token)
+                  that.checkLogin()
+                  console.log('用户已认证')
+                } else {
+                  console.log('用户未绑定手机号')
+                  wx.setStorageSync('sessionToken', res.data.sessionToken)
+                }
+                resolve(res)
+                wx.reLaunch({
+                  url: `/${pageUrl}`
+                })
+              }).catch(e => {
+                loginNum++
+                if (loginNum < 3) {
+                  wxLogin()
+                } else {
+                  this.toast({title: "授权失败，请稍后再试"})
+                }
               })
-            })
-          },
-          fail: function (e) {
-            console.log('登录失败', e)
-          }
-        })
+            },
+            fail: function (e) {
+              console.log('登录失败', e)
+            }
+          })
+        }
+        wxLogin()
       }
     })
   },
@@ -153,7 +182,7 @@ App({
     })
   },
   // 微信确认弹框
-  wxConfirm({title, content, showCancel = false, cancelText = '取消', confirmText = '确定', cancelColor = '#000000', confirmColor = '#2878FF', confirmBack = function() {}, cancelBack = function() {}}) {
+  wxConfirm({title, content, showCancel = true, cancelText = '取消', confirmText = '确定', cancelColor = '#000000', confirmColor = '#2878FF', confirmBack = function() {}, cancelBack = function() {}}) {
     wx.showModal({
       title,
       content,
@@ -168,6 +197,7 @@ App({
       }
     })
   },
+  // 微信分享
   wxShare({options, title, path, imageUrl, btnTitle, btnPath, btnImageUrl}) {
     let that = this
     // 设置菜单中的转发按钮触发转发事件时的转发内容
@@ -199,5 +229,22 @@ App({
       }
     }
     return shareObj
+  },
+  // 切换身份
+  toggleIdentity() {
+    if (this.globalData.identity === 'RECRUITER') {
+      wx.setStorageSync('choseType', 'APPLICANT')
+      this.globalData.identity === 'APPLICANT'
+      wx.reLaunch({
+        url: `${APPLICANT}index/index`
+      })
+    } else {
+      wx.setStorageSync('choseType', 'RECRUITER')
+      this.globalData.identity === 'RECRUITER'
+      wx.reLaunch({
+        url: `${RECRUITER}index/index`
+      })
+    }
+    app.getAllInfo()
   }
 })

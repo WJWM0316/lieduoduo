@@ -75,7 +75,7 @@
         <i class="icon iconfont icon-xiangyou"></i>
       </view>
 		</view>
-		<view class="li">
+		<view class="li" bindtap="jump" data-type="settings">
 			<view>
         <i class="icon iconfont icon-shezhi"></i>
 			  <view class="text">账号设置</view>

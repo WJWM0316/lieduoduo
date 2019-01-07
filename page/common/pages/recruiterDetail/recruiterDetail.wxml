@@ -1,6 +1,6 @@
-<view class="recruiterDetail">
+<view class="recruiterDetail" wx:if="{{info.uid}}">
   <navbar title="招聘官主页" background="#fff" color="#22292C" showHome="{{true}}"></navbar>
-  <view class="header">
+  <view class="header" wx:if="{{!isOwner}}">
     <image class="bgImg" src="../../../../images/bg_detail.png" mode="aspectFill"></image>
     <shareBtn></shareBtn>
     <div class="content">
@@ -15,8 +15,12 @@
       <view class="sign">{{info.signature}}</view>
     </view>
   </view>
+  <view class="head">
+    <roleInfoCard my-class="roleInfoCard" roleType="recruiter" cardData="{{info}}" isMain="{{true}}"></roleInfoCard>
+    <view class="line"></view>
+  </view>
   <view class="mainContent">
-    <view class="dataShow">
+    <view class="dataShow" wx:if="{{!isOwner}}">
       <view class="dataBox">
         <view class="data"><text class="num">{{info.viewedCount}}</text>人气</view>
         <view class="data"><text class="num">{{info.influence}}</text>影响力</view>
@@ -54,7 +58,7 @@
         </view>
       </view>
     </view>
-    <view class="position">
+    <view class="position" wx:if="{{!isOwner}}">
       <company roleType="company" cardData="{{info.companyInfo}}"></company>
       <view class="positionList">
         <view class="positionItem" wx:for="{{positionList}}" wx:key="{{index}}" bindtap="jumpPage" data-id="{{item.id}}">
@@ -64,14 +68,14 @@
       </view>
     </view>
   </view>
-  <view class="more meToo" bindtap="create" wx:if="{{!isOwner && !isRecruiter}}">我也要制作招聘主页<view class="icon iconfont icon-disejiantou-you"></view></view>
-  <view class="collection icon iconfont icon-ganxingqu" bindtap="collect"></view>
-  <view class="positionBtn" bindtap="scrollPs" hidden="{{!isShowBtn}}">{{positionList.length}}个热招职位</view>
+  <view class="more meToo" bindtap="create" wx:if="{{!isRecruiter}}">我也要制作招聘主页<view class="icon iconfont icon-disejiantou-you"></view></view>
+  <view class="collection icon iconfont icon-ganxingqu" bindtap="collect" wx:if="{{!isOwner}}"></view>
+  <view class="positionBtn" bindtap="scrollPs" hidden="{{!isShowBtn}}" wx:if="{{!isOwner}}">{{positionList.length}}个热招职位</view>
   <interviewBar
     infos="{{info}}"
     bindresultevent="getPositionDetail"
     type="recruiter"
     positionId="{{positionList[0].id}}"
     vkey="{{info.vkey}}"
-    wx:if="{{info.vkey}}"></interviewBar>
+    wx:if="{{info.vkey && !isOwner}}"></interviewBar>
 </view>

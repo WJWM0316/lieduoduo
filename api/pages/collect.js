@@ -1,81 +1,81 @@
 import { request } from '../require.js'
 
 // 收藏的招聘官列表
-export const getMyCollectUsersApi = (data, isLoading) => {
+export const getMyCollectUsersApi = (data, hasLoading) => {
   return request({
     method: 'get',
     url: '/collect/myCollectUsers',
     data,
-    isLoading: true
+    hasLoading: true
   })
 }
 
 // 收藏的职位列表
-export const getMyCollectPositionsApi = (data, isLoading) => {
+export const getMyCollectPositionsApi = (data, hasLoading) => {
   return request({
     method: 'get',
     url: '/collect/myCollectPositions',
     data,
-    isLoading: true
+    hasLoading: true
   })
 }
 
 // 收藏招聘官
-export const getMyCollectUserApi = (data, isLoading) => {
+export const getMyCollectUserApi = (data, hasLoading) => {
   return request({
     method: 'put',
     url: `/collect/collectUser/${data.uid}`,
     data,
-    isLoading: true
+    hasLoading: true
   })
 }
 
 // 取消收藏招聘官
-export const deleteMyCollectUserApi = (data, isLoading) => {
+export const deleteMyCollectUserApi = (data, hasLoading) => {
   return request({
     method: 'delete',
     url: `/collect/collectUser/${data.uid}`,
     data,
-    isLoading: true
+    hasLoading: true
   })
 }
 
 // 收藏职位
-export const getMycollectPositionApi = (data, isLoading) => {
+export const getMycollectPositionApi = (data, hasLoading) => {
   return request({
     method: 'put',
     url: `/collect/collectPosition/${data.id}`,
     data,
-    isLoading: true
+    hasLoading: true
   })
 }
 
 // 取消收藏职位
-export const deleteMycollectPositionApi = (data, isLoading) => {
+export const deleteMycollectPositionApi = (data, hasLoading) => {
   return request({
     method: 'delete',
     url: `/collect/collectPosition/${data.id}`,
     data,
-    isLoading: true
+    hasLoading: true
   })
 }
 
 // 取消收藏职位(招聘端)
-export const getBrowseMySelfApi = (data, isLoading) => {
+export const getBrowseMySelfApi = (data, hasLoading) => {
   return request({
     method: 'get',
     url: `/browse/browseMySelf`,
     data,
-    isLoading: true
+    hasLoading: true
   })
 }
 
 // 收藏我的(招聘端)
-export const getCollectMySelfApi = (data, isLoading) => {
+export const getCollectMySelfApi = (data, hasLoading) => {
   return request({
     method: 'get',
     url: `/collect/getCollectMySelf`,
     data,
-    isLoading: true
+    hasLoading: true
   })
 }
