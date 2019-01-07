@@ -114,20 +114,20 @@
 			<block wx:elif="{{interviewInfos.interviewStatus === 21 || interviewInfos.interviewStatus === 31}}">
 				<view class="content">
 					<view class="first"><view class="name">{{infos.name}}</view></view>
-					<view class="second">待安排面试</view>
+					<view class="second">待求职者确认</view>
 				</view>
 				<view class="button-box button-box-color2">
-					<view data-type="b-pedding" bindtap="todoAction">待安排面试</view>
+					<view data-type="b-pedding" bindtap="todoAction">待求职者确认</view>
 				</view>
 			</block>
 			
 			<block wx:elif="{{interviewInfos.interviewStatus === 12 }}">
 				<view class="content">
 					<view class="first"><view class="name">{{infos.name}}</view></view>
-					<view class="second">已申请面试</view>
+					<view class="second">已发起面试</view>
 				</view>
 				<view class="button-box button-box-color2">
-					<view data-type="b-apply" bindtap="todoAction">已申请面试</view>
+					<view data-type="b-apply" bindtap="todoAction">已发起面试</view>
 				</view>
 			</block>
 
