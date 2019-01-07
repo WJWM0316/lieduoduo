@@ -16,12 +16,11 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    console.log(app.globalData.userInfo)
-    if (!app.globalData.userInfo) {
-      wx.navigateTo({
-        url: `${COMMON}auth/auth`
-      })
-    }
+    // if (!app.globalData.userInfo) {
+    //   wx.navigateTo({
+    //     url: `${COMMON}auth/auth`
+    //   })
+    // }
   },
   getPhone(e) {
     this.setData({
@@ -73,9 +72,15 @@ Page({
         title: '注册成功',
         icon: 'success',
         callback() {
-          wx.navigateBack({
-            delta: 1
-          })
+          if (wx.getStorageSync('choseType') === 'APPLICANT') {
+            wx.navigateBack({
+              delta: 1
+            })
+          } else {
+            wx.reLaunch({
+              url: `${RECRUITER}user/company/apply/apply`
+            })
+          }
         }
       })
     })

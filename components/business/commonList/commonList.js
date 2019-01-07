@@ -38,21 +38,24 @@ Component({
   },
 	methods: {
 		routeJump(e) {
+		  const Identity = wx.getStorageSync('choseType')
 			const itemId = e.currentTarget.dataset.itemId
 			const status = e.currentTarget.dataset.status
 			const jobhunteruid = e.currentTarget.dataset.jobhunteruid || e.currentTarget.dataset.uid
 			const recruiteruid = e.currentTarget.dataset.recruiteruid
-			console.log(recruiteruid, 77777)
+			console.log(status, 77777)
 			if (e.currentTarget.dataset.uid) { // 首页入口
 			  wx.navigateTo({
           url: `/page/common/pages/resumeDetail/resumeDetail?uid=${jobhunteruid}`
         })
 			} else { // 职位机会入口
-			  if (status === 11) {
+			  if ((status === 11 || status >= 51) && Identity === 'RECRUITER') {
+			    /* 招聘端：不合适，未处理跳简历 */
           wx.navigateTo({
             url: `/page/common/pages/resumeDetail/resumeDetail?uid=${jobhunteruid}`
           })
-        } else if (status === 12 || status === 21 ||  status === 32 || status === 51 || status === 54) {
+        } else if ((status === 11 || status >= 51) && Identity === 'APPLICANT') {
+          /* 求职端 */
           wx.navigateTo({
             url: `/page/common/pages/recruiterDetail/recruiterDetail?uid=${recruiteruid}`
           })

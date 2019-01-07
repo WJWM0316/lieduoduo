@@ -115,7 +115,16 @@ Component({
             })
           break
         case 'chat':
-          applyInterviewApi({recruiterUid: this.data.infos.recruiterInfo.uid, positionId: this.data.infos.id})
+          let uid = ''
+          let positionId = ''
+          if (this.data.type === 'position') {
+            uid = this.data.infos.recruiterInfo.uid
+            positionId = this.data.infos.id
+          } else {
+            uid = this.data.infos.uid
+            positionId = this.data.positionId
+          }
+          applyInterviewApi({recruiterUid: uid, positionId: positionId})
             .then(res => {
               this.getInterviewStatus()
               app.wxToast({title: '面试申请已发送'})
