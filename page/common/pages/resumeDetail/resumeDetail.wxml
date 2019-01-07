@@ -1,13 +1,13 @@
 <!--求职者个人简历页-->
 <navbar title="老虎科技-CEO" background="#FFFFFF" color="#22292C" showHome="{{true}}"></navbar>
-<view class="resumeDetail">
+<view class="resumeDetail" wx:if="{{info}}">
   <view class="share" wx:if="{{info.isOwner}}"><i class="icon iconfont icon-fenxiang"></i></view>
 <!-- 基本信息 -->
   <view class="personalInfo commentBox">
     <view class="top">
-      <image src="{{info.avatar}}" class="avatar"></image>
+      <image src="{{info.avatar.smallUrl}}" class="avatar"></image>
       <view class="info">
-        <text class="name">{{info.name}}</text>
+        <view class="name"><text>{{info.name}}</text><i class="icon iconfont icon-bianji1 edit" data-editName="info" bindtap="edit"></i></view>
         <view>
           <text>{{info.lastCompanyName}}</text> | <text>{{info.lastPosition}}</text>
         </view>
@@ -33,7 +33,10 @@
     <!-- 意向列表 -->
     <view class="officeTab" wx:for="{{info.expects}}" wx:key="{{index}}">
       <view>
-        <view class="officeDetail"><text>{{item.position}} | {{item.city}}</text> <text class="salary">{{item.salaryFloor}}~{{item.saralyCeil}}K</text></view>
+        <view class="officeDetail">
+          <text>{{item.position}} | {{item.city}}</text>
+          <text class="salary">{{item.salaryFloor}}~{{item.saralyCeil}}K</text>
+          <i class="icon iconfont icon-bianji1 edit" data-editName="intent" bindtap="edit"></i></view>
       </view>
       <view class="officeInfo">
         <text wx:if="{{item.fields[0]}}">{{item.fields[0].field}}</text>
@@ -46,7 +49,11 @@
   <view class="workExp commentBox" wx:if="{{info.careers.length>0}}">
     <view class="intentTitle"><i class="icon iconfont icon-fujian"></i> 工作经历</view>
     <view class="expTab" wx:for="{{info.careers}}" wx:key="{{index}}">
-      <view class="expTitle"><text class="expName">{{item.company}}</text><text class="expTime">{{item.startTimeDesc}}-{{item.endTimeDesc}}</text></view>
+      <view class="expTitle">
+        <text class="expName">{{item.company}}</text>
+        <text class="expTime">{{item.startTimeDesc}}-{{item.endTimeDesc}}</text>
+        <i class="icon iconfont icon-bianji1 edit" data-editName="work" bindtap="edit"></i>
+      </view>
       <view class="expInfo">{{item.position}}</view>
       <!-- 工作内容 -->
       <view class='expContent'>{{item.duty}}</view>
@@ -61,7 +68,11 @@
   <view class="projectExp commentBox" wx:if="{{info.projects.length>0}}">
     <view class="intentTitle"><i class="icon iconfont icon-fujian"></i> 项目经历</view>
     <view class="expTab" wx:for="{{info.projects}}" wx:key="{{index}}">
-      <view class="expTitle"><text class="expName">{{item.name}}</text><text class="expTime">{{item.startTimeDesc}}-{{item.endTimeDesc}}</text></view>
+      <view class="expTitle">
+        <text class="expName">{{item.name}}</text>
+        <text class="expTime">{{item.startTimeDesc}}-{{item.endTimeDesc}}</text>
+        <i class="icon iconfont icon-bianji1 edit" data-editName="project" bindtap="edit"></i>
+      </view>
       <view class="expInfo">{{item.role}}</view>
       <!-- 工作内容 -->
       <view class='expContent'>内容：{{item.description}}</view>
@@ -75,7 +86,11 @@
   <view class="projectExp commentBox" wx:if="{{info.educations.length>0}}">
     <view class="intentTitle"><i class="icon iconfont icon-fujian"></i> 教育经历</view>
     <view class="expTab" wx:for="{{info.educations}}" wx:key="{{index}}">
-      <view class="expTitle"><text class="expName">{{item.school}}</text><text class="expTime">{{item.startTimeDesc}}-{{item.endTimeDesc}}</text></view>
+      <view class="expTitle">
+        <text class="expName">{{item.school}}</text>
+        <text class="expTime">{{item.startTimeDesc}}-{{item.endTimeDesc}}</text>
+        <i class="icon iconfont icon-bianji1 edit" data-editName="education" bindtap="edit"></i>
+      </view>
       <view class="expInfo">{{item.degreeDesc}}·{{item.major}}</view>
       <!-- 教育经历 -->
       <view class='expContent'>{{item.experience}}</view>
@@ -83,7 +98,10 @@
   </view>
   <!-- 更多 -->
   <view class="more commentBox" wx:if="{{info.moreIntroduce}}">
-    <view class="intentTitle"><i class="icon iconfont icon-fujian"></i> 更多介绍</view>
+    <view class="intentTitle moreTitle">
+      <view><i class="icon iconfont icon-fujian"></i> 更多介绍 </view>
+      <i class="icon iconfont icon-bianji1 edit" data-editName="more" bindtap="edit"></i>
+    </view>
     <view class="expTab">
       <!-- 工作内容 -->
       <view class="expContent">{{info.moreIntroduce.introduce}}</view>
@@ -100,7 +118,6 @@
       infos="{{info}}"
       type="resume"
       bindresultevent="init"
-      vkey="{{info.vkey}}"
       wx:if="{{info.vkey}}"></interviewBar>
   </view>
   <!--<view class="collect"><i class="icon iconfont icon-ganxingqu"></i></view>

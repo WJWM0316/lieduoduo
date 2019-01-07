@@ -2,6 +2,8 @@
 import { getPersonalResumeApi, getJobhunterResumeApi } from '../../../../api/pages/center.js'
 import { inviteInterviewApi } from '../../../../api/pages/interview.js'
 let id = 92
+const app = getApp()
+let resumeInfo = null
 Page({
 
   /**
@@ -15,35 +17,38 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    id = options.uid
-    console.log(options.uid)
-    this.init(options)
+    id = options
+    console.log(options)
+    app.pageInit = () => {
+      resumeInfo = app.globalData.resumeInfo
+      this.init(options)
+    }
   },
-
   /**
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    resumeInfo = app.globalData.resumeInfo
+    this.init(id)
   },
   init (options) {
-//  getPersonalResumeApi({uid: options.uid}).then(res => {
-//    this.setData({
-//      info: res.data
-//    })
-//    console.log(this.data.info)
-//  })
     if (wx.getStorageSync('choseType') === 'APPLICANT') {
       console.log('求职端')
-      getPersonalResumeApi().then(res => {
+      if (resumeInfo) {
         this.setData({
-          info: res.data
+          info: resumeInfo
         })
-        console.log(this.data.info)
-      })
+      } else {
+        getPersonalResumeApi(options).then(res => {
+          this.setData({
+            info: res.data
+          })
+          console.log(this.data.info, "个人信息")
+        })
+      }
     } else {
       console.log('招聘端')
-      getJobhunterResumeApi({uid: options.uid}).then(res => {
+      getJobhunterResumeApi(options).then(res => {
         this.setData({
           info: res.data
         })
@@ -51,9 +56,13 @@ Page({
       })
     }
   },
+  /* 编辑 */
+  edit (e) {
+    console.log(e.currentTarget.dataset.editname, '555')
+  },
   /* 开撩 */
   toCommunicate () {
-    inviteInterviewApi({jobhunterUid: id, positionId: 110101})
+    inviteInterviewApi({jobhunterUid: id.uid, positionId: 110101})
   }
   /* 获取简历 */
 })

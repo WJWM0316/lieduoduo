@@ -21,12 +21,19 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    
+  },
+  
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onHide: function () {
+    wx.removeStorageSync('workContent')
   },
   eidt () {
-    // wx.navigateTo({
-    //   url: '/page/applicant/pages/center/workContent/workContent'
-    // })
+    wx.navigateTo({
+     url: '/page/applicant/pages/center/workContent/workContent'
+    })
   },
 
   getresult(val) {
@@ -40,6 +47,7 @@ Page({
   formSubmit (e) {
     e.detail.value.startTime = starTime
     e.detail.value.endTime = endTime
+    e.detail.value.duty = wx.getStorageSync('workContent')
     postSecondStepApi(e.detail.value).then(res => {
       wx.navigateTo({
         url: '/page/applicant/pages/center/educaExperience/educaExperience'
