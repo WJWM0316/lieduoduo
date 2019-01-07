@@ -59,6 +59,16 @@ Page({
   /* 编辑 */
   edit (e) {
     console.log(e.currentTarget.dataset.editname, '555')
+    let editName = e.currentTarget.dataset.editname
+    let url = null
+    switch (editName) {
+      case 'info':
+        url = '/page/applicant/pages/center/userInfoEdit/userInfoEdit'
+        break;
+    }
+    wx.navigateTo({
+      url: url
+    })
   },
   /* 开撩 */
   toCommunicate () {
