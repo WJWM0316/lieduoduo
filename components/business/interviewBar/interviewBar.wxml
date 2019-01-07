@@ -157,7 +157,7 @@
 	</block>
 	
 	<!-- 是我自己发布的职位 start-->
-	<block wx:else>
+	<block wx:elif="{{isOwerner && identity === 'APPLICANT'}}">
 		<view class="edit-button" data-type="edit" bindtap="todoAction">编辑</view>
 		<view class="switch-button" bindtap="todoAction" data-type="{{infos.status === 0 ? 'open' : 'close'}}">
 			{{infos.status === 0 ? '开放职位' : '关闭职位'}}
