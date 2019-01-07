@@ -16,6 +16,14 @@ export const loginApi = data => {
   })
 }
 
+// 用户退出
+export const uploginApi = data => {
+  return request({
+    method: 'get',
+    url: '/auth/logout',
+    data
+  })
+}
 export const testLoginApi = data => {
   return request({
     method: 'post',
@@ -43,6 +51,13 @@ export const quickLoginApi = data => {
   return request({
     method: 'post',
     url: '/bind/quick_login',
+    data
+  })
+}
+export const changePhoneApi = data => {
+  return request({
+    method: 'post',
+    url: '/bind/modify_mobile',
     data
   })
 }

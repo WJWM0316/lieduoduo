@@ -27,13 +27,11 @@ Component({
       })
     },
     getPhoneNumber(e) {
-      console.log(e)
       let data = {
         iv_key: e.detail.iv,
         data: e.detail.encryptedData
       }
       quickLoginApi(data).then(res => {
-        console.log(res)
       })
     },
     phoneLogin() {

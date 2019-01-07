@@ -1,4 +1,4 @@
-// page/applicant/pages/mine/mine.js
+import {COMMON,APPLICANT,RECRUITER} from '../../../../../config.js'
 import { getBaseInfoApi, getResumeStepApi, getMyInfoApi } from '../../../../../api/pages/center'
 Page({
 
@@ -30,20 +30,29 @@ Page({
   },
   preview() {
     wx.downloadFile({
-    url: 'https://lieduoduo-uploads-test.oss-cn-shenzhen.aliyuncs.com/front-assets/file/111.pdf',
-    success(res) {
-      const filePath = res.tempFilePath
-      wx.openDocument({
-        filePath,
-        success(res) {
-          console.log('打开文档成功')
-        }
-      })
-    },
-    fail(e) {
-      console.log(e)
+      url: 'https://lieduoduo-uploads-test.oss-cn-shenzhen.aliyuncs.com/front-assets/file/111.pdf',
+      success(res) {
+        const filePath = res.tempFilePath
+        wx.openDocument({
+          filePath,
+          success(res) {
+            console.log('打开文档成功')
+          }
+        })
+      },
+      fail(e) {
+        console.log(e)
+      }
+    })
+  },
+  jump(e) {
+    switch(e.currentTarget.dataset.type) {
+      case "settings":
+        wx.navigateTo({
+          url: `${COMMON}settings/settings`
+        })
+        break
     }
-  })
   },
   /**
    * 生命周期函数--监听页面初次渲染完成

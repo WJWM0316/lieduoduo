@@ -16,7 +16,8 @@
       <view bindtap="sendCode" class="sendBtn">发送验证码</view>
     </view>
   </view>
-  <!-- <view class="tip">收不到短信? 试试<text class="voiceCode">语音验证码</text></view> -->
-  <view class="wxLogin">微信账号快捷登录<view class="icon iconfont icon-disejiantou-you"></view></view>
+  <view class="wxBtn">
+    <button class="wxLogin" open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber">微信账号快捷登录<view class="icon iconfont icon-disejiantou-you"></view></button>
+  </view>
   <button class="bindBtn" bindtap="bindPhone">绑定</button>
 </view>

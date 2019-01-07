@@ -36,7 +36,7 @@ export const getRecruiterDetailApi = (data) => {
     url: `/recruiter/detail`,
     method: 'get',
     data,
-    hasLoading: true
+    hasLoading: false
   })
 }
 export const getOthersRecruiterDetailApi = (data) => {

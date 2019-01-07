@@ -4,7 +4,7 @@ let loadNum = 0
 let addHttpHead = {}
 let BASEHOST = ''
 export const request = ({method = 'post', url, data = {}, needKey = true, hasLoading = true, loadingContent = '加载中...'}) => {
-  if (wx.getStorageSync('choseType') === "APPLICANT") {
+  if (!wx.getStorageSync('choseType') || wx.getStorageSync('choseType') === "APPLICANT") {
     BASEHOST = APPLICANTHOST
   } else {
     BASEHOST = RECRUITERHOST

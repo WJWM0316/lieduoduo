@@ -146,7 +146,20 @@ var chatFilter = function(num) {
   return status
 }
 
+// 手机格式转化
+var mobileFormat = function(mobile, type) {
+  var mobile = mobile
+  if (type === 'blank') {
+    mobile = mobile.slice(0, 3) + ' ' + mobile.slice(3, 7) + ' ' + mobile.slice(7, 11)
+  } else {
+    mobile = mobile.slice(0, 3) + '*****' + mobile.slice(8, 11)
+  }
+  return mobile
+}
+
 module.exports = {
   dateFormat: dateFormat,
+  activeTime: activeTime,
+  mobileFormat: mobileFormat,
   positionFilter: positionFilter
 }

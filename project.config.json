@@ -38,7 +38,11 @@
 			"list": []
 		},
 		"miniprogram": {
+<<<<<<< HEAD
 			"current": 8,
+=======
+			"current": 10,
+>>>>>>> 1c0b74a6bd03f835f8f4b6d3ea361eab8bc6d80f
 			"list": [
 				{
 					"id": 0,
@@ -65,9 +69,9 @@
 					"query": ""
 				},
 				{
-					"id": 6,
-					"name": "绑定手机",
-					"pathName": "page/common/pages/bindPhone/bindPhone",
+					"id": 4,
+					"name": "账号设置",
+					"pathName": "page/common/pages/settings/settings",
 					"query": ""
 				},
 				{
@@ -101,10 +105,10 @@
 					"query": ""
 				},
 				{
-					"id": 11,
+					"id": 10,
 					"name": "招聘官主页",
 					"pathName": "page/common/pages/recruiterDetail/recruiterDetail",
-					"query": ""
+					"query": "uid=90"
 				},
 				{
 					"id": 11,
@@ -183,6 +187,15 @@
 					"name": "招聘管-简历详情",
 					"pathName": "page/common/pages/resumeDetail/resumeDetail",
 					"query": "uid=5"
+<<<<<<< HEAD
+=======
+				},
+				{
+					"id": -1,
+					"name": "手机号登陆",
+					"pathName": "page/common/pages/bindPhone/bindPhone",
+					"query": "uid=92"
+>>>>>>> 1c0b74a6bd03f835f8f4b6d3ea361eab8bc6d80f
 				}
 			]
 		}

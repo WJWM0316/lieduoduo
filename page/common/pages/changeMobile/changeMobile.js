@@ -1,8 +1,5 @@
 import {COMMON,RECRUITER} from '../../../../config.js'
-import {sendCodeApi, bindPhoneApi} from "../../../../api/pages/auth.js"
-import {quickLoginApi} from '../../../../api/pages/auth.js'
-
-let realCode = '' // 短信验证码
+import {sendCodeApi, changePhoneApi} from "../../../../api/pages/auth.js"
 let app = getApp()
 Page({
 
@@ -10,19 +7,18 @@ Page({
    * 页面的初始数据
    */
   data: {
+    mobile: '',
     phone: '',
-    code: ''
+    code: '',
+    second: 60
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    if (!wx.getStorageSync("token")) {
-      wx.navigateTo({
-        url: `${COMMON}auth/auth`
-      })
-    }
+    let mobile = app.globalData.resumeInfo.mobile || app.globalData.recruiterDetails.mobile
+    this.setData({mobile})
   },
   getPhone(e) {
     this.setData({
@@ -45,65 +41,38 @@ Page({
       mobile: this.data.phone
     }
     sendCodeApi(data).then(res => {
-    })
-  },
-  bindSuccess() {
-    app.globalData.hasLogin = true
-    app.checkLogin()
-    app.wxToast({
-      title: '注册成功',
-      icon: 'success',
-      callback() {
-        if (wx.getStorageSync('choseType') === 'APPLICANT') {
-          wx.navigateBack({
-            delta: 1
-          })
-        } else {
-          wx.reLaunch({
-            url: `${RECRUITER}user/company/apply/apply`
-          })
+      let second = 60
+      let timer = null
+      timer = setInterval(() => {
+        second--
+        if (second === 0) {
+          second = 60
+          clearInterval(timer)
         }
-      }
+        this.setData({second})
+      }, 1000)
     })
   },
   bindPhone() {
     let data = {
       mobile: this.data.phone,
-      code: this.data.code
+      code: this.data.code,
     }
-    if (this.data.phone === '') {
+    changePhoneApi(data).then(res => {
       app.wxToast({
-        title: '请填写手机号'
+        title: '修改成功',
+        icon: 'success'
       })
-      return
-    }
-    if (this.data.code === '') {
-      app.wxToast({
-        title: '请填写验证码'
+      wx.navigateBack({
+        delta: 1
       })
-      return
-    }
-    bindPhoneApi(data).then(res => {
-      wx.setStorageSync('token', res.data.token)
-      app.globalData.userInfo = res.data
-      this.bindSuccess()
-    })
-  },
-  getPhoneNumber(e) {
-    let data = {
-      iv_key: e.detail.iv,
-      data: e.detail.encryptedData
-    }
-    quickLoginApi(data).then(res => {
-      wx.setStorageSync('token', res.data.token)
-      app.globalData.userInfo = res.data
-      this.bindSuccess()
     })
   },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
+
   },
 
   /**

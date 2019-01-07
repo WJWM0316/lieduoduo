@@ -42,7 +42,7 @@ Component({
    */
   data: {
     interviewInfos: {},
-    identity: wx.getStorageSync('choseType'), // 身份标识
+    identity: '', // 身份标识
     slogoIndex: 0,
     // 是否是我发布
     isOwerner: false,
@@ -85,7 +85,7 @@ Component({
     getInterviewStatus() {
       getInterviewStatusApi({type: this.data.type, vkey: this.data.infos.vkey})
         .then(res => {
-          this.setData({interviewInfos: res.data})
+          this.setData({interviewInfos: res.data, identity: wx.getStorageSync('choseType')})
           if(res.code === 204) this.setData({isOwerner: true})
         })
     },

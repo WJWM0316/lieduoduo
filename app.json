@@ -22,7 +22,9 @@
     "page/common/pages/homepage/homepage",
     "page/common/pages/positionDetail/positionDetail",
     "page/applicant/pages/center/workContent/workContent",
-    "page/applicant/pages/center/workEdit/workEdit"
+    "page/applicant/pages/center/workEdit/workEdit",
+    "page/common/pages/settings/settings",
+    "page/common/pages/changeMobile/changeMobile"
   ],
   "window": {
     "navigationBarTextStyle": "black",

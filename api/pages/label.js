@@ -1,19 +1,19 @@
 import { request } from '../require.js'
 
-export const getLabelPositionApi = (data, isLoading) => {
+export const getLabelPositionApi = (data, hasLoading) => {
   return request({
     method: 'get',
     url: '/label/position',
     data,
-    isLoading: true
+    hasLoading: true
   })
 }
 
-export const getLabelProfessionalSkillsApi = (data, isLoading) => {
+export const getLabelProfessionalSkillsApi = (data, hasLoading) => {
   return request({
     method: 'get',
     url: '/label/professionalSkills?type=skills',
     data,
-    isLoading: true
+    hasLoading: true
   })
 }
