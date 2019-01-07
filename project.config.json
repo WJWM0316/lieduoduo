@@ -188,7 +188,7 @@
 					"id": -1,
 					"name": "手机号登陆",
 					"pathName": "page/common/pages/bindPhone/bindPhone",
-					"query": ""
+					"query": "uid=92"
 				}
 			]
 		}

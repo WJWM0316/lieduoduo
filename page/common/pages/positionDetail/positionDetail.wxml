@@ -81,6 +81,5 @@
 		bindresultevent="getPositionDetail"
 		type="position"
 		positionId="{{detail.id}}"
-		vkey="{{detail.vkey}}"
 		wx:if="{{detail.vkey}}"></interviewBar>
 </view>

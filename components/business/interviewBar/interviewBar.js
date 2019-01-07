@@ -31,10 +31,6 @@ Component({
       type: String,
       value: ''
     },
-    vkey: {
-      type: String,
-      value: ''
-    },
     positionId: {
       type: String,
       value: ''
@@ -46,7 +42,7 @@ Component({
    */
   data: {
     interviewInfos: {},
-    identity: wx.getStorageSync('choseType'), // 身份标识
+    identity: '', // 身份标识
     slogoIndex: 0,
     // 是否是我发布
     isOwerner: false,
@@ -56,15 +52,15 @@ Component({
         text: '工作不易，知音难觅，壮士约乎？工作不易，知音难觅，壮士约乎？'
       },
       {
-        id: 1,
+        id: 2,
         text: '细节决定成败，态度决定一切。'
       },
       {
-        id: 1,
+        id: 3,
         text: '彩虹风雨后，成功细节中。'
       },
       {
-        id: 1,
+        id: 4,
         text: '态度决定一切，习惯成就未来。'
       }
     ]
@@ -89,7 +85,7 @@ Component({
     getInterviewStatus() {
       getInterviewStatusApi({type: this.data.type, vkey: this.data.infos.vkey})
         .then(res => {
-          this.setData({interviewInfos: res.data})
+          this.setData({interviewInfos: res.data, identity: wx.getStorageSync('choseType')})
           if(res.code === 204) this.setData({isOwerner: true})
         })
     },
@@ -101,6 +97,7 @@ Component({
      */
     todoAction(e) {
       const type = e.currentTarget.dataset.type
+      const interviewInfos = this.data.interviewInfos
       switch(type) {
         case 'open':
           openPositionApi({id: this.data.infos.id})
@@ -114,42 +111,50 @@ Component({
               this.triggerEvent('resultevent', res)
             })
           break
-        case 'chat':
+        case 'c-chat':
           let uid = ''
           let positionId = ''
+          let params = {}
           if (this.data.type === 'position') {
-            uid = this.data.infos.recruiterInfo.uid
-            positionId = this.data.infos.id
+            params.recruiterUid = this.data.infos.recruiterInfo.uid
+            params.positionId = this.data.infos.id
+          } else if(this.data.type === 'recruiter') {
+            params.recruiterUid = this.data.infos.uid
           } else {
-            uid = this.data.infos.uid
-            positionId = this.data.positionId
+            params.recruiterUid = this.data.infos.uid
+            params.positionId = this.data.positionId
           }
-          applyInterviewApi({recruiterUid: uid, positionId: positionId})
+          applyInterviewApi(params)
             .then(res => {
               this.getInterviewStatus()
               app.wxToast({title: '面试申请已发送'})
               this.triggerEvent('resultevent', res)
             })
           break
-        case 'pedding':
+        case 'c-pedding':
           app.wxToast({title: '等待面试官处理'})
+          break
+        case 'b-chat':
+          wx.navigateTo({url: `${RECRUITER}position/jobList/jobList?type=chat&jobhunterUid=${this.data.infos.uid}&recruiterUid=${app.globalData.recruiterDetails.uid}`})
           break
         case 'waiting-interview':
           app.wxToast({title: '等待招聘官安排面试'})
           break
+        // 求职者等待招聘管确认
         case 'waiting-staff-confirm':
           app.wxToast({title: '等待求职者确认'})
           break
+        // 求职者接受约面
         case 'accept':
-          const id = Array.isArray(this.data.interviewInfos.data[0]) ? this.data.interviewInfos.data[0][0].interviewId : this.data.interviewInfos.data[0].interviewId
-          confirmInterviewApi({id})
-            .then(() => {
+          confirmInterviewApi({id: interviewInfos.data[0].interviewId})
+            .then(res => {
               app.wxToast({title: '已接受约面'})
               this.triggerEvent('resultevent', res)
               this.getInterviewStatus()
             })
           break
-        case 'reject':
+        // C端拒绝招聘官
+        case 'c-reject':
           app.wxConfirm({
             title: '暂不考虑该职位',
             content: '确定暂不考虑后，招聘官将终止这次约面流程',
@@ -159,23 +164,52 @@ Component({
             cancelColor: '#BCBCBC',
             confirmColor: '#652791',
             confirmBack: () => {
-              const id = Array.isArray(this.data.interviewInfos.data[0]) ? this.data.interviewInfos.data[0][0].interviewId : this.data.interviewInfos.data[0].interviewId
-              refuseInterviewApi({id})
-                .then(() => {
+              refuseInterviewApi({id: interviewInfos.data[0].interviewId})
+                .then(res => {
                   this.getInterviewStatus()
                   this.triggerEvent('resultevent', res)
                 })
             }
           })
           break
+        // 招聘官拒绝求职者
+        case 'b-reject':
+          refuseInterviewApi({id: interviewInfos.data[0].interviewId})
+            .then(res => {
+              this.getInterviewStatus()
+              this.triggerEvent('resultevent', res)
+            })
+          break
+        // 招聘管编辑职位
         case 'edit':
           wx.navigateTo({url: `${RECRUITER}position/post/post?positionId=${this.data.infos.id}`})
           break
+        // 求职者查看面试详情
         case 'detail':
-          wx.navigateTo({url: `${COMMON}arrangement/arrangement?id=${this.data.interviewInfos.data[0].interviewId}`})
+          wx.navigateTo({url: `${COMMON}arrangement/arrangement?id=${interviewInfos.data[0].interviewId}`})
           break
-        case 'about':
-          wx.navigateTo({url: `${COMMON}homepage/homepage?companyId=${this.data.infos.companyId}`})
+        // B端开撩成功后跳转安排面试页面
+        case 'b-accept':
+          if(interviewInfos.data.length > 1) {
+            wx.navigateTo({url: `${RECRUITER}position/jobList/jobList?type=confirm_chat`})
+            wx.setStorageSync('interviewChatLists', this.data.interviewInfos)
+          } else {
+            confirmInterviewApi({id: interviewInfos.data[0].interviewId})
+              .then(res => {
+                this.triggerEvent('resultevent', res)
+                wx.navigateTo({url: `${COMMON}arrangement/arrangement?id=${interviewInfos.data[0].interviewId}`})
+              })
+          }
+          break
+        // 待求职者确认
+        case 'b-pedding':
+          app.wxToast({title: '面试申请已发送'})
+          break
+        case 'b-apply':
+          app.wxToast({title: '面试申请已发送'})
+          break
+        case 'b-change':
+          wx.navigateTo({url: `${COMMON}arrangement/arrangement?id=${interviewInfos.data[0].interviewId}`})
           break
         default:
           break

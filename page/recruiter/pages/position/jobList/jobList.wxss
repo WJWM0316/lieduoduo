@@ -54,3 +54,16 @@
   background: #F8F8F8;
   border-radius: 4rpx;
 }
+
+.edit-button {
+  border-radius: 50%;
+  background: white;
+  position: fixed;
+  left: 40rpx;
+  bottom: 40rpx;
+  text-align: center;
+  width:80rpx;
+  height:80rpx;
+  background:rgba(255,255,255,1);
+  box-shadow:0rpx 4rpx 14rpx 0rpx rgba(40,120,255,0.26);
+}
