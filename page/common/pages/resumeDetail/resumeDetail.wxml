@@ -5,7 +5,7 @@
 <!-- 基本信息 -->
   <view class="personalInfo commentBox">
     <view class="top">
-      <image src="{{info.avatar}}" class="avatar"></image>
+      <image src="{{info.avatar.smallUrl}}" class="avatar"></image>
       <view class="info">
         <text class="name">{{info.name}}</text>
         <view>

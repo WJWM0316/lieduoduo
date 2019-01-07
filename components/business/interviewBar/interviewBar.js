@@ -101,6 +101,7 @@ Component({
      */
     todoAction(e) {
       const type = e.currentTarget.dataset.type
+      const interviewInfos = this.data.interviewInfos
       switch(type) {
         case 'open':
           openPositionApi({id: this.data.infos.id})
@@ -144,7 +145,7 @@ Component({
           app.wxToast({title: '等待求职者确认'})
           break
         case 'accept':
-          confirmInterviewApi({id})
+          confirmInterviewApi({id: Array.isArray(interviewInfos.data[0]) ? interviewInfos.data[0][0].interviewId : interviewInfos.data[0].interviewId})
             .then(res => {
               app.wxToast({title: '已接受约面'})
               this.triggerEvent('resultevent', res)
@@ -161,7 +162,7 @@ Component({
             cancelColor: '#BCBCBC',
             confirmColor: '#652791',
             confirmBack: () => {
-              refuseInterviewApi({id})
+              refuseInterviewApi({id: Array.isArray(interviewInfos.data[0]) ? interviewInfos.data[0][0].interviewId : interviewInfos.data[0].interviewId})
                 .then(res => {
                   this.getInterviewStatus()
                   this.triggerEvent('resultevent', res)
@@ -173,25 +174,29 @@ Component({
           wx.navigateTo({url: `${RECRUITER}position/post/post?positionId=${this.data.infos.id}`})
           break
         case 'detail':
-          wx.navigateTo({url: `${COMMON}arrangement/arrangement?id=${Array.isArray(this.data.interviewInfos.data[0]) ? this.data.interviewInfos.data[0][0].interviewId : this.data.interviewInfos.data[0].interviewId}`})
+          wx.navigateTo({url: `${COMMON}arrangement/arrangement?id=${Array.isArray(interviewInfos.data[0]) ? interviewInfos.data[0][0].interviewId : interviewInfos.data[0].interviewId}`})
           break
         case 'about':
           wx.navigateTo({url: `${COMMON}homepage/homepage?companyId=${this.data.infos.companyId}`})
           break
         // B端开撩成功后跳转安排面试页面
         case 'b-chat':
+          if(Array.isArray(interviewInfos.data[0])) {
+            wx.navigateTo({url: `${RECRUITER}position/jobList/jobList`})
+            return;
+          }
           confirmInterviewApi({id})
             .then(res => {
-              app.wxToast({title: '您你发起约面'})
+              app.wxToast({title: '已发起约面'})
               this.triggerEvent('resultevent', res)
-              wx.navigateTo({url: `${COMMON}arrangement/arrangement?id=${Array.isArray(this.data.interviewInfos.data[0]) ? this.data.interviewInfos.data[0][0].interviewId : this.data.interviewInfos.data[0].interviewId}`})
+              wx.navigateTo({url: `${COMMON}arrangement/arrangement?id=${Array.isArray(interviewInfos.data[0]) ? interviewInfos.data[0][0].interviewId : interviewInfos.data[0].interviewId}`})
             })
           break
         case 'b-pedding':
           app.wxToast({title: '面试申请已发送'})
           break
         case 'b-change':
-          wx.navigateTo({url: `${COMMON}arrangement/arrangement?id=${Array.isArray(this.data.interviewInfos.data[0]) ? this.data.interviewInfos.data[0][0].interviewId : this.data.interviewInfos.data[0].interviewId}`})
+          wx.navigateTo({url: `${COMMON}arrangement/arrangement?id=${Array.isArray(interviewInfos.data[0]) ? interviewInfos.data[0][0].interviewId : interviewInfos.data[0].interviewId}`})
           break
         default:
           break

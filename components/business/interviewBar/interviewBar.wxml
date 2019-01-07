@@ -34,7 +34,7 @@
 			<!-- 求职者已经发起开撩动作 end-->
 
 			<!-- 求职者等待招聘官安排面试 start-->
-			<block wx:elif="{{interviewInfos.interviewStatus === 21}}">
+			<block wx:elif="{{interviewInfos.interviewStatus === 21 || interviewInfos.interviewStatus === 32}}">
 				<view class="content">
 					<view class="first"><view class="name">{{infos.name}}</view></view>
 					<view class="second">已确认申请</view>
@@ -46,7 +46,7 @@
 			<!-- 求职者等待招聘官安排面试 end-->
 			
 			<!-- 求职者等待招聘管修改信息 start-->
-			<block wx:elif="{{interviewInfos.interviewStatus === 32 || interviewInfos.interviewStatus === 41 || interviewInfos.interviewStatus === 51 || interviewInfos.interviewStatus === 52 || interviewInfos.interviewStatus === 53}}">
+			<block wx:elif="{{interviewInfos.interviewStatus === 41 || interviewInfos.interviewStatus === 52 || interviewInfos.interviewStatus === 53}}">
 				<view class="content">
 					<view class="first"><view class="name">{{infos.name}}</view></view>
 					<view class="second">已安排面试</view>
