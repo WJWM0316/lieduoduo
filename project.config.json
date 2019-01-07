@@ -38,11 +38,7 @@
 			"list": []
 		},
 		"miniprogram": {
-<<<<<<< HEAD
-			"current": 19,
-=======
-			"current": 7,
->>>>>>> 7cd2e364032ed71f40dd4804c492ba5f5973aa71
+			"current": -1,
 			"list": [
 				{
 					"id": 0,
@@ -89,7 +85,7 @@
 				{
 					"id": 7,
 					"name": "编辑简历第三步",
-					"pathName": "page/applicant/pages/center/workExperience/workExperience",
+					"pathName": "page/applicant/pages/center/workContent/workContent",
 					"query": ""
 				},
 				{
