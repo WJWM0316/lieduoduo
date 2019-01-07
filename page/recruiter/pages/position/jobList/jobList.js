@@ -1,22 +1,35 @@
 import {getPositionListApi} from "../../../../../api/pages/position.js"
+
+import {
+  applyInterviewApi
+} from '../../../../../api/pages/interview.js'
+
+import {RECRUITER, COMMON} from '../../../../../config.js'
+
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    items: []
+    items: [],
+    options: {}
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad(options) {
+    const storage = wx.getStorageSync('interviewChatLists')
     let data = {
-      recruiter: 90
+      recruiter: options.recruiterUid
+    }
+    if(storage) {
+      this.setData({items: storage.data})
+      return;
     }
     getPositionListApi(data).then(res => {
-      this.setData({items: res.data})
+      this.setData({items: res.data, options})
     })
   },
   radioChange(e) {
@@ -25,9 +38,18 @@ Page({
     data.positionName = job[0]
     data.positionId = job[1]
     wx.setStorageSync('interviewData', data)
-    wx.navigateBack({
-      delta: 1
-    })
+    if(this.data.options.type === 'chat') {
+      applyInterviewApi({jobhunterUid: this.data.options.jobhunterUid, positionId: job[1]})
+        .then(res => {
+          wx.navigateTo({
+            url: `${COMMON}resumeDetail/resumeDetail?uid=${this.data.options.jobhunterUid}`
+          })
+        })
+    } else if(this.data.options.type === 'confirm_chat') {
+      wx.navigateBack({delta: 1})
+    } else {
+      wx.navigateBack({delta: 1})
+    }
   },
   /**
    * 生命周期函数--监听页面初次渲染完成

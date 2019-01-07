@@ -10,9 +10,11 @@
             <text class="txt">{{item.workExperienceName}}</text>
             <text class="txt">{{item.educationName}}</text>
           </view>
-          <radio class="radioBtn" value="{{item.positionName}} {{item.id}}" checked="{{item.checked}}" color="#652791"/>
+          <radio class="radioBtn" value="{{item.positionName}} {{item.id || item.positionId}}" checked="{{item.checked}}" color="#652791"/>
         </view>
       </view>
     </label>
   </radio-group>
+
+  <view class="edit-button"></view>
 </view>
