@@ -114,24 +114,27 @@ Component({
               this.triggerEvent('resultevent', res)
             })
           break
-        case 'chat':
+        case 'c-chat':
           let uid = ''
           let positionId = ''
+          let params = {}
           if (this.data.type === 'position') {
-            uid = this.data.infos.recruiterInfo.uid
-            positionId = this.data.infos.id
+            params.recruiterUid = this.data.infos.recruiterInfo.uid
+            params.positionId = this.data.infos.id
+          } else if(this.data.type === 'recruiter') {
+            params.recruiterUid = this.data.infos.uid
           } else {
-            uid = this.data.infos.uid
-            positionId = this.data.positionId
+            params.recruiterUid = this.data.infos.uid
+            params.positionId = this.data.positionId
           }
-          applyInterviewApi({recruiterUid: uid, positionId: positionId})
+          applyInterviewApi(params)
             .then(res => {
               this.getInterviewStatus()
               app.wxToast({title: '面试申请已发送'})
               this.triggerEvent('resultevent', res)
             })
           break
-        case 'pedding':
+        case 'c-pedding':
           app.wxToast({title: '等待面试官处理'})
           break
         case 'waiting-interview':
@@ -141,9 +144,8 @@ Component({
           app.wxToast({title: '等待求职者确认'})
           break
         case 'accept':
-          const id = Array.isArray(this.data.interviewInfos.data[0]) ? this.data.interviewInfos.data[0][0].interviewId : this.data.interviewInfos.data[0].interviewId
           confirmInterviewApi({id})
-            .then(() => {
+            .then(res => {
               app.wxToast({title: '已接受约面'})
               this.triggerEvent('resultevent', res)
               this.getInterviewStatus()
@@ -159,9 +161,8 @@ Component({
             cancelColor: '#BCBCBC',
             confirmColor: '#652791',
             confirmBack: () => {
-              const id = Array.isArray(this.data.interviewInfos.data[0]) ? this.data.interviewInfos.data[0][0].interviewId : this.data.interviewInfos.data[0].interviewId
               refuseInterviewApi({id})
-                .then(() => {
+                .then(res => {
                   this.getInterviewStatus()
                   this.triggerEvent('resultevent', res)
                 })
@@ -172,10 +173,25 @@ Component({
           wx.navigateTo({url: `${RECRUITER}position/post/post?positionId=${this.data.infos.id}`})
           break
         case 'detail':
-          wx.navigateTo({url: `${COMMON}arrangement/arrangement?id=${this.data.interviewInfos.data[0].interviewId}`})
+          wx.navigateTo({url: `${COMMON}arrangement/arrangement?id=${Array.isArray(this.data.interviewInfos.data[0]) ? this.data.interviewInfos.data[0][0].interviewId : this.data.interviewInfos.data[0].interviewId}`})
           break
         case 'about':
           wx.navigateTo({url: `${COMMON}homepage/homepage?companyId=${this.data.infos.companyId}`})
+          break
+        // B端开撩成功后跳转安排面试页面
+        case 'b-chat':
+          confirmInterviewApi({id})
+            .then(res => {
+              app.wxToast({title: '您你发起约面'})
+              this.triggerEvent('resultevent', res)
+              wx.navigateTo({url: `${COMMON}arrangement/arrangement?id=${Array.isArray(this.data.interviewInfos.data[0]) ? this.data.interviewInfos.data[0][0].interviewId : this.data.interviewInfos.data[0].interviewId}`})
+            })
+          break
+        case 'b-pedding':
+          app.wxToast({title: '面试申请已发送'})
+          break
+        case 'b-change':
+          wx.navigateTo({url: `${COMMON}arrangement/arrangement?id=${Array.isArray(this.data.interviewInfos.data[0]) ? this.data.interviewInfos.data[0][0].interviewId : this.data.interviewInfos.data[0].interviewId}`})
           break
         default:
           break

@@ -100,7 +100,6 @@
       infos="{{info}}"
       type="resume"
       bindresultevent="init"
-      vkey="{{info.vkey}}"
       wx:if="{{info.vkey}}"></interviewBar>
   </view>
   <!--<view class="collect"><i class="icon iconfont icon-ganxingqu"></i></view>

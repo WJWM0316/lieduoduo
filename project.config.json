@@ -38,7 +38,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 19,
+			"current": 23,
 			"list": [
 				{
 					"id": 0,
@@ -182,7 +182,7 @@
 					"id": 23,
 					"name": "招聘管-简历详情",
 					"pathName": "page/common/pages/resumeDetail/resumeDetail",
-					"query": "uid=5"
+					"query": "uid=92"
 				}
 			]
 		}
