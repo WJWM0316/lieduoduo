@@ -90,6 +90,10 @@ Page({
       interviewId: this.data.options.id,
       appointmentId: this.data.appointmentId 
     }
+    if(!this.data.appointmentId) {
+      app.wxToast({title: '请选择一个面试时间'})
+      return;
+    }
     sureInterviewApi(data).then(res => {
       app.wxConfirm({
         title: '确定成功',
