@@ -65,11 +65,20 @@ export const addLifeLabelApi = (data) => {
     url: '/label/life'
   })
 }
+// 保存求职者标签
 export const saveLabelApi = (data) => {
   return request({
     method: 'post',
     data,
     url: '/jobhunter/labels'
+  })
+}
+// 保存招聘官标签
+export const saveRecruiterLabelApi = (data) => {
+  return request({
+    method: 'post',
+    data,
+    url: '/recruiter/label'
   })
 }
 

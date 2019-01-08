@@ -5,7 +5,8 @@
   	wx:for="{{list}}"
   	wx:key="{{index}}">
   		<view class="tap" data-path="{{item.path}}" bindtap="toggle" data-index="{{index}}"></view>
-  		<i class="icon iconfont {{item.iconfont}}"></i>
+  		<image class="tabIcon" src="{{item.iconPath}}" hidden="{{item.active}}"></image>
+  		<image class="tabIcon" src="{{item.selectedIconPath}}" hidden="{{!item.active}}"></image>
   		<view class="p">{{item.title}}</view>
   </view>
 </view>

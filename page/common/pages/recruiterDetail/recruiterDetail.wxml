@@ -39,7 +39,7 @@
         <i class="shareBtn iconfont icon-fenxiang"></i><i class="editBtn iconfont icon-bianji1" bindtap="editJump" data-type="labels"></i>
       </view>
       <view class="labelBox">
-        <text class="item" wx:for="{{personalizedLabels}}" wx:key="{{index}}">{{item}}</text>
+        <text class="item" wx:for="{{info.personalizedLabels}}" wx:key="{{index}}">{{item.labelName}} <text wx:if="{{item.favorCount > 0}}">x{{item.favorCount}}</text></text>
       </view>
     </view>
     <view class="profile">
@@ -62,7 +62,7 @@
       </view>
       <view class="descList">
         <view class="descItem">
-          <view class="descTitle"># 最欣赏候选人什么品质？#<i class="editBtn iconfont icon-bianji1" bindtap="editJump" data-type="labels"></i></view>
+          <view class="descTitle"># 最欣赏候选人什么品质？#<i class="editBtn iconfont icon-bianji1" bindtap="editJump" data-type="declaration"></i></view>
           <view class="descAnswer">踏实、靠谱、善良，沟通能力强</view>
         </view>
         <view class="descItem">
@@ -70,6 +70,7 @@
           <view class="descAnswer">踏实、靠谱、善良，沟通能力强踏实、靠谱、善良，沟通能力强踏实、靠谱、善良，沟通能力强踏实、靠谱、善良，沟通能力强</view>
         </view>
       </view>
+      <view class="addDeclaration" bindtap="editJump" data-type="addDeclaration">添加招聘宣言</view>
     </view>
     <view class="position" wx:if="{{!isOwner}}">
       <company roleType="company" cardData="{{info.companyInfo}}"></company>

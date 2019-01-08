@@ -1,9 +1,9 @@
-<view>
-	<navbar title="职位名称" background="#FFFFFF" color="#22292C" showBackBtn="{{true}}"></navbar>
-	<form bindsubmit="submit" class="entry-list">
-		<view class="user-input">
+<view class="position-name-search">
+	<navbar title="填写职位名称" background="#FFFFFF" color="#22292C" showBackBtn="{{true}}"></navbar>
+	<view class="tips">* 职位名称、职位类别、工作地点发布后将不可修改</view>
+	<form bindsubmit="submit">
+		<view class="input-li">
 			<input placeholder="请输入职位名称" auto-focus bindinput="bindInput" value="{{keyword}}" />
-			<view bindtap="search">点击搜索</view>
 		</view>
 		<view class="name-lists">
 			<view
@@ -12,10 +12,12 @@
 				wx:for-item="item"
 				wx:key="{{item.id}}"
 				bindtap="onClick"
-				data-name="{{item.positionName}}">{{item.positionName}}</view>
+				data-name="{{item.positionName}}">
+					{{item.positionName}}<i class="icon iconfont icon-jiantou"></i>
+				</view>
 		</view>
 		<view class="btn-area">
-	    <button form-type="submit" class="{{canClick ? 'button-enable' : ''}}">发布</button>
+	    <button form-type="submit" class="button-submit {{canClick ? 'button-enable' : ''}}">保存</button>
 	  </view>
 	</form>
 </view>

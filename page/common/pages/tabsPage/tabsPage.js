@@ -1,5 +1,5 @@
 // page/common/pages/tabsPage/tabsPage.js
-import {getJobLabelApi, getLifeLableApi, addJobLabelApi, addLifeLabelApi, saveLabelApi} from '../../../../api/pages/common.js'
+import {getJobLabelApi, getLifeLableApi, addJobLabelApi, addLifeLabelApi, saveLabelApi, saveRecruiterLabelApi} from '../../../../api/pages/common.js'
 let allSkills = []
 let choseFirstId = ''
 let choseFirstIndex = 0
@@ -212,7 +212,6 @@ Page({
   },
   addLabel() {
     if (this.data.customLabel === '') return
-
     let data = {
       name: this.data.customLabel
     }
@@ -312,11 +311,19 @@ Page({
       skillLabels: jobList,
       lifeLabels: lifeList
     }
-    saveLabelApi(data).then(res => {
-      wx.navigateBack({
-        delta: 1
+    if (getApp().globalData.identity === "APPLICANT") {
+      saveLabelApi(data).then(res => {
+        wx.navigateBack({
+          delta: 1
+        })
       })
-    })
+    } else {
+      saveRecruiterLabelApi(data).then(res => {
+        wx.navigateBack({
+          delta: 1
+        })
+      })
+    }
   },
   /**
    * 生命周期函数--监听页面初次渲染完成

@@ -37,20 +37,19 @@ Component({
       wx.setStorageSync('choseType', identity)
     },
     onGotUserInfo(e) {
-      getApp().onGotUserInfo(e).then(res => {
+      getApp().onGotUserInfo(e, true).then(res => {
         if (identity === 'RECRUITER') {
           wx.reLaunch({
-            url: `${APPLICANT}indexRecruiter/index`
+            url: `${RECRUITER}index/index`
           })
-          console.log(1111111111111)
         } else {
           wx.reLaunch({
             url: `${APPLICANT}index/index`
           })
+          this.setData({
+            isChose: true
+          })
         }
-        this.setData({
-          isChose: true
-        })
       })
     }
   }

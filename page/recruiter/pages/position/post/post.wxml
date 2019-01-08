@@ -1,24 +1,26 @@
 <view class="position-post">
 	<navbar title="{{pageTitle}}" background="#FFFFFF" color="#22292C" showBackBtn="{{true}}"></navbar>
+	<view class="warning"><i class="icon iconfont icon-xiangji"></i>前往PC端发布新职位<i class="icon iconfont icon-xiangyou"></i></view>
+	<view class="tips">* 职位名称、职位类别、工作地点发布后将不可修改</view>
 	<form bindsubmit="submit" class="entry-list">
 		<view class="li link" bindtap="routeJump" data-route="search">
-			<view class="text">职位名称</view>
-			<i class="icon iconfont icon-zhishibiao"></i>
+			<view class="key">职位名称</view>
+			<i class="icon iconfont icon-xiangyou"></i>
 			<view class="text2">{{position_name || '请填写'}}</view>
 		</view>
 		<view class="li link" bindtap="routeJump" data-route="category">
-			<view class="text">职位类别</view>
-			<i class="icon iconfont icon-zhishibiao"></i>
+			<view class="key">职位类别</view>
+			<i class="icon iconfont icon-xiangyou"></i>
 			<view class="text2">{{typeName || '请选择'}}</view>
 		</view>
 		<view class="li link" bindtap="routeJump" data-route="address">
-			<view class="text">工作地点</view>
-			<i class="icon iconfont icon-zhishibiao"></i>
+			<view class="key">工作地点</view>
+			<i class="icon iconfont icon-xiangyou"></i>
 			<view class="text2">{{address || '请选择'}}</view>
 		</view>
 		<view class="li link" bindtap="routeJump" data-route="skills">
-			<view class="text">技能要求</view>
-			<i class="icon iconfont icon-zhishibiao"></i>
+			<view class="key">技能要求</view>
+			<i class="icon iconfont icon-xiangyou"></i>
 			<view class="text2" wx:if="{{!skills.length}}">请选择</view>
 			<view class="tags-list" wx:else>
 				<view
@@ -30,36 +32,36 @@
 			</view>
 		</view>
 		<view class="li dropdown">
-			<view class="text">薪资范围</view>
-			<i class="icon iconfont icon-zhishibiao"></i>
+			<view class="key">薪资范围</view>
+			<i class="icon iconfont icon-xiangyou"></i>
 			<view class="text2">{{emolument_range}}</view>
 			<view class="picker-box">
 				<myPicker setResult="{{ emolument_range }}" pickerType="salaryRangeB" bindresultevent="getSalary"></myPicker>
 			</view>
 		</view>
 		<view class="li dropdown">
-			<view class="text">经验要求</view>
-			<i class="icon iconfont icon-zhishibiao"></i>
+			<view class="key">经验要求</view>
+			<i class="icon iconfont icon-xiangyou"></i>
 			<view class="text2">{{work_experience_name}}</view>
 			<view class="picker-box">
 				<myPicker setResult="{{ work_experience_name }}" pickerType="experience" bindresultevent="getExperience" rangeKey="name"></myPicker>
 			</view>
 		</view>
 		<view class="li dropdown">
-			<view class="text">最低学历</view>
-			<i class="icon iconfont icon-zhishibiao"></i>
+			<view class="key">最低学历</view>
+			<i class="icon iconfont icon-xiangyou"></i>
 			<view class="text2">{{educationName}}</view>
 			<view class="picker-box">
 				<myPicker setResult="{{ educationName }}" pickerType="education" bindresultevent="getEducation" rangeKey="name"></myPicker>
 			</view>
 		</view>
-		<view class="li link" bindtap="routeJump" data-route="description">
-			<view class="text">职位描述</view>
-			<i class="icon iconfont icon-zhishibiao"></i>
+		<view class="li link clear-bottom" bindtap="routeJump" data-route="description">
+			<view class="key">职位描述</view>
+			<i class="icon iconfont icon-xiangyou"></i>
 			<view class="text2">{{describe || '请填写'}}</view>
 		</view>
 	  <view class="btn-area">
-	    <button form-type="submit" class="{{canClick ? 'button-enable' : ''}}">发布</button>
+	    <button form-type="submit" class="button-submit {{canClick ? 'button-enable' : ''}}">发布</button>
 	  </view>
 	</form>
 </view>

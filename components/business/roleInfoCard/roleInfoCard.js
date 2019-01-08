@@ -1,4 +1,4 @@
-import {COMMON} from "../../../config.js"
+import {COMMON,RECRUITER} from "../../../config.js"
 
 Component({
   externalClasses: ['my-class'],
@@ -57,8 +57,15 @@ Component({
       })
     },
     jumpRecruiter() {
+      if (!this.data.isMain) {
+        wx.navigateTo({
+          url: `${COMMON}userInfoEdit/recruiterDetail?uid=${this.data.cardData.uid}`
+        })
+      }
+    },
+    jumpEdit() {
       wx.navigateTo({
-        url: `${COMMON}recruiterDetail/recruiterDetail?uid=${this.data.cardData.id}`
+        url: `${RECRUITER}user/userInfoEdit/userInfoEdit`
       })
     }
   }

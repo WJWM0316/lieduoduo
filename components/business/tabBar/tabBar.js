@@ -1,5 +1,6 @@
 // components/business/tabBar/tabBar.js
 import {RECRUITER, APPLICANT} from '../../../config.js'
+const cdnImagePath = getApp().globalData.cdnImagePath
 
 Component({
   /**
@@ -16,71 +17,40 @@ Component({
    * 组件的初始数据
    */
   data: {
-    list: [],
-    list0: [
+    list: [
       {
         title: '首页',
-        icon: '',
-        selectIcon: '',
-        path: `${APPLICANT}index/index`
-      },
-      {
-        title: '首页1',
-        icon: '',
-        selectIcon: '',
-        path: `${APPLICANT}index/index`
-      },
-      {
-        title: '首页2',
-        icon: '',
-        selectIcon: '',
-        path: `${APPLICANT}index/index`
-      },
-      {
-        title: '首页3',
-        icon: '',
-        selectIcon: '',
-        path: `${APPLICANT}index/index`
-      }
-    ],
-    list1: [
-      {
-        title: '首页',
-        icon: '',
-        selectIcon: '',
+        iconPath: `${cdnImagePath}tab_home_nor@3x.png`,
+        selectedIconPath: `${cdnImagePath}tab_home_sel@3x.png`,
         active: true,
-        iconfont: 'icon-shouye',
         path: `${RECRUITER}index/index`
       },
       {
         title: '面试',
-        icon: '',
-        selectIcon: '',
+        iconPath: `${cdnImagePath}tab_interview_nor@3x.png`,
+        selectedIconPath: `${cdnImagePath}tab_interview_sel@3x.png`,
         active: false,
-        iconfont: 'icon-mianshi',
         path: `${RECRUITER}interview/index/index`
       },
       {
         title: '职位管理',
-        icon: '',
-        selectIcon: '',
+        iconPath: `${cdnImagePath}tab_job_nor@3x.png`,
+        selectedIconPath: `${cdnImagePath}tab_job_sel@3x.png`,
         active: false,
-        iconfont: 'icon-zhiyejihui',
         path: `${RECRUITER}position/index/index`
       },
       {
         title: '我的',
-        icon: '',
-        selectIcon: '',
+        iconPath: `${cdnImagePath}tab_me_nor@3x.png`,
+        selectedIconPath: `${cdnImagePath}tab_me_sel@3x.png`,
         active: false,
-        iconfont: 'icon-wode',
         path: `${RECRUITER}user/mine/infos/infos`
       }
     ],
     url: ''
   },
   attached() {
-    const list = this.data.tabType === 0 ? this.data.list0 : this.data.list1
+    const list = this.data.list
     const currentRoute = '/' + getCurrentPages()[0].route
     list.map(field => field.active = field.path === currentRoute ? true : false)
     this.setData({ list })

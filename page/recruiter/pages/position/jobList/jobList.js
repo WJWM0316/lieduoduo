@@ -1,7 +1,9 @@
 import {getPositionListApi} from "../../../../../api/pages/position.js"
 
 import {
-  applyInterviewApi
+  applyInterviewApi,
+  confirmInterviewApi,
+  refuseInterviewApi
 } from '../../../../../api/pages/interview.js'
 
 import {RECRUITER, COMMON} from '../../../../../config.js'
@@ -25,7 +27,7 @@ Page({
       recruiter: options.recruiterUid
     }
     if(storage) {
-      this.setData({items: storage.data})
+      this.setData({items: storage.data, options})
       return;
     }
     getPositionListApi(data).then(res => {
@@ -46,7 +48,17 @@ Page({
           })
         })
     } else if(this.data.options.type === 'confirm_chat') {
-      wx.navigateBack({delta: 1})
+      confirmInterviewApi({id: job[1]})
+        .then(res => {
+          wx.navigateBack({delta: 1})
+         wx.removeStorageSync('interviewChatLists')
+        })
+    } else if(this.data.options.type === 'reject_chat') {
+      refuseInterviewApi({id: job[1]})
+        .then(res => {
+          wx.navigateBack({delta: 1})
+         wx.removeStorageSync('interviewChatLists')
+        })
     } else {
       wx.navigateBack({delta: 1})
     }
