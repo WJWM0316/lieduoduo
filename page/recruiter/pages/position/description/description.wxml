@@ -1,8 +1,16 @@
-<view>
+<view class="position-description">
 	<navbar title="职位描述" background="#FFFFFF" color="#22292C" showBackBtn="{{true}}"></navbar>
 	<form bindsubmit="formSubmit">
-		<view>
-			<textarea bindinput="bindTextAreaInput" auto-height placeholder="自动变高" value="{{describe}}" />
+		<view class="edit-box">
+			<textarea
+				bindinput="bindTextAreaInput"
+				auto-height
+				placeholder="填写详细，清晰的职位描述"
+				value="{{describe}}" />
+			<view class="controls">
+				<view class="view">看看别人怎么写</view>
+				<view>0/300</view>
+			</view>
 		</view>
 		<view class="btn-area">
 	    <button form-type="submit" class="{{canClick ? 'button-enable' : ''}}">发布</button>
