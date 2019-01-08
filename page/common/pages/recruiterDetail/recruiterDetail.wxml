@@ -15,7 +15,7 @@
       <view class="sign">{{info.signature}}</view>
     </view>
   </view>
-  <view class="head">
+  <view class="head" wx:if="{{isOwner}}">
     <roleInfoCard my-class="roleInfoCard" roleType="recruiter" cardData="{{info}}" isMain="{{true}}"></roleInfoCard>
     <view class="line"></view>
   </view>
@@ -30,17 +30,30 @@
       <button hidden="{{!info.isCall}}" class="callBtn isCalled" bindtap="shareBtn">帮Ta转发集Call</button>
       <view class="more">查看更多热门招聘官<view class="icon iconfont icon-disejiantou-you"></view></view>
     </view>
+    <view class="labelEdit">
+      <view class="title">
+        <view class="icon">
+          <view class="fan"></view>
+        </view>
+        <text class="txt">个人标签</text>
+        <i class="shareBtn iconfont icon-fenxiang"></i><i class="editBtn iconfont icon-bianji1" bindtap="editJump" data-type="labels"></i>
+      </view>
+      <view class="labelBox">
+        <text class="item" wx:for="{{personalizedLabels}}" wx:key="{{index}}">{{item}}</text>
+      </view>
+    </view>
     <view class="profile">
       <view class="title">
         <view class="icon">
           <view class="fan"></view>
         </view>
         <text class="txt">个人简介</text>
+        <i class="editBtn iconfont icon-bianji1" bindtap="editJump" data-type="profile"></i>
       </view>
       <view class="msg {{isShrink ? 'shrink':''}}">{{info.brief}}</view>
       <view class="openbtn" wx:if="{{isShrink}}" bindtap="toggle">{{btnTxt}}<icon class="icon iconfont icon-zhishibiao {{!isShrink ? 'shrink':''}}"></icon></view>
     </view>
-    <view class="declaration">
+    <view class="declaration {{isOwner ? 'recruiterMain' : ''}}">
       <view class="title">
         <view class="icon">
           <view class="fan"></view>
@@ -49,11 +62,11 @@
       </view>
       <view class="descList">
         <view class="descItem">
-          <view class="descTitle"># 最欣赏候选人什么品质？#</view>
+          <view class="descTitle"># 最欣赏候选人什么品质？#<i class="editBtn iconfont icon-bianji1" bindtap="editJump" data-type="labels"></i></view>
           <view class="descAnswer">踏实、靠谱、善良，沟通能力强</view>
         </view>
         <view class="descItem">
-          <view class="descTitle"># 最欣赏候选人什么品质？## 最欣赏候选人什么品质？## 最欣赏候选人什么品质？#</view>
+          <view class="descTitle"># 最欣赏候选人什么品质？## 最欣赏候选人什么品质？## 最欣赏候选人什么品质？#<i class="editBtn iconfont icon-bianji1" bindtap="editJump" data-type="labels"></i></view>
           <view class="descAnswer">踏实、靠谱、善良，沟通能力强踏实、靠谱、善良，沟通能力强踏实、靠谱、善良，沟通能力强踏实、靠谱、善良，沟通能力强</view>
         </view>
       </view>

@@ -18,6 +18,8 @@
 .roleInfoCard {
   border-radius: 10rpx;
   overflow: hidden;
+  background: #fff;
+  box-shadow:0rpx 4rpx 20rpx 0rpx rgba(101,39,145,0.1);
 }
 .content {
   position: absolute;
@@ -192,7 +194,7 @@
   color: #652791;
   display: inline-block;
 }
-.profile, .declaration, .mainContent .position {
+.profile, .declaration, .labelEdit, .mainContent .position {
   margin-top: 20rpx;
   padding: 40rpx;
   background: #fff;
@@ -204,6 +206,7 @@
   font-weight: 500;
   color: #5C565D;
   line-height: 28rpx;
+  position: relative;
 }
 .title .icon {
   width: 24rpx;
@@ -225,6 +228,19 @@
   box-sizing: border-box;
   font-weight: 500;
   display: inline-block;
+}
+.title .iconfont {
+  position: absolute;
+  font-size: 26rpx;
+  color: #8452A7;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.title .iconfont.editBtn {
+  right: 0rpx;
+}
+.title .iconfont.shareBtn {
+  right: 93rpx;
 }
 .msg {
   font-size: 28rpx;
@@ -298,6 +314,27 @@
   z-index: 1;
   background: #fff;
   display: inline-block;
+}
+.declaration.recruiterMain .descItem {
+  margin-bottom: 40rpx;
+}
+.declaration.recruiterMain .descTitle {
+  width: 550rpx;
+  border: none;
+  padding: 0;
+  position: relative;
+}
+.declaration.recruiterMain .editBtn {
+  position: absolute;
+  font-size: 26rpx;
+  top: 0%;
+  right: -60rpx;
+}
+.declaration.recruiterMain .descAnswer {
+  width: 550rpx;
+  margin-top: 16rpx;
+  border: none;
+  padding: 0;
 }
 .positionList {
   padding-top: 40rpx;

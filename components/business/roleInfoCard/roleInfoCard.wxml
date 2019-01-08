@@ -20,13 +20,17 @@
       <view class="wechat" bindtap="setClipboardData" wx:if="{{cardData.wechat}}">微信：<text class="txt">{{cardData.wechat}}</text></view>
     </view>
   </block>
-  <view class="recruiter" wx:if="{{roleType === 'recruiter'}}" bindtap="jumpRecruiter">
+  <view class="recruiter {{isMain? 'recruiterMain':''}}" wx:if="{{roleType === 'recruiter'}}" bindtap="jumpRecruiter">
     <image class="img" src="{{cardData.avatar.middleUrl}}"></image>
     <view class="vip">V</view>
     <view class="recruiterMsg">
       <view class="name">{{cardData.name}}<text class="msg" wx:if="{{!isMain}}"> · {{cardData.position}}</text></view>
       <view class="detail">{{cardData.companyName}}<text wx:if="{{isMain}}"> | {{cardData.position}}</text></view>
     </view>
+    <i class="editBtn iconfont icon-bianji1" wx:if="{{isMain}}"></i>
     <view class="status" wx:if="{{!isMain}}">邀你面试</view>
+    <view></view>
   </view>
+  <image class="line" src="../../../images/line.png"></image>
+  <view class="lineTip">“ 认真负责的产品旺，我是谁？我在哪里？</view>
 </view>
