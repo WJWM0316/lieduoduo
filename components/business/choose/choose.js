@@ -41,7 +41,7 @@ Component({
         if (identity === 'RECRUITER') {
           if (getApp().globalData.hasLogin) {
             wx.reLaunch({
-              url: `${RECRUITER}index/index`
+              url: `${APPLICANT}indexRecruiter/index`
             })
           }
         } else {

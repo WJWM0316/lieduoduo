@@ -34,7 +34,6 @@ Component({
     }
   },
   attached() {
-    console.log(this.data.list)
   },
 	methods: {
 		routeJump(e) {

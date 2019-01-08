@@ -1,6 +1,7 @@
 {
   "pages": [
     "page/applicant/pages/index/index",
+    "page/applicant/pages/indexRecruiter/index",
     "page/applicant/pages/jobs/job/job",
     "page/applicant/pages/interview/interview/interview",
     "page/common/pages/cutInside/cutInside",
@@ -69,7 +70,6 @@
     {
       "root": "page/recruiter/",
       "pages": [
-        "pages/index/index",
         "pages/interview/index/index",
         "pages/interview/history/history",
         "pages/position/index/index",
