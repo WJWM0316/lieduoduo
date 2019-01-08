@@ -1,32 +1,64 @@
-<view>
-	<navbar title="填写身份信息" background="#FFFFFF" color="#22292C" showBackBtn="{{true}}"></navbar>
+<view class="company-identity">
+	<navbar title="填写身份信息" background="#FFFFFF" color="#22292C"></navbar>
+	<view class="warning"><i class="icon iconfont icon-zhongxinshangchuan"></i>请确保上传的公司信息真实有效，有助审核通过</view>
 	<form bindsubmit="submit">
-	  <view class="mini-input-row">
-	    <view class="mini-row-label">真实姓名</view>
-	    <input name="real_name" class="mini-row-value" placeholder="申请人的真实姓名" bindinput="bindInput" data-field="real_name" value="{{real_name}}" />
+	  <view class="input-li">
+	    <view class="key">真实姓名</view>
+	    <input name="real_name" class="value" placeholder="申请人的真实姓名" bindinput="bindInput" data-field="real_name" value="{{real_name}}" />
 	  </view>
-	  <view class="mini-input-row">
-	    <view class="mini-row-label">身份证号</view>
-	    <input name="identity_num" class="mini-row-value" placeholder="企业常用的邮箱地址" bindinput="bindInput" data-field="identity_num" value="{{identity_num}}" />
+	  <view class="input-li">
+	    <view class="key">身份证号</view>
+	    <input name="identity_num" class="value" placeholder="请填写18位身份证号码" bindinput="bindInput" data-field="identity_num" value="{{identity_num}}" />
 	  </view>
-	  <view class="mini-input-row">
-	    <view class="mini-row-label">有效期</view>
-	    <input name="validity" class="mini-row-value" placeholder="在公司担任的职务" bindinput="bindInput" data-field="validity" value="{{validity}}" />
+	  <view class="input-li clear-bottom">
+	    <view class="key">有效期</view>
+	    <input name="validity" class="value" placeholder="请填写身份证背面有效期" bindinput="bindInput" data-field="validity" value="{{validity}}" />
 	  </view>
-	  <view class="mini-input-row">
-	    <unloadFile bindresultEvent="upload" unloadType="img" data-type="passport_front">
-			  <view>上传正面图片</view>
-			  <image src="{{passport_front.smallUrl}}"></image>
-			</unloadFile>
+	  <view class="upload-li">
+	  	<view class="text">
+	  		<view class="h1">上传身份证正面</view>
+	  		<view class="p">正面身份证，人像信息均在照片内清晰可识别，否则审核将不被通过</view>
+	  	</view>
+	  	<view class="upload-box">
+		    <unloadFile bindresultEvent="upload" unloadType="img" data-type="passport_front">
+		    	<image src="../../../../../../images/pic_identitycard_01.png" mode="scaleToFill" class="default-image"></image>
+		    	<image src="{{passport_front.smallUrl}}" mode="scaleToFill" class="upload-image"></image>
+				  <view class="upload-button">{{passport_front.smallUrl ? '重新上传' : '点击上传'}}</view>
+				</unloadFile>
+			</view>
 	  </view>
-	  <view class="mini-input-row">
-	    <unloadFile bindresultEvent="upload" unloadType="img" data-type="passport_reverse">
-			  <view>上传反面图片</view>
-			  <image src="{{passport_reverse.smallUrl}}"></image>
-			</unloadFile>
+	  <view class="upload-li">
+	  	<view class="text">
+	  		<view class="h1">上传身份证反面</view>
+	  		<view class="p">反面身份证，国徽信息均在照片内清晰可识别，否则审核将不被通过</view>
+	  	</view>
+	  	<view class="upload-box">
+		    <unloadFile bindresultEvent="upload" unloadType="img" data-type="passport_reverse">
+		    	<image src="../../../../../../images/pic_identitycard_02.png" mode="scaleToFill" class="default-image"></image>
+		    	<image src="{{passport_reverse.smallUrl}}" mode="scaleToFill" class="upload-image"></image>
+				  <view class="upload-button">{{passport_reverse.smallUrl ? '重新上传' : '点击上传'}}</view>
+				</unloadFile>
+			</view>
+	  </view>
+	  <view class="upload-li">
+	  	<view class="text">
+	  		<view class="h1">上传手持身份证</view>
+	  		<view class="p">
+	  			<view>1、人像正脸五官可识别无遮挡</view>
+	  			<view>2、证件全部信息清晰无遮挡</view>
+	  			<view>3、完整露出双手臂</view>
+	  		</view>
+	  	</view>
+	  	<view class="upload-box">
+		    <unloadFile bindresultEvent="upload" unloadType="img" data-type="passport_reverse">
+		    	<image src="../../../../../../images/pic_identitycard_03.png" mode="scaleToFill" class="default-image"></image>
+		    	<image src="{{passport_reverse.smallUrl}}" mode="scaleToFill" class="upload-image"></image>
+				  <view class="upload-button">{{passport_reverse.smallUrl ? '重新上传' : '点击上传'}}</view>
+				</unloadFile>
+			</view>
 	  </view>
 	  <view class="btn-area">
-	    <button form-type="submit" class="{{canClick ? 'button-enable' : ''}}">提交申请</button>
+	    <button form-type="submit" class="button-submit {{canClick ? 'button-enable' : ''}}">提交审核</button>
 	  </view>
 	</form>
 </view>

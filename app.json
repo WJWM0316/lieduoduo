@@ -87,7 +87,6 @@
         "pages/user/company/apply/apply",
         "pages/user/company/find/find",
         "pages/user/company/post/post",
-        "pages/user/company/abbreviation/abbreviation",
         "pages/user/company/upload/upload",
         "pages/user/company/identity/identity",
         "pages/user/company/status/status",

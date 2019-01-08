@@ -25,4 +25,21 @@
 		</view>
 		<button form-type="submit" class="button-submit {{canClick ? 'button-enable' : ''}}">下一步</button>
 	</form>
+	<view class="certification-layout {{showMaskBox ? 'certification-layout-show' : ''}}">
+		<view class="box {{showMaskBox ? 'box-show' : ''}}">
+			<view class="h1">了解招聘官身份审核流程</view>
+			<view class="ul">
+				<view class="item" wx:for="{{[1,2,3,4]}}" wx:key="{{index}}">
+					<view class="img-box">
+						<view class="circle">{{index + 1}}</view>
+					</view>
+					<view class="text">
+						<view class="h2">验证个人身份信息</view>
+						<view class="p">通过录入身份证信息，验证您的本人身份；</view>
+					</view>
+				</view>
+			</view>
+			<button form-type="submit" class="button-know {{canClick ? 'button-enable' : ''}}" bindtap="closeMask">开始审核</button>
+		</view>
+	</view>
 </view>

@@ -27,6 +27,14 @@
 	padding: 0 40rpx;
 }
 
+.company-post .entry-list .companyShortName {
+	display: inline-block;
+	height: 122rpx;
+	border: unset;
+	float: right;
+	text-align: right;
+}
+
 .company-post .entry-list .li:after {
 	content: '';
 	display: block;
