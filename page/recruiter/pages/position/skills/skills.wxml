@@ -1,5 +1,5 @@
 <view>
-	<navbar title="技能标签" background="#FFFFFF" color="#22292C" showBackBtn="{{true}}"></navbar>
+	<navbar title="技能要求" background="#FFFFFF" color="#22292C"></navbar>
 	<form bindsubmit="submit" class="entry-list">
 		<view class="position-type-ul">
 			<view

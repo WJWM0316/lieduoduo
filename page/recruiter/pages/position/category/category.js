@@ -46,6 +46,7 @@ Page({
     const params = e.currentTarget.dataset
     const positionTypeList = this.data.positionTypeList
     positionTypeList[this.data.index1].children.map((field, index) => field.active = index === params.index ? true : false)
+    console.log(positionTypeList)
     this.setData({index2: params.index, positionTypeList})
   },
   /**
