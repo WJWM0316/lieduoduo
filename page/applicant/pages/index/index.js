@@ -27,7 +27,7 @@ Page({
         content: '检测到你是招聘官，是否切换招聘端',
         confirmBack() {
           wx.reLaunch({
-            url: `${RECRUITER}index/index`
+            url: `${APPLICANT}indexRecruiter/index`
           })
         },
         cancelBack() {

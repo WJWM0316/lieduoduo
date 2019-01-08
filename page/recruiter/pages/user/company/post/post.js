@@ -68,7 +68,6 @@ Page({
     params.map(field => {
       if(storage[field]) this.setData({ [field]: storage[field] })
     })
-    console.log(storage)
     this.bindBtnStatus()
   },
   /**
@@ -93,8 +92,9 @@ Page({
    */
   submit() {
     if(!this.data.canClick) return;
-    wx.navigateTo({url: `${RECRUITER}user/company/upload/upload?companyShortName=${this.data.companyShortName}&company_name=${this.data.company_name}`})
-    this.saveFormData()
+    const storage = wx.getStorageSync('createdCompany')
+    wx.setStorageSync('createdCompany', Object.assign(storage, this.data))
+    wx.redirectTo({url: `${RECRUITER}user/company/upload/upload`})
   },
   /**
    * @Author   小书包
@@ -108,15 +108,8 @@ Page({
     this.setData({industry_id: companyLabelField[index].labelId, selected_industry_id: true, industry_id_name: companyLabelField[index].name})
     this.bindBtnStatus()
   },
-  /**
-   * @Author   小书包
-   * @DateTime 2018-12-21
-   * @detail   保存当前页面的编辑数据
-   * @return   {[type]}   [description]
-   */
-  saveFormData() {
-    const storage = wx.getStorageSync('createdCompany')
-    wx.setStorageSync('createdCompany', Object.assign(storage, this.data))
+  bindInput(e) {
+    this.setData({companyShortName: e.detail.value})
   },
   /**
    * @Author   小书包
@@ -137,22 +130,5 @@ Page({
   getFinancing(res) {
     this.setData({financing: res.detail.propsResult, financingName: res.detail.propsDesc, selected_financing: true})
     this.bindBtnStatus()
-  },
-  /**
-   * @Author   小书包
-   * @DateTime 2019-01-03
-   * @detail   待办项
-   * @return   {[type]}   [description]
-   */
-  todoActions(e) {
-    const type = e.currentTarget.dataset.type
-    switch(type) {
-      case 'modify':
-        wx.navigateTo({url: `${RECRUITER}user/company/abbreviation/abbreviation`})
-        this.saveFormData()
-        break
-      default:
-        break
-    }
   }
 })

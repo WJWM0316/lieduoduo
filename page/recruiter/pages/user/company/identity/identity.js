@@ -10,7 +10,7 @@ Page({
   data: {
     real_name: '',
     identity_num: '',
-    validity: '10',
+    validity: '',
     passport_front: {
       smallUrl: ''
     },

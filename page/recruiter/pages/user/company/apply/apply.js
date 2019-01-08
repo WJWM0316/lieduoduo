@@ -11,6 +11,7 @@ Page({
     real_name: '',
     user_email: '',
     user_position: '',
+    company_name: '',
     canClick: false
   },
   onLoad() {
@@ -19,6 +20,15 @@ Page({
     if(!storage) return
     params.map(field => this.setData({ [field]: storage[field] }))
     this.bindBtnStatus()
+  },
+  /**
+   * @Author   小书包
+   * @DateTime 2019-01-08
+   * @detail   身份切换
+   * @return   {[type]}   [description]
+   */
+  changeIdentity() {
+    console.log(1)
   },
   /**
    * @Author   小书包
@@ -70,7 +80,7 @@ Page({
     Promise
       .all([checkRealName, checkUserEmail, checkUserPosition])
       .then(res => {
-        wx.navigateTo({url: `${RECRUITER}user/company/find/find`})
+        wx.redirectTo({url: `${RECRUITER}user/company/find/find`})
         wx.setStorageSync('createdCompany', this.data)
       })
       .catch(err => {

@@ -36,7 +36,7 @@
 	display: block;
 	position: absolute;
 	left: 40rpx;
-	right: 40px;
+	right: 20px;
 	bottom: 0;
 	height: 1px;
 	background: #E8E9EB;

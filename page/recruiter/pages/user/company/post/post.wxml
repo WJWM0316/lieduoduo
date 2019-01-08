@@ -6,12 +6,11 @@
 			<view class="key">公司全称</view>
 			<view class="text2">{{company_name}}</view>
 		</view>
-		<view class="li link clear-bottom" bindtap="todoActions" data-type="modify">
+		<view class="li link">
 			<view class="key">公司简介</view>
-			<i class="icon iconfont icon-xiangyou"></i>
-			<view class="text2">{{companyShortName}}</view>
+			<input type="text" class="companyShortName" placeholder="示例：广州老虎科技" value="{{companyShortName}}" bindinput="bindInput"></input>
 		</view>
-		<view class="exemple">注： 公司简称能让候选人记住你的公司，可以是品牌名/产品 名/关键字等，创建后不可修改</view>
+		<view class="exemple" wx:if="{{companyShortName}}">注： 公司简称能让候选人记住你的公司，可以是品牌名/产品 名/关键字等，创建后不可修改</view>
 		<view class="li">
 			<i class="icon iconfont icon-xiangyou"></i>
 			<view class="key">所属行业</view>

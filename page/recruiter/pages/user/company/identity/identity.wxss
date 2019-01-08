@@ -1,3 +1,179 @@
 .button-enable {
 	background: green;
 }
+
+
+.company-identity .warning {
+	height:80rpx;
+	background:rgba(255,252,240,1);
+	line-height: 80rpx;
+	font-size:28rpx;
+	font-weight:300;
+	color:rgba(255,127,77,1);
+	padding: 0 40rpx;
+}
+
+.company-identity form {
+	display: block;
+	width: 100%;
+}
+
+.button-enable {
+	background: green;
+	height:88rpx;
+	background:rgba(101,39,145,1);
+	box-shadow:0rpx 20rpx 18rpx 0rpx rgba(101,39,145,0.2);
+	border-radius:48rpx;
+}
+
+.button-submit {
+	height:88rpx;
+	background:rgba(101,39,145,1);
+	box-shadow:0rpx 20rpx 18rpx 0rpx rgba(101,39,145,0.2);
+	border-radius:48rpx;
+	font-size:32rpx;
+	font-weight:400;
+	color:rgba(255,255,255,1);
+	margin: 30rpx 100rpx;
+}
+
+.company-identity .banner {
+	height: 480rpx;
+	background: #652791;
+	background: rgba(0,0,0,.01);
+}
+
+.company-identity .input-li {
+	height:122rpx;
+	display: flex;
+	line-height: 122rpx;
+	padding: 0 40rpx;
+	position: relative;
+	background: white;
+}
+
+.company-identity .input-li:after {
+	content: '';
+	display: block;
+	position: absolute;
+	left: 40rpx;
+	right: 20px;
+	bottom: 0;
+	height: 1px;
+	background: #E8E9EB;
+}
+
+.company-identity .clear-bottom:after {
+	display: none;
+}
+
+.company-identity .input-li .key {
+	font-size:28rpx;
+	font-weight:300;
+	color:rgba(53,57,67,1);
+}
+
+.company-identity .input-li .value {
+	flex: 1;
+	height: 100%;
+	font-size:28rpx;
+	font-weight:500;
+	color:rgba(98,98,98,1);
+	text-align: right;
+}
+
+.company-identity .ul {
+	display: table;
+	margin: 50rpx auto;
+}
+
+.company-identity .ul .li {
+	font-size:28rpx;
+	font-weight:500;
+	color:rgba(188,188,188,1);
+	display: inline-block;
+	margin-right: 25rpx;
+	line-height: 1;
+	background: white;
+}
+
+.company-identity .ul .column-line {
+	border-right: 1px solid #DCDCDC;
+	padding-right: 25rpx;
+}
+
+.company-identity  .upload-li {
+	font-size:28rpx;
+	font-weight:500;
+	color:rgba(188,188,188,1);
+	display: inline-block;
+	line-height: 1;
+	height:258rpx;
+	background:rgba(255,255,255,1);
+	display: flex;
+	margin-top: 24rpx;
+	padding: 40rpx;
+	box-sizing: border-box;
+}
+
+.company-identity  .upload-li .upload-box{
+	width:260rpx;
+	height:198rpx;
+	background:rgba(250,252,255,1);
+	border-radius:10rpx 10rpx 0rpx 0rpx;
+	margin-left: 62rpx;
+	position: relative;
+	overflow: hidden;
+}
+
+.company-identity  .upload-li .text{
+	flex: 1;
+}
+
+.company-identity  .upload-li .h1{
+	font-size:32rpx;
+	font-weight:bold;
+	color:rgba(40,40,40,1);
+	margin-bottom: 24rpx;
+}
+
+.company-identity  .upload-li .p {
+	font-size:24rpx;
+	font-weight:400;
+	color:rgba(98,98,98,1);
+	line-height: 1.5;
+}
+
+.company-identity  .upload-li .upload-button {
+	width:100%;
+	height:40rpx;
+	background:rgba(101,39,145,1);
+	border-radius:0rpx 0rpx 10rpx 10rpx;
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	font-size:24rpx;
+	font-weight:500;
+	color:rgba(255,255,255,1);
+	text-align: center;
+	line-height: 40rpx;
+}
+
+.company-identity  .upload-li .default-image {
+	position: absolute;
+	left: 50%;
+	top: 12rpx;
+	height: calc(100% - 62rpx);
+	width: calc(100% - 60rpx);
+	transform: translateX(-50%);
+	z-index: 1;
+}
+
+.company-identity  .upload-li .upload-image {
+	position: absolute;
+	left: 0;
+	top: 0;
+	height: calc(100% - 40rpx);
+	width: 100%;
+	z-index: 2;
+}
