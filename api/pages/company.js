@@ -199,3 +199,23 @@ export const getRecruitersListApi = (data, hasLoading) => {
     hasLoading: true
   })
 }
+
+// 发送邮箱
+export const sendEmailApi = (data, hasLoading) => {
+  return request({
+    method: 'post',
+    url: `/company/mail`,
+    data,
+    hasLoading: true
+  })
+}
+
+// 验证企业邮箱验证码
+export const verifyEmailApi = (data, hasLoading) => {
+  return request({
+    method: 'post',
+    url: `/company/verify`,
+    data,
+    hasLoading: true
+  })
+}
