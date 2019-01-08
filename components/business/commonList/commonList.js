@@ -49,12 +49,12 @@ Component({
           url: `/page/common/pages/resumeDetail/resumeDetail?uid=${jobhunteruid}`
         })
 			} else { // 职位机会入口
-			  if ((status === 11 || status >= 51) && Identity === 'RECRUITER') {
+			  if ((status === 11 || status === 12 || status >= 51) && Identity === 'RECRUITER') {
 			    /* 招聘端：不合适，未处理跳简历 */
           wx.navigateTo({
             url: `/page/common/pages/resumeDetail/resumeDetail?uid=${jobhunteruid}`
           })
-        } else if ((status === 11 || status >= 51) && Identity === 'APPLICANT') {
+        } else if ((status === 11 || status === 12 || status >= 51) && Identity === 'APPLICANT') {
           /* 求职端 */
           wx.navigateTo({
             url: `/page/common/pages/recruiterDetail/recruiterDetail?uid=${recruiteruid}`

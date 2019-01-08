@@ -1,5 +1,5 @@
 // page/common/pages/resumeDetail/resumeDetail.js
-import { getPersonalResumeApi, getJobhunterResumeApi } from '../../../../api/pages/center.js'
+import { getPersonalResumeApi } from '../../../../api/pages/center.js'
 import { inviteInterviewApi } from '../../../../api/pages/interview.js'
 let id = 92
 const app = getApp()
@@ -18,10 +18,15 @@ Page({
    */
   onLoad: function (options) {
     id = options
+    const { vkey } = options
     console.log(options)
-    app.pageInit = () => {
-      resumeInfo = app.globalData.resumeInfo
-      this.init(options)
+    if (vkey) {
+      this.init(vkey)
+    } else {
+      app.pageInit = () => {
+        resumeInfo = app.globalData.resumeInfo
+        this.init(options)
+      }
     }
   },
   /**
@@ -32,27 +37,17 @@ Page({
     this.init(id)
   },
   init (options) {
-    if (wx.getStorageSync('choseType') === 'APPLICANT') {
-      console.log('求职端')
-      if (resumeInfo) {
-        this.setData({
-          info: resumeInfo
-        })
-      } else {
-        getPersonalResumeApi(options).then(res => {
-          this.setData({
-            info: res.data
-          })
-          console.log(this.data.info, "个人信息")
-        })
-      }
+    console.log('求职端')
+    if (resumeInfo) {
+      this.setData({
+        info: resumeInfo
+      })
     } else {
-      console.log('招聘端')
-      getJobhunterResumeApi(options).then(res => {
+      getPersonalResumeApi(options).then(res => {
         this.setData({
           info: res.data
         })
-        console.log(this.data.info)
+        console.log(this.data.info, "个人信息")
       })
     }
   },
