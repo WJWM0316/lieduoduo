@@ -54,11 +54,32 @@ export const postThirdStepApi = (data) => {
     data
   })
 }
+
 // 求职端个人简历接口
 export const getPersonalResumeApi = (data) => {
   return request({
     method: 'get',
     url: '/jobhunter/resume',
+    data,
+    hasLoading: false
+  })
+}
+
+// 个人简历意向修改
+export const editExpectApi = (data) => {
+  return request({
+    method: 'post',
+    url: `/jobhunter/expect/${data.id}`,
+    data,
+    hasLoading: false
+  })
+}
+
+// 个人简历工作经验修改
+export const editCareerApi = (data) => {
+  return request({
+    method: 'post',
+    url: `/jobhunter/career/${data.id}`,
     data,
     hasLoading: false
   })

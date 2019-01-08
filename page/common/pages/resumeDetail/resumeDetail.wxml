@@ -7,7 +7,7 @@
     <view class="top">
       <image src="{{info.avatar.smallUrl}}" class="avatar"></image>
       <view class="info">
-        <view class="name"><text>{{info.name}}</text><i class="icon iconfont icon-bianji1 edit" data-editName="info" bindtap="edit" wx:if="info.isOwner"></i></view>
+        <view class="name"><text>{{info.name}}</text><i class="icon iconfont icon-bianji1 edit" data-editName="info" bindtap="edit" wx:if="{{info.isOwner}}"></i></view>
         <view>
           <text>{{info.lastCompanyName}}</text> | <text>{{info.lastPosition}}</text>
         </view>
@@ -52,7 +52,7 @@
       <view class="expTitle">
         <text class="expName">{{item.company}}</text>
         <text class="expTime">{{item.startTimeDesc}}-{{item.endTimeDesc}}</text>
-        <i class="icon iconfont icon-bianji1 edit" data-editName="work" bindtap="edit" wx:if="info.isOwner"></i>
+        <i class="icon iconfont icon-bianji1 edit" data-editName="work" bindtap="edit" wx:if="{{info.isOwner}}"></i>
       </view>
       <view class="expInfo">{{item.position}}</view>
       <!-- 工作内容 -->
@@ -71,7 +71,7 @@
       <view class="expTitle">
         <text class="expName">{{item.name}}</text>
         <text class="expTime">{{item.startTimeDesc}}-{{item.endTimeDesc}}</text>
-        <i class="icon iconfont icon-bianji1 edit" data-editName="project" bindtap="edit" wx:if="info.isOwner"></i>
+        <i class="icon iconfont icon-bianji1 edit" data-editName="project" bindtap="edit" wx:if="{{info.isOwner}}"></i>
       </view>
       <view class="expInfo">{{item.role}}</view>
       <!-- 工作内容 -->
@@ -89,7 +89,7 @@
       <view class="expTitle">
         <text class="expName">{{item.school}}</text>
         <text class="expTime">{{item.startTimeDesc}}-{{item.endTimeDesc}}</text>
-        <i class="icon iconfont icon-bianji1 edit" data-editName="education" bindtap="edit" wx:if="info.isOwner"></i>
+        <i class="icon iconfont icon-bianji1 edit" data-editName="education" bindtap="edit" wx:if="{{info.isOwner}}"></i>
       </view>
       <view class="expInfo">{{item.degreeDesc}}·{{item.major}}</view>
       <!-- 教育经历 -->
@@ -100,7 +100,7 @@
   <view class="more commentBox" wx:if="{{info.moreIntroduce}}">
     <view class="intentTitle moreTitle">
       <view><i class="icon iconfont icon-fujian"></i> 更多介绍 </view>
-      <i class="icon iconfont icon-bianji1 edit" data-editName="more" bindtap="edit" wx:if="info.isOwner"></i>
+      <i class="icon iconfont icon-bianji1 edit" data-editName="more" bindtap="edit" wx:if="{{info.isOwner}}"></i>
     </view>
     <view class="expTab">
       <!-- 工作内容 -->

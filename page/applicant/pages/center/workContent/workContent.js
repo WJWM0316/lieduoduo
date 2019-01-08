@@ -28,7 +28,7 @@ Page({
   nextExample () {
     console.log(1111)
   },
-  /* 展示例子 */
+  /* 展示或关闭例子 */
   showPopups () {
     this.setData({
       showCase: !this.data.showCase

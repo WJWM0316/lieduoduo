@@ -38,7 +38,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 14,
+			"current": 25,
 			"list": [
 				{
 					"id": 0,
@@ -53,7 +53,7 @@
 					"query": ""
 				},
 				{
-					"id": -1,
+					"id": 2,
 					"name": "index",
 					"pathName": "page/applicant/pages/index/index",
 					"query": ""
@@ -92,7 +92,7 @@
 					"id": 8,
 					"name": "简历",
 					"pathName": "page/common/pages/resumeDetail/resumeDetail",
-					"query": "uid=92"
+					"query": ""
 				},
 				{
 					"id": 10,
@@ -189,6 +189,12 @@
 					"name": "手机号登陆",
 					"pathName": "page/common/pages/bindPhone/bindPhone",
 					"query": "uid=92"
+				},
+				{
+					"id": -1,
+					"name": "编辑项目",
+					"pathName": "page/applicant/pages/center/resumeEditor/itemEdit/itemEdit",
+					"query": ""
 				}
 			]
 		}

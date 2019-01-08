@@ -86,6 +86,15 @@ Page({
       case 'info':
         url = '/page/applicant/pages/center/userInfoEdit/userInfoEdit'
         break;
+      case 'intent':
+        url = `/page/applicant/pages/center/resumeEditor/aimsEdit/aimsEdit?id=${this.data.info.expects[0].id}`
+        break;
+      case 'work':
+        url = `/page/applicant/pages/center/resumeEditor/workEdit/workEdit`
+        break;
+      case 'project':
+        url = `/page/applicant/pages/center/resumeEditor/itemEdit/itemEdit`
+        break;
     }
     wx.navigateTo({
       url: url
