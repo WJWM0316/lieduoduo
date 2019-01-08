@@ -59,6 +59,10 @@ App({
   // 检查登录
   checkLogin () {
     return new Promise((resolve, reject) => {
+      if (this.globalData.userInfo) {
+        resolve(this.globalData.userInfo)
+        return
+      }
       wx.getSetting({
         success: res => {
           if (res.authSetting['scope.userInfo']) {
@@ -129,10 +133,10 @@ App({
               loginApi(data).then(res => {
                 // 有token说明已经绑定过用户了
                 if (res.data.token) {
-                  that.globalData.userInfo = res.data
-                  that.globalData.hasLogin = true
                   wx.setStorageSync('token', res.data.token)
                   that.checkLogin()
+                  that.globalData.userInfo = res.data
+                  that.globalData.hasLogin = true
                   console.log('用户已认证')
                 } else {
                   console.log('用户未绑定手机号')

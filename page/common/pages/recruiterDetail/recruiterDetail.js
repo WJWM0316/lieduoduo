@@ -30,14 +30,30 @@ Page({
     app.getRoleInit = () => {
       this.setData({isRecruiter: app.globalData.isRecruiter})
     }
-    if (app.globalData.recruiterDetails.uid) {
-      if (app.globalData.recruiterDetails.uid === options.uid) {
-        this.setData({info: app.globalData.recruiterDetails, isOwner: true})
+    let myInfo = {}
+    if (app.globalData.identity === "APPLICANT") {
+      myInfo = app.globalData.resumeInfo
+    } else {
+      myInfo = app.globalData.recruiterDetails
+    }
+    if (myInfo.uid) {
+      if (myInfo.uid === options.uid) {
+        this.setData({info: myInfo, isOwner: true})
+      } else {
+        getOthersRecruiterDetailApi({uid: options.uid}).then(res => {
+          this.setData({info: res.data, options}, function() {
+            getSelectorQuery('.msg').then(res => {
+              if (res.height > 143) {
+                this.setData({isShrink: true})
+              }
+            })
+          })
+        })
       }
     } else {
       app.pageInit = () => {
-        if (app.globalData.recruiterDetails.uid === parseInt(options.uid)) {
-          this.setData({info: app.globalData.recruiterDetails, isOwner: true})
+        if (myInfo.uid === parseInt(options.uid)) {
+          this.setData({info: myInfo, isOwner: true})
         } else {
           getOthersRecruiterDetailApi({uid: options.uid}).then(res => {
             this.setData({info: res.data, options}, function() {
