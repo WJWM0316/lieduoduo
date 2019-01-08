@@ -22,5 +22,5 @@
 	  	<view class="li">前往求职者星球</view>
 	  </view>
 	</form>
-	<bindPhone></bindPhone>
+	<!-- <bindPhone></bindPhone> -->
 </view>
