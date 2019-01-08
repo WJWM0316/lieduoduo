@@ -1,22 +1,26 @@
-<view>
-	<navbar title="填写个人信息" background="#FFFFFF" color="#22292C" showBackBtn="{{true}}"></navbar>
+<view class="company-apply-page">
+	<navbar title="填写个人信息" background="tranparent"></navbar>
+	<view class="banner"></view>
 	<form bindsubmit="submit">
-	  <view class="mini-input-row">
-	    <view class="mini-row-label">真实姓名</view>
-	    <input name="real_name" class="mini-row-value" placeholder="申请人的真实姓名" bindinput="bindInput" data-field="real_name" value="{{real_name}}" />
+	  <view class="input-li">
+	    <view class="key">真实姓名</view>
+	    <input name="real_name" class="value" placeholder="申请人的真实姓名" bindinput="bindInput" data-field="real_name" value="{{real_name}}" />
 	  </view>
-	  <view class="mini-input-row">
-	    <view class="mini-row-label">邮箱地址</view>
-	    <input name="user_email" class="mini-row-value" placeholder="企业常用的邮箱地址" bindinput="bindInput" data-field="user_email" value="{{user_email}}" />
+	  <view class="input-li">
+	    <view class="key">邮箱地址</view>
+	    <input name="user_email" class="value" placeholder="企业常用的邮箱地址" bindinput="bindInput" data-field="user_email" value="{{user_email}}" />
 	  </view>
-	  <view class="mini-input-row">
-	    <view class="mini-row-label">担任职务</view>
-	    <input name="user_position" class="mini-row-value" placeholder="在公司担任的职务" bindinput="bindInput" data-field="user_position" value="{{user_position}}" />
+	  <view class="input-li clear-bottom">
+	    <view class="key">担任职务</view>
+	    <input name="user_position" class="value" placeholder="在公司担任的职务" bindinput="bindInput" data-field="user_position" value="{{user_position}}" />
 	  </view>
 	  <view class="btn-area">
-	    <button form-type="submit" class="{{canClick ? 'button-enable' : ''}}">下一步</button>
+	    <button form-type="submit" class="button-submit {{canClick ? 'button-enable' : ''}}">下一步</button>
 	  </view>
-	  <view style="margin-top: 50rpx;">换个账号试试</view>
-	  <view style="margin-top: 40rpx;">前往求职者星球</view>
+	  <view class="ul">
+	  	<view class="li column-line">换个账号试试</view>
+	  	<view class="li">前往求职者星球</view>
+	  </view>
 	</form>
+	<!-- <bindPhone></bindPhone> -->
 </view>

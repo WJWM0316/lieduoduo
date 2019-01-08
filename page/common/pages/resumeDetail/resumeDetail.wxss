@@ -38,13 +38,16 @@
   font-weight: 300;
   color: #282828;
   padding: 16rpx 0;
+  flex-grow: 1;
 }
 .personalInfo .info .name{
-  display: block;
   font-size: 46rpx;
   font-weight: 500;
   line-height: 46rpx;
   margin-bottom: 16rpx;
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
 }
 .experience{
   display: flex;
@@ -130,6 +133,11 @@
   margin-top: 50rpx;
 }
 /*更多*/
+.more .moreTitle {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 .more .expContent{
   color: #282828 !important;
 }
@@ -291,5 +299,8 @@
   color: #626262;
 }
 .expTab .link text{
+  color: #652791;
+}
+.edit{
   color: #652791;
 }

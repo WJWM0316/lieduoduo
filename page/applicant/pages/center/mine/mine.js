@@ -127,7 +127,7 @@ Page({
   /* 编辑简历 */
   toEdit () {
     wx.navigateTo({
-      url: '/page/applicant/pages/center/userInfoEdit/userInfoEdit',
+      url: '/page/common/pages/resumeDetail/resumeDetail',
     })
   }
 })

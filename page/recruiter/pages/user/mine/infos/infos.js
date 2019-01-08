@@ -1,18 +1,24 @@
 import { getRecruiterMyInfoApi } from '../../../../../../api/pages/recruiter.js'
 import {RECRUITER} from '../../../../../../config.js'
+import {getUserRoleApi} from "../../../../../../api/pages/user.js"
 
 const app = getApp()
 
 Page({
 	data: {
-    recruiterInfo: {}
+    recruiterInfo: {},
+    isRecruiter: false
   },
   onLoad() {
-    getApp().globalData.identity = 'RECRUITER'
     getRecruiterMyInfoApi()
       .then(res => {
         this.setData({recruiterInfo: res.data})
-        console.log(res.data)
+      })
+    getUserRoleApi()
+      .then(res0 => {
+        if (res0.data.isRecruiter) {
+          this.setData({isRecruiter: true})
+        }
       })
   },
   /**
@@ -40,6 +46,11 @@ Page({
         break
       case 'base':
         wx.navigateTo({url: `${RECRUITER}user/mine/base/base`})
+        break
+      case 'certification':
+        if(!this.data.isRecruiter) {
+          wx.navigateTo({url: `${RECRUITER}user/company/apply/apply`})
+        }
         break
       default:
         break

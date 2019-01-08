@@ -83,7 +83,7 @@ Page({
     e.detail.value.startTime = starTime
     e.detail.value.endTime = endTime
     postThirdStepApi(e.detail.value).then(res => {
-      wx.navigateTo({
+      wx.reLaunch({
         url: '/page/applicant/pages/center/mine/mine'
       })
     }).catch (err => {

@@ -73,7 +73,7 @@
 			data-aa="{{detail.isCollect}}"
 			bindtap="todoAction">
 				<i class="icon iconfont icon-ganxingqu" wx:if="{{!detail.isCollect}}"></i>
-				<text wx:else>取</text>	
+				<i class="icon iconfont icon-biaojiweiganxingqu" wx:else></i>
 		</view>
 	</view>
 	<interviewBar
