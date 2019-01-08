@@ -41,6 +41,9 @@ Page({
       case 'base':
         wx.navigateTo({url: `${RECRUITER}user/mine/base/base`})
         break
+      case 'certification':
+        wx.navigateTo({url: `${RECRUITER}user/company/apply/apply`})
+        break
       default:
         break
     }
