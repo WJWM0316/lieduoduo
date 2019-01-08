@@ -1,3 +1,4 @@
+@import '../../../../../iconfont.wxss';
 .userInfoEdit {
 	background: #fff;
 }
@@ -10,10 +11,28 @@
   font-weight: 400;
   color: #353943;
 }
+.pic {
+  position: relative;
+}
 .pic image {
 	width: 162rpx;
 	height: 162rpx;
 	display: block;
+}
+.removeFile {
+  position: absolute;
+  width: 40rpx;
+  height: 40rpx;
+  background:rgba(53,57,67,0.5);
+  border-radius: 0rpx 2rpx 0rpx 100rpx;
+  top: 0;
+  right: 0;
+}
+.removeBtn {
+  font-size: 22rpx;
+  color: #fff;
+  float: right;
+  margin: 5rpx 5rpx 0 0;
 }
 .addPic {
 	width: 160rpx;

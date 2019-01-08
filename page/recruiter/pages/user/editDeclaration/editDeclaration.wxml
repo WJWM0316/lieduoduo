@@ -1,0 +1,18 @@
+<viwe class="editBrief">
+	 <navBar title="编辑招聘宣言" background="#fff" color="#22292C"></navBar>
+	 <view class="textBox">
+	 	<view class="title"># 描述一下你的管理风格？描述一下你的管理风格？描述一下你的管理风格？#</view>
+	 	<textarea bindinput="changeVal" value="{{contnet}}" class="textarea" maxlength="5000" placeholder="为招聘宣言添加你的真知灼见吧~"></textarea>
+	 	<view class="tip">
+	 		<view></view>
+	 		<view class="number">{{content.length}}/5000</view>
+	 	</view>
+	 </view>
+	 <!-- <view class="btnBox">
+	 		<button class="btn" bindtap="saveInfo">发布</button>
+	 </view> -->
+	 <view class="btnBox remove">
+	 		<button class="removeBtn" bindtap="remove">删除</button>
+	 		<button class="btn" bindtap="saveInfo">发布</button>
+	 </view>
+</viwe>

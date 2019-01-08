@@ -2,7 +2,7 @@ import {getSelectorQuery} from "../../../../utils/util.js"
 import {getOthersRecruiterDetailApi, getRecruiterDetailApi, giveMecallApi} from "../../../../api/pages/recruiter.js"
 import {getPositionListApi} from "../../../../api/pages/position.js"
 import {getMyCollectUserApi, deleteMyCollectUserApi} from "../../../../api/pages/collect.js"
-import {COMMON} from "../../../../config.js"
+import {COMMON,RECRUITER,APPLICANT} from "../../../../config.js"
 
 let app = getApp()
 let positionTop = 0
@@ -62,7 +62,6 @@ Page({
       if (myInfo.uid === parseInt(options.uid)) {
         this.setData({info: myInfo, isOwner: true})
       } else {
-
         this.getOthersInfo()
       }
     } else {
@@ -87,13 +86,13 @@ Page({
         url = `${COMMON}tabsPage/tabsPage`
         break
       case 'profile':
-        url = `${COMMON}tabsPage/tabsPage`
+        url = `${RECRUITER}user/editBrief/editBrief`
         break
       case 'declaration':
-        url = `${COMMON}tabsPage/tabsPage`
+        url = `${RECRUITER}user/editDeclaration/editDeclaration`
         break
       case 'addDeclaration':
-        url = `${COMMON}tabsPage/tabsPage`
+        url = `${RECRUITER}user/chooseTopic/chooseTopic`
         break
     }
     wx.navigateTo({

@@ -1,0 +1,10 @@
+<!--page/recruiter/pages/user/chooseTopic/chooseTopic.wxml-->
+<view class="chooseTopic">
+	<navBar title="添加招聘宣言" background="#fff" color="#22292C"></navBar>
+	<view class="list">
+		<view class="item">
+			<view class="topic"># 最欣赏候选人什么品质？#</view>
+			<view class="addBtn"><text class="add">+</text>添加</view>
+		</view>
+	</view>
+</view>

@@ -1,0 +1,13 @@
+.chooseTopic {
+	background: #FAFCFF;
+	min-height: 100vh;
+}
+.list {
+	margin-top: 24rpx;
+	background: #fff;
+	padding: 0 40rpx;
+}
+.list .item {
+	padding: 44rpx 0;
+	border-bottom: 1rpx solid #E8E9EB;
+}

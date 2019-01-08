@@ -96,6 +96,9 @@
         "pages/user/company/homepage/homepage",
         "pages/user/company/features/features",
         "pages/user/userInfoEdit/userInfoEdit",
+        "pages/user/editBrief/editBrief",
+        "pages/user/editDeclaration/editDeclaration",
+        "pages/user/chooseTopic/chooseTopic",
         "pages/detail/position/position",
         "pages/test/test"
       ]

@@ -67,3 +67,22 @@ export const getBrowseMySelfListsApi = (data) => {
     hasLoading: true
   })
 }
+
+// 设置招聘官个人简介
+export const setBriefApi = (data) => {
+  return request({
+    url: `/recruiter/brief`,
+    method: 'post',
+    data,
+    hasLoading: true
+  })
+}
+// 设置招聘官个人简介
+export const setManifestoApi = (data) => {
+  return request({
+    url: `/recruiter/manifesto`,
+    method: 'post',
+    data,
+    hasLoading: true
+  })
+}
