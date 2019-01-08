@@ -10,20 +10,29 @@
   position: fixed;
   bottom: 0;
   left: 0;
-  border-top: 1px solid #CCD7DD;
+  border-top: 1rpx solid #CCD7DD;
+  box-sizing: border-box;
 }
 
 .tabBar-item {
   flex: 1;
+  height: 100%;
   text-align: center;
-  font-size:22rpx;
-  font-weight:400;
-  color:#B9BFCB;
   position: relative;
 }
 
+.tabIcon {
+  width: 54rpx;
+  height: 54rpx;
+  display: block;
+  margin: 11rpx auto 6rpx;
+}
+
 .tabBar-item .p {
-  margin-top: 5rpx;
+  font-size: 20rpx;
+  font-weight: 400;
+  color:rgba(185,191,203,1);
+  line-height: 20rpx;
 }
 
 .tabBar-item .tap {
@@ -35,10 +44,6 @@
   z-index: 1;
 }
 
-.tabBar-item-active {
-  color:#2878FF;
-}
-
-.tabBar-item .iconfont {
-  font-size: 50rpx;
+.tabBar-item-active.tabBar-item .p  {
+  color:rgba(101,39,145,0.8);
 }

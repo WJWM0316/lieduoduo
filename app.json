@@ -1,7 +1,6 @@
 {
   "pages": [
     "page/applicant/pages/index/index",
-    "page/applicant/pages/indexRecruiter/index",
     "page/applicant/pages/jobs/job/job",
     "page/applicant/pages/interview/interview/interview",
     "page/common/pages/cutInside/cutInside",
@@ -36,7 +35,7 @@
   },
   "tabBar": {
     "color": "#B9BFCB",
-    "selectedColor": "#2878FF",
+    "selectedColor": "#8452A7",
     "borderStyle": "black",
     "backgroundColor": "#ffffff",
     "list": [
@@ -70,6 +69,7 @@
     {
       "root": "page/recruiter/",
       "pages": [
+        "pages/index/index",
         "pages/interview/index/index",
         "pages/interview/history/history",
         "pages/position/index/index",

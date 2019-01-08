@@ -26,7 +26,29 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad(options) {
+    this.setData({options})
+  },
+  getOthersInfo() {
+    getOthersRecruiterDetailApi({uid: this.data.options.uid}).then(res => {
+      this.setData({info: res.data}, function() {
+        getSelectorQuery('.msg').then(res => {
+          if (res.height > 143) {
+            this.setData({isShrink: true})
+          }
+        })
+      })
+    })
+    getPositionListApi({recruiter: this.data.options.uid}).then(res => {
+      this.setData({positionList: res.data}, function() {
+        getSelectorQuery(".mainContent .position").then(res => {
+          positionTop = res.top - res.height
+        })
+      })
+    })
+  },
+  onShow: function () {
+    let options = this.data.options
     app.getRoleInit = () => {
       this.setData({isRecruiter: app.globalData.isRecruiter})
     }
@@ -37,45 +59,47 @@ Page({
       myInfo = app.globalData.recruiterDetails
     }
     if (myInfo.uid) {
-      if (myInfo.uid === options.uid) {
+      if (myInfo.uid === parseInt(options.uid)) {
         this.setData({info: myInfo, isOwner: true})
       } else {
-        getOthersRecruiterDetailApi({uid: options.uid}).then(res => {
-          this.setData({info: res.data, options}, function() {
-            getSelectorQuery('.msg').then(res => {
-              if (res.height > 143) {
-                this.setData({isShrink: true})
-              }
-            })
-          })
-        })
+
+        this.getOthersInfo()
       }
     } else {
       app.pageInit = () => {
+        if (app.globalData.identity === "APPLICANT") {
+          myInfo = app.globalData.resumeInfo
+        } else {
+          myInfo = app.globalData.recruiterDetails
+        }
         if (myInfo.uid === parseInt(options.uid)) {
           this.setData({info: myInfo, isOwner: true})
         } else {
-          getOthersRecruiterDetailApi({uid: options.uid}).then(res => {
-            this.setData({info: res.data, options}, function() {
-              getSelectorQuery('.msg').then(res => {
-                if (res.height > 143) {
-                  this.setData({isShrink: true})
-                }
-              })
-            })
-          })
+          this.getOthersInfo()
         }
       }
     }
-    getPositionListApi({recruiter: options.uid}).then(res => {
-      this.setData({positionList: res.data}, function() {
-        getSelectorQuery(".mainContent .position").then(res => {
-          positionTop = res.top - res.height
-        })
-      })
+  },
+  editJump(e) {
+    let url = ''
+    switch(e.currentTarget.dataset.type) {
+      case 'labels':
+        url = `${COMMON}tabsPage/tabsPage`
+        break
+      case 'profile':
+        url = `${COMMON}tabsPage/tabsPage`
+        break
+      case 'declaration':
+        url = `${COMMON}tabsPage/tabsPage`
+        break
+      case 'addDeclaration':
+        url = `${COMMON}tabsPage/tabsPage`
+        break
+    }
+    wx.navigateTo({
+      url: url
     })
   },
-
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

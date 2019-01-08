@@ -1,5 +1,5 @@
 <!--components/layout/myPicker/myPicker.wxml-->
-<view class="my-class">
+<view class="my-class" style="height: 100%">
   <picker
     class="picker"
     value="{{result}}"
@@ -13,7 +13,7 @@
     <block wx:else>
       <block wx:if="{{result}}">
         <block wx:if="{{pickerType === 'dateTime'}}">
-          <text>{{list[0][result[0]]}}-{{list[1][result[1]]}}-{{list[2][result[2]]}} {{list[3][result[3]]}}:{{list[4][result[4]]}}</text>
+          <view class="showTxt">{{list[0][result[0]]}}-{{list[1][result[1]]}}-{{list[2][result[2]]}} {{list[3][result[3]]}}:{{list[4][result[4]]}}</view>
         </block>
         <block wx:else>
           <block wx:if="{{mode === 'multiSelector'}}">
@@ -26,8 +26,8 @@
             <text wx:if="{{list[0][result[0]] === firstOption && list[1][result[1]] === firstOption}}">{{list[0][result[0]]}}</text>
           </block>
           <block wx:if="{{mode === 'selector'}}">
-            <text wx:if="{{rangeKey}}">{{list[result][rangeKey]}}</text>
-            <text wx:else>{{list[result]}}</text>
+            <view  class="showTxt" wx:if="{{rangeKey}}">{{list[result][rangeKey]}}<i class="iconfont icon-sanjiaoshaixuan triangle" wx:if="isTriangle"></i></view>
+            <view  class="showTxt" wx:else>{{list[result]}}</view>
           </block>
         </block>
       </block>

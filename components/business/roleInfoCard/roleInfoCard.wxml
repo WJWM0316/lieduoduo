@@ -27,7 +27,7 @@
       <view class="name">{{cardData.name}}<text class="msg" wx:if="{{!isMain}}"> · {{cardData.position}}</text></view>
       <view class="detail">{{cardData.companyName}}<text wx:if="{{isMain}}"> | {{cardData.position}}</text></view>
     </view>
-    <i class="editBtn iconfont icon-bianji1" wx:if="{{isMain}}"></i>
+    <i class="editBtn iconfont icon-bianji1" wx:if="{{isMain}}" bindtap="jumpEdit"></i>
     <view class="status" wx:if="{{!isMain}}">邀你面试</view>
     <view></view>
   </view>

@@ -7,7 +7,7 @@
         <text class="tab checked" wx:for="{{choseJobList}}" wx:key="{{index}}" bindtap="choseTab" data-labelType="choseJobList" data-tabData="{{item}}">{{item.name}}</text>
       </view>
       <view class="head head1">职业技能
-        <myPicker class="myPicker" setResult="技术" pickerType="occupation" rangeKey="name" bindresultevent="getresult"></myPicker>
+        <myPicker class="myPicker" isTriangle="{{true}}" setResult="技术" pickerType="occupation" rangeKey="name" bindresultevent="getresult"></myPicker>
       </view>
       <view class="tabs">
         <text class="tab {{item.checked ? 'checked' : ''}}" wx:for="{{skills}}" wx:key="{{index}}" bindtap="choseTab" data-labelType="skills" data-tabData="{{item}}" >{{item.name}}</text>

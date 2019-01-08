@@ -23,6 +23,10 @@ Component({
     needSlot: {
       type: Boolean,
       value: false
+    },
+    isTriangle: {
+      type: Boolean,
+      value: false
     }
   },
 

@@ -27,7 +27,7 @@ App({
     hasLogin: false, // 判断是否登录
     userInfo: '', // 用户信息， 判断是否授权
     navHeight: 0,
-    cdnImagePath: 'https://attach.lieduoduo.ziwork.com/images',
+    cdnImagePath: 'https://lieduoduo-uploads-test.oss-cn-shenzhen.aliyuncs.com/front-assets/images/',
     resumeInfo: {}, // 个人简历信息
     recruiterDetails: {}, // 招聘官详情信息
     systemInfo: wx.getSystemInfoSync() // 系统信息
@@ -107,7 +107,7 @@ App({
     })
   },
   // 授权button 回调
-  onGotUserInfo(e) {
+  onGotUserInfo(e, isNeedUrl) {
     let that = this
     return new Promise((resolve, reject) => {
       if (e.detail.errMsg === 'getUserInfo:ok') {
@@ -143,9 +143,11 @@ App({
                   wx.setStorageSync('sessionToken', res.data.sessionToken)
                 }
                 resolve(res)
-                wx.reLaunch({
-                  url: `/${pageUrl}`
-                })
+                if (!isNeedUrl) {
+                  wx.reLaunch({
+                    url: `/${pageUrl}`
+                  })
+                }
               }).catch(e => {
                 loginNum++
                 if (loginNum < 3) {

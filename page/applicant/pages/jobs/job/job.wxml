@@ -1,5 +1,5 @@
 <view class="applicant-job">
-	<navbar title="猎多多" background="green"></navbar>
+	<navbar title="猎多多" background="#652791" color="#fff"></navbar>
   <view class="header">
     <view class="left">
       <view class="chooseArea">选择地区<i class="icon iconfont icon-zhishibiao"></i></view>
