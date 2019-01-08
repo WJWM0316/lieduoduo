@@ -1,1 +1,14 @@
-/* page/recruiter/pages/position/description/description.wxss */
+.position-description .edit-box {
+	height:460rpx;
+	background:rgba(255,255,255,1);
+}
+
+.position-description .controls {
+	overflow: hidden;
+}
+
+.position-description .controls .view{
+	font-size:24rpx;
+	font-weight:400;
+	color:rgba(101,39,145,1);
+}

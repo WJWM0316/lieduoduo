@@ -25,16 +25,7 @@ Page({
    * @return   {[type]}     [description]
    */
   bindInput(e) {
-    this.setData({keyword: e.detail.value})
-  },
-  /**
-   * @Author   小书包
-   * @DateTime 2018-12-27
-   * @detail   搜索职位名称
-   * @return   {[type]}   [description]
-   */
-  search() {
-    getPositionNameListApi({name: this.data.keyword})
+    getPositionNameListApi({name: e.detail.value})
       .then(res => {
         this.setData({nameLists: res.data})
       })
