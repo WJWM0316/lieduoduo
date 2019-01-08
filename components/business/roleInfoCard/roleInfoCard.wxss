@@ -42,6 +42,13 @@
   font-weight: 400;
   color: #282828;
 }
+.editBtn {
+  position: absolute;
+  top: 45rpx;
+  right: 33rpx;
+  font-size: 30rpx;
+  color: #652791;
+}
 .companyMsg .detail, .applicantMsg .detail, .recruiterMsg .detail {
   margin-top: 14rpx;
   font-size: 26rpx;
@@ -71,6 +78,25 @@
   padding-top: 22rpx;
   padding-bottom: 22rpx;
   padding-right: 176rpx;
+}
+.recruiter.recruiterMain {
+  padding-right: 58rpx;
+}
+.line {
+  width: 610rpx;
+  height: 10rpx;
+  border-radius: 10rpx;
+  display: block;
+  margin: 0 auto;
+}
+.lineTip {
+  width: 100%;
+  text-align: center;
+  font-size: 28rpx;
+  font-weight: 300;
+  color: #282828;
+  line-height: 28rpx;
+  padding: 32rpx 0 40rpx;
 }
 .applicant .img, .recruiter .img {
   width: 120rpx;
