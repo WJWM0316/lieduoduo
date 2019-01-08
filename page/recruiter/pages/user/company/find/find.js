@@ -10,6 +10,7 @@ Page({
   data: {
     company_name: '',
     canClick: false,
+    showMaskBox: false,
     nameList: []
   },
   /**
@@ -72,11 +73,21 @@ Page({
         this.setData({nameList: res.data})
       })
   },
-  submit() {
+  /**
+   * @Author   小书包
+   * @DateTime 2019-01-08
+   * @detail   关闭弹窗
+   * @return   {[type]}   [description]
+   */
+  closeMask() {
     const storage = wx.getStorageSync('createdCompany')
-    if(!this.data.canClick) return;
     storage.company_name = this.data.company_name
     wx.setStorageSync('createdCompany', storage)
-    wx.navigateTo({url: `${RECRUITER}user/company/post/post`})
+    wx.redirectTo({url: `${RECRUITER}user/company/post/post`})
+    this.setData({showMaskBox: false})
+  },
+  submit() {
+    if(!this.data.canClick) return;
+    this.setData({showMaskBox: true})
   }
 })

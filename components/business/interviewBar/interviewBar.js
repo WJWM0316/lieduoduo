@@ -175,11 +175,16 @@ Component({
           break
         // 招聘官拒绝求职者
         case 'recruiter-reject':
-          refuseInterviewApi({id: interviewInfos.data[0].interviewId})
-            .then(res => {
-              this.getInterviewStatus()
-              this.triggerEvent('resultevent', res)
-            })
+          if(interviewInfos.data.length > 1) {
+            wx.navigateTo({url: `${RECRUITER}position/jobList/jobList?type=reject_chat`})
+            wx.setStorageSync('interviewChatLists', this.data.interviewInfos)
+          } else {
+            refuseInterviewApi({id: interviewInfos.data[0].interviewId})
+              .then(res => {
+                this.getInterviewStatus()
+                this.triggerEvent('resultevent', res)
+              })
+          }
           break
         // 招聘管编辑职位
         case 'recruiter-edit':

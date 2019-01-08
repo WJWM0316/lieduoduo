@@ -62,7 +62,7 @@ Page({
     createCompanyApi(formData)
       .then(res => {
         app.wxToast({title: res.msg})
-        wx.navigateTo({url: `${RECRUITER}user/company/identity/identity`})
+        wx.redirectTo({url: `${RECRUITER}user/company/identity/identity`})
         wx.removeStorageSync('createdCompany')
       })
       .catch(err => {

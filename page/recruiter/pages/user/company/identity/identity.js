@@ -10,11 +10,14 @@ Page({
   data: {
     real_name: '',
     identity_num: '',
-    validity: '10',
+    validity: '',
     passport_front: {
       smallUrl: ''
     },
     passport_reverse: {
+      smallUrl: ''
+    },
+    handheld_passport: {
       smallUrl: ''
     },
     canClick: false
@@ -101,6 +104,7 @@ Page({
     formData.identity_num = this.data.identity_num
     formData.passport_front = this.data.passport_front.id
     formData.passport_reverse = this.data.passport_reverse.id
+    formData.handheld_passport = this.data.handheld_passport.id
     if(this.data.validity) formData.validity = this.data.validity
     return formData
   },
