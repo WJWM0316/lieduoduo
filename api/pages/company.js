@@ -149,7 +149,7 @@ export const deleteCompanyProductInfosApi = (data, hasLoading) => {
 export const getCompanyIdentityInfosApi = (data, hasLoading) => {
   return request({
     method: 'get',
-    url: `/company/identity/${data.id}`,
+    url: `/company/identity`,
     hasLoading: true
   })
 }
