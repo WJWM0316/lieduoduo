@@ -37,17 +37,27 @@ Page({
     this.init(id)
   },
   init (options) {
-    console.log('求职端')
-    if (resumeInfo) {
-      this.setData({
-        info: resumeInfo
-      })
+    if (wx.getStorageSync('choseType') === 'APPLICANT') {
+      console.log('求职端')
+      if (resumeInfo) {
+        this.setData({
+          info: resumeInfo
+        })
+      } else {
+        getPersonalResumeApi(options).then(res => {
+          this.setData({
+            info: res.data
+          })
+          console.log(this.data.info, "个人信息")
+        })
+      }
     } else {
+      console.log('招聘端')
       getPersonalResumeApi(options).then(res => {
         this.setData({
           info: res.data
         })
-        console.log(this.data.info, "个人信息")
+        console.log(this.data.info)
       })
     }
   },
