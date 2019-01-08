@@ -16,7 +16,7 @@
 					<view class="second">{{slogoList[slogoIndex].text}}</view>
 				</view>
 				<view class="button-box button-box-color1">
-					<view bindtap="todoAction" data-type="c-chat">开撩约面</view>
+					<view bindtap="todoAction" data-action="job-hunting-chat">开撩约面</view>
 				</view>
 			</block>
 			<!-- 求职者还没有发起开撩动作 end-->
@@ -28,7 +28,7 @@
 					<view class="second">待确认申请</view>
 				</view>
 				<view class="button-box button-box-color2">
-					<view bindtap="todoAction" data-type="c-pedding">已申请面试</view>
+					<view bindtap="todoAction" data-action="job-hunting-applyed">已申请面试</view>
 				</view>
 			</block>
 			<!-- 求职者已经发起开撩动作 end-->
@@ -40,7 +40,7 @@
 					<view class="second">已确认申请</view>
 				</view>
 				<view class="button-box button-box-color2">
-					<view bindtap="todoAction" data-type="waiting-interview">待安排面试</view>
+					<view bindtap="todoAction" data-action="job-hunting-waiting-interview">待安排面试</view>
 				</view>
 			</block>
 			<!-- 求职者等待招聘官安排面试 end-->
@@ -52,7 +52,7 @@
 					<view class="second">已安排面试</view>
 				</view>
 				<view class="button-box button-box-color3">
-					<view bindtap="todoAction" data-type="detail">查看面试详情</view>
+					<view bindtap="todoAction" data-action="job-hunting-view-detail">查看面试详情</view>
 				</view>
 			</block>
 			<!-- 求职者等待招聘管修改信息 end-->
@@ -76,8 +76,8 @@
 					<view class="second">邀请你面试</view>
 				</view>
 				<view class="button-box">
-					<view class="reject" data-type="c-reject" bindtap="todoAction">暂不考虑</view>
-					<view class="accept" data-type="accept" bindtap="todoAction">接受约面</view>
+					<view class="reject" data-action="job-hunting-reject" bindtap="todoAction">暂不考虑</view>
+					<view class="accept" data-action="job-hunting-accept" bindtap="todoAction">接受约面</view>
 				</view>
 			</block>
 			<!-- 求职者已经已收到招聘官的邀请 end-->
@@ -94,7 +94,7 @@
 					<view class="second">我一直在等一个懂我的老大</view>
 				</view>
 				<view class="button-box">
-					<view class="accept" data-type="b-accept" bindtap="todoAction">确认约面</view>
+					<view class="accept" data-action="recruiter-accept" bindtap="todoAction">确认约面</view>
 				</view>
 			</block>
 			<!-- 求职端已开启撩 招聘端可接受可拒绝 end-->
@@ -106,7 +106,7 @@
 					<view class="second">我一直在等一个懂我的老大</view>
 				</view>
 				<view class="button-box">
-					<view class="accept" data-type="b-chat" bindtap="todoAction">开撩约面</view>
+					<view class="accept" data-action="recruiter-chat" bindtap="todoAction">开撩约面</view>
 				</view>
 			</block>
 			<!-- 招聘端主动发起开料 end-->
@@ -117,7 +117,7 @@
 					<view class="second">待求职者确认</view>
 				</view>
 				<view class="button-box button-box-color2">
-					<view data-type="b-pedding" bindtap="todoAction">待求职者确认</view>
+					<view data-action="recruiter-pedding" bindtap="todoAction">待求职者确认</view>
 				</view>
 			</block>
 			
@@ -127,7 +127,7 @@
 					<view class="second">已发起面试</view>
 				</view>
 				<view class="button-box button-box-color2">
-					<view data-type="b-apply" bindtap="todoAction">已发起面试</view>
+					<view data-action="recruiter-apply" bindtap="todoAction">已发起面试</view>
 				</view>
 			</block>
 
@@ -137,8 +137,8 @@
 					<view class="second">求职者已经同意</view>
 				</view>
 				<view class="button-box button-box-color2">
-					<view class="reject" data-type="b-reject" bindtap="todoAction">不合适</view>
-					<view data-type="b-change" class="accept" bindtap="todoAction">安排面试</view>
+					<view class="reject" data-action="recruiter-reject" bindtap="todoAction">不合适</view>
+					<view data-action="recruiter-arrangement" class="accept" bindtap="todoAction">安排面试</view>
 				</view>
 			</block>
 
@@ -155,11 +155,10 @@
 		</block>
 		<!-- 招聘端 -->
 	</block>
-	
 	<!-- 是我自己发布的职位 start-->
 	<block wx:elif="{{isOwerner && identity === 'APPLICANT'}}">
-		<view class="edit-button" data-type="edit" bindtap="todoAction">编辑</view>
-		<view class="switch-button" bindtap="todoAction" data-type="{{infos.status === 0 ? 'open' : 'close'}}">
+		<view class="edit-button" data-action="recruiter-edit" bindtap="todoAction">编辑</view>
+		<view class="switch-button" bindtap="todoAction" data-action="{{infos.status === 0 ? 'open' : 'close'}}">
 			{{infos.status === 0 ? '开放职位' : '关闭职位'}}
 		</view>
 	</block>

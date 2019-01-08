@@ -1,19 +1,28 @@
 <view class="search-company-page">
-	<navbar title="输入公司全名称" background="#FFFFFF" color="#22292C" showBackBtn="{{true}}"></navbar>
+	<navbar title="输入公司全名称" background="#FFFFFF" color="#22292C"></navbar>
+	<view class="page-header">
+		<view class="h1">我们需要确认您的公司信息</view>
+		<view class="h2">如果公司已经注册，可直接查找公司信息</view>
+		<view class="p">1、请输入营业执照上的的公司全称</view>
+		<view class="p">2、请注意区分总公司和分公司</view>
+		<view class="p">  3、公司名称将用于后续公司认证使用，请确保准确性</view>
+	</view>
 	<form bindsubmit="submit">
-		<view class="input-row">
-			<input class="company-name" placeholder="请输入所属公司营业执照上的公司全称" bindinput="bindInput" value="{{company_name}}" />
-			<view class="btn-search" bindtap="search">搜索</view>
+		<view class="input-li clear-bottom">
+			<input placeholder="请输入所属公司营业执照上的公司全称" bindinput="bindInput" value="{{company_name}}" />
 		</view>
-		<view class="company-list-ul" wx:if="{{nameList.length > 0}}">
+		<view class="example">示例：广州老虎信息科技有限公司</view>
+		<view class="ul" wx:if="{{nameList.length > 0}}">
 			<view
 			class="li"
 			bindtap="selectCompany"
 			data-name="{{item.companyName}}"
 			wx:for="{{ nameList }}"
 			wx:for-item="item"
-			wx:key="{{index}}">{{item.companyName}}</view>
+			wx:key="{{index}}">
+				<rich-text nodes="{{item.html}}"></rich-text>
+			</view>
 		</view>
-		<button form-type="submit" class="{{canClick ? 'button-enable' : ''}}">下一步</button>
+		<button form-type="submit" class="button-submit {{canClick ? 'button-enable' : ''}}">下一步</button>
 	</form>
 </view>

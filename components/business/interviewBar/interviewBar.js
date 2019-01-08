@@ -96,9 +96,9 @@ Component({
      * @return   {[type]}     [description]
      */
     todoAction(e) {
-      const type = e.currentTarget.dataset.type
+      const action = e.currentTarget.dataset.action
       const interviewInfos = this.data.interviewInfos
-      switch(type) {
+      switch(action) {
         case 'open':
           openPositionApi({id: this.data.infos.id})
             .then(res => {
@@ -111,7 +111,8 @@ Component({
               this.triggerEvent('resultevent', res)
             })
           break
-        case 'c-chat':
+        // 求职端发起开撩
+        case 'job-hunting-chat':
           let uid = ''
           let positionId = ''
           let params = {}
@@ -131,13 +132,13 @@ Component({
               this.triggerEvent('resultevent', res)
             })
           break
-        case 'c-pedding':
+        case 'job-hunting-applyed':
           app.wxToast({title: '等待面试官处理'})
           break
-        case 'b-chat':
+        case 'recruiter-chat':
           wx.navigateTo({url: `${RECRUITER}position/jobList/jobList?type=chat&jobhunterUid=${this.data.infos.uid}&recruiterUid=${app.globalData.recruiterDetails.uid}`})
           break
-        case 'waiting-interview':
+        case 'job-hunting-waiting-interview':
           app.wxToast({title: '等待招聘官安排面试'})
           break
         // 求职者等待招聘管确认
@@ -145,7 +146,7 @@ Component({
           app.wxToast({title: '等待求职者确认'})
           break
         // 求职者接受约面
-        case 'accept':
+        case 'job-hunting-accept':
           confirmInterviewApi({id: interviewInfos.data[0].interviewId})
             .then(res => {
               app.wxToast({title: '已接受约面'})
@@ -153,8 +154,8 @@ Component({
               this.getInterviewStatus()
             })
           break
-        // C端拒绝招聘官
-        case 'c-reject':
+        // 求职端拒绝招聘官
+        case 'job-hunting-reject':
           app.wxConfirm({
             title: '暂不考虑该职位',
             content: '确定暂不考虑后，招聘官将终止这次约面流程',
@@ -173,7 +174,7 @@ Component({
           })
           break
         // 招聘官拒绝求职者
-        case 'b-reject':
+        case 'recruiter-reject':
           refuseInterviewApi({id: interviewInfos.data[0].interviewId})
             .then(res => {
               this.getInterviewStatus()
@@ -181,15 +182,15 @@ Component({
             })
           break
         // 招聘管编辑职位
-        case 'edit':
+        case 'recruiter-edit':
           wx.navigateTo({url: `${RECRUITER}position/post/post?positionId=${this.data.infos.id}`})
           break
         // 求职者查看面试详情
-        case 'detail':
+        case 'job-hunting-view-detail':
           wx.navigateTo({url: `${COMMON}arrangement/arrangement?id=${interviewInfos.data[0].interviewId}`})
           break
         // B端开撩成功后跳转安排面试页面
-        case 'b-accept':
+        case 'recruiter-accept':
           if(interviewInfos.data.length > 1) {
             wx.navigateTo({url: `${RECRUITER}position/jobList/jobList?type=confirm_chat`})
             wx.setStorageSync('interviewChatLists', this.data.interviewInfos)
@@ -202,13 +203,13 @@ Component({
           }
           break
         // 待求职者确认
-        case 'b-pedding':
+        case 'iter-pedding':
           app.wxToast({title: '面试申请已发送'})
           break
-        case 'b-apply':
+        case 'recruiter-apply':
           app.wxToast({title: '面试申请已发送'})
           break
-        case 'b-change':
+        case 'recruiter-arrangement':
           wx.navigateTo({url: `${COMMON}arrangement/arrangement?id=${interviewInfos.data[0].interviewId}`})
           break
         default:

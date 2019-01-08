@@ -1,12 +1,93 @@
-.mini-input-row {
-	overflow: hidden;
-	height: 200rpx;
+
+.company-upload .warning {
+	height:80rpx;
+	background:rgba(255,252,240,1);
+	line-height: 80rpx;
+	font-size:28rpx;
+	font-weight:300;
+	color:rgba(255,127,77,1);
+	padding: 0 40rpx;
 }
 
-.mini-input-row image {
-	height: 100rpx;
+.company-upload .upload-li {
+	padding: 56rpx 40rpx 0 40rpx;
+	background: white;
+	margin-bottom: 24rpx;
+	overflow: hidden;
+}
+
+.company-upload .upload-li .h1{
+	font-size:36rpx;
+	font-weight:bold;
+	color:rgba(40,40,40,1);
+	line-height: 1;
+	margin-bottom: 15rpx;
+}
+
+.company-upload .upload-li .p{
+	font-size:26rpx;
+	font-weight:400;
+	color:rgba(146,146,146,1);
+	line-height: 1.8
+}
+
+.company-upload .upload-box {
+	height:380rpx;
+	background:#FAFCFF;
+	border-radius:10rpx;
+	border:2rpx dotted #CED7DC;
+	margin: 32rpx auto;
+	font-size:28rpx;
+	font-weight:400;
+	color:rgba(188,188,188,1);
+	text-align: center;
+	position: relative;
+	overflow: hidden;
+}
+
+.company-upload image {
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+}
+
+.company-upload .replace-image {
+	position: absolute;
+	right: 30rpx;
+	bottom: 24rpx;
+	font-size:28rpx;
+	font-weight:400;
+	color:rgba(255,255,255,1);
+}
+
+.company-upload .icon-box {
+	width:92rpx;
+	height:92rpx;
+	background:white;
+	border: 8rpx solid rgba(232,233,235,1);
+	box-sizing: border-box;
+	border-radius: 50%;
+	display: inline-block;
+	font-weight: 700;
+	font-size: 55rpx;
+	color: rgba(232,233,235,1);
+	margin: 124rpx auto 10rpx auto;
 }
 
 .button-enable {
 	background: green;
+}
+
+.button-submit {
+	background: green;
+	height:88rpx;
+	background:rgba(101,39,145,1);
+	box-shadow:0rpx 20rpx 18rpx 0rpx rgba(101,39,145,0.2);
+	border-radius:48rpx;
+	margin: 60rpx 100rpx;
+	font-size:32rpx;
+	font-weight:400;
+	color:rgba(255,255,255,1);
 }

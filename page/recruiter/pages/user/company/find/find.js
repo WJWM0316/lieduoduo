@@ -31,7 +31,13 @@ Page({
    * @return   {[type]}     [description]
    */
   bindInput(e) {
-    this.setData({company_name: e.detail.value})
+    const name = e.detail.value
+    getCompanyNameListApi({name})
+      .then(res => {
+        const nameList = res.data
+        nameList.map(field => field.html = field.companyName)
+        this.setData({nameList})
+      })
   },
   /**
    * @Author   小书包

@@ -16,5 +16,5 @@
     </label>
   </radio-group>
 
-  <view class="edit-button"></view>
+  <view class="edit-button"><i class="icon iconfont icon-bianji"></i></view>
 </view>
