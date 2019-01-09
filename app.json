@@ -87,8 +87,6 @@
         "pages/position/addressList/addressList",
         "pages/position/skills/skills",
         "pages/user/mine/infos/infos",
-        "pages/user/mine/update/update",
-        "pages/user/mine/declaration/declaration",
         "pages/user/company/apply/apply",
         "pages/user/company/find/find",
         "pages/user/company/post/post",
@@ -99,10 +97,13 @@
         "pages/user/company/infos/infos",
         "pages/user/company/member/member",
         "pages/user/company/homepage/homepage",
-        "pages/user/company/features/features",
         "pages/user/userInfoEdit/userInfoEdit",
+        "pages/user/editBrief/editBrief",
+        "pages/user/editDeclaration/editDeclaration",
+        "pages/user/chooseTopic/chooseTopic",
         "pages/detail/position/position",
-        "pages/test/test"
+        "pages/test/test",
+        "pages/company/indexEdit/indexEdit"
       ]
     }
   ],

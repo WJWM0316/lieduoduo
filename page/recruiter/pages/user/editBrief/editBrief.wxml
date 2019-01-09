@@ -1,0 +1,16 @@
+<viwe class="editBrief">
+	 <navBar title="基本资料" background="#fff" color="#22292C"></navBar>
+	 <view class="textBox">
+	 	<textarea bindinput="changeVal" class="textarea" maxlength="5000" placeholder="描述你的个人经历或成就" value="{{content}}"></textarea>
+	 	<view class="tip">
+	 		<view class="look">
+	 			<i class="icon iconfont icon-chakan"></i>
+	 			看看别人怎么写
+	 		</view>
+	 		<view class="number">{{content.length}}/5000</view>
+	 	</view>
+	 </view>
+	 <view class="btnBox">
+	 		<button class="btn" bindtap="saveInfo">保存</button>
+	 </view>
+</viwe>

@@ -91,3 +91,14 @@ export const getLabelFieldApi = (data, hasLoading) => {
     hasLoading: false
   })
 }
+
+
+// 删除附件
+export const removeFileApi = (data, hasLoading) => {
+  return request({
+    method: 'delete',
+    url: `/attaches/${data.id}`,
+    data,
+    hasLoading: false
+  })
+}

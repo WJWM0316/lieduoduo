@@ -15,100 +15,90 @@ Page({
    */
   data: {
     items: [],
-    options: {}
+    options: {},
+    identity: ''
   },
-
-  /**
-   * 生命周期函数--监听页面加载
-   */
   onLoad(options) {
+    this.setData({identity: wx.getStorageSync('choseType')})
     const storage = wx.getStorageSync('interviewChatLists')
-    let data = {
-      recruiter: options.recruiterUid
-    }
     if(storage) {
       this.setData({items: storage.data, options})
       return;
     }
-    getPositionListApi(data).then(res => {
+    getPositionListApi({recruiter: options.recruiterUid}).then(res => {
       this.setData({items: res.data, options})
     })
   },
   radioChange(e) {
-    let data = wx.getStorageSync('interviewData') || {}
-    let job = e.detail.value.split(' ')
+    const data = wx.getStorageSync('interviewData') || {}
+    const job = e.detail.value.split(' ')
+    const params = {}
     data.positionName = job[0]
     data.positionId = job[1]
-    wx.setStorageSync('interviewData', data)
-    if(this.data.options.type === 'chat') {
-      applyInterviewApi({jobhunterUid: this.data.options.jobhunterUid, positionId: job[1]})
-        .then(res => {
-          wx.navigateTo({
-            url: `${COMMON}resumeDetail/resumeDetail?uid=${this.data.options.jobhunterUid}`
-          })
-        })
-    } else if(this.data.options.type === 'confirm_chat') {
-      confirmInterviewApi({id: job[1]})
-        .then(res => {
-          wx.navigateBack({delta: 1})
-         wx.removeStorageSync('interviewChatLists')
-        })
-    } else if(this.data.options.type === 'reject_chat') {
-      refuseInterviewApi({id: job[1]})
-        .then(res => {
-          wx.navigateBack({delta: 1})
-         wx.removeStorageSync('interviewChatLists')
-        })
-    } else {
-      wx.navigateBack({delta: 1})
+    switch(this.data.options.type) {
+      case 'recruiter_chat':
+        params.jobhunterUid = this.data.options
+        params.positionId = job[1]
+        this.applyInterview(params)
+        break
+      case 'job_hunting_chat':
+        params.recruiterUid = this.data.options.recruiterUid
+        if(job[1] !== 'person') params.positionId = job[1]
+        this.applyInterview(params)
+        break
+      case 'confirm_chat':
+        params.id = job[1]
+        this.confirmInterview(params)
+        break
+      case 'reject_chat':
+        params.id = job[1]
+        this.refuseInterview(params)
+        break
+      default:
+        wx.setStorageSync('interviewData', data)
+        wx.navigateBack({delta: 1})
+        break
     }
   },
   /**
-   * 生命周期函数--监听页面初次渲染完成
+   * @Author   小书包
+   * @DateTime 2019-01-09
+   * @detail   开撩
+   * @return   {[type]}          [description]
    */
-  onReady: function () {
-
+  applyInterview(params) {
+    applyInterviewApi(params)
+      .then(res => {
+        wx.navigateBack({delta: 1})
+        // wx.navigateTo({
+        //   url: `${COMMON}${this.data.options.from}/${this.data.options.from}?uid=${this.data.options.jobhunterUid}`
+        // })
+      })
   },
-
   /**
-   * 生命周期函数--监听页面显示
+   * @Author   小书包
+   * @DateTime 2019-01-09
+   * @detail   接受约面
+   * @return   {[type]}          [description]
    */
-  onShow: function () {
-
+  confirmInterview(params) {
+    confirmInterviewApi(params)
+      .then(res => {
+       wx.removeStorageSync('interviewChatLists')
+       wx.navigateTo({url: `${COMMON}arrangement/arrangement?id=${params.id}`})
+      })
   },
-
   /**
-   * 生命周期函数--监听页面隐藏
+   * @Author   小书包
+   * @DateTime 2019-01-09
+   * @detail   拒绝开撩
+   * @return   {[type]}          [description]
    */
-  onHide: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
+  refuseInterview(params) {
+    refuseInterviewApi(params)
+      .then(res => {
+        wx.navigateBack({delta: 1})
+       wx.removeStorageSync('interviewChatLists')
+      })
   }
 })

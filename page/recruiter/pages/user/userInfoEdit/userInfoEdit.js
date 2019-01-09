@@ -1,4 +1,7 @@
 import {saveRecruiterInfoApi} from '../../../../../api/pages/recruiter.js'
+import {removeFileApi} from '../../../../../api/pages/common.js'
+let userInfo = null
+let app = getApp()
 Page({
 
   /**
@@ -18,6 +21,17 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    userInfo = app.globalData.recruiterDetails
+    this.setData({
+      userName: userInfo.name,
+      gender: userInfo.gender,
+      position: userInfo.position,
+      email: userInfo.email,
+      wechat: userInfo.wechat,
+      gender: userInfo.gender,
+      signature: userInfo.signature,
+      picList: [userInfo.avatar]
+    })
   },
   jumpLabel() {
     wx.navigateTo({
@@ -52,6 +66,16 @@ Page({
   },
   singInput(e) {
     this.setData({signature: e.detail.value})
+  },
+  removeFile(e) {
+    let data = {
+      id: e.currentTarget.dataset.id
+    }
+    removeFileApi(data).then(res => {
+      let picList = this.data.picList
+      picList.splice(e.currentTarget.dataset.index, 1)
+      this.setData({picList})
+    })
   },
   saveInfo() {
     let info = this.data

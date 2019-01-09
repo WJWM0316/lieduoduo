@@ -67,3 +67,40 @@ export const getBrowseMySelfListsApi = (data) => {
     hasLoading: true
   })
 }
+
+// 设置招聘官个人简介
+export const setBriefApi = (data) => {
+  return request({
+    url: `/recruiter/brief`,
+    method: 'post',
+    data,
+    hasLoading: true
+  })
+}
+// 设置招聘官宣言
+export const setManifestoApi = (data) => {
+  return request({
+    url: `/recruiter/manifesto`,
+    method: 'post',
+    data,
+    hasLoading: true
+  })
+}
+// 获取话题
+export const getTopicListApi = (data) => {
+  return request({
+    url: `/manifesto/topicList`,
+    method: 'get',
+    data,
+    hasLoading: true
+  })
+}
+// 删除宣言
+export const removeTopicApi = (data) => {
+  return request({
+    url: `/recruiter/manifesto/${data.id}`,
+    method: 'delete',
+    data,
+    hasLoading: true
+  })
+}

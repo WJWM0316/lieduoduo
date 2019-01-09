@@ -1,20 +1,75 @@
-<view class="jpbList">
-  <navbar></navbar>
-  <radio-group class="radio-group" bindchange="radioChange">
+<view class="job-list">
+  <navbar title="{{pageTitle}}" background="#FFFFFF" color="#22292C"></navbar>
+  <block wx:if="{{identity === 'RECRUITER' && options.type === 'confirm_chat'}}">
+    <view class="h1">请选择约面</view>
+    <view class="p">确认选择后，候选人其他申请记录将自动合并处理，不需要再单独处理；面试最终确认前，你可以随时与候选人沟通更改面试职位</view>
+  </block>
+  <block  wx:if="{{identity === 'RECRUITER' && options.type === 'reject_chat'}}">
+    <view class="h1">不适合约面</view>
+    <view class="p">确认选择后，该候选人其他申请记录将自动合并处理，不需要再单独处理</view>
+  </block>
+
+  <radio-group bindchange="radioChange">
+    
+    <label class="radio"  wx:if="{{identity === 'RECRUITER' && options.type === 'reject_chat'}}">
+      <view class="li clear-bottom">
+        <view class="content unsuitable">都不合适</view>
+        <view class="radio-box">
+          <radio
+            class="radioBtn"
+            value="{{item.positionName}} {{item.id || item.interviewId}}"
+            checked="{{item.checked}}"
+            color="#652791"
+            data-name="{{item.positionName}}"
+            data-id="{{item.id || item.interviewId}}"
+            data-interview-id="{{item.interviewId}}" />
+        </view>
+      </view>
+    </label>
+
+    <view class="example"  wx:if="{{identity === 'RECRUITER' && options.type === 'reject_chat'}}">以下是候选人的申请记录，请选择一个进行约面</view>
+
+    <label class="radio" wx:if="{{options.showNotPositionApply === '1'}}">
+      <view class="li">
+        <view class="content chat-me">直接与我约面</view>
+        <view class="radio-box">
+          <radio
+            class="radioBtn"
+            value="{{'直接与我约面'}} {{'person'}}"
+            checked="{{item.checked}}"
+            color="#652791"
+            data-interview-id="{{item.interviewId}}" />
+        </view>
+      </view>
+    </label>
+
     <label class="radio" wx:for="{{items}}" wx:key="{{index}}">
-      <view class="inner">
-        <view class="item">
-          <view class="title"><text class="txt1">{{item.positionName}}</text> <text class="txt2">{{item.emolumentMin}}~{{item.emolumentMax}}k</text></view>
+      <view class="li">
+        <view class="content">
+          <view class="title">
+            <text class="txt1">{{item.positionName}}</text>
+            <text class="txt2">{{item.emolumentMin}}~{{item.emolumentMax}}k</text>
+          </view>
           <view class="labels">
             <text class="txt">{{item.city}}{{item.district}}</text>
             <text class="txt">{{item.workExperienceName}}</text>
             <text class="txt">{{item.educationName}}</text>
           </view>
-          <radio class="radioBtn" value="{{item.positionName}} {{item.id || item.interviewId}}" checked="{{item.checked}}" color="#652791" data-interview-id="{{item.interviewId}}" />
+        </view>
+        <view class="status-box" wx:if="{{!item.status}}"> 该职位已关闭 </view>
+        <view class="apply" wx:if="{{item.isApply === 11}}"> 已申请 </view>
+        <view class="radio-box">
+          <radio
+            class="radioBtn"
+            value="{{item.positionName}} {{item.id || item.interviewId}}"
+            checked="{{item.checked}}"
+            color="#652791"
+            data-name="{{item.positionName}}"
+            data-id="{{item.id || item.interviewId}}"
+            data-interview-id="{{item.interviewId}}" />
         </view>
       </view>
     </label>
   </radio-group>
-
-  <view class="edit-button"><i class="icon iconfont icon-bianji"></i></view>
+  <view class="edit-button"  wx:if="{{identity === 'RECRUITER'}}"><i class="icon iconfont icon-bianji"></i></view>
 </view>

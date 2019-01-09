@@ -1,49 +1,66 @@
-.jobList {
-  background: #F5F5F9;
-  min-height: 100vh;
-}
-.radio-group {
-  margin-top: 25rpx;
-  background: #fff;
+.job-list .li {
+  padding: 35rpx 0 35rpx 40rpx;
+  position: relative;
+  box-sizing: border-box;
+  background: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 148rpx;
 }
 
-.inner {
-  padding: 0 0 0 40rpx;
+.job-list .content {
+  flex: 1;
 }
-.item {
-  padding: 35rpx 32rpx 32rpx 0;
-  border-bottom: 1rpx solid #E8E9EB;
+
+.job-list .radio-box {
+  width: 102rpx;
   position: relative;
+  text-align: center;
 }
-.radio-group .radio:last-child .item {
+
+.job-list .li:after {
+  content: '';
+  display: block;
+  height: 1px;
+  left: 40rpx;
+  right: 0;
+  background: #E8E9EB;
+  position: absolute;
+  bottom: 0;
+}
+
+.job-list label:last-child .li:after, .job-list .clear-bottom:after {
+  display: none;
+}
+
+.job-list .radio:last-child .item {
   border: none;
 }
-.title {
+
+.job-list .title {
   font-size: 28rpx;
   font-weight: 500;
   color: #626262;
   line-height: 32rpx;
 }
-.title .txt1 {
+
+.job-list .title .txt1 {
   max-width: 510rpx;
   overflow: hidden;
   text-overflow:ellipsis;
   white-space: nowrap;
+  font-size:28rpx;
+  font-weight:500;
+  color:rgba(40,40,40,1);
 }
-.title .txt2 {
-}
-.radioBtn {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%) scale(0.8);
-  right: 40rpx;
-  display: inline-block;
-}
-.labels {
+
+.job-list .labels {
   margin-top: 15rpx;
   font-size: 0;
 }
-.labels .txt {
+
+.job-list .labels .txt {
   height: 34rpx;
   line-height: 34rpx;
   padding: 0 12rpx;
@@ -55,7 +72,7 @@
   border-radius: 4rpx;
 }
 
-.edit-button {
+.job-list .edit-button {
   border-radius: 50%;
   background: white;
   position: fixed;
@@ -66,4 +83,57 @@
   height:80rpx;
   background:rgba(255,255,255,1);
   box-shadow:0rpx 4rpx 14rpx 0rpx rgba(40,120,255,0.26);
+}
+
+.job-list .h1 {
+  font-size:36rpx;
+  font-weight:bold;
+  color:rgba(40,40,40,1);
+  background: white;
+  line-height: 1;
+  padding: 56rpx 40rpx 16rpx 40rpx;
+}
+
+.job-list .p {
+  font-size:26rpx;
+  font-weight:400;
+  color:rgba(98,98,98,1);
+  line-height: 1.8;
+  background: white;
+  padding: 0rpx 40rpx 30rpx 40rpx;
+  margin-bottom: 24rpx;
+}
+
+.job-list .status-box {
+  font-size:24rpx;
+  font-weight:400;
+  color:rgba(146,146,146,1);
+  position: relative;
+}
+
+.job-list .apply {
+  font-size:24rpx;
+  font-weight:400;
+  color:rgba(146,146,146,1);
+  position: relative;
+}
+
+.job-list .chat-me {
+  font-size:28rpx;
+  font-weight:500;
+  color:rgba(40,40,40,1);
+}
+
+.job-list .unsuitable {
+  font-size:28rpx;
+  font-weight:bold;
+  color:rgba(132,82,167,1);
+}
+
+.job-list .example {
+  font-size:26rpx;
+  font-weight:400;
+  color:rgba(92,86,93,1);
+  line-height: 90rpx;
+  padding: 0 40rpx;
 }

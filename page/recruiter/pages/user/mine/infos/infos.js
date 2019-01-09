@@ -42,15 +42,13 @@ Page({
     const route = e.currentTarget.dataset.route
     switch(route) {
       case 'company':
-        wx.navigateTo({url: `${RECRUITER}user/company/infos/infos?companyId=${this.data.recruiterInfo.companyId}`})
+        wx.navigateTo({url: `${RECRUITER}company/indexEdit/indexEdit`})
         break
       case 'base':
         wx.navigateTo({url: `${RECRUITER}user/mine/base/base`})
         break
-      case 'certification':
-        if(!this.data.isRecruiter) {
-          wx.navigateTo({url: `${RECRUITER}user/company/apply/apply`})
-        }
+      case 'identity':
+        wx.navigateTo({url: `${RECRUITER}user/company/status/status?page=identity`})
         break
       default:
         break

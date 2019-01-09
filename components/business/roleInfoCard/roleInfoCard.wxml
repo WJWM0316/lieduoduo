@@ -1,11 +1,15 @@
 <view class="my-class">
   <view class="company" wx:if="{{roleType === 'company'}}" bindtap="jumpCompany">
     <image class="img" src="{{cardData.avatar.middleUrl}}"></image>
-    <view class="companyMsg">
+    <view class="companyMsg" wx:if="{{!isMain}}">
       <view class="name">{{cardData.name}}</view>
       <view class="detail">{{cardData.industry}} · {{cardData.financingDesc}} · {{cardData.employeesDesc}}</view>
     </view>
-    <icon class="icon iconfont icon-xiangyou"></icon>
+    <view class="companyMsg" wx:else>
+      <view class="name">{{cardData.companyShortname}}</view>
+      <view class="detail">{{cardData.companyName}}</view>
+    </view>
+    <icon class="icon iconfont icon-xiangyou" wx:if="{{!isMain}}"></icon>
   </view>
   <block  wx:if="{{roleType === 'applicant'}}">
     <view class="applicant" bindtap="jumpApplicant">
@@ -31,6 +35,6 @@
     <view class="status" wx:if="{{!isMain}}">邀你面试</view>
     <view></view>
   </view>
-  <image class="line" src="../../../images/line.png"></image>
-  <view class="lineTip">“ 认真负责的产品旺，我是谁？我在哪里？</view>
+  <image wx:if="{{roleType === 'recruiter' && isMain}}" class="line" src="../../../images/line.png"></image>
+  <view wx:if="{{roleType === 'recruiter' && isMain}}" class="lineTip">{{cardData.signature}}</view>
 </view>

@@ -1,5 +1,5 @@
 <view class="company-identity-status">
-	<navbar title="审核通知" background="#FFFFFF" color="#22292C"></navbar>
+	<navbar title="{{pageTitle}}" background="#FFFFFF" color="#22292C"></navbar>
 	<view class="header">
 		<image src="../../../../../../images/pic_await.png" mode="scaleToFill" class="default-status"></image>
 		<block wx:if="{{identityInfos.status === 0}}">
@@ -35,7 +35,7 @@
 		</block>
 	</view>
 	<block wx:if="{{identityInfos.status !== 1}}">
-		<view class="section">
+		<view class="section" wx:if="{{page === 'company'}}">
 			<view class="title">
 				<view class="label">您的公司信息</view>
 				<view class="jump" bindtap="todoAction" data-action="modifyCompany">申请信息有误？去更改</view>
@@ -67,7 +67,7 @@
 				</view>
 			</view>
 		</view>
-		<view class="section">
+		<view class="section" wx:if="{{page === 'identity'}}">
 			<view class="title">
 				<view class="label">您的身份信息</view>
 				<view class="jump" bindtap="todoAction" data-action="modifyIdentity">申请信息有误？去更改</view>
@@ -110,8 +110,5 @@
 			</view>
 		</view>
 	</block>
-	<view class="tab-box">
-  	<view class="item column-line">换个账号试试</view>
-  	<view class="item" bindtap="changeIdentity">前往求职者星球</view>
-  </view>
+	<changeIdentity></changeIdentity>
 </view>

@@ -2,12 +2,12 @@
   <navbar title="{{title}}" customBack bindbackEvent="back"></navbar>
   <block>
     <view class="content"  hidden="{{pageType !== 'job'}}">
-      <view class="head">已选择标签<text class="number"><text class="num">{{jobChoseNum}}</text>/5</text></view>
+      <view class="head">已选择标签<text class="number"><text class="num">{{choseJobList.length}}</text>/5</text></view>
       <view class="tabs">
-        <text class="tab checked" wx:for="{{choseJobList}}" wx:key="{{index}}" bindtap="choseTab" data-labelType="choseJobList" data-tabData="{{item}}">{{item.name}}</text>
+        <text class="tab checked" wx:for="{{choseJobList}}" wx:key="{{index}}" bindtap="choseTab" data-labelType="choseJobList" data-tabData="{{item}}">{{item.name || item.labelName}}</text>
       </view>
       <view class="head head1">职业技能
-        <myPicker class="myPicker" isTriangle="{{true}}" setResult="技术" pickerType="occupation" rangeKey="name" bindresultevent="getresult"></myPicker>
+        <myPicker class="myPicker" isTriangle="{{true}}" setResult="{{choseFirstName}}" pickerType="occupation" rangeKey="name" bindresultevent="getresult"></myPicker>
       </view>
       <view class="tabs">
         <text class="tab {{item.checked ? 'checked' : ''}}" wx:for="{{skills}}" wx:key="{{index}}" bindtap="choseTab" data-labelType="skills" data-tabData="{{item}}" >{{item.name}}</text>
@@ -23,9 +23,9 @@
   </block>
   <block>
     <view class="content"  hidden="{{pageType !== 'life'}}">
-      <view class="head">已选择标签<text class="number"><text class="num">{{lifeChoseNum}}</text>/5</text></view>
+      <view class="head">已选择标签<text class="number"><text class="num">{{choseLifeList.length}}</text>/5</text></view>
       <view class="tabs">
-        <text class="tab checked" wx:for="{{choseLifeList}}" wx:key="{{index}}" bindtap="choseTab" data-tabData="{{item}}">{{item.name}}</text>
+        <text class="tab checked" wx:for="{{choseLifeList}}" wx:key="{{index}}" bindtap="choseTab" data-labelType="choseLifeList" data-tabData="{{item}}">{{item.name || item.labelName}}</text>
       </view>
       <view class="head head2">性格</view>
       <view class="tabs">

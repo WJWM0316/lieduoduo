@@ -53,7 +53,7 @@
 				<i class="icon iconfont icon-xiangyou"></i>
 			</view>
 		</view>
-		<view class="tab-company-address">
+		<view class="tab-company-address" data-type="map" bindtap="todoAction">
 			<i class="icon iconfont icon-dizhi"></i>
 			<text>{{detail.address}}</text>
 			<i class="icon iconfont icon-xiangyou"></i>

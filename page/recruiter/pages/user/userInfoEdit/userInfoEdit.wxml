@@ -5,6 +5,9 @@
   	<view class="picList">
   		<view class="pic" wx:for="{{picList}}" wx:key="{{index}}">
 	  		<image src="{{item.middleUrl}}"></image>
+        <view class="removeFile" bindtap="removeFile" data-id="{{item.id}}" data-index="{{index}}">
+          <i class="removeBtn iconfont icon-close"></i>
+        </view>
 	  	</view>
 	  	<view class="pic" hidden="{{picList.length >= 6}}">
 	  		<unloadFile bindresultEvent="getResult">
