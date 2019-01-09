@@ -36,7 +36,7 @@
 			<view class="text">我的公司</view>
 			<i class="icon iconfont icon-zhishibiao"></i>
 		</view>
-		<view class="li">
+		<view class="li" bindtap="routeJump" data-route="identity">
 			<i class="icon iconfont icon-renzheng label-icon"></i>
 			<i class="icon iconfont icon-zhishibiao"></i>
 			<view class="text">认证</view>

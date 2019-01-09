@@ -7,7 +7,7 @@
 		<block wx:if="{{identity === 'APPLICANT'}}">
 
 			<!-- 求职者还没有发起开撩动作 start-->
-			<block wx:if="{{interviewInfos.haveInterview === 0 || interviewInfos.interviewStatus === 51}}">
+			<block wx:if="{{interviewInfos.haveInterview === 0 || interviewInfos.interviewStatus === 51 || interviewInfos.interviewStatus === 54 || interviewInfos.interviewStatus === 11}}">
 				<view class="content">
 					<view class="first">
 						<view class="name">{{infos.name}}</view>
