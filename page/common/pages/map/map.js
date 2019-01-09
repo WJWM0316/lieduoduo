@@ -36,7 +36,7 @@ Page({
   controltap(e) {
     console.log(e.controlId)
   },
-  onLoad: function () {
+  onLoad(options) {
     // 实例化API核心类
     qqmapsdk = new QQMapWX({
       key: 'P63BZ-4RM35-BIJIV-QOL7E-XNCZZ-WIF4L'
@@ -62,7 +62,7 @@ Page({
      }
     })
   },
-  onShow: function () {
+  onShow() {
     // 调用接口
     // qqmapsdk.search({
     //   keyword: '广州华师地铁口',
@@ -78,16 +78,16 @@ Page({
     // })
   },
   // 转化地址信息
-  reverseGeocoder(res) {
-    qqmapsdk.reverseGeocoder({
-      location: {
-        latitude: res.latitude,
-        longitude: res.longitude
-      },
-      success: res => {
-        wx.navigateTo({url: `${RECRUITER}position/post/post`})
-        wx.setStorageSync('mapInfos', res.result)
-      }
-    })
-  }
+  // reverseGeocoder(res) {
+  //   qqmapsdk.reverseGeocoder({
+  //     location: {
+  //       latitude: res.latitude,
+  //       longitude: res.longitude
+  //     },
+  //     success: res => {
+  //       wx.navigateTo({url: `${RECRUITER}position/post/post`})
+  //       wx.setStorageSync('mapInfos', res.result)
+  //     }
+  //   })
+  // }
 })

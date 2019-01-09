@@ -32,7 +32,6 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
-    // getApp().globalData.identity = 'RECRUITER'
     this.setData({query: options, identity: getApp().globalData.identity})
     this.getPositionDetail()
     getUserRoleApi()
@@ -104,6 +103,9 @@ Page({
         break
       case 'about':
         wx.navigateTo({url: `${COMMON}homepage/homepage?companyId=${this.data.detail.companyId}`})
+        break
+      case 'map':
+        wx.navigateTo({url: `${COMMON}map/map?lat=${this.data.detail.lat}&lng=${this.data.detail.lat}`})
         break
       default:
         break
