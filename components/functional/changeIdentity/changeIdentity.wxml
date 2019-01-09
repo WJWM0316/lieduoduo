@@ -1,4 +1,5 @@
 <view class="change-identity">
-	<view class="item column-line">换个账号试试</view>
-	<view class="item" bindtap="changeIdentity">前往求职者星球</view>
+	<view class="item column-line" bindtap="changeMobile">换个账号试试</view>
+	<view class="item" bindtap="hunterJob">前往求职者星球</view>
+	<bindPhone wx:if="{{showBindMobile}}"></bindPhone>
 </view>

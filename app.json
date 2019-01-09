@@ -95,7 +95,6 @@
         "pages/user/company/infos/infos",
         "pages/user/company/member/member",
         "pages/user/company/homepage/homepage",
-        "pages/user/company/features/features",
         "pages/user/userInfoEdit/userInfoEdit",
         "pages/user/editBrief/editBrief",
         "pages/user/editDeclaration/editDeclaration",

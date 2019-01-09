@@ -42,7 +42,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 10,
+			"current": 29,
 			"list": [
 				{
 					"id": 0,
@@ -217,6 +217,11 @@
 					"name": "招聘官-我的页面",
 					"pathName": "page/recruiter/pages/user/mine/infos/infos",
 					"query": "recruiterUid=90"
+				},
+				{
+					"id": -1,
+					"name": "招聘官-身份认证",
+					"pathName": "page/recruiter/pages/user/company/status/status"
 				}
 			]
 		}
