@@ -20,7 +20,11 @@
 	"debugOptions": {
 		"hidedInDevtools": []
 	},
-	"scripts": {},
+	"scripts": {
+		"beforeCompile": "",
+		"beforePreview": "",
+		"beforeUpload": ""
+	},
 	"condition": {
 		"search": {
 			"current": -1,
@@ -38,11 +42,7 @@
 			"list": []
 		},
 		"miniprogram": {
-<<<<<<< HEAD
-			"current": 25,
-=======
 			"current": 26,
->>>>>>> 268836233bf51fd9e0ec307545f983a8634a2b0a
 			"list": [
 				{
 					"id": 0,
@@ -57,7 +57,7 @@
 					"query": ""
 				},
 				{
-					"id": 2,
+					"id": -1,
 					"name": "index",
 					"pathName": "page/applicant/pages/index/index",
 					"query": ""
@@ -96,7 +96,7 @@
 					"id": 8,
 					"name": "简历",
 					"pathName": "page/common/pages/resumeDetail/resumeDetail",
-					"query": ""
+					"query": "uid=92"
 				},
 				{
 					"id": 10,
@@ -196,10 +196,6 @@
 				},
 				{
 					"id": -1,
-<<<<<<< HEAD
-					"name": "编辑项目",
-					"pathName": "page/applicant/pages/center/resumeEditor/itemEdit/itemEdit",
-=======
 					"name": "招聘官默认首页",
 					"pathName": "page/recruiter/pages/index/index",
 					"query": ""
@@ -207,8 +203,13 @@
 				{
 					"id": 26,
 					"name": "招聘官创建职位",
-					"pathName": "page/recruiter/pages/position/description/description",
->>>>>>> 268836233bf51fd9e0ec307545f983a8634a2b0a
+					"pathName": "page/recruiter/pages/position/address/address",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "招聘官创建职位-111",
+					"pathName": "page/common/pages/tabsPage/tabsPage",
 					"query": ""
 				}
 			]

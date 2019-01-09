@@ -10,17 +10,17 @@
 	position: relative;
 }
 
-.category-list .li:before {
+.category-list .li:after {
 	content: '';
 	display: block;
 	left: 40rpx;
 	right: 0;
-	top: 0;
+	bottom: 0;
 	height: 1px;
 	background: #E8E9EB;
 }
 
-.category-list .li:last-child:before {
+.category-list .li:last-child:after {
 	display: none;
 }
 
@@ -61,6 +61,7 @@
 	padding: 20rpx 40rpx;
 	position: relative;
 	background: white;
+	border: 1px solid #E8E9EB;
 }
 
 .search-box input {
@@ -125,12 +126,14 @@
 	color:rgba(92,86,93,1);
 	text-align: center;
 	position: relative;
+	transition: all ease .2s;
 }
 
 .mask-board .active {
 	font-size:28rpx;
 	font-weight:bold;
 	color:rgba(132,82,167,1);
+	background: white;
 }
 
 .mask-board .second .active:before {

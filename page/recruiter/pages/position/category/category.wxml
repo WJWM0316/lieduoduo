@@ -23,7 +23,7 @@
 			<view class="column second">
 				<view
 					wx:for="{{positionTypeList[index1].children}}"
-					class="item {{item.active ? 'active' : ''}}"
+					class="item {{second.active ? 'active' : ''}}"
 					wx:key="{{index}}"
 					wx:for-item="second"
 					data-index="{{index}}"
@@ -33,7 +33,7 @@
 			<view class="column third" wx:if="{{positionTypeList[index1].children.length}}">
 				<view 
 				wx:for="{{positionTypeList[index1].children[index2].children}}" 
-				class="item {{item.active ? 'active' : ''}}"
+				class="item {{third.active ? 'active' : ''}}"
 			  wx:key="{{index}}"
 			  data-index="{{index}}"
 			  bindtap="onClick3"
