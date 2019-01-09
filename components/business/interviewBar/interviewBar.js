@@ -117,7 +117,7 @@ Component({
           break
         // 求职端发起开撩
         case 'job-hunting-chat':
-           wx.navigateTo({url: `${RECRUITER}position/jobList/jobList?type=job_hunting_chat&from=${this.data.currentPage}&recruiterUid=${this.data.infos.uid}`})
+           wx.navigateTo({url: `${RECRUITER}position/jobList/jobList?type=job_hunting_chat&showNotPositionApply=${interviewInfos.showNotPositionApply}&from=${this.data.currentPage}&recruiterUid=${this.data.infos.uid}`})
           // let uid = ''
           // let positionId = ''
           // let params = {}
@@ -180,16 +180,18 @@ Component({
           break
         // 招聘官拒绝求职者
         case 'recruiter-reject':
-          if(interviewInfos.data.length > 1) {
-            wx.navigateTo({url: `${RECRUITER}position/jobList/jobList?type=reject_chat`})
-            wx.setStorageSync('interviewChatLists', this.data.interviewInfos)
-          } else {
-            refuseInterviewApi({id: interviewInfos.data[0].interviewId})
-              .then(res => {
-                this.getInterviewStatus()
-                this.triggerEvent('resultevent', res)
-              })
-          }
+          wx.navigateTo({url: `${RECRUITER}position/jobList/jobList?type=reject_chat`})
+          wx.setStorageSync('interviewChatLists', this.data.interviewInfos)
+          // if(interviewInfos.data.length > 1) {
+          //   wx.navigateTo({url: `${RECRUITER}position/jobList/jobList?type=reject_chat`})
+          //   wx.setStorageSync('interviewChatLists', this.data.interviewInfos)
+          // } else {
+          //   refuseInterviewApi({id: interviewInfos.data[0].interviewId})
+          //     .then(res => {
+          //       this.getInterviewStatus()
+          //       this.triggerEvent('resultevent', res)
+          //     })
+          // }
           break
         // 招聘管编辑职位
         case 'recruiter-edit':
@@ -201,16 +203,18 @@ Component({
           break
         // B端开撩成功后跳转安排面试页面
         case 'recruiter-accept':
-          if(interviewInfos.data.length > 1) {
-            wx.navigateTo({url: `${RECRUITER}position/jobList/jobList?type=confirm_chat`})
-            wx.setStorageSync('interviewChatLists', this.data.interviewInfos)
-          } else {
-            confirmInterviewApi({id: interviewInfos.data[0].interviewId})
-              .then(res => {
-                this.triggerEvent('resultevent', res)
-                wx.navigateTo({url: `${COMMON}arrangement/arrangement?id=${interviewInfos.data[0].interviewId}`})
-              })
-          }
+          wx.navigateTo({url: `${RECRUITER}position/jobList/jobList?type=confirm_chat`})
+          wx.setStorageSync('interviewChatLists', this.data.interviewInfos)
+          // if(interviewInfos.data.length > 1) {
+          //   wx.navigateTo({url: `${RECRUITER}position/jobList/jobList?type=confirm_chat`})
+          //   // wx.setStorageSync('interviewChatLists', this.data.interviewInfos)
+          // } else {
+          //   confirmInterviewApi({id: interviewInfos.data[0].interviewId})
+          //     .then(res => {
+          //       this.triggerEvent('resultevent', res)
+          //       wx.navigateTo({url: `${COMMON}arrangement/arrangement?id=${interviewInfos.data[0].interviewId}`})
+          //     })
+          // }
           break
         // 待求职者确认
         case 'iter-pedding':

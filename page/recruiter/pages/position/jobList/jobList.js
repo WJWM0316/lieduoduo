@@ -20,7 +20,6 @@ Page({
   },
   onLoad(options) {
     this.setData({identity: wx.getStorageSync('choseType')})
-    console.log(wx.getStorageSync('choseType'))
     const storage = wx.getStorageSync('interviewChatLists')
     if(storage) {
       this.setData({items: storage.data, options})
@@ -36,10 +35,11 @@ Page({
     const params = {}
     data.positionName = job[0]
     data.positionId = job[1]
-    // console.log(job);return;
     switch(this.data.options.type) {
       case 'recruiter_chat':
-        this.applyInterview({jobhunterUid: this.data.options.jobhunterUid, positionId: job[1]})
+        params.jobhunterUid = this.data.options
+        params.positionId = job[1]
+        this.applyInterview(params)
         break
       case 'job_hunting_chat':
         params.recruiterUid = this.data.options.recruiterUid
@@ -47,10 +47,12 @@ Page({
         this.applyInterview(params)
         break
       case 'confirm_chat':
-        this.confirmInterview({id: job[1]})
+        params.id = job[1]
+        this.confirmInterview(params)
         break
       case 'reject_chat':
-        this.refuseInterview({id: job[1]})
+        params.id = job[1]
+        this.refuseInterview(params)
         break
       default:
         wx.setStorageSync('interviewData', data)
@@ -67,6 +69,7 @@ Page({
   applyInterview(params) {
     applyInterviewApi(params)
       .then(res => {
+        wx.navigateBack({delta: 1})
         // wx.navigateTo({
         //   url: `${COMMON}${this.data.options.from}/${this.data.options.from}?uid=${this.data.options.jobhunterUid}`
         // })
@@ -81,7 +84,7 @@ Page({
   confirmInterview(params) {
     confirmInterviewApi(params)
       .then(res => {
-        wx.navigateBack({delta: 1})
+       wx.navigateBack({delta: 1})
        wx.removeStorageSync('interviewChatLists')
       })
   },

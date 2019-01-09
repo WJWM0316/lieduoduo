@@ -29,7 +29,7 @@
 
     <view class="example"  wx:if="{{identity === 'RECRUITER'}}">以下是候选人的申请记录，请选择一个进行约面</view>
 
-    <label class="radio">
+    <label class="radio" wx:if="{{options.showNotPositionApply === '1'}}">
       <view class="li">
         <view class="content chat-me">直接与我约面</view>
         <view class="radio-box">
@@ -56,9 +56,8 @@
             <text class="txt">{{item.educationName}}</text>
           </view>
         </view>
-        <view class="status-box" wx:if="{{!item.status}}">
-          <text>该职位已关闭</text>
-        </view>
+        <view class="status-box" wx:if="{{!item.status}}"> 该职位已关闭 </view>
+        <view class="apply" wx:if="{{item.isApply === 11}}"> 已申请 </view>
         <view class="radio-box">
           <radio
             class="radioBtn"
