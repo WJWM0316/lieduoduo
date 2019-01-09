@@ -84,8 +84,8 @@ Page({
   confirmInterview(params) {
     confirmInterviewApi(params)
       .then(res => {
-       wx.navigateBack({delta: 1})
        wx.removeStorageSync('interviewChatLists')
+       wx.navigateTo({url: `${COMMON}arrangement/arrangement?id=${params.id}`})
       })
   },
   /**

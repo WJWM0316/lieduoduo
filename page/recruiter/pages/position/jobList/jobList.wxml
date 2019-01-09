@@ -1,17 +1,17 @@
 <view class="job-list">
   <navbar title="{{pageTitle}}" background="#FFFFFF" color="#22292C"></navbar>
-  <block wx:if="{{identity === 'RECRUITER'}}">
+  <block wx:if="{{identity === 'RECRUITER' && options.type === 'confirm_chat'}}">
     <view class="h1">请选择约面</view>
     <view class="p">确认选择后，候选人其他申请记录将自动合并处理，不需要再单独处理；面试最终确认前，你可以随时与候选人沟通更改面试职位</view>
   </block>
-  <block  wx:if="{{identity === 'RECRUITER'}}">
+  <block  wx:if="{{identity === 'RECRUITER' && options.type === 'reject_chat'}}">
     <view class="h1">不适合约面</view>
     <view class="p">确认选择后，该候选人其他申请记录将自动合并处理，不需要再单独处理</view>
   </block>
 
   <radio-group bindchange="radioChange">
     
-    <label class="radio"  wx:if="{{identity === 'RECRUITER'}}">
+    <label class="radio"  wx:if="{{identity === 'RECRUITER' && options.type === 'reject_chat'}}">
       <view class="li clear-bottom">
         <view class="content unsuitable">都不合适</view>
         <view class="radio-box">
@@ -27,7 +27,7 @@
       </view>
     </label>
 
-    <view class="example"  wx:if="{{identity === 'RECRUITER'}}">以下是候选人的申请记录，请选择一个进行约面</view>
+    <view class="example"  wx:if="{{identity === 'RECRUITER' && options.type === 'reject_chat'}}">以下是候选人的申请记录，请选择一个进行约面</view>
 
     <label class="radio" wx:if="{{options.showNotPositionApply === '1'}}">
       <view class="li">
