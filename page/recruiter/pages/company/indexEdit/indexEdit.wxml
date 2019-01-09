@@ -1,8 +1,12 @@
 <view class="indexEdit">
 	<navbar title="我的公司" background="#fff" color="#22292C"></navbar>
 	<view class="head">
-		<roleInfoCard my-class="roleInfoCard" roleType="company" isMain="{{true}}" cardData="{{info}}"></roleInfoCard>
+		<roleInfoCard class="roleInfoCard" roleType="company" isMain="{{true}}" cardData="{{info}}"></roleInfoCard>
 		<view class="msg">
+			<view class="item">
+				<view class="txt">所属行业</view>
+				<view class="value">移动互联网</view>
+			</view>
 			<view class="item">
 				<view class="txt">所属行业</view>
 				<view class="value">移动互联网</view>
@@ -20,17 +24,17 @@
 	<view class="peoples">
 		<view class="txt">公司招聘官</view>
 		<view class="boxs">
-			<image class="people"></image>
-			<image class="ellipsis"></image>
+			<image class="people" src="../../../../../images/choseIcon1.png"></image>
+			<image class="people" src="../../../../../images/choseIcon1.png"></image>
 		</view>
 		<i class="icon iconfont icon-xiangyou"></i>
 	</view>
 	<view class="mainPage">
-		<view class="">公司主页</view>
+		<view class="txt">公司主页</view>
 		<i class="icon iconfont icon-xiangyou"></i>
 	</view>
 	<view class="team">
-		<view class="">团队亮点</view>
+		<view class="txt">团队亮点</view>
 		<i class="icon iconfont icon-xiangyou"></i>
 	</view>
 </view>

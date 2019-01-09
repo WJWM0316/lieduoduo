@@ -223,12 +223,15 @@
 					"name": "招聘官-我的页面",
 					"pathName": "page/recruiter/pages/user/mine/infos/infos",
 					"query": "recruiterUid=90"
+<<<<<<< HEAD
 				},
 				{
 					"id": -1,
 					"name": "招聘官-身份认证",
 					"pathName": "page/recruiter/pages/user/company/status/status"
 >>>>>>> 179cad6c68f1517093d82204e3e22a74910e9959
+=======
+>>>>>>> 9ca5243d9c0ce0b7bf171477dfa184a80e4a8ffa
 				}
 			]
 		}
