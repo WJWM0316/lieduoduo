@@ -22,9 +22,12 @@
     "page/common/pages/homepage/homepage",
     "page/common/pages/positionDetail/positionDetail",
     "page/applicant/pages/center/workContent/workContent",
-    "page/applicant/pages/center/workEdit/workEdit",
     "page/common/pages/settings/settings",
-    "page/common/pages/changeMobile/changeMobile"
+    "page/common/pages/changeMobile/changeMobile",
+    "page/applicant/pages/center/resumeEditor/aimsEdit/aimsEdit",
+    "page/applicant/pages/center/resumeEditor/systematics/systematics",
+    "page/applicant/pages/center/resumeEditor/workEdit/workEdit",
+    "page/applicant/pages/center/resumeEditor/itemEdit/itemEdit"
   ],
   "window": {
     "navigationBarTextStyle": "black",
@@ -82,8 +85,6 @@
         "pages/position/addressList/addressList",
         "pages/position/skills/skills",
         "pages/user/mine/infos/infos",
-        "pages/user/mine/update/update",
-        "pages/user/mine/declaration/declaration",
         "pages/user/company/apply/apply",
         "pages/user/company/find/find",
         "pages/user/company/post/post",

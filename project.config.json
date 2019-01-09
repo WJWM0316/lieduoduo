@@ -20,7 +20,11 @@
 	"debugOptions": {
 		"hidedInDevtools": []
 	},
-	"scripts": {},
+	"scripts": {
+		"beforeCompile": "",
+		"beforePreview": "",
+		"beforeUpload": ""
+	},
 	"condition": {
 		"search": {
 			"current": -1,
@@ -199,8 +203,20 @@
 				{
 					"id": 26,
 					"name": "招聘官创建职位",
-					"pathName": "page/recruiter/pages/position/description/description",
+					"pathName": "page/recruiter/pages/position/jobList/jobList",
+					"query": "recruiterUid=90"
+				},
+				{
+					"id": -1,
+					"name": "招聘官创建职位-111",
+					"pathName": "page/common/pages/tabsPage/tabsPage",
 					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "招聘官-我的页面",
+					"pathName": "page/recruiter/pages/user/mine/infos/infos",
+					"query": "recruiterUid=90"
 				}
 			]
 		}

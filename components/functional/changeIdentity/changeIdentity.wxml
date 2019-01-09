@@ -1,0 +1,4 @@
+<view class="change-identity">
+	<view class="item column-line">换个账号试试</view>
+	<view class="item" bindtap="changeIdentity">前往求职者星球</view>
+</view>

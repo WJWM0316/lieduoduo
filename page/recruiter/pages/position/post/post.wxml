@@ -1,6 +1,6 @@
 <view class="position-post">
-	<navbar title="{{pageTitle}}" background="#FFFFFF" color="#22292C" showBackBtn="{{true}}"></navbar>
-	<view class="warning"><i class="icon iconfont icon-xiangji"></i>前往PC端发布新职位<i class="icon iconfont icon-xiangyou"></i></view>
+	<navbar title="{{pageTitle}}" background="#FFFFFF" color="#22292C"></navbar>
+	<view class="warning"><i class="icon iconfont icon-PC"></i>前往PC端发布新职位<i class="icon iconfont icon-xiangyou"></i></view>
 	<view class="tips">* 职位名称、职位类别、工作地点发布后将不可修改</view>
 	<form bindsubmit="submit" class="entry-list">
 		<view class="li link" bindtap="routeJump" data-route="search">
@@ -13,7 +13,7 @@
 			<i class="icon iconfont icon-xiangyou"></i>
 			<view class="text2">{{typeName || '请选择'}}</view>
 		</view>
-		<view class="li link" bindtap="routeJump" data-route="address">
+		<view class="li link" bindtap="routeJump" data-route="addressList">
 			<view class="key">工作地点</view>
 			<i class="icon iconfont icon-xiangyou"></i>
 			<view class="text2">{{address || '请选择'}}</view>

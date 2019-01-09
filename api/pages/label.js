@@ -17,3 +17,33 @@ export const getLabelProfessionalSkillsApi = (data, hasLoading) => {
     hasLoading: true
   })
 }
+
+// 省市区列表接口
+export const getAreaListApi = (data, hasLoading) => {
+  return request({
+    method: 'get',
+    url: '/area',
+    data,
+    hasLoading: true
+  })
+}
+
+// 行业领域
+export const getFieldListApi = (data, hasLoading) => {
+  return request({
+    method: 'get',
+    url: '/label/field',
+    data,
+    hasLoading: true
+  })
+}
+
+// 职业类别
+export const getPositionTypeApi = (data, hasLoading) => {
+  return request({
+    method: 'get',
+    url: '/label/positionType',
+    data,
+    hasLoading: true
+  })
+}

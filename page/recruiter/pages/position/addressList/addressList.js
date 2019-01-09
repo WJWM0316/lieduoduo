@@ -1,78 +1,58 @@
 import {getCompanyAddressListApi} from "../../../../../api/pages/company.js"
-Page({
+import {RECRUITER} from '../../../../../config.js'
 
-  /**
-   * 页面的初始数据
-   */
+Page({
   data: {
-    items: [
-      {
-        title: '微信小程序前端开发工程师如果超长就…微信小程序前端开发工程师如果超长就…微信小程序前端开发工程师如果超长就…微信小程序前端开发工程师如果超长就…微信小程序前端开发工程师如果超长就…'
-      },
-      {
-        title: '微信小程序前端开发工程师如果超长就…微信小程序前端开发工程师如果超长就…微信小程序前端开发工程师如果超长就…微信小程序前端开发工程师如果超长就…微信小程序前端开发工程师如果超长就…'
-      },
-      {
-        title: '微信小程序前端开发工程师如果超长就…微信小程序前端开发工程师如果超长就…微信小程序前端开发工程师如果超长就…微信小程序前端开发工程师如果超长就…微信小程序前端开发工程师如果超长就…'
-      }
+    addressList: [
+      // {
+      //   id: 1,
+      //   active: false,
+      //   title: '微信小程序前端开发工程师如果超长就…微信小程序前端开发工程师如果超长就…微信小程序前端开发工程师如果超长就…微信小程序前端开发工程师如果超长就…微信小程序前端开发工程师如果超长就…'
+      // },
+      // {
+      //   id: 2,
+      //   active: false,
+      //   title: '微信小程序前端开发工程师如果超长就…微信小程序前端开发工程师如果超长就…微信小程序前端开发工程师如果超长就…微信小程序前端开发工程师如果超长就…微信小程序前端开发工程师如果超长就…'
+      // },
+      // {
+      //   id: 3,
+      //   active: false,
+      //   title: '微信小程序前端开发工程师如果超长就…微信小程序前端开发工程师如果超长就…微信小程序前端开发工程师如果超长就…微信小程序前端开发工程师如果超长就…微信小程序前端开发工程师如果超长就…'
+      // }
     ]
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad(options) {
     getCompanyAddressListApi().then(res => {
-      console.log(res, 1111111)
+      this.setData({addressList: res.data})
     })
   },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
+  onClick(e) {
+    const params = e.currentTarget.dataset
+    const addressList = this.data.addressList
+    const storage = wx.getStorageSync('createPosition')
+    addressList.map((field, index) => {
+      if(params.id === index) {
+        field.active = true
+        storage.address_id = field.id
+        wx.setStorageSync('createPosition', storage)
+      } else {
+        field.active = false
+      }
+    })
+    this.setData({addressList})
+    setTimeout(() => {
+      wx.redirectTo({ url: `${RECRUITER}position/post/post` })
+    }, 1500)
   },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-
+  add() {
+    wx.redirectTo({ url: `${RECRUITER}position/address/address` })
   },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
+  edit(e) {
+    const params = e.currentTarget.dataset
+    wx.redirectTo({ url: `${RECRUITER}position/address/address?id=${params.id}` })
   }
 })

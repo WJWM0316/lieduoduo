@@ -7,7 +7,7 @@
 		<block wx:if="{{identity === 'APPLICANT'}}">
 
 			<!-- 求职者还没有发起开撩动作 start-->
-			<block wx:if="{{interviewInfos.haveInterview === 0 || interviewInfos.interviewStatus === 51}}">
+			<block wx:if="{{interviewInfos.haveInterview === 0 || interviewInfos.interviewStatus === 51 || interviewInfos.interviewStatus === 54 || interviewInfos.interviewStatus === 11}}">
 				<view class="content">
 					<view class="first">
 						<view class="name">{{infos.name}}</view>
@@ -156,7 +156,7 @@
 		<!-- 招聘端 -->
 	</block>
 	<!-- 是我自己发布的职位 start-->
-	<block wx:elif="{{isOwerner && identity === 'APPLICANT'}}">
+	<block wx:elif="{{isOwerner && identity === 'RECRUITER'}}">
 		<view class="edit-button" data-action="recruiter-edit" bindtap="todoAction">编辑</view>
 		<view class="switch-button" bindtap="todoAction" data-action="{{infos.status === 0 ? 'open' : 'close'}}">
 			{{infos.status === 0 ? '开放职位' : '关闭职位'}}

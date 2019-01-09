@@ -19,11 +19,12 @@ Page({
     company_id: '',
     lng: '',
     lat: '',
-    type: '',
-    typeName: '',
     area_id: '',
     address: '',
     doorplate: '',
+    address_id: '',
+    type: '',
+    typeName: '',
     labels: [],
     emolument_min: '',
     emolument_max: '',
@@ -100,15 +101,6 @@ Page({
   },
   /**
    * @Author   小书包
-   * @DateTime 2018-12-20
-   * @detail   绑定按钮的状态
-   * @return   {[type]}   [description]
-   */
-  bindBtnStatus() {
-    console.log(1)
-  },
-  /**
-   * @Author   小书包
    * @DateTime 2018-12-24
    * @detail   离开当前页面
    * @return   {[type]}     [description]
@@ -174,12 +166,23 @@ Page({
       'education',
       'describe',
       'lng',
-      'lat'
+      'lat',
+      'address_id',
     ]
     params.map(field => formData[field] = this.data[field])
     this.data.skills.map((field, index) => labels.push({id: field.labelId, is_diy: 0}))
     formData.labels = JSON.stringify(labels)
     if(this.data.query.positionId) formData.id = this.data.query.positionId
+    if(this.data.address_id) {
+      delete formData.lng
+      delete formData.lng
+      delete formData.lat
+      delete formData.area_id
+      delete formData.address
+      delete formData.doorplate
+    } else {
+      delete formData.address_id
+    }
     this[action](formData)
   },
   /**

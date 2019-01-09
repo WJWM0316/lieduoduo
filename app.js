@@ -60,10 +60,10 @@ App({
   // 检查登录
   checkLogin () {
     return new Promise((resolve, reject) => {
-      if (this.globalData.userInfo) {
-        resolve(this.globalData.userInfo)
-        return
-      }
+//    if (this.globalData.userInfo) {
+//      resolve(this.globalData.userInfo)
+//      return
+//    }
       wx.getSetting({
         success: res => {
           if (res.authSetting['scope.userInfo']) {

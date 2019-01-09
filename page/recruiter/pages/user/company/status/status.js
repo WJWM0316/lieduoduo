@@ -10,13 +10,24 @@ Page({
   data: {
   	// status状态： 0审核中（已提交），1审核通过，2审核未通过，3重新提交
     identityInfos: {},
-    companyInfos: {}
+    companyInfos: {},
+    page: '',
+    pageTitle: ''
   },
-  onShow() {
+  onLoad(options) {
+    switch(options.page) {
+      case 'identity':
+        this.setData({pageTitle: '身份认证', page: 'identity'})
+        break
+      case 'company':
+        this.setData({pageTitle: '申请加入公司', page: 'company'})
+        break
+      default:
+        break
+    }
     getCompanyIdentityInfosApi()
     	.then(res => {
     		this.setData({identityInfos: res.data, companyInfos: res.data.companyInfo})
-    		console.log(res.data)
     	})
   },
   todoAction(e) {

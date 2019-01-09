@@ -20,7 +20,7 @@
             <text wx:if="{{list[1][result[1]] !== firstOption}}">{{list[0][result[0]]}}</text>
             <block>
               <text wx:if="{{pickerType === 'salaryRangeC' || pickerType === 'salaryRangeB'}}">~</text>
-              <text wx:if="{{list[0][result[0]] !== firstOption}}">-</text>
+              <text wx:if="{{list[0][result[0]] !== firstOption && pickerType !== 'salaryRangeC'}}">-</text>
             </block>
             <text wx:if="{{list[0][result[0]] !== firstOption}}">{{list[1][result[1]]}}</text>
             <text wx:if="{{list[0][result[0]] === firstOption && list[1][result[1]] === firstOption}}">{{list[0][result[0]]}}</text>

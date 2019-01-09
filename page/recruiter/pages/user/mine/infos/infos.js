@@ -47,10 +47,8 @@ Page({
       case 'base':
         wx.navigateTo({url: `${RECRUITER}user/mine/base/base`})
         break
-      case 'certification':
-        if(!this.data.isRecruiter) {
-          wx.navigateTo({url: `${RECRUITER}user/company/apply/apply`})
-        }
+      case 'identity':
+        wx.navigateTo({url: `${RECRUITER}user/company/status/status?page=identity`})
         break
       default:
         break

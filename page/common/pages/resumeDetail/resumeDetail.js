@@ -10,7 +10,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-    info: null
+    info: null,
+    isOwner: false
   },
 
   /**
@@ -20,46 +21,61 @@ Page({
     id = options
     const { vkey } = options
     console.log(options)
-    if (vkey) {
-      this.init(vkey)
-    } else {
-      app.pageInit = () => {
-        resumeInfo = app.globalData.resumeInfo
-        this.init(options)
-      }
+    this.init(options)
+    app.pageInit = () => {
+      console.log(9999)
     }
   },
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
-    resumeInfo = app.globalData.resumeInfo
-    this.init(id)
-  },
+  onShow: function () {},
   init (options) {
-    if (wx.getStorageSync('choseType') === 'APPLICANT') {
-      console.log('求职端')
-      if (resumeInfo) {
-        this.setData({
-          info: resumeInfo
-        })
+    if (app.globalData.resumeInfo.uid) {
+      if (app.globalData.resumeInfo.uid === options.uid || !options.uid ) {
+        this.setData({info: app.globalData.resumeInfo, isOwner: true})
       } else {
         getPersonalResumeApi(options).then(res => {
-          this.setData({
-            info: res.data
-          })
-          console.log(this.data.info, "个人信息")
+          this.setData({info: res.data})
         })
       }
     } else {
-      console.log('招聘端')
+      app.pageInit = () => {
+        if (app.globalData.resumeInfo.uid === parseInt(options.uid)) {
+          this.setData({info: app.globalData.resumeInfo, isOwner: true})
+        } else {
+          getPersonalResumeApi(options).then(res => {
+            this.setData({info: res.data})
+          })
+        }
+      }
       getPersonalResumeApi(options).then(res => {
-        this.setData({
-          info: res.data
-        })
-        console.log(this.data.info)
+        this.setData({info: res.data})
       })
     }
+    
+//  if (wx.getStorageSync('choseType') === 'APPLICANT') {
+//    console.log('求职端')
+//    if (resumeInfo) {
+//      this.setData({
+//        info: resumeInfo
+//      })
+//    } else {
+//      getPersonalResumeApi(options).then(res => {
+//        this.setData({
+//          info: res.data
+//        })
+//      })
+//    }
+//  } else {
+//    console.log('招聘端')
+//    getPersonalResumeApi(options).then(res => {
+//      this.setData({
+//        info: res.data
+//      })
+//      console.log(this.data.info)
+//    })
+//  }
   },
   /* 编辑 */
   edit (e) {
@@ -69,6 +85,15 @@ Page({
     switch (editName) {
       case 'info':
         url = '/page/applicant/pages/center/userInfoEdit/userInfoEdit'
+        break;
+      case 'intent':
+        url = `/page/applicant/pages/center/resumeEditor/aimsEdit/aimsEdit?id=${this.data.info.expects[0].id}`
+        break;
+      case 'work':
+        url = `/page/applicant/pages/center/resumeEditor/workEdit/workEdit`
+        break;
+      case 'project':
+        url = `/page/applicant/pages/center/resumeEditor/itemEdit/itemEdit`
         break;
     }
     wx.navigateTo({

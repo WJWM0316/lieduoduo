@@ -1,13 +1,19 @@
 <view class="addressList">
-  <navbar></navbar>
-  <radio-group class="radio-group" bindchange="radioChange">
-    <label class="radio" wx:for="{{items}}" wx:key="{{index}}">
-      <view class="inner">
-        <view class="item">
-          <radio class="radioBtn" value="{{item.name}}" checked="{{item.checked}}" color="#652791"/>
-          <view class="title">{{item.title}}</view>
+  <navbar ></navbar>
+  <view class="ul" wx:if="{{addressList.length}}">
+    <view class="li" wx:for="{{addressList}}" wx:key="{{index}}">
+      <view class="left">
+        <view class="radio {{item.active ? 'radio-checked' : ''}}" bindtap="onClick" data-id="{{index}}">
+          <i class="icon iconfont icon-wancheng" wx:if="{{item.active}}"></i>
         </view>
       </view>
-    </label>
-  </radio-group>
+      <view class="center">{{item.title}}</view>
+      <view class="right">
+        <view class="edit" bindtap="onClick" data-id="{{item.id}}"><i class="icon iconfont icon-bianji"></i> 编辑</view>
+      </view>
+    </view>
+  </view>
+  <view class="footer">
+    <button class="button-submit" bindtap="add">新增地址</button>
+  </view>
 </view>

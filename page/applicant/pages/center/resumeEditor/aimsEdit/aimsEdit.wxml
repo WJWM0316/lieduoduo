@@ -1,0 +1,21 @@
+<!--简历意向编辑页-->
+<navbar title="意向编辑"></navbar>
+<view class="warp">
+  <view class="commont" data-type="0" bindtap="choose">
+    <view class="title"><text>*</text>期望城市</view>
+    <view class="result">{{city.name || city.title}}<i class="icon iconfont icon-xiangyou"></i></view>
+  </view>
+  <view class="commont" data-type="1" bindtap="choose">
+    <view class="title"><text>*</text>期望职位</view>
+    <view class="result">{{position.name || position.title}}<i class="icon iconfont icon-xiangyou"></i></view>
+  </view>
+  <view class="commont salary">
+    <view class="title"><text>*</text>期望薪资</view>
+    <myPicker class="myPicker" setResult="选择期望薪资" pickerType="salaryRangeC" placeholderStyle="color: #BCBCBC" bindresultevent="getresult"></myPicker>
+  </view>
+  <view class="commont" data-type="2" bindtap="choose">
+    <view class="title"><text>*</text>期望领域</view>
+    <view class="result">{{signory.name || signory.title}}<i class="icon iconfont icon-xiangyou"></i></view>
+  </view>
+</view>
+<view class="save" bindtap="save">保存</view>

@@ -219,3 +219,12 @@ export const verifyEmailApi = (data, hasLoading) => {
     hasLoading: true
   })
 }
+
+// 删除公司地址
+export const deleteCompanyAddressApi = (data, hasLoading) => {
+  return request({
+    method: 'delete',
+    url: `/company/position/address/${data.id}`,
+    hasLoading: true
+  })
+}
