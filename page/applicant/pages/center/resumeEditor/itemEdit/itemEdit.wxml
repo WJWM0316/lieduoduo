@@ -9,21 +9,26 @@
     <view class="title"><text>*</text>担任角色</view>
     <view class="result"><input type="text" bindblur="role"></input></view>
   </view>
-  <view class="commont" data-type="5" bindtap="choose">
-    <view class="title"><text>*</text>期望城市</view>
-    <view class="result">{{city.name || city.title}}<i class="icon iconfont icon-xiangyou"></i></view>
-  </view>
-  <view class="commont" data-type="1" bindtap="choose">
-    <view class="title"><text>*</text>期望职位</view>
-    <view class="result">{{position.name || position.title}}<i class="icon iconfont icon-xiangyou"></i></view>
+  <view class="commont salary">
+    <view class="title"><text>*</text>开始时间</view>
+    <myPicker class="myPicker" setResult="开始时间" pickerType="startTime" placeholderStyle="color: #BCBCBC" data-time="start" bindresultevent="getresult"></myPicker>
   </view>
   <view class="commont salary">
-    <view class="title"><text>*</text>期望薪资</view>
-    <myPicker class="myPicker" setResult="选择期望薪资" pickerType="salaryRangeC" placeholderStyle="color: #BCBCBC" bindresultevent="getresult"></myPicker>
+    <view class="title"><text>*</text>结束时间</view>
+    <myPicker class="myPicker" setResult="开始时间" pickerType="endTime" placeholderStyle="color: #BCBCBC" data-time="end" bindresultevent="getresult"></myPicker>
   </view>
-  <view class="commont" data-type="2" bindtap="choose">
-    <view class="title"><text>*</text>期望领域</view>
-    <view class="result">{{signory.name || signory.title}}<i class="icon iconfont icon-xiangyou"></i></view>
+  <!--项目描述-->
+  <view class="title"><text>*</text>项目描述</view>
+  <view class="textArea">
+    <textarea placeholder="填写项目内容" placeholder-class="placeholder" maxlength="50" bindinput="WriteContent"></textarea>
+  </view>
+  <!--项目链接-->
+  <view class="title">项目链接</view>
+  <view class="textArea">
+    <textarea placeholder="填写项目链接" placeholder-class="placeholder" maxlength="50" bindinput="itemLink"></textarea>
   </view>
 </view>
-<view class="save" bindtap="save">保存</view>
+<view class="btn">
+  <view class="save" bindtap="add">新增项目</view>
+  <view class="save" bindtap="save">保存</view>
+</view>

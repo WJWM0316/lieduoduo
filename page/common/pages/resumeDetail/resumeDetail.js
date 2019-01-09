@@ -37,6 +37,7 @@ Page({
       } else {
         getPersonalResumeApi(options).then(res => {
           this.setData({info: res.data})
+          app.globalData.resumeInfo = res.data
         })
       }
     } else {
@@ -79,7 +80,7 @@ Page({
   },
   /* 编辑 */
   edit (e) {
-    console.log(e.currentTarget.dataset.editname, '555')
+    console.log(e.currentTarget.dataset.editname, e, '555')
     let editName = e.currentTarget.dataset.editname
     let url = null
     switch (editName) {
@@ -87,7 +88,7 @@ Page({
         url = '/page/applicant/pages/center/userInfoEdit/userInfoEdit'
         break;
       case 'intent':
-        url = `/page/applicant/pages/center/resumeEditor/aimsEdit/aimsEdit?id=${this.data.info.expects[0].id}`
+        url = `/page/applicant/pages/center/resumeEditor/aimsEdit/aimsEdit?id=${this.data.info.expects[0]? this.data.info.expects[0].id : ''}`
         break;
       case 'work':
         url = `/page/applicant/pages/center/resumeEditor/workEdit/workEdit`

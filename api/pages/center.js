@@ -84,3 +84,23 @@ export const editCareerApi = (data) => {
     hasLoading: false
   })
 }
+
+// 个人简历项目经验修改
+export const editProjectApi = (data) => {
+  return request({
+    method: 'post',
+    url: `/jobhunter/project/${data.id}`,
+    data,
+    hasLoading: false
+  })
+}
+
+// 个人简历项目经验增加
+export const addProjectApi = (data) => {
+  return request({
+    method: 'put',
+    url: `/jobhunter/project`,
+    data,
+    hasLoading: false
+  })
+}

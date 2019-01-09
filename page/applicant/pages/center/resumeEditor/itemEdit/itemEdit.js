@@ -1,112 +1,112 @@
 // page/applicant/pages/center/resumeEditor/aimsEdit/aimsEdit.js
-import { editExpectApi } from '../../../../../../api/pages/center.js'
+import { editProjectApi, addProjectApi } from '../../../../../../api/pages/center.js'
 let target = null
 let title = null
-let nowEcpetId = null // 当前编辑的意向数据id
+let nowItemId = null // 当前编辑的意向数据id
+const app = getApp()
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    city: '请选择城市',
-    position: '请选择职位',
+    itemName: '', //项目名称
+    role: '', // 担任角色
     signory: '请选择领域',
-    salaryCeil: '',
-    salaryFloor: ''
+    startTime: '',
+    endTime: '',
+    description: '', // 项目描述
+    itemLink: ''
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    nowEcpetId = options.id
+    nowItemId = parseInt(options.id)
   },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
+  // 修改项目名称
+  itemName (e) {
+    this.data.itemName = e.detail.value
   },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-    this.set()
+  // 修改担任角色
+  role (e) {
+    this.data.role = e.detail.value
   },
-  onHide () {
-    wx.removeStorageSync('result')
-  },
-  // 存储数据
-  set () {
-    switch (target) {
-      case '0':
-        this.setData({city: wx.getStorageSync('result')})
-        break;
-      case '1':
-        this.setData({position: wx.getStorageSync('result')})
-        break;
-      case '2':
-        this.setData({signory: wx.getStorageSync('result')})
-        break;
-    }
-  },
-  setTitle (target) {
-    switch (target) {
-      case '0':
-        title = this.data.city
-        break;
-      case '1':
-        title = this.data.position
-        break;
-      case '2':
-        title = this.data.signory
-        break;
-    }
-  },
-  /* 去选择页面(0、选择城市，1、选择职位，2、选择领域) */
-  choose (e) {
-    target = e.currentTarget.dataset.type
-    this.setTitle(target)
-    wx.navigateTo({
-      url: `/page/applicant/pages/center/resumeEditor/systematics/systematics?title=${title}&target=${target}`
-    })
-  },
-  
   getresult (e) {
-    console.log(e)
-    this.setData({
-      salaryCeil: parseInt(e.detail.propsResult[1]),
-      salaryFloor: parseInt(e.detail.propsResult[0])
-    })
+//  console.log(e.currentTarget.dataset.time)
+    if (e.currentTarget.dataset.time === 'start') {
+      this.data.startTime = e.detail.propsResult
+    } else {
+      this.data.endTime = e.detail.propsResult
+    }
   },
+  WriteContent (e) {
+//  console.log(e.detail.value)
+    this.data.description = e.detail.value
+  },
+  itemLink (e) {
+    this.data.itemLink = e.detail.value
+  },
+  // 编辑保存
   save () {
     const param = {
-      id: nowEcpetId,
-      cityNum: this.data.city.areaId,
-      positionId: this.data.position.labelId,
-      salaryCeil: this.data.salaryCeil,
-      salaryFloor: this.data.salaryFloor,
-      fieldIds: this.data.signory.labelId+''
+      id: nowItemId,
+      name: this.data.itemName,
+      role: this.data.role,
+      startTime: this.data.startTime,
+      endTime: this.data.endTime,
+      description: this.data.description,
+      link: this.data.itemLink
     }
     for (let item in param) {
-      if (!param[item]) {
+      if (!param[item] && item !== 'link') {
+        console.log(item)
         wx.showToast({
-          title: '必填项不能为空，请重新输入',
+          title: `必填项不能为空，请重新输入`,
           icon: 'none',
           duration: 1000
         })
         return
       }
     }
-    editExpectApi(param).then(res => {
+    editProjectApi(param).then(res => {
       wx.showToast({
         title: '编辑成功',
         icon: 'none',
         duration: 1000
       })
+      app.globalData.resumeInfo.projects.map((item) => {
+        if (item.id === param.id) {
+          item = param
+        }
+      })
+      wx.navigateBack({delta: 1}) 
+    })
+  },
+  // 新增
+  add () {
+    const param = {
+      name: this.data.itemName,
+      role: this.data.role,
+      startTime: this.data.startTime,
+      endTime: this.data.endTime,
+      description: this.data.description,
+      link: this.data.itemLink
+    }
+    for (let item in param) {
+      if (!param[item] && item !== 'link') {
+        console.log(item)
+        wx.showToast({
+          title: `必填项不能为空，请重新输入`,
+          icon: 'none',
+          duration: 1000
+        })
+        return
+      }
+    }
+    addProjectApi(param).then(res => {
+      app.globalData.resumeInf.projects.push(res.data)
       wx.navigateBack({delta: 1}) 
     })
   }
