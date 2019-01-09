@@ -20,6 +20,18 @@
 	bottom: 0;
 }
 
+.position-post .icon-PC {
+	margin-right: 16rpx;
+	font-size: 30rpx;
+	vertical-align: middle;
+}
+
+.position-post .warning .icon-xiangyou {
+	margin-left: 15rpx;
+	font-size: 30rpx;
+	vertical-align: middle;
+}
+
 .position-post .clear-bottom:after {
 	display: none;
 }
