@@ -89,6 +89,8 @@ Page({
         url = `${RECRUITER}user/editBrief/editBrief`
         break
       case 'declaration':
+        let item = e.currentTarget.dataset.item
+        wx.setStorageSync('choseTopicData', item)
         url = `${RECRUITER}user/editDeclaration/editDeclaration`
         break
       case 'addDeclaration':

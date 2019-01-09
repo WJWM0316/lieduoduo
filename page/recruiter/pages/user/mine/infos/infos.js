@@ -42,7 +42,7 @@ Page({
     const route = e.currentTarget.dataset.route
     switch(route) {
       case 'company':
-        wx.navigateTo({url: `${RECRUITER}user/company/infos/infos?companyId=${this.data.recruiterInfo.companyId}`})
+        wx.navigateTo({url: `${RECRUITER}company/indexEdit/indexEdit`})
         break
       case 'base':
         wx.navigateTo({url: `${RECRUITER}user/mine/base/base`})

@@ -90,13 +90,13 @@
   margin: 0 auto;
 }
 .lineTip {
-  width: 100%;
-  text-align: center;
+  width: 610rpx;
   font-size: 28rpx;
   font-weight: 300;
   color: #282828;
   line-height: 28rpx;
   padding: 32rpx 0 40rpx;
+  margin: 0 auto;
 }
 .applicant .img, .recruiter .img {
   width: 120rpx;

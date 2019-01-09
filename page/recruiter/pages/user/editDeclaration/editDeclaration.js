@@ -1,4 +1,5 @@
-import {setManifestoApi} from '../../../../../api/pages/recruiter.js'
+import {setManifestoApi,removeTopicApi } from '../../../../../api/pages/recruiter.js'
+let app = getApp()
 Page({
 
   /**
@@ -14,19 +15,63 @@ Page({
       content: e.detail.value
     })
   },
+  remove() {
+    let id = this.data.info.id
+    getApp().wxConfirm({
+      title: '删除招聘宣言',
+      content: '招聘宣言删除后将无法恢复，是否确定删除？',
+      confirmBack() {
+        removeTopicApi({id}).then(res => {
+          getApp().wxToast({
+            title: '删除成功',
+            icon: "success",
+            callback() {
+              let recruiterDetails = app.globalData.recruiterDetails
+              recruiterDetails.manifestos.map((item, index) => {
+                if (item.id === id) {
+                  app.globalData.recruiterDetails.manifestos.splice(index, 1)
+                  return
+                }
+              })
+              wx.navigateBack({
+                delta: 1
+              })
+            }
+          })
+        })
+      }
+    })
+  },
   saveInfo() {
     let data = {
-      id: this.data.options.id,
-      topicId: 
       content: this.data.content
+    }
+    if (this.data.options.topicId) {
+      data.topicId = this.data.options.topicId
+    } else {
+      data.id = this.data.info.id
+      data.topicId = this.data.info.topicId
     }
     setManifestoApi(data).then(res => {
       getApp().wxToast({
         title: '保存成功',
         icon: 'success',
         callback() {
+          wx.removeStorageSync('choseTopicData')
+          let recruiterDetails = app.globalData.recruiterDetails
+          if (data.id) {
+            recruiterDetails.manifestos.map((item, index) => {
+              if (item.id === data.id) {
+                recruiterDetails.manifestos[index].content = data.content
+                app.globalData.recruiterDetails = recruiterDetails
+                return
+              }
+            })
+          } else {
+            recruiterDetails.manifestos.push(res.data)
+          }
           wx.navigateBack({
-            delta: 1
+            delta: 2
           })
         }
       })
@@ -36,8 +81,15 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    let info = app.globalData.recruiterDetails
-    this.setData({options, info})
+    if (options.topicId) {
+      let info = this.data.info
+      info.topicTitle = options.title
+      this.setData({options, info})
+    } else {
+      let info = wx.getStorageSync('choseTopicData')
+      let content = info.content
+      this.setData({info, content})
+    }
   },
 
   /**

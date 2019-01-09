@@ -30,7 +30,7 @@
       <button hidden="{{!info.isCall}}" class="callBtn isCalled" bindtap="shareBtn">帮Ta转发集Call</button>
       <view class="more">查看更多热门招聘官<view class="icon iconfont icon-disejiantou-you"></view></view>
     </view>
-    <view class="labelEdit">
+    <view class="labelEdit" wx:if="{{isOwner}}">
       <view class="title">
         <view class="icon">
           <view class="fan"></view>
@@ -48,7 +48,7 @@
           <view class="fan"></view>
         </view>
         <text class="txt">个人简介</text>
-        <i class="editBtn iconfont icon-bianji1" bindtap="editJump" data-type="profile"></i>
+        <i wx:if="{{isOwner}}" class="editBtn iconfont icon-bianji1" bindtap="editJump" data-type="profile"></i>
       </view>
       <view class="msg {{isShrink ? 'shrink':''}}">{{info.brief}}</view>
       <view class="openbtn" wx:if="{{isShrink}}" bindtap="toggle">{{btnTxt}}<icon class="icon iconfont icon-zhishibiao {{!isShrink ? 'shrink':''}}"></icon></view>
@@ -61,13 +61,9 @@
         <text class="txt">招聘宣言</text>
       </view>
       <view class="descList">
-        <view class="descItem">
-          <view class="descTitle"># 最欣赏候选人什么品质？#<i class="editBtn iconfont icon-bianji1" bindtap="editJump" data-type="declaration"></i></view>
-          <view class="descAnswer">踏实、靠谱、善良，沟通能力强</view>
-        </view>
-        <view class="descItem">
-          <view class="descTitle"># 最欣赏候选人什么品质？## 最欣赏候选人什么品质？## 最欣赏候选人什么品质？#<i class="editBtn iconfont icon-bianji1" bindtap="editJump" data-type="labels"></i></view>
-          <view class="descAnswer">踏实、靠谱、善良，沟通能力强踏实、靠谱、善良，沟通能力强踏实、靠谱、善良，沟通能力强踏实、靠谱、善良，沟通能力强</view>
+        <view class="descItem" wx:for="{{info.manifestos}}" wx:key="{{index}}">
+          <view class="descTitle">{{item.topicTitle}}<i data-item="{{item}}" class="editBtn iconfont icon-bianji1" bindtap="editJump" data-type="declaration"></i></view>
+          <view class="descAnswer">{{item.content}}</view>
         </view>
       </view>
       <view class="addDeclaration" bindtap="editJump" data-type="addDeclaration">添加招聘宣言</view>

@@ -3,6 +3,7 @@ import {getJobLabelApi, getLifeLableApi, addJobLabelApi, addLifeLabelApi, saveLa
 let allSkills = []
 let choseFirstId = ''
 let choseFirstIndex = 0
+let app = getApp()
 Page({
 
   /**
@@ -10,6 +11,7 @@ Page({
    */
   data: {
     title: '选择职业标签',
+    choseFirstName: '',
     jobChoseNum: 0, // 职业标签选择的数量
     lifeChoseNum: 0, // 生活标签选择的数量
     pageType: 'job',
@@ -32,15 +34,61 @@ Page({
     let interest = []
     let skills = []
     let literacy = []
+    let choseAllList = []
+    let choseJobList = []
+    let choseLifeList = []
+    let choseFirstName = ''
+    if (getApp().globalData.identity === "APPLICANT") {
+      choseAllList = app.globalData.resumeInfo.personalizedLabels
+    } else {
+      choseAllList = app.globalData.recruiterDetails.personalizedLabels
+    }
     getJobLabelApi({type: 'all'}).then(res => {
       allSkills = res.data.labelProfessionalSkills
       literacy = res.data.labelProfessionalLiteracy
-      allSkills.map((n, index) => {
-        if (n.labelId === choseFirstId) {
-          skills = allSkills[index].children
+      // 默认展示第一个类
+      skills = allSkills[0].children
+      choseFirstName = allSkills[0].name
+      // 确定第一个职业技术标签的二级类
+      choseAllList.map((item, index) => {
+        if (item.type === 'label_professional_skills') {
+          allSkills.map((n, j) => {
+            if (n.labelId === choseAllList[index].pid) {
+              choseFirstIndex = j
+              choseFirstName = allSkills[j].name
+            }
+          })
+          return
         }
       })
-      this.setData({skills, literacy})
+      choseAllList.map((i, j) => {
+        switch(i.type) {
+          case 'label_professional_skills':
+            i.checked = true
+            choseJobList.push(i)
+            allSkills.map((k, s) => {
+              if (k.labelId === i.pid) {
+                allSkills[s].children.map((x, y) => {
+                  if (x.labelId === i.labelId) {
+                    allSkills[s].children[y].checked = true
+                  }
+                })
+              }
+            })
+            skills = allSkills[choseFirstIndex].children
+            break
+          case 'label_professional_literacy':
+            i.checked = true
+            choseJobList.push(i)
+            literacy.map((item, index) => {
+              if (item.labelId === i.labelId) {
+                literacy[index].checked = true
+              }
+            })
+            break
+        }
+      })
+      this.setData({skills, literacy, choseJobList, choseFirstName})
     })
     getLifeLableApi().then(res => {
       res.data.map((item, index) => {
@@ -51,7 +99,28 @@ Page({
           interest = item.children
         }
       })
-      this.setData({character, interest})
+      choseAllList.map((i, j) => {
+        switch(i.type) {
+          case 'label_life':
+            i.checked = true
+            choseLifeList.push(i)
+            if (i.pid === 100000) {
+              character.map((k, s) => {
+                if (k.labelId === i.labelId) {
+                  character[s].checked = true
+                }
+              })
+            } else if (i.pid === 120000) {
+              interest.map((k, s) => {
+                if (k.labelId === i.labelId) {
+                  interest[s].checked = true
+                }
+              })
+            }
+            break
+        }
+      })
+      this.setData({character, interest, choseLifeList})
     })
   },
   openPop () {
@@ -59,7 +128,7 @@ Page({
       if (this.data.lifeChoseNum < 5) {
         this.setData({hidePop: false})
       } else {
-        getApp().wxToast({
+        app.wxToast({
           title: '选择标签已达上限'
         })
       }
@@ -67,7 +136,7 @@ Page({
       if (this.data.jobChoseNum < 5) {
         this.setData({hidePop: false})
       } else {
-        getApp().wxToast({
+        app.wxToast({
           title: '选择标签已达上限'
         })
       }
@@ -85,9 +154,7 @@ Page({
     if (allSkills.length > 0) {
       allSkills.map((n, index) => {
         if (n.labelId === choseFirstId) {
-          skills = allSkills[index].children
           choseFirstIndex = index
-          this.setData({skills})
         }
       })
     }
@@ -129,6 +196,10 @@ Page({
         labelType = 'choseJobList'
         labelList = this.data.choseJobList
         break
+      case 'choseLifeList':
+        labelType = 'choseLifeList'
+        labelList = this.data.choseLifeList
+        break
     }
     let choseData = e.target.dataset.tabdata
     labelList.map((item, index) => {
@@ -145,7 +216,7 @@ Page({
         }
       })
       // 不是点击 选中标签列表
-      if (labelType !== 'choseJobList') {
+      if (labelType !== 'choseJobList' && labelType !== 'choseLifeList') {
         labelList[choseData.index].checked = false
       // 选中标签列表
       } else {
@@ -154,20 +225,19 @@ Page({
         switch (choseData.type) {
           case 'label_professional_skills':
             relationType = 'skills'
-            // relationList = allSkills[choseFirstIndex].children
             break
           case 'label_professional_literacy':
             relationType = 'literacy'
             relationList = this.data.literacy
             break
-          case 100000:
-              relationType = 'label_professional_character'
+          case 'label_life':
+            if (choseData.pid === 100000) {
+              relationType = 'character'
               relationList = this.data.character
-              break
-            case 120000:
-              relationType = 'label_professional_interest'
+            } else {
+              relationType = 'interest'
               relationList = this.data.interest
-              break
+            }
         }
         if (relationType !== 'skills') {
           relationList.map((item, index) => {
@@ -198,7 +268,7 @@ Page({
     // 选中的
     } else {
       if (list.length === 5) { // 超过五个不给选择了
-        getApp().wxToast({
+        app.wxToast({
           title: '选择标签已达上限'
         })
         return
@@ -233,7 +303,7 @@ Page({
     let isReturn = false
     list.map((item, index) => {
       if (item.name === this.data.customLabel) {
-        getApp().wxToast({
+        app.wxToast({
           title: '标签重复，添加失败'
         })
         isReturn = true
@@ -259,7 +329,7 @@ Page({
       })
     }).catch((e) => {
       if (e.data.code === 413) {
-        getApp().wxToast({
+        app.wxToast({
           title: '便签库已有此标签'
         })
         this.setData({
@@ -282,7 +352,7 @@ Page({
   },
   nextStep() {
     if (this.data.choseJobList.length === 0) {
-      getApp().wxToast({
+      app.wxToast({
         title: '请选择职业标签'
       })
       return
@@ -294,33 +364,57 @@ Page({
   },
   saveLabel() {
     if (this.data.choseLifeList.length === 0) {
-      getApp().wxToast({
+      app.wxToast({
         title: '请选择生活标签'
       })
       return
     }
     let jobList = []
+    let literacyLabels = []
     let lifeList = []
+    let personalizedLabels = this.data.choseJobList.concat(this.data.choseLifeList)
     this.data.choseJobList.map((item, index) => {
-      jobList.push({labelId: item.labelId, source: item.source})
+      if (item.type === 'label_professional_skills') {
+        jobList.push({labelId: item.labelId, source: item.source})
+      } else {
+        literacyLabels.push({labelId: item.labelId, source: item.source})
+      }
     })
     this.data.choseLifeList.map((item, index) => {
       lifeList.push({labelId: item.labelId, source: item.source})
     })
+    // jobList = [{labelId: 170000, source: 'system'}]
+    // lifeList = [{labelId: 110300, source: 'system'}]
+    // literacyLabels = [{labelId: 120000, source: 'system'}, {labelId: 150000, source: 'system'}]
     let data = {
       skillLabels: jobList,
+      literacyLabels: literacyLabels,
       lifeLabels: lifeList
     }
-    if (getApp().globalData.identity === "APPLICANT") {
+    if (app.globalData.identity === "APPLICANT") {
       saveLabelApi(data).then(res => {
-        wx.navigateBack({
-          delta: 1
+        app.globalData.resumeInfo.personalizedLabels = personalizedLabels
+        app.wxToast({
+          title: '提交成功',
+          icon: "success",
+          callback() {
+            wx.navigateBack({
+              delta: 1
+            })
+          }
         })
       })
     } else {
       saveRecruiterLabelApi(data).then(res => {
-        wx.navigateBack({
-          delta: 1
+        app.globalData.recruiterDetails.personalizedLabels = personalizedLabels
+        app.wxToast({
+          title: '提交成功',
+          icon: "success",
+          callback() {
+            wx.navigateBack({
+              delta: 1
+            })
+          }
         })
       })
     }
@@ -329,13 +423,6 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-
   },
 
   /**

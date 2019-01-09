@@ -1,5 +1,4 @@
-import {getTopicListApi} from '../../../../../api/pages/recruiter.js'
-import {RECRUITER} from '../../../../../config.js'
+import {getCompanyInfosApi} from "../../../../../api/pages/company.js"
 let app = getApp()
 Page({
 
@@ -7,25 +6,19 @@ Page({
    * 页面的初始数据
    */
   data: {
-    list: [],
-    myTopList: []
+    info: {}
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    let myTopList = app.globalData.recruiterDetails.manifestos
-    getTopicListApi().then(res => {
-      this.setData({list: res.data})
+    getCompanyInfosApi({id:app.globalData.recruiterDetails.companyInfo.id}).then(res => {
+      console.log(res.data)
+      this.setData({info: res.data})
     })
   },
-  addTop(e) {
-    let item = e.currentTarget.dataset.item
-    wx.navigateTo({
-      url: `${RECRUITER}user/editDeclaration/editDeclaration?topicId=${item.id}&title=${item.title}`
-    })
-  },
+
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

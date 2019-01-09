@@ -1,7 +1,7 @@
 <viwe class="editBrief">
 	 <navBar title="基本资料" background="#fff" color="#22292C"></navBar>
 	 <view class="textBox">
-	 	<textarea bindinput="changeVal" value="{{contnet}}" class="textarea" maxlength="5000" placeholder="描述你的个人经历或成就"></textarea>
+	 	<textarea bindinput="changeVal" class="textarea" maxlength="5000" placeholder="描述你的个人经历或成就" value="{{content}}"></textarea>
 	 	<view class="tip">
 	 		<view class="look">
 	 			<i class="icon iconfont icon-chakan"></i>

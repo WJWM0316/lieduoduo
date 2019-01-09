@@ -1,4 +1,5 @@
 import {setBriefApi} from '../../../../../api/pages/recruiter.js'
+let app = getApp()
 Page({
 
   /**
@@ -8,17 +9,18 @@ Page({
     content: ""
   },
   changeVal(e) {
-    console.log(e)
     this.setData({
       content: e.detail.value
     })
   },
   saveInfo() {
     setBriefApi({brief: this.data.content}).then(res => {
+      let that = this
       getApp().wxToast({
         title: '保存成功',
         icon: 'success',
         callback() {
+          app.globalData.recruiterDetails.brief = that.data.content
           wx.navigateBack({
             delta: 1
           })
@@ -30,7 +32,8 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    let content = app.globalData.recruiterDetails.brief
+    this.setData({content})
   },
 
   /**
