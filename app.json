@@ -102,7 +102,8 @@
         "pages/user/chooseTopic/chooseTopic",
         "pages/detail/position/position",
         "pages/test/test",
-        "pages/company/indexEdit/indexEdit"
+        "pages/company/indexEdit/indexEdit",
+        "pages/company/baseEdit/baseEdit"
       ]
     }
   ],

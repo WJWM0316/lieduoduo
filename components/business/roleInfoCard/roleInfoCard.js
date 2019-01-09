@@ -46,7 +46,13 @@ Component({
         }
       })
     },
+    jumpEditBase() {
+      wx.navigateTo({
+        url: `${RECRUITER}company/baseEdit/baseEdit`
+      })
+    },
     jumpCompany() {
+      if (this.data.isMain) { return }
       wx.navigateTo({
         url: `${COMMON}homepage/homepage?companyId=${this.data.cardData.id}`
       })

@@ -5,6 +5,9 @@
   padding-right: 50rpx;
   background: #fff;
 }
+.company.edit {
+  padding-right: 0;
+}
 .company .img {
   width: 108rpx;
   height: 108rpx;
@@ -66,6 +69,11 @@
   top: 50%;
   transform: translateY(-50%);
   color: #D3CFD6;
+}
+.editIcon {
+  font-size: 32rpx;
+  color: #652791;
+  float: right;
 }
 .applicant, .recruiter{
   position: relative;

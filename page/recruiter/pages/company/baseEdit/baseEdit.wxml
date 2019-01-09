@@ -1,0 +1,23 @@
+<view class="baseEdit">
+	<navbar title="编辑基本信息" background="#fff" color="#22292C"></navbar>
+	<view class="head">
+		<view class="msg">
+			<view class="item companyLogo">
+				<view class="txt">公司封面</view>
+				<view class="value">移动互联网</view>
+			</view>
+			<view class="item">
+				<view class="txt">融资阶段</view>
+				<view class="value">移动互联网</view>
+			</view>
+			<view class="item">
+				<view class="txt">公司规模</view>
+				<view class="value">移动互联网</view>
+			</view>
+			<view class="item">
+				<view class="txt">公司官网</view>
+				<view class="value">移动互联网</view>
+			</view>
+		</view>
+	</view>
+</view>

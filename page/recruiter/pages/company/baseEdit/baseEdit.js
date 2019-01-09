@@ -1,23 +1,18 @@
-import {getCompanyInfosApi} from "../../../../../api/pages/company.js"
-let app = getApp()
+// page/recruiter/pages/company/baseEdit/baseEdit.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    info: {}
+
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    // app.globalData.recruiterDetails.companyInfo.id
-    getCompanyInfosApi({id: 13}).then(res => {
-      app.globalData.companyInfo = res.data
-      this.setData({info: res.data})
-    })
+
   },
 
   /**

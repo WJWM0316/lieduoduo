@@ -1,12 +1,12 @@
 <view class="my-class">
-  <view class="company" wx:if="{{roleType === 'company'}}" bindtap="jumpCompany">
+  <view class="company {{isMain ? 'edit' : ''}}" wx:if="{{roleType === 'company'}}" bindtap="jumpCompany">
     <image class="img" src="{{cardData.avatar.middleUrl}}"></image>
     <view class="companyMsg" wx:if="{{!isMain}}">
       <view class="name">{{cardData.name}}</view>
       <view class="detail">{{cardData.industry}} · {{cardData.financingDesc}} · {{cardData.employeesDesc}}</view>
     </view>
     <view class="companyMsg" wx:else>
-      <view class="name">{{cardData.companyShortname}}</view>
+      <view class="name">{{cardData.companyShortname}}<icon bindtap="jumpEditBase" class="editIcon iconfont icon-bianji" wx:if="{{isMain}}"></icon></view>
       <view class="detail">{{cardData.companyName}}</view>
     </view>
     <icon class="icon iconfont icon-xiangyou" wx:if="{{!isMain}}"></icon>
