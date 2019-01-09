@@ -104,3 +104,53 @@ export const addProjectApi = (data) => {
     hasLoading: false
   })
 }
+
+// 个人简历项目经验删除
+export const deleteProjectApi = (data) => {
+  return request({
+    method: 'delete',
+    url: `/jobhunter/project/${data.id}`,
+    data,
+    hasLoading: false
+  })
+}
+
+// 个人简历教育经历修改
+export const editEducationApi = (data) => {
+  return request({
+    method: 'post',
+    url: `/jobhunter/education/${data.id}`,
+    data,
+    hasLoading: false
+  })
+}
+
+// 个人简历教育经历增加
+export const addEducationApi = (data) => {
+  return request({
+    method: 'put',
+    url: `/jobhunter/education`,
+    data,
+    hasLoading: false
+  })
+}
+
+// 个人简历教育经历删除
+export const deleteEducationApi = (data) => {
+  return request({
+    method: 'delete',
+    url: `/jobhunter/education/${data.id}`,
+    data,
+    hasLoading: false
+  })
+}
+
+// 个人简历设置更多介绍
+export const editIntroduceApi = (data) => {
+  return request({
+    method: 'post',
+    url: `/jobhunter/introduce`,
+    data,
+    hasLoading: false
+  })
+}

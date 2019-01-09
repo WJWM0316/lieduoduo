@@ -1,0 +1,20 @@
+<!--简历更多编辑页-->
+<navbar title="项目编辑"></navbar>
+<view class="warp">
+  <!--自我描述-->
+  <view class="textArea">
+    <textarea placeholder="留下些文字或作品吧，让招聘官更了解你吧~" placeholder-class="placeholder" value="{{introduce}}" maxlength="300" bindinput="WriteContent"></textarea>
+    <view class="bottom">
+      <view class="num">{{nowInputNum}}/300</view>
+    </view>
+  </view>
+  <view class="imgBox">
+    <image class="commont img" wx:for="{{imgList}}" wx:key="{{item}}" src="{{item.smallUrl}}"><view class="close" data-imgIndex="{{index}}" bindtap="delImg"><i class="icon iconfont icon-close"></i></view></image>
+    <unloadFile class="commont addImg" bindresultEvent="getResult" unloadType="img">
+      <view class="add"><i class="icon iconfont icon-jiahao"></i></view>
+    </unloadFile> 
+  </view>
+</view>
+<view class="btn">
+  <view class="save" bindtap="save">保存</view>
+</view>

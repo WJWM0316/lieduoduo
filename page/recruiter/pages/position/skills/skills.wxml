@@ -1,17 +1,28 @@
-<view>
-	<navbar title="技能标签" background="#FFFFFF" color="#22292C" showBackBtn="{{true}}"></navbar>
-	<form bindsubmit="submit" class="entry-list">
-		<view class="position-type-ul">
-			<view
-				class="li"
-				wx:for="{{professionalSkills.children}}"
-				wx:for-item="item"
-				wx:key="{{item.id}}"
-				data-label-id="{{item.labelId}}"
-				bindtap="onClick">{{item.name}}</view>
-		</view>
-		<view class="btn-area">
-	    <button form-type="submit" class="{{canClick ? 'button-enable' : ''}}">发布</button>
-	  </view>
-	</form>
+<view class="position-skills">
+	<navbar title="技能要求" background="#FFFFFF" color="#22292C"></navbar>
+	<view class="header">
+		<text class="title">已选择标签</text>
+		<text class="{{ skills.length ? 'strong' : ''}}">{{skills.length}}</text>/{{limitNum}}
+	</view>
+	<view class="checked-item-ul" wx:if="{{skills.length}}">
+		<view
+			class="li"
+			wx:for="{{skills}}"
+			wx:for-item="item"
+			wx:key="{{item.id}}"
+			data-label-id="{{item.labelId}}"
+			bindtap="onClick"> {{item.name}} <i class="icon iconfont icon-close"></i></view>
+	</view>
+	<view class="unchecked-item-ul">
+		<view
+			class="li {{item.active ? 'active' : ''}}"
+			wx:for="{{professionalSkills}}"
+			wx:for-item="item"
+			wx:key="{{item.id}}"
+			data-label-id="{{item.labelId}}"
+			bindtap="onClick"> {{item.name}} </view>
+	</view>
+	<view class="footer">
+    <button class="button-submit {{canClick ? 'button-enable' : ''}}" bindtap="submit">发布</button>
+  </view>
 </view>

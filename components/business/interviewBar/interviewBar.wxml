@@ -156,7 +156,7 @@
 		<!-- 招聘端 -->
 	</block>
 	<!-- 是我自己发布的职位 start-->
-	<block wx:elif="{{isOwerner && identity === 'APPLICANT'}}">
+	<block wx:elif="{{isOwerner && identity === 'RECRUITER'}}">
 		<view class="edit-button" data-action="recruiter-edit" bindtap="todoAction">编辑</view>
 		<view class="switch-button" bindtap="todoAction" data-action="{{infos.status === 0 ? 'open' : 'close'}}">
 			{{infos.status === 0 ? '开放职位' : '关闭职位'}}

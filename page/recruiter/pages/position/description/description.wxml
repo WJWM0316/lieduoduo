@@ -1,6 +1,6 @@
 <view class="position-description">
-	<navbar title="职位描述" background="#FFFFFF" color="#22292C" showBackBtn="{{true}}"></navbar>
-	<form bindsubmit="formSubmit">
+	<navbar title="职位描述" background="#FFFFFF" color="#22292C"></navbar>
+	<form bindsubmit="submit">
 		<view class="edit-box">
 			<textarea
 				bindinput="bindTextAreaInput"
@@ -8,12 +8,22 @@
 				placeholder="填写详细，清晰的职位描述"
 				value="{{describe}}" />
 			<view class="controls">
-				<view class="view">看看别人怎么写</view>
-				<view>0/300</view>
+				<view class="similarity"><i class="icon iconfont icon-chakan"></i>看看别人怎么写</view>
+				<view class="sum">{{ describe.length }}/300</view>
 			</view>
 		</view>
+		<view class="example">
+			<view class="infos">
+				<view class="img-box"></view>
+				<view class="degress">市场运营经理</view>
+			</view>
+			<view class="change" bindtap="change"><i class="icon iconfont icon-huanyihuan"></i>换一个</view>
+		</view>
+		<view class="floating-box">
+			本人有6年工作经验，意向电商或高并发，责任心非常强，耐力持久，热爱技术，皮实，性格内敛，灵活，执着。热衷于研究技术，崇尚科技改变世界！
+		</view>
 		<view class="btn-area">
-	    <button form-type="submit" class="{{canClick ? 'button-enable' : ''}}">发布</button>
+	    <button form-type="submit" class="button-submit {{canClick ? 'button-enable' : ''}}">保存</button>
 	  </view>
 	</form>
 </view>

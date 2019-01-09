@@ -2,12 +2,16 @@
 <navbar title="项目编辑"></navbar>
 <view class="warp">
   <view class="commont">
-    <view class="title"><text>*</text>项目名称</view>
-    <view class="result"><input type="text" bindblur="itemName"></input></view>
+    <view class="title"><text>*</text>学校</view>
+    <view class="result"><input type="text" bindblur="schoolName"></input></view>
+  </view>
+  <view class="commont salary">
+    <view class="title"><text>*</text>学历</view>
+    <myPicker class="myPicker" setResult="学历" pickerType="education" placeholderStyle="color: #BCBCBC" rangeKey="name" data-time="education" bindresultevent="getresult"></myPicker>
   </view>
   <view class="commont">
-    <view class="title"><text>*</text>担任角色</view>
-    <view class="result"><input type="text" bindblur="role"></input></view>
+    <view class="title"><text>*</text>专业</view>
+    <view class="result"><input type="text" bindblur="subject"></input></view>
   </view>
   <view class="commont salary">
     <view class="title"><text>*</text>开始时间</view>
@@ -18,14 +22,9 @@
     <myPicker class="myPicker" setResult="开始时间" pickerType="endTime" placeholderStyle="color: #BCBCBC" data-time="end" bindresultevent="getresult"></myPicker>
   </view>
   <!--项目描述-->
-  <view class="title"><text>*</text>项目描述</view>
+  <view class="title"><text>*</text>在校经历</view>
   <view class="textArea">
-    <textarea placeholder="填写项目内容" placeholder-class="placeholder" maxlength="50" bindinput="WriteContent"></textarea>
-  </view>
-  <!--项目链接-->
-  <view class="title">项目链接</view>
-  <view class="textArea">
-    <textarea placeholder="填写项目链接" placeholder-class="placeholder" maxlength="50" bindinput="itemLink"></textarea>
+    <textarea placeholder="填写在校经历" placeholder-class="placeholder" maxlength="50" bindinput="WriteContent"></textarea>
   </view>
 </view>
 <view class="save add" bindtap="add" wx:if="{{isAdd}}">新增教育经历</view>

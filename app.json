@@ -27,7 +27,9 @@
     "page/applicant/pages/center/resumeEditor/aimsEdit/aimsEdit",
     "page/applicant/pages/center/resumeEditor/systematics/systematics",
     "page/applicant/pages/center/resumeEditor/workEdit/workEdit",
-    "page/applicant/pages/center/resumeEditor/itemEdit/itemEdit"
+    "page/applicant/pages/center/resumeEditor/itemEdit/itemEdit",
+    "page/applicant/pages/center/resumeEditor/educateEdit/educateEdit",
+    "page/applicant/pages/center/resumeEditor/moreEdit/moreEdit"
   ],
   "window": {
     "navigationBarTextStyle": "black",

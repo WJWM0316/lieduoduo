@@ -192,8 +192,8 @@
 				},
 				{
 					"id": 25,
-					"name": "编辑项目",
-					"pathName": "page/applicant/pages/center/resumeEditor/itemEdit/itemEdit",
+					"name": "更多编辑",
+					"pathName": "page/applicant/pages/center/resumeEditor/moreEdit/moreEdit",
 					"query": "id=6"
 				}
 			]

@@ -29,19 +29,6 @@
   line-height: 122rpx;
   margin-right: 10rpx;
 }
-/*.save{
-  width: 550rpx;
-  height: 88rpx;
-  background-color: #652791;
-  border-radius:48rpx;
-  margin: 0 auto;
-  color: #fff;
-  text-align: center;
-  line-height: 88rpx;
-  font-size: 32rpx;
-  font-weight: 400;
-  margin: 0 20rpx;
-}*/
 .textArea{
   width: 100%;
   /*height: 150rpx;*/
@@ -67,12 +54,6 @@
   line-height: 122rpx;
   margin-right: 10rpx;
 }
-/*.btn{
-  display: flex;
-  margin-top: 70rpx;
-  align-items: center;
-  justify-content: center;
-}*/
 .btn{
   width: 100%;
   display: flex;

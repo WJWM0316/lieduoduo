@@ -19,10 +19,13 @@ Page({
   bindTextAreaInput(e) {
   	this.setData({describe: e.detail.value})
   },
-  formSubmit(e) {
+  submit(e) {
     const storage = wx.getStorageSync('createPosition')
     storage.describe = this.data.describe
     wx.setStorageSync('createPosition', storage)
     wx.navigateTo({url: `${RECRUITER}position/post/post`})
+  },
+  change(e) {
+  	console.log(e)
   }
 })

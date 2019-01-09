@@ -2,16 +2,21 @@ import {COMMON, RECRUITER} from '../../../../../config.js'
 
 import { reverseGeocoder } from '../../../../../utils/map.js'
 
+import {
+  deleteCompanyAddressApi
+} from '../../../../../api/pages/company.js'
+
 const app = getApp()
 
 Page({
   data: {
-    keyword: ''
+    keyword: '',
+    address: ''
   },
-  onLoad() {
+  onLoad(options) {
     const storage = wx.getStorageSync('createPosition')
     if(storage) {
-      this.setData({ keyword: storage.doorplate })
+      this.setData({ keyword: storage.doorplate, address: storage.address, options })
     }
   },
   /**
@@ -33,9 +38,6 @@ Page({
     wx.chooseLocation({
       success: res => {
         this.reverseGeocoder(res)
-      },
-      fail(e) {
-        console.log(e)
       }
     })
   },
@@ -54,12 +56,22 @@ Page({
             storage.lat = rtn.result.ad_info.location.lat
             storage.lng = rtn.result.ad_info.location.lng
             wx.setStorageSync('createPosition', storage)
-          })
-          .catch(() => {
-            app.wxToast({title: '地址转化失败'})
+            this.setData({ keyword: storage.doorplate, address: storage.address })
           })
   },
-  submit(e) {
+  /**
+   * @Author   小书包
+   * @DateTime 2019-01-09
+   * @detail   删除公司地址
+   * @return   {[type]}   [description]
+   */
+  deleteCompanyAddress() {
+    deleteCompanyAddressApi({id: this.data.options.id})
+      .then(() => {
+        wx.redirectTo({url: `${RECRUITER}position/addressList/addressList`})
+      })
+  },
+  save() {
     const storage = wx.getStorageSync('createPosition')
     storage.doorplate = this.data.keyword
     wx.setStorageSync('createPosition', storage)

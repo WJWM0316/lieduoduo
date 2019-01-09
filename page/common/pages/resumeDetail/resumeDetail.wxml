@@ -7,7 +7,7 @@
     <view class="top">
       <image src="{{info.avatar.smallUrl}}" class="avatar"></image>
       <view class="info">
-        <view class="name"><text>{{info.name}}</text><i class="icon iconfont icon-bianji1 edit" data-editName="info" bindtap="edit" wx:if="{{info.isOwner}}"></i></view>
+        <view class="name"><text>{{info.name}}</text><i class="icon iconfont icon-bianji1 edit" data-editName="info" data-id="{{item.id}}" bindtap="edit" wx:if="{{info.isOwner}}"></i></view>
         <view>
           <text>{{info.lastCompanyName}}</text> | <text>{{info.lastPosition}}</text>
         </view>
@@ -36,7 +36,7 @@
         <view class="officeDetail">
           <text>{{item.position}} | {{item.city}}</text>
           <text class="salary">{{item.salaryFloor}}~{{item.saralyCeil}}K</text>
-          <i class="icon iconfont icon-bianji1 edit" data-editName="intent" bindtap="edit" wx:if="info.isOwner"></i></view>
+          <i class="icon iconfont icon-bianji1 edit" data-editName="intent" data-id="{{item.id}}" bindtap="edit" wx:if="info.isOwner"></i></view>
       </view>
       <view class="officeInfo">
         <text wx:if="{{item.fields[0]}}">{{item.fields[0].field}}</text>
@@ -52,7 +52,7 @@
       <view class="expTitle">
         <text class="expName">{{item.company}}</text>
         <text class="expTime">{{item.startTimeDesc}}-{{item.endTimeDesc}}</text>
-        <i class="icon iconfont icon-bianji1 edit" data-editName="work" bindtap="edit" wx:if="{{info.isOwner}}"></i>
+        <i class="icon iconfont icon-bianji1 edit" data-editName="work" data-id="{{item.id}}" bindtap="edit" wx:if="{{info.isOwner}}"></i>
       </view>
       <view class="expInfo">{{item.position}}</view>
       <!-- 工作内容 -->
@@ -71,7 +71,7 @@
       <view class="expTitle">
         <text class="expName">{{item.name}}</text>
         <text class="expTime">{{item.startTimeDesc}}-{{item.endTimeDesc}}</text>
-        <i class="icon iconfont icon-bianji1 edit" data-editName="project" bindtap="edit" wx:if="{{info.isOwner}}"></i>
+        <i class="icon iconfont icon-bianji1 edit" data-editName="project" data-id="{{item.id}}" bindtap="edit" wx:if="{{info.isOwner}}"></i>
       </view>
       <view class="expInfo">{{item.role}}</view>
       <!-- 工作内容 -->
@@ -81,6 +81,7 @@
         链接：<text>{{item.link}}</text>
       </view>
     </view>
+    <text class="add" data-editName="project" bindtap="edit" wx:if="{{info.isOwner}}">添加项目经历</text>
   </view>
   <!-- 教育经历 -->
   <view class="projectExp commentBox" wx:if="{{info.educations.length>0}}">
@@ -89,24 +90,25 @@
       <view class="expTitle">
         <text class="expName">{{item.school}}</text>
         <text class="expTime">{{item.startTimeDesc}}-{{item.endTimeDesc}}</text>
-        <i class="icon iconfont icon-bianji1 edit" data-editName="education" bindtap="edit" wx:if="{{info.isOwner}}"></i>
+        <i class="icon iconfont icon-bianji1 edit" data-editName="education" data-id="{{item.id}}" bindtap="edit" wx:if="{{info.isOwner}}"></i>
       </view>
       <view class="expInfo">{{item.degreeDesc}}·{{item.major}}</view>
       <!-- 教育经历 -->
       <view class='expContent'>{{item.experience}}</view>
     </view>
+    <text class="add" data-editName="education" bindtap="edit" wx:if="{{info.isOwner}}">添加教育经历</text>
   </view>
   <!-- 更多 -->
   <view class="more commentBox" wx:if="{{info.moreIntroduce}}">
     <view class="intentTitle moreTitle">
       <view><i class="icon iconfont icon-fujian"></i> 更多介绍 </view>
-      <i class="icon iconfont icon-bianji1 edit" data-editName="more" bindtap="edit" wx:if="{{info.isOwner}}"></i>
+      <i class="icon iconfont icon-bianji1 edit" data-editName="more" data-id="{{item.id}}" bindtap="edit" wx:if="{{info.isOwner}}"></i>
     </view>
     <view class="expTab">
       <!-- 工作内容 -->
       <view class="expContent">{{info.moreIntroduce.introduce}}</view>
       <view class="imgBox">
-        <image wx:for="{{info.moreIntroduce.imgs}}" wx:key="{{index}}" src="{{item}}"></image>
+        <image wx:for="{{info.moreIntroduce.imgs}}" wx:key="{{index}}" src="{{item.smallUrl}}"></image>
       </view>
     </view>
   </view>
@@ -120,13 +122,4 @@
       bindresultevent="init"
       wx:if="{{info.vkey}}"></interviewBar>
   </view>
-  <!--<view class="collect"><i class="icon iconfont icon-ganxingqu"></i></view>
-  <view class="communicate">
-    <image src="{{info.avatar}}" class="hrAvatar"></image>
-    <view>
-      <text class="name">{{info.name}}</text>
-      <text class="Info">我一直在等，等一个懂我的老大</text>
-    </view>
-    <view class="btn" bindtap="toCommunicate">开撩约面</view>
-  </view>-->
 </view>

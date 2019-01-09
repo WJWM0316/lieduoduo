@@ -1,5 +1,5 @@
 // page/applicant/pages/center/resumeEditor/aimsEdit/aimsEdit.js
-import { editProjectApi, addProjectApi } from '../../../../../../api/pages/center.js'
+import { editProjectApi, addProjectApi, deleteProjectApi } from '../../../../../../api/pages/center.js'
 let target = null
 let title = null
 let nowItemId = null // 当前编辑的意向数据id
@@ -16,13 +16,19 @@ Page({
     startTime: '',
     endTime: '',
     description: '', // 项目描述
-    itemLink: ''
+    itemLink: '',
+    isAdd: false
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    if (options.id === 'undefined') {
+      this.setData({
+        isAdd: true
+      })
+    }
     nowItemId = parseInt(options.id)
   },
   // 修改项目名称
@@ -60,7 +66,7 @@ Page({
       link: this.data.itemLink
     }
     for (let item in param) {
-      if (!param[item] && item !== 'link') {
+      if (!param[item] && item !== 'link' && item !== 'endTime') {
         console.log(item)
         wx.showToast({
           title: `必填项不能为空，请重新输入`,
@@ -76,12 +82,12 @@ Page({
         icon: 'none',
         duration: 1000
       })
-      app.globalData.resumeInfo.projects.map((item) => {
+      app.globalData.resumeInfo.projects.map((item, index) => {
         if (item.id === param.id) {
-          item = param
+          app.globalData.resumeInfo.projects[index] = param
+          wx.navigateBack({delta: 1})
         }
       })
-      wx.navigateBack({delta: 1}) 
     })
   },
   // 新增
@@ -95,7 +101,7 @@ Page({
       link: this.data.itemLink
     }
     for (let item in param) {
-      if (!param[item] && item !== 'link') {
+      if (!param[item] && item !== 'link' && item !== 'endTime') {
         console.log(item)
         wx.showToast({
           title: `必填项不能为空，请重新输入`,
@@ -106,8 +112,19 @@ Page({
       }
     }
     addProjectApi(param).then(res => {
-      app.globalData.resumeInf.projects.push(res.data)
+      app.globalData.resumeInfo.projects.push(res.data)
       wx.navigateBack({delta: 1}) 
+    })
+  },
+  // 删除
+  del () {
+    deleteProjectApi({id: nowItemId}).then(res => {
+      app.globalData.resumeInfo.projects.map((item, index) => {
+        if (item.id === nowItemId) {
+          app.globalData.resumeInfo.projects.splice(index,1)
+          wx.navigateBack({delta: 1})
+        }
+      })
     })
   }
 })

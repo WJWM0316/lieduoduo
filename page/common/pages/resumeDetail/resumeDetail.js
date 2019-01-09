@@ -21,15 +21,18 @@ Page({
     id = options
     const { vkey } = options
     console.log(options)
-    this.init(options)
-    app.pageInit = () => {
-      console.log(9999)
-    }
+//  this.init(options)
+//  app.pageInit = () => {
+//    console.log(9999)
+//  }
   },
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {},
+  onShow: function () {
+    this.init(id)
+    console.log(app.globalData.resumeInfo)
+  },
   init (options) {
     if (app.globalData.resumeInfo.uid) {
       if (app.globalData.resumeInfo.uid === options.uid || !options.uid ) {
@@ -50,9 +53,9 @@ Page({
           })
         }
       }
-      getPersonalResumeApi(options).then(res => {
-        this.setData({info: res.data})
-      })
+//    getPersonalResumeApi(options).then(res => {
+//      this.setData({info: res.data})
+//    })
     }
     
 //  if (wx.getStorageSync('choseType') === 'APPLICANT') {
@@ -80,7 +83,7 @@ Page({
   },
   /* 编辑 */
   edit (e) {
-    console.log(e.currentTarget.dataset.editname, e, '555')
+    console.log(e.currentTarget.dataset.editname, '555')
     let editName = e.currentTarget.dataset.editname
     let url = null
     switch (editName) {
@@ -88,13 +91,19 @@ Page({
         url = '/page/applicant/pages/center/userInfoEdit/userInfoEdit'
         break;
       case 'intent':
-        url = `/page/applicant/pages/center/resumeEditor/aimsEdit/aimsEdit?id=${this.data.info.expects[0]? this.data.info.expects[0].id : ''}`
+        url = `/page/applicant/pages/center/resumeEditor/aimsEdit/aimsEdit?id=${e.currentTarget.dataset.id}`
         break;
       case 'work':
-        url = `/page/applicant/pages/center/resumeEditor/workEdit/workEdit`
+        url = `/page/applicant/pages/center/resumeEditor/workEdit/workEdit?id=${e.currentTarget.dataset.id}`
         break;
       case 'project':
-        url = `/page/applicant/pages/center/resumeEditor/itemEdit/itemEdit`
+        url = `/page/applicant/pages/center/resumeEditor/itemEdit/itemEdit?id=${e.currentTarget.dataset.id}`
+        break;
+      case 'education':
+        url = `/page/applicant/pages/center/resumeEditor/educateEdit/educateEdit?id=${e.currentTarget.dataset.id}`
+        break;
+      case 'more':
+        url = `/page/applicant/pages/center/resumeEditor/moreEdit/moreEdit?id=${e.currentTarget.dataset.id}`
         break;
     }
     wx.navigateTo({
