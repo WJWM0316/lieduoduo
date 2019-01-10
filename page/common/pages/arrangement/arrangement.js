@@ -7,7 +7,7 @@ Page({
    */
   data: {
     dateList: [],
-    identity: wx.getStorageSync('choseType'), // 身份标识
+    identity: "", // 身份标识
     options: {},
     appointmentId: '',
     info: {}
@@ -106,7 +106,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.setData({options, identity: wx.getStorageSync('choseType')})
+    this.setData({options})
     this.pageInit()
   },
   pageInit() {
@@ -129,12 +129,16 @@ Page({
    */
   onShow: function () {
     let data = wx.getStorageSync('interviewData') || {}
+    let identity = wx.getStorageSync('choseType')
     let info = this.data.info
     if (data) {
       info.positionName = data.positionName
       info.positionId = data.positionId
-      this.setData({info})
+      this.setData({info, identity})
+    } else {
+      this.setData({identity})
     }
+    console.log(this.data.identity, 11111111111111)
   },
 
   /**
