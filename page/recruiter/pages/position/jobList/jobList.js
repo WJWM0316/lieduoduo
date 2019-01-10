@@ -19,6 +19,7 @@ Page({
     identity: ''
   },
   onLoad(options) {
+    console.log(options)
     this.setData({identity: wx.getStorageSync('choseType')})
     const storage = wx.getStorageSync('interviewChatLists')
     if(storage) {

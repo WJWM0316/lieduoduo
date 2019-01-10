@@ -73,28 +73,41 @@
 
     <label class="radio" wx:for="{{items}}" wx:key="{{index}}">
       <view class="li">
-        <view class="content">
-          <view class="title">
-            <text class="txt1">{{item.positionName}}</text>
-            <text class="txt2">{{item.emolumentMin}}~{{item.emolumentMax}}k</text>
+        <block wx:if="{{item.positionId}}">
+          <view class="content">
+            <view class="title">
+              <text class="txt1">{{item.positionName}}</text>
+              <text class="txt2">{{item.emolumentMin}}~{{item.emolumentMax}}k</text>
+            </view>
+            <view class="labels">
+              <text class="txt">{{item.city}}{{item.district}}</text>
+              <text class="txt">{{item.workExperienceName}}</text>
+              <text class="txt">{{item.educationName}}</text>
+            </view>
           </view>
-          <view class="labels">
-            <text class="txt">{{item.city}}{{item.district}}</text>
-            <text class="txt">{{item.workExperienceName}}</text>
-            <text class="txt">{{item.educationName}}</text>
+          <view class="status-box" wx:if="{{!item.status}}"> 该职位已关闭 </view>
+          <view class="radio-box">
+            <radio
+              class="radioBtn"
+              value="{{item.positionName}} {{item.id || item.interviewId}}"
+              checked="{{item.checked}}"
+              color="#652791"
+              data-name="{{item.positionName}}"
+              data-id="{{item.id || item.interviewId}}"
+              data-interview-id="{{item.interviewId}}" />
           </view>
-        </view>
-        <view class="status-box" wx:if="{{!item.status}}"> 该职位已关闭 </view>
-        <view class="radio-box">
-          <radio
-            class="radioBtn"
-            value="{{item.positionName}} {{item.id || item.interviewId}}"
-            checked="{{item.checked}}"
-            color="#652791"
-            data-name="{{item.positionName}}"
-            data-id="{{item.id || item.interviewId}}"
-            data-interview-id="{{item.interviewId}}" />
-        </view>
+        </block>
+        <block wx:else>
+          <view class="content chat-me">无职位</view>
+          <view class="radio-box">
+            <radio
+              class="radioBtn"
+              value="{{'直接与我约面'}} {{item.interviewId}}"
+              checked="{{item.checked}}"
+              color="#652791"
+              data-interview-id="{{item.interviewId}}" />
+          </view>
+        </block>
       </view>
     </label>
   </radio-group>
