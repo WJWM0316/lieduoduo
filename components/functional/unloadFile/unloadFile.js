@@ -77,8 +77,8 @@ Component({
         complete: (res) => {
           if (res.statusCode === 200) {
             console.log(res, "上传成功")
-            result = JSON.parse(res.data)
-//          result.push(JSON.parse(res.data).data[0])
+            // result = JSON.parse(res.data)
+            result.push(JSON.parse(res.data).data[0])
           } else {
             console.log(res, "上传失败")
           }

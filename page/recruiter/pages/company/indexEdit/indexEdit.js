@@ -13,8 +13,8 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    // app.globalData.recruiterDetails.companyInfo.id
-    getCompanyInfosApi({id: 13}).then(res => {
+    let id = app.globalData.recruiterDetails.companyInfo.id
+    getCompanyInfosApi({id}).then(res => {
       app.globalData.companyInfo = res.data
       this.setData({info: res.data})
     })

@@ -226,6 +226,27 @@ export const deleteCompanyAddressApi = (data, hasLoading) => {
   return request({
     method: 'delete',
     url: `/company/position/address/${data.id}`,
+    data,
+    hasLoading: true
+  })
+}
+
+// 编辑公司部分信息
+export const putCompanyInfoApi = (data, hasLoading) => {
+  return request({
+    method: 'put',
+    url: `/company/part/${data.id}`,
+    data,
+    hasLoading: true
+  })
+}
+
+// 编辑公司简介
+export const putCompanyBriefApi = (data, hasLoading) => {
+  return request({
+    method: 'put',
+    url: `/company/intro/${data.id}`,
+    data,
     hasLoading: true
   })
 }

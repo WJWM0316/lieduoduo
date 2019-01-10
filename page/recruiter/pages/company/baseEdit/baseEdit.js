@@ -1,4 +1,5 @@
-// page/recruiter/pages/company/baseEdit/baseEdit.js
+import {putCompanyInfoApi} from '../../../../../api/pages/company.js'
+let app = getApp()
 Page({
 
   /**
@@ -20,6 +21,10 @@ Page({
   onLoad: function (options) {
 
   },
+  bindblur(e) {
+    console.log(e)
+    this.setData({website: e.detail.value})
+  },
   getResult(e) {
     switch(e.currentTarget.dataset.type) {
       case 'financing':
@@ -34,13 +39,34 @@ Page({
           staffMembersDesc: e.detail.propsDesc
         })
         break
-      case 'img':
+      case 'avatar':
         this.setData({
-          logoUrl: e.detail.data[0].middleUrl,
-          logoId: e.detail.data[0].id
+          logoUrl: e.detail[0].middleUrl,
+          logoId: e.detail[0].id
         })
         break
     }
+  },
+  saveInfo() {
+    let info = this.data
+    let data = {
+      id: app.globalData.companyInfo.id,
+      financing: info.financingId,
+      employees: info.staffMembersId,
+      logo: info.logoId,
+      website: info.website
+    }
+    putCompanyInfoApi(data).then(res => {
+      app.wxToast({
+        title: '保存成功',
+        icon: "success",
+        callback() {
+          wx.navigateBack({
+            delta: 1
+          })
+        }
+      })
+    })
   },
   /**
    * 生命周期函数--监听页面初次渲染完成

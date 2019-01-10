@@ -21,14 +21,13 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    userInfo = app.globalData.recruiterDetails
+    let userInfo = app.globalData.recruiterDetails
     this.setData({
       userName: userInfo.name,
       gender: userInfo.gender,
       position: userInfo.position,
       email: userInfo.email,
       wechat: userInfo.wechat,
-      gender: userInfo.gender,
       signature: userInfo.signature,
       picList: [userInfo.avatar]
     })
@@ -68,14 +67,15 @@ Page({
     this.setData({signature: e.detail.value})
   },
   removeFile(e) {
-    let data = {
-      id: e.currentTarget.dataset.id
-    }
-    removeFileApi(data).then(res => {
-      let picList = this.data.picList
-      picList.splice(e.currentTarget.dataset.index, 1)
-      this.setData({picList})
-    })
+    let picList = this.data.picList
+    picList.splice(e.currentTarget.dataset.index, 1)
+    this.setData({picList})
+    // let data = {
+    //   id: e.currentTarget.dataset.id
+    // }
+    // removeFileApi(data).then(res => {
+    //   let picList = this.data.picList 
+    // })
   },
   saveInfo() {
     let info = this.data
@@ -86,17 +86,25 @@ Page({
     let data = {
       attachIds: idList.join(','),
       gender: info.gender,
-      name: info.userName.trim(),
-      position: info.position.trim(),
-      email: info.email.trim(),
-      wechat: info.wechat.trim(),
-      signature: info.signature.trim()
+      name: info.userName,
+      position: info.position,
+      email: info.email,
+      wechat: info.wechat,
+      signature: info.signature
     }
     saveRecruiterInfoApi(data).then(res => {
-      getApp().wxToast({
+      app.wxToast({
         title: '保存成功',
         icon: 'success',
         callback() {
+          app.globalData.recruiterDetails.avatar = info.picList[0]
+          app.globalData.recruiterDetails.avatars = info.picList
+          app.globalData.recruiterDetails.gender = info.gender
+          app.globalData.recruiterDetails.name = info.userName
+          app.globalData.recruiterDetails.position = info.position
+          app.globalData.recruiterDetails.email = info.email
+          app.globalData.recruiterDetails.wechat = info.wechat
+          app.globalData.recruiterDetails.signature = info.signature
           wx.navigateBack({
             delta: 1
           })

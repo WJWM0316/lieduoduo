@@ -11,7 +11,7 @@
 	  	</view>
 	  	<view class="pic" hidden="{{picList.length >= 6}}">
 	  		<unloadFile bindresultEvent="getResult">
-		    	<view class="pic addPic">+</view>
+		    	<view class="addPic">+</view>
 		    </unloadFile>
 	  	</view>
   	</view>
@@ -60,7 +60,7 @@
   <view class="title">个性签名</view>
   <view class="signBox">
     <textarea class="sign" value="{{signature}}" maxlength='25' placeholder="用一句话介绍你自己吧~" bindinput="singInput" placeholder-style="color: #B2B6C2; font-weight: 300"></textarea>
-    <view class="number">{{signature.length}}/25</view>
+    <view class="number">{{signature.length || 0}}/25</view>
   </view>
   <button class="save" bindtap="saveInfo">保存资料</button>
 </view>

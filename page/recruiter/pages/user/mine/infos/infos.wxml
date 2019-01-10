@@ -7,7 +7,7 @@
 				<view class="degree-name">{{recruiterInfo.companyName}} | {{recruiterInfo.position}}</view>
 				<view class="edit" bindtap="jumpUpdateInfos"><i class="icon iconfont icon-bianji"></i> 编辑资料</view>
 			</view>
-			<view class="img-box"></view>
+			<image class="img-box" src="{{recruiterInfo.avatar.middleUrl}}"></image>
 		</view>
 		<view class="share-homepage" bindtap="share">分享我的主页</view>
 		<view class="share-homepage-pic">生成朋友圈分享图</view>

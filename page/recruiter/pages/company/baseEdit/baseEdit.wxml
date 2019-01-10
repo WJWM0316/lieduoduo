@@ -5,7 +5,7 @@
 			<view class="item companyLogo">
 				<view class="txt red">公司封面</view>
 				<view class="value">
-					<unloadFile bindresultEvent="getResult" data-type="img">
+					<unloadFile bindresultEvent="getResult" unloadType="avatar" data-type="avatar">
 						<image class="logo" src="{{logoUrl}}"></image>
 					</unloadFile>     
 				</view>
@@ -27,11 +27,11 @@
 			</view>
 			<view class="item website">
 				<view class="txt">公司官网</view>
-				<view class="value"><input type="text" placeholder="请输入公司官网"/></view>
+				<view class="value"><input type="text" value="{{website}}" placeholder="请输入公司官网"/></view>
 			</view>
 		</view>
 	</view>
-	<view class="btn">
+	<view class="btn" bindtap="saveInfo">
 		<button class="saveBtn">保存</button>
 	</view>
 </view>
