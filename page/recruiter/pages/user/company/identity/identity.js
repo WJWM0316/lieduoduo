@@ -77,9 +77,6 @@ Page({
      .then(res => {
         this.identityCompany()
      })
-     .catch(err => {
-        app.wxToast({title: err})
-     })
   },
   /**
    * @Author   小书包
