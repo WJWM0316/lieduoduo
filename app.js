@@ -146,15 +146,15 @@ App({
                   })
                 }
               }).catch(e => {
-                wx.getUserInfo({
-                  success: res1 => {
-                    data = {
-                      iv_key: res1.iv,
-                      data: res1.encryptedData
-                    }
-                    wxLogin()
-                  }
-                })
+                // wx.getUserInfo({
+                //   success: res1 => {
+                //     data = {
+                //       iv_key: res1.iv,
+                //       data: res1.encryptedData
+                //     }
+                //     wxLogin()
+                //   }
+                // })
               })
             },
             fail: function (e) {
