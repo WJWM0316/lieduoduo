@@ -84,12 +84,12 @@
   height: 70rpx;
   line-height: 70rpx;
   box-sizing: border-box;
-  border: 1rpx solid #2878FF;
+  border: 1rpx solid #652791;
   text-align: center;
   font-size: 28rpx;
   font-weight: 500;
   border-radius: 34rpx;
-  color: #2878FF;
+  color: #652791;
 }
 .signBox {
   padding: 32rpx 10rpx 78rpx;
@@ -112,7 +112,7 @@
   width: 100%;
   height: 100rpx;
   line-height: 100rpx;
-  background: #2878FF;
+  background: #652791;
   color: #fff;
   font-size: 32rpx;
   font-weight: 400;

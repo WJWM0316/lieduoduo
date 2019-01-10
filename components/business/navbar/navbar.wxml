@@ -1,4 +1,4 @@
-<view style="height:{{navH}}px;">
+<view class="navbarBox" style="height:{{navH}}px;">
   <view class="navbar" style="height:{{navH}}px;background: {{background}}">
     <view class="navbar-title" style="color: {{color}}"> 
 	    <view>{{ title }}</view>
