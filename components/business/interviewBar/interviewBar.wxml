@@ -6,7 +6,7 @@
 		
 		<block wx:if="{{identity === 'APPLICANT'}}">
 
-			<!-- 求职者还没有发起开撩动作 start-->
+			<!-- 求职者还没有发起开撩动作 招聘官主页 start-->
 			<block wx:if="{{type === 'recruiter' && (interviewInfos.haveInterview === 0 || interviewInfos.interviewStatus === 51 || interviewInfos.interviewStatus === 54 || interviewInfos.interviewStatus === 11)}}">
 				<view class="content">
 					<view class="first">
@@ -19,7 +19,22 @@
 					<view bindtap="todoAction" data-action="job-hunting-chat">开撩约面</view>
 				</view>
 			</block>
-			<!-- 求职者还没有发起开撩动作 end-->
+			<!-- 求职者还没有发起开撩动作 招聘官主页 end-->
+
+			<!-- 求职者还没有发起开撩动作 职位详情 start-->
+			<block wx:if="{{type === 'position' && (interviewInfos.haveInterview === 0 || interviewInfos.interviewStatus === 51 || interviewInfos.interviewStatus === 54)}}">
+				<view class="content">
+					<view class="first">
+						<view class="name">{{infos.name}}</view>
+						<view class="hunter-infos"> <view class="strong">12</view>个职位 </view>
+					</view>
+					<view class="second">{{slogoList[slogoIndex].text}}</view>
+				</view>
+				<view class="button-box button-box-color1">
+					<view bindtap="todoAction" data-action="job-hunting-chat">开撩约面</view>
+				</view>
+			</block>
+			<!-- 求职者还没有发起开撩动作 职位详情 end-->
 
 			<!-- 求职者已经发起开撩动作 start-->
 			<block wx:elif="{{interviewInfos.interviewStatus === 11}}">
