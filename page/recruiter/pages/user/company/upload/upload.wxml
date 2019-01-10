@@ -1,7 +1,7 @@
 <view class="company-upload">
 	<navbar title="完善公司信息" background="#FFFFFF" color="#22292C" showBackBtn="{{true}}"></navbar>
-	<view class="warning">请确保上传的公司信息真实有效，有助审核通过</view>
-	<form bindsubmit="submit">
+	<view class="warning"><i class="icon iconfont icon-tixing"></i>请确保上传的公司信息真实有效，有助审核通过</view>
+	<view>
 	  <view class="upload-li">
 	  	<view class="h1">上传营业执照</view>
 	  	<view class="p">确保公司全称与提交认证/审核公司一致；如为复印件、黑白扫描件，需要加公司公章；不支持屏幕截图或翻拍图片；不能有与招聘无关的标注或水印；不支持电子版营业执照，保证图片信息清晰完整；</view>
@@ -10,7 +10,7 @@
 		    	<view class="icon-box">+</view>
 				  <view>上传营业执照</view>
 				  <image src="{{business_license.smallUrl}}" mode="scaleToFill"></image>
-				  <view class="replace-image" wx:if="{{business_license.smallUrl}}">重新上传</view>
+				  <view class="replace-image" wx:if="{{business_license.smallUrl}}"><i class="icon iconfont icon-zhongxinshangchuan"></i>重新上传</view>
 				</unloadFile>
 			</view>
 	  </view>
@@ -22,12 +22,12 @@
 				  <view class="icon-box">+</view>
 				  <view>上传图片</view>
 				  <image src="{{on_job.smallUrl}}" mode="scaleToFill"></image>
-				  <view class="replace-image" wx:if="{{business_license.smallUrl}}">重新上传</view>
+				  <view class="replace-image" wx:if="{{business_license.smallUrl}}"><i class="icon iconfont icon-zhongxinshangchuan"></i>重新上传</view>
 				</unloadFile>
 			</view>
 	  </view>
 	  <view class="btn-area">
-	    <button form-type="submit" class="button-submit {{canClick ? 'button-enable' : ''}}">下一步</button>
+	    <view bindtap="submit" class="button-submit {{canClick ? 'button-enable' : ''}}">下一步</view>
 	  </view>
-	</form>
+	</view>
 </view>

@@ -23,15 +23,6 @@ Page({
   },
   /**
    * @Author   小书包
-   * @DateTime 2019-01-08
-   * @detail   身份切换
-   * @return   {[type]}   [description]
-   */
-  changeIdentity() {
-    console.log(1)
-  },
-  /**
-   * @Author   小书包
    * @DateTime 2018-12-20
    * @detail   绑定按钮的状态
    * @return   {[type]}   [description]
@@ -59,7 +50,7 @@ Page({
    * @return   {[type]}   [description]
    */
   submit() {
-    
+    console.log(this.data)
     if(!this.data.canClick) return;
     
     // 验证用户名

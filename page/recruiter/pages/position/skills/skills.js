@@ -16,7 +16,7 @@ Page({
    */
   getActive() {
     const professionalSkills = this.data.professionalSkills.filter(field => field.active)
-    this.setData({skills: professionalSkills})
+    this.setData({skills: professionalSkills, canClick: professionalSkills.length > 0})
   },
   /**
    * @Author   小书包
@@ -47,12 +47,15 @@ Page({
         const typeId = parseInt(storage.parentType)
         const professionalSkills = response.data.labelProfessionalSkills.find(field => field.labelId === typeId).children
         const temLabelId = storage.skills.map(field => field.labelId)
+        let canClick = false
         if(temLabelId.length) {
           professionalSkills.map(field => field.active = temLabelId.includes(field.labelId) ? true : false)
+          canClick = true
         } else {
           professionalSkills.map(field => field.active = false)
+          canClick = false
         }
-        this.setData({professionalSkills, skills: storage.skills})
+        this.setData({professionalSkills, skills: storage.skills, canClick})
       })
   },
   submit() {

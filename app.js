@@ -37,23 +37,15 @@ App({
   getAllInfo() {
     return new Promise((resolve, reject) => {
       if (wx.getStorageSync('choseType') === 'APPLICANT') {
-        if(!this.globalData.resumeInfo.uid) {
-          getPersonalResumeApi().then(res0 => {
-            this.globalData.resumeInfo = res0.data
-            resolve(res0.data)
-          })
-        } else {
-          resolve(this.globalData.resumeInfo)
-        }
+        getPersonalResumeApi().then(res0 => {
+          this.globalData.resumeInfo = res0.data
+          resolve(res0.data)
+        })
       } else {
-        if(!this.globalData.recruiterDetails.uid) {
-          getRecruiterDetailApi().then(res0 => {
-            this.globalData.recruiterDetails = res0.data
-            resolve(res0.data)
-          })
-        } else {
-          resolve(this.globalData.recruiterDetails)
-        }
+        getPersonalResumeApi().then(res0 => {
+          this.globalData.resumeInfo = res0.data
+          resolve(res0.data)
+        })
       }
     })
   },
@@ -137,6 +129,7 @@ App({
                   console.log('用户已认证')
                 } else {
                   console.log('用户未绑定手机号')
+                  that.globalData.userInfo = res.data
                   wx.setStorageSync('sessionToken', res.data.sessionToken)
                 }
                 resolve(res)
@@ -146,15 +139,15 @@ App({
                   })
                 }
               }).catch(e => {
-                wx.getUserInfo({
-                  success: res1 => {
-                    data = {
-                      iv_key: res1.iv,
-                      data: res1.encryptedData
-                    }
-                    wxLogin()
-                  }
-                })
+                // wx.getUserInfo({
+                //   success: res1 => {
+                //     data = {
+                //       iv_key: res1.iv,
+                //       data: res1.encryptedData
+                //     }
+                //     wxLogin()
+                //   }
+                // })
               })
             },
             fail: function (e) {

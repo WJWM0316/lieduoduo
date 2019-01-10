@@ -16,15 +16,6 @@
 	margin-bottom:20rpx;
 }
 
-.position-skills .button-submit {
-	height:88rpx;
-	background:rgba(101,39,145,1);
-	border-radius:48px;
-	font-size:32rpx;
-	font-weight:400;
-	color:rgba(255,255,255,1);
-}
-
 .position-skills .footer {
 	height:148rpx;
 	background:rgba(255,255,255,1);
@@ -73,4 +64,24 @@
 
 .position-skills .header .strong{
 	color:rgba(255,127,76,1);
+}
+
+.position-skills .button-submit {
+	height:88rpx;
+	background:rgba(245,244,247,1);
+	border-radius:48rpx;
+	font-size:32rpx;
+	font-weight:400;
+	color:rgba(205,203,207,1);
+	text-align: center;
+	line-height: 88rpx;
+}
+
+.position-skills .button-enable {
+	height:88rpx;
+	background:rgba(101,39,145,1);
+	border-radius:48px;
+	font-size:32rpx;
+	font-weight:400;
+	color:rgba(255,255,255,1);
 }

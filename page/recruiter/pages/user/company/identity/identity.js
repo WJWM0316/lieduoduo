@@ -32,8 +32,8 @@ Page({
   bindBtnStatus() {
     const bindKeys = ['real_name', 'identity_num', 'validity']
     let canClick = bindKeys.every(field => this.data[field])
-    canClick = this.data.passport_front.smallUrl && this.data.passport_reverse.smallUrl
-    this.setData({ canClick })
+    let hasUploadImage = this.data.passport_front.smallUrl && this.data.passport_reverse.smallUrl && this.data.handheld_passport.smallUrl
+    this.setData({ canClick:  canClick && hasUploadImage})
   },
   /**
    * @Author   小书包
@@ -56,7 +56,7 @@ Page({
    */
   upload(e) {
     const key = e.currentTarget.dataset.type
-    this.setData({ [key]: e.detail[0] })
+    this.setData({ [key]: e.detail.data[0] })
     this.bindBtnStatus()
   },
   submit() {
@@ -72,25 +72,11 @@ Page({
       !idCardReg.test(this.data.identity_num) ? reject('请填写有效的身份证号') : resolve()
     })
 
-    Promise.all([checkRealName, checkUserEmail])
-           .then(res => {
-              this.identityCompany()
-           })
-           .catch(err => {
-              app.wxToast({title: err})
-           })
-  },
-  /**
-   * @Author   小书包
-   * @DateTime 2018-12-21
-   * @detail   保存当前页面的编辑数据
-   * @return   {[type]}   [description]
-   */
-  saveFormData() {
-    wx.setStorage({
-      key: 'createdCompanyBase',
-      data: this.data
-    })
+    Promise
+     .all([checkRealName, checkUserEmail])
+     .then(res => {
+        this.identityCompany()
+     })
   },
   /**
    * @Author   小书包
@@ -118,15 +104,7 @@ Page({
     const formData = this.getParams()
     identityCompanyApi(formData)
       .then((res) => {
-        wx.navigateTo({
-          url: `${RECRUITER}user/company/status/status`,
-          success: () => {
-            this.saveFormData()
-          }
-        })
-      })
-      .catch(err => {
-
+        wx.navigateTo({url: `${RECRUITER}user/company/status/status`})
       })
   }
 })

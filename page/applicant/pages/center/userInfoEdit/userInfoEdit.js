@@ -1,4 +1,5 @@
 import {editBaseInfoApi} from '../../../../../api/pages/center.js'
+let app = getApp()
 Page({
 
   /**
@@ -24,9 +25,13 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    let {avatar, avatarId, birth, birthDesc, gender, mobile, name, startWorkYear, startWorkYearDesc, jobStatus, jobStatusDesc, wechat, workAge, signature, personalizedLabels } = getApp().globalData.resumeInfo
+    let {avatar, avatarId, birth, birthDesc, gender, mobile, name, startWorkYear, startWorkYearDesc, jobStatus, jobStatusDesc, wechat, workAge, signature, personalizedLabels } = app.globalData.resumeInfo
+    let signNum = 0
+    if (signature) {
+      signNum = signature.length
+    }
     this.setData({
-      avatarUrl: avatar,
+      avatarUrl: avatar.middleUrl,
       avatarId,
       birth,
       birthDesc,
@@ -39,7 +44,7 @@ Page({
       mobile: mobile,
       wechat: wechat,
       signature,
-      signNum: signature.length,
+      signNum,
       tabsList: personalizedLabels
     })
   },
@@ -99,12 +104,14 @@ Page({
       signature: info.signature
     }
     editBaseInfoApi(data).then(res => {
-      getApp().wxToast({
+      app.wxToast({
         title: '保存成功',
         icon: 'success',
         callback() {
-          wx.navigateBack({
-            delta: 1
+          app.getAllInfo().then(() => {
+            wx.navigateBack({
+              delta: 1
+            })
           })
           wx.removeStorageSync('avatarUrl')
           wx.removeStorageSync('avatarId')

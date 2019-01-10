@@ -53,7 +53,7 @@
       <view class="msg {{isShrink ? 'shrink':''}}">{{info.brief}}</view>
       <view class="openbtn" wx:if="{{isShrink}}" bindtap="toggle">{{btnTxt}}<icon class="icon iconfont icon-zhishibiao {{!isShrink ? 'shrink':''}}"></icon></view>
     </view>
-    <view class="declaration {{isOwner ? 'recruiterMain' : ''}}" wx:if="{{info.manifestos.length > 0}}">
+    <view class="declaration {{isOwner ? 'recruiterMain' : ''}}">
       <view class="title">
         <view class="icon">
           <view class="fan"></view>

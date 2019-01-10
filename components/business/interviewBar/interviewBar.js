@@ -188,22 +188,26 @@ Component({
           break
         // 求职端拒绝招聘官
         case 'job-hunting-reject':
-          app.wxConfirm({
-            title: '暂不考虑该职位',
-            content: '确定暂不考虑后，招聘官将终止这次约面流程',
-            showCancel: true,
-            cancelText: '我再想想',
-            confirmText: '确定',
-            cancelColor: '#BCBCBC',
-            confirmColor: '#652791',
-            confirmBack: () => {
-              refuseInterviewApi({id: interviewInfos.data[0].interviewId})
-                .then(res => {
-                  this.getInterviewStatus()
-                  this.triggerEvent('resultevent', res)
-                })
-            }
-          })
+          if(this.data.type === 'recruiter') {
+            wx.redirectTo({url: `${RECRUITER}position/jobList/jobList?type=reject_chat&from=${this.data.currentPage}&showNotPositionApply=${interviewInfos.showNotPositionApply}&from=${this.data.currentPage}&jobhunterUid=${this.data.infos.uid}`})
+          } else {
+            app.wxConfirm({
+              title: '暂不考虑该职位',
+              content: '确定暂不考虑后，招聘官将终止这次约面流程',
+              showCancel: true,
+              cancelText: '我再想想',
+              confirmText: '确定',
+              cancelColor: '#BCBCBC',
+              confirmColor: '#652791',
+              confirmBack: () => {
+                refuseInterviewApi({id: interviewInfos.data[0].interviewId})
+                  .then(res => {
+                    this.getInterviewStatus()
+                    this.triggerEvent('resultevent', res)
+                  })
+              }
+            })
+          }
           break
         // 招聘官拒绝求职者
         case 'recruiter-reject':

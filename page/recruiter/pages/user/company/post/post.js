@@ -91,6 +91,7 @@ Page({
    * @return   {[type]}   [description]
    */
   submit() {
+    console.log(this.data)
     if(!this.data.canClick) return;
     const storage = wx.getStorageSync('createdCompany')
     wx.setStorageSync('createdCompany', Object.assign(storage, this.data))

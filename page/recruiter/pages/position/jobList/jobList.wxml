@@ -20,7 +20,7 @@
           <view class="radio-box">
             <radio
               class="radioBtn"
-              value="{{item.positionName}} {{item.id || item.interviewId}}"
+              value="{{item.positionName}} {{'unsuitable'}}"
               checked="{{item.checked}}"
               color="#652791"
               data-name="{{item.positionName}}"
@@ -73,7 +73,7 @@
 
     <label class="radio" wx:for="{{items}}" wx:key="{{index}}">
       <view class="li">
-        <block wx:if="{{item.positionId}}">
+        <block wx:if="{{item.positionId || item.id}}">
           <view class="content">
             <view class="title">
               <text class="txt1">{{item.positionName}}</text>

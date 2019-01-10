@@ -36,7 +36,12 @@ Page({
     getCompanyNameListApi({name})
       .then(res => {
         const nameList = res.data
-        nameList.map(field => field.html = field.companyName)
+        console.log(nameList)
+        nameList.map(field => {
+          field.html = field.companyName.replace(new RegExp(name,'g'),`<span style="color: #652791;">${name}</span>`)
+          field.html = `<div>${field.html}</div>`
+        })
+        console.log(nameList)
         this.setData({nameList})
       })
   },
@@ -48,7 +53,7 @@ Page({
    */
   selectCompany(e) {
     const name = e.currentTarget.dataset.name
-    this.setData({canClick: true, company_name: name})
+    this.setData({canClick: true, company_name: name, nameList: []})
   },
   /**
    * @Author   小书包
