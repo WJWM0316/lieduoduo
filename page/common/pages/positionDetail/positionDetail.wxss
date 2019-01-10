@@ -47,6 +47,7 @@
 	right: 30rpx;
 	background: white;
 	padding-bottom: 40rpx;
+	min-height: 385rpx;
 }
 
 .company-infos .header {

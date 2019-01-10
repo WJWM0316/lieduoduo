@@ -1,6 +1,8 @@
 <view class="company-apply-page">
-	<navbar title="填写个人信息" background="tranparent"></navbar>
-	<view class="banner"></view>
+	<navbar title="填写个人信息" background="rgba(0,0,0,0)"></navbar>
+	<view class="banner">
+		<image class="bgImg" src="../../../../../../images/bg_authentication@3x.png" mode="aspectFill"></image>
+	</view>
 	<form bindsubmit="submit">
 	  <view class="input-li">
 	    <view class="key">真实姓名</view>

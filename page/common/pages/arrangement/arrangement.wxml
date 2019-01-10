@@ -6,7 +6,7 @@
   <view class="headInfo"><roleInfoCard cardData="{{info}}" my-class="roleDetail" roleType="applicant"></roleInfoCard></view>
   <block>
     <view class="content">
-      <view class="detail" wx:if="{{info.status === 21 || info.status === 32}}">
+      <view class="detail" wx:if="{{identity === 'RECRUITER' && (info.status === 21 || info.status === 32)}}">
         <view class="title"><icon class="icon"></icon>面试信息</view>
         <view class="msgItem">
           <view class="inner">
@@ -39,13 +39,13 @@
           </view>
         </view>
       </view>
-      <view class="detail read" wx:if="{{info.status === 31 || info.status === 41}}">
+      <view class="detail read" wx:if="{{(identity === 'APPLICANT' && info.status === 21) || info.status === 31 || info.status === 41}}">
         <view class="title"><icon class="icon"></icon>面试信息</view>
         <view class="msgItem">
           <view class="inner">
             <view class="icon1 iconfont icon-zhiwei"></view>
             <view class="msg">
-              <text>{{info.arrangementInfo.realname}} | <text class="phone">{{info.arrangementInfo.mobile}}</text></text>
+              <text>{{info.arrangementInfo.realname || info.recruiterRealname}} | <text class="phone">{{info.arrangementInfo.mobile || info.recruiterRealMobile}}</text></text>
             </view>
             <icon class="icon iconfont icon-xiangyou"></icon>
           </view>
@@ -65,7 +65,7 @@
           </view>
         </view>
       </view>
-      <view class="date" wx:if="{{info.status === 21 || info.status === 32}}">
+      <view class="date" wx:if="{{identity === 'RECRUITER' && (info.status === 21 || info.status === 32)}}">
         <view class="title"><icon class="icon"></icon>约面时间</view>
         <view class="dateItem" wx:for="{{dateList}}" wx:key="{{index}}">
           <view class="inner">
@@ -83,7 +83,7 @@
           </view>
         </view>
       </view>
-      <view class="date read" wx:if="{{identity === 'RECRUITER' && info.status === 31}}">
+      <view class="date read" wx:if="{{(identity === 'RECRUITER' && info.status === 31)}}">
         <view class="title"><icon class="icon"></icon>约面时间</view>
         <view class="dateItem" wx:for="{{dateList}}" wx:key="{{index}}">
           <view class="inner">
@@ -92,6 +92,10 @@
           </view>
         </view>
       </view>
+      <view class="date read" wx:if="{{identity === 'APPLICANT' && info.status === 21}}">
+        <view>等待面试安排</view>
+      </view>
+      
       <view class="date read" wx:if="{{identity === 'APPLICANT' && info.status === 31}}">
         <view class="title"><icon class="icon"></icon>约面时间<text class="newTip">请选择一个时间接受面试</text></view>
         <radio-group class="radio-group dateItem" bindchange="radioChange">

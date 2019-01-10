@@ -10,7 +10,7 @@
 			<block wx:if="{{type === 'recruiter' && (interviewInfos.haveInterview === 0 || interviewInfos.interviewStatus === 51 || interviewInfos.interviewStatus === 54 || interviewInfos.interviewStatus === 11)}}">
 				<view class="content">
 					<view class="first">
-						<view class="name">{{infos.name}}</view>
+						<view class="name">{{infos.name || infos.recruiterInfo.name}}</view>
 						<view class="hunter-infos"> <view class="strong">12</view>个职位 </view>
 					</view>
 					<view class="second">{{slogoList[slogoIndex].text}}</view>
@@ -25,7 +25,7 @@
 			<block wx:if="{{type === 'position' && (interviewInfos.haveInterview === 0 || interviewInfos.interviewStatus === 51 || interviewInfos.interviewStatus === 54)}}">
 				<view class="content">
 					<view class="first">
-						<view class="name">{{infos.name}}</view>
+						<view class="name">{{infos.name || infos.recruiterInfo.name}}</view>
 						<view class="hunter-infos"> <view class="strong">12</view>个职位 </view>
 					</view>
 					<view class="second">{{slogoList[slogoIndex].text}}</view>
@@ -39,7 +39,7 @@
 			<!-- 求职者已经发起开撩动作 start-->
 			<block wx:elif="{{interviewInfos.interviewStatus === 11}}">
 				<view class="content">
-					<view class="first"><view class="name">{{infos.name}}</view></view>
+					<view class="first"><view class="name">{{infos.name || infos.recruiterInfo.name}}</view></view>
 					<view class="second">待确认申请</view>
 				</view>
 				<view class="button-box button-box-color2">
@@ -51,7 +51,7 @@
 			<!-- 求职者等待招聘官安排面试 start-->
 			<block wx:elif="{{interviewInfos.interviewStatus === 21 || interviewInfos.interviewStatus === 32}}">
 				<view class="content">
-					<view class="first"><view class="name">{{infos.name}}</view></view>
+					<view class="first"><view class="name">{{infos.name || infos.recruiterInfo.name}}</view></view>
 					<view class="second">已确认申请</view>
 				</view>
 				<view class="button-box button-box-color2">
@@ -63,7 +63,7 @@
 			<!-- 求职者等待招聘管修改信息 start-->
 			<block wx:elif="{{interviewInfos.interviewStatus === 41}}">
 				<view class="content">
-					<view class="first"><view class="name">{{infos.name}}</view></view>
+					<view class="first"><view class="name">{{infos.name || infos.recruiterInfo.name}}</view></view>
 					<view class="second">已安排面试</view>
 				</view>
 				<view class="button-box button-box-color3">
@@ -75,7 +75,7 @@
 			<!-- 求职者被设置成不合适 start-->
 			<block wx:elif="{{interviewInfos.interviewStatus === 52 || interviewInfos.interviewStatus === 53}}">
 				<view class="content">
-					<view class="first"><view class="name">{{infos.name}}</view></view>
+					<view class="first"><view class="name">{{infos.name || infos.recruiterInfo.name}}</view></view>
 					<view class="second">不合适</view>
 				</view>
 				<view class="button-box button-box-color3">
@@ -87,7 +87,7 @@
 			<!-- 求职者已经已收到招聘官的邀请 start-->
 			<block wx:elif="{{interviewInfos.interviewStatus === 12}}">
 				<view class="content">
-					<view class="first"><view class="name">{{infos.name}}</view></view>
+					<view class="first"><view class="name">{{infos.name || infos.recruiterInfo.name}}</view></view>
 					<view class="second">邀请你面试</view>
 				</view>
 				<view class="button-box">
@@ -105,7 +105,7 @@
 			<!-- 求职端已开启撩 招聘端可接受可拒绝 start-->
 			<block wx:if="{{interviewInfos.interviewStatus === 11}}">
 				<view class="content">
-					<view class="first"><view class="name">{{infos.name}}</view></view>
+					<view class="first"><view class="name">{{infos.name || infos.recruiterInfo.name}}</view></view>
 					<view class="second">我一直在等一个懂我的老大</view>
 				</view>
 				<view class="button-box">
@@ -117,7 +117,7 @@
 			<!-- 招聘端主动发起开料 start-->
 			<block wx:if="{{interviewInfos.haveInterview === 0}}">
 				<view class="content">
-					<view class="first"><view class="name">{{infos.name}}</view></view>
+					<view class="first"><view class="name">{{infos.name || infos.recruiterInfo.name}}</view></view>
 					<view class="second">我一直在等一个懂我的老大</view>
 				</view>
 				<view class="button-box">
@@ -128,7 +128,7 @@
 
 			<block wx:elif="{{interviewInfos.interviewStatus === 21 || interviewInfos.interviewStatus === 31}}">
 				<view class="content">
-					<view class="first"><view class="name">{{infos.name}}</view></view>
+					<view class="first"><view class="name">{{infos.name || infos.recruiterInfo.name}}</view></view>
 					<view class="second">待求职者确认</view>
 				</view>
 				<view class="button-box button-box-color2">
@@ -138,7 +138,7 @@
 			
 			<block wx:elif="{{interviewInfos.interviewStatus === 12 }}">
 				<view class="content">
-					<view class="first"><view class="name">{{infos.name}}</view></view>
+					<view class="first"><view class="name">{{infos.name || infos.recruiterInfo.name}}</view></view>
 					<view class="second">已发起面试</view>
 				</view>
 				<view class="button-box button-box-color2">
@@ -148,7 +148,7 @@
 
 			<block wx:elif="{{interviewInfos.interviewStatus === 32}}">
 				<view class="content">
-					<view class="first"><view class="name">{{infos.name}}</view></view>
+					<view class="first"><view class="name">{{infos.name || infos.recruiterInfo.name}}</view></view>
 					<view class="second">求职者已经同意</view>
 				</view>
 				<view class="button-box button-box-color2">
@@ -159,7 +159,7 @@
 
 			<block wx:elif="{{interviewInfos.interviewStatus === 54 || interviewInfos.interviewStatus === 55}}">
 				<view class="content">
-					<view class="first"><view class="name">{{infos.name}}</view></view>
+					<view class="first"><view class="name">{{infos.name || infos.recruiterInfo.name}}</view></view>
 					<view class="second">不考虑</view>
 				</view>
 				<view class="button-box button-box-color2">

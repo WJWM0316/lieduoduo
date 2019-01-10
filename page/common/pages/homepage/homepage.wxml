@@ -20,7 +20,7 @@
 				<view class="icon"> <view class="fan"></view> </view> 招聘团队
 			</view>
 			<view class="ul">
-				<view class="li" wx:for="{{ recruitersList }}" wx:key="{{index}}" wx:for-item="recruiter">
+				<view class="li" wx:for="{{ recruitersList }}" wx:key="{{index}}" wx:for-item="recruiter" bindtap="bindMain" data-uid="{{recruiter.uid}}">
 					<view class="img-box">
 						<image src="{{recruiter.avatar.smallUrl}}"></image>
 						<i class="certification-icon">V</i>

@@ -2,7 +2,7 @@
 .resumeDetail{
   background: #F5F4F7;
   width: 100%;
-  padding: 25rpx 30rpx 20rpx;
+  padding: 25rpx 30rpx 160rpx;
   box-sizing: border-box;
   position: relative;
 }

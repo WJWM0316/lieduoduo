@@ -69,10 +69,10 @@ Page({
   applyInterview(params) {
     applyInterviewApi(params)
       .then(res => {
-        wx.navigateBack({delta: 1})
-        // wx.navigateTo({
-        //   url: `${COMMON}${this.data.options.from}/${this.data.options.from}?uid=${this.data.options.jobhunterUid}`
-        // })
+        // wx.navigateBack({delta: 1})
+        wx.redirectTo({
+          url: `${COMMON}${this.data.options.from}/${this.data.options.from}?uid=${this.data.options.jobhunterUid}`
+        })
       })
   },
   /**
@@ -85,7 +85,7 @@ Page({
     confirmInterviewApi(params)
       .then(res => {
        wx.removeStorageSync('interviewChatLists')
-       wx.navigateTo({url: `${COMMON}arrangement/arrangement?id=${params.id}`})
+       wx.redirectTo({url: `${COMMON}arrangement/arrangement?id=${params.id}`})
       })
   },
   /**
@@ -97,8 +97,11 @@ Page({
   refuseInterview(params) {
     refuseInterviewApi(params)
       .then(res => {
-        wx.navigateBack({delta: 1})
-       wx.removeStorageSync('interviewChatLists')
+        // wx.navigateBack({delta: 1})
+        wx.redirectTo({
+          url: `${COMMON}${this.data.options.from}/${this.data.options.from}?uid=${this.data.options.jobhunterUid}`
+        })
+        wx.removeStorageSync('interviewChatLists')
       })
   }
 })

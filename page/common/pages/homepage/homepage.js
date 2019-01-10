@@ -42,6 +42,10 @@ Page({
       this.setData({jobList: res.data})
     })
   },
+  bindMain(e) {
+    console.log(e)
+    wx.navigateTo({url: `${COMMON}recruiterDetail/recruiterDetail?uid=${e.currentTarget.dataset.uid}`})
+  },
   /**
    * @Author   小书包
    * @DateTime 2019-01-02

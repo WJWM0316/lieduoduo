@@ -18,8 +18,8 @@
 				<view><i class="icon iconfont icon-zhiwei"></i>{{detail.workExperienceName}}</view>
 				<view><i class="icon iconfont icon-zhiwei"></i>{{detail.educationName}}</view>
 			</view>
-			<view class="welfare-ul">
-				<view class="li" wx:for="{{[1,2,3]}}" wx:key="{{index}}">年度奖金</view>
+			<view class="welfare-ul" wx:if="{{detail.lightspotInfo}}">
+				<view class="li" wx:for="{{detail.lightspotInfo}}" wx:key="{{index}}">年度奖金</view>
 			</view>
 		</view>
 	</view>

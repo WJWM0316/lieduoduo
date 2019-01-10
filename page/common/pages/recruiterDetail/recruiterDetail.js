@@ -1,5 +1,5 @@
 import {getSelectorQuery} from "../../../../utils/util.js"
-import {getOthersRecruiterDetailApi, getRecruiterDetailApi, giveMecallApi} from "../../../../api/pages/recruiter.js"
+import {getOthersRecruiterDetailApi, getRecruiterDetailApi, giveMecallApi, putLabelFavorApi} from "../../../../api/pages/recruiter.js"
 import {getPositionListApi} from "../../../../api/pages/position.js"
 import {getMyCollectUserApi, deleteMyCollectUserApi} from "../../../../api/pages/collect.js"
 import {COMMON,RECRUITER,APPLICANT} from "../../../../config.js"
@@ -128,6 +128,13 @@ Page({
   },
   callBtn() {
     giveMecallApi({vkey: this.data.info.vkey}).then(res => {})
+  },
+  favor(e) {
+    console.log()
+    let data = {
+      recruiterLabelId: e.currentTarget.dataset.id
+    }
+    putLabelFavorApi(data).then(res => {})
   },
   collect() {
     let data = {
