@@ -9,7 +9,7 @@
 			<view class="li {{pageList === 'my-loved' ? 'active' : ''}}" bindtap="changeCompanyLists" data-page-list="my-loved">我感兴趣的</view>
 		</view>
 		<commonList list="{{browseMySelfLists}}" identity="{{identity}}" wx:if="{{pageList === 'seen-me'}}"></commonList>
-		<commonList list="{{browseMySelfLists}}" identity="{{identity}}" wx:if="{{pageList === 'interested-me'}}"></commonList>
+		<commonList list="{{collectMyList}}" identity="{{identity}}" wx:if="{{pageList === 'interested-me'}}"></commonList>
 		<commonList list="{{mapyCollectUser}}" identity="{{identity}}" wx:if="{{pageList === 'my-loved'}}"></commonList>
 	</view>
   <tabBar tabType="1"></tabBar>

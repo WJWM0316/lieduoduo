@@ -5,7 +5,13 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    logoUrl: '',
+    logoId: '',
+    financingId: '',
+    financingDesc: '',
+    staffMembersId: '',
+    staffMembersDesc: '',
+    website: ''
   },
 
   /**
@@ -14,7 +20,28 @@ Page({
   onLoad: function (options) {
 
   },
-
+  getResult(e) {
+    switch(e.currentTarget.dataset.type) {
+      case 'financing':
+        this.setData({
+          financingId: e.detail.propsResult,
+          financingDesc: e.detail.propsDesc
+        })
+        break
+      case 'staffMembers':
+        this.setData({
+          staffMembersId: e.detail.propsResult,
+          staffMembersDesc: e.detail.propsDesc
+        })
+        break
+      case 'img':
+        this.setData({
+          logoUrl: e.detail.data[0].middleUrl,
+          logoId: e.detail.data[0].id
+        })
+        break
+    }
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

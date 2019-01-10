@@ -42,7 +42,6 @@ Component({
 			const status = e.currentTarget.dataset.status
 			const jobhunteruid = e.currentTarget.dataset.jobhunteruid || e.currentTarget.dataset.uid
 			const recruiteruid = e.currentTarget.dataset.recruiteruid
-			console.log(status, 77777)
 			if (e.currentTarget.dataset.uid) { // 首页入口
 			  wx.navigateTo({
           url: `/page/common/pages/resumeDetail/resumeDetail?uid=${jobhunteruid}`

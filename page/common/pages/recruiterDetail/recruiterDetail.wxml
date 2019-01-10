@@ -53,7 +53,7 @@
       <view class="msg {{isShrink ? 'shrink':''}}">{{info.brief}}</view>
       <view class="openbtn" wx:if="{{isShrink}}" bindtap="toggle">{{btnTxt}}<icon class="icon iconfont icon-zhishibiao {{!isShrink ? 'shrink':''}}"></icon></view>
     </view>
-    <view class="declaration {{isOwner ? 'recruiterMain' : ''}}">
+    <view class="declaration {{isOwner ? 'recruiterMain' : ''}}" wx:if="{{info.manifestos.length > 0}}">
       <view class="title">
         <view class="icon">
           <view class="fan"></view>
@@ -62,11 +62,11 @@
       </view>
       <view class="descList">
         <view class="descItem" wx:for="{{info.manifestos}}" wx:key="{{index}}">
-          <view class="descTitle">{{item.topicTitle}}<i data-item="{{item}}" class="editBtn iconfont icon-bianji1" bindtap="editJump" data-type="declaration"></i></view>
+          <view class="descTitle">{{item.topicTitle}}<i wx:if="{{isOwner}}" data-item="{{item}}" class="editBtn iconfont icon-bianji1" bindtap="editJump" data-type="declaration"></i></view>
           <view class="descAnswer">{{item.content}}</view>
         </view>
       </view>
-      <view class="addDeclaration" bindtap="editJump" data-type="addDeclaration">添加招聘宣言</view>
+      <view wx:if="{{isOwner}}" class="addDeclaration" bindtap="editJump" data-type="addDeclaration">添加招聘宣言</view>
     </view>
     <view class="position" wx:if="{{!isOwner}}">
       <company roleType="company" cardData="{{info.companyInfo}}"></company>
