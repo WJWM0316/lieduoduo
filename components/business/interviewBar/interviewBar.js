@@ -117,7 +117,17 @@ Component({
           break
         // 求职端发起开撩
         case 'job-hunting-chat':
-           wx.navigateTo({url: `${RECRUITER}position/jobList/jobList?type=job_hunting_chat&showNotPositionApply=${interviewInfos.showNotPositionApply}&from=${this.data.currentPage}&recruiterUid=${this.data.infos.uid}`})
+          // 招聘管主页 直接跳转职位列表
+          if(this.data.type === 'recruiter') {
+            wx.navigateTo({url: `${RECRUITER}position/jobList/jobList?type=job_hunting_chat&showNotPositionApply=${interviewInfos.showNotPositionApply}&from=${this.data.currentPage}&recruiterUid=${this.data.infos.uid}`})
+          } else {
+            applyInterviewApi({recruiterUid: this.data.infos.recruiterInfo.uid, positionId: this.data.infos.id})
+            .then(res => {
+              this.getInterviewStatus()
+              app.wxToast({title: '面试申请已发送'})
+              this.triggerEvent('resultevent', res)
+            })
+          }
           // let uid = ''
           // let positionId = ''
           // let params = {}
