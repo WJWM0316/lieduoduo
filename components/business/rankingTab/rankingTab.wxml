@@ -1,4 +1,4 @@
-<!-- 排行榜第三后的tab组件 -->
+<!-- 排行榜第三名后的tab组件 -->
 <view class="ranking" bindtap="toRecruitment">
   <view class="serialNum">{{index}}</view>
   <!-- 左边模块 -->
@@ -19,7 +19,7 @@
   </view>
   <!-- 头像 -->
   <view class='headImgBox'>
-    <image class='headImg'></image>
-    <view class='sign'>V</view>
+    <image class='headImg' src="{{item.avatar.smallUrl}}"></image>
+    <view class='sign' wx:if="{{item.certification}}">V</view>
   </view>
 </view>

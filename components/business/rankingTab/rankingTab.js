@@ -22,9 +22,9 @@ Component({
    * 组件的方法列表
    */
   methods: {
-    toRecruitment () {
+    toRecruitment (e) {
       wx.navigateTo({ // 去招聘官主页
-        url: `/page/common/pages/recruiterDetail/recruiterDetail?uid=${this.properties.item.id}`
+        url: `/page/common/pages/recruiterDetail/recruiterDetail?uid=${this.properties.item.uid}`
       })
     }
   }

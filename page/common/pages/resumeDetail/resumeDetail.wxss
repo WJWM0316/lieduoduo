@@ -316,3 +316,6 @@
 .edit{
   color: #652791;
 }
+.addpadding{
+  padding-bottom: 138rpx;
+}
