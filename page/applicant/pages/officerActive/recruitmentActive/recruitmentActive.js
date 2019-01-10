@@ -26,14 +26,21 @@ Page({
   /* 获取列表数据*/
   getList () {
     if (this.data.active === 'watched') {
-      if (this.data.watchedList.length > 0) return
+//    if (this.data.watchedList.length > 0) return
       getBrowseMySelfApi({page: this.data.page}).then(res => {
-        this.setData({watchedList: res.data})
+        if (res.data.length <= 0) return
+        this.setData({
+          watchedList: res.data,
+          list: res.data
+        })
       })
     } else {
-      if (this.data.interestList.length > 0) return
       getCollectMySelfApi({page: this.data.page}).then(res => {
-        this.setData({interestList: res.data})
+        if (res.data.length <= 0) return
+        this.setData({
+          interestList: res.data,
+          list: res.data
+        })
       })
     }
   },

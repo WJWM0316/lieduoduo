@@ -18,9 +18,9 @@
   >
   <!-- 前3名 -->
     <view class="topicBox">
-       <view class="topicList" wx:for="{{list}}" wx:key="{{index}}" wx:if="{{index < 3}}">
+       <view class="topicList" wx:for="{{list}}" wx:key="{{index}}" wx:if="{{index < 3}}" data-index="{{index}}" bindtap="toRecruitment">
         <view class='headIMg {{index === 1? "first" : ""}}'>
-          <image src="{{item.avatar}}"></image>
+          <image src="{{item.avatar.smallUrl}}"></image>
           <view class='icon'>
             <image wx:if="{{index === 1}}" src="../../../../../images/icon_no1.png" />
             <image wx:if="{{index === 0}}" src="../../../../../images/icon_no2.png" />

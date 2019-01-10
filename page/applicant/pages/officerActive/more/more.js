@@ -19,6 +19,11 @@ Page({
     cityLabel: [],
     list: []
   },
+  toRecruitment (e) {
+    wx.navigateTo({ // 去招聘官主页
+      url: `/page/common/pages/recruiterDetail/recruiterDetail?uid=${this.data.list[e.currentTarget.dataset.index].uid}`
+    })
+  },
   /* 切换主tab */
   cutover(event) {
     this.setData({
@@ -67,7 +72,7 @@ Page({
   },
   /* 榜单数据处理 */
   handleListData () {
-    this.getRankData ().then(res => {
+    this.getRankData().then(res => {
       let first = null
       if (res.data.length >2) {
         first = res.data.splice(1, 1)

@@ -38,11 +38,7 @@
 			"list": []
 		},
 		"miniprogram": {
-<<<<<<< HEAD
-			"current": 25,
-=======
-			"current": 29,
->>>>>>> 179cad6c68f1517093d82204e3e22a74910e9959
+			"current": 7,
 			"list": [
 				{
 					"id": 0,
@@ -88,8 +84,8 @@
 				},
 				{
 					"id": 7,
-					"name": "编辑简历第三步",
-					"pathName": "page/applicant/pages/center/educaExperience/educaExperience",
+					"name": "more",
+					"pathName": "page/applicant/pages/officerActive/recruitmentActive/recruitmentActive",
 					"query": ""
 				},
 				{
@@ -108,7 +104,7 @@
 					"id": 10,
 					"name": "招聘官主页",
 					"pathName": "page/common/pages/recruiterDetail/recruiterDetail",
-					"query": "uid=92"
+					"query": "uid=90"
 				},
 				{
 					"id": 11,
@@ -195,43 +191,10 @@
 					"query": "uid=92"
 				},
 				{
-<<<<<<< HEAD
 					"id": 25,
 					"name": "更多编辑",
 					"pathName": "page/applicant/pages/center/resumeEditor/moreEdit/moreEdit",
 					"query": "id=6"
-=======
-					"id": -1,
-					"name": "招聘官默认首页",
-					"pathName": "page/recruiter/pages/index/index",
-					"query": ""
-				},
-				{
-					"id": 26,
-					"name": "招聘官创建职位",
-					"pathName": "page/recruiter/pages/position/jobList/jobList",
-					"query": "recruiterUid=90"
-				},
-				{
-					"id": -1,
-					"name": "招聘官创建职位-111",
-					"pathName": "page/common/pages/tabsPage/tabsPage",
-					"query": ""
-				},
-				{
-					"id": -1,
-					"name": "招聘官-我的页面",
-					"pathName": "page/recruiter/pages/user/mine/infos/infos",
-					"query": "recruiterUid=90"
-<<<<<<< HEAD
-				},
-				{
-					"id": -1,
-					"name": "招聘官-身份认证",
-					"pathName": "page/recruiter/pages/user/company/status/status"
->>>>>>> 179cad6c68f1517093d82204e3e22a74910e9959
-=======
->>>>>>> 9ca5243d9c0ce0b7bf171477dfa184a80e4a8ffa
 				}
 			]
 		}
