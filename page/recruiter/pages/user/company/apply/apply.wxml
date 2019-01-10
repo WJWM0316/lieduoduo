@@ -3,7 +3,7 @@
 	<view class="banner">
 		<image class="bgImg" src="../../../../../../images/bg_authentication@3x.png" mode="aspectFill"></image>
 	</view>
-	<form bindsubmit="submit">
+	<form bindsubmit="submit" class="form">
 	  <view class="input-li">
 	    <view class="key">真实姓名</view>
 	    <input name="real_name" class="value" placeholder="申请人的真实姓名" bindinput="bindInput" data-field="real_name" value="{{real_name}}" />

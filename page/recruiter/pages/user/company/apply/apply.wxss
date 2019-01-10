@@ -19,6 +19,9 @@
 
 .company-apply-page .banner {
 	background: rgba(0,0,0,0.1);
+	position:fixed;
+	top: 0;
+	left: 0;
 }
 
 .company-apply-page .banner image {
@@ -82,4 +85,10 @@
 .company-apply-page .ul .column-line {
 	border-right: 1px solid #DCDCDC;
 	padding-right: 25rpx;
+}
+.form {
+	position: fixed;
+	top: 495rpx;
+	left: 0;
+	width: 100%;
 }
