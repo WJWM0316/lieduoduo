@@ -37,7 +37,7 @@ Page({
       this.getOthersInfo()
     }
     if (myInfo.uid) {
-      if (myInfo.uid === parseInt(options.uid)) {
+      if (myInfo.uid === parseInt(options.uid) || !options.uid) {
         this.setData({info: myInfo, isOwner: true})
       } else {
         this.getOthersInfo()
