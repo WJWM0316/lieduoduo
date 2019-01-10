@@ -1,5 +1,6 @@
 <!--index.wxml-->
 <view class="container">
+  <navbar title="猎多多"></navbar>
   <view class="applicant-index">
     <view class="index-bannar">
       <image src="../../../../images/bg_homepageh.png"></image>

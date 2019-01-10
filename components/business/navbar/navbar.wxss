@@ -1,13 +1,15 @@
 @import '../../../iconfont.wxss';
 
-.navbarBox {
+.navbar {
   width: 100%;
   overflow: hidden;
+  position: relative;
   top: 0;
   left: 0;
   z-index: 10;
   position: fixed;
 }
+
 
 .navbar-title {
   width: 100%;
