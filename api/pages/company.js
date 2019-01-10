@@ -187,6 +187,7 @@ export const getCompanyNameListApi = (data, hasLoading) => {
   return request({
     method: 'get',
     url: `/company/namelist`,
+    data,
     hasLoading: true
   })
 }

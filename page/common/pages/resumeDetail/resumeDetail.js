@@ -11,7 +11,8 @@ Page({
    */
   data: {
     info: null,
-    isOwner: false
+    isOwner: false,
+    identity: ''
   },
 
   /**
@@ -27,9 +28,9 @@ Page({
    */
   onShow: function () {
     this.init(id)
-    console.log(app.globalData.resumeInfo)
   },
   init (options) {
+    let identity = wx.getStorageSync('choseType')
     let myInfo = {}
     if (app.globalData.identity === "APPLICANT") {
       myInfo = app.globalData.resumeInfo
@@ -38,7 +39,7 @@ Page({
     }
     if (myInfo.uid) {
       if (myInfo.uid === parseInt(options.uid) || !options.uid) {
-        this.setData({info: myInfo, isOwner: true})
+        this.setData({info: myInfo, isOwner: true, identity})
       } else {
         this.getOthersInfo()
       }
@@ -48,7 +49,7 @@ Page({
           myInfo = app.globalData.resumeInfo
         }
         if (myInfo.uid === parseInt(options.uid)) {
-          this.setData({info: myInfo, isOwner: true})
+          this.setData({info: myInfo, isOwner: true, identity})
         } else {
           this.getOthersInfo()
         }

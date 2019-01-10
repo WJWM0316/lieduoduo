@@ -23,7 +23,7 @@
   </view>
   <view class="commont" data-type="4" bindtap="choose">
     <view class="title"><text>*</text>技能标签</view>
-    <view class="result">{{skill.name || skill.title}}<i class="icon iconfont icon-xiangyou"></i></view>
+    <view class="result">{{skill}}<i class="icon iconfont icon-xiangyou"></i></view>
   </view>
   <!--工作内容-->
   <view class="title"><text>*</text>工作内容</view>
@@ -51,4 +51,8 @@
     </view>
   </view>
 </view>
-<view class="save" bindtap="save">保存</view>
+<view class="save add" bindtap="add" wx:if="{{isAdd}}">新增工作经历</view>
+<view class="btn" wx:else>
+  <view class="save delete" bindtap="del">删除</view>
+  <view class="save" bindtap="save">保存修改</view>
+</view>

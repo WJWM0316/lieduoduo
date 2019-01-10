@@ -18,7 +18,7 @@
   >
   <!-- 前3名 -->
     <view class="topicBox">
-       <view class="topicList" wx:for="{{list}}" wx:key="{{index}}" wx:if="{{index < 3}}" data-id="{{item.id || item.uid}}" bindtap="toRecruitment">
+       <view class="topicList" wx:for="{{list}}" wx:key="{{index}}" wx:if="{{index < 3}}" data-uid="{{item.id || item.uid}}" bindtap="toRecruitment">
         <view class='headIMg {{index === 1? "first" : ""}}'>
           <image src="{{item.avatar.smallUrl}}"></image>
           <view class='icon'>

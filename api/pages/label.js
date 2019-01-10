@@ -47,3 +47,13 @@ export const getPositionTypeApi = (data, hasLoading) => {
     hasLoading: true
   })
 }
+
+// 技能标签
+export const getProfessionalSkillsApi = (data, hasLoading) => {
+  return request({
+    method: 'get',
+    url: '/label/professionalSkills',
+    data,
+    hasLoading: true
+  })
+}

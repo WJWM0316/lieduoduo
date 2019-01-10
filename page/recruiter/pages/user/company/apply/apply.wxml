@@ -4,6 +4,7 @@
 		<image class="bgImg" src="../../../../../../images/bg_authentication@3x.png" mode="aspectFill"></image>
 	</view>
 	<form bindsubmit="submit" class="form">
+	<view>
 	  <view class="input-li">
 	    <view class="key">真实姓名</view>
 	    <input name="real_name" class="value" placeholder="申请人的真实姓名" bindinput="bindInput" data-field="real_name" value="{{real_name}}" />
@@ -16,13 +17,9 @@
 	    <view class="key">担任职务</view>
 	    <input name="user_position" class="value" placeholder="在公司担任的职务" bindinput="bindInput" data-field="user_position" value="{{user_position}}" />
 	  </view>
-	  <view class="btn-area">
-	    <button form-type="submit" class="button-submit {{canClick ? 'button-enable' : ''}}">下一步</button>
+	  <view class="footer">
+	    <view bindtap="submit" class="button-submit {{canClick ? 'button-enable' : ''}}">下一步</view>
 	  </view>
-	  <view class="ul">
-	  	<view class="li column-line">换个账号试试</view>
-	  	<view class="li" bindtap="changeIdentity">前往求职者星球</view>
-	  </view>
-	</form>
-	<!-- <bindPhone></bindPhone> -->
+	</view>
+	<changeIdentity></changeIdentity>
 </view>

@@ -4,11 +4,12 @@ const app = getApp()
 
 Page({
 	data: {
-		describe: ''
+		describe: '',
+    canClick: false
 	},
 	onLoad(options) {
     const storage = wx.getStorageSync('createPosition')
-    this.setData({ describe: storage ? storage.describe : '' })
+    if(storage.describe) this.setData({ describe: storage.describe, canClick: true })
 	},
 	/**
 	 * @Author   小书包
@@ -18,6 +19,16 @@ Page({
 	 */
   bindTextAreaInput(e) {
   	this.setData({describe: e.detail.value})
+    this.bindButtonStatus()
+  },
+  /**
+   * @Author   小书包
+   * @DateTime 2019-01-10
+   * @detail   绑定按钮的状态
+   * @return   {[type]}   [description]
+   */
+  bindButtonStatus() {
+    this.setData({canClick: this.data.describe})
   },
   submit(e) {
     const storage = wx.getStorageSync('createPosition')

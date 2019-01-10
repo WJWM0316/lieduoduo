@@ -20,8 +20,9 @@ Page({
     list: []
   },
   toRecruitment (e) {
+    console.log(1111)
     wx.navigateTo({ // 去招聘官主页
-      url: `/page/common/pages/recruiterDetail/recruiterDetail?uid=${e.currentTarget.dataset.id}`
+      url: `/page/common/pages/recruiterDetail/recruiterDetail?uid=${e.currentTarget.dataset.uid}`
     })
   },
   /* 切换主tab */
