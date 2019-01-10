@@ -50,6 +50,7 @@ Component({
     slogoIndex: 0,
     // 是否是我发布
     isOwerner: false,
+    currentPage: '',
     slogoList: [
       {
         id: 1,
@@ -72,6 +73,22 @@ Component({
   ready() {
     this.setData({slogoIndex: this.getRandom()})
     this.getInterviewStatus()
+    let currentPage = ''
+    switch(this.data.type) {
+      case 'position':
+        currentPage = 'positionDetail'
+        break
+      case 'resume':
+        currentPage = 'resumeDetail'
+        break
+      case 'recruiter':
+        currentPage = 'recruiterDetail'
+        break
+      default:
+        currentPage = ''
+        break
+    }
+    this.setData({currentPage})
   },
   /**
    * 组件的方法列表
@@ -119,7 +136,7 @@ Component({
         case 'job-hunting-chat':
           // 招聘管主页 直接跳转职位列表
           if(this.data.type === 'recruiter') {
-            wx.redirectTo({url: `${RECRUITER}position/jobList/jobList?type=job_hunting_chat&showNotPositionApply=${interviewInfos.showNotPositionApply}&from=${this.data.currentPage}&recruiterUid=${this.data.infos.uid}`})
+            wx.redirectTo({url: `${RECRUITER}position/jobList/jobList?type=job_hunting_chat&from=${this.data.currentPage}&showNotPositionApply=${interviewInfos.showNotPositionApply}&from=${this.data.currentPage}&recruiterUid=${this.data.infos.uid}`})
           } else {
             applyInterviewApi({recruiterUid: this.data.infos.recruiterInfo.uid, positionId: this.data.infos.id})
             .then(res => {
@@ -190,7 +207,7 @@ Component({
           break
         // 招聘官拒绝求职者
         case 'recruiter-reject':
-          wx.redirectTo({url: `${RECRUITER}position/jobList/jobList?type=reject_chat`})
+          wx.redirectTo({url: `${RECRUITER}position/jobList/jobList?type=reject_chat&from=${this.data.currentPage}`})
           wx.setStorageSync('interviewChatLists', this.data.interviewInfos)
           // if(interviewInfos.data.length > 1) {
           //   wx.redirectTo({url: `${RECRUITER}position/jobList/jobList?type=reject_chat`})
@@ -209,11 +226,11 @@ Component({
           break
         // 求职者查看面试详情
         case 'job-hunting-view-detail':
-          wx.redirectTo({url: `${COMMON}arrangement/arrangement?id=${interviewInfos.data[0].interviewId}`})
+          wx.navigateTo({url: `${COMMON}arrangement/arrangement?id=${interviewInfos.data[0].interviewId}`})
           break
         // B端开撩成功后跳转安排面试页面
         case 'recruiter-accept':
-          wx.redirectTo({url: `${RECRUITER}position/jobList/jobList?type=confirm_chat`})
+          wx.redirectTo({url: `${RECRUITER}position/jobList/jobList?type=confirm_chat&from=${this.data.currentPage}`})
           wx.setStorageSync('interviewChatLists', this.data.interviewInfos)
           // if(interviewInfos.data.length > 1) {
           //   wx.redirectTo({url: `${RECRUITER}position/jobList/jobList?type=confirm_chat`})
@@ -234,7 +251,7 @@ Component({
           app.wxToast({title: '面试申请已发送'})
           break
         case 'recruiter-arrangement':
-          wx.redirectTo({url: `${COMMON}arrangement/arrangement?id=${interviewInfos.data[0].interviewId}`})
+          wx.navigateTo({url: `${COMMON}arrangement/arrangement?id=${interviewInfos.data[0].interviewId}`})
           break
         default:
           break
