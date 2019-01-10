@@ -37,23 +37,15 @@ App({
   getAllInfo() {
     return new Promise((resolve, reject) => {
       if (wx.getStorageSync('choseType') === 'APPLICANT') {
-        if(!this.globalData.resumeInfo.uid) {
-          getPersonalResumeApi().then(res0 => {
-            this.globalData.resumeInfo = res0.data
-            resolve(res0.data)
-          })
-        } else {
-          resolve(this.globalData.resumeInfo)
-        }
+        getPersonalResumeApi().then(res0 => {
+          this.globalData.resumeInfo = res0.data
+          resolve(res0.data)
+        })
       } else {
-        if(!this.globalData.recruiterDetails.uid) {
-          getRecruiterDetailApi().then(res0 => {
-            this.globalData.recruiterDetails = res0.data
-            resolve(res0.data)
-          })
-        } else {
-          resolve(this.globalData.recruiterDetails)
-        }
+        getPersonalResumeApi().then(res0 => {
+          this.globalData.resumeInfo = res0.data
+          resolve(res0.data)
+        })
       }
     })
   },
@@ -73,29 +65,27 @@ App({
                 if (this.userInfoReadyCallback) {
                   this.userInfoReadyCallback(res)
                 }
-                if (this.globalData.hasLogin) {
-                  getUserRoleApi().then(res0 => {
-                    if (res0.data.isRecruiter) {
-                      this.globalData.isRecruiter = true
-                    }
-                    if (res0.data.isJobhunter) {
-                      this.globalData.isJobhunter = true
-                    }
-                    if (this.getRoleInit) { // 登陆初始化
-                      this.getRoleInit() //执行定义的回调函数
-                    }
-                  })
-                  this.getAllInfo().then(() => {
-                    // 没有身份默认求职者
-                    if (!wx.getStorageSync('choseType')) {
-                      wx.setStorageSync('choseType', 'APPLICANT')
-                    }
-                    this.globalData.identity = wx.getStorageSync('choseType')
-                    if (this.pageInit) { // 页面初始化
-                      this.pageInit() //执行定义的回调函数
-                    }
-                  })
-                }
+                getUserRoleApi().then(res0 => {
+                  if (res0.data.isRecruiter) {
+                    this.globalData.isRecruiter = true
+                  }
+                  if (res0.data.isJobhunter) {
+                    this.globalData.isJobhunter = true
+                  }
+                  if (this.getRoleInit) { // 登陆初始化
+                    this.getRoleInit() //执行定义的回调函数
+                  }
+                })
+                this.getAllInfo().then(() => {
+                  // 没有身份默认求职者
+                  if (!wx.getStorageSync('choseType')) {
+                    wx.setStorageSync('choseType', 'APPLICANT')
+                  }
+                  this.globalData.identity = wx.getStorageSync('choseType')
+                  if (this.pageInit) { // 页面初始化
+                    this.pageInit() //执行定义的回调函数
+                  }
+                })
                 console.log('用户已授权')
                 resolve(res.userInfo)
               }

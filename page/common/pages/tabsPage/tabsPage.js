@@ -39,9 +39,9 @@ Page({
     let choseLifeList = []
     let choseFirstName = ''
     if (getApp().globalData.identity === "APPLICANT") {
-      choseAllList = app.globalData.resumeInfo.personalizedLabels
+      choseAllList = app.globalData.resumeInfo.personalizedLabels || []
     } else {
-      choseAllList = app.globalData.recruiterDetails.personalizedLabels
+      choseAllList = app.globalData.recruiterDetails.personalizedLabels || []
     }
     getJobLabelApi({type: 'all'}).then(res => {
       allSkills = res.data.labelProfessionalSkills
