@@ -56,8 +56,7 @@ Page({
       }, 
       complete: (res) => {
         if (res.statusCode === 200) {
-          wx.setStorageSync('avatarId', JSON.parse(res.data).data[0].id)
-          wx.setStorageSync('avatarUrl', file.path)
+          wx.setStorageSync('avatar', JSON.parse(res.data).data[0])
           wx.navigateBack({
             delta: 1
           })

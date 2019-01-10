@@ -25,10 +25,23 @@ Page({
    * @return   {[type]}     [description]
    */
   bindInput(e) {
+    this.setData({keyword: e.detail.value})
+    this.bindButtonStatus()
     getPositionNameListApi({name: e.detail.value})
       .then(res => {
         this.setData({nameLists: res.data})
       })
+  },
+  /**
+   * @Author   小书包
+   * @DateTime 2019-01-10
+   * @detail   绑定按钮状态
+   * @return   {[type]}   [description]
+   */
+  bindButtonStatus() {
+    const canClick = this.data.keyword ? true : false
+    console.log(this.data.keyword)
+    this.setData({canClick})
   },
   onClick(e) {
     const name = e.currentTarget.dataset.name
@@ -38,6 +51,9 @@ Page({
     this.setData({canClick: true})
   },
   submit(e) {
+    const storage = wx.getStorageSync('createPosition')
+    storage.position_name = this.data.keyword
+    wx.setStorageSync('createPosition', storage)
     wx.navigateTo({url: `${RECRUITER}position/post/post`})
   }
 })

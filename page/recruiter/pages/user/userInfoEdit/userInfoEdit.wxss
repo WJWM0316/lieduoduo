@@ -15,8 +15,8 @@
   position: relative;
 }
 .pic image {
-	width: 162rpx;
-	height: 162rpx;
+	width: 161rpx;
+	height: 161rpx;
 	display: block;
 }
 .removeFile {
@@ -56,13 +56,14 @@
 .item.picBox {
 	height: auto;
 	display: block;
-	padding: 32rpx 40rpx;
+	padding: 40rpx 40rpx 32rpx;
 }
 .picList {
 	font-size: 0;
 }
 .picList .pic {
 	margin-right: 8rpx;
+  margin-bottom: 8rpx;
 	display: inline-block;
 	vertical-align: top;
 }

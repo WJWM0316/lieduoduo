@@ -6,6 +6,7 @@ import {COMMON,RECRUITER,APPLICANT} from "config.js"
 import {getUserRoleApi} from "api/pages/user.js"
 
 let app = getApp()
+let that = null
 App({
   onLaunch: function () {
     // 获取导航栏高度
@@ -18,6 +19,7 @@ App({
         console.log(err)
       }
     })
+    that = this
     this.checkLogin()
   },
   globalData: {
@@ -36,14 +38,16 @@ App({
   // 获取最全的角色信息
   getAllInfo() {
     return new Promise((resolve, reject) => {
-      if (wx.getStorageSync('choseType') === 'APPLICANT') {
-        getPersonalResumeApi().then(res0 => {
-          this.globalData.resumeInfo = res0.data
+      if (wx.getStorageSync('choseType') === 'RECRUITER') {
+        getRecruiterDetailApi().then(res0 => {
+          this.globalData.recruiterDetails = res0.data
+          this.globalData.identity = 'RECRUITER'
           resolve(res0.data)
         })
       } else {
         getPersonalResumeApi().then(res0 => {
           this.globalData.resumeInfo = res0.data
+          this.globalData.identity = 'APPLICANT'
           resolve(res0.data)
         })
       }
@@ -227,19 +231,18 @@ App({
   },
   // 切换身份
   toggleIdentity() {
-    if (this.globalData.identity === 'RECRUITER') {
+    let identity = wx.getStorageSync('choseType')
+    if (identity === 'RECRUITER') {
       wx.setStorageSync('choseType', 'APPLICANT')
-      this.globalData.identity === 'APPLICANT'
       wx.reLaunch({
         url: `${APPLICANT}index/index`
       })
     } else {
       wx.setStorageSync('choseType', 'RECRUITER')
-      this.globalData.identity === 'RECRUITER'
       wx.reLaunch({
         url: `${RECRUITER}index/index`
       })
     }
-    app.getAllInfo()
+    this.getAllInfo()
   }
 })

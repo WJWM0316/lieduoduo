@@ -19,18 +19,16 @@
 }
 
 .company-apply-page .banner {
-	height: 300rpx;
 	background: rgba(0,0,0,0.1);
+	position:fixed;
+	top: 0;
+	left: 0;
 }
 
 .company-apply-page .banner image {
 	width: 100vw;
+	height: 495rpx;
 	display: block;
-	position: fixed;
-	left: 0;
-	right: 0;
-	width: 100%;
-	top: 0;
 }
 
 .company-apply-page .input-li {
@@ -69,4 +67,29 @@
 	font-weight:500;
 	color:rgba(98,98,98,1);
 	text-align: right;
+}
+
+.company-apply-page .ul {
+	display: table;
+	margin: 50rpx auto;
+}
+
+.company-apply-page .ul .li {
+	font-size:28rpx;
+	font-weight:500;
+	color:rgba(188,188,188,1);
+	display: inline-block;
+	margin-right: 25rpx;
+	line-height: 1;
+}
+
+.company-apply-page .ul .column-line {
+	border-right: 1px solid #DCDCDC;
+	padding-right: 25rpx;
+}
+.form {
+	position: fixed;
+	top: 495rpx;
+	left: 0;
+	width: 100%;
 }

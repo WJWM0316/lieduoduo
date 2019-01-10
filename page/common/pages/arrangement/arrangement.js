@@ -138,7 +138,6 @@ Page({
     } else {
       this.setData({identity})
     }
-    console.log(this.data.identity, 11111111111111)
   },
 
   /**

@@ -34,6 +34,7 @@ Page({
         title: '提示',
         content: '检测到你是招聘官，是否切换招聘端',
         confirmBack() {
+          app.globalData.identity = 'RECRUITER'
           wx.reLaunch({
             url: `${RECRUITER}index/index`
           })

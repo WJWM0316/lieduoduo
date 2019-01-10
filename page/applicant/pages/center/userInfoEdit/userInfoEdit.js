@@ -123,17 +123,15 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    let avatarUrl = wx.getStorageSync('avatarUrl')
-    let avatarId = wx.getStorageSync('avatarId')
-    if (avatarUrl && avatarId) {
-      this.setData({avatarUrl: avatarUrl, avatarId: avatarId})
+    let avatar = wx.getStorageSync('avatar')
+    if (avatar) {
+      this.setData({avatarUrl: avatar.url, avatarId: avatar.id})
     }
   },
 

@@ -1,4 +1,8 @@
-import { applyCompanyApi, getCompanyNameListApi } from '../../../../../../api/pages/company.js'
+import {
+  applyCompanyApi,
+  getCompanyNameListApi,
+  justifyCompanyExistApi
+} from '../../../../../../api/pages/company.js'
 
 import {realNameReg, emailReg, positionReg} from '../../../../../../utils/fieldRegular.js'
 
@@ -36,12 +40,10 @@ Page({
     getCompanyNameListApi({name})
       .then(res => {
         const nameList = res.data
-        console.log(nameList)
         nameList.map(field => {
           field.html = field.companyName.replace(new RegExp(name,'g'),`<span style="color: #652791;">${name}</span>`)
           field.html = `<div>${field.html}</div>`
         })
-        console.log(nameList)
         this.setData({nameList})
       })
   },
@@ -88,11 +90,18 @@ Page({
     const storage = wx.getStorageSync('createdCompany')
     storage.company_name = this.data.company_name
     wx.setStorageSync('createdCompany', storage)
-    wx.redirectTo({url: `${RECRUITER}user/company/post/post`})
+    wx.navigateTo({url: `${RECRUITER}user/company/post/post`})
     this.setData({showMaskBox: false})
   },
   submit() {
     if(!this.data.canClick) return;
-    this.setData({showMaskBox: true})
+    justifyCompanyExistApi({name: this.data.company_name})
+      .then(res => {
+        if(res.data.exist) {
+          wx.redirectTo({url: `${RECRUITER}user/company/identity/identity`})
+        } else {
+          this.setData({showMaskBox: true})
+        }
+      })
   }
 })

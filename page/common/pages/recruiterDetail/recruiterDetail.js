@@ -69,7 +69,6 @@ Page({
         } else {
           this.setData({info: myInfo, isOwner: true})
         }
-        this.setData({info: myInfo, isOwner: true})
       } else {
         this.getOthersInfo()
       }

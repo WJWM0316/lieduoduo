@@ -22,7 +22,8 @@ Page({
     },
     canClick: false
   },
-  onLoad() {},
+  onLoad() {
+  },
   /**
    * @Author   小书包
    * @DateTime 2018-12-20
@@ -91,6 +92,7 @@ Page({
     formData.passport_front = this.data.passport_front.id
     formData.passport_reverse = this.data.passport_reverse.id
     formData.handheld_passport = this.data.handheld_passport.id
+    formData.company_id = app.globalData.recruiterDetails.companyInfo.id
     if(this.data.validity) formData.validity = this.data.validity
     return formData
   },
@@ -104,7 +106,7 @@ Page({
     const formData = this.getParams()
     identityCompanyApi(formData)
       .then((res) => {
-        wx.navigateTo({url: `${RECRUITER}user/company/status/status`})
+        wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=identity`})
       })
   }
 })
