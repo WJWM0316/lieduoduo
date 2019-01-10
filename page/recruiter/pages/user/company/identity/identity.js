@@ -34,7 +34,6 @@ Page({
     let canClick = bindKeys.every(field => this.data[field])
     let hasUploadImage = this.data.passport_front.smallUrl && this.data.passport_reverse.smallUrl && this.data.handheld_passport.smallUrl
     this.setData({ canClick:  canClick && hasUploadImage})
-    console.log(this.data)
   },
   /**
    * @Author   小书包

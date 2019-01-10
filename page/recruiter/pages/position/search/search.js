@@ -12,12 +12,12 @@ Page({
     nameLists: [],
     canClick: false
   },
-  onLoad() {
-    const storage = wx.getStorageSync('createPosition')
-    if(storage) {
-      this.setData({keyword: storage.position_name})
-    }
-  },
+  // onLoad() {
+  //   const storage = wx.getStorageSync('createPosition')
+  //   if(storage) {
+  //     this.setData({keyword: storage.position_name})
+  //   }
+  // },
   /**
    * @Author   小书包
    * @DateTime 2018-12-25
