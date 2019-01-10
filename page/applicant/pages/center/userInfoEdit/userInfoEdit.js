@@ -26,7 +26,7 @@ Page({
   onLoad: function (options) {
     let {avatar, avatarId, birth, birthDesc, gender, mobile, name, startWorkYear, startWorkYearDesc, jobStatus, jobStatusDesc, wechat, workAge, signature, personalizedLabels } = getApp().globalData.resumeInfo
     this.setData({
-      avatarUrl: avatar,
+      avatarUrl: avatar.middleUrl,
       avatarId,
       birth,
       birthDesc,
