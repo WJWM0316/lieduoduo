@@ -1,6 +1,6 @@
 <view class="company-upload">
 	<navbar title="完善公司信息" background="#FFFFFF" color="#22292C" showBackBtn="{{true}}"></navbar>
-	<view class="warning">请确保上传的公司信息真实有效，有助审核通过</view>
+	<view class="warning"><i class="icon iconfont icon-tixing"></i>请确保上传的公司信息真实有效，有助审核通过</view>
 	<form bindsubmit="submit">
 	  <view class="upload-li">
 	  	<view class="h1">上传营业执照</view>
