@@ -110,6 +110,7 @@ Page({
   },
   bindInput(e) {
     this.setData({companyShortName: e.detail.value})
+    this.bindBtnStatus()
   },
   /**
    * @Author   小书包

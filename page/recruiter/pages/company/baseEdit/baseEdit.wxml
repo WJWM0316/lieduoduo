@@ -7,7 +7,7 @@
 				<view class="value">
 					<unloadFile bindresultEvent="getResult" data-type="img">
 						<image class="logo" src="{{logoUrl}}"></image>
-					</unloadFile>
+					</unloadFile>     
 				</view>
 				<i class="icon iconfont icon-xiangyou"></i>
 			</view>

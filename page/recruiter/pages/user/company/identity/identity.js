@@ -104,7 +104,7 @@ Page({
     const formData = this.getParams()
     identityCompanyApi(formData)
       .then((res) => {
-        wx.navigateTo({url: `${RECRUITER}user/company/status/status`})
+        wx.reLaunch({url: `${RECRUITER}user/company/status/status`})
       })
   }
 })
