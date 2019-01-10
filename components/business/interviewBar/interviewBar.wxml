@@ -37,7 +37,7 @@
 			<!-- 求职者还没有发起开撩动作 职位详情 end-->
 
 			<!-- 求职者已经发起开撩动作 start-->
-			<block wx:elif="{{interviewInfos.interviewStatus === 11}}">
+			<block wx:elif="{{type === 'position' && interviewInfos.interviewStatus === 11}}">
 				<view class="content">
 					<view class="first"><view class="name">{{infos.name || infos.recruiterInfo.name}}</view></view>
 					<view class="second">待确认申请</view>

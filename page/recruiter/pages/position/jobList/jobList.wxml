@@ -73,7 +73,7 @@
 
     <label class="radio" wx:for="{{items}}" wx:key="{{index}}">
       <view class="li">
-        <block wx:if="{{item.positionId}}">
+        <block wx:if="{{item.positionId || item.id}}">
           <view class="content">
             <view class="title">
               <text class="txt1">{{item.positionName}}</text>
