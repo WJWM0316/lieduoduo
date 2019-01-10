@@ -25,9 +25,6 @@ Page({
   onLoad() {
     this.getTabLists()
   },
-  onReachBottom(e) {
-    console.log(e)
-  },
   /**
    * @Author   小书包
    * @DateTime 2018-12-27
@@ -72,6 +69,7 @@ Page({
   onClickTab(e) {
     const positionStatus = e.currentTarget.dataset.status
     const key = positionStatus === '1' ? 'onLinePosition' : 'offLinePosition'
-    this.setData({positionStatus, [key]: this.data[key]})
+    const value = this.data[key]
+    this.setData({positionStatus, [key]: value, defaultList: value})
   }
 })
