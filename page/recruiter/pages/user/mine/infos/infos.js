@@ -1,5 +1,5 @@
 import { getRecruiterMyInfoApi } from '../../../../../../api/pages/recruiter.js'
-import {RECRUITER} from '../../../../../../config.js'
+import {RECRUITER, COMMON} from '../../../../../../config.js'
 import {getUserRoleApi} from "../../../../../../api/pages/user.js"
 
 const app = getApp()
@@ -49,6 +49,9 @@ Page({
         break
       case 'identity':
         wx.navigateTo({url: `${RECRUITER}user/company/status/status?page=identity`})
+        break
+      case 'settings':
+        wx.navigateTo({url: `${COMMON}settings/settings`})
         break
       default:
         break

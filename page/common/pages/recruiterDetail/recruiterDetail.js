@@ -49,8 +49,12 @@ Page({
   },
   onShow: function () {
     let options = this.data.options
-    app.getRoleInit = () => {
+    if (app.globalData.isRecruiter) {
       this.setData({isRecruiter: app.globalData.isRecruiter})
+    } else {
+      app.getRoleInit = () => {
+        this.setData({isRecruiter: app.globalData.isRecruiter})
+      }
     }
     let myInfo = {}
     if (app.globalData.identity === "APPLICANT") {
@@ -60,6 +64,11 @@ Page({
     }
     if (myInfo.uid) {
       if (myInfo.uid === parseInt(options.uid)) {
+        if (app.globalData.identity === "APPLICANT") {
+          this.getOthersInfo()
+        } else {
+          this.setData({info: myInfo, isOwner: true})
+        }
         this.setData({info: myInfo, isOwner: true})
       } else {
         this.getOthersInfo()

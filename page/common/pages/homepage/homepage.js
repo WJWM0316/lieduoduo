@@ -5,6 +5,7 @@ import {
 } from '../../../../api/pages/company.js'
 
 import {RECRUITERHOST, COMMON} from '../../../../config.js'
+import {getPositionListApi} from "../../../../api/pages/position.js"
 
 Page({
 
@@ -20,12 +21,26 @@ Page({
     link: 'https://www.xiaodengta.com',
     query: {},
     companyInfos: {},
-    recruitersList: []
+    recruitersList: [],
+    companyList: [],
+    jobList: []
   },
   onLoad(options) {
     this.setData({query: options})
     this.getCompanyDetail()
     this.getRecruitersList()
+    this.getPositionList(options)
+  },
+  /**
+   * @Author   小书包
+   * @DateTime 2019-01-10
+   * @detail   获取职位详情
+   * @return   {[type]}   [description]
+   */
+  getPositionList() {
+    getPositionListApi({recruiter: 92}).then(res => {
+      this.setData({jobList: res.data})
+    })
   },
   /**
    * @Author   小书包

@@ -60,10 +60,6 @@ App({
   // 检查登录
   checkLogin () {
     return new Promise((resolve, reject) => {
-//    if (this.globalData.userInfo) {
-//      resolve(this.globalData.userInfo)
-//      return
-//    }
       wx.getSetting({
         success: res => {
           if (res.authSetting['scope.userInfo']) {
@@ -114,10 +110,14 @@ App({
       if (e.detail.errMsg === 'getUserInfo:ok') {
         // 预防信息解密失败， 失败三次后不再授权
         let loginNum = 0
+        let data = {
+          iv_key: e.detail.iv,
+          data: e.detail.encryptedData
+        }
         let wxLogin = function () {
           // 调用微信登录获取本地session_key
           wx.login({
-            success: function (res) {
+            success: function (res0) {
               // 请求接口获取服务器session_key
               var pages = getCurrentPages() //获取加载的页面
               let pageUrl = pages[0].route
@@ -126,11 +126,7 @@ App({
                 params = `${params}${i}=${pages[0].options[i]}&`
               }
               pageUrl = `${pageUrl}?${params}`
-              let data = {
-                code: res.code,
-                iv_key: e.detail.iv,
-                data: e.detail.encryptedData
-              }
+              data.code = res0.code
               loginApi(data).then(res => {
                 // 有token说明已经绑定过用户了
                 if (res.data.token) {
@@ -150,12 +146,15 @@ App({
                   })
                 }
               }).catch(e => {
-                loginNum++
-                if (loginNum < 3) {
-                  wxLogin()
-                } else {
-                  this.toast({title: "授权失败，请稍后再试"})
-                }
+                wx.getUserInfo({
+                  success: res1 => {
+                    data = {
+                      iv_key: res1.iv,
+                      data: res1.encryptedData
+                    }
+                    wxLogin()
+                  }
+                })
               })
             },
             fail: function (e) {
