@@ -21,7 +21,7 @@ Page({
   },
   toRecruitment (e) {
     wx.navigateTo({ // 去招聘官主页
-      url: `/page/common/pages/recruiterDetail/recruiterDetail?uid=${this.data.list[e.currentTarget.dataset.index].uid}`
+      url: `/page/common/pages/recruiterDetail/recruiterDetail?uid=${this.data.list[e.currentTarget.dataset.index].id}`
     })
   },
   /* 切换主tab */

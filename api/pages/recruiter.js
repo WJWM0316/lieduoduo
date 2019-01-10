@@ -104,3 +104,12 @@ export const removeTopicApi = (data) => {
     hasLoading: true
   })
 }
+// 给招聘官的个人标签点赞
+export const putLabelFavorApi = (data) => {
+  return request({
+    url: `/recruiter/labelFavor/${data.recruiterLabelId}`,
+    method: 'put',
+    data,
+    hasLoading: true
+  })
+}
