@@ -3,7 +3,7 @@
 import {RECRUITER, APPLICANT, COMMON} from '../../../../config.js'
 import {getSelectorQuery}  from '../../../../utils/util.js'
 import {getUserInfoApi} from '../../../../api/pages/user.js'
-import { geMyBrowseUsersApi } from '../../../../api/pages/active.js'
+import { geMyBrowseUsersApi, getAvartListApi } from '../../../../api/pages/active.js'
 import { getMyCollectUsersApi } from '../../../../api/pages/browse.js'
 const app = getApp()
 Page({
@@ -12,9 +12,17 @@ Page({
     pageList: 'mySeen',
     choseType: wx.getStorageSync('choseType') || null,
     needLogin: false,
-    companyList: []
+    companyList: [],
+    moreList: [],
+    activeList: []
   },
   onLoad: function () {
+    getAvartListApi().then(res => {
+      this.setData({
+        moreList: res.moreRecruiter,
+        activeList: res.recruiterDynamic
+      })
+    })
     let choseType = wx.getStorageSync('choseType')
     if (!choseType) {
       wx.hideTabBar()

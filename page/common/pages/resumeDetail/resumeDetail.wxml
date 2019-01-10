@@ -44,6 +44,7 @@
         <text wx:if="{{item.fields[2]}}"> · {{item.fields[2].field}}</text>
       </view>
     </view>
+    <text class="add" data-editName="intent" bindtap="edit" wx:if="{{info.isOwner && identity === 'APPLICANT'}}">添加求职意向</text>
   </view>
   <!-- 工作经历 -->
   <view class="workExp commentBox" wx:if="{{info.careers.length>0}}">

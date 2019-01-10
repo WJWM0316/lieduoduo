@@ -1,4 +1,4 @@
-import { getLabelProfessionalSkillsApi } from '../../../../../../api/pages/label.js'
+import { getLabelProfessionalSkillsApi, getFieldListApi } from '../../../../../../api/pages/label.js'
 
 import {RECRUITER} from '../../../../../../config.js'
 
@@ -9,9 +9,6 @@ Page({
     limitNum: 4
   },
   /**
-   * @Author   小书包
-   * @DateTime 2019-01-09
-   * @detail   获取选中的item
    * @return   {[type]}   [description]
    */
   getActive() {
@@ -19,9 +16,6 @@ Page({
     this.setData({skills: professionalSkills})
   },
   /**
-   * @Author   小书包
-   * @DateTime 2018-12-25
-   * @detail   选择职业类别
    * @return   {[type]}     [description]
    */
   onClick(e) {
@@ -40,8 +34,8 @@ Page({
     this.setData({professionalSkills})
     this.getActive()
   },
-  onLoad() {
-    getLabelProfessionalSkillsApi()
+  onLoad(options) {
+    this.getLabel(options)
       .then(response => {
 //      const storage = wx.getStorageSync('createPosition')
 //      const typeId = parseInt(storage.parentType)
@@ -56,6 +50,19 @@ Page({
 //      this.setData({professionalSkills, skills: storage.skills})
         this.setData({professionalSkills})
       })
+  },
+  getLabel (options) {
+    if (options.target === '2') {
+      getFieldListApi().then(response => {
+        const professionalSkills = response.data
+        this.setData({professionalSkills})
+      })
+    } else {
+      getLabelProfessionalSkillsApi().then(response => {
+        const professionalSkills = response.data.labelProfessionalSkills
+        this.setData({professionalSkills})
+      })
+    }
   },
   submit() {
 //  const storage = wx.getStorageSync('createPosition')

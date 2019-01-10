@@ -56,3 +56,13 @@ export const geMyBrowseUsersApi = (data) => {
     data
   })
 }
+
+/* 求职端首页发现出展示的头像列表 */
+export const getAvartListApi = (data) => {
+  return request({
+    method: 'get',
+    url: '/collect/red_dot_info',
+    data
+  })
+}
+

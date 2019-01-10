@@ -75,6 +75,16 @@ export const editExpectApi = (data) => {
   })
 }
 
+// 个人简历意向新增
+export const addExpectApi = (data) => {
+  return request({
+    method: 'put',
+    url: `/jobhunter/expect`,
+    data,
+    hasLoading: false
+  })
+}
+
 // 个人简历工作经验修改
 export const editCareerApi = (data) => {
   return request({
