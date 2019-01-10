@@ -18,9 +18,18 @@
 }
 
 .company-apply-page .banner {
-	height: 480rpx;
-	background: #652791;
-	background: rgba(0,0,0,.01);
+	height: 300rpx;
+	background: rgba(0,0,0,0.1);
+}
+
+.company-apply-page .banner image {
+	width: 100vw;
+	display: block;
+	position: fixed;
+	left: 0;
+	right: 0;
+	width: 100%;
+	top: 0;
 }
 
 .company-apply-page .input-li {
