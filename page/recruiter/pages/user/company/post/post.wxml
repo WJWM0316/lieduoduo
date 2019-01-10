@@ -1,7 +1,7 @@
 <view class="company-post">
 	<navbar title="完善公司信息" background="#FFFFFF" color="#22292C" showBackBtn="{{true}}"></navbar>
 	<view class="warning"><i class="icon iconfont icon-tixing"></i>请确保上传的公司信息真实有效，有助审核通过</view>
-	<form bindsubmit="submit" class="entry-list">
+	<view bindsubmit="submit" class="entry-list">
 		<view class="li">
 			<view class="key">公司全称</view>
 			<view class="text2">{{company_name}}</view>
@@ -45,7 +45,7 @@
 			</view>
 		</view>
 	  <view class="btn-area">
-	    <button form-type="submit" class="button-submit {{canClick ? 'button-enable' : ''}}">下一步</button>
+	    <view bindtap="submit" class="button-submit {{canClick ? 'button-enable' : ''}}">下一步</view>
 	  </view>
-	</form>
+	</view>
 </view>
