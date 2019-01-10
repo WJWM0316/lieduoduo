@@ -10,7 +10,7 @@
 		    	<view class="icon-box">+</view>
 				  <view>上传营业执照</view>
 				  <image src="{{business_license.smallUrl}}" mode="scaleToFill"></image>
-				  <view class="replace-image" wx:if="{{business_license.smallUrl}}">重新上传</view>
+				  <view class="replace-image" wx:if="{{business_license.smallUrl}}"><i class="icon iconfont icon-zhongxinshangchuan"></i>重新上传</view>
 				</unloadFile>
 			</view>
 	  </view>
@@ -22,7 +22,7 @@
 				  <view class="icon-box">+</view>
 				  <view>上传图片</view>
 				  <image src="{{on_job.smallUrl}}" mode="scaleToFill"></image>
-				  <view class="replace-image" wx:if="{{business_license.smallUrl}}">重新上传</view>
+				  <view class="replace-image" wx:if="{{business_license.smallUrl}}"><i class="icon iconfont icon-zhongxinshangchuan"></i>重新上传</view>
 				</unloadFile>
 			</view>
 	  </view>

@@ -11,7 +11,7 @@
 				<view class="content">
 					<view class="first">
 						<view class="name">{{infos.name || infos.recruiterInfo.name}}</view>
-						<view class="hunter-infos"> <view class="strong">12</view>个职位 </view>
+						<view class="hunter-infos"> <view class="strong">{{infos.positionNum}}</view>个职位 </view>
 					</view>
 					<view class="second">{{slogoList[slogoIndex].text}}</view>
 				</view>
