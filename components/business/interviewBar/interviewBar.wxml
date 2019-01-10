@@ -78,9 +78,7 @@
 					<view class="first"><view class="name">{{infos.name || infos.recruiterInfo.name}}</view></view>
 					<view class="second">不合适</view>
 				</view>
-				<view class="button-box button-box-color3">
-					<view>不合适</view>
-				</view>
+				<view class="button-box button-box-color3"> <view>不合适</view> </view>
 			</block>
 			<!-- 求职者被设置成不合适 end-->
 			
@@ -103,7 +101,7 @@
 		<block wx:else>
 			
 			<!-- 求职端已开启撩 招聘端可接受可拒绝 start-->
-			<block wx:if="{{interviewInfos.interviewStatus === 11}}">
+			<block wx:if="{{interviewInfos.interviewStatus === 11 && interviewInfos.haveInterview === 1}}">
 				<view class="content">
 					<view class="first"><view class="name">{{infos.name || infos.recruiterInfo.name}}</view></view>
 					<view class="second">我一直在等一个懂我的老大</view>
@@ -156,17 +154,15 @@
 					<view data-action="recruiter-arrangement" class="accept" bindtap="todoAction">安排面试</view>
 				</view>
 			</block>
-
+<!-- 
 			<block wx:elif="{{interviewInfos.interviewStatus === 54 || interviewInfos.interviewStatus === 55}}">
 				<view class="content">
 					<view class="first"><view class="name">{{infos.name || infos.recruiterInfo.name}}</view></view>
 					<view class="second">不考虑</view>
 				</view>
-				<view class="button-box button-box-color2">
-					<view>不考虑</view>
-				</view>
+				<view class="button-box button-box-color2"> <view>不考虑</view> </view>
 			</block>
-
+ -->
 		</block>
 		<!-- 招聘端 -->
 	</block>
