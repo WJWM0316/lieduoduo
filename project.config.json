@@ -38,7 +38,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 23,
+			"current": 14,
 			"list": [
 				{
 					"id": 0,
@@ -127,7 +127,7 @@
 				{
 					"id": 14,
 					"name": "招聘官认证",
-					"pathName": "page/recruiter/pages/user/company/status/status",
+					"pathName": "page/recruiter/pages/user/company/apply/apply",
 					"query": ""
 				},
 				{
