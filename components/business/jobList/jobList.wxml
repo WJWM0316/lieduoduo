@@ -38,7 +38,7 @@
     <!-- hr信息 -->
     <view class="hr">
       <view class="hrImg">
-        <image src="{{item.recruiterInfo.avatar}}"></image>
+        <image src="{{item.recruiterInfo.avatar.smallUrl}}"></image>
       </view>
       <view class="hrName">{{item.recruiterInfo.name}} · {{item.recruiterInfo.position}}</view>
     </view>
