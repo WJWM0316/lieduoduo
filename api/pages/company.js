@@ -250,3 +250,11 @@ export const putCompanyBriefApi = (data, hasLoading) => {
     hasLoading: true
   })
 }
+// 通过公司名判断公司是否存在
+export const justifyCompanyExistApi = (data, hasLoading) => {
+  return request({
+    method: 'get',
+    url: `/company/exist/${data.name}`,
+    hasLoading: true
+  })
+}

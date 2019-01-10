@@ -1,4 +1,8 @@
-import { applyCompanyApi, getCompanyNameListApi } from '../../../../../../api/pages/company.js'
+import {
+  applyCompanyApi,
+  getCompanyNameListApi,
+  justifyCompanyExistApi
+} from '../../../../../../api/pages/company.js'
 
 import {realNameReg, emailReg, positionReg} from '../../../../../../utils/fieldRegular.js'
 
@@ -91,6 +95,13 @@ Page({
   },
   submit() {
     if(!this.data.canClick) return;
-    this.setData({showMaskBox: true})
+    justifyCompanyExistApi({name: this.data.company_name})
+      .then(res => {
+        if(res.data.exist) {
+          wx.redirectTo({url: `${RECRUITER}user/company/identity/identity`})
+        } else {
+          this.setData({showMaskBox: true})
+        }
+      })
   }
 })
