@@ -37,7 +37,7 @@ Page({
     data.positionId = job[1]
     switch(this.data.options.type) {
       case 'recruiter_chat':
-        params.jobhunterUid = this.data.options
+        params.jobhunterUid = this.data.options.jobhunterUid
         params.positionId = job[1]
         this.applyInterview(params)
         break
@@ -52,6 +52,16 @@ Page({
         break
       case 'reject_chat':
         params.id = job[1]
+        // 都不合适 传对方的ID
+        if(this.data.identity === 'APPLICANT' && job[1] === 'unsuitable') {
+          this.refuseInterview({recruiterUid: this.data.options.recruiterUid})
+          return;
+        }
+        // 都不合适 传对方的ID
+        if(this.data.identity === 'RECRUITER' && job[1] === 'unsuitable') {
+          this.refuseInterview({jobhunterUid: this.data.options.jobhunterUid})
+          return;
+        }
         this.refuseInterview(params)
         break
       default:

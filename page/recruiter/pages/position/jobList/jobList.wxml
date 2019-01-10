@@ -20,7 +20,7 @@
           <view class="radio-box">
             <radio
               class="radioBtn"
-              value="{{item.positionName}} {{item.id || item.interviewId}}"
+              value="{{item.positionName}} {{'unsuitable'}}"
               checked="{{item.checked}}"
               color="#652791"
               data-name="{{item.positionName}}"
