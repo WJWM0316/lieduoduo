@@ -33,14 +33,14 @@ Page({
    */
   getTabLists() {
     // 获取上线列表
-    getPositionListApi({status: 1})
+    getPositionListApi({status: 1,recruiter: app.globalData.recruiterDetails.uid})
       .then(res => {
         const value = {total: res.meta.total, list: res.data}
         const key = this.data.positionStatus === '1' ? 'onLinePosition' : 'offLinePosition'
         this.setData({[key]: value, defaultList: value})
       })
     // 获取下线列表
-    getPositionListApi({status: 0})
+    getPositionListApi({status: 0,recruiter: app.globalData.recruiterDetails.uid})
       .then(res => {
         const value = {total: res.meta.total, list: res.data}
         this.setData({offLinePosition: value})
