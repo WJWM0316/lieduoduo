@@ -8,15 +8,15 @@
 				<view class="value">移动互联网</view>
 			</view>
 			<view class="item">
-				<view class="txt">所属行业</view>
+				<view class="txt">融资阶段</view>
 				<view class="value">移动互联网</view>
 			</view>
 			<view class="item">
-				<view class="txt">所属行业</view>
+				<view class="txt">公司规模</view>
 				<view class="value">移动互联网</view>
 			</view>
 			<view class="item">
-				<view class="txt">所属行业</view>
+				<view class="txt">公司官网</view>
 				<view class="value">移动互联网</view>
 			</view>
 		</view>

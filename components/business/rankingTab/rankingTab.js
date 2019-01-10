@@ -24,7 +24,7 @@ Component({
   methods: {
     toRecruitment () {
       wx.navigateTo({ // 去招聘官主页
-        url: `/page/common/pages/recruiterDetail/recruiterDetail?uid=${this.properties.item.id}`
+        url: `/page/common/pages/recruiterDetail/recruiterDetail?uid=${this.properties.item.uid}`
       })
     }
   }
