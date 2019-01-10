@@ -12,22 +12,28 @@ Page({
     identityInfos: {},
     companyInfos: {},
     page: '',
-    pageTitle: ''
+    pageTitle: '公司认证',
+    options: {}
   },
   onLoad(options) {
-    switch(options.page) {
+    switch(options.from) {
       case 'identity':
-        this.setData({pageTitle: '身份认证', page: 'identity'})
+        this.setData({pageTitle: '身份认证'})
         break
       case 'company':
-        this.setData({pageTitle: '申请加入公司', page: 'company'})
+        this.setData({pageTitle: '公司认证'})
+        break
+      case 'apply':
+        this.setData({pageTitle: '申请加入公司'})
         break
       default:
         break
     }
     getCompanyIdentityInfosApi()
     	.then(res => {
-    		this.setData({identityInfos: res.data, companyInfos: res.data.companyInfo})
+        const infos = res.data
+        const companyInfos = infos.companyInfo
+    		this.setData({identityInfos: infos, companyInfos, options})
     	})
   },
   todoAction(e) {
