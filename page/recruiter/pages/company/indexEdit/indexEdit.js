@@ -1,4 +1,5 @@
 import {getCompanyInfosApi} from "../../../../../api/pages/company.js"
+import {COMMON} from "../../../../../config.js"
 let app = getApp()
 Page({
 
@@ -19,7 +20,20 @@ Page({
       this.setData({info: res.data})
     })
   },
-
+  jumpPage(e) {
+    console.log(e, 1111)
+    switch(e.currentTarget.dataset.type) {
+      case 'main':
+        wx.navigateTo({
+          url: `${COMMON}homepage/homepage?companyId=${app.globalData.recruiterDetails.companyInfo.id}`
+        })
+      break
+      case 'peoples':
+      break
+      case 'bright':
+      break
+    }
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
