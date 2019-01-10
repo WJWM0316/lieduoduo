@@ -40,12 +40,14 @@
 	display: block;
 	overflow: hidden;
 	box-sizing: border-box;
-	padding: 60rpx;
-	margin: 20rpx 30rpx;
+	padding: 70rpx 60rpx;
 	position: absolute;
 	top: 0;
+	left: 30rpx;
+	right: 30rpx;
 	background: white;
 	padding-bottom: 40rpx;
+	min-height: 385rpx;
 }
 
 .company-infos .header {
@@ -113,7 +115,7 @@
 .company-infos .welfare-ul {
 	line-height: 1;
 	overflow: hidden;
-	margin-top: 45rpx;
+	margin-top: 50rpx;
 }
 
 .company-infos .welfare-ul .li {
@@ -193,6 +195,11 @@
 	border-radius:24rpx;
 	background: gray;
 	overflow: hidden;
+}
+
+.tab-company-homepage .left image {
+	width:108rpx;
+	height:108rpx;
 }
 
 .tab-company-homepage .right {

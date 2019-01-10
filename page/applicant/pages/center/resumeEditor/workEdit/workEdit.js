@@ -15,7 +15,8 @@ Page({
     company: '',
     positionName: '',
     starTime: '',
-    endTime: ''
+    endTime: '',
+    skill: '选择技能标签' // 技能标签
   },
 
   /**
@@ -59,6 +60,9 @@ Page({
       case '3':
         this.setData({jobCategories: wx.getStorageSync('result')})
         break;
+      case '4':
+        this.setData({skill: wx.getStorageSync('result')})
+        break;
     }
   },
   // 修改编辑页标题
@@ -67,12 +71,21 @@ Page({
       case '3':
         title = this.data.jobCategories
         break;
+      case '4':
+        title = this.data.skill
+        break;
     }
   },
-  /* 去选择页面(3、职位类别) */
+  /* 去选择页面(3、职位类别，4:技能标签) */
   choose (e) {
     target = e.currentTarget.dataset.type
     this.setTitle(target)
+    if (target === '4') {
+      wx.navigateTo({
+        url: `/page/applicant/pages/center/resumeEditor/skills/skills`
+      })
+      return
+    }
     wx.navigateTo({
       url: `/page/applicant/pages/center/resumeEditor/systematics/systematics?title=${title}&target=${target}`
     })

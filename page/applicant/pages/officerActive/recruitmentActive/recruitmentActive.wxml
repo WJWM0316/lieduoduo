@@ -5,10 +5,10 @@
     <text bindtap='toggle' data-active='watched' class='{{active === "watched"? "active" : ""}}'>看过我的</text>
     <text bindtap='toggle' data-active='interest' class='{{active === "interest"? "active" : ""}}'>对我感兴趣</text>
   </view>
-  <block hidden="{{active !== 'watched'}}">
+  <block wx:if="{{active === 'watched'}}">
   	<commonList iconfont1="more" list="{{watchedList}}" showFooter="{{false}}" dotType="circle"></commonList>
   </block>
-  <block hidden="{{active !== 'interest'}}">
+  <block wx:if="{{active === 'interest'}}">
   	<commonList iconfont1="more" list="{{interestList}}" showFooter="{{false}}" dotType="circle"></commonList>
   </block>
 </view>

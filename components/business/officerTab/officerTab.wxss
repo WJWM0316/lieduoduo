@@ -24,6 +24,7 @@
   border-radius: 50%;
 }
 .info .top .name{
+  margin-right: 21rpx;
   font-size: 36rpx;
   font-weight: 500;
   color: #282828;
@@ -41,6 +42,9 @@
   display: flex;
   align-items: center;
   margin-top: 18rpx;
+}
+.info .bottom i{
+  margin-right: 12rpx;
 }
 .info .bottom .company{
   margin-right: 42rpx;

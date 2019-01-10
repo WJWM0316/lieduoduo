@@ -1,5 +1,5 @@
 <!-- 排行榜第三后的tab组件 -->
-<view class="ranking">
+<view class="ranking" bindtap="toRecruitment">
   <view class="serialNum">{{index}}</view>
   <!-- 左边模块 -->
   <view class='left'>

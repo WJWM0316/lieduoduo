@@ -21,9 +21,9 @@
     <view class="title"><text>*</text>结束时间</view>
     <myPicker class="myPicker" setResult="开始时间" pickerType="endTime" placeholderStyle="color: #BCBCBC" data-time="end" bindresultevent="getresult"></myPicker>
   </view>
-  <view class="commont" data-type="4">
+  <view class="commont" data-type="4" bindtap="choose">
     <view class="title"><text>*</text>技能标签</view>
-    <view class="result">{{jobCategories.name || jobCategories.title}}<i class="icon iconfont icon-xiangyou"></i></view>
+    <view class="result">{{skill.name || skill.title}}<i class="icon iconfont icon-xiangyou"></i></view>
   </view>
   <!--工作内容-->
   <view class="title"><text>*</text>工作内容</view>

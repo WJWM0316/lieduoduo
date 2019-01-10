@@ -85,7 +85,7 @@
 	font-size:36rpx;
 	font-weight:500;
 	color:rgba(40,40,40,1);
-	line-height:36rpx;
+	/*line-height:36rpx;*/
 	display: inline-block;
 }
 
@@ -93,7 +93,7 @@
 	font-size:28rpx;
 	font-weight:300;
 	color:#223865;
-	line-height:28rpx;
+	/*line-height:28rpx;*/
 	display: inline-block;
 	border-left: 1px solid #979797;
 	margin-left: 15px;
@@ -110,6 +110,10 @@
 	color:rgba(146,146,146,1);
 	line-height:24rpx;
 	display: inline-block;
+}
+
+.common-lits-ul .li .company-name text{
+  margin-left: 42rpx;
 }
 
 .common-lits-ul .li .position-number {
