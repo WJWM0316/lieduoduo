@@ -50,7 +50,6 @@ Page({
    * @return   {[type]}   [description]
    */
   submit() {
-    console.log(this.data)
     if(!this.data.canClick) return;
     
     // 验证用户名
@@ -71,7 +70,7 @@ Page({
     Promise
       .all([checkRealName, checkUserEmail, checkUserPosition])
       .then(res => {
-        wx.redirectTo({url: `${RECRUITER}user/company/find/find`})
+        wx.navigateTo({url: `${RECRUITER}user/company/find/find`})
         wx.setStorageSync('createdCompany', this.data)
       })
       .catch(err => {

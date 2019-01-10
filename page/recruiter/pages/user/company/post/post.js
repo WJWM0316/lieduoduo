@@ -95,7 +95,7 @@ Page({
     if(!this.data.canClick) return;
     const storage = wx.getStorageSync('createdCompany')
     wx.setStorageSync('createdCompany', Object.assign(storage, this.data))
-    wx.redirectTo({url: `${RECRUITER}user/company/upload/upload`})
+    wx.navigateTo({url: `${RECRUITER}user/company/upload/upload`})
   },
   /**
    * @Author   小书包
