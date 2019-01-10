@@ -43,22 +43,25 @@ Page({
   onLoad() {
     getLabelProfessionalSkillsApi()
       .then(response => {
-        const storage = wx.getStorageSync('createPosition')
-        const typeId = parseInt(storage.parentType)
-        const professionalSkills = response.data.labelProfessionalSkills.find(field => field.labelId === typeId).children
-        const temLabelId = storage.skills.map(field => field.labelId)
-        if(temLabelId.length) {
-          professionalSkills.map(field => field.active = temLabelId.includes(field.labelId) ? true : false)
-        } else {
-          professionalSkills.map(field => field.active = false)
-        }
-        this.setData({professionalSkills, skills: storage.skills})
+//      const storage = wx.getStorageSync('createPosition')
+//      const typeId = parseInt(storage.parentType)
+        const professionalSkills = response.data.labelProfessionalSkills
+//      const professionalSkills = response.data.labelProfessionalSkills.find(field => field.labelId === typeId).children
+//      const temLabelId = storage.skills.map(field => field.labelId)
+//      if(temLabelId.length) {
+//        professionalSkills.map(field => field.active = temLabelId.includes(field.labelId) ? true : false)
+//      } else {
+//        professionalSkills.map(field => field.active = false)
+//      }
+//      this.setData({professionalSkills, skills: storage.skills})
+        this.setData({professionalSkills})
       })
   },
   submit() {
-    const storage = wx.getStorageSync('createPosition')
-    storage.skills = this.data.skills
-    wx.setStorageSync('result', storage)
+//  const storage = wx.getStorageSync('createPosition')
+//  storage.skills = this.data.skills
+    wx.setStorageSync('result', this.data.skills)
+    console.log(this.data.skills, 777)
     wx.navigateBack({delta: 1})
   }
 })

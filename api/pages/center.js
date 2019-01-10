@@ -85,6 +85,26 @@ export const editCareerApi = (data) => {
   })
 }
 
+// 个人简历工作经验新增
+export const addCareerApi = (data) => {
+  return request({
+    method: 'put',
+    url: `/jobhunter/career`,
+    data,
+    hasLoading: false
+  })
+}
+
+// 个人简历工作经验删除
+export const deleteCareerApi = (data) => {
+  return request({
+    method: 'delete',
+    url: `/jobhunter/career/${data.id}`,
+    data,
+    hasLoading: false
+  })
+}
+
 // 个人简历项目经验修改
 export const editProjectApi = (data) => {
   return request({

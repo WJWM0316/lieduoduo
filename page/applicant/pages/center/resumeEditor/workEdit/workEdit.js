@@ -1,8 +1,9 @@
 // page/applicant/pages/center/resumeEditor/aimsEdit/aimsEdit.js
-import { editCareerApi } from '../../../../../../api/pages/center.js'
+import { editCareerApi, addCareerApi, deleteCareerApi } from '../../../../../../api/pages/center.js'
 let target = null
 let title = null
 let nowWorkId = null // 当前编辑的意向数据id
+const app = getApp()
 Page({
 
   /**
@@ -16,14 +17,22 @@ Page({
     positionName: '',
     starTime: '',
     endTime: '',
-    skill: '选择技能标签' // 技能标签
+    skill: '选择技能标签', // 技能标签
+    skillsId: [],
+    isAdd: false,
+    duty: ''
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    nowWorkId = options.id
+    if (options.id === 'undefined') {
+      this.setData({
+        isAdd: true
+      })
+    }
+    nowWorkId = parseInt(options.id)
   },
 
   /**
@@ -51,6 +60,7 @@ Page({
   /* 实时监听输入 */
   WriteContent (e) {
     this.setData({
+      duty: e.detail.value,
       nowInputNum: e.detail.cursor
     })
   },
@@ -61,7 +71,20 @@ Page({
         this.setData({jobCategories: wx.getStorageSync('result')})
         break;
       case '4':
-        this.setData({skill: wx.getStorageSync('result')})
+        let skillList = wx.getStorageSync('result')
+        let skill = null
+        let skillsId = []
+        skillList.map(item => {
+          
+          if (skill) {
+            skill = `${skill},${item.name}`
+            skillsId.push(item.name)
+          } else {
+            skill = `${item.name}`
+            skillsId.push(item.name)
+          }
+        })
+        this.setData({skill, skillsId})
         break;
     }
   },
@@ -107,6 +130,7 @@ Page({
       this.data.endTime = e.detail.propsResult
     }
   },
+  // 保存编辑
   save () {
     const param = {
       id: nowWorkId,
@@ -114,10 +138,12 @@ Page({
       position: this.data.positionName,
       positionType: this.data.jobCategories.labelId+'',
       startTime: this.data.starTime,
-      endTime: this.data.endTime
+      endTime: this.data.endTime,
+      labels: this.data.skillsId,
+      duty: this.data.duty
     }
     for (let item in param) {
-      if (!param[item]) {
+      if (!param[item] && item !== 'endTime') {
         wx.showToast({
           title: '带*为必填项，不能为空，请重新输入',
           icon: 'none',
@@ -127,12 +153,49 @@ Page({
       }
     }
     editCareerApi(param).then(res => {
-      wx.showToast({
-        title: '编辑成功',
-        icon: 'none',
-        duration: 1000
+      app.globalData.resumeInfo.careers.map((item,index) => {
+        if (item.id === res.data.id) {
+          app.globalData.resumeInfo.careers[index] = res.data
+        }
       })
       wx.navigateBack({delta: 1}) 
+    })
+  },
+  // 新增
+  add () {
+    const param = {
+      company: this.data.company,
+      position: this.data.positionName,
+      positionType: this.data.jobCategories.labelId+'',
+      startTime: this.data.starTime,
+      endTime: this.data.endTime,
+      labels: this.data.skillsId,
+      duty: this.data.duty
+    }
+    for (let item in param) {
+      if (!param[item] && item !== 'endTime') {
+        wx.showToast({
+          title: '带*为必填项，不能为空，请重新输入',
+          icon: 'none',
+          duration: 2000
+        })
+        return
+      }
+    }
+    addCareerApi(param).then(res => {
+      app.globalData.resumeInfo.careers.push(res.data)
+      wx.navigateBack({delta: 1}) 
+    })
+  },
+  // 删除
+  del () {
+    deleteCareerApi({id: nowWorkId}).then(res => {
+      app.globalData.resumeInfo.careers.map((item, index) => {
+        if (item.id === nowWorkId) {
+          app.globalData.resumeInfo.careers.splice(index,1)
+          wx.navigateBack({delta: 1})
+        }
+      })
     })
   }
 })
