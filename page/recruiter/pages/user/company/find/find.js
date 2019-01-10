@@ -36,12 +36,10 @@ Page({
     getCompanyNameListApi({name})
       .then(res => {
         const nameList = res.data
-        console.log(nameList)
         nameList.map(field => {
           field.html = field.companyName.replace(new RegExp(name,'g'),`<span style="color: #652791;">${name}</span>`)
           field.html = `<div>${field.html}</div>`
         })
-        console.log(nameList)
         this.setData({nameList})
       })
   },
@@ -88,7 +86,7 @@ Page({
     const storage = wx.getStorageSync('createdCompany')
     storage.company_name = this.data.company_name
     wx.setStorageSync('createdCompany', storage)
-    wx.redirectTo({url: `${RECRUITER}user/company/post/post`})
+    wx.navigateTo({url: `${RECRUITER}user/company/post/post`})
     this.setData({showMaskBox: false})
   },
   submit() {
