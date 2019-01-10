@@ -1,13 +1,13 @@
 <view class="interview-bar {{ !isOwerner ? 'interview-bar-radius' : ''}}">
 	<block wx:if="{{ !isOwerner }}">
 		<view class="img-box">
-			<image mode="aspectFill" src="{{infos.avatar.smallUrl}}"></image>
+			<image mode="aspectFill" src="{{infos.avatar.smallUrl || infos.recruiterInfo.avatar.smallUrl}}"></image>
 		</view>
 		
 		<block wx:if="{{identity === 'APPLICANT'}}">
 
 			<!-- 求职者还没有发起开撩动作 start-->
-			<block wx:if="{{interviewInfos.haveInterview === 0 || interviewInfos.interviewStatus === 51 || interviewInfos.interviewStatus === 54 || interviewInfos.interviewStatus === 11}}">
+			<block wx:if="{{type === 'recruiter' && (interviewInfos.haveInterview === 0 || interviewInfos.interviewStatus === 51 || interviewInfos.interviewStatus === 54 || interviewInfos.interviewStatus === 11)}}">
 				<view class="content">
 					<view class="first">
 						<view class="name">{{infos.name}}</view>

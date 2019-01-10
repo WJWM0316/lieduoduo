@@ -148,6 +148,7 @@ Component({
           //   })
           break
         case 'job-hunting-applyed':
+          console.log(this.data.infos)
           app.wxToast({title: '等待面试官处理'})
           break
         case 'recruiter-chat':

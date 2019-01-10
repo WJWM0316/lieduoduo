@@ -5,7 +5,7 @@
 		<view class="box">
 			<view class="company-logo"></view>
 			<view class="title">{{companyInfos.companyName}}</view>
-			<view class="infos">移动互联网 | B轮 | 20-99人</view>
+			<view class="infos">{{companyInfos.industry}} | {{companyInfos.financing}} | {{companyInfos.employees}}人</view>
 		</view>
 		<shareBtn></shareBtn>
 	</view>
@@ -22,6 +22,7 @@
 			<view class="ul">
 				<view class="li" wx:for="{{ recruitersList }}" wx:key="{{index}}" wx:for-item="recruiter">
 					<view class="img-box">
+						<image src="{{recruiter.avatar.smallUrl}}"></image>
 						<i class="certification-icon">V</i>
 					</view>
 					<view class="content">
