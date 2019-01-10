@@ -73,27 +73,29 @@ App({
                 if (this.userInfoReadyCallback) {
                   this.userInfoReadyCallback(res)
                 }
-                getUserRoleApi().then(res0 => {
-                  if (res0.data.isRecruiter) {
-                    this.globalData.isRecruiter = true
-                  }
-                  if (res0.data.isJobhunter) {
-                    this.globalData.isJobhunter = true
-                  }
-                  if (this.getRoleInit) { // 登陆初始化
-                    this.getRoleInit() //执行定义的回调函数
-                  }
-                })
-                this.getAllInfo().then(() => {
-                  // 没有身份默认求职者
-                  if (!wx.getStorageSync('choseType')) {
-                    wx.setStorageSync('choseType', 'APPLICANT')
-                  }
-                  this.globalData.identity = wx.getStorageSync('choseType')
-                  if (this.pageInit) { // 页面初始化
-                    this.pageInit() //执行定义的回调函数
-                  }
-                })
+                if (this.globalData.hasLogin) {
+                  getUserRoleApi().then(res0 => {
+                    if (res0.data.isRecruiter) {
+                      this.globalData.isRecruiter = true
+                    }
+                    if (res0.data.isJobhunter) {
+                      this.globalData.isJobhunter = true
+                    }
+                    if (this.getRoleInit) { // 登陆初始化
+                      this.getRoleInit() //执行定义的回调函数
+                    }
+                  })
+                  this.getAllInfo().then(() => {
+                    // 没有身份默认求职者
+                    if (!wx.getStorageSync('choseType')) {
+                      wx.setStorageSync('choseType', 'APPLICANT')
+                    }
+                    this.globalData.identity = wx.getStorageSync('choseType')
+                    if (this.pageInit) { // 页面初始化
+                      this.pageInit() //执行定义的回调函数
+                    }
+                  })
+                }
                 console.log('用户已授权')
                 resolve(res.userInfo)
               }
@@ -137,6 +139,7 @@ App({
                   console.log('用户已认证')
                 } else {
                   console.log('用户未绑定手机号')
+                  that.globalData.userInfo = res.data
                   wx.setStorageSync('sessionToken', res.data.sessionToken)
                 }
                 resolve(res)
