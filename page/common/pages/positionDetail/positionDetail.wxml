@@ -10,7 +10,7 @@
 					<view class="position-salary">{{detail.emolumentMin}}k-{{detail.emolumentMax}}k</view>
 				</view>
 				<view class="img-box">
-					<image mode="aspectFill" src="{{detail.recruiterInfo.avatar}}"></image>
+					<image mode="aspectFill" src="{{detail.recruiterInfo.avatar.smallUrl}}"></image>
 				</view>
 			</view>
 			<view class="infos">
@@ -43,7 +43,7 @@
 		</view>
 		<view class="tab-company-homepage" data-type="about" bindtap="todoAction">
 			<view class="left">
-				<view class="img-box"></view>
+				<view class="img-box"><image mode="aspectFill" src="{{detail.recruiterInfo.avatar.smallUrl}}"></image></view>
 			</view>
 			<view class="content">
 				<view class="company-name">{{detail.recruiterInfo.companyName}}</view>
@@ -80,6 +80,5 @@
 		infos="{{ detail }}"
 		bindresultevent="getPositionDetail"
 		type="position"
-		positionId="{{detail.id}}"
 		wx:if="{{detail.vkey}}"></interviewBar>
 </view>

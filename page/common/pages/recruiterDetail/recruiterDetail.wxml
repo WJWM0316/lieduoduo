@@ -85,7 +85,5 @@
     infos="{{info}}"
     bindresultevent="getPositionDetail"
     type="recruiter"
-    currentPage="recruiterDetail"
-    positionId="{{positionList[0].id}}"
     wx:if="{{info.vkey && !isOwner}}"></interviewBar>
 </view>

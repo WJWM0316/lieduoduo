@@ -192,6 +192,7 @@
 	height:108rpx;
 	border-radius:24rpx;
 	background: gray;
+	overflow: hidden;
 }
 
 .tab-company-homepage .right {

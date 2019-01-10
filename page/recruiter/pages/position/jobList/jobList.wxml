@@ -1,33 +1,61 @@
 <view class="job-list">
   <navbar title="{{pageTitle}}" background="#FFFFFF" color="#22292C"></navbar>
+
   <block wx:if="{{identity === 'RECRUITER' && options.type === 'confirm_chat'}}">
     <view class="h1">请选择约面</view>
     <view class="p">确认选择后，候选人其他申请记录将自动合并处理，不需要再单独处理；面试最终确认前，你可以随时与候选人沟通更改面试职位</view>
   </block>
+
   <block  wx:if="{{identity === 'RECRUITER' && options.type === 'reject_chat'}}">
     <view class="h1">不适合约面</view>
     <view class="p">确认选择后，该候选人其他申请记录将自动合并处理，不需要再单独处理</view>
   </block>
-
+  
+  <!-- 招聘官点击不合适 start-->
   <radio-group bindchange="radioChange">
-    
-    <label class="radio"  wx:if="{{identity === 'RECRUITER' && options.type === 'reject_chat'}}">
-      <view class="li clear-bottom">
-        <view class="content unsuitable">都不合适</view>
-        <view class="radio-box">
-          <radio
-            class="radioBtn"
-            value="{{item.positionName}} {{item.id || item.interviewId}}"
-            checked="{{item.checked}}"
-            color="#652791"
-            data-name="{{item.positionName}}"
-            data-id="{{item.id || item.interviewId}}"
-            data-interview-id="{{item.interviewId}}" />
+     <block wx:if="{{identity === 'RECRUITER' && options.type === 'reject_chat'}}">
+      <label class="radio">
+        <view class="li clear-bottom">
+          <view class="content unsuitable">都不合适</view>
+          <view class="radio-box">
+            <radio
+              class="radioBtn"
+              value="{{item.positionName}} {{item.id || item.interviewId}}"
+              checked="{{item.checked}}"
+              color="#652791"
+              data-name="{{item.positionName}}"
+              data-id="{{item.id || item.interviewId}}"
+              data-interview-id="{{item.interviewId}}" />
+          </view>
         </view>
-      </view>
-    </label>
+      </label>
+      <view class="example">以下是候选人的申请记录，请选择一个进行约面</view>
+    </block>
+    <!-- 招聘官点击不合适 end-->
+    
+    <!-- 求职端开撩 start -->
+    <block wx:if="{{identity === 'APPLICANT' && options.type === 'job_hunting_chat'}}">
+      <view class="h1">选择约面职位</view>
+      <view class="p" wx:if="{{options.showNotPositionApply === '1'}}">请从招聘官的招聘职位中选择1个，发起面试申请。你也可以不选择职位，直接申请面试</view>
 
-    <view class="example"  wx:if="{{identity === 'RECRUITER' && options.type === 'reject_chat'}}">以下是候选人的申请记录，请选择一个进行约面</view>
+      <label class="radio" wx:if="{{options.showNotPositionApply === '1'}}">
+        <view class="li clear-bottom">
+          <view class="content unsuitable">暂不选择职位</view>
+          <view class="radio-box">
+            <radio
+              class="radioBtn"
+              value="{{item.positionName}} {{item.id || item.interviewId}}"
+              checked="{{item.checked}}"
+              color="#652791"
+              data-name="{{item.positionName}}"
+              data-id="{{item.id || item.interviewId}}"
+              data-interview-id="{{item.interviewId}}" />
+          </view>
+        </view>
+      </label>
+      <view class="example" wx:if="{{options.showNotPositionApply === '1'}}">TA的在找职位</view>
+    </block>
+    <!-- 求职端开撩 end -->
 
     <label class="radio" wx:if="{{options.showNotPositionApply === '1'}}">
       <view class="li">
@@ -57,7 +85,6 @@
           </view>
         </view>
         <view class="status-box" wx:if="{{!item.status}}"> 该职位已关闭 </view>
-        <view class="apply" wx:if="{{item.isApply === 11}}"> 已申请 </view>
         <view class="radio-box">
           <radio
             class="radioBtn"

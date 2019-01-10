@@ -159,6 +159,7 @@
   border-radius: 50%;
   margin-right: 30rpx;
   position: relative;
+  overflow: hidden;
 }
 
 .homepage-team-box .img-box .certification-icon {
@@ -450,4 +451,8 @@
   color:rgba(101,39,145,1);
   display: inline-block;
   float: right;
+}
+
+.job-list {
+  margin-top: -30rpx;
 }
