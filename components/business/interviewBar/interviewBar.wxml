@@ -11,7 +11,7 @@
 				<view class="content">
 					<view class="first">
 						<view class="name">{{infos.name || infos.recruiterInfo.name}}</view>
-						<view class="hunter-infos"> <view class="strong">12</view>个职位 </view>
+						<view class="hunter-infos"> <view class="strong">{{infos.positionNum}}</view>个职位 </view>
 					</view>
 					<view class="second">{{slogoList[slogoIndex].text}}</view>
 				</view>
@@ -37,7 +37,7 @@
 			<!-- 求职者还没有发起开撩动作 职位详情 end-->
 
 			<!-- 求职者已经发起开撩动作 start-->
-			<block wx:elif="{{interviewInfos.interviewStatus === 11}}">
+			<block wx:elif="{{type === 'position' && interviewInfos.interviewStatus === 11}}">
 				<view class="content">
 					<view class="first"><view class="name">{{infos.name || infos.recruiterInfo.name}}</view></view>
 					<view class="second">待确认申请</view>
@@ -49,7 +49,7 @@
 			<!-- 求职者已经发起开撩动作 end-->
 
 			<!-- 求职者等待招聘官安排面试 start-->
-			<block wx:elif="{{interviewInfos.interviewStatus === 21 || interviewInfos.interviewStatus === 32}}">
+			<block wx:elif="{{interviewInfos.interviewStatus === 21 || interviewInfos.interviewStatus === 32 }}">
 				<view class="content">
 					<view class="first"><view class="name">{{infos.name || infos.recruiterInfo.name}}</view></view>
 					<view class="second">已确认申请</view>
@@ -61,7 +61,7 @@
 			<!-- 求职者等待招聘官安排面试 end-->
 			
 			<!-- 求职者等待招聘管修改信息 start-->
-			<block wx:elif="{{interviewInfos.interviewStatus === 41}}">
+			<block wx:elif="{{interviewInfos.interviewStatus === 41 || interviewInfos.interviewStatus === 31}}">
 				<view class="content">
 					<view class="first"><view class="name">{{infos.name || infos.recruiterInfo.name}}</view></view>
 					<view class="second">已安排面试</view>

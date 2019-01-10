@@ -72,25 +72,14 @@ Page({
       !idCardReg.test(this.data.identity_num) ? reject('请填写有效的身份证号') : resolve()
     })
 
-    Promise.all([checkRealName, checkUserEmail])
-           .then(res => {
-              this.identityCompany()
-           })
-           .catch(err => {
-              app.wxToast({title: err})
-           })
-  },
-  /**
-   * @Author   小书包
-   * @DateTime 2018-12-21
-   * @detail   保存当前页面的编辑数据
-   * @return   {[type]}   [description]
-   */
-  saveFormData() {
-    wx.setStorage({
-      key: 'createdCompanyBase',
-      data: this.data
-    })
+    Promise
+     .all([checkRealName, checkUserEmail])
+     .then(res => {
+        this.identityCompany()
+     })
+     .catch(err => {
+        app.wxToast({title: err})
+     })
   },
   /**
    * @Author   小书包
@@ -118,15 +107,7 @@ Page({
     const formData = this.getParams()
     identityCompanyApi(formData)
       .then((res) => {
-        wx.navigateTo({
-          url: `${RECRUITER}user/company/status/status`,
-          success: () => {
-            this.saveFormData()
-          }
-        })
-      })
-      .catch(err => {
-
+        wx.navigateTo({url: `${RECRUITER}user/company/status/status`})
       })
   }
 })
