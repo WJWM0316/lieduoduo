@@ -91,10 +91,7 @@ Page({
     companyList: []
   },
   getResult(e) {
-    let day = `${e.detail.year}-${e.detail.month}-${e.detail.days}` // 组件传回的字符串时间
-    let time = new Date(day).getTime(); // 转换后的时间戳
-    param.time = time
-    console.log(time)
+    param.time = e.detail.timeStamp
     this.firstTab().then(res => {
       companyList: res.data
     })

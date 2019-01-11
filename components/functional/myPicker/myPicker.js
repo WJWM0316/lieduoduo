@@ -140,7 +140,6 @@ Component({
         list = this.data.education
         result = 0 
         list.map((item, index) => {
-          console.log(item.name, this.data.setResult, item.name === this.data.setResult)
           if (item.name === this.data.setResult) {
             result = `${index}`
             console.log(result, this.data.setResult)

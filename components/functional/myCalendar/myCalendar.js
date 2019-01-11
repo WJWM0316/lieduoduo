@@ -69,7 +69,7 @@ Component({
       if (!this.data.isClick) return
       let { year, month, days } = e.currentTarget.dataset
       let choseDate = `${year}年${month}月${days}日`
-      let timeStamp = new Date(`${year}/${month}/${days}`).getTime()
+      let timeStamp = new Date(`${year}/${month}/${days}`).getTime()/1000
       this.setData({choseDate})
       this.triggerEvent('resultEvent', {year, month, days, timeStamp})
     },

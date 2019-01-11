@@ -7,19 +7,18 @@ const app = getApp()
 Page({
 	data: {
     recruiterInfo: {},
-    isRecruiter: false
+    isRecruiter: app.globalData.isRecruiter
   },
   onLoad() {
-    getRecruiterMyInfoApi()
-      .then(res => {
-        this.setData({recruiterInfo: res.data})
+    let recruiterInfo = app.globalData.recruiterDetails
+    if (recruiterInfo.uid) {
+      this.setData({recruiterInfo})
+    } else {
+      app.getAllInfo().then(res => {
+        recruiterInfo = app.globalData.recruiterDetails
+        this.setData({recruiterInfo})
       })
-    getUserRoleApi()
-      .then(res0 => {
-        if (res0.data.isRecruiter) {
-          this.setData({isRecruiter: true})
-        }
-      })
+    }
   },
   /**
    * @Author   小书包
@@ -29,7 +28,7 @@ Page({
    */
   jumpUpdateInfos() {
     wx.navigateTo({
-      url: `${RECRUITER}user/userInfoEdit/userInfoEdit`
+      url: `${COMMON}recruiterDetail/recruiterDetail?uid=${this.data.recruiterInfo.uid}`
     })
   },
   /**
@@ -56,16 +55,5 @@ Page({
       default:
         break
     }
-  },
-  share() {
-    wx.showShareMenu({
-      withShareTicket: true,
-      success(e) {
-        console.log(e, 1)
-      },
-      fail(e) {
-        console.log(e, 2)
-      }
-    })
   }
 })
