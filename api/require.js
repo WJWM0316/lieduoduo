@@ -65,15 +65,24 @@ export const request = ({method = 'post', url, data = {}, needKey = true, hasLoa
               }
               break
             case 400:
-              if (msg.code === 701) {
+              if (msg.code === 701 && url !== '/jobhunter/resume') {
                 wx.navigateTo({
                   url: `${APPLICANT}center/createUser/createUser`
                 })
               }
-              if (msg.code === 801) {
-                wx.navigateTo({
-                  url: `${RECRUITER}user/company/apply/apply`
-                })
+              if (msg.code === 801 && url !== '/jobhunter/resume') {
+                // 还没有创建公司
+                if(Array.isArray(res.data.data)) {
+                  wx.navigateTo({url: `${RECRUITER}user/company/apply/apply`})
+                }
+                // 是申请加入公司
+                if(!res.data.data.applyJoin) {
+                  wx.navigateTo({url: `${RECRUITER}user/company/status/status?type=apply`})
+                }
+                // 已创建公司，但是还在审核状态或者审核失败
+                if(res.data.data.applyJoin) {
+                  wx.navigateTo({url: `${RECRUITER}user/company/status/status?type=company`})
+                }
               }
           }
         }

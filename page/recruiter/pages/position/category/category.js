@@ -30,10 +30,26 @@ Page({
    * @return   {[type]}     [description]
    */
   onClick1(e) {
+    // 只有一级标签
+    const storage = wx.getStorageSync('createPosition')
+    const url = this.data.query.positionId ? `${RECRUITER}position/post/post?positionId=${this.data.query.positionId}` : `${RECRUITER}position/post/post`
     const params = e.currentTarget.dataset
     const positionTypeList = this.data.positionTypeList
+    let showMask = false
+    let result = {}
     positionTypeList.map((field, index) => field.active = index === params.index ? true : false)
-    this.setData({index1: params.index, positionTypeList, showMask: true})
+    if(positionTypeList[params.index].children.length) {
+      showMask = true
+    } else {
+      result = positionTypeList[params.index]
+      showMask = false
+      storage.type = result.labelId
+      storage.typeName = result.name
+      storage.parentType = result.labelId
+      wx.setStorageSync('createPosition', storage)
+      wx.redirectTo({ url })
+    }
+    this.setData({index1: params.index, positionTypeList, showMask})
   },
   /**
    * @Author   小书包
@@ -42,11 +58,10 @@ Page({
    * @return   {[type]}     [description]
    */
   onClick2(e) {
-    this.setData({showMask: true})
     const params = e.currentTarget.dataset
     const positionTypeList = this.data.positionTypeList
     positionTypeList[this.data.index1].children.map((field, index) => field.active = index === params.index ? true : false)
-    this.setData({index2: params.index, positionTypeList})
+    this.setData({index2: params.index, positionTypeList, showMask: true})
   },
   /**
    * @Author   小书包
@@ -63,6 +78,7 @@ Page({
     storage.type = result.labelId
     storage.typeName = result.name
     storage.parentType = this.data.positionTypeList[this.data.index1].labelId
+
     wx.setStorageSync('createPosition', storage)
     wx.redirectTo({ url })
   },

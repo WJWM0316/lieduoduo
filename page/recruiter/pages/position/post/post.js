@@ -54,16 +54,15 @@ Page({
 
     const labels = []
 
-    this.setData({query: options})
-    // 以下是编辑页面数据
-    if(options.positionId) this.getUpdateInfos(options)
+    this.setData({query: options, company_id: app.globalData.recruiterDetails.companyInfo.id})
 
     if(storage) {
       Object.keys(storage).map(field => this.setData({[field]: storage[field]}))
+      return;
     }
 
-    // 去掉多余代码
-    this.setData({company_id: app.globalData.recruiterDetails.companyInfo.id})
+    // 以下是编辑页面数据
+    if(options.positionId) this.getUpdateInfos(options)
   },
   /**
    * @Author   小书包
@@ -73,6 +72,11 @@ Page({
    * @return   {[type]}           [description]
    */
   getUpdateInfos(options) {
+    const storage = wx.getStorageSync('createPosition')
+    if(storage) {
+      Object.keys(storage).map(field => this.setData({[field]: storage[field]}))
+      return;
+    }
     getPositionApi({id: options.positionId})
       .then(res => {
         const formData = {}
