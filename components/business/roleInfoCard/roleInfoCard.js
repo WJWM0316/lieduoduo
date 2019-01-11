@@ -65,7 +65,7 @@ Component({
     jumpRecruiter() {
       if (!this.data.isMain) {
         wx.navigateTo({
-          url: `${COMMON}userInfoEdit/recruiterDetail?uid=${this.data.cardData.uid}`
+          url: `${COMMON}recruiterDetail/recruiterDetail?uid=${this.data.cardData.uid}`
         })
       }
     },

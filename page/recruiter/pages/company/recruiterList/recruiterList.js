@@ -1,5 +1,4 @@
-import {getCompanyInfosApi} from "../../../../../api/pages/company.js"
-import {COMMON,RECRUITER} from "../../../../../config.js"
+import {getRecruitersListApi} from '../../../../../api/pages/company.js'
 let app = getApp()
 Page({
 
@@ -7,35 +6,19 @@ Page({
    * 页面的初始数据
    */
   data: {
-    info: {}
+    recruiterList: []
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    let id = app.globalData.recruiterDetails.companyInfo.id
-    getCompanyInfosApi({id}).then(res => {
-      app.globalData.companyInfo = res.data
-      this.setData({info: res.data})
+    let id = app.globalData.companyInfo.id
+    getRecruitersListApi({id}).then(res => {
+      this.setData({recruiterList: res.data})
     })
   },
-  jumpPage(e) {
-    switch(e.currentTarget.dataset.type) {
-      case 'main':
-        wx.navigateTo({
-          url: `${COMMON}homepage/homepage?companyId=${app.globalData.recruiterDetails.companyInfo.id}`
-        })
-      break
-      case 'peoples':
-        wx.navigateTo({
-          url: `${RECRUITER}company/recruiterList/recruiterList`
-        })
-      break
-      case 'bright':
-      break
-    }
-  },
+
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

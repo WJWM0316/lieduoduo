@@ -6,7 +6,7 @@
 				<view class="txt red">公司封面</view>
 				<view class="value">
 					<unloadFile bindresultEvent="getResult" unloadType="avatar" data-type="avatar">
-						<image class="logo" src="{{logoUrl}}"></image>
+						<image class="logo" src="{{info.logo.middleUrl}}"></image>
 					</unloadFile>     
 				</view>
 				<i class="icon iconfont icon-xiangyou"></i>
@@ -14,20 +14,20 @@
 			<view class="item">
 				<view class="txt red">融资阶段</view>
 				<view class="value">
-					<myPicker pickerType="financing" rangeKey="name" bindresultevent="getResult" data-type="financing"></myPicker>
+					<myPicker pickerType="financing" setResult="{{info.financingInfo}}" rangeKey="name" bindresultevent="getResult" data-type="financing"></myPicker>
 				</view>
 				<i class="icon iconfont icon-xiangyou"></i>
 			</view>
 			<view class="item">
 				<view class="txt red">公司规模</view>
 				<view class="value">
-					<myPicker pickerType="staffMembers" rangeKey="name" bindresultevent="getResult" data-type="staffMembers"></myPicker>
+					<myPicker pickerType="staffMembers" setResult="{{info.employeesInfo}}" rangeKey="name" bindresultevent="getResult" data-type="staffMembers"></myPicker>
 				</view>
 				<i class="icon iconfont icon-xiangyou"></i>
 			</view>
 			<view class="item website">
 				<view class="txt">公司官网</view>
-				<view class="value"><input type="text" value="{{website}}" placeholder="请输入公司官网"/></view>
+				<view class="value"><input type="text" value="{{info.website}}" placeholder="请输入公司官网"/></view>
 			</view>
 		</view>
 	</view>

@@ -60,7 +60,7 @@ Component({
    */
   methods: {
     toggle(e) {
-      wx.redirectTo({ url: e.target.dataset.path })
+      wx.reLaunch({ url: e.target.dataset.path })
     }
   }
 

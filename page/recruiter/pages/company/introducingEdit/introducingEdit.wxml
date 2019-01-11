@@ -4,4 +4,7 @@
 		<textarea maxlength="5000" placeholder="描述您公司的背景和业务" value="{{content}}" bindinput="getValue"></textarea>
 		<view class="num">{{content.length || 0}}/5000</view>
 	</view>
+	<view class="btnBox">
+		<button class="btn">保存</button>
+	</view>
 </view>

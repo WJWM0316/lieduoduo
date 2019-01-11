@@ -90,6 +90,12 @@
 .recruiter.recruiterMain {
   padding-right: 58rpx;
 }
+.recruiter.recruiterList {
+  padding-top: 30rpx;
+  padding-bottom: 30rpx;
+  padding-right: 50rpx;
+  margin-top: 24rpx;
+}
 .line {
   width: 610rpx;
   height: 10rpx;

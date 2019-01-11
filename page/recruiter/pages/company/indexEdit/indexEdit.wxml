@@ -9,11 +9,11 @@
 			</view>
 			<view class="item">
 				<view class="txt">融资阶段</view>
-				<view class="value">{{info.financing}}</view>
+				<view class="value">{{info.financingInfo}}</view>
 			</view>
 			<view class="item">
 				<view class="txt">公司规模</view>
-				<view class="value">{{info.employees}}</view>
+				<view class="value">{{info.employeesInfo}}</view>
 			</view>
 			<view class="item">
 				<view class="txt">公司官网</view>

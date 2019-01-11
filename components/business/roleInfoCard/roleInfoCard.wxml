@@ -37,4 +37,14 @@
   </view>
   <image wx:if="{{roleType === 'recruiter' && isMain}}" class="line" src="../../../images/line.png"></image>
   <view wx:if="{{roleType === 'recruiter' && isMain}}" class="lineTip">{{cardData.signature}}</view>
+
+
+  <view class="recruiter {{roleType === 'recruiterList'? 'recruiterList':''}}" wx:if="{{roleType === 'recruiterList'}}" bindtap="jumpRecruiter">
+    <image class="img" src="{{cardData.avatar.middleUrl}}"></image>
+    <view class="vip">V</view>
+    <view class="recruiterMsg">
+      <view class="name">{{cardData.name}}</view>
+      <view class="detail">{{cardData.position}}</view>
+    </view>
+  </view>
 </view>

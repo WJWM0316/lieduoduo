@@ -1,0 +1,4 @@
+<view class="recruiterList">
+	<navbar title="公司招聘官" background="#fff" color="#22292C"></navbar>
+	<roleInfoCard roleType="recruiterList" wx:for="{{recruiterList}}" cardData="{{item}}" wx:key="{{index}}"></roleInfoCard>
+</view>

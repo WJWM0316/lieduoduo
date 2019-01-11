@@ -14,40 +14,38 @@ Page({
    */
   onLoad: function (options) {
     let info = app.globalData.companyInfo
+    console.log(info)
     this.setData({info})
   },
   bindblur(e) {
-    this.setData({website: e.detail.value})
+    let info = this.data.info
+    info.website = e.detail.value
+    this.setData({info})
   },
   getResult(e) {
+    let info = this.data.info
     switch(e.currentTarget.dataset.type) {
       case 'financing':
-        this.setData({
-          financingId: e.detail.propsResult,
-          financingDesc: e.detail.propsDesc
-        })
+        info.financing = e.detail.propsResult
+        info.financingInfo = e.detail.propsDesc
         break
       case 'staffMembers':
-        this.setData({
-          staffMembersId: e.detail.propsResult,
-          staffMembersDesc: e.detail.propsDesc
-        })
+        info.employees = e.detail.propsResult
+        info.employeesInfo = e.detail.propsDesc
         break
       case 'avatar':
-        this.setData({
-          logoUrl: e.detail[0].middleUrl,
-          logoId: e.detail[0].id
-        })
+        info.logo = e.detail[0]
         break
     }
+    this.setData({info})
   },
   saveInfo() {
-    let info = this.data
+    let info = this.data.info
     let data = {
-      id: app.globalData.companyInfo.id,
-      financing: info.financingId,
-      employees: info.staffMembersId,
-      logo: info.logoId,
+      id: info.id,
+      financing: info.financing,
+      employees: info.employees,
+      logo: info.logo.id,
       website: info.website
     }
     putCompanyInfoApi(data).then(res => {
@@ -55,6 +53,7 @@ Page({
         title: '保存成功',
         icon: "success",
         callback() {
+          app.globalData.companyInfo = info
           wx.navigateBack({
             delta: 1
           })
