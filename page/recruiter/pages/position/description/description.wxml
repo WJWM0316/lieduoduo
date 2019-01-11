@@ -4,7 +4,6 @@
 		<view class="edit-box">
 			<textarea
 				bindinput="bindTextAreaInput"
-				auto-height
 				placeholder="填写详细，清晰的职位描述"
 				value="{{describe}}" />
 			<view class="controls">

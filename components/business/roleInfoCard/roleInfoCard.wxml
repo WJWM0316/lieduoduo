@@ -1,6 +1,6 @@
 <view class="my-class">
   <view class="company {{isMain ? 'edit' : ''}}" wx:if="{{roleType === 'company'}}" bindtap="jumpCompany">
-    <image class="img" src="{{cardData.avatar.middleUrl}}"></image>
+    <image class="img" src="{{cardData.avatar.middleUrl || cardData.logo.middleUrl}}"></image>
     <view class="companyMsg" wx:if="{{!isMain}}">
       <view class="name">{{cardData.name}}</view>
       <view class="detail">{{cardData.industry}} · {{cardData.financingDesc}} · {{cardData.employeesDesc}}</view>

@@ -136,7 +136,7 @@ Component({
         case 'job-hunting-chat':
           // 招聘管主页 直接跳转职位列表
           if(this.data.type === 'recruiter') {
-            wx.redirectTo({url: `${RECRUITER}position/jobList/jobList?type=job_hunting_chat&from=${this.data.currentPage}&showNotPositionApply=${interviewInfos.showNotPositionApply}&from=${this.data.currentPage}&recruiterUid=${this.data.infos.uid}`})
+            wx.navigateTo({url: `${RECRUITER}position/jobList/jobList?type=job_hunting_chat&from=${this.data.currentPage}&showNotPositionApply=${interviewInfos.showNotPositionApply}&from=${this.data.currentPage}&recruiterUid=${this.data.infos.uid}`})
           } else {
             applyInterviewApi({recruiterUid: this.data.infos.recruiterInfo.uid, positionId: this.data.infos.id})
             .then(res => {
@@ -168,7 +168,7 @@ Component({
           app.wxToast({title: '等待面试官处理'})
           break
         case 'recruiter-chat':
-          wx.redirectTo({url: `${RECRUITER}position/jobList/jobList?type=recruiter_chat&from=${this.data.currentPage}&jobhunterUid=${this.data.infos.uid}`})
+          wx.navigateTo({url: `${RECRUITER}position/jobList/jobList?type=recruiter_chat&from=${this.data.currentPage}&jobhunterUid=${this.data.infos.uid}`})
           break
         case 'job-hunting-waiting-interview':
           app.wxToast({title: '等待招聘官安排面试'})
@@ -189,7 +189,7 @@ Component({
         // 求职端拒绝招聘官
         case 'job-hunting-reject':
           if(this.data.type === 'recruiter') {
-            wx.redirectTo({url: `${RECRUITER}position/jobList/jobList?type=reject_chat&from=${this.data.currentPage}&showNotPositionApply=${interviewInfos.showNotPositionApply}&from=${this.data.currentPage}&jobhunterUid=${this.data.infos.uid}`})
+            wx.navigateTo({url: `${RECRUITER}position/jobList/jobList?type=reject_chat&from=${this.data.currentPage}&showNotPositionApply=${interviewInfos.showNotPositionApply}&from=${this.data.currentPage}&jobhunterUid=${this.data.infos.uid}`})
           } else {
             app.wxConfirm({
               title: '暂不考虑该职位',
@@ -211,10 +211,10 @@ Component({
           break
         // 招聘官拒绝求职者
         case 'recruiter-reject':
-          wx.redirectTo({url: `${RECRUITER}position/jobList/jobList?type=reject_chat&from=${this.data.currentPage}`})
+          wx.navigateTo({url: `${RECRUITER}position/jobList/jobList?type=reject_chat&from=${this.data.currentPage}`})
           wx.setStorageSync('interviewChatLists', this.data.interviewInfos)
           // if(interviewInfos.data.length > 1) {
-          //   wx.redirectTo({url: `${RECRUITER}position/jobList/jobList?type=reject_chat`})
+          //   wx.navigateTo({url: `${RECRUITER}position/jobList/jobList?type=reject_chat`})
           //   wx.setStorageSync('interviewChatLists', this.data.interviewInfos)
           // } else {
           //   refuseInterviewApi({id: interviewInfos.data[0].interviewId})
@@ -226,7 +226,7 @@ Component({
           break
         // 招聘管编辑职位
         case 'recruiter-edit':
-          wx.redirectTo({url: `${RECRUITER}position/post/post?positionId=${this.data.infos.id}`})
+          wx.navigateTo({url: `${RECRUITER}position/post/post?positionId=${this.data.infos.id}`})
           break
         // 求职者查看面试详情
         case 'job-hunting-view-detail':
@@ -234,16 +234,16 @@ Component({
           break
         // B端开撩成功后跳转安排面试页面
         case 'recruiter-accept':
-          wx.redirectTo({url: `${RECRUITER}position/jobList/jobList?type=confirm_chat&from=${this.data.currentPage}`})
+          wx.navigateTo({url: `${RECRUITER}position/jobList/jobList?type=confirm_chat&from=${this.data.currentPage}`})
           wx.setStorageSync('interviewChatLists', this.data.interviewInfos)
           // if(interviewInfos.data.length > 1) {
-          //   wx.redirectTo({url: `${RECRUITER}position/jobList/jobList?type=confirm_chat`})
+          //   wx.navigateTo({url: `${RECRUITER}position/jobList/jobList?type=confirm_chat`})
           //   // wx.setStorageSync('interviewChatLists', this.data.interviewInfos)
           // } else {
           //   confirmInterviewApi({id: interviewInfos.data[0].interviewId})
           //     .then(res => {
           //       this.triggerEvent('resultevent', res)
-          //       wx.redirectTo({url: `${COMMON}arrangement/arrangement?id=${interviewInfos.data[0].interviewId}`})
+          //       wx.navigateTo({url: `${COMMON}arrangement/arrangement?id=${interviewInfos.data[0].interviewId}`})
           //     })
           // }
           break

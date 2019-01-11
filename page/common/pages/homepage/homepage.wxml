@@ -1,5 +1,5 @@
 <view class="homepage">
-	<navbar title="公司主页"></navbar>
+	<navbar title="公司主页" showHome="{{true}}"></navbar>
 	<view class="banner">
 		<image class="bgImg" src="../../../../images/company_banner.png" mode="aspectFill"></image>
 		<view class="box">

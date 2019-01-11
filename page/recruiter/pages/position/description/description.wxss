@@ -13,13 +13,13 @@
 	font-weight:400;
 	color:rgba(188,188,188,1);
 	line-height:40rpx;
+	width: 100%;
+	height: calc(100% - 58rpx);
 }
 
 .position-description .controls {
 	overflow: hidden;
-}
-
-.position-description .controls {
+	height: 30rpx;
 	line-height: 1;
 	position: absolute;
 	bottom: 28rpx;

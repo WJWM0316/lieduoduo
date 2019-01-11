@@ -40,11 +40,17 @@ Page({
   	const params = e.currentTarget.dataset
   	switch(params.action) {
   		case 'modifyIdentity':
-  			wx.redirectTo({url: `${RECRUITER}user/company/identity/identity`})
+  			wx.redirectTo({url: `${RECRUITER}user/company/identity/identity?type=edit`})
   			break
   		case 'modifyCompany':
   			wx.redirectTo({url: `${RECRUITER}user/company/apply/apply`})
   			break
+      case 'email':
+        wx.redirectTo({url: `${RECRUITER}user/company/email/email`})
+        break
+      case 'position':
+        wx.redirectTo({url: `${RECRUITER}position/post/post`})
+        break
   		default:
   			break
   	}
