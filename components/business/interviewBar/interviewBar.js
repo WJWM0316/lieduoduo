@@ -66,9 +66,9 @@ Component({
       }
     ]
   },
-  attached() {
-    this.init()
-  },
+  // attached() {
+  //   this.init()
+  // },
   methods: {
     init() {
       this.setData({slogoIndex: this.getRandom()})

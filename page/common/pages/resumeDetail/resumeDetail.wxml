@@ -119,6 +119,7 @@
 <view class="bottomBox" wx:if="{{info.interviewStatus}}">
   <view>
     <interviewBar
+      id="interviewBar"
       infos="{{info}}"
       type="resume"
       bindresultevent="init"

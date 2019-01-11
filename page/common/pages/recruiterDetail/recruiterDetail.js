@@ -32,6 +32,7 @@ Page({
   getOthersInfo() {
     getOthersRecruiterDetailApi({uid: this.data.options.uid}).then(res => {
       this.setData({info: res.data}, function() {
+        this.selectComponent('#interviewBar').init()
         getSelectorQuery('.msg').then(res => {
           if (res.height > 143) {
             this.setData({isShrink: true})
