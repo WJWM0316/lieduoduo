@@ -26,6 +26,14 @@
   left: -40rpx;
   background-color: #2878FF;
 }
+.left .dot{
+  width: 14rpx;
+  height: 14rpx;
+  display: inline-block;
+  background-color: #FF7F4C;
+  border-radius: 50%;
+  margin-left: 12rpx;
+}
 
 .left .title{
   margin-bottom: 14rpx;

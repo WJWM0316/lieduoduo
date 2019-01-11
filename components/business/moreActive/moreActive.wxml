@@ -4,7 +4,7 @@
     <text class="info">Ta们都在积极抢人，欢迎围观</text>
   </view>
   <view class="left" wx:if="{{type == 2}}">
-    <text class="title">招聘官动态</text>
+    <text class="title">招聘官动态</text><view class="dot" wx:if="{{redDotActiveList}}"></view>
     <text class="info">看过我、对我感兴趣的招聘官</text>
   </view>
   <view class="right">

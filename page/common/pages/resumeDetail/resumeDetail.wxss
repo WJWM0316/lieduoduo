@@ -235,7 +235,8 @@
   box-shadow:0px 4px 20px 0px rgba(101,39,145,0.1);
   margin-bottom: 20rpx;
 }
-.commentBox view:last-child{
+.commentBox .officeTab:last-of-type,
+.commentBox .expTab:last-of-type{
   padding-bottom: 0;
   border-bottom: none;
 }
@@ -250,6 +251,7 @@
   font-weight: 400;
   text-align: center;
   line-height: 80rpx;
+  margin-top: 60rpx;
 }
 .intentTitle{
   font-size: 28rpx;

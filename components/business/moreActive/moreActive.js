@@ -5,7 +5,8 @@ Component({
    */
   properties: {
     avatarList: Array,
-    type: Number
+    type: Number,
+    redDotActiveList: Boolean
   },
 
   /**
