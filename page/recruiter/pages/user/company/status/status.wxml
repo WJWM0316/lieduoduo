@@ -187,12 +187,12 @@
 	</block>
 	<block wx:else>
 		<view class="div">
-			<view class="item">
+			<view class="item" bindtap="todoAction" data-action="position">
 				<i class="icon iconfont icon-bianji label-icon"></i>
 				发布职位
 				<i class="icon iconfont icon-xiangyou"></i>
 			</view>
-			<view class="item">
+			<view class="item" bindtap="todoAction" data-action="email">
 				<i class="icon iconfont icon-renzheng label-icon"></i>
 				认证公司邮箱
 				<i class="icon iconfont icon-xiangyou"></i>

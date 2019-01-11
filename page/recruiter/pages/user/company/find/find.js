@@ -29,6 +29,15 @@ Page({
     if(!storage) return
     if(storage.company_name) this.setData({company_name: storage.company_name, canClick: true})
   },
+/**
+ * @Author   小书包
+ * @DateTime 2019-01-11
+ * @detail   绑定按钮的状态
+ * @return   {[type]}   [description]
+ */
+  bindButtonStatus() {
+    this.setData({canClick: this.data.company_name ? true : false})
+  },
   /**
    * @Author   小书包
    * @DateTime 2018-12-21
@@ -37,6 +46,8 @@ Page({
    */
   bindInput(e) {
     const name = e.detail.value
+    this.setData({company_name: name})
+    this.bindButtonStatus()
     getCompanyNameListApi({name})
       .then(res => {
         const nameList = res.data
@@ -93,12 +104,31 @@ Page({
     wx.navigateTo({url: `${RECRUITER}user/company/post/post`})
     this.setData({showMaskBox: false})
   },
+  /**
+   * @Author   小书包
+   * @DateTime 2019-01-11
+   * @detail   申请加入公司
+   * @return   {[type]}   [description]
+   */
+  applyCompany(companyId) {
+    const storage = wx.getStorageSync('createdCompany')
+    const params = {
+      real_name: storage.real_name,
+      user_email: storage.user_email,
+      user_position: storage.user_position,
+      company_id: companyId
+    }
+    applyCompanyApi(params)
+      .then(() => {
+        wx.removeStorageSync('createdCompany')
+      })
+  },
   submit() {
     if(!this.data.canClick) return;
     justifyCompanyExistApi({name: this.data.company_name})
       .then(res => {
         if(res.data.exist) {
-          wx.redirectTo({url: `${RECRUITER}user/company/identity/identity`})
+          this.applyCompany(res.data.id)
         } else {
           this.setData({showMaskBox: true})
         }

@@ -198,7 +198,6 @@ Page({
         wx.redirectTo({url: `${RECRUITER}position/index/index`})
         app.wxToast({title: '创建成功'})
       })
-      .catch(err => app.wxToast({title: err.msg}))
   },
   /**
    * @Author   小书包
@@ -213,6 +212,5 @@ Page({
         wx.redirectTo({url: `${RECRUITER}position/index/index`})
         app.wxToast({title: '编辑成功'})
       })
-      .catch(err => app.wxToast({title: err.msg}))
   }
 })

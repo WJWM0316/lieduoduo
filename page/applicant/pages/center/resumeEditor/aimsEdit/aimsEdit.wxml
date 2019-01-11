@@ -15,7 +15,11 @@
   </view>
   <view class="commont" data-type="2" bindtap="choose">
     <view class="title"><text>*</text>期望领域</view>
-    <view class="result">{{signory.name || signory.title}}<i class="icon iconfont icon-xiangyou"></i></view>
+    <view class="result">{{aimList}}<i class="icon iconfont icon-xiangyou"></i></view>
   </view>
 </view>
-<view class="save" bindtap="save">保存</view>
+<view class="save add" bindtap="add" wx:if="{{isAdd}}">新增工作经历</view>
+<view class="btn" wx:else>
+  <view class="save delete" bindtap="del">删除</view>
+  <view class="save" bindtap="save">保存修改</view>
+</view>
