@@ -139,11 +139,11 @@ Component({
             wx.navigateTo({url: `${RECRUITER}position/jobList/jobList?type=job_hunting_chat&from=${this.data.currentPage}&showNotPositionApply=${interviewInfos.showNotPositionApply}&from=${this.data.currentPage}&recruiterUid=${this.data.infos.uid}`})
           } else {
             applyInterviewApi({recruiterUid: this.data.infos.recruiterInfo.uid, positionId: this.data.infos.id})
-            .then(res => {
-              this.getInterviewStatus()
-              app.wxToast({title: '面试申请已发送'})
-              this.triggerEvent('resultevent', res)
-            })
+              .then(res => {
+                this.getInterviewStatus()
+                app.wxToast({title: '面试申请已发送'})
+                this.triggerEvent('resultevent', res)
+              })
           }
           // let uid = ''
           // let positionId = ''
