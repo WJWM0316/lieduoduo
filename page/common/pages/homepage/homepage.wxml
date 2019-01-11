@@ -79,7 +79,7 @@
 			</view>
 		</view>
 		
-		<view class="company-address" wx:if="{{companyInfos.address.length}}">
+		<view class="company-address" wx:if="{{companyInfos.address.length >= 0}}">
 			<view class="title">
 				<view class="icon"> <view class="fan"></view> </view> 公司地址
 			</view>

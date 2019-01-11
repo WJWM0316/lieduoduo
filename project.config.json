@@ -197,10 +197,10 @@
 					"query": "id=6"
 				},
 				{
-					"id": -1,
+					"id": 26,
 					"name": "公司",
-					"pathName": "page/recruiter/pages/company/indexEdit/indexEdit",
-					"query": "uid=119"
+					"pathName": "page/common/pages/homepage/homepage",
+					"query": "companyId=25"
 				}
 			]
 		}
