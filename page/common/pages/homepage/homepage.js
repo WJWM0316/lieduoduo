@@ -37,8 +37,8 @@ Page({
    * @detail   获取职位详情
    * @return   {[type]}   [description]
    */
-  getPositionList() {
-    getPositionListApi({recruiter: 92}).then(res => {
+  getPositionList(options) {
+    getPositionListApi({company_id: options.companyId}).then(res => {
       this.setData({jobList: res.data})
     })
   },
