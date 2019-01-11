@@ -6,23 +6,17 @@ Page({
    * 页面的初始数据
    */
   data: {
-    logoUrl: '',
-    logoId: '',
-    financingId: '',
-    financingDesc: '',
-    staffMembersId: '',
-    staffMembersDesc: '',
-    website: ''
+    info: {}
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    let info = app.globalData.companyInfo
+    this.setData({info})
   },
   bindblur(e) {
-    console.log(e)
     this.setData({website: e.detail.value})
   },
   getResult(e) {

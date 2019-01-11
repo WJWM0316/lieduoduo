@@ -43,7 +43,6 @@ Page({
     })
   },
   bindMain(e) {
-    console.log(e)
     wx.navigateTo({url: `${COMMON}recruiterDetail/recruiterDetail?uid=${e.currentTarget.dataset.uid}`})
   },
   /**

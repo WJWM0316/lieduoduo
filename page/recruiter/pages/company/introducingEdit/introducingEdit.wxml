@@ -1,0 +1,7 @@
+<view class="indexEdit">
+	<navbar title="编辑公司介绍" background="#fff" color="#22292C"></navbar>
+	<view class="head">
+		<textarea maxlength="5000" placeholder="描述您公司的背景和业务" value="{{content}}" bindinput="getValue"></textarea>
+		<view class="num">{{content.length || 0}}/5000</view>
+	</view>
+</view>

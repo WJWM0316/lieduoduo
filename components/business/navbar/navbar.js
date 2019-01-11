@@ -31,7 +31,8 @@ Component({
     }
   },
   data: {
-    showBackBtn: false
+    showBackBtn: false,
+    isScroll: false
   },
   lifetimes: {
     attached() {

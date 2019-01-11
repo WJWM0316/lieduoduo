@@ -51,7 +51,7 @@ Component({
   },
   attached() {
     const list = this.data.list
-    const currentRoute = '/' + getCurrentPages()[0].route
+    const currentRoute = '/' + getCurrentPages()[getCurrentPages().length - 1].route
     list.map(field => field.active = field.path === currentRoute ? true : false)
     this.setData({ list })
   },
