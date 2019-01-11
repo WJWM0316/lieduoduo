@@ -30,8 +30,7 @@
     "page/applicant/pages/center/resumeEditor/itemEdit/itemEdit",
     "page/applicant/pages/center/resumeEditor/educateEdit/educateEdit",
     "page/applicant/pages/center/resumeEditor/skills/skills",
-    "page/applicant/pages/center/resumeEditor/moreEdit/moreEdit",
-    "page/recruiter/pages/company/productList/productList"
+    "page/applicant/pages/center/resumeEditor/moreEdit/moreEdit"
   ],
   "window": {
     "navigationBarTextStyle": "black",
@@ -97,6 +96,7 @@
         "pages/user/company/status/status",
         "pages/user/company/email/email",
         "pages/user/company/infos/infos",
+        "pages/company/productList/productList",
         "pages/user/userInfoEdit/userInfoEdit",
         "pages/user/editBrief/editBrief",
         "pages/user/editDeclaration/editDeclaration",
