@@ -14,14 +14,17 @@ Page({
     needLogin: false,
     companyList: [],
     moreList: [],
-    activeList: []
+    activeList: [],
+    redDotActiveList: false // 招聘官动态红点
   },
   onLoad: function () {
     getAvartListApi().then(res => {
       this.setData({
-        moreList: res.moreRecruiter,
-        activeList: res.recruiterDynamic
+        moreList: res.data.moreRecruiter,
+        activeList: res.data.recruiterDynamic,
+        redDotActiveList: res.data.redDotJobHunterCollectList && res.data.redDotJobHunterViewList
       })
+      console.log(this.data.redDotActiveList)
     })
     let choseType = wx.getStorageSync('choseType')
     if (!choseType) {

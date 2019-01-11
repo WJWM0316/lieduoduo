@@ -28,7 +28,7 @@
     </view>
   </view>
   <!-- 意向 -->
-  <view class="intent commentBox" wx:if="{{info.expects.length>0}}">
+  <view class="intent commentBox" wx:if="{{info.expects.length>=0}}">
     <view class="intentTitle"><i class="icon iconfont icon-fujian"></i> 求职意向</view>
     <!-- 意向列表 -->
     <view class="officeTab" wx:for="{{info.expects}}" wx:key="{{index}}">
@@ -47,7 +47,7 @@
     <text class="add" data-editName="intent" bindtap="edit" wx:if="{{info.isOwner && identity === 'APPLICANT'}}">添加求职意向</text>
   </view>
   <!-- 工作经历 -->
-  <view class="workExp commentBox" wx:if="{{info.careers.length>0}}">
+  <view class="workExp commentBox" wx:if="{{info.careers.length>=0}}">
     <view class="intentTitle"><i class="icon iconfont icon-fujian"></i> 工作经历</view>
     <view class="expTab" wx:for="{{info.careers}}" wx:key="{{index}}">
       <view class="expTitle">
@@ -67,7 +67,7 @@
     <text class="add" data-editName="work" bindtap="edit" wx:if="{{info.isOwner && identity === 'APPLICANT'}}">添加工作经历</text>
   </view>
   <!-- 项目经历 -->
-  <view class="projectExp commentBox" wx:if="{{info.projects.length>0}}">
+  <view class="projectExp commentBox" wx:if="{{info.projects.length>=0}}">
     <view class="intentTitle"><i class="icon iconfont icon-fujian"></i> 项目经历</view>
     <view class="expTab" wx:for="{{info.projects}}" wx:key="{{index}}">
       <view class="expTitle">
@@ -86,7 +86,7 @@
     <text class="add" data-editName="project" bindtap="edit" wx:if="{{info.isOwner && identity === 'APPLICANT'}}">添加项目经历</text>
   </view>
   <!-- 教育经历 -->
-  <view class="projectExp commentBox" wx:if="{{info.educations.length>0}}">
+  <view class="projectExp commentBox" wx:if="{{info.educations.length>=0}}">
     <view class="intentTitle"><i class="icon iconfont icon-fujian"></i> 教育经历</view>
     <view class="expTab" wx:for="{{info.educations}}" wx:key="{{index}}">
       <view class="expTitle">
@@ -101,7 +101,7 @@
     <text class="add" data-editName="education" bindtap="edit" wx:if="{{info.isOwner && identity === 'APPLICANT'}}">添加教育经历</text>
   </view>
   <!-- 更多 -->
-  <view class="more commentBox" wx:if="{{info.moreIntroduce}}">
+  <view class="more commentBox">
     <view class="intentTitle moreTitle">
       <view><i class="icon iconfont icon-fujian"></i> 更多介绍 </view>
       <i class="icon iconfont icon-bianji1 edit" data-editName="more" data-id="{{item.id}}" bindtap="edit" wx:if="{{info.isOwner && identity === 'APPLICANT'}}"></i>

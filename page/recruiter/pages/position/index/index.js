@@ -22,7 +22,7 @@ Page({
     positionList: [],
     total: 0
   },
-  onLoad() {
+  onShow() {
     this.getTabLists()
   },
   /**

@@ -7,7 +7,7 @@
     </view>
     <view class='more'>
       <moreActive type="1" avatarList="{{moreList}}"></moreActive>
-      <moreActive type="2" avatarList="{{activeList}}"></moreActive>
+      <moreActive type="2" avatarList="{{activeList}}" redDotActiveList="{{redDotActiveList}}"></moreActive>
     </view>
     <view class="ul-tab-bar">
       <view class="li {{pageList === 'mySeen' ? 'active' : ''}}" bindtap="changeCompanyLists" data-page-list="mySeen">我看过的</view>
