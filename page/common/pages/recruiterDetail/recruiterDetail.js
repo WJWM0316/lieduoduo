@@ -127,7 +127,11 @@ Page({
     this.setData({isShrink, btnTxt})
   },
   callBtn() {
-    giveMecallApi({vkey: this.data.info.vkey}).then(res => {})
+    let info = this.data.info
+    giveMecallApi({vkey: this.data.info.vkey}).then(res => {
+      info.isCall = true
+      this.setData({info})
+    })
   },
   favor(e) {
     console.log()

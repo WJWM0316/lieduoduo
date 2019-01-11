@@ -15,7 +15,7 @@ Page({
     this.workTime = val.detail.propsResult
   },
   formSubmit (e) {
-    e.detail.value.avatar =  wx.getStorageSync('avatarId')
+    e.detail.value.avatar =  wx.getStorageSync('avatar').id
     e.detail.value.startWorkYear = this.workTime
     e.detail.value.gender = this.data.gender
     postfirstStepApi(e.detail.value).then(res => {
@@ -28,9 +28,6 @@ Page({
           url: '/page/applicant/pages/center/workExperience/workExperience'
         })
       }
-      
-    }).catch (err => {
-      console.log(err, '88888888888888888')
     })
   },
   chooseGender (e) {
