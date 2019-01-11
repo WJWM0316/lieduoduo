@@ -115,7 +115,7 @@ Page({
     formData.passport_front = this.data.passport_front.id
     formData.passport_reverse = this.data.passport_reverse.id
     formData.handheld_passport = this.data.handheld_passport.id
-    formData.company_id = app.globalData.recruiterDetails.companyInfo.id
+    // formData.company_id = app.globalData.recruiterDetails.companyInfo.id
     if(this.data.validity) formData.validity = this.data.validity
     return formData
   },
