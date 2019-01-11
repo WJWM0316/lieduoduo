@@ -19,6 +19,16 @@ Page({
   },
   /**
    * @Author   小书包
+   * @DateTime 2019-01-11
+   * @detail   防抖
+   * @return   {[type]}   [description]
+   */
+  debounce(fn, context, delay, text) {
+    clearTimeout(fn.timeoutId)
+    fn.timeoutId = setTimeout(() => fn.call(context, text), delay)
+  },
+  /**
+   * @Author   小书包
    * @DateTime 2018-12-25
    * @detail   初始化页面数据
    * @return   {[type]}           [description]
@@ -46,6 +56,15 @@ Page({
    */
   bindInput(e) {
     const name = e.detail.value
+    this.debounce(this.getCompanyNameList, null, 500, name)
+  },
+  /**
+   * @Author   小书包
+   * @DateTime 2018-12-21
+   * @detail   获取公司名字列表
+   * @return   {[type]}     [description]
+   */
+  getCompanyNameList(name) {
     this.setData({company_name: name})
     this.bindButtonStatus()
     getCompanyNameListApi({name})

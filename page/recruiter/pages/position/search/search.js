@@ -12,6 +12,16 @@ Page({
     nameLists: [],
     canClick: false
   },
+  /**
+   * @Author   小书包
+   * @DateTime 2019-01-11
+   * @detail   防抖
+   * @return   {[type]}   [description]
+   */
+  debounce(fn, context, delay, text) {
+    clearTimeout(fn.timeoutId)
+    fn.timeoutId = setTimeout(() => fn.call(context, text), delay)
+  },
   // onLoad() {
   //   const storage = wx.getStorageSync('createPosition')
   //   if(storage) {
@@ -25,9 +35,19 @@ Page({
    * @return   {[type]}     [description]
    */
   bindInput(e) {
-    this.setData({keyword: e.detail.value})
+    const name = e.detail.value
+    this.debounce(this.getPositionNameList, null, 500, name)
+  },
+  /**
+   * @Author   小书包
+   * @DateTime 2019-01-10
+   * @detail   获取职位名称列表
+   * @return   {[type]}   [description]
+   */
+  getPositionNameList(name) {
+    this.setData({keyword: name})
     this.bindButtonStatus()
-    getPositionNameListApi({name: e.detail.value})
+    getPositionNameListApi({name})
       .then(res => {
         this.setData({nameLists: res.data})
       })
