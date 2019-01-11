@@ -38,7 +38,7 @@
       <view class="h1">选择约面职位</view>
       <view class="p" wx:if="{{options.showNotPositionApply === '1'}}">请从招聘官的招聘职位中选择1个，发起面试申请。你也可以不选择职位，直接申请面试</view>
 
-      <label class="radio" wx:if="{{options.showNotPositionApply === '1'}}">
+      <label class="radio" wx:if="{{options.showNotPositionApply === '1' && identity === 'APPLICANT'}}">
         <view class="li clear-bottom">
           <view class="content unsuitable">暂不选择职位</view>
           <view class="radio-box">
@@ -57,7 +57,7 @@
     </block>
     <!-- 求职端开撩 end -->
 
-    <label class="radio" wx:if="{{options.showNotPositionApply === '1'}}">
+    <label class="radio" wx:if="{{options.showNotPositionApply === '1' && identity === 'RECRUITER'}}">
       <view class="li">
         <view class="content chat-me">直接与我约面</view>
         <view class="radio-box">
