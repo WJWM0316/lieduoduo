@@ -60,7 +60,6 @@ Page({
    */
   bindButtonStatus() {
     const canClick = this.data.keyword ? true : false
-    console.log(this.data.keyword)
     this.setData({canClick})
   },
   onClick(e) {
