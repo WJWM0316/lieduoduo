@@ -62,6 +62,7 @@
 	width: 60rpx;
 	height: 60rpx;
 	margin-right: -12rpx;
+	border-radius: 50%;
 }
 .boxs .people:last-child {
 	margin-right: 0;

@@ -63,5 +63,4 @@ Component({
       wx.reLaunch({ url: e.target.dataset.path })
     }
   }
-
 })

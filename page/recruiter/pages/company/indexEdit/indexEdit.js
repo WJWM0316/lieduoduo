@@ -1,5 +1,6 @@
-import {getCompanyInfosApi} from "../../../../../api/pages/company.js"
+import {getCompanyInfosApi, getRecruitersListApi} from "../../../../../api/pages/company.js"
 import {COMMON,RECRUITER} from "../../../../../config.js"
+
 let app = getApp()
 Page({
 
@@ -14,10 +15,17 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    this.init()
+  },
+  init() {
     let id = app.globalData.recruiterDetails.companyInfo.id
+    let info = this.data.info
     getCompanyInfosApi({id}).then(res => {
       app.globalData.companyInfo = res.data
-      this.setData({info: res.data})
+      getRecruitersListApi({id}).then(res0 => {
+        app.globalData.companyInfo.recruiterList = res0.data
+        this.setData({info: res.data})
+      })
     })
   },
   jumpPage(e) {

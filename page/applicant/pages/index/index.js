@@ -18,14 +18,13 @@ Page({
     redDotActiveList: false // 招聘官动态红点
   },
   onLoad: function () {
-    getAvartListApi().then(res => {
-      this.setData({
-        moreList: res.data.moreRecruiter,
-        activeList: res.data.recruiterDynamic,
-        redDotActiveList: res.data.redDotJobHunterCollectList && res.data.redDotJobHunterViewList
-      })
-      console.log(this.data.redDotActiveList)
-    })
+    // getAvartListApi().then(res => {
+    //   this.setData({
+    //     moreList: res.data.moreRecruiter,
+    //     activeList: res.data.recruiterDynamic,
+    //     redDotActiveList: res.data.redDotJobHunterCollectList && res.data.redDotJobHunterViewList
+    //   })
+    // })
     let choseType = wx.getStorageSync('choseType')
     if (!choseType) {
       wx.hideTabBar()

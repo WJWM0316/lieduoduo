@@ -13,10 +13,8 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    let id = app.globalData.companyInfo.id
-    getRecruitersListApi({id}).then(res => {
-      this.setData({recruiterList: res.data})
-    })
+    let recruiterList = app.globalData.companyInfo.recruiterList
+    this.setData({recruiterList})
   },
 
   /**

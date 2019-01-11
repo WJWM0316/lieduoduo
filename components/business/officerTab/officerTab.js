@@ -24,8 +24,8 @@ Component({
     routeJump (e) {
       const uid = e.currentTarget.dataset.uid
       wx.navigateTo({
-            url: `/page/common/pages/recruiterDetail/recruiterDetail?uid=${uid}`
-          })
+        url: `/page/common/pages/recruiterDetail/recruiterDetail?uid=${uid}`
+      })
     }
   }
 })
