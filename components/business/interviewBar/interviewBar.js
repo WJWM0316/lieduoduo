@@ -40,10 +40,6 @@ Component({
       value: ''
     }
   },
-
-  /**
-   * 组件的初始数据
-   */
   data: {
     interviewInfos: {},
     identity: '', // 身份标识
@@ -70,30 +66,30 @@ Component({
       }
     ]
   },
-  ready() {
-    this.setData({slogoIndex: this.getRandom()})
-    this.getInterviewStatus()
-    let currentPage = ''
-    switch(this.data.type) {
-      case 'position':
-        currentPage = 'positionDetail'
-        break
-      case 'resume':
-        currentPage = 'resumeDetail'
-        break
-      case 'recruiter':
-        currentPage = 'recruiterDetail'
-        break
-      default:
-        currentPage = ''
-        break
-    }
-    this.setData({currentPage})
+  attached() {
+    this.init()
   },
-  /**
-   * 组件的方法列表
-   */
   methods: {
+    init() {
+      this.setData({slogoIndex: this.getRandom()})
+      this.getInterviewStatus()
+      let currentPage = ''
+      switch(this.data.type) {
+        case 'position':
+          currentPage = 'positionDetail'
+          break
+        case 'resume':
+          currentPage = 'resumeDetail'
+          break
+        case 'recruiter':
+          currentPage = 'recruiterDetail'
+          break
+        default:
+          currentPage = ''
+          break
+      }
+      this.setData({currentPage})
+    },
     getRandom() {
       return Math.floor(Math.random() * this.data.slogoList.length + 1)
     },
