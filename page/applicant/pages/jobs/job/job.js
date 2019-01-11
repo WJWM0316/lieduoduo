@@ -22,7 +22,7 @@ Page({
     //   index: 2,
     //   text: '99+'
     // })
-    getPositionListApi().then(res => {
+    getPositionListApi({count: 200}).then(res => {
       let companyList = res.data
       this.setData({companyList})
     })

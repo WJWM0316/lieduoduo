@@ -36,7 +36,7 @@ Page({
   jump(e) {
     let url = ''
     if (e.currentTarget.dataset.type === 'jobList') {
-      url = '/page/recruiter/pages/position/jobList/jobList'
+      url = `/page/recruiter/pages/position/jobList/jobList?recruiterUid=${info.recruiterUid}`
     } else if (e.currentTarget.dataset.type === 'addressList') {
       url = '/page/recruiter/pages/position/addressList/addressList'
     }

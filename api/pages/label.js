@@ -57,3 +57,34 @@ export const getProfessionalSkillsApi = (data, hasLoading) => {
     hasLoading: true
   })
 }
+
+// 公司亮点标签
+export const getTeamlightspotApi = (data, hasLoading) => {
+  return request({
+    method: 'get',
+    url: '/lightspot/list',
+    data,
+    hasLoading: true
+  })
+}
+
+// 添加自定义亮点标签
+export const diyTeamlabApi = (data, hasLoading) => {
+  return request({
+    method: 'post',
+    url: '/lightspot/diylab',
+    data,
+    hasLoading: true
+  })
+}
+
+// 添加自定义亮点标签
+export const saveTeamlabApi = (data, hasLoading) => {
+  return request({
+    method: 'put',
+    url: '/lightspot/save',
+    data,
+    hasLoading: true
+  })
+}
+

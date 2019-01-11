@@ -106,7 +106,8 @@
         "pages/company/baseEdit/baseEdit",
         "pages/company/introducingEdit/introducingEdit",
         "pages/company/recruiterList/recruiterList",
-        "pages/company/productList/productList"
+        "pages/company/productList/productList",
+        "pages/company/teamLabel/teamLabel"
       ]
     }
   ],

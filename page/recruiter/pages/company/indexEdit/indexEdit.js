@@ -41,6 +41,9 @@ Page({
         })
       break
       case 'bright':
+        wx.navigateTo({
+          url: `${RECRUITER}company/teamLabel/teamLabel`
+        })
       break
     }
   },

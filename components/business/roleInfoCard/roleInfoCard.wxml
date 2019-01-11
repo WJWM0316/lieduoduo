@@ -11,6 +11,7 @@
     </view>
     <icon class="icon iconfont icon-xiangyou" wx:if="{{!isMain}}"></icon>
   </view>
+
   <block  wx:if="{{roleType === 'applicant'}}">
     <view class="applicant" bindtap="jumpApplicant">
       <image class="img" src="{{cardData.avatar.middleUrl}}"></image>
@@ -21,7 +22,7 @@
     </view>
     <view class="contact">
       <view class="mobile" bindtap="makePhoneCall">手机：<text class="txt">{{cardData.mobile || cardData.jobhunterMobile}}</text></view>
-      <view class="wechat" bindtap="setClipboardData" wx:if="{{cardData.wechat}}">微信：<text class="txt">{{cardData.wechat}}</text></view>
+      <view class="wechat" bindtap="setClipboardData" wx:if="{{cardData.wechat || cardData.jobhunterWechat}}">微信：<text class="txt">{{cardData.wechat || cardData.jobhunterWechat}}</text></view>
     </view>
   </block>
   <view class="recruiter {{isMain? 'recruiterMain':''}}" wx:if="{{roleType === 'recruiter'}}" bindtap="jumpRecruiter">

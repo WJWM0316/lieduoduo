@@ -134,7 +134,6 @@ Page({
     })
   },
   favor(e) {
-    console.log()
     let data = {
       recruiterLabelId: e.currentTarget.dataset.id
     }
