@@ -35,7 +35,7 @@
 }
 
 .position-skills .unchecked-item-ul {
-	margin: 0 40rpx;
+	margin: 0 40rpx 172rpx 40rpx;
 }
 
 .position-skills .checked-item-ul .li {

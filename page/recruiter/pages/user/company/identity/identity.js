@@ -1,4 +1,4 @@
-import { identityCompanyApi } from '../../../../../../api/pages/company.js'
+import { identityCompanyApi, getCompanyIdentityInfosApi, editCompanyIdentityInfosApi } from '../../../../../../api/pages/company.js'
 
 import {realNameReg, idCardReg} from '../../../../../../utils/fieldRegular.js'
 
@@ -22,7 +22,29 @@ Page({
     },
     canClick: false
   },
-  onLoad() {
+  onLoad(options) {
+    if(options.type && options.type === 'edit') this.getCompanyIdentityInfos()
+  },
+  /**
+   * @Author   小书包
+   * @DateTime 2019-01-10
+   * @detail   获取认证详情
+   * @return   {[type]}   [description]
+   */
+  getCompanyIdentityInfos() {
+    getCompanyIdentityInfosApi()
+      .then(res => {
+        const infos = res.data
+        const formData = {}
+        formData.real_name = infos.realName
+        formData.identity_num = infos.identityNum
+        formData.validity = infos.validity
+        formData.passport_front = infos.passportFrontInfo
+        formData.passport_reverse = infos.passportReverse
+        formData.handheld_passport = infos.handheldPassportInfo
+        Object.keys(formData).map(field => this.setData({[field]: formData[field]}))
+        this.bindBtnStatus()
+      })
   },
   /**
    * @Author   小书包
@@ -33,8 +55,8 @@ Page({
   bindBtnStatus() {
     const bindKeys = ['real_name', 'identity_num', 'validity']
     let canClick = bindKeys.every(field => this.data[field])
-    let hasUploadImage = this.data.passport_front.smallUrl && this.data.passport_reverse.smallUrl && this.data.handheld_passport.smallUrl
-    this.setData({ canClick:  canClick && hasUploadImage})
+    let hasUploadImage = canClick && this.data.passport_front.smallUrl && this.data.passport_reverse.smallUrl && this.data.handheld_passport.smallUrl
+    this.setData({canClick})
   },
   /**
    * @Author   小书包
@@ -76,7 +98,8 @@ Page({
     Promise
      .all([checkRealName, checkUserEmail])
      .then(res => {
-        this.identityCompany()
+      const action = this.data.type === 'edit' ? 'editCompanyIdentityInfos' : 'identityCompany'
+        this[action]()
      })
   },
   /**
@@ -106,7 +129,20 @@ Page({
     const formData = this.getParams()
     identityCompanyApi(formData)
       .then((res) => {
-        wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=identity`})
+        wx.redirectTo({url: `${RECRUITER}user/company/status/status?from=identity`})
+      })
+  },
+  /**
+   * @Author   小书包
+   * @DateTime 2018-12-22
+   * @detail   身份认证
+   * @return   {[type]}   [description]
+   */
+  editCompanyIdentityInfos() {
+    const formData = this.getParams()
+    identityCompanyApi(formData)
+      .then((res) => {
+        wx.redirectTo({url: `${RECRUITER}user/company/status/status?from=identity`})
       })
   }
 })
