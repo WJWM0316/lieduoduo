@@ -58,9 +58,8 @@ Page({
   },
   getOthersInfo() {
     getPersonalResumeApi(id).then(res => {
-      this.setData({info: res.data}, () => {
-        if(this.selectComponent('#interviewBar')) this.selectComponent('#interviewBar').init()
-      })
+      this.setData({info: res.data})
+      this.selectComponent('#interviewBar').init()
     })
   },
   /* 编辑 */
