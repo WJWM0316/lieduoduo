@@ -28,6 +28,9 @@ Page({
     getPositionListApi({recruiter: options.recruiterUid}).then(res => {
       this.setData({items: res.data, options})
     })
+    // getPositionListApi().then(res => {
+    //   this.setData({items: res.data, options})
+    // })
   },
   radioChange(e) {
     const data = wx.getStorageSync('interviewData') || {}
