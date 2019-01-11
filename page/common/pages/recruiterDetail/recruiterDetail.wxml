@@ -82,6 +82,7 @@
   <view class="collection icon iconfont icon-ganxingqu" bindtap="collect" wx:if="{{!isOwner}}"></view>
   <view class="positionBtn" bindtap="scrollPs" hidden="{{!isShowBtn}}" wx:if="{{!isOwner}}">{{positionList.length}}个热招职位</view>
   <interviewBar
+    id="interviewBar"
     infos="{{info}}"
     bindresultevent="getPositionDetail"
     type="recruiter"

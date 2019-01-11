@@ -29,7 +29,7 @@ Page({
   onShow: function () {
     this.init(id)
   },
-  init (options) {
+  init(options) {
     let identity = wx.getStorageSync('choseType')
     let myInfo = {}
     if (app.globalData.identity === "APPLICANT") {
@@ -59,11 +59,11 @@ Page({
   getOthersInfo() {
     getPersonalResumeApi(id).then(res => {
       this.setData({info: res.data})
+      this.selectComponent('#interviewBar').init()
     })
   },
   /* 编辑 */
   edit (e) {
-    console.log(e.currentTarget.dataset.editname, '555')
     let editName = e.currentTarget.dataset.editname
     let url = null
     switch (editName) {
