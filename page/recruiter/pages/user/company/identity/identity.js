@@ -79,7 +79,7 @@ Page({
    */
   upload(e) {
     const key = e.currentTarget.dataset.type
-    this.setData({ [key]: e.detail })
+    this.setData({[key]: e.detail[0]})
     this.bindBtnStatus()
   },
   submit() {

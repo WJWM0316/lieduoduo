@@ -14,7 +14,6 @@ Page({
    */
   onLoad: function (options) {
     let info = app.globalData.companyInfo
-    console.log(info)
     this.setData({info})
   },
   bindblur(e) {
