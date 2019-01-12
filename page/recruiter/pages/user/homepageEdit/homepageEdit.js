@@ -2,10 +2,10 @@
 import {
   getCompanyInfosApi,
   getRecruitersListApi
-} from '../../../../api/pages/company.js'
+} from '../../../../../api/pages/company.js'
 
-import {RECRUITERHOST, COMMON} from '../../../../config.js'
-import {getPositionListApi} from "../../../../api/pages/position.js"
+import {RECRUITERHOST, COMMON} from '../../../../../config.js'
+import {getPositionListApi} from "../../../../../api/pages/position.js"
 
 Page({
 
@@ -18,6 +18,7 @@ Page({
     autoplay: true,
     interval: 1000,
     duration: 1000,
+    link: 'https://www.xiaodengta.com',
     query: {},
     companyInfos: {},
     recruitersList: [],

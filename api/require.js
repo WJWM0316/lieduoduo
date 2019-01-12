@@ -70,18 +70,22 @@ export const request = ({method = 'post', url, data = {}, needKey = true, hasLoa
                   url: `${APPLICANT}center/createUser/createUser`
                 })
               }
+              console.log(msg.data.applyJoin)
               if (msg.code === 801 && url !== '/jobhunter/resume') {
                 // 还没有创建公司
                 if(Array.isArray(res.data.data)) {
                   wx.navigateTo({url: `${RECRUITER}user/company/apply/apply`})
+                  return
                 }
                 // 是申请加入公司
-                if(!res.data.data.applyJoin) {
-                  wx.navigateTo({url: `${RECRUITER}user/company/status/status?type=apply`})
+                if(msg.data.applyJoin) {
+                  wx.navigateTo({url: `${RECRUITER}user/company/status/status?from=apply`})
+                  return
                 }
                 // 已创建公司，但是还在审核状态或者审核失败
-                if(res.data.data.applyJoin) {
-                  wx.navigateTo({url: `${RECRUITER}user/company/status/status?type=company`})
+                if(!msg.data.applyJoin) {
+                  wx.navigateTo({url: `${RECRUITER}user/company/status/status?from=company`})
+                  return;
                 }
               }
           }
