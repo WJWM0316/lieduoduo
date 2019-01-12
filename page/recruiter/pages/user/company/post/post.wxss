@@ -180,3 +180,7 @@
 	font-size: 30rpx;
 	margin-right: 10rpx;
 }
+
+.company-post .color {
+	color: #626262 !important;
+}

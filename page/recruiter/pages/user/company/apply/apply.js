@@ -1,4 +1,4 @@
-import { applyCompanyApi } from '../../../../../../api/pages/company.js'
+import { getCompanyIdentityInfosApi } from '../../../../../../api/pages/company.js'
 
 import {realNameReg, emailReg, positionReg} from '../../../../../../utils/fieldRegular.js'
 
@@ -11,15 +11,60 @@ Page({
     real_name: '',
     user_email: '',
     user_position: '',
-    company_name: '',
     canClick: false
   },
-  onLoad() {
+  onLoad(options) {
     const storage = wx.getStorageSync('createdCompany')
     const params = ['real_name', 'user_email', 'user_position']
+    // 编辑页面
+    if(options.type && options.type === 'edit') {
+      this.getCompanyIdentityInfos()
+      return;
+    }
     if(!storage) return
     params.map(field => this.setData({ [field]: storage[field] }))
     this.bindBtnStatus()
+  },
+  /**
+   * @Author   小书包
+   * @DateTime 2019-01-12
+   * @detail   获取编辑详情
+   * @return   {[type]}   [description]
+   */
+  getCompanyIdentityInfos() {
+
+    const storage = wx.getStorageSync('createdCompany')
+    const params = ['real_name', 'user_email', 'user_position']
+    // 当编辑页面已经存在缓存时，不能再无谓的请求接口
+    if(storage) {
+      params.map(field => this.setData({ [field]: storage[field] }))
+      this.bindBtnStatus()
+      return
+    }
+
+    getCompanyIdentityInfosApi()
+      .then(res => {
+        const infos = res.data.companyInfo
+        const formData = {
+          real_name: infos.realName,
+          user_email: infos.userEmail,
+          user_position: infos.userPosition,
+          company_name: infos.companyName,
+          companyShortName: infos.companyShortname,
+          industry_id: infos.industryId,
+          industry_id_name: infos.industry,
+          selected_industry_id: true,
+          financing: infos.financing,
+          financingName: infos.financingInfo,
+          selected_financing: true,
+          employees: infos.employees,
+          employeesName: infos.employeesInfo,
+          selected_employees: true,
+          canClick: true
+        }
+        wx.setStorageSync('createdCompany', formData)
+        Object.keys(formData).map(field => this.setData({[field]: formData[field]}))
+      })
   },
   /**
    * @Author   小书包
