@@ -116,7 +116,7 @@
   </view>
 </view>
 <!-- 底部开撩 -->
-<view class="bottomBox" wx:if="{{info.interviewStatus}}">
+<view class="bottomBox">
   <view>
     <interviewBar
       id="interviewBar"
