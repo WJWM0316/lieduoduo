@@ -1,35 +1,62 @@
 // page/applicant/pages/center/firstStep/fitstStep.js
 import { postfirstStepApi } from '../../../../../api/pages/center'
-let isStudent = false
+let app = getApp()
 Page({
   data: {
     name: '',
     workTime: '',
-    avatarUrl: '',
-    avatarId: '',
+    avatar: {},
     position: '',
     gender: '1',
-    workTimeDesr: ''
+    workTimeDesr: '',
+    startWorkYear: ''
   },
   getresult (val) {
-    if (val.detail.propsDesc === '在校生') {
-      isStudent = true
-    }
-    this.workTime = val.detail.propsResult
+    this.setData({workTimeDesr: val.detail.propsDesc, startWorkYear: val.detail.propsResult})
   },
-  formSubmit (e) {
-    e.detail.value.avatar =  this.data.avatarId
-    e.detail.value.startWorkYear = this.data.workTime
-    e.detail.value.name = this.data.userName
-    e.detail.value.gender = this.data.gender
-    e.detail.value.position = this.data.position
-    postfirstStepApi(e.detail.value).then(res => {
+  getValue(e) {
+    switch(e.currentTarget.dataset.type) {
+      case 'name':
+        this.setData({name: e.detail.value})
+        break
+      case 'position':
+        this.setData({position: e.detail.value})
+        break
+    }
+  },
+  submit () {
+    let info = this.data
+    let title = ''
+    if (!info.avatar.id) {
+      title = '请上传头像'
+    } else  if (!info.name) {
+      title = '请输入姓名'
+    } else  if (!info.position) {
+      title = '请输入职位'
+    } else  if (!info.startWorkYear) {
+      title = '选择开始工作时间'
+    }
+    if (title) {
+      app.wxToast({'title': title})
+      return
+    }
+    let data = {
+      avatar:  info.avatar.id,
+      startWorkYear: info.startWorkYear,
+      name: info.name,
+      gender: info.gender,
+      position: info.position
+    }
+    postfirstStepApi(data).then(res => {
       let createUser = {
-        gender: this.data.gender,
-        workTime: this.data.workTime,
+        name: info.name,
+        gender: info.gender,
+        startWorkYear: info.startWorkYear,
+        workTimeDesr: info.workTimeDesr,
+        position: info.position
       }
-      wx.setStorageSync('createUser', createUser)
-      if (isStudent) {
+      wx.setStorageSync('createUserFirst', createUser)
+      if (info.workTimeDesr === '在校生') {
         wx.navigateTo({ // 是学生，直接跳转完善简历第三步
           url: '/page/applicant/pages/center/educaExperience/educaExperience'
         })
@@ -45,13 +72,13 @@ Page({
       gender: e.target.dataset.gender
     })
   },
-  onLoad() {
+  onShow() {
     let avatar = wx.getStorageSync('avatar')
-    let createUser = wx.getStorageSync('createUser')
+    let createUser = wx.getStorageSync('createUserFirst')
     if (avatar && createUser) {
-      this.setData({avatarUrl: avatar.url, avatarId: avatar.id, gender: createUser.gender, workTime: createUser.workTime})
+      this.setData({avatar, name: createUser.name, position: createUser.position, gender: createUser.gender, workTimeDesr: createUser.workTimeDesr, startWorkYear: createUser.startWorkYear})
     } else if (avatar) {
-      this.setData({avatarUrl: avatar.url, avatarId: avatar.id})
+      this.setData({avatar})
     }
   }
 })

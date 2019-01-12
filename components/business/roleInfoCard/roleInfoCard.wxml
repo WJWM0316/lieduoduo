@@ -16,7 +16,7 @@
     <view class="applicant" bindtap="jumpApplicant">
       <image class="img" src="{{cardData.avatar.middleUrl}}"></image>
       <view class="applicantMsg">
-        <view class="name">{{cardData.jobhunterRealname}}<text class="msg">{{cardData.workAge}}·{{cardData.degreeDesc}}·{{cardData.salaryCeil}}~{{cardData.salaryFloor}}k</text></view>
+        <view class="name">{{cardData.jobhunterRealname}}<text class="msg">{{cardData.workAge}}·{{cardData.degreeDesc}}·{{cardData.salaryFloor}}~{{cardData.salaryCeil}}k</text></view>
         <view class="detail">{{cardData.lastCompanyName}} | {{cardData.positionName}}</view>
       </view>
     </view>

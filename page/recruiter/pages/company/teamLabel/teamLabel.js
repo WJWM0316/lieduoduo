@@ -125,7 +125,7 @@ Page({
     let data = {
     }
     saveTeamlabApi(data).then(res => {
-      // app.globalData.resumeInfo.personalizedLabels = personalizedLabels
+      app.globalData.
       app.wxToast({
         title: '提交成功',
         icon: "success",

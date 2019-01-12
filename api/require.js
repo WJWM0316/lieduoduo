@@ -70,7 +70,6 @@ export const request = ({method = 'post', url, data = {}, needKey = true, hasLoa
                   url: `${APPLICANT}center/createUser/createUser`
                 })
               }
-              console.log(msg.data.applyJoin)
               if (msg.code === 801 && url !== '/jobhunter/resume') {
                 // 还没有创建公司
                 if(Array.isArray(res.data.data)) {

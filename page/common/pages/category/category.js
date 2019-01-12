@@ -1,6 +1,5 @@
-import { getLabelPositionApi } from '../../../../../api/pages/label.js'
-
-import {RECRUITER} from '../../../../../config.js'
+import { getLabelPositionApi } from '../../../../api/pages/label.js'
+import {RECRUITER} from '../../../../config.js'
 
 Page({
   data: {
