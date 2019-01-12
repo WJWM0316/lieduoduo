@@ -54,6 +54,7 @@ Page({
   getCompanyDetail() {
     getCompanyInfosApi({id: this.data.query.companyId})
       .then(res => {
+        console.log(res.data)
         this.setData({companyInfos: res.data})
       })
   },
@@ -96,13 +97,14 @@ Page({
    */
   copyLink() {
     wx.setClipboardData({
-      data: this.data.link,
+      data: this.data.companyInfos.website,
       success(res) {
-        wx.getClipboardData({
-          success(res) {
-            console.log(res.data) // data
-          }
-        })
+        console.log(res)
+        // wx.getClipboardData({
+        //   success(res) {
+        //     console.log(res.data) // data
+        //   }
+        // })
       }
     })
   },
@@ -123,7 +125,6 @@ Page({
    */
   routeJump(e) {
     const route = e.currentTarget.dataset.route
-    console.log(route)
     switch(route) {
       case 'map':
         wx.navigateTo({url: `${COMMON}map/map`})
