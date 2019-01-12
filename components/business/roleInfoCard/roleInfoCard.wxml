@@ -31,7 +31,7 @@
     <image class="img" src="{{cardData.avatar.middleUrl}}"></image>
     <view class="vip">V</view>
     <view class="recruiterMsg">
-      <view class="name">{{cardData.name}}<text class="msg" wx:if="{{!isMain}}"> · {{cardData.position}}</text></view>
+      <view class="name">{{cardData.name || cardData.recruiterRealname}}<text class="msg" wx:if="{{!isMain}}"> · {{cardData.position || cardData.positionName}}</text></view>
       <view class="detail">{{cardData.companyName}}<text wx:if="{{isMain}}"> | {{cardData.position}}</text></view>
     </view>
     <i class="editBtn iconfont icon-bianji1" wx:if="{{isMain}}" bindtap="jumpEdit"></i>

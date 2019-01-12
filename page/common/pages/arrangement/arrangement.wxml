@@ -3,7 +3,10 @@
 <view class="arrangement">
   <navbar></navbar>
   <view class="tip" wx:if="{{info.status === 32}}">备选时间不合适，请联系候选人重新确定时间</view>
-  <view class="headInfo"><roleInfoCard cardData="{{info}}" my-class="roleDetail" roleType="applicant"></roleInfoCard></view>
+  <view class="headInfo">
+    <roleInfoCard wx:if="{{identity === 'RECRUITER'}}" cardData="{{info}}" my-class="roleDetail" roleType="applicant"></roleInfoCard>
+    <roleInfoCard wx:if="{{identity === 'APPLICANT'}}" cardData="{{info}}" my-class="roleDetail" roleType="recruiter"></roleInfoCard>
+  </view>
   <block>
     <view class="content">
       <view class="detail" wx:if="{{identity === 'RECRUITER' && (info.status === 21 || info.status === 32)}}">
@@ -39,7 +42,8 @@
           </view>
         </view>
       </view>
-      <view class="detail read" wx:if="{{(identity === 'APPLICANT' && info.status === 21) || info.status === 31 || info.status === 41}}">
+
+      <view class="detail read" wx:if="{{identity === 'APPLICANT' || (identity === 'RECRUITER' && (info.status === 31 || info.status === 41))}}">
         <view class="title"><icon class="icon"></icon>面试信息</view>
         <view class="msgItem">
           <view class="inner">
@@ -65,7 +69,8 @@
           </view>
         </view>
       </view>
-      <view class="date" wx:if="{{identity === 'RECRUITER' && (info.status === 21 || info.status === 32)}}">
+
+      <view class="date" wx:if="{{identity === 'RECRUITER' && (info.status === 21 || info.status === 31 || info.status === 32)}}">
         <view class="title"><icon class="icon"></icon>约面时间</view>
         <block wx:if="{{info.status === 21}}">
           <view class="dateItem" wx:for="{{info.arrangementInfo.appointmentList}}" wx:key="{{index}}">
@@ -89,7 +94,13 @@
             </view>
           </view>
         </block>
-        <view class="dateItem" hidden="{{info.arrangementInfo.appointmentList.length >= 3}}">
+        <view wx:if="{{info.status === 31}}" class="dateItem" wx:for="{{info.arrangementInfo.appointmentList}}" wx:key="{{index}}">
+          <view class="inner">
+            <view class="xuhao">时间{{index + 1}}</view>
+            <view class="dateDetail">{{filters.dateFormat(item.appointmentTime, 'YYYY-MM-DD hh:mm')}}</view>
+          </view>
+        </view>
+        <view class="dateItem" hidden="{{                                                                                                             info.arrangementInfo.appointmentList.length >= 3 && (info.status === 32 || info.status === 31 || info.status === 21)}}">
           <view class="inner noborder">
             <view class="txt">最多可添加3个时间供候选人选择</view>
             <view class="msg"><myPicker pickerType="dateTime" class="myPicker" needSlot="{{true}}" bindresultevent="getResult"><text class="add">+</text>添加时间</myPicker></view>
@@ -97,17 +108,13 @@
         </view>
       </view>
 
-      <view class="date read" wx:if="{{(identity === 'RECRUITER' && info.status === 31)}}">
-        <view class="title"><icon class="icon"></icon>约面时间</view>
-        <view class="dateItem" wx:for="{{info.arrangementInfo.appointmentList}}" wx:key="{{index}}">
-          <view class="inner">
-            <view class="xuhao">时间{{index + 1}}</view>
-            <view class="dateDetail">{{filters.dateFormat(item.appointmentTime, 'YYYY-MM-DD hh:mm')}}</view>
-          </view>
-        </view>
+      <view class="realDate" wx:if="{{identity === 'APPLICANT' && info.status === 21}}">
+        <view class="txt1">等待招聘官安排面试</view>
+        <view class="txt2">你也可以通过上方的电话，联系招聘官确认时间~</view>
+        <view class="txt3">没有插画先占个位</view>
       </view>
 
-      <view class="date read" wx:if="{{identity === 'APPLICANT' && (info.status === 31 || info.status === 21)}}">
+      <view class="date read" wx:if="{{identity === 'APPLICANT' && info.status === 31}}">
         <view class="title"><icon class="icon"></icon>约面时间<text class="newTip">请选择一个时间接受面试</text></view>
         <radio-group class="radio-group dateItem" bindchange="radioChange">
           <label wx:for="{{info.arrangementInfo.appointmentList}}" wx:key="{{index}}">
@@ -130,16 +137,24 @@
           </label>
         </radio-group>
       </view>
+      
+      <view class="realDate" wx:if="{{identity === 'APPLICANT' && info.status === 32}}">
+        <view class="txt1">等待招聘官修改面试时间</view>
+        <view class="txt2">你也可以通过上方的电话，联系招聘官确认时间~</view>
+        <view class="txt3">没有插画先占个位</view>
+      </view>
+
       <view class="realDate" wx:if="{{info.status === 41}}">
         <view class="txt1">面试时间已确认</view>
         <view class="txt2">时间已添加到面试日程，准备迎接候选人吧~</view>
-        <view class="txt3">{{info.arrangementInfo.appointment}}</view>
+        <view class="txt3">{{filters.dateFormat(info.arrangementInfo.appointmentTime, 'YYYY-MM-DD hh:mm')}}</view>
       </view>
       <view class="realDate" wx:if="{{info.status === 51}}">
         <view class="txt1">面试已结束</view>
         <view class="txt3 end">{{filters.dateFormat(info.arrangementInfo.appointmentTime, 'YYYY-MM-DD hh:mm')}}</view>
       </view>
     </view>
+
     <view class="btnBox" wx:if="{{identity === 'RECRUITER' && (info.status === 21 || info.status === 32)}}">
       <button class="btn" bindtap="send">发送面试安排</button>
     </view>

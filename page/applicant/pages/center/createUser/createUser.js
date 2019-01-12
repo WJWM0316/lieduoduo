@@ -3,10 +3,13 @@ import { postfirstStepApi } from '../../../../../api/pages/center'
 let isStudent = false
 Page({
   data: {
+    name: '',
     workTime: '',
     avatarUrl: '',
     avatarId: '',
-    gender: '1'
+    position: '',
+    gender: '1',
+    workTimeDesr: ''
   },
   getresult (val) {
     if (val.detail.propsDesc === '在校生') {
@@ -15,10 +18,17 @@ Page({
     this.workTime = val.detail.propsResult
   },
   formSubmit (e) {
-    e.detail.value.avatar =  wx.getStorageSync('avatar').id
-    e.detail.value.startWorkYear = this.workTime
+    e.detail.value.avatar =  this.data.avatarId
+    e.detail.value.startWorkYear = this.data.workTime
+    e.detail.value.name = this.data.userName
     e.detail.value.gender = this.data.gender
+    e.detail.value.position = this.data.position
     postfirstStepApi(e.detail.value).then(res => {
+      let createUser = {
+        gender: this.data.gender,
+        workTime: this.data.workTime,
+      }
+      wx.setStorageSync('createUser', createUser)
       if (isStudent) {
         wx.navigateTo({ // 是学生，直接跳转完善简历第三步
           url: '/page/applicant/pages/center/educaExperience/educaExperience'
@@ -35,9 +45,13 @@ Page({
       gender: e.target.dataset.gender
     })
   },
-  onShow() {
-    let avatarId = wx.getStorageSync('avatarId')
-    let avatarUrl = wx.getStorageSync('avatarUrl')
-    this.setData({avatarUrl, avatarId})
+  onLoad() {
+    let avatar = wx.getStorageSync('avatar')
+    let createUser = wx.getStorageSync('createUser')
+    if (avatar && createUser) {
+      this.setData({avatarUrl: avatar.url, avatarId: avatar.id, gender: createUser.gender, workTime: createUser.workTime})
+    } else if (avatar) {
+      this.setData({avatarUrl: avatar.url, avatarId: avatar.id})
+    }
   }
 })
