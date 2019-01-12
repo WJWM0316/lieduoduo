@@ -33,6 +33,7 @@ Page({
     	.then(res => {
         const infos = res.data
         const companyInfos = infos.companyInfo
+        console.log(companyInfos.applyJoin, 'ddddddddddd')
     		this.setData({identityInfos: infos, companyInfos, options})
     	})
   },
