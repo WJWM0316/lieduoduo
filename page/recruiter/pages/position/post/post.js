@@ -6,7 +6,7 @@ import {
 
 import {realNameReg, emailReg, positionReg} from '../../../../../utils/fieldRegular.js'
 
-import {RECRUITER} from '../../../../../config.js'
+import {RECRUITER, COMMON} from '../../../../../config.js'
 
 const app = getApp()
 
@@ -40,7 +40,10 @@ Page({
     canClick: false
   },
   onLoad(options) {
-    this.setData({pageTitle: options.positionId ? '编辑职位' : '创建职位'})
+    this.setData({pageTitle: options.positionId ? '编辑职位' : '创建职位', query: options})
+  },
+  onShow() {
+    const options = this.data.query
     this.init(options)
   },
   /**
@@ -118,6 +121,17 @@ Page({
       wx.redirectTo({ url })
       wx.setStorageSync('createPosition', this.data)
     }
+  },
+  /**
+   * @Author   小书包
+   * @DateTime 2018-12-24
+   * @detail   离开当前页面
+   * @return   {[type]}     [description]
+   */
+  getCategory() {
+    const url = this.data.query.positionId ? `${COMMON}category/category?positionId=${this.data.query.positionId}` : `${COMMON}category/category`
+    wx.navigateTo({ url })
+    wx.setStorageSync('createPosition', this.data)
   },
   /**
    * @Author   小书包

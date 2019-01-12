@@ -8,7 +8,7 @@
 			<i class="icon iconfont icon-xiangyou"></i>
 			<view class="text2">{{position_name || '请填写'}}</view>
 		</view>
-		<view class="li link" bindtap="routeJump" data-route="category">
+		<view class="li link" bindtap="getCategory">
 			<view class="key">职位类别</view>
 			<i class="icon iconfont icon-xiangyou"></i>
 			<view class="text2">{{typeName || '请选择'}}</view>

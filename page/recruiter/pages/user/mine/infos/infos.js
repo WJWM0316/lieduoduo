@@ -47,7 +47,7 @@ Page({
         wx.navigateTo({url: `${RECRUITER}user/mine/base/base`})
         break
       case 'identity':
-        wx.navigateTo({url: `${RECRUITER}user/company/status/status?page=identity`})
+        wx.navigateTo({url: `${RECRUITER}user/company/status/status?from=identity`})
         break
       case 'settings':
         wx.navigateTo({url: `${COMMON}settings/settings`})
