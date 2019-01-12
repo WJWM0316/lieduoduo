@@ -1,0 +1,88 @@
+<view class="homepage">
+	<navbar title="编辑公司主页" background="#FFFFFF" color="#22292C"></navbar>
+
+	<view class="base-info">
+		<view class="head">
+			<view class="img-box">
+				<image class="bgImg" src="{{companyInfos.logo.smallUrl}}" mode="aspectFill"></image>
+			</view>
+			<view class="content">
+				<view class="h1">小灯塔</view>
+				<view class="h2">广州老虎信息技术有限公司</view>
+			</view>
+			<view class="edit-box"><i class="icon iconfont icon-bianji"></i></view>
+		</view>
+		<view class="ul">
+			<view class="li">
+				<view class="key">所属行业</view>
+				<view class="value">{{companyInfos.industry}}</view>
+			</view>
+			<view class="li">
+				<view class="key">融资阶段</view>
+				<view class="value">{{companyInfos.financingInfo}}</view>
+			</view>
+			<view class="li">
+				<view class="key">公司规模</view>
+				<view class="value">{{companyInfos.employeesInfo}}</view>
+			</view>
+			<view class="li">
+				<view class="key">公司官网</view>
+				<view class="value">{{companyInfos.website}}</view>
+			</view>
+		</view>
+	</view>
+
+	<view class="introduction">
+		<view class="title">
+			<view class="self-icon"> <view class="fan"></view> </view> 公司介绍 <i class="icon iconfont icon-bianji"></i>
+		</view>
+		<swiper
+			class="swiper-block"
+			previous-margin="40rpx"
+			next-margin="40rpx"
+			current="0"
+			bindchange="swiperChange"
+			wx:if="{{companyInfos.album.length}}"
+			autoplay="{{autoplay}}">
+			<swiper-item class="swiper-item" wx:for="{{companyInfos.album}}" wx:key="{{index}}">
+				<image mode="aspectFill" class="slide-image {{swiperIndex == index ? 'active' : ''}}"/>
+			</swiper-item>
+		</swiper>
+		<view class="company-detail">
+			<view class="p">{{companyInfos.intro}}</view>
+		</view>
+	</view>
+
+	<view class="production-box">
+		<view class="title">
+			<view class="self-icon"> <view class="fan"></view> </view> 产品介绍 <i class="icon iconfont icon-bianji"></i>
+		</view>
+		<view class="ul">
+			<view class="li" wx:for="{{[1,2]}}" wx:key="{{index}}">
+				<view class="img-box"></view>
+				<view class="content">
+					<view class="row-one">
+						<view class="username">小灯塔</view>
+						<view class="recruitment-number">职场分享社区</view>
+					</view>
+					<view class="row-two">小灯塔创始人、CEO</view>
+				</view>
+			</view>
+		</view>
+	</view>
+	
+	<view class="company-website" wx:if="{{companyInfos.website}}">
+		<view class="title">
+			<view class="self-icon"> <view class="fan"></view> </view> 公司官网 <i class="icon iconfont icon-bianji"></i>
+		</view>
+		<view class="link-box">
+			<view class="link"><i class="icon iconfont icon-dizhi"></i>{{companyInfos.website}}</view>
+			<view class="button" bindtap="copyLink"><i class="icon iconfont icon-xiangyou"></i></view>
+		</view>
+		<view class="link-box">
+			<view class="link"><i class="icon iconfont icon-dizhi"></i>{{companyInfos.website}}</view>
+			<view class="button" bindtap="copyLink"><i class="icon iconfont icon-xiangyou"></i></view>
+		</view>
+	</view>
+
+</view>

@@ -95,6 +95,7 @@
         "pages/user/company/identity/identity",
         "pages/user/company/status/status",
         "pages/user/company/email/email",
+        "pages/user/homepageEdit/homepageEdit",
         "pages/user/company/infos/infos",
         "pages/user/userInfoEdit/userInfoEdit",
         "pages/user/editBrief/editBrief",
