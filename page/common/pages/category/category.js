@@ -30,7 +30,7 @@ Page({
    */
   onClick1(e) {
     // 只有一级标签
-    const storage = wx.getStorageSync('createPosition')
+    const storage = wx.getStorageSync('createPosition') || {}
     const url = this.data.query.positionId ? `${RECRUITER}position/post/post?positionId=${this.data.query.positionId}` : `${RECRUITER}position/post/post`
     const params = e.currentTarget.dataset
     const positionTypeList = this.data.positionTypeList
@@ -46,7 +46,7 @@ Page({
       storage.typeName = result.name
       storage.parentType = result.labelId
       wx.setStorageSync('createPosition', storage)
-      wx.redirectTo({ url })
+      wx.navigateBack({delta: 1})
     }
     this.setData({index1: params.index, positionTypeList, showMask})
   },
@@ -72,14 +72,14 @@ Page({
     const params = e.currentTarget.dataset
     const result = this.data.positionTypeList[this.data.index1].children[this.data.index2].children[params.index]
     this.setData({showMask: false})
-    const storage = wx.getStorageSync('createPosition')
+    const storage = wx.getStorageSync('createPosition') || {}
     const url = this.data.query.positionId ? `${RECRUITER}position/post/post?positionId=${this.data.query.positionId}` : `${RECRUITER}position/post/post`
     storage.type = result.labelId
     storage.typeName = result.name
     storage.parentType = this.data.positionTypeList[this.data.index1].labelId
 
     wx.setStorageSync('createPosition', storage)
-    wx.redirectTo({ url })
+    wx.navigateBack({delta: 1})
   },
   /**
    * @Author   小书包

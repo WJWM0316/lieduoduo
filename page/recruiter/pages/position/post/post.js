@@ -121,22 +121,6 @@ Page({
   },
   /**
    * @Author   小书包
-   * @DateTime 2019-01-12
-   * @detail   获取职位类型
-   * @return   {[type]}   [description]
-   */
-  getCategory() {
-    const route = e.currentTarget.dataset.route
-    const url = this.data.query.positionId ? `${RECRUITER}position/${route}/${route}?positionId=${this.data.query.positionId}` : `${RECRUITER}position/${route}/${route}`
-    if(route === 'skills' && !this.data.type) {
-      app.wxToast({title: '请先选择职业类型别'})
-    } else {
-      wx.redirectTo({ url })
-      wx.setStorageSync('createPosition', this.data)
-    }
-  },
-  /**
-   * @Author   小书包
    * @DateTime 2018-12-26
    * @detail   获取薪资范围
    * @return   {[type]}     [description]
