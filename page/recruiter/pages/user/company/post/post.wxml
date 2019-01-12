@@ -8,13 +8,13 @@
 		</view>
 		<view class="li link">
 			<view class="key">公司简介</view>
-			<input type="text" class="companyShortName" placeholder="示例：广州老虎科技" value="{{companyShortName}}" bindinput="bindInput"></input>
+			<input type="text" class="companyShortName {{companyShortName ? 'color' : ''}}" placeholder="示例：广州老虎科技" value="{{companyShortName}}" bindinput="bindInput"></input>
 		</view>
 		<view class="exemple" wx:if="{{companyShortName}}">注： 公司简称能让候选人记住你的公司，可以是品牌名/产品 名/关键字等，创建后不可修改</view>
 		<view class="li">
 			<i class="icon iconfont icon-xiangyou"></i>
 			<view class="key">所属行业</view>
-			<view class="text2">{{industry_id_name}}</view>
+			<view class="text2 {{selected_industry_id ? 'color' : ''}}">{{industry_id_name}}</view>
 			<view class="picker-box">
 				<picker
 					range="{{ companyLabelField }}" 
@@ -31,7 +31,7 @@
 		<view class="li">
 			<view class="key">融资阶段</view>
 			<i class="icon iconfont icon-xiangyou"></i>
-		  <view class="text2">{{financingName}}</view>
+		  <view class="text2 {{selected_financing ? 'color' : ''}}">{{financingName}}</view>
 			<view class="picker-box">
 				<myPicker setResult="{{ financingName }}" pickerType="financing" bindresultevent="getFinancing" rangeKey="name"></myPicker>
 			</view>
@@ -39,7 +39,7 @@
 		<view class="li clear-bottom">
 			<i class="icon iconfont icon-xiangyou"></i>
 			<view class="key">人员规模</view>
-		  <view class="text2">{{employeesName}}</view>
+		  <view class="text2 {{selected_employees ? 'color' : ''}}">{{employeesName}}</view>
 			<view class="picker-box">
 				<myPicker setResult="{{ employeesName }}" pickerType="staffMembers" bindresultevent="getStaffMembers" rangeKey="name"></myPicker>
 			</view>

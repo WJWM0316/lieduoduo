@@ -33,7 +33,6 @@ Page({
     	.then(res => {
         const infos = res.data
         const companyInfos = infos.companyInfo
-        console.log(companyInfos.applyJoin, 'ddddddddddd')
     		this.setData({identityInfos: infos, companyInfos, options})
     	})
   },
@@ -41,10 +40,10 @@ Page({
   	const params = e.currentTarget.dataset
   	switch(params.action) {
   		case 'modifyIdentity':
-  			wx.redirectTo({url: `${RECRUITER}user/company/identity/identity?type=edit`})
+  			wx.reLaunch({url: `${RECRUITER}user/company/identity/identity?type=edit`})
   			break
   		case 'modifyCompany':
-  			wx.redirectTo({url: `${RECRUITER}user/company/apply/apply`})
+  			wx.redirectTo({url: `${RECRUITER}user/company/apply/apply?type=edit`})
   			break
       case 'email':
         wx.redirectTo({url: `${RECRUITER}user/company/email/email`})
