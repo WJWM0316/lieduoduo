@@ -67,15 +67,28 @@
       </view>
       <view class="date" wx:if="{{identity === 'RECRUITER' && (info.status === 21 || info.status === 32)}}">
         <view class="title"><icon class="icon"></icon>约面时间</view>
-        <view class="dateItem" wx:for="{{dateList}}" wx:key="{{index}}">
-          <view class="inner">
-            <view class="removeIcon" bindtap="removeDate" data-index="{{index}}">
-              <view class="icon1"></view>
+        <block wx:if="{{info.status === 21}}">
+          <view class="dateItem" wx:for="{{dateList}}" wx:key="{{index}}">
+            <view class="inner">
+              <view class="removeIcon" bindtap="removeDate" data-index="{{index}}">
+                <view class="icon1"></view>
+              </view>
+              <view class="dateDetail">{{item}}</view>
+              <icon class="icon iconfont icon-xiangyou"></icon>
             </view>
-            <view class="dateDetail">{{item}}</view>
-            <icon class="icon iconfont icon-xiangyou"></icon>
           </view>
-        </view>
+        </block>
+        <block wx:if="{{info.status === 32}}">
+          <view class="dateItem" wx:for="{{info.arrangementInfo.appointmentList}}" wx:key="{{index}}">
+            <view class="inner">
+              <view class="removeIcon" bindtap="removeDate" data-index="{{index}}">
+                <view class="icon1"></view>
+              </view>
+              <view class="dateDetail">{{filters.dateFormat(item.appointmentTime, 'YYYY-MM-DD hh:mm')}}</view>
+              <icon class="icon iconfont icon-xiangyou"></icon>
+            </view>
+          </view>
+        </block>
         <view class="dateItem" hidden="{{dateList.length >= 3}}">
           <view class="inner noborder">
             <view class="txt">最多可添加3个时间供候选人选择</view>
@@ -83,6 +96,8 @@
           </view>
         </view>
       </view>
+
+
       <view class="date read" wx:if="{{(identity === 'RECRUITER' && info.status === 31)}}">
         <view class="title"><icon class="icon"></icon>约面时间</view>
         <view class="dateItem" wx:for="{{dateList}}" wx:key="{{index}}">

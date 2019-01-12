@@ -16,15 +16,17 @@
     <view class="applicant" bindtap="jumpApplicant">
       <image class="img" src="{{cardData.avatar.middleUrl}}"></image>
       <view class="applicantMsg">
-        <view class="name">{{cardData.jobhunterRealname}}<text class="msg">{{cardData.workAge}}·{{cardData.degreeDesc}}·{{cardData.emolument}}</text></view>
-        <view class="detail">{{cardData.companyName}} | {{cardData.positionName}}</view>
+        <view class="name">{{cardData.jobhunterRealname}}<text class="msg">{{cardData.workAge}}·{{cardData.degreeDesc}}·{{cardData.salaryCeil}}~{{cardData.salaryFloor}}k</text></view>
+        <view class="detail">{{cardData.lastCompanyName}} | {{cardData.positionName}}</view>
       </view>
     </view>
     <view class="contact">
       <view class="mobile" bindtap="makePhoneCall">手机：<text class="txt">{{cardData.mobile || cardData.jobhunterMobile}}</text></view>
-      <view class="wechat" bindtap="setClipboardData" wx:if="{{cardData.wechat || cardData.jobhunterWechat}}">微信：<text class="txt">{{cardData.wechat || cardData.jobhunterWechat}}</text></view>
+      <view class="wechat" bindtap="setClipboardData" wx:if="{{cardData.wechat || cardData.lastPosition}}">微信：<text class="txt">{{cardData.wechat || cardData.jobhunterWechat}}</text></view>
     </view>
   </block>
+
+
   <view class="recruiter {{isMain? 'recruiterMain':''}}" wx:if="{{roleType === 'recruiter'}}" bindtap="jumpRecruiter">
     <image class="img" src="{{cardData.avatar.middleUrl}}"></image>
     <view class="vip">V</view>

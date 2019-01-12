@@ -35,7 +35,7 @@
       <view>
         <view class="officeDetail">
           <text>{{item.position}} | {{item.city}}</text>
-          <text class="salary">{{item.salaryFloor}}~{{item.saralyCeil}}K</text>
+          <text class="salary">{{item.salaryFloor}}~{{item.salaryCeil}}K</text>
           <i class="icon iconfont icon-bianji1 edit" data-editName="intent" data-id="{{item.id}}" bindtap="edit" wx:if="{{info.isOwner && identity === 'APPLICANT'}}"></i></view>
       </view>
       <view class="officeInfo">
