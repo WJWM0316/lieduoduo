@@ -6,23 +6,38 @@ Page({
    * 页面的初始数据
    */
   data: {
-    dateList: [],
     identity: "", // 身份标识
     options: {},
     appointmentId: '',
     info: {}
   },
   getResult(e) {
-    let date = e.detail.propsDesc
-    let dateList = this.data.dateList
-    if (dateList.indexOf(date) !== -1) {
+    let date = e.detail.propsResult
+    let curDate = new Date().getTime() / 1000
+    if (curDate > date) {
       getApp().wxToast({
-        title: '面试时间重复'
+        title: '面试时间必须晚于当前时间'
       })
       return
     }
-    dateList.push(date)
-    this.setData({dateList})
+    let info = this.data.info
+    let hasFilter = false
+    if (!info.arrangementInfo) {
+      info.arrangementInfo = {}
+      info.arrangementInfo.appointmentList = []
+    }
+    info.arrangementInfo.appointmentList.map((item, index) => {
+      if (item.appointmentTime === date) {
+        getApp().wxToast({
+          title: '面试时间重复'
+        })
+        hasFilter = true
+        return
+      }
+    })
+    if (hasFilter) return
+    info.arrangementInfo.appointmentList.push({appointmentTime:date})
+    this.setData({info})
   },
   changeVal(e) {
     let info = this.data.info
@@ -49,24 +64,23 @@ Page({
     this.setData({appointmentId})
   },
   removeDate(e) {
-    let dateList = this.data.dateList
     let index = e.currentTarget.dataset.index
-    dateList.splice(index, 1)
-    this.setData({dateList})
+    let info = this.data.info
+    info.arrangementInfo.appointmentList.splice(index, 1)
+    this.setData({info})
   },
   send() {
-    let dateList = []
-    this.data.dateList.map((item, index) => {
-      dateList.push(new Date(item).getTime()/1000)
-    })
-    dateList = dateList.join(",")
     let info = this.data.info
+    let dateList = []
+    info.arrangementInfo.appointmentList.map((item, index) => {
+      dateList.push(item.appointmentTime)
+    })
     let data = {
       interviewId: this.data.options.id,
       realname: info.recruiterRealname,
       mobile: info.recruiterMobile,
       positionId: info.positionId,
-      interviewTime: dateList
+      interviewTime: dateList.join(',')
     }
     setInterviewDetailApi(data).then(res => {
       app.wxConfirm({
@@ -78,12 +92,8 @@ Page({
   },
   revise() {
     let info = this.data.info
-    let dateList = []
-    info.arrangementInfo.appointmentList.map((item) => {
-      dateList.push(item.appointment)
-    })
     info.status = 21
-    this.setData({info, dateList})
+    this.setData({info})
   },
   sureDate() {
     let data = {
@@ -111,11 +121,7 @@ Page({
   },
   pageInit() {
     interviewDetailApi({interviewId: this.data.options.id}).then(res => {
-      if(res.data.arrangementInfo) {
-        this.setData({info: res.data, dateList: res.data.arrangementInfo.appointmentList})
-      } else {
-        this.setData({info: res.data})
-      }
+      this.setData({info: res.data})
     })
   },
   /**
