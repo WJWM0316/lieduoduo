@@ -1,5 +1,5 @@
 <view class="job-detail">
-	<navbar title="招聘{{detail.positionName}}" showHome="{{true}}"></navbar>
+	<navbar title="{{detail.positionName}}" background="#FFFFFF" color="#22292C"></navbar>
 	<view class="page-top">
 		<image class="bgImg" src="../../../../images/job-detail.png" mode="aspectFill"></image>
 		<shareBtn></shareBtn>
@@ -18,7 +18,7 @@
 				<view><i class="icon iconfont icon-zhiwei"></i>{{detail.workExperienceName}}</view>
 				<view><i class="icon iconfont icon-zhiwei"></i>{{detail.educationName}}</view>
 			</view>
-			<view class="welfare-ul" wx:if="{{detail.lightspotInfo}}">
+			<view class="welfare-ul" wx:if="{{detail.lightspotInfo.length}}">
 				<view class="li" wx:for="{{detail.lightspotInfo}}" wx:key="{{index}}">年度奖金</view>
 			</view>
 		</view>
