@@ -164,11 +164,11 @@ export const getCompanyIdentityInfosApi = (data, hasLoading) => {
   })
 }
 
-// 获取身份信息
+// 编辑身份信息
 export const editCompanyIdentityInfosApi = (data, hasLoading) => {
   return request({
     method: 'put',
-    url: `/company/identity/${data.id}`,
+    url: `/company/identity`,
     data,
     hasLoading: true
   })

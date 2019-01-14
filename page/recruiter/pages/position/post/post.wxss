@@ -53,6 +53,10 @@
 	color: #353943;
 	float: right;
 	margin-right: 30rpx;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	max-width: 70%;
 }
 
 .position-post .li .icon-xiangyou {

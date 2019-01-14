@@ -118,7 +118,7 @@ Page({
     if(route === 'skills' && !this.data.type) {
       app.wxToast({title: '请先选择职业类型别'})
     } else {
-      wx.redirectTo({ url })
+      wx.navigateTo({ url })
       wx.setStorageSync('createPosition', this.data)
     }
   },
@@ -213,7 +213,7 @@ Page({
     createPositionApi(formData)
       .then(res => {
         wx.removeStorageSync('createPosition')
-        wx.redirectTo({url: `${RECRUITER}position/index/index`})
+        wx.navigateTo({url: `${RECRUITER}position/index/index`})
         app.wxToast({title: '创建成功'})
       })
   },

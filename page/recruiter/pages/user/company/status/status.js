@@ -47,7 +47,7 @@ Page({
   getCompanyPerfect() {
     getCompanyPerfectApi({id: this.data.companyInfos.id})
       .then(res => {
-        console.log(res)
+        // console.log(res)
       })
   },
   todoAction(e) {
@@ -70,6 +70,9 @@ Page({
         break
       case 'perfect':
         wx.reLaunch({url: `${RECRUITER}company/baseEdit/baseEdit`})
+        break
+      case 'apply':
+        wx.reLaunch({url: `${RECRUITER}user/company/identity/identity?from=apply&type=edit`})
         break
       case 'notice':
         app.wxToast({title: '通知成功'})

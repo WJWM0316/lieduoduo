@@ -3,7 +3,7 @@
 	<view class="search-box">
 		<view class="mask"></view>
 		<input placeholder="搜索" auto-focus bindinput="bindInput" />
-		<i class="icon iconfont icon-shijian icon-search"></i>
+		<i class="icon iconfont icon-sousuo icon-search"></i>
 	</view>
 	<view class="category-list">
 		<view

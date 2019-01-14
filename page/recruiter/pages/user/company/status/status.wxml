@@ -154,24 +154,24 @@
 		<view class="section" wx:if="{{options.from === 'apply'}}">
 			<view class="title">
 				<view class="label">您的申请</view>
-				<view class="jump" bindtap="todoAction" data-action="modifyIdentity">申请信息有误？去更改</view>
+				<view class="jump" bindtap="todoAction" data-action="apply">申请信息有误？去更改</view>
 			</view>
 			<view class="ul">
 				<view class="li">
 					<view class="key">公司全称</view>
-					<view class="value">{{identityInfos.realName}}</view>
+					<view class="value">{{identityInfos.companyInfo.companyName}}</view>
 				</view>
 				<view class="li">
 					<view class="key">姓名</view>
-					<view class="value">{{identityInfos.identityNum}}</view>
+					<view class="value">{{identityInfos.realName}}</view>
 				</view>
 				<view class="li">
 					<view class="key">担任职务</view>
-					<view class="value">{{identityInfos.validity}}</view>
+					<view class="value">{{identityInfos.userPosition}}</view>
 				</view>
 				<view class="li">
 					<view class="key">邮箱地址</view>
-					<view class="value">{{identityInfos.identityNum ? '已上传' : '未上传'}}</view>
+					<view class="value">{{identityInfos.userEmail}}</view>
 				</view>
 				<view class="li item">
 					<view class="img-box">
