@@ -9,13 +9,6 @@ Page({
     limitNum: 4
   },
   /**
-   * @return   {[type]}   [description]
-   */
-  getActive() {
-    const professionalSkills = this.data.professionalSkills.filter(field => field.active)
-    this.setData({skills: professionalSkills})
-  },
-  /**
    * @return   {[type]}     [description]
    */
   onClick(e) {
@@ -31,23 +24,13 @@ Page({
         if(field.labelId === params.labelId) field.active = false
       })
     }
-    this.setData({professionalSkills})
-    this.getActive()
+    const skills = professionalSkills.filter(field => field.active)
+    this.setData({professionalSkills, skills})
   },
   onLoad(options) {
     this.getLabel(options)
       .then(response => {
-//      const storage = wx.getStorageSync('createPosition')
-//      const typeId = parseInt(storage.parentType)
         const professionalSkills = response.data.labelProfessionalSkills
-//      const professionalSkills = response.data.labelProfessionalSkills.find(field => field.labelId === typeId).children
-//      const temLabelId = storage.skills.map(field => field.labelId)
-//      if(temLabelId.length) {
-//        professionalSkills.map(field => field.active = temLabelId.includes(field.labelId) ? true : false)
-//      } else {
-//        professionalSkills.map(field => field.active = false)
-//      }
-//      this.setData({professionalSkills, skills: storage.skills})
         this.setData({professionalSkills})
       })
   },
@@ -65,8 +48,6 @@ Page({
     }
   },
   submit() {
-//  const storage = wx.getStorageSync('createPosition')
-//  storage.skills = this.data.skills
     wx.setStorageSync('result', this.data.skills)
     console.log(this.data.skills, 777)
     wx.navigateBack({delta: 1})
