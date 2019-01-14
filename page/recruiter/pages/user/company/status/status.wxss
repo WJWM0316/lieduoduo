@@ -125,7 +125,7 @@
 	background: #652791;
 	transform: rotate(45deg) translateY(-50%);
 	position: absolute;
-	left: 0;
+	left: -15rpx;
 	top: 45%;
 }
 
@@ -223,12 +223,12 @@
 	overflow: hidden;
 }
 
-.company-identity-status .div .item{
+.company-identity-status .div .box{
 	height:120rpx;
 	background:rgba(255,255,255,1);
 	box-shadow:0rpx -5rpx 40rpx 0rpx rgba(22,39,77,0.05);
 	border-radius:10rpx;
-	margin: 24rpx;
+	margin: 24rpx 0;
 	line-height: 120rpx;
 	box-sizing: border-box;
 	padding: 0 30rpx;
@@ -237,7 +237,31 @@
 	color:rgba(40,40,40,1);
 }
 
-.company-identity-status .label-icon {
+.company-identity-status .div .box1{
+	height:98rpx;
+	line-height: 98rpx;
+	border-radius:49rpx;
+	font-size:32rpx;
+	font-weight:400;
+	text-align: center;
+	box-sizing: border-box;
+}
+
+.company-identity-status .div .perfect-button{
+	background:rgba(101,39,145,1);
+	box-shadow:0rpx -5rpx 40rpx 0rpx rgba(22,39,77,0.05);
+	color:rgba(255,255,255,1);
+	margin: 0 70rpx 32rpx 70rpx;
+}
+
+.company-identity-status .div .email-button{
+	background:white;
+	color:#652791;
+	border: 1px solid rgba(101,39,145,1);
+	margin: 0 70rpx;
+}
+
+.company-identity-status .div .box .label-icon{
 	color:#652791;
 }
 
@@ -265,6 +289,12 @@
 	background: rgba(0,0,0,.1);
 	border-radius: 50%;
 	margin-right: 16rpx;
+	overflow: hidden;
+}
+
+.company-identity-status .item .img-box image{
+	width: 100%;
+	height: 100%;
 }
 
 .company-identity-status .item .infos {

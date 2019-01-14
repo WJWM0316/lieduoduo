@@ -24,7 +24,7 @@ Page({
         if(field.labelId === params.labelId) field.active = false
       })
     }
-    const skills = professionalSkills.filter(field => field.active)
+    let skills = professionalSkills.filter(field => field.active)
     this.setData({professionalSkills, skills})
   },
   onLoad(options) {
@@ -49,7 +49,6 @@ Page({
   },
   submit() {
     wx.setStorageSync('result', this.data.skills)
-    console.log(this.data.skills, 777)
     wx.navigateBack({delta: 1})
   }
 })

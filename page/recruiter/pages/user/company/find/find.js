@@ -139,6 +139,7 @@ Page({
     }
     applyCompanyApi(params)
       .then(() => {
+        wx.navigateTo({url: `${RECRUITER}user/company/identity/identity?from=apply`})
         wx.removeStorageSync('createdCompany')
       })
   },

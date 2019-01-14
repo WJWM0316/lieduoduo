@@ -12,8 +12,9 @@
 				wx:for-item="item"
 				wx:key="{{item.id}}"
 				bindtap="onClick"
-				data-name="{{item.positionName}}">
-					{{item.positionName}}<i class="icon iconfont icon-jiantou"></i>
+				data-name="{{item.name}}">
+					<rich-text nodes="{{item.html}}"></rich-text>
+					<i class="icon iconfont icon-jiantou"></i>
 				</view>
 		</view>
 		<view class="btn-area">

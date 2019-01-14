@@ -83,7 +83,7 @@ export const openPositionApi = (data, hasLoading) => {
 export const getPositionNameListApi = (data, hasLoading) => {
   return request({
     method: 'get',
-    url: `/position/namelist`,
+    url: `/search/position`,
     data,
     hasLoading: true
   })

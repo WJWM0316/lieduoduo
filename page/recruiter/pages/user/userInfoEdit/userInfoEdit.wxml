@@ -9,7 +9,7 @@
           <i class="removeBtn iconfont icon-close"></i>
         </view>
 	  	</view>
-	  	<view class="pic" hidden="{{picList.length >= 6}}">
+	  	<view class="pic" wx:if="{{picList.length < 6}}">
 	  		<unloadFile bindresultEvent="getResult">
 		    	<view class="addPic">+</view>
 		    </unloadFile>

@@ -36,6 +36,10 @@ Page({
       })
     }
   },
+  closePop() {
+    console.log(1111111111111)
+    this.setData({hidePop: true})
+  },
   getCustomLabel(e) {
     this.setData({
       customLabel: e.detail.value
@@ -58,7 +62,7 @@ Page({
           return
         }
       })
-      teamList[choseData.index].checked = false
+      teamList[choseData.index].select = false
     // 选中的
     } else {
       if (choseList.length === 8) { // 超过8个不给选择了
@@ -67,9 +71,9 @@ Page({
         })
         return
       } else {
-        choseData.checked = true
+        choseData.select = true
         choseList.push(choseData) // 不超过五个的，且没被选择的添加进去
-        teamList[choseData.index].checked = true
+        teamList[choseData.index].select = true
       }
     }
     this.setData({choseList, teamList})
@@ -127,7 +131,6 @@ Page({
     this.data.choseList.map((item, index) => {
       listId.push(item.id)
     })
-    console.log(listId)
     let data = {
       labels: JSON.stringify(listId)
     }

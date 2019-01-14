@@ -3,23 +3,7 @@ import {RECRUITER} from '../../../../../config.js'
 
 Page({
   data: {
-    addressList: [
-      // {
-      //   id: 1,
-      //   active: false,
-      //   title: '微信小程序前端开发工程师如果超长就…微信小程序前端开发工程师如果超长就…微信小程序前端开发工程师如果超长就…微信小程序前端开发工程师如果超长就…微信小程序前端开发工程师如果超长就…'
-      // },
-      // {
-      //   id: 2,
-      //   active: false,
-      //   title: '微信小程序前端开发工程师如果超长就…微信小程序前端开发工程师如果超长就…微信小程序前端开发工程师如果超长就…微信小程序前端开发工程师如果超长就…微信小程序前端开发工程师如果超长就…'
-      // },
-      // {
-      //   id: 3,
-      //   active: false,
-      //   title: '微信小程序前端开发工程师如果超长就…微信小程序前端开发工程师如果超长就…微信小程序前端开发工程师如果超长就…微信小程序前端开发工程师如果超长就…微信小程序前端开发工程师如果超长就…'
-      // }
-    ]
+    addressList: []
   },
 
   /**
@@ -28,34 +12,28 @@ Page({
   onLoad(options) {
     getCompanyAddressListApi().then(res => {
       const addressList = res.data
-      addressList.map(field => {
-        if(field.id === parseInt(options.addressId)) {
-          field.active = true
-        } else {
-          field.active = false
-        }
-      })
+      addressList.map(field => field.active = field.id === parseInt(options.addressId) ? true : false)
       this.setData({addressList: res.data})
-      console.log(res.data)
     })
   },
   onClick(e) {
     const params = e.currentTarget.dataset
     const addressList = this.data.addressList
-    const storage = wx.getStorageSync('createPosition')
+    const storage = wx.getStorageSync('createPosition') || {}
     addressList.map((field, index) => {
       if(params.id === index) {
         field.active = true
         storage.address_id = field.id
+        storage.address = field.address
         wx.setStorageSync('createPosition', storage)
+        console.log(storage)
       } else {
         field.active = false
       }
     })
-    this.setData({addressList})
-    setTimeout(() => {
+    this.setData({addressList}, () => {
       wx.navigateBack({delta: 1})
-    }, 1500)
+    })
   },
   add() {
     wx.redirectTo({ url: `${RECRUITER}position/address/address` })
@@ -63,6 +41,5 @@ Page({
   edit(e) {
     const params = e.currentTarget.dataset
     wx.redirectTo({ url: `${RECRUITER}position/address/address?id=${params.id}` })
-    console.log(params)
   }
 })

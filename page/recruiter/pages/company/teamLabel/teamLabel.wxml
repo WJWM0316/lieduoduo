@@ -18,6 +18,7 @@
   <view class="customPop" hidden="{{hidePop}}">
     <view class="inner">
       <view class="title">添加自定义标签</view>
+      <i bindtap="closePop" class="colseBtn iconfont icon-close"></i>
       <view class="inputBox">
         <input class="customLabel" maxlength="10" type="text" value="{{customLabel}}" placeholder="有趣的标签更吸引关注哦~" bindinput="getCustomLabel"/>
         <text class="num">{{(10 - customLabel.length) || 10}}</text>

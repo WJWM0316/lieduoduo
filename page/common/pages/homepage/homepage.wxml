@@ -22,7 +22,7 @@
 				<view class="icon"> <view class="fan"></view> </view> 招聘团队
 			</view>
 			<view class="ul">
-				<view class="li" wx:for="{{ recruitersList }}" wx:key="{{index}}" wx:for-item="recruiter" bindtap="bindMain" data-uid="{{recruiter.uid}}">
+				<view class="li" wx:for="{{ recruitersList }}" wx:key="{{index}}" wx:for-item="recruiter" bindtap="bindMain" data-uid="{{recruiter.uid}}" wx:if="{{index < 3}}">
 					<view class="img-box">
 						<image src="{{recruiter.avatar.smallUrl}}"></image>
 						<i class="certification-icon">V</i>
@@ -37,7 +37,7 @@
 					</view>
 				</view>
 			</view>
-			<view class="footer">
+			<view class="footer" wx:if="{{recruitersList.length > 3}}">
 				<view class="button">查看全部招聘官<i class="icon iconfont icon-xiangyou"></i></view>
 			</view>
 		</view>

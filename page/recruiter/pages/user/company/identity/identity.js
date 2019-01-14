@@ -20,9 +20,13 @@ Page({
     handheld_passport: {
       smallUrl: ''
     },
-    canClick: false
+    canClick: false,
+    options: {
+      from: 'company'
+    }
   },
   onLoad(options) {
+    this.setData({options})
     if(options.type && options.type === 'edit') this.getCompanyIdentityInfos()
   },
   /**
@@ -40,7 +44,7 @@ Page({
         formData.identity_num = infos.identityNum
         formData.validity = infos.validity
         formData.passport_front = infos.passportFrontInfo
-        formData.passport_reverse = infos.passportReverse
+        formData.passport_reverse = infos.passportReverseInfo
         formData.handheld_passport = infos.handheldPassportInfo
         Object.keys(formData).map(field => this.setData({[field]: formData[field]}))
         this.bindBtnStatus()
@@ -98,8 +102,8 @@ Page({
     Promise
      .all([checkRealName, checkUserEmail])
      .then(res => {
-      const action = this.data.type === 'edit' ? 'editCompanyIdentityInfos' : 'identityCompany'
-        this[action]()
+      const action = this.data.options.type === 'edit' ? 'editCompanyIdentityInfos' : 'identityCompany'
+      this[action]()
      })
   },
   /**
@@ -129,7 +133,7 @@ Page({
     const formData = this.getParams()
     identityCompanyApi(formData)
       .then((res) => {
-        wx.redirectTo({url: `${RECRUITER}user/company/status/status?from=identity`})
+        wx.redirectTo({url: `${RECRUITER}user/company/status/status?from=${this.data.options.from}`})
       })
   },
   /**
@@ -140,9 +144,9 @@ Page({
    */
   editCompanyIdentityInfos() {
     const formData = this.getParams()
-    identityCompanyApi(formData)
+    editCompanyIdentityInfosApi(formData)
       .then((res) => {
-        wx.redirectTo({url: `${RECRUITER}user/company/status/status?from=identity`})
+        wx.redirectTo({url: `${RECRUITER}user/company/status/status?from=${this.data.options.from}`})
       })
   }
 })

@@ -168,6 +168,11 @@
   overflow: hidden;
 }
 
+.homepage-team-box .li .img-box image{
+  width: 100%;
+  height: 100%
+}
+
 .homepage-team-box .img-box .certification-icon {
   width:36rpx;
   height:36rpx;

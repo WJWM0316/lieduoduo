@@ -95,6 +95,9 @@ var activeTime = function(timestamp) {
 var positionFilter = function(num) {
   var status = null
   switch(num) {
+    case 0:
+      status = '已关闭'
+      break
     case 1:
       status = '审核通过'
       break

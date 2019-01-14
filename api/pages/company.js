@@ -164,11 +164,11 @@ export const getCompanyIdentityInfosApi = (data, hasLoading) => {
   })
 }
 
-// 获取身份信息
+// 编辑身份信息
 export const editCompanyIdentityInfosApi = (data, hasLoading) => {
   return request({
     method: 'put',
-    url: `/company/identity/${data.id}`,
+    url: `/company/identity`,
     data,
     hasLoading: true
   })
@@ -274,6 +274,15 @@ export const justifyCompanyExistApi = (data, hasLoading) => {
   return request({
     method: 'get',
     url: `/company/exist/${data.name}`,
+    hasLoading: true
+  })
+}
+
+// 判断公司信息是否完善
+export const getCompanyPerfectApi = (data, hasLoading) => {
+  return request({
+    method: 'get',
+    url: `/company/perfect/${data.id}`,
     hasLoading: true
   })
 }

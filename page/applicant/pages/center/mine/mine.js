@@ -1,5 +1,5 @@
 import {COMMON,APPLICANT,RECRUITER} from '../../../../../config.js'
-import { getBaseInfoApi, getResumeStepApi, getMyInfoApi } from '../../../../../api/pages/center'
+let app = getApp()
 Page({
 
   /**
@@ -7,26 +7,18 @@ Page({
    */
   data: {
     isComplete: false,
-    isLogin: true,
     myInfo: {}
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-     getMyInfoApi().then(res => {
-      this.setData({
-        isComplete: true,
-        myInfo: res.data
-      })
-    }).catch(err => {
-      // 为完善简历
-      if (err.code === 701) {
-        this.setData({
-          isComplete: false
-        })
-      }
-    })
+    let myInfo = app.globalData.resumeInfo
+    let isComplete = this.data.isComplete
+    if (myInfo.uid) {
+      isComplete = true
+    }
+    this.setData({myInfo, isComplete})
   },
   preview() {
     wx.downloadFile({
@@ -104,30 +96,14 @@ Page({
   },
   /* 去完善简历 */
   completeResume () {
-    getResumeStepApi().then(res => {
-      if (!res.data.isFinished) {
-        let step = ''
-        switch (res.data.step){
-          case 2:
-            step = '/page/applicant/pages/center/workExperience/workExperience'
-            break;
-          case 3:
-            step = '/page/applicant/pages/center/educaExperience/educaExperience'
-            break;
-          default : 
-            step = '/page/applicant/pages/center/createUser/createUser'
-            break;
-        }
-        wx.navigateTo({
-          url: step
-        })
-      }
+    wx.navigateTo({
+      url: `${APPLICANT}center/createUser/createUser`
     })
   },
   /* 编辑简历 */
   toEdit () {
     wx.navigateTo({
-      url: '/page/common/pages/resumeDetail/resumeDetail',
+      url: `${COMMON}resumeDetail/resumeDetail`,
     })
   }
 })

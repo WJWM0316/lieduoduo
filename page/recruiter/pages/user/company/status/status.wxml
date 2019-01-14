@@ -154,30 +154,32 @@
 		<view class="section" wx:if="{{options.from === 'apply'}}">
 			<view class="title">
 				<view class="label">您的申请</view>
-				<view class="jump" bindtap="todoAction" data-action="modifyIdentity">申请信息有误？去更改</view>
+				<view class="jump" bindtap="todoAction" data-action="apply">申请信息有误？去更改</view>
 			</view>
 			<view class="ul">
 				<view class="li">
 					<view class="key">公司全称</view>
-					<view class="value">{{identityInfos.realName}}</view>
+					<view class="value">{{identityInfos.companyInfo.companyName}}</view>
 				</view>
 				<view class="li">
 					<view class="key">姓名</view>
-					<view class="value">{{identityInfos.identityNum}}</view>
+					<view class="value">{{identityInfos.realName}}</view>
 				</view>
 				<view class="li">
 					<view class="key">担任职务</view>
-					<view class="value">{{identityInfos.validity}}</view>
+					<view class="value">{{identityInfos.userPosition}}</view>
 				</view>
 				<view class="li">
 					<view class="key">邮箱地址</view>
-					<view class="value">{{identityInfos.identityNum ? '已上传' : '未上传'}}</view>
+					<view class="value">{{identityInfos.userEmail}}</view>
 				</view>
 				<view class="li item">
-					<view class="img-box"></view>
+					<view class="img-box">
+						<image src="{{companyInfos.adminInfo.avatar.smallUrl}}" mode="scaleToFill" ></image>
+					</view>
 					<view class="infos">
-						<text class="realname">柳林东</text>
-						<text class="degress">管理员</text>
+						<text class="realname">{{companyInfos.adminInfo.name}}</text>
+						<text class="degress">{{companyInfos.adminInfo.position}}</text>
 					</view>
 					<view class="button-box"><i class="icon iconfont icon-kefu notice"></i>通知管理员</view>
 				</view>
@@ -185,16 +187,23 @@
 		</view>
 
 	</block>
-	<block wx:else>
+	<block wx:if="{{companyInfos.status === 1 && options.from === 'company' && !identityInfos.applyJoin}}">
 		<view class="div">
-			<view class="item" bindtap="todoAction" data-action="position">
+			<view class="box1 perfect-button" bindtap="todoAction" data-action="perfect" wx:if="{{!isPerfect}}">
 				<i class="icon iconfont icon-bianji label-icon"></i>
-				发布职位
-				<i class="icon iconfont icon-xiangyou"></i>
+				完善公司信息
 			</view>
-			<view class="item" bindtap="todoAction" data-action="email">
+			<view class="box1 email-button" bindtap="todoAction" data-action="email">
 				<i class="icon iconfont icon-renzheng label-icon"></i>
 				认证公司邮箱
+			</view>
+		</view>
+	</block>
+	<block wx:if="{{companyInfos.status === 1 && options.from === 'apply' && identityInfos.applyJoin}}">
+		<view class="div">
+			<view class="box" bindtap="todoAction" data-action="identity">
+				<i class="icon iconfont icon-bianji label-icon"></i>
+				认证个人身份
 				<i class="icon iconfont icon-xiangyou"></i>
 			</view>
 		</view>

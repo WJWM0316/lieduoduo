@@ -10,7 +10,7 @@
 		"minified": true,
 		"newFeature": true,
 		"nodeModules": true,
-		"autoAudits": true,
+		"autoAudits": false,
 		"uglifyFileName": false
 	},
 	"compileType": "miniprogram",
@@ -38,7 +38,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 28,
+			"current": 14,
 			"list": [
 				{
 					"id": 0,
@@ -126,9 +126,9 @@
 				},
 				{
 					"id": 14,
-					"name": "招聘官认证",
+					"name": "招聘官认证状态",
 					"pathName": "page/recruiter/pages/user/company/apply/apply",
-					"query": "type=edit"
+					"query": "from=company"
 				},
 				{
 					"id": -1,
@@ -213,6 +213,12 @@
 					"name": "公司地址列表",
 					"pathName": "page/recruiter/pages/position/address/address",
 					"query": "addressId=6"
+				},
+				{
+					"id": 29,
+					"name": "职位搜索",
+					"pathName": "page/common/pages/category/category",
+					"query": "from=company"
 				}
 			]
 		}

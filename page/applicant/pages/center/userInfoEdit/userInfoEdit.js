@@ -6,47 +6,15 @@ Page({
    * 页面的初始数据
    */
   data: {
-    userName: '',
-    gender: 0,
-    birth: 0,
-    birthDesc: '',
-    startWorkYear: 0,
-    jobStatus: 0,
-    mobile: '',
-    wechat: '',
-    signature: '',
-    tabsList: ['测试1', '测试1', '测试1', '测试1', '测试1', '测试1'],
-    signNum: 0,
-    avatarUrl: '',
-    avatarId: '',
+    info: {}
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    let {avatar, avatarId, birth, birthDesc, gender, mobile, name, startWorkYear, startWorkYearDesc, jobStatus, jobStatusDesc, wechat, workAge, signature, personalizedLabels } = app.globalData.resumeInfo
-    let signNum = 0
-    if (signature) {
-      signNum = signature.length
-    }
-    this.setData({
-      avatarUrl: avatar.middleUrl,
-      avatarId,
-      birth,
-      birthDesc,
-      userName: name,
-      gender,
-      startWorkYear,
-      startWorkYearDesc,
-      jobStatus,
-      jobStatusDesc,
-      mobile: mobile,
-      wechat: wechat,
-      signature,
-      signNum,
-      tabsList: personalizedLabels
-    })
+    let info = app.globalData.resumeInfo
+    this.setData({info})
   },
   jumpLabel() {
     wx.navigateTo({
@@ -57,44 +25,48 @@ Page({
     this.setData({gender: parseInt(e.detail.value)})
   },
   getResult(e) {
-    console.log(e)
-    let type = ''
+    let info = this.data.info
     switch (e.target.dataset.type) {
       case 'birthday':
-        type = 'birth'
+        info.birth = e.detail.propsResult
+        info.birthDesc = e.detail.propsDesc
         break
       case 'workTime':
-        type = 'startWorkYear'
+        info.startWorkYear = e.detail.propsResult
+        info.startWorkYearDesc = e.detail.propsDesc
         break
       case 'jobStatus':
-        type = 'jobStatus'
+        info.jobStatus = e.detail.propsResult
+        info.jobStatusDesc = e.detail.propsDesc
         break
     }
-    this.setData({[type]: e.detail.propsResult})
+    this.setData({info})
   },
   getInputValue(e) {
-    let type = ''
+    let info = this.data.info
     switch (e.target.dataset.type) {
       case 'name':
-        type = 'userName'
+        info.name = e.detail.propsResult
         break
       case 'mobile':
-        type = 'mobile'
+        info.mobile = e.detail.propsResult
         break
       case 'wechat':
-        type = 'wechat'
+        info.wechat = e.detail.propsResult
         break
     }
-    this.setData({[type]: e.detail.value})
+    this.setData({info})
   },
   singInput(e) {
-    this.setData({signNum: e.detail.value.length, signature: e.detail.value})
+    let info = this.data.info
+    info.signature = e.detail.value
+    this.setData({info})
   },
   saveInfo() {
-    let info = this.data
+    let info = this.data.info
     let data = {
-      avatar: info.avatarId,
-      name: info.userName,
+      avatar: info.avatar.id,
+      name: info.name,
       gender: info.gender,
       birth: info.birth,
       startWorkYear: info.startWorkYear,
@@ -108,13 +80,10 @@ Page({
         title: '保存成功',
         icon: 'success',
         callback() {
-          app.getAllInfo().then(() => {
-            wx.navigateBack({
-              delta: 1
-            })
+          wx.navigateBack({
+            delta: 1
           })
-          wx.removeStorageSync('avatarUrl')
-          wx.removeStorageSync('avatarId')
+          wx.removeStorageSync('avatar')
         }
       })
     })
@@ -129,9 +98,11 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
+    let info = this.data.info
     let avatar = wx.getStorageSync('avatar')
     if (avatar) {
-      this.setData({avatarUrl: avatar.url, avatarId: avatar.id})
+      info.avatar = avatar
+      this.setData({info})
     }
   },
 

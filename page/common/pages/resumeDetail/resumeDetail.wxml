@@ -1,13 +1,13 @@
 <!--求职者个人简历页-->
 <navbar title="老虎科技-CEO" background="#FFFFFF" color="#22292C" showHome="{{true}}"></navbar>
-<view class="resumeDetail {{info.isOwner? '' : 'addpadding'}}" wx:if="{{info}}">
-  <view class="share" wx:if="{{info.isOwner && false}}"><i class="icon iconfont icon-fenxiang"></i></view>
+<view class="resumeDetail {{isOwner? '' : 'addpadding'}}" wx:if="{{info}}">
+  <view class="share" wx:if="{{isOwner && false}}"><i class="icon iconfont icon-fenxiang"></i></view>
 <!-- 基本信息 -->
   <view class="personalInfo commentBox">
     <view class="top">
       <image src="{{info.avatar.smallUrl}}" class="avatar"></image>
       <view class="info">
-        <view class="name"><text>{{info.name}}</text><i class="icon iconfont icon-bianji1 edit" data-editName="info" data-id="{{item.id}}" bindtap="edit" wx:if="{{info.isOwner && identity === 'APPLICANT'}}"></i></view>
+        <view class="name"><text>{{info.name}}</text><i class="icon iconfont icon-bianji1 edit" data-editName="info" data-id="{{item.id}}" bindtap="edit" wx:if="{{isOwner}}"></i></view>
         <view>
           <text>{{info.lastCompanyName}}</text> | <text>{{info.lastPosition}}</text>
         </view>
@@ -23,7 +23,7 @@
     <view class="personalTip">
       <view class="text">“{{info.signature}}”</view>
       <view class="tipBox">
-        <text class="tip" wx:for="{{info.personalizedLabels}}" wx:key="{{index}}">{{item}}</text>
+        <text class="tip" wx:for="{{info.personalizedLabels}}" wx:key="{{index}}">{{item.labelName}}</text>
       </view>
     </view>
   </view>
@@ -36,7 +36,7 @@
         <view class="officeDetail">
           <text>{{item.position}} | {{item.city}}</text>
           <text class="salary">{{item.salaryFloor}}~{{item.salaryCeil}}K</text>
-          <i class="icon iconfont icon-bianji1 edit" data-editName="intent" data-id="{{item.id}}" bindtap="edit" wx:if="{{info.isOwner && identity === 'APPLICANT'}}"></i></view>
+          <i class="icon iconfont icon-bianji1 edit" data-editName="intent" data-id="{{item.id}}" bindtap="edit" wx:if="{{isOwner}}"></i></view>
       </view>
       <view class="officeInfo">
         <text wx:if="{{item.fields[0]}}">{{item.fields[0].field}}</text>
@@ -44,16 +44,16 @@
         <text wx:if="{{item.fields[2]}}"> · {{item.fields[2].field}}</text>
       </view>
     </view>
-    <text class="add" data-editName="intent" bindtap="edit" wx:if="{{info.isOwner && identity === 'APPLICANT'}}">添加求职意向</text>
+    <text class="add" data-editName="intent" bindtap="edit" wx:if="{{isOwner}}">添加求职意向</text>
   </view>
   <!-- 工作经历 -->
-  <view class="workExp commentBox" wx:if="{{info.careers.length>=0}}">
+  <view class="workExp commentBox">
     <view class="intentTitle"><i class="icon iconfont icon-fujian"></i> 工作经历</view>
-    <view class="expTab" wx:for="{{info.careers}}" wx:key="{{index}}">
+    <view class="expTab" wx:if="{{info.careers.length > 0}}" wx:for="{{info.careers}}" wx:key="{{index}}">
       <view class="expTitle">
         <text class="expName">{{item.company}}</text>
         <text class="expTime">{{item.startTimeDesc}}-{{item.endTimeDesc}}</text>
-        <i class="icon iconfont icon-bianji1 edit" data-editName="work" data-id="{{item.id}}" bindtap="edit" wx:if="{{info.isOwner && identity === 'APPLICANT'}}"></i>
+        <i class="icon iconfont icon-bianji1 edit" data-editName="work" data-id="{{item.id}}" bindtap="edit" wx:if="{{isOwner}}"></i>
       </view>
       <view class="expInfo">{{item.position}}</view>
       <!-- 工作内容 -->
@@ -64,16 +64,16 @@
       </view>
     </view>
     <view class="moreExp" wx:if="{{info.careers.length > 3}}">展开全部{{info.careers.length}}个工作经历<i class="icon iconfont icon-zhishibiao"></i></view>
-    <text class="add" data-editName="work" bindtap="edit" wx:if="{{info.isOwner && identity === 'APPLICANT'}}">添加工作经历</text>
+    <text class="add" data-editName="work" bindtap="edit" wx:if="{{isOwner}}">添加工作经历</text>
   </view>
   <!-- 项目经历 -->
-  <view class="projectExp commentBox" wx:if="{{info.projects.length>=0}}">
+  <view class="projectExp commentBox">
     <view class="intentTitle"><i class="icon iconfont icon-fujian"></i> 项目经历</view>
-    <view class="expTab" wx:for="{{info.projects}}" wx:key="{{index}}">
+    <view class="expTab" wx:if="{{info.projects.length > 0}}" wx:for="{{info.projects}}" wx:key="{{index}}">
       <view class="expTitle">
         <text class="expName">{{item.name}}</text>
         <text class="expTime">{{item.startTimeDesc}}-{{item.endTimeDesc}}</text>
-        <i class="icon iconfont icon-bianji1 edit" data-editName="project" data-id="{{item.id}}" bindtap="edit" wx:if="{{info.isOwner && identity === 'APPLICANT'}}"></i>
+        <i class="icon iconfont icon-bianji1 edit" data-editName="project" data-id="{{item.id}}" bindtap="edit" wx:if="{{isOwner}}"></i>
       </view>
       <view class="expInfo">{{item.role}}</view>
       <!-- 工作内容 -->
@@ -83,30 +83,30 @@
         链接：<text>{{item.link}}</text>
       </view>
     </view>
-    <text class="add" data-editName="project" bindtap="edit" wx:if="{{info.isOwner && identity === 'APPLICANT'}}">添加项目经历</text>
+    <text class="add" data-editName="project" bindtap="edit" wx:if="{{isOwner}}">添加项目经历</text>
   </view>
   <!-- 教育经历 -->
-  <view class="projectExp commentBox" wx:if="{{info.educations.length>=0}}">
+  <view class="projectExp commentBox">
     <view class="intentTitle"><i class="icon iconfont icon-fujian"></i> 教育经历</view>
-    <view class="expTab" wx:for="{{info.educations}}" wx:key="{{index}}">
+    <view class="expTab" wx:if="{{info.educations.length > 0 }}" wx:for="{{info.educations}}" wx:key="{{index}}">
       <view class="expTitle">
         <text class="expName">{{item.school}}</text>
         <text class="expTime">{{item.startTimeDesc}}-{{item.endTimeDesc}}</text>
-        <i class="icon iconfont icon-bianji1 edit" data-editName="education" data-id="{{item.id}}" bindtap="edit" wx:if="{{info.isOwner && identity === 'APPLICANT'}}"></i>
+        <i class="icon iconfont icon-bianji1 edit" data-editName="education" data-id="{{item.id}}" bindtap="edit" wx:if="{{isOwner}}"></i>
       </view>
       <view class="expInfo">{{item.degreeDesc}}·{{item.major}}</view>
       <!-- 教育经历 -->
       <view class='expContent'>{{item.experience}}</view>
     </view>
-    <text class="add" data-editName="education" bindtap="edit" wx:if="{{info.isOwner && identity === 'APPLICANT'}}">添加教育经历</text>
+    <text class="add" data-editName="education" bindtap="edit" wx:if="{{isOwner}}">添加教育经历</text>
   </view>
   <!-- 更多 -->
   <view class="more commentBox">
     <view class="intentTitle moreTitle">
       <view><i class="icon iconfont icon-fujian"></i> 更多介绍 </view>
-      <i class="icon iconfont icon-bianji1 edit" data-editName="more" data-id="{{item.id}}" bindtap="edit" wx:if="{{info.isOwner && identity === 'APPLICANT'}}"></i>
+      <i class="icon iconfont icon-bianji1 edit" data-editName="more" data-id="{{item.id}}" bindtap="edit" wx:if="{{isOwner}}"></i>
     </view>
-    <view class="expTab">
+    <view class="expTab" hidden="{{!info.moreIntroduce.introduce && info.moreIntroduce.imgs.length === 0}}">
       <!-- 工作内容 -->
       <view class="expContent">{{info.moreIntroduce.introduce}}</view>
       <view class="imgBox">
@@ -115,6 +115,7 @@
     </view>
   </view>
 </view>
+
 <!-- 底部开撩 -->
 <view class="bottomBox">
   <view>
@@ -123,6 +124,6 @@
       infos="{{info}}"
       type="resume"
       bindresultevent="init"
-      wx:if="{{info.vkey}}"></interviewBar>
+      wx:if="{{info.vkey && !isOwner}}"></interviewBar>
   </view>
 </view>
