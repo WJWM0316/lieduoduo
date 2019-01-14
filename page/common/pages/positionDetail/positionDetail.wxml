@@ -16,10 +16,10 @@
 			<view class="infos">
 				<view><i class="icon iconfont icon-dizhi"></i>{{detail.city}}</view>
 				<view><i class="icon iconfont icon-zhiwei"></i>{{detail.workExperienceName}}</view>
-				<view><i class="icon iconfont icon-zhiwei"></i>{{detail.educationName}}</view>
+				<view><i class="icon iconfont icon-xueli"></i>{{detail.educationName}}</view>
 			</view>
 			<view class="welfare-ul" wx:if="{{detail.lightspotInfo.length}}">
-				<view class="li" wx:for="{{detail.lightspotInfo}}" wx:key="{{index}}">年度奖金</view>
+				<view class="li" wx:for="{{detail.lightspotInfo}}" wx:key="{{index}}" wx:for-item="item">{{item}}</view>
 			</view>
 		</view>
 	</view>
