@@ -1,5 +1,6 @@
 import {
-  getCompanyIdentityInfosApi
+  getCompanyIdentityInfosApi,
+  getCompanyPerfectApi
 } from '../../../../../../api/pages/company.js'
 
 import {RECRUITER} from '../../../../../../config.js'
@@ -13,7 +14,8 @@ Page({
     companyInfos: {},
     page: '',
     pageTitle: '公司认证',
-    options: {}
+    options: {},
+    isPerfect: false
   },
   onLoad(options) {
     switch(options.from) {
@@ -35,6 +37,18 @@ Page({
         const companyInfos = infos.companyInfo
     		this.setData({identityInfos: infos, companyInfos, options})
     	})
+  },
+  /**
+   * @Author   小书包
+   * @DateTime 2019-01-14
+   * @detail   获取公司是否完善
+   * @return   {[type]}   [description]
+   */
+  getCompanyPerfect() {
+    getCompanyPerfectApi({id: this.data.companyInfos.id})
+      .then(res => {
+        console.log(res)
+      })
   },
   todoAction(e) {
   	const params = e.currentTarget.dataset

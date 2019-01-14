@@ -277,3 +277,12 @@ export const justifyCompanyExistApi = (data, hasLoading) => {
     hasLoading: true
   })
 }
+
+// 判断公司信息是否完善
+export const getCompanyPerfectApi = (data, hasLoading) => {
+  return request({
+    method: 'get',
+    url: `/company/perfect/${data.id}`,
+    hasLoading: true
+  })
+}

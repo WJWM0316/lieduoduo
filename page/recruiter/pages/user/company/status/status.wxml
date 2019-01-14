@@ -189,7 +189,7 @@
 	</block>
 	<block wx:if="{{companyInfos.status === 1 && options.from === 'company' && !identityInfos.applyJoin}}">
 		<view class="div">
-			<view class="box1 perfect-button" bindtap="todoAction" data-action="perfect">
+			<view class="box1 perfect-button" bindtap="todoAction" data-action="perfect" wx:if="{{!isPerfect}}">
 				<i class="icon iconfont icon-bianji label-icon"></i>
 				完善公司信息
 			</view>
