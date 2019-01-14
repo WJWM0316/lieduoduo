@@ -42,9 +42,9 @@ Page({
   changeVal(e) {
     let info = this.data.info
     if (e.currentTarget.dataset.type === 'name') {
-      info.recruiterRealname = e.detail.value
+      info.recruiterInfo.realname = e.detail.value
     } else {
-      info.recruiterMobile = e.detail.value
+      info.recruiterInfo.mobile = e.detail.value
     }
     this.setData({info})
   },
@@ -77,8 +77,8 @@ Page({
     })
     let data = {
       interviewId: this.data.options.id,
-      realname: info.recruiterRealname,
-      mobile: info.recruiterMobile,
+      realname: info.recruiterInfo.realname,
+      mobile: info.recruiterInfo.mobile,
       positionId: info.positionId,
       interviewTime: dateList.join(',')
     }

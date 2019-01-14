@@ -128,12 +128,9 @@ Component({
         result[2] = days.indexOf(this.data.setResult.slice(8, 11))
         result[3] = this.data.hours.indexOf(this.data.setResult.slice(12, 14))
         result[4] = this.data.minutes.indexOf(this.data.setResult.slice(15, 17))
+        console.log(days, 2333333)
         if (result[2] === -1) result = 0 // 开启palceholder
-        list.push(year)
-        list.push(this.data.month)
-        list.push(days)
-        list.push(this.data.hours)
-        list.push(this.data.minutes)
+        list.push(year, this.data.month, days, this.data.hours, this.data.minutes)
         this.setData({list, year, days, result, mode: 'multiSelector', placeholder: '请选择面试时间'})
         break
       case 'education':
@@ -297,8 +294,12 @@ Component({
     },
     // picker 变动监听
     change(e) {
-      if (this.data.mode === 'multiSelector' && e.detail.value[1] === null) {
-        e.detail.value[1] = 0
+      if (this.data.mode === 'multiSelector') {
+        e.detail.value.map((item, index) => {
+          if (item === null) {
+            e.detail.value[index] = 0
+          }
+        })
       }
       this.setData({result: e.detail.value})
       this.setResult()
@@ -319,10 +320,10 @@ Component({
         }
         let year = this.data.year[result[0]]
         let month = this.data.month[result[1]]
-        if (e.detail.column === 0) { // 选择份
+        if (e.detail.column === 0) { // 选择年份
           year = this.data.year[e.detail.value]
           changeData(year, month)
-        } else if (e.detail.column === 1) { // 选择份
+        } else if (e.detail.column === 1) { // 选择月份
           month = this.data.month[e.detail.value]
           changeData(year, month)
         }

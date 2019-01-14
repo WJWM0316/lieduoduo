@@ -9,7 +9,7 @@
     <input name="company" bindblur="getValue" data-type="companyName" placeholder="填写公司名称" value="{{info.companyName}}"/>
   </view>
   <view class="positionType commont" bindtap="jumpType">
-    <input name="positionType" placeholder="选择职位类型" value="{{info.positionType}}" disabled />
+    <input name="positionType" placeholder="选择职位类型" value="{{info.positionType.typeName || ''}}" disabled />
   </view>
   <view class="timeBox">
     <view class="startTime">
@@ -20,7 +20,7 @@
     </view>
   </view>
   <view class="duty commont" bindtap="eidt">
-    <input name="duty" type="text" placeholder="工作内容" value="{{info.workContent}}" disabled/>
+    <input name="duty" type="text" placeholder="工作内容" value="{{info.duty}}" disabled/>
   </view>
   <view class="btn-area" >
     <button bindtap="submit"><i class="icon iconfont icon-xiayibu"></i></button>

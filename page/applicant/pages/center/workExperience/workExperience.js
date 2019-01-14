@@ -6,7 +6,13 @@ Page({
    * 页面的初始数据
    */
   data: {
-    info: {}
+    info: {
+      companyName: '',
+      positionType: {},
+      startTimeDesc: '',
+      endTimeDesc: '',
+      duty: ''
+    }
   },
 
   /**
@@ -22,15 +28,14 @@ Page({
   onShow: function () {
     let info = this.data.info
     let workContent = wx.getStorageSync('workContent')
+    let createPosition = wx.getStorageSync('createPosition')
     let createUserSecond = wx.getStorageSync('createUserSecond')
-    if (workContent && createUserSecond) {
+    if (createUserSecond) {
       info = createUserSecond
-      info.workContent = workContent
-      this.setData({info})
-    } else if (workContent) {
-      info.workContent = workContent
-      this.setData({info})
     }
+    info.duty = workContent
+    info.positionType = createPosition
+    this.setData({info})
   },
   
   /**
@@ -61,8 +66,10 @@ Page({
     let info = this.data.info
     if (val.currentTarget.dataset.type === 'starTime') {
       info.starTime = val.detail.propsResult
+      info.startTimeDesc = val.detail.propsDesc
     } else {
       info.endTime = val.detail.propsResult
+      info.endTimeDesc = val.detail.propsDesc
     }
     this.setData({info})
   },
@@ -70,9 +77,9 @@ Page({
     let info = this.data.info
     let data = {
       company: info.companyName,
-      positionType: info.positionType,
+      positionType: info.positionType.typeName,
       duty: info.duty,
-      startTime: info.startTime,
+      startTime: info.starTime,
       endTime: info.endTime
     }
     postSecondStepApi(data).then(res => {

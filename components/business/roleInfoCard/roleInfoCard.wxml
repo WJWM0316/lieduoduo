@@ -2,7 +2,7 @@
   <view class="company {{isMain ? 'edit' : ''}}" wx:if="{{roleType === 'company'}}" bindtap="jumpCompany">
     <image class="img" src="{{cardData.avatar.middleUrl || cardData.logo.middleUrl}}"></image>
     <view class="companyMsg" wx:if="{{!isMain}}">
-      <view class="name">{{cardData.name}}</view>
+      <view class="name">{{cardData.name || cardData.realname}}</view>
       <view class="detail">{{cardData.industry}} · {{cardData.financingDesc}} · {{cardData.employeesDesc}}</view>
     </view>
     <view class="companyMsg" wx:else>
@@ -31,7 +31,7 @@
     <image class="img" src="{{cardData.avatar.middleUrl}}"></image>
     <view class="vip">V</view>
     <view class="recruiterMsg">
-      <view class="name">{{cardData.name || cardData.recruiterRealname}}<text class="msg" wx:if="{{!isMain}}"> · {{cardData.position || cardData.positionName}}</text></view>
+      <view class="name">{{cardData.name || cardData.recruiterRealname || cardData.realname}}<text class="msg" wx:if="{{!isMain}}"> · {{cardData.position || cardData.positionName}}</text></view>
       <view class="detail">{{cardData.companyName}}<text wx:if="{{isMain}}"> | {{cardData.position}}</text></view>
     </view>
     <i class="editBtn iconfont icon-bianji1" wx:if="{{isMain}}" bindtap="jumpEdit"></i>

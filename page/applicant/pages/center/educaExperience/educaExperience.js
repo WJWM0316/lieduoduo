@@ -83,11 +83,13 @@ Page({
     e.detail.value.startTime = starTime
     e.detail.value.endTime = endTime
     postThirdStepApi(e.detail.value).then(res => {
+      wx.removeStorageSync('createUserFirst')
+      wx.removeStorageSync('createPosition')
+      wx.removeStorageSync('workContent')
+      wx.removeStorageSync('createUserSecond')
       wx.reLaunch({
         url: '/page/applicant/pages/center/mine/mine'
       })
-    }).catch (err => {
-      console.log(err, '88888888888888888')
     })
   }
 })
