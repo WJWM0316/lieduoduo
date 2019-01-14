@@ -51,6 +51,15 @@ Page({
       case 'position':
         wx.redirectTo({url: `${RECRUITER}position/post/post`})
         break
+      case 'identity':
+        wx.reLaunch({url: `${RECRUITER}user/company/identity/identity`})
+        break
+      case 'perfect':
+        wx.reLaunch({url: `${RECRUITER}company/baseEdit/baseEdit`})
+        break
+      case 'notice':
+        app.wxToast({title: '通知成功'})
+        break
   		default:
   			break
   	}

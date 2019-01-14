@@ -6,7 +6,7 @@
 			 <view class="content" wx:if='{{isLogin && isComplete}}'>
 				<view class="realname">{{myInfo.name}}</view>
 				<view class="degree-name">{{myInfo.lastCompanyName}} | {{myInfo.lastPosition}}</view>
-        <view class="experience">{{myInfo.workAge}}年经验 | {{myInfo.degree}}岁 | {{myInfo.degreeDesc}}</view>
+        <view class="experience">{{myInfo.workAge}}年经验 | {{myInfo.age ? myInfo.age + '岁 | ' : ''}} {{myInfo.degreeDesc}}</view>
 			</view> 
       <!-- 简历未完善 -->
        <view class="content" wx:if='{{isLogin && !isComplete}}'>
