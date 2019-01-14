@@ -81,6 +81,7 @@ Page({
       realname: info.recruiterInfo.realname,
       mobile: info.recruiterInfo.mobile,
       positionId: info.positionId,
+      addressId: info.addressId,
       interviewTime: dateList.join(',')
     }
     setInterviewDetailApi(data).then(res => {
@@ -99,7 +100,7 @@ Page({
   sureDate() {
     let data = {
       interviewId: this.data.options.id,
-      appointmentId: this.data.appointmentId 
+      appointmentId: this.data.appointmentId
     }
     if(!this.data.appointmentId) {
       app.wxToast({title: '请选择一个面试时间'})
@@ -135,16 +136,19 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    let data = wx.getStorageSync('interviewData') || {}
+    let positionData = wx.getStorageSync('interviewData') || {}
+    let addressData = wx.getStorageSync('createPosition') || {}
     let identity = wx.getStorageSync('choseType')
     let info = this.data.info
-    if (data) {
-      info.positionName = data.positionName
-      info.positionId = data.positionId
-      this.setData({info, identity})
-    } else {
-      this.setData({identity})
+    if (positionData) {
+      info.positionName = positionData.positionName
+      info.positionId = positionData.positionId
     }
+    if (addressData) {
+      info.address = addressData.address_name
+      info.addressId = addressData.address_id
+    }
+    this.setData({identity, info})
   },
 
   /**

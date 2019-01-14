@@ -114,6 +114,7 @@ App({
           // 调用微信登录获取本地session_key
           wx.login({
             success: function (res0) {
+              wx.setStorageSync('code', res0.code)
               // 请求接口获取服务器session_key
               var pages = getCurrentPages() //获取加载的页面
               let pageUrl = pages[0].route
@@ -122,7 +123,7 @@ App({
                 params = `${params}${i}=${pages[0].options[i]}&`
               }
               pageUrl = `${pageUrl}?${params}`
-              data.code = res0.code
+              data.code = wx.getStorageSync('code')
               loginApi(data).then(res => {
                 // 有token说明已经绑定过用户了
                 if (res.data.token) {

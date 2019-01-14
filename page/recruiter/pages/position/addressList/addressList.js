@@ -3,23 +3,7 @@ import {RECRUITER} from '../../../../../config.js'
 
 Page({
   data: {
-    addressList: [
-      // {
-      //   id: 1,
-      //   active: false,
-      //   title: '微信小程序前端开发工程师如果超长就…微信小程序前端开发工程师如果超长就…微信小程序前端开发工程师如果超长就…微信小程序前端开发工程师如果超长就…微信小程序前端开发工程师如果超长就…'
-      // },
-      // {
-      //   id: 2,
-      //   active: false,
-      //   title: '微信小程序前端开发工程师如果超长就…微信小程序前端开发工程师如果超长就…微信小程序前端开发工程师如果超长就…微信小程序前端开发工程师如果超长就…微信小程序前端开发工程师如果超长就…'
-      // },
-      // {
-      //   id: 3,
-      //   active: false,
-      //   title: '微信小程序前端开发工程师如果超长就…微信小程序前端开发工程师如果超长就…微信小程序前端开发工程师如果超长就…微信小程序前端开发工程师如果超长就…微信小程序前端开发工程师如果超长就…'
-      // }
-    ]
+    addressList: []
   },
 
   /**
@@ -42,20 +26,19 @@ Page({
   onClick(e) {
     const params = e.currentTarget.dataset
     const addressList = this.data.addressList
-    const storage = wx.getStorageSync('createPosition')
+    const storage = wx.getStorageSync('createPosition') || {}
     addressList.map((field, index) => {
       if(params.id === index) {
         field.active = true
         storage.address_id = field.id
+        storage.address_name = field.address
         wx.setStorageSync('createPosition', storage)
       } else {
         field.active = false
       }
     })
     this.setData({addressList})
-    setTimeout(() => {
-      wx.navigateBack({delta: 1})
-    }, 1500)
+    wx.navigateBack({delta: 1})
   },
   add() {
     wx.redirectTo({ url: `${RECRUITER}position/address/address` })

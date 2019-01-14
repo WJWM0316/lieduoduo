@@ -2,7 +2,7 @@
 <wxs src="../../../../utils/filters.wxs" module="filters" />
 <view class="arrangement">
   <navbar></navbar>
-  <view class="tip" wx:if="{{info.status === 32}}">备选时间不合适，请联系候选人重新确定时间</view>
+  <view class="tip" wx:if="{{identity === 'RECRUITER' && info.status === 32}}">备选时间不合适，请联系候选人重新确定时间</view>
   <view class="headInfo">
     <roleInfoCard wx:if="{{identity === 'RECRUITER'}}" cardData="{{info.jobhunterInfo}}" my-class="roleDetail" roleType="applicant"></roleInfoCard>
     <roleInfoCard wx:if="{{identity === 'APPLICANT'}}" cardData="{{info.recruiterInfo}}" my-class="roleDetail" roleType="recruiter"></roleInfoCard>

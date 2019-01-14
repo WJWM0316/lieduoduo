@@ -1,4 +1,5 @@
-/* page/common/pages/tabsPage/tabsPage.wxss */
+@import '../../../../../iconfont.wxss';
+
 .tabsPage {
 }
 .content {
@@ -115,6 +116,19 @@
   border-radius: 18rpx;
   padding: 60rpx 50rpx;
   box-sizing: border-box;
+  position: relative;
+}
+.colseBtn {
+  top: 17rpx;
+  right: 10rpx;
+  position: absolute;
+  width: 50rpx;
+  height: 50rpx;
+  line-height: 50rpx;
+  text-align: center;
+  font-size: 25rpx;
+  color: #BCBCBC;
+  display: block;
 }
 .title {
   margin: 0 0 56rpx;
