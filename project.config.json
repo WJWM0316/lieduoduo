@@ -38,7 +38,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 14,
+			"current": 6,
 			"list": [
 				{
 					"id": 0,
@@ -79,8 +79,8 @@
 				{
 					"id": 6,
 					"name": "公司认证",
-					"pathName": "page/recruiter/pages/user/company/upload/upload",
-					"query": ""
+					"pathName": "page/recruiter/pages/user/company/apply/apply",
+					"query": "type=edit"
 				},
 				{
 					"id": 7,
@@ -127,8 +127,8 @@
 				{
 					"id": 14,
 					"name": "招聘官认证",
-					"pathName": "page/recruiter/pages/user/company/find/find",
-					"query": "from=apply"
+					"pathName": "page/recruiter/pages/user/company/apply/apply",
+					"query": "type=edit"
 				},
 				{
 					"id": -1,
@@ -137,10 +137,10 @@
 					"query": ""
 				},
 				{
-					"id": 17,
+					"id": 16,
 					"name": "公司主页",
 					"pathName": "page/common/pages/homepage/homepage",
-					"query": ""
+					"query": "companyId=5"
 				},
 				{
 					"id": -1,
@@ -149,10 +149,10 @@
 					"query": ""
 				},
 				{
-					"id": -1,
+					"id": 18,
 					"name": "招聘管-职位管理",
-					"pathName": "page/recruiter/pages/position/index/index",
-					"query": ""
+					"pathName": "page/recruiter/pages/user/homepageEdit/homepageEdit",
+					"query": "companyId=5"
 				},
 				{
 					"id": 19,
@@ -201,6 +201,12 @@
 					"name": "公司",
 					"pathName": "page/common/pages/homepage/homepage",
 					"query": "companyId=25"
+				},
+				{
+					"id": -1,
+					"name": "招聘管-我的页面",
+					"pathName": "page/recruiter/pages/user/mine/infos/infos",
+					"query": "companyId=5"
 				}
 			]
 		}

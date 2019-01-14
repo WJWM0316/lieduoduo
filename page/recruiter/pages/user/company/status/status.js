@@ -46,7 +46,7 @@ Page({
   			wx.redirectTo({url: `${RECRUITER}user/company/apply/apply?type=edit`})
   			break
       case 'email':
-        wx.redirectTo({url: `${RECRUITER}user/company/email/email`})
+        wx.redirectTo({url: `${RECRUITER}user/company/email/email?id=${this.data.companyInfos.id}`})
         break
       case 'position':
         wx.redirectTo({url: `${RECRUITER}position/post/post`})

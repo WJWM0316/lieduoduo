@@ -66,9 +66,9 @@ Component({
       }
     ]
   },
-  // attached() {
-  //   this.init()
-  // },
+  attached() {
+    // this.init()
+  },
   methods: {
     init() {
       this.setData({slogoIndex: this.getRandom()})
@@ -104,7 +104,25 @@ Component({
         .then(res => {
           this.setData({interviewInfos: res.data, identity: wx.getStorageSync('choseType')})
           if(res.code === 204) this.setData({isOwerner: true})
+          if(res.code === 210) this.showMergeBox(res.data)
         })
+    },
+    /**
+     * @Author   小书包
+     * @DateTime 2019-01-14
+     * @detail   显示合并弹窗
+     * @return   {[type]}         [description]
+     */
+    showMergeBox(infos) {
+      app.wxConfirm({
+        title: '',
+        content: `招聘官已选择你申请职位中的“${infos.positionName}”，其他职位申请将自动合并，如需修改约面职位，可直接与招聘官协商。`,
+        showCancel: false,
+        confirmText: '我知道了',
+        confirmBack() {
+          //
+        }
+      })
     },
     /**
      * @Author   小书包

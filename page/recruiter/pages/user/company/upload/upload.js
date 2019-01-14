@@ -31,7 +31,8 @@ Page({
     formData.company_shortname = storage.companyShortName
     if(!storage) return;
     params.map(field => formData[field] = storage[field])
-    this.setData({formData})
+    this.setData({formData, business_license: storage.business_license, on_job: storage.on_job})
+    this.bindBtnStatus()
   },
   /**
    * @Author   小书包

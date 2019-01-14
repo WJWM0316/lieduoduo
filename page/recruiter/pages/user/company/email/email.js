@@ -86,7 +86,7 @@ Page({
   verifyEmail(e){
     verifyEmailApi({email: this.data.email, company_id: this.data.ontions.id, code: e.detail.value.password})
       .then(res => {
-
+        wx.redirectTo({url: `${RECRUITER}user/company/status/status?from=identity`})
       })
   }
 })

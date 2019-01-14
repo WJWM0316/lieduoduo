@@ -60,6 +60,8 @@ Page({
           employees: infos.employees,
           employeesName: infos.employeesInfo,
           selected_employees: true,
+          business_license: infos.businessLicenseInfo,
+          on_job: infos.onJobInfo,
           canClick: true
         }
         wx.setStorageSync('createdCompany', formData)
