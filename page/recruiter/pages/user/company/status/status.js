@@ -35,7 +35,6 @@ Page({
     	.then(res => {
         const infos = res.data
         const companyInfos = infos.companyInfo
-        console.log(infos)
     		this.setData({identityInfos: infos, companyInfos, options})
     	})
   },
@@ -48,7 +47,7 @@ Page({
   getCompanyPerfect() {
     getCompanyPerfectApi({id: this.data.companyInfos.id})
       .then(res => {
-        console.log(res)
+        // console.log(res)
       })
   },
   todoAction(e) {
