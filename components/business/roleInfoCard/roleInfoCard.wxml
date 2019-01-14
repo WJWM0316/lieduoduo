@@ -16,7 +16,7 @@
     <view class="applicant" bindtap="jumpApplicant">
       <image class="img" src="{{cardData.avatar.middleUrl}}"></image>
       <view class="applicantMsg">
-        <view class="name">{{cardData.jobhunterRealname}}<text class="msg">{{cardData.workAge}}·{{cardData.degreeDesc}}·{{cardData.salaryFloor}}~{{cardData.salaryCeil}}k</text></view>
+        <view class="name">{{cardData.jobhunterRealname}}<text class="msg">{{cardData.workAge}}·{{cardData.degreeDesc}}<text wx:if="cardData.salaryFloor > 0">·{{cardData.salaryFloor}}~{{cardData.salaryCeil}}k</text></text></view>
         <view class="detail">{{cardData.lastCompanyName}} | {{cardData.positionName}}</view>
       </view>
     </view>
@@ -25,7 +25,6 @@
       <view class="wechat" bindtap="setClipboardData" wx:if="{{cardData.wechat || cardData.lastPosition}}">微信：<text class="txt">{{cardData.wechat || cardData.jobhunterWechat}}</text></view>
     </view>
   </block>
-
 
   <view class="recruiter {{isMain? 'recruiterMain':''}}" wx:if="{{roleType === 'recruiter'}}" bindtap="jumpRecruiter">
     <image class="img" src="{{cardData.avatar.middleUrl}}"></image>
