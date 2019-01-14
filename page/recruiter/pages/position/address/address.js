@@ -1,3 +1,5 @@
+import {getAddressDetailApi, editCompanyAddressApi} from "../../../../../api/pages/company.js"
+
 import {COMMON, RECRUITER} from '../../../../../config.js'
 
 import { reverseGeocoder } from '../../../../../utils/map.js'
@@ -10,13 +12,18 @@ const app = getApp()
 
 Page({
   data: {
-    keyword: '',
-    address: ''
+    doorplate: '',
+    address: '',
+    infos: {}
   },
   onLoad(options) {
-    const storage = wx.getStorageSync('createPosition')
-    if(storage) {
-      this.setData({ keyword: storage.doorplate, address: storage.address, options })
+    if(options.addressId) {
+      getAddressDetailApi({id: options.addressId})
+        .then(res => {
+          const infos = res.data
+          this.setData({infos, address: infos.address, doorplate: infos.doorplate, options})
+          console.log(infos)
+        })
     }
   },
   /**
@@ -26,7 +33,7 @@ Page({
    * @return   {[type]}     [description]
    */
   bindInput(e) {
-    this.setData({keyword: e.detail.value})
+    this.setData({doorplate: e.detail.value})
   },
   /**
    * @Author   小书包
@@ -36,9 +43,7 @@ Page({
    */
   selectAddress() {
     wx.chooseLocation({
-      success: res => {
-        this.reverseGeocoder(res)
-      }
+      success: res => this.reverseGeocoder(res)
     })
   },
   /**
@@ -50,14 +55,14 @@ Page({
   reverseGeocoder(res) {
     const storage = wx.getStorageSync('createPosition')
     reverseGeocoder(res)
-          .then(rtn => {
-            storage.address = rtn.result.address
-            storage.area_id = rtn.result.ad_info.adcode
-            storage.lat = rtn.result.ad_info.location.lat
-            storage.lng = rtn.result.ad_info.location.lng
-            wx.setStorageSync('createPosition', storage)
-            this.setData({ keyword: storage.doorplate, address: storage.address })
-          })
+      .then(rtn => {
+        storage.address = rtn.result.address
+        storage.area_id = rtn.result.ad_info.adcode
+        storage.lat = rtn.result.ad_info.location.lat
+        storage.lng = rtn.result.ad_info.location.lng
+        wx.setStorageSync('createPosition', storage)
+        this.setData({ doorplate: storage.doorplate, address: storage.address })
+      })
   },
   /**
    * @Author   小书包
@@ -71,10 +76,41 @@ Page({
         wx.redirectTo({url: `${RECRUITER}position/addressList/addressList`})
       })
   },
-  save() {
+  submit() {
+    const action = this.data.options.addressId ? 'edit' : 'post'
+    this[action]()
+  },
+  /**
+   * @Author   小书包
+   * @DateTime 2019-01-14
+   * @detail   新增地址
+   * @return   {[type]}   [description]
+   */
+  post() {
     const storage = wx.getStorageSync('createPosition')
-    storage.doorplate = this.data.keyword
+    storage.doorplate = this.data.doorplate
     wx.setStorageSync('createPosition', storage)
     wx.redirectTo({url: `${RECRUITER}position/post/post`})
+  },
+  /**
+   * @Author   小书包
+   * @DateTime 2019-01-14
+   * @detail   编辑地址
+   * @return   {[type]}   [description]
+   */
+  edit() {
+    const infos = this.data.infos
+    const formData = {
+      id: infos.id,
+      areaId: infos.areaId,
+      address: infos.address,
+      lng: infos.lng,
+      lat: infos.lat,
+      doorplate: infos.doorplate
+    }
+    editCompanyAddressApi(formData)
+      .then(() => {
+        wx.navigateBack({delta: 1})
+      })
   }
 })

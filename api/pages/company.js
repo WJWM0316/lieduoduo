@@ -106,6 +106,16 @@ export const addCompanyAddressApi = (data, hasLoading) => {
   })
 }
 
+// 修改公司地址
+export const editCompanyAddressApi = (data, hasLoading) => {
+  return request({
+    method: 'post',
+    url: `/company/position/address/${data.id}`,
+    data,
+    hasLoading: true
+  })
+}
+
 // 创建公司产品
 export const createCompanyProductApi = (data, hasLoading) => {
   return request({
@@ -182,11 +192,20 @@ export const getCompanyAddressListApi = (data, hasLoading) => {
   })
 }
 
+// 获取地址详情
+export const getAddressDetailApi = (data, hasLoading) => {
+  return request({
+    method: 'get',
+    url: `/company/position/address/${data.id}`,
+    hasLoading: true
+  })
+}
+
 // 搜索公司
 export const getCompanyNameListApi = (data, hasLoading) => {
   return request({
     method: 'get',
-    url: `/company/namelist`,
+    url: `/search/company_name`,
     data,
     hasLoading: true
   })

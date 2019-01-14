@@ -27,7 +27,16 @@ Page({
    */
   onLoad(options) {
     getCompanyAddressListApi().then(res => {
+      const addressList = res.data
+      addressList.map(field => {
+        if(field.id === parseInt(options.addressId)) {
+          field.active = true
+        } else {
+          field.active = false
+        }
+      })
       this.setData({addressList: res.data})
+      console.log(res.data)
     })
   },
   onClick(e) {
@@ -45,7 +54,7 @@ Page({
     })
     this.setData({addressList})
     setTimeout(() => {
-      wx.redirectTo({ url: `${RECRUITER}position/post/post` })
+      wx.navigateBack({delta: 1})
     }, 1500)
   },
   add() {
@@ -54,5 +63,6 @@ Page({
   edit(e) {
     const params = e.currentTarget.dataset
     wx.redirectTo({ url: `${RECRUITER}position/address/address?id=${params.id}` })
+    console.log(params)
   }
 })

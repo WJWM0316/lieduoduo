@@ -7,9 +7,9 @@
           <i class="icon iconfont icon-wancheng" wx:if="{{item.active}}"></i>
         </view>
       </view>
-      <view class="center">{{item.title}}</view>
+      <view class="center">{{item.title || item.address}}</view>
       <view class="right">
-        <view class="edit" bindtap="onClick" data-id="{{item.id}}"><i class="icon iconfont icon-bianji"></i> 编辑</view>
+        <view class="edit" bindtap="edit" data-id="{{item.id}}"><i class="icon iconfont icon-bianji"></i> 编辑</view>
       </view>
     </view>
   </view>

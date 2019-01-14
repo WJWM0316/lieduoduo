@@ -3,6 +3,7 @@
 .addressList .ul {
   padding-bottom: 172rpx;
   overflow: hidden;
+  margin-top: 20rpx;
 }
 
 .addressList .li {
@@ -11,6 +12,11 @@
   overflow: hidden;
   padding: 34rpx 30rpx 34rpx 0;
   background: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 148rpx;
+  box-sizing: border-box;
 }
 
 .addressList .li:after {
