@@ -12,15 +12,8 @@ Page({
   onLoad(options) {
     getCompanyAddressListApi().then(res => {
       const addressList = res.data
-      addressList.map(field => {
-        if(field.id === parseInt(options.addressId)) {
-          field.active = true
-        } else {
-          field.active = false
-        }
-      })
+      addressList.map(field => field.active = field.id === parseInt(options.addressId) ? true : false)
       this.setData({addressList: res.data})
-      console.log(res.data)
     })
   },
   onClick(e) {
@@ -31,14 +24,16 @@ Page({
       if(params.id === index) {
         field.active = true
         storage.address_id = field.id
-        storage.address_name = field.address
+        storage.address = field.address
         wx.setStorageSync('createPosition', storage)
+        console.log(storage)
       } else {
         field.active = false
       }
     })
-    this.setData({addressList})
-    wx.navigateBack({delta: 1})
+    this.setData({addressList}, () => {
+      wx.navigateBack({delta: 1})
+    })
   },
   add() {
     wx.redirectTo({ url: `${RECRUITER}position/address/address` })
@@ -46,6 +41,5 @@ Page({
   edit(e) {
     const params = e.currentTarget.dataset
     wx.redirectTo({ url: `${RECRUITER}position/address/address?id=${params.id}` })
-    console.log(params)
   }
 })

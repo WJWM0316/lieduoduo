@@ -77,6 +77,7 @@
 	right: 80rpx;
 	top: 50%;
 	transform: translateY(-50%);
+	color: #BCBCBC;
 }
 
 .mask-board {

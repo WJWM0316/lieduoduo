@@ -47,7 +47,6 @@ Page({
         formData.passport_reverse = infos.passportReverseInfo
         formData.handheld_passport = infos.handheldPassportInfo
         Object.keys(formData).map(field => this.setData({[field]: formData[field]}))
-        console.log(formData)
         this.bindBtnStatus()
       })
   },

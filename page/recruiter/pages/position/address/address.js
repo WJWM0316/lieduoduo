@@ -20,8 +20,9 @@ Page({
     lat: ''
   },
   onLoad(options) {
-    if(options.addressId) {
-      getAddressDetailApi({id: options.addressId})
+    this.setData({options})
+    if(options.id) {
+      getAddressDetailApi({id: options.id})
         .then(res => {
           const infos = res.data
           const formData = {

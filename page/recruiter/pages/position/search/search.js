@@ -1,6 +1,6 @@
 import {
-  getCompanyNameListApi
-} from '../../../../../api/pages/company.js'
+  getPositionNameListApi
+} from '../../../../../api/pages/position.js'
 
 import {RECRUITER} from '../../../../../config.js'
 
@@ -36,7 +36,7 @@ Page({
    */
   bindInput(e) {
     const name = e.detail.value
-    this.debounce(this.getCompanyNameList, null, 500, name)
+    this.debounce(this.getPositionNameList, null, 500, name)
   },
   /**
    * @Author   小书包
@@ -44,12 +44,14 @@ Page({
    * @detail   获取职位名称列表
    * @return   {[type]}   [description]
    */
-  getCompanyNameList(name) {
+  getPositionNameList(name) {
     this.setData({keyword: name})
     this.bindButtonStatus()
-    getCompanyNameListApi({name})
+    getPositionNameListApi({name})
       .then(res => {
-        this.setData({nameLists: res.data})
+        const nameLists = res.data
+        nameLists.map(field => field.html = '<div>' + field.name.replace(new RegExp(name,'g'), `<span style="color: #652791;">${name}</span>`) + '</div>')
+        this.setData({nameLists})
       })
   },
   /**
@@ -67,7 +69,7 @@ Page({
     const storage = wx.getStorageSync('createPosition')
     storage.position_name = name
     wx.setStorageSync('createPosition', storage)
-    this.setData({canClick: true})
+    this.setData({keyword: name})
   },
   submit(e) {
     const storage = wx.getStorageSync('createPosition')

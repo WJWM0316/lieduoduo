@@ -127,7 +127,7 @@
 				{
 					"id": 14,
 					"name": "招聘官认证状态",
-					"pathName": "page/recruiter/pages/user/company/status/status",
+					"pathName": "page/recruiter/pages/user/company/apply/apply",
 					"query": "from=company"
 				},
 				{
@@ -213,6 +213,12 @@
 					"name": "公司地址列表",
 					"pathName": "page/recruiter/pages/position/address/address",
 					"query": "addressId=6"
+				},
+				{
+					"id": 29,
+					"name": "职位搜索",
+					"pathName": "page/common/pages/category/category",
+					"query": "from=company"
 				}
 			]
 		}
