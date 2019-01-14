@@ -1,6 +1,6 @@
 import {
-  getPositionNameListApi
-} from '../../../../../api/pages/position.js'
+  getCompanyNameListApi
+} from '../../../../../api/pages/company.js'
 
 import {RECRUITER} from '../../../../../config.js'
 
@@ -36,7 +36,7 @@ Page({
    */
   bindInput(e) {
     const name = e.detail.value
-    this.debounce(this.getPositionNameList, null, 500, name)
+    this.debounce(this.getCompanyNameList, null, 500, name)
   },
   /**
    * @Author   小书包
@@ -44,10 +44,10 @@ Page({
    * @detail   获取职位名称列表
    * @return   {[type]}   [description]
    */
-  getPositionNameList(name) {
+  getCompanyNameList(name) {
     this.setData({keyword: name})
     this.bindButtonStatus()
-    getPositionNameListApi({name})
+    getCompanyNameListApi({name})
       .then(res => {
         this.setData({nameLists: res.data})
       })

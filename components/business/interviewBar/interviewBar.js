@@ -104,7 +104,7 @@ Component({
         .then(res => {
           this.setData({interviewInfos: res.data, identity: wx.getStorageSync('choseType')})
           if(res.code === 204) this.setData({isOwerner: true})
-          if(res.code === 210) this.showMergeBox(res.data)
+          if(res.code === 230) this.showMergeBox(res.data)
         })
     },
     /**
@@ -114,9 +114,13 @@ Component({
      * @return   {[type]}         [description]
      */
     showMergeBox(infos) {
+      const content = infos.tipsData.positionId === 0
+        ? '招聘官已接受与你约面，但没有选择约面职位，其他职位申请将自动合并，如需修改约面职位，可直接与招聘官协商'
+        : `招聘官已选择你申请职位中的“${infos.tipsData.positionName}”，其他职位申请将自动合并，如需修改约面职位，可直接与招聘官协商。`
+        
       app.wxConfirm({
         title: '',
-        content: `招聘官已选择你申请职位中的“${infos.positionName}”，其他职位申请将自动合并，如需修改约面职位，可直接与招聘官协商。`,
+        content,
         showCancel: false,
         confirmText: '我知道了',
         confirmBack() {

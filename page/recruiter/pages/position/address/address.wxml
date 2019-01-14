@@ -1,5 +1,5 @@
 <view class="address-post">
-	<navbar title="新增地址" background="#FFFFFF" color="#22292C"></navbar>
+	<navbar title="{{options.addressId ? '编辑地址' : '新增地址'}}" background="#FFFFFF" color="#22292C"></navbar>
 	<view class="input-li" bindtap="selectAddress">
     <view class="key" bindtap="selectAddress">地址</view>
     <view class="value">{{address ? address : '请选择地址'}}<i class="icon iconfont icon-xiangyou"></i></view>
@@ -7,11 +7,11 @@
   <view class="input-li clear-bottom">
     <view class="key">门牌号</view>
     <view class="value">
-    	<input name="real_name" class="input" placeholder="选填" bindinput="bindInput" data-field="real_name" value="{{real_name}}" />
+    	<input class="input" placeholder="选填" bindinput="bindInput" value="{{doorplate}}" />
     </view>
   </view>
 	<view class="footer">
-    <button class="button-delete" bindtap="deleteCompanyAddress">删除</button>
-    <button class="button-save" bindtap="save">保存地址</button>
+    <button class="button-delete" bindtap="deleteCompanyAddress" wx:if="{{options.addressId}}">删除</button>
+    <button class="button-save" bindtap="submit">{{options.addressId ? '保存地址' : '添加地址'}}</button>
   </view>
 </view>

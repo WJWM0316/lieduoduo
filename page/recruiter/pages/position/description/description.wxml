@@ -1,14 +1,16 @@
 <view class="position-description">
 	<navbar title="职位描述" background="#FFFFFF" color="#22292C"></navbar>
+	<!-- <view class="tips">* 职位名称、职位类别、工作地点发布后将不可修改</view> -->
 	<view bindsubmit="submit">
 		<view class="edit-box">
 			<textarea
 				bindinput="bindTextAreaInput"
 				placeholder="填写详细，清晰的职位描述"
+				maxlength="1000"
 				value="{{describe}}" />
 			<view class="controls">
 				<view class="similarity"><i class="icon iconfont icon-chakan"></i>看看别人怎么写</view>
-				<view class="sum">{{ describe.length }}/300</view>
+				<view class="sum"><text class="{{describe.length > 5000 ? 'red' : ''}}">{{ describe.length }}</text>/5000</view>
 			</view>
 		</view>
 		<view class="example">
