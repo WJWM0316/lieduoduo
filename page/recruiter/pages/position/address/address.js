@@ -12,16 +12,28 @@ const app = getApp()
 
 Page({
   data: {
+    id: '',
+    area_id: '',
     doorplate: '',
     address: '',
-    infos: {}
+    lng: '',
+    lat: ''
   },
   onLoad(options) {
     if(options.addressId) {
       getAddressDetailApi({id: options.addressId})
         .then(res => {
           const infos = res.data
-          this.setData({infos, address: infos.address, doorplate: infos.doorplate, options})
+          const formData = {
+            id: infos.id,
+            area_id: infos.areaId,
+            address: infos.address,
+            doorplate: infos.doorplate,
+            lng: infos.lng,
+            lat: infos.lat,
+            options
+          }
+          Object.keys(formData).map(field => this.setData({[field]: formData[field]}))
           console.log(infos)
         })
     }
@@ -99,13 +111,14 @@ Page({
    * @return   {[type]}   [description]
    */
   edit() {
-    const infos = this.data.infos
+    const storage = wx.getStorageSync('createPosition')
+    const infos = this.data
     const formData = {
       id: infos.id,
-      areaId: infos.areaId,
-      address: infos.address,
-      lng: infos.lng,
-      lat: infos.lat,
+      areaId: storage.area_id !== infos.area_id ? storage.area_id : infos.area_id,
+      address: storage.address !== infos.address  ? storage.address : infos.address,
+      lng: storage.lng !== infos.lng ? storage.lng : infos.lng,
+      lat: storage.lat !== infos.lat ? storage.lat : infos.lat,
       doorplate: infos.doorplate
     }
     editCompanyAddressApi(formData)
