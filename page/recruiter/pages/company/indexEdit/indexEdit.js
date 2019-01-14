@@ -31,9 +31,15 @@ Page({
   jumpPage(e) {
     switch(e.currentTarget.dataset.type) {
       case 'main':
-        wx.navigateTo({
-          url: `${COMMON}homepage/homepage?companyId=${app.globalData.recruiterDetails.companyInfo.id}`
-        })
+        if (app.globalData.recruiterDetails.isCompanyAdmin) {
+          wx.navigateTo({
+            url: `${RECRUITER}company/homepageEdit/homepageEdit?companyId=${app.globalData.recruiterDetails.companyInfo.id}`
+          })
+        } else {
+          wx.navigateTo({
+            url: `${COMMON}homepage/homepage?companyId=${app.globalData.recruiterDetails.companyInfo.id}`
+          })
+        }
       break
       case 'peoples':
         wx.navigateTo({

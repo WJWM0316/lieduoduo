@@ -33,7 +33,7 @@ Page({
       title = '请输入姓名'
     } else  if (!info.position) {
       title = '请输入职位'
-    } else  if (!info.startWorkYear) {
+    } else  if (!info.startWorkYear && info.startWorkYear !== 0) {
       title = '选择开始工作时间'
     }
     if (title) {

@@ -2,13 +2,13 @@
   <navbar title="团队亮点标签"></navbar>
   <block>
     <view class="content">
-      <view class="head">已选择标签<text class="number"><text class="num">{{choseList.length}}</text>/5</text></view>
+      <view class="head">已选择标签<text class="number"><text class="num">{{choseList.length}}</text>/8</text></view>
       <view class="tabs">
         <text class="tab checked" wx:for="{{choseList}}" wx:key="{{index}}" bindtap="choseTab" data-tabData="{{item}}">{{item.title}}</text>
       </view>
       <view class="head"></view>
       <view class="tabs">
-        <text class="tab {{item.checked ? 'checked' : ''}}" wx:for="{{teamList}}" wx:key="{{index}}" bindtap="choseTab" data-tabData="{{item}}">{{item.title}}</text>
+        <text class="tab {{item.select ? 'checked' : ''}}" wx:for="{{teamList}}" wx:key="{{index}}" bindtap="choseTab" data-tabData="{{item}}">{{item.title}}</text>
       </view>
       <view class="msg">找不到想要的标签？</view>
       <view class="addLabel" bindtap="openPop">添加自定义标签</view>

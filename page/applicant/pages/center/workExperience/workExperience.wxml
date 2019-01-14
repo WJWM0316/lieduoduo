@@ -6,7 +6,7 @@
 </view>
 <view>
   <view class="company commont">
-    <input name="company" bindblur="getValue" data-type="companyName" placeholder="填写公司名称" value="{{info.companyName}}"/>
+    <input name="company" bindconfirm="getValue" bindblur="getValue" data-type="companyName" placeholder="填写公司名称" value="{{info.companyName}}"/>
   </view>
   <view class="positionType commont" bindtap="jumpType">
     <input name="positionType" placeholder="选择职位类型" value="{{info.positionType.typeName || ''}}" disabled />

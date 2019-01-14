@@ -27,18 +27,18 @@
             </view>
           </view>
         </view>
-        <view class="msgItem jump">
+        <view class="msgItem jump" bindtap="jump" data-type="jobList">
           <view class="inner">
             <view class="txt">面试职位</view>
-            <view class="msg"  bindtap="jump" data-type="jobList">{{info.positionName}}</view>
-            <icon class="icon iconfont icon-xiangyou"  bindtap="jump" data-type="jobList"></icon>
+            <view class="msg" data-type="jobList">{{info.positionName}}</view>
+            <icon class="icon iconfont icon-xiangyou"></icon>
           </view>
         </view>
-        <view class="msgItem jump">
+        <view class="msgItem jump" bindtap="jump" data-type="addressList">
           <view class="inner noborder">
             <view class="txt">面试地址</view>
-            <view class="msg"  bindtap="jump" data-type="addressList">{{info.address}}</view>
-            <icon class="icon iconfont icon-xiangyou" bindtap="jump" data-type="addressList"></icon>
+            <view class="msg" data-type="addressList">{{info.address}}</view>
+            <icon class="icon iconfont icon-xiangyou"></icon>
           </view>
         </view>
       </view>

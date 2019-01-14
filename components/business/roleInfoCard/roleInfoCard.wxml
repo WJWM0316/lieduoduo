@@ -2,27 +2,27 @@
   <view class="company {{isMain ? 'edit' : ''}}" wx:if="{{roleType === 'company'}}" bindtap="jumpCompany">
     <image class="img" src="{{cardData.avatar.middleUrl || cardData.logo.middleUrl}}"></image>
     <view class="companyMsg" wx:if="{{!isMain}}">
-      <view class="name">{{cardData.name || cardData.realname}}</view>
+      <view class="name">{{cardData.name}}</view>
       <view class="detail">{{cardData.industry}} · {{cardData.financingDesc}} · {{cardData.employeesDesc}}</view>
     </view>
     <view class="companyMsg" wx:else>
-      <view class="name">{{cardData.companyShortname}}<icon bindtap="jumpEditBase" class="editIcon iconfont icon-bianji" wx:if="{{isMain}}"></icon></view>
+      <view class="name">{{cardData.companyShortname}}<i bindtap="jumpEditBase" class="editIcon iconfont icon-bianji" wx:if="{{isMain && isCompanyAdmin}}"></i></view>
       <view class="detail">{{cardData.companyName}}</view>
     </view>
-    <icon class="icon iconfont icon-xiangyou" wx:if="{{!isMain}}"></icon>
+    <i class="icon iconfont icon-xiangyou" wx:if="{{!isMain}}"></i>
   </view>
 
   <block  wx:if="{{roleType === 'applicant'}}">
     <view class="applicant" bindtap="jumpApplicant">
       <image class="img" src="{{cardData.avatar.middleUrl}}"></image>
       <view class="applicantMsg">
-        <view class="name">{{cardData.jobhunterRealname}}<text class="msg">{{cardData.workAge}}·{{cardData.degreeDesc}}<text wx:if="cardData.salaryFloor > 0">·{{cardData.salaryFloor}}~{{cardData.salaryCeil}}k</text></text></view>
-        <view class="detail">{{cardData.lastCompanyName}} | {{cardData.positionName}}</view>
+        <view class="name">{{cardData.jobhunterRealname || cardData.realname}}<text class="msg">{{cardData.workAge}}·{{cardData.degreeDesc}}<text wx:if="cardData.salaryFloor > 0">·{{cardData.salaryFloor}}~{{cardData.salaryCeil}}k</text></text></view>
+        <view class="detail">{{cardData.lastCompanyName}} | {{cardData.positionName ||cardData.lastPosition}}</view>
       </view>
     </view>
     <view class="contact">
       <view class="mobile" bindtap="makePhoneCall">手机：<text class="txt">{{cardData.mobile || cardData.jobhunterMobile}}</text></view>
-      <view class="wechat" bindtap="setClipboardData" wx:if="{{cardData.wechat || cardData.lastPosition}}">微信：<text class="txt">{{cardData.wechat || cardData.jobhunterWechat}}</text></view>
+      <view class="wechat" bindtap="setClipboardData" wx:if="{{cardData.wechat || cardData.jobhunterWechat}}">微信：<text class="txt">{{cardData.wechat || cardData.jobhunterWechat}}</text></view>
     </view>
   </block>
 

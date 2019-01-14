@@ -95,7 +95,6 @@
         "pages/user/company/identity/identity",
         "pages/user/company/status/status",
         "pages/user/company/email/email",
-        "pages/user/homepageEdit/homepageEdit",
         "pages/user/company/infos/infos",
         "pages/user/userInfoEdit/userInfoEdit",
         "pages/user/editBrief/editBrief",
@@ -108,6 +107,7 @@
         "pages/company/introducingEdit/introducingEdit",
         "pages/company/recruiterList/recruiterList",
         "pages/company/productList/productList",
+        "pages/company/homepageEdit/homepageEdit",
         "pages/company/teamLabel/teamLabel"
       ]
     }

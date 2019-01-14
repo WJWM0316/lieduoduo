@@ -1,5 +1,5 @@
 import {COMMON,RECRUITER} from "../../../config.js"
-
+let app = getApp()
 Component({
   externalClasses: ['my-class'],
   /**
@@ -22,9 +22,11 @@ Component({
    * 组件的初始数据
    */
   data: {
-
+    isCompanyAdmin: false
   },
   attached() {
+    let isCompanyAdmin = app.globalData.recruiterDetails.isCompanyAdmin || 0
+    this.setData({isCompanyAdmin})
   },
   /**
    * 组件的方法列表

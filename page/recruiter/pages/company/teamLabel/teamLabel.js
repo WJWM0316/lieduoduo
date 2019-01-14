@@ -18,7 +18,13 @@ Page({
    */
   onLoad: function (options) {
     getTeamlightspotApi().then(res => {
-      this.setData({teamList: res.data})
+      let choseList = []
+      res.data.map((item, index) => {
+        if (item.select) {
+          choseList.push(item)
+        }
+      })
+      this.setData({teamList: res.data, choseList})
     })
   },
   openPop () {
@@ -119,13 +125,13 @@ Page({
     }
     let listId = []
     this.data.choseList.map((item, index) => {
-      listId.push({id: item.id, source: item.source})
+      listId.push(item.id)
     })
-
+    console.log(listId)
     let data = {
+      labels: JSON.stringify(listId)
     }
     saveTeamlabApi(data).then(res => {
-      app.globalData.
       app.wxToast({
         title: '提交成功',
         icon: "success",

@@ -128,7 +128,6 @@ Component({
         result[2] = days.indexOf(this.data.setResult.slice(8, 11))
         result[3] = this.data.hours.indexOf(this.data.setResult.slice(12, 14))
         result[4] = this.data.minutes.indexOf(this.data.setResult.slice(15, 17))
-        console.log(days, 2333333)
         if (result[2] === -1) result = 0 // 开启palceholder
         list.push(year, this.data.month, days, this.data.hours, this.data.minutes)
         this.setData({list, year, days, result, mode: 'multiSelector', placeholder: '请选择面试时间'})
