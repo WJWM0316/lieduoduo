@@ -31,7 +31,6 @@ Page({
   onClick1(e) {
     // 只有一级标签
     const storage = wx.getStorageSync('createPosition') || {}
-    const url = this.data.query.positionId ? `${RECRUITER}position/post/post?positionId=${this.data.query.positionId}` : `${RECRUITER}position/post/post`
     const params = e.currentTarget.dataset
     const positionTypeList = this.data.positionTypeList
     let showMask = false
@@ -73,11 +72,9 @@ Page({
     const result = this.data.positionTypeList[this.data.index1].children[this.data.index2].children[params.index]
     this.setData({showMask: false})
     const storage = wx.getStorageSync('createPosition') || {}
-    const url = this.data.query.positionId ? `${RECRUITER}position/post/post?positionId=${this.data.query.positionId}` : `${RECRUITER}position/post/post`
     storage.type = result.labelId
     storage.typeName = result.name
     storage.parentType = this.data.positionTypeList[this.data.index1].labelId
-
     wx.setStorageSync('createPosition', storage)
     wx.navigateBack({delta: 1})
   },
