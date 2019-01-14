@@ -43,6 +43,7 @@ Page({
     } else {
       choseAllList = app.globalData.recruiterDetails.personalizedLabels || []
     }
+    console.log(choseAllList, 333333333333333)
     getJobLabelApi({type: 'all'}).then(res => {
       allSkills = res.data.labelProfessionalSkills
       literacy = res.data.labelProfessionalLiteracy

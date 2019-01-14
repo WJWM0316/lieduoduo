@@ -46,6 +46,5 @@ Page({
   edit(e) {
     const params = e.currentTarget.dataset
     wx.redirectTo({ url: `${RECRUITER}position/address/address?id=${params.id}` })
-    console.log(params)
   }
 })

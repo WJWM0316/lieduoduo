@@ -1,5 +1,8 @@
 @import '../../../../../../iconfont.wxss';
 
+.position-skills {
+	padding-bottom: 148rpx;
+}
 .position-skills .li {
 	padding:0 38rpx;
 	height:58rpx;

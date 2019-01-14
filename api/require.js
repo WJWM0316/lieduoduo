@@ -15,6 +15,8 @@ export const request = ({method = 'post', url, data = {}, needKey = true, hasLoa
   if (wx.getStorageSync('token')) {
     addHttpHead['Authorization'] = wx.getStorageSync('token')
   }
+  // 版本号， 每次上次发版 + 1
+  addHttpHead['cv'] = 100
   const promise = new Promise((resolve, reject) => {
     // 开启菊花图
     if (hasLoading) {
@@ -70,7 +72,7 @@ export const request = ({method = 'post', url, data = {}, needKey = true, hasLoa
                   url: `${APPLICANT}center/createUser/createUser`
                 })
               }
-              if (msg.code === 801) {
+              if (msg.code === 801 && url !== '/recruiter/detail') {
                 // 还没有创建公司
                 if(Array.isArray(res.data.data)) {
                   wx.reLaunch({url: `${RECRUITER}user/company/apply/apply`})
