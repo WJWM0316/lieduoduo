@@ -5,10 +5,11 @@
 			<textarea
 				bindinput="bindTextAreaInput"
 				placeholder="填写详细，清晰的职位描述"
+				maxlength="1000"
 				value="{{describe}}" />
 			<view class="controls">
 				<view class="similarity"><i class="icon iconfont icon-chakan"></i>看看别人怎么写</view>
-				<view class="sum">{{ describe.length }}/300</view>
+				<view class="sum"><text class="{{describe.length > 5000 ? 'red' : ''}}">{{ describe.length }}</text>/5000</view>
 			</view>
 		</view>
 		<view class="example">

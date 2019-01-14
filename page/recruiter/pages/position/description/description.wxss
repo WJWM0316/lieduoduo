@@ -41,6 +41,10 @@
 	color:rgba(178,182,194,1);
 }
 
+.position-description .controls .red {
+	color:red
+}
+
 .position-description .controls .icon-chakan {
 	margin-right: 10rpx;
 	vertical-align: text-top;
