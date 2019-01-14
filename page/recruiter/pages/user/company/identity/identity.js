@@ -20,7 +20,10 @@ Page({
     handheld_passport: {
       smallUrl: ''
     },
-    canClick: false
+    canClick: false,
+    options: {
+      from: 'company'
+    }
   },
   onLoad(options) {
     if(options.type && options.type === 'edit') this.getCompanyIdentityInfos()
@@ -129,7 +132,7 @@ Page({
     const formData = this.getParams()
     identityCompanyApi(formData)
       .then((res) => {
-        wx.redirectTo({url: `${RECRUITER}user/company/status/status?from=identity`})
+        wx.redirectTo({url: `${RECRUITER}user/company/status/status?from=${this.data.options.from}`})
       })
   },
   /**
@@ -142,7 +145,7 @@ Page({
     const formData = this.getParams()
     identityCompanyApi(formData)
       .then((res) => {
-        wx.redirectTo({url: `${RECRUITER}user/company/status/status?from=identity`})
+        wx.redirectTo({url: `${RECRUITER}user/company/status/status?from=${this.data.options.from}`})
       })
   }
 })
