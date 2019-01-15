@@ -1,5 +1,26 @@
 @import '../../../../../../iconfont.wxss';
 
+.top-banner {
+	height: 415rpx;
+	background: red;
+	position: fixed;
+	left: 0;
+	top: 0;
+}
+
+.top-banner image {
+	position: fixed;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 415rpx;
+}
+
+.page-mine {
+	position: relative;
+	z-index: 1000;
+}
+
 .page-mine .floating-box {
 	overflow: hidden;
 	background:white;
