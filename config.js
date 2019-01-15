@@ -3,9 +3,12 @@
  */
 
 // 测试服接口
-export const APPLICANTHOST = 'https://qiuzhi-api.lieduoduo.ziwork.com'
+// export const APPLICANTHOST = 'https://qiuzhi-api.lieduoduo.ziwork.com'
+// export const RECRUITERHOST = 'https://zhaopin-api.lieduoduo.ziwork.com'
 
-export const RECRUITERHOST = 'https://zhaopin-api.lieduoduo.ziwork.com'
+// 正式服环境
+export const APPLICANTHOST = 'https://qiuzhi-api.lieduoduo.com'
+export const RECRUITERHOST = 'https://zhaopin-api.lieduoduo.com'
 
 // 招聘端page
 export const RECRUITER = '/page/recruiter/pages/'

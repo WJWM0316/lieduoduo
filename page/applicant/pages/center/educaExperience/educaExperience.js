@@ -87,10 +87,11 @@ Page({
       wx.removeStorageSync('createPosition')
       wx.removeStorageSync('workContent')
       wx.removeStorageSync('createUserSecond')
-      wx.reLaunch({
-        url: '/page/applicant/pages/center/mine/mine'
+      app.getAllInfo().then(() => {
+        wx.reLaunch({
+          url: '/page/applicant/pages/center/mine/mine'
+        })
       })
-      app.getAllInfo()
     })
   }
 })
