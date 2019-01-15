@@ -1,5 +1,5 @@
 <!--components/business/choose/choose.wxml-->
-<view class="choose hasAd" wx:if="{{!isChose}}">
+<view class="choose" wx:if="{{!isChose}}">
 	<navbar title="选择身份"></navbar>
 	<view class="title">
 		<image src="{{cdnImagePath}}choseIcon1.png" class="icon"></image>
@@ -13,6 +13,6 @@
   	<view class="desc">我是招聘官<icon class="icon iconfont icon-disejiantou-you"></icon></view>
   	<image class="img" src="{{cdnImagePath}}choseIcon3.png"></image>
   </button>
-  <image class="ad" src="{{cdnImagePath}}images/ad.png"></image>
+  <!-- <image class="ad" src="{{cdnImagePath}}ad.png"></image> -->
   <!-- <bindPhone></bindPhone> -->
 </view>

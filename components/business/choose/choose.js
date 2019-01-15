@@ -13,7 +13,8 @@ Component({
    * 组件的初始数据
    */
   data: {
-    isChose: false
+    isChose: false,
+    cdnImagePath: getApp().globalData.cdnImagePath
   },
   attached: function () {
     wx.login({

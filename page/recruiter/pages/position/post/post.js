@@ -114,7 +114,10 @@ Page({
    */
   routeJump(e) {
     const route = e.currentTarget.dataset.route
-    const url = this.data.query.positionId ? `${RECRUITER}position/${route}/${route}?positionId=${this.data.query.positionId}` : `${RECRUITER}position/${route}/${route}`
+    const url = this.data.query.positionId
+      ? `${RECRUITER}position/${route}/${route}?positionId=${this.data.query.positionId}`
+      : `${RECRUITER}position/${route}/${route}`
+
     if(route === 'skills' && !this.data.type) {
       app.wxToast({title: '请先选择职业类型别'})
     } else {
@@ -129,7 +132,10 @@ Page({
    * @return   {[type]}     [description]
    */
   getCategory() {
-    const url = this.data.query.positionId ? `${COMMON}category/category?positionId=${this.data.query.positionId}` : `${COMMON}category/category`
+    const url = this.data.query.positionId
+      ? `${COMMON}category/category?positionId=${this.data.query.positionId}`
+      : `${COMMON}category/category`
+      
     wx.navigateTo({ url })
     wx.setStorageSync('createPosition', this.data)
   },
