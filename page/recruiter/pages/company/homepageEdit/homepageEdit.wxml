@@ -71,7 +71,7 @@
 		</view>
 	</view>
 	
-	<view class="company-address">
+<!-- 	<view class="company-address">
 		<view class="title">
 			<view class="self-icon"> <view class="fan"></view> </view> 公司地址
 			<view class="icon-button" data-route="address-post" bindtap="routeJump"><i class="icon iconfont icon-bianji"></i></view>
@@ -82,5 +82,5 @@
 				<view class="button" bindtap="copyLink"><i class="icon iconfont icon-xiangyou"></i></view>
 			</view>
 		</block>
-	</view>
+	</view> -->
 </view>

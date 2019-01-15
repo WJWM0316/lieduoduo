@@ -6,10 +6,10 @@
 			 <view class="content" wx:if='{{isComplete}}'>
 				<view class="realname">{{myInfo.name}}</view>
 				<view class="degree-name">{{myInfo.lastCompanyName}} | {{myInfo.lastPosition}}</view>
-        <view class="experience">{{myInfo.workAge}}<text wx:if="{{myInfo.workAge !== '在校生'}}">经验</text> | {{myInfo.age ? myInfo.age + '岁 | ' : ''}} {{myInfo.degreeDesc}}</view>
-			</view>
+        <view class="experience">{{myInfo.workAgeDesc}}<text wx:if="{{myInfo.workAgeDesc !== '在校生'}}">经验</text> | {{myInfo.age ? myInfo.age + '岁 | ' : ''}} {{myInfo.degreeDesc}}</view>
+			</view> 
       <!-- 简历未完善 -->
-       <view class="content" wx:if='{{!isComplete}}'>
+      <view class="content" wx:if='{{!isComplete}}'>
 				<view class="realname">简历未完善</view>
 				<view class="degree-name directions">你与offer之间还差一份简历，快去完善吧~</view>
 			</view>

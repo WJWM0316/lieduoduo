@@ -111,5 +111,5 @@
       </view>
     </label>
   </radio-group>
-  <view class="edit-button"  wx:if="{{identity === 'RECRUITER'}}"><i class="icon iconfont icon-bianji"></i></view>
+  <!-- <view class="edit-button"  wx:if="{{identity === 'RECRUITER'}}"><i class="icon iconfont icon-bianji"></i></view> -->
 </view>
