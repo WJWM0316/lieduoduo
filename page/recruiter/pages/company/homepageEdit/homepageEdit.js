@@ -4,14 +4,12 @@ import {
   getRecruitersListApi
 } from '../../../../../api/pages/company.js'
 
-import {RECRUITERHOST, COMMON} from '../../../../../config.js'
+import {RECRUITERHOST, COMMON, RECRUITER} from '../../../../../config.js'
 import {getPositionListApi} from "../../../../../api/pages/position.js"
 
-Page({
+const app = getApp()
 
-  /**
-   * 页面的初始数据
-   */
+Page({
   data: {
     tab: 'about',
     query: {},
@@ -22,23 +20,28 @@ Page({
   },
   onLoad(options) {
     this.setData({query: options})
+  },
+  onShow() {
     this.getCompanyDetail()
-    // this.getRecruitersList()
-    // this.getPositionList(options)
   },
   /**
    * @Author   小书包
-   * @DateTime 2019-01-10
-   * @detail   获取职位详情
+   * @DateTime 2019-01-15
+   * @detail   离开当前页面
    * @return   {[type]}   [description]
    */
-  getPositionList(options) {
-    getPositionListApi({company_id: options.companyId}).then(res => {
-      this.setData({jobList: res.data})
-    })
-  },
-  bindMain(e) {
-    wx.navigateTo({url: `${COMMON}recruiterDetail/recruiterDetail?uid=${e.currentTarget.dataset.uid}`})
+  routeJump(e) {
+    const params = e.currentTarget.dataset
+    switch(params.route) {
+      case 'address-post':
+        wx.navigateTo({url: `${RECRUITER}position/addressList/addressList`})
+        break
+      case 'base':
+        wx.navigateTo({url: `${COMMON}recruiterDetail/recruiterDetail?uid=${app.globalData.recruiterDetails.uid}`})
+        break
+      default:
+        break
+    }
   },
   /**
    * @Author   小书包
@@ -49,83 +52,7 @@ Page({
   getCompanyDetail() {
     getCompanyInfosApi({id: this.data.query.companyId})
       .then(res => {
-        console.log(res.data)
         this.setData({companyInfos: res.data})
       })
-  },
-  /**
-   * @Author   小书包
-   * @DateTime 2019-01-04
-   * @detail   获取招聘团队
-   * @return   {[type]}   [description]
-   */
-  getRecruitersList() {
-    getRecruitersListApi({id: this.data.query.companyId, page: 1, count: 3})
-      .then(res => {
-        this.setData({recruitersList: res.data})
-      })
-  },
-  /**
-   * @Author   小书包
-   * @DateTime 2019-01-04
-   * @detail   选项卡切换
-   * @return   {[type]}     [description]
-   */
-  onTabClick(e) {
-    const tab = e.currentTarget.dataset.tab
-    this.setData({tab})
-  },
-  /**
-   * @Author   小书包
-   * @DateTime 2019-01-04
-   * @detail   轮播图设置
-   * @return   {[type]}     [description]
-   */
-  swiperChange(e) {
-    this.setData({swiperIndex: e.detail.current})
-  },
-  /**
-   * @Author   小书包
-   * @DateTime 2018-12-29
-   * @detail   复制
-   * @return   {[type]}   [description]
-   */
-  copyLink() {
-    wx.setClipboardData({
-      data: this.data.companyInfos.website,
-      success(res) {
-        console.log(res)
-        // wx.getClipboardData({
-        //   success(res) {
-        //     console.log(res.data) // data
-        //   }
-        // })
-      }
-    })
-  },
-  regionchange(e) {
-    // console.log(e.type)
-  },
-  markertap(e) {
-    // console.log(e.markerId)
-  },
-  controltap(e) {
-    // console.log(e.controlId)
-  },
-  /**
-   * @Author   小书包
-   * @DateTime 2018-12-29
-   * @detail   离开当前页面
-   * @return   {[type]}   [description]
-   */
-  routeJump(e) {
-    const route = e.currentTarget.dataset.route
-    switch(route) {
-      case 'map':
-        wx.navigateTo({url: `${COMMON}map/map`})
-        break
-      default:
-        break
-    }
   }
 })
