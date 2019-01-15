@@ -1,4 +1,5 @@
 import { getApplyListApi, getInviteListApi, getScheduleListApi } from '../../../../../api/pages/interview.js'
+import {RECRUITER} from '../../../../../config.js'
 const app = getApp()
 let param = {
   tab : 'all',
@@ -154,8 +155,9 @@ Page({
       })
     })
   },
-  onLoad () {
+  onLoad () {},
+  onShow () {
     this.init()
   },
-  onShow () {}
+  toHistory () {}
 })

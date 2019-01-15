@@ -81,6 +81,7 @@
 .add{
   position: fixed;
   bottom: 30rpx;
+  width: 550rpx;
   left: 50%;
   transform: translateX(-50%);
 }

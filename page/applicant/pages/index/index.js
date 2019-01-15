@@ -44,22 +44,13 @@ Page({
         }
       })
     }
-    this.init()
   },
   onShow() {
     if (app.globalData.resumeInfo.uid) {
-      geMyBrowseUsersApi().then(res => {
-        this.setData({
-          defaultList:res.data
-        })
-      })
+      this.init()
     } else {
       app.pageInit = () => {
-        geMyBrowseUsersApi().then(res => {
-          this.setData({
-            defaultList:res.data
-          })
-        })
+        this.init()
       }
     }
     wx.setTabBarBadge({
@@ -78,24 +69,56 @@ Page({
     return getAvartListApi()
   },
   init () {
-    Promise.all([this.getMyBrowseList(),this.getMyCollectList(),this.getAvartLis()]).then(res => {
+    if (this.data.pageList === 'mySeen') {
+      this.getMyBrowseList().then(res => {
+        this.setData({
+          lookedList: res.data,
+          defaultList: res.data
+        })
+      })
+    }else {
+      this.getMyCollectList().then(res => {
+        this.setData({
+          collectList: res.data,
+          defaultList: res.data
+        })
+      })
+    }
+    this.getAvartLis().then(res => {
       this.setData({
-        lookedList: res[0].data,
-        collectList: res[1].data,
-        defaultList: res[0].data,
-        moreList: res[2].data.moreRecruiter,
-        activeList: res[2].data.recruiterDynamic,
-        redDotActiveList: res[2].data.redDotJobHunterCollectList && res[2].data.redDotJobHunterViewList
+        moreList: res.data.moreRecruiter,
+        activeList: res.data.recruiterDynamic,
+        redDotActiveList: res.data.redDotJobHunterCollectList && res.data.redDotJobHunterViewList
       })
     })
   },
   toggle(e) {
     let pageList = e.currentTarget.dataset.pageList
     const key = pageList === 'mySeen'? 'lookedList' : 'collectList'
-    this.setData({
-      pageList,
-      defaultList: this.data[key]
-    })
+    if (this.data[key].length === 0) {
+      if (pageList === 'mySeen') {
+        this.getMyBrowseList().then(res => {
+          this.setData({
+            pageList,
+            lookedList: res.data,
+            defaultList: res.data
+          })
+        })
+      } else {
+        this.getMyCollectList().then(res => {
+          this.setData({
+            pageList,
+            collectList: res.data,
+            defaultList: res.data
+          })
+        })
+      }
+    } else {
+      this.setData({
+        pageList,
+        defaultList: this.data[key]
+      })
+    }
   },
   onShareAppMessage: function(options) {
 　　return app.wxShare({options})

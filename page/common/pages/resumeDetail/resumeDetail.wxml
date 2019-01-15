@@ -1,5 +1,5 @@
 <!--求职者个人简历页-->
-<navbar title="老虎科技-CEO" background="#FFFFFF" color="#22292C" showHome="{{true}}"></navbar>
+<navbar title="简历" background="#FFFFFF" color="#22292C" showHome="{{true}}"></navbar>
 <view class="resumeDetail {{isOwner? '' : 'addpadding'}}" wx:if="{{info}}">
   <view class="share" wx:if="{{isOwner && false}}"><i class="icon iconfont icon-fenxiang"></i></view>
 <!-- 基本信息 -->
@@ -14,7 +14,7 @@
       </view>
     </view>
     <view class="experience">
-      <view class="time"><i class="icon iconfont icon-zhiwei"></i> {{info.workAge}}年</view>
+      <view class="time"><i class="icon iconfont icon-zhiwei"></i> {{info.workAgeDesc}}</view>
       <view class="age"><i class="icon iconfont icon-nianling"></i> {{info.age}}岁</view>
       <view class="education"> <i class="icon iconfont icon-xueli"></i> {{info.degreeDesc}}</view>
       <view class="status">{{info.jobStatusDesc}}</view>

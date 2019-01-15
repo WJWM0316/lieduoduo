@@ -1,5 +1,5 @@
 <!--简历意向编辑页-->
-<navbar title="意向编辑"></navbar>
+<navbar title="求职意向"></navbar>
 <view class="warp">
   <view class="commont">
     <view class="title"><text>*</text>期望城市</view>
@@ -18,8 +18,8 @@
     <view class="result">{{aimList}}<i class="icon iconfont icon-xiangyou"></i></view>
   </view>
 </view>
-<view class="save add" bindtap="add" wx:if="{{isAdd}}">新增工作经历</view>
+<view class="save add" bindtap="add" wx:if="{{isAdd}}">保存</view>
 <view class="btn" wx:else>
   <view class="save delete" bindtap="del">删除</view>
-  <view class="save" bindtap="save">保存修改</view>
+  <view class="save" bindtap="save">保存</view>
 </view>
