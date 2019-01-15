@@ -28,10 +28,7 @@ Page({
     this.setData({professionalSkills, skills})
   },
   onLoad(options) {
-    this.getLabel(options).then(response => {
-      const professionalSkills = response.data.labelProfessionalSkills
-      this.setData({professionalSkills})
-    })
+    this.getLabel(options)
   },
   getLabel (options) {
     if (options.target === '2') {

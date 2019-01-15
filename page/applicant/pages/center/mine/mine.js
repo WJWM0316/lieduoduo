@@ -12,13 +12,24 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
-    let myInfo = app.globalData.resumeInfo
-    let isComplete = this.data.isComplete
-    if (myInfo.uid) {
-      isComplete = true
+  onShow: function (options) {
+    if (app.globalData.resumeInfo.uid) {
+      let myInfo = app.globalData.resumeInfo
+      let isComplete = this.data.isComplete
+      if (myInfo.uid) {
+        isComplete = true
+      }
+      this.setData({myInfo, isComplete})
+    } else {
+      app.pageInit = () => {
+        let myInfo = app.globalData.resumeInfo
+        let isComplete = this.data.isComplete
+        if (myInfo.uid) {
+          isComplete = true
+        }
+        this.setData({myInfo, isComplete})
+      }
     }
-    this.setData({myInfo, isComplete})
   },
   preview() {
     wx.downloadFile({
