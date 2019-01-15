@@ -141,7 +141,6 @@ export const deletePositionAddressApi = (data, hasLoading) => {
   return request({
     method: 'delete',
     url: `/company/position/address/${data.id}`,
-    data,
     hasLoading: true
   })
 }
@@ -150,11 +149,11 @@ export const deletePositionAddressApi = (data, hasLoading) => {
 export const deleteCompanyAddressApi = (data, hasLoading) => {
   return request({
     method: 'delete',
-    url: `/company/position/address/${data.id}`,
-    data,
+    url: `/company/address/${data.id}`,
     hasLoading: true
   })
 }
+
 // 创建公司产品
 export const createCompanyProductApi = (data, hasLoading) => {
   return request({

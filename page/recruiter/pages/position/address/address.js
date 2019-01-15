@@ -2,16 +2,14 @@ import {
   getAddressDetailApi,
   editCompanyAddressApi,
   addCompanyAddressApi,
-  addPositionAddressApi
+  addPositionAddressApi,
+  deletePositionAddressApi,
+  deleteCompanyAddressApi
 } from "../../../../../api/pages/company.js"
 
 import {COMMON, RECRUITER} from '../../../../../config.js'
 
 import { reverseGeocoder } from '../../../../../utils/map.js'
-
-import {
-  deleteCompanyAddressApi
-} from '../../../../../api/pages/company.js'
 
 const app = getApp()
 
@@ -90,8 +88,31 @@ Page({
   deleteCompanyAddress() {
     deleteCompanyAddressApi({id: this.data.options.id})
       .then(() => {
-        wx.redirectTo({url: `${RECRUITER}position/addressList/addressList`})
+        wx.navigateBack({delta: 1})
       })
+  },
+  /**
+   * @Author   小书包
+   * @DateTime 2019-01-09
+   * @detail   删除职位地址
+   * @return   {[type]}   [description]
+   */
+  deletePositionAddress() {
+    deleteCompanyAddressApi({id: this.data.options.id})
+      .then(() => {
+        wx.navigateBack({delta: 1})
+      })
+  },
+  /**
+   * @Author   小书包
+   * @DateTime 2019-01-15
+   * @detail   删除地址
+   * @return   {[type]}   [description]
+   */
+  delete() {
+    const type = this.data.options.type === 'position' ? 'Position' : 'Company'
+    const action = `delete${type}Address`
+    this[action]()
   },
   submit() {
     const type = this.data.options.type === 'position' ? 'Position' : 'Company'
