@@ -124,6 +124,7 @@ App({
               }
               pageUrl = `${pageUrl}?${params}`
               data.code = wx.getStorageSync('code')
+              
               loginApi(data).then(res => {
                 // 有token说明已经绑定过用户了
                 if (res.data.token) {

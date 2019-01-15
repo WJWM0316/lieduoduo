@@ -1,9 +1,9 @@
 <!--简历意向编辑页-->
 <navbar title="意向编辑"></navbar>
 <view class="warp">
-  <view class="commont" data-type="0" bindtap="choose">
+  <view class="commont">
     <view class="title"><text>*</text>期望城市</view>
-    <view class="result">{{city.name || city.title}}<i class="icon iconfont icon-xiangyou"></i></view>
+    <myPicker class="myPicker" setResult="" pickerType="region" rangeKey="title" placeholderStyle="color: #BCBCBC" bindresultevent="getresult" data-type="region"></myPicker>
   </view>
   <view class="commont" data-type="1" bindtap="choose">
     <view class="title"><text>*</text>期望职位</view>
@@ -11,7 +11,7 @@
   </view>
   <view class="commont salary">
     <view class="title"><text>*</text>期望薪资</view>
-    <myPicker class="myPicker" setResult="选择期望薪资" pickerType="salaryRangeC" placeholderStyle="color: #BCBCBC" bindresultevent="getresult"></myPicker>
+    <myPicker class="myPicker" setResult="" pickerType="salaryRangeC" placeholderStyle="color: #BCBCBC" bindresultevent="getresult" data-type="salaryRangeC"></myPicker>
   </view>
   <view class="commont" data-type="2" bindtap="choose">
     <view class="title"><text>*</text>期望领域</view>

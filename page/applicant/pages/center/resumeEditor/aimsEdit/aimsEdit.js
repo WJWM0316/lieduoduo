@@ -1,5 +1,6 @@
 // page/applicant/pages/center/resumeEditor/aimsEdit/aimsEdit.js
 import { editExpectApi, addExpectApi } from '../../../../../../api/pages/center.js'
+import {COMMON, APPLICANT} from '../../../../../../config.js'
 let target = null
 let title = null
 let nowEcpetId = null // 当前编辑的意向数据id
@@ -16,7 +17,7 @@ Page({
     salaryCeil: '',
     salaryFloor: '',
     isAdd: false,
-    aimList: '请选择领域', // 用于展示的领域列表 
+    aimList: '', // 用于展示的领域列表 
     aimIdList: '' // 作为接口参数的领域列表
   },
 
@@ -53,10 +54,10 @@ Page({
     switch (target) {
       case '0':
         this.setData({city: wx.getStorageSync('result')})
-        break;
+        break
       case '1':
-        this.setData({position: wx.getStorageSync('result')})
-        break;
+        this.setData({position: wx.getStorageSync('createPosition').typeName})
+        break
       case '2':
         let resultList = wx.getStorageSync('result')
         let aimList = null
@@ -65,53 +66,40 @@ Page({
           if (aimList) {
             aimList = `${aimList},${item.name}`
             aimIdList = `${aimIdList},${item.labelId}`
-//          aimIdList.push(item.labelId)
           } else {
             aimList = `${item.name}`
             aimIdList = `${item.labelId}`
-//          aimIdList.push(item.labelId)
           }
         })
         this.setData({aimList, aimIdList})
-        console.log(wx.getStorageSync('result'))
-//      this.setData({signory: wx.getStorageSync('result')})
-        break;
-    }
-  },
-  setTitle (target) {
-    switch (target) {
-      case '0':
-        title = this.data.city
-        break;
-      case '1':
-        title = this.data.position
-        break;
-      case '2':
-        title = this.data.aimList
-        break;
+        break
     }
   },
   /* 去选择页面(0、选择城市，1、选择职位，2、选择领域) */
   choose (e) {
     target = e.currentTarget.dataset.type
-    this.setTitle(target)
     if (target === '2') {
       wx.navigateTo({
-        url: `/page/applicant/pages/center/resumeEditor/skills/skills?target=${target}`
+        url: `${APPLICANT}resumeEditor/skills/skills?target=${target}`
       })
-      return
+    } else if (target === '1') {
+      wx.navigateTo({
+        url: `${COMMON}category/category`
+      })
     }
-    wx.navigateTo({
-      url: `/page/applicant/pages/center/resumeEditor/systematics/systematics?title=${title}&target=${target}`
-    })
   },
   
   getresult (e) {
-    console.log(e)
-    this.setData({
-      salaryCeil: parseInt(e.detail.propsResult[1]),
-      salaryFloor: parseInt(e.detail.propsResult[0])
-    })
+    if (e.currentTarget.dataset.type === "salaryRangeC") {
+      this.setData({
+        salaryCeil: parseInt(e.detail.propsResult[1]),
+        salaryFloor: parseInt(e.detail.propsResult[0])
+      })
+    } else {
+      this.setData({
+        city: e.detail.propsDesc[1]
+      })
+    }
   },
   // 保存修改
   save () {
