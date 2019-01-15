@@ -68,9 +68,23 @@ Page({
     }
     for (let item in param) {
       if (!param[item] && item !== 'link' && item !== 'endTime') {
-        console.log(item)
+        let itemName = ''
+        switch (item) {
+          case 'name':
+            itemName = '项目名字不能为空'
+            break;
+          case 'role':
+            itemName = '担任角色不能为空'
+            break;
+          case 'startTime':
+            itemName = '开始时间不能为空'
+            break;
+          case 'description':
+            itemName = '项目描述不能为空'
+            break;
+        }
         wx.showToast({
-          title: `必填项不能为空，请重新输入`,
+          title: `${itemName}`,
           icon: 'none',
           duration: 1000
         })
@@ -103,9 +117,23 @@ Page({
     }
     for (let item in param) {
       if (!param[item] && item !== 'link' && item !== 'endTime') {
-        console.log(item)
+        let itemName = ''
+        switch (item) {
+          case 'name':
+            itemName = '项目名字不能为空'
+            break;
+          case 'role':
+            itemName = '担任角色不能为空'
+            break;
+          case 'startTime':
+            itemName = '开始时间不能为空'
+            break;
+          case 'description':
+            itemName = '项目描述不能为空'
+            break;
+        }
         wx.showToast({
-          title: `必填项不能为空，请重新输入`,
+          title: `${itemName}`,
           icon: 'none',
           duration: 1000
         })
