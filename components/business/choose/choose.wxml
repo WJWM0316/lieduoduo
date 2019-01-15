@@ -13,6 +13,6 @@
   	<view class="desc">我是招聘官<icon class="icon iconfont icon-disejiantou-you"></icon></view>
   	<image class="img" src="{{cdnImagePath}}choseIcon3.png"></image>
   </button>
-  <image class="ad" src="{{cdnImagePath}}images/ad.png"></image>
+  <image class="ad" src="{{cdnImagePath}}ad.png"></image>
   <!-- <bindPhone></bindPhone> -->
 </view>
