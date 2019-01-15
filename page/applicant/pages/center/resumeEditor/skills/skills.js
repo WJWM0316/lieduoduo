@@ -6,14 +6,7 @@ Page({
   data: {
     professionalSkills: [],
     skills: [],
-    limitNum: 4
-  },
-  /**
-   * @return   {[type]}   [description]
-   */
-  getActive() {
-    const professionalSkills = this.data.professionalSkills.filter(field => field.active)
-    this.setData({skills: professionalSkills})
+    limitNum: 3
   },
   /**
    * @return   {[type]}     [description]

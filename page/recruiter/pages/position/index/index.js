@@ -18,9 +18,7 @@ Page({
     offLinePosition: {
       total: 0,
       list: []
-    },
-    positionList: [],
-    total: 0
+    }
   },
   onShow() {
     this.getTabLists()
@@ -32,18 +30,39 @@ Page({
    * @return   {[type]}   [description]
    */
   getTabLists() {
+
     // 获取上线列表
-    getPositionListApi({status: 1,recruiter: app.globalData.recruiterDetails.uid})
-      .then(res => {
-        const value = {total: res.meta.total, list: res.data}
-        const key = this.data.positionStatus === '1' ? 'onLinePosition' : 'offLinePosition'
-        this.setData({[key]: value, defaultList: value})
-      })
+    const getOnlineLists = new Promise((resolve, reject) => {
+      getPositionListApi({status: 1,recruiter: app.globalData.recruiterDetails.uid})
+        .then(res => {
+          this.setData({onLinePosition: {list: res.data, total: res.meta.total}})
+          resolve()
+        })
+        .catch(err => {
+          reject(err)
+        })
+    })
+
     // 获取下线列表
-    getPositionListApi({status: 0,recruiter: app.globalData.recruiterDetails.uid})
+    const getOffLineLists = new Promise((resolve, reject) => {
+      getPositionListApi({status: 0,recruiter: app.globalData.recruiterDetails.uid})
+        .then(res => {
+          this.setData({offLinePosition: {list: res.data, total: res.meta.total}})
+          resolve()
+        })
+        .catch(err => {
+          reject(err)
+        })
+    })
+
+    Promise
+      .all([getOnlineLists, getOffLineLists])
       .then(res => {
-        const value = {total: res.meta.total, list: res.data}
-        this.setData({offLinePosition: value})
+        const key = this.data.positionStatus === '1' ? 'onLinePosition' : 'offLinePosition'
+        this.setData({defaultList: this.data[key]})
+      })
+      .catch(err => {
+        app.wxToast({title: err})
       })
   },
   /**

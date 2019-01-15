@@ -13,18 +13,14 @@ Page({
     choseType: wx.getStorageSync('choseType') || null,
     needLogin: false,
     companyList: [],
+    lookedList: [], // 我看过的列表
+    collectList: [], // 我感兴趣的列表
+    defaultList: [],
     moreList: [],
     activeList: [],
     redDotActiveList: false // 招聘官动态红点
   },
   onLoad: function () {
-    // getAvartListApi().then(res => {
-    //   this.setData({
-    //     moreList: res.data.moreRecruiter,
-    //     activeList: res.data.recruiterDynamic,
-    //     redDotActiveList: res.data.redDotJobHunterCollectList && res.data.redDotJobHunterViewList
-    //   })
-    // })
     let choseType = wx.getStorageSync('choseType')
     if (!choseType) {
       wx.hideTabBar()
@@ -48,19 +44,20 @@ Page({
         }
       })
     }
+    this.init()
   },
   onShow() {
     if (app.globalData.resumeInfo.uid) {
       geMyBrowseUsersApi().then(res => {
         this.setData({
-          companyList:res.data
+          defaultList:res.data
         })
       })
     } else {
       app.pageInit = () => {
         geMyBrowseUsersApi().then(res => {
           this.setData({
-            companyList:res.data
+            defaultList:res.data
           })
         })
       }
@@ -70,26 +67,34 @@ Page({
       text: '99+'
     })
   },
-  toggle (tab) {
-    let tabName = tab || this.data.pageList
-    switch (tabName) {
-      case 'mySeen':
-        return geMyBrowseUsersApi()
-        break;
-      case 'myInterested':
-        return getMyCollectUsersApi()
-        break;
-      default:
-        break;
-    }
+  getMyBrowseList () {
+    return geMyBrowseUsersApi()
   },
-  changeCompanyLists(e) {
-    let pageList = e.currentTarget.dataset.pageList
-    this.toggle(pageList).then(res => {
+  getMyCollectList () {
+    return getMyCollectUsersApi()
+  },
+  /* 获取招聘官动态列表 */
+  getAvartLis () {
+    return getAvartListApi()
+  },
+  init () {
+    Promise.all([this.getMyBrowseList(),this.getMyCollectList(),this.getAvartLis()]).then(res => {
       this.setData({
-        pageList,
-        companyList: res.data
+        lookedList: res[0].data,
+        collectList: res[1].data,
+        defaultList: res[0].data,
+        moreList: res[2].data.moreRecruiter,
+        activeList: res[2].data.recruiterDynamic,
+        redDotActiveList: res[2].data.redDotJobHunterCollectList && res[2].data.redDotJobHunterViewList
       })
+    })
+  },
+  toggle(e) {
+    let pageList = e.currentTarget.dataset.pageList
+    const key = pageList === 'mySeen'? 'lookedList' : 'collectList'
+    this.setData({
+      pageList,
+      defaultList: this.data[key]
     })
   },
   onShareAppMessage: function(options) {

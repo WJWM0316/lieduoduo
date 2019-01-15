@@ -10,16 +10,6 @@ Page({
   },
   /**
    * @Author   小书包
-   * @DateTime 2019-01-09
-   * @detail   获取选中的item
-   * @return   {[type]}   [description]
-   */
-  getActive() {
-    const professionalSkills = this.data.professionalSkills.filter(field => field.active)
-    this.setData({skills: professionalSkills, canClick: professionalSkills.length > 0})
-  },
-  /**
-   * @Author   小书包
    * @DateTime 2018-12-25
    * @detail   选择职业类别
    * @return   {[type]}     [description]
@@ -27,8 +17,8 @@ Page({
   onClick(e) {
     const params = e.currentTarget.dataset
     let professionalSkills = this.data.professionalSkills
-    let tem = professionalSkills.filter(field => field.active)
-    if(tem.length < this.data.limitNum) {
+    let activeSkills = professionalSkills.filter(field => field.active)
+    if(activeSkills.length < this.data.limitNum) {
       professionalSkills.map(field => {
         if(field.labelId === params.labelId) field.active = !field.active
       })
@@ -37,8 +27,8 @@ Page({
         if(field.labelId === params.labelId) field.active = false
       })
     }
-    this.setData({professionalSkills})
-    this.getActive()
+    activeSkills = professionalSkills.filter(field => field.active)
+    this.setData({professionalSkills, skills: activeSkills, canClick: activeSkills.length > 0})
   },
   onLoad() {
     getLabelProfessionalSkillsApi()

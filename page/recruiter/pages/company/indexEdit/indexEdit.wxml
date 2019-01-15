@@ -15,7 +15,7 @@
 				<view class="txt">公司规模</view>
 				<view class="value">{{info.employeesInfo}}</view>
 			</view>
-			<view class="item">
+			<view class="item" wx:if="{{info.website}}">
 				<view class="txt">公司官网</view>
 				<view class="value">{{info.website}}</view>
 			</view>
