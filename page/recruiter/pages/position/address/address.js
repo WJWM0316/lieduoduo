@@ -1,4 +1,8 @@
-import {getAddressDetailApi, editCompanyAddressApi} from "../../../../../api/pages/company.js"
+import {
+  getAddressDetailApi,
+  editCompanyAddressApi,
+  addCompanyAddressApi
+} from "../../../../../api/pages/company.js"
 
 import {COMMON, RECRUITER} from '../../../../../config.js'
 
@@ -21,6 +25,9 @@ Page({
   },
   onLoad(options) {
     this.setData({options})
+  },
+  onShow() {
+    const options = this.data.options
     if(options.id) {
       getAddressDetailApi({id: options.id})
         .then(res => {
@@ -31,8 +38,7 @@ Page({
             address: infos.address,
             doorplate: infos.doorplate,
             lng: infos.lng,
-            lat: infos.lat,
-            options
+            lat: infos.lat
           }
           Object.keys(formData).map(field => this.setData({[field]: formData[field]}))
         })
@@ -68,12 +74,12 @@ Page({
     const storage = wx.getStorageSync('createPosition')
     reverseGeocoder(res)
       .then(rtn => {
-        storage.address = rtn.result.address
-        storage.area_id = rtn.result.ad_info.adcode
-        storage.lat = rtn.result.ad_info.location.lat
-        storage.lng = rtn.result.ad_info.location.lng
-        wx.setStorageSync('createPosition', storage)
-        this.setData({ doorplate: storage.doorplate, address: storage.address })
+        const formData = {}
+        formData.address = rtn.result.address
+        formData.area_id = rtn.result.ad_info.adcode
+        formData.lat = rtn.result.ad_info.location.lat
+        formData.lng = rtn.result.ad_info.location.lng
+        Object.keys(formData).map(field => this.setData({[field]: formData[field]}))
       })
   },
   /**
@@ -98,11 +104,26 @@ Page({
    * @detail   新增地址
    * @return   {[type]}   [description]
    */
+  // post() {
+  //   const storage = wx.getStorageSync('createPosition')
+  //   storage.doorplate = this.data.doorplate
+  //   wx.setStorageSync('createPosition', storage)
+  //   wx.redirectTo({url: `${RECRUITER}position/post/post`})
+  // },
   post() {
-    const storage = wx.getStorageSync('createPosition')
-    storage.doorplate = this.data.doorplate
-    wx.setStorageSync('createPosition', storage)
-    wx.redirectTo({url: `${RECRUITER}position/post/post`})
+    const infos = this.data
+    const formData = {
+      areaId: infos.area_id,
+      address: infos.address,
+      doorplate: infos.doorplate,
+      lng: infos.lng,
+      lat: infos.lat,
+      id: app.globalData.recruiterDetails.companyInfo.id
+    }
+    addCompanyAddressApi(formData)
+      .then(res => {
+        wx.navigateBack({delta: 1})
+      })
   },
   /**
    * @Author   小书包

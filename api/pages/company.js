@@ -100,7 +100,7 @@ export const editCompanyAlbumApi = (data, hasLoading) => {
 export const addCompanyAddressApi = (data, hasLoading) => {
   return request({
     method: 'put',
-    url: `/company/${data.id}`,
+    url: `/company/address/${data.id}`,
     data,
     hasLoading: true
   })
@@ -109,8 +109,8 @@ export const addCompanyAddressApi = (data, hasLoading) => {
 // 修改公司地址
 export const editCompanyAddressApi = (data, hasLoading) => {
   return request({
-    method: 'post',
-    url: `/company/position/address/${data.id}`,
+    method: 'put',
+    url: `/company/addressedit/${data.id}`,
     data,
     hasLoading: true
   })

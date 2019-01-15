@@ -3,7 +3,8 @@ import {RECRUITER} from '../../../../../config.js'
 
 Page({
   data: {
-    addressList: []
+    addressList: [],
+    isSelected: false
   },
 
   /**
