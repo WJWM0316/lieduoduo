@@ -1,3 +1,5 @@
+@import '../../../../../iconfont.wxss';
+
 .job-list .li {
   padding: 35rpx 0 35rpx 40rpx;
   position: relative;
@@ -83,6 +85,9 @@
   height:80rpx;
   background:rgba(255,255,255,1);
   box-shadow:0rpx 4rpx 14rpx 0rpx rgba(40,120,255,0.26);
+  display:flex;
+  justify-content:center;
+  align-items:center;
 }
 
 .job-list .h1 {
