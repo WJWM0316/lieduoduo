@@ -7,7 +7,8 @@ const app = getApp()
 Page({
 	data: {
     recruiterInfo: {},
-    isRecruiter: app.globalData.isRecruiter
+    isRecruiter: app.globalData.isRecruiter,
+    cdnPath: app.globalData.cdnImagePath
   },
   onLoad() {
     let recruiterInfo = app.globalData.recruiterDetails
