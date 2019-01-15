@@ -54,7 +54,8 @@ Page({
   	const params = e.currentTarget.dataset
   	switch(params.action) {
   		case 'modifyIdentity':
-  			wx.reLaunch({url: `${RECRUITER}user/company/identity/identity?type=edit`})
+        let url1 = this.data.identityInfos.id ? `${RECRUITER}user/company/identity/identity?type=edit` : `${RECRUITER}user/company/identity/identity`
+  			wx.reLaunch({url: url1})
   			break
   		case 'modifyCompany':
   			wx.redirectTo({url: `${RECRUITER}user/company/apply/apply?type=edit`})

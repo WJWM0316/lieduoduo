@@ -225,6 +225,10 @@
 	font-weight:500;
 	color:rgba(40,40,40,1);
 	margin-top: 15rpx;
+	max-width: 400rpx;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
 }
 
 .tab-company-homepage .infos {

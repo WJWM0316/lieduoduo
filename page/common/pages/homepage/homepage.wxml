@@ -38,7 +38,7 @@
 				</view>
 			</view>
 			<view class="footer" wx:if="{{recruitersList.length > 3}}">
-				<view class="button">查看全部招聘官<i class="icon iconfont icon-xiangyou"></i></view>
+				<view class="button" bindtap="routeJump" data-route="recruitersList">查看全部招聘官<i class="icon iconfont icon-xiangyou"></i></view>
 			</view>
 		</view>
 

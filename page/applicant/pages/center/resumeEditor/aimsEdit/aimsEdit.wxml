@@ -3,19 +3,22 @@
 <view class="warp">
   <view class="commont">
     <view class="title"><text>*</text>期望城市</view>
-    <myPicker class="myPicker" setResult="" pickerType="region" rangeKey="title" placeholderStyle="color: #BCBCBC" bindresultevent="getresult" data-type="region"></myPicker>
+    <myPicker class="myPicker" setResult="{{info.province}} {{info.city}}" pickerType="region" rangeKey="title" placeholderStyle="color: #BCBCBC" bindresultevent="getresult" data-type="region"></myPicker>
   </view>
   <view class="commont" data-type="1" bindtap="choose">
     <view class="title"><text>*</text>期望职位</view>
-    <view class="result">{{position.name || position.title}}<i class="icon iconfont icon-xiangyou"></i></view>
+    <view class="result">{{info.position}}<i class="icon iconfont icon-xiangyou"></i></view>
   </view>
   <view class="commont salary">
     <view class="title"><text>*</text>期望薪资</view>
-    <myPicker class="myPicker" setResult="" pickerType="salaryRangeC" placeholderStyle="color: #BCBCBC" bindresultevent="getresult" data-type="salaryRangeC"></myPicker>
+    <myPicker class="myPicker" setResult="{{info.salaryFloor}}k~{{info.salaryCeil}}k" pickerType="salaryRangeC" placeholderStyle="color: #BCBCBC" bindresultevent="getresult" data-type="salaryRangeC"></myPicker>
   </view>
   <view class="commont" data-type="2" bindtap="choose">
     <view class="title"><text>*</text>期望领域</view>
-    <view class="result">{{aimList}}<i class="icon iconfont icon-xiangyou"></i></view>
+    <view class="result">
+      <text wx:for="{{info.fields}}" wx:key="{{index}}">{{item.field || item.name}}</text>
+      <i class="icon iconfont icon-xiangyou"></i>
+    </view>
   </view>
 </view>
 <view class="save add" bindtap="add" wx:if="{{isAdd}}">保存</view>

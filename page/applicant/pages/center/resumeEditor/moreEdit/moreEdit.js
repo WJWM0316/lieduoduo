@@ -19,7 +19,6 @@ Page({
    */
   onLoad: function (options) {
     console.log(app.globalData.resumeInfo.moreIntroduce)
-//  introduce = app.globalData.resumeInfo.moreIntroduce.introduce
     if (options.id === 'undefined') {
       this.setData({
         isAdd: true,
@@ -30,13 +29,12 @@ Page({
   },
   // 上传图片
   getResult (e) {
-    let imgList = [...this.data.imgList, ...e.detail.data]
+    let imgList = [...this.data.imgList, ...e.detail]
     this.setData({
       imgList
     })
   },
   delImg (e) {
-//  console.log(e.currentTarget.dataset.imgindex)
     const index = e.currentTarget.dataset.imgindex
     this.data.imgList.splice(index,1)
     const imgList = this.data.imgList

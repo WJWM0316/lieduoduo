@@ -75,6 +75,16 @@ export const editExpectApi = (data) => {
   })
 }
 
+// 个人简历意向删除
+export const removeExpectApi = (data) => {
+  return request({
+    method: 'delete',
+    url: `/jobhunter/expect/${data.id}`,
+    data,
+    hasLoading: false
+  })
+}
+
 // 个人简历意向新增
 export const addExpectApi = (data) => {
   return request({

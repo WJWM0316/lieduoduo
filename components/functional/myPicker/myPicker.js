@@ -56,8 +56,8 @@ Component({
   },
   ready: function () {
     let list = []
-    let result = null
-    let firstOption = null
+    let result = 0
+    let firstOption = 0
     let curYear = new Date().getFullYear()
     let curMonth = new Date().getMonth() + 1
     let year = []
@@ -255,11 +255,25 @@ Component({
         break
       case 'region':
         let provice = []
-        let result = [0, 0]
+        let getResult = this.data.setResult.split(' ')
         getAreaListApi().then(res => {
           provice = res.data
-          list = [provice, provice[result[0]].children]
-          console.log(list[1][result[1]].title, 1111111)
+          provice.map((item, index) => {
+            if (item.title === getResult[0]) {
+              item.children.map((items, indexs) => {
+                if (items.title === getResult[1]) {
+                  result = [index, indexs]
+                  return
+                }
+                return
+              })
+            }
+          })
+          if (result) {
+            list = [provice, provice[result[0]].children]
+          } else {
+            list = [provice, provice[0].children]
+          }
           this.setData({list, result, provice, mode: 'multiSelector', placeholder: '请选择城市'})
         })
     }
@@ -314,7 +328,6 @@ Component({
           }
         })
       }
-      console.log(e, 333)
       this.setData({result: e.detail.value})
       this.setResult()
     },
@@ -327,6 +340,7 @@ Component({
         list[2] = this.getThisMonthDays(parseInt(year), parseInt(month))
         this.setData({list})
       }
+
       if (this.data.pickerType === 'dateTime') {
         let result = this.data.result
         if (this.data.result === 0) {
@@ -381,8 +395,8 @@ Component({
         }
         if (this.data.pickerType === 'region') {
           if (e.detail.column === 0) { // 选择省份
-            list = this.data.list
             list = [this.data.provice, this.data.provice[e.detail.value].children]
+            console.log(e.detail.value, this.data.provice[e.detail.value])
             this.setData({list})
           }
         }

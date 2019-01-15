@@ -35,7 +35,6 @@ Page({
             options
           }
           Object.keys(formData).map(field => this.setData({[field]: formData[field]}))
-          console.log(infos)
         })
     }
   },
@@ -90,7 +89,7 @@ Page({
       })
   },
   submit() {
-    const action = this.data.options.addressId ? 'edit' : 'post'
+    const action = this.data.options.id ? 'edit' : 'post'
     this[action]()
   },
   /**
