@@ -30,6 +30,7 @@ Page({
       })
     }
     nowEducateId = parseInt(options.id)
+    this.init()
   },
   // 修改学校名字
   schoolName (e) {
@@ -127,6 +128,18 @@ Page({
           wx.navigateBack({delta: 1})
         }
       })
+    })
+  },
+  init () {
+    if (!nowEducateId) return
+    app.globalData.resumeInfo.educations.map((item, index) => {
+      if (item.id === nowEducateId) {
+        this.setData({
+          schoolName: item.school,
+          subject: item.major,
+          description: item.experience
+        })
+      }
     })
   }
 })

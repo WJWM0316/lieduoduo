@@ -3,11 +3,11 @@
 <view class="warp">
   <view class="commont">
     <view class="title"><text>*</text>项目名称</view>
-    <view class="result"><input type="text" bindblur="itemName"></input></view>
+    <view class="result"><input type="text" bindblur="itemName" placeholder="请输入项目名称" value="{{itemName}}"></input></view>
   </view>
   <view class="commont">
     <view class="title"><text>*</text>担任角色</view>
-    <view class="result"><input type="text" bindblur="role"></input></view>
+    <view class="result"><input type="text" bindblur="role" placeholder="请输入" value="{{role}}"></input></view>
   </view>
   <view class="commont salary">
     <view class="title"><text>*</text>开始时间</view>
@@ -20,12 +20,12 @@
   <!--项目描述-->
   <view class="title"><text>*</text>项目描述</view>
   <view class="textArea">
-    <textarea placeholder="填写项目内容" placeholder-class="placeholder" maxlength="50" bindinput="WriteContent"></textarea>
+    <textarea placeholder="填写项目内容" placeholder-class="placeholder" maxlength="50" bindinput="WriteContent" value="{{description}}"></textarea>
   </view>
   <!--项目链接-->
   <view class="title">项目链接</view>
   <view class="textArea">
-    <textarea placeholder="填写项目链接" placeholder-class="placeholder" maxlength="50" bindinput="itemLink"></textarea>
+    <textarea placeholder="填写项目链接" placeholder-class="placeholder" maxlength="50" bindinput="itemLink" value="{{itemLink}}"></textarea>
   </view>
 </view>
 <view class="save add" bindtap="add" wx:if="{{isAdd}}">新增项目经历</view>

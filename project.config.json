@@ -38,7 +38,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 14,
+			"current": 8,
 			"list": [
 				{
 					"id": 0,
@@ -91,7 +91,7 @@
 				{
 					"id": 8,
 					"name": "简历",
-					"pathName": "page/common/pages/resumeDetail/resumeDetail",
+					"pathName": "page/applicant/pages/center/mine/mine",
 					"query": ""
 				},
 				{

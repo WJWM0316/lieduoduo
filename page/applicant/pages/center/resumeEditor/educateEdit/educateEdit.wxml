@@ -3,7 +3,7 @@
 <view class="warp">
   <view class="commont">
     <view class="title"><text>*</text>学校</view>
-    <view class="result"><input type="text" bindblur="schoolName"></input></view>
+    <view class="result"><input type="text" bindblur="schoolName" placeholder="请输入" value="{{schoolName}}"></input></view>
   </view>
   <view class="commont salary">
     <view class="title"><text>*</text>学历</view>
@@ -11,7 +11,7 @@
   </view>
   <view class="commont">
     <view class="title"><text>*</text>专业</view>
-    <view class="result"><input type="text" bindblur="subject"></input></view>
+    <view class="result"><input type="text" bindblur="subject" placeholder="请输入" value="{{subject}}"></input></view>
   </view>
   <view class="commont salary">
     <view class="title"><text>*</text>开始时间</view>
@@ -24,7 +24,7 @@
   <!--项目描述-->
   <view class="title"><text>*</text>在校经历</view>
   <view class="textArea">
-    <textarea placeholder="填写在校经历" placeholder-class="placeholder" maxlength="50" bindinput="WriteContent"></textarea>
+    <textarea placeholder="填写在校经历" placeholder-class="placeholder" maxlength="50" bindinput="WriteContent" value="{{description}}"></textarea>
   </view>
 </view>
 <view class="save add" bindtap="add" wx:if="{{isAdd}}">新增教育经历</view>

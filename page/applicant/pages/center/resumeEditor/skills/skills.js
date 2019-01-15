@@ -6,7 +6,7 @@ Page({
   data: {
     professionalSkills: [],
     skills: [],
-    limitNum: 4
+    limitNum: 3
   },
   /**
    * @return   {[type]}     [description]

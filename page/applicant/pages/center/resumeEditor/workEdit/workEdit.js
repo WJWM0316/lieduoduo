@@ -12,7 +12,7 @@ Page({
   data: {
     nowInputNum: 0,
     showCase: false, // 是否展示例子
-    jobCategories: '请选择职业类别',
+    jobCategories: '',
     company: '',
     positionName: '',
     starTime: '',
@@ -27,12 +27,14 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    console.log(options, 111)
     if (options.id === 'undefined') {
       this.setData({
         isAdd: true
       })
     }
     nowWorkId = parseInt(options.id)
+    this.init()
   },
 
   /**
@@ -75,7 +77,6 @@ Page({
         let skill = null
         let skillsId = []
         skillList.map(item => {
-          
           if (skill) {
             skill = `${skill},${item.name}`
             skillsId.push(item.name)
@@ -105,7 +106,7 @@ Page({
     this.setTitle(target)
     if (target === '4') {
       wx.navigateTo({
-        url: `/page/applicant/pages/center/resumeEditor/skills/skills`
+        url: `/page/applicant/pages/center/resumeEditor/skills/skills?title=${title}`
       })
       return
     }
@@ -196,6 +197,19 @@ Page({
           wx.navigateBack({delta: 1})
         }
       })
+    })
+  },
+  /* 进入为编辑时初始化数据 */
+  init () {
+    if (!nowWorkId) return
+    app.globalData.resumeInfo.careers.map((item, index) => {
+      if (item.id === nowWorkId) {
+        this.setData({
+          company: item.company,
+          positionName: item.position,
+          duty: item.duty
+        })
+      }
     })
   }
 })

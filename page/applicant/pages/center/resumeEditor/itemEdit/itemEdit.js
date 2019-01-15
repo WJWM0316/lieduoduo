@@ -30,6 +30,7 @@ Page({
       })
     }
     nowItemId = parseInt(options.id)
+    this.init()
   },
   // 修改项目名称
   itemName (e) {
@@ -125,6 +126,19 @@ Page({
           wx.navigateBack({delta: 1})
         }
       })
+    })
+  },
+  init () {
+    if (!nowItemId) return;
+    app.globalData.resumeInfo.projects.map((item, index) => {
+      if (item.id === nowItemId) {
+        this.setData({
+          itemName: item.name,
+          role: item.role,
+          description: item.description,
+          itemLink: item.link
+        })
+      }
     })
   }
 })
