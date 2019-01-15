@@ -11,7 +11,8 @@ Page({
     real_name: '',
     user_email: '',
     user_position: '',
-    canClick: false
+    canClick: false,
+    cdnImagePath: app.globalData.cdnImagePath
   },
   onLoad(options) {
     const storage = wx.getStorageSync('createdCompany')

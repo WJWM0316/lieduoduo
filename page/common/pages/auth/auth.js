@@ -1,11 +1,12 @@
 // page/common/pages/auth/auth.js
+let app = getApp()
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-
+    cdnImagePath: app.globalData.cdnImagePath
   },
 
   /**

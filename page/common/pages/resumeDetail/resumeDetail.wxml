@@ -19,7 +19,7 @@
       <view class="education"> <i class="icon iconfont icon-xueli"></i> {{info.degreeDesc}}</view>
       <view class="status">{{info.jobStatusDesc}}</view>
     </view>
-    <image class="line" src="../../../../images/line.png"></image>
+    <image class="line" src="{{cdnImagePath}}line.png"></image>
     <view class="personalTip">
       <view class="text">“{{info.signature}}”</view>
       <view class="tipBox">

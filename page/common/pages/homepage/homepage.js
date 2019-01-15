@@ -6,7 +6,7 @@ import {
 
 import {RECRUITERHOST, COMMON, RECRUITER} from '../../../../config.js'
 import {getPositionListApi} from "../../../../api/pages/position.js"
-
+let app = getApp()
 Page({
 
   /**
@@ -22,7 +22,8 @@ Page({
     companyInfos: {},
     recruitersList: [],
     companyList: [],
-    jobList: []
+    jobList: [],
+    cdnImagePath: app.globalData.cdnImagePath
   },
   onLoad(options) {
     this.setData({query: options})

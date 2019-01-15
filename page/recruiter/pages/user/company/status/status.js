@@ -15,7 +15,8 @@ Page({
     page: '',
     pageTitle: '公司认证',
     options: {},
-    isPerfect: false
+    isPerfect: false,
+    cdnImagePath: app.globalData.cdnImagePath
   },
   onLoad(options) {
     switch(options.from) {

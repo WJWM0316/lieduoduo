@@ -1,7 +1,7 @@
 <view class="recruiterDetail">
   <navbar title="招聘官主页" background="#fff" color="#22292C" showHome="{{true}}"></navbar>
   <view class="header" wx:if="{{info.uid && !isOwner}}">
-    <image class="bgImg" src="../../../../images/bg_detail.png" mode="aspectFill"></image>
+    <image class="bgImg" src="{{cdnImagePath}}bg_detail.png" mode="aspectFill"></image>
     <shareBtn></shareBtn>
     <div class="content">
       <view class="avatar vip">

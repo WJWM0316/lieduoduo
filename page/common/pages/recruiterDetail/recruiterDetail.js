@@ -20,7 +20,8 @@ Page({
     isRecruiter: false,
     positionList: [],
     isShowBtn: true,
-    options: {}
+    options: {},
+    cdnImagePath: app.globalData.cdnImagePath
   },
 
   /**

@@ -20,6 +20,7 @@ Page({
     handheld_passport: {
       smallUrl: ''
     },
+    cdnImagePath: app.globalData.cdnImagePath,
     canClick: false,
     options: {
       from: 'company'

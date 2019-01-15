@@ -16,6 +16,7 @@ Page({
     pageList: 'seen-me',
     companyList: [],
     collectMyList: [],
+    cdnImagePath: app.globalData.cdnImagePath,
     browseMySelfLists: [], //看过我的
     mapyCollectUser: [], // 我收藏的求职者列表
     identity: 'RECRUITER'

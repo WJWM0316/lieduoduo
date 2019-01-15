@@ -46,7 +46,7 @@
       </view>
     </view>
     <view class="content">
-      <view class="corner"><image src="../../../../../../images/corner.png"></image></view>
+      <view class="corner"><image src="{{cdnImagePath}}corner.png"></image></view>
       本人有6年工作经验，意向电商或高并发，责任心非常强，耐力持久，热爱技术，皮实，性格内敛，灵活，执着。热衷于研究技术，崇尚科技改变世界！
     </view>
   </view>

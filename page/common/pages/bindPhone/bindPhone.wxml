@@ -1,7 +1,7 @@
 <!--page/common/pages/bindPhone/bindPhone.wxml-->
 <view class="bindPhone">
   <view class="head">
-    <image class="img" mode="widthFix" src="../../../../images/authBg.png"></image>
+    <image class="img" mode="widthFix" src="{{cdnImagePath}}authBg.png"></image>
     <view class="msg">
       <view class="title">欢迎来到猎多多</view>
       <view class="txt">机会多 面试多</view>

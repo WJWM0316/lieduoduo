@@ -1,7 +1,7 @@
 <view class="homepage">
 	<navbar title="公司主页" background="#FFFFFF" color="#22292C"></navbar>
 	<view class="banner">
-		<image class="bgImg" src="../../../../images/company_banner.png" mode="aspectFill"></image>
+		<image class="bgImg" src="{{cdnImagePath}}company_banner.png" mode="aspectFill"></image>
 		<view class="box">
 			<view class="company-logo">
 				<image class="bgImg" src="{{companyInfos.logo.smallUrl}}" mode="aspectFill"></image>

@@ -22,7 +22,8 @@ Component({
    * 组件的初始数据
    */
   data: {
-    isCompanyAdmin: false
+    isCompanyAdmin: false,
+    cdnImagePath: app.globalData.cdnImagePath
   },
   attached() {
     let isCompanyAdmin = app.globalData.recruiterDetails.isCompanyAdmin || 0

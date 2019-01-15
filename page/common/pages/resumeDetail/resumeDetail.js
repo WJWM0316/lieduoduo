@@ -12,7 +12,8 @@ Page({
   data: {
     info: null,
     isOwner: false,
-    identity: ''
+    identity: '',
+    cdnImagePath: app.globalData.cdnImagePath
   },
 
   /**

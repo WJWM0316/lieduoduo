@@ -3,7 +3,7 @@
 	
 	<!-- 公司认证 start -->
 	<view class="header" wx:if="{{options.from === 'company'}}">
-		<image src="../../../../../../images/pic_await.png" mode="scaleToFill" class="default-status"></image>
+		<image src="{{cdnImagePath}}pic_await.png" mode="scaleToFill" class="default-status"></image>
 		<block wx:if="{{companyInfos.status === 0}}">
 			<view class="h1">公司认证审核中</view>
 			<view class="p">该申请将在24小时内审核，审核通过后即可开始招聘</view>
@@ -26,11 +26,11 @@
 			<view class="line-box"> <view class="line-left"></view> 获得权益 <view class="line-right"></view> </view>
 			<view class="button-box">
 				<view class="button">
-					<image src="../../../../../../images/equities_01.png" mode="scaleToFill" class="button-image"></image>
+					<image src="{{cdnImagePath}}equities_01.png" mode="scaleToFill" class="button-image"></image>
 					<text bindtap="todoAction" data-action="position">免费发布职位</text>
 				</view>
 				<view class="button">
-					<image src="../../../../../../images/equities_02.png" mode="scaleToFill" class="button-image"></image>
+					<image src="{{cdnImagePath}}equities_02.png" mode="scaleToFill" class="button-image"></image>
 					<text>免费查看简历</text>
 				</view>
 			</view>
@@ -40,7 +40,7 @@
 	
 	<!-- 身份认证 start -->
 	<view class="header" wx:if="{{options.from === 'identity'}}">
-		<image src="../../../../../../images/pic_await.png" mode="scaleToFill" class="default-status"></image>
+		<image src="{{cdnImagePath}}pic_await.png" mode="scaleToFill" class="default-status"></image>
 		<block wx:if="{{companyInfos.status === 0}}">
 			<view class="h1">实名认证审核中</view>
 			<view class="p">该申请将在24小时内审核，审核通过后即可开始招聘</view>
@@ -62,11 +62,11 @@
 			<view class="line-box"> <view class="line-left"></view> 获得权益 <view class="line-right"></view> </view>
 			<view class="button-box">
 				<view class="button">
-					<image src="../../../../../../images/equities_01.png" mode="scaleToFill" class="button-image"></image>
+					<image src="{{cdnImagePath}}equities_01.png" mode="scaleToFill" class="button-image"></image>
 					<text bindtap="todoAction" data-action="position">免费发布职位</text>
 				</view>
 				<view class="button">
-					<image src="../../../../../../images/equities_02.png" mode="scaleToFill" class="button-image"></image>
+					<image src="{{cdnImagePath}}equities_02.png" mode="scaleToFill" class="button-image"></image>
 					<text>免费查看简历</text>
 				</view>
 			</view>
@@ -76,7 +76,7 @@
 
 	<!-- 申请加入 start -->
 	<view class="header" wx:if="{{options.from === 'apply'}}">
-		<image src="../../../../../../images/pic_await.png" mode="scaleToFill" class="default-status"></image>
+		<image src="{{cdnImagePath}}pic_await.png" mode="scaleToFill" class="default-status"></image>
 		<block wx:if="{{companyInfos.status === 0}}">
 			<view class="h1">加入公司申请审核中</view>
 			<view class="p">该申请将通知公司管理员审核，审核通过后即可开始招聘</view>

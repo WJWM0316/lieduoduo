@@ -22,9 +22,9 @@
         <view class='headIMg {{index === 1? "first" : ""}}'>
           <image src="{{item.avatar.smallUrl}}"></image>
           <view class='icon'>
-            <image wx:if="{{index === 1}}" src="../../../../../images/icon_no1.png" />
-            <image wx:if="{{index === 0}}" src="../../../../../images/icon_no2.png" />
-            <image wx:if="{{index === 2}}" src="../../../../../images/icon_no3.png" />
+            <image wx:if="{{index === 1}}" src="{{cdnImagePath}}icon_no1.png" />
+            <image wx:if="{{index === 0}}" src="{{cdnImagePath}}icon_no2.png" />
+            <image wx:if="{{index === 2}}" src="{{cdnImagePath}}icon_no3.png" />
           </view>
         </view>
         <text class="name">{{item.name}}</text>

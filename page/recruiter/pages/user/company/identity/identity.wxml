@@ -21,7 +21,7 @@
 	  	</view>
 	  	<view class="upload-box">
 		    <unloadFile bindresultEvent="upload" unloadType="img" data-type="passport_front">
-		    	<image src="../../../../../../images/pic_identitycard_01.png" mode="scaleToFill" class="default-image"></image>
+		    	<image src="{{cdnImagePath}}pic_identitycard_01.png" mode="scaleToFill" class="default-image"></image>
 		    	<image src="{{passport_front.smallUrl}}" mode="scaleToFill" class="upload-image"></image>
 				  <view class="upload-button">{{passport_front.smallUrl ? '重新上传' : '点击上传'}}</view>
 				</unloadFile>
@@ -34,7 +34,7 @@
 	  	</view>
 	  	<view class="upload-box">
 		    <unloadFile bindresultEvent="upload" unloadType="img" data-type="passport_reverse">
-		    	<image src="../../../../../../images/pic_identitycard_02.png" mode="scaleToFill" class="default-image"></image>
+		    	<image src="{{cdnImagePath}}pic_identitycard_02.png" mode="scaleToFill" class="default-image"></image>
 		    	<image src="{{passport_reverse.smallUrl}}" mode="scaleToFill" class="upload-image"></image>
 				  <view class="upload-button">{{passport_reverse.smallUrl ? '重新上传' : '点击上传'}}</view>
 				</unloadFile>
@@ -51,7 +51,7 @@
 	  	</view>
 	  	<view class="upload-box">
 		    <unloadFile bindresultEvent="upload" unloadType="img" data-type="handheld_passport">
-		    	<image src="../../../../../../images/pic_identitycard_03.png" mode="scaleToFill" class="default-image"></image>
+		    	<image src="{{cdnImagePath}}pic_identitycard_03.png" mode="scaleToFill" class="default-image"></image>
 		    	<image src="{{handheld_passport.smallUrl}}" mode="scaleToFill" class="upload-image"></image>
 				  <view class="upload-button">{{handheld_passport.smallUrl ? '重新上传' : '点击上传'}}</view>
 				</unloadFile>

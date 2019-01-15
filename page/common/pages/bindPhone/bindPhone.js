@@ -11,7 +11,8 @@ Page({
    */
   data: {
     phone: '',
-    code: ''
+    code: '',
+    cdnImagePath: app.globalData.cdnImagePath
   },
 
   /**

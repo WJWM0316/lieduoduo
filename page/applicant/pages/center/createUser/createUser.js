@@ -3,6 +3,7 @@ import { postfirstStepApi } from '../../../../../api/pages/center'
 let app = getApp()
 Page({
   data: {
+    cdnImagePath: app.globalData.cdnImagePath,
     name: '',
     workTime: '',
     avatar: {},

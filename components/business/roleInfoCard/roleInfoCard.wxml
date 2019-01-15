@@ -37,7 +37,7 @@
     <view class="status" wx:if="{{!isMain}}">邀你面试</view>
     <view></view>
   </view>
-  <image wx:if="{{roleType === 'recruiter' && isMain}}" class="line" src="../../../images/line.png"></image>
+  <image wx:if="{{roleType === 'recruiter' && isMain}}" class="line" src="{{cdnImagePath}}line.png"></image>
   <view wx:if="{{roleType === 'recruiter' && isMain}}" class="lineTip">{{cardData.signature}}</view>
 
 

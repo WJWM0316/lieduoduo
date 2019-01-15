@@ -1,7 +1,7 @@
 <!--page/common/pages/auth/auth.wxml-->
 <view class="auth">
   <view class="head">
-    <image class="img" mode="widthFix" src="../../../../images/bindPhoneBg.png"></image>
+    <image class="img" mode="widthFix" src="{{cdnImagePath}}bindPhoneBg.png"></image>
   </view>
   <view class="welcome">欢迎来到猎多多</view>
   <text class="msgTxt">我们需要你同意以下授权 \n 才能提供更好的服</text>

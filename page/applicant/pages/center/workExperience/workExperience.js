@@ -1,12 +1,15 @@
 // page/applicant/pages/center/secondStep/secondStep.js
 import { postSecondStepApi, postfirstStepApi } from '../../../../../api/pages/center'
 import {APPLICANT,COMMON} from '../../../../../config.js'
+let app = getApp()
+
 Page({
   /**
    * 页面的初始数据
    */
   data: {
     info: {
+      cdnImagePath: app.globalData.cdnImagePath,
       companyName: '',
       positionType: {},
       startTimeDesc: '',

@@ -8,6 +8,7 @@ Page({
    */
   data: {
     nowInputNum: 0,
+    cdnImagePath: app.globalData.cdnImagePath,
     showCase: false // 是否展示例子
   },
 

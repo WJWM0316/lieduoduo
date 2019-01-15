@@ -17,7 +17,8 @@ Page({
     nowIndex: 0,
     jobLabel: [],
     cityLabel: [],
-    list: []
+    list: [],
+    cdnImagePath: app.globalData.cdnImagePath
   },
   toRecruitment (e) {
     console.log(1111)

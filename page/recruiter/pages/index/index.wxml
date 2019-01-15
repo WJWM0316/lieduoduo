@@ -1,6 +1,6 @@
 <view class="recruiter-index">
 	<view class="index-bannar">
-		<image src="../../../../images/bg_homepageh.png"></image>
+		<image src="{{cdnImagePath}}bg_homepageh.png"></image>
 	</view>
 	<view class="index-list-box">
 		<view class="ul-tab-bar">
