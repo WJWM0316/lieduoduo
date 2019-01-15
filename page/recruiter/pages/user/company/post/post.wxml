@@ -14,7 +14,7 @@
 		<view class="li">
 			<i class="icon iconfont icon-xiangyou"></i>
 			<view class="key">所属行业</view>
-			<view class="text2 {{selected_industry_id ? 'color' : ''}}">{{industry_id_name}}</view>
+			<!-- <view class="text2 {{selected_industry_id ? 'color' : ''}}">{{industry_id_name}}</view> -->
 			<view class="picker-box">
 				<picker
 					range="{{ companyLabelField }}" 

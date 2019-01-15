@@ -10,6 +10,7 @@ Page({
   data: {
     // 页面的默认数据列表
     pageList: 'mySeen',
+    cdnImagePath: app.globalData.cdnImagePath,
     choseType: wx.getStorageSync('choseType') || null,
     needLogin: false,
     companyList: [],

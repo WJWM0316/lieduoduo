@@ -226,15 +226,28 @@ App({
     let identity = wx.getStorageSync('choseType')
     if (identity === 'RECRUITER') {
       wx.setStorageSync('choseType', 'APPLICANT')
-      wx.reLaunch({
-        url: `${APPLICANT}index/index`
-      })
+      if (!this.isJobhunter) {
+        wx.reLaunch({
+          url: `${APPLICANT}center/createUser/createUser`
+        })
+      } else {
+        wx.reLaunch({
+          url: `${APPLICANT}index/index`
+        })
+        this.getAllInfo()
+      }
     } else {
       wx.setStorageSync('choseType', 'RECRUITER')
-      wx.reLaunch({
-        url: `${RECRUITER}index/index`
-      })
+      if (!this.isJobhunter) {
+        wx.reLaunch({
+          url: `${RECRUITER}user/company/apply/apply`
+        })
+      } else {
+        wx.reLaunch({
+          url: `${RECRUITER}index/index`
+        })
+        this.getAllInfo()
+      }
     }
-    this.getAllInfo()
   }
 })

@@ -26,7 +26,8 @@ Page({
     query: {},
     isRecruiter: false,
     companyInfos: {},
-    recruiterInfo: {}
+    recruiterInfo: {},
+    cdnPath: app.globalData.cdnImagePath
   },
   /**
    * 生命周期函数--监听页面加载

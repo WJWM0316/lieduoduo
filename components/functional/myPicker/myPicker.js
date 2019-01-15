@@ -340,7 +340,6 @@ Component({
         list[2] = this.getThisMonthDays(parseInt(year), parseInt(month))
         this.setData({list})
       }
-
       if (this.data.pickerType === 'dateTime') {
         let result = this.data.result
         if (this.data.result === 0) {
@@ -396,7 +395,6 @@ Component({
         if (this.data.pickerType === 'region') {
           if (e.detail.column === 0) { // 选择省份
             list = [this.data.provice, this.data.provice[e.detail.value].children]
-            console.log(e.detail.value, this.data.provice[e.detail.value])
             this.setData({list})
           }
         }
