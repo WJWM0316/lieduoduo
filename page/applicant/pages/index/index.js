@@ -44,7 +44,7 @@ Page({
         }
       })
     }
-    this.init()
+    // this.init()
   },
   onShow() {
     if (app.globalData.resumeInfo.uid) {
@@ -79,6 +79,7 @@ Page({
   },
   init () {
     Promise.all([this.getMyBrowseList(),this.getMyCollectList(),this.getAvartLis()]).then(res => {
+      console.log(res)
       this.setData({
         lookedList: res[0].data,
         collectList: res[1].data,
