@@ -85,7 +85,9 @@ Page({
       interviewTime: dateList.join(',')
     }
     setInterviewDetailApi(data).then(res => {
-      app.wxConfirm({
+      wx.removeStorageSync('interviewData')
+      wx.removeStorageSync('createPosition')
+      app.wxToast({
         title: '发送成功',
         icon: 'success'
       })
@@ -136,8 +138,8 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    let positionData = wx.getStorageSync('interviewData') || {}
-    let addressData = wx.getStorageSync('createPosition') || {}
+    let positionData = wx.getStorageSync('interviewData')
+    let addressData = wx.getStorageSync('createPosition')
     let identity = wx.getStorageSync('choseType')
     let info = this.data.info
     if (positionData) {

@@ -292,14 +292,16 @@ Component({
         if (this.data.dateType.indexOf(this.data.pickerType) !== -1) {
           if (this.data.pickerType === 'dateTime') {
             propsDesc = `${list[0][result[0]]}-${list[1][result[1]]}-${list[2][result[2]]} ${list[3][result[3]]}:${list[4][result[4]]}`
-            propsResult = new Date(propsDesc).getTime() / 1000
+            let changeDesc = `${list[0][result[0]]}/${list[1][result[1]]}/${list[2][result[2]]} ${list[3][result[3]]}:${list[4][result[4]]}`
+            propsResult = new Date(changeDesc).getTime() / 1000
           } else {
             if ((this.data.pickerType === 'endTime' && this.data.result[0] === 0) || (this.data.pickerType === 'workTime' && this.data.result[0] === 0)) {
               propsResult = 0
               propsDesc = list[0][0]
             } else {
               propsDesc = `${list[0][result[0]]}-${list[1][result[1]]}`
-              propsResult = new Date(propsDesc).getTime() / 1000
+              let changeDesc = `${list[0][result[0]]}/${list[1][result[1]]}`
+              propsResult = new Date(changeDesc).getTime() / 1000
             }
           }
         } else if (this.data.pickerType === 'salaryRangeB' || this.data.pickerType === 'salaryRangeC') {

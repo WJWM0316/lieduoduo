@@ -2,16 +2,14 @@ import {
   getAddressDetailApi,
   editCompanyAddressApi,
   addCompanyAddressApi,
-  addPositionAddressApi
+  addPositionAddressApi,
+  deletePositionAddressApi,
+  deleteCompanyAddressApi
 } from "../../../../../api/pages/company.js"
 
 import {COMMON, RECRUITER} from '../../../../../config.js'
 
 import { reverseGeocoder } from '../../../../../utils/map.js'
-
-import {
-  deleteCompanyAddressApi
-} from '../../../../../api/pages/company.js'
 
 const app = getApp()
 
@@ -61,9 +59,7 @@ Page({
    * @return   {[type]}   [description]
    */
   selectAddress() {
-    wx.chooseLocation({
-      success: res => this.reverseGeocoder(res)
-    })
+    wx.chooseLocation({success: res => this.reverseGeocoder(res)})
   },
   /**
    * @Author   小书包
@@ -92,11 +88,35 @@ Page({
   deleteCompanyAddress() {
     deleteCompanyAddressApi({id: this.data.options.id})
       .then(() => {
-        wx.redirectTo({url: `${RECRUITER}position/addressList/addressList`})
+        wx.navigateBack({delta: 1})
       })
   },
+  /**
+   * @Author   小书包
+   * @DateTime 2019-01-09
+   * @detail   删除职位地址
+   * @return   {[type]}   [description]
+   */
+  deletePositionAddress() {
+    deleteCompanyAddressApi({id: this.data.options.id})
+      .then(() => {
+        wx.navigateBack({delta: 1})
+      })
+  },
+  /**
+   * @Author   小书包
+   * @DateTime 2019-01-15
+   * @detail   删除地址
+   * @return   {[type]}   [description]
+   */
+  delete() {
+    const type = this.data.options.type === 'position' ? 'Position' : 'Company'
+    const action = `delete${type}Address`
+    this[action]()
+  },
   submit() {
-    const action = this.data.options.id ? 'editPositionAddress' : 'postPositionAddress'
+    const type = this.data.options.type === 'position' ? 'Position' : 'Company'
+    const action = this.data.options.id ? `edit${type}Address` : `post${type}Address`
     this[action]()
   },
   /**
@@ -122,7 +142,7 @@ Page({
   /**
    * @Author   小书包
    * @DateTime 2019-01-15
-   * @detail   添加职位地址
+   * @detail   添加公司地址
    * @return   {[type]}   [description]
    */
   postCompanyAddress() {
@@ -143,7 +163,7 @@ Page({
   /**
    * @Author   小书包
    * @DateTime 2019-01-14
-   * @detail   编辑地址
+   * @detail   编辑职位地址
    * @return   {[type]}   [description]
    */
   editPositionAddress() {
@@ -165,7 +185,7 @@ Page({
   /**
    * @Author   小书包
    * @DateTime 2019-01-14
-   * @detail   编辑地址
+   * @detail   编辑公司地址
    * @return   {[type]}   [description]
    */
   editCompanyAddress() {

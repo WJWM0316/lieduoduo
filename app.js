@@ -226,7 +226,7 @@ App({
     let identity = wx.getStorageSync('choseType')
     if (identity === 'RECRUITER') {
       wx.setStorageSync('choseType', 'APPLICANT')
-      if (!this.isJobhunter) {
+      if (!this.globalData.isJobhunter) {
         wx.reLaunch({
           url: `${APPLICANT}center/createUser/createUser`
         })
@@ -238,7 +238,7 @@ App({
       }
     } else {
       wx.setStorageSync('choseType', 'RECRUITER')
-      if (!this.isJobhunter) {
+      if (!this.globalData.isJobhunter) {
         wx.reLaunch({
           url: `${RECRUITER}user/company/apply/apply`
         })

@@ -58,10 +58,10 @@ Page({
         }
       }
     }
-    wx.setTabBarBadge({
-      index: 2,
-      text: '99+'
-    })
+    // wx.setTabBarBadge({
+    //   index: 2,
+    //   text: '99+'
+    // })
   },
   getMyBrowseList () {
     return geMyBrowseUsersApi()
