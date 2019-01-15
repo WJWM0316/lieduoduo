@@ -69,7 +69,6 @@ Page({
     return getAvartListApi()
   },
   init () {
-    Promise.all([this.getMyBrowseList(),this.getMyCollectList(),this.getAvartLis()]).then(res => {
     if (this.data.pageList === 'mySeen') {
       this.getMyBrowseList().then(res => {
         this.setData({

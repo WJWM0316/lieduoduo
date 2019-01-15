@@ -2,7 +2,8 @@
 import { postThirdStepApi } from '../../../../../api/pages/center'
 let degree = null,
     starTime = null,
-    endTime = null
+    endTime = null,
+    app = getApp()
 Page({
 
   /**
@@ -69,7 +70,6 @@ Page({
   },
   /* 学历选择结果 */
   getresult(val) {
-    console.log(val)
     if (val.currentTarget.dataset.type === 'starTime') {
       starTime = val.detail.propsResult
     } else if (val.currentTarget.dataset.type === 'education') {
@@ -90,6 +90,7 @@ Page({
       wx.reLaunch({
         url: '/page/applicant/pages/center/mine/mine'
       })
+      app.getAllInfo()
     })
   }
 })
