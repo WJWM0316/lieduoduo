@@ -124,16 +124,26 @@
 			</block>
 			<!-- 招聘端主动发起开料 end-->
 
-			<block wx:elif="{{interviewInfos.interviewStatus === 21 || interviewInfos.interviewStatus === 31}}">
+			<block wx:elif="{{interviewInfos.interviewStatus === 21}}">
+				<view class="content">
+					<view class="first"><view class="name">{{infos.name || infos.recruiterInfo.name}}</view></view>
+					<view class="second">去安排</view>
+				</view>
+				<view class="button-box button-box-color2">
+					<view data-action="recruiter-arrangement" bindtap="todoAction">去安排</view>
+				</view>
+			</block>
+			
+			<block wx:elif="{{interviewInfos.interviewStatus === 31}}">
 				<view class="content">
 					<view class="first"><view class="name">{{infos.name || infos.recruiterInfo.name}}</view></view>
 					<view class="second">待求职者确认</view>
 				</view>
 				<view class="button-box button-box-color2">
-					<view data-action="recruiter-pedding" bindtap="todoAction">待求职者确认</view>
+					<view bindtap="todoAction">待求职者确认</view>
 				</view>
 			</block>
-			
+
 			<block wx:elif="{{interviewInfos.interviewStatus === 12 }}">
 				<view class="content">
 					<view class="first"><view class="name">{{infos.name || infos.recruiterInfo.name}}</view></view>

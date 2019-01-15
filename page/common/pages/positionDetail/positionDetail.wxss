@@ -85,7 +85,7 @@
 	line-height: 1;
 	text-overflow: ellipsis;
 	white-space: nowrap;
-	width: 400rpx;
+	width: 300rpx;
 }
 
 .company-infos .header .position-salary {
@@ -225,7 +225,7 @@
 	font-weight:500;
 	color:rgba(40,40,40,1);
 	margin-top: 15rpx;
-	max-width: 400rpx;
+	max-width: 300rpx;
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;

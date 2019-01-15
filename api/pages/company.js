@@ -136,6 +136,25 @@ export const editPositionAddressApi = (data, hasLoading) => {
   })
 }
 
+// 删除职位地址
+export const deletePositionAddressApi = (data, hasLoading) => {
+  return request({
+    method: 'delete',
+    url: `/company/position/address/${data.id}`,
+    data,
+    hasLoading: true
+  })
+}
+
+// 删除公司地址
+export const deleteCompanyAddressApi = (data, hasLoading) => {
+  return request({
+    method: 'delete',
+    url: `/company/position/address/${data.id}`,
+    data,
+    hasLoading: true
+  })
+}
 // 创建公司产品
 export const createCompanyProductApi = (data, hasLoading) => {
   return request({
@@ -255,16 +274,6 @@ export const verifyEmailApi = (data, hasLoading) => {
   return request({
     method: 'post',
     url: `/company/verify`,
-    data,
-    hasLoading: true
-  })
-}
-
-// 删除公司地址
-export const deleteCompanyAddressApi = (data, hasLoading) => {
-  return request({
-    method: 'delete',
-    url: `/company/position/address/${data.id}`,
     data,
     hasLoading: true
   })
