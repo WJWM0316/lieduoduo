@@ -2,7 +2,7 @@
 .resumeDetail{
   background: #F5F4F7;
   width: 100%;
-  padding: 25rpx 30rpx 160rpx;
+  padding: 25rpx 30rpx;
   box-sizing: border-box;
   position: relative;
 }
@@ -253,6 +253,42 @@
   text-align: center;
   line-height: 80rpx;
   margin-top: 60rpx;
+}
+.commontIcon{
+  display: inline-block;
+  width: 24rpx;
+  height: 28rpx;
+  position: relative;
+}
+.commontIcon .box{
+  display: block;
+  width: 24rpx;
+  height: 28rpx;
+  border: 2rpx solid #652791;
+  box-sizing: border-box;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.commontIcon .box::after{
+  content: '';
+  display: block;
+  width: 24rpx;
+  height: 28rpx;
+  position: absolute;
+  top: -6rpx;
+  left: -5rpx;
+}
+.commontIcon::before{
+  content: '';
+  display: block;
+  width: 24rpx;
+  height: 28rpx;
+  background-color: #EFE9F4;
+  position: absolute;
+  top: -6rpx;
+  left: -5rpx;
+  z-index: 0;
 }
 .intentTitle{
   font-size: 28rpx;

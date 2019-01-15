@@ -1,5 +1,5 @@
 <!--简历项目编辑页-->
-<navbar title="项目编辑"></navbar>
+<navbar title="项目经历"></navbar>
 <view class="warp">
   <view class="commont">
     <view class="title"><text>*</text>项目名称</view>
@@ -28,8 +28,8 @@
     <textarea placeholder="填写项目链接" placeholder-class="placeholder" maxlength="50" bindinput="itemLink" value="{{itemLink}}"></textarea>
   </view>
 </view>
-<view class="save add" bindtap="add" wx:if="{{isAdd}}">新增项目经历</view>
+<view class="save add" bindtap="add" wx:if="{{isAdd}}">保存</view>
 <view class="btn" wx:else>
   <view class="save delete" bindtap="del">删除</view>
-  <view class="save" bindtap="save">保存修改</view>
+  <view class="save" bindtap="save">保存</view>
 </view>

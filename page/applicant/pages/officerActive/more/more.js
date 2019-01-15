@@ -75,12 +75,12 @@ Page({
   handleListData () {
     this.getRankData().then(res => {
       let first = null
+      let nowList = null
       if (res.data.length >2) {
         first = res.data.splice(1, 1)
         res.data.unshift(first[0])
       }
-      console.log(first, '99999999999')
-      let nowList = null
+      
       if (param.page === 1) {
         nowList = res.data
       } else {
@@ -98,8 +98,8 @@ Page({
   init () {
     let that = this
     this.getTag().then(res => {
-      param.area_id = 440100
-      param.cate_id = 1
+      param.area_id = res[0].data[0].areaId
+      param.cate_id = res[1].data[0].labelId
       that.setData({
         cityLabel: res[0].data,
         jobLabel: res[1].data

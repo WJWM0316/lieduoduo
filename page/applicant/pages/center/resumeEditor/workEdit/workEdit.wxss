@@ -148,6 +148,7 @@
   white-space: nowrap;
 }
 .add{
+  width: 550rpx;
   position: fixed;
   bottom: 30rpx;
   left: 50%;
