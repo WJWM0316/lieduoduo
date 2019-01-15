@@ -46,32 +46,13 @@ Component({
     slogoIndex: 0,
     // 是否是我发布
     isOwerner: false,
-    currentPage: '',
-    slogoList: [
-      {
-        id: 1,
-        text: '工作不易，知音难觅，壮士约乎？工作不易，知音难觅，壮士约乎？'
-      },
-      {
-        id: 2,
-        text: '细节决定成败，态度决定一切。'
-      },
-      {
-        id: 3,
-        text: '彩虹风雨后，成功细节中。'
-      },
-      {
-        id: 4,
-        text: '态度决定一切，习惯成就未来。'
-      }
-    ]
+    currentPage: ''
   },
   attached() {
     // this.init()
   },
   methods: {
     init() {
-      this.setData({slogoIndex: this.getRandom()})
       this.getInterviewStatus()
       let currentPage = ''
       switch(this.data.type) {
@@ -89,9 +70,6 @@ Component({
           break
       }
       this.setData({currentPage})
-    },
-    getRandom() {
-      return Math.floor(Math.random() * this.data.slogoList.length + 1)
     },
     /**
      * @Author   小书包
@@ -248,6 +226,10 @@ Component({
           break
         // 求职者查看面试详情
         case 'job-hunting-view-detail':
+          wx.navigateTo({url: `${COMMON}arrangement/arrangement?id=${interviewInfos.data[0].interviewId}`})
+          break
+        // 招聘官查看面试安排
+        case 'recruiter-view-detail':
           wx.navigateTo({url: `${COMMON}arrangement/arrangement?id=${interviewInfos.data[0].interviewId}`})
           break
         // B端开撩成功后跳转安排面试页面
