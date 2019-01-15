@@ -82,6 +82,9 @@ Page({
           case 'description':
             itemName = '项目描述不能为空'
             break;
+          default:
+            itemName = '结束时间不能为空'
+            break;
         }
         wx.showToast({
           title: `${itemName}`,
@@ -131,6 +134,9 @@ Page({
           case 'description':
             itemName = '项目描述不能为空'
             break;
+          default:
+            itemName = '结束时间不能为空'
+            break;
         }
         wx.showToast({
           title: `${itemName}`,
@@ -147,13 +153,26 @@ Page({
   },
   // 删除
   del () {
-    deleteProjectApi({id: nowItemId}).then(res => {
-      app.globalData.resumeInfo.projects.map((item, index) => {
-        if (item.id === nowItemId) {
-          app.globalData.resumeInfo.projects.splice(index,1)
-          wx.navigateBack({delta: 1})
-        }
-      })
+    let that = this
+    app.wxConfirm({
+      title: '删除求职意向',
+      content: '求职意向删除后将无法恢复，是否确定删除？',
+      confirmBack() {
+        deleteProjectApi({id: nowItemId}).then(res => {
+          app.wxToast({
+            title: '删除成功',
+            icon: 'success',
+            callback() {
+              app.globalData.resumeInfo.projects.map((item, index) => {
+                if (item.id === nowItemId) {
+                  app.globalData.resumeInfo.projects.splice(index,1)
+                  wx.navigateBack({delta: 1})
+                }
+              })
+            }
+          })
+        })
+      }
     })
   },
   init () {

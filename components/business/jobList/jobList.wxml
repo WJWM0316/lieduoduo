@@ -29,7 +29,7 @@
         {{item.city}}{{item.district}}
       </view>
       <view class="label">
-        不限
+        {{item.workExperienceName}}
       </view>
       <view class="label">
         {{item.educationName}}

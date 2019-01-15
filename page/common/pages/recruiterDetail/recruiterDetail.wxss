@@ -1,8 +1,10 @@
 @import '../../../../iconfont.wxss';
 .recruiterDetail {
+  width: 100%;
   background: #F5F4F7;
   padding-bottom: 152rpx;
   min-height: 100vh;
+  overflow: hidden;
 }
 .header {
   width: 100%;
