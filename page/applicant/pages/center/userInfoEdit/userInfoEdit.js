@@ -44,13 +44,13 @@ Page({
     let info = this.data.info
     switch (e.target.dataset.type) {
       case 'name':
-        info.name = e.detail.propsResult
+        info.name = e.detail.value
         break
       case 'mobile':
-        info.mobile = e.detail.propsResult
+        info.mobile = e.detail.value
         break
       case 'wechat':
-        info.wechat = e.detail.propsResult
+        info.wechat = e.detail.value
         break
     }
     this.setData({info})

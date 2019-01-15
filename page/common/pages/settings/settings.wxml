@@ -8,5 +8,5 @@
 		<text class="txt">切换为“{{identity}}”身份</text>
 		<i class="icon iconfont icon-xiangyou"></i>
 	</view>
-	<view class="upLogin" bindtap="upLogin">退出登录</view>
+	<!-- <view class="upLogin" bindtap="upLogin">退出登录</view> -->
 </view>

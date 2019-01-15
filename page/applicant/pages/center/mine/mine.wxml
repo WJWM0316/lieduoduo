@@ -7,12 +7,12 @@
 				<view class="realname">{{myInfo.name}}</view>
 				<view class="degree-name">{{myInfo.lastCompanyName}} | {{myInfo.lastPosition}}</view>
         <view class="experience">{{myInfo.workAge}}<text wx:if="{{myInfo.workAge !== '在校生'}}">经验</text> | {{myInfo.age ? myInfo.age + '岁 | ' : ''}} {{myInfo.degreeDesc}}</view>
-			</view> 
+			</view>
       <!-- 简历未完善 -->
        <view class="content" wx:if='{{!isComplete}}'>
 				<view class="realname">简历未完善</view>
 				<view class="degree-name directions">你与offer之间还差一份简历，快去完善吧~</view>
-			</view> 
+			</view>
 			<image class="img-box" src="{{myInfo.avatar.url}}"></image>
 		</view>
     <view class='edit-box' wx:if='{{isComplete}}'>
@@ -27,13 +27,13 @@
     </view>
     <view class="share-resume" wx:if='{{!isComplete}}' bindtap='completeResume'>立即完善简历 <i class="icon iconfont icon-xiangyou"></i></view>
 		<block wx:else>
-      <view class="share-resume">发简历</view>
-      <view class="save-resume-pic">保存简历到相册</view>
+      <!-- <view class="share-resume">发简历</view>
+      <view class="save-resume-pic">保存简历到相册</view> -->
     </block>
 	</view>
   <!-- bottom -->
   <view class="entry-list">
-		<view class="li">
+<!-- 		<view class="li">
 			<view>
         <i class="icon iconfont icon-fujian"></i>
         <view class="text">附件简历</view>
@@ -70,7 +70,7 @@
         <view class="text2">020-61279889</view>
         <i class="icon iconfont icon-xiangyou"></i>
       </view>
-		</view>
+		</view> -->
 		<view class="li" bindtap="jump" data-type="settings">
 			<view>
         <i class="icon iconfont icon-shezhi"></i>
@@ -81,9 +81,9 @@
       </view>
 		</view>
 	</view>
-	<view class="copy-right">
+	<!-- <view class="copy-right">
 		<view class="li">使用帮助</view>
 		<view class="li">用户协议</view>
 		<view class="li">意见反馈</view>
-	</view>
+	</view> -->
 </view>

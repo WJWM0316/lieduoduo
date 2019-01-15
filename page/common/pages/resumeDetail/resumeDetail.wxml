@@ -23,7 +23,7 @@
     <view class="personalTip">
       <view class="text">“{{info.signature}}”</view>
       <view class="tipBox">
-        <text class="tip" wx:for="{{info.personalizedLabels}}" wx:key="{{index}}">{{item.labelName}}</text>
+        <text class="tip" wx:for="{{info.personalizedLabels}}" wx:key="{{index}}">{{item.labelName || item.name}}</text>
       </view>
     </view>
   </view>

@@ -61,7 +61,7 @@
   <view class="title">个性标签</view>
   <view class="labelSection">
     <view class="labelBox">
-      <view class="tab" wx:for="{{info.personalizedLabels}}" wx:key="{{index}}">{{item.labelName}}</view>
+      <view class="tab" wx:for="{{info.personalizedLabels}}" wx:key="{{index}}">{{item.labelName || item.name}}</view>
     </view>
     <view class="editLabel" bindtap="jumpLabel">编辑标签</view>
   </view>
