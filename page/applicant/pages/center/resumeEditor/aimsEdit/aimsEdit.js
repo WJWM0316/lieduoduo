@@ -9,7 +9,8 @@ Page({
   data: {
     info: {},
     index: 0,
-    options: {}
+    options: {},
+    isAdd: false
   },
 
   /**
@@ -17,7 +18,8 @@ Page({
    */
   onLoad: function (options) {
     let info = this.data.info
-    if (options.id) {
+    const id = parseInt(options.id)
+    if (id) {
       wx.removeStorageSync('createPosition')
       wx.removeStorageSync('result')
       app.globalData.resumeInfo.expects.map((item, index) => {
@@ -25,6 +27,10 @@ Page({
           this.setData({info: item, options, index})
           return
         }
+      })
+    } else {
+      this.setData({
+        isAdd: true
       })
     }
   },

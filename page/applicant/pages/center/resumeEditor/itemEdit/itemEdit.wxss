@@ -98,6 +98,7 @@
   white-space: nowrap;
 }
 .add{
+  box-sizing: border-box;
   position: fixed;
   bottom: 30rpx;
   width: 550rpx;
