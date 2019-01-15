@@ -43,7 +43,6 @@ Page({
     } else {
       choseAllList = app.globalData.recruiterDetails.personalizedLabels || []
     }
-    console.log(choseAllList, 333333333333333)
     getJobLabelApi({type: 'all'}).then(res => {
       allSkills = res.data.labelProfessionalSkills
       literacy = res.data.labelProfessionalLiteracy
@@ -395,6 +394,7 @@ Page({
     if (app.globalData.identity === "APPLICANT") {
       saveLabelApi(data).then(res => {
         app.globalData.resumeInfo.personalizedLabels = personalizedLabels
+        console.log(personalizedLabels, 11)
         app.wxToast({
           title: '提交成功',
           icon: "success",

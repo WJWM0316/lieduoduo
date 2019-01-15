@@ -48,6 +48,9 @@
   color: rgba(40, 40, 40, 1);
   line-height: 36rpx;
   margin-top: 16rpx;
+  overflow: hidden;
+  text-overflow:ellipsis;
+  white-space: nowrap;
 }
 
 .mine .floating-box .experience {

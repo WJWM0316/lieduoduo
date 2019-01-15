@@ -1,7 +1,8 @@
 import {
   getAddressDetailApi,
   editCompanyAddressApi,
-  addCompanyAddressApi
+  addCompanyAddressApi,
+  addPositionAddressApi
 } from "../../../../../api/pages/company.js"
 
 import {COMMON, RECRUITER} from '../../../../../config.js'
@@ -95,25 +96,39 @@ Page({
       })
   },
   submit() {
-    const action = this.data.options.id ? 'edit' : 'post'
+    const action = this.data.options.id ? 'editPositionAddress' : 'postPositionAddress'
     this[action]()
   },
   /**
    * @Author   小书包
-   * @DateTime 2019-01-14
-   * @detail   新增地址
+   * @DateTime 2019-01-15
+   * @detail   添加职位地址
    * @return   {[type]}   [description]
    */
-  // post() {
-  //   const storage = wx.getStorageSync('createPosition')
-  //   storage.doorplate = this.data.doorplate
-  //   wx.setStorageSync('createPosition', storage)
-  //   wx.redirectTo({url: `${RECRUITER}position/post/post`})
-  // },
-  post() {
+  postPositionAddress() {
     const infos = this.data
     const formData = {
       areaId: infos.area_id,
+      address: infos.address,
+      doorplate: infos.doorplate,
+      lng: infos.lng,
+      lat: infos.lat
+    }
+    addPositionAddressApi(formData)
+      .then(res => {
+        wx.navigateBack({delta: 1})
+      })
+  },
+  /**
+   * @Author   小书包
+   * @DateTime 2019-01-15
+   * @detail   添加职位地址
+   * @return   {[type]}   [description]
+   */
+  postCompanyAddress() {
+    const infos = this.data
+    const formData = {
+      area_id: infos.area_id,
       address: infos.address,
       doorplate: infos.doorplate,
       lng: infos.lng,
@@ -131,12 +146,34 @@ Page({
    * @detail   编辑地址
    * @return   {[type]}   [description]
    */
-  edit() {
+  editPositionAddress() {
     const storage = wx.getStorageSync('createPosition')
     const infos = this.data
     const formData = {
       id: infos.id,
       areaId: storage.area_id !== infos.area_id ? storage.area_id : infos.area_id,
+      address: storage.address !== infos.address  ? storage.address : infos.address,
+      lng: storage.lng !== infos.lng ? storage.lng : infos.lng,
+      lat: storage.lat !== infos.lat ? storage.lat : infos.lat,
+      doorplate: infos.doorplate
+    }
+    editPositionAddressApi(formData)
+      .then(() => {
+        wx.navigateBack({delta: 1})
+      })
+  },
+  /**
+   * @Author   小书包
+   * @DateTime 2019-01-14
+   * @detail   编辑地址
+   * @return   {[type]}   [description]
+   */
+  editCompanyAddress() {
+    const storage = wx.getStorageSync('createPosition')
+    const infos = this.data
+    const formData = {
+      id: infos.id,
+      area_id: storage.area_id !== infos.area_id ? storage.area_id : infos.area_id,
       address: storage.address !== infos.address  ? storage.address : infos.address,
       lng: storage.lng !== infos.lng ? storage.lng : infos.lng,
       lat: storage.lat !== infos.lat ? storage.lat : infos.lat,

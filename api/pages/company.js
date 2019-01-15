@@ -116,6 +116,26 @@ export const editCompanyAddressApi = (data, hasLoading) => {
   })
 }
 
+// 添加职位地址
+export const addPositionAddressApi = (data, hasLoading) => {
+  return request({
+    method: 'put',
+    url: `/company/position/address`,
+    data,
+    hasLoading: true
+  })
+}
+
+// 修改职位地址
+export const editPositionAddressApi = (data, hasLoading) => {
+  return request({
+    method: 'post',
+    url: `/company/position/address/${data.id}`,
+    data,
+    hasLoading: true
+  })
+}
+
 // 创建公司产品
 export const createCompanyProductApi = (data, hasLoading) => {
   return request({
