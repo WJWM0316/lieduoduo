@@ -113,10 +113,9 @@
     </view>
   </view>
 </view>
-
+<view wx:if="{{info.vkey && !isOwner}}" class="collect" bindtap="collect"><i class="icon iconfont icon-ganxingqu"></i></view>
 <!-- 底部开撩 -->
 <view class="bottomBox">
-  <view class="collect"><i class="icon iconfont icon-ganxingqu"></i></view>
   <view>
     <interviewBar
       id="interviewBar"
