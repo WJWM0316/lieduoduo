@@ -24,7 +24,7 @@
 					bindchange="bindChange"
 					data-key="industry_id">
 			    <view class="text2" wx:if="{{!selected_industry_id}}">请选择</view>
-			    <view class="text2" wx:else>{{ companyLabelField[industry_id].name }}</view>
+			    <view class="text2" wx:else>{{ industry_id_name }}</view>
 			  </picker>
 			</view>
 		</view>

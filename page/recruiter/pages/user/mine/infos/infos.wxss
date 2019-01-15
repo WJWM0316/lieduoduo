@@ -18,7 +18,6 @@
 
 .page-mine {
 	position: relative;
-	z-index: 11;
 }
 
 .page-mine .floating-box {

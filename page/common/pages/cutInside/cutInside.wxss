@@ -8,7 +8,7 @@
   align-items: center;
   justify-content: center;
   height: 100vh;
-  background-color: #e5e5e5;
+  background-color:#000;
 }
 
 .cropper-buttons{
@@ -37,6 +37,5 @@
 }
 
 .cropper-buttons{
-  background-color: rgba(0, 0, 0, 0.95);
   color: #04b00f;
 }

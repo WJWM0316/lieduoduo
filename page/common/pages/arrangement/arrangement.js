@@ -145,7 +145,7 @@ Page({
       info.positionId = positionData.positionId
     }
     if (addressData) {
-      info.address = addressData.address_name
+      info.address = addressData.address
       info.addressId = addressData.address_id
     }
     this.setData({identity, info})

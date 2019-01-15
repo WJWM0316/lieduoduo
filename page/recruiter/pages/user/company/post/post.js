@@ -103,6 +103,7 @@ Page({
    * @return   {[type]}     [description]
    */
   bindChange(e) {
+    console.log(e, 11)
     const index = parseInt(e.detail.value)
     const companyLabelField = this.data.companyLabelField
     this.setData({industry_id: companyLabelField[index].labelId, selected_industry_id: true, industry_id_name: companyLabelField[index].name})
