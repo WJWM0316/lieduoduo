@@ -1,6 +1,6 @@
 <navbar title="我的" background="transparent" color="#fff"></navbar>
 <view class="top-banner">
-	<image class="bgImg" src="../../../../../../images/recruiter_mine_bg.png" mode="aspectFill"></image>
+	<image class="bgImg" mode="aspectFill" src="{{cdnPath}}recruiter_mine_bg.png"></image>
 </view>
 
 <view class="page-mine">
