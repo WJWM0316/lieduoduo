@@ -131,6 +131,20 @@ Page({
    * @detail   离开当前页面
    * @return   {[type]}     [description]
    */
+  getPositionAddress() {
+    const url = this.data.query.positionId
+      ? `${RECRUITER}position/addressList/addressList?positionId=${this.data.query.positionId}&type=position`
+      : `${RECRUITER}position/addressList/addressList?type=position`
+      
+    wx.navigateTo({ url })
+    wx.setStorageSync('createPosition', this.data)
+  },
+  /**
+   * @Author   小书包
+   * @DateTime 2018-12-24
+   * @detail   离开当前页面
+   * @return   {[type]}     [description]
+   */
   getCategory() {
     const url = this.data.query.positionId
       ? `${COMMON}category/category?positionId=${this.data.query.positionId}`

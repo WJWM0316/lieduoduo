@@ -4,13 +4,19 @@ import {RECRUITER} from '../../../../../config.js'
 Page({
   data: {
     addressList: [],
-    isSelected: false
+    isSelected: false,
+    options: {}
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
+    console.log(options)
+    this.setData({options})
+  },
+  onShow() {
+    const options = this.data.options
     getCompanyAddressListApi().then(res => {
       const addressList = res.data
       addressList.map(field => field.active = field.id === parseInt(options.addressId) ? true : false)
@@ -27,7 +33,6 @@ Page({
         storage.address_id = field.id
         storage.address = field.address
         wx.setStorageSync('createPosition', storage)
-        console.log(storage)
       } else {
         field.active = false
       }
@@ -37,10 +42,11 @@ Page({
     })
   },
   add() {
-    wx.redirectTo({ url: `${RECRUITER}position/address/address` })
+    const type = this.data.options.type ? this.data.options.type : ''
+    wx.navigateTo({ url: `${RECRUITER}position/address/address?type=${type}` })
   },
   edit(e) {
     const params = e.currentTarget.dataset
-    wx.redirectTo({ url: `${RECRUITER}position/address/address?id=${params.id}` })
+    wx.navigateTo({ url: `${RECRUITER}position/address/address?id=${params.id}` })
   }
 })
