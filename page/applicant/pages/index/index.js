@@ -94,7 +94,7 @@ Page({
     })
   },
   toggle(e) {
-    let pageList = e.currentTarget.dataset.pageList
+    const pageList = e.currentTarget.dataset.pageList
     const key = pageList === 'mySeen'? 'lookedList' : 'collectList'
     if (this.data[key].length === 0) {
       if (pageList === 'mySeen') {

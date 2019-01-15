@@ -21,7 +21,9 @@
     </view>
   </view>
 </view>
-<view class="save add" bindtap="add" wx:if="{{!options.id}}">保存</view>
+<view class="btn" wx:if="{{isAdd}}">
+  <view class="save add" bindtap="add">保存</view>
+</view>
 <view class="btn" wx:else>
   <view class="save delete" bindtap="del">删除</view>
   <view class="save" bindtap="save">保存</view>

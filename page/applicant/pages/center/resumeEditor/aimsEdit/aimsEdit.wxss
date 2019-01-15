@@ -27,7 +27,9 @@
   margin-right: 10rpx;
 }
 .btn{
+  height: 148rpx;
   width: 100%;
+  border-top: 1rpx solid #CED7DC;
   display: flex;
   margin-top: 70rpx;
   align-items: center;
@@ -51,6 +53,7 @@
   white-space: nowrap;
 }
 .add{
+  box-sizing: border-box;
   width: 550rpx;
   position: fixed;
   bottom: 30rpx;

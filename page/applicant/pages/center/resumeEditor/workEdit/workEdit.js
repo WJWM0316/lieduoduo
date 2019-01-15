@@ -29,7 +29,7 @@ Page({
    */
   onLoad: function (options) {
     console.log(options, 111)
-    if (options.id === 'undefined') {
+    if (options.id === '0') {
       this.setData({
         isAdd: true
       })

@@ -42,7 +42,7 @@
         <text wx:for="{{item.fields}}" wx:key="{{index}}">{{item.field || item.name}}</text>
       </view>
     </view>
-    <text class="add" data-editName="intent" bindtap="edit" wx:if="{{isOwner}}">添加求职意向</text>
+    <text class="add" data-editName="intent" bindtap="edit" wx:if="{{isOwner}}" data-id="0">添加求职意向</text>
   </view>
   <!-- 工作经历 -->
   <view class="workExp commentBox">
@@ -62,7 +62,7 @@
       </view>
     </view>
     <view class="moreExp" wx:if="{{info.careers.length > 3}}">展开全部{{info.careers.length}}个工作经历<i class="icon iconfont icon-zhishibiao"></i></view>
-    <text class="add" data-editName="work" bindtap="edit" wx:if="{{isOwner}}">添加工作经历</text>
+    <text class="add" data-editName="work" bindtap="edit" wx:if="{{isOwner}}" data-id="0">添加工作经历</text>
   </view>
   <!-- 项目经历 -->
   <view class="projectExp commentBox">
@@ -81,7 +81,7 @@
         链接：<text>{{item.link}}</text>
       </view>
     </view>
-    <text class="add" data-editName="project" bindtap="edit" wx:if="{{isOwner}}">添加项目经历</text>
+    <text class="add" data-editName="project" bindtap="edit" wx:if="{{isOwner}}" data-id="0">添加项目经历</text>
   </view>
   <!-- 教育经历 -->
   <view class="projectExp commentBox">
@@ -96,7 +96,7 @@
       <!-- 教育经历 -->
       <view class='expContent'>{{item.experience}}</view>
     </view>
-    <text class="add" data-editName="education" bindtap="edit" wx:if="{{isOwner}}">添加教育经历</text>
+    <text class="add" data-editName="education" bindtap="edit" wx:if="{{isOwner}}" data-id="0">添加教育经历</text>
   </view>
   <!-- 更多 -->
   <view class="more commentBox">
