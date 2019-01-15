@@ -35,7 +35,9 @@
 			</view>
 			<view class="footer {{ showDividingLine ? 'show-dividing-line' : ''}}" wx:if="{{showFooter}}">
 				<view class="time">{{item.createdAt || item.viewAt}}</view>
-				<view class="action" wx:if="{{item.positionName}}">查看了你的职位<view class="strong">{{item.positionName}}</view></view>
+				<view class="action" wx:if="{{identity === 'APPLICANT' && !item.positionName}}">申请约面</view>
+				<view class="action" wx:elif="{{identity === 'APPLICANT' && item.positionName}}">申请约面<view class="strong">{{item.positionName}}</view></view>
+				<view class="action" wx:elif="{{item.positionName && identity !== 'APPLICANT'}}">查看了你的职位<view class="strong">{{item.positionName}}</view></view>
 				<view class="action" wx:else>查看了你的<view class="strong">个人主页</view></view>
 				<view class="status">{{item.statusDesc}}</view>
 			</view>

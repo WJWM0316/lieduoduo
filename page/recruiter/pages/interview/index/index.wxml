@@ -12,7 +12,7 @@
 				<view class="span">{{tab.text}}</view>
 		</view>
 	</view>
-	<view class="select-box" wx:if="{{tabParentIndex !== 2}}">
+	<!--<view class="select-box" wx:if="{{tabParentIndex !== 2}}">
 		<view class="item">
 			<picker range="{{tabLists[tabParentIndex].statusList}}" bindchange="bindChange" data-type="status">
 		    <view class="picker">{{tabLists[tabParentIndex].statusList[tabLists[tabParentIndex].statusIndex]}} </view>
@@ -25,7 +25,7 @@
 		    <i class="icon iconfont icon-zhishibiao"></i>
 		  </picker>
 		</view>
-	</view>
+	</view>-->
 	<myCalendar  wx:if="{{tabParentIndex === 2}}" bindresultEvent="getResult"></myCalendar>
 	<view class="interview-page-title" wx:if="{{tabParentIndex === 2}}">
 		<view class="text">面试安排(0)</view>

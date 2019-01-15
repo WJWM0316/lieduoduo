@@ -14,9 +14,9 @@
       </view>
     </view>
     <view class="experience">
-      <view class="time"><i class="icon iconfont icon-fujian"></i> {{info.workAge}}年</view>
-      <view class="age"><i class="icon iconfont icon-fujian"></i> {{info.age}}岁</view>
-      <view class="education"> <i class="icon iconfont icon-fujian"></i> {{info.degreeDesc}}</view>
+      <view class="time"><i class="icon iconfont icon-zhiwei"></i> {{info.workAge}}年</view>
+      <view class="age"><i class="icon iconfont icon-nianling"></i> {{info.age}}岁</view>
+      <view class="education"> <i class="icon iconfont icon-xueli"></i> {{info.degreeDesc}}</view>
       <view class="status">{{info.jobStatusDesc}}</view>
     </view>
     <image class="line" src="../../../../images/line.png"></image>
@@ -29,7 +29,7 @@
   </view>
   <!-- 意向 -->
   <view class="intent commentBox" wx:if="{{info.expects.length>=0}}">
-    <view class="intentTitle"><i class="icon iconfont icon-fujian"></i> 求职意向</view>
+    <view class="intentTitle"><view class="commontIcon"><view class="box"></view></view> 求职意向</view>
     <!-- 意向列表 -->
     <view class="officeTab" wx:for="{{info.expects}}" wx:key="{{index}}">
       <view>
@@ -48,7 +48,7 @@
   </view>
   <!-- 工作经历 -->
   <view class="workExp commentBox">
-    <view class="intentTitle"><i class="icon iconfont icon-fujian"></i> 工作经历</view>
+    <view class="intentTitle"><view class="commontIcon"><view class="box"></view></view> 工作经历</view>
     <view class="expTab" wx:if="{{info.careers.length > 0}}" wx:for="{{info.careers}}" wx:key="{{index}}">
       <view class="expTitle">
         <text class="expName">{{item.company}}</text>
@@ -68,7 +68,7 @@
   </view>
   <!-- 项目经历 -->
   <view class="projectExp commentBox">
-    <view class="intentTitle"><i class="icon iconfont icon-fujian"></i> 项目经历</view>
+    <view class="intentTitle"><view class="commontIcon"><view class="box"></view></view> 项目经历</view>
     <view class="expTab" wx:if="{{info.projects.length > 0}}" wx:for="{{info.projects}}" wx:key="{{index}}">
       <view class="expTitle">
         <text class="expName">{{item.name}}</text>
@@ -87,7 +87,7 @@
   </view>
   <!-- 教育经历 -->
   <view class="projectExp commentBox">
-    <view class="intentTitle"><i class="icon iconfont icon-fujian"></i> 教育经历</view>
+    <view class="intentTitle"><view class="commontIcon"><view class="box"></view></view> 教育经历</view>
     <view class="expTab" wx:if="{{info.educations.length > 0 }}" wx:for="{{info.educations}}" wx:key="{{index}}">
       <view class="expTitle">
         <text class="expName">{{item.school}}</text>
@@ -103,7 +103,7 @@
   <!-- 更多 -->
   <view class="more commentBox">
     <view class="intentTitle moreTitle">
-      <view><i class="icon iconfont icon-fujian"></i> 更多介绍 </view>
+      <view><view class="commontIcon"><view class="box"></view></view> 更多介绍 </view>
       <i class="icon iconfont icon-bianji1 edit" data-editName="more" data-id="{{item.id}}" bindtap="edit" wx:if="{{isOwner}}"></i>
     </view>
     <view class="expTab" hidden="{{!info.moreIntroduce.introduce && info.moreIntroduce.imgs.length === 0}}">
