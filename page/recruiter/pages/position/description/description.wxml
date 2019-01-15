@@ -9,20 +9,22 @@
 				maxlength="1000"
 				value="{{describe}}" />
 			<view class="controls">
-				<view class="similarity"><i class="icon iconfont icon-chakan"></i>看看别人怎么写</view>
+				<view class="similarity" bindtap="view"><i class="icon iconfont icon-chakan"></i>看看别人怎么写</view>
 				<view class="sum"><text class="{{describe.length > 5000 ? 'red' : ''}}">{{ describe.length }}</text>/5000</view>
 			</view>
 		</view>
-		<view class="example">
-			<view class="infos">
-				<view class="img-box"></view>
-				<view class="degress">市场运营经理</view>
+		<block wx:if="{{show}}">
+			<view class="example">
+				<view class="infos">
+					<view class="img-box"></view>
+					<view class="degress">市场运营经理</view>
+				</view>
+				<view class="change" bindtap="next"><i class="icon iconfont icon-huanyihuan"></i>换一个</view>
 			</view>
-			<view class="change" bindtap="change"><i class="icon iconfont icon-huanyihuan"></i>换一个</view>
-		</view>
-		<view class="floating-box">
-			本人有6年工作经验，意向电商或高并发，责任心非常强，耐力持久，热爱技术，皮实，性格内敛，灵活，执着。热衷于研究技术，崇尚科技改变世界！
-		</view>
+			<view class="floating-box">
+				本人有{{index}}年工作经验，意向前端开发，责任心非常强，耐力持久，热爱技术，皮实，性格内敛，灵活，执着。热衷于研究技术，崇尚科技改变世界！
+			</view>
+		</block>
 		<view class="btn-area">
 	    <view bindtap="submit" class="button-submit {{canClick ? 'button-enable' : ''}}">保存</view>
 	  </view>

@@ -5,7 +5,9 @@ const app = getApp()
 Page({
 	data: {
 		describe: '',
-    canClick: false
+    canClick: false,
+    index: 1,
+    show: false
 	},
 	onLoad(options) {
     const storage = wx.getStorageSync('createPosition')
@@ -36,7 +38,11 @@ Page({
     wx.setStorageSync('createPosition', storage)
     wx.navigateTo({url: `${RECRUITER}position/post/post`})
   },
-  change(e) {
-  	console.log(e)
+  next() {
+    const index = Math.floor(Math.random() * 10 )
+    this.setData({index})
+  },
+  view() {
+    this.setData({show: !this.data.show})
   }
 })

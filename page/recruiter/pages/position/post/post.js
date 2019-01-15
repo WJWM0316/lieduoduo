@@ -209,7 +209,6 @@ Page({
    * @return   {[type]}   [description]
    */
   createPositionApi(formData) {
-    if(!this.data.canClick) return;
     createPositionApi(formData)
       .then(res => {
         wx.removeStorageSync('createPosition')

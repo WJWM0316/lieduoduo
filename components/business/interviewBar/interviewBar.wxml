@@ -13,7 +13,7 @@
 						<view class="name">{{infos.name || infos.recruiterInfo.name}}</view>
 						<view class="hunter-infos"> <view class="strong">{{infos.positionNum}}</view>个职位 </view>
 					</view>
-					<view class="second">{{slogoList[slogoIndex].text}}</view>
+					<view class="second">工作不易，知音难觅，壮士约乎？工作不易，知音难觅，壮士约乎？</view>
 				</view>
 				<view class="button-box button-box-color1">
 					<view bindtap="todoAction" data-action="job-hunting-chat">开撩约面</view>
@@ -28,7 +28,7 @@
 						<view class="name">{{infos.name || infos.recruiterInfo.name}}</view>
 						<view class="hunter-infos"> <view class="strong">12</view>个职位 </view>
 					</view>
-					<view class="second">{{slogoList[slogoIndex].text}}</view>
+					<view class="second">工作不易，知音难觅，壮士约乎？工作不易，知音难觅，壮士约乎？</view>
 				</view>
 				<view class="button-box button-box-color1">
 					<view bindtap="todoAction" data-action="job-hunting-chat">开撩约面</view>
@@ -154,15 +154,16 @@
 					<view data-action="recruiter-arrangement" class="accept" bindtap="todoAction">安排面试</view>
 				</view>
 			</block>
-<!-- 
-			<block wx:elif="{{interviewInfos.interviewStatus === 54 || interviewInfos.interviewStatus === 55}}">
+
+			<block wx:elif="{{interviewInfos.interviewStatus === 41}}">
 				<view class="content">
 					<view class="first"><view class="name">{{infos.name || infos.recruiterInfo.name}}</view></view>
-					<view class="second">不考虑</view>
+					<view class="second">求职者已经同意</view>
 				</view>
-				<view class="button-box button-box-color2"> <view>不考虑</view> </view>
+				<view class="button-box button-box-color2">
+					<view bindtap="todoAction" data-action="recruiter-view-detail" class="accept">查看面试安排</view>
+				</view>
 			</block>
- -->
 		</block>
 		<!-- 招聘端 -->
 	</block>

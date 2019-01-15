@@ -4,7 +4,7 @@ import {
   getRecruitersListApi
 } from '../../../../api/pages/company.js'
 
-import {RECRUITERHOST, COMMON} from '../../../../config.js'
+import {RECRUITERHOST, COMMON, RECRUITER} from '../../../../config.js'
 import {getPositionListApi} from "../../../../api/pages/position.js"
 
 Page({
@@ -127,6 +127,9 @@ Page({
     switch(route) {
       case 'map':
         wx.navigateTo({url: `${COMMON}map/map`})
+        break
+      case 'recruitersList':
+        wx.navigateTo({url: `${RECRUITER}user/company/recruiterList/recruiterList?companyId=${this.data.companyInfos.id}`})
         break
       default:
         break
