@@ -73,7 +73,6 @@ export const request = ({method = 'post', url, data = {}, needKey = true, hasLoa
                 })
               }
               if (msg.code === 801) {
-                console.log(res.data.data.companyInfo.vkey)
                 // 还没有创建公司
                 if(!res.data.data.companyInfo.vkey) {
                   wx.reLaunch({url: `${RECRUITER}user/company/apply/apply`})
