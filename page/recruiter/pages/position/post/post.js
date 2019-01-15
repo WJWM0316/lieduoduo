@@ -37,7 +37,7 @@ Page({
     skills: [],
     query: {},
     pageTitle: '',
-    canClick: false
+    canClick: true
   },
   onLoad(options) {
     this.setData({pageTitle: options.positionId ? '编辑职位' : '创建职位', query: options})
@@ -165,7 +165,6 @@ Page({
     this.setData({education: e.detail.propsResult, educationName: e.detail.propsDesc})
   },
   submit() {
-    getApp().globalData.hasLogin = true
     const formData = {}
     const labels = []
     const action = this.data.query.positionId ? 'editPositionApi' : 'createPositionApi'
@@ -210,10 +209,11 @@ Page({
    * @return   {[type]}   [description]
    */
   createPositionApi(formData) {
+    if(!this.data.canClick) return;
     createPositionApi(formData)
       .then(res => {
         wx.removeStorageSync('createPosition')
-        wx.navigateTo({url: `${RECRUITER}position/index/index`})
+        wx.reLaunch({url: `${RECRUITER}position/index/index`})
         app.wxToast({title: '创建成功'})
       })
   },
@@ -227,7 +227,7 @@ Page({
     editPositionApi(formData)
       .then(res => {
         wx.removeStorageSync('createPosition')
-        wx.redirectTo({url: `${RECRUITER}position/index/index`})
+        wx.reLaunch({url: `${RECRUITER}position/index/index`})
         app.wxToast({title: '编辑成功'})
       })
   }

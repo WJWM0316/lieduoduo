@@ -38,7 +38,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 14,
+			"current": 30,
 			"list": [
 				{
 					"id": 0,
@@ -218,6 +218,12 @@
 					"id": 29,
 					"name": "职位搜索",
 					"pathName": "page/common/pages/category/category",
+					"query": "from=company"
+				},
+				{
+					"id": -1,
+					"name": "团队亮点",
+					"pathName": "page/recruiter/pages/company/teamLabel/teamLabel",
 					"query": "from=company"
 				}
 			]
