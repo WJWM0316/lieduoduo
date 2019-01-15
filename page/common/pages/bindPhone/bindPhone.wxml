@@ -9,10 +9,10 @@
   </view>
   <view class="form">
     <view class="phone">
-      <input type="tel" value="{{phone}}" placeholder="请输入手机号码" bindblur="getPhone"></input>
+      <input type="tel" value="{{phone}}" placeholder="请输入手机号码" bindconfirm="getPhone" bindblur="getPhone"></input>
     </view>
     <view class="code">
-      <input type="text" value="{{code}}" placeholder="请输入短信验证码" bindblur="getCode"></input>
+      <input type="text" value="{{code}}" placeholder="请输入短信验证码" bindconfirm="getCode" bindblur="getCode"></input>
       <view bindtap="sendCode" class="sendBtn">发送验证码</view>
     </view>
   </view>

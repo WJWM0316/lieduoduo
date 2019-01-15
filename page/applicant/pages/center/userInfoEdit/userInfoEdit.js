@@ -13,8 +13,6 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    let info = app.globalData.resumeInfo
-    this.setData({info})
   },
   jumpLabel() {
     wx.navigateTo({
@@ -98,12 +96,12 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    let info = this.data.info
+    let info = app.globalData.resumeInfo
     let avatar = wx.getStorageSync('avatar')
     if (avatar) {
       info.avatar = avatar
-      this.setData({info})
     }
+    this.setData({info})
   },
 
   /**
