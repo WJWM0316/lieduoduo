@@ -1,6 +1,7 @@
 // page/common/pages/resumeDetail/resumeDetail.js
 import { getPersonalResumeApi } from '../../../../api/pages/center.js'
 import { inviteInterviewApi } from '../../../../api/pages/interview.js'
+import { getMyCollectUserApi, deleteMyCollectUserApi } from '../../../../api/pages/collect.js'
 let id = 92
 const app = getApp()
 let resumeInfo = null
@@ -94,6 +95,32 @@ Page({
   /* 开撩 */
   toCommunicate () {
     inviteInterviewApi({jobhunterUid: id.uid, positionId: 110101})
-  }
-  /* 获取简历 */
+  },
+  /* 收藏 */
+  collect() {
+    let data = {
+      uid: this.data.options.uid
+    }
+    if (!this.data.info.interested) {
+      getMyCollectUserApi(data).then(res => {
+        app.wxToast({
+          title: '收藏成功',
+          icon: 'success'
+        })
+        let info = this.data.info
+        info.interested = true
+        this.setData({info})
+      })
+    } else {
+      deleteMyCollectUserApi(data).then(res => {
+        app.wxToast({
+          title: '取消收藏',
+          icon: 'success'
+        })
+        let info = this.data.info
+        info.interested = false
+        this.setData({info})
+      })
+    }
+  },
 })

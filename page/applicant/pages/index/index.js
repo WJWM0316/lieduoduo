@@ -48,10 +48,14 @@ Page({
   },
   onShow() {
     if (app.globalData.resumeInfo.uid) {
-      this.init()
+      if (app.globalData.identity === 'APPLICANT') {
+        this.init()
+      }
     } else {
       app.pageInit = () => {
-        this.init()
+        if (app.globalData.identity === 'APPLICANT') {
+          this.init()
+        }
       }
     }
     wx.setTabBarBadge({
@@ -88,8 +92,7 @@ Page({
     this.getAvartLis().then(res => {
       this.setData({
         moreList: res.data.moreRecruiter,
-        activeList: res.data.recruiterDynamic,
-        redDotActiveList: res.data.redDotJobHunterCollectList && res.data.redDotJobHunterViewList
+        activeList: res.data.recruiterDynamic
       })
     })
   },
