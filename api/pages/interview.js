@@ -106,3 +106,13 @@ export const getIntentionListApi = (data, hasLoading) => {
     data
   })
 }
+
+/* 面试全部红点 */
+export const getRedDotListApi = (data, hasLoading) => {
+  return request({
+    method: 'get',
+    url: `/interview/getRedDotInfo`,
+    data
+  })
+}
+

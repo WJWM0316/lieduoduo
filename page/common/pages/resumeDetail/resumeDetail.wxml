@@ -116,6 +116,7 @@
 
 <!-- 底部开撩 -->
 <view class="bottomBox">
+  <view class="collect"><i class="icon iconfont icon-ganxingqu"></i></view>
   <view>
     <interviewBar
       id="interviewBar"

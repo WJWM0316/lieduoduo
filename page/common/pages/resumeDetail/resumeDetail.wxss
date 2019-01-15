@@ -177,7 +177,7 @@
   align-items: center;
   justify-content: center;
   position: absolute;
-  top: -124rpx;
+  top: -240rpx;
   right: 20rpx;
   background-color: #FFFFFF;
   color: #8452A7;

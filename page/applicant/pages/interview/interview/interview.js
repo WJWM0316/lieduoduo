@@ -1,4 +1,4 @@
-import { getApplyListApi, getInviteListApi, getScheduleListApi } from '../../../../../api/pages/interview.js'
+import { getApplyListApi, getInviteListApi, getScheduleListApi, getRedDotListApi } from '../../../../../api/pages/interview.js'
 import {RECRUITER} from '../../../../../config.js'
 const app = getApp()
 let param = {
@@ -15,7 +15,7 @@ Page({
       {
         id: 'apply',
         text: '申请记录',
-        showRedDot: true,
+        showRedDot: false,
         active: true,
         children: [
           {
@@ -28,7 +28,7 @@ Page({
             id: 'waiting_arrangement',
             text: '待安排面试',
             active: false,
-            showRedDot: true
+            showRedDot: false
           },
           {
             id: 'have_arrangement',
@@ -153,6 +153,9 @@ Page({
       this.setData({
         companyList: res.data
       })
+    })
+    getRedDotListApi().then(res => {
+      console.log(res)
     })
   },
   onLoad () {},

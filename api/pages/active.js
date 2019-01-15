@@ -61,7 +61,7 @@ export const geMyBrowseUsersApi = (data) => {
 export const getAvartListApi = (data) => {
   return request({
     method: 'get',
-    url: '/collect/red_dot_info',
+    url: '/user/recruiter_avatar',
     data
   })
 }
