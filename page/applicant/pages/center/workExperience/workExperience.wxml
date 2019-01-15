@@ -1,6 +1,6 @@
 <!--完善简历第一步-->
 <view class="header">
-  <image class="headerBg" src="../../../../../images/pic_bg_new@3x.png"></image>
+  <image class="headerBg" src="{{cdnImagePath}}pic_bg_new@3x.png"></image>
   <text class="title">介绍下最近一份工作吧</text>
   <text class="subtitle">真实可靠的职场形象总能碰到机遇</text>
 </view>

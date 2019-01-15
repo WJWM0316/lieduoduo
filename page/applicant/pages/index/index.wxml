@@ -3,7 +3,7 @@
   <navbar title="猎多多"></navbar>
   <view class="applicant-index">
     <view class="index-bannar">
-      <image src="../../../../images/bg_homepageh.png"></image>
+      <image src="{{cdnImagePath}}bg_homepageh.png"></image>
     </view>
     <view class='more'>
       <moreActive type="1" avatarList="{{moreList}}"></moreActive>

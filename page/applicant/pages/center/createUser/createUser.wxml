@@ -2,7 +2,7 @@
 <!--<navbar title="完善简历第一步" background="#2878FF"></navbar>-->
 <view class="warp">
   <view class="header">
-    <image class="headerBg" src="../../../../../images/pic_bg_new@3x.png"></image>
+    <image class="headerBg" src="{{cdnImagePath}}pic_bg_new@3x.png"></image>
     <text class="title">开启有趣的求职之旅</text>
     <text class="subtitle">真实可靠的职场形象总能碰到机遇</text>
     <avatarCut class="avatar" avatar="avatar" src="{{avatar.url}}"></avatarCut>
