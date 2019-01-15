@@ -13,7 +13,7 @@
 			<i class="icon iconfont icon-xiangyou"></i>
 			<view class="text2">{{typeName || '请选择'}}</view>
 		</view>
-		<view class="li link" bindtap="routeJump" data-route="addressList">
+		<view class="li link" bindtap="getPositionAddress">
 			<view class="key">工作地点</view>
 			<i class="icon iconfont icon-xiangyou"></i>
 			<view class="text2">{{address || '请选择'}}</view>
