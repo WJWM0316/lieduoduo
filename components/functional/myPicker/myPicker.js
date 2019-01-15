@@ -1,5 +1,6 @@
 // components/layout/myPicker/myPicker.js
 import {getJobLabelApi} from '../../../api/pages/common.js'
+import {getAreaListApi} from '../../../api/pages/label.js'
 Component({
   externalClasses: ['my-class'],
   /**
@@ -39,6 +40,7 @@ Component({
     mode: '', // picker mode
     firstOption: '', // 自定义选型
     placeholder: '', // placeholder
+    provice: '', // 省份
     financing: [{name: '未融资', value: 1}, {name: '天使轮', value: 2}, {name: 'A轮', value: 3}, {name: 'B轮', value: 4}, {name: 'C轮', value: 5}, {name: 'D轮及以上', value: 6}, {name: '已上市', value: 7}, {name: '不需要融资', value: 8}],
     staffMembers: [{name: '0-20人', value: 1}, {name: '20-99人', value: 2}, {name: '100-499人', value: 3}, {name: '500-999人', value: 4}, {name: '1000人-9999人', value: 5}, {name: '10000人以上', value: 6}],
     experience: [{name: '不限', value: 1}, {name: '应届生', value: 2}, {name: '1以内', value: 3}, {name: '1-3', value: 4}, {name: '3-5', value: 5}, {name: '5-10', value: 6}, {name: '10以上', value: 7}],
@@ -251,6 +253,15 @@ Component({
           this.setData({list, result, mode: 'selector', placeholder: '请选择职业'})
         })
         break
+      case 'region':
+        let provice = []
+        let result = [0, 0]
+        getAreaListApi().then(res => {
+          provice = res.data
+          list = [provice, provice[result[0]].children]
+          console.log(list[1][result[1]].title, 1111111)
+          this.setData({list, result, provice, mode: 'multiSelector', placeholder: '请选择城市'})
+        })
     }
   },
   /**
@@ -280,6 +291,9 @@ Component({
         } else if (this.data.pickerType === 'salaryRangeB' || this.data.pickerType === 'salaryRangeC') {
           propsResult = [list[0][result[0]], list[1][result[1]]]
           propsDesc = `${list[0][result[0]]}~${list[1][result[1]]}`
+        } else if (this.data.pickerType === 'region') {
+          propsResult = [list[0][result[0].areaId], list[1][result[1]].areaId]
+          propsDesc = [list[0][result[0].title], list[1][result[1]].title]
         }
       } else {
         if (this.data.pickerType === 'occupation') {
@@ -300,6 +314,7 @@ Component({
           }
         })
       }
+      console.log(e, 333)
       this.setData({result: e.detail.value})
       this.setResult()
     },
@@ -361,6 +376,13 @@ Component({
               endNum.push(`${i}k`)
             }
             list[1] = endNum
+            this.setData({list})
+          }
+        }
+        if (this.data.pickerType === 'region') {
+          if (e.detail.column === 0) { // 选择省份
+            list = this.data.list
+            list = [this.data.provice, this.data.provice[e.detail.value].children]
             this.setData({list})
           }
         }
