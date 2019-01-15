@@ -161,6 +161,7 @@
   box-shadow:0px 4rpx 20rpx 0rpx rgba(101,39,145,0.1);
   border-radius:10rpx;
   margin-bottom: 24rpx;
+  padding-bottom: 40rpx;
 }
 
 .company-detail {
@@ -178,12 +179,16 @@
 }
 
 .production-box {
-  margin: 40rpx;
+  margin: 30rpx;
   background: white;
   margin-bottom: 40rpx;
   background:rgba(255,255,255,1);
   box-shadow:0px 4rpx 20rpx 0rpx rgba(101,39,145,0.1);
   border-radius:10rpx;
+}
+
+.production-box .ul {
+  padding-bottom: 40rpx;
 }
 
 .production-box .li {
@@ -305,4 +310,34 @@
   color:#5C565D;
   display: inline-block;
   margin-right: 16rpx;
+}
+
+.company-images {
+  background: white;
+  overflow: hidden;
+  margin: 0 30rpx;
+  background:rgba(255,255,255,1);
+  box-shadow:0px 4rpx 20rpx 0rpx rgba(101,39,145,0.1);
+  border-radius:10rpx;
+  margin-bottom: 24rpx;
+  padding-bottom: 40rpx;
+}
+
+.company-images .ul{
+  margin: 30rpx 40rpx;
+  overflow: hidden;
+  margin-bottom: 0;
+}
+
+.company-images .ul .li{
+  width:146rpx;
+  height:146rpx;
+  border-radius:2rpx;
+  display: inline-block;
+  background: rgba(0,0,0,.01);
+  margin-right: 8rpx;
+}
+
+.company-images .ul .li:last-child{
+  margin-right: 0;
 }

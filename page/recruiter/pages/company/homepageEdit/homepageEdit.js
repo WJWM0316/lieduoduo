@@ -14,11 +14,6 @@ Page({
    */
   data: {
     tab: 'about',
-    indicatorDots: false,
-    autoplay: true,
-    interval: 1000,
-    duration: 1000,
-    link: 'https://www.xiaodengta.com',
     query: {},
     companyInfos: {},
     recruitersList: [],
@@ -28,8 +23,8 @@ Page({
   onLoad(options) {
     this.setData({query: options})
     this.getCompanyDetail()
-    this.getRecruitersList()
-    this.getPositionList(options)
+    // this.getRecruitersList()
+    // this.getPositionList(options)
   },
   /**
    * @Author   小书包
