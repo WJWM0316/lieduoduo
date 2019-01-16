@@ -1,6 +1,7 @@
 import {
   getAddressDetailApi,
   editCompanyAddressApi,
+  editPositionAddressApi ,
   addCompanyAddressApi,
   addPositionAddressApi,
   deletePositionAddressApi,
@@ -109,7 +110,7 @@ Page({
    */
   post() {
     const type = this.data.options.type === 'position' ? 'Position' : 'Company'
-    const action = `edit${type}Address`
+    const action = `post${type}Address`
     this[action]()
   },
   /**

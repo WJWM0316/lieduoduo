@@ -1,4 +1,4 @@
-import {getCompanyAddressListApi} from "../../../../../api/pages/company.js"
+import {getCompanyAddressListApi, getPositionAddressListApi} from "../../../../../api/pages/company.js"
 import {RECRUITER} from '../../../../../config.js'
 
 Page({
@@ -17,7 +17,8 @@ Page({
   },
   onShow() {
     const options = this.data.options
-    this[options.type](options)
+    const action = options.type === 'position' ? 'getPositionAddressList' : 'getCompanyAddressList'
+    this[action](options)
   },
   /**
    * @Author   小书包
