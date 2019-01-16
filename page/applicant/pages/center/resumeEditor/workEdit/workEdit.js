@@ -10,6 +10,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    info: '', // 旧工作经历的数据
     nowInputNum: 0,
     showCase: false, // 是否展示例子
     jobCategories: '',
@@ -145,11 +146,35 @@ Page({
       duty: this.data.duty
     }
     for (let item in param) {
-      if (!param[item] && item !== 'endTime') {
+      if (!param[item] && item !== 'link' && item !== 'endTime') {
+        let itemName = ''
+        switch (item) {
+          case 'company':
+            itemName = '公司名字不能为空'
+            break;
+          case 'position':
+            itemName = '职位名称不能为空'
+            break;
+          case 'startTime':
+            itemName = '开始时间不能为空'
+            break;
+          case 'duty':
+            itemName = '工作内容不能为空'
+            break;
+          case 'labels':
+            itemName = '技能标签不能为空'
+            break;
+          case 'positionType':
+            itemName = '职位类别不能为空'
+            break;
+          default:
+            itemName = '结束时间不能为空'
+            break;
+        }
         wx.showToast({
-          title: '带*为必填项，不能为空，请重新输入',
+          title: `${itemName}`,
           icon: 'none',
-          duration: 2000
+          duration: 1000
         })
         return
       }
@@ -160,7 +185,13 @@ Page({
           app.globalData.resumeInfo.careers[index] = res.data
         }
       })
-      wx.navigateBack({delta: 1}) 
+      app.wxToast({
+        title: '保存成功',
+        icon: 'success',
+        callback() {
+          wx.navigateBack({delta: 1}) 
+        }
+      })
     })
   },
   // 新增
@@ -175,11 +206,35 @@ Page({
       duty: this.data.duty
     }
     for (let item in param) {
-      if (!param[item] && item !== 'endTime') {
+      if (!param[item] && item !== 'link' && item !== 'endTime') {
+        let itemName = ''
+        switch (item) {
+          case 'company':
+            itemName = '公司名字不能为空'
+            break;
+          case 'position':
+            itemName = '职位名称不能为空'
+            break;
+          case 'startTime':
+            itemName = '开始时间不能为空'
+            break;
+          case 'duty':
+            itemName = '工作内容不能为空'
+            break;
+          case 'labels':
+            itemName = '技能标签不能为空'
+            break;
+          case 'positionType':
+            itemName = '职位类别不能为空'
+            break;
+          default:
+            itemName = '结束时间不能为空'
+            break;
+        }
         wx.showToast({
-          title: '带*为必填项，不能为空，请重新输入',
+          title: `${itemName}`,
           icon: 'none',
-          duration: 2000
+          duration: 1000
         })
         return
       }
@@ -208,7 +263,10 @@ Page({
         this.setData({
           company: item.company,
           positionName: item.position,
-          duty: item.duty
+          duty: item.duty,
+          startTime: item.startTime,
+          endTime: item.endTime,
+          info: item
         })
       }
     })

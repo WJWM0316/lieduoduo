@@ -11,11 +11,11 @@
   </view>
   <view class="commont salary">
     <view class="title"><text>*</text>开始时间</view>
-    <myPicker class="myPicker" setResult="开始时间" pickerType="startTime" placeholderStyle="color: #BCBCBC" data-time="start" bindresultevent="getresult"></myPicker>
+    <myPicker class="myPicker" setResult="{{info.startTimeDesc}}" pickerType="startTime" placeholderStyle="color: #BCBCBC" data-time="start" bindresultevent="getresult"></myPicker>
   </view>
   <view class="commont salary">
     <view class="title"><text>*</text>结束时间</view>
-    <myPicker class="myPicker" setResult="开始时间" pickerType="endTime" placeholderStyle="color: #BCBCBC" data-time="end" bindresultevent="getresult"></myPicker>
+    <myPicker class="myPicker" setResult="{{info.endTimeDesc}}" pickerType="endTime" placeholderStyle="color: #BCBCBC" data-time="end" bindresultevent="getresult"></myPicker>
   </view>
   <!--项目描述-->
   <view class="title"><text>*</text>项目描述</view>

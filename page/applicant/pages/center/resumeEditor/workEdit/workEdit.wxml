@@ -1,5 +1,5 @@
 <!--简历工作编辑页-->
-<navbar title="工作编辑"></navbar>
+<navbar title="工作经历"></navbar>
 <view class="warp">
   <view class="commont">
     <view class="title"><text>*</text>公司名称</view>
@@ -15,11 +15,11 @@
   </view>
   <view class="commont salary">
     <view class="title"><text>*</text>开始时间</view>
-    <myPicker class="myPicker" setResult="开始时间" pickerType="startTime" placeholderStyle="color: #BCBCBC" data-time="start" bindresultevent="getresult"></myPicker>
+    <myPicker class="myPicker" setResult="{{info.startTimeDesc}}" pickerType="startTime" placeholderStyle="color: #BCBCBC" data-time="start" bindresultevent="getresult"></myPicker>
   </view>
   <view class="commont salary">
     <view class="title"><text>*</text>结束时间</view>
-    <myPicker class="myPicker" setResult="开始时间" pickerType="endTime" placeholderStyle="color: #BCBCBC" data-time="end" bindresultevent="getresult"></myPicker>
+    <myPicker class="myPicker" setResult="{{info.endTimeDesc}}" pickerType="endTime" placeholderStyle="color: #BCBCBC" data-time="end" bindresultevent="getresult"></myPicker>
   </view>
   <view class="commont" data-type="4" bindtap="choose">
     <view class="title"><text>*</text>技能标签</view>

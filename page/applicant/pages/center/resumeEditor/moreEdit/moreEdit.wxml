@@ -1,5 +1,5 @@
 <!--简历更多编辑页-->
-<navbar title="项目编辑"></navbar>
+<navbar title="更多介绍"></navbar>
 <view class="warp">
   <!--自我描述-->
   <view class="textArea">
