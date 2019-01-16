@@ -3,6 +3,7 @@ import {sendCodeApi, bindPhoneApi} from "../../../../api/pages/auth.js"
 import {quickLoginApi} from '../../../../api/pages/auth.js'
 
 let realCode = '' // 短信验证码
+let mobileNumber = 0
 let app = getApp()
 Page({
 
@@ -12,7 +13,8 @@ Page({
   data: {
     phone: '',
     code: '',
-    cdnImagePath: app.globalData.cdnImagePath
+    cdnImagePath: app.globalData.cdnImagePath,
+    second: 60
   },
 
   /**
@@ -26,9 +28,14 @@ Page({
     }
   },
   getPhone(e) {
+    mobileNumber = e.detail.value
     this.setData({
       phone: e.detail.value
     })
+    this.isBlured = true
+    if (this.callback) {
+      this.callback()
+    }
   },
   getCode(e) {
     this.setData({
@@ -36,17 +43,39 @@ Page({
     })
   },
   sendCode() {
-    if (this.data.phone === '') {
-      app.wxToast({
-        title: '请填写手机号'
+    let sendFun = () => {
+      if (!mobileNumber) {
+        app.wxToast({
+          title: '请填写手机号'
+        })
+        return
+      }
+      let data = {
+        mobile: mobileNumber
+      }
+      sendCodeApi(data).then(res => {
+        this.isBlured = false
+        this.callback = null
+        let second = 60
+        let timer = null
+        timer = setInterval(() => {
+          second--
+          if (second === 0) {
+            second = 60
+            clearInterval(timer)
+          }
+          this.setData({second})
+        }, 1000)
       })
-      return
     }
-    let data = {
-      mobile: this.data.phone
+    if (this.isBlured) {
+      sendFun()
+    } else {
+      this.callback = () => {
+        sendFun()
+      }
     }
-    sendCodeApi(data).then(res => {
-    })
+    
   },
   bindSuccess() {
     app.globalData.hasLogin = true

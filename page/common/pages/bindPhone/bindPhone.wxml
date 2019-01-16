@@ -12,12 +12,13 @@
       <input type="tel" value="{{phone}}" placeholder="请输入手机号码" bindconfirm="getPhone" bindblur="getPhone"></input>
     </view>
     <view class="code">
-      <input type="text" value="{{code}}" placeholder="请输入短信验证码" bindconfirm="getCode" bindblur="getCode"></input>
-      <view bindtap="sendCode" class="sendBtn">发送验证码</view>
+      <input type="text" value="{{code}}" placeholder="请输入短信验证码" bindblur="getCode"></input>
+      <view bindtap="sendCode" class="sendBtn" hidden="{{second < 60}}">获取验证码</view>
+      <view class="sendBtn wait" hidden="{{second === 60}}">等待{{second}}s</view>
     </view>
   </view>
   <view class="wxBtn">
     <button class="wxLogin" open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber">微信账号快捷登录<view class="icon iconfont icon-disejiantou-you"></view></button>
   </view>
-  <button class="bindBtn" bindtap="bindPhone">绑定</button>
+  <button class="bindBtn" catchtap="bindPhone">绑定</button>
 </view>
