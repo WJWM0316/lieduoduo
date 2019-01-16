@@ -24,8 +24,7 @@
 	</view>
 	<view class="footer">
     <button class="button-submit {{canClick ? 'button-enable' : ''}}" bindtap="submit">
-      <text wx:if="{{skills.length > 0}}">保存</text>
-      <text wx:else>请选择行业领域</text>
+      <text>保存</text>
     </button>
   </view>
 </view>

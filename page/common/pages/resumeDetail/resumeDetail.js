@@ -2,7 +2,7 @@
 import { getPersonalResumeApi } from '../../../../api/pages/center.js'
 import { inviteInterviewApi } from '../../../../api/pages/interview.js'
 import { getMyCollectUserApi, deleteMyCollectUserApi } from '../../../../api/pages/collect.js'
-let id = 92
+let id = null
 const app = getApp()
 let resumeInfo = null
 Page({
@@ -92,14 +92,10 @@ Page({
       url: url
     })
   },
-  /* 开撩 */
-  toCommunicate () {
-    inviteInterviewApi({jobhunterUid: id.uid, positionId: 110101})
-  },
   /* 收藏 */
   collect() {
     let data = {
-      uid: this.data.options.uid
+      uid: id.uid
     }
     if (!this.data.info.interested) {
       getMyCollectUserApi(data).then(res => {

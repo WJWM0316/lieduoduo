@@ -98,6 +98,11 @@
   margin-left: 16rpx;
   margin-bottom: 16rpx;
 }
+.personalTip .text{
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 /*意向*/
 .intent .officeTab{
   margin-top: 40rpx;
@@ -116,6 +121,12 @@
   flex-wrap: nowrap;
   justify-content: space-between;
   align-items: center;
+}
+.intent .officeTab .officeDetail .name{
+  width: 349rpx;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 .intent .officeTab .salary{
   color: #FF7F4C;
@@ -308,7 +319,10 @@
 }
 .expTab .expName{
   display: inline-block;
-  max-width: 392rpx;
+  width: 349rpx;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   font-size: 32rpx;
   font-weight: 500;
 }
