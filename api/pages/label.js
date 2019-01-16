@@ -88,3 +88,12 @@ export const saveTeamlabApi = (data, hasLoading) => {
   })
 }
 
+// 搜索职位列表
+export const getLabelLIstsApi = (data, hasLoading) => {
+  return request({
+    method: 'get',
+    url: '/search/position',
+    data,
+    hasLoading: true
+  })
+}
