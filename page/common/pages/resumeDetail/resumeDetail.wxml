@@ -15,13 +15,14 @@
     </view>
     <view class="experience">
       <view class="time"><i class="icon iconfont icon-zhiwei"></i> {{info.workAgeDesc}}</view>
-      <view class="age"><i class="icon iconfont icon-nianling"></i> {{info.age}}岁</view>
+      <view class="age" wx:if="{{info.age}}"><i class="icon iconfont icon-nianling"></i> {{info.age}}岁</view>
+      <view class="age" wx:else><i class="icon iconfont icon-nianling"></i> 待完善</view>
       <view class="education"> <i class="icon iconfont icon-xueli"></i> {{info.degreeDesc}}</view>
-      <view class="status">{{info.jobStatusDesc}}</view>
+      <view class="status">{{info.jobStatusDesc || "待完善"}}</view>
     </view>
     <image class="line" src="{{cdnImagePath}}line.png"></image>
     <view class="personalTip">
-      <view class="text">“{{info.signature}}”</view>
+      <view class="text">“{{info.signature || '你还未填写个性签名，说说你的想法吧~'}}”</view>
       <view class="tipBox">
         <text class="tip" wx:for="{{info.personalizedLabels}}" wx:key="{{index}}">{{item.labelName || item.name}}</text>
       </view>
@@ -34,7 +35,7 @@
     <view class="officeTab" wx:for="{{info.expects}}" wx:key="{{index}}">
       <view>
         <view class="officeDetail">
-          <text>{{item.position}} | {{item.city}}</text>
+          <text class="name">{{item.position}} | {{item.city}}</text>
           <text class="salary">{{item.salaryFloor}}~{{item.salaryCeil}}K</text>
           <i class="icon iconfont icon-bianji1 edit" data-editName="intent" data-id="{{item.id}}" bindtap="edit" wx:if="{{isOwner}}"></i></view>
       </view>

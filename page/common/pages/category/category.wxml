@@ -6,17 +6,34 @@
 		<i class="icon iconfont icon-sousuo icon-search"></i>
 	</view>
 	<view class="category-list">
-		<view
-			class="li link"
+		<block wx:if="{{!searing}}">
+			<view
+				class="li link"
+				wx:for="{{positionTypeList}}"
+				wx:for-item="item"
+				data-order="first"
+				wx:key="{{item.id}}"
+				data-index="{{index}}"
+				bindtap="onClick1">
+				<view class="text {{item.active ? 'active' : ''}}">{{item.name}}</view>
+				<i class="icon iconfont icon-xiangyou"></i>
+			</view>
+		</block>
+		<block wx:else>
+			<view
 			wx:for="{{positionTypeList}}"
 			wx:for-item="item"
-			data-order="first"
 			wx:key="{{item.id}}"
-			data-index="{{index}}"
-			bindtap="onClick1">
-			<view class="text {{item.active ? 'active' : ''}}">{{item.name}}</view>
-			<i class="icon iconfont icon-xiangyou"></i>
-		</view>
+			bindtap="onClick"
+			data-name="{{item.name}}"
+			data-label-id="{{item.labelId}}"
+			data-pid="{{item.pid}}"
+			class="search-item" >
+				<view class="first"><rich-text nodes="{{item.html}}"></rich-text></view>
+				<view class="second"><rich-text nodes="{{item.seriesName}}"></rich-text></view>
+				<i class="icon iconfont icon-jiantou"></i>
+			</view>
+		</block>
 	</view>
 	<view class="mask-board {{showMask ? 'mask-board-show' : ''}}" style="top: {{statusBarHeight}}px">
 		<view class="box">

@@ -92,10 +92,6 @@ Page({
       url: url
     })
   },
-  /* 开撩 */
-  toCommunicate () {
-    inviteInterviewApi({jobhunterUid: id.uid, positionId: 110101})
-  },
   /* 收藏 */
   collect() {
     let data = {

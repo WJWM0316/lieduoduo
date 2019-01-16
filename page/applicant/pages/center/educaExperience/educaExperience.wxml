@@ -7,7 +7,7 @@
 <view>
   <form bindsubmit="formSubmit" bindreset="formReset">
     <view class="school commont">
-      <input name="school" placeholder="填写学校名" />
+      <input name="school" maxlength="50" placeholder="填写学校名" />
     </view>
     <view class="major commont">
       <input name="major" placeholder="填写专业名称" />

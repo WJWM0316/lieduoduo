@@ -88,7 +88,7 @@
 	opacity: 0;
 	background: rgba(0,0,0,.6);
 	visibility: hidden;
-	transition: all ease .4s;
+	transition: all ease .2s;
 }
 
 .mask-board .box {
@@ -158,4 +158,51 @@
 
 .mask-board-show .box {
 	transform: translateX(0%);
+}
+
+.search-item {
+	height:126rpx;
+	background:rgba(255,255,255,1);
+	position: relative;
+	overflow: hidden;
+	padding: 30rpx 40rpx;
+	box-sizing: border-box;
+	line-height: 1;
+	font-size:26rpx;
+	font-weight:500;
+	color:rgba(40,40,40,1);
+}
+
+.search-item:after {
+	position: absolute;
+	left: 40rpx;
+	right: 40rpx;
+	bottom: 0;
+	display: block;
+	content: '';
+	height: 1px;
+	background: #E8E9EB;
+}
+
+.search-item:last-child:after {
+	display: none;
+}
+
+.search-item .icon-jiantou {
+	font-size: 18rpx;
+	color: #DCDCDC;
+	line-height: 66rpx;
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	right: 40rpx;
+}
+
+.search-item .first {
+	color:#282828;
+	margin-bottom: 16rpx;
+}
+
+.search-item .second {
+	color:#929292;
 }

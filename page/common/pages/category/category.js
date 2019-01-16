@@ -1,4 +1,8 @@
-import { getLabelPositionApi } from '../../../../api/pages/label.js'
+import {
+  getLabelPositionApi,
+  getLabelLIstsApi
+} from '../../../../api/pages/label.js'
+
 import {RECRUITER} from '../../../../config.js'
 
 Page({
@@ -8,19 +12,25 @@ Page({
     statusBarHeight: 0,
     index1: 0,
     index2: 0,
-    showMask: false
+    showMask: false,
+    searing: false
   },
   onLoad(options) {
-    wx.getSystemInfo({
-      success: res => {
-        this.setData({statusBarHeight: res.statusBarHeight + 46})
-      }
-    })
+    wx.getSystemInfo({success: res => this.setData({statusBarHeight: res.statusBarHeight + 46}) })
     getLabelPositionApi()
       .then(res => {
         const positionTypeList = res.data
         this.setData({positionTypeList: res.data, query: options})
       })
+  },
+  onClick(e) {
+    const params = e.currentTarget.dataset
+    const storage = wx.getStorageSync('createPosition') || {}
+    storage.type = params.labelId
+    storage.typeName = params.name
+    storage.parentType = params.pid
+    wx.setStorageSync('createPosition', storage)
+    wx.navigateBack({delta: 1})
   },
   /**
    * @Author   小书包
@@ -85,7 +95,37 @@ Page({
    * @return   {[type]}     [description]
    */
   bindInput(e) {
-    console.log(e.detail.value)
+    const name = e.detail.value
+    this.debounce(this.getLabelLIsts, null, 500, name)
+  },
+  /**
+   * @Author   小书包
+   * @DateTime 2019-01-11
+   * @detail   防抖
+   * @return   {[type]}   [description]
+   */
+  debounce(fn, context, delay, text) {
+    clearTimeout(fn.timeoutId)
+    fn.timeoutId = setTimeout(() => fn.call(context, text), delay)
+  },
+  /**
+   * @Author   小书包
+   * @DateTime 2019-01-16
+   * @detail   搜索技能列表
+   * @return   {[type]}   [description]
+   */
+  getLabelLIsts(name) {
+    this.setData({showMask: false})
+    getLabelLIstsApi({name})
+      .then(res => {
+        const positionTypeList = res.data
+        const regExp = new RegExp(name, 'g')
+        positionTypeList.map(field => {
+          field.html = field.name.replace(regExp, `<span style="color: #652791;">${name}</span>`)
+          field.html = `<div>${field.html}</div>`
+        })
+        this.setData({positionTypeList, searing: true})
+      })
   },
   closeMask() {
     this.setData({showMask: false})

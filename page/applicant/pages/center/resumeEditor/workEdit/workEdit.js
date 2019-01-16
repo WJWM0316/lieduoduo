@@ -19,7 +19,7 @@ Page({
     starTime: '',
     endTime: '',
     skill: '选择技能标签', // 技能标签
-    skillsId: [],
+    skillsId: '',
     isAdd: false,
     duty: '',
     cdnImagePath: app.globalData.cdnImagePath
@@ -70,6 +70,7 @@ Page({
   },
   // 存储拿回来的数据
   set () {
+    console.log(wx.getStorageSync('result'))
     switch (target) {
       case '3':
         this.setData({jobCategories: wx.getStorageSync('result')})
@@ -139,7 +140,7 @@ Page({
       id: nowWorkId,
       company: this.data.company,
       position: this.data.positionName,
-      positionType: this.data.jobCategories.labelId+'',
+      positionType: this.data.jobCategories.name || this.data.jobCategories,
       startTime: this.data.starTime,
       endTime: this.data.endTime,
       labels: this.data.skillsId,
@@ -199,7 +200,7 @@ Page({
     const param = {
       company: this.data.company,
       position: this.data.positionName,
-      positionType: this.data.jobCategories.labelId+'',
+      positionType: this.data.jobCategories.name,
       startTime: this.data.starTime,
       endTime: this.data.endTime,
       labels: this.data.skillsId,
@@ -279,8 +280,11 @@ Page({
           company: item.company,
           positionName: item.position,
           duty: item.duty,
-          startTime: item.startTime,
+          starTime: item.startTime,
           endTime: item.endTime,
+          skill: item.technicalLabels,
+          skillsId: item.technicalLabels,
+          jobCategories: item.positionType,
           info: item
         })
       }

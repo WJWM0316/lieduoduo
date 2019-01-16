@@ -1,6 +1,8 @@
 import {getCompanyAddressListApi, getPositionAddressListApi} from "../../../../../api/pages/company.js"
 import {RECRUITER} from '../../../../../config.js'
 
+const app = getApp()
+
 Page({
   data: {
     addressList: [],
@@ -27,7 +29,7 @@ Page({
    * @return   {[type]}   [description]
    */
   getCompanyAddressList(options) {
-    getCompanyAddressListApi().then(res => {
+    getCompanyAddressListApi({id: app.globalData.recruiterDetails.companyInfo.id}).then(res => {
       const addressList = res.data
       addressList.map(field => field.active = field.id === parseInt(options.addressId) ? true : false)
       this.setData({addressList: res.data})
