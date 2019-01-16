@@ -1,66 +1,36 @@
-// page/recruiter/pages/company/productList/productList.js
+import {getCompanyProductListsApi} from '../../../../../api/pages/company.js'
+
+import {RECRUITER} from '../../../../../config.js'
+
 Page({
-
-  /**
-   * 页面的初始数据
-   */
   data: {
-
+    productList: [],
+    options: {}
   },
-
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
-
+  onLoad(options) {
+    this.setData({options})
   },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
+  onShow() {
+    const options = this.data.options
+    this.getCompanyProductLists(options)
   },
-
   /**
-   * 生命周期函数--监听页面显示
+   * @Author   小书包
+   * @DateTime 2019-01-16
+   * @detail   获取公司产品列表
+   * @return   {[type]}   [description]
    */
-  onShow: function () {
-
+  getCompanyProductLists(options) {
+  	getCompanyProductListsApi({id: options.companyId})
+  		.then(res => {
+  			this.setData({productList: res.data})
+  		})
   },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
+  edit(e) {
+    const productId = e.currentTarget.dataset.id
+    wx.navigateTo({url: `${RECRUITER}company/postProduct/postProduct?productId=${productId}`})
   },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
+  add() {
+    wx.navigateTo({url: `${RECRUITER}company/postProduct/postProduct`})
   }
 })

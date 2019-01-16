@@ -258,8 +258,8 @@
   margin-top: 15rpx;
   overflow: hidden;
   background:rgba(248,248,248,1);
-  line-height: 50rpx;
-  padding: 0 18rpx;
+  line-height: 1.5;
+  padding: 8rpx 18rpx;
 }
 
 .production-box .li::after {
