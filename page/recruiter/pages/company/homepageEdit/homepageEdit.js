@@ -34,7 +34,7 @@ Page({
     const params = e.currentTarget.dataset
     switch(params.route) {
       case 'address-post':
-        wx.navigateTo({url: `${RECRUITER}position/addressList/addressList`})
+        wx.navigateTo({url: `${RECRUITER}position/addressList/addressList?type=company&selected=1`})
         break
       case 'base':
         wx.navigateTo({url: `${COMMON}recruiterDetail/recruiterDetail?uid=${app.globalData.recruiterDetails.uid}`})

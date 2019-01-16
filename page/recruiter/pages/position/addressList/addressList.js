@@ -1,23 +1,46 @@
-import {getCompanyAddressListApi} from "../../../../../api/pages/company.js"
+import {getCompanyAddressListApi, getPositionAddressListApi} from "../../../../../api/pages/company.js"
 import {RECRUITER} from '../../../../../config.js'
 
 Page({
   data: {
     addressList: [],
-    isSelected: false,
-    options: {}
+    options: {
+      selected: false
+    }
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
-    console.log(options)
     this.setData({options})
   },
   onShow() {
     const options = this.data.options
+    const action = options.type === 'position' ? 'getPositionAddressList' : 'getCompanyAddressList'
+    this[action](options)
+  },
+  /**
+   * @Author   小书包
+   * @DateTime 2019-01-16
+   * @detail   获取公司地址列表
+   * @return   {[type]}   [description]
+   */
+  getCompanyAddressList(options) {
     getCompanyAddressListApi().then(res => {
+      const addressList = res.data
+      addressList.map(field => field.active = field.id === parseInt(options.addressId) ? true : false)
+      this.setData({addressList: res.data})
+    })
+  },
+  /**
+   * @Author   小书包
+   * @DateTime 2019-01-16
+   * @detail   获取职位地址列表
+   * @return   {[type]}   [description]
+   */
+  getPositionAddressList(options) {
+    getPositionAddressListApi().then(res => {
       const addressList = res.data
       addressList.map(field => field.active = field.id === parseInt(options.addressId) ? true : false)
       this.setData({addressList: res.data})
@@ -41,12 +64,26 @@ Page({
       wx.navigateBack({delta: 1})
     })
   },
+  /**
+   * @Author   小书包
+   * @DateTime 2019-01-16
+   * @detail   添加地址
+   */
   add() {
-    const type = this.data.options.type ? this.data.options.type : ''
-    wx.navigateTo({ url: `${RECRUITER}position/address/address?type=${type}` })
+    // 判断是公司地址还是职位地址
+    const options = this.data.options
+    wx.navigateTo({url: `${RECRUITER}position/address/address?type=${options.type}&selected=${options.selected}`})
   },
+  /**
+   * @Author   小书包
+   * @DateTime 2019-01-16
+   * @detail   编辑地址
+   * @return   {[type]}     [description]
+   */
   edit(e) {
     const params = e.currentTarget.dataset
-    wx.navigateTo({ url: `${RECRUITER}position/address/address?id=${params.id}` })
+    // 判断是公司地址还是职位地址
+    const options = this.data.options
+    wx.navigateTo({url: `${RECRUITER}position/address/address?id=${params.id}&type=${options.type}&selected=${options.selected}`})
   }
 })

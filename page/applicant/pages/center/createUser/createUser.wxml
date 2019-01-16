@@ -13,10 +13,10 @@
       <view class="{{gender === '2'? 'active' : ''}}" data-gender="2">女</view>
     </view>
     <view class="name">
-      <input name="name" bindconfirm="getValue" bindblur="getValue" data-type="name" placeholder="请输入姓名" value="{{name}}"/>
+      <input name="name" bindinput="getValue" data-type="name" placeholder="请输入姓名" value="{{name}}"/>
     </view>
     <view class="name">
-      <input name="position" bindconfirm="getValue" bindblur="getValue" data-type="position" value="{{position}}" placeholder="请输入职位名称" />
+      <input name="position" bindinput="getValue" data-type="position" value="{{position}}" placeholder="请输入职位名称" />
     </view>
     <view class="time">
       <myPicker class="myPicker" setResult="{{workTimeDesr}}" pickerType="workTime" placeholderStyle="color: #BCBCBC" bindresultevent="getresult"></myPicker>

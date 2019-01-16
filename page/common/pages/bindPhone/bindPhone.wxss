@@ -55,9 +55,12 @@
   right: 20rpx;
   top: 50%;
   margin-top: -30rpx;
-  display: block;
   position: absolute;
   z-index: 10;
+}
+.code .sendBtn.wait {
+  color: #BCBCBC;
+  background: #E8E9EB;
 }
 .form {
   padding: 80rpx 100rpx 0;
