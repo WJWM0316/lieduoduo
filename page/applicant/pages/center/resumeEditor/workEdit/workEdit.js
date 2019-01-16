@@ -19,7 +19,7 @@ Page({
     starTime: '',
     endTime: '',
     skill: '选择技能标签', // 技能标签
-    skillsId: [],
+    skillsId: '',
     isAdd: false,
     duty: '',
     cdnImagePath: app.globalData.cdnImagePath

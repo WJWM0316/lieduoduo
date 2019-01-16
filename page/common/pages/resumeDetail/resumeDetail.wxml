@@ -114,7 +114,10 @@
     </view>
   </view>
 </view>
-<view wx:if="{{info.vkey && !isOwner}}" class="collect" bindtap="collect"><i class="icon iconfont icon-ganxingqu"></i></view>
+<view wx:if="{{!isOwner}}" class="collect" bindtap="collect">
+  <i class="icon iconfont icon-ganxingqu" hidden="{{info.interested === 1}}"></i>
+  <i class="icon iconfont icon-biaojiweiganxingqu" hidden="{{!info.interested}}"></i>
+</view>
 <!-- 底部开撩 -->
 <view class="bottomBox">
   <view>
