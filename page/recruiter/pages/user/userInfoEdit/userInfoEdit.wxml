@@ -4,7 +4,7 @@
   <view class="item picBox">
   	<view class="picList">
   		<view class="pic" wx:for="{{picList}}" wx:key="{{index}}">
-	  		<image src="{{item.middleUrl}}"></image>
+	  		<image src="{{item.middleUrl}}" mode="aspectFill"></image>
         <view class="removeFile" bindtap="removeFile" data-id="{{item.id}}" data-index="{{index}}">
           <i class="removeBtn iconfont icon-close"></i>
         </view>

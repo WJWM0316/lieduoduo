@@ -1,0 +1,4 @@
+<view class="bottomStatus" wx:if="{{status}}">
+	<text class="txt" wx:if="{{status === 1}}">正在加载...</text>
+	<text class="txt" wx:if="{{status === 2}}">没有更多数据</text>
+</view>

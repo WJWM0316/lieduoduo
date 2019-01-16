@@ -1,7 +1,7 @@
 @import '../../../../../iconfont.wxss';
-
 .office-manager-list {
   overflow: hidden;
+  padding: 0 30rpx;
   margin-bottom: 18rpx;
 }
 
@@ -71,8 +71,11 @@
   height: 98rpx;
   line-height: 98rpx;
   background-color: #FFFFFF;
-  box-shadow:0px 11px 30px 0px rgba(153,193,214,0.08);
-  margin-bottom: 24rpx;
+  box-shadow:0rpx 11rpx 30rpx 0rpx rgba(153,193,214,0.08);
+  position: fixed;
+  top: 128rpx;
+  left: 0;
+  z-index: 1;
 }
 
 .office-status-bar::after{

@@ -2,15 +2,17 @@
 <wxs src="../../../../../utils/filters.wxs" module="filters" />
 
 <navbar title="职位管理"></navbar>
+<view style="height: 122rpx"></view>
+
 <view class='office-status-bar'>
-  <view class="item {{positionStatus === '1' ? 'active' : ''}}" bindtap="onClickTab" data-status="1">上线职位({{onLinePosition.total}})</view>
-  <view class="item {{positionStatus === '0' ? 'active' : ''}}" bindtap="onClickTab" data-status="0">下线职位({{offLinePosition.total}})</view>
+  <view class="item {{positionStatus === '1' ? 'active' : ''}}" bindtap="onClickTab" data-status="1">上线职位({{onLinePositionNum}})</view>
+  <view class="item {{positionStatus === '0' ? 'active' : ''}}" bindtap="onClickTab" data-status="0">下线职位({{offLinePositionNum}})</view>
   <view class="publish" data-action="add" bindtap="routeJump"><i class="icon iconfont icon-bianji"></i> 发布职位</view>
 </view>
 
-<view class="office-manager-list">
+<view class="office-manager-list" hidden="{{positionStatus === '0'}}">
 	<view class="li"
-		wx:for="{{defaultList.list}}"
+		wx:for="{{onLinePosition.list}}"
 		wx:for-item="item"
 		wx:key="{{item.id}}"
 		data-action="detail"
@@ -22,12 +24,35 @@
 			<view class="office-sarary">{{item.emolumentMin}}K~{{item.emolumentMax}}K</view>
 		</view>
 		<view class="tags-box">
-			<view class="item">{{item.address}}</view>
+			<view class="item">{{item.city}}{{item.district}}</view>
 			<view class="item">{{item.workExperienceName}}</view>
 			<view class="item">{{item.educationName}}</view>
 		</view>
 		<view class="item-status">{{filters.positionFilter(item.status)}}</view>
 	</view>
+	<bottomStatus status="{{onBottomStatus}}"></bottomStatus>
 </view>
-
+<view class="office-manager-list"  hidden="{{positionStatus === '1'}}">
+	<view class="li"
+		wx:for="{{offLinePosition.list}}"
+		wx:for-item="item"
+		wx:key="{{item.id}}"
+		data-action="detail"
+		data-position-id="{{item.id}}"
+		data-company-id="{{item.companyId}}"
+		bindtap="routeJump">
+		<view class="header">
+			<view class="office-name">{{item.positionName}}</view>
+			<view class="office-sarary">{{item.emolumentMin}}K~{{item.emolumentMax}}K</view>
+		</view>
+		<view class="tags-box">
+			<view class="item">{{item.city}}{{item.district}}</view>
+			<view class="item">{{item.workExperienceName}}</view>
+			<view class="item">{{item.educationName}}</view>
+		</view>
+		<view class="item-status">{{filters.positionFilter(item.status)}}</view>
+	</view>
+	<bottomStatus status="{{offBottomStatus}}"></bottomStatus>
+</view>
 <tab-bar tabType="1"></tab-bar>
+<view style="height: 98rpx"></view>

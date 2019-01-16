@@ -14,6 +14,7 @@ Page({
   data: {
     showPage: false,
     isShrink: false,
+    needShrink: false,
     btnTxt: '展开内容',
     info: {},
     isOwner: false,
@@ -36,7 +37,7 @@ Page({
         this.selectComponent('#interviewBar').init()
         getSelectorQuery('.msg').then(res => {
           if (res.height > 143) {
-            this.setData({isShrink: true})
+            this.setData({isShrink: true, needShrink: true})
           }
         })
       })
@@ -70,6 +71,11 @@ Page({
           this.getOthersInfo()
         } else {
           this.setData({info: myInfo, isOwner: true})
+          getSelectorQuery('.msg').then(res => {
+            if (res.height > 143) {
+              this.setData({isShrink: true, needShrink: true})
+            }
+          })
         }
       } else {
         this.getOthersInfo()
@@ -83,6 +89,11 @@ Page({
         }
         if (myInfo.uid === parseInt(options.uid)) {
           this.setData({info: myInfo, isOwner: true})
+          getSelectorQuery('.msg').then(res => {
+            if (res.height > 143) {
+              this.setData({isShrink: true, needShrink: true})
+            }
+          })
         } else {
           this.getOthersInfo()
         }

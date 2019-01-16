@@ -46,6 +46,12 @@ Page({
     let data = {
       content: this.data.content
     }
+    if (this.data.content.length < 6) {
+      app.wxToast({
+        title: '招聘宣言不能少于6个字'
+      })
+      return
+    }
     if (this.data.options.topicId) {
       data.topicId = this.data.options.topicId
     } else {
@@ -71,7 +77,7 @@ Page({
             recruiterDetails.manifestos.push(res.data)
           }
           wx.navigateBack({
-            delta: 2
+            delta: 1
           })
         }
       })

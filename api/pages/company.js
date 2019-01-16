@@ -206,6 +206,15 @@ export const deleteCompanyProductInfosApi = (data, hasLoading) => {
   return request({
     method: 'delete',
     url: `/company/product/${data.id}`,
+    hasLoading: true
+  })
+}
+
+// 获取公司产品列表
+export const getCompanyProductListsApi = (data, hasLoading) => {
+  return request({
+    method: 'get',
+    url: `/company/productlist/${data.id}`,
     data,
     hasLoading: true
   })

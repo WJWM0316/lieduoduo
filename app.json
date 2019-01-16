@@ -110,7 +110,9 @@
         "pages/company/recruiterList/recruiterList",
         "pages/company/productList/productList",
         "pages/company/homepageEdit/homepageEdit",
-        "pages/company/teamLabel/teamLabel"
+        "pages/company/teamLabel/teamLabel",
+        "pages/company/postProduct/postProduct",
+        "pages/company/postImages/postImages"
       ]
     }
   ],
@@ -125,6 +127,9 @@
     "connectSocket": 60000,
     "uploadFile": 60000,
     "downloadFile": 60000
+  },
+  "usingComponents": {
+    "bottomStatus": "components/layout/bottomStatus/bottomStatus"
   },
   "debug": false
 }
