@@ -9,8 +9,8 @@
     </view>
   </view>
   <view class="imgBox">
-    <image class="commont img" wx:for="{{imgList}}" wx:key="{{item}}" src="{{item.smallUrl}}"><view class="close" data-imgIndex="{{index}}" bindtap="delImg"><i class="icon iconfont icon-close"></i></view></image>
-    <unloadFile class="commont addImg" bindresultEvent="getResult" unloadType="img">
+    <image class="commont img" wx:for="{{imgList}}" wx:key="{{item}}" src="{{item.smallUrl}}" wx:if="{{index<20}}"><view class="close" data-imgIndex="{{index}}" bindtap="delImg"><i class="icon iconfont icon-close"></i></view></image>
+    <unloadFile class="commont addImg" bindresultEvent="getResult" unloadType="img" wx:if="{{imgList.length<20}}">
       <view class="add"><i class="icon iconfont icon-jiahao"></i></view>
     </unloadFile> 
   </view>

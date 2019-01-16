@@ -1,5 +1,6 @@
 // page/applicant/pages/center/resumeEditor/aimsEdit/aimsEdit.js
 import { editCareerApi, addCareerApi, deleteCareerApi } from '../../../../../../api/pages/center.js'
+import { APPLICANT } from '../../../../../../config.js'
 let target = null
 let title = null
 let nowWorkId = null // 当前编辑的意向数据id
@@ -109,12 +110,12 @@ Page({
     this.setTitle(target)
     if (target === '4') {
       wx.navigateTo({
-        url: `/page/applicant/pages/center/resumeEditor/skills/skills?title=${title}`
+        url: `${APPLICANT}center/resumeEditor/skills/skills?title=${title}`
       })
       return
     }
     wx.navigateTo({
-      url: `/page/applicant/pages/center/resumeEditor/systematics/systematics?title=${title}&target=${target}`
+      url: `${APPLICANT}center/resumeEditor/systematics/systematics?title=${title}&target=${target}`
     })
   },
   // 输入公司名字

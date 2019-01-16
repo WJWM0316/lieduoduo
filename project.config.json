@@ -233,9 +233,10 @@
 					"query": "companyId=35"
 				},
 				{
-					"id": -1,
-					"name": "会计法v年可敬的妇女",
-					"pathName": "page/recruiter/pages/user/company/post/post"
+					"id": 32,
+					"name": "ddd",
+					"pathName": "page/applicant/pages/center/workExperience/workExperience",
+					"query": ""
 				}
 			]
 		}

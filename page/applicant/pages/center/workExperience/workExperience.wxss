@@ -40,6 +40,8 @@
   font-size: 32rpx;
 }
 .commont input{
+  box-sizing: border-box;
+  padding: 0 20rpx;
   width: 100%;
   height: 88rpx;
   line-height: 88rpx;
