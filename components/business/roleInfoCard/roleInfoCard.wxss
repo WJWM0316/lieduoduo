@@ -118,7 +118,7 @@
   display: block;
   border-radius: 50%;
   position: absolute;
-  top: 30rpx;
+  top: 22rpx;
   left: 28rpx;
 }
 .vip {

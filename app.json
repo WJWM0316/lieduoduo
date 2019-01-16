@@ -126,5 +126,8 @@
     "uploadFile": 60000,
     "downloadFile": 60000
   },
+  "usingComponents": {
+    "bottomStatus": "components/layout/bottomStatus/bottomStatus"
+  },
   "debug": false
 }

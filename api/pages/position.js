@@ -6,7 +6,16 @@ export const getPositionListApi = (data, hasLoading) => {
     method: 'get',
     url: '/position/list',
     data,
-    hasLoading: true
+    hasLoading: hasLoading
+  })
+}
+
+export const getPositionListNumApi = (data, hasLoading) => {
+  return request({
+    method: 'get',
+    url: '/position/statustotal',
+    data,
+    hasLoading: hasLoading
   })
 }
 

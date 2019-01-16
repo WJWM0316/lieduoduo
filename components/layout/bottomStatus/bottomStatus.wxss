@@ -1,0 +1,9 @@
+.bottomStatus {}
+.bottomStatus .txt {
+	width: 100%;
+	text-align: center;
+	font-size: 24rpx;
+	color: #929292;
+	line-height: 60rpx;
+	display: block;
+}

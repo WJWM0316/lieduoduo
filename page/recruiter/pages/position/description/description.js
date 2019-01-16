@@ -36,7 +36,9 @@ Page({
     const storage = wx.getStorageSync('createPosition')
     storage.describe = this.data.describe
     wx.setStorageSync('createPosition', storage)
-    wx.navigateTo({url: `${RECRUITER}position/post/post`})
+    wx.navigateBack({
+      delta: 1
+    })
   },
   next() {
     const index = Math.floor(Math.random() * 10 )

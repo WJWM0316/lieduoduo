@@ -1,4 +1,6 @@
 {
+	"enablePullDownRefresh": true,
+	"backgroundTextStyle": "dark",
   "usingComponents": {
     "tabBar": "../../../../components/business/tabBar/tabBar",
     "commonList": "../../../../components/business/commonList/commonList"

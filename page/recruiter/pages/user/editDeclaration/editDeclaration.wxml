@@ -2,10 +2,10 @@
 	 <navBar title="编辑招聘宣言" background="#fff" color="#22292C"></navBar>
 	 <view class="textBox">
 	 	<view class="title">{{info.topicTitle}}</view>
-	 	<textarea class="textarea" value="{{content}}" maxlength="5000" bindinput="changeVal" placeholder="为招聘宣言添加你的真知灼见吧~"></textarea>
+	 	<textarea class="textarea" value="{{content}}" maxlength="1000" bindinput="changeVal" placeholder="为招聘宣言添加你的真知灼见吧~"></textarea>
 	 	<view class="tip">
 	 		<view></view>
-	 		<view class="number">{{content.length}}/5000</view>
+	 		<view class="number">{{content.length}}/1000</view>
 	 	</view>
 	 </view>
 	 <view class="btnBox" wx:if="{{options.topicId}}">

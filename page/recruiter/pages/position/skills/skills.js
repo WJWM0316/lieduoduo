@@ -52,6 +52,8 @@ Page({
     const storage = wx.getStorageSync('createPosition')
     storage.skills = this.data.skills
     wx.setStorageSync('createPosition', storage)
-    wx.redirectTo({url: `${RECRUITER}position/post/post`})
+    wx.navigateBack({
+      delta: 1
+    })
   }
 })
