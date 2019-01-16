@@ -246,13 +246,28 @@ Page({
   },
   // 删除
   del () {
-    deleteCareerApi({id: nowWorkId}).then(res => {
-      app.globalData.resumeInfo.careers.map((item, index) => {
-        if (item.id === nowWorkId) {
-          app.globalData.resumeInfo.careers.splice(index,1)
-          wx.navigateBack({delta: 1})
-        }
-      })
+    let that = this
+    app.wxConfirm({
+      title: '删除求职意向',
+      content: '求职意向删除后将无法恢复，是否确定删除？',
+      confirmBack() {
+        deleteCareerApi({id: nowWorkId}).then(res => {
+          app.wxToast({
+            title: '删除成功',
+            icon: 'success',
+            callback() {
+              app.globalData.resumeInfo.careers.map((item, index) => {
+                if (item.id === nowWorkId) {
+                  app.globalData.resumeInfo.careers.splice(index,1)
+                  wx.navigateBack({delta: 1})
+                  return
+                }
+              })
+            }
+          })
+          
+        })
+      }
     })
   },
   /* 进入为编辑时初始化数据 */

@@ -179,6 +179,7 @@ Page({
                 if (item.id === nowItemId) {
                   app.globalData.resumeInfo.projects.splice(index,1)
                   wx.navigateBack({delta: 1})
+                  return
                 }
               })
             }
