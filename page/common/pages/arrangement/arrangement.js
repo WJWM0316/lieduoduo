@@ -54,7 +54,7 @@ Page({
     if (e.currentTarget.dataset.type === 'jobList') {
       url = `/page/recruiter/pages/position/jobList/jobList?recruiterUid=${info.recruiterInfo.uid}`
     } else if (e.currentTarget.dataset.type === 'addressList') {
-      url = '/page/recruiter/pages/position/addressList/addressList'
+      url = '/page/recruiter/pages/position/addressList/addressList?type=position&selected=1'
     }
     wx.navigateTo({
       url: url

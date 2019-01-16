@@ -106,21 +106,21 @@ export const addCompanyAddressApi = (data, hasLoading) => {
   })
 }
 
-// 修改公司地址
-export const editCompanyAddressApi = (data, hasLoading) => {
-  return request({
-    method: 'put',
-    url: `/company/addressedit/${data.id}`,
-    data,
-    hasLoading: true
-  })
-}
-
 // 添加职位地址
 export const addPositionAddressApi = (data, hasLoading) => {
   return request({
     method: 'put',
     url: `/company/position/address`,
+    data,
+    hasLoading: true
+  })
+}
+
+// 修改公司地址
+export const editCompanyAddressApi = (data, hasLoading) => {
+  return request({
+    method: 'put',
+    url: `/company/addressedit/${data.id}`,
     data,
     hasLoading: true
   })
@@ -154,6 +154,25 @@ export const deleteCompanyAddressApi = (data, hasLoading) => {
   })
 }
 
+// 获取公司地址列表
+export const getCompanyAddressListApi = (data, hasLoading) => {
+  return request({
+    method: 'delete',
+    url: `/company/addresslist/${data.id}`,
+    data,
+    hasLoading: true
+  })
+}
+
+// 获取职位地址列表
+export const getPositionAddressListApi = (data, hasLoading) => {
+  return request({
+    method: 'get',
+    url: `/company/position/simplepage/addresses`,
+    data,
+    hasLoading: true
+  })
+}
 // 创建公司产品
 export const createCompanyProductApi = (data, hasLoading) => {
   return request({
@@ -217,15 +236,6 @@ export const deleteCompanyIdentityInfosApi = (data, hasLoading) => {
   return request({
     method: 'delete',
     url: `/company/identity/${data.id}`,
-    hasLoading: true
-  })
-}
-
-// 获取公司地址列表
-export const getCompanyAddressListApi = (data, hasLoading) => {
-  return request({
-    method: 'get',
-    url: `/company/position/simplepage/addresses`,
     hasLoading: true
   })
 }

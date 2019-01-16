@@ -1,6 +1,7 @@
 import {
   getAddressDetailApi,
   editCompanyAddressApi,
+  editPositionAddressApi ,
   addCompanyAddressApi,
   addPositionAddressApi,
   deletePositionAddressApi,
@@ -24,9 +25,6 @@ Page({
   },
   onLoad(options) {
     this.setData({options})
-  },
-  onShow() {
-    const options = this.data.options
     if(options.id) {
       getAddressDetailApi({id: options.id})
         .then(res => {
@@ -43,6 +41,24 @@ Page({
         })
     }
   },
+  // onShow() {
+  //   const options = this.data.options
+  //   if(options.id) {
+  //     getAddressDetailApi({id: options.id})
+  //       .then(res => {
+  //         const infos = res.data
+  //         const formData = {
+  //           id: infos.id,
+  //           area_id: infos.areaId,
+  //           address: infos.address,
+  //           doorplate: infos.doorplate,
+  //           lng: infos.lng,
+  //           lat: infos.lat
+  //         }
+  //         Object.keys(formData).map(field => this.setData({[field]: formData[field]}))
+  //       })
+  //   }
+  // },
   /**
    * @Author   小书包
    * @DateTime 2018-12-25
@@ -109,7 +125,7 @@ Page({
    */
   post() {
     const type = this.data.options.type === 'position' ? 'Position' : 'Company'
-    const action = `edit${type}Address`
+    const action = `post${type}Address`
     this[action]()
   },
   /**
@@ -194,14 +210,13 @@ Page({
    * @return   {[type]}   [description]
    */
   editPositionAddress() {
-    const storage = wx.getStorageSync('createPosition')
     const infos = this.data
     const formData = {
       id: infos.id,
-      areaId: storage.area_id !== infos.area_id ? storage.area_id : infos.area_id,
-      address: storage.address !== infos.address  ? storage.address : infos.address,
-      lng: storage.lng !== infos.lng ? storage.lng : infos.lng,
-      lat: storage.lat !== infos.lat ? storage.lat : infos.lat,
+      areaId: infos.area_id,
+      address: infos.address,
+      lng: infos.lng,
+      lat: infos.lat,
       doorplate: infos.doorplate
     }
     editPositionAddressApi(formData)
@@ -216,14 +231,13 @@ Page({
    * @return   {[type]}   [description]
    */
   editCompanyAddress() {
-    const storage = wx.getStorageSync('createPosition')
     const infos = this.data
     const formData = {
       id: infos.id,
-      area_id: storage.area_id !== infos.area_id ? storage.area_id : infos.area_id,
-      address: storage.address !== infos.address  ? storage.address : infos.address,
-      lng: storage.lng !== infos.lng ? storage.lng : infos.lng,
-      lat: storage.lat !== infos.lat ? storage.lat : infos.lat,
+      area_id: infos.area_id,
+      address: infos.address,
+      lng: infos.lng,
+      lat: infos.lat,
       doorplate: infos.doorplate
     }
     editCompanyAddressApi(formData)

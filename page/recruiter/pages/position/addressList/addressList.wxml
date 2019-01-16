@@ -2,7 +2,7 @@
   <navbar ></navbar>
   <view class="ul" wx:if="{{addressList.length}}">
     <view class="li" wx:for="{{addressList}}" wx:key="{{index}}">
-      <view class="left">
+      <view class="left" wx:if="{{options.selected == 1}}">
         <view class="radio {{item.active ? 'radio-checked' : ''}}" bindtap="onClick" data-id="{{index}}">
           <i class="icon iconfont icon-wancheng" wx:if="{{item.active}}"></i>
         </view>
