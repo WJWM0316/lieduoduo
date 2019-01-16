@@ -25,9 +25,6 @@ Page({
   },
   onLoad(options) {
     this.setData({options})
-  },
-  onShow() {
-    const options = this.data.options
     if(options.id) {
       getAddressDetailApi({id: options.id})
         .then(res => {
@@ -44,6 +41,24 @@ Page({
         })
     }
   },
+  // onShow() {
+  //   const options = this.data.options
+  //   if(options.id) {
+  //     getAddressDetailApi({id: options.id})
+  //       .then(res => {
+  //         const infos = res.data
+  //         const formData = {
+  //           id: infos.id,
+  //           area_id: infos.areaId,
+  //           address: infos.address,
+  //           doorplate: infos.doorplate,
+  //           lng: infos.lng,
+  //           lat: infos.lat
+  //         }
+  //         Object.keys(formData).map(field => this.setData({[field]: formData[field]}))
+  //       })
+  //   }
+  // },
   /**
    * @Author   小书包
    * @DateTime 2018-12-25
