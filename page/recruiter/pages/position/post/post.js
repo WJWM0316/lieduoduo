@@ -133,8 +133,8 @@ Page({
    */
   getPositionAddress() {
     const url = this.data.query.positionId
-      ? `${RECRUITER}position/addressList/addressList?positionId=${this.data.query.positionId}&type=position`
-      : `${RECRUITER}position/addressList/addressList?type=position`
+      ? `${RECRUITER}position/addressList/addressList?positionId=${this.data.query.positionId}&type=position&selected=1`
+      : `${RECRUITER}position/addressList/addressList?type=position&selected=1`
       
     wx.navigateTo({ url })
     wx.setStorageSync('createPosition', this.data)
