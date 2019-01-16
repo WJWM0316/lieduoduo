@@ -10,6 +10,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    info: '', // 当前编辑的项目旧数据
     itemName: '', //项目名称
     role: '', // 担任角色
     signory: '请选择领域',
@@ -24,12 +25,12 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    nowItemId = parseInt(options.id)
     if (options.id === '0') {
       this.setData({
         isAdd: true
       })
     }
-    nowItemId = parseInt(options.id)
     this.init()
   },
   // 修改项目名称
@@ -41,7 +42,6 @@ Page({
     this.data.role = e.detail.value
   },
   getresult (e) {
-//  console.log(e.currentTarget.dataset.time)
     if (e.currentTarget.dataset.time === 'start') {
       this.data.startTime = e.detail.propsResult
     } else {
@@ -49,7 +49,6 @@ Page({
     }
   },
   WriteContent (e) {
-//  console.log(e.detail.value)
     this.data.description = e.detail.value
   },
   itemLink (e) {
@@ -102,8 +101,15 @@ Page({
       })
       app.globalData.resumeInfo.projects.map((item, index) => {
         if (item.id === param.id) {
-          app.globalData.resumeInfo.projects[index] = param
-          wx.navigateBack({delta: 1})
+          app.globalData.resumeInfo.projects[index] = res.data
+          app.wxToast({
+            title: '保存成功',
+            icon: 'success',
+            callback() {
+              wx.navigateBack({delta: 1}) 
+            }
+          })
+          return
         }
       })
     })
@@ -148,7 +154,13 @@ Page({
     }
     addProjectApi(param).then(res => {
       app.globalData.resumeInfo.projects.push(res.data)
-      wx.navigateBack({delta: 1}) 
+      app.wxToast({
+        title: '保存成功',
+        icon: 'success',
+        callback() {
+          wx.navigateBack({delta: 1}) 
+        }
+      })
     })
   },
   // 删除
@@ -167,6 +179,7 @@ Page({
                 if (item.id === nowItemId) {
                   app.globalData.resumeInfo.projects.splice(index,1)
                   wx.navigateBack({delta: 1})
+                  return
                 }
               })
             }
@@ -183,8 +196,13 @@ Page({
           itemName: item.name,
           role: item.role,
           description: item.description,
-          itemLink: item.link
+          itemLink: item.link,
+          startTime: item.startTime,
+          endTime: item.endTime,
+          info: item
         })
+        console.log(item)
+        return
       }
     })
   }

@@ -10,6 +10,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    info: '',
     schoolName: '', // 学校名称
     subject: '', // 专业名
     startTime: '',
@@ -62,7 +63,6 @@ Page({
       id: nowEducateId,
       school: this.data.schoolName,
       degree: this.data.education,
-      degreeDesc: this.data.degreeDesc,
       major: this.data.subject,
       startTime: this.data.startTime,
       endTime: this.data.endTime,
@@ -70,9 +70,29 @@ Page({
     }
     for (let item in param) {
       if (!param[item] && item !== 'endTime') {
-        console.log(item)
+        let itemName = ''
+        switch (item) {
+          case 'school':
+            itemName = '学校名字不能为空'
+            break;
+          case 'degree':
+            itemName = '学历不能为空'
+            break;
+          case 'startTime':
+            itemName = '开始时间不能为空'
+            break;
+          case 'experience':
+            itemName = '在校经历不能为空'
+            break;
+          case 'major':
+            itemName = '专业不能为空'
+            break;
+          default:
+            itemName = '结束时间不能为空'
+            break;
+        }
         wx.showToast({
-          title: `必填项不能为空，请重新输入`,
+          title: `${itemName}`,
           icon: 'none',
           duration: 1000
         })
@@ -87,8 +107,14 @@ Page({
       })
       app.globalData.resumeInfo.educations.map((item, index) => {
         if (item.id === param.id) {
-          app.globalData.resumeInfo.educations[index] = param
-          wx.navigateBack({delta: 1})
+          app.globalData.resumeInfo.educations[index] = res.data
+          app.wxToast({
+            title: '保存成功',
+            icon: 'success',
+            callback() {
+              wx.navigateBack({delta: 1}) 
+            }
+          })
         }
       })
     })
@@ -105,9 +131,29 @@ Page({
     }
     for (let item in param) {
       if (!param[item] && item !== 'endTime') {
-        console.log(item)
+        let itemName = ''
+        switch (item) {
+          case 'school':
+            itemName = '学校名字不能为空'
+            break;
+          case 'degree':
+            itemName = '学历不能为空'
+            break;
+          case 'startTime':
+            itemName = '开始时间不能为空'
+            break;
+          case 'experience':
+            itemName = '在校经历不能为空'
+            break;
+          case 'major':
+            itemName = '专业不能为空'
+            break;
+          default:
+            itemName = '结束时间不能为空'
+            break;
+        }
         wx.showToast({
-          title: `必填项不能为空，请重新输入`,
+          title: `${itemName}`,
           icon: 'none',
           duration: 1000
         })
@@ -121,13 +167,27 @@ Page({
   },
   // 删除
   del () {
-    deleteEducationApi({id: nowEducateId}).then(res => {
-      app.globalData.resumeInfo.educations.map((item, index) => {
-        if (item.id === nowEducateId) {
-          app.globalData.resumeInfo.educations.splice(index,1)
-          wx.navigateBack({delta: 1})
-        }
-      })
+    let that = this
+    app.wxConfirm({
+      title: '删除求职意向',
+      content: '求职意向删除后将无法恢复，是否确定删除？',
+      confirmBack() {
+        deleteEducationApi({id: nowEducateId}).then(res => {
+          app.wxToast({
+            title: '删除成功',
+            icon: 'success',
+            callback() {
+              app.globalData.resumeInfo.educations.map((item, index) => {
+                if (item.id === nowEducateId) {
+                  app.globalData.resumeInfo.educations.splice(index,1)
+                  wx.navigateBack({delta: 1})
+                }
+              })
+            }
+          })
+          
+        })
+      }
     })
   },
   init () {
@@ -137,8 +197,13 @@ Page({
         this.setData({
           schoolName: item.school,
           subject: item.major,
-          description: item.experience
+          description: item.experience,
+          startTime: item.startTime,
+          endTime: item.endTime,
+          education: item.degree,
+          info: item
         })
+        return
       }
     })
   }
