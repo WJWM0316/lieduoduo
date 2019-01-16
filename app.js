@@ -231,10 +231,11 @@ App({
           url: `${APPLICANT}center/createUser/createUser`
         })
       } else {
-        wx.reLaunch({
-          url: `${APPLICANT}index/index`
+        this.getAllInfo().then(res => {
+          wx.reLaunch({
+            url: `${APPLICANT}index/index`
+          })
         })
-        this.getAllInfo()
       }
     } else {
       wx.setStorageSync('choseType', 'RECRUITER')
@@ -243,10 +244,11 @@ App({
           url: `${RECRUITER}user/company/apply/apply`
         })
       } else {
-        wx.reLaunch({
-          url: `${RECRUITER}index/index`
+        this.getAllInfo().then(res => {
+          wx.reLaunch({
+            url: `${RECRUITER}index/index`
+          })
         })
-        this.getAllInfo()
       }
     }
   }
