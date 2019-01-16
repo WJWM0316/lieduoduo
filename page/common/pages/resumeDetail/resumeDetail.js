@@ -2,7 +2,6 @@
 import { getPersonalResumeApi } from '../../../../api/pages/center.js'
 import { inviteInterviewApi } from '../../../../api/pages/interview.js'
 import { getMyCollectUserApi, deleteMyCollectUserApi } from '../../../../api/pages/collect.js'
-let id = 92
 const app = getApp()
 let resumeInfo = null
 Page({
@@ -13,6 +12,7 @@ Page({
   data: {
     info: null,
     isOwner: false,
+    options: {},
     identity: '',
     cdnImagePath: app.globalData.cdnImagePath
   },
@@ -21,15 +21,13 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    id = options
-    const { vkey } = options
-//  this.init(options)
+    this.setData({options})
   },
   /**
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    this.init(id)
+    this.init(this.data.options)
   },
   init(options) {
     let identity = wx.getStorageSync('choseType')
@@ -59,7 +57,7 @@ Page({
     }
   },
   getOthersInfo() {
-    getPersonalResumeApi(id).then(res => {
+    getPersonalResumeApi({uid: this.data.options.uid}).then(res => {
       this.setData({info: res.data})
       this.selectComponent('#interviewBar').init()
     })
