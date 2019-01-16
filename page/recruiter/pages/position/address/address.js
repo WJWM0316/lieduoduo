@@ -81,6 +81,49 @@ Page({
   },
   /**
    * @Author   小书包
+   * @DateTime 2019-01-15
+   * @detail   删除地址
+   * @return   {[type]}   [description]
+   */
+  delete() {
+    const type = this.data.options.type === 'position' ? 'Position' : 'Company'
+    const action = `delete${type}Address`
+    this[action]()
+  },
+  /**
+   * @Author   小书包
+   * @DateTime 2019-01-15
+   * @detail   编辑地址
+   * @return   {[type]}   [description]
+   */
+  edit() {
+    const type = this.data.options.type === 'position' ? 'Position' : 'Company'
+    const action = `edit${type}Address`
+    this[action]()
+  },
+  /**
+   * @Author   小书包
+   * @DateTime 2019-01-15
+   * @detail   新增地址
+   * @return   {[type]}   [description]
+   */
+  post() {
+    const type = this.data.options.type === 'position' ? 'Position' : 'Company'
+    const action = `edit${type}Address`
+    this[action]()
+  },
+  /**
+   * @Author   小书包
+   * @DateTime 2019-01-15
+   * @detail   提交地址
+   * @return   {[type]}   [description]
+   */
+  submit() {
+    const action = this.data.options.id ? 'edit' : 'post'
+    this[action]()
+  },
+  /**
+   * @Author   小书包
    * @DateTime 2019-01-09
    * @detail   删除公司地址
    * @return   {[type]}   [description]
@@ -102,22 +145,6 @@ Page({
       .then(() => {
         wx.navigateBack({delta: 1})
       })
-  },
-  /**
-   * @Author   小书包
-   * @DateTime 2019-01-15
-   * @detail   删除地址
-   * @return   {[type]}   [description]
-   */
-  delete() {
-    const type = this.data.options.type === 'position' ? 'Position' : 'Company'
-    const action = `delete${type}Address`
-    this[action]()
-  },
-  submit() {
-    const type = this.data.options.type === 'position' ? 'Position' : 'Company'
-    const action = this.data.options.id ? `edit${type}Address` : `post${type}Address`
-    this[action]()
   },
   /**
    * @Author   小书包
