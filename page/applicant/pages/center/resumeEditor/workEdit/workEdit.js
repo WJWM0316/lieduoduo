@@ -1,6 +1,6 @@
 // page/applicant/pages/center/resumeEditor/aimsEdit/aimsEdit.js
 import { editCareerApi, addCareerApi, deleteCareerApi } from '../../../../../../api/pages/center.js'
-import { APPLICANT } from '../../../../../../config.js'
+import { APPLICANT, COMMON } from '../../../../../../config.js'
 let target = null
 let title = null
 let nowWorkId = null // 当前编辑的意向数据id
@@ -55,6 +55,7 @@ Page({
   },
   onHide () {
     wx.removeStorageSync('result')
+    wx.removeStorageSync('createPosition')
   },
   /* 展示或关闭例子 */
   showPopups () {
@@ -71,10 +72,9 @@ Page({
   },
   // 存储拿回来的数据
   set () {
-    console.log(wx.getStorageSync('result'))
     switch (target) {
       case '3':
-        this.setData({jobCategories: wx.getStorageSync('result')})
+        this.setData({jobCategories: wx.getStorageSync('createPosition')})
         break;
       case '4':
         let skillList = wx.getStorageSync('result')
@@ -97,7 +97,7 @@ Page({
   setTitle (target) {
     switch (target) {
       case '3':
-        title = this.data.jobCategories
+        title = "选择职位类别"
         break;
       case '4':
         title = this.data.skill
@@ -115,7 +115,8 @@ Page({
       return
     }
     wx.navigateTo({
-      url: `${APPLICANT}center/resumeEditor/systematics/systematics?title=${title}&target=${target}`
+      url: `${COMMON}category/category?title=${title}`
+//    url: `${APPLICANT}center/resumeEditor/systematics/systematics?title=${title}&target=${target}`
     })
   },
   // 输入公司名字
@@ -141,7 +142,7 @@ Page({
       id: nowWorkId,
       company: this.data.company,
       position: this.data.positionName,
-      positionType: this.data.jobCategories.name || this.data.jobCategories,
+      positionType: this.data.jobCategories.typeName || this.data.jobCategories,
       startTime: this.data.starTime,
       endTime: this.data.endTime,
       labels: this.data.skillsId,

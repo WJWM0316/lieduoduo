@@ -65,6 +65,7 @@ Page({
   },
   /* 编辑简历 */
   toEdit () {
+    if (!this.data.isComplete) return
     wx.navigateTo({
       url: `${COMMON}resumeDetail/resumeDetail`,
     })
