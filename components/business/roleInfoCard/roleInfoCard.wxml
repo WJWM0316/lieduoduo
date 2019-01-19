@@ -37,10 +37,12 @@
     <view class="status" wx:if="{{!isMain}}">邀你面试</view>
     <view></view>
   </view>
-  <image wx:if="{{roleType === 'recruiter' && isMain && cardData.signature}}" class="line" src="{{cdnImagePath}}line.png"></image>
-  <view wx:if="{{roleType === 'recruiter' && isMain && cardData.signature}}" class="lineTip">{{cardData.signature}}</view>
-
-
+  <image wx:if="{{roleType === 'recruiter' && isMain}}" class="line" src="{{cdnImagePath}}line.png"></image>
+  <view wx:if="{{roleType === 'recruiter' && isMain}}" class="lineTip">
+    <text wx:if="{{cardData.signature}}">{{cardData.signature}}</text>
+    <text wx:else class="noSign">你还未填写个性签名，说说你的想法吧~</text>
+  </view>
+  
   <view class="recruiter {{roleType === 'recruiterList'? 'recruiterList':''}}" wx:if="{{roleType === 'recruiterList'}}" bindtap="jumpRecruiter">
     <image class="img" src="{{cardData.avatar.middleUrl}}"></image>
     <view class="vip">V</view>

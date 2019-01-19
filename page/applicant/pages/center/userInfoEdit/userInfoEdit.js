@@ -1,4 +1,5 @@
 import {editBaseInfoApi} from '../../../../../api/pages/center.js'
+import {realNameReg,mobileReg,wechatReg} from '../../../../../utils/fieldRegular.js'
 let app = getApp()
 Page({
 
@@ -62,6 +63,39 @@ Page({
   },
   saveInfo() {
     let info = this.data.info
+    let title = ''
+    if (!info.name) {
+      title = '请填写姓名'
+    }
+    if (info.name && !realNameReg.test(info.name)) {
+      title = '姓名需为2-20个汉字或英文'
+    }
+    if (!info.birth) {
+      title = '请选择出生年月'
+    }
+    if (!info.startWorkYear) {
+      title = '请选择参加工作时间'
+    }
+    if (!info.jobStatus) {
+      title = '请选择求职状态'
+    }
+    if (!info.mobile) {
+      title = '请填写手机号'
+    }
+    if (info.mobile && !mobileReg.test(info.mobile)) {
+      title = '手机号格式不正确'
+    }
+    if (info.mobile && !wechatReg.test(info.mobile)) {
+      title = '微信号格式不正确'
+    }
+    if (info.signature) {
+      if (info.signature.length < 6) {
+        title = '自我描述不得少于6个字'
+      }
+      if (info.signature.length > 150) {
+        title = '自我描述最多输入150个字'
+      }
+    }
     let data = {
       avatar: info.avatar.id,
       name: info.name,

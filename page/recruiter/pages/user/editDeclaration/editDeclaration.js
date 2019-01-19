@@ -15,6 +15,23 @@ Page({
       content: e.detail.value
     })
   },
+  backEvent() {
+    if (this.data.content.length > 0) {
+      app.wxConfirm({
+        title: '放弃发布',
+        content: '你编辑的招聘宣言尚未保存，确定放弃编辑吗？',
+        confirmBack() {
+          wx.navigateBack({
+            delta: 1
+          })
+        }
+      })
+    } else {
+      wx.navigateBack({
+        delta: 1
+      })
+    }
+  },
   remove() {
     let id = this.data.info.id
     getApp().wxConfirm({
