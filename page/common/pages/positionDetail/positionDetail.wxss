@@ -67,7 +67,6 @@
 	width:102rpx;
 	height:102rpx;
 	border-radius:20rpx;
-	background: gray;
 	overflow: hidden;
 }
 
@@ -197,7 +196,6 @@
 	width:108rpx;
 	height:108rpx;
 	border-radius:24rpx;
-	background: gray;
 	overflow: hidden;
 }
 
@@ -236,6 +234,10 @@
 	font-weight:300;
 	color:rgba(40,40,40,1);
 	margin-top: 15rpx;
+	max-width: 300rpx;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
 }
 
 .tab-company-address {
@@ -265,7 +267,6 @@
 	overflow: hidden;
 	padding: 50rpx;
 	text-align: center;
-	margin-bottom: 138rpx;
 	position: relative;
 }
 

@@ -21,7 +21,7 @@
 		</block>
 		<block wx:else>
 			<view class="h1">公司认证审核已通过</view>
-			<view class="p3">广州市老虎信息科技有限公司</view>
+			<view class="p3">{{companyInfos.companyName}}</view>
 			<view class="p4">审核已通过，马上去招聘吧</view>
 			<view class="line-box"> <view class="line-left"></view> 获得权益 <view class="line-right"></view> </view>
 			<view class="button-box">
@@ -57,7 +57,7 @@
 		</block>
 		<block wx:else>
 			<view class="h1">公司认证审核已通过</view>
-			<view class="p3">广州市老虎信息科技有限公司</view>
+			<view class="p3">{{companyInfos.companyName}}</view>
 			<view class="p4">审核已通过，马上去招聘吧</view>
 			<view class="line-box"> <view class="line-left"></view> 获得权益 <view class="line-right"></view> </view>
 			<view class="button-box">

@@ -1,10 +1,10 @@
 <view class="homepage">
-	<navbar title="公司主页" background="#FFFFFF" color="#22292C"></navbar>
+	<navbar title="{{companyInfos.companyName}}" background="#FFFFFF" color="#22292C"></navbar>
 	<view class="banner">
 		<image class="bgImg" src="{{cdnImagePath}}company_banner.png" mode="aspectFill"></image>
 		<view class="box">
 			<view class="company-logo">
-				<image class="bgImg" src="{{companyInfos.logo.smallUrl}}" mode="aspectFill"></image>
+				<image class="bgImg" src="{{companyInfos.logoInfo.smallUrl}}" mode="aspectFill"></image>
 			</view>
 			<view class="title">{{companyInfos.companyName}}</view>
 			<view class="infos">{{companyInfos.industry}} | {{companyInfos.financingInfo}} | {{companyInfos.employeesInfo}}</view>
@@ -52,10 +52,10 @@
 				next-margin="40rpx"
 				current="0"
 				bindchange="swiperChange"
-				wx:if="{{companyInfos.album.length}}"
+				wx:if="{{companyInfos.albumInfo.length}}"
 				autoplay="{{autoplay}}">
-				<swiper-item class="swiper-item" wx:for="{{companyInfos.album}}" wx:key="{{index}}">
-					<image mode="aspectFill" class="slide-image {{swiperIndex == index ? 'active' : ''}}"/>
+				<swiper-item class="swiper-item" wx:for="{{companyInfos.albumInfo}}" wx:key="{{index}}" wx:for-item="item">
+					<image mode="aspectFill" class="slide-image {{swiperIndex == index ? 'active' : ''}}" src="{{item.smallUrl}}" />
 				</swiper-item>
 			</swiper>
 			<view class="company-detail">
@@ -68,14 +68,16 @@
 				<view class="icon"> <view class="fan"></view> </view> 产品介绍
 			</view>
 			<view class="ul">
-				<view class="li" wx:for="{{[1,2]}}" wx:key="{{index}}">
-					<view class="img-box"></view>
+				<view class="li" wx:for="{{companyInfos.product}}" wx:key="{{index}}" wx:for-item="item">
+					<view class="img-box">
+						<image mode="aspectFill" src="{{item.logoInfo.smallUrl}}" />
+					</view>
 					<view class="content">
 						<view class="row-one">
-							<view class="username">小灯塔</view>
-							<view class="recruitment-number">职场分享社区</view>
+							<view class="username">{{item.productName}}</view>
+							<view class="recruitment-number">{{item.slogan}}</view>
 						</view>
-						<view class="row-two">小灯塔创始人、CEO</view>
+						<view class="row-two">{{item.lightspot}}</view>
 					</view>
 				</view>
 			</view>
@@ -87,19 +89,24 @@
 			</view>
 			<view class="map">
 				<map
-				  id="map"
-				  longitude="113.324520"
-				  latitude="23.099994"
+				  longitude="{{ longitude }}"
+				  latitude="{{ latitude }}"
 				  scale="14"
-				  bindcontroltap="controltap"
-				  bindmarkertap="markertap"
-				  bindregionchange="regionchange"
 				  show-location></map>
 			</view>
-			<view class="footer" data-route="map" bindtap="routeJump">
-				<i class="icon iconfont icon-dizhi"></i>
-				广州天河区天河北路698号1606
-				<i class="icon iconfont icon-xiangyou"></i>
+			<view
+				class="li"
+				wx:for="{{companyInfos.address}}"
+				wx:key="{{index}}"
+				wx:for-item="item"
+				data-longitude="{{item.lng}}"
+				data-latitude="{{item.lat}}"
+				data-address="{{item.address}}"
+				data-doorplate="{{item.doorplate}}"
+				bindtap="viewMap">
+					<i class="icon iconfont icon-dizhi"></i>
+					{{item.address}}
+					<i class="icon iconfont icon-xiangyou"></i>
 			</view>
 		</view>
 		

@@ -23,6 +23,8 @@ Page({
     recruitersList: [],
     companyList: [],
     jobList: [],
+    longitude: 0,
+    latitude: 0,
     cdnImagePath: app.globalData.cdnImagePath
   },
   onLoad(options) {
@@ -54,8 +56,8 @@ Page({
   getCompanyDetail() {
     getCompanyInfosApi({id: this.data.query.companyId})
       .then(res => {
-        console.log(res.data)
-        this.setData({companyInfos: res.data})
+        const companyInfos = res.data
+        this.setData({companyInfos, longitude: companyInfos.address[0].lng, latitude: companyInfos.address[0].lat })
       })
   },
   /**
@@ -96,26 +98,7 @@ Page({
    * @return   {[type]}   [description]
    */
   copyLink() {
-    wx.setClipboardData({
-      data: this.data.companyInfos.website,
-      success(res) {
-        console.log(res)
-        // wx.getClipboardData({
-        //   success(res) {
-        //     console.log(res.data) // data
-        //   }
-        // })
-      }
-    })
-  },
-  regionchange(e) {
-    // console.log(e.type)
-  },
-  markertap(e) {
-    // console.log(e.markerId)
-  },
-  controltap(e) {
-    // console.log(e.controlId)
+    wx.setClipboardData({data: this.data.companyInfos.website })
   },
   /**
    * @Author   小书包
@@ -135,5 +118,24 @@ Page({
       default:
         break
     }
+  },
+  /**
+   * @Author   小书包
+   * @DateTime 2019-01-19
+   * @detail   查看地址
+   * @return   {[type]}     [description]
+   */
+  viewMap(e) {
+    const params = e.currentTarget.dataset
+    wx.openLocation({
+      latitude: Number(params.latitude),
+      longitude: Number(params.longitude),
+      scale: 14,
+      name: '公司地址',
+      address: `${params.address} ${params.doorplate}`,
+      fail: res => {
+        app.wxToast({title: '获取位置失败'})
+      }
+    })
   }
 })

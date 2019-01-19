@@ -37,6 +37,7 @@
 		</view>
 		<view class="rich-text">{{ detail.describe }}</view>
 	</view>
+	
 	<view class="about-company">
 		<view class="title">
 			<view class="icon"> <view class="fan"></view> </view> 关于我们

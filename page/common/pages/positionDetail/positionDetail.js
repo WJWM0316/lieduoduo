@@ -108,7 +108,17 @@ Page({
         wx.navigateTo({url: `${COMMON}homepage/homepage?companyId=${this.data.detail.companyId}`})
         break
       case 'map':
-        wx.navigateTo({url: `${COMMON}map/map?lat=${this.data.detail.lat}&lng=${this.data.detail.lat}`})
+        wx.openLocation({
+          latitude: Number(this.data.detail.lat),
+          longitude: Number(this.data.detail.lng),
+          scale: 14,
+          name: '工作地点',
+          address: `${this.data.detail.address} ${this.data.detail.doorplate}`,
+          fail: res => {
+            app.wxToast({title: '获取位置失败'})
+          }
+        })
+        // wx.navigateTo({url: `${COMMON}map/map?lat=${this.data.detail.lat}&lng=${this.data.detail.lng}`})
         break
       default:
         break
