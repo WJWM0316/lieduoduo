@@ -53,6 +53,8 @@
   background-color: #ccc;
   border-radius: 50%;
   box-shadow:0px 2px 12px 0px rgba(0,0,0,0.12);
+  object-fit: cover;
+  vertical-align: middle;
 }
 .ranking .left .top{
   display: flex;

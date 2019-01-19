@@ -7,7 +7,7 @@
   </view>
   <view class="commont" data-type="3" bindtap="choose">
     <view class="title"><text>*</text>职位类别</view>
-    <view class="result">{{jobCategories.name || jobCategories}}<i class="icon iconfont icon-xiangyou"></i></view>
+    <view class="result">{{jobCategories.typeName || jobCategories}}<i class="icon iconfont icon-xiangyou"></i></view>
   </view>
   <view class="commont">
     <view class="title"><text>*</text>职位名称</view>

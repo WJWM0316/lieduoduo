@@ -1,6 +1,6 @@
 <view class='mine'>
 <view class='header-bg'></view>
-  <view class="floating-box">
+  <view class="floating-box" bindtap="toEdit">
 		<view class="header">
     <!-- 简历已完善 -->
 			 <view class="content" wx:if='{{isComplete}}'>
