@@ -12,7 +12,9 @@ Page({
     user_email: '',
     user_position: '',
     canClick: false,
-    options: {},
+    options: {
+      type: 'create'
+    },
     cdnImagePath: app.globalData.cdnImagePath
   },
   onLoad(options) {
@@ -123,7 +125,7 @@ Page({
       .then(res => {
         const options = this.data.options
         const url = options.action && options.action === 'edit'
-          ? `${RECRUITER}user/company/find/find?action=edit&type=create`
+          ? `${RECRUITER}user/company/find/find?action=edit&type=${options.type}`
           : `${RECRUITER}user/company/find/find`
         wx.navigateTo({url})
         wx.setStorageSync('createdCompany', this.data)

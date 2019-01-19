@@ -60,8 +60,8 @@ Page({
       case 'perfect':
         wx.reLaunch({url: `${RECRUITER}company/baseEdit/baseEdit`})
         break
-      case 'applyEdit':
-        wx.reLaunch({url: `${RECRUITER}user/company/identity/identity?type=apply&action=edit`})
+      case 'applyAddModify':
+        wx.reLaunch({url: `${RECRUITER}user/company/apply/apply?type=apply&action=edit`})
         break
       case 'notice':
         app.wxToast({title: '通知成功'})

@@ -236,10 +236,10 @@ Page({
           title: '创建成功',
           icon: 'success',
           callback() {
-            wx.navigateBack({
-              delta: 1
-            })
-            // wx.reLaunch({url: `${RECRUITER}position/index/index`})
+            // wx.navigateBack({
+            //   delta: 1
+            // })
+            wx.reLaunch({url: `${RECRUITER}position/index/index`})
           }
         })
       })

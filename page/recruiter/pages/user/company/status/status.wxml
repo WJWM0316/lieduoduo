@@ -154,7 +154,7 @@
 		<view class="section" wx:if="{{options.from === 'apply'}}">
 			<view class="title">
 				<view class="label">您的申请</view>
-				<view class="jump" bindtap="todoAction" data-action="apply">申请信息有误？去更改</view>
+				<view class="jump" bindtap="todoAction" data-action="applyAddModify">申请信息有误？去更改</view>
 			</view>
 			<view class="ul">
 				<view class="li">
