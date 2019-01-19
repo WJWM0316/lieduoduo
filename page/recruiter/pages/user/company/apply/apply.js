@@ -20,12 +20,14 @@ Page({
   onLoad(options) {
     const storage = wx.getStorageSync('createdCompany')
     const params = ['real_name', 'user_email', 'user_position']
+    this.setData({options})
 
     // 编辑页面
     if(options.action && options.action === 'edit') {
       this.getCompanyIdentityInfos(options)
       return;
     }
+
     if(!storage) return
     params.map(field => this.setData({ [field]: storage[field] }))
     this.bindBtnStatus()
@@ -40,7 +42,6 @@ Page({
 
     const storage = wx.getStorageSync('createdCompany')
     const params = ['real_name', 'user_email', 'user_position']
-    // 当编辑页面已经存在缓存时，不能再无谓的请求接口
     if(storage) {
       params.map(field => this.setData({ [field]: storage[field] }))
       this.bindBtnStatus()
@@ -50,10 +51,11 @@ Page({
     getCompanyIdentityInfosApi()
       .then(res => {
         const infos = res.data.companyInfo
+        const user = res.data
         const formData = {
-          real_name: infos.realName,
-          user_email: infos.userEmail,
-          user_position: infos.userPosition,
+          real_name: infos.realName || user.realName,
+          user_email: infos.userEmail || user.userEmail,
+          user_position: infos.userPosition || user.userPosition,
           company_name: infos.companyName,
           companyShortName: infos.companyShortname,
           industry_id: infos.industryId,
@@ -67,7 +69,6 @@ Page({
           selected_employees: true,
           business_license: infos.businessLicenseInfo,
           on_job: infos.onJobInfo,
-          options,
           canClick: true
         }
         wx.setStorageSync('createdCompany', formData)

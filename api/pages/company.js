@@ -13,8 +13,8 @@ export const applyCompanyApi = (data, hasLoading) => {
 // 用户编辑申请加入公司
 export const editApplyCompanyApi = (data, hasLoading) => {
   return request({
-    method: 'post',
-    url: '/company/apply/${data.id}',
+    method: 'put',
+    url: `/company/apply/${data.id}`,
     data,
     hasLoading: true
   })

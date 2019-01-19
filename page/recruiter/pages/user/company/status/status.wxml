@@ -185,7 +185,6 @@
 				</view>
 			</view>
 		</view>
-
 	</block>
 	<block wx:if="{{companyInfos.status === 1 && options.from === 'company' && !identityInfos.applyJoin}}">
 		<view class="div">
@@ -199,7 +198,7 @@
 			</view>
 		</view>
 	</block>
-	<block wx:if="{{companyInfos.status === 1 && options.from === 'apply' && identityInfos.applyJoin}}">
+	<block wx:if="{{options.from === 'apply' && identityInfos.applyJoin}}">
 		<view class="div">
 			<view class="box" bindtap="todoAction" data-action="applyIdentity">
 				<i class="icon iconfont icon-bianji label-icon"></i>

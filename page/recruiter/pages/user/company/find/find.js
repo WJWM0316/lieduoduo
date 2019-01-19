@@ -149,7 +149,7 @@ Page({
     applyCompanyApi(params)
       .then(() => {
         // 手机号已经存在 ， 先跳转验证页面
-        wx.navigateTo({url: `${RECRUITER}user/company/status/status?from=apply`})
+        wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=apply`})
         wx.removeStorageSync('createdCompany')
       })
   },
@@ -161,8 +161,10 @@ Page({
    */
   editApplyCompany(companyId) {
     const storage = wx.getStorageSync('createdCompany')
+    let id = this.data.selectId
+    if(!id) id = companyId
     const params = {
-      id: this.data.selectId,
+      id,
       real_name: storage.real_name,
       user_email: storage.user_email,
       user_position: storage.user_position,
@@ -180,7 +182,7 @@ Page({
     justifyCompanyExistApi({name: this.data.company_name})
       .then(res => {
         const options = this.data.options
-        const action = options.action === 'edit' ? 'editApplyInfos' : 'applyCompanyApi'
+        const action = options.action === 'edit' ? 'editApplyCompany' : 'applyCompany'
         if(res.data.exist) {
           this[action](res.data.id)
         } else {
