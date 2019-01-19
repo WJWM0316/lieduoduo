@@ -48,6 +48,11 @@
 	color:rgba(53,57,67,1);
 }
 
+.position-post .key text {
+	color:red;
+	margin-right: 6px;
+}
+
 .position-post .text2 {
 	display: inline-block;
 	color: #353943;

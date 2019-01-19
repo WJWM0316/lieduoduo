@@ -30,7 +30,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    console.log(options, 111)
+    console.log(options.id, 111)
     if (options.id === '0') {
       this.setData({
         isAdd: true

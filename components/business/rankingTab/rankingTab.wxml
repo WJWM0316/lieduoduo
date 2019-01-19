@@ -5,7 +5,7 @@
   <view class='left'>
     <view class='top'>
       <text class="name">{{item.name}}</text>
-      <text class="title">招聘主管</text>
+      <text class="title">{{item.position}}</text>
     </view>
     <view class='bottom'>
       <view class='icon'></view>
@@ -20,6 +20,6 @@
   <!-- 头像 -->
   <view class='headImgBox'>
     <image class='headImg' src="{{item.avatar.smallUrl}}"></image>
-    <view class='sign' wx:if="{{item.certification}}">V</view>
+    <view class='sign' wx:if="{{item.certification}}" wx:if="{{item.certification}}">V</view>
   </view>
 </view>

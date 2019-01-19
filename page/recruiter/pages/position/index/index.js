@@ -5,6 +5,7 @@ const app = getApp()
 
 Page({
   data: {
+    navH: 0,
     positionStatus: '1',
     onLinePositionNum: 0,
     offLinePositionNum: 0,
@@ -24,6 +25,11 @@ Page({
       isLastPage: false,
       isRequire: false
     }
+  },
+  onLoad() {
+    this.setData({
+      navH: app.globalData.navHeight
+    })
   },
   onShow() {
     getPositionListNumApi({recruiter: app.globalData.recruiterDetails.uid}).then(res => {

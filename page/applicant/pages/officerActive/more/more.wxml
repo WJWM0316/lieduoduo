@@ -28,7 +28,7 @@
           </view>
         </view>
         <text class="name">{{item.name}}</text>
-        <text class="title">招聘主管</text>
+        <text class="title">{{item.position}}</text>
         <view class="influence">
           <text>影响力</text>
           <text class="num">{{item.influence}}</text>

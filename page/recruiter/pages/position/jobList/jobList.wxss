@@ -55,6 +55,7 @@
   font-size:28rpx;
   font-weight:500;
   color:rgba(40,40,40,1);
+  margin-right: 16rpx;
 }
 
 .job-list .labels {

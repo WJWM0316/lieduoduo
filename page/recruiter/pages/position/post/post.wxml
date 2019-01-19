@@ -4,17 +4,17 @@
 	<view class="tips">* 职位名称、职位类别、工作地点发布后将不可修改</view>
 	<form bindsubmit="submit" class="entry-list">
 		<view class="li link" bindtap="routeJump" data-route="search">
-			<view class="key">职位名称</view>
+			<view class="key"><text>*</text>职位名称</view>
 			<i class="icon iconfont icon-xiangyou"></i>
 			<view class="text2">{{position_name || '请填写'}}</view>
 		</view>
 		<view class="li link" bindtap="getCategory">
-			<view class="key">职位类别</view>
+			<view class="key"><text>*</text>职位类别</view>
 			<i class="icon iconfont icon-xiangyou"></i>
 			<view class="text2">{{typeName || '请选择'}}</view>
 		</view>
 		<view class="li link" bindtap="getPositionAddress">
-			<view class="key">工作地点</view>
+			<view class="key"><text>*</text>工作地点</view>
 			<i class="icon iconfont icon-xiangyou"></i>
 			<view class="text2">{{address || '请选择'}}</view>
 		</view>
@@ -32,7 +32,7 @@
 			</view>
 		</view>
 		<view class="li dropdown">
-			<view class="key">薪资范围</view>
+			<view class="key"><text>*</text>薪资范围</view>
 			<i class="icon iconfont icon-xiangyou"></i>
 			<view class="text2">{{emolument_range}}</view>
 			<view class="picker-box">
@@ -40,7 +40,7 @@
 			</view>
 		</view>
 		<view class="li dropdown">
-			<view class="key">经验要求</view>
+			<view class="key"><text>*</text>经验要求</view>
 			<i class="icon iconfont icon-xiangyou"></i>
 			<view class="text2">{{work_experience_name}}</view>
 			<view class="picker-box">
@@ -48,7 +48,7 @@
 			</view>
 		</view>
 		<view class="li dropdown">
-			<view class="key">最低学历</view>
+			<view class="key"><text>*</text>最低学历</view>
 			<i class="icon iconfont icon-xiangyou"></i>
 			<view class="text2">{{educationName}}</view>
 			<view class="picker-box">
@@ -56,7 +56,7 @@
 			</view>
 		</view>
 		<view class="li link clear-bottom" bindtap="routeJump" data-route="description">
-			<view class="key">职位描述</view>
+			<view class="key"><text>*</text>职位描述</view>
 			<i class="icon iconfont icon-xiangyou"></i>
 			<view class="text2">{{describe || '请填写'}}</view>
 		</view>

@@ -15,6 +15,7 @@ Page({
     company_name: '',
     canClick: false,
     showMaskBox: false,
+    options: {},
     nameList: []
   },
   /**
@@ -36,6 +37,7 @@ Page({
   onLoad(options) {
     const storage = wx.getStorageSync('createdCompany')
     const params = ['real_name', 'user_email', 'user_position', 'canClick']
+    this.setData({options})
     if(!storage) return
     if(storage.company_name) this.setData({company_name: storage.company_name, canClick: true})
   },
@@ -118,9 +120,13 @@ Page({
    */
   closeMask() {
     const storage = wx.getStorageSync('createdCompany')
+    const options = this.data.options
+    const url = options.action && options.action === 'edit'
+      ? `${RECRUITER}user/company/post/post?action=edit&type=create`
+      : `${RECRUITER}user/company/post/post`
     storage.company_name = this.data.company_name
     wx.setStorageSync('createdCompany', storage)
-    wx.navigateTo({url: `${RECRUITER}user/company/post/post`})
+    wx.navigateTo({url})
     this.setData({showMaskBox: false})
   },
   /**
@@ -139,7 +145,8 @@ Page({
     }
     applyCompanyApi(params)
       .then(() => {
-        wx.navigateTo({url: `${RECRUITER}user/company/identity/identity?from=apply`})
+        // 手机号已经存在 ， 先跳转验证页面
+        wx.navigateTo({url: `${RECRUITER}user/company/status/status?from=apply`})
         wx.removeStorageSync('createdCompany')
       })
   },

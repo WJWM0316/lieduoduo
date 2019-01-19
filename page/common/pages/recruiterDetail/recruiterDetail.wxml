@@ -83,7 +83,7 @@
   <view class="more meToo" bindtap="create" wx:if="{{!isRecruiter}}">我也要制作招聘主页<view class="icon iconfont icon-disejiantou-you"></view></view>
 
   <block wx:if="{{!isOwner}}">
-    <view class="collection icon iconfont icon-ganxingqu" wx:if="{{info.interested}}" bindtap="collect"></view>
+    <view class="collection icon iconfont icon-ganxingqu" wx:if="{{!info.interested}}" bindtap="collect"></view>
     <view class="collection icon iconfont icon-biaojiweiganxingqu" wx:else bindtap="collect"></view>
   </block>
 

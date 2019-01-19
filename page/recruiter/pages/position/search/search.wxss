@@ -21,7 +21,6 @@
 	background:rgba(255,255,255,1);
 	font-size:32rpx;
 	font-weight:500;
-	color:rgba(188,188,188,1);
 	padding: 0 40rpx;
 }
 

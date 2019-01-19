@@ -151,7 +151,7 @@
 				{
 					"id": 18,
 					"name": "招聘管-职位管理",
-					"pathName": "page/recruiter/pages/user/homepageEdit/homepageEdit",
+					"pathName": "page/recruiter/pages/position/index/index",
 					"query": "companyId=5"
 				},
 				{

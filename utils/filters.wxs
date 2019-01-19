@@ -99,7 +99,8 @@ var positionFilter = function(num) {
       status = '已关闭'
       break
     case 1:
-      status = '审核通过'
+      // status = '审核通过'
+      status = ''
       break
     case 2:
       status = '审核中'

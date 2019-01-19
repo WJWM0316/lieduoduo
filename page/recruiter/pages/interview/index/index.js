@@ -67,7 +67,6 @@ Page({
     this.setData({ pageList })
   },
   bindChange(e) {
-    console.log(e.currentTarget.dataset)
     const params = e.currentTarget.dataset
     const tabChildIndex = e.detail.value
     const tabLists = this.data.tabLists
@@ -84,7 +83,6 @@ Page({
     this.setData({tabLists})
   },
   getResult(e) {
-    console.log(e.detail)
     param.chooseTime = `${e.detail.year}${e.detail.month}${e.detail.days}`
     this.firstTab().then(res => {
       companyList: res.data
@@ -109,7 +107,6 @@ Page({
     }
   },
   chooseParentTab(e) {
-    console.log(e.currentTarget.dataset.index)
     const params = e.currentTarget.dataset
     const tabLists = this.data.tabLists
     let tabParentIndex = null
