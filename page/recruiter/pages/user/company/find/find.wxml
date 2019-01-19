@@ -17,6 +17,7 @@
 			class="li"
 			bindtap="selectCompany"
 			data-name="{{item.companyName}}"
+			data-id="{{item.id}}"
 			wx:for="{{ nameList }}"
 			wx:for-item="item"
 			wx:key="{{index}}">

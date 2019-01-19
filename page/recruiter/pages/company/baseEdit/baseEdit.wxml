@@ -6,7 +6,7 @@
 				<view class="txt red">公司封面</view>
 				<view class="value">
 					<unloadFile bindresultEvent="getResult" unloadType="avatar" data-type="avatar">
-						<image class="logo" src="{{info.logoInfo.middleUrl}}"></image>
+						<image class="logo" src="{{info.logoInfo.middleUrl}}" mode="aspectFill"></image>
 					</unloadFile>     
 				</view>
 				<i class="icon iconfont icon-xiangyou"></i>
@@ -27,7 +27,7 @@
 			</view>
 			<view class="item website">
 				<view class="txt">公司官网</view>
-				<view class="value"><input type="text" value="{{info.website}}" placeholder="请输入公司官网"/></view>
+				<view class="value"><input type="text" bindblur="changeVal" value="{{info.website}}" data-type="website" placeholder="请输入公司官网"/></view>
 			</view>
 		</view>
 	</view>

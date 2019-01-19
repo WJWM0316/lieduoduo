@@ -66,19 +66,6 @@ Page({
     let pageList = e.currentTarget.dataset.pageList
     this.setData({ pageList })
   },
-  chooseParentTab(e) {
-    const params = e.currentTarget.dataset
-    const tabLists = this.data.tabLists
-    let tabParentIndex = null
-    tabLists.map((field, index) => {
-      tabParentIndex = params.index
-      field.active = index === params.index ? true : false
-    })
-    this.setData({
-      tabLists,
-      tabParentIndex
-    })
-  },
   bindChange(e) {
     const params = e.currentTarget.dataset
     const tabChildIndex = e.detail.value

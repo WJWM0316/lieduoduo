@@ -24,7 +24,6 @@ Page({
     options: {},
     cdnImagePath: app.globalData.cdnImagePath
   },
-
   /**
    * 生命周期函数--监听页面加载
    */
@@ -99,6 +98,11 @@ Page({
         }
       }
     }
+  },
+  jump() {
+    wx.navigateTo({
+      url: `${APPLICANT}officerActive/more/more`
+    })
   },
   editJump(e) {
     let url = ''
@@ -194,6 +198,7 @@ Page({
     })
   },
   onPageScroll(e) { // 获取滚动条当前位置
+    console.log(e)
     if (e.scrollTop >= positionTop) {
       if (!this.data.isShowBtn) return
       this.setData({isShowBtn: false})

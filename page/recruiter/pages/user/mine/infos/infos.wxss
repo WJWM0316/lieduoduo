@@ -47,10 +47,14 @@
 }
 
 .page-mine .floating-box .realname {
+	width: 400rpx;
 	font-size:56rpx;
 	font-weight:600;
 	color:rgba(40,40,40,1);
-	line-height:1;
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: 1;
+	overflow: hidden;
 }
 
 .page-mine .floating-box .degree-name {

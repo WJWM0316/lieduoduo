@@ -27,9 +27,7 @@ Page({
     }
   },
   onLoad() {
-    this.setData({
-      navH: app.globalData.navHeight
-    })
+    this.setData({navH: app.globalData.navHeight})
   },
   onShow() {
     getPositionListNumApi({recruiter: app.globalData.recruiterDetails.uid}).then(res => {
