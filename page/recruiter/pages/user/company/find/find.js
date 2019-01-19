@@ -126,7 +126,7 @@ Page({
     const options = this.data.options
     const url = options.action && options.action === 'edit'
       ? `${RECRUITER}user/company/post/post?action=edit&type=${options.type}`
-      : `${RECRUITER}user/company/post/post`
+      : `${RECRUITER}user/company/post/post?type=create`
     storage.company_name = this.data.company_name
     wx.setStorageSync('createdCompany', storage)
     wx.navigateTo({url})

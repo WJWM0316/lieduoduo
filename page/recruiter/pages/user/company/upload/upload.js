@@ -67,8 +67,8 @@ Page({
         app.wxToast({title: res.msg})
         const options = this.data.options
         const url = options.action && options.action === 'edit'
-          ? `${RECRUITER}user/company/identity/identity?action=edit&type=${options.type}`
-          : `${RECRUITER}user/company/identity/identity`
+          ? `${RECRUITER}user/company/status/status?from=company`
+          : `${RECRUITER}user/company/identity/identity?type=create`
         wx.redirectTo({url})
         wx.removeStorageSync('createdCompany')
       })

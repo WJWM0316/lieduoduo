@@ -127,7 +127,7 @@ Page({
         const options = this.data.options
         const url = options.action && options.action === 'edit'
           ? `${RECRUITER}user/company/find/find?action=edit&type=${options.type}`
-          : `${RECRUITER}user/company/find/find`
+          : `${RECRUITER}user/company/find/find?type=create`
         wx.navigateTo({url})
         wx.setStorageSync('createdCompany', this.data)
       })
