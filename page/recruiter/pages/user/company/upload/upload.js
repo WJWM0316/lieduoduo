@@ -12,6 +12,7 @@ Page({
     on_job: {
       smallUrl: ''
     },
+    options: {},
     canClick: false,
     formData: {
       real_name: '',
@@ -28,6 +29,7 @@ Page({
     const storage = wx.getStorageSync('createdCompany')
     const formData = {}
     const params = ['real_name', 'user_email', 'user_position', 'company_name', 'industry_id', 'financing', 'employees']
+    this.setData({options})
     formData.company_shortname = storage.companyShortName
     if(!storage) return;
     params.map(field => formData[field] = storage[field])
@@ -63,7 +65,11 @@ Page({
     createCompanyApi(formData)
       .then(res => {
         app.wxToast({title: res.msg})
-        wx.redirectTo({url: `${RECRUITER}user/company/identity/identity`})
+        const options = this.data.options
+        const url = options.action && options.action === 'edit'
+          ? `${RECRUITER}user/company/identity/identity?action=edit&type=create`
+          : `${RECRUITER}user/company/identity/identity`
+        wx.redirectTo({url})
         wx.removeStorageSync('createdCompany')
       })
       .catch(err => {
