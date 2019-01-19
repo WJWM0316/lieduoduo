@@ -72,7 +72,7 @@ export const request = ({method = 'post', url, data = {}, needKey = true, hasLoa
                   url: `${APPLICANT}center/createUser/createUser`
                 })
               }
-              if (msg.code === 801 && url !== '/recruiter/detail') {
+              if (msg.code === 801) {
                 // 还没有创建公司
                 if(!res.data.data.companyInfo.vkey) {
                   wx.reLaunch({url: `${RECRUITER}user/company/apply/apply`})

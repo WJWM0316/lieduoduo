@@ -1,7 +1,9 @@
 import {
   applyCompanyApi,
   getCompanyNameListApi,
-  justifyCompanyExistApi
+  justifyCompanyExistApi,
+  getCompanyIdentityInfosApi,
+  editApplyCompanyApi
 } from '../../../../../../api/pages/company.js'
 
 import {realNameReg, emailReg, positionReg} from '../../../../../../utils/fieldRegular.js'
@@ -16,6 +18,7 @@ Page({
     canClick: false,
     showMaskBox: false,
     options: {},
+    selectId: null,
     nameList: []
   },
   /**
@@ -58,7 +61,7 @@ Page({
    */
   bindInput(e) {
     const name = e.detail.value
-    this.debounce(this.getCompanyNameList, null, 500, name)
+    if(name) this.debounce(this.getCompanyNameList, null, 500, name)
   },
   /**
    * @Author   小书包
@@ -86,8 +89,8 @@ Page({
    * @return   {[type]}   [description]
    */
   selectCompany(e) {
-    const name = e.currentTarget.dataset.name
-    this.setData({canClick: true, company_name: name, nameList: []})
+    const params = e.currentTarget.dataset
+    this.setData({canClick: true, company_name: params.name, nameList: [], selectId: params.id})
   },
   /**
    * @Author   小书包
@@ -119,11 +122,11 @@ Page({
    * @return   {[type]}   [description]
    */
   closeMask() {
-    const storage = wx.getStorageSync('createdCompany')
+    const storage = wx.getStorageSync('createdCompany') || {}
     const options = this.data.options
     const url = options.action && options.action === 'edit'
-      ? `${RECRUITER}user/company/post/post?action=edit&type=create`
-      : `${RECRUITER}user/company/post/post`
+      ? `${RECRUITER}user/company/post/post?action=edit&type=${options.type}`
+      : `${RECRUITER}user/company/post/post?type=create`
     storage.company_name = this.data.company_name
     wx.setStorageSync('createdCompany', storage)
     wx.navigateTo({url})
@@ -146,6 +149,30 @@ Page({
     applyCompanyApi(params)
       .then(() => {
         // 手机号已经存在 ， 先跳转验证页面
+        wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=apply`})
+        wx.removeStorageSync('createdCompany')
+      })
+  },
+  /**
+   * @Author   小书包
+   * @DateTime 2019-01-11
+   * @detail   编辑申请加入公司
+   * @return   {[type]}   [description]
+   */
+  editApplyCompany(companyId) {
+    const storage = wx.getStorageSync('createdCompany')
+    let id = this.data.selectId
+    if(!id) id = companyId
+    const params = {
+      id,
+      real_name: storage.real_name,
+      user_email: storage.user_email,
+      user_position: storage.user_position,
+      company_id: companyId
+    }
+    editApplyCompanyApi(params)
+      .then(() => {
+        // 手机号已经存在 ， 先跳转验证页面
         wx.navigateTo({url: `${RECRUITER}user/company/status/status?from=apply`})
         wx.removeStorageSync('createdCompany')
       })
@@ -154,8 +181,10 @@ Page({
     if(!this.data.canClick) return;
     justifyCompanyExistApi({name: this.data.company_name})
       .then(res => {
+        const options = this.data.options
+        const action = options.action === 'edit' ? 'editApplyCompany' : 'applyCompany'
         if(res.data.exist) {
-          this.applyCompany(res.data.id)
+          this[action](res.data.id)
         } else {
           this.setData({showMaskBox: true})
         }

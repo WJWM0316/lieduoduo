@@ -58,7 +58,11 @@ Page({
   bindBtnStatus() {
     const bindKeys = ['real_name', 'identity_num', 'validity']
     let canClick = bindKeys.every(field => this.data[field])
-    let hasUploadImage = canClick && this.data.passport_front.smallUrl && this.data.passport_reverse.smallUrl && this.data.handheld_passport.smallUrl
+    let hasUploadImage =
+      canClick
+      && this.data.passport_front.smallUrl
+      && this.data.passport_reverse.smallUrl
+      && this.data.handheld_passport.smallUrl
     this.setData({canClick})
   },
   /**
@@ -69,9 +73,7 @@ Page({
    */
   bindInput(e) {
     const field = e.currentTarget.dataset.field
-    this.setData({[
-      field]: e.detail.value 
-    })
+    this.setData({[field]: e.detail.value})
     this.bindBtnStatus()
   },
   /**
@@ -92,14 +94,9 @@ Page({
     let checkRealName = new Promise((resolve, reject) => {
       !realNameReg.test(this.data.real_name) ? reject('请填写有效的姓名') : resolve()
     })
-
-    // 验证邮箱
-    let checkUserEmail = new Promise((resolve, reject) => {
-      !idCardReg.test(this.data.identity_num) ? reject('请填写有效的身份证号') : resolve()
-    })
-
+    
     Promise
-     .all([checkRealName, checkUserEmail])
+     .all([checkRealName])
      .then(res => {
       const action = this.data.options.action === 'edit' ? 'editCompanyIdentityInfos' : 'identityCompany'
       this[action]()
