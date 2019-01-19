@@ -4,7 +4,7 @@
 	<view bindsubmit="submit">
 		<view class="edit-box">
 			<textarea
-				bindinput="bindTextAreaInput"
+				bindinput="bindInput"
 				placeholder="填写详细，清晰的职位描述"
 				maxlength="1000"
 				value="{{describe}}" />

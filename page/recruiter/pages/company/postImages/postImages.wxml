@@ -6,12 +6,15 @@
     	wx:for="{{imgList}}"
     	wx:key="{{item}}"
     	src="{{item.smallUrl}}">
-    		<view class="close" data-imgIndex="{{index}}" bindtap="delImg">
+    		<view class="close" data-index="{{index}}" bindtap="delete">
     			<i class="icon iconfont icon-close"></i>
     		</view>
     </image>
-    <unloadFile class="commont addImg" bindresultEvent="upload" unloadType="img">
+    <unloadFile class="commont addImg" bindresultEvent="upload" unloadType="img" wx:if="{{imgList.length < 20}}">
       <view class="add"><i class="icon iconfont icon-jiahao"></i></view>
     </unloadFile> 
+  </view>
+  <view class="footer">
+    <view class="button-save" bindtap="submit">保存</view>
   </view>
 </view>

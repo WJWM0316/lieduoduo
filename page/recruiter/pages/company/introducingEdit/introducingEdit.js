@@ -1,77 +1,65 @@
-import {putCompanyBriefApi} from '../../../../../api/pages/company.js'
+import {
+  putCompanyBriefApi, 
+  getCompanyInfosApi
+} from '../../../../../api/pages/company.js'
+
 let app = getApp()
+
 Page({
-
-  /**
-   * 页面的初始数据
-   */
   data: {
-    content: ''
+    intro: ''
   },
-
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
-
-  },
-  getValue(e) {
-    this.setData({
-      content: e.detail.value
-    })
-  },
-  saveInfo() {
-    let id = app.globalData.companyInfo.id
-    putCompanyBriefApi({id}).then(res => {
-      console.log(res, 111111111)
-    })
+  onLoad(options) {
+    this.getCompanyDetail(options)
   },
   /**
-   * 生命周期函数--监听页面初次渲染完成
+   * @Author   小书包
+   * @DateTime 2019-01-11
+   * @detail   防抖
+   * @return   {[type]}   [description]
    */
-  onReady: function () {
-
-  },
-
+  debounce(fn, context, delay, text) {
+    clearTimeout(fn.timeoutId)
+    fn.timeoutId = setTimeout(() => fn.call(context, text), delay)
+  },
   /**
-   * 生命周期函数--监听页面显示
+   * @Author   小书包
+   * @DateTime 2019-01-02
+   * @detail   获取公司详情
+   * @return   {[type]}   [description]
    */
-  onShow: function () {
-
+  getCompanyDetail(options) {
+    getCompanyInfosApi({id: options.companyId})
+      .then(res => {
+        this.setData({intro: res.data.intro, options})
+      })
   },
-
   /**
-   * 生命周期函数--监听页面隐藏
+   * @Author   小书包
+   * @DateTime 2019-01-19
+   * @detail   绑定用户输入
+   * @return   {[type]}     [description]
    */
-  onHide: function () {
-
+  bindInput(e) {
+    const name = e.detail.value
+    this.debounce(this.bindChange, null, 500, name)
   },
-
   /**
-   * 生命周期函数--监听页面卸载
+   * @Author   小书包
+   * @DateTime 2019-01-19
+   * @detail   绑定值得改变
+   * @return   {[type]}        [description]
    */
-  onUnload: function () {
-
+  bindChange(intro) {
+    this.setData({intro})
   },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
+  submit() {
+    let id = this.data.options.companyId
+    let intro = this.data.intro
+    putCompanyBriefApi({id, intro})
+      .then(res => {
+        app.wxToast({title: '保存成功'})
+        wx.navigateBack({delta: 1})
+      })
   }
 })

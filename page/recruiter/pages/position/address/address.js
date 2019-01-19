@@ -1,5 +1,6 @@
 import {
-  getAddressDetailApi,
+  getPositionAddressDetailApi,
+  getCompanyAddressDetailApi,
   editCompanyAddressApi,
   editPositionAddressApi ,
   addCompanyAddressApi,
@@ -25,40 +26,8 @@ Page({
   },
   onLoad(options) {
     this.setData({options})
-    if(options.id) {
-      getAddressDetailApi({id: options.id})
-        .then(res => {
-          const infos = res.data
-          const formData = {
-            id: infos.id,
-            area_id: infos.areaId,
-            address: infos.address,
-            doorplate: infos.doorplate,
-            lng: infos.lng,
-            lat: infos.lat
-          }
-          Object.keys(formData).map(field => this.setData({[field]: formData[field]}))
-        })
-    }
+    if(options.id) this.read(options)
   },
-  // onShow() {
-  //   const options = this.data.options
-  //   if(options.id) {
-  //     getAddressDetailApi({id: options.id})
-  //       .then(res => {
-  //         const infos = res.data
-  //         const formData = {
-  //           id: infos.id,
-  //           area_id: infos.areaId,
-  //           address: infos.address,
-  //           doorplate: infos.doorplate,
-  //           lng: infos.lng,
-  //           lat: infos.lat
-  //         }
-  //         Object.keys(formData).map(field => this.setData({[field]: formData[field]}))
-  //       })
-  //   }
-  // },
   /**
    * @Author   小书包
    * @DateTime 2018-12-25
@@ -127,6 +96,60 @@ Page({
     const type = this.data.options.type === 'position' ? 'Position' : 'Company'
     const action = `post${type}Address`
     this[action]()
+  },
+  /**
+   * @Author   小书包
+   * @DateTime 2019-01-19
+   * @detail   获取地址详情
+   * @return   {[type]}   [description]
+   */
+  read(options) {
+    const type = this.data.options.type === 'position' ? 'Position' : 'Company'
+    const action = `get${type}AddressDetail`
+    this[action](options)
+  },
+  /**
+   * @Author   小书包
+   * @DateTime 2019-01-19
+   * @detail   获取职位地址
+   * @return   {[type]}   [description]
+   */
+  getPositionAddressDetail(options) {
+    getPositionAddressDetailApi({id: options.id})
+      .then(res => {
+        const infos = res.data
+        const formData = {
+          id: infos.id,
+          area_id: infos.areaId,
+          address: infos.address,
+          doorplate: infos.doorplate,
+          lng: infos.lng,
+          lat: infos.lat
+        }
+        Object.keys(formData).map(field => this.setData({[field]: formData[field]}))
+      })
+  },
+  /**
+   * @Author   小书包
+   * @DateTime 2019-01-19
+   * @detail   获取公司地址
+   * @return   {[type]}   [description]
+   */
+  getCompanyAddressDetail(options) {
+    const id = this.data.options.id
+    getCompanyAddressDetailApi({id})
+      .then(res => {
+        const infos = res.data
+        const formData = {
+          id: infos.id,
+          area_id: infos.areaId,
+          address: infos.address,
+          doorplate: infos.doorplate,
+          lng: infos.lng,
+          lat: infos.lat
+        }
+        Object.keys(formData).map(field => this.setData({[field]: formData[field]}))
+      })
   },
   /**
    * @Author   小书包

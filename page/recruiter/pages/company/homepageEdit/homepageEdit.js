@@ -34,13 +34,19 @@ Page({
     const params = e.currentTarget.dataset
     switch(params.route) {
       case 'address-post':
-        wx.navigateTo({url: `${RECRUITER}position/addressList/addressList?type=company&selected=1`})
+        wx.navigateTo({url: `${RECRUITER}position/addressList/addressList?type=company&selected=0`})
         break
       case 'base':
         wx.navigateTo({url: `${COMMON}recruiterDetail/recruiterDetail?uid=${app.globalData.recruiterDetails.uid}`})
         break
       case 'product':
         wx.navigateTo({url: `${RECRUITER}company/productList/productList?companyId=${app.globalData.recruiterDetails.companyInfo.id}`})
+        break
+      case 'image':
+        wx.navigateTo({url: `${RECRUITER}company/postImages/postImages?companyId=${app.globalData.recruiterDetails.companyInfo.id}`})
+        break
+      case 'introduction':
+        wx.navigateTo({url: `${RECRUITER}company/introducingEdit/introducingEdit?companyId=${app.globalData.recruiterDetails.companyInfo.id}`})
         break
       case 'editCompanyAddress':
         // console.log(params)
