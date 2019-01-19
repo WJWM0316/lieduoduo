@@ -261,7 +261,7 @@
   margin-right: 16rpx;
   margin-bottom: 16rpx;
 }
-.labelEdit {
+.hasLabelEdit {
   padding-bottom: 24rpx;
 }
 .msg {

@@ -19,14 +19,37 @@
   align-items: center;
   justify-content: center;
 }
-
+.avatarBox{
+  width: 120rpx;
+  height: 120rpx;
+  margin-right: 40rpx;
+  position: relative;
+}
+.avatarBox .gender{
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  font-size: 32rpx;
+}
+.avatarBox .gender i{
+  border-radius: 50%;
+  color: #fff;
+}
+.girl{
+  background-color: #FE6795;
+}
+.man{
+  background-color: #2878FF;
+}
+.gender i .icon-xingbiebiaoqian-nan{
+  background-color: #2878FF;
+}
 .avatar{
   border-radius: 50%;
   width: 120rpx;
   height: 120rpx;
   background-color: #ccc;
   box-shadow:0px 2px 12px 0px rgba(0,0,0,0.12);
-  margin-right: 40rpx;
   flex-shrink: 0;
 }
 .personalInfo .top{

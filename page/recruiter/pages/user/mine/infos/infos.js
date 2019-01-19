@@ -56,5 +56,14 @@ Page({
       default:
         break
     }
+  },
+  preview(e) {
+    wx.previewImage({
+      current: this.data.recruiterInfo.avatar.middleUrl,
+      urls: [this.data.recruiterInfo.avatar.middleUrl],
+      complete() {
+        console.log(111111111)
+      }
+    })
   }
 })

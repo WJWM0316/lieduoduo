@@ -300,7 +300,7 @@ Component({
               propsDesc = list[0][0]
             } else {
               propsDesc = `${list[0][result[0]]}-${list[1][result[1]]}`
-              let changeDesc = `${list[0][result[0]]}/${list[1][result[1]]}`
+              let changeDesc = `${list[0][result[0]]}/${list[1][result[1]]}/01`
               propsResult = new Date(changeDesc).getTime() / 1000
             }
           }

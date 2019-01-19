@@ -1,0 +1,53 @@
+@import '../../../../../iconfont.wxss';
+
+.ul{
+  padding: 30rpx 40rpx;
+  box-sizing: border-box;
+  background-color: #fff;
+}
+.ul::after{
+  content: '';
+  display: block;
+  clear: both;
+}
+.ul .commont{
+  float: left;
+  width: 160rpx;
+  height: 160rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #fff;
+  color: #E8E9EB;
+  font-size: 36rpx;
+  border: 1rpx solid #CED7DC;
+  border-radius: 2rpx;
+  margin-right: 8rpx;
+  margin-bottom: 8rpx;
+}
+.ul .commont:nth-of-type(4n){
+  margin-right: 0rpx;
+}
+.ul .img{
+  border: none;
+  position: relative;
+}
+.ul .addImg{
+  margin-right: 0rpx;
+}
+.ul .img .close{
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 40rpx;
+  height: 40rpx;
+  border-radius: 0 2rpx 0rpx 100rpx;
+  background-color:rgba(53,57,67,0.5);
+}
+.ul .img .close i{
+  position: absolute;
+  top: 8rpx;
+  right: 8rpx;
+  color: #fff;
+  font-size: 20rpx;
+}

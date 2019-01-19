@@ -1,5 +1,6 @@
 import {saveRecruiterInfoApi} from '../../../../../api/pages/recruiter.js'
 import {removeFileApi} from '../../../../../api/pages/common.js'
+import {realNameReg,positionReg,emailReg,wechatReg,mobileReg} from '../../../../../utils/fieldRegular.js'
 let userInfo = null
 let app = getApp()
 Page({
@@ -29,7 +30,7 @@ Page({
       email: userInfo.email,
       wechat: userInfo.wechat,
       signature: userInfo.signature,
-      picList: [userInfo.avatar]
+      picList: userInfo.avatars
     })
   },
   jumpLabel() {
@@ -64,25 +65,49 @@ Page({
     this.setData({[type]: e.detail.value})
   },
   singInput(e) {
-    this.setData({signature: e.detail.value})
+    if (e.detail.value === ' ') {
+      this.setData({signature: ''})
+    } else {
+      this.setData({signature: e.detail.value})
+    }
   },
   removeFile(e) {
     let picList = this.data.picList
     picList.splice(e.currentTarget.dataset.index, 1)
     this.setData({picList})
-    // let data = {
-    //   id: e.currentTarget.dataset.id
-    // }
-    // removeFileApi(data).then(res => {
-    //   let picList = this.data.picList 
-    // })
   },
   saveInfo() {
     let info = this.data
     let idList = []
+    let title = ''
     info.picList.map((item, index) => {
       idList.push(item.id)
     })
+    if (!realNameReg.test(info.userName)) {
+      title = '姓名需为2-20个中文字符'
+    }
+    if (!positionReg.test(info.position)) {
+      title = '担任职务需为2-50个字'
+    }
+    if (!emailReg.test(info.email)) {
+      title = '邮箱格式不正确'
+    }
+    if (info.wechat && !wechatReg.test(info.wechat)) {
+      title = '微信号格式不正确'
+    }
+    if (info.signature) {
+      if (info.signature.length < 6) {
+        title = '个人签名不得少于6个字'
+      } else if (info.signature.length > 30) {
+        title = '个人签名最多输入30个字'
+      }
+    }
+    if (title) {
+      app.wxToast({
+        title
+      })
+      return
+    }
     let data = {
       attachIds: idList.join(','),
       gender: info.gender,

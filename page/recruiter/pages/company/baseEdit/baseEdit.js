@@ -44,7 +44,7 @@ Page({
       id: info.id,
       financing: info.financing,
       employees: info.employees,
-      logo: info.logo.id,
+      logo: info.logoInfo.id,
       website: info.website
     }
     putCompanyInfoApi(data).then(res => {

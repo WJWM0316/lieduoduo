@@ -1,5 +1,5 @@
 <viwe class="editBrief">
-	 <navBar title="基本资料" background="#fff" color="#22292C"></navBar>
+	 <navBar title="填写个人简介" background="#fff" color="#22292C"></navBar>
 	 <view class="textBox">
 	 	<textarea bindinput="changeVal" class="textarea" maxlength="5000" placeholder="描述你的个人经历或成就" value="{{content}}"></textarea>
 	 	<view class="tip">

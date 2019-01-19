@@ -1,5 +1,4 @@
-import { getPositionListApi } from '../../../../../api/pages/position.js'
-
+import { getPositionListApi, getPositionListNumApi } from '../../../../../api/pages/position.js'
 import {RECRUITER, COMMON} from '../../../../../config.js'
 
 const app = getApp()
@@ -7,21 +6,30 @@ const app = getApp()
 Page({
   data: {
     positionStatus: '1',
-    defaultList: {
-      total: 0,
-      list: []
-    },
+    onLinePositionNum: 0,
+    offLinePositionNum: 0,
+    onBottomStatus: 0,
+    offBottomStatus: 0,
     onLinePosition: {
-      total: 0,
-      list: []
+      list: [],
+      pageNum: 1,
+      count: 5,
+      isLastPage: false,
+      isRequire: false
     },
     offLinePosition: {
-      total: 0,
-      list: []
+      list: [],
+      pageNum: 1,
+      count: 5,
+      isLastPage: false,
+      isRequire: false
     }
   },
   onShow() {
-    this.getTabLists()
+    getPositionListNumApi({recruiter: app.globalData.recruiterDetails.uid}).then(res => {
+      this.setData({onLinePositionNum: res.data.open, offLinePositionNum: res.data.close})
+    })
+    this.getOnlineLists()
   },
   /**
    * @Author   小书包
@@ -29,41 +37,47 @@ Page({
    * @detail   获取列表数据
    * @return   {[type]}   [description]
    */
-  getTabLists() {
-
-    // 获取上线列表
-    const getOnlineLists = new Promise((resolve, reject) => {
-      getPositionListApi({status: 1,recruiter: app.globalData.recruiterDetails.uid})
+  getOnlineLists(hasLoading = true) {
+    return new Promise((resolve, reject) => {
+      let uid = app.globalData.recruiterDetails.uid
+      let onLinePosition = this.data.onLinePosition
+      let onBottomStatus = this.data.onBottomStatus
+      getPositionListApi({status: 1, recruiter: uid, count: onLinePosition.count, page: onLinePosition.pageNum, hasLoading})
         .then(res => {
-          this.setData({onLinePosition: {list: res.data, total: res.meta.total}})
-          resolve()
-        })
-        .catch(err => {
-          reject(err)
+          onLinePosition.list = onLinePosition.list.concat(res.data || [])
+          onLinePosition.pageNum++
+          onLinePosition.isRequire = true
+          if (!res.meta.nextPageUrl) {
+            onLinePosition.isLastPage = true
+            onBottomStatus = 2
+          } else {
+            onBottomStatus = 0
+          }
+          resolve(res)
+          this.setData({onLinePosition, onBottomStatus})
         })
     })
-
-    // 获取下线列表
-    const getOffLineLists = new Promise((resolve, reject) => {
-      getPositionListApi({status: 0,recruiter: app.globalData.recruiterDetails.uid})
+  },
+  getOffLineLists(hasLoading = true) {
+    return new Promise((resolve, reject) => {
+      let uid = app.globalData.recruiterDetails.uid
+      let offLinePosition = this.data.offLinePosition
+      let offBottomStatus = this.data.offBottomStatus
+      getPositionListApi({status: 0, recruiter: uid, count: offLinePosition.count, page: offLinePosition.pageNum, hasLoading})
         .then(res => {
-          this.setData({offLinePosition: {list: res.data, total: res.meta.total}})
+          offLinePosition.list = offLinePosition.list.concat(res.data || [])
+          offLinePosition.pageNum++
+          offLinePosition.isRequire = true
+          if (!res.meta.nextPageUrl) {
+            offLinePosition.isLastPage = true
+            offBottomStatus = 2
+          } else {
+            offBottomStatus = 0
+          }
+          this.setData({offLinePosition, offBottomStatus})
           resolve()
         })
-        .catch(err => {
-          reject(err)
-        })
     })
-
-    Promise
-      .all([getOnlineLists, getOffLineLists])
-      .then(res => {
-        const key = this.data.positionStatus === '1' ? 'onLinePosition' : 'offLinePosition'
-        this.setData({defaultList: this.data[key]})
-      })
-      .catch(err => {
-        app.wxToast({title: err})
-      })
   },
   /**
    * @Author   小书包
@@ -87,8 +101,53 @@ Page({
   /* 子级tab栏切换 */
   onClickTab(e) {
     const positionStatus = e.currentTarget.dataset.status
-    const key = positionStatus === '1' ? 'onLinePosition' : 'offLinePosition'
-    const value = this.data[key]
-    this.setData({positionStatus, [key]: value, defaultList: value})
+    if (positionStatus === '0') {
+      if (!this.data.offLinePosition.isRequire) {
+        this.getOffLineLists()
+      }
+    }
+    this.setData({positionStatus})
+  },
+
+  onReachBottom(e) {
+    if (this.data.positionStatus === '1') {
+      let onLinePosition = this.data.onLinePosition
+      if (!onLinePosition.isLastPage) {
+        this.setData({onBottomStatus: 1})
+        this.getOnlineLists(false)
+      }
+    } else {
+      let offLinePosition = this.data.offLinePosition
+      if (!offLinePosition.isLastPage) {
+        this.setData({offBottomStatus: 1})
+        this.getOffLineLists(false)
+      }
+    }
+  },
+
+  onPullDownRefresh(e) {
+    if (this.data.positionStatus === '1') {
+      let onLinePosition = {
+        list: [],
+        pageNum: 1,
+        count: 5,
+        isLastPage: false,
+        isRequire: false
+      }
+      this.setData({onLinePosition, onBottomStatus: 0})
+      this.getOnlineLists(false).then(res => {
+        wx.stopPullDownRefresh()
+      })
+    } else {
+      let onLinePosition = {
+        list: [],
+        pageNum: 1,
+        count: 5,
+        isLastPage: false,
+        isRequire: false
+      }
+      this.setData({offLinePosition, offBottomStatus})
+      this.getOffLineLists(false)
+    }
   }
 })

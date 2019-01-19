@@ -2,6 +2,7 @@
 import { getPersonalResumeApi } from '../../../../api/pages/center.js'
 import { inviteInterviewApi } from '../../../../api/pages/interview.js'
 import { getMyCollectUserApi, deleteMyCollectUserApi } from '../../../../api/pages/collect.js'
+import {APPLICANT} from '../../../../config.js'
 const app = getApp()
 let resumeInfo = null
 Page({
@@ -66,24 +67,25 @@ Page({
   edit (e) {
     let editName = e.currentTarget.dataset.editname
     let url = null
+    let id = e.currentTarget.dataset
     switch (editName) {
       case 'info':
-        url = '/page/applicant/pages/center/userInfoEdit/userInfoEdit'
+        url = `${APPLICANT}center/userInfoEdit/userInfoEdit`
         break;
       case 'intent':
-        url = `/page/applicant/pages/center/resumeEditor/aimsEdit/aimsEdit?id=${e.currentTarget.dataset.id}`
+        url = `${APPLICANT}center/resumeEditor/aimsEdit/aimsEdit?id=${id}`
         break;
       case 'work':
-        url = `/page/applicant/pages/center/resumeEditor/workEdit/workEdit?id=${e.currentTarget.dataset.id}`
+        url = `${APPLICANT}center/resumeEditor/workEdit/workEdit?id=${id}`
         break;
       case 'project':
-        url = `/page/applicant/pages/center/resumeEditor/itemEdit/itemEdit?id=${e.currentTarget.dataset.id}`
+        url = `${APPLICANT}center/resumeEditor/itemEdit/itemEdit?id=${id}`
         break;
       case 'education':
-        url = `/page/applicant/pages/center/resumeEditor/educateEdit/educateEdit?id=${e.currentTarget.dataset.id}`
+        url = `${APPLICANT}center/resumeEditor/educateEdit/educateEdit?id=${id}`
         break;
       case 'more':
-        url = `/page/applicant/pages/center/resumeEditor/moreEdit/moreEdit?id=${e.currentTarget.dataset.id}`
+        url = `${APPLICANT}center/resumeEditor/moreEdit/moreEdit?id=${id}`
         break;
     }
     wx.navigateTo({

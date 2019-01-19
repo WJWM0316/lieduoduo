@@ -58,14 +58,16 @@
 			<view class="icon-button" data-route="product" bindtap="routeJump"><i class="icon iconfont icon-bianji"></i></view>
 		</view>
 		<view class="ul">
-			<view class="li" wx:for="{{companyInfos.product}}" wx:key="{{index}}">
-				<view class="img-box"></view>
+			<view class="li" wx:for="{{companyInfos.product}}" wx:key="{{index}}" wx:for-item="item">
+				<view class="img-box">
+					<image src="{{item.logoInfo.smallUrl}}" mode="aspectFill"></image>
+				</view>
 				<view class="content">
 					<view class="row-one">
-						<view class="username">小灯塔</view>
-						<view class="recruitment-number">职场分享社区</view>
+						<view class="username">{{item.productName}}</view>
+						<view class="recruitment-number">{{item.slogan}}</view>
 					</view>
-					<view class="row-two">小灯塔创始人、CEO</view>
+					<view class="row-two">{{item.lightspot}}</view>
 				</view>
 			</view>
 		</view>

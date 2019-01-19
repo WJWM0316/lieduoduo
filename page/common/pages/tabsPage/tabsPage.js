@@ -308,7 +308,7 @@ Page({
         })
         isReturn = true
         this.setData({
-          num: 10,
+          num: 7,
           customLabel: '',
           hidePop: true
         })
@@ -321,7 +321,7 @@ Page({
       data.name = this.data.customLabel
       list.push(data)
       this.setData({
-        num: 10,
+        num: 7,
         customLabel: '',
         [type]: list,
         [typeNum]: list.length,
@@ -333,7 +333,7 @@ Page({
           title: '便签库已有此标签'
         })
         this.setData({
-          num: 10,
+          num: 7,
           customLabel: '',
           hidePop: true
         })
