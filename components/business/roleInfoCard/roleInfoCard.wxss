@@ -112,6 +112,10 @@
   padding: 32rpx 0 40rpx;
   margin: 0 auto;
 }
+.noSign {
+  color: #BCBCBC;
+  font-weight: 300;
+}
 .applicant .img, .recruiter .img {
   width: 120rpx;
   height: 120rpx;

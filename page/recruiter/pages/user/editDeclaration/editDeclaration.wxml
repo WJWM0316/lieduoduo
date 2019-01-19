@@ -1,5 +1,5 @@
 <viwe class="editBrief">
-	 <navBar title="编辑招聘宣言" background="#fff" color="#22292C"></navBar>
+	 <navBar title="编辑招聘宣言" background="#fff" color="#22292C" customBack bindbackEvent="backEvent"></navBar>
 	 <view class="textBox">
 	 	<view class="title">{{info.topicTitle}}</view>
 	 	<textarea class="textarea" value="{{content}}" maxlength="1000" bindinput="changeVal" placeholder="为招聘宣言添加你的真知灼见吧~"></textarea>

@@ -4,7 +4,7 @@
 	<view class="base-info">
 		<view class="head">
 			<view class="img-box">
-				<image class="bgImg" src="{{companyInfos.logo.smallUrl}}" mode="aspectFill"></image>
+				<image class="bgImg" src="{{companyInfos.logoInfo.smallUrl}}" mode="aspectFill"></image>
 			</view>
 			<view class="content">
 				<view class="h1">{{companyInfos.companyShortname}}</view>
@@ -35,7 +35,7 @@
 	<view class="introduction">
 		<view class="title">
 			<view class="self-icon"> <view class="fan"></view> </view> 公司介绍
-			<view class="icon-button"><i class="icon iconfont icon-bianji"></i></view>
+			<view class="icon-button" data-route="introduction" bindtap="routeJump"><i class="icon iconfont icon-bianji"></i></view>
 		</view>
 		<view class="company-detail" wx:if="{{companyInfos.intro}}">
 			<view class="p">{{companyInfos.intro}}</view>
@@ -45,10 +45,12 @@
 	<view class="company-images">
 		<view class="title">
 			<view class="self-icon"> <view class="fan"></view> </view> 公司图片
-			<view class="icon-button"><i class="icon iconfont icon-bianji"></i></view>
+			<view class="icon-button" data-route="image" bindtap="routeJump"><i class="icon iconfont icon-bianji"></i></view>
 		</view>
-		<view class="ul" wx:if="{{companyInfos.album.length}}">
-			<view class="li" wx:for="{{companyInfos.album}}" wx:key="{{index}}"></view>
+		<view class="ul" wx:if="{{companyInfos.albumInfo.length}}">
+			<view class="li" wx:for="{{companyInfos.albumInfo}}" wx:key="{{index}}" wx:for-item="item">
+				<image src="{{item.smallUrl}}" mode="aspectFill"></image>
+			</view>
 		</view>
 	</view>
 

@@ -82,7 +82,7 @@ Component({
     }
     switch (this.data.pickerType) {
       case 'birthday':
-        for (let i = curYear - 18; i > curYear - 65; i--) {
+        for (let i = curYear - 18; i > curYear; i--) {
           year.push(`${i}`)
         }
         list.push(year)

@@ -346,8 +346,15 @@
   display: inline-block;
   background: rgba(0,0,0,.01);
   margin-right: 8rpx;
+  overflow: hidden;
+  position: relative;
 }
 
-.company-images .ul .li:last-child{
+.company-images .ul image{
+  width: 100%;
+  height: 100%;
+}
+
+.company-images .ul .li:nth-of-type(4n){
   margin-right: 0;
 }

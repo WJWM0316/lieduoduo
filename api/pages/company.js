@@ -91,7 +91,8 @@ export const JustifyCompanyExistApi = (data, hasLoading) => {
 export const editCompanyAlbumApi = (data, hasLoading) => {
   return request({
     method: 'put',
-    url: `/company/${data.name}`,
+    url: `/company/album/${data.id}`,
+    data,
     hasLoading: true
   })
 }
@@ -172,6 +173,34 @@ export const getPositionAddressListApi = (data, hasLoading) => {
     hasLoading: true
   })
 }
+
+// 获取地址详情
+export const getAddressDetailApi = (data, hasLoading) => {
+  return request({
+    method: 'get',
+    url: `/company/position/address/${data.id}`,
+    hasLoading: true
+  })
+}
+
+// 获取职位地址详情
+export const getPositionAddressDetailApi = (data, hasLoading) => {
+  return request({
+    method: 'get',
+    url: `/company/position/address/${data.id}`,
+    hasLoading: true
+  })
+}
+
+// 获取公司地址详情
+export const getCompanyAddressDetailApi = (data, hasLoading) => {
+  return request({
+    method: 'get',
+    url: `/company/address/${data.id}`,
+    hasLoading: true
+  })
+}
+
 // 创建公司产品
 export const createCompanyProductApi = (data, hasLoading) => {
   return request({
@@ -244,15 +273,6 @@ export const deleteCompanyIdentityInfosApi = (data, hasLoading) => {
   return request({
     method: 'delete',
     url: `/company/identity/${data.id}`,
-    hasLoading: true
-  })
-}
-
-// 获取地址详情
-export const getAddressDetailApi = (data, hasLoading) => {
-  return request({
-    method: 'get',
-    url: `/company/position/address/${data.id}`,
     hasLoading: true
   })
 }

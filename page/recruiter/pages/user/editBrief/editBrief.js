@@ -13,6 +13,23 @@ Page({
       content: e.detail.value
     })
   },
+  backEvent() {
+    if (this.data.content.length > 0) {
+      app.wxConfirm({
+        title: '放弃发布',
+        content: '你编辑的个人简介尚未保存，确定放弃编辑吗？',
+        confirmBack() {
+          wx.navigateBack({
+            delta: 1
+          })
+        }
+      })
+    } else {
+      wx.navigateBack({
+        delta: 1
+      })
+    }
+  },
   saveInfo() {
     if (this.data.content.length < 6) {
       app.wxToast({

@@ -67,7 +67,7 @@ Page({
   edit (e) {
     let editName = e.currentTarget.dataset.editname
     let url = null
-    let id = e.currentTarget.dataset
+    let id = e.currentTarget.dataset.id
     switch (editName) {
       case 'info':
         url = `${APPLICANT}center/userInfoEdit/userInfoEdit`

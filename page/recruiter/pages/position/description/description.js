@@ -13,14 +13,34 @@ Page({
     const storage = wx.getStorageSync('createPosition')
     if(storage.describe) this.setData({ describe: storage.describe, canClick: true })
 	},
-	/**
-	 * @Author   小书包
-	 * @DateTime 2018-12-25
-	 * @detail   绑定文本域输入
-	 * @return   {[type]}     [description]
-	 */
-  bindTextAreaInput(e) {
-  	this.setData({describe: e.detail.value})
+  /**
+   * @Author   小书包
+   * @DateTime 2019-01-11
+   * @detail   防抖
+   * @return   {[type]}   [description]
+   */
+  debounce(fn, context, delay, text) {
+    clearTimeout(fn.timeoutId)
+    fn.timeoutId = setTimeout(() => fn.call(context, text), delay)
+  },
+  /**
+   * @Author   小书包
+   * @DateTime 2018-12-25
+   * @detail   绑定文本域输入
+   * @return   {[type]}     [description]
+   */
+  bindInput(e) {
+    const name = e.detail.value
+    this.debounce(this.bindChange, null, 500, name)
+  },
+  /**
+   * @Author   小书包
+   * @DateTime 2019-01-19
+   * @detail   绑定值得改变
+   * @return   {[type]}        [description]
+   */
+  bindChange(describe) {
+    this.setData({describe})
     this.bindButtonStatus()
   },
   /**
