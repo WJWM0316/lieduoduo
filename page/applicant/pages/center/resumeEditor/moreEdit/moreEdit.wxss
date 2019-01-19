@@ -92,10 +92,11 @@
   margin-top: 70rpx;
   align-items: center;
   justify-content: center;
-  position: fixed;
+  padding-bottom: 30rpx;
+  /*position: fixed;
   bottom: 30rpx;
   left: 50%;
-  transform: translateX(-50%);
+  transform: translateX(-50%);*/
 }
 .save{
   display: inline-block;

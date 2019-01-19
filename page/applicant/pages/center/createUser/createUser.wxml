@@ -5,7 +5,10 @@
     <image class="headerBg" src="{{cdnImagePath}}pic_bg_new@3x.png"></image>
     <text class="title">开启有趣的求职之旅</text>
     <text class="subtitle">真实可靠的职场形象总能碰到机遇</text>
-    <avatarCut class="avatar" avatar="avatar" src="{{avatar.url}}"></avatarCut>
+    <view class="avatarBox">
+      <view class="photoIcon"><i class="icon iconfont icon-xiangji"></i></view>
+      <avatarCut class="avatar" avatar="avatar" src="{{avatar.url}}"></avatarCut>
+    </view>
   </view>
   <block>
     <view class="gender" bindtap="chooseGender">
@@ -13,13 +16,13 @@
       <view class="{{gender === '2'? 'active' : ''}}" data-gender="2">女</view>
     </view>
     <view class="name">
-      <input name="name" bindinput="getValue" data-type="name" maxlength="20" placeholder="请输入姓名" value="{{name}}"/>
-    </view>
-    <view class="name">
-      <input name="position" bindinput="getValue" data-type="position" value="{{position}}" placeholder="请输入职位名称" />
+      <input name="name" placeholder-class="holderStyle" bindinput="getValue" data-type="name" maxlength="20" placeholder="请输入姓名" value="{{name}}"/>
     </view>
     <view class="time">
       <myPicker class="myPicker" setResult="{{workTimeDesr}}" pickerType="workTime" placeholderStyle="color: #BCBCBC" bindresultevent="getresult"></myPicker>
+    </view>
+    <view class="name">
+      <input name="position" placeholder-class="holderStyle" bindinput="getValue" data-type="position" value="{{position}}" placeholder="请填写职位名称" />
     </view>
     <view class="btn-area">
       <button bindtap="submit"><i class="icon iconfont icon-xiayibu"></i></button>

@@ -7,10 +7,10 @@
 <view>
   <form bindsubmit="formSubmit" bindreset="formReset">
     <view class="school commont">
-      <input name="school" maxlength="50" placeholder="填写学校名" />
+      <input name="school" placeholder-class="holderStyle" maxlength="50" placeholder="填写学校名" />
     </view>
     <view class="major commont">
-      <input name="major" placeholder="填写专业名称" />
+      <input name="major" placeholder-class="holderStyle" placeholder="填写专业名称" />
     </view>
     <view class="degree">
       <myPicker class="myPicker" data-type="education" placeholderStyle="color: #BCBCBC" pickerType="education" bindresultevent="getresult"  rangeKey="name"></myPicker>
