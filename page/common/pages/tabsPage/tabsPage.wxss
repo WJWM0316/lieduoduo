@@ -1,8 +1,8 @@
-/* page/common/pages/tabsPage/tabsPage.wxss */
+@import '../../../../iconfont.wxss';
 .tabsPage {
 }
 .content {
-  padding: 36rpx 44rpx;
+  padding: 36rpx 44rpx 174rpx;
 }
 .head {
   color: #282828;
@@ -115,6 +115,7 @@
   border-radius: 18rpx;
   padding: 60rpx 50rpx;
   box-sizing: border-box;
+  position: relative;
 }
 .title {
   margin: 0 0 56rpx;
@@ -151,10 +152,30 @@
 .addBtn {
   width: 100%;
   height: 88rpx;
-  background: #2878FF;
+  background: #652791;
   border-radius: 49rpx;
   color: #fff;
   line-height: 88rpx;
   font-size: 32rpx;
   font-weight: 500;
+}
+.colseBtn {
+  top: 17rpx;
+  right: 10rpx;
+  position: absolute;
+  width: 50rpx;
+  height: 50rpx;
+  line-height: 50rpx;
+  text-align: center;
+  font-size: 25rpx;
+  color: #BCBCBC;
+  display: block;
+}
+.btnBox {
+  width: 100%;
+  background: #fff;
+  padding: 36rpx 0;
+  position: fixed;
+  bottom: 0;
+  left: 0;
 }

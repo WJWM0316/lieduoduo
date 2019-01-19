@@ -16,7 +16,7 @@ Page({
     let info = app.globalData.companyInfo
     this.setData({info})
   },
-  bindblur(e) {
+  changeVal(e) {
     let info = this.data.info
     info.website = e.detail.value
     this.setData({info})
@@ -33,7 +33,7 @@ Page({
         info.employeesInfo = e.detail.propsDesc
         break
       case 'avatar':
-        info.logo = e.detail[0]
+        info.logoInfo = e.detail[0]
         break
     }
     this.setData({info})

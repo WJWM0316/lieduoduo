@@ -84,7 +84,7 @@
 }
 .calendar .day.choseDate {
   border-radius: 50%;
-  background: #2878FF;
+  background: #652791;
   color: #fff;
 }
 .calendar .month {

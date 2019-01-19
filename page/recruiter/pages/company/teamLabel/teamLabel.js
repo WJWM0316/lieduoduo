@@ -9,6 +9,7 @@ Page({
   data: {
     teamList: [],
     choseList: [],
+    limitNum: 8,
     customLabel: '', // 自定义标签
     hidePop: true // 打开自定pop
   },
@@ -28,7 +29,7 @@ Page({
     })
   },
   openPop () {
-    if (this.data.choseList.length < 5) {
+    if (this.data.choseList.length < this.data.limitNum) {
       this.setData({hidePop: false})
     } else {
       app.wxToast({
@@ -37,7 +38,6 @@ Page({
     }
   },
   closePop() {
-    console.log(1111111111111)
     this.setData({hidePop: true})
   },
   getCustomLabel(e) {
@@ -55,7 +55,7 @@ Page({
         return
       }
     })
-    if (choseData.checked) {
+    if (choseData.select) {
       choseList.map((item, index) => {
         if (item.id === choseData.id) {
           choseList.splice(index, 1)
@@ -63,9 +63,9 @@ Page({
         }
       })
       teamList[choseData.index].select = false
-    // 选中的
+    // 要选中的
     } else {
-      if (choseList.length === 8) { // 超过8个不给选择了
+      if (choseList.length === this.data.limitNum) { // 超过8个不给选择了
         app.wxToast({
           title: '选择标签已达上限'
         })
@@ -87,6 +87,8 @@ Page({
       title: this.data.customLabel
     }
     let list = this.data.choseList
+    let teamList = this.data.teamList
+    let isRepeat = false
     list.map((item, index) => {
       if (item.title === this.data.customLabel) {
         app.wxToast({
@@ -96,16 +98,21 @@ Page({
           customLabel: '',
           hidePop: true
         })
+        isRepeat = true
         return
       }
     })
+    if (isRepeat) return
     diyTeamlabApi(data).then(res => {
       let data = {}
       data.title = this.data.customLabel
+      data.select = true
       list.push(data)
+      teamList.push(data)
       this.setData({
         customLabel: '',
         choseList: list,
+        teamList,
         hidePop: true
       })
     }).catch((e) => {

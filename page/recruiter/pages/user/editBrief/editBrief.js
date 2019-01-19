@@ -31,7 +31,7 @@ Page({
     }
   },
   saveInfo() {
-    if (this.data.content.length < 6) {
+    if (this.data.content && this.data.content.length < 6) {
       app.wxToast({
         title: '个人简介不能少于6个字'
       })

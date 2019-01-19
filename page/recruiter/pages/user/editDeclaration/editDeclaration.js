@@ -60,6 +60,7 @@ Page({
     })
   },
   saveInfo() {
+    let that = this
     let data = {
       content: this.data.content
     }
@@ -93,8 +94,14 @@ Page({
           } else {
             recruiterDetails.manifestos.push(res.data)
           }
+          let backPageNum = 1
+          if (that.data.options.topicId) {
+            backPageNum = 2
+          } else {
+            backPageNum = 1
+          }
           wx.navigateBack({
-            delta: 1
+            delta: backPageNum
           })
         }
       })

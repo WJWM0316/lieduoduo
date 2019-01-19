@@ -92,7 +92,7 @@ Page({
     })
     getLifeLableApi().then(res => {
       res.data.map((item, index) => {
-        if (item.labelId === 100000) {
+        if (item.labelId === 110000) {
           character = item.children
         }
         if (item.labelId === 120000) {
@@ -122,6 +122,9 @@ Page({
       })
       this.setData({character, interest, choseLifeList})
     })
+  },
+  closePop() {
+    this.setData({hidePop: true})
   },
   openPop () {
     if (this.data.pageType === 'life') {
@@ -220,52 +223,54 @@ Page({
         labelList[choseData.index].checked = false
       // 选中标签列表
       } else {
-        let relationList = [] // 所选标签对应的列表
-        let relationType = '' // 所选标签对应的列表的类型
-        switch (choseData.type) {
-          case 'label_professional_skills':
-            relationType = 'skills'
-            break
-          case 'label_professional_literacy':
-            relationType = 'literacy'
-            relationList = this.data.literacy
-            break
-          case 'label_life':
-            if (choseData.pid === 100000) {
-              relationType = 'character'
-              relationList = this.data.character
-            } else {
-              relationType = 'interest'
-              relationList = this.data.interest
-            }
-        }
-        if (relationType !== 'skills') {
-          relationList.map((item, index) => {
-            if (item.labelId === choseData.labelId) {
-              item.checked = false
-              return
-            }
+        if (choseData.source !== 'diy')  {
+          let relationList = [] // 所选标签对应的列表
+          let relationType = '' // 所选标签对应的列表的类型
+          switch (choseData.type) {
+            case 'label_professional_skills':
+              relationType = 'skills'
+              break
+            case 'label_professional_literacy':
+              relationType = 'literacy'
+              relationList = this.data.literacy
+              break
+            case 'label_life':
+              if (choseData.pid === 100000) {
+                relationType = 'character'
+                relationList = this.data.character
+              } else {
+                relationType = 'interest'
+                relationList = this.data.interest
+              }
+          }
+          if (relationType !== 'skills') {
+            relationList.map((item, index) => {
+              if (item.labelId === choseData.labelId) {
+                item.checked = false
+                return
+              }
+            })
+          } else {
+            allSkills.map((item, index) => {
+              if (item.labelId === choseData.pid) {
+                relationList = item.children
+                relationList.map((n, i) => {
+                  if (n.labelId === choseData.labelId) {
+                    relationList[i].checked = false
+                    relationList = allSkills[choseFirstIndex].children
+                    return
+                  }
+                })
+                return
+              }
+            })
+          }
+          this.setData({
+            [relationType]: relationList
           })
-        } else {
-          allSkills.map((item, index) => {
-            if (item.labelId === choseData.pid) {
-              relationList = item.children
-              relationList.map((n, i) => {
-                if (n.labelId === choseData.labelId) {
-                  relationList[i].checked = false
-                  relationList = allSkills[choseFirstIndex].children
-                  return
-                }
-              })
-              return
-            }
-          })
         }
-        this.setData({
-          [relationType]: relationList
-        })
       }
-    // 选中的
+    // 要选中的
     } else {
       if (list.length === 5) { // 超过五个不给选择了
         app.wxToast({
@@ -308,7 +313,7 @@ Page({
         })
         isReturn = true
         this.setData({
-          num: 7,
+          num: 6,
           customLabel: '',
           hidePop: true
         })
@@ -319,9 +324,10 @@ Page({
     addLabelApi(data).then(res => {
       let data = res.data
       data.name = this.data.customLabel
+      data.checked = true
       list.push(data)
       this.setData({
-        num: 7,
+        num: 6,
         customLabel: '',
         [type]: list,
         [typeNum]: list.length,
@@ -333,7 +339,7 @@ Page({
           title: '便签库已有此标签'
         })
         this.setData({
-          num: 7,
+          num: 6,
           customLabel: '',
           hidePop: true
         })
@@ -345,6 +351,10 @@ Page({
       this.setData({
         pageType: 'job',
         title: '选择职业标签'
+      })
+      wx.pageScrollTo({
+        scrollTop: 0,
+        duration: 300
       })
     } else {
       wx.navigateBack({delta: 1})
@@ -360,6 +370,10 @@ Page({
     this.setData({
       pageType: 'life',
       title: '选择生活标签'
+    })
+    wx.pageScrollTo({
+      scrollTop: 0,
+      duration: 300
     })
   },
   saveLabel() {

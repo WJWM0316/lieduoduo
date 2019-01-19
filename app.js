@@ -227,7 +227,7 @@ App({
     if (identity === 'RECRUITER') {
       wx.setStorageSync('choseType', 'APPLICANT')
       if (!this.globalData.isJobhunter) {
-        wx.reLaunch({
+        wx.navigateTo({
           url: `${APPLICANT}center/createUser/createUser`
         })
       } else {
@@ -239,8 +239,8 @@ App({
       }
     } else {
       wx.setStorageSync('choseType', 'RECRUITER')
-      if (!this.globalData.isJobhunter) {
-        wx.reLaunch({
+      if (!this.globalData.isRecruiter) {
+        wx.navigateTo({
           url: `${RECRUITER}user/company/apply/apply`
         })
       } else {

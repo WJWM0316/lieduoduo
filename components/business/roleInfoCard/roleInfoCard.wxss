@@ -71,9 +71,16 @@
   color: #D3CFD6;
 }
 .editIcon {
+  position: absolute;
   font-size: 32rpx;
   color: #652791;
-  float: right;
+  width: 50rpx;
+  height: 50rpx;
+  text-align: center;
+  display: block;
+  line-height: 50rpx;
+  top:15rpx;
+  right: 0;
 }
 .applicant, .recruiter{
   position: relative;

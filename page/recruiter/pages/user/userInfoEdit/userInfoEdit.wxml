@@ -10,7 +10,7 @@
         </view>
 	  	</view>
 	  	<view class="pic" wx:if="{{picList.length < 6}}">
-	  		<unloadFile bindresultEvent="getResult">
+	  		<unloadFile bindresultEvent="getResult" number="{{choseNum}}">
 		    	<view class="addPic">+</view>
 		    </unloadFile>
 	  	</view>
@@ -20,19 +20,19 @@
   <view class="item">
     <view class="txt">姓名</view>
     <view class="edit">
-      <input type="text" value="{{userName}}" data-type="name" bindblur="getInputValue" placeholder="请输入姓名" placeholder-style="color: #B2B6C2"/>
+      <input type="text" value="{{userName}}" data-type="name" bindblur="getInputValue" placeholder="请输入姓名" placeholder-style="color: #B2B6C2" disabled />
     </view>
   </view>
   <view class="item">
     <view class="txt">性别</view>
     <view class="edit">
-      <radio-group class="radio-group" bindchange="radioChange">
+      <radio-group class="radio-group" bindchange="radioChange" >
         <label class="radio">
-          <radio value="1" color="#652791" checked="{{gender === 1}}"/>
+          <radio value="1" color="#652791" checked="{{gender === 1}}" disabled/>
           男
         </label>
         <label class="radio">
-          <radio value="2" color="#652791" checked="{{gender === 2}}"/>
+          <radio value="2" color="#652791" checked="{{gender === 2}}" disabled/>
           女
         </label>
       </radio-group>

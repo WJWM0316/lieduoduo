@@ -15,7 +15,8 @@ Page({
     email: '',
     wechat: '',
     signature: '',
-    picList: []
+    picList: [],
+    choseNum: 6
   },
 
   /**
@@ -44,7 +45,9 @@ Page({
   getResult(e) {
     let picList = this.data.picList
     picList = picList.concat(e.detail)
-    this.setData({picList})
+    let choseNum = this.data.choseNum
+    choseNum = 6 - picList.length
+    this.setData({picList, choseNum})
   },
   getInputValue(e) {
     let type = ''
