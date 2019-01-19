@@ -6,9 +6,11 @@
     <text bindtap='toggle' data-active='interest' class='{{active === "interest"? "active" : ""}}'>对我感兴趣</text>
   </view>
   <block wx:if="{{active === 'watched'}}">
-  	<commonList iconfont1="more" list="{{watchedList}}" showFooter="{{false}}" dotType="circle"></commonList>
+  	<commonList iconfont1="more" list="{{watchedList.list}}" showFooter="{{false}}" dotType="circle"></commonList>
+  	<bottomStatus status="{{offBottomStatus}}"></bottomStatus>
   </block>
   <block wx:if="{{active === 'interest'}}">
-  	<commonList iconfont1="more" list="{{interestList}}" showFooter="{{false}}" dotType="circle"></commonList>
+  	<commonList iconfont1="more" list="{{interestList.list}}" showFooter="{{false}}" dotType="circle"></commonList>
+  	<bottomStatus status="{{offBottomStatus}}"></bottomStatus>
   </block>
 </view>

@@ -31,6 +31,11 @@ Component({
     showItemStatus: {
       type: Boolean,
       value: true
+    },
+    // 是否收藏
+    isCollect: {
+      type: Boolean,
+      value: false
     }
   },
   attached() {

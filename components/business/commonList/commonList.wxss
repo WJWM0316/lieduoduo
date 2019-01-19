@@ -95,9 +95,8 @@
 	color:#223865;
 	/*line-height:28rpx;*/
 	display: inline-block;
-	border-left: 1px solid #979797;
+	/*border-left: 1px solid #979797;*/
 	margin-left: 15px;
-	padding-left: 15px;
 	width: 200rpx;
 	overflow: hidden;
   text-overflow:ellipsis;
@@ -112,9 +111,7 @@
 	display: inline-block;
 }
 
-.common-lits-ul .li .company-name text{
-  margin-left: 42rpx;
-}
+.common-lits-ul .li .company-name text{}
 
 .common-lits-ul .li .position-number {
 	font-size:24rpx;
