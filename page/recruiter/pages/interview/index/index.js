@@ -1,58 +1,70 @@
 import {RECRUITER} from '../../../../../config.js'
 import { getInviteListApi, getApplyListApi, getScheduleListApi } from '../../../../../api/pages/interview.js'
+import {getPositionListApi} from '../../../../../api/pages/position.js'
 const app = getApp()
-let param = {
-  tab : 'all',
-  firstIndex : 0 //一级tab当前选中项
-}
+let chooseTime = 0
 Page({
   data: {
-    tabParentIndex: 0,
-    tabChildIndex: 0,
+    info: {},
+    tabIndex: 0,
     identity: '',
-    companyList: [],
+    applyData: {
+      list: [],
+      pageNum: 1,
+      count: 5,
+      isLastPage: false,
+      isRequire: false
+    },
+    receiveData: {
+      list: [],
+      pageNum: 1,
+      count: 5,
+      isLastPage: false,
+      isRequire: false
+    },
+    interviewData: {
+      list: [],
+      pageNum: 1,
+      count: 5,
+      isLastPage: false,
+      isRequire: false
+    },
+    applyIndex: 0,
+    receiveIndex: 0,
+    positionIndex: 0,
+    applyScreen: [
+      {key: '所有状态', value: 0},
+      {key: '我邀请的', value: 12},
+      {key: '待安排', value: 21},
+      {key: '待对方确认', value: 31},
+      {key: '待我修改', value: 32},
+      {key: '对方暂不考虑', value: 54},
+      {key: '不合适', value: 52}
+    ],
+    receiveScreen: [
+      {key: '所有状态', value: 0},
+      {key: '未处理', value: 11},
+      {key: '待安排', value: 21},
+      {key: '待对方确认', value: 31},
+      {key: '待我修改', value: 32},
+      {key: '不合适', value: 52}
+    ],
+    positionList: [],
     tabLists: [
       {
-        id: 'apply',
         text: '收到意向',
-        showRedDot: true,
         active: true,
-        statusIndex: 0,
-        officeIndex: 0,
-        statusList: [
-          '所有状态', '所有状态1', '所有状态2', '所有状态3'
-        ],
-        officeLists: [
-          '前端开发', '后端开发', '产品运营', '设计大咖'
-        ]
+        showRedDot: false
       },
       {
-        id: 'receive',
         text: '我的邀请',
-        showRedDot: false,
         active: false,
-        statusIndex: 0,
-        officeIndex: 0,
-        statusList: [
-          '所有状态', '所有状态1', '所有状态2', '所有状态3'
-        ],
-        officeLists: [
-          '前端开发', '后端开发', '产品运营', '设计大咖'
-        ]
+        showRedDot: false
       },
       {
-        id: 'interview',
         text: '面试日程',
-        showRedDot: false,
         active: false,
-        statusIndex: 0,
-        officeIndex: 0,
-        statusList: [
-          '所有状态', '所有状态1', '所有状态2', '所有状态3'
-        ],
-        officeLists: [
-          '前端开发', '后端开发', '产品运营', '设计大咖'
-        ]
+        showRedDot: false
       }
     ]
   },
@@ -83,10 +95,7 @@ Page({
     this.setData({tabLists})
   },
   getResult(e) {
-    param.chooseTime = `${e.detail.year}${e.detail.month}${e.detail.days}`
-    this.firstTab().then(res => {
-      companyList: res.data
-    })
+    chooseTime = e.detail.timeStamp    
   },
   /* tab切换 0:我的邀请，1：收到意向,2：面试日程*/
   firstTab (index) {
@@ -106,21 +115,39 @@ Page({
         break;
     }
   },
+  getApplyList() {
+    let data = this.data.applyData
+    let status = this.data.applyScreen[this.data.applyIndex].value
+    let positionId = this.data.positionList[this.data.positionIndex]
+    return getApplyListApi({count: data.count, page: data.pageNum, status, positionId}).then(res => {
+    })
+  },
+  getInviteList() {
+    let data = this.data.receiveData
+    let status = this.data.receiveScreen[this.data.applyIndex].value
+    let positionId = this.data.positionList[this.data.positionIndex]
+    return getInviteListApi({count: data.count, page: data.pageNum, status, positionId}).then(res => {
+    })
+  },
+  getScheduleList() {
+    let data = this.data.interviewData
+    let time = this.data.chooseTime
+    return getScheduleListApi({count: data.count, page: data.pageNum, time}).then(res => {
+    })
+  }
   chooseParentTab(e) {
-    const params = e.currentTarget.dataset
-    const tabLists = this.data.tabLists
-    let tabParentIndex = null
-    tabLists.map((field, index) => {
-      tabParentIndex = params.index
-      field.active = index === params.index ? true : false
-    })
-    this.firstTab(e.currentTarget.dataset.index).then(res => {
-      this.setData({
-        companyList: res.data,
-        tabLists,
-        tabParentIndex
-      })
-    })
+    let index = e.currentTarget.dataset.index
+    let tabIndex = this.data.tabIndex
+    if (tabIndex === index) return 
+    let tabLists = this.data.tabLists
+    tabLists[index].active = true
+    tabLists[index].showRedDot = false
+    switch(index) {
+      case 0:
+        let data =  this.data.applyData
+        if (!data.isRequire) {
+        }
+    }
   },
   chooseChildTab(e) {
     param.tab = e.currentTarget.dataset.mark
@@ -140,10 +167,11 @@ Page({
     })
   },
   init () {
-    this.firstTab().then(res => {
-      this.setData({
-        companyList: res.data
-      })
+    let id = app.globalData.recruiterDetails.uid
+    getPositionListApi({recruiter: id, status: 1}).then(res => {
+      let positionList = res.data
+      positionList.push({positionName: '所有职位', id: 0})
+      this.setData({positionList})
     })
   },
   onLoad () {

@@ -11,37 +11,52 @@
 			wx:key="{{tab.id}}">
 				<view class="span">{{tab.text}}</view>
 		</view>
-	</view>
-	<view class="select-box" wx:if="{{tabParentIndex !== 2}}">
-		<view class="item">
-			<picker range="{{tabLists[tabParentIndex].statusList}}" bindchange="bindChange" data-type="status">
-		    <view class="picker">{{tabLists[tabParentIndex].statusList[tabLists[tabParentIndex].statusIndex]}} </view>
-		    <i class="icon iconfont icon-zhishibiao"></i>
-		  </picker>
-		</view>
-		<view class="item">
-			<picker range="{{tabLists[tabParentIndex].officeLists}}" bindchange="bindChange" data-type="office">
-		    <view class="picker">{{tabLists[tabParentIndex].officeLists[tabLists[tabParentIndex].officeIndex]}} </view>
-		    <i class="icon iconfont icon-zhishibiao"></i>
-		  </picker>
-		</view>
+		<view class="li"></view>
 	</view>
 	<myCalendar wx:if="{{tabParentIndex === 2}}" calendarType="roll" setDateList="{{dateList}}" switchable bindresultEvent="getResult"></myCalendar>
 	<view class="interview-page-title" wx:if="{{tabParentIndex === 2}}">
 		<view class="text">面试安排(0)</view>
-		 <view class="button" bindtap="jumpInterviewPage">面试历史</view> 
+		<view class="button" bindtap="jumpInterviewPage">面试历史</view> 
 	</view>
-	<block hidden="{{tabParentIndex !== 0}}">
+	<view hidden="{{tabIndex !== 0}}">
+		<view class="select-box">
+			<view class="item">
+				<picker range="{{applyScreen}}" range-key="key" bindchange="bindChange" data-type="status" value="{{applyIndex}}">
+			    <view class="picker">{{applyScreen[applyIndex].key}}</view>
+			    <i class="icon iconfont icon-zhishibiao"></i>
+			  </picker>
+			</view>
+			<view class="item">
+				<picker range="{{positionList}}" range-key="positionName" bindchange="bindChange" data-type="office" value="{{positionIndex}}">
+			    <view class="picker">{{positionList[positionIndex].positionName}}</view>
+			    <i class="icon iconfont icon-zhishibiao"></i>
+			  </picker>
+			</view>
+		</view>
 		<commonList list="{{companyList}}" identity="{{identity}}" dotType="{{'circle'}}">
 		</commonList>
-	</block>
-	<block hidden="{{tabParentIndex !== 1}}">
+	</view>
+	<view hidden="{{tabIndex !== 1}}">
+		<view class="select-box">
+			<view class="item">
+				<picker range="{{applyScreen}}" range-key="key" bindchange="bindChange" data-type="status" value="{{applyIndex}}">
+			    <view class="picker">{{receiveScreen[receiveIndex].key}}</view>
+			    <i class="icon iconfont icon-zhishibiao"></i>
+			  </picker>
+			</view>
+			<view class="item">
+				<picker range="{{positionList}}" range-key="positionName" bindchange="bindChange" data-type="office" value="{{positionIndex}}">
+			    <view class="picker">{{positionList[positionIndex].positionName}}</view>
+			    <i class="icon iconfont icon-zhishibiao"></i>
+			  </picker>
+			</view>
+		</view>
 		<commonList list="{{companyList}}" identity="{{identity}}" dotType="{{'circle'}}">
 		</commonList>
-	</block>
-	<block hidden="{{tabParentIndex !== 2}}">
+	</view>
+	<view hidden="{{tabIndex !== 2}}">
 		<commonList list="{{companyList}}" identity="{{identity}}" dotType="{{'circle'}}">
 		</commonList>
-	</block>
+	</view>
   <tab-bar tabType="1"></tab-bar>
 </view>

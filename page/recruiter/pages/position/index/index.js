@@ -14,14 +14,14 @@ Page({
     onLinePosition: {
       list: [],
       pageNum: 1,
-      count: 5,
+      count: 20,
       isLastPage: false,
       isRequire: false
     },
     offLinePosition: {
       list: [],
       pageNum: 1,
-      count: 5,
+      count: 20,
       isLastPage: false,
       isRequire: false
     }
