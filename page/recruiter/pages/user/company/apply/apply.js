@@ -12,14 +12,16 @@ Page({
     user_email: '',
     user_position: '',
     canClick: false,
+    options: {},
     cdnImagePath: app.globalData.cdnImagePath
   },
   onLoad(options) {
     const storage = wx.getStorageSync('createdCompany')
     const params = ['real_name', 'user_email', 'user_position']
+
     // 编辑页面
-    if(options.type && options.type === 'edit') {
-      this.getCompanyIdentityInfos()
+    if(options.action && options.action === 'edit') {
+      this.getCompanyIdentityInfos(options)
       return;
     }
     if(!storage) return
@@ -32,7 +34,7 @@ Page({
    * @detail   获取编辑详情
    * @return   {[type]}   [description]
    */
-  getCompanyIdentityInfos() {
+  getCompanyIdentityInfos(options) {
 
     const storage = wx.getStorageSync('createdCompany')
     const params = ['real_name', 'user_email', 'user_position']
@@ -63,6 +65,7 @@ Page({
           selected_employees: true,
           business_license: infos.businessLicenseInfo,
           on_job: infos.onJobInfo,
+          options,
           canClick: true
         }
         wx.setStorageSync('createdCompany', formData)
@@ -118,7 +121,11 @@ Page({
     Promise
       .all([checkRealName, checkUserEmail, checkUserPosition])
       .then(res => {
-        wx.navigateTo({url: `${RECRUITER}user/company/find/find`})
+        const options = this.data.options
+        const url = options.action && options.action === 'edit'
+          ? `${RECRUITER}user/company/find/find?action=edit&type=create`
+          : `${RECRUITER}user/company/find/find`
+        wx.navigateTo({url})
         wx.setStorageSync('createdCompany', this.data)
       })
       .catch(err => {

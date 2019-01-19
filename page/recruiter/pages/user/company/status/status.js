@@ -39,27 +39,14 @@ Page({
     		this.setData({identityInfos: infos, companyInfos, options})
     	})
   },
-  /**
-   * @Author   小书包
-   * @DateTime 2019-01-14
-   * @detail   获取公司是否完善
-   * @return   {[type]}   [description]
-   */
-  getCompanyPerfect() {
-    getCompanyPerfectApi({id: this.data.companyInfos.id})
-      .then(res => {
-        // console.log(res)
-      })
-  },
   todoAction(e) {
   	const params = e.currentTarget.dataset
   	switch(params.action) {
   		case 'modifyIdentity':
-        let url1 = this.data.identityInfos.id ? `${RECRUITER}user/company/identity/identity?type=edit` : `${RECRUITER}user/company/identity/identity`
-  			wx.reLaunch({url: url1})
+  			wx.reLaunch({url: `${RECRUITER}user/company/identity/identity?action=edit&type=create`})
   			break
   		case 'modifyCompany':
-  			wx.redirectTo({url: `${RECRUITER}user/company/apply/apply?type=edit`})
+  			wx.redirectTo({url: `${RECRUITER}user/company/apply/apply?action=edit&type=create`})
   			break
       case 'email':
         wx.redirectTo({url: `${RECRUITER}user/company/email/email?id=${this.data.companyInfos.id}`})
@@ -67,14 +54,14 @@ Page({
       case 'position':
         wx.redirectTo({url: `${RECRUITER}position/post/post`})
         break
-      case 'identity':
-        wx.reLaunch({url: `${RECRUITER}user/company/identity/identity`})
+      case 'applyIdentity':
+        wx.reLaunch({url: `${RECRUITER}user/company/identity/identity?type=apply`})
         break
       case 'perfect':
         wx.reLaunch({url: `${RECRUITER}company/baseEdit/baseEdit`})
         break
-      case 'apply':
-        wx.reLaunch({url: `${RECRUITER}user/company/identity/identity?from=apply&type=edit`})
+      case 'applyEdit':
+        wx.reLaunch({url: `${RECRUITER}user/company/identity/identity?type=apply&action=edit`})
         break
       case 'notice':
         app.wxToast({title: '通知成功'})

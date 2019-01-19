@@ -1,10 +1,8 @@
 <!-- 加载过滤器 -->
 <wxs src="../../../../../utils/filters.wxs" module="filters" />
-
 <navbar title="职位管理"></navbar>
-<view style="height: 122rpx"></view>
-
-<view class='office-status-bar'>
+<view style="height: 0px"></view>
+<view class="office-status-bar" style="top:{{navH}}px">
   <view class="item {{positionStatus === '1' ? 'active' : ''}}" bindtap="onClickTab" data-status="1">上线职位({{onLinePositionNum}})</view>
   <view class="item {{positionStatus === '0' ? 'active' : ''}}" bindtap="onClickTab" data-status="0">下线职位({{offLinePositionNum}})</view>
   <view class="publish" data-action="add" bindtap="routeJump"><i class="icon iconfont icon-bianji"></i> 发布职位</view>

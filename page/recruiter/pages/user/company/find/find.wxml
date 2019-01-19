@@ -40,7 +40,7 @@
 					</view>
 				</view>
 			</view>
-			<button form-type="submit" class="button-know}}" bindtap="closeMask">开始审核</button>
+			<button class="button-know}}" bindtap="closeMask">开始审核</button>
 		</view>
 	</view>
 </view>

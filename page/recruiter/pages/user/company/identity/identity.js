@@ -22,13 +22,11 @@ Page({
     },
     cdnImagePath: app.globalData.cdnImagePath,
     canClick: false,
-    options: {
-      from: 'company'
-    }
+    options: {}
   },
   onLoad(options) {
     this.setData({options})
-    if(options.type && options.type === 'edit') this.getCompanyIdentityInfos()
+    if(options.action && options.action === 'edit') this.getCompanyIdentityInfos()
   },
   /**
    * @Author   小书包
@@ -103,7 +101,7 @@ Page({
     Promise
      .all([checkRealName, checkUserEmail])
      .then(res => {
-      const action = this.data.options.type === 'edit' ? 'editCompanyIdentityInfos' : 'identityCompany'
+      const action = this.data.options.action === 'edit' ? 'editCompanyIdentityInfos' : 'identityCompany'
       this[action]()
      })
   },
@@ -120,22 +118,34 @@ Page({
     formData.passport_front = this.data.passport_front.id
     formData.passport_reverse = this.data.passport_reverse.id
     formData.handheld_passport = this.data.handheld_passport.id
-    // formData.company_id = app.globalData.recruiterDetails.companyInfo.id
     if(this.data.validity) formData.validity = this.data.validity
     return formData
   },
   /**
    * @Author   小书包
    * @DateTime 2018-12-22
-   * @detail   身份认证
+   * @detail   身份认证 判断页面来源
    * @return   {[type]}   [description]
    */
   identityCompany() {
     const formData = this.getParams()
     identityCompanyApi(formData)
       .then((res) => {
-        const from = this.data.options.from ? this.data.options.from : 'company'
-        wx.redirectTo({url: `${RECRUITER}user/company/status/status?from=${from}`})
+        const options = this.data.options
+        let type = ''
+        switch(options.type) {
+          // 加入公司认证
+          case 'apply':
+            type = 'apply'
+            break
+          // 创建公司
+          case 'create':
+            type = 'company'
+            break
+          default:
+            break
+        }
+        wx.redirectTo({url: `${RECRUITER}user/company/status/status?from=${type}`})
       })
   },
   /**
@@ -148,8 +158,21 @@ Page({
     const formData = this.getParams()
     editCompanyIdentityInfosApi(formData)
       .then((res) => {
-        const from = this.data.options.from ? this.data.options.from : 'company'
-        wx.redirectTo({url: `${RECRUITER}user/company/status/status?from=${from}`})
+        const options = this.data.options
+        let type = ''
+        switch(options.type) {
+          // 加入公司认证
+          case 'apply':
+            type = 'apply'
+            break
+          // 创建公司
+          case 'create':
+            type = 'company'
+            break
+          default:
+            break
+        }
+        wx.redirectTo({url: `${RECRUITER}user/company/status/status?from=${type}`})
       })
   }
 })

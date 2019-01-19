@@ -22,12 +22,12 @@ Page({
     clearTimeout(fn.timeoutId)
     fn.timeoutId = setTimeout(() => fn.call(context, text), delay)
   },
-  // onLoad() {
-  //   const storage = wx.getStorageSync('createPosition')
-  //   if(storage) {
-  //     this.setData({keyword: storage.position_name})
-  //   }
-  // },
+  onLoad() {
+    const storage = wx.getStorageSync('createPosition')
+    if(storage) {
+      this.setData({keyword: storage.position_name, canClick: true})
+    }
+  },
   /**
    * @Author   小书包
    * @DateTime 2018-12-25
@@ -36,7 +36,7 @@ Page({
    */
   bindInput(e) {
     const name = e.detail.value
-    this.debounce(this.getPositionNameList, null, 500, name)
+    if(name) this.debounce(this.getPositionNameList, null, 500, name)
   },
   /**
    * @Author   小书包

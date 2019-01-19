@@ -32,9 +32,11 @@ Page({
     selected_employees: false,
     // 公司简称
     companyShortName: '',
-    canClick: false
+    canClick: false,
+    options: {}
   },
   onLoad(options) {
+    this.setData({options})
     this.init()
   },
   /**
@@ -93,8 +95,12 @@ Page({
   submit() {
     if(!this.data.canClick) return;
     const storage = wx.getStorageSync('createdCompany')
+    const options = this.data.options
+    const url = options.action && options.action === 'edit'
+      ? `${RECRUITER}user/company/upload/upload?action=edit&type=create`
+      : `${RECRUITER}user/company/upload/upload`
     wx.setStorageSync('createdCompany', Object.assign(storage, this.data))
-    wx.navigateTo({url: `${RECRUITER}user/company/upload/upload`})
+    wx.navigateTo({url})
   },
   /**
    * @Author   小书包
@@ -103,7 +109,6 @@ Page({
    * @return   {[type]}     [description]
    */
   bindChange(e) {
-    console.log(e, 11)
     const index = parseInt(e.detail.value)
     const companyLabelField = this.data.companyLabelField
     this.setData({industry_id: companyLabelField[index].labelId, selected_industry_id: true, industry_id_name: companyLabelField[index].name})
