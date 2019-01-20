@@ -2,7 +2,7 @@
 	<navbar title="选择职位类别"></navbar>
 	<view class="search-box">
 		<view class="mask"></view>
-		<input placeholder="搜索" auto-focus bindinput="bindInput" />
+		<input placeholder="搜索" bindinput="bindInput" />
 		<i class="icon iconfont icon-sousuo icon-search"></i>
 	</view>
 	<view class="category-list">

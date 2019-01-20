@@ -134,7 +134,7 @@ Page({
     let time = this.data.chooseTime
     return getScheduleListApi({count: data.count, page: data.pageNum, time}).then(res => {
     })
-  }
+  },
   chooseParentTab(e) {
     let index = e.currentTarget.dataset.index
     let tabIndex = this.data.tabIndex
