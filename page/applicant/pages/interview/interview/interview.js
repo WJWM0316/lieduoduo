@@ -2,9 +2,11 @@ import { getApplyListApi, getInviteListApi, getScheduleListApi, getRedDotListApi
 import {RECRUITER} from '../../../../../config.js'
 const app = getApp()
 let param = {
-  tab : 'all',
-  firstIndex : 0 //一级tab当前选中项
+  page : 1,
+  count : 20 //一级tab当前选中项
 }
+let tab = 'all'
+let firstIndex = 0 //一级tab当前选中项0:申请列表 1：邀请列表 2：时间列表
 Page({
   data: {
     cdnImagePath: app.globalData.cdnImagePath,
@@ -91,8 +93,10 @@ Page({
     ],
     companyList: []
   },
+  /* 面试日程 */
   getResult(e) {
     param.time = e.detail.timeStamp
+    delete param.tab
     this.firstTab().then(res => {
       companyList: res.data
     })
@@ -100,14 +104,15 @@ Page({
   /* tab切换 0:申请记录，1：收到邀请,2：面试日程*/
   firstTab (index) {
     if (index !== undefined) {
-      param.firstIndex = index
-      param.tab = 'all'
+      firstIndex = index
     }
-    switch (param.firstIndex) {
+    switch (firstIndex) {
       case 0:
+        param.tab = tab
         return getApplyListApi(param)
         break;
       case 1:
+        param.tab = tab
         return getInviteListApi(param)
         break;
       case 2:
@@ -122,6 +127,16 @@ Page({
     tabLists.map((field, index) => {
       tabParentIndex = params.index
       field.active = index === params.index ? true : false
+      if (index === params.index) {
+        if (field.children) {
+          for (let key in field.children) {
+            if (field.children[key].active) {
+              tab = field.children[key].id
+              
+            }
+          }
+        }
+      }
     })
     this.firstTab(e.currentTarget.dataset.index).then(res => {
       this.setData({
@@ -132,7 +147,7 @@ Page({
     })
   },
   chooseChildTab(e) {
-    param.tab = e.currentTarget.dataset.mark
+    tab = e.currentTarget.dataset.mark
     const params = e.currentTarget.dataset
     const tabLists = this.data.tabLists
     let tabChildIndex = null
