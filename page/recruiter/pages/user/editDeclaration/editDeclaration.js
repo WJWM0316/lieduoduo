@@ -8,7 +8,8 @@ Page({
   data: {
     content: "",
     options: {},
-    info: {}
+    info: {},
+    limitNum: 1000
   },
   changeVal(e) {
     this.setData({
@@ -64,9 +65,15 @@ Page({
     let data = {
       content: this.data.content
     }
-    if (this.data.content.length < 6) {
+    if (!this.data.content.trim()) {
       app.wxToast({
-        title: '招聘宣言不能少于6个字'
+        title: `请填写招聘官宣言`
+      })
+      return
+    }
+    if (this.data.content.length > this.data.limitNum) {
+      app.wxToast({
+        title: `招聘宣言不能少于${this.data.limitNum}个字`
       })
       return
     }

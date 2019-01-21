@@ -87,12 +87,12 @@ export const setManifestoApi = (data) => {
   })
 }
 // 获取话题
-export const getTopicListApi = (data) => {
+export const getTopicListApi = (data, hasLoading) => {
   return request({
     url: `/manifesto/topicList`,
     method: 'get',
     data,
-    hasLoading: true
+    hasLoading: hasLoading
   })
 }
 // 删除宣言

@@ -1,4 +1,3 @@
-<!--page/recruiter/pages/user/chooseTopic/chooseTopic.wxml-->
 <view class="chooseTopic">
 	<navBar title="添加招聘宣言" background="#fff" color="#22292C"></navBar>
 	<view class="list">
