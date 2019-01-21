@@ -15,7 +15,7 @@
 	<view class="tab-tab-list" wx:if="{{tabParentIndex !== 2}}">
 		<view class="ul">
 			<view
-				class="item {{tab.active ? 'active' : ''}} {{tab.showRedDot ? 'red-dot' : ''}}"
+				class="item {{tab.active ? 'active' : ''}} {{tab.showRedDot ? 're  d-dot' : ''}}"
 				bindtap="chooseChildTab"
 				data-mark="{{tab.id}}"
 				wx:for="{{tabLists[tabParentIndex].children}}"
