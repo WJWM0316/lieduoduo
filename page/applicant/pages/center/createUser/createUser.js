@@ -1,6 +1,6 @@
 // page/applicant/pages/center/firstStep/fitstStep.js
 import { postfirstStepApi } from '../../../../../api/pages/center'
-import {} from '../../../../../utils/fieldRegular.js'
+import {userNameReg, positionReg} from '../../../../../utils/fieldRegular.js'
 let app = getApp()
 Page({
   data: {
@@ -33,14 +33,14 @@ Page({
       title = '请上传头像'
     } else  if (!info.name) {
       title = '请输入姓名'
-    } else if (info.name && userNameReg.test(info.name)) {
+    } else if (info.name && (info.name.length < 2 || info.name.length > 20)) {
       title = '姓名需为2-20个汉字或英文'
-    } else  if (!info.position) {
+    } else if (!info.workTimeDesr) {
+      title = '请选择开始工作时间'
+    }else  if (!info.position && this.data.workTimeDesr !== '在校生') {
       title = '请输入职位'
-    } else if (info.position && positionReg.test(info.position)) {
+    } else if (info.position && !positionReg.test(info.position)) {
       title = '职位名称需为2-20个字'
-    } else  if (!info.startWorkYear) {
-      title = '选择开始工作时间'
     }
     if (title) {
       app.wxToast({'title': title})

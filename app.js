@@ -20,7 +20,29 @@ App({
       }
     })
     that = this
-    this.checkLogin()
+    wx.login({
+      success: function (res0) {
+        wx.setStorageSync('code', res0.code)
+        loginApi({code: res0.code}).then(res => {
+          // 有token说明已经绑定过用户了
+          if (res.data.token) {
+            wx.setStorageSync('token', res.data.token)
+            that.checkLogin()
+            that.globalData.userInfo = res.data
+            that.globalData.hasLogin = true
+            console.log('用户已认证')
+          } else {
+            console.log('用户未绑定手机号')
+            that.globalData.userInfo = res.data
+            wx.setStorageSync('sessionToken', res.data.sessionToken)
+          }
+        })
+      },
+      fail: function (e) {
+        console.log('登录失败', e)
+      }
+    })
+    // this.checkLogin()
   },
   globalData: {
     identity: "", // 身份标识

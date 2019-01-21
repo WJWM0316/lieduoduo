@@ -5,7 +5,7 @@ const app = getApp()
 
 Page({
   data: {
-    navH: 0,
+    navH: app.globalData.navHeight,
     positionStatus: '1',
     onLinePositionNum: 0,
     offLinePositionNum: 0,
@@ -24,10 +24,10 @@ Page({
       count: 20,
       isLastPage: false,
       isRequire: false
-    }
+    },
+    hasReFresh: false
   },
   onLoad() {
-    this.setData({navH: app.globalData.navHeight})
   },
   onShow() {
     getPositionListNumApi({recruiter: app.globalData.recruiterDetails.uid}).then(res => {
@@ -128,30 +128,33 @@ Page({
       }
     }
   },
-
   onPullDownRefresh(e) {
     if (this.data.positionStatus === '1') {
       let onLinePosition = {
         list: [],
         pageNum: 1,
-        count: 5,
+        count: 20,
         isLastPage: false,
         isRequire: false
       }
-      this.setData({onLinePosition, onBottomStatus: 0})
+      this.setData({onLinePosition, onBottomStatus: 0, hasReFresh: true})
       this.getOnlineLists(false).then(res => {
         wx.stopPullDownRefresh()
+        this.setData({hasReFresh: false})
       })
     } else {
-      let onLinePosition = {
+      let offLinePosition = {
         list: [],
         pageNum: 1,
-        count: 5,
+        count: 20,
         isLastPage: false,
         isRequire: false
       }
-      this.setData({offLinePosition, offBottomStatus})
-      this.getOffLineLists(false)
+      this.setData({offLinePosition, offBottomStatus: 0, hasReFresh: true})
+      this.getOffLineLists(false).then(res => {
+        wx.stopPullDownRefresh()
+        this.setData({hasReFresh: false})
+      })
     }
   }
 })

@@ -129,7 +129,8 @@
     "downloadFile": 60000
   },
   "usingComponents": {
-    "bottomStatus": "components/layout/bottomStatus/bottomStatus"
+    "bottomStatus": "components/layout/bottomStatus/bottomStatus",
+    "refreshStatus": "components/layout/refreshStatus/refreshStatus"
   },
   "debug": false
 }

@@ -21,7 +21,7 @@
     <view class="time">
       <myPicker class="myPicker" setResult="{{workTimeDesr}}" pickerType="workTime" placeholderStyle="color: #BCBCBC" bindresultevent="getresult"></myPicker>
     </view>
-    <view class="name">
+    <view class="name" hidden="{{workTimeDesr === '在校生'}}">
       <input name="position" placeholder-class="holderStyle" bindinput="getValue" data-type="position" value="{{position}}" placeholder="请填写职位名称" />
     </view>
     <view class="btn-area">

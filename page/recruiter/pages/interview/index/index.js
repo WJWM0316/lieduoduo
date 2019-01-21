@@ -2,12 +2,15 @@ import {RECRUITER} from '../../../../../config.js'
 import { getInviteListApi, getApplyListApi, getScheduleListApi } from '../../../../../api/pages/interview.js'
 import {getPositionListApi} from '../../../../../api/pages/position.js'
 const app = getApp()
-let chooseTime = 0
+let chooseTime = parseInt(new Date().getTime() / 1000)
+let positionList = []
 Page({
   data: {
     info: {},
+    navH: app.globalData.navHeight,
     tabIndex: 0,
     identity: '',
+    hasReFresh: false,
     applyData: {
       list: [],
       pageNum: 1,
@@ -32,6 +35,9 @@ Page({
     applyIndex: 0,
     receiveIndex: 0,
     positionIndex: 0,
+    applyBottomStatus: 0,
+    receiveBottomStatus: 0,
+    interviewBottomStatus: 0,
     applyScreen: [
       {key: '所有状态', value: 0},
       {key: '我邀请的', value: 12},
@@ -79,111 +85,226 @@ Page({
     this.setData({ pageList })
   },
   bindChange(e) {
-    const params = e.currentTarget.dataset
-    const tabChildIndex = e.detail.value
-    const tabLists = this.data.tabLists
-    switch(params.type) {
-      case 'status':
-        tabLists[this.data.tabParentIndex].statusIndex = parseInt(e.detail.value)
+    let type = ''
+    let value = 0
+    switch(e.currentTarget.dataset.type) {
+      case 'applyStatus':
+        type = 'applyIndex'
+        value = parseInt(e.detail.value)
+        let applyData = {
+          list: [],
+          pageNum: 1,
+          count: 5,
+          isLastPage: false,
+          isRequire: false
+        }
+        this.setData({[type]: value, applyData})
+        this.getApplyList()
         break
-      case 'office':
-        tabLists[this.data.tabParentIndex].officeIndex = parseInt(e.detail.value)
+      case 'receiveStatus':
+        type = 'receiveIndex'
+        value = parseInt(e.detail.value)
+        let receiveData = {
+          list: [],
+          pageNum: 1,
+          count: 5,
+          isLastPage: false,
+          isRequire: false
+        }
+        this.setData({[type]: value, receiveData}, function() {
+          this.getInviteList()
+        })
         break
-      default:
+      case 'position':
+        type = 'positionIndex'
+        value = parseInt(e.detail.value)
+        let data = {}
+        let dataValue = {
+          list: [],
+          pageNum: 1,
+          count: 5,
+          isLastPage: false,
+          isRequire: false
+        }
+        if (this.data.tabIndex === 1) {
+          data = 'applyData'
+          this.setData({[type]: value, [data]: dataValue}, function() {
+            this.getApplyList()
+          })
+        } else if (this.data.tabIndex === 0) {
+          data = 'receiveData'
+          this.setData({[type]: value, [data]: dataValue}, function() {
+            this.getInviteList()
+          })
+        }
         break
     }
-    this.setData({tabLists})
   },
   getResult(e) {
-    chooseTime = e.detail.timeStamp    
+    chooseTime = e.detail.timeStamp
   },
-  /* tab切换 0:我的邀请，1：收到意向,2：面试日程*/
-  firstTab (index) {
-    if (index !== undefined) {
-      param.firstIndex = index
-      param.tab = 'all'
-    }
-    switch (param.firstIndex) {
-      case 0:
-        return getInviteListApi(param)
-        break;
-      case 1:
-        return getApplyListApi(param)
-        break;
-      case 2:
-        return getScheduleListApi(param)
-        break;
-    }
-  },
-  getApplyList() {
-    let data = this.data.applyData
+  // 我的邀请
+  getApplyList(hasLoading = true) {
+    let applyData = this.data.applyData
     let status = this.data.applyScreen[this.data.applyIndex].value
-    let positionId = this.data.positionList[this.data.positionIndex]
-    return getApplyListApi({count: data.count, page: data.pageNum, status, positionId}).then(res => {
+    let positionId = this.data.positionList[this.data.positionIndex].id
+    let applyBottomStatus = 0
+    return getApplyListApi({count: applyData.count, page: applyData.pageNum, status, positionId, hasLoading}).then(res => {
+      applyData.list = res.data
+      applyData.isRequire = true
+      if (!res.meta.nextPageUrl) {
+        applyData.isLastPage = true
+        applyBottomStatus = 2
+      }
+      this.setData({applyData, applyBottomStatus})
     })
   },
-  getInviteList() {
-    let data = this.data.receiveData
-    let status = this.data.receiveScreen[this.data.applyIndex].value
-    let positionId = this.data.positionList[this.data.positionIndex]
-    return getInviteListApi({count: data.count, page: data.pageNum, status, positionId}).then(res => {
+  // 收到意向
+  getInviteList(hasLoading = true) {
+    let receiveData = this.data.receiveData
+    let status = this.data.receiveScreen[this.data.receiveIndex].value
+    let positionId = this.data.positionList[this.data.positionIndex].id
+    let receiveBottomStatus = 0
+    return getInviteListApi({count: receiveData.count, page: receiveData.pageNum, status, positionId, hasLoading}).then(res => {
+      receiveData.list = res.data
+      receiveData.isRequire = true
+      if (!res.meta.nextPageUrl) {
+        receiveData.isLastPage = true
+        receiveBottomStatus = 2
+      }
+      this.setData({receiveData, receiveBottomStatus})
     })
   },
-  getScheduleList() {
-    let data = this.data.interviewData
-    let time = this.data.chooseTime
-    return getScheduleListApi({count: data.count, page: data.pageNum, time}).then(res => {
+  // 面试日程
+  getScheduleList(hasLoading = true) {
+    let interviewData = this.data.interviewData
+    let interviewBottomStatus = 0
+    return getScheduleListApi({count: interviewData.count, page: interviewData.pageNum, time: chooseTime, hasLoading}).then(res => {
+      interviewData.list = res.data
+      interviewData.isRequire = true
+      if (!res.meta.nextPageUrl) {
+        interviewData.isLastPage = true
+        interviewBottomStatus = 2
+      }
+      this.setData({interviewData, interviewBottomStatus})
     })
-  }
+  },
   chooseParentTab(e) {
     let index = e.currentTarget.dataset.index
     let tabIndex = this.data.tabIndex
-    if (tabIndex === index) return 
+    if (tabIndex === index) return
     let tabLists = this.data.tabLists
+    tabLists.map((item, i) => {
+      tabLists[i].active = false
+    })
     tabLists[index].active = true
     tabLists[index].showRedDot = false
+    tabIndex = index
+    this.setData({tabLists, tabIndex})
+    let data = {}
+    let dataRequire = null
     switch(index) {
       case 0:
-        let data =  this.data.applyData
+        data = this.data.receiveData
         if (!data.isRequire) {
+          this.getInviteList()
         }
+        break
+      case 1:
+        data = this.data.applyData
+        if (!data.isRequire) {
+          this.getApplyList()
+        }
+        break
+      case 2:
+        data = this.data.interviewData
+        if (!data.isRequire) {
+          this.getScheduleList()
+        }
+        break
     }
-  },
-  chooseChildTab(e) {
-    param.tab = e.currentTarget.dataset.mark
-    const params = e.currentTarget.dataset
-    const tabLists = this.data.tabLists
-    let tabChildIndex = null
-    tabLists[this.data.tabParentIndex].children.map((field, index) => {
-      tabChildIndex = params.index
-      field.active = index === params.index ? true : false
-    })
-    this.firstTab().then(res => {
-      this.setData({
-        tabLists,
-        tabChildIndex,
-        companyList: res.data
-      })
-    })
   },
   init () {
     let id = app.globalData.recruiterDetails.uid
     getPositionListApi({recruiter: id, status: 1}).then(res => {
-      let positionList = res.data
-      positionList.push({positionName: '所有职位', id: 0})
+      positionList = res.data
+      positionList.unshift({positionName: '所有职位', id: 0})
       this.setData({positionList})
+      this.getInviteList()
     })
   },
-  onLoad () {
-    this.init ()
-  },
   onShow () {
-//  console.log(wx.getStorageSync('choseType'), 999)
-//  getInviteListApi().then(res => {
-//    this.setData({
-//      identity: wx.getStorageSync('choseType'),
-//      companyList: res.data
-//    })
-//  })
+    this.init()
+  },
+  onReachBottom(e) {
+    switch(this.data.tabIndex) {
+      case 0:
+        let receiveData = this.data.receiveData
+        if (!receiveData.isLastPage) {
+          this.setData({receiveBottomStatus: 1})
+          this.getInviteList(false)
+        }
+      break
+      case 1:
+        let applyData = this.data.applyData
+        if (!applyData.isLastPage) {
+          this.setData({applyBottomStatus: 1})
+          this.getApplyList(false)
+        }
+      break
+      case 2:
+        let interviewData = this.data.interviewData
+        if (!interviewData.isLastPage) {
+          this.setData({interviewBottomStatus: 1})
+          this.getScheduleList(false)
+        }
+      break
+    }
+  },
+  onPullDownRefresh () {
+    switch(this.data.tabIndex) {
+      case 0:
+        let receiveData = {
+          list: [],
+          pageNum: 1,
+          count: 5,
+          isLastPage: false,
+          isRequire: false
+        }
+        this.setData({receiveData, receiveBottomStatus: 0, hasReFresh: true})
+        this.getInviteList(false).then(res => {
+          wx.stopPullDownRefresh()
+          this.setData({hasReFresh: false})
+        })
+      break
+      case 1:
+        let applyData = {
+          list: [],
+          pageNum: 1,
+          count: 5,
+          isLastPage: false,
+          isRequire: false
+        }
+        this.setData({applyData, applyBottomStatus: 0, hasReFresh: true})
+        this.getApplyList(false).then(res => {
+          wx.stopPullDownRefresh()
+          this.setData({hasReFresh: false})
+        })
+      break
+      case 2:
+        let interviewData = {
+          list: [],
+          pageNum: 1,
+          count: 5,
+          isLastPage: false,
+          isRequire: false
+        }
+        this.setData({interviewData, interviewBottomStatus: 0, hasReFresh: true})
+        this.getScheduleList(false).then(res => {
+          wx.stopPullDownRefresh()
+          this.setData({hasReFresh: false})
+        })
+      break
+    }
   }
 })

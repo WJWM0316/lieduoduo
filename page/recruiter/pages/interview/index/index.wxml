@@ -1,6 +1,10 @@
 <view class="recruiter-interview">
 	<navbar title="面试"></navbar>
-	<view class="interview-tab-bar">
+	<view hidden="{{!hasReFresh}}">
+		<refreshStatus></refreshStatus>
+	</view>
+	<view style="height: 98rpx"></view>
+	<view class="interview-tab-bar" style="top: {{navH}}px">
 		<view
 			class="li {{tab.active ? 'active' : ''}} {{tab.showRedDot ? 'red-dot' : ''}}"
 			bindtap="chooseParentTab"
@@ -11,9 +15,7 @@
 			wx:key="{{tab.id}}">
 				<view class="span">{{tab.text}}</view>
 		</view>
-		<view class="li"></view>
 	</view>
-	<myCalendar wx:if="{{tabParentIndex === 2}}" calendarType="roll" setDateList="{{dateList}}" switchable bindresultEvent="getResult"></myCalendar>
 	<view class="interview-page-title" wx:if="{{tabParentIndex === 2}}">
 		<view class="text">面试安排(0)</view>
 		<view class="button" bindtap="jumpInterviewPage">面试历史</view> 
@@ -21,42 +23,46 @@
 	<view hidden="{{tabIndex !== 0}}">
 		<view class="select-box">
 			<view class="item">
-				<picker range="{{applyScreen}}" range-key="key" bindchange="bindChange" data-type="status" value="{{applyIndex}}">
-			    <view class="picker">{{applyScreen[applyIndex].key}}</view>
-			    <i class="icon iconfont icon-zhishibiao"></i>
-			  </picker>
-			</view>
-			<view class="item">
-				<picker range="{{positionList}}" range-key="positionName" bindchange="bindChange" data-type="office" value="{{positionIndex}}">
-			    <view class="picker">{{positionList[positionIndex].positionName}}</view>
-			    <i class="icon iconfont icon-zhishibiao"></i>
-			  </picker>
-			</view>
-		</view>
-		<commonList list="{{companyList}}" identity="{{identity}}" dotType="{{'circle'}}">
-		</commonList>
-	</view>
-	<view hidden="{{tabIndex !== 1}}">
-		<view class="select-box">
-			<view class="item">
-				<picker range="{{applyScreen}}" range-key="key" bindchange="bindChange" data-type="status" value="{{applyIndex}}">
+				<picker range="{{receiveScreen}}" range-key="key" bindchange="bindChange" data-type="receiveStatus" value="{{receiveIndex}}">
 			    <view class="picker">{{receiveScreen[receiveIndex].key}}</view>
 			    <i class="icon iconfont icon-zhishibiao"></i>
 			  </picker>
 			</view>
 			<view class="item">
-				<picker range="{{positionList}}" range-key="positionName" bindchange="bindChange" data-type="office" value="{{positionIndex}}">
+				<picker range="{{positionList}}" range-key="positionName" bindchange="bindChange" data-type="position" value="{{positionIndex}}">
 			    <view class="picker">{{positionList[positionIndex].positionName}}</view>
 			    <i class="icon iconfont icon-zhishibiao"></i>
 			  </picker>
 			</view>
 		</view>
-		<commonList list="{{companyList}}" identity="{{identity}}" dotType="{{'circle'}}">
+		<commonList list="{{receiveData.list}}" identity="{{identity}}" dotType="{{'circle'}}">
 		</commonList>
+		<bottomStatus status="{{applyBottomStatus}}"></bottomStatus>
+	</view>
+	<view hidden="{{tabIndex !== 1}}">
+		<view class="select-box">
+			<view class="item">
+				<picker range="{{applyScreen}}" range-key="key" bindchange="bindChange" data-type="applyStatus" value="{{applyIndex}}">
+			    <view class="picker">{{applyScreen[applyIndex].key}}</view>
+			    <i class="icon iconfont icon-zhishibiao"></i>
+			  </picker>
+			</view>
+			<view class="item">
+				<picker range="{{positionList}}" range-key="positionName" bindchange="bindChange" data-type="position" value="{{positionIndex}}">
+			    <view class="picker">{{positionList[positionIndex].positionName}}</view>
+			    <i class="icon iconfont icon-zhishibiao"></i>
+			  </picker>
+			</view>
+		</view>
+		<commonList list="{{applyData.list}}" identity="{{identity}}" dotType="{{'circle'}}">
+		</commonList>
+		<bottomStatus status="{{receiveBottomStatus}}"></bottomStatus>
 	</view>
 	<view hidden="{{tabIndex !== 2}}">
-		<commonList list="{{companyList}}" identity="{{identity}}" dotType="{{'circle'}}">
+		<myCalendar calendarType="roll" setDateList="{{dateList}}" switchable bindresultEvent="getResult"></myCalendar>
+		<commonList list="{{interviewData.list}}" identity="{{identity}}" dotType="{{'circle'}}">
 		</commonList>
+		<bottomStatus status="{{interviewBottomStatus}}"></bottomStatus>
 	</view>
   <tab-bar tabType="1"></tab-bar>
 </view>

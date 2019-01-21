@@ -1,13 +1,10 @@
-// components/layout/bottomStatus/bottomStatus.js
+// components/layout/refreshStatus/refreshStatus.js
 Component({
   /**
    * 组件的属性列表
    */
   properties: {
-    status: {
-      type: Number,
-      value: 0  // 0 不存在 1 正在加载  2 没有更多数据
-    }
+
   },
 
   /**

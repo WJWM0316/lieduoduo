@@ -55,6 +55,7 @@ Component({
     let systemInfo = getApp().globalData.systemInfo
     itemWidth = 0.14285 * systemInfo.windowWidth
     let scrollLeft = itemWidth * (curDay - 3)
+    console.log(scrollLeft, 111111)
     if (this.data.switchable || this.data.calendarType === 'roll') {
       this.setData({list, scrollLeft, choseDate: this.data.curDate})
     } else {

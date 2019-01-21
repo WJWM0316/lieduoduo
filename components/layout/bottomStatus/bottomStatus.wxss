@@ -7,3 +7,9 @@
 	line-height: 60rpx;
 	display: block;
 }
+.loading {
+	width: 68rpx;
+	height: 24rpx;
+	display: block;
+	margin: 0 auto;
+}

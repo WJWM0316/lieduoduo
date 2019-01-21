@@ -3,7 +3,7 @@
   overflow: hidden;
   padding: 0 30rpx;
   margin-bottom: 18rpx;
-  margin-top: 122rpx;
+  margin-top: 24rpx;
 }
 
 .office-manager-list .li {
