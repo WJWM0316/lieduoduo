@@ -11,9 +11,9 @@
 			<view class="li {{pageList === 'interested-me' ? 'active' : ''}}" bindtap="changeCompanyLists" data-page-list="interested-me">对我感兴趣</view>
 			<view class="li {{pageList === 'my-loved' ? 'active' : ''}}" bindtap="changeCompanyLists" data-page-list="my-loved">我感兴趣的</view>
 		</view>
-		<commonList list="{{browseMySelfLists}}" identity="{{identity}}" wx:if="{{pageList === 'seen-me'}}"></commonList>
-		<commonList list="{{collectMyList}}" identity="{{identity}}" isCollect="{{true}}" wx:if="{{pageList === 'interested-me'}}"></commonList>
-		<commonList list="{{mapyCollectUser}}" showFooter="{{false}}" identity="{{identity}}" wx:if="{{pageList === 'my-loved'}}"></commonList>
+		<commonList list="{{browseMySelf.list}}" identity="{{identity}}" wx:if="{{pageList === 'seen-me'}}"></commonList>
+		<commonList list="{{collectMySelf.list}}" identity="{{identity}}" isCollect="{{true}}" wx:if="{{pageList === 'interested-me'}}"></commonList>
+		<commonList list="{{collectUsers.list}}" showFooter="{{false}}" identity="{{identity}}" wx:if="{{pageList === 'my-loved'}}"></commonList>
 	</view>
   <tabBar tabType="1"></tabBar>
 </view>

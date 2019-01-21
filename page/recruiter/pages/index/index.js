@@ -38,17 +38,17 @@ Page({
       isLastPage: false,
       isRequire: false
     },
-    pageCount: app.globalData.pageCount,
+    // pageCount: app.globalData.pageCount,
+    pageCount: 5,
     hasReFresh: false,
     onBottomStatus: 0
   },
   onLoad() {
-    getBrowseMySelfApi()
-      .then(res => {
-        this.setData({browseMySelfLists: res.data})
-      })
-    app.pageInit = () => {}
-    this.getCollectMySelf()
+    // getBrowseMySelfApi()
+    //   .then(res => {
+    //     this.setData({browseMySelfLists: res.data})
+    //   })
+    this.getLists()
   },
   toggle (tabName) {
     switch (tabName) {
@@ -60,6 +60,25 @@ Page({
         break;
       case 'my-loved':
         return getMyCollectUsersApi()
+        break;
+    }
+  },
+  /**
+   * @Author   小书包
+   * @DateTime 2019-01-21
+   * @detail   获取列表数据
+   * @return   {[type]}   [description]
+   */
+  getLists() {
+    switch(this.data.pageList) {
+      case 'seen-me':
+        this.getBrowseMySelf()
+        break;
+      case 'interested-me':
+        return getCollectMySelf()
+        break;
+      case 'my-loved':
+        return getMyCollectUsers()
         break;
     }
   },
@@ -141,5 +160,37 @@ Page({
         this.setData({mapyCollectUser: res.data})
       }
     })
+  },
+  /**
+   * @Author   小书包
+   * @DateTime 2019-01-21
+   * @detail   下拉重新获取数据
+   * @return   {[type]}              [description]
+   */
+  onPullDownRefresh(hasLoading = true) {
+    const browseMySelf = {list: [], pageNum: 1, isLastPage: false, isRequire: false}
+    this.setData({browseMySelf, hasReFresh: true})
+    this.getBrowseMySelf()
+        .then(res => {
+          const browseMySelf = {list: [], pageNum: 1, isLastPage: false, isRequire: false}
+          browseMySelf.list = res.data
+          browseMySelf.isLastPage = res.meta.nextPageUrl ? false : true
+          browseMySelf.pageNum = 2
+          browseMySelf.isRequire = true
+          const onBottomStatus = res.meta.nextPageUrl ? 0 : 2
+          this.setData({browseMySelf, onBottomStatus}, () => {
+            wx.stopPullDownRefresh()
+            this.setData({hasReFresh: false})
+          })
+        })
+  },
+  /**
+   * @Author   小书包
+   * @DateTime 2019-01-21
+   * @detail   触底加载数据
+   * @return   {[type]}   [description]
+   */
+  onReachBottom() {
+    this.getBrowseMySelf()
   }
 })

@@ -57,6 +57,9 @@ Page({
       case 'applyIdentity':
         wx.reLaunch({url: `${RECRUITER}user/company/identity/identity?type=apply`})
         break
+      case 'modifyAddIdentity':
+        wx.reLaunch({url: `${RECRUITER}user/company/identity/identity?type=apply&action=edit`})
+        break
       case 'perfect':
         wx.reLaunch({url: `${RECRUITER}company/baseEdit/baseEdit`})
         break

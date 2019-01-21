@@ -200,7 +200,7 @@
 	</block>
 	<block wx:if="{{options.from === 'apply' && identityInfos.applyJoin}}">
 		<view class="div">
-			<view class="box" bindtap="todoAction" data-action="applyIdentity">
+			<view class="box" bindtap="todoAction" data-action="{{!identityInfos.passportFrontInfo.id ? 'applyIdentity' : 'modifyAddIdentity'}}">
 				<i class="icon iconfont icon-bianji label-icon"></i>
 				认证个人身份
 				<i class="icon iconfont icon-xiangyou"></i>
