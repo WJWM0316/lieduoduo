@@ -13,13 +13,8 @@ const app = getApp()
 
 Page({
   data: {
-    pageList: 'seen-me',
-    companyList: [],
-    collectMyList: [],
+    pageList: 'browseMySelf',
     cdnImagePath: app.globalData.cdnImagePath,
-    browseMySelfLists: [], //看过我的
-    mapyCollectUser: [], // 我收藏的求职者列表
-    identity: 'RECRUITER',
     browseMySelf: {
       list: [],
       pageNum: 1,
@@ -39,29 +34,12 @@ Page({
       isRequire: false
     },
     // pageCount: app.globalData.pageCount,
-    pageCount: 5,
+    pageCount: 6,
     hasReFresh: false,
     onBottomStatus: 0
   },
   onLoad() {
-    // getBrowseMySelfApi()
-    //   .then(res => {
-    //     this.setData({browseMySelfLists: res.data})
-    //   })
     this.getLists()
-  },
-  toggle (tabName) {
-    switch (tabName) {
-      case 'seen-me':
-        return getBrowseMySelfApi()
-        break;
-      case 'interested-me':
-        return getCollectMySelfApi()
-        break;
-      case 'my-loved':
-        return getMyCollectUsersApi()
-        break;
-    }
   },
   /**
    * @Author   小书包
@@ -71,14 +49,23 @@ Page({
    */
   getLists() {
     switch(this.data.pageList) {
-      case 'seen-me':
+      case 'browseMySelf':
+        // if(!this.data.browseMySelf.list.length) {
+        //   this.getBrowseMySelf()
+        // }
         this.getBrowseMySelf()
         break;
-      case 'interested-me':
-        return getCollectMySelf()
+      case 'collectMySelf':
+        // if(!this.data.collectMySelf.list.length) {
+        //   this.getCollectMySelf()
+        // }
+        this.getCollectMySelf()
         break;
-      case 'my-loved':
-        return getMyCollectUsers()
+      case 'collectUsers':
+        // if(!this.data.collectUsers.list.length) {
+        //   this.getMyCollectUsers()
+        // }
+        this.getMyCollectUsers()
         break;
     }
   },
@@ -93,14 +80,14 @@ Page({
       const params = {count: this.data.pageCount, page: this.data.browseMySelf.pageNum, hasLoading}
       getBrowseMySelfApi(params)
         .then(res => {
-          const browseMySelf = {list: [], pageNum: 1, isLastPage: false, isRequire: false}
+          const browseMySelf = this.data.browseMySelf
+          const onBottomStatus = res.meta.nextPageUrl ? 0 : 2
           browseMySelf.list = browseMySelf.list.concat(res.data)
           browseMySelf.isLastPage = res.meta.nextPageUrl ? false : true
           browseMySelf.pageNum = browseMySelf.pageNum + 1
-          browseMySelf.isRequire = true
-          const onBottomStatus = res.meta.nextPageUrl ? 0 : 2
-          this.setData({browseMySelf, onBottomStatus})
-          resolve(res)
+          browseMySelf.isRequire = false
+          this.setData({browseMySelf, onBottomStatus}, () => resolve(res))
+          console.log(browseMySelf)
         })
     })
   },
@@ -115,14 +102,13 @@ Page({
       const params = {count: this.data.pageCount, page: this.data.collectMySelf.pageNum, hasLoading}
       getCollectMySelfApi(params)
         .then(res => {
-          const collectMySelf = {list: [], pageNum: 1, isLastPage: false, isRequire: false}
+          const collectMySelf = this.data.collectMySelf
+          const onBottomStatus = res.meta.nextPageUrl ? 0 : 2
           collectMySelf.list = collectMySelf.list.concat(res.data)
           collectMySelf.isLastPage = res.meta.nextPageUrl ? false : true
           collectMySelf.pageNum = collectMySelf.pageNum + 1
-          collectMySelf.isRequire = true
-          const onBottomStatus = res.meta.nextPageUrl ? 0 : 2
-          this.setData({collectMySelf, onBottomStatus})
-          resolve(res)
+          collectMySelf.isRequire = false
+          this.setData({collectMySelf, onBottomStatus}, () => resolve(res))
         })
     })
   },
@@ -137,28 +123,21 @@ Page({
       const params = {count: this.data.pageCount, page: this.data.collectUsers.pageNum, hasLoading}
       getMyCollectUsersApi(params)
         .then(res => {
-          const collectUsers = {list: [], pageNum: 1, isLastPage: false, isRequire: false}
+          const collectUsers = this.data.collectUsers
+          const onBottomStatus = res.meta.nextPageUrl ? 0 : 2
           collectUsers.list = collectUsers.list.concat(res.data)
           collectUsers.isLastPage = res.meta.nextPageUrl ? false : true
           collectUsers.pageNum = collectUsers.pageNum + 1
-          collectUsers.isRequire = true
-          const onBottomStatus = res.meta.nextPageUrl ? 0 : 2
-          this.setData({collectUsers, onBottomStatus})
-          resolve(res)
+          collectUsers.isRequire = false
+          this.setData({collectUsers, onBottomStatus}, () => resolve(res))
         })
     })
   },
-  changeCompanyLists(e) {
-    let pageList = e.currentTarget.dataset.pageList
-    this.setData({ pageList })
-    this.toggle(pageList).then(res => {
-      if (pageList === "seen-me") {
-        this.setData({browseMySelfLists: res.data})
-      } else if (pageList === "interested-me") {
-        this.setData({collectMyList: res.data})
-      } else {
-        this.setData({mapyCollectUser: res.data})
-      }
+  ontabClick(e) {
+    let pageList = e.currentTarget.dataset.key
+    this.setData({pageList}, () => {
+      const key = this.data.pageList
+      if(!this.data[key].list.length) this.getLists()
     })
   },
   /**
@@ -168,17 +147,18 @@ Page({
    * @return   {[type]}              [description]
    */
   onPullDownRefresh(hasLoading = true) {
-    const browseMySelf = {list: [], pageNum: 1, isLastPage: false, isRequire: false}
-    this.setData({browseMySelf, hasReFresh: true})
+    const key = this.data.pageList
+    const value = {list: [], pageNum: 1, isLastPage: false, isRequire: false}
+    this.setData({[key]: value, hasReFresh: true})
     this.getBrowseMySelf()
         .then(res => {
-          const browseMySelf = {list: [], pageNum: 1, isLastPage: false, isRequire: false}
-          browseMySelf.list = res.data
-          browseMySelf.isLastPage = res.meta.nextPageUrl ? false : true
-          browseMySelf.pageNum = 2
-          browseMySelf.isRequire = true
+          const value = {list: [], pageNum: 1, isLastPage: false, isRequire: false}
           const onBottomStatus = res.meta.nextPageUrl ? 0 : 2
-          this.setData({browseMySelf, onBottomStatus}, () => {
+          value.list = res.data
+          value.isLastPage = res.meta.nextPageUrl ? false : true
+          value.pageNum = 1
+          value.isRequire = true
+          this.setData({[key]: value, onBottomStatus}, () => {
             wx.stopPullDownRefresh()
             this.setData({hasReFresh: false})
           })
@@ -191,6 +171,10 @@ Page({
    * @return   {[type]}   [description]
    */
   onReachBottom() {
-    this.getBrowseMySelf()
+    const key = this.data.pageList
+    if (!this.data[key].isLastPage) {
+      this.setData({onBottomStatus: 1})
+      this.getLists(false)
+    }
   }
 })

@@ -7,13 +7,13 @@
 	</view>
 	<view class="index-list-box">
 		<view class="ul-tab-bar">
-			<view class="li {{pageList === 'seen-me' ? 'active' : ''}}" bindtap="changeCompanyLists" data-page-list="seen-me">看过我的</view>
-			<view class="li {{pageList === 'interested-me' ? 'active' : ''}}" bindtap="changeCompanyLists" data-page-list="interested-me">对我感兴趣</view>
-			<view class="li {{pageList === 'my-loved' ? 'active' : ''}}" bindtap="changeCompanyLists" data-page-list="my-loved">我感兴趣的</view>
+			<view class="li {{pageList === 'browseMySelf' ? 'active' : ''}}" bindtap="ontabClick" data-key="browseMySelf">看过我的</view>
+			<view class="li {{pageList === 'collectMySelf' ? 'active' : ''}}" bindtap="ontabClick" data-key="collectMySelf">对我感兴趣</view>
+			<view class="li {{pageList === 'collectUsers' ? 'active' : ''}}" bindtap="ontabClick" data-key="collectUsers">我感兴趣的</view>
 		</view>
-		<commonList list="{{browseMySelf.list}}" identity="{{identity}}" wx:if="{{pageList === 'seen-me'}}"></commonList>
-		<commonList list="{{collectMySelf.list}}" identity="{{identity}}" isCollect="{{true}}" wx:if="{{pageList === 'interested-me'}}"></commonList>
-		<commonList list="{{collectUsers.list}}" showFooter="{{false}}" identity="{{identity}}" wx:if="{{pageList === 'my-loved'}}"></commonList>
+		<commonList list="{{browseMySelf.list}}" identity="RECRUITER" wx:if="{{pageList === 'browseMySelf'}}"></commonList>
+		<commonList list="{{collectMySelf.list}}" identity="RECRUITER" isCollect="{{true}}" wx:if="{{pageList === 'collectMySelf'}}"></commonList>
+		<commonList list="{{collectUsers.list}}" showFooter="{{false}}" identity="RECRUITER" wx:if="{{pageList === 'collectUsers'}}"></commonList>
 	</view>
   <tabBar tabType="1"></tabBar>
 </view>
