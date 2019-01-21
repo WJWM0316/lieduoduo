@@ -52,12 +52,8 @@ Component({
   },
   attached () {
     let list = this.getThisMonthDays(curYear, curMonth)
-    let systemInfo = getApp().globalData.systemInfo
-    itemWidth = 0.14285 * systemInfo.windowWidth
-    let scrollLeft = itemWidth * (curDay - 3)
-    console.log(scrollLeft, 111111)
     if (this.data.switchable || this.data.calendarType === 'roll') {
-      this.setData({list, scrollLeft, choseDate: this.data.curDate})
+      this.setData({list, choseDate: this.data.curDate})
     } else {
       this.setData({choseDate: this.data.curDate})
     }
@@ -65,7 +61,13 @@ Component({
   /**
    * 组件的方法列表
    */
-  methods: {   
+  methods: {
+    scrollLeft() {
+      let systemInfo = getApp().globalData.systemInfo
+      itemWidth = 0.14285 * systemInfo.windowWidth
+      let scrollLeft = itemWidth * (curDay - 3)
+      this.setData({scrollLeft})
+    },
     toggle (e) {
       if (!this.data.isClick) return
       let { year, month, days } = e.currentTarget.dataset

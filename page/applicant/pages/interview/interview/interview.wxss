@@ -65,40 +65,37 @@
 	line-height: 88rpx;
 	height:88rpx;
 	background:rgba(255,255,255,1);
-	box-shadow:0px 11rpx 30rpx 0rpx rgba(153,193,214,0.08);
-	margin-bottom: 34rpx;
+	box-shadow:0rpx 11rpx 30rpx 0rpx rgba(153,193,214,0.08);
 	position: relative;
 	overflow: hidden;
 }
 
 .tab-tab-list .ul {
+	width: 100%;
+	height: 88rpx;
+	padding: 0 30rpx;
 	display: flex;
-	overflow: hidden;
-	overflow-x: scroll;
-	padding: 17rpx;
-}
-
-.tab-tab-list .ul::-webkit-scrollbar{
-	width: 0;
-	height: 0;
-	color: transparent;
+	align-items: center;
+	box-sizing: border-box;
 }
 
 .tab-tab-list .item {
+	flex: 1;
 	display: inline-block;
 	font-size:26rpx;
 	font-weight:400;
 	color:rgba(40,40,40,1);
 	text-align: center;
-	margin-left: 45rpx;
-	padding: 0 20rpx;
 	line-height: 54rpx;
 	vertical-align: middle;
 	border-radius: 27rpx;
 	white-space: nowrap;
 	position: relative;
+	padding: 0 21rpx;
 }
-
+.common-lits-ul {
+	margin-top: 18rpx;
+}
 .tab-tab-list .active {
 	background: #E4EEFF;
 	font-weight:500;
@@ -147,4 +144,5 @@
 }
 .list{
   padding: 0 30rpx;
+  margin-top: 18rpx;
 }

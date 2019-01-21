@@ -70,8 +70,8 @@
 
 .recruiter-index .ul-tab-bar .active {
   font-weight:500;
-  color:rgba(40,120,255,1);
-  background: rgba(228,238,255,1);
+  color: #652791;
+  background: #652791;
   pointer-events: none;
 }
 
@@ -166,7 +166,7 @@
   margin-right: 16rpx;
   font-size:26rpx;
   font-weight:500;
-  color:rgba(40,120,255,1);
+  color: #652791;
   position: relative;
 }
 

@@ -130,7 +130,7 @@
 	color:#652791;
 	width:246rpx;
 	background:rgba(239,233,244,1);
-	border-radius:44px;
+	border-radius:44rpx;
 	margin: 10rpx 30rpx 10rpx 60rpx;
 }
 

@@ -4,34 +4,21 @@ import {getPositionListApi} from '../../../../../api/pages/position.js'
 const app = getApp()
 let chooseTime = parseInt(new Date().getTime() / 1000)
 let positionList = []
+let initData = {
+  list: [],
+  pageNum: 1,
+  count: 5,
+  isLastPage: false,
+  isRequire: false
+}
 Page({
   data: {
-    info: {},
     navH: app.globalData.navHeight,
     tabIndex: 0,
-    identity: '',
     hasReFresh: false,
-    applyData: {
-      list: [],
-      pageNum: 1,
-      count: 5,
-      isLastPage: false,
-      isRequire: false
-    },
-    receiveData: {
-      list: [],
-      pageNum: 1,
-      count: 5,
-      isLastPage: false,
-      isRequire: false
-    },
-    interviewData: {
-      list: [],
-      pageNum: 1,
-      count: 5,
-      isLastPage: false,
-      isRequire: false
-    },
+    applyData: initData,
+    receiveData: initData,
+    interviewData: initData,
     applyIndex: 0,
     receiveIndex: 0,
     positionIndex: 0,
@@ -80,10 +67,6 @@ Page({
       url: `${RECRUITER}interview/history/history`
     })
   },
-  changeCompanyLists(e) {
-    let pageList = e.currentTarget.dataset.pageList
-    this.setData({ pageList })
-  },
   bindChange(e) {
     let type = ''
     let value = 0
@@ -91,26 +74,14 @@ Page({
       case 'applyStatus':
         type = 'applyIndex'
         value = parseInt(e.detail.value)
-        let applyData = {
-          list: [],
-          pageNum: 1,
-          count: 5,
-          isLastPage: false,
-          isRequire: false
-        }
+        let applyData = initData
         this.setData({[type]: value, applyData})
         this.getApplyList()
         break
       case 'receiveStatus':
         type = 'receiveIndex'
         value = parseInt(e.detail.value)
-        let receiveData = {
-          list: [],
-          pageNum: 1,
-          count: 5,
-          isLastPage: false,
-          isRequire: false
-        }
+        let receiveData = initData
         this.setData({[type]: value, receiveData}, function() {
           this.getInviteList()
         })
@@ -119,13 +90,7 @@ Page({
         type = 'positionIndex'
         value = parseInt(e.detail.value)
         let data = {}
-        let dataValue = {
-          list: [],
-          pageNum: 1,
-          count: 5,
-          isLastPage: false,
-          isRequire: false
-        }
+        let dataValue = initData
         if (this.data.tabIndex === 1) {
           data = 'applyData'
           this.setData({[type]: value, [data]: dataValue}, function() {
@@ -202,7 +167,6 @@ Page({
     tabIndex = index
     this.setData({tabLists, tabIndex})
     let data = {}
-    let dataRequire = null
     switch(index) {
       case 0:
         data = this.data.receiveData
@@ -219,6 +183,7 @@ Page({
       case 2:
         data = this.data.interviewData
         if (!data.isRequire) {
+          this.selectComponent('#myCalendar').scrollLeft()
           this.getScheduleList()
         }
         break
@@ -264,13 +229,7 @@ Page({
   onPullDownRefresh () {
     switch(this.data.tabIndex) {
       case 0:
-        let receiveData = {
-          list: [],
-          pageNum: 1,
-          count: 5,
-          isLastPage: false,
-          isRequire: false
-        }
+        let receiveData = initData
         this.setData({receiveData, receiveBottomStatus: 0, hasReFresh: true})
         this.getInviteList(false).then(res => {
           wx.stopPullDownRefresh()
@@ -278,13 +237,7 @@ Page({
         })
       break
       case 1:
-        let applyData = {
-          list: [],
-          pageNum: 1,
-          count: 5,
-          isLastPage: false,
-          isRequire: false
-        }
+        let applyData = initData
         this.setData({applyData, applyBottomStatus: 0, hasReFresh: true})
         this.getApplyList(false).then(res => {
           wx.stopPullDownRefresh()
@@ -292,13 +245,7 @@ Page({
         })
       break
       case 2:
-        let interviewData = {
-          list: [],
-          pageNum: 1,
-          count: 5,
-          isLastPage: false,
-          isRequire: false
-        }
+        let interviewData = initData
         this.setData({interviewData, interviewBottomStatus: 0, hasReFresh: true})
         this.getScheduleList(false).then(res => {
           wx.stopPullDownRefresh()

@@ -59,7 +59,7 @@
 		<bottomStatus status="{{receiveBottomStatus}}"></bottomStatus>
 	</view>
 	<view hidden="{{tabIndex !== 2}}">
-		<myCalendar calendarType="roll" setDateList="{{dateList}}" switchable bindresultEvent="getResult"></myCalendar>
+		<myCalendar id="myCalendar" calendarType="roll" setDateList="{{dateList}}" switchable bindresultEvent="getResult"></myCalendar>
 		<commonList list="{{interviewData.list}}" identity="{{identity}}" dotType="{{'circle'}}">
 		</commonList>
 		<bottomStatus status="{{interviewBottomStatus}}"></bottomStatus>

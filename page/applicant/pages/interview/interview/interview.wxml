@@ -1,5 +1,8 @@
 <view class="applicant-interview">
 	<navbar title="猎多多"  background="#652791" color="#fff"></navbar>
+	<view hidden="{{!hasReFresh}}">
+		<refreshStatus></refreshStatus>
+	</view>
 	<view class="interview-tab-bar">
 		<view
 			class="li {{tab.active ? 'active' : ''}} {{tab.showRedDot ? 'red-dot' : ''}}"
@@ -12,24 +15,41 @@
 				<view class="span">{{tab.text}}</view>
 		</view>
 	</view>
-	<view class="tab-tab-list" wx:if="{{tabParentIndex !== 2}}">
-		<view class="ul">
-			<view
-				class="item {{tab.active ? 'active' : ''}} {{tab.showRedDot ? 're  d-dot' : ''}}"
-				bindtap="chooseChildTab"
-				data-mark="{{tab.id}}"
-				wx:for="{{tabLists[tabParentIndex].children}}"
-				wx:for-item="tab"
-				data-index="{{index}}"
-				wx:key="{{tab.id}}">
-					<view class="span">{{tab.text}}</view>
+
+	<view hidden="{{tabIndex !== 0}}">
+		<view class="tab-tab-list">
+			<view class="ul">
+				<view
+				 	wx:for="{{applyScreen}}" 
+				 	wx:key="{{index}}"
+					class="item {{item.active ? 'active' : ''}} {{item.showRedDot ? 'red-dot' : ''}}"
+					bindtap="chooseItem"
+					data-index="{{index}}"
+					>
+						<view class="span">{{item.key}}</view>
+				</view>
 			</view>
 		</view>
+		<commonList personality="list" list="{{applyData.list}}" list-type="default"></commonList>
 	</view>
-	<myCalendar wx:if="{{tabParentIndex === 2}}" calendarType="roll" setDateList="{{dateList}}" switchable bindresultEvent="getResult"></myCalendar>
-	<!--<view class="interview-page-title" wx:if="{{tabParentIndex === 2}}">
-		<view class="text">面试安排(0)</view>
-		<view class="button" bindtap="toHistory">面试历史</view>
-	</view>-->
-  <commonList personality="list" list="{{companyList}}" list-type="{{tabParentIndex === 2 ? 'interview' : 'default'}}"></commonList>
+	<view hidden="{{tabIndex !== 1}}">
+		<view class="tab-tab-list">
+			<view class="ul">
+				<view
+				 	wx:for="{{receiveScreen}}" 
+				 	wx:key="{{index}}"
+					class="item {{item.active ? 'active' : ''}} {{item.showRedDot ? 'red-dot' : ''}}"
+					bindtap="chooseItem"
+					data-index="{{index}}"
+					>
+						<view class="span">{{item.key}}</view>
+				</view>
+			</view>
+		</view>
+		<commonList personality="list" list="{{receiveData.list}}" list-type="default"></commonList>
+	</view>
+	<view hidden="{{tabIndex !== 2}}">
+		<myCalendar id="myCalendar" calendarType="roll" setDateList="{{dateList}}" switchable bindresultEvent="getResult"></myCalendar>
+		<commonList personality="list" list="{{interviewData.list}}" list-type="interview}}"></commonList>
+	</view>
 </view>

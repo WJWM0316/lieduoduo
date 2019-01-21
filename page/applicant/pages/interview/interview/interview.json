@@ -1,4 +1,5 @@
 {
+	"enablePullDownRefresh": true,
   "usingComponents": {
     "commonList": "../../../../components/business/commonList/commonList",
     "navbar": "../../../../components/business/navbar/navbar",

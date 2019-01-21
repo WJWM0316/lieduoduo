@@ -165,7 +165,7 @@
 }
 .calendar-body .day .inner.choseDate {
   border-radius: 50%;
-  background: #2878FF;
+  background: #652791;
   color: #fff;
   box-shadow: 0px 10rpx 18rpx 0px rgba(40,120,255,0.3)
 }
