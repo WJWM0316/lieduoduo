@@ -1,5 +1,8 @@
 <view class="chooseTopic">
 	<navBar title="添加招聘宣言" background="#fff" color="#22292C"></navBar>
+	<view hidden="{{!hasReFresh}}">
+		<refreshStatus></refreshStatus>
+	</view>
 	<view class="list">
 		<view class="item" wx:for="{{list}}" wx:key="{{index}}">
 			<view class="topic">

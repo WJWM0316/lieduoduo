@@ -2,6 +2,9 @@
 	<view class="index-bannar">
 		<image src="{{cdnImagePath}}bg_homepageh.png"></image>
 	</view>
+	<view hidden="{{!hasReFresh}}">
+		<refreshStatus></refreshStatus>
+	</view>
 	<view class="index-list-box">
 		<view class="ul-tab-bar">
 			<view class="li {{pageList === 'seen-me' ? 'active' : ''}}" bindtap="changeCompanyLists" data-page-list="seen-me">看过我的</view>
