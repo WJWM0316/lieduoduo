@@ -161,8 +161,7 @@ Page({
    */
   editApplyCompany(companyId) {
     const storage = wx.getStorageSync('createdCompany')
-    let id = this.data.selectId
-    if(!id) id = companyId
+    let id = storage.applyId || this.data.selectId
     const params = {
       id,
       real_name: storage.real_name,

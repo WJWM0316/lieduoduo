@@ -55,7 +55,8 @@ App({
     companyInfo: {}, // 公司信息
     resumeInfo: {}, // 个人简历信息
     recruiterDetails: {}, // 招聘官详情信息
-    systemInfo: wx.getSystemInfoSync() // 系统信息
+    systemInfo: wx.getSystemInfoSync(), // 系统信息
+    pageCount: 20, // 分页的大小
   },
   // 获取最全的角色信息
   getAllInfo() {

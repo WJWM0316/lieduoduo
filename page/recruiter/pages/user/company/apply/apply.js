@@ -12,6 +12,7 @@ Page({
     user_email: '',
     user_position: '',
     canClick: false,
+    applyId: null,
     options: {
       type: 'create'
     },
@@ -69,6 +70,7 @@ Page({
           selected_employees: true,
           business_license: infos.businessLicenseInfo,
           on_job: infos.onJobInfo,
+          applyId: infos.applyId,
           canClick: true
         }
         wx.setStorageSync('createdCompany', formData)
