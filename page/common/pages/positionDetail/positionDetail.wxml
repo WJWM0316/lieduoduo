@@ -48,7 +48,7 @@
 			</view>
 			<view class="content">
 				<view class="company-name">{{detail.recruiterInfo.companyName}}</view>
-				<view class="infos">移动互联网 · B论 · 20-99人</view>
+				<view class="infos">{{detail.recruiterInfo.industry}} · {{detail.recruiterInfo.financingInfo}} · {{detail.recruiterInfo.employeesInfo}}</view>
 			</view>
 			<view class="right">
 				<i class="icon iconfont icon-xiangyou"></i>

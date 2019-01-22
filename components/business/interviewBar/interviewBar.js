@@ -59,23 +59,30 @@ Component({
       switch(this.data.type) {
         case 'position':
           currentPage = 'positionDetail'
-          let randomIndex1 = this.getRandomNum(0, infos.recruiterInfo.manifestos.length)
-          infos.recruiterInfo.manifestosText = infos.recruiterInfo.manifestos[randomIndex1].content
+          if(infos.recruiterInfo.manifestos.length) {
+            let randomIndex1 = this.getRandomNum(0, infos.recruiterInfo.manifestos.length)
+            infos.recruiterInfo.manifestosText = infos.recruiterInfo.manifestos[randomIndex1].content
+          } else {
+            infos.recruiterInfo.manifestosText = ''
+          }
           break
         case 'resume':
           currentPage = 'resumeDetail'
           break
         case 'recruiter':
           currentPage = 'recruiterDetail'
-          let randomIndex2 = this.getRandomNum(0, infos.manifestos.length)
-          infos.manifestosText = infos.manifestos[randomIndex2].content
+          if(infos.manifestos.length) {
+            let randomIndex2 = this.getRandomNum(0, infos.manifestos.length)
+            infos.manifestosText = infos.manifestos[randomIndex2].content
+          } else {
+            infos.manifestosText = ''
+          }
           break
         default:
           currentPage = ''
           break
       }
       this.setData({currentPage, infos})
-      console.log(infos)
     },
     /**
      * @Author   小书包
@@ -274,6 +281,9 @@ Component({
           break
         case 'recruiter-arrangement':
           wx.navigateTo({url: `${COMMON}arrangement/arrangement?id=${interviewInfos.data[0].interviewId}`})
+          break
+        case 'viewRecruiter':
+          if(this.data.type === 'position') wx.navigateTo({url: `${COMMON}recruiterDetail/recruiterDetail?uid=${this.data.infos.recruiterInfo.uid}`})
           break
         default:
           break

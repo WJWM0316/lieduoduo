@@ -16,10 +16,6 @@ import {RECRUITER, COMMON} from '../../../../config.js'
 const app = getApp()
 
 Page({
-
-  /**
-   * 页面的初始数据
-   */
   data: {
     identity: '',
     detail: {},
@@ -86,16 +82,17 @@ Page({
         getMycollectPositionApi({id: this.data.detail.id})
           .then(res => {
             this.getPositionDetail()
+            this.selectComponent('#interviewBar').init()
           })
         break
       case 'uncollect':
         deleteMycollectPositionApi({id: this.data.detail.id})
           .then(res => {
             this.getPositionDetail()
+            this.selectComponent('#interviewBar').init()
           })
         break
       case 'chat':
-        // applyInterviewApi({recruiterUid: 90, positionId: 39})
         applyInterviewApi({recruiterUid: this.data.detail.recruiterInfo.uid, positionId: this.data.detail.id})
           .then(res => {
             this.getPositionDetail()
