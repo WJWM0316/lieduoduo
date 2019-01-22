@@ -8,7 +8,7 @@
 		<view class="header">
 			<view class="content">
 				<view class="realname">{{recruiterInfo.name}}</view>
-				<view class="degree-name">{{recruiterInfo.companyName}} | {{recruiterInfo.position}}</view>
+				<view class="degree-name">{{recruiterInfo.companyShortname}} | {{recruiterInfo.position}}</view>
 				<view class="edit" bindtap="jumpUpdateInfos"><i class="icon iconfont icon-bianji"></i> 编辑资料</view>
 			</view>
 			<image class="img-box" src="{{recruiterInfo.avatar.middleUrl}}" bindtap="preview"></image>

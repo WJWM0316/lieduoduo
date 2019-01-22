@@ -91,6 +91,18 @@
 	transition: all ease .2s;
 }
 
+.mask-board .left{
+	position: absolute;
+	bottom: 0;
+	width: 116rpx;
+	z-index: 10;
+	opacity: 0;
+	background: tranparent;
+	z-index:0
+	left: 0;
+	top: 120rpx;
+}
+
 .mask-board .box {
 	position: relative;
 	width: calc(100% - 116rpx);

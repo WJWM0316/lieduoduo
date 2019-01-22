@@ -12,6 +12,6 @@
   </view>
 	<view class="footer">
     <button class="button-delete" bindtap="delete" wx:if="{{options.id}}">删除</button>
-    <button class="button-save" bindtap="submit">{{options.id ? '保存地址' : '添加地址'}}</button>
+    <button class="button-save" bindtap="submit">{{options.id ? '修改' : '保存'}}</button>
   </view>
 </view>

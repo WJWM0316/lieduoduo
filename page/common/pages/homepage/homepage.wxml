@@ -6,7 +6,7 @@
 			<view class="company-logo">
 				<image class="bgImg" src="{{companyInfos.logoInfo.url}}" mode="aspectFill"></image>
 			</view>
-			<view class="title">{{companyInfos.companyName}}</view>
+			<view class="title">{{companyInfos.companyShortname}}</view>
 			<view class="infos">{{companyInfos.industry}} | {{companyInfos.financingInfo}} | {{companyInfos.employeesInfo}}</view>
 		</view>
 		<shareBtn></shareBtn>
@@ -55,11 +55,11 @@
 				wx:if="{{companyInfos.albumInfo.length}}"
 				autoplay="{{autoplay}}">
 				<swiper-item class="swiper-item" wx:for="{{companyInfos.albumInfo}}" wx:key="{{index}}" wx:for-item="item">
-					<image mode="aspectFill" class="slide-image {{swiperIndex == index ? 'active' : ''}}" src="{{item.smallUrl}}" />
+					<image mode="aspectFill" class="slide-image {{swiperIndex == index ? 'active' : ''}}" src="{{item.smallUrl}}" bindtap="previewImage" />
 				</swiper-item>
 			</swiper>
 			<view class="company-detail">
-				<view class="p">{{companyInfos.intro}}</view>
+				<text class="p">{{companyInfos.intro}}</text>
 			</view>
 		</view>
 

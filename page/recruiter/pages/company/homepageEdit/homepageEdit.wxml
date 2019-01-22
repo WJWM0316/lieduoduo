@@ -38,7 +38,7 @@
 			<view class="icon-button" data-route="introduction" bindtap="routeJump"><i class="icon iconfont icon-bianji"></i></view>
 		</view>
 		<view class="company-detail" wx:if="{{companyInfos.intro}}">
-			<view class="p">{{companyInfos.intro}}</view>
+			<text class="p">{{companyInfos.intro}}</text>
 		</view>
 	</view>
 	

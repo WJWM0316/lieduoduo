@@ -10,7 +10,7 @@
 					<view class="position-salary">{{detail.emolumentMin}}k-{{detail.emolumentMax}}k</view>
 				</view>
 				<view class="img-box">
-					<image mode="aspectFill" src="{{detail.recruiterInfo.avatar.smallUrl}}"></image>
+					<image mode="aspectFill" src="{{detail.companyInfo.logoInfo.smallUrl}}"></image>
 				</view>
 			</view>
 			<view class="infos">
@@ -35,7 +35,7 @@
 			wx:for-item="item"
 			wx:key="{{item.id}}">{{item.name}}</view>
 		</view>
-		<view class="rich-text">{{ detail.describe }}</view>
+		<text class="rich-text">{{ detail.describe }}</text>
 	</view>
 	
 	<view class="about-company">
@@ -60,10 +60,10 @@
 			<i class="icon iconfont icon-xiangyou"></i>
 		</view>
 		<view class="detail">
-			<view class="rich-text">{{companyInfos.intro}}</view>
+			<text class="rich-text">{{companyInfos.intro}}</text>
 		</view>
 	</view>
-	<view class="make-homepage" wx:if="{{ !isRecruiter }}">
+	<view class="make-homepage" wx:if="{{ identity === 'APPLICANT' && !isRecruiter }}">
 		<view>
 			我也要制作招聘主页
 			<i class="icon iconfont icon-disejiantou-you"></i>

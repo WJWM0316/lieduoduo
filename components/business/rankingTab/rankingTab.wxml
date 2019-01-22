@@ -11,7 +11,7 @@
       <i class="icon iconfont icon-gongsi"></i>
       <text class="company">{{item.companyName}}</text>
       <view class='influence'>
-        <i class="icon iconfont icon-gongsi"></i>
+        <i class="icon iconfont icon-yingxiangli"></i>
         <text class='txt'>影响力</text>
         <text class='value'>{{item.influence}}</text>
       </view>

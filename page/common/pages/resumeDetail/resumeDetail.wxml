@@ -1,5 +1,5 @@
 <!--求职者个人简历页-->
-<navbar title="简历" background="#FFFFFF" color="#22292C" showHome="{{true}}"></navbar>
+<navbar title="简历详情" background="#FFFFFF" color="#22292C" showHome="{{true}}"></navbar>
 <view class="resumeDetail {{isOwner? '' : 'addpadding'}}" wx:if="{{info}}">
   <view class="share" wx:if="{{isOwner && false}}"><i class="icon iconfont icon-fenxiang"></i></view>
 <!-- 基本信息 -->
@@ -26,16 +26,18 @@
       <view class="education"> <i class="icon iconfont icon-xueli"></i> {{info.degreeDesc}}</view>
       <view class="status">{{info.jobStatusDesc || "待完善"}}</view>
     </view>
-    <image class="line" src="{{cdnImagePath}}line.png"></image>
-    <view class="personalTip">
-      <view class="text">“{{info.signature || '你还未填写个性签名，说说你的想法吧~'}}”</view>
-      <view class="tipBox">
-        <text class="tip" wx:for="{{info.personalizedLabels}}" wx:key="{{index}}">{{item.labelName || item.name}}</text>
+    <block wx:if="{{info.signature}}">
+      <image class="line" src="{{cdnImagePath}}line.png"></image>
+      <view class="personalTip">
+        <view class="text">“{{info.signature || '你还未填写个性签名，说说你的想法吧~'}}”</view>
+        <view class="tipBox">
+          <text class="tip" wx:for="{{info.personalizedLabels}}" wx:key="{{index}}">{{item.labelName || item.name}}</text>
+        </view>
       </view>
-    </view>
+    </block>
   </view>
   <!-- 意向 -->
-  <view class="intent commentBox" wx:if="{{info.expects.length>=0}}">
+  <view class="intent commentBox" wx:if="{{info.expects.length > 0}}">
     <view class="intentTitle"><view class="commontIcon"><view class="box"></view></view> 求职意向</view>
     <!-- 意向列表 -->
     <view class="officeTab" wx:for="{{info.expects}}" wx:key="{{index}}">
@@ -52,9 +54,9 @@
     <text class="add" data-editName="intent" bindtap="edit" wx:if="{{isOwner}}" data-id="0">添加求职意向</text>
   </view>
   <!-- 工作经历 -->
-  <view class="workExp commentBox">
+  <view class="workExp commentBox" wx:if="{{info.careers.length > 0}}">
     <view class="intentTitle"><view class="commontIcon"><view class="box"></view></view> 工作经历</view>
-    <view class="expTab" wx:if="{{info.careers.length > 0}}" wx:for="{{info.careers}}" wx:key="{{index}}">
+    <view class="expTab" wx:for="{{info.careers}}" wx:key="{{index}}">
       <view class="expTitle">
         <text class="expName">{{item.company}}</text>
         <text class="expTime">{{item.startTimeDesc}}-{{item.endTimeDesc}}</text>
@@ -72,9 +74,9 @@
     <text class="add" data-editName="work" bindtap="edit" wx:if="{{isOwner}}" data-id="0">添加工作经历</text>
   </view>
   <!-- 项目经历 -->
-  <view class="projectExp commentBox">
+  <view class="projectExp commentBox" wx:if="{{info.projects.length > 0}}">
     <view class="intentTitle"><view class="commontIcon"><view class="box"></view></view> 项目经历</view>
-    <view class="expTab" wx:if="{{info.projects.length > 0}}" wx:for="{{info.projects}}" wx:key="{{index}}">
+    <view class="expTab" wx:for="{{info.projects}}" wx:key="{{index}}">
       <view class="expTitle">
         <text class="expName">{{item.name}}</text>
         <text class="expTime">{{item.startTimeDesc}}-{{item.endTimeDesc}}</text>
@@ -106,7 +108,7 @@
     <text class="add" data-editName="education" bindtap="edit" wx:if="{{isOwner}}" data-id="0">添加教育经历</text>
   </view>
   <!-- 更多 -->
-  <view class="more commentBox">
+  <view class="more commentBox" wx:if="{{info.moreIntroduce.introduce}}">
     <view class="intentTitle moreTitle">
       <view><view class="commontIcon"><view class="box"></view></view> 更多介绍 </view>
       <i class="icon iconfont icon-bianji1 edit" data-editName="more" data-id="{{item.id}}" bindtap="edit" wx:if="{{isOwner}}"></i>

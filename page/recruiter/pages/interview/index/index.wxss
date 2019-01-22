@@ -200,3 +200,7 @@
   color:rgba(40,120,255,1);
   float: right;
 }
+
+.list-box {
+  padding-bottom: 122rpx;
+}
