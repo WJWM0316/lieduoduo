@@ -95,8 +95,13 @@ Page({
       !realNameReg.test(this.data.real_name) ? reject('请填写有效的姓名') : resolve()
     })
     
+    // 验证身份证
+    let checkIdCard = new Promise((resolve, reject) => {
+      !idCardReg.test(this.data.identity_num) ? reject('请填写有效的身份证号') : resolve()
+    })
+
     Promise
-     .all([checkRealName])
+     .all([checkRealName, checkIdCard])
      .then(res => {
       const action = this.data.options.action === 'edit' ? 'editCompanyIdentityInfos' : 'identityCompany'
       this[action]()

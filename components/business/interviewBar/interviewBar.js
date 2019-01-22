@@ -144,12 +144,14 @@ Component({
         case 'open':
           openPositionApi({id: this.data.infos.id})
             .then(res => {
+              app.wxToast({title: '职位已开放'})
               this.triggerEvent('resultevent', res)
             })
           break
         case 'close':
           closePositionApi({id: this.data.infos.id})
             .then(res => {
+              app.wxToast({title: '职位已关闭'})
               this.triggerEvent('resultevent', res)
             })
           break
