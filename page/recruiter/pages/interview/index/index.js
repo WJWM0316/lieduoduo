@@ -108,6 +108,7 @@ Page({
   },
   getResult(e) {
     chooseTime = e.detail.timeStamp
+    this.getScheduleList()
   },
   // 我的邀请
   getApplyList(hasLoading = true) {

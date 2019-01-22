@@ -4,7 +4,12 @@ Component({
    * 组件的属性列表
    */
   properties: {
-
+    posterData: {
+      type: Object
+    },
+    posterType: {
+      type: String
+    }
   },
 
   /**
@@ -25,9 +30,25 @@ Component({
       this.setData({showChoose: false})
     },
     jump() {
-      wx.navigateTo({
-        url: `${COMMON}poster/position/position`
-      })
+      switch(thia.data.posterType) {
+        case 'position':
+          wx.navigateTo({
+            url: `${COMMON}poster/position/position`
+          })
+          break
+        case 'position':
+          wx.navigateTo({
+            url: `${COMMON}poster/position/position`
+          })
+          break
+        case 'position':
+          wx.navigateTo({
+            url: `${COMMON}poster/position/position`
+          })
+          break
+      }
+      
+      wx.setStorageSync('posterData', this.data.posterData)
       this.setData({showChoose: false})
     }
   }

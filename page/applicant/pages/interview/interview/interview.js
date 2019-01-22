@@ -61,6 +61,7 @@ Page({
   /* 面试日程 */
   getResult(e) {
     chooseTime = e.detail.timeStamp
+    this.getScheduleList()
   },
   chooseParentTab(e) {
     const index = e.currentTarget.dataset.index

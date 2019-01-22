@@ -33,7 +33,9 @@
     "page/applicant/pages/center/resumeEditor/skills/skills",
     "page/applicant/pages/center/resumeEditor/moreEdit/moreEdit",
     "page/applicant/pages/interview/interviewHistory/InterviewHistory",
-    "page/common/pages/poster/position/position"
+    "page/common/pages/poster/position/position",
+    "page/common/pages/poster/resume/resume",
+    "page/common/pages/poster/recruiter/recruiter"
   ],
   "window": {
     "navigationBarTextStyle": "black",

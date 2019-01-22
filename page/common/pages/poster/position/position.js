@@ -1,4 +1,4 @@
-// page/common/pages/poster/position/position.js
+  // page/common/pages/poster/position/position.js
 let app = getApp()
 Page({
 
@@ -6,21 +6,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    userInfo: app.globalData.userInfo,
-    info: {
-      userName: '李狗蛋',
-      positionName: '攻城狮',
-      name: 'B端业务高级产品经理',
-      xinzi: '3K~5K',
-      city: '广州',
-      experience: '1-3年',
-      education: '本科',
-      label: [{name: '年度奖金1'}, {name: '年度奖金2'}, {name: '年度奖金3'}, {name: '年度奖金4'}, {name: '年度奖金5'}],
-      companyName: '老虎科技信息有限公司',
-      desc: '广告/公关/会展 · 不需要融资 · 1000 · 10000',
-      teamLabel: [{name: '# 电子游戏竞技'}, {name: '# 小程序'}, {name: '# 工作标签'}],
-      positionDesc: "撒大苏打撒↵1.收到客户反馈老师的飞控技术的开发开始的快递方式的开发是的封建士大夫↵阿三大苏打：↵2.阿三大苏打拉斯科来到拉萨啊实打阿三大苏打拉斯科来到拉萨啊实打阿三大苏打拉斯科来到拉萨啊实打阿三大苏打拉斯科来到拉萨啊实打实↵3.啊撒大苏打撒来到拉萨到拉萨实打↵阿三大苏打：↵4.阿松单卡双卡的斯科拉打开拉萨快乐的时刻安神定魄阿斯顿撒旦阿斯顿阿斯顿啊实打实领导卡拉圣诞快乐ask领导看了ask领导阿斯顿啊asdas"
-    },
+    info: {},
     imgUrl: '',
     imgW: 750,
     imgH: 0,
@@ -31,35 +17,40 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    let info = wx.getStorageSync('posterData')
     const ctx = wx.createCanvasContext('canvas')
+
+    console.log(info)
+    wx.showLoading({
+      title: '正在生成...',
+    })
     let that = this
-    let info = this.data.info
     ctx.width = 750
     ctx.setFillStyle('#652791')
     ctx.fillRect(0, 0, 750, 2500)
     // 头像
-    ctx.drawImage('../../../../../images/1547620956(1).jpg', 80, 40, 98, 98)
+    ctx.drawImage(info.recruiterInfo.avatar.url, 80, 40, 98, 98)
     // 背景图1
     ctx.drawImage('../../../../../images/canvas1.png', 0, 0, 750, 402)
     // 个人资料
     ctx.setTextAlign('left')
     ctx.setFillStyle('#ffffff')
     ctx.setFontSize(28)
-    ctx.fillText(`${info.userName} | ${info.positionName}`, 212, 85)
+    ctx.fillText(`${info.recruiterInfo.name} | ${info.recruiterInfo.position}`, 212, 85)
     ctx.setFontSize(22)
     ctx.fillText('工作不易，知音难觅，壮士约乎？', 212, 119)
 
     // 主要内容
     ctx.setTextAlign('center')
     ctx.setFontSize(46)
-    ctx.fillText(info.name, 375, 272)
-    ctx.fillText(info.xinzi, 375, 345)
+    ctx.fillText(info.positionName, 375, 272)
+    ctx.fillText(`${info.emolumentMin}~${info.emolumentMax}K`, 375, 345)
     // ctx.font = "normal normal lighter 46px arial,sans-serif"
     ctx.setFontSize(24)
     ctx.setTextAlign('left')
     let cityWidth = ctx.measureText(info.city).width
-    let edWidth = ctx.measureText(info.education).width
-    let exWidth = ctx.measureText(info.experience).width
+    let edWidth = ctx.measureText(info.educationName).width
+    let exWidth = ctx.measureText(info.workExperienceName).width
     let allWidth = cityWidth + edWidth + exWidth + 90 + 30 + 80
     let msgWidth = 375 - allWidth / 2
     ctx.drawImage('../../../../../images/a1.png', msgWidth, 404, 30, 30)
@@ -68,11 +59,11 @@ Page({
     msgWidth = msgWidth + cityWidth + 40
     ctx.drawImage('../../../../../images/a2.png', msgWidth, 404, 30, 30)
     msgWidth = msgWidth + 40
-    ctx.fillText(info.experience, msgWidth, 428)
+    ctx.fillText(info.educationName, msgWidth, 428)
     msgWidth = msgWidth + exWidth + 40
     ctx.drawImage('../../../../../images/a3.png', msgWidth, 404, 30, 30)
     msgWidth = msgWidth + 40
-    ctx.fillText(info.education, msgWidth, 428)
+    ctx.fillText(info.workExperienceName, msgWidth, 428)
 
     // 画笔Y坐标
     let curHeight = 483
@@ -89,18 +80,18 @@ Page({
     ctx.setFontSize(26)
     ctx.setStrokeStyle('#fff')
     ctx.setLineWidth(1)
-    info.label.map((item, index) => {
+    info.lightspotInfo.map((item, index) => {
       addLabel(item, index)
     })
     function addLabel(item, index) {
       // 下个标签的宽度
       let newLabelWidth = 0
-      if (index < info.label.length-1) {
-        newLabelWidth = ctx.measureText(info.label[index+1].name).width + 2*r
+      if (index < info.lightspotInfo.length-1) {
+        newLabelWidth = ctx.measureText(info.lightspotInfo[index+1]).width + 2*r
       }
       
-      let metricsW = ctx.measureText(item.name).width // 文本宽度
-      ctx.fillText(item.name, position.x + r, position.y + r + 10)
+      let metricsW = ctx.measureText(item).width // 文本宽度
+      ctx.fillText(item, position.x + r, position.y + r + 10)
 
       ctx.beginPath()
       ctx.moveTo(position.x + r, position.y)
@@ -127,17 +118,21 @@ Page({
     }
 
     // 画公司信息
-    curHeight = curHeight + 94
-    ctx.drawImage('../../../../../images/1547620956(1).jpg', 88, curHeight + 34, 98, 98)
+    let companyInfo = info.companyInfo
+    if (info.lightspotInfo.length > 0) {
+      curHeight = curHeight + 94
+    }
+    ctx.drawImage(companyInfo.businessLicenseInfo.url, 88, curHeight + 34, 98, 98)
     ctx.drawImage('../../../../../images/canvas4.png', 38, curHeight, 674, 166)
     ctx.setFontSize(32)
-    ctx.fillText(info.companyName, 210, curHeight + 75)
+    ctx.fillText(companyInfo.companyName, 210, curHeight + 75)
     ctx.setFontSize(26)
     // 需要省略号
-    if (ctx.measureText(info.desc).width > 456) {
+    let desc = `${companyInfo.industry} · ${companyInfo.financingInfo} · ${companyInfo.employeesInfo}`
+    if (ctx.measureText(desc).width > 456) {
       let ellipsisWidth = ctx.measureText('...').width
       let cutString = ''
-      for (let i = 0; i < info.desc.length; i++) {
+      for (let i = 0; i < desc.length; i++) {
         cutString = cutString + info.desc[i]
         if (ctx.measureText(cutString).width >= 456 - ellipsisWidth) {
           cutString = cutString + '...'
@@ -146,7 +141,7 @@ Page({
         }
       }
     } else {
-      ctx.fillText(info.desc, 210, curHeight + 115)
+      ctx.fillText(desc, 210, curHeight + 115)
     }
     
 
@@ -164,7 +159,7 @@ Page({
       y: curHeight
     }
     ctx.setFontSize(24)
-    info.teamLabel.map((item, index) => {
+    info.skillsLabel.map((item, index) => {
       addTeamLabel(item, index)
     })
     function addTeamLabel(item, index) {
@@ -176,8 +171,8 @@ Page({
 
       // 下个标签的宽度
       let newLabelWidth = 0
-      if (index < info.teamLabel.length-1) {
-        newLabelWidth = ctx.measureText(info.teamLabel[index+1].name).width + 2*padding
+      if (index < info.skillsLabel.length-1) {
+        newLabelWidth = ctx.measureText(info.skillsLabel[index+1].name).width + 2*padding
       }
 
       // 下一个标签的横坐标
@@ -197,10 +192,10 @@ Page({
     curHeight = curHeight + 90
     ctx.setFontSize(28)
     ctx.setFillStyle('#282828')
-    for (let i = 0; i < info.positionDesc.length; i++) {
-      descString = descString + info.positionDesc[i]
+    for (let i = 0; i < info.describe.length; i++) {
+      descString = descString + info.describe[i]
       descWidth = ctx.measureText(descString).width
-      if (info.positionDesc[i] === '↵' || descWidth > (590)) {
+      if (info.describe[i] === '↵' || descWidth > 590) {
         ctx.drawImage('../../../../../images/c2.png', 0, curHeight, 750, 48)
         ctx.fillText(descString.slice(0, descString.length-1), 80, curHeight)
         descString = ''
@@ -214,7 +209,7 @@ Page({
     ctx.setFillStyle('#fff')
     ctx.fillText('长按打开小程序与Ta约面吧！', 276, curHeight + 160)
     ctx.setFontSize(24)
-    ctx.fillText('Ta还有产品、技术等10个职位在招！', 276, curHeight + 205)
+    ctx.fillText(`Ta还有${info.recruiterInfo.positionNum}个职位在招！`, 276, curHeight + 205)
     curHeight = curHeight + 287
     ctx.draw(true, () => {
       setTimeout(() => {
@@ -225,8 +220,9 @@ Page({
           height: curHeight,
           canvasId: 'canvas',
           success(res) {
-            console.log(res.tempFilePath, 1111)
             that.setData({imgUrl: res.tempFilePath, imgH: curHeight})
+            wx.hideLoading()
+            wx.removeStorageSync('posterData')
           }
         })
       }, 300)
@@ -256,7 +252,6 @@ Page({
   onGotUserInfo(e) {
     app.onGotUserInfo(e, true).then(res => {
       this.setData({userInfo: app.globalData.userInfo})
-      console.log(this.data.userInfo, 2222222)
     })
   },
   saveImg () {

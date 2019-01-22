@@ -2,7 +2,7 @@
 	<navbar title="{{detail.positionName}}" background="#FFFFFF" color="#22292C"></navbar>
 	<view class="page-top">
 		<image class="bgImg" src="{{cdnPath}}job-detail.png" mode="aspectFill"></image>
-		<shareBtn></shareBtn>
+		<shareBtn posterData="{{detail}}"></shareBtn>
 		<view class="company-infos">
 			<view class="header">
 				<view class="text">
