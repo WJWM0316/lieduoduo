@@ -1,10 +1,10 @@
 <view class="interview-bar {{ !isOwerner ? 'interview-bar-radius' : ''}}" wx:if="{{!isOwerner || type === 'position'}}">
-	<block wx:if="{{ !isOwerner }}">
-		<view class="img-box">
-			<image mode="aspectFill" src="{{infos.avatar.smallUrl || infos.recruiterInfo.avatar.smallUrl}}"></image>
-		</view>
-		
+	<block wx:if="{{ !isOwerner }}">		
 		<block wx:if="{{identity === 'APPLICANT'}}">
+			
+			<view class="img-box" bindtap="todoAction" data-action="viewRecruiter">
+				<image mode="aspectFill" src="{{infos.avatar.smallUrl || infos.recruiterInfo.avatar.smallUrl}}"></image>
+			</view>
 
 			<!-- 求职者还没有发起开撩动作 招聘官主页 start-->
 			<block wx:if="{{type === 'recruiter' && interviewInfos.haveInterview === 0}}">
@@ -99,7 +99,11 @@
 
 		<!-- 招聘端 -->
 		<block wx:else>
-			
+
+			<view class="img-box">
+				<image mode="aspectFill" src="{{infos.avatar.smallUrl || infos.recruiterInfo.avatar.smallUrl}}"></image>
+			</view>
+
 			<!-- 求职端已开启撩 招聘端可接受可拒绝 start-->
 			<block wx:if="{{interviewInfos.interviewStatus === 11 && interviewInfos.haveInterview === 1}}">
 				<view class="content">

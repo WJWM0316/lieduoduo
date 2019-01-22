@@ -17,6 +17,7 @@
   display: flex;
   line-height: 80rpx;
   border-bottom: 1rpx solid rgba(243,233,249,1);
+  margin: 0 30rpx;
 }
 
 .applicant-index .ul-tab-bar .li {
@@ -27,6 +28,14 @@
   text-align: center;
   position: relative;
   background:rgba(243,245,248,1);
+}
+
+.applicant-index .ul-tab-bar .li:first-child {
+  border-top-left-radius: 10rpx;
+}
+
+.applicant-index .ul-tab-bar .li:last-child {
+  border-top-right-radius: 10rpx;
 }
 
 .applicant-index .ul-tab-bar .li:before {
