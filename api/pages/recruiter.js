@@ -43,7 +43,6 @@ export const getOthersRecruiterDetailApi = (data) => {
   return request({
     url: `/recruiter/detail/uid/${data.uid}`,
     method: 'get',
-    data,
     hasLoading: true
   })
 }

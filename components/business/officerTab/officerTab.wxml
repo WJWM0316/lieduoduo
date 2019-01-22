@@ -1,4 +1,3 @@
-<!-- 首页招聘官选项卡 -->
 <view class="ul">
   <view class="officerTab"
     wx:for="{{ list }}"

@@ -49,7 +49,7 @@ Page({
       })
     })
   },
-  onShow: function () {
+  onShow() {
     let options = this.data.options
     if (app.globalData.isRecruiter) {
       this.setData({isRecruiter: app.globalData.isRecruiter})
@@ -129,7 +129,7 @@ Page({
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
+  onReady() {
   },
   toggle() {
     let isShrink = this.data.isShrink
@@ -198,7 +198,6 @@ Page({
     })
   },
   onPageScroll(e) { // 获取滚动条当前位置
-    console.log(e)
     if (e.scrollTop >= positionTop) {
       if (!this.data.isShowBtn) return
       this.setData({isShowBtn: false})
@@ -206,40 +205,5 @@ Page({
       if (this.data.isShowBtn) return
       this.setData({isShowBtn: true})
     }
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
   }
 })

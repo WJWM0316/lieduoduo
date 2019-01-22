@@ -28,7 +28,7 @@
   <!--工作内容-->
   <view class="title"><text>*</text>工作内容</view>
   <view class="textArea">
-    <textarea placeholder="填写你工作内容" placeholder-class="placeholder" maxlength="50" bindinput="WriteContent" value="{{duty}}"></textarea>
+    <textarea placeholder="填写你工作内容" placeholder-class="placeholder" maxlength="1000" bindinput="WriteContent" value="{{duty}}"></textarea>
     <view class="bottom">
       <view class="example" bindtap="showPopups"><i class="icon iconfont icon-chakan"></i>看看别人怎么写</view>
       <view class="num">{{nowInputNum}}/50</view>

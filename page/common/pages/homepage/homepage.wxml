@@ -4,7 +4,7 @@
 		<image class="bgImg" src="{{cdnImagePath}}company_banner.png" mode="aspectFill"></image>
 		<view class="box">
 			<view class="company-logo">
-				<image class="bgImg" src="{{companyInfos.logoInfo.smallUrl}}" mode="aspectFill"></image>
+				<image class="bgImg" src="{{companyInfos.logoInfo.url}}" mode="aspectFill"></image>
 			</view>
 			<view class="title">{{companyInfos.companyName}}</view>
 			<view class="infos">{{companyInfos.industry}} | {{companyInfos.financingInfo}} | {{companyInfos.employeesInfo}}</view>
@@ -30,7 +30,7 @@
 					<view class="content">
 						<view class="row-one">
 							<view class="username">{{recruiter.name}}</view>
-							<view class="recruitment-number" wx:if="{{recruiter.positionNum}}">{{recruiter.positionNum}} 个在招职位</view>
+							<view class="recruitment-number" wx:if="{{companyInfos.recruiterInfo.positionNum}}">{{recruiter.positionNum}} 个在招职位</view>
 						</view>
 						<view class="row-two">{{recruiter.position}}</view>
 						<view class="row-three">{{recruiter.signature ? recruiter.signature : '测试数据'}}</view>
@@ -83,7 +83,7 @@
 			</view>
 		</view>
 		
-		<view class="company-address" wx:if="{{companyInfos.address.length >= 0}}">
+		<view class="company-address" wx:if="{{companyInfos.address.length > 0}}">
 			<view class="title">
 				<view class="icon"> <view class="fan"></view> </view> 公司地址
 			</view>

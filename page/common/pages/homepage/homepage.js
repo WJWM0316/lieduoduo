@@ -1,19 +1,18 @@
-
 import {
   getCompanyInfosApi,
   getRecruitersListApi
 } from '../../../../api/pages/company.js'
 
 import {RECRUITERHOST, COMMON, RECRUITER} from '../../../../config.js'
+
 import {getPositionListApi} from "../../../../api/pages/position.js"
+
 let app = getApp()
+
 Page({
 
-  /**
-   * 页面的初始数据
-   */
   data: {
-    tab: 'recruitment',
+    tab: 'about',
     indicatorDots: false,
     autoplay: true,
     interval: 1000,
@@ -57,7 +56,9 @@ Page({
     getCompanyInfosApi({id: this.data.query.companyId})
       .then(res => {
         const companyInfos = res.data
-        this.setData({companyInfos, longitude: companyInfos.address[0].lng, latitude: companyInfos.address[0].lat })
+        const longitude = companyInfos.address.length ? companyInfos.address[0].lng : 0
+        const latitude = companyInfos.address.length ? companyInfos.address[0].lat : 0
+        this.setData({companyInfos, longitude, latitude })
       })
   },
   /**

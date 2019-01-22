@@ -28,6 +28,8 @@ export const positionReg = /^.{2,50}$/
 // 公司简称
 export const abbreviationReg = /^.{1,10}$/
 
-
 // 过滤纯空格 
 export const allspaceReg = /^(?!(\s+$))/ 
+
+// 工作内容
+export const workContentReg = /^.{1,1000}$/

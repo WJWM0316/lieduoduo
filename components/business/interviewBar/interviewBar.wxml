@@ -10,10 +10,10 @@
 			<block wx:if="{{type === 'recruiter' && interviewInfos.haveInterview === 0}}">
 				<view class="content">
 					<view class="first">
-						<view class="name">{{infos.name || infos.recruiterInfo.name}}</view>
+						<view class="name">{{infos.name}}</view>
 						<view class="hunter-infos"> <view class="strong">{{infos.positionNum}}</view>个职位 </view>
 					</view>
-					<view class="second">工作不易，知音难觅，壮士约乎？工作不易，知音难觅，壮士约乎？</view>
+					<view class="second">{{infos.manifestosText}}</view>
 				</view>
 				<view class="button-box button-box-color1">
 					<view bindtap="todoAction" data-action="job-hunting-chat">开撩约面</view>
@@ -25,10 +25,10 @@
 			<block wx:if="{{type === 'position' && (interviewInfos.haveInterview === 0 || interviewInfos.interviewStatus === 51 || interviewInfos.interviewStatus === 54)}}">
 				<view class="content">
 					<view class="first">
-						<view class="name">{{infos.name || infos.recruiterInfo.name}}</view>
-						<view class="hunter-infos"> <view class="strong">12</view>个职位 </view>
+						<view class="name">{{infos.recruiterInfo.name}}</view>
+						<view class="hunter-infos"> <view class="strong">{{infos.recruiterInfo.positionNum}}</view>个职位 </view>
 					</view>
-					<view class="second">工作不易，知音难觅，壮士约乎？工作不易，知音难觅，壮士约乎？</view>
+					<view class="second">{{infos.recruiterInfo.manifestosText}}</view>
 				</view>
 				<view class="button-box button-box-color1">
 					<view bindtap="todoAction" data-action="job-hunting-chat">开撩约面</view>
