@@ -28,12 +28,10 @@ App({
           if (res.data.token) {
             wx.setStorageSync('token', res.data.token)
             that.checkLogin()
-            that.globalData.userInfo = res.data
             that.globalData.hasLogin = true
             console.log('用户已认证')
           } else {
             console.log('用户未绑定手机号')
-            that.globalData.userInfo = res.data
             wx.setStorageSync('sessionToken', res.data.sessionToken)
           }
         })

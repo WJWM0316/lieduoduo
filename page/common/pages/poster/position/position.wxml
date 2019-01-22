@@ -1,3 +1,19 @@
 <view class="poster">
-	<canvas canvas-id="canvas" id="canvas" width="750px"></canvas>
+	<navbar title="分享职位" background="#fff" color="#22292C"></navbar>
+	<canvas canvas-id="canvas" id="canvas" width="750px" height="3000px" hidden="{{imgUrl}}"></canvas>
+
+	<view class="imgBox">
+		<image class='showImg' src="{{imgUrl}}" style="width: 100%;" mode="widthFix"></image>
+	</view>
+	<view style="height: 90rpx;"></view>
+	<view class="save">
+		<view class="saveBtn" bindtap="saveImg" wx:if="{{openSet}}">
+			<view class="yellow">保存图片</view>
+			<view class="violet"></view>
+		</view>
+		<button class="saveBtn" open-type="openSetting" wx:if="{{!openSet}}">
+			<view class="yellow">保存图片</view>
+			<view class="violet"></view>
+		</button>
+	</view>
 </view>

@@ -1,4 +1,4 @@
-// components/layout/shareBtn/shareBtn.js
+import {COMMON} from '../../../config.js'
 Component({
   /**
    * 组件的属性列表
@@ -20,6 +20,15 @@ Component({
   methods: {
     oper() {
       this.setData({showChoose: true})
+    },
+    close() {
+      this.setData({showChoose: false})
+    },
+    jump() {
+      wx.navigateTo({
+        url: `${COMMON}poster/position/position`
+      })
+      this.setData({showChoose: false})
     }
   }
 })

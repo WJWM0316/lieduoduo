@@ -1,11 +1,12 @@
 // page/common/pages/poster/position/position.js
-let canvasData = null
+let app = getApp()
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
+    userInfo: app.globalData.userInfo,
     info: {
       userName: '李狗蛋',
       positionName: '攻城狮',
@@ -20,27 +21,16 @@ Page({
       teamLabel: [{name: '# 电子游戏竞技'}, {name: '# 小程序'}, {name: '# 工作标签'}],
       positionDesc: "撒大苏打撒↵1.收到客户反馈老师的飞控技术的开发开始的快递方式的开发是的封建士大夫↵阿三大苏打：↵2.阿三大苏打拉斯科来到拉萨啊实打阿三大苏打拉斯科来到拉萨啊实打阿三大苏打拉斯科来到拉萨啊实打阿三大苏打拉斯科来到拉萨啊实打实↵3.啊撒大苏打撒来到拉萨到拉萨实打↵阿三大苏打：↵4.阿松单卡双卡的斯科拉打开拉萨快乐的时刻安神定魄阿斯顿撒旦阿斯顿阿斯顿啊实打实领导卡拉圣诞快乐ask领导看了ask领导阿斯顿啊asdas"
     },
-    imgUrl: ''
+    imgUrl: '',
+    imgW: 750,
+    imgH: 0,
+    openSet: true
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    
-  },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
     const ctx = wx.createCanvasContext('canvas')
     let that = this
     let info = this.data.info
@@ -233,15 +223,81 @@ Page({
           y: 0,
           width: 750,
           height: curHeight,
-          destWidth: 750,
-          destHeight: curHeight,
           canvasId: 'canvas',
           success(res) {
-            that.setData({imgUrl: res.tempFilePath})
+            console.log(res.tempFilePath, 1111)
+            that.setData({imgUrl: res.tempFilePath, imgH: curHeight})
           }
         })
       }, 300)
     })
+  },
+
+  /**
+   * 生命周期函数--监听页面初次渲染完成
+   */
+  onReady: function () {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function () {
+    let that = this
+    wx.getSetting({
+      success(res) {
+        if (res.authSetting['scope.writePhotosAlbum']) {
+          that.setData({openSet: true})
+        }
+      }
+    })
+  },
+  onGotUserInfo(e) {
+    app.onGotUserInfo(e, true).then(res => {
+      this.setData({userInfo: app.globalData.userInfo})
+      console.log(this.data.userInfo, 2222222)
+    })
+  },
+  saveImg () {
+    let that = this
+    wx.getSetting({
+      success(res) {
+        if (!res.authSetting['scope.writePhotosAlbum']) {
+          wx.authorize({
+            scope: 'scope.writePhotosAlbum',
+            success() {
+              that.setData({openSet: true})
+              svae()
+            },
+            fail (res) {
+              if (res.errMsg === 'authorize:fail auth deny') {
+                that.setData({openSet: false})
+              } 
+            }
+          })
+        } else {
+          svae()
+        }
+       }
+    })
+    function svae () {
+      wx.saveImageToPhotosAlbum({
+        filePath: that.data.imgUrl,
+        success: function (e) {
+          app.wxToast({
+            title: '已保存至相册',
+            icon: 'success'
+          })
+        },
+        fail: function (e) {
+          console.log(e)
+          app.wxToast({
+            title: '保存失败'
+          })
+        }
+      })
+    }
   },
 
   /**
