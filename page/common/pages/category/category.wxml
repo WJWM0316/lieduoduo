@@ -56,7 +56,7 @@
 			  bindtap="onClick3"
 			  wx:for-item="third">
 					{{third.name}}
-					<i class="icon iconfont icon-wancheng" wx:if="{{item.active}}"></i>
+					<i class="icon iconfont icon-wancheng" wx:if="{{third.active}}"></i>
 				</view>
 			</view>
 		</view>

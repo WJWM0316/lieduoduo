@@ -109,8 +109,9 @@ Page({
           latitude: Number(this.data.detail.lat),
           longitude: Number(this.data.detail.lng),
           scale: 14,
-          name: '工作地点',
-          address: `${this.data.detail.address} ${this.data.detail.doorplate}`,
+          name: this.data.detail.address,
+          address: `${this.data.detail.doorplate}`,
+          // address: `${this.data.detail.address} ${this.data.detail.doorplate}`,
           fail: res => {
             app.wxToast({title: '获取位置失败'})
           }

@@ -200,6 +200,10 @@ Page({
       lng: infos.lng,
       lat: infos.lat
     }
+    if(!formData.area_id) {
+      app.wxToast({title: '请选择公司地址'})
+      return
+    }
     addPositionAddressApi(formData)
       .then(res => {
         wx.navigateBack({delta: 1})
@@ -220,6 +224,10 @@ Page({
       lng: infos.lng,
       lat: infos.lat,
       id: app.globalData.recruiterDetails.companyInfo.id
+    }
+    if(!formData.area_id) {
+      app.wxToast({title: '请选择公司地址'})
+      return
     }
     addCompanyAddressApi(formData)
       .then(res => {

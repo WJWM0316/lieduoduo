@@ -40,24 +40,26 @@ Page({
    */
   onClick1(e) {
     // 只有一级标签
-    const storage = wx.getStorageSync('createPosition') || {}
+    // const storage = wx.getStorageSync('createPosition') || {}
     const params = e.currentTarget.dataset
     const positionTypeList = this.data.positionTypeList
-    let showMask = false
-    let result = {}
+    // let showMask = false
+    // let result = {}
     positionTypeList.map((field, index) => field.active = index === params.index ? true : false)
-    if(positionTypeList[params.index].children.length) {
-      showMask = true
-    } else {
-      result = positionTypeList[params.index]
-      showMask = false
-      storage.type = result.labelId
-      storage.typeName = result.name
-      storage.parentType = result.labelId
-      wx.setStorageSync('createPosition', storage)
-      wx.navigateBack({delta: 1})
-    }
-    this.setData({index1: params.index, positionTypeList, showMask})
+    // if(positionTypeList[params.index].children.length) {
+    //   showMask = true
+    // } else {
+    //   result = positionTypeList[params.index]
+    //   showMask = false
+    //   storage.type = result.labelId
+    //   storage.typeName = result.name
+    //   storage.parentType = result.labelId
+    //   wx.setStorageSync('createPosition', storage)
+    //   wx.navigateBack({delta: 1})
+    // }
+    positionTypeList[params.index].children.map((field, index) => field.active = index === this.data.index1 ? true : false)
+    positionTypeList[params.index].children[this.data.index1].children[this.data.index2].active = true
+    this.setData({index1: params.index, positionTypeList, showMask: true})
   },
   /**
    * @Author   小书包

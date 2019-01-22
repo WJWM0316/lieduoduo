@@ -38,7 +38,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 33,
+			"current": 35,
 			"list": [
 				{
 					"id": 0,
@@ -140,7 +140,7 @@
 					"id": 16,
 					"name": "公司主页",
 					"pathName": "page/common/pages/homepage/homepage",
-					"query": "companyId=5"
+					"query": "companyId=35"
 				},
 				{
 					"id": -1,
@@ -167,10 +167,10 @@
 					"query": ""
 				},
 				{
-					"id": 20,
+					"id": 21,
 					"name": "招聘管-职位详情",
 					"pathName": "page/common/pages/positionDetail/positionDetail",
-					"query": "positionId=37&companyId=13"
+					"query": "positionId=89&companyId=13"
 				},
 				{
 					"id": 21,
@@ -243,6 +243,18 @@
 					"name": "职位海报",
 					"pathName": "page/common/pages/poster/position/position",
 					"query": "uid=128"
+				},
+				{
+					"id": 34,
+					"name": "招聘管-公司地址",
+					"pathName": "page/recruiter/pages/position/addressList/addressList",
+					"query": "type=position&selected=1"
+				},
+				{
+					"id": -1,
+					"name": "招聘管-选择职位",
+					"pathName": "page/common/pages/category/category",
+					"query": "type=position&selected=1"
 				}
 			]
 		}

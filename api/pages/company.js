@@ -167,9 +167,12 @@ export const deleteCompanyAddressApi = (data, hasLoading) => {
 
 // 获取公司地址列表
 export const getCompanyAddressListApi = (data, hasLoading) => {
+  const id = data.id
+  delete data.id
   return request({
     method: 'get',
-    url: `/company/addresslist/${data.id}`,
+    url: `/company/addresslist/${id}`,
+    data,
     hasLoading: true
   })
 }

@@ -1,7 +1,12 @@
 <view class="addressList">
-  <navbar ></navbar>
-  <view class="ul" wx:if="{{addressList.length}}">
-    <view class="li" wx:for="{{addressList}}" wx:key="{{index}}">
+  <navbar title="{{options.type === 'position' ? '工作地点' : '公司地址'}}" background="#FFFFFF" color="#22292C"></navbar>
+
+  <view hidden="{{!hasReFresh}}">
+    <refreshStatus></refreshStatus>
+  </view>
+
+  <view class="ul">
+    <view class="li" wx:for="{{addressList.list}}" wx:key="{{index}}">
       <view class="left" wx:if="{{options.selected == 1}}">
         <view class="radio {{item.active ? 'radio-checked' : ''}}" bindtap="onClick" data-id="{{index}}">
           <i class="icon iconfont icon-wancheng" wx:if="{{item.active}}"></i>

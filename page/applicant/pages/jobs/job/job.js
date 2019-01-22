@@ -9,8 +9,7 @@ const app = getApp()
 
 Page({
   data: {
-    // pageCount: app.globalData.pageCount,
-    pageCount: 6,
+    pageCount: app.globalData.pageCount,
     hasReFresh: false,
     onBottomStatus: 0,
     positionList: {
