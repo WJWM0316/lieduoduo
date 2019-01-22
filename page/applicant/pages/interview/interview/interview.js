@@ -1,4 +1,4 @@
-import { getApplyListApi, getInviteListApi, getScheduleListApi, getRedDotListApi } from '../../../../../api/pages/interview.js'
+import { getApplyListApi, getInviteListApi, getScheduleListApi, getRedDotListApi, getScheduleNumberApi} from '../../../../../api/pages/interview.js'
 import {RECRUITER} from '../../../../../config.js'
 const app = getApp()
 let chooseTime = parseInt(new Date().getTime() / 1000)
@@ -13,6 +13,7 @@ Page({
   data: {
     cdnImagePath: app.globalData.cdnImagePath,
     navH: app.globalData.navHeight,
+    dateList: [],
     hasReFresh: false,
     tabIndex: 0,
     applyScreen: [
@@ -200,9 +201,12 @@ Page({
       case 2:
         data = this.data.interviewData
         if (!data.isRequire) {
-          console.log(this.selectComponent('#myCalendar'))
           this.selectComponent('#myCalendar').scrollLeft()
           this.getScheduleList()
+          getScheduleNumberApi().then(res => {
+            let dateList = res.data
+            this.setData({dateList})
+          })
         }
         break
     }

@@ -1,7 +1,7 @@
 <view class="calendar" wx:if="{{calendarType === 'roll'}}">
   <scroll-view class="wrap" scroll-x style="width: 100%" scroll-left="{{scrollLeft}}px" bindscrolltolower="nextMonth" bindscrolltoupper="prevMonth" upper-threshold lower-threshold>
     <view wx:for="{{list}}" wx:key="{{index}}" class="item {{item.month && !item.day ? 'head' : ''}}">
-      <view wx:if="{{item.day}}" bindtap="toggle" data-year="{{item.year}}" data-month="{{item.month}}" data-days="{{item.days}}" class="have {{item.haveView && item.haveViewed ? 'overdue' : ''}} {{item.haveView && !item.haveViewed ? 'noOverdue' : ''}}">
+      <view wx:if="{{item.day}}" bindtap="toggle" data-year="{{item.year}}" data-month="{{item.month}}" data-days="{{item.days}}" class="have {{item.haveView && item.haveViewed ? 'overdue' : ''}} {{item.haveView && !item.haveViewed && item.date !== curDate ? 'noOverdue' : ''}}">
         <view class="week">{{item.week}}</view>
         <view class="day {{item.date === curDate && item.date !== choseDate ? 'curDay' : ''}} {{item.date === choseDate ? 'choseDate' : ''}}">{{item.day}}</view>
       </view>
@@ -11,6 +11,7 @@
     </view>
   </scroll-view>
   <text wx:if="{{switchable}}" class="open icon iconfont icon-xiangyou" bindtap="changeType"></text>
+  <view class="backToday" bindtap="backToday">回到今天<i class="icon iconfont icon-huidaojintian"></i></view>
 </view>
 <view class="newCalendar" wx:if="{{calendarType === 'normal'}}">
   <view class="calendar-head">

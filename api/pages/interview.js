@@ -62,11 +62,20 @@ export const getInviteListApi = (data, hasLoading) => {
   })
 }
 
-//收到邀请列表
+//面试列表
 export const getScheduleListApi = (data, hasLoading) => {
   return request({
     method: 'get',
     url: '/interview/schedule',
+    data
+  })
+}
+
+//面试列表日期数量
+export const getScheduleNumberApi = (data, hasLoading) => {
+  return request({
+    method: 'get',
+    url: '/interview/scheduleNumber',
     data
   })
 }

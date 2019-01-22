@@ -198,7 +198,6 @@ Page({
     })
   },
   onPageScroll(e) { // 获取滚动条当前位置
-    console.log(e)
     if (e.scrollTop >= positionTop) {
       if (!this.data.isShowBtn) return
       this.setData({isShowBtn: false})

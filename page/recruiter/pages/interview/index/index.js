@@ -1,5 +1,5 @@
 import {RECRUITER} from '../../../../../config.js'
-import { getInviteListApi, getApplyListApi, getScheduleListApi } from '../../../../../api/pages/interview.js'
+import { getInviteListApi, getApplyListApi, getScheduleListApi, getScheduleNumberApi} from '../../../../../api/pages/interview.js'
 import {getPositionListApi} from '../../../../../api/pages/position.js'
 const app = getApp()
 let chooseTime = parseInt(new Date().getTime() / 1000)
@@ -7,7 +7,7 @@ let positionList = []
 let initData = {
   list: [],
   pageNum: 1,
-  count: 5,
+  count: 20,
   isLastPage: false,
   isRequire: false
 }
@@ -19,6 +19,7 @@ Page({
     applyData: initData,
     receiveData: initData,
     interviewData: initData,
+    dateList: [],
     applyIndex: 0,
     receiveIndex: 0,
     positionIndex: 0,
@@ -185,6 +186,10 @@ Page({
         if (!data.isRequire) {
           this.selectComponent('#myCalendar').scrollLeft()
           this.getScheduleList()
+          getScheduleNumberApi().then(res => {
+            let dateList = res.data
+            this.setData({dateList})
+          })
         }
         break
     }

@@ -192,3 +192,22 @@
   background: #FF7F4C;
   position: absolute;
 }
+.backToday {
+  width:220rpx;
+  height:88rpx;
+  background:rgba(255,255,255,1);
+  box-shadow:0rpx 10rpx 38rpx 0rpx rgba(40,40,40,0.2);
+  border-radius:44rpx;
+  position: fixed;
+  left: 50%;
+  margin-left: -110rpx;
+  bottom: 147rpx;
+  font-size:28rpx;
+  font-weight: 600;
+  color: #652791;
+  line-height:88rpx;
+  text-align: center;
+}
+.icon {
+  margin-left: 7rpx;
+}

@@ -30,7 +30,6 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    console.log(options.id, 111)
     if (options.id === '0') {
       this.setData({
         isAdd: true
@@ -116,20 +115,19 @@ Page({
     }
     wx.navigateTo({
       url: `${COMMON}category/category?title=${title}`
-//    url: `${APPLICANT}center/resumeEditor/systematics/systematics?title=${title}&target=${target}`
     })
   },
   // 输入公司名字
   inpCompany (e) {
-    this.data.company = e.detail.value
+    let company = e.detail.value
+    this.setData({company})
   },
   // 输入职位
   inpPosition (e) {
-    console.log(e.detail.value)
-    this.data.positionName = e.detail.value
+    let positionName = e.detail.value
+    this.setData({positionName})
   },
   getresult (e) {
-    console.log(e)
     if (e.currentTarget.dataset.time === 'start') {
       this.data.starTime = e.detail.propsResult
     } else {
@@ -142,7 +140,7 @@ Page({
       id: nowWorkId,
       company: this.data.company,
       position: this.data.positionName,
-      positionType: this.data.jobCategories.typeName || this.data.jobCategories,
+      positionType: this.data.jobCategories.typeName,
       startTime: this.data.starTime,
       endTime: this.data.endTime,
       labels: this.data.skillsId,
@@ -202,7 +200,7 @@ Page({
     const param = {
       company: this.data.company,
       position: this.data.positionName,
-      positionType: this.data.jobCategories.name,
+      positionType: this.data.jobCategories.typeName,
       startTime: this.data.starTime,
       endTime: this.data.endTime,
       labels: this.data.skillsId,

@@ -18,3 +18,22 @@
   font-size: 27rpx;
   color: #626262;
 }
+.shareBox {
+  position: fixed;
+  width: 100%;
+  height: 100vh;
+  left: 0;
+  bottom: 0;
+  z-index: 11;
+  background: rgba(0,0,0,0.5);
+}
+.choseBox {
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  line-height: 40rpx;
+}
+.choseBox button {
+  border-radius: 0;
+}

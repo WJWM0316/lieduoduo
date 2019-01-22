@@ -388,10 +388,10 @@ Page({
     let lifeList = []
     let personalizedLabels = this.data.choseJobList.concat(this.data.choseLifeList)
     this.data.choseJobList.map((item, index) => {
-      if (item.type === 'label_professional_skills') {
-        jobList.push({labelId: item.labelId, source: item.source})
-      } else {
+      if (item.type === 'label_professional_literacy') {
         literacyLabels.push({labelId: item.labelId, source: item.source})
+      } else {
+        jobList.push({labelId: item.labelId, source: item.source})
       }
     })
     this.data.choseLifeList.map((item, index) => {

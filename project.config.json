@@ -38,7 +38,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 14,
+			"current": 33,
 			"list": [
 				{
 					"id": 0,
@@ -237,6 +237,12 @@
 					"name": "ddd",
 					"pathName": "page/applicant/pages/center/workExperience/workExperience",
 					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "职位海报",
+					"pathName": "page/common/pages/poster/position/position",
+					"query": "uid=128"
 				}
 			]
 		}

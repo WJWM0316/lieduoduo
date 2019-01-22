@@ -8,6 +8,9 @@ let nextYear = 0 // 下个年份保存
 let prevYear = 0 // 上个年份保存
 let curYear = new Date().getFullYear()
 let curMonth = new Date().getMonth() + 1
+if (curMonth < 10) {
+  curMonth = `0${curMonth}`
+}
 let curDay = new Date().getDate()
 let firstWeek = 0
 let toggleYear = curYear
@@ -22,7 +25,26 @@ Component({
    */
   properties: {
     setDateList: {
-      type: Array
+      type: Array,
+      observer() {
+        // 标注面试时间
+        let list = this.data.list
+        this.data.setDateList.map((item, index) => {
+          list.map((obj, j) => {
+            if (item.date === obj.date) {
+              obj.haveView = true
+              // 已过期的面试时间
+              let curTime = `${curYear}/${curMonth}/${curDay}`
+              let objTime = `${obj.year}/${obj.month}/${obj.days}`
+              if (new Date(curTime).getTime() > new Date(objTime).getTime()) {
+                obj.haveViewed = true
+              }
+              return
+            }
+          })
+        })
+        this.setData({list})
+      }
     },
     calendarType: {
       type: String,
@@ -51,7 +73,7 @@ Component({
     headMonth: curMonth,
   },
   attached () {
-    let list = this.getThisMonthDays(curYear, curMonth)
+    let list = this.getThisMonthDays(curYear, curMonth) 
     if (this.data.switchable || this.data.calendarType === 'roll') {
       this.setData({list, choseDate: this.data.curDate})
     } else {
@@ -75,6 +97,9 @@ Component({
       let timeStamp = new Date(`${year}/${month}/${days}`).getTime()/1000
       this.setData({choseDate})
       this.triggerEvent('resultEvent', {year, month, days, timeStamp})
+    },
+    backToday() {
+      this.scrollLeft()
     },
     changeType () {
       if (this.data.calendarType === 'roll') {
@@ -146,8 +171,8 @@ Component({
     },
     // 获取当月共多少天
     getThisMonthDays (year, month, sort) {
-      let dayNum = new Date(year, month, 0).getDate()
-      let firstDayWeek = this.getFirstDayOfWeek(year, month)
+      let dayNum = new Date(year, parseInt(month), 0).getDate()
+      let firstDayWeek = this.getFirstDayOfWeek(year, parseInt(month))
       firstWeek = firstDayWeek
       let thisMonthlist = [{'month': month}]
       let list = this.data.list
@@ -164,16 +189,6 @@ Component({
           date: `${year}年${month}月${j}日`
         }
         obj.week = this.data.weeks_ch[firstDayWeek]
-        // 标注面试时间
-        if (this.data.setDateList.indexOf(obj.date) !== -1) {
-          obj.haveView = true
-          // 已过期的面试时间
-          let curTime = `${curYear}/${curMonth}/${curDay}`
-          let objTime = `${obj.year}/${obj.month}/${obj.days}`
-          if (new Date(curTime).getTime() > new Date(objTime).getTime()) {
-            obj.haveViewed = true
-          }
-        }
         firstDayWeek++
         if (firstDayWeek > 6) {
           firstDayWeek = 0
