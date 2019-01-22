@@ -5,18 +5,19 @@ import {
 
 import {RECRUITER} from '../../../../config.js'
 
+const app = getApp()
+
 Page({
   data: {
     positionTypeList: [],
     query: '',
-    statusBarHeight: 0,
+    statusBarHeight: app.globalData.navHeight,
     index1: 0,
     index2: 0,
     showMask: false,
     searing: false
   },
   onLoad(options) {
-    wx.getSystemInfo({success: res => this.setData({statusBarHeight: res.statusBarHeight + 46}) })
     getLabelPositionApi()
       .then(res => {
         const positionTypeList = res.data
@@ -129,7 +130,7 @@ Page({
         this.setData({positionTypeList, searing: true})
       })
   },
-  closeMask() {
+  closeMask(e) {
     this.setData({showMask: false})
     return
   }

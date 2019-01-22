@@ -36,6 +36,7 @@
 		</block>
 	</view>
 	<view class="mask-board {{showMask ? 'mask-board-show' : ''}}" style="top: {{statusBarHeight}}px">
+		<view class="left" bindtap="closeMask"></view>
 		<view class="box">
 			<view class="column second">
 				<view

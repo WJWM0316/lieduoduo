@@ -30,7 +30,7 @@ Page({
     }
 
     if(!storage) return
-    params.map(field => this.setData({ [field]: storage[field] }))
+    params.map(field => this.setData({[field]: storage[field] }))
     this.bindBtnStatus()
   },
   /**
@@ -54,9 +54,9 @@ Page({
         const infos = res.data.companyInfo
         const user = res.data
         const formData = {
-          real_name: infos.realName || user.realName,
-          user_email: infos.userEmail || user.userEmail,
-          user_position: infos.userPosition || user.userPosition,
+          real_name: user.realName || infos.realName,
+          user_email: user.userEmail || infos.userEmail,
+          user_position:user.userPosition || infos.userPosition,
           company_name: infos.companyName,
           companyShortName: infos.companyShortname,
           industry_id: infos.industryId,

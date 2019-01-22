@@ -59,7 +59,7 @@
 				</swiper-item>
 			</swiper>
 			<view class="company-detail">
-				<view class="p">{{companyInfos.intro}}</view>
+				<text class="p">{{companyInfos.intro}}</text>
 			</view>
 		</view>
 

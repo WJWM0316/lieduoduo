@@ -20,7 +20,7 @@
 		<view class="text">面试安排(0)</view>
 		<view class="button" bindtap="jumpInterviewPage">面试历史</view> 
 	</view>
-	<view hidden="{{tabIndex !== 0}}">
+	<view hidden="{{tabIndex !== 0}}" class="list-box">
 		<view class="select-box">
 			<view class="item">
 				<picker range="{{receiveScreen}}" range-key="key" bindchange="bindChange" data-type="receiveStatus" value="{{receiveIndex}}">
@@ -39,7 +39,7 @@
 		</commonList>
 		<bottomStatus status="{{applyBottomStatus}}"></bottomStatus>
 	</view>
-	<view hidden="{{tabIndex !== 1}}">
+	<view hidden="{{tabIndex !== 1}}" class="list-box">
 		<view class="select-box">
 			<view class="item">
 				<picker range="{{applyScreen}}" range-key="key" bindchange="bindChange" data-type="applyStatus" value="{{applyIndex}}">
@@ -58,7 +58,7 @@
 		</commonList>
 		<bottomStatus status="{{receiveBottomStatus}}"></bottomStatus>
 	</view>
-	<view hidden="{{tabIndex !== 2}}">
+	<view hidden="{{tabIndex !== 2}}" class="list-box">
 		<myCalendar id="myCalendar" calendarType="roll" setDateList="{{dateList}}" switchable bindresultEvent="getResult"></myCalendar>
 		<commonList list="{{interviewData.list}}" identity="{{identity}}" dotType="{{'circle'}}">
 		</commonList>

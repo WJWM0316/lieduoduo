@@ -49,7 +49,6 @@ Page({
         this.selectComponent('#interviewBar').init()
         app.getAllInfo()
           .then(userInfos => {
-            // this.selectComponent('#interviewBar').init()
             this.setData({isOwner: userInfos.uid === res.data.recruiterInfo.uid})
             if(userInfos.uid === res.data.recruiterInfo.uid) {
               wx.setStorageSync('choseType', 'RECRUITER')

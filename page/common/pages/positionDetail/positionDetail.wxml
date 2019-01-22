@@ -60,7 +60,7 @@
 			<i class="icon iconfont icon-xiangyou"></i>
 		</view>
 		<view class="detail">
-			<view class="rich-text">{{companyInfos.intro}}</view>
+			<text class="rich-text">{{companyInfos.intro}}</text>
 		</view>
 	</view>
 	<view class="make-homepage" wx:if="{{ !isRecruiter }}">
