@@ -1,138 +1,138 @@
-// page/applicant/pages/recruitmentActive/recruitmentActive.js
-import { getBrowseMySelfApi, getMyBrowseUsersApi, getCollectMySelfApi } from '../../../../../api/pages/active'
-let isBusy = false // 当前请求是否执行完毕
-Page({
+import {
+  getBrowseMySelfApi,
+  getMyBrowseUsersApi,
+  getCollectMySelfApi
+} from '../../../../../api/pages/active'
 
-  /**
-   * 页面的初始数据
-   */
+const app = getApp()
+
+Page({
   data: {
-    interestStatus: 0,
-    watchedStatus: 0,
+    navH: app.globalData.navHeight,
     watchedList: {
       list: [],
       pageNum: 1,
-      count: 5,
       isLastPage: false,
       isRequire: false
     },
     interestList: {
       list: [],
       pageNum: 1,
-      count: 5,
       isLastPage: false,
       isRequire: false
     },
-    active: 'watched'
+    active: 'watchedList',
+    // pageCount: app.globalData.pageCount,
+    pageCount: 8,
+    hasReFresh: false,
+    onBottomStatus: 0
   },
-  toggle (e) {
-    let active = e.currentTarget.dataset.active
-    if (active === 'watched') {
-      if (!this.data.watchedList.list.length && !this.data.watchedList.isLastPage) {
-        this.getWatchedList()
-        this.setData({active})
-      } else {
-        this.setData({active})
-      }
-    } else {
-      if (!this.data.interestList.list.length && !this.data.interestList.isLastPage) {
-        this.getInterestList()
-        this.setData({active})
-      } else {
-        this.setData({active})
-      }
+  onLoad() {
+    this.getLists()
+  },
+  /**
+   * @Author   小书包
+   * @DateTime 2019-01-22
+   * @detail   tab切换
+   * @return   {[type]}     [description]
+   */
+  onTabClick (e) {
+    const key = e.target.dataset.active
+    const value = this.data[key]
+    this.setData({active: key}, () => {
+      if(!value.isRequire) this.getLists()
+    })
+  },
+  /**
+   * @Author   小书包
+   * @DateTime 2019-01-22
+   * @detail   获取列表数据
+   * @return   {[type]}   [description]
+   */
+  getLists() {
+    switch(this.data.active) {
+      case 'watchedList':
+        return this.getWatchedList()
+        break;
+      case 'interestList':
+        return this.getInterestList()
+        break;
+      default:
+        break;
     }
   },
-  /* 获取对我感兴趣的列表数据*/
+  /**
+   * @Author   小书包
+   * @DateTime 2019-01-22
+   * @detail   获取对我感兴趣的列表数据
+   * @return   {[type]}              [description]
+   */
  getInterestList (hasLoading = true) {
   return new Promise((resolve, reject) => {
-    let interestList = this.data.interestList
-    let interestStatus = this.data.interestStatus
-    getCollectMySelfApi({page: this.data.interestList.pageNum, count: this.data.interestList.count, hasLoading})
+    getCollectMySelfApi({page: this.data.interestList.pageNum, count: this.data.pageCount, hasLoading})
     .then(res => {
-      interestList.list = interestList.list.concat(res.data || [])
-      interestList.list.pageNum++
+      const interestList = this.data.interestList
+      const onBottomStatus = res.meta.nextPageUrl ? 0 : 2
+      interestList.list = interestList.list.concat(res.data)
+      interestList.pageNum = interestList.pageNum + 1
       interestList.list.isRequire = true
-      if (!res.meta.nextPageUrl) {
-        interestList.isLastPage = true
-        interestStatus = 2
-      } else {
-        interestStatus = 0
-      }
-      resolve(res)
-      this.setData({interestList, interestStatus})
+      interestList.isLastPage = res.meta.nextPageUrl ? false : true
+      this.setData({interestList, onBottomStatus}, () => resolve(res))
     })
   })
  },
- /* 获取看过我的列表数据*/
+ /**
+  * @Author   小书包
+  * @DateTime 2019-01-22
+  * @detail   获取看过我的列表数据
+  * @return   {[type]}              [description]
+  */
  getWatchedList (hasLoading = true) {
   return new Promise((resolve, reject) => {
-    let watchedList = this.data.watchedList
-    let watchedStatus = this.data.watchedStatus
-    getBrowseMySelfApi({page: this.data.watchedList.pageNum, count: this.data.watchedList.count, hasLoading})
+    getBrowseMySelfApi({page: this.data.watchedList.pageNum, count: this.data.pageCount, hasLoading})
     .then(res => {
-      watchedList.list = watchedList.list.concat(res.data || [])
-      watchedList.list.pageNum++
+      const watchedList = this.data.watchedList
+      const onBottomStatus = res.meta.nextPageUrl ? 0 : 2
+      watchedList.list = watchedList.list.concat(res.data)
+      watchedList.pageNum = watchedList.pageNum + 1
       watchedList.list.isRequire = true
-      if (!res.meta.nextPageUrl) {
-        watchedList.isLastPage = true
-        watchedStatus = 2
-      } else {
-        watchedStatus = 0
-      }
-      resolve(res)
-      this.setData({watchedList, watchedStatus})
+      watchedList.isLastPage = res.meta.nextPageUrl ? false : true
+      this.setData({watchedList, onBottomStatus}, () => resolve(res))
     })
   })
  },
- init () {
-   this.getWatchedList(true)
- },
-  /* 下拉刷新 */
-  onPullDownRefresh(e) {
-    if (this.data.active === 'watched') {
-      let watchedList = {
-        list: [],
-        pageNum: 1,
-        count: 5,
-        isLastPage: false,
-        isRequire: false
-      }
-      this.setData({watchedList, onBottomStatus: 0})
-      this.getWatchedList(false).then(res => {
-        wx.stopPullDownRefresh()
-      })
-    } else {
-      let interestList = {
-        list: [],
-        pageNum: 1,
-        count: 5,
-        isLastPage: false,
-        isRequire: false
-      }
-      this.setData({interestList, onBottomStatus: 0})
-      this.getInterestList(false).then(res => {
-        wx.stopPullDownRefresh()
-      })
+ /**
+   * @Author   小书包
+   * @DateTime 2019-01-21
+   * @detail   下拉重新获取数据
+   * @return   {[type]}              [description]
+   */
+  onPullDownRefresh(hasLoading = true) {
+    const key = this.data.active
+    const value = {list: [], pageNum: 1, isLastPage: false, isRequire: false}
+    this.setData({[key]: value, hasReFresh: true})
+    this.getLists()
+        .then(res => {
+          const value = {list: [], pageNum: 1, isLastPage: false, isRequire: false}
+          const onBottomStatus = res.meta.nextPageUrl ? 0 : 2
+          value.list = res.data
+          value.isLastPage = res.meta.nextPageUrl ? false : true
+          value.pageNum = 2
+          value.isRequire = true
+          this.setData({[key]: value, onBottomStatus, hasReFresh: false}, () => wx.stopPullDownRefresh())
+        })
+  },
+  /**
+   * @Author   小书包
+   * @DateTime 2019-01-21
+   * @detail   触底加载数据
+   * @return   {[type]}   [description]
+   */
+  onReachBottom() {
+    const key = this.data.active
+    const value = this.data[key]
+    if (!value.isLastPage) {
+      this.getLists(false).then(() => this.setData({onBottomStatus: 1}))
     }
-  },
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
-    this.init()
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
   }
 })

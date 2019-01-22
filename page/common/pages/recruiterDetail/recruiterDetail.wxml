@@ -43,7 +43,7 @@
       </view>
       <view wx:if="{{info.personalizedLabels.length === 0}}" class="addDeclaration" bindtap="editJump" data-type="labels">添加个人标签</view>
     </view>
-    <view class="profile">
+    <view class="profile" wx:if="{{info.brief}}">
       <view class="title">
         <view class="icon">
           <view class="fan"></view>

@@ -1,5 +1,6 @@
 {
 	"enablePullDownRefresh": true,
+	"backgroundTextStyle": "light",
   "usingComponents": {
     "commonList": "../../../../components/business/commonList/commonList",
     "navbar": "../../../../components/business/navbar/navbar",

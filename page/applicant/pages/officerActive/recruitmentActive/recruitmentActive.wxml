@@ -1,16 +1,23 @@
-<!--page/applicant/pages/recruitmentActive/recruitmentActive.wxml-->
 <view class="recruitmentActive">
   <navbar title="招聘官动态" color="#000000" background="#FFFFFF"></navbar>
-  <view class="tabBar">
-    <text bindtap='toggle' data-active='watched' class='{{active === "watched"? "active" : ""}}'>看过我的</text>
-    <text bindtap='toggle' data-active='interest' class='{{active === "interest"? "active" : ""}}'>对我感兴趣</text>
+
+  <view hidden="{{!hasReFresh}}">
+    <refreshStatus></refreshStatus>
   </view>
-  <block wx:if="{{active === 'watched'}}">
+
+  <view class="tabBar" style="top: {{navH}}px">
+    <text bindtap="onTabClick" data-active="watchedList" class="{{active === 'watchedList' ? 'active' : ''}}">看过我的</text>
+    <text bindtap="onTabClick" data-active="interestList" class="{{active === 'interestList' ? 'active' : ''}}">对我感兴趣</text>
+  </view>
+
+  <view hidden="{{active === 'interestList'}}" class="list-box">
   	<commonList iconfont1="more" list="{{watchedList.list}}" showFooter="{{false}}" dotType="circle"></commonList>
   	<bottomStatus status="{{offBottomStatus}}"></bottomStatus>
-  </block>
-  <block wx:if="{{active === 'interest'}}">
+  </view>
+
+  <view hidden="{{active === 'watchedList'}}" class="list-box">
   	<commonList iconfont1="more" list="{{interestList.list}}" showFooter="{{false}}" dotType="circle"></commonList>
   	<bottomStatus status="{{offBottomStatus}}"></bottomStatus>
-  </block>
+  </view>
+
 </view>

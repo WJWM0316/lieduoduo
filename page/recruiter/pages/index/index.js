@@ -13,13 +13,8 @@ const app = getApp()
 
 Page({
   data: {
-    pageList: 'seen-me',
-    companyList: [],
-    collectMyList: [],
+    pageList: 'browseMySelf',
     cdnImagePath: app.globalData.cdnImagePath,
-    browseMySelfLists: [], //看过我的
-    mapyCollectUser: [], // 我收藏的求职者列表
-    identity: 'RECRUITER',
     browseMySelf: {
       list: [],
       pageNum: 1,
@@ -39,27 +34,29 @@ Page({
       isRequire: false
     },
     pageCount: app.globalData.pageCount,
+    // pageCount: 6,
     hasReFresh: false,
     onBottomStatus: 0
   },
   onLoad() {
-    getBrowseMySelfApi()
-      .then(res => {
-        this.setData({browseMySelfLists: res.data})
-      })
-    app.pageInit = () => {}
-    this.getCollectMySelf()
+    this.getLists()
   },
-  toggle (tabName) {
-    switch (tabName) {
-      case 'seen-me':
-        return getBrowseMySelfApi()
+  /**
+   * @Author   小书包
+   * @DateTime 2019-01-21
+   * @detail   获取列表数据
+   * @return   {[type]}   [description]
+   */
+  getLists() {
+    switch(this.data.pageList) {
+      case 'browseMySelf':
+        return this.getBrowseMySelf()
         break;
-      case 'interested-me':
-        return getCollectMySelfApi()
+      case 'collectMySelf':
+        return this.getCollectMySelf()
         break;
-      case 'my-loved':
-        return getMyCollectUsersApi()
+      case 'collectUsers':
+        return this.getMyCollectUsers()
         break;
     }
   },
@@ -74,14 +71,13 @@ Page({
       const params = {count: this.data.pageCount, page: this.data.browseMySelf.pageNum, hasLoading}
       getBrowseMySelfApi(params)
         .then(res => {
-          const browseMySelf = {list: [], pageNum: 1, isLastPage: false, isRequire: false}
+          const browseMySelf = this.data.browseMySelf
+          const onBottomStatus = res.meta.nextPageUrl ? 0 : 2
           browseMySelf.list = browseMySelf.list.concat(res.data)
           browseMySelf.isLastPage = res.meta.nextPageUrl ? false : true
           browseMySelf.pageNum = browseMySelf.pageNum + 1
           browseMySelf.isRequire = true
-          const onBottomStatus = res.meta.nextPageUrl ? 0 : 2
-          this.setData({browseMySelf, onBottomStatus})
-          resolve(res)
+          this.setData({browseMySelf, onBottomStatus}, () => resolve(res))
         })
     })
   },
@@ -96,14 +92,13 @@ Page({
       const params = {count: this.data.pageCount, page: this.data.collectMySelf.pageNum, hasLoading}
       getCollectMySelfApi(params)
         .then(res => {
-          const collectMySelf = {list: [], pageNum: 1, isLastPage: false, isRequire: false}
+          const collectMySelf = this.data.collectMySelf
+          const onBottomStatus = res.meta.nextPageUrl ? 0 : 2
           collectMySelf.list = collectMySelf.list.concat(res.data)
           collectMySelf.isLastPage = res.meta.nextPageUrl ? false : true
           collectMySelf.pageNum = collectMySelf.pageNum + 1
           collectMySelf.isRequire = true
-          const onBottomStatus = res.meta.nextPageUrl ? 0 : 2
-          this.setData({collectMySelf, onBottomStatus})
-          resolve(res)
+          this.setData({collectMySelf, onBottomStatus}, () => resolve(res))
         })
     })
   },
@@ -118,28 +113,58 @@ Page({
       const params = {count: this.data.pageCount, page: this.data.collectUsers.pageNum, hasLoading}
       getMyCollectUsersApi(params)
         .then(res => {
-          const collectUsers = {list: [], pageNum: 1, isLastPage: false, isRequire: false}
+          const collectUsers = this.data.collectUsers
+          const onBottomStatus = res.meta.nextPageUrl ? 0 : 2
           collectUsers.list = collectUsers.list.concat(res.data)
           collectUsers.isLastPage = res.meta.nextPageUrl ? false : true
           collectUsers.pageNum = collectUsers.pageNum + 1
           collectUsers.isRequire = true
-          const onBottomStatus = res.meta.nextPageUrl ? 0 : 2
-          this.setData({collectUsers, onBottomStatus})
-          resolve(res)
+          this.setData({collectUsers, onBottomStatus}, () => resolve(res))
         })
     })
   },
-  changeCompanyLists(e) {
-    let pageList = e.currentTarget.dataset.pageList
-    this.setData({ pageList })
-    this.toggle(pageList).then(res => {
-      if (pageList === "seen-me") {
-        this.setData({browseMySelfLists: res.data})
-      } else if (pageList === "interested-me") {
-        this.setData({collectMyList: res.data})
-      } else {
-        this.setData({mapyCollectUser: res.data})
-      }
+  ontabClick(e) {
+    let pageList = e.currentTarget.dataset.key
+    this.setData({pageList}, () => {
+      const key = this.data.pageList
+      if(!this.data[key].isRequire) this.getLists()
     })
+  },
+  /**
+   * @Author   小书包
+   * @DateTime 2019-01-21
+   * @detail   下拉重新获取数据
+   * @return   {[type]}              [description]
+   */
+  onPullDownRefresh(hasLoading = true) {
+    const key = this.data.pageList
+    const value = {list: [], pageNum: 1, isLastPage: false, isRequire: false}
+    this.setData({[key]: value, hasReFresh: true})
+    this.getLists()
+        .then(res => {
+          const value = {list: [], pageNum: 1, isLastPage: false, isRequire: false}
+          const onBottomStatus = res.meta.nextPageUrl ? 0 : 2
+          value.list = res.data
+          value.isLastPage = res.meta.nextPageUrl ? false : true
+          value.pageNum = 1
+          value.isRequire = true
+          this.setData({[key]: value, onBottomStatus}, () => {
+            wx.stopPullDownRefresh()
+            this.setData({hasReFresh: false})
+          })
+        })
+  },
+  /**
+   * @Author   小书包
+   * @DateTime 2019-01-21
+   * @detail   触底加载数据
+   * @return   {[type]}   [description]
+   */
+  onReachBottom() {
+    const key = this.data.pageList
+    if (!this.data[key].isLastPage) {
+      this.setData({onBottomStatus: 1})
+      this.getLists(false)
+    }
   }
 })

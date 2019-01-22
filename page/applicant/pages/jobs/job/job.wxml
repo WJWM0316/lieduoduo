@@ -1,5 +1,10 @@
 <view class="applicant-job">
 	<navbar title="猎多多" background="#652791" color="#fff"></navbar>
+
+	<view hidden="{{!hasReFresh}}">
+    <refreshStatus></refreshStatus>
+  </view>
+  
   <!--<view class="header">
     <view class="left">
       <view class="chooseArea">选择地区<i class="icon iconfont icon-zhishibiao"></i></view>
@@ -7,5 +12,5 @@
     </view>
     <view class="interested"><i class="icon iconfont icon-ganxingqu"></i>感兴趣</view>
   </view>-->
-  <jobList personality="jobItem" list="{{companyList}}" list-type="interview" current-tab="all"></jobList>
+  <jobList personality="jobItem" list="{{positionList.list}}" list-type="interview" current-tab="all"></jobList>
 </view>

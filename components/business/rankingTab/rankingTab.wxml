@@ -8,10 +8,10 @@
       <text class="title">{{item.position}}</text>
     </view>
     <view class='bottom'>
-      <view class='icon'></view>
+      <i class="icon iconfont icon-gongsi"></i>
       <text class="company">{{item.companyName}}</text>
       <view class='influence'>
-        <view class='icon'></view>
+        <i class="icon iconfont icon-gongsi"></i>
         <text class='txt'>影响力</text>
         <text class='value'>{{item.influence}}</text>
       </view>

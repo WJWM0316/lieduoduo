@@ -1,115 +1,264 @@
-// page/applicant/pages/more/more.js
-import { getPostionApi, getCityLabelApi } from '../../../../../api/pages/common'
-import { getRankApi, getOfficeRankApi, getCityRankApi } from '../../../../../api/pages/active'
+import {
+  getPostionApi,
+  getCityLabelApi
+} from '../../../../../api/pages/common'
+
+import {
+  getRankApi,
+  getOfficeRankApi,
+  getCityRankApi
+} from '../../../../../api/pages/active'
+
 const app = getApp()
-let param = {
-      area_id: '',
-      cate_id: '',
-      count: 20,
-      page: 1
-    }
+
 Page({
-  /**
-   * 初始数据
-   */
   data: {
-    tab: 'all',
+    tab: 'rankAll',
     nowIndex: 0,
     jobLabel: [],
     cityLabel: [],
-    list: [],
-    cdnImagePath: app.globalData.cdnImagePath
+    cdnImagePath: app.globalData.cdnImagePath,
+    rankAll: {
+      list: [],
+      pageNum: 1,
+      isLastPage: false,
+      isRequire: false
+    },
+    rankCate: {
+      list: [],
+      pageNum: 1,
+      isLastPage: false,
+      isRequire: false
+    },
+    rankCity: {
+      list: [],
+      pageNum: 1,
+      isLastPage: false,
+      isRequire: false
+    },
+    commonList: {
+      list: [],
+      pageNum: 1,
+      isLastPage: false,
+      isRequire: false
+    },
+    // pageCount: app.globalData.pageCount,
+    pageCount: 12,
+    hasReFresh: false,
+    onBottomStatus: 0,
+    area_id: '',
+    cate_id: ''
+  },
+  onLoad() {
+    this.getLists().then(() => this.getSubmenuLists())
   },
   toRecruitment (e) {
-    console.log(1111)
-    wx.navigateTo({ // 去招聘官主页
+    wx.navigateTo({
       url: `/page/common/pages/recruiterDetail/recruiterDetail?uid=${e.currentTarget.dataset.uid}`
     })
   },
-  /* 切换主tab */
-  cutover(event) {
-    this.setData({
-      tab: event.target.dataset.tab
+  /**
+   * @Author   小书包
+   * @DateTime 2019-01-22
+   * @detail   父级菜单切换
+   * @return   {[type]}     [description]
+   */
+  onTabClick(e) {
+    const key = e.target.dataset.tab
+    const value = this.data[key]
+    this.setData({tab: key}, () => {
+      if(!value.isRequire) this.getLists()
     })
-    this.handleListData()
   },
-  /* 子级tab栏切换 */
-  toggle(event) {
-    param.page = 1
-    if (this.data.tab === 'city') {
-      param.area_id = event.currentTarget.dataset.item.areaId
-    } else if (this.data.tab === 'office') {
-      param.cate_id = event.currentTarget.dataset.item.labelId
-    }
-    this.setData({
-      nowIndex: event.target.dataset.nowindex
+  /**
+   * @Author   小书包
+   * @DateTime 2019-01-22
+   * @detail   子菜单切换
+   * @return   {[type]}         [description]
+   */
+  toggle(e) {
+    const tab = this.data.tab === 'rankCity' ? 'area_id' : 'cate_id'
+    const key = this.data.tab
+    const value = this.data[key]
+    value.pageNum = 1
+    const params = e.currentTarget.dataset
+    this.setData({nowIndex: params.nowindex, [tab]: params.id, [key]: value}, () => {
+      const key = this.data.tab
+      const value = {list: [], pageNum: 1, isLastPage: false, isRequire: false}
+      this.setData({[key]: value})
+      this.getLists()
+          .then(res => {
+            const value = {list: [], pageNum: 1, isLastPage: false, isRequire: false}
+            const onBottomStatus = res.meta.nextPageUrl ? 0 : 2
+            value.list = res.data
+            value.isLastPage = res.meta.nextPageUrl ? false : true
+            value.pageNum = 1
+            value.isRequire = true
+            this.setData({[key]: value, onBottomStatus})
+          })
     })
-    this.handleListData()
   },
-  scroll (e) {},
-  /* 翻页 */
-  loadNext (e) {
-    console.log(e, '翻页')
-  },
-  /* 标签获取 */
+  /**
+   * @Author   小书包
+   * @DateTime 2019-01-22
+   * @detail   获取职位榜单子菜单数据
+   * @return   {[type]}   [description]
+   */
   getJobLabelList () {
     return getPostionApi()
   },
+  /**
+   * @Author   小书包
+   * @DateTime 2019-01-22
+   * @detail   获取城市榜单子菜单数据
+   * @return   {[type]}   [description]
+   */
   getCityLabel () {
     return getCityLabelApi()
   },
-  /* 获取排行榜列表 */
-  getRankData () {
-    switch (this.data.tab) {
-      case 'all':
-        return getRankApi(param)
-        break
-      case 'city':
-        return getCityRankApi(param)
-        break
-      case 'office':
-        return getOfficeRankApi(param)
-        break
+  /**
+   * @Author   小书包
+   * @DateTime 2019-01-21
+   * @detail   获取标签列表
+   * @return   {[type]}   [description]
+   */
+  getSubmenuLists() {
+    Promise
+      .all([this.getCityLabel(), this.getJobLabelList()])
+      .then(res => {
+        this.setData({
+          cityLabel: res[0].data,
+          jobLabel: res[1].data,
+          area_id: res[0].data[0].areaId,
+          cate_id: res[1].data[0].labelId
+        })
+      })
+  },
+  /**
+   * @Author   小书包
+   * @DateTime 2019-01-21
+   * @detail   获取列表数据
+   * @return   {[type]}   [description]
+   */
+  getLists() {
+    switch(this.data.tab) {
+      case 'rankAll':
+        return this.getRankAll()
+        break;
+      case 'rankCate':
+        return this.getRankCate()
+        break;
+      case 'rankCity':
+        return this.getRankCity()
+        break;
+      default:
+        break;
     }
   },
-  /* 榜单数据处理 */
-  handleListData () {
-    this.getRankData().then(res => {
-      let first = null
-      let nowList = null
-      if (res.data.length >2) {
-        first = res.data.splice(1, 1)
-        res.data.unshift(first[0])
-      }
-      
-      if (param.page === 1) {
-        nowList = res.data
-      } else {
-        nowList = [...this.data.list, ...res.data]
-      }
-      this.setData({
-        list: nowList
-      })
+  /**
+   * @Author   小书包
+   * @DateTime 2019-01-21
+   * @detail   获取职城市类型榜单列表
+   * @return   {[type]}   [description]
+   */
+  getRankCity(hasLoading = true) {
+    return new Promise((resolve, reject) => {
+      const params = {count: this.data.pageCount, page: this.data.rankCity.pageNum, hasLoading, area_id: this.data.area_id}
+      getCityRankApi(params)
+        .then(res => {
+          const rankCity = this.data.rankCity
+          const onBottomStatus = res.meta.nextPageUrl ? 0 : 2
+          rankCity.list = rankCity.list.concat(res.data)
+          rankCity.isLastPage = res.meta.nextPageUrl ? false : true
+          rankCity.pageNum = rankCity.pageNum + 1
+          rankCity.isRequire = true
+          this.setData({rankCity, onBottomStatus}, () => {
+            resolve(res)
+            if(this.data.tab === 'rankCity') this.setData({commonList: rankCity})
+          })
+        })
     })
   },
-  /* 初始化标签 */
-  getTag () {
-    return Promise.all([this.getCityLabel(), this.getJobLabelList()])
-  },
-  init () {
-    let that = this
-    this.getTag().then(res => {
-      param.area_id = res[0].data[0].areaId
-      param.cate_id = res[1].data[0].labelId
-      that.setData({
-        cityLabel: res[0].data,
-        jobLabel: res[1].data
-      })
-      that.handleListData()
+  /**
+   * @Author   小书包
+   * @DateTime 2019-01-21
+   * @detail   获取职位类型榜单列表
+   * @return   {[type]}   [description]
+   */
+  getRankCate(hasLoading = true) {
+    return new Promise((resolve, reject) => {
+      const params = {count: this.data.pageCount, page: this.data.rankCate.pageNum, hasLoading, cate_id: this.data.cate_id}
+      getOfficeRankApi(params)
+        .then(res => {
+          const rankCate = this.data.rankCate
+          const onBottomStatus = res.meta.nextPageUrl ? 0 : 2
+          rankCate.list = rankCate.list.concat(res.data)
+          rankCate.isLastPage = res.meta.nextPageUrl ? false : true
+          rankCate.pageNum = rankCate.pageNum + 1
+          rankCate.isRequire = true
+          this.setData({rankCate, onBottomStatus}, () => {
+            resolve(res)
+            if(this.data.tab === 'rankCate') this.setData({commonList: rankCate})
+          })
+        })
     })
-//  getRankApi(param)
   },
-  onShow () {
-    this.init()
+  /**
+   * @Author   小书包
+   * @DateTime 2019-01-21
+   * @detail   获取总榜单列表
+   * @return   {[type]}   [description]
+   */
+  getRankAll(hasLoading = true) {
+    return new Promise((resolve, reject) => {
+      const params = {count: this.data.pageCount, page: this.data.rankAll.pageNum, hasLoading}
+      getRankApi(params)
+        .then(res => {
+          const rankAll = this.data.rankAll
+          const onBottomStatus = res.meta.nextPageUrl ? 0 : 2
+          rankAll.list = rankAll.list.concat(res.data)
+          rankAll.isLastPage = res.meta.nextPageUrl ? false : true
+          rankAll.pageNum = rankAll.pageNum + 1
+          rankAll.isRequire = true
+          this.setData({rankAll, onBottomStatus}, () => {
+            resolve(res)
+            if(this.data.tab === 'rankAll') this.setData({commonList: rankAll})
+          })
+        })
+    })
+  },
+  /**
+   * @Author   小书包
+   * @DateTime 2019-01-21
+   * @detail   下拉重新获取数据
+   * @return   {[type]}              [description]
+   */
+  onPullDownRefresh(hasLoading = true) {
+    const key = this.data.tab
+    const value = {list: [], pageNum: 1, isLastPage: false, isRequire: false}
+    this.setData({[key]: value, hasReFresh: true})
+    this.getLists()
+        .then(res => {
+          const value = {list: [], pageNum: 1, isLastPage: false, isRequire: false}
+          const onBottomStatus = res.meta.nextPageUrl ? 0 : 2
+          value.list = res.data
+          value.isLastPage = res.meta.nextPageUrl ? false : true
+          value.pageNum = 1
+          value.isRequire = true
+          this.setData({[key]: value, onBottomStatus, hasReFresh: false}, () => wx.stopPullDownRefresh())
+        })
+  },
+  /**
+   * @Author   小书包
+   * @DateTime 2019-01-21
+   * @detail   触底加载数据
+   * @return   {[type]}   [description]
+   */
+  onReachBottom() {
+    const key = this.data.tab
+    const value = this.data[key]
+    if (!value.isLastPage) {
+      this.getLists(false).then(() => this.setData({onBottomStatus: 1}))
+    }
   }
 })

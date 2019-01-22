@@ -1,10 +1,12 @@
-// page/applicant/pages/center/resumeEditor/aimsEdit/aimsEdit.js
 import { editCareerApi, addCareerApi, deleteCareerApi } from '../../../../../../api/pages/center.js'
+
 import { APPLICANT, COMMON } from '../../../../../../config.js'
+
 let target = null
 let title = null
 let nowWorkId = null // 当前编辑的意向数据id
 const app = getApp()
+
 Page({
 
   /**
@@ -29,7 +31,7 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad(options) {
     if (options.id === '0') {
       this.setData({
         isAdd: true
@@ -42,14 +44,14 @@ Page({
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
+  onReady() {
 
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
+  onShow() {
     this.set()
   },
   onHide () {
@@ -126,6 +128,7 @@ Page({
   inpPosition (e) {
     let positionName = e.detail.value
     this.setData({positionName})
+    this.data.positionName = e.detail.value
   },
   getresult (e) {
     if (e.currentTarget.dataset.time === 'start') {

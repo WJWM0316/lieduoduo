@@ -1,5 +1,5 @@
-/* components/business/officerTab/officerTab.wxss */
 @import '../../../iconfont.wxss';
+
 .ul{
    padding: 0 30rpx;
 }

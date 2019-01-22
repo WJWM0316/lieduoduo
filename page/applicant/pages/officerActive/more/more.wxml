@@ -1,25 +1,38 @@
 <view class="more">
   <navbar title="发现更多招聘官" color="#000000" background="#FFFFFF"></navbar>
-  <view class='tabBar'>
-    <text bindtap='cutover' data-tab = "all" class='{{tab === "all"? "active" : ""}}'>总榜单</text>
-    <text bindtap='cutover' data-tab = "city" class='{{tab === "city"? "active" : ""}}'>城市榜单</text>
-    <text bindtap='cutover' data-tab = "office" class='{{tab === "office"? "active" : ""}}'>职位榜单</text>
+
+  <view hidden="{{!hasReFresh}}">
+    <refreshStatus></refreshStatus>
   </view>
-  <view class='childTabBar' wx:if='{{tab !== "all"}}'>
-    <text wx:for='{{tab === "city"? cityLabel : jobLabel}}' bindtap='toggle' wx:key="{{index}}" data-nowIndex='{{index}}' data-item='{{item}}' class ='{{index === nowIndex? "nowChildActive" : ""}} {{index === 0 && nowIndex === 0? "firstChildActive" : ""}} {{index === childTabList.length - 1 && nowIndex === childTabList.length - 1? "lastChildActive" : ""}}'>{{item.name}}</text>
+
+  <view class="tabBar">
+    <text bindtap="onTabClick" data-tab="rankAll" class="{{tab === 'rankAll' ? 'active' : ''}}">总榜单</text>
+    <text bindtap="onTabClick" data-tab="rankCity" class="{{tab === 'rankCity' ? 'active' : ''}}">城市榜单</text>
+    <text bindtap="onTabClick" data-tab="rankCate" class="{{tab === 'rankCate' ? 'active' : ''}}">职位榜单</text>
   </view>
-  
-  <scroll-view
-    class="scrollView {{tab !== 'all'? 'bigTab' : ''}}"
-    scroll-y='true'
-    bindscroll="scroll"
-    enable-back-to-top='true'
-    bindscrolltolower='loadNext'
-  >
+  <view class="childTabBar" wx:if="{{tab !== 'rankAll'}}">
+    <view
+      wx:for="{{tab === 'rankCity' ? cityLabel : jobLabel}}"
+      bindtap="toggle"
+      wx:key="{{index}}"
+      data-nowIndex="{{index}}"
+      data-name="{{item.name}}"
+      data-id="{{item.areaId || item.labelId}}"
+      class="{{index === nowIndex ? 'nowChildActive' : ''}} {{index === 0 && nowIndex === 0? 'firstChildActive' : ''}} {{index === childTabList.length - 1 && nowIndex === childTabList.length - 1? 'lastChildActive' : ''}}">
+        {{item.name}}
+    </view>
+  </view>
+
   <!-- 前3名 -->
-    <view class="topicBox">
-       <view class="topicList" wx:for="{{list}}" wx:key="{{index}}" wx:if="{{index < 3}}" data-uid="{{item.id || item.uid}}" bindtap="toRecruitment">
-        <view class='headIMg {{index === 1? "first" : ""}}'>
+  <view class="topicBox">
+     <view
+      class="topicList"
+      wx:for="{{commonList.list}}"
+      wx:key="{{ index }}"
+      wx:if="{{index < 3}}"
+      data-uid="{{item.id || item.uid}}"
+      bindtap="toRecruitment">
+        <view class="headIMg {{index === 1 ? 'first' : ''}}">
           <image src="{{item.avatar.smallUrl}}"></image>
           <view class='icon'>
             <image wx:if="{{index === 1}}" src="{{cdnImagePath}}icon_no1.png" />
@@ -33,9 +46,9 @@
           <text>影响力</text>
           <text class="num">{{item.influence}}</text>
         </view>
-      </view> 
-    </view>
-    <!-- 第三名之后的数据 -->
-    <rankingTab wx:for="{{list}}" wx:key="{{index}}" item="{{item}}" index="{{index}}" wx:if="{{index > 3}}"></rankingTab>
-  </scroll-view>
+    </view> 
+  </view>
+  <!-- 第三名之后的数据 -->
+  <rankingTab wx:for="{{commonList.list}}" wx:key="{{index}}" item="{{item}}" index="{{index}}" wx:if="{{index > 3}}"></rankingTab>
+
 </view>

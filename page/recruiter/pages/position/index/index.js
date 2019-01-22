@@ -1,4 +1,5 @@
 import { getPositionListApi, getPositionListNumApi } from '../../../../../api/pages/position.js'
+
 import {RECRUITER, COMMON} from '../../../../../config.js'
 
 const app = getApp()
@@ -112,7 +113,12 @@ Page({
     }
     this.setData({positionStatus})
   },
-
+  /**
+   * @Author   小书包
+   * @DateTime 2019-01-21
+   * @detail   detail
+   * @return   {[type]}     [description]
+   */
   onReachBottom(e) {
     if (this.data.positionStatus === '1') {
       let onLinePosition = this.data.onLinePosition

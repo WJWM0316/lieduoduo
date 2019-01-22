@@ -58,12 +58,9 @@
   height: 60rpx;
   border-radius: 50%;
   margin-left: -10rpx;
-  background-color: #666666;
 }
 .right .avatar:first-child{
   margin-left: 0;
-  background-color: red;
 }
 .right .avatar:last-child{
-  background-color: green;
 }

@@ -1,3 +1,5 @@
+@import '../../../iconfont.wxss';
+
 .ranking{
   margin: 0 auto;
   margin-bottom: 20rpx;
@@ -101,6 +103,7 @@
   font-size: 24rpx;
   font-weight: 300;
   margin-right: 40rpx;
+  color: #929292;
 }
 .ranking .left .bottom .influence{
   display: flex;
@@ -112,9 +115,9 @@
   margin-left: 10rpx;
   color: #652791;
 }
-.icon{
-  width: 30rpx;
-  height: 30rpx;
-  background-color: #ccc;
+
+.ranking .left .icon{
   margin-right: 10rpx;
+  color: #BACED8;
+  font-size: 26rpx;
 }

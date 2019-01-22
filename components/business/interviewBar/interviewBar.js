@@ -54,22 +54,28 @@ Component({
   methods: {
     init() {
       this.getInterviewStatus()
+      const infos = this.data.infos
       let currentPage = ''
       switch(this.data.type) {
         case 'position':
           currentPage = 'positionDetail'
+          let randomIndex1 = this.getRandomNum(0, infos.recruiterInfo.manifestos.length)
+          infos.recruiterInfo.manifestosText = infos.recruiterInfo.manifestos[randomIndex1].content
           break
         case 'resume':
           currentPage = 'resumeDetail'
           break
         case 'recruiter':
           currentPage = 'recruiterDetail'
+          let randomIndex2 = this.getRandomNum(0, infos.manifestos.length)
+          infos.manifestosText = infos.manifestos[randomIndex2].content
           break
         default:
           currentPage = ''
           break
       }
-      this.setData({currentPage})
+      this.setData({currentPage, infos})
+      console.log(infos)
     },
     /**
      * @Author   小书包
@@ -105,6 +111,18 @@ Component({
           //
         }
       })
+    },
+    /**
+     * @Author   小书包
+     * @DateTime 2019-01-22
+     * @detail   获取范围内随机数
+     * @return   {[type]}       [description]
+     */
+    getRandomNum(Min, Max) {
+      var Range = Max - Min
+      var Rand = Math.random()
+      var num = Min + Math.floor(Rand * Range)
+      return num
     },
     /**
      * @Author   小书包

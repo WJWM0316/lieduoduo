@@ -9,7 +9,15 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  position: fixed;
+  left: 0;
+  right: 0;
+  z-index: 2;
 }
+.list-box {
+  margin-top: 108rpx;
+}
+
 .recruitmentActive .tabBar text{
   font-size: 32rpx;
   color: #BCBCBC;

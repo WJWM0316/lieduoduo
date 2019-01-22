@@ -1,8 +1,10 @@
 <view class="applicant-interview">
 	<navbar title="猎多多"  background="#652791" color="#fff"></navbar>
+
 	<view hidden="{{!hasReFresh}}">
 		<refreshStatus></refreshStatus>
 	</view>
+	
 	<view class="interview-tab-bar">
 		<view
 			class="li {{tab.active ? 'active' : ''}} {{tab.showRedDot ? 'red-dot' : ''}}"
