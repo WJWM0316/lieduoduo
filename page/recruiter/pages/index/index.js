@@ -33,8 +33,8 @@ Page({
       isLastPage: false,
       isRequire: false
     },
-    // pageCount: app.globalData.pageCount,
-    pageCount: 6,
+    pageCount: app.globalData.pageCount,
+    // pageCount: 6,
     hasReFresh: false,
     onBottomStatus: 0
   },
@@ -50,22 +50,13 @@ Page({
   getLists() {
     switch(this.data.pageList) {
       case 'browseMySelf':
-        // if(!this.data.browseMySelf.list.length) {
-        //   this.getBrowseMySelf()
-        // }
-        this.getBrowseMySelf()
+        return this.getBrowseMySelf()
         break;
       case 'collectMySelf':
-        // if(!this.data.collectMySelf.list.length) {
-        //   this.getCollectMySelf()
-        // }
-        this.getCollectMySelf()
+        return this.getCollectMySelf()
         break;
       case 'collectUsers':
-        // if(!this.data.collectUsers.list.length) {
-        //   this.getMyCollectUsers()
-        // }
-        this.getMyCollectUsers()
+        return this.getMyCollectUsers()
         break;
     }
   },
@@ -85,9 +76,8 @@ Page({
           browseMySelf.list = browseMySelf.list.concat(res.data)
           browseMySelf.isLastPage = res.meta.nextPageUrl ? false : true
           browseMySelf.pageNum = browseMySelf.pageNum + 1
-          browseMySelf.isRequire = false
+          browseMySelf.isRequire = true
           this.setData({browseMySelf, onBottomStatus}, () => resolve(res))
-          console.log(browseMySelf)
         })
     })
   },
@@ -107,7 +97,7 @@ Page({
           collectMySelf.list = collectMySelf.list.concat(res.data)
           collectMySelf.isLastPage = res.meta.nextPageUrl ? false : true
           collectMySelf.pageNum = collectMySelf.pageNum + 1
-          collectMySelf.isRequire = false
+          collectMySelf.isRequire = true
           this.setData({collectMySelf, onBottomStatus}, () => resolve(res))
         })
     })
@@ -128,7 +118,7 @@ Page({
           collectUsers.list = collectUsers.list.concat(res.data)
           collectUsers.isLastPage = res.meta.nextPageUrl ? false : true
           collectUsers.pageNum = collectUsers.pageNum + 1
-          collectUsers.isRequire = false
+          collectUsers.isRequire = true
           this.setData({collectUsers, onBottomStatus}, () => resolve(res))
         })
     })
@@ -137,7 +127,7 @@ Page({
     let pageList = e.currentTarget.dataset.key
     this.setData({pageList}, () => {
       const key = this.data.pageList
-      if(!this.data[key].list.length) this.getLists()
+      if(!this.data[key].isRequire) this.getLists()
     })
   },
   /**
@@ -150,7 +140,7 @@ Page({
     const key = this.data.pageList
     const value = {list: [], pageNum: 1, isLastPage: false, isRequire: false}
     this.setData({[key]: value, hasReFresh: true})
-    this.getBrowseMySelf()
+    this.getLists()
         .then(res => {
           const value = {list: [], pageNum: 1, isLastPage: false, isRequire: false}
           const onBottomStatus = res.meta.nextPageUrl ? 0 : 2

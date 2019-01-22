@@ -1,4 +1,5 @@
 import { getPositionListApi, getPositionListNumApi } from '../../../../../api/pages/position.js'
+
 import {RECRUITER, COMMON} from '../../../../../config.js'
 
 const app = getApp()

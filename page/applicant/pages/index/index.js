@@ -9,19 +9,36 @@ const app = getApp()
 Page({
   data: {
     // 页面的默认数据列表
-    pageList: 'mySeen',
+    pageList: 'myBrowse',
     cdnImagePath: app.globalData.cdnImagePath,
     choseType: wx.getStorageSync('choseType') || null,
     needLogin: false,
-    companyList: [],
-    lookedList: [], // 我看过的列表
-    collectList: [], // 我感兴趣的列表
-    defaultList: [],
-    moreList: [],
-    activeList: [],
-    redDotActiveList: false // 招聘官动态红点
+    myBrowse: {
+      list: [],
+      pageNum: 1,
+      isLastPage: false,
+      isRequire: false
+    },
+    myCollect: {
+      list: [],
+      pageNum: 1,
+      isLastPage: false,
+      isRequire: false
+    },
+    commonList: {
+      list: [],
+      pageNum: 1,
+      isLastPage: false,
+      isRequire: false
+    },
+    moreRecruiter: [],
+    recruiterDynamic: [],
+    pageCount: app.globalData.pageCount,
+    // pageCount: 6,
+    hasReFresh: false,
+    onBottomStatus: 0
   },
-  onLoad: function () {
+  onLoad() {
     let choseType = wx.getStorageSync('choseType')
     if (!choseType) {
       wx.hideTabBar()
@@ -47,84 +64,138 @@ Page({
     }
   },
   onShow() {
-    if (app.globalData.resumeInfo.uid) {
-      if (app.globalData.identity === 'APPLICANT') {
-        this.init()
-      }
-    } else {
-      app.pageInit = () => {
-        if (app.globalData.identity === 'APPLICANT') {
-          this.init()
-        }
-      }
+    this.getLists()
+    this.getAvartList()
+  },
+  /**
+   * @Author   小书包
+   * @DateTime 2019-01-21
+   * @detail   获取列表数据
+   * @return   {[type]}   [description]
+   */
+  getLists() {
+    switch(this.data.pageList) {
+      case 'myBrowse':
+        return this.getMyBrowseList()
+        break;
+      case 'myCollect':
+        return this.getMyCollectList()
+        break;
+      default:
+        break;
     }
-    // wx.setTabBarBadge({
-    //   index: 2,
-    //   text: '99+'
-    // })
   },
-  getMyBrowseList () {
-    return geMyBrowseUsersApi()
-  },
-  getMyCollectList () {
-    return getMyCollectUsersApi()
-  },
-  /* 获取招聘官动态列表 */
-  getAvartLis () {
-    return getAvartListApi()
-  },
-  init () {
-    if (this.data.pageList === 'mySeen') {
-      this.getMyBrowseList().then(res => {
-        this.setData({
-          lookedList: res.data,
-          defaultList: res.data
+  /**
+   * @Author   小书包
+   * @DateTime 2019-01-21
+   * @detail   看过我的列表
+   * @return   {[type]}              [description]
+   */
+  getMyBrowseList(hasLoading = true) {
+    return new Promise((resolve, reject) => {
+      const params = {count: this.data.pageCount, page: this.data.myBrowse.pageNum, hasLoading}
+      geMyBrowseUsersApi(params)
+        .then(res => {
+          const myBrowse = this.data.myBrowse
+          const onBottomStatus = res.meta.nextPageUrl ? 0 : 2
+          myBrowse.list = myBrowse.list.concat(res.data)
+          myBrowse.isLastPage = res.meta.nextPageUrl ? false : true
+          myBrowse.pageNum = myBrowse.pageNum + 1
+          myBrowse.isRequire = true
+          this.setData({myBrowse, onBottomStatus}, () => {
+            resolve(res)
+            if(this.data.pageList === 'myBrowse') this.setData({commonList: myBrowse})
+          })
         })
-      })
-    }else {
-      this.getMyCollectList().then(res => {
-        this.setData({
-          collectList: res.data,
-          defaultList: res.data
-        })
-      })
-    }
-    this.getAvartLis().then(res => {
-      this.setData({
-        moreList: res.data.moreRecruiter,
-        activeList: res.data.recruiterDynamic
-      })
     })
   },
-  toggle(e) {
-    const pageList = e.currentTarget.dataset.pageList
-    const key = pageList === 'mySeen'? 'lookedList' : 'collectList'
-    if (this.data[key].length === 0) {
-      if (pageList === 'mySeen') {
-        this.getMyBrowseList().then(res => {
-          this.setData({
-            pageList,
-            lookedList: res.data,
-            defaultList: res.data
+  /**
+   * @Author   小书包
+   * @DateTime 2019-01-21
+   * @detail   我感兴趣的
+   * @return   {[type]}              [description]
+   */
+  getMyCollectList(hasLoading = true) {
+    return new Promise((resolve, reject) => {
+      const params = {count: this.data.pageCount, page: this.data.myCollect.pageNum, hasLoading}
+      getMyCollectUsersApi(params)
+        .then(res => {
+          const myCollect = this.data.myCollect
+          const onBottomStatus = res.meta.nextPageUrl ? 0 : 2
+          myCollect.list = myCollect.list.concat(res.data)
+          myCollect.isLastPage = res.meta.nextPageUrl ? false : true
+          myCollect.pageNum = myCollect.pageNum + 1
+          myCollect.isRequire = true
+          this.setData({myCollect, onBottomStatus}, () => {
+            resolve(res)
+            if(this.data.pageList === 'myCollect') this.setData({commonList: myCollect})
           })
         })
-      } else {
-        this.getMyCollectList().then(res => {
-          this.setData({
-            pageList,
-            collectList: res.data,
-            defaultList: res.data
-          })
-        })
-      }
-    } else {
-      this.setData({
-        pageList,
-        defaultList: this.data[key]
-      })
-    }
+    })
   },
-  onShareAppMessage: function(options) {
+  /**
+   * @Author   小书包
+   * @DateTime 2019-01-21
+   * @detail   获取发现更多招聘官
+   * @return   {[type]}   [description]
+   */
+  getAvartList() {
+    getAvartListApi()
+      .then(res => {
+        const moreRecruiter = res.data.moreRecruiter
+        const recruiterDynamic = res.data.recruiterDynamic
+        this.setData({moreRecruiter, recruiterDynamic})
+      })
+  },
+  /**
+   * @Author   小书包
+   * @DateTime 2019-01-21
+   * @detail   tab切换
+   * @return   {[type]}     [description]
+   */
+  onTabClick(e) {
+    const pageList = e.currentTarget.dataset.key
+    const key = e.currentTarget.dataset.key
+    const value = this.data[key]
+    this.setData({commonList: value, pageList}, () => {
+      if(!value.isRequire) this.getLists()
+    })
+  },
+  onShareAppMessage(options) {
 　　return app.wxShare({options})
+  },
+  /**
+   * @Author   小书包
+   * @DateTime 2019-01-21
+   * @detail   下拉重新获取数据
+   * @return   {[type]}              [description]
+   */
+  onPullDownRefresh(hasLoading = true) {
+    const key = this.data.pageList
+    const value = {list: [], pageNum: 1, isLastPage: false, isRequire: false}
+    this.setData({[key]: value, hasReFresh: true})
+    this.getLists()
+        .then(res => {
+          const value = {list: [], pageNum: 1, isLastPage: false, isRequire: false}
+          const onBottomStatus = res.meta.nextPageUrl ? 0 : 2
+          value.list = res.data
+          value.isLastPage = res.meta.nextPageUrl ? false : true
+          value.pageNum = 1
+          value.isRequire = true
+          this.setData({[key]: value, onBottomStatus, hasReFresh: false}, () => wx.stopPullDownRefresh())
+        })
+  },
+  /**
+   * @Author   小书包
+   * @DateTime 2019-01-21
+   * @detail   触底加载数据
+   * @return   {[type]}   [description]
+   */
+  onReachBottom() {
+    const key = this.data.pageList
+    const value = this.data[key]
+    if (!value.isLastPage) {
+      this.getLists(false).then(() => this.setData({commonList: value, onBottomStatus: 1}))
+    }
   }
 })

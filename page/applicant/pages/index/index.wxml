@@ -1,19 +1,23 @@
-<!--index.wxml-->
 <view class="container">
   <navbar title="猎多多"></navbar>
+
+  <view hidden="{{!hasReFresh}}">
+    <refreshStatus></refreshStatus>
+  </view>
+  
   <view class="applicant-index">
     <view class="index-bannar">
       <image src="{{cdnImagePath}}bg_homepageh.png"></image>
     </view>
     <view class='more'>
-      <moreActive type="1" avatarList="{{moreList}}"></moreActive>
-      <moreActive type="2" avatarList="{{activeList}}" redDotActiveList="{{redDotActiveList}}"></moreActive>
+      <moreActive type="1" avatarList="{{moreRecruiter}}"></moreActive>
+      <moreActive type="2" avatarList="{{recruiterDynamic}}" redDotActiveList="{{false}}"></moreActive>
     </view>
     <view class="ul-tab-bar">
-      <view class="li {{pageList === 'mySeen' ? 'active' : ''}}" bindtap="toggle" data-page-list="mySeen">我看过的</view>
-      <view class="li {{pageList === 'myInterested' ? 'active' : ''}}" bindtap="toggle" data-page-list="myInterested">我感兴趣的</view>
+      <view class="li {{pageList === 'myBrowse' ? 'active' : ''}}" bindtap="onTabClick" data-key="myBrowse">我看过的</view>
+      <view class="li {{pageList === 'myCollect' ? 'active' : ''}}" bindtap="onTabClick" data-key="myCollect">我感兴趣的</view>
     </view>
-    <officerTab list="{{defaultList}}" showFooter="{{false}}" dotType="circle"></officerTab>
+    <officerTab list="{{commonList.list}}" showFooter="{{false}}" dotType="circle"></officerTab>
     <bindPhone wx:if="{{needLogin}}"></bindPhone>
     <choose wx:if="{{!choseType}}"></choose>
   </view>

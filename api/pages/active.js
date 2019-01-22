@@ -30,7 +30,7 @@ export const getMyBrowseUsersApi = (data) => {
 export const getRankApi = (data) => {
   return request({
     method: 'get',
-    url: '/rank/',
+    url: '/rank',
     data
   })
 }

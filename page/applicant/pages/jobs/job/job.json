@@ -1,4 +1,6 @@
 {
+	"enablePullDownRefresh": true,
+	"backgroundTextStyle": "light",
   "usingComponents": {
     "jobList": "../../../../components/business/jobList/jobList",
     "myPicker": "../../../../components/functional/myPicker/myPicker",

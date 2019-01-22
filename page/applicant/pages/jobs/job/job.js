@@ -1,34 +1,79 @@
-//index.js
-//获取应用实例
+
 import {RECRUITER, APPLICANT, COMMON} from '../../../../../config.js'
+
 import {getSelectorQuery}  from '../../../../../utils/util.js'
+
 import { getPositionListApi } from '../../../../../api/pages/position.js'
 
 const app = getApp()
+
 Page({
   data: {
-    // 页面的默认数据列表
-    pageList: 'mySeen',
-    motto: 'Hello World',
-    userInfo: {},
-    hasUserInfo: false,
-    canIUse: wx.canIUse('button.open-type.getUserInfo'),
-    result: 0,
-    list: ['12月', '11月', '10月', '09月', '08月', '07月', '06月', '05月','04月', '03月', '02月', '01月'],
-    companyList: []
+    // pageCount: app.globalData.pageCount,
+    pageCount: 6,
+    hasReFresh: false,
+    onBottomStatus: 0,
+    positionList: {
+      list: [],
+      pageNum: 1,
+      isLastPage: false,
+      isRequire: false
+    },
   },
-  onShow() {
-    // wx.setTabBarBadge({
-    //   index: 2,
-    //   text: '99+'
-    // })
-    getPositionListApi({count: 200}).then(res => {
-      let companyList = res.data
-      this.setData({companyList})
+  onLoad() {
+    this.getPositionList()
+  },
+  /**
+   * @Author   小书包
+   * @DateTime 2019-01-21
+   * @detail   获取职位列表
+   * @return   {[type]}   [description]
+   */
+  getPositionList(hasLoading = true) {
+    return new Promise((resolve, reject) => {
+      const params = {count: this.data.pageCount, page: this.data.positionList.pageNum, hasLoading}
+      getPositionListApi(params)
+        .then(res => {
+          const positionList = this.data.positionList
+          const onBottomStatus = res.meta.nextPageUrl ? 0 : 2
+          positionList.list = positionList.list.concat(res.data)
+          positionList.isLastPage = res.meta.nextPageUrl ? false : true
+          positionList.pageNum = positionList.pageNum + 1
+          positionList.isRequire = true
+          this.setData({positionList, onBottomStatus}, () => resolve(res))
+        })
     })
   },
-  changeCompanyLists(e) {
-    let pageList = e.currentTarget.dataset.pageList
-    this.setData({ pageList })
+  /**
+   * @Author   小书包
+   * @DateTime 2019-01-21
+   * @detail   下拉重新获取数据
+   * @return   {[type]}              [description]
+   */
+  onPullDownRefresh(hasLoading = true) {
+    const positionList = {list: [], pageNum: 1, isLastPage: false, isRequire: false}
+    this.setData({positionList, hasReFresh: true})
+    this.getPositionList()
+        .then(res => {
+          const positionList = {list: [], pageNum: 1, isLastPage: false, isRequire: false}
+          const onBottomStatus = res.meta.nextPageUrl ? 0 : 2
+          positionList.list = res.data
+          positionList.isLastPage = res.meta.nextPageUrl ? false : true
+          positionList.pageNum = 2
+          positionList.isRequire = true
+          this.setData({positionList, onBottomStatus, hasReFresh: false}, () => wx.stopPullDownRefresh())
+        })
+  },
+  /**
+   * @Author   小书包
+   * @DateTime 2019-01-21
+   * @detail   触底加载数据
+   * @return   {[type]}   [description]
+   */
+  onReachBottom() {
+    const positionList = this.data.positionList
+    if (!positionList.isLastPage) {
+      this.getPositionList(false).then(() => this.setData({onBottomStatus: 1}))
+    }
   }
 })
