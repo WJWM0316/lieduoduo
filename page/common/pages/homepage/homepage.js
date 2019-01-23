@@ -18,11 +18,18 @@ import {
   getPositionListApi
 } from "../../../../api/pages/position.js"
 
+import {getSelectorQuery} from "../../../../utils/util.js"
+
+import {
+  mapInfos
+} from '../../../../utils/map.js'
+
 let app = getApp()
 
 Page({
 
   data: {
+    navH: app.globalData.navHeight,
     tab: 'about',
     indicatorDots: false,
     autoplay: true,
@@ -37,11 +44,24 @@ Page({
     latitude: 0,
     cdnImagePath: app.globalData.cdnImagePath,
     positionTypeList: [],
-    labelId: null
+    labelId: null,
+    domHeight: 0,
+    isFixed: false,
+    map: {
+      ...mapInfos,
+      longitude: 0,
+      latitude: 0,
+    }
   },
   onLoad(options) {
     this.setData({query: options})
     this.init().then(() => this.getLabelPosition())
+  },
+  onShow() {
+    getSelectorQuery('.banner')
+      .then(res => {
+        this.setData({domHeight: res.height})
+      })
   },
   /**
    * @Author   小书包
@@ -127,7 +147,11 @@ Page({
           const companyInfos = res.data
           const longitude = companyInfos.address.length ? companyInfos.address[0].lng : 0
           const latitude = companyInfos.address.length ? companyInfos.address[0].lat : 0
-          this.setData({companyInfos, longitude, latitude }, () => resolve(res))
+          const map = this.data.map
+          map.longitude = longitude
+          map.latitude = latitude
+          map.enableScroll = false
+          this.setData({companyInfos, map }, () => resolve(res))
         })
     })
   },
@@ -219,5 +243,15 @@ Page({
     const albumInfo = this.data.companyInfos.albumInfo.map(field => field.url)
     const params = e.currentTarget.dataset
     wx.previewImage({current: params.index, urls: albumInfo})
+  },
+  /**
+   * @Author   小书包
+   * @DateTime 2019-01-23
+   * @detail   就算页面的滚动
+   * @return   {[type]}     [description]
+   */
+  onPageScroll(e) {
+    let isFixed = e.scrollTop > this.data.domHeight
+    this.setData({isFixed})
   }
 })
