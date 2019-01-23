@@ -12,7 +12,7 @@
 	  </view>
 	  <view class="input-li clear-bottom">
 	    <view class="key">有效期</view>
-	    <input name="validity" class="value" placeholder="请填写身份证背面有效期" bindinput="bindInput" data-field="validity" value="{{validity}}" />
+	    <input name="validity" class="value" placeholder="请填写身份证背面有效期" bindinput="bindInput" data-field="validity" value="{{validity}}" maxlength="10" />
 	  </view>
 	  <view class="upload-li">
 	  	<view class="text">

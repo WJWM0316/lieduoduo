@@ -24,6 +24,8 @@ Page({
   onShow() {
     const options = this.data.options
     const action = options.type === 'position' ? 'getPositionAddressList' : 'getCompanyAddressList'
+    const addressList = {list: [], pageNum: 1, isLastPage: false, isRequire: false}
+    this.setData({addressList})
     this[action]()
   },
   /**
