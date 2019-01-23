@@ -8,7 +8,7 @@
 	  </view>
 	  <view class="input-li">
 	    <view class="key">身份证号</view>
-	    <input name="identity_num" class="value" placeholder="请填写18位身份证号码" bindinput="bindInput" data-field="identity_num" value="{{identity_num}}" />
+	    <input name="identity_num" class="value" placeholder="请填写18位身份证号码" bindinput="bindInput" data-field="identity_num" value="{{identity_num}}" maxlength="18"/>
 	  </view>
 	  <view class="input-li clear-bottom">
 	    <view class="key">有效期</view>

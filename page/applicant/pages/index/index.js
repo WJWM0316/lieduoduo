@@ -64,8 +64,19 @@ Page({
     }
   },
   onShow() {
-    this.getLists()
-    this.getAvartList()
+     if (app.globalData.resumeInfo.uid) {
+      if (app.globalData.identity === 'APPLICANT') {
+        this.getLists()
+        this.getAvartList()
+      }
+    } else {
+      app.pageInit = () => {
+        if (app.globalData.identity === 'APPLICANT') {
+          this.getLists()
+          this.getAvartList()
+        }
+      }
+    }
   },
   /**
    * @Author   小书包
