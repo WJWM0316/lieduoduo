@@ -16,7 +16,20 @@
 		<view class="li {{tab === 'about' ? 'active' : ''}}" bindtap="onTabClick" data-tab="about">关于我们</view>
 		<view class="li {{tab === 'recruitment' ? 'active' : ''}}" bindtap="onTabClick" data-tab="recruitment">在招职位({{companyInfos.positionNum}})</view>
 	</view>
-	<block wx:if="{{tab === 'about'}}">
+	
+	<!-- <view class="child-box" hidden="{{tab === 'about'}}">
+		<view
+			class="tab {{item.active ? 'tab-active' : ''}}"
+			wx:for="{{positionTypeList}}"
+			wx:key="{{index}}"
+			data-index="{{index}}"
+			bindtap="selectSkill"
+			wx-for-item="{{item}}">
+				{{item.name}}
+			</view>
+	</view> -->
+
+	<view hidden="{{tab === 'recruitment'}}">
 		<view class="homepage-team-box" wx:if="{{recruitersList.length}}">
 			<view class="title">
 				<view class="icon"> <view class="fan"></view> </view> 招聘团队
@@ -119,10 +132,10 @@
 				<view class="button" bindtap="copyLink">复制</view>
 			</view>
 		</view>
-	</block>
-	<block wx:else>
-		<view class="job-list">
-			<jobList personality="jobItem" list="{{jobList}}" list-type="interview" current-tab="all"></jobList>
-		</view>
-	</block>
+	</view>
+
+	<view class="job-list" hidden="{{tab === 'about'}}">
+		<jobList personality="jobItem" list="{{jobList}}" list-type="interview" current-tab="all"></jobList>
+	</view>
+
 </view>
