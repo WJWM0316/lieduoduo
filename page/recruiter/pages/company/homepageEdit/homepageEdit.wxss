@@ -176,7 +176,7 @@
 
 .company-detail {
   overflow: hidden;
-  margin: 40rpx;
+  margin: 30rpx 40rpx 0rpx 40rpx;
 }
 
 .company-detail .p {
@@ -249,17 +249,21 @@
   font-size:28rpx;
   font-weight:300;
   color:rgba(40,40,40,1);
+  max-width:200rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap
 }
 
 .production-box .li .row-two {
   font-size:24rpx;
   font-weight:300;
   color:rgba(40,40,40,1);
-  margin-top: 15rpx;
-  overflow: hidden;
+  margin-top: 20rpx;
   background:rgba(248,248,248,1);
   line-height: 1.5;
   padding: 8rpx 18rpx;
+  position: relative;
 }
 
 .production-box .li::after {
@@ -271,6 +275,19 @@
   background: #E8E9EB;
   position: absolute;
   bottom: 0;
+}
+
+.production-box .li .row-two:before {
+  width: 0;
+  height: 0;
+  position: absolute;
+  top: -20rpx;
+  left: 30rpx;
+  border-width: 10rpx;
+  border-style: solid;
+  border-color: transparent transparent rgba(248,248,248,1) transparent;
+  display: block;
+  content: '';
 }
 
 .production-box .li:last-child::after {

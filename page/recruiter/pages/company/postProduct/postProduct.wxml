@@ -2,7 +2,7 @@
 	<navbar title="{{options.productId ? '编辑产品信息' : '新增产品信息'}}" background="#fff" color="#22292C"></navbar>
 	<view class="ul">
 		<view class="li flex-box">
-			<view class="key">产品封面</view>
+			<view class="key">产品Logo</view>
 			<view class="value">
 				<view class="logo">
 					<unloadFile bindresultEvent="upload" unloadType="img">

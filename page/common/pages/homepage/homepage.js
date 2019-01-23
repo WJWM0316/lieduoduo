@@ -218,9 +218,6 @@ Page({
   previewImage(e) {
     const albumInfo = this.data.companyInfos.albumInfo.map(field => field.url)
     const params = e.currentTarget.dataset
-    wx.previewImage({
-      current: params.index,
-      urls: albumInfo
-    })
+    wx.previewImage({current: params.index, urls: albumInfo})
   }
 })

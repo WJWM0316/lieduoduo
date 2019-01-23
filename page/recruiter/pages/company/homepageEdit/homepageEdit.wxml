@@ -67,9 +67,9 @@
 				<view class="content">
 					<view class="row-one">
 						<view class="username">{{item.productName}}</view>
-						<view class="recruitment-number">{{item.slogan}}</view>
+						<view class="recruitment-number">{{item.lightspot}}</view>
 					</view>
-					<view class="row-two">{{item.lightspot}}</view>
+					<view class="row-two">{{item.slogan}}</view>
 				</view>
 			</view>
 		</view>
