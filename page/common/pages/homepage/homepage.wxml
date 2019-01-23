@@ -68,7 +68,7 @@
 				wx:if="{{companyInfos.albumInfo.length}}"
 				autoplay="{{autoplay}}">
 				<swiper-item class="swiper-item" wx:for="{{companyInfos.albumInfo}}" wx:key="{{index}}" wx:for-item="item">
-					<image mode="aspectFill" class="slide-image {{swiperIndex == index ? 'active' : ''}}" src="{{item.smallUrl}}" bindtap="previewImage" />
+					<image mode="aspectFill" class="slide-image {{swiperIndex == index ? 'active' : ''}}" src="{{item.smallUrl}}" bindtap="previewImage" data-index="{{index}}" />
 				</swiper-item>
 			</swiper>
 			<view class="company-detail">
@@ -105,6 +105,7 @@
 				  longitude="{{ longitude }}"
 				  latitude="{{ latitude }}"
 				  scale="14"
+				  enable-scroll="{{false}}"
 				  show-location></map>
 			</view>
 			<view
