@@ -218,6 +218,9 @@ Page({
           y: 0,
           width: 750,
           height: curHeight,
+          destWidth: 750 * 2,
+          destHeight: curHeight * 2,
+          quality: 1,
           canvasId: 'canvas',
           success(res) {
             that.setData({imgUrl: res.tempFilePath, imgH: curHeight})

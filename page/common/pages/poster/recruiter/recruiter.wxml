@@ -1,7 +1,7 @@
 <view class="poster">
-<!-- 	<navbar title="分享简历" background="#fff" color="#22292C" wx:if="{{imgUrl}}"></navbar>
- -->	<canvas canvas-id="canvas" id="canvas" width="750px" height="3000px"></canvas>
-	<!-- <view class="imgBox" wx:if="{{imgUrl}}">
+	<navbar title="分享我的主页" background="#fff" color="#22292C" wx:if="{{imgUrl}}"></navbar>
+	<canvas canvas-id="canvas" id="canvas" width="750px" height="3000px" hidden="{{imgUrl}}"></canvas>
+	<view class="imgBox" wx:if="{{imgUrl}}">
 		<image class='showImg' src="{{imgUrl}}" style="width: 100%;" mode="widthFix"></image>
 	</view>
 	<view style="height: 90rpx;" wx:if="{{imgUrl}}"></view>
@@ -14,5 +14,5 @@
 			<view class="yellow">保存图片</view>
 			<view class="violet"></view>
 		</button>
-	</view> -->
+	</view>
 </view>
