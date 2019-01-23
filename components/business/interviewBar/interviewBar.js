@@ -34,10 +34,6 @@ Component({
     positionId: {
       type: String,
       value: ''
-    },
-    currentPage: {
-      type: String,
-      value: ''
     }
   },
   data: {

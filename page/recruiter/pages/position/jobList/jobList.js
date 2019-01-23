@@ -9,10 +9,6 @@ import {
 import {RECRUITER, COMMON} from '../../../../../config.js'
 
 Page({
-
-  /**
-   * 页面的初始数据
-   */
   data: {
     items: [],
     options: {},
@@ -21,16 +17,13 @@ Page({
   onLoad(options) {
     this.setData({identity: wx.getStorageSync('choseType')})
     const storage = wx.getStorageSync('interviewChatLists')
-    if(storage) {
+    if(storage && wx.getStorageSync('choseType') === 'APPLICANT') {
       this.setData({items: storage.data, options})
       return;
     }
     getPositionListApi({recruiter: options.recruiterUid}).then(res => {
       this.setData({items: res.data, options})
     })
-    // getPositionListApi().then(res => {
-    //   this.setData({items: res.data, options})
-    // })
   },
   radioChange(e) {
     const data = wx.getStorageSync('interviewData') || {}

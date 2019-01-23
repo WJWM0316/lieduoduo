@@ -47,33 +47,57 @@ Component({
 			const status = e.currentTarget.dataset.status
 			const jobhunteruid = e.currentTarget.dataset.jobhunteruid || e.currentTarget.dataset.uid
 			const recruiteruid = e.currentTarget.dataset.recruiteruid
-			if (e.currentTarget.dataset.uid) { // 非面试入口
-			  if (Identity === 'APPLICANT') {
-			    wx.navigateTo({
-            url: `/page/common/pages/recruiterDetail/recruiterDetail?uid=${jobhunteruid}`
-          })
-			  } else {
-			    wx.navigateTo({
-            url: `/page/common/pages/resumeDetail/resumeDetail?uid=${jobhunteruid}`
-          })
-			  }
-			} else { // 职位机会入口
-			  if ((status === 11 || status === 12 || status >= 51) && Identity === 'RECRUITER') {
-			    /* 招聘端：不合适，未处理跳简历 */
-          wx.navigateTo({
-            url: `/page/common/pages/resumeDetail/resumeDetail?uid=${jobhunteruid}`
-          })
-        } else if ((status === 11 || status === 12 || status >= 51) && Identity === 'APPLICANT') {
-          /* 求职端 */
-          wx.navigateTo({
-            url: `/page/common/pages/recruiterDetail/recruiterDetail?uid=${recruiteruid}`
-          })
-        } else {
-          wx.navigateTo({
-            url: `/page/common/pages/arrangement/arrangement?id=${itemId}`
-          })
+      const url = wx.getStorageSync('choseType') === 'APPLICANT'
+                  ? `/page/common/pages/recruiterDetail/recruiterDetail?uid=${jobhunteruid}`
+                  : `/page/common/pages/resumeDetail/resumeDetail?uid=${jobhunteruid}`
+            
+      const jobhunterRoute = () => {
+        switch(status) {
+          case 51:
+            wx.navigateTo({url: `/page/common/pages/recruiterDetail/recruiterDetail?uid=${recruiteruid}`})
+            break
+          case 12:
+            wx.navigateTo({url: `/page/common/pages/recruiterDetail/recruiterDetail?uid=${recruiteruid}`})
+            break
+          case 11:
+            wx.navigateTo({url: `/page/common/pages/recruiterDetail/recruiterDetail?uid=${recruiteruid}`})
+            break
+          default:
+            wx.navigateTo({url: `/page/common/pages/arrangement/arrangement?id=${itemId}`})
+            break
         }
-			}
+      }
+
+      const recruiterRoute = () => {
+        switch(status) {
+          case 51:
+            wx.navigateTo({url: `/page/common/pages/arrangement/arrangement?id=${itemId}`})
+            break
+          case 12:
+            wx.navigateTo({url: `/page/common/pages/resumeDetail/resumeDetail?uid=${jobhunteruid}`})
+            break
+          case 11:
+            wx.navigateTo({url: `/page/common/pages/resumeDetail/resumeDetail?uid=${jobhunteruid}`})
+            break
+          default:
+            wx.navigateTo({url: `/page/common/pages/arrangement/arrangement?id=${itemId}`})
+            break
+        }
+      }
+
+      // C端面试入口
+      if(wx.getStorageSync('choseType') === 'APPLICANT' && !e.currentTarget.dataset.uid) {
+        jobhunterRoute()
+        return;
+      }
+
+      // B端面试入口
+      if(wx.getStorageSync('choseType') === 'RECRUITER' && !e.currentTarget.dataset.uid) {
+        recruiterRoute()
+        return;
+      }
+
+      wx.navigateTo({url })
 		}
 	}
 })
