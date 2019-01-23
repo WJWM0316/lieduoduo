@@ -13,7 +13,7 @@
 						<view class="name">{{infos.name}}</view>
 						<view class="hunter-infos"> <view class="strong">{{infos.positionNum}}</view>个职位 </view>
 					</view>
-					<view class="second">{{infos.manifestosText}}</view>
+					<view class="second">{{jobWords[index]}}</view>
 				</view>
 				<view class="button-box button-box-color1">
 					<view bindtap="todoAction" data-action="job-hunting-chat">开撩约面</view>
@@ -28,7 +28,7 @@
 						<view class="name">{{infos.recruiterInfo.name}}</view>
 						<view class="hunter-infos"> <view class="strong">{{infos.recruiterInfo.positionNum}}</view>个职位 </view>
 					</view>
-					<view class="second">{{infos.recruiterInfo.manifestosText}}</view>
+					<view class="second">{{jobWords[index]}}</view>
 				</view>
 				<view class="button-box button-box-color1">
 					<view bindtap="todoAction" data-action="job-hunting-chat">开撩约面</view>
@@ -108,7 +108,7 @@
 			<block wx:if="{{interviewInfos.interviewStatus === 11 && interviewInfos.haveInterview === 1}}">
 				<view class="content">
 					<view class="first"><view class="name">{{infos.name || infos.recruiterInfo.name}}</view></view>
-					<view class="second">我一直在等一个懂我的老大</view>
+					<view class="second">{{recruiterWords[index]}}</view>
 				</view>
 				<view class="button-box">
 					<view class="accept" data-action="recruiter-accept" bindtap="todoAction">确认约面</view>
@@ -120,7 +120,7 @@
 			<block wx:if="{{interviewInfos.haveInterview === 0}}">
 				<view class="content">
 					<view class="first"><view class="name">{{infos.name || infos.recruiterInfo.name}}</view></view>
-					<view class="second">我一直在等一个懂我的老大</view>
+					<view class="second">{{recruiterWords[index]}}</view>
 				</view>
 				<view class="button-box">
 					<view class="accept" data-action="recruiter-chat" bindtap="todoAction">开撩约面</view>

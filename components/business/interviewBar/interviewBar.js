@@ -42,9 +42,31 @@ Component({
     slogoIndex: 0,
     // 是否是我发布
     isOwerner: false,
-    currentPage: ''
+    currentPage: '',
+    index: 0,
+    jobWords: [
+      '我一直在等，等一个懂我的老大~',
+      '工作中的我一个顶俩，用过都说好',
+      '看在我简历这么好看的份上，约呗',
+      '确认过眼神，我是你想要的那个人',
+      '嘿，该不会没看出来我超靠谱的吧',
+      '看上我的人实在太多，抓紧机会~'
+    ],
+    recruiterWords: [
+      '工作易得，知音难觅，壮士约乎？',
+      '我不想懂天文地理，我只想懂你~',
+      '公司的进口零食得找个人清一清了',
+      '我看你骨骼精奇，是块耐磨的料子',
+      '好看的和能干的，都欢迎来开撩哦',
+      '把握住缘分，搞不好能成为同事~',
+      '我这么Nice的招聘官已经不多见了！'
+    ]
   },
   attached() {
+    const key = wx.getStorageSync('choseType') === 'APPLICANT' ? 'recruiterWords' : 'jobWords'
+    const length = this.data[key].length
+    const index = this.getRandomNum(0, length)
+    this.setData({index})
     // this.init()
   },
   methods: {
@@ -257,18 +279,19 @@ Component({
           break
         // B端开撩成功后跳转安排面试页面
         case 'recruiter-accept':
-          wx.navigateTo({url: `${RECRUITER}position/jobList/jobList?type=confirm_chat&from=${this.data.currentPage}`})
-          wx.setStorageSync('interviewChatLists', this.data.interviewInfos)
-          // if(interviewInfos.data.length > 1) {
-          //   wx.navigateTo({url: `${RECRUITER}position/jobList/jobList?type=confirm_chat`})
-          //   // wx.setStorageSync('interviewChatLists', this.data.interviewInfos)
-          // } else {
-          //   confirmInterviewApi({id: interviewInfos.data[0].interviewId})
-          //     .then(res => {
-          //       this.triggerEvent('resultevent', res)
-          //       wx.navigateTo({url: `${COMMON}arrangement/arrangement?id=${interviewInfos.data[0].interviewId}`})
-          //     })
-          // }
+          // wx.navigateTo({url: `${RECRUITER}position/jobList/jobList?type=confirm_chat&from=${this.data.currentPage}`})
+          // wx.setStorageSync('interviewChatLists', this.data.interviewInfos)
+          // 求职者发起多条撩的记录
+          if(interviewInfos.data.length > 1) {
+            wx.navigateTo({url: `${RECRUITER}position/jobList/jobList?type=confirm_chat&from=${this.data.currentPage}`})
+            wx.setStorageSync('interviewChatLists', this.data.interviewInfos)
+          } else {
+            confirmInterviewApi({id: interviewInfos.data[0].interviewId})
+              .then(res => {
+                this.triggerEvent('resultevent', res)
+                wx.navigateTo({url: `${COMMON}arrangement/arrangement?id=${interviewInfos.data[0].interviewId}`})
+              })
+          }
           break
         // 待求职者确认
         case 'iter-pedding':

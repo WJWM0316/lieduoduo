@@ -46,6 +46,20 @@ Page({
     const options = this.data.query
     this.init(options)
   },
+  backEvent() {
+    if(this.data.query.positionId) {
+      app.wxConfirm({
+        title: '放弃修改',
+        content: '你编辑的职位尚未保存，确定放弃编辑吗？',
+        confirmBack() {
+          wx.removeStorageSync('createPosition')
+          wx.navigateBack({delta: 1})
+        }
+      })
+    } else {
+      wx.navigateBack({delta: 1})
+    }
+  },
   /**
    * @Author   小书包
    * @DateTime 2018-12-21

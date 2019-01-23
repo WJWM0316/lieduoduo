@@ -5,7 +5,7 @@
 <view style="height: 98rpx"></view>
 <view class="office-status-bar" style="top:{{navH}}px">
   <view class="item {{positionStatus === '1' ? 'active' : ''}}" bindtap="onClickTab" data-status="1">上线职位({{onLinePositionNum}})</view>
-  <view class="item {{positionStatus === '0' ? 'active' : ''}}" bindtap="onClickTab" data-status="0">下线职位({{offLinePositionNum}})</view>
+  <view class="item {{positionStatus === '2' ? 'active' : ''}}" bindtap="onClickTab" data-status="2">下线职位({{offLinePositionNum}})</view>
   <view class="publish" data-action="add" bindtap="routeJump"><i class="icon iconfont icon-bianji"></i> 发布职位</view>
 </view>
 
@@ -13,7 +13,7 @@
 	<refreshStatus></refreshStatus>
 </view>
 
-<view class="office-manager-list" hidden="{{positionStatus === '0'}}">
+<view class="office-manager-list" hidden="{{positionStatus === '2'}}">
 	<view class="li"
 		wx:for="{{onLinePosition.list}}"
 		wx:for-item="item"

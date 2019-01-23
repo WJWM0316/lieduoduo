@@ -32,7 +32,7 @@ Page({
   },
   onShow() {
     getPositionListNumApi({recruiter: app.globalData.recruiterDetails.uid}).then(res => {
-      this.setData({onLinePositionNum: res.data.open, offLinePositionNum: res.data.close})
+      this.setData({onLinePositionNum: res.data.online, offLinePositionNum: res.data.close})
     })
     this.getOnlineLists()
   },
@@ -47,7 +47,7 @@ Page({
       let uid = app.globalData.recruiterDetails.uid
       let onLinePosition = this.data.onLinePosition
       let onBottomStatus = this.data.onBottomStatus
-      getPositionListApi({status: 1, recruiter: uid, count: onLinePosition.count, page: onLinePosition.pageNum, hasLoading})
+      getPositionListApi({is_online: 1, recruiter: uid, count: onLinePosition.count, page: onLinePosition.pageNum, hasLoading})
         .then(res => {
           onLinePosition.list = onLinePosition.list.concat(res.data || [])
           onLinePosition.pageNum++
@@ -68,7 +68,7 @@ Page({
       let uid = app.globalData.recruiterDetails.uid
       let offLinePosition = this.data.offLinePosition
       let offBottomStatus = this.data.offBottomStatus
-      getPositionListApi({status: 0, recruiter: uid, count: offLinePosition.count, page: offLinePosition.pageNum, hasLoading})
+      getPositionListApi({is_online: 2, recruiter: uid, count: offLinePosition.count, page: offLinePosition.pageNum, hasLoading})
         .then(res => {
           offLinePosition.list = offLinePosition.list.concat(res.data || [])
           offLinePosition.pageNum++
@@ -106,7 +106,7 @@ Page({
   /* 子级tab栏切换 */
   onClickTab(e) {
     const positionStatus = e.currentTarget.dataset.status
-    if (positionStatus === '0') {
+    if (positionStatus === '2') {
       if (!this.data.offLinePosition.isRequire) {
         this.getOffLineLists()
       }
