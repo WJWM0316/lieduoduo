@@ -60,3 +60,12 @@ export const getMyCollectUsersApi = (data, isLoading) => {
     isLoading: true
   })
 }
+
+// 删除查看用户
+export const deleteBrowseUserApi = (data, isLoading) => {
+  return request({
+    method: 'delete',
+    url: `/browse/deleteBrowseUser/${data.uid}`,
+    isLoading: true
+  })
+}

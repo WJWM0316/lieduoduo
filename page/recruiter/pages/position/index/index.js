@@ -32,7 +32,7 @@ Page({
   },
   onShow() {
     getPositionListNumApi({recruiter: app.globalData.recruiterDetails.uid}).then(res => {
-      this.setData({onLinePositionNum: res.data.online, offLinePositionNum: res.data.close})
+      this.setData({onLinePositionNum: res.data.online, offLinePositionNum: res.data.offline})
     })
     this.getOnlineLists()
   },

@@ -36,7 +36,8 @@ Page({
     pageCount: app.globalData.pageCount,
     // pageCount: 6,
     hasReFresh: false,
-    onBottomStatus: 0
+    onBottomStatus: 0,
+    buttonType: 'delete'
   },
   onLoad() {
     let choseType = wx.getStorageSync('choseType')
@@ -77,6 +78,18 @@ Page({
         }
       }
     }
+  },
+  /**
+   * @Author   小书包
+   * @DateTime 2019-01-23
+   * @detail   重新拿数据
+   * @return   {[type]}   [description]
+   */
+  refreshEvent(res) {
+    const key = this.data.pageList
+    let commonList = this.data[key]
+    commonList = commonList.list.filter(field => field.uid !== res.detail.uid)
+    this.setData({commonList})
   },
   /**
    * @Author   小书包
@@ -168,7 +181,8 @@ Page({
     const pageList = e.currentTarget.dataset.key
     const key = e.currentTarget.dataset.key
     const value = this.data[key]
-    this.setData({commonList: value, pageList}, () => {
+    const buttonType = pageList === 'myBrowse' ? 'delete' : 'unsubscribe'
+    this.setData({commonList: value, pageList, buttonType}, () => {
       if(!value.isRequire) this.getLists()
     })
   },
