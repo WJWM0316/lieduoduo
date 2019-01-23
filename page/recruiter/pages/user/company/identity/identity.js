@@ -103,8 +103,11 @@ Page({
     Promise
      .all([checkRealName, checkIdCard])
      .then(res => {
-      const action = this.data.options.action === 'edit' ? 'editCompanyIdentityInfos' : 'identityCompany'
-      this[action]()
+        const action = this.data.options.action === 'edit' ? 'editCompanyIdentityInfos' : 'identityCompany'
+        this[action]()
+     })
+     .catch(err => {
+      app.wxToast({title: err})
      })
   },
   /**

@@ -1,5 +1,9 @@
 @import '../../../../iconfont.wxss';
 
+.category-list {
+	margin-top: 120rpx;
+}
+
 .category-list .li {
 	background: white;
 	line-height: 98rpx;
@@ -53,15 +57,17 @@
 	z-index: 10000;
 	position: relative;
 	display: block;
-	height:80rpx;
+	height:120rpx;
 	line-height: 80rpx;
 	font-size:28rpx;
 	font-weight:500;
 	color:rgba(40,40,40,1);
 	padding: 20rpx 40rpx;
-	position: relative;
+	position: fixed;
 	background: white;
 	border: 1px solid #E8E9EB;
+	width: 100%;
+	box-sizing: border-box;
 }
 
 .search-box input {

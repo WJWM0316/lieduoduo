@@ -66,5 +66,14 @@ Page({
   },
   view() {
     this.setData({show: !this.data.show})
+  },
+  /**
+   * @Author   小书包
+   * @DateTime 2018-12-29
+   * @detail   复制
+   * @return   {[type]}   [description]
+   */
+  copyText() {
+    wx.setClipboardData({data: this.data.companyInfos.website })
   }
 })

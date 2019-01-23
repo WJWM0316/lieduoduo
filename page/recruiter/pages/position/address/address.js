@@ -73,7 +73,14 @@ Page({
   delete() {
     const type = this.data.options.type === 'position' ? 'Position' : 'Company'
     const action = `delete${type}Address`
-    this[action]()
+    const that = this
+    app.wxConfirm({
+      title: '删除地址',
+      content: '地址删除后将无法恢复，是否确定删除？',
+      confirmBack() {
+        that[action]()
+      }
+    })
   },
   /**
    * @Author   小书包
@@ -200,7 +207,7 @@ Page({
       lng: infos.lng,
       lat: infos.lat
     }
-    if(!formData.area_id) {
+    if(!formData.areaId) {
       app.wxToast({title: '请选择公司地址'})
       return
     }

@@ -497,3 +497,50 @@
 .job-list {
   margin-top: -30rpx;
 }
+
+.child-box {
+  box-shadow:0rpx -1rpx 0rpx 0rpx rgba(101,39,145,0.1);
+  box-sizing: border-box;
+  background: white;
+  white-space: nowrap;
+  overflow: hidden;
+  overflow-x: scroll;
+  display: flex;
+  align-items: center;
+  margin: 0 30rpx;
+  padding: 0 40rpx;
+  border-bottom: 1px solid rgba(101, 39, 145, 0.1);
+}
+
+.child-box .tab{
+  box-sizing: border-box;
+  text-align: center;
+  margin-right: 40rpx;
+  font-size: 26rpx;
+  color: #282828;
+  display: inline-block;
+  height:90rpx;
+  line-height: 90rpx;
+  position: relative;
+  z-index: 2;
+}
+
+.child-box .tab:after{
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width:36rpx;
+  height:6rpx;
+  background:rgba(132,82,167,1);
+  border-radius:3rpx;
+  opacity: 0;
+  visibility: hidden;
+  content: '';
+  transition: all ease .4s
+}
+
+.child-box .tab-active:after{
+  opacity: 1;
+  visibility: visible;
+}

@@ -38,7 +38,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 35,
+			"current": 6,
 			"list": [
 				{
 					"id": 0,
@@ -79,7 +79,7 @@
 				{
 					"id": 6,
 					"name": "公司认证",
-					"pathName": "page/recruiter/pages/user/company/apply/apply",
+					"pathName": "page/recruiter/pages/user/company/find/find",
 					"query": "type=edit"
 				},
 				{
