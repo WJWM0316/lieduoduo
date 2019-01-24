@@ -20,6 +20,11 @@ Page({
       url: `/page/common/pages/tabsPage/tabsPage`
     })
   },
+  jump() {
+    wx.navigateTo({
+      url: `/page/common/pages/changeMobile/changeMobile`
+    })
+  },
   radioChange(e) {
     this.setData({gender: parseInt(e.detail.value)})
   },
@@ -95,6 +100,10 @@ Page({
       if (info.signature.length > 150) {
         title = '自我描述最多输入150个字'
       }
+    }
+    if (title) {
+      app.wxToast({title})
+      return
     }
     let data = {
       avatar: info.avatar.id,

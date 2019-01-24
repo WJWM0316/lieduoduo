@@ -53,6 +53,9 @@ Page({
       case 'settings':
         wx.navigateTo({url: `${COMMON}settings/settings`})
         break
+      case 'poster':
+        wx.navigateTo({url: `${COMMON}poster/recruiter/recruiter`})
+        break
       default:
         break
     }

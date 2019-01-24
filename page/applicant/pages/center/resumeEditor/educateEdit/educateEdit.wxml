@@ -22,13 +22,21 @@
     <myPicker class="myPicker" setResult="{{info.endTimeDesc}}" pickerType="endTime" placeholderStyle="color: #BCBCBC" data-time="end" bindresultevent="getresult"></myPicker>
   </view>
   <!--项目描述-->
-  <view class="title"><text>*</text>在校经历</view>
+  <view class="title">在校经历</view>
   <view class="textArea">
     <textarea placeholder="填写在校经历" placeholder-class="placeholder" maxlength="50" bindinput="WriteContent" value="{{description}}"></textarea>
+    <view class="bottom">
+      <view class="example" bindtap="showPopups"><i class="icon iconfont icon-chakan"></i>看看别人怎么写</view>
+      <view class="num">{{description.length}}/1000</view>
+    </view>
   </view>
+
 </view>
-<view class="save add" bindtap="add" wx:if="{{isAdd}}">保存</view>
-<view class="btn" wx:else>
-  <view class="save delete" bindtap="del">删除</view>
-  <view class="save" bindtap="save">保存</view>
+<view style="height: 168rpx;"></view>
+<view class="saveBox">
+  <view class="save" bindtap="save" wx:if="{{isAdd}}">保存</view>
+  <block wx:else>
+    <view class="delete save" bindtap="del">删除</view>
+    <view class="saveAgain save" bindtap="save">保存</view>
+  </block>
 </view>

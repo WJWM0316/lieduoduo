@@ -11,7 +11,7 @@
 			wx:for-item="item"
 			wx:key="{{item.id}}"
 			data-label-id="{{item.labelId}}"
-			bindtap="onClick"> {{item.name}} <i class="icon iconfont icon-close"></i></view>
+			bindtap="onClick"> {{item.name || item.field}} <i class="icon iconfont icon-close"></i></view>
 	</view>
 	<view class="unchecked-item-ul">
 		<view

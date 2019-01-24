@@ -8,7 +8,12 @@
   position:absolute;
   top: 30rpx;
   right: 0;
-  z-index: 2
+  z-index: 2;
+  padding: 0;
+  text-align: left;
+}
+.shareBtn::after {
+  display: block;
 }
 .shareIcon {
   width: 100%;

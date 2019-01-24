@@ -192,15 +192,19 @@ Page({
     curHeight = curHeight + 90
     ctx.setFontSize(28)
     ctx.setFillStyle('#282828')
-    for (let i = 0; i < info.describe.length; i++) {
-      descString = descString + info.describe[i]
-      descWidth = ctx.measureText(descString).width
-      if (info.describe[i] === '↵' || descWidth > 590) {
-        ctx.drawImage('../../../../../images/c2.png', 0, curHeight, 750, 48)
-        ctx.fillText(descString.slice(0, descString.length-1), 80, curHeight)
-        descString = ''
-        curHeight += 48
+    if (ctx.measureText(info.describe).width > 590) {
+      for (let i = 0; i < info.describe.length; i++) {
+        descString = descString + info.describe[i]
+        descWidth = ctx.measureText(descString).width
+        if (info.describe[i] === '↵' || descWidth > 590) {
+          ctx.drawImage('../../../../../images/c2.png', 0, curHeight, 750, 48)
+          ctx.fillText(descString.slice(0, descString.length-1), 80, curHeight)
+          descString = ''
+          curHeight += 48
+        }
       }
+    } else {
+      ctx.fillText(info.describe, 80, curHeight)
     }
     ctx.drawImage('../../../../../images/c4.png', 0, curHeight - 200, 74, 92)
     ctx.drawImage('../../../../../images/1547620956(1).jpg', 77, curHeight + 80, 167, 167)

@@ -13,8 +13,8 @@
 			</view>
 			<image class="img-box" src="{{recruiterInfo.avatar.middleUrl}}" bindtap="preview"></image>
 		</view>
-		<!-- <view class="share-homepage" bindtap="share">分享我的主页</view>
-		<view class="share-homepage-pic">生成朋友圈分享图</view> -->
+		<button open-type="share" class="share-homepage" bindtap="share">分享我的主页</button>
+		<view class="share-homepage-pic" bindtap="routeJump" data-route="poster">生成朋友圈分享图</view>
 	</view>
 	<view class="show-off-block">
 		<view class="content">

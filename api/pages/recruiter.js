@@ -112,3 +112,13 @@ export const putLabelFavorApi = (data) => {
     hasLoading: true
   })
 }
+
+// 给招聘官的个人标签取消点赞
+export const removeLabelFavorApi = (data) => {
+  return request({
+    url: `/recruiter/labelFavor/${data.recruiterLabelId}`,
+    method: 'delete',
+    data,
+    hasLoading: true
+  })
+}

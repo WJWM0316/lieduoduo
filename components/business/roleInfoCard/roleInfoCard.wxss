@@ -115,7 +115,7 @@
   font-size: 28rpx;
   font-weight: 300;
   color: #282828;
-  line-height: 28rpx;
+  line-height: 42rpx;
   padding: 32rpx 0 40rpx;
   margin: 0 auto;
 }

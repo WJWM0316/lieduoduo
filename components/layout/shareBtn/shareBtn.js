@@ -30,17 +30,9 @@ Component({
       this.setData({showChoose: false})
     },
     jump() {
-      switch(thia.data.posterType) {
-        case 'position':
-          wx.navigateTo({
-            url: `${COMMON}poster/position/position`
-          })
-          break
-        case 'position':
-          wx.navigateTo({
-            url: `${COMMON}poster/position/position`
-          })
-          break
+              console.log(this.data.posterType)
+
+      switch(this.data.posterType) {
         case 'position':
           wx.navigateTo({
             url: `${COMMON}poster/position/position`

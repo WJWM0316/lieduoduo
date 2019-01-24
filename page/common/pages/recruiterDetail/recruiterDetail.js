@@ -1,5 +1,5 @@
 import {getSelectorQuery} from "../../../../utils/util.js"
-import {getOthersRecruiterDetailApi, getRecruiterDetailApi, giveMecallApi, putLabelFavorApi} from "../../../../api/pages/recruiter.js"
+import {getOthersRecruiterDetailApi, getRecruiterDetailApi, giveMecallApi, putLabelFavorApi, removeLabelFavorApi} from "../../../../api/pages/recruiter.js"
 import {getPositionListApi} from "../../../../api/pages/position.js"
 import {getMyCollectUserApi, deleteMyCollectUserApi} from "../../../../api/pages/collect.js"
 import {COMMON,RECRUITER,APPLICANT} from "../../../../config.js"
@@ -32,7 +32,7 @@ Page({
   },
   getOthersInfo() {
     getOthersRecruiterDetailApi({uid: this.data.options.uid}).then(res => {
-      this.setData({info: res.data}, function() {
+      this.setData({info: res.data, btnTxt: '展开内容'}, function() {
         this.selectComponent('#interviewBar').init()
         getSelectorQuery('.msg').then(res => {
           if (res.height > 143) {
@@ -69,7 +69,7 @@ Page({
         if (app.globalData.identity === "APPLICANT") {
           this.getOthersInfo()
         } else {
-          this.setData({info: myInfo, isOwner: true})
+          this.setData({info: myInfo, isOwner: true, btnTxt: '展开内容'})
           getSelectorQuery('.msg').then(res => {
             if (res.height > 143) {
               this.setData({isShrink: true, needShrink: true})
@@ -87,7 +87,7 @@ Page({
           myInfo = app.globalData.recruiterDetails
         }
         if (myInfo.uid === parseInt(options.uid)) {
-          this.setData({info: myInfo, isOwner: true})
+          this.setData({info: myInfo, isOwner: true, btnTxt: '展开内容'})
           getSelectorQuery('.msg').then(res => {
             if (res.height > 143) {
               this.setData({isShrink: true, needShrink: true})
@@ -146,14 +146,30 @@ Page({
     let info = this.data.info
     giveMecallApi({vkey: this.data.info.vkey}).then(res => {
       info.isCall = true
+      app.wxToast({
+        title: '打call成功',
+        icon: 'succes'
+      })
       this.setData({info})
     })
   },
   favor(e) {
-    let data = {
-      recruiterLabelId: e.currentTarget.dataset.id
+    let info = this.data.info
+    let data = e.currentTarget.dataset.item
+    let index = e.currentTarget.dataset.index
+    if (!data.hasFavor) {
+      putLabelFavorApi({recruiterLabelId: data.id}).then(res => {
+        info.personalizedLabels[index].hasFavor = true
+        info.personalizedLabels[index].favorCount++
+        this.setData({info})
+      })
+    } else {
+      removeLabelFavorApi({recruiterLabelId: data.id}).then(res => {
+        info.personalizedLabels[index].hasFavor = false
+        info.personalizedLabels[index].favorCount--
+        this.setData({info})
+      })
     }
-    putLabelFavorApi(data).then(res => {})
   },
   collect() {
     let data = {

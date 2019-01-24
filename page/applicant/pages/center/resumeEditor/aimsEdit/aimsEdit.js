@@ -19,16 +19,17 @@ Page({
   onLoad: function (options) {
     let info = this.data.info
     const id = parseInt(options.id)
+    wx.removeStorageSync('createPosition')
+    wx.removeStorageSync('result')
     if (id) {
-      wx.removeStorageSync('createPosition')
-      wx.removeStorageSync('result')
       app.globalData.resumeInfo.expects.map((item, index) => {
         if (item.id === parseInt(options.id)) {
           this.setData({info: item, options, index})
           return
         }
       })
-    } else {
+    }
+    if (!id || app.globalData.resumeInfo.expects.length === 1) {
       this.setData({
         isAdd: true
       })
@@ -49,6 +50,8 @@ Page({
       info.position = position.typeName
       info.positionId = position.type
     }
+    wx.setStorageSync('fieldsData', info.fields)
+    
     this.setData({info})
   },
   onHide () {
@@ -82,6 +85,20 @@ Page({
   save () {
     let info = this.data.info
     let fields = []
+    let title = ''
+    if (!info.cityNum) {
+      title = '请选择期望城市'
+    } else if (!info.positionId) {
+      title = '请选择期望职位'
+    } else if (!info.salaryCeil) {
+      title = '请选择期望薪资'
+    } else if (!info.fields || info.fields.length === 0) {
+      title = '请选择期望领域'
+    } 
+    if (title) {
+      app.wxToast({title})
+      return
+    }
     info.fields.map((item) => {
       if (item.fieldId) {
         fields.push(item.fieldId)
@@ -97,49 +114,35 @@ Page({
       salaryFloor: info.salaryFloor,
       fieldIds: fields.join(',')
     }
-    editExpectApi(param).then(res => {
-      app.globalData.resumeInfo.expects[this.data.info] = info
-      wx.removeStorageSync('createPosition')
-      wx.removeStorageSync('result')
-      app.wxToast({
-        title: '保存成功',
-        icon: 'success',
-        callback() {
-          wx.navigateBack({delta: 1}) 
-        }
+    if (!this.data.options.id) {
+      addExpectApi(param).then(res => {
+        app.globalData.resumeInfo.expects.push(res.data)
+        wx.removeStorageSync('createPosition')
+        wx.removeStorageSync('fieldsData')
+        wx.removeStorageSync('result')
+        app.wxToast({
+          title: '发布成功',
+          icon: 'success',
+          callback() {
+            wx.navigateBack({delta: 1}) 
+          }
+        })
       })
-    })
-  },
-  // 新增
-  add () {
-    let info = this.data.info
-    let fields = []
-    info.fields.map((item) => {
-      if (item.fieldId) {
-        fields.push(item.fieldId)
-      } else {
-        fields.push(item.labelId)
-      }
-    })
-    const param = {
-      cityNum: info.cityNum,
-      positionId: info.positionId,
-      salaryCeil: info.salaryCeil,
-      salaryFloor: info.salaryFloor,
-      fieldIds: fields.join(',')
+    } else {
+      editExpectApi(param).then(res => {
+        app.globalData.resumeInfo.expects[this.data.info] = info
+        wx.removeStorageSync('createPosition')
+        wx.removeStorageSync('fieldsData')
+        wx.removeStorageSync('result')
+        app.wxToast({
+          title: '保存成功',
+          icon: 'success',
+          callback() {
+            wx.navigateBack({delta: 1}) 
+          }
+        })
+      })
     }
-    addExpectApi(param).then(res => {
-      app.globalData.resumeInfo.expects.push(res.data)
-      wx.removeStorageSync('createPosition')
-      wx.removeStorageSync('result')
-      app.wxToast({
-        title: '发布成功',
-        icon: 'success',
-        callback() {
-          wx.navigateBack({delta: 1}) 
-        }
-      })
-    })
   },
   // 删除
   del () {

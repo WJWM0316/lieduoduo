@@ -1,7 +1,7 @@
 import { getLabelProfessionalSkillsApi, getFieldListApi } from '../../../../../../api/pages/label.js'
 
 import {RECRUITER} from '../../../../../../config.js'
-
+let app = getApp()
 Page({
   data: {
     professionalSkills: [],
@@ -34,7 +34,15 @@ Page({
     if (options.target === '2') {
       getFieldListApi().then(response => {
         const professionalSkills = response.data
-        this.setData({professionalSkills})
+        let skills = wx.getStorageSync('fieldsData') || []
+        skills.map((item, index) => {
+          professionalSkills.map((n ,j) => {
+            if (parseInt(item.fieldId) === n.labelId) {
+              professionalSkills[j].active = true
+            }
+          })
+        })
+        this.setData({professionalSkills, skills})
       })
     } else {
       getLabelProfessionalSkillsApi().then(response => {
@@ -44,7 +52,17 @@ Page({
     }
   },
   submit() {
+    if (this.data.skills.length === 0) {
+      app.wxToast({
+        title: '请选择标签'
+      })
+      return
+    }
     wx.setStorageSync('result', this.data.skills)
     wx.navigateBack({delta: 1})
+  },
+  onHide() {
+    wx.remove            
+     StorageSync('fieldsData')
   }
 })

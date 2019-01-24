@@ -44,6 +44,16 @@
   width: 100%;
   height: 150rpx;
 }
+.bottom{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 24rpx;
+  color: #652791;
+}
+.bottom .example i{
+  margin-right: 12rpx;
+}
 .title{
   line-height: 122rpx;
   font-size: 28rpx;
@@ -54,39 +64,35 @@
   line-height: 122rpx;
   margin-right: 10rpx;
 }
-.btn{
+.saveBox {
   width: 100%;
-  display: flex;
-  margin-top: 70rpx;
-  align-items: center;
-  justify-content: center;
-  padding-bottom: 30rpx;
-  /*position: fixed;
-  bottom: 30rpx;
-  left: 50%;
-  transform: translateX(-50%);*/
-}
-.save{
-  display: inline-block;
-  padding: 28rpx 92rpx;
-  background-color: #652791;
-  border-radius:48rpx;
-  margin: 0 auto;
-  color: #fff;
-  text-align: center;
-  font-size: 32rpx;
-  font-weight: 400;
-  margin: 0 20rpx;
-  white-space: nowrap;
-}
-.add{
   box-sizing: border-box;
+  padding: 29rpx 85rpx;
+  display: flex;
+  justify-content: space-between;
+  background: #fff;
   position: fixed;
-  bottom: 30rpx;
-  width: 550rpx;
-  left: 50%;
-  transform: translateX(-50%);
+  bottom: 0;
+  left: 0;
+}
+.save {
+  width: 100%;
+  height: 90rpx;
+  line-height: 90rpx;
+  font-weight:400;
+  color:#fff;
+  display: block;
+  background: #652791;
+  text-align: center;
+  border-radius: 48rpx;
+  font-size: 32rpx;
+}
+.saveAgain {
+  box-sizing: border-box;
+  width: 308rpx;
+  display: block;
 }
 .delete{
+  width: 248rpx;
   background-color: #BCBCBC;
 }

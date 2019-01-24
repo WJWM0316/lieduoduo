@@ -128,7 +128,7 @@ Page({
   },
   openPop () {
     if (this.data.pageType === 'life') {
-      if (this.data.lifeChoseNum < 5) {
+      if (this.data.lifeChoseNum < 3) {
         this.setData({hidePop: false})
       } else {
         app.wxToast({
@@ -136,7 +136,7 @@ Page({
         })
       }
     } else {
-      if (this.data.jobChoseNum < 5) {
+      if (this.data.jobChoseNum < 3) {
         this.setData({hidePop: false})
       } else {
         app.wxToast({
@@ -272,7 +272,7 @@ Page({
       }
     // 要选中的
     } else {
-      if (list.length === 5) { // 超过五个不给选择了
+      if (list.length === 3) { // 超过五个不给选择了
         app.wxToast({
           title: '选择标签已达上限'
         })
@@ -408,7 +408,6 @@ Page({
     if (app.globalData.identity === "APPLICANT") {
       saveLabelApi(data).then(res => {
         app.globalData.resumeInfo.personalizedLabels = personalizedLabels
-        console.log(personalizedLabels, 11)
         app.wxToast({
           title: '提交成功',
           icon: "success",

@@ -9,7 +9,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-    nowInputNum: 0, // 当前输入字数
+    limitNum: 20,
+    isEdit: false,
     imgList: [], // 图片数组
     introduce: '' // 当前输入的内容
   },
@@ -18,7 +19,6 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    console.log(app.globalData.resumeInfo.moreIntroduce)
     if (options.id === 'undefined') {
       this.setData({
         isAdd: true,
@@ -27,11 +27,19 @@ Page({
       })
     }
   },
+  editTxt () {
+    let isEdit = this.data.isEdit
+    isEdit = !isEdit
+    this.setData({isEdit})
+  },
   // 上传图片
   getResult (e) {
+    let limitNum = this.data.limitNum
+    limitNum = limitNum - e.detail.length
     let imgList = [...this.data.imgList, ...e.detail]
     this.setData({
-      imgList
+      imgList,
+      limitNum
     })
   },
   delImg (e) {
@@ -46,7 +54,6 @@ Page({
   WriteContent (e) {
     this.data.introduce = e.detail.value
     this.setData({
-      nowInputNum: e.detail.cursor,
       introduce: e.detail.value
     })
   },

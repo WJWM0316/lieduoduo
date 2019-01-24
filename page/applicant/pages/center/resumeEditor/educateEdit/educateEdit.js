@@ -4,6 +4,7 @@ let target = null
 let title = null
 let nowEducateId = null // 当前编辑的意向数据id
 const app = getApp()
+let toToday = false
 Page({
 
   /**
@@ -25,13 +26,15 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    if (options.id === '0') {
+    if (options.id === '0' || app.globalData.resumeInfo.educations.length === 1) {
       this.setData({
         isAdd: true
       })
     }
     nowEducateId = parseInt(options.id)
-    this.init()
+    if (nowEducateId) {
+      this.init()
+    }
   },
   // 修改学校名字
   schoolName (e) {
@@ -42,11 +45,13 @@ Page({
     this.data.subject = e.detail.value
   },
   getresult (e) {
-    console.log(e.detail, 999)
     if (e.currentTarget.dataset.time === 'start') {
       this.data.startTime = e.detail.propsResult
     } else if (e.currentTarget.dataset.time === 'end') {
       this.data.endTime = e.detail.propsResult
+      if (!this.data.endTime) {
+        toToday = true
+      }
     } else {
       this.data.education = e.detail.propsResult
       this.data.degreeDesc = e.detail.propsDesc
@@ -54,7 +59,6 @@ Page({
   },
   // 编辑学校经历
   WriteContent (e) {
-//  console.log(e.detail.value)
     this.data.description = e.detail.value
   },
   // 编辑保存
@@ -68,102 +72,58 @@ Page({
       endTime: this.data.endTime,
       experience: this.data.description
     }
-    for (let item in param) {
-      if (!param[item] && item !== 'endTime') {
-        let itemName = ''
-        switch (item) {
-          case 'school':
-            itemName = '学校名字不能为空'
-            break;
-          case 'degree':
-            itemName = '学历不能为空'
-            break;
-          case 'startTime':
-            itemName = '开始时间不能为空'
-            break;
-          case 'experience':
-            itemName = '在校经历不能为空'
-            break;
-          case 'major':
-            itemName = '专业不能为空'
-            break;
-          default:
-            itemName = '结束时间不能为空'
-            break;
-        }
-        wx.showToast({
-          title: `${itemName}`,
-          icon: 'none',
-          duration: 1000
-        })
-        return
-      }
+    let itemName = ''
+    if (!param.school) {
+      itemName = '请填写学校名称'
+    } else if (param.school && (param.school.length < 2 || param.school.length > 50)) {
+      itemName = '学校名称需为2-50个字'
+    } else if (!param.degree) {
+      itemName = '请选择学历'
+    } else if (!param.major) {
+      itemName = '请填写专业名称'
+    } else if (param.major && (param.major.length < 2 || param.major.length > 50)) {
+      itemName = '专业名称需为2-50个字'
+    } else if (!param.startTime) {
+      itemName = '请选择开始时间'
+    } else if (!param.endTime && !toToday) {
+      itemName = '请选择结束时间'
+    } else if (param.endTime && param.startTime > param.endTime) {
+      itemName = '开始时间不得晚于结束时间'
     }
-    editEducationApi(param).then(res => {
-      wx.showToast({
-        title: '编辑成功',
-        icon: 'none',
-        duration: 1000
+    if (itemName) {
+      app.wxToast({
+        title: itemName
       })
-      app.globalData.resumeInfo.educations.map((item, index) => {
-        if (item.id === param.id) {
-          app.globalData.resumeInfo.educations[index] = res.data
-          app.wxToast({
-            title: '保存成功',
-            icon: 'success',
-            callback() {
-              wx.navigateBack({delta: 1}) 
-            }
-          })
-        }
+      return
+    }
+    if (nowEducateId) {
+      editEducationApi(param).then(res => {
+        app.wxToast({
+          title: '保存成功',
+          icon: 'success',
+          callback() {
+            app.globalData.resumeInfo.educations.map((item, index) => {
+              if (item.id === param.id) {
+                app.globalData.resumeInfo.educations[index] = res.data
+              }
+            })
+            wx.navigateBack({delta: 1}) 
+          }
+        }) 
       })
-    })
-  },
-  // 新增
-  add () {
-    const param = {
-      school: this.data.schoolName,
-      degree: this.data.education,
-      major: this.data.subject,
-      startTime: this.data.startTime,
-      endTime: this.data.endTime,
-      experience: this.data.description
+    } else {
+      addEducationApi(param).then(res => {
+        app.wxToast({
+          title: '保存成功',
+          icon: 'success',
+          callback() {
+            app.globalData.resumeInfo.educations.push(res.data)
+            wx.navigateBack({delta: 1}) 
+          }
+        }) 
+      })
     }
-    for (let item in param) {
-      if (!param[item] && item !== 'endTime') {
-        let itemName = ''
-        switch (item) {
-          case 'school':
-            itemName = '学校名字不能为空'
-            break;
-          case 'degree':
-            itemName = '学历不能为空'
-            break;
-          case 'startTime':
-            itemName = '开始时间不能为空'
-            break;
-          case 'experience':
-            itemName = '在校经历不能为空'
-            break;
-          case 'major':
-            itemName = '专业不能为空'
-            break;
-          default:
-            itemName = '结束时间不能为空'
-            break;
-        }
-        wx.showToast({
-          title: `${itemName}`,
-          icon: 'none',
-          duration: 1000
-        })
-        return
-      }
-    }
-    addEducationApi(param).then(res => {
-      app.globalData.resumeInfo.educations.push(res.data)
-      wx.navigateBack({delta: 1})
-    })
+    
   },
   // 删除
   del () {

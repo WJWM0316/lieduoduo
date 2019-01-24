@@ -55,6 +55,11 @@ Page({
           url: `${COMMON}settings/settings`
         })
         break
+      case "poster":
+        wx.navigateTo({
+          url: `${COMMON}poster/resume/resume`
+        })
+        break
     }
   },
   /* 去完善简历 */

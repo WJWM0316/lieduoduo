@@ -5,6 +5,8 @@
     	class="commont img"
     	wx:for="{{imgList}}"
     	wx:key="{{item}}"
+      mode = "aspectFill"
+      wx:if = "{{index <= 20}}"
     	src="{{item.smallUrl}}">
     		<view class="close" data-index="{{index}}" bindtap="delete">
     			<i class="icon iconfont icon-close"></i>

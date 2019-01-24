@@ -2,7 +2,7 @@
   <navbar title="{{title}}" customBack bindbackEvent="back"></navbar>
   <block>
     <view class="content"  hidden="{{pageType !== 'job'}}">
-      <view class="head">已选择标签<text class="number"><text class="num">{{choseJobList.length}}</text>/5</text></view>
+      <view class="head">已选择标签<text class="number"><text class="num">{{choseJobList.length}}</text>/3</text></view>
       <view class="tabs">
         <text class="tab checked" wx:for="{{choseJobList}}" wx:key="{{index}}" bindtap="choseTab" data-labelType="choseJobList" data-tabData="{{item}}">{{item.name || item.labelName}}</text>
       </view>
@@ -23,7 +23,7 @@
   </block>
   <block>
     <view class="content"  hidden="{{pageType !== 'life'}}">
-      <view class="head">已选择标签<text class="number"><text class="num">{{choseLifeList.length}}</text>/5</text></view>
+      <view class="head">已选择标签<text class="number"><text class="num">{{choseLifeList.length}}</text>/3</text></view>
       <view class="tabs">
         <text class="tab checked" wx:for="{{choseLifeList}}" wx:key="{{index}}" bindtap="choseTab" data-labelType="choseLifeList" data-tabData="{{item}}">{{item.name || item.labelName}}</text>
       </view>

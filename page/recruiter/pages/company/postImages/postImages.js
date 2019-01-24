@@ -34,10 +34,11 @@ Page({
    * @return   {[type]}     [description]
    */
   upload(e) {
-    const item = e.detail[0]
     const imgList = this.data.imgList
-    imgList.push(item)
-    this.setData({imgList})
+    e.detail.map((item, index) => {
+      imgList.push(item)
+    })
+    this.setData({imgList, limitNum: 20 - this.data.imgList.length}) 
   },
   /**
    * @Author   小书包

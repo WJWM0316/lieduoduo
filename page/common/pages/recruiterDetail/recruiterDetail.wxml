@@ -7,7 +7,8 @@
       <view class="avatar vip">
         <image src="{{info.avatar.smallUrl}}" mode="aspectFill"></image>
       </view>
-      <view class="labels label{{index}}" wx:for="{{info.personalizedLabels}}" wx:key="{{index}}" bindtap="favor" data-id="{{item.id}}">{{item.labelName}} <text wx:if="{{item.favorCount > 0}}">×{{item.favorCount}}</text> </view>
+      <view class="labels label{{index}} {{item.hasFavor ? 'hasFavor': ''}}" wx:for="{{info.personalizedLabels}}" wx:key="{{index}}" bindtap="favor" data-item="{{item}}" data-index="{{index}}" wx:if="{{index <= 5}}">{{item.labelName}} <text wx:if="{{item.favorCount > 0}}">×{{item.favorCount}}</text> </view>
+      <image class="favor" src="{{cdnImagePath}}dianzan.png"></image>
     </div>
     <view class="userInfo">
       <view class="name">{{info.name}}</view>
@@ -27,7 +28,7 @@
         <view class="data"><text class="num">{{info.ranking}}</text>排名</view>
       </view>
       <button hidden="{{info.isCall}}" class="callBtn" bindtap="callBtn">为Ta打Call，提高影响力</button>
-      <button hidden="{{!info.isCall}}" class="callBtn isCalled" bindtap="shareBtn">帮Ta转发集Call</button>
+      <button open-type="share" hidden="{{!info.isCall}}" class="callBtn isCalled" bindtap="shareBtn">帮Ta转发集Call</button>
       <view class="more" bindtap="jump">查看更多热门招聘官<view class="icon iconfont icon-disejiantou-you"></view></view>
     </view>
     <view class="labelEdit {{info.personalizedLabels.length > 0 ? 'hasLabelEdit': ''}}" wx:if="{{isOwner}}">
@@ -36,7 +37,7 @@
           <view class="fan"></view>
         </view>
         <text class="txt">个人标签</text>
-        <block wx:if="{{info.personalizedLabels.length > 0}}"><i class="shareBtn iconfont icon-fenxiang"></i><i class="editBtn iconfont icon-bianji1" bindtap="editJump" data-type="labels"></i></block>
+        <block wx:if="{{info.personalizedLabels.length > 0}}"><!-- <i class="shareBtn iconfont icon-fenxiang"></i> --><i class="editBtn iconfont icon-bianji1" bindtap="editJump" data-type="labels"></i></block>
       </view>
       <view class="labelBox" wx:if="{{info.personalizedLabels.length > 0}}">
         <text class="item" wx:for="{{info.personalizedLabels}}" wx:key="{{index}}">{{item.labelName || item.name}} <text wx:if="{{item.favorCount > 0}}">x{{item.favorCount}}</text></text>

@@ -75,6 +75,21 @@
   font-weight: 400;
   color: #fff;
 }
+.favor {
+  width: 30rpx;
+  height: 30rpx;
+  position: absolute;
+  top: -33rpx;
+  left: -30rpx;
+}
+.hasFavor {
+  background:rgba(255,255,255,0.3);
+  font-weight:500;
+}
+.hasFavor text {
+  color: #FFDC29;
+  font-weight:500;
+}
 .label0 {
   font-size: 24rpx;
   font-weight:500;

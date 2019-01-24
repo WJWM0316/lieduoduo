@@ -4,9 +4,8 @@ import { APPLICANT, COMMON } from '../../../../../../config.js'
 
 let target = null
 let title = null
-let nowWorkId = null // 当前编辑的意向数据id
 const app = getApp()
-
+let toToday = false // 是否至今
 Page({
 
   /**
@@ -32,13 +31,15 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
-    if (options.id === '0') {
+    this.setData({options})
+    if (!options.id || app.globalData.resumeInfo.careers.length === 1) {
       this.setData({
         isAdd: true
       })
     }
-    nowWorkId = parseInt(options.id)
-    this.init()
+    if (options.id) {
+      this.init()
+    }
   },
 
   /**
@@ -78,7 +79,7 @@ Page({
         this.setData({jobCategories: wx.getStorageSync('createPosition')})
         break;
       case '4':
-        let skillList = wx.getStorageSync('result')
+        let skillList = wx.getStorageSync('result') || []
         let skill = null
         let skillsId = []
         skillList.map(item => {
@@ -135,118 +136,81 @@ Page({
       this.data.starTime = e.detail.propsResult
     } else {
       this.data.endTime = e.detail.propsResult
+      if (!this.data.endTime) {
+        toToday = true
+      }
     }
   },
   // 保存编辑
   save () {
     const param = {
-      id: nowWorkId,
+      id: this.data.options.id,
       company: this.data.company,
       position: this.data.positionName,
-      positionType: this.data.jobCategories.typeName,
+      positionType: this.data.jobCategories.typeName || this.data.jobCategories,
       startTime: this.data.starTime,
       endTime: this.data.endTime,
       labels: this.data.skillsId,
       duty: this.data.duty
     }
-    for (let item in param) {
-      if (!param[item] && item !== 'link' && item !== 'endTime') {
-        let itemName = ''
-        switch (item) {
-          case 'company':
-            itemName = '公司名字不能为空'
-            break;
-          case 'position':
-            itemName = '职位名称不能为空'
-            break;
-          case 'startTime':
-            itemName = '开始时间不能为空'
-            break;
-          case 'duty':
-            itemName = '工作内容不能为空'
-            break;
-          case 'labels':
-            itemName = '技能标签不能为空'
-            break;
-          case 'positionType':
-            itemName = '职位类别不能为空'
-            break;
-          default:
-            itemName = '结束时间不能为空'
-            break;
-        }
-        wx.showToast({
-          title: `${itemName}`,
-          icon: 'none',
-          duration: 1000
-        })
-        return
-      }
+    let itemName = ''
+    if (!param.company) {
+      itemName = '请填写公司名称'
+    } else if (param.company && (param.company.length < 2 || param.company.length > 50)) {
+      itemName = '公司名称需为2-50个字'
+    } else if (!param.positionType) {
+      itemName = '请选择职位类型'
+    } else if (!param.position) {
+      itemName = '请填写职位名称'
+    } else if (param.position && (param.position.length < 2 || param.position.length > 20)) {
+      itemName = '职位名称需为2-20个字'
+    } else if (!param.startTime) {
+      itemName = '请选择开始时间'
+    } else if (!param.endTime && !toToday) {
+      itemName = '请选择结束时间'
+    } else if (param.endTime && param.startTime > param.endTime) {
+      itemName = '开始时间不得晚于结束时间'
+    } else if (!param.labels) {
+      itemName = '请选择技能标签'
+    } else if (!param.duty) {
+      itemName = '请填写工作内容'
     }
-    editCareerApi(param).then(res => {
-      app.globalData.resumeInfo.careers.map((item,index) => {
-        if (item.id === res.data.id) {
-          app.globalData.resumeInfo.careers[index] = res.data
-        }
-      })
+    if (itemName) {
       app.wxToast({
-        title: '保存成功',
-        icon: 'success',
-        callback() {
-          wx.navigateBack({delta: 1}) 
-        }
+        title: itemName
       })
-    })
-  },
-  // 新增
-  add () {
-    const param = {
-      company: this.data.company,
-      position: this.data.positionName,
-      positionType: this.data.jobCategories.typeName,
-      startTime: this.data.starTime,
-      endTime: this.data.endTime,
-      labels: this.data.skillsId,
-      duty: this.data.duty
+      return
     }
-    for (let item in param) {
-      if (!param[item] && item !== 'link' && item !== 'endTime') {
-        let itemName = ''
-        switch (item) {
-          case 'company':
-            itemName = '公司名字不能为空'
-            break;
-          case 'position':
-            itemName = '职位名称不能为空'
-            break;
-          case 'startTime':
-            itemName = '开始时间不能为空'
-            break;
-          case 'duty':
-            itemName = '工作内容不能为空'
-            break;
-          case 'labels':
-            itemName = '技能标签不能为空'
-            break;
-          case 'positionType':
-            itemName = '职位类别不能为空'
-            break;
-          default:
-            itemName = '结束时间不能为空'
-            break;
-        }
-        wx.showToast({
-          title: `${itemName}`,
-          icon: 'none',
-          duration: 1000
+    if (this.data.options.id) {
+      editCareerApi(param).then(res => {
+        wx.removeStorageSync('createPosition')
+        app.globalData.resumeInfo.careers.map((item,index) => {
+          if (item.id === res.data.id) {
+            app.globalData.resumeInfo.careers[index] = res.data
+          }
         })
-        return
-      }
+        app.wxToast({
+          title: '保存成功',
+          icon: 'success',
+          callback() {
+            wx.navigateBack({delta: 1}) 
+          }
+        })
+      })
+    } else {
+      addCareerApi(param).then(res => {
+        wx.removeStorageSync('createPosition')
+        app.globalData.resumeInfo.careers.push(res.data)
+        app.wxToast({
+          title: '保存成功',
+          icon: 'success',
+          callback() {
+            wx.navigateBack({delta: 1}) 
+          }
+        })
+      })
     }
-    addCareerApi(param).then(res => {
-      app.globalData.resumeInfo.careers.push(res.data)
-      wx.navigateBack({delta: 1}) 
-    })
+    
   },
   // 删除
   del () {
@@ -255,13 +219,13 @@ Page({
       title: '删除求职意向',
       content: '求职意向删除后将无法恢复，是否确定删除？',
       confirmBack() {
-        deleteCareerApi({id: nowWorkId}).then(res => {
+        deleteCareerApi({id: that.data.options.id}).then(res => {
           app.wxToast({
             title: '删除成功',
             icon: 'success',
             callback() {
               app.globalData.resumeInfo.careers.map((item, index) => {
-                if (item.id === nowWorkId) {
+                if (item.id === parseInt(that.data.options.id)) {
                   app.globalData.resumeInfo.careers.splice(index,1)
                   wx.navigateBack({delta: 1})
                   return
@@ -276,9 +240,8 @@ Page({
   },
   /* 进入为编辑时初始化数据 */
   init () {
-    if (!nowWorkId) return
     app.globalData.resumeInfo.careers.map((item, index) => {
-      if (item.id === nowWorkId) {
+      if (item.id === parseInt(this.data.options.id)) {
         this.setData({
           company: item.company,
           positionName: item.position,

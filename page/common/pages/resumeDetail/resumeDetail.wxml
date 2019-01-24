@@ -14,7 +14,7 @@
       </view>
       <view class="info">
         <view class="name"><text>{{info.name}}</text><i class="icon iconfont icon-bianji1 edit" data-editName="info" data-id="{{item.id}}" bindtap="edit" wx:if="{{isOwner}}"></i></view>
-        <view>
+        <view wx:if="{{info.lastCompanyName}}">
           <text>{{info.lastCompanyName}}</text> | <text>{{info.lastPosition}}</text>
         </view>
       </view>
@@ -29,7 +29,7 @@
     <block wx:if="{{info.signature}}">
       <image class="line" src="{{cdnImagePath}}line.png"></image>
       <view class="personalTip">
-        <view class="text">“{{info.signature || '你还未填写个性签名，说说你的想法吧~'}}”</view>
+        <view class="text">{{info.signature || '你还未填写个性签名，说说你的想法吧~'}}</view>
         <view class="tipBox">
           <text class="tip" wx:for="{{info.personalizedLabels}}" wx:key="{{index}}">{{item.labelName || item.name}}</text>
         </view>
@@ -37,10 +37,10 @@
     </block>
   </view>
   <!-- 意向 -->
-  <view class="intent commentBox" wx:if="{{info.expects.length > 0}}">
+  <view class="intent commentBox" wx:if="{{(!isOwner && info.expects.length > 0) || isOwner}}">
     <view class="intentTitle"><view class="commontIcon"><view class="box"></view></view> 求职意向</view>
     <!-- 意向列表 -->
-    <view class="officeTab" wx:for="{{info.expects}}" wx:key="{{index}}">
+    <view class="officeTab" wx:for="{{info.expects}}" wx:if="{{index < 3}}" wx:key="{{index}}">
       <view>
         <view class="officeDetail">
           <text class="name">{{item.position}} | {{item.city}}</text>
@@ -48,15 +48,15 @@
           <i class="icon iconfont icon-bianji1 edit" data-editName="intent" data-id="{{item.id}}" bindtap="edit" wx:if="{{isOwner}}"></i></view>
       </view>
       <view class="officeInfo">
-        <text wx:for="{{item.fields}}" wx:key="{{index}}">{{item.field || item.name}}</text>
+        <text wx:for="{{item.fields}}" wx:key="{{index}}">{{item.field || item.name}}<text wx:if="{{index < 2}}"> · </text></text>
       </view>
     </view>
-    <text class="add" data-editName="intent" bindtap="edit" wx:if="{{isOwner}}" data-id="0">添加求职意向</text>
+    <text class="add" data-editName="intent" bindtap="edit" wx:if="{{isOwner && info.expects.length < 4}}" data-id="">添加求职意向</text>
   </view>
   <!-- 工作经历 -->
-  <view class="workExp commentBox" wx:if="{{info.careers.length > 0}}">
+  <view class="workExp commentBox" wx:if="{{(!isOwner && info.careers.length > 0) || isOwner}}">
     <view class="intentTitle"><view class="commontIcon"><view class="box"></view></view> 工作经历</view>
-    <view class="expTab" wx:for="{{info.careers}}" wx:key="{{index}}">
+    <view class="expTab" wx:for="{{info.careers}}" wx:key="{{index}}" wx:if="{{info.careers.length < 11}}">
       <view class="expTitle">
         <text class="expName">{{item.company}}</text>
         <text class="expTime">{{item.startTimeDesc}}-{{item.endTimeDesc}}</text>
@@ -70,13 +70,12 @@
         <text wx:for="{{item.technicalLabels}}" wx:key="{{index}}"># {{item}}</text>
       </view>
     </view>
-    <view class="moreExp" wx:if="{{info.careers.length > 3}}">展开全部{{info.careers.length}}个工作经历<i class="icon iconfont icon-zhishibiao"></i></view>
-    <text class="add" data-editName="work" bindtap="edit" wx:if="{{isOwner}}" data-id="0">添加工作经历</text>
+    <text class="add" data-editName="work" bindtap="edit" wx:if="{{isOwner && info.careers.length < 11}}" data-id="">添加工作经历</text>
   </view>
   <!-- 项目经历 -->
-  <view class="projectExp commentBox" wx:if="{{info.projects.length > 0}}">
+  <view class="projectExp commentBox" wx:if="{{(!isOwner && info.projects.length > 0) || isOwner}}">
     <view class="intentTitle"><view class="commontIcon"><view class="box"></view></view> 项目经历</view>
-    <view class="expTab" wx:for="{{info.projects}}" wx:key="{{index}}">
+    <view class="expTab" wx:for="{{info.projects}}" wx:key="{{index}}" wx:if="{{info.projects.length < 11}}">
       <view class="expTitle">
         <text class="expName">{{item.name}}</text>
         <text class="expTime">{{item.startTimeDesc}}-{{item.endTimeDesc}}</text>
@@ -90,12 +89,12 @@
         链接：<text>{{item.link}}</text>
       </view>
     </view>
-    <text class="add" data-editName="project" bindtap="edit" wx:if="{{isOwner}}" data-id="0">添加项目经历</text>
+    <text class="add" data-editName="project" bindtap="edit" wx:if="{{isOwner && info.projects.length < 11}}" data-id="">添加项目经历</text>
   </view>
   <!-- 教育经历 -->
-  <view class="projectExp commentBox">
+  <view class="projectExp commentBox" wx:if="{{(!isOwner && info.educations.length > 0) || isOwner}}">
     <view class="intentTitle"><view class="commontIcon"><view class="box"></view></view> 教育经历</view>
-    <view class="expTab" wx:if="{{info.educations.length > 0 }}" wx:for="{{info.educations}}" wx:key="{{index}}">
+    <view class="expTab" wx:if="{{info.educations.length < 11}}" wx:for="{{info.educations}}" wx:key="{{index}}">
       <view class="expTitle">
         <text class="expName">{{item.school}}</text>
         <text class="expTime">{{item.startTimeDesc}}-{{item.endTimeDesc}}</text>
@@ -105,13 +104,13 @@
       <!-- 教育经历 -->
       <view class='expContent'>{{item.experience}}</view>
     </view>
-    <text class="add" data-editName="education" bindtap="edit" wx:if="{{isOwner}}" data-id="0">添加教育经历</text>
+    <text class="add" data-editName="education" bindtap="edit" wx:if="{{isOwner && info.educations.length < 11}}" data-id="">添加教育经历</text>
   </view>
   <!-- 更多 -->
-  <view class="more commentBox" wx:if="{{info.moreIntroduce.introduce}}">
+  <view class="more commentBox">
     <view class="intentTitle moreTitle">
       <view><view class="commontIcon"><view class="box"></view></view> 更多介绍 </view>
-      <i class="icon iconfont icon-bianji1 edit" data-editName="more" data-id="{{item.id}}" bindtap="edit" wx:if="{{isOwner}}"></i>
+      <i class="icon iconfont icon-bianji1 edit" data-editName="more" data-id="{{item.id}}" bindtap="edit" wx:if="{{(info.moreIntroduce.introduce || info.moreIntroduce.imgs.length > 0) && isOwner}}"></i>
     </view>
     <view class="expTab" hidden="{{!info.moreIntroduce.introduce && info.moreIntroduce.imgs.length === 0}}">
       <!-- 工作内容 -->
@@ -120,6 +119,7 @@
         <image wx:for="{{info.moreIntroduce.imgs}}" wx:key="{{index}}" src="{{item.smallUrl}}"></image>
       </view>
     </view>
+    <text class="add" data-editName="more" bindtap="edit" wx:if="{{!info.moreIntroduce.introduce && info.moreIntroduce.imgs.length === 0 && isOwner}}" data-id="0">完善更多介绍</text>
   </view>
 </view>
 <view wx:if="{{!isOwner}}" class="collect" bindtap="collect">
