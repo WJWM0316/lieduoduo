@@ -90,7 +90,7 @@
 							<view class="username">{{item.productName}}</view>
 							<view class="recruitment-number">{{item.slogan}}</view>
 						</view>
-						<view class="row-two">{{item.lightspot}}</view>
+						<view class="row-two"># {{item.lightspot}}</view>
 					</view>
 				</view>
 			</view>

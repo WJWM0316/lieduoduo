@@ -19,11 +19,9 @@
     </view>
     <officerTab
       list="{{commonList.list}}"
-      showFooter="{{false}}"
       showSlideView="{{true}}"
       buttonType="{{buttonType}}"
-      bindrefreshevent="refreshEvent"
-      dotType="circle"></officerTab>
+      bindrefreshevent="refreshEvent"></officerTab>
     <bindPhone wx:if="{{needLogin}}"></bindPhone>
     <choose wx:if="{{!choseType}}"></choose>
   </view>

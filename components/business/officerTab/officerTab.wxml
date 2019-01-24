@@ -1,6 +1,6 @@
 <view class="ul">
   <view  wx:for="{{ list }}" wx:key="{{index}}" class="slide-view" wx:if="{{showSlideView}}">
-    <slide-view width="750" height="180" slide-width="750">
+    <slide-view width="750" height="180" slide-width="180">
       <view slot="left" class="content">
         <view class="officerTab" bindtap="routeJump" data-companyId="{{item.id}}" data-uid="{{item.uid}}">
           <view class="headerImg">

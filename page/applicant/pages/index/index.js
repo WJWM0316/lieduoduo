@@ -1,14 +1,17 @@
-//index.js
-//获取应用实例
 import {RECRUITER, APPLICANT, COMMON} from '../../../../config.js'
+
 import {getSelectorQuery}  from '../../../../utils/util.js'
+
 import {getUserInfoApi} from '../../../../api/pages/user.js'
+
 import { geMyBrowseUsersApi, getAvartListApi } from '../../../../api/pages/active.js'
+
 import { getMyCollectUsersApi } from '../../../../api/pages/browse.js'
+
 const app = getApp()
+
 Page({
   data: {
-    // 页面的默认数据列表
     pageList: 'myBrowse',
     cdnImagePath: app.globalData.cdnImagePath,
     choseType: wx.getStorageSync('choseType') || null,
