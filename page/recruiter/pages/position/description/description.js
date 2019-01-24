@@ -55,10 +55,12 @@ Page({
   submit(e) {
     const storage = wx.getStorageSync('createPosition')
     storage.describe = this.data.describe
+    if(this.data.describe.length < 6) {
+      app.wxToast({title: '职位描述最少6个字'})
+      return;
+    }
     wx.setStorageSync('createPosition', storage)
-    wx.navigateBack({
-      delta: 1
-    })
+    wx.navigateBack({delta: 1})
   },
   next() {
     const index = Math.floor(Math.random() * 10 )

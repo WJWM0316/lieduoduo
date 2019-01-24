@@ -12,7 +12,6 @@ Page({
     recruiterList.map(field => field.active = false)
     let isCompanyAdmin = app.globalData.recruiterDetails.isCompanyAdmin || 0
     this.setData({recruiterList, isCompanyAdmin})
-    console.log(recruiterList, isCompanyAdmin)
   },
   /**
    * @Author   小书包
@@ -44,10 +43,11 @@ Page({
    * @detail   移除招聘官
    * @return   {[type]}   [description]
    */
-  delete() {
-  	const result = () => {
+  delete(e) {
+  	const params = e.currentTarget.dataset
+  	const result = (params) => {
   		let recruiterList = this.data.recruiterList
-  		recruiterList = recruiterList.filter(field => field.uid !== uid)
+  		recruiterList = recruiterList.filter(field => field.uid !== params.uid)
   		this.setData(recruiterList)
   	}
   	app.wxConfirm({
@@ -55,7 +55,7 @@ Page({
       content: `即将从公司中移除${'陆强'}，该招聘官发布的职位将被关闭且无法继续进行招聘，确认移除吗?`,
       confirmText: '移除',
       confirmBack: () => {
-        result()
+        result(params)
       }
     })
   },

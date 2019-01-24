@@ -24,6 +24,7 @@ Page({
         this.setData({positionTypeList: res.data, query: options})
       })
   },
+  preventTouchMove() {},
   onClick(e) {
     const params = e.currentTarget.dataset
     const storage = wx.getStorageSync('createPosition') || {}
@@ -131,7 +132,7 @@ Page({
       })
   },
   closeMask(e) {
-    this.setData({showMask: false})
+    this.setData({showMask: false, index1: 0, index2: 0})
     return
   }
 })

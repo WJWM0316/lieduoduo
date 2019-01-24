@@ -6,7 +6,7 @@
 			<textarea
 				bindinput="bindInput"
 				placeholder="填写详细，清晰的职位描述"
-				maxlength="1000"
+				maxlength="5000"
 				value="{{describe}}" />
 			<view class="controls">
 				<view class="similarity" bindtap="view"><i class="icon iconfont icon-chakan"></i>看看别人怎么写</view>
