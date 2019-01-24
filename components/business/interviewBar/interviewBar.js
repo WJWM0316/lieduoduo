@@ -183,7 +183,7 @@ Component({
               .then(res => {
                 this.getInterviewStatus()
                 app.wxToast({title: '面试申请已发送'})
-                this.triggerEvent('resultevent', res)
+                // this.triggerEvent('resultevent', res)
               })
           }
           // let uid = ''

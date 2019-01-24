@@ -1,5 +1,5 @@
 <view class="job-detail">
-	<navbar title="{{detail.positionName}}" background="#FFFFFF" color="#22292C"></navbar>
+	<navbar title="{{detail.positionName}}" background="#FFFFFF" color="#22292C" customBack bindbackEvent="backEvent"></navbar>
 	<view class="page-top">
 		<image class="bgImg" src="{{cdnPath}}job-detail.png" mode="aspectFill"></image>
 		<shareBtn posterType="position" posterData="{{detail}}"></shareBtn>
