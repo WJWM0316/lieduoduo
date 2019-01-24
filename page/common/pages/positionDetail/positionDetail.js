@@ -29,6 +29,13 @@ Page({
     this.setData({query: options, identity: getApp().globalData.identity})
     this.getPositionDetail()
   },
+  backEvent() {
+     if(wx.getStorageSync('choseType') === 'RECRUITER') {
+      wx.redirectTo({url: `${RECRUITER}position/index/index`})
+     } else {
+      wx.navigateBack({delta: 1})
+     }
+  },
   /**
    * @Author   小书包
    * @DateTime 2019-01-24
