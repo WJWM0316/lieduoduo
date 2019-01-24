@@ -10,6 +10,10 @@
 	position: relative;
 }
 
+.address-post .input-li .icon-xiangyou {
+	float: right;
+}
+
 .address-post .input-li:after {
 	content: '';
 	display: block;
@@ -19,6 +23,17 @@
 	right: 0;
 	height: 1px;
 	bottom: 0;
+}
+
+.address-post .address{
+	display: inline-block;
+	max-width:520rpx;
+	font-size:28rpx;
+	font-weight:400;
+	color:rgba(40,40,40,1);
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
 }
 
 .address-post .clear-bottom:after {
