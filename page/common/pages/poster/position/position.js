@@ -1,35 +1,29 @@
   // page/common/pages/poster/position/position.js
 let app = getApp()
+let info = null
+let avatarUrl = ''
+let companyUrl = ''
+let qrCodeUrl = ''
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    info: {},
     imgUrl: '',
     imgW: 750,
     imgH: 0,
     openSet: true
   },
-
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
-    let info = wx.getStorageSync('posterData')
+  drawing (avatarUrl, companyUrl, qrCodeUrl) {
+    
     const ctx = wx.createCanvasContext('canvas')
-
-    console.log(info)
-    wx.showLoading({
-      title: '正在生成...',
-    })
     let that = this
     ctx.width = 750
     ctx.setFillStyle('#652791')
     ctx.fillRect(0, 0, 750, 2500)
     // 头像
-    ctx.drawImage(info.recruiterInfo.avatar.url, 80, 40, 98, 98)
+    ctx.drawImage(avatarUrl, 80, 40, 98, 98)
     // 背景图1
     ctx.drawImage('../../../../../images/canvas1.png', 0, 0, 750, 402)
     // 个人资料
@@ -122,7 +116,7 @@ Page({
     if (info.lightspotInfo.length > 0) {
       curHeight = curHeight + 94
     }
-    ctx.drawImage(companyInfo.businessLicenseInfo.url, 88, curHeight + 34, 98, 98)
+    ctx.drawImage(companyUrl, 88, curHeight + 34, 98, 98)
     ctx.drawImage('../../../../../images/canvas4.png', 38, curHeight, 674, 166)
     ctx.setFontSize(32)
     ctx.fillText(companyInfo.companyName, 210, curHeight + 75)
@@ -207,7 +201,7 @@ Page({
       ctx.fillText(info.describe, 80, curHeight)
     }
     ctx.drawImage('../../../../../images/c4.png', 0, curHeight - 200, 74, 92)
-    ctx.drawImage('../../../../../images/1547620956(1).jpg', 77, curHeight + 80, 167, 167)
+    ctx.drawImage(qrCodeUrl, 77, curHeight + 80, 167, 167)
     ctx.drawImage('../../../../../images/canvas5.png', 0, curHeight, 750, 287)
     ctx.setFontSize(30)
     ctx.setFillStyle('#fff')
@@ -234,6 +228,57 @@ Page({
         })
       }, 300)
     })
+  },
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function (options) {
+    info = wx.getStorageSync('posterData')
+    console.log(info.recruiterInfo.avatar.url, info.companyInfo.logoInfo.url, info.positionQrCode)
+    let that = this
+    wx.showLoading({
+      title: '正在生成...',
+    })
+    let loadAvatar = new Promise((resolve, reject) => {
+      // 头像
+      wx.downloadFile({
+        url: info.recruiterInfo.avatar.url,
+        success(res) {
+          if (res.statusCode === 200) {
+            resolve(res)
+            avatarUrl = res.tempFilePath
+          }
+        }
+      })
+    })
+    let loadCompany = new Promise((resolve, reject) => {
+      // 二维码
+      wx.downloadFile({
+        url: info.companyInfo.logoInfo.url,
+        success(res) {
+          if (res.statusCode === 200) {
+            resolve(res)
+            companyUrl = res.tempFilePath
+          }
+        }
+      })
+    })
+    let loadQrCode = new Promise((resolve, reject) => {
+      // 二维码
+      wx.downloadFile({
+        url: info.positionQrCode,
+        success(res) {
+          if (res.statusCode === 200) {
+            resolve(res)
+            qrCodeUrl = res.tempFilePath
+          }
+        }
+      })
+    })
+    Promise.all([loadAvatar, loadCompany, loadQrCode]).then((result) => {
+      this.drawing (avatarUrl, companyUrl, qrCodeUrl)
+    })
+
   },
 
   /**
