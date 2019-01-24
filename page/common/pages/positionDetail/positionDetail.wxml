@@ -47,8 +47,8 @@
 				<view class="img-box"><image mode="aspectFill" src="{{detail.companyInfo.logoInfo.smallUrl}}" mode="aspectFill"></image></view>
 			</view>
 			<view class="content">
-				<view class="company-name">{{detail.recruiterInfo.companyName}}</view>
-				<view class="infos">{{detail.recruiterInfo.industry}} · {{detail.recruiterInfo.financingInfo}} · {{detail.recruiterInfo.employeesInfo}}</view>
+				<view class="company-name">{{detail.companyInfo.companyShortname}}</view>
+				<view class="infos">{{detail.companyInfo.industry}} · {{detail.companyInfo.financingInfo}} · {{detail.companyInfo.employeesInfo}}</view>
 			</view>
 			<view class="right">
 				<i class="icon iconfont icon-xiangyou"></i>
@@ -80,7 +80,7 @@
 	<interviewBar
 		id="interviewBar"
 		infos="{{ detail }}"
-		bindresultevent="getPositionDetail"
+		bindresultevent="bindStatusChange"
 		type="position"
 		wx:if="{{detail.vkey}}"></interviewBar>
 </view>

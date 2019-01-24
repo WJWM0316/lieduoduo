@@ -40,7 +40,7 @@ Page({
     canClick: true
   },
   onLoad(options) {
-    this.setData({pageTitle: options.positionId ? '编辑职位' : '创建职位', query: options})
+    this.setData({pageTitle: options.positionId ? '编辑职位' : '发布职位', query: options})
   },
   onShow() {
     const options = this.data.query

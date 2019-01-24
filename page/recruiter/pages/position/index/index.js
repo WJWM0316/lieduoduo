@@ -34,7 +34,25 @@ Page({
     getPositionListNumApi({recruiter: app.globalData.recruiterDetails.uid}).then(res => {
       this.setData({onLinePositionNum: res.data.online, offLinePositionNum: res.data.offline})
     })
-    this.getOnlineLists()
+    this.getLists()
+  },
+  /**
+   * @Author   小书包
+   * @DateTime 2019-01-24
+   * @detail   获取列表数据
+   * @return   {[type]}   [description]
+   */
+  getLists() {
+    switch(this.data.positionStatus) {
+      case '1':
+        return this.getOnlineLists()
+        break;
+      case '2':
+        return this.getOffLineLists()
+        break;
+      default:
+        break;
+    }
   },
   /**
    * @Author   小书包
