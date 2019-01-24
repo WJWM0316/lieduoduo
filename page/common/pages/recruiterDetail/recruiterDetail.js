@@ -37,6 +37,8 @@ Page({
         getSelectorQuery('.msg').then(res => {
           if (res.height > 143) {
             this.setData({isShrink: true, needShrink: true})
+          } else {
+            this.setData({isShrink: false, needShrink: false})
           }
         })
       })
@@ -48,6 +50,19 @@ Page({
         })
       })
     })
+  },
+  isShrink() {
+    let info = this.data.info
+    if (info.brief) {
+      getSelectorQuery('.msg').then(res => {
+        if (res.height > 143) {
+          this.setData({isShrink: true, needShrink: true})
+        }
+      })
+    } else {
+      this.setData({isShrink: false, needShrink: false})
+    }
+    
   },
   onShow() {
     let options = this.data.options
@@ -70,11 +85,7 @@ Page({
           this.getOthersInfo()
         } else {
           this.setData({info: myInfo, isOwner: true, btnTxt: '展开内容'})
-          getSelectorQuery('.msg').then(res => {
-            if (res.height > 143) {
-              this.setData({isShrink: true, needShrink: true})
-            }
-          })
+          this.isShrink()
         }
       } else {
         this.getOthersInfo()
@@ -88,11 +99,7 @@ Page({
         }
         if (myInfo.uid === parseInt(options.uid)) {
           this.setData({info: myInfo, isOwner: true, btnTxt: '展开内容'})
-          getSelectorQuery('.msg').then(res => {
-            if (res.height > 143) {
-              this.setData({isShrink: true, needShrink: true})
-            }
-          })
+          this.isShrink()
         } else {
           this.getOthersInfo()
         }
@@ -210,7 +217,7 @@ Page({
   },
   create() {
     wx.navigateTo({
-      url: `${COMMON}bindPhone/bindPhone`
+      url: `${RECRUITER}user/company/apply/apply`
     })
   },
   onPageScroll(e) { // 获取滚动条当前位置

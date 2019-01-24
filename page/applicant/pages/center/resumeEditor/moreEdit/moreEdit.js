@@ -10,7 +10,6 @@ Page({
    */
   data: {
     limitNum: 20,
-    isEdit: false,
     imgList: [], // 图片数组
     introduce: '' // 当前输入的内容
   },
@@ -20,17 +19,15 @@ Page({
    */
   onLoad: function (options) {
     if (options.id === 'undefined') {
+      let limitNum = this.data.limitNum
+      limitNum = limitNum - app.globalData.resumeInfo.moreIntroduce.imgs.length
       this.setData({
         isAdd: true,
+        limitNum,
         imgList: app.globalData.resumeInfo.moreIntroduce.imgs,
         introduce: app.globalData.resumeInfo.moreIntroduce.introduce
       })
     }
-  },
-  editTxt () {
-    let isEdit = this.data.isEdit
-    isEdit = !isEdit
-    this.setData({isEdit})
   },
   // 上传图片
   getResult (e) {
@@ -44,14 +41,18 @@ Page({
   },
   delImg (e) {
     const index = e.currentTarget.dataset.imgindex
+    let limitNum = this.data.limitNum
+    limitNum++
     this.data.imgList.splice(index,1)
     const imgList = this.data.imgList
     this.setData({
-      imgList
+      imgList,
+      limitNum
     })
   },
   // 编辑自我介绍
   WriteContent (e) {
+    if (e.detail.value === ' ') return
     this.data.introduce = e.detail.value
     this.setData({
       introduce: e.detail.value

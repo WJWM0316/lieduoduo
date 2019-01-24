@@ -30,6 +30,7 @@ Page({
             title: "退出成功",
             icon: "success"
           })
+          wx.navigateBack({ delta: 1 })
           wx.removeStorageSync("token")
         })
       }

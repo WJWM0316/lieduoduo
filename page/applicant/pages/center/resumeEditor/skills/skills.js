@@ -14,17 +14,20 @@ Page({
   onClick(e) {
     const params = e.currentTarget.dataset
     let professionalSkills = this.data.professionalSkills
-    let tem = professionalSkills.filter(field => field.active)
-    if(tem.length < this.data.limitNum) {
-      professionalSkills.map(field => {
-        if(field.labelId === params.labelId) field.active = !field.active
-      })
-    } else {
-      professionalSkills.map(field => {
-        if(field.labelId === params.labelId) field.active = false
-      })
-    }
     let skills = professionalSkills.filter(field => field.active)
+    console.log(skills, 11111111)
+    if (!params.active) {
+      if(skills.length < this.data.limitNum) {
+        professionalSkills.map(field => {
+          if(field.labelId === params.labelId) field.active = !field.active
+        })
+        skills = professionalSkills.filter(field => field.active)
+      } else {
+        app.wxToast({title: '最多可选择3个领域'})
+        return
+      }
+    }
+    
     this.setData({professionalSkills, skills})
   },
   onLoad(options) {

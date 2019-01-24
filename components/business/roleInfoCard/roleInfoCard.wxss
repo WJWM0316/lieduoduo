@@ -72,7 +72,7 @@
 }
 .editIcon {
   position: absolute;
-  font-size: 32rpx;
+  font-size: 36rpx;
   color: #652791;
   width: 50rpx;
   height: 50rpx;

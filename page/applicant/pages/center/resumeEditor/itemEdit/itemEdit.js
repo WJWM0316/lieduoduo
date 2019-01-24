@@ -56,11 +56,11 @@ Page({
       }
     }
   },
-  WriteContent (e) {
-    this.data.description = e.detail.value
+  writeContent (e) {
+    this.setData({description: e.detail.value})
   },
   itemLink (e) {
-    this.data.itemLink = e.detail.value
+    this.setData({itemLink: e.detail.value})
   },
   // 编辑保存
   save () {

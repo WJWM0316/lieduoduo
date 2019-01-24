@@ -44,7 +44,7 @@
       </view>
       <view wx:if="{{info.personalizedLabels.length === 0}}" class="addDeclaration" bindtap="editJump" data-type="labels">添加个人标签</view>
     </view>
-    <view class="profile" wx:if="{{info.brief}}">
+    <view class="profile" wx:if="{{(!isOwner && info.brief) || isOwner}}">
       <view class="title">
         <view class="icon">
           <view class="fan"></view>
@@ -56,7 +56,7 @@
       <view wx:if="{{info.brief}}" class="msg {{isShrink ? 'shrink':''}}"><text>{{info.brief}}</text></view>
       <view class="openbtn" wx:if="{{needShrink}}" bindtap="toggle">{{btnTxt}}<i class="icon iconfont icon-zhishibiao {{!isShrink ? 'shrink':''}}"></i></view>
     </view>
-    <view class="declaration {{isOwner ? 'recruiterMain' : ''}}" wx:if="{{info.manifestos.length > 0}}">
+    <view class="declaration {{isOwner ? 'recruiterMain' : ''}}" wx:if="{{(!isOwner && info.manifestos.length > 0) || isOwner}}">
       <view class="title">
         <view class="icon">
           <view class="fan"></view>

@@ -11,7 +11,7 @@ export const idCardReg = /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/
 export const emailReg = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/
 
 // 用户名
-export const userNameReg = /^[A-Za-z_\s]{2,20}$/
+export const userNameReg = /^.{2,20}$/
 
 // 真实姓名
 export const realNameReg = /^[\u4E00-\u9FA5]{2,20}$/

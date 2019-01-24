@@ -14,7 +14,7 @@
   box-sizing: border-box;
   line-height: 36rpx;
 }
-.textArea textarea, .textArea{
+.textArea textarea, .simulated{
   width: 100%;
   height: 372rpx;
 }

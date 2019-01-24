@@ -44,7 +44,7 @@
 		</view>
 		<view class="tab-company-homepage" data-type="about" bindtap="todoAction">
 			<view class="left">
-				<view class="img-box"><image mode="aspectFill" src="{{detail.recruiterInfo.avatar.smallUrl}}" mode="aspectFill"></image></view>
+				<view class="img-box"><image mode="aspectFill" src="{{detail.companyInfo.logoInfo.smallUrl}}" mode="aspectFill"></image></view>
 			</view>
 			<view class="content">
 				<view class="company-name">{{detail.recruiterInfo.companyName}}</view>
@@ -63,7 +63,7 @@
 			<text class="rich-text">{{companyInfos.intro}}</text>
 		</view>
 	</view>
-	<view class="make-homepage" wx:if="{{ identity === 'APPLICANT' && !isRecruiter }}">
+	<view class="make-homepage" wx:if="{{ !isRecruiter }}">
 		<view>
 			我也要制作招聘主页
 			<i class="icon iconfont icon-disejiantou-you"></i>

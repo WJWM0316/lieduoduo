@@ -28,16 +28,25 @@ Component({
     customBack: {
       type: Boolean,
       value: false
+    },
+    isFixed: {
+      type: Boolean,
+      value: true
     }
   },
   data: {
     showBackBtn: false,
-    isScroll: false
+    positionStatus: 'fixed'
   },
   lifetimes: {
     attached() {
+      let positionStatus = this.data.positionStatus
+      if (!this.data.isFixed) {
+        positionStatus = 'relative'
+      }
       this.setData({
-        navH: App.globalData.navHeight
+        navH: App.globalData.navHeight,
+        positionStatus
       })
     }
   },

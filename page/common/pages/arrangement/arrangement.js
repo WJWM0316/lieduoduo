@@ -1,4 +1,5 @@
 import {interviewDetailApi, setInterviewDetailApi, sureInterviewApi} from "../../../../api/pages/interview.js"
+import {COMMON,APPLICANT,RECRUITER} from "../../../../config.js"
 let app = getApp()
 Page({
 
@@ -51,10 +52,19 @@ Page({
   jump(e) {
     let url = ''
     let info = this.data.info
-    if (e.currentTarget.dataset.type === 'jobList') {
-      url = `/page/recruiter/pages/position/jobList/jobList?recruiterUid=${info.recruiterInfo.uid}`
-    } else if (e.currentTarget.dataset.type === 'addressList') {
-      url = '/page/recruiter/pages/position/addressList/addressList?type=position&selected=1'
+    switch(e.currentTarget.dataset.type) {
+      case 'jobList':
+        url = `${RECRUITER}position/jobList/jobList?recruiterUid=${info.recruiterInfo.uid}`
+        break
+      case 'addressList':
+        url = `${RECRUITER}position/addressList/addressList?type=position&selected=1`
+        break
+      case 'position':
+        url = `${COMMON}positionDetail/positionDetail?positionId=${info.positionId}`
+        break
+      case 'map':
+        url = `${COMMON}positionDetail/positionDetail?positionId=${info.positionId}`
+        break
     }
     wx.navigateTo({
       url: url

@@ -54,14 +54,14 @@
             <icon class="icon iconfont icon-xiangyou"></icon>
           </view>
         </view>
-        <view class="msgItem" wx:if="{{info.positionName}}">
+        <view class="msgItem" wx:if="{{info.positionName}}" bindtap="jump" data-type="position">
           <view class="inner">
             <view class="icon1 iconfont icon-zhiwei"></view>
             <view class="msg">{{info.positionName}}</view>
             <icon class="icon iconfont icon-xiangyou"></icon>
           </view>
         </view>
-        <view class="msgItem jump" wx:if="{{info.address}}">
+        <view class="msgItem jump" wx:if="{{info.address}}" bindtap="jump" data-type="address">
           <view class="inner noborder">
             <view class="icon1 iconfont icon-zhiwei"></view>
             <view class="msg">{{info.address}}</view>

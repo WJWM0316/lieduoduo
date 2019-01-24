@@ -29,6 +29,16 @@
   line-height: 122rpx;
   margin-right: 10rpx;
 }
+.bottom{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 24rpx;
+  color: #652791;
+}
+.bottom .example i{
+  margin-right: 12rpx;
+}
 /*.save{
   width: 550rpx;
   height: 88rpx;

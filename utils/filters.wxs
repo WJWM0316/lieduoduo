@@ -35,6 +35,10 @@ var dateFormat = function(timestamp, format) {
     return year + '-' + month + '-' + day + ' ' + hour() + ':' + minute()
     case 'MM-DD':
     return month + '-' + day
+    case 'YYYY.MM':
+    return year + '.' + month
+    case 'YM':
+    return year+'年'+month+'月'
   }
 }
 

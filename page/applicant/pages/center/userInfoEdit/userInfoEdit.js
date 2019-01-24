@@ -1,5 +1,5 @@
 import {editBaseInfoApi} from '../../../../../api/pages/center.js'
-import {realNameReg,mobileReg,wechatReg} from '../../../../../utils/fieldRegular.js'
+import {userNameReg,mobileReg,wechatReg} from '../../../../../utils/fieldRegular.js'
 let app = getApp()
 Page({
 
@@ -34,6 +34,7 @@ Page({
       case 'birthday':
         info.birth = e.detail.propsResult
         info.birthDesc = e.detail.propsDesc
+        info.age = parseInt((new Date().getTime() - info.birth * 1000) / (365 * 24 * 3600 * 1000))
         break
       case 'workTime':
         info.startWorkYear = e.detail.propsResult
@@ -72,13 +73,13 @@ Page({
     if (!info.name) {
       title = '请填写姓名'
     }
-    if (info.name && !realNameReg.test(info.name)) {
+    if (info.name && !userNameReg.test(info.name)) {
       title = '姓名需为2-20个汉字或英文'
     }
     if (!info.birth) {
       title = '请选择出生年月'
     }
-    if (!info.startWorkYear) {
+    if (!info.startWorkYear && info.startWorkYearDesc !== '在校生') {
       title = '请选择参加工作时间'
     }
     if (!info.jobStatus) {
@@ -116,11 +117,13 @@ Page({
       wechat: info.wechat,
       signature: info.signature
     }
+    let that = this
     editBaseInfoApi(data).then(res => {
       app.wxToast({
         title: '保存成功',
         icon: 'success',
         callback() {
+          that.setData({info})
           wx.navigateBack({
             delta: 1
           })
