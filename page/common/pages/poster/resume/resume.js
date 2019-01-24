@@ -9,26 +9,19 @@ Page({
     imgUrl: '',
     imgW: 750,
     imgH: 0,
-    openSet: true
+    openSet: true,
+    info: {}
   },
-
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
-    let info = null
+  drawing (imgUrl) {
+    let info = app.globalData.resumeInfo
     let that = this
-    info = app.globalData.resumeInfo
-    wx.showLoading({
-      title: '正在生成...',
-    })
+    
     const ctx = wx.createCanvasContext('canvas')
     ctx.width = 750
     ctx.setFillStyle('#652791')
     ctx.fillRect(0, 0, 750, 2500)
 
-    // 头像
-    ctx.drawImage(info.avatar.url, 306, 58, 133, 133)
+    ctx.drawImage(imgUrl, 306, 58, 133, 133)
 
     // 背景图1
     ctx.drawImage('../../../../../images/j4.png', 0, 0, 750, 401)
@@ -454,7 +447,7 @@ Page({
 
     }
 
-    ctx.drawImage('../../../../../images/1547620956(1).jpg', 113, curHeight + 42, 168, 168)
+    ctx.drawImage(info.resumeQrCode, 113, curHeight + 42, 168, 168)
     ctx.drawImage('../../../../../images/j3.png', 0, curHeight, 750, 412)
 
     ctx.setFontSize(32)
@@ -482,6 +475,32 @@ Page({
         })
       }, 300)
     })
+  },
+  loadimg(e) {
+    this.drawing()
+  },
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function (options) {
+    let that = this
+    let info = app.globalData.resumeInfo
+    // this.setData({info})
+    // this.drawing()
+    wx.showLoading({
+      title: '正在生成...',
+    })
+    // 头像
+    wx.downloadFile({
+      url: info.avatar.url,
+      success(res) {
+        if (res.statusCode === 200) {
+          console.log(res.tempFilePath)
+          that.drawing(res.tempFilePath)
+        }
+      }
+    })
+    
   
   },
 

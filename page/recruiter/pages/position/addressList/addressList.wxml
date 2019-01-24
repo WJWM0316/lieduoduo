@@ -6,9 +6,9 @@
   </view>
 
   <view class="ul">
-    <view class="li" wx:for="{{addressList.list}}" wx:key="{{index}}">
+    <view class="li" wx:for="{{addressList.list}}" wx:key="{{index}}" bindtap="onClick" data-id="{{index}}">
       <view class="left" wx:if="{{options.selected == 1}}">
-        <view class="radio {{item.active ? 'radio-checked' : ''}}" bindtap="onClick" data-id="{{index}}">
+        <view class="radio {{item.active ? 'radio-checked' : ''}}">
           <i class="icon iconfont icon-wancheng" wx:if="{{item.active}}"></i>
         </view>
       </view>

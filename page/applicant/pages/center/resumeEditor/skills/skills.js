@@ -12,22 +12,17 @@ Page({
    * @return   {[type]}     [description]
    */
   onClick(e) {
-    const params = e.currentTarget.dataset
+    const params = e.currentTarget.dataset.item
     let professionalSkills = this.data.professionalSkills
     let skills = professionalSkills.filter(field => field.active)
-    console.log(skills, 11111111)
-    if (!params.active) {
-      if(skills.length < this.data.limitNum) {
-        professionalSkills.map(field => {
-          if(field.labelId === params.labelId) field.active = !field.active
-        })
-        skills = professionalSkills.filter(field => field.active)
-      } else {
-        app.wxToast({title: '最多可选择3个领域'})
-        return
-      }
+    if (!params.active && skills.length >= this.data.limitNum) {
+      app.wxToast({title: '最多可选择3个领域'})
+      return
     }
-    
+    professionalSkills.map(field => {
+      if(field.labelId === params.labelId) field.active = !field.active
+    })
+    skills = professionalSkills.filter(field => field.active)
     this.setData({professionalSkills, skills})
   },
   onLoad(options) {

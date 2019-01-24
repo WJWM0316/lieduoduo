@@ -38,28 +38,27 @@ Page({
   },
   // 修改学校名字
   schoolName (e) {
-    this.data.schoolName = e.detail.value
+    this.setData({schoolName: e.detail.value})
   },
   // 修改专业名称
   subject (e) {
-    this.data.subject = e.detail.value
+    this.setData({subject: e.detail.value})
   },
   getresult (e) {
     if (e.currentTarget.dataset.time === 'start') {
-      this.data.startTime = e.detail.propsResult
+      this.setData({startTime: e.detail.propsResult})
     } else if (e.currentTarget.dataset.time === 'end') {
-      this.data.endTime = e.detail.propsResult
+      this.setData({endTime: e.detail.propsResult})
       if (!this.data.endTime) {
         toToday = true
       }
     } else {
-      this.data.education = e.detail.propsResult
-      this.data.degreeDesc = e.detail.propsDesc
+      this.setData({education: e.detail.propsResult, degreeDesc: e.detail.propsDesc})
     }
   },
   // 编辑学校经历
   WriteContent (e) {
-    this.data.description = e.detail.value
+    this.setData({description: e.detail.value})
   },
   // 编辑保存
   save () {
@@ -89,6 +88,8 @@ Page({
       itemName = '请选择结束时间'
     } else if (param.endTime && param.startTime > param.endTime) {
       itemName = '开始时间不得晚于结束时间'
+    } else if (param.experience && param.experience.length > 1000) {
+      itemName = '在校经历输入需为1~1000字'
     }
     if (itemName) {
       app.wxToast({
@@ -163,6 +164,9 @@ Page({
           education: item.degree,
           info: item
         })
+        if (item.endTimeDesc === '至今') {
+          toToday = true
+        }
         return
       }
     })

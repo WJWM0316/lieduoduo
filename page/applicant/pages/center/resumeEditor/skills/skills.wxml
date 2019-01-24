@@ -10,7 +10,7 @@
 			wx:for="{{skills}}"
 			wx:for-item="item"
 			wx:key="{{item.id}}"
-			data-label-id="{{item.labelId}}"
+			data-item="{{item}}"
 			bindtap="onClick"> {{item.name || item.field}} <i class="icon iconfont icon-close"></i></view>
 	</view>
 	<view class="unchecked-item-ul">
@@ -19,7 +19,7 @@
 			wx:for="{{professionalSkills}}"
 			wx:for-item="item"
 			wx:key="{{item.id}}"
-			data-label-id="{{item.labelId}}"
+			data-item="{{item}}"
 			bindtap="onClick"> {{item.name}} </view>
 	</view>
 	<view class="footer">

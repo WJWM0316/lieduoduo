@@ -24,9 +24,9 @@
   <!--项目描述-->
   <view class="title">在校经历</view>
   <view class="textArea">
-    <textarea placeholder="填写在校经历" placeholder="请填写填写在校经历" placeholder-class="placeholder" maxlength="50" bindinput="WriteContent" value="{{description}}"></textarea>
+    <textarea placeholder="填写在校经历" placeholder="请填写填写在校经历" placeholder-class="placeholder" maxlength="1000" bindinput="WriteContent" value="{{description}}"></textarea>
     <view class="bottom">
-      <view class="example" bindtap="showPopups"><i class="icon iconfont icon-chakan"></i>看看别人怎么写</view>
+      <view class="example" bindtap="showPopups"><!-- <i class="icon iconfont icon-chakan"></i>看看别人怎么写 --></view>
       <view class="num">{{description.length}}/1000</view>
     </view>
   </view>
