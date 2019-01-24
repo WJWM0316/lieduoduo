@@ -6,6 +6,13 @@
   margin: 0 30rpx;
 }
 
+.fixed-bar {
+  position: fixed;
+  left: 0rpx;
+  right: 0rpx;
+  z-index: 10;
+}
+
 .ul-tab-bar .li {
   flex-grow: 1;
   font-size:28rpx;

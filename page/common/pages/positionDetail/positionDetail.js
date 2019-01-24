@@ -62,15 +62,17 @@ Page({
       case 'collect':
         getMycollectPositionApi({id: this.data.detail.id})
           .then(res => {
-            this.getPositionDetail()
-            this.selectComponent('#interviewBar').init()
+            const detail = this.data.detail
+            detail.isCollect = true
+            this.setData({detail})
           })
         break
       case 'uncollect':
         deleteMycollectPositionApi({id: this.data.detail.id})
           .then(res => {
-            this.getPositionDetail()
-            this.selectComponent('#interviewBar').init()
+            const detail = this.data.detail
+            detail.isCollect = false
+            this.setData({detail})
           })
         break
       case 'about':

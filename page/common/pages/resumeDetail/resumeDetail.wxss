@@ -92,6 +92,12 @@
   color: #652791;
   background-color: #EFE9F4;
   padding: 7rpx 18rpx !important;
+  max-width:200rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  display: inline-block;
+  margin-right: 0;
 }
 .line{
   width: 100%;

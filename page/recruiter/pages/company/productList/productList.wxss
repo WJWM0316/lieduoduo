@@ -123,4 +123,19 @@
 	max-width: 450rpx;
 	margin-top: 16rpx;
 	line-height: 1.5;
+	position: relative;
+	display: inline-block;
+}
+
+.productList .second:before {
+	width: 0;
+  height: 0;
+  position: absolute;
+  top: -20rpx;
+  left: 30rpx;
+  border-width: 10rpx;
+  border-style: solid;
+  border-color: transparent transparent #F8F8F8 transparent;
+  display: block;
+  content: '';
 }

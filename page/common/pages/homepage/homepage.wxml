@@ -12,7 +12,7 @@
 		<shareBtn></shareBtn>
 	</view>
 	
-	<view class="ul-tab-bar">
+	<view class="ul-tab-bar {{isFixed ? 'fixed-bar' : ''}}" style="top: {{navH}}px">
 		<view class="li {{tab === 'about' ? 'active' : ''}}" bindtap="onTabClick" data-tab="about">关于我们</view>
 		<view class="li {{tab === 'recruitment' ? 'active' : ''}}" bindtap="onTabClick" data-tab="recruitment">在招职位({{companyInfos.positionNum}})</view>
 	</view>
@@ -90,7 +90,7 @@
 							<view class="username">{{item.productName}}</view>
 							<view class="recruitment-number">{{item.slogan}}</view>
 						</view>
-						<view class="row-two">{{item.lightspot}}</view>
+						<view class="row-two"># {{item.lightspot}}</view>
 					</view>
 				</view>
 			</view>
@@ -102,10 +102,13 @@
 			</view>
 			<view class="map">
 				<map
-				  longitude="{{ longitude }}"
-				  latitude="{{ latitude }}"
+				  longitude="{{ map.longitude }}"
+				  latitude="{{ map.latitude }}"
 				  scale="14"
-				  enable-scroll="{{false}}"
+				  enable-scroll="{{map.enableScroll}}"
+				  controls="{{map.controls}}"
+				  controls="{{map.controls}}"
+				  markers="{{map.markers}}"
 				  show-location></map>
 			</view>
 			<view

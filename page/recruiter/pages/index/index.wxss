@@ -6,8 +6,6 @@
 .index-list-box {
   margin: 0 30rpx;
   transform: translateY(-130rpx);
-  border-radius: 10rpx 10rpx 0 0;
-  overflow: hidden;
 }
 
 .recruiter-index .ul-tab-bar {
@@ -24,6 +22,14 @@
   text-align: center;
   position: relative;
   background:rgba(243,245,248,1);
+}
+
+.recruiter-index .ul-tab-bar .li:first-child {
+  border-top-left-radius: 10rpx;
+}
+
+.recruiter-index .ul-tab-bar .li:last-child {
+  border-top-right-radius: 10rpx;
 }
 
 .recruiter-index .ul-tab-bar .li:before {

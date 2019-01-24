@@ -17,7 +17,11 @@
       <view class="li {{pageList === 'myBrowse' ? 'active' : ''}}" bindtap="onTabClick" data-key="myBrowse">我看过的</view>
       <view class="li {{pageList === 'myCollect' ? 'active' : ''}}" bindtap="onTabClick" data-key="myCollect">我感兴趣的</view>
     </view>
-    <officerTab list="{{commonList.list}}" showFooter="{{false}}" dotType="circle"></officerTab>
+    <officerTab
+      list="{{commonList.list}}"
+      showSlideView="{{true}}"
+      buttonType="{{buttonType}}"
+      bindrefreshevent="refreshEvent"></officerTab>
     <bindPhone wx:if="{{needLogin}}"></bindPhone>
     <choose wx:if="{{!choseType}}"></choose>
   </view>

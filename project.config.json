@@ -38,7 +38,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 6,
+			"current": 38,
 			"list": [
 				{
 					"id": 0,
@@ -227,7 +227,7 @@
 					"query": "from=company"
 				},
 				{
-					"id": -1,
+					"id": 31,
 					"name": "公司主页编辑",
 					"pathName": "page/recruiter/pages/company/homepageEdit/homepageEdit",
 					"query": "companyId=35"
@@ -267,6 +267,12 @@
 					"name": "招聘管-选择职位",
 					"pathName": "page/common/pages/category/category",
 					"query": "type=position&selected=1"
+				},
+				{
+					"id": -1,
+					"name": "公司招聘官",
+					"pathName": "page/recruiter/pages/company/recruiterList/recruiterList",
+					"query": "companyId=35"
 				}
 			]
 		}

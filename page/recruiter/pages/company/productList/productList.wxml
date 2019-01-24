@@ -1,5 +1,5 @@
 <view class="productList">
-	<navbar title="编辑产品" background="#fff" color="#22292C"></navbar>
+	<navbar title="产品介绍" background="#fff" color="#22292C"></navbar>
 	<view class="ul">
 		<view class="li" wx:for="{{productList}}" wx:key="{{index}}" wx:for-item="item">
 			<view class="logo-box">

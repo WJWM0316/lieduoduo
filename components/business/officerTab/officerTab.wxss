@@ -2,41 +2,91 @@
 
 .ul{
    padding: 0 30rpx;
+   overflow: hidden;
 }
-.officerTab{
+
+.slide-view {
+  height: 180rpx;
+  width: 100%;
+  overflow: hidden;
+  margin-bottom: 20rpx;
+}
+
+.slide-view .content {
+  height: 180rpx;
+}
+
+.slide-view  .button-box {
+  height: 180rpx;
+}
+
+.slide-view  .button-box .button {
+  width:134rpx;
+  height:180rpx;
+  background:rgba(237,92,92,1);
+  box-shadow:0rpx 8rpx 20rpx 0rpx rgba(34,56,101,0.08);
+  border-radius:10rpx;
+  line-height: 180rpx;
+  text-align: center;
+  font-size:28rpx;
+  font-weight:400;
+  color:rgba(255,255,255,1);
+  margin-left: 8rpx;
+  display: inline-block;
+}
+
+.officerTab {
   box-sizing: border-box;
   padding: 0 30rpx;
   width: 100%;
   height: 180rpx;
   display: flex;
   align-items: center;
-  margin-bottom: 18rpx;
-  border-radius: 10rpx;
-  box-shadow:0px 8px 20px 0px rgba(34,56,101,0.08);
+  background: white;
+  border-radius:10rpx;
+  box-shadow:0rpx 8rpx 20rpx 0rpx rgba(34,56,101,0.08);
 }
+
+.officerTab2 {
+  box-sizing: border-box;
+  padding: 0 30rpx;
+  width: 100%;
+  height: 180rpx;
+  display: flex;
+  align-items: center;
+  background: white;
+  border-radius:10rpx;
+  box-shadow:0rpx 8rpx 20rpx 0rpx rgba(34,56,101,0.08);
+  margin-bottom: 20rpx;
+}
+
 .headerImg{
   width: 120rpx;
   height: 120rpx;
   margin-right: 30rpx;
   flex-shrink: 0;
 }
+
 .headerImg image{
   width: 100%;
   height: 100%;
   border-radius: 50%;
 }
+
 .info .top{
   width: 480rpx;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+
 .info .top .name{
   margin-right: 21rpx;
   font-size: 36rpx;
   font-weight: 500;
   color: #282828;
 }
+
 .info .top .title{
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -46,17 +96,21 @@
   font-weight: 300;
   color: #282828;
 }
+
 .info .bottom{
   display: flex;
   align-items: center;
   margin-top: 18rpx;
 }
+
 .info .bottom i{
   margin-right: 12rpx;
 }
+
 .info .bottom .company{
   margin-right: 42rpx;
 }
+
 .info .bottom .company,
 .info .bottom .position
 {
@@ -65,6 +119,7 @@
   font-weight: 300;
   color: #929292;
 }
+
 .info .bottom .position .num{
   color: #8452A7;
 }

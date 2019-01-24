@@ -1,14 +1,17 @@
-//index.js
-//获取应用实例
 import {RECRUITER, APPLICANT, COMMON} from '../../../../config.js'
+
 import {getSelectorQuery}  from '../../../../utils/util.js'
+
 import {getUserInfoApi} from '../../../../api/pages/user.js'
+
 import { geMyBrowseUsersApi, getAvartListApi } from '../../../../api/pages/active.js'
+
 import { getMyCollectUsersApi } from '../../../../api/pages/browse.js'
+
 const app = getApp()
+
 Page({
   data: {
-    // 页面的默认数据列表
     pageList: 'myBrowse',
     cdnImagePath: app.globalData.cdnImagePath,
     choseType: wx.getStorageSync('choseType') || null,
@@ -36,7 +39,8 @@ Page({
     pageCount: app.globalData.pageCount,
     // pageCount: 6,
     hasReFresh: false,
-    onBottomStatus: 0
+    onBottomStatus: 0,
+    buttonType: 'delete'
   },
   onLoad() {
     let choseType = wx.getStorageSync('choseType')
@@ -77,6 +81,18 @@ Page({
         }
       }
     }
+  },
+  /**
+   * @Author   小书包
+   * @DateTime 2019-01-23
+   * @detail   重新拿数据
+   * @return   {[type]}   [description]
+   */
+  refreshEvent(res) {
+    const key = this.data.pageList
+    let commonList = this.data[key]
+    commonList = commonList.list.filter(field => field.uid !== res.detail.uid)
+    this.setData({commonList})
   },
   /**
    * @Author   小书包
@@ -168,7 +184,8 @@ Page({
     const pageList = e.currentTarget.dataset.key
     const key = e.currentTarget.dataset.key
     const value = this.data[key]
-    this.setData({commonList: value, pageList}, () => {
+    const buttonType = pageList === 'myBrowse' ? 'delete' : 'unsubscribe'
+    this.setData({commonList: value, pageList, buttonType}, () => {
       if(!value.isRequire) this.getLists()
     })
   },
