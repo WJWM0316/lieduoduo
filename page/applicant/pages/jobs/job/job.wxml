@@ -12,5 +12,20 @@
     </view>
     <view class="interested"><i class="icon iconfont icon-ganxingqu"></i>感兴趣</view>
   </view>-->
+
+  <view class="select-box">
+    <view class="item">
+      <picker range="{{cityList}}" range-key="name" bindchange="bindChange" data-type="city" value="{{cityIndex}}">
+        <view class="picker">{{cityList[cityIndex].name}}</view>
+        <i class="icon iconfont icon-zhishibiao"></i>
+      </picker>
+    </view>
+    <view class="item">
+      <picker range="{{positionTypeList}}" range-key="name" bindchange="bindChange" data-type="type" value="{{typeIndex}}">
+        <view class="picker">{{positionTypeList[typeIndex].name}}</view>
+        <i class="icon iconfont icon-zhishibiao"></i>
+      </picker>
+    </view>
+  </view>
   <jobList personality="jobItem" list="{{positionList.list}}" list-type="interview" current-tab="all"></jobList>
 </view>

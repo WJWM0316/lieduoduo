@@ -44,7 +44,7 @@
 		</view>
 		<view class="tab-company-homepage" data-type="about" bindtap="todoAction">
 			<view class="left">
-				<view class="img-box"><image mode="aspectFill" src="{{detail.recruiterInfo.avatar.smallUrl}}" mode="aspectFill"></image></view>
+				<view class="img-box"><image mode="aspectFill" src="{{detail.companyInfo.logoInfo.smallUrl}}" mode="aspectFill"></image></view>
 			</view>
 			<view class="content">
 				<view class="company-name">{{detail.recruiterInfo.companyName}}</view>
