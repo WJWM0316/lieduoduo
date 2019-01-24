@@ -3,7 +3,8 @@ import {
   getInterviewStatusApi,
   inviteInterviewApi,
   refuseInterviewApi,
-  confirmInterviewApi
+  confirmInterviewApi,
+  notonsiderInterviewApi
 } from '../../../api/pages/interview.js'
 
 import {
@@ -158,6 +159,7 @@ Component({
     todoAction(e) {
       const action = e.currentTarget.dataset.action
       const interviewInfos = this.data.interviewInfos
+      const infos = this.data.infos
       switch(action) {
         case 'open':
           openPositionApi({id: this.data.infos.id})
@@ -183,7 +185,7 @@ Component({
               .then(res => {
                 this.getInterviewStatus()
                 app.wxToast({title: '面试申请已发送'})
-                // this.triggerEvent('resultevent', res)
+                this.triggerEvent('resultevent', this.data.infos)
               })
           }
           // let uid = ''
@@ -223,7 +225,7 @@ Component({
           confirmInterviewApi({id: interviewInfos.data[0].interviewId})
             .then(res => {
               app.wxToast({title: '已接受约面'})
-              this.triggerEvent('resultevent', res)
+              this.triggerEvent('resultevent', this.data.infos)
               this.getInterviewStatus()
             })
           break
@@ -248,7 +250,7 @@ Component({
                 refuseInterviewApi({id: interviewInfos.data[0].interviewId})
                   .then(res => {
                     this.getInterviewStatus()
-                    this.triggerEvent('resultevent', res)
+                    // this.triggerEvent('resultevent', res)
                   })
               }
             })
@@ -256,8 +258,29 @@ Component({
           break
         // 招聘官拒绝求职者
         case 'recruiter-reject':
-          wx.navigateTo({url: `${RECRUITER}position/jobList/jobList?type=reject_chat&from=${this.data.currentPage}`})
-          wx.setStorageSync('interviewChatLists', this.data.interviewInfos)
+          if(interviewInfos.data.length > 1) {
+            wx.navigateTo({url: `${RECRUITER}position/jobList/jobList?type=reject_chat&from=${this.data.currentPage}`})
+            wx.setStorageSync('interviewChatLists', this.data.interviewInfos)
+          } else {
+            app.wxConfirm({
+              title: '该求职者不适合',
+              content: '确定标记该求职者为不适合后，将终止这次约面流程',
+              showCancel: true,
+              cancelText: '我再想想',
+              confirmText: '确定',
+              cancelColor: '#BCBCBC',
+              confirmColor: '#652791',
+              confirmBack: () => {
+                refuseInterviewApi({id: infos.uid})
+                  .then(() => {
+                    this.getInterviewStatus()
+                  })
+              }
+            })
+          }
+          // console.log(interviewInfos);return;
+          // wx.navigateTo({url: `${RECRUITER}position/jobList/jobList?type=reject_chat&from=${this.data.currentPage}`})
+          // wx.setStorageSync('interviewChatLists', this.data.interviewInfos)
           // if(interviewInfos.data.length > 1) {
           //   wx.navigateTo({url: `${RECRUITER}position/jobList/jobList?type=reject_chat`})
           //   wx.setStorageSync('interviewChatLists', this.data.interviewInfos)
@@ -292,7 +315,7 @@ Component({
           } else {
             confirmInterviewApi({id: interviewInfos.data[0].interviewId})
               .then(res => {
-                this.triggerEvent('resultevent', res)
+                // this.triggerEvent('resultevent', res)
                 wx.navigateTo({url: `${COMMON}arrangement/arrangement?id=${interviewInfos.data[0].interviewId}`})
               })
           }

@@ -125,3 +125,10 @@ export const getRedDotListApi = (data, hasLoading) => {
   })
 }
 
+// 面试安排不合适
+export const notonsiderInterviewApi = (data, hasLoading) => {
+  return request({
+    method: 'post',
+    url: `/interview/notonsider/${data.id}`
+  })
+}
