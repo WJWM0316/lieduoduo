@@ -2,7 +2,10 @@
 	<navbar title="{{options.id ? '编辑地址' : '新增地址'}}" background="#FFFFFF" color="#22292C"></navbar>
 	<view class="input-li" bindtap="selectAddress">
     <view class="key" bindtap="selectAddress">地址</view>
-    <view class="value">{{address ? address : '请选择地址'}}<i class="icon iconfont icon-xiangyou"></i></view>
+    <view class="value">
+      <view class="address">{{address ? address : '请选择地址'}}</view>
+      <i class="icon iconfont icon-xiangyou"></i>
+    </view>
   </view>
   <view class="input-li clear-bottom">
     <view class="key">门牌号</view>

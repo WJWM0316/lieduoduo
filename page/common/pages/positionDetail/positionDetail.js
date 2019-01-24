@@ -31,6 +31,17 @@ Page({
   },
   /**
    * @Author   小书包
+   * @DateTime 2019-01-24
+   * @detail   绑定状态的改变
+   * @return   {[type]}   [description]
+   */
+  bindStatusChange(e) {
+    const detail = e.detail
+    detail.isOnline = detail.isOnline === 2 ? 1 : 2
+    this.setData({detail})
+  },
+  /**
+   * @Author   小书包
    * @DateTime 2019-01-02
    * @detail   获取职位详情
    * @return   {[type]}   [description]

@@ -5,7 +5,7 @@
 		<input placeholder="搜索" bindinput="bindInput" />
 		<i class="icon iconfont icon-sousuo icon-search"></i>
 	</view>
-	<view class="category-list">
+	<view class="category-list" >
 		<block wx:if="{{!searing}}">
 			<view
 				class="li link"

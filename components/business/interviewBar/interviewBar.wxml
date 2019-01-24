@@ -151,10 +151,10 @@
 			<block wx:elif="{{interviewInfos.interviewStatus === 12 }}">
 				<view class="content">
 					<view class="first"><view class="name">{{infos.name || infos.recruiterInfo.name}}</view></view>
-					<view class="second">已发起面试</view>
+					<view class="second">查看邀请</view>
 				</view>
 				<view class="button-box button-box-color2">
-					<view data-action="recruiter-apply" bindtap="todoAction">已发起面试</view>
+					<view data-action="recruiter-apply" bindtap="todoAction">查看邀请</view>
 				</view>
 			</block>
 
@@ -184,8 +184,8 @@
 	<!-- 是我自己发布的职位 start-->
 	<block wx:elif="{{isOwerner && identity === 'RECRUITER'}}">
 		<view class="edit-button" data-action="recruiter-edit" bindtap="todoAction">编辑</view>
-		<view class="switch-button" bindtap="todoAction" data-action="{{infos.status === 0 ? 'open' : 'close'}}">
-			{{infos.status === 0 ? '开放职位' : '关闭职位'}}
+		<view class="switch-button" bindtap="todoAction" data-action="{{infos.isOnline === 2 ? 'open' : 'close'}}">
+			{{infos.isOnline === 2 ? '开放职位' : '关闭职位'}}
 		</view>
 	</block>
 	<!-- 是我自己发布的职位 end-->

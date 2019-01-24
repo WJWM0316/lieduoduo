@@ -5,6 +5,14 @@ import {getSelectorQuery}  from '../../../../../utils/util.js'
 
 import { getPositionListApi } from '../../../../../api/pages/position.js'
 
+import {
+  getCityLabelApi
+} from '../../../../../api/pages/common'
+
+import {
+  getLabelPositionApi
+} from '../../../../../api/pages/label.js'
+
 const app = getApp()
 
 Page({
@@ -18,9 +26,52 @@ Page({
       isLastPage: false,
       isRequire: false
     },
+    city: 0,
+    cityIndex: 0,
+    type: 0,
+    typeIndex: 0,
+    cityList: [],
+    positionTypeList: [],
+    applyIndex: 0,
+    positionIndex: 0
   },
   onLoad() {
     this.getPositionList()
+    this.getCityLabel()
+    this.getLabelPosition()
+  },
+  /**
+   * @Author   小书包
+   * @DateTime 2019-01-24
+   * @detail   获取热门城市
+   * @return   {[type]}   [description]
+   */
+  getCityLabel() {
+    getCityLabelApi()
+      .then(res => {
+        const cityList = res.data
+        cityList.unshift({areaId: 'all', name: '选择地区'})
+        this.setData({cityList})
+      })
+  },
+  /**
+   * @Author   小书包
+   * @DateTime 2019-01-23
+   * @detail   获取技能标签
+   * @return   {[type]}   [description]
+   */
+  getLabelPosition() {
+    getLabelPositionApi()
+      .then(res => {
+        const positionTypeList = res.data
+        positionTypeList.map(field => field.active = false)
+        positionTypeList.unshift({
+          labelId: 'all',
+          name: '职位类型',
+          type: 'self_label_position'
+        })
+        this.setData({positionTypeList})
+      })
   },
   /**
    * @Author   小书包
@@ -30,7 +81,13 @@ Page({
    */
   getPositionList(hasLoading = true) {
     return new Promise((resolve, reject) => {
-      const params = {count: this.data.pageCount, page: this.data.positionList.pageNum, hasLoading}
+      let params = {count: this.data.pageCount, page: this.data.positionList.pageNum, hasLoading}
+      if(this.data.city) {
+        params = Object.assign(params, {city: this.data.city})
+      }
+      if(this.data.type) {
+        params = Object.assign(params, {type: this.data.type})
+      }
       getPositionListApi(params)
         .then(res => {
           const positionList = this.data.positionList
@@ -45,11 +102,11 @@ Page({
   },
   /**
    * @Author   小书包
-   * @DateTime 2019-01-21
-   * @detail   下拉重新获取数据
-   * @return   {[type]}              [description]
+   * @DateTime 2019-01-24
+   * @detail   刷新数据
+   * @return   {[type]}   [description]
    */
-  onPullDownRefresh(hasLoading = true) {
+  reloadPositionLists(hasLoading = true) {
     const positionList = {list: [], pageNum: 1, isLastPage: false, isRequire: false}
     this.setData({positionList, hasReFresh: true})
     this.getPositionList()
@@ -66,6 +123,15 @@ Page({
   /**
    * @Author   小书包
    * @DateTime 2019-01-21
+   * @detail   下拉重新获取数据
+   * @return   {[type]}              [description]
+   */
+  onPullDownRefresh() {
+    this.reloadPositionLists()
+  },
+  /**
+   * @Author   小书包
+   * @DateTime 2019-01-21
    * @detail   触底加载数据
    * @return   {[type]}   [description]
    */
@@ -73,6 +139,24 @@ Page({
     const positionList = this.data.positionList
     if (!positionList.isLastPage) {
       this.getPositionList(false).then(() => this.setData({onBottomStatus: 1}))
+    }
+  },
+  /**
+   * @Author   小书包
+   * @DateTime 2019-01-24
+   * @detail   类型改变重新拉数据
+   * @return   {[type]}     [description]
+   */
+  bindChange(e) {
+    const params = e.currentTarget.dataset
+    const list = params.type === 'city' ? this.data.cityList : this.data.positionTypeList
+    const result = list.find((field, index) => index === Number(e.detail.value))
+    const key = params.type
+    const key2 = params.type === 'city' ? 'cityIndex' : 'typeIndex'
+    const value = result[params.type === 'city' ? 'areaId' : 'labelId']
+
+    if(typeof value === 'number') {
+      this.setData({[key]: value, [key2]: Number(e.detail.value)}, () => this.reloadPositionLists())
     }
   }
 })

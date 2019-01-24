@@ -40,3 +40,33 @@
 .interested i{
   margin-right: 6rpx;
 }
+
+
+.select-box {
+  overflow: hidden;
+  margin: 24rpx 30rpx;
+  margin-bottom: 0; 
+}
+
+.select-box .item {
+  line-height: 64rpx;
+  padding: 0 18rpx;
+  background:rgba(255,255,255,1);
+  box-shadow:0px -5rpx 40rpx 0rpx rgba(22,39,77,0.05);
+  border-radius:32rpx;
+  display: inline-block;
+  margin-right: 16rpx;
+  font-size:26rpx;
+  font-weight:500;
+  color: #652791;
+  position: relative;
+}
+
+.select-box .picker {
+  display: inline-block;
+}
+
+.select-box .iconfont {
+  display: inline-block;
+  margin-left: 5rpx;
+}

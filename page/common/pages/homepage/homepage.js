@@ -38,10 +38,6 @@ Page({
     query: {},
     companyInfos: {},
     recruitersList: [],
-    companyList: [],
-    jobList: [],
-    longitude: 0,
-    latitude: 0,
     cdnImagePath: app.globalData.cdnImagePath,
     positionTypeList: [],
     labelId: null,
@@ -51,7 +47,17 @@ Page({
       ...mapInfos,
       longitude: 0,
       latitude: 0,
-    }
+    },
+    positionList: {
+      list: [],
+      pageNum: 1,
+      isLastPage: false,
+      isRequire: false
+    },
+    // pageCount: app.globalData.pageCount,
+    pageCount: 4,
+    hasReFresh: false,
+    onBottomStatus: 0
   },
   onLoad(options) {
     this.setData({query: options})
@@ -98,11 +104,22 @@ Page({
    * @detail   获取职位详情
    * @return   {[type]}   [description]
    */
-  getPositionList() {
-    const options = this.data.query
-    const params = {company_id: options.companyId}
-    getPositionListApi(params).then(res => {
-      this.setData({jobList: res.data})
+  getPositionList(hasLoading = true) {
+    return new Promise((resolve, reject) => {
+      const options = this.data.query
+      let params = {company_id: options.companyId, count: this.data.pageCount, page: this.data.positionList.pageNum, hasLoading}
+      if(typeof this.data.labelId === 'number') {
+        params = Object.assign(params, {type: this.data.labelId})
+      }
+      getPositionListApi(params).then(res => {
+        const positionList = this.data.positionList
+        const onBottomStatus = res.meta.nextPageUrl ? 0 : 2
+        positionList.list = positionList.list.concat(res.data)
+        positionList.isLastPage = res.meta.nextPageUrl ? false : true
+        positionList.pageNum = positionList.pageNum + 1
+        positionList.isRequire = true
+        this.setData({positionList, onBottomStatus}, () => resolve(res))
+      })
     })
   },
   /**
@@ -119,7 +136,6 @@ Page({
         positionTypeList.unshift({
           labelId: 'all',
           name: '全部',
-          type: 'self_label_position',
           active: true
         })
         this.setData({positionTypeList}, () => this.getPositionList())
@@ -253,5 +269,17 @@ Page({
   onPageScroll(e) {
     let isFixed = e.scrollTop > this.data.domHeight
     this.setData({isFixed})
-  }
+  },
+  /**
+   * @Author   小书包
+   * @DateTime 2019-01-21
+   * @detail   触底加载数据
+   * @return   {[type]}   [description]
+   */
+  onReachBottom() {
+    const positionList = this.data.positionList
+    if (!positionList.isLastPage && this.data.tab !== 'about') {
+      this.getPositionList(false).then(() => this.setData({onBottomStatus: 1}))
+    }
+  },
 })

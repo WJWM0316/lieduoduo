@@ -63,7 +63,7 @@ Component({
     ]
   },
   attached() {
-    const key = wx.getStorageSync('choseType') === 'APPLICANT' ? 'recruiterWords' : 'jobWords'
+    const key = wx.getStorageSync('choseType') === 'APPLICANT' ? 'jobWords' : 'recruiterWords'
     const length = this.data[key].length
     const index = this.getRandomNum(0, length)
     this.setData({index})
@@ -163,14 +163,14 @@ Component({
           openPositionApi({id: this.data.infos.id})
             .then(res => {
               app.wxToast({title: '职位已开放'})
-              this.triggerEvent('resultevent', res)
+              this.triggerEvent('resultevent', this.data.infos)
             })
           break
         case 'close':
           closePositionApi({id: this.data.infos.id})
             .then(res => {
               app.wxToast({title: '职位已关闭'})
-              this.triggerEvent('resultevent', res)
+              this.triggerEvent('resultevent', this.data.infos)
             })
           break
         // 求职端发起开撩
@@ -230,7 +230,11 @@ Component({
         // 求职端拒绝招聘官
         case 'job-hunting-reject':
           if(this.data.type === 'recruiter') {
-            wx.navigateTo({url: `${RECRUITER}position/jobList/jobList?type=reject_chat&from=${this.data.currentPage}&showNotPositionApply=${interviewInfos.showNotPositionApply}&from=${this.data.currentPage}&jobhunterUid=${this.data.infos.uid}`})
+            refuseInterviewApi({id: this.data.infos.uid})
+              .then(res => {
+                this.getInterviewStatus()
+              })
+            // wx.navigateTo({url: `${RECRUITER}position/jobList/jobList?type=reject_chat&from=${this.data.currentPage}&showNotPositionApply=${interviewInfos.showNotPositionApply}&from=${this.data.currentPage}&jobhunterUid=${this.data.infos.uid}&recruiterUid=${app.globalData.recruiterDetails.uid}`})
           } else {
             app.wxConfirm({
               title: '暂不考虑该职位',
@@ -293,12 +297,8 @@ Component({
               })
           }
           break
-        // 待求职者确认
-        case 'iter-pedding':
-          app.wxToast({title: '面试申请已发送'})
-          break
         case 'recruiter-apply':
-          app.wxToast({title: '面试申请已发送'})
+          wx.navigateTo({url: `${COMMON}arrangement/arrangement?id=${interviewInfos.data[0].interviewId}`})
           break
         case 'recruiter-arrangement':
           wx.navigateTo({url: `${COMMON}arrangement/arrangement?id=${interviewInfos.data[0].interviewId}`})

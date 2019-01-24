@@ -1,5 +1,10 @@
 <view class="homepage">
 	<navbar title="{{companyInfos.companyName}}" background="#FFFFFF" color="#22292C"></navbar>
+
+	<view hidden="{{!hasReFresh}}">
+    <refreshStatus></refreshStatus>
+  </view>
+
 	<view class="banner">
 		<image class="bgImg" src="{{cdnImagePath}}company_banner.png" mode="aspectFill"></image>
 		<view class="box">
@@ -16,8 +21,8 @@
 		<view class="li {{tab === 'about' ? 'active' : ''}}" bindtap="onTabClick" data-tab="about">关于我们</view>
 		<view class="li {{tab === 'recruitment' ? 'active' : ''}}" bindtap="onTabClick" data-tab="recruitment">在招职位({{companyInfos.positionNum}})</view>
 	</view>
-	
-	<!-- <view class="child-box" hidden="{{tab === 'about'}}">
+<!-- 	
+	<view class="child-box" hidden="{{tab === 'about'}}">
 		<view
 			class="tab {{item.active ? 'tab-active' : ''}}"
 			wx:for="{{positionTypeList}}"
@@ -139,7 +144,7 @@
 	</view>
 
 	<view class="job-list" hidden="{{tab === 'about'}}">
-		<jobList personality="jobItem" list="{{jobList}}" list-type="interview" current-tab="all"></jobList>
+		<jobList personality="jobItem" list="{{positionList.list}}" list-type="interview" current-tab="all"></jobList>
 	</view>
 
 </view>
