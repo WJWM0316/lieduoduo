@@ -77,10 +77,22 @@
 				<i class="icon iconfont icon-biaojiweiganxingqu" wx:else></i>
 		</view>
 	</view>
+	
+<!-- 	<view class="switch-tips">
+		<view class="h1">关闭职位</view>
+		<view class="h2">关闭职位后将不再产生招聘效果</view>
+		<i class="icon iconfont icon-disejiantou-you"></i>
+	</view> -->
+	
+	<view class="footer">
+		
+	</view>
+	
 	<interviewBar
 		id="interviewBar"
 		infos="{{ detail }}"
 		bindresultevent="bindStatusChange"
 		type="position"
 		wx:if="{{detail.vkey}}"></interviewBar>
+
 </view>

@@ -61,7 +61,8 @@ Component({
       '好看的和能干的，都欢迎来开撩哦',
       '把握住缘分，搞不好能成为同事~',
       '我这么Nice的招聘官已经不多见了！'
-    ]
+    ],
+    isShare: false
   },
   attached() {
     const key = wx.getStorageSync('choseType') === 'APPLICANT' ? 'jobWords' : 'recruiterWords'
@@ -115,6 +116,7 @@ Component({
           this.setData({interviewInfos: res.data, identity: wx.getStorageSync('choseType')})
           if(res.code === 204) this.setData({isOwerner: true})
           if(res.code === 230) this.showMergeBox(res.data)
+          if(res.code === 205) this.setData({isShare: true})
         })
     },
     /**
@@ -127,15 +129,12 @@ Component({
       const content = infos.tipsData.positionId === 0
         ? '招聘官已接受与你约面，但没有选择约面职位，其他职位申请将自动合并，如需修改约面职位，可直接与招聘官协商'
         : `招聘官已选择你申请职位中的“${infos.tipsData.positionName}”，其他职位申请将自动合并，如需修改约面职位，可直接与招聘官协商。`
-        
       app.wxConfirm({
         title: '',
         content,
         showCancel: false,
         confirmText: '我知道了',
-        confirmBack() {
-          //
-        }
+        confirmBack() {}
       })
     },
     /**

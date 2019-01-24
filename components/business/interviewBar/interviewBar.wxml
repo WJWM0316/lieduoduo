@@ -1,4 +1,4 @@
-<view class="interview-bar {{ !isOwerner ? 'interview-bar-radius' : ''}}" wx:if="{{!isOwerner || type === 'position'}}">
+<view class="interview-bar {{ !isOwerner ? 'interview-bar-radius' : ''}}" wx:if="{{ !isOwerner && !isShare }}">
 	<block wx:if="{{ !isOwerner }}">		
 		<block wx:if="{{identity === 'APPLICANT'}}">
 			
@@ -183,7 +183,7 @@
 		<!-- 招聘端 -->
 	</block>
 	<!-- 是我自己发布的职位 start-->
-	<block wx:elif="{{isOwerner && identity === 'RECRUITER'}}">
+	<block wx:elif="{{isOwerner && identity === 'RECRUITER' && type === 'position'}}">
 		<view class="edit-button" data-action="recruiter-edit" bindtap="todoAction">编辑</view>
 		<view class="switch-button" bindtap="todoAction" data-action="{{infos.isOnline === 2 ? 'open' : 'close'}}">
 			{{infos.isOnline === 2 ? '开放职位' : '关闭职位'}}
