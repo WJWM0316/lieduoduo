@@ -46,10 +46,10 @@ Page({
   	const params = e.currentTarget.dataset
   	switch(params.action) {
   		case 'modifyIdentity':
-  			wx.reLaunch({url: `${RECRUITER}user/company/identity/identity?action=edit&type=create`})
+  			wx.navigateTo({url: `${RECRUITER}user/company/identity/identity?action=edit&type=create`})
   			break
   		case 'modifyCompany':
-  			wx.redirectTo({url: `${RECRUITER}user/company/apply/apply?action=edit&type=create`})
+  			wx.navigateTo({url: `${RECRUITER}user/company/apply/apply?action=edit&type=create`})
   			break
       case 'email':
         wx.navigateTo({url: `${RECRUITER}user/company/email/email?id=${this.data.companyInfos.id}`})
@@ -58,16 +58,16 @@ Page({
         wx.redirectTo({url: `${RECRUITER}position/post/post`})
         break
       case 'applyIdentity':
-        wx.reLaunch({url: `${RECRUITER}user/company/identity/identity?type=apply`})
+        wx.navigateTo({url: `${RECRUITER}user/company/identity/identity?type=apply`})
         break
       case 'modifyAddIdentity':
-        wx.reLaunch({url: `${RECRUITER}user/company/identity/identity?type=apply&action=edit`})
+        wx.navigateTo({url: `${RECRUITER}user/company/identity/identity?type=apply&action=edit`})
         break
       case 'perfect':
         wx.navigateTo({url: `${RECRUITER}company/baseEdit/baseEdit`})
         break
       case 'applyAddModify':
-        wx.reLaunch({url: `${RECRUITER}user/company/apply/apply?type=apply&action=edit`})
+        wx.navigateTo({url: `${RECRUITER}user/company/apply/apply?type=apply&action=edit`})
         break
       case 'notice':
         app.wxToast({title: '通知成功'})
