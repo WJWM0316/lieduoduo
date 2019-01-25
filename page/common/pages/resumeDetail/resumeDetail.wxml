@@ -118,7 +118,7 @@
       <!-- 工作内容 -->
       <view class="expContent">{{info.moreIntroduce.introduce}}</view>
       <view class="imgBox">
-        <image wx:for="{{info.moreIntroduce.imgs}}" wx:key="{{index}}" mode="aspectFill" src="{{item.smallUrl}}"></image>
+        <image wx:for="{{info.moreIntroduce.imgs}}" wx:key="{{index}}" mode="aspectFill" src="{{item.smallUrl}}" bindtap="preview"></image>
       </view>
     </view>
     <text class="add" data-editName="more" bindtap="edit" wx:if="{{!info.moreIntroduce.introduce && info.moreIntroduce.imgs.length === 0 && isOwner}}" data-id="0">完善更多介绍</text>

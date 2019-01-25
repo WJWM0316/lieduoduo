@@ -1,7 +1,9 @@
 import {getPositionListApi} from '../../../../../api/pages/position.js'
+import {getPersonalResumeApi} from '../../../../../api/pages/center.js'
 let app = getApp()
 let qrCodeUrl = ''
 let avatarUrl = ''
+let info = {}
 Page({
 
   /**
@@ -11,13 +13,10 @@ Page({
     imgUrl: '',
     imgW: 750,
     imgH: 0,
-    openSet: true,
-    info: {}
+    openSet: true
   },
-  drawing (avatarUrl, qrCodeUrl) {
-    let info = app.globalData.resumeInfo
+  drawing (info, avatarUrl, qrCodeUrl) {
     let that = this
-    
     const ctx = wx.createCanvasContext('canvas')
     ctx.width = 750
     ctx.setFillStyle('#652791')
@@ -27,7 +26,6 @@ Page({
 
     // 背景图1
     ctx.drawImage('../../../../../images/j4.png', 0, 0, 750, 401)
-
     // 个人资料
     ctx.setFontSize(46)
     ctx.setFillStyle('#282828')
@@ -40,7 +38,7 @@ Page({
       curHeight = curHeight + 42
       ctx.fillText(`${info.lastCompanyName} | ${info.lastPosition}`, 375, curHeight)
     }
-
+    ctx.drawImage('../../../../../images/a7.png', 0, curHeight, 750, 150)
     curHeight = curHeight + 28
     ctx.setFillStyle('#EFE9F4')
     ctx.fillRect(278, curHeight, 195, 38)
@@ -48,7 +46,7 @@ Page({
     ctx.setFillStyle('#652791')
     ctx.fillText(info.jobStatusDesc, 375, curHeight + 28)
 
-    ctx.drawImage('../../../../../images/a7.png', 0, curHeight, 750, 50)
+     curHeight = curHeight + 60
 
     ctx.setFontSize(24)
     ctx.setTextAlign('left')
@@ -96,9 +94,9 @@ Page({
         newLabelWidth = ctx.measureText(info.personalizedLabels[index+1]).width + 2*r
       }
       
-      let metricsW = ctx.measureText(item.labelName).width // 文本宽度
+      let metricsW = ctx.measureText(item.labelName || item.name).width // 文本宽度
       ctx.setFillStyle('#652791')
-      ctx.fillText(item.labelName, position.x + r, position.y + r + 10)
+      ctx.fillText(item.labelName || item.name, position.x + r, position.y + r + 10)
       ctx.setStrokeStyle('#CEC5DF')
       ctx.beginPath()
       ctx.moveTo(position.x + r, position.y)
@@ -117,7 +115,7 @@ Page({
       // 下一个标签的横坐标
       position.x = position.x + 2*r + metricsW + 16
       // 判断是否需要换行
-      if (newLabelWidth > (750 - 78 - position.x)) {
+      if (newLabelWidth > (750 - position.x)) {
         position.x = 78
         position.y = position.y + 2*r + 15
         curHeight = position.y
@@ -301,7 +299,9 @@ Page({
       ctx.setFontSize(24)
       ctx.setFillStyle('#626262')
       ctx.setTextAlign('right')
-      ctx.fillText(item.startTimeDesc, 670, curHeight + 36)
+      item.startTimeDesc = item.startTimeDesc.split('-').join('.')
+      item.endTimeDesc = item.endTimeDesc.split('-').join('.')
+      ctx.fillText(`${item.startTimeDesc}-${item.endTimeDesc}`, 670, curHeight + 36)
 
 
       // 其他
@@ -425,7 +425,9 @@ Page({
       ctx.setFontSize(24)
       ctx.setFillStyle('#626262')
       ctx.setTextAlign('right')
-      ctx.fillText(item.startTimeDesc, 670, curHeight + 36)
+      item.startTimeDesc = item.startTimeDesc.split('-').join('.')
+      item.endTimeDesc = item.endTimeDesc.split('-').join('.')
+      ctx.fillText(`${item.startTimeDesc}-${item.endTimeDesc}`, 670, curHeight + 36)
 
       // 专业
       curHeight = curHeight + 72
@@ -433,7 +435,7 @@ Page({
       ctx.setFillStyle('#282828')
       ctx.setTextAlign('left')
 
-      ctx.fillText(item.major, 80, curHeight)
+      ctx.fillText(`${item.degreeDesc} · ${item.major}`, 80, curHeight)
 
       curHeight = curHeight + 40
 
@@ -484,12 +486,16 @@ Page({
   onLoad: function (options) {
     let that = this
     let info = app.globalData.resumeInfo
-    // this.setData({info})
-    // this.drawing()
     wx.showLoading({
       title: '正在生成...',
     })
 
+    getPersonalResumeApi().then(res => {
+      info = res.data
+      Promise.all([loadAvatar, loadQrCode]).then((result) => {
+        this.drawing (info, avatarUrl, qrCodeUrl)
+      })
+    })
     let loadAvatar = new Promise((resolve, reject) => {
       // 头像
       wx.downloadFile({
@@ -514,9 +520,6 @@ Page({
           }
         }
       })
-    })
-    Promise.all([loadAvatar, loadQrCode]).then((result) => {
-      this.drawing (avatarUrl, qrCodeUrl)
     })
   },
 

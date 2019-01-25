@@ -158,6 +158,8 @@ Page({
       allSkills.map((n, index) => {
         if (n.labelId === choseFirstId) {
           choseFirstIndex = index
+          skills = allSkills[choseFirstIndex].children
+          this.setData({skills})
         }
       })
     }

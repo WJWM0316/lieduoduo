@@ -26,10 +26,15 @@ Page({
       content: `确定退出当前账号吗？`,
       confirmBack() {
         uploginApi().then(res => {
-          app.toast({
+          app.wxToast({
             title: "退出成功",
             icon: "success"
           })
+          if (wx.getStorageSync('choseType') === 'RECRUITER') {
+            app.globalData.recruiterDetails = {}
+          } else {
+            app.globalData.resumeInfo = {}
+          }
           wx.navigateBack({ delta: 1 })
           wx.removeStorageSync("token")
         })

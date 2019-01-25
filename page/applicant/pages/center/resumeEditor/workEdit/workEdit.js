@@ -56,7 +56,7 @@ Page({
     this.set()
   },
   onHide () {
-    wx.removeStorageSync('result')
+    // wx.removeStorageSync('result')
     wx.removeStorageSync('createPosition')
   },
   /* 展示或关闭例子 */
@@ -253,6 +253,9 @@ Page({
           jobCategories: item.positionType,
           info: item
         })
+        if (item.endTimeDesc === '至今') {
+          toToday = true
+        }
       }
     })
   }

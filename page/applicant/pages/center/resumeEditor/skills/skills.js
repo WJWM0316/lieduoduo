@@ -14,13 +14,13 @@ Page({
   onClick(e) {
     const params = e.currentTarget.dataset.item
     let professionalSkills = this.data.professionalSkills
-    let skills = professionalSkills.filter(field => field.active)
+    let skills = this.data.skills
     if (!params.active && skills.length >= this.data.limitNum) {
       app.wxToast({title: '最多可选择3个领域'})
       return
     }
     professionalSkills.map(field => {
-      if(field.labelId === params.labelId) field.active = !field.active
+      if(field.labelId === parseInt(params.fieldId) || field.labelId === parseInt(params.labelId)) field.active = !field.active
     })
     skills = professionalSkills.filter(field => field.active)
     this.setData({professionalSkills, skills})
@@ -34,8 +34,9 @@ Page({
         const professionalSkills = response.data
         let skills = wx.getStorageSync('fieldsData') || []
         skills.map((item, index) => {
+          skills[index].active = true
           professionalSkills.map((n ,j) => {
-            if (parseInt(item.fieldId) === n.labelId) {
+            if (parseInt(item.fieldId) === n.labelId || item.labelId === n.labelId) {
               professionalSkills[j].active = true
             }
           })
@@ -45,7 +46,18 @@ Page({
     } else {
       getLabelProfessionalSkillsApi().then(response => {
         const professionalSkills = response.data.labelProfessionalSkills
-        this.setData({professionalSkills})
+        let skills = wx.getStorageSync('result') || []
+        console.log(skills, 11)
+        skills.map((item, index) => {
+          professionalSkills.map((n ,j) => {
+            if (item === n.name || item.name === n.name) {
+              professionalSkills[j].active = true
+            }
+          })
+        })
+        skills = professionalSkills.filter(field => field.active)
+        console.log(skills, 22222222222)
+        this.setData({professionalSkills, skills})
       })
     }
   },

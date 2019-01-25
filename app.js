@@ -132,43 +132,34 @@ App({
           data: e.detail.encryptedData
         }
         let wxLogin = function () {
-          // 调用微信登录获取本地session_key
-          wx.login({
-            success: function (res0) {
-              wx.setStorageSync('code', res0.code)
-              // 请求接口获取服务器session_key
-              var pages = getCurrentPages() //获取加载的页面
-              let pageUrl = pages[0].route
-              let params = ''
-              for (let i in pages[0].options) {
-                params = `${params}${i}=${pages[0].options[i]}&`
-              }
-              pageUrl = `${pageUrl}?${params}`
-              data.code = wx.getStorageSync('code')
-              
-              loginApi(data).then(res => {
-                // 有token说明已经绑定过用户了
-                if (res.data.token) {
-                  wx.setStorageSync('token', res.data.token)
-                  that.checkLogin()
-                  that.globalData.userInfo = res.data
-                  that.globalData.hasLogin = true
-                  console.log('用户已认证')
-                } else {
-                  console.log('用户未绑定手机号')
-                  that.globalData.userInfo = res.data
-                  wx.setStorageSync('sessionToken', res.data.sessionToken)
-                }
-                resolve(res)
-                if (!isNeedUrl) {
-                  wx.reLaunch({
-                    url: `/${pageUrl}`
-                  })
-                }
+          // 请求接口获取服务器session_key
+          var pages = getCurrentPages() //获取加载的页面
+          let pageUrl = pages[0].route
+          let params = ''
+          for (let i in pages[0].options) {
+            params = `${params}${i}=${pages[0].options[i]}&`
+          }
+          pageUrl = `${pageUrl}?${params}`
+          data.code = wx.getStorageSync('code')
+          
+          loginApi(data).then(res => {
+            // 有token说明已经绑定过用户了
+            if (res.data.token) {
+              wx.setStorageSync('token', res.data.token)
+              that.checkLogin()
+              that.globalData.userInfo = res.data
+              that.globalData.hasLogin = true
+              console.log('用户已认证')
+            } else {
+              console.log('用户未绑定手机号')
+              that.globalData.userInfo = res.data
+              wx.setStorageSync('sessionToken', res.data.sessionToken)
+            }
+            resolve(res)
+            if (!isNeedUrl) {
+              wx.reLaunch({
+                url: `/${pageUrl}`
               })
-            },
-            fail: function (e) {
-              console.log('登录失败', e)
             }
           })
         }

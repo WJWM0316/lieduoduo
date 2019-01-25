@@ -1,4 +1,5 @@
 import {getPositionListApi} from '../../../../../api/pages/position.js'
+import {getRecruiterDetailApi} from '../../../../../api/pages/recruiter.js'
 let app = getApp()
 let info = null
 let avatarUrl = ''
@@ -14,7 +15,7 @@ Page({
     imgH: 0,
     openSet: true
   },
-  drawing (avatarUrl, qrCodeUrl) {
+  drawing (info, avatarUrl, qrCodeUrl) {
     let that = this
     const ctx = wx.createCanvasContext('canvas')
     ctx.width = 750
@@ -72,15 +73,21 @@ Page({
     let descString = ''
     let descWidth = 0
     if (!info.brief) info.brief = '你还未填写个人简介，快去填写吧~'
-    for (let i = 0; i < info.brief.length; i++) {
-      descString = descString + info.brief[i]
-      descWidth = ctx.measureText(descString).width
-      if (info.brief[i] === '↵' || descWidth > 590) {
-        ctx.drawImage('../../../../../images/a8.png', 0, curHeight, 750, 48)
-        ctx.fillText(descString.slice(0, descString.length-1), 80, curHeight)
-        descString = ''
-        curHeight += 48
+    if (ctx.measureText(info.brief).width > 590) {
+      for (let i = 0; i < info.brief.length; i++) {
+        descString = descString + info.brief[i]
+        descWidth = ctx.measureText(descString).width
+        if (info.brief[i] === '↵' || descWidth > 590) {
+          ctx.drawImage('../../../../../images/a8.png', 0, curHeight, 750, 48)
+          ctx.fillText(descString.slice(0, descString.length-1), 80, curHeight)
+          descString = ''
+          curHeight += 48
+        }
       }
+    } else {
+      curHeight = curHeight + 15
+      ctx.drawImage('../../../../../images/a8.png', 0, curHeight, 750, 48)
+      ctx.fillText(info.brief, 80, curHeight - 10)
     }
     // 在招职位
     ctx.drawImage('../../../../../images/a8.png', 0, curHeight, 750, 100)
@@ -139,7 +146,7 @@ Page({
       curHeight = curHeight + 20
     }
 
-    ctx.drawImage(qrCodeUrl, 82, curHeight + 190, 160, 160)
+    ctx.drawImage(qrCodeUrl, 82, curHeight + 195, 160, 160)
     ctx.drawImage('../../../../../images/j2.png', 0, curHeight, 750, 408)
     ctx.setFontSize(26)
     ctx.setFillStyle('#282828')
@@ -187,6 +194,12 @@ Page({
     wx.showLoading({
       title: '正在生成...',
     })
+    getRecruiterDetailApi().then(res => {
+      info = res.data
+      Promise.all([loadAvatar, loadQrCode, getList]).then((result) => {
+        this.drawing(info, avatarUrl, qrCodeUrl)
+      })
+    })
     let getList = getPositionListApi({recruiter: info.uid, count:2}).then(res => {
       info.positionList = res.data
     })
@@ -214,9 +227,7 @@ Page({
         }
       })
     })
-    Promise.all([loadAvatar, loadQrCode, getList]).then((result) => {
-      this.drawing(avatarUrl, qrCodeUrl)
-    })
+    
   },
 
   /**

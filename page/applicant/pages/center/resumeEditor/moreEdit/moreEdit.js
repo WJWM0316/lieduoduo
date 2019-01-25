@@ -1,7 +1,6 @@
 // page/applicant/pages/center/resumeEditor/aimsEdit/aimsEdit.js
 import { editIntroduceApi } from '../../../../../../api/pages/center.js'
 //let introduce = '' // 当前输入的内容
-let upLoadList = '' // 装用于上传的图片id
 const app = getApp()
 Page({
 
@@ -60,6 +59,7 @@ Page({
   },
   // 编辑保存
   save () {
+    let upLoadList = '' // 装用于上传的图片id
     this.data.imgList.map((item, index) => {
       if (!upLoadList) {
         upLoadList = `${item.id}`
