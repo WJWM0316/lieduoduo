@@ -19,6 +19,9 @@
 	  <view class="footer">
 	    <view bindtap="submit" class="button-submit {{canClick ? 'button-enable' : ''}}">下一步</view>
 	  </view>
+	  	<view class="enter"><text class="toggle" bindtap="toggle">前往求职端</text> | <text class="changePhone" bindtap="changePhone">更换手机登录</text></view>
+
 	</form>
+
 	<changeIdentity></changeIdentity>
 </view>

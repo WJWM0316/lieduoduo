@@ -111,7 +111,6 @@
 }
 .personalTip .text{
   font-size: 28rpx;
-  white-space: nowrap;
 }
 .personalTip .tipBox{
   margin-top: 46rpx;
@@ -129,9 +128,6 @@
   margin-bottom: 16rpx;
 }
 .personalTip .text{
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 /*意向*/
 .intent .officeTab{

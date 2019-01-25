@@ -2,7 +2,7 @@ import { getCompanyIdentityInfosApi } from '../../../../../../api/pages/company.
 
 import {realNameReg, emailReg, positionReg} from '../../../../../../utils/fieldRegular.js'
 
-import {RECRUITER} from '../../../../../../config.js'
+import {RECRUITER, COMMON} from '../../../../../../config.js'
 
 const app = getApp()
 
@@ -136,5 +136,13 @@ Page({
       .catch(err => {
         app.wxToast({title: err})
       })
+  },
+  toggle() {
+    app.toggleIdentity()
+  },
+  changePhone() {
+    wx.navigateTo({
+      url: `${COMMON}bindPhone/bindPhone`
+    })
   }
 })

@@ -39,13 +39,17 @@ Page({
       case 'workTime':
         info.startWorkYear = e.detail.propsResult
         info.startWorkYearDesc = e.detail.propsDesc
-        let workAgeDesc = parseInt((new Date().getTime() - info.startWorkYear * 1000) / (365 * 24 * 3600 * 1000))
-        if (workAgeDesc === 0) {
-          info.workAgeDesc = '1年以内'
-        } else if (workAgeDesc > 10) {
-          info.workAgeDesc = '10年以上'
+        if (info.startWorkYear) {
+          let workAgeDesc = parseInt((new Date().getTime() - info.startWorkYear * 1000) / (365 * 24 * 3600 * 1000))
+          if (workAgeDesc === 0) {
+            info.workAgeDesc = '1年以内'
+          } else if (workAgeDesc > 10) {
+            info.workAgeDesc = '10年以上'
+          } else {
+            info.workAgeDesc = workAgeDesc + '年'
+          }
         } else {
-          info.workAgeDesc = workAgeDesc + '年'
+          info.workAgeDesc = '1年以内'
         }
         break
       case 'jobStatus':

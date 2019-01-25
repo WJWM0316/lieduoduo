@@ -93,3 +93,12 @@
 	left: 0;
 	width: 100%;
 }
+.enter {
+	width: 100%;
+	margin-top: 50rpx;
+	text-align: center;
+	font-size:28rpx;
+	font-weight:500;
+	color:#BCBCBC;
+	line-height:28rpx;
+}
