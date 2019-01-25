@@ -175,7 +175,7 @@
 
 .company-detail {
   overflow: hidden;
-  margin: 30rpx 40rpx 0rpx 40rpx;
+  margin: 30rpx 40rpx 40rpx 40rpx;
 }
 
 .company-detail .p {

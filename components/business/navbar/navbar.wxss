@@ -20,7 +20,7 @@
   left: 0;
   z-index: 10;
   color: #22292C;
-  font-size: 30rpx;
+  font-size: 34rpx;
 }
 
 .return-back {
