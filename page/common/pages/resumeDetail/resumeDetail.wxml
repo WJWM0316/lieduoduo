@@ -9,10 +9,10 @@
     <view class="top">
       <view class="avatarBox">
         <image src="{{info.avatar.smallUrl}}" class="avatar"></image>
-        <view class="gender">
+<!--         <view class="gender">
           <i class="icon iconfont icon-xingbiebiaoqian-nan man" wx:if="{{info.gender === 1}}"></i>
           <i class="icon iconfont icon-xingbiebiaoqian-nv girl" wx:else></i>
-        </view>
+        </view> -->
       </view>
       <view class="info">
         <view class="name"><text>{{info.name}}</text><i class="icon iconfont icon-bianji1 edit" data-editName="info" data-id="{{item.id}}" bindtap="edit" wx:if="{{isOwner}}"></i></view>

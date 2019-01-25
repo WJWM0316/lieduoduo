@@ -1,193 +1,181 @@
 <view class="interview-bar {{ !isOwerner ? 'interview-bar-radius' : ''}}" wx:if="{{ !isOwerner && !isShare }}">
-	<block wx:if="{{ !isOwerner }}">		
-		<block wx:if="{{identity === 'APPLICANT'}}">
-			
-			<view class="img-box" bindtap="todoAction" data-action="viewRecruiter">
-				<image mode="aspectFill" src="{{infos.avatar.smallUrl || infos.recruiterInfo.avatar.smallUrl}}"></image>
-			</view>
-
-			<!-- 求职者还没有发起开撩动作 招聘官主页 start-->
-			<block wx:if="{{type === 'recruiter' && interviewInfos.haveInterview === 0}}">
-				<view class="content">
-					<view class="first">
-						<view class="name">{{infos.name}}</view>
-						<view class="hunter-infos"> <view class="strong">{{infos.positionNum}}</view>个职位 </view>
-					</view>
-					<view class="second">{{jobWords[index]}}</view>
-				</view>
-				<view class="button-box button-box-color1">
-					<view bindtap="todoAction" data-action="job-hunting-chat">开撩约面</view>
-				</view>
-			</block>
-			<!-- 求职者还没有发起开撩动作 招聘官主页 end-->
-
-			<!-- 求职者还没有发起开撩动作 职位详情 start-->
-			<block wx:if="{{type === 'position' && (interviewInfos.haveInterview === 0 || interviewInfos.interviewStatus === 51 || interviewInfos.interviewStatus === 54)}}">
-				<view class="content">
-					<view class="first">
-						<view class="name">{{infos.recruiterInfo.name}}</view>
-						<view class="hunter-infos"> <view class="strong">{{infos.recruiterInfo.positionNum}}</view>个职位 </view>
-					</view>
-					<view class="second">{{jobWords[index]}}</view>
-				</view>
-				<view class="button-box button-box-color1">
-					<view bindtap="todoAction" data-action="job-hunting-chat">开撩约面</view>
-				</view>
-			</block>
-			<!-- 求职者还没有发起开撩动作 职位详情 end-->
-
-			<!-- 求职者已经发起开撩动作 start-->
-			<block wx:elif="{{interviewInfos.interviewStatus === 11}}">
-				<view class="content">
-					<view class="first"><view class="name">{{infos.name || infos.recruiterInfo.name}}</view></view>
-					<view class="second">待确认申请</view>
-				</view>
-				<view class="button-box button-box-color2">
-					<view bindtap="todoAction" data-action="job-hunting-applyed">已申请面试</view>
-				</view>
-			</block>
-			<!-- 求职者已经发起开撩动作 end-->
-
-			<!-- 求职者等待招聘官安排面试 start-->
-			<block wx:elif="{{interviewInfos.interviewStatus === 21 || interviewInfos.interviewStatus === 32 }}">
-				<view class="content">
-					<view class="first"><view class="name">{{infos.name || infos.recruiterInfo.name}}</view></view>
-					<view class="second">已确认申请</view>
-				</view>
-				<view class="button-box button-box-color2">
-					<view bindtap="todoAction" data-action="job-hunting-waiting-interview">待安排面试</view>
-				</view>
-			</block>
-			<!-- 求职者等待招聘官安排面试 end-->
-			
-			<!-- 求职者等待招聘管修改信息 start-->
-			<block wx:elif="{{interviewInfos.interviewStatus === 41 || interviewInfos.interviewStatus === 31}}">
-				<view class="content">
-					<view class="first"><view class="name">{{infos.name || infos.recruiterInfo.name}}</view></view>
-					<view class="second">已安排面试</view>
-				</view>
-				<view class="button-box button-box-color3">
-					<view bindtap="todoAction" data-action="job-hunting-view-detail">查看面试详情</view>
-				</view>
-			</block>
-			<!-- 求职者等待招聘管修改信息 end-->
-
-			<!-- 求职者被设置成不合适 start-->
-			<block wx:elif="{{interviewInfos.interviewStatus === 52 || interviewInfos.interviewStatus === 53}}">
-				<view class="content">
-					<view class="first"><view class="name">{{infos.name || infos.recruiterInfo.name}}</view></view>
-					<view class="second">不合适</view>
-				</view>
-				<view class="button-box button-box-color3"> <view>不合适</view> </view>
-			</block>
-			<!-- 求职者被设置成不合适 end-->
-			
-			<!-- 求职者已经已收到招聘官的邀请 start-->
-			<block wx:elif="{{interviewInfos.interviewStatus === 12}}">
-				<view class="content">
-					<view class="first"><view class="name">{{infos.name || infos.recruiterInfo.name}}</view></view>
-					<view class="second">邀请你面试</view>
-				</view>
-				<view class="button-box">
-					<view class="reject" data-action="job-hunting-reject" bindtap="todoAction">暂不考虑</view>
-					<view class="accept" data-action="job-hunting-accept" bindtap="todoAction">接受约面</view>
-				</view>
-			</block>
-			<!-- 求职者已经已收到招聘官的邀请 end-->
-
-		</block>
-
-		<!-- 招聘端 -->
-		<block wx:else>
-
-			<view class="img-box">
-				<image mode="aspectFill" src="{{infos.avatar.smallUrl || infos.recruiterInfo.avatar.smallUrl}}"></image>
-			</view>
-
-			<!-- 求职端已开启撩 招聘端可接受可拒绝 start-->
-			<block wx:if="{{interviewInfos.interviewStatus === 11 && interviewInfos.haveInterview === 1}}">
-				<view class="content">
-					<view class="first"><view class="name">{{infos.name || infos.recruiterInfo.name}}</view></view>
-					<view class="second">约你面试</view>
-				</view>
-				<view class="button-box">
-					<view class="accept" data-action="recruiter-accept" bindtap="todoAction">确认约面</view>
-				</view>
-			</block>
-			<!-- 求职端已开启撩 招聘端可接受可拒绝 end-->
-			
-			<!-- 招聘端主动发起开料 start-->
-			<block wx:if="{{interviewInfos.haveInterview === 0}}">
-				<view class="content">
-					<view class="first"><view class="name">{{infos.name || infos.recruiterInfo.name}}</view></view>
-					<view class="second">{{recruiterWords[index]}}</view>
-				</view>
-				<view class="button-box">
-					<view class="accept" data-action="recruiter-chat" bindtap="todoAction">开撩约面</view>
-				</view>
-			</block>
-			<!-- 招聘端主动发起开料 end-->
-
-			<block wx:elif="{{interviewInfos.interviewStatus === 21}}">
-				<view class="content">
-					<view class="first"><view class="name">{{infos.name || infos.recruiterInfo.name}}</view></view>
-					<view class="second">安排面试</view>
-				</view>
-				<view class="button-box button-box-color2">
-					<view data-action="recruiter-arrangement" bindtap="todoAction">安排面试</view>
-				</view>
-			</block>
-			
-			<block wx:elif="{{interviewInfos.interviewStatus === 31}}">
-				<view class="content">
-					<view class="first"><view class="name">{{infos.name || infos.recruiterInfo.name}}</view></view>
-					<view class="second">待求职者确认</view>
-				</view>
-				<view class="button-box button-box-color2">
-					<view bindtap="todoAction">待求职者确认</view>
-				</view>
-			</block>
-
-			<block wx:elif="{{interviewInfos.interviewStatus === 12 }}">
-				<view class="content">
-					<view class="first"><view class="name">{{infos.name || infos.recruiterInfo.name}}</view></view>
-					<view class="second">待确认约面</view>
-				</view>
-				<view class="button-box button-box-color2">
-					<view data-action="recruiter-apply" bindtap="todoAction">查看邀请</view>
-				</view>
-			</block>
-
-			<block wx:elif="{{interviewInfos.interviewStatus === 32}}">
-				<view class="content">
-					<view class="first"><view class="name">{{infos.name || infos.recruiterInfo.name}}</view></view>
-					<view class="second">待确认信息</view>
-				</view>
-				<view class="button-box button-box-color2">
-					<!-- <view class="reject" data-action="recruiter-reject" bindtap="todoAction">不合适</view> -->
-					<view data-action="recruiter-arrangement" class="recruiter-reject" bindtap="todoAction">修改面试</view>
-				</view>
-			</block>
-
-			<block wx:elif="{{interviewInfos.interviewStatus === 41}}">
-				<view class="content">
-					<view class="first"><view class="name">{{infos.name || infos.recruiterInfo.name}}</view></view>
-					<view class="second">已确认面试</view>
-				</view>
-				<view class="button-box button-box-color2">
-					<view class="reject" data-action="recruiter-reject" bindtap="todoAction">不合适</view>
-					<view bindtap="todoAction" data-action="recruiter-view-detail" class="accept">查看面试安排</view>
-				</view>
-			</block>
-		</block>
-		<!-- 招聘端 -->
-	</block>
-	<!-- 是我自己发布的职位 start-->
-	<block wx:elif="{{isOwerner && identity === 'RECRUITER' && type === 'position'}}">
-		<view class="edit-button" data-action="recruiter-edit" bindtap="todoAction">编辑</view>
-		<view class="switch-button" bindtap="todoAction" data-action="{{infos.isOnline === 2 ? 'open' : 'close'}}">
-			{{infos.isOnline === 2 ? '开放职位' : '关闭职位'}}
+	
+	<block wx:if="{{identity === 'APPLICANT'}}">
+		<view class="img-box" bindtap="todoAction" data-action="viewRecruiter">
+			<image mode="aspectFill" src="{{infos.avatar.smallUrl || infos.recruiterInfo.avatar.smallUrl}}"></image>
 		</view>
+
+		<!-- 求职者还没有发起开撩动作 招聘官主页 start-->
+		<block wx:if="{{type === 'recruiter' && interviewInfos.haveInterview === 0}}">
+			<view class="content">
+				<view class="first">
+					<view class="name">{{infos.name}}</view>
+					<view class="hunter-infos"> <view class="strong">{{infos.positionNum}}</view>个职位 </view>
+				</view>
+				<view class="second">{{jobWords[index]}}</view>
+			</view>
+			<view class="button-box button-box-color1">
+				<view bindtap="todoAction" data-action="job-hunting-chat">开撩约面</view>
+			</view>
+		</block>
+		<!-- 求职者还没有发起开撩动作 招聘官主页 end-->
+
+		<!-- 求职者还没有发起开撩动作 职位详情 start-->
+		<block wx:if="{{type === 'position' && (interviewInfos.haveInterview === 0 || interviewInfos.interviewStatus === 51 || interviewInfos.interviewStatus === 54)}}">
+			<view class="content">
+				<view class="first">
+					<view class="name">{{infos.recruiterInfo.name}}</view>
+					<view class="hunter-infos"> <view class="strong">{{infos.recruiterInfo.positionNum}}</view>个职位 </view>
+				</view>
+				<view class="second">{{jobWords[index]}}</view>
+			</view>
+			<view class="button-box button-box-color1">
+				<view bindtap="todoAction" data-action="job-hunting-chat">开撩约面</view>
+			</view>
+		</block>
+		<!-- 求职者还没有发起开撩动作 职位详情 end-->
+
+		<!-- 求职者已经发起开撩动作 start-->
+		<block wx:elif="{{interviewInfos.interviewStatus === 11}}">
+			<view class="content">
+				<view class="first"><view class="name">{{infos.name || infos.recruiterInfo.name}}</view></view>
+				<view class="second">待确认申请</view>
+			</view>
+			<view class="button-box button-box-color2">
+				<view bindtap="todoAction" data-action="job-hunting-applyed">已申请面试</view>
+			</view>
+		</block>
+		<!-- 求职者已经发起开撩动作 end-->
+
+		<!-- 求职者等待招聘官安排面试 start-->
+		<block wx:elif="{{interviewInfos.interviewStatus === 21 || interviewInfos.interviewStatus === 32 }}">
+			<view class="content">
+				<view class="first"><view class="name">{{infos.name || infos.recruiterInfo.name}}</view></view>
+				<view class="second">已确认申请</view>
+			</view>
+			<view class="button-box button-box-color2">
+				<view bindtap="todoAction" data-action="job-hunting-waiting-interview">待安排面试</view>
+			</view>
+		</block>
+		<!-- 求职者等待招聘官安排面试 end-->
+		
+		<!-- 求职者等待招聘管修改信息 start-->
+		<block wx:elif="{{interviewInfos.interviewStatus === 41 || interviewInfos.interviewStatus === 31}}">
+			<view class="content">
+				<view class="first"><view class="name">{{infos.name || infos.recruiterInfo.name}}</view></view>
+				<view class="second">已安排面试</view>
+			</view>
+			<view class="button-box button-box-color3">
+				<view bindtap="todoAction" data-action="job-hunting-view-detail">查看面试详情</view>
+			</view>
+		</block>
+		<!-- 求职者等待招聘管修改信息 end-->
+
+		<!-- 求职者被设置成不合适 start-->
+		<block wx:elif="{{interviewInfos.interviewStatus === 52 || interviewInfos.interviewStatus === 53}}">
+			<view class="content">
+				<view class="first"><view class="name">{{infos.name || infos.recruiterInfo.name}}</view></view>
+				<view class="second">不合适</view>
+			</view>
+			<view class="button-box button-box-color3"> <view>不合适</view> </view>
+		</block>
+		<!-- 求职者被设置成不合适 end-->
+		
+		<!-- 求职者已经已收到招聘官的邀请 start-->
+		<block wx:elif="{{interviewInfos.interviewStatus === 12}}">
+			<view class="content">
+				<view class="first"><view class="name">{{infos.name || infos.recruiterInfo.name}}</view></view>
+				<view class="second">邀请你面试</view>
+			</view>
+			<view class="button-box">
+				<view class="reject" data-action="job-hunting-reject" bindtap="todoAction">暂不考虑</view>
+				<view class="accept" data-action="job-hunting-accept" bindtap="todoAction">接受约面</view>
+			</view>
+		</block>
+		<!-- 求职者已经已收到招聘官的邀请 end-->
+
 	</block>
-	<!-- 是我自己发布的职位 end-->
+	<!-- 招聘端 -->
+	<block wx:else>
+
+		<view class="img-box">
+			<image mode="aspectFill" src="{{infos.avatar.smallUrl || infos.recruiterInfo.avatar.smallUrl}}"></image>
+		</view>
+
+		<!-- 求职端已开启撩 招聘端可接受可拒绝 start-->
+		<block wx:if="{{interviewInfos.interviewStatus === 11 && interviewInfos.haveInterview === 1}}">
+			<view class="content">
+				<view class="first"><view class="name">{{infos.name || infos.recruiterInfo.name}}</view></view>
+				<view class="second">约你面试</view>
+			</view>
+			<view class="button-box">
+				<view class="accept" data-action="recruiter-accept" bindtap="todoAction">确认约面</view>
+			</view>
+		</block>
+		<!-- 求职端已开启撩 招聘端可接受可拒绝 end-->
+		
+		<!-- 招聘端主动发起开料 start-->
+		<block wx:if="{{interviewInfos.haveInterview === 0}}">
+			<view class="content">
+				<view class="first"><view class="name">{{infos.name || infos.recruiterInfo.name}}</view></view>
+				<view class="second">{{recruiterWords[index]}}</view>
+			</view>
+			<view class="button-box">
+				<view class="accept" data-action="recruiter-chat" bindtap="todoAction">开撩约面</view>
+			</view>
+		</block>
+		<!-- 招聘端主动发起开料 end-->
+
+		<block wx:elif="{{interviewInfos.interviewStatus === 21}}">
+			<view class="content">
+				<view class="first"><view class="name">{{infos.name || infos.recruiterInfo.name}}</view></view>
+				<view class="second">安排面试</view>
+			</view>
+			<view class="button-box button-box-color2">
+				<view data-action="recruiter-arrangement" bindtap="todoAction">安排面试</view>
+			</view>
+		</block>
+		
+		<block wx:elif="{{interviewInfos.interviewStatus === 31}}">
+			<view class="content">
+				<view class="first"><view class="name">{{infos.name || infos.recruiterInfo.name}}</view></view>
+				<view class="second">待求职者确认</view>
+			</view>
+			<view class="button-box button-box-color2">
+				<view bindtap="todoAction">待求职者确认</view>
+			</view>
+		</block>
+
+		<block wx:elif="{{interviewInfos.interviewStatus === 12 }}">
+			<view class="content">
+				<view class="first"><view class="name">{{infos.name || infos.recruiterInfo.name}}</view></view>
+				<view class="second">待确认约面</view>
+			</view>
+			<view class="button-box button-box-color2">
+				<view data-action="recruiter-apply" bindtap="todoAction">查看邀请</view>
+			</view>
+		</block>
+
+		<block wx:elif="{{interviewInfos.interviewStatus === 32}}">
+			<view class="content">
+				<view class="first"><view class="name">{{infos.name || infos.recruiterInfo.name}}</view></view>
+				<view class="second">待确认信息</view>
+			</view>
+			<view class="button-box button-box-color2">
+				<!-- <view class="reject" data-action="recruiter-reject" bindtap="todoAction">不合适</view> -->
+				<view data-action="recruiter-arrangement" class="recruiter-reject" bindtap="todoAction">修改面试</view>
+			</view>
+		</block>
+
+		<block wx:elif="{{interviewInfos.interviewStatus === 41}}">
+			<view class="content">
+				<view class="first"><view class="name">{{infos.name || infos.recruiterInfo.name}}</view></view>
+				<view class="second">已确认面试</view>
+			</view>
+			<view class="button-box button-box-color2">
+				<view class="reject" data-action="recruiter-reject" bindtap="todoAction">不合适</view>
+				<view bindtap="todoAction" data-action="recruiter-view-detail" class="accept">查看面试安排</view>
+			</view>
+		</block>
+	</block>
 </view>

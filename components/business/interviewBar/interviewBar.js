@@ -160,20 +160,6 @@ Component({
       const interviewInfos = this.data.interviewInfos
       const infos = this.data.infos
       switch(action) {
-        case 'open':
-          openPositionApi({id: this.data.infos.id})
-            .then(res => {
-              app.wxToast({title: '职位已开放'})
-              this.triggerEvent('resultevent', this.data.infos)
-            })
-          break
-        case 'close':
-          closePositionApi({id: this.data.infos.id})
-            .then(res => {
-              app.wxToast({title: '职位已关闭'})
-              this.triggerEvent('resultevent', this.data.infos)
-            })
-          break
         // 求职端发起开撩
         case 'job-hunting-chat':
           // 招聘管主页 直接跳转职位列表
@@ -184,7 +170,7 @@ Component({
               .then(res => {
                 this.getInterviewStatus()
                 app.wxToast({title: '面试申请已发送'})
-                this.triggerEvent('resultevent', this.data.infos)
+                // this.triggerEvent('resultevent', this.data.infos)
               })
           }
           // let uid = ''
@@ -224,7 +210,7 @@ Component({
           confirmInterviewApi({id: interviewInfos.data[0].interviewId})
             .then(res => {
               app.wxToast({title: '已接受约面'})
-              this.triggerEvent('resultevent', this.data.infos)
+              // this.triggerEvent('resultevent', this.data.infos)
               this.getInterviewStatus()
             })
           break
@@ -290,10 +276,6 @@ Component({
           //       this.triggerEvent('resultevent', res)
           //     })
           // }
-          break
-        // 招聘管编辑职位
-        case 'recruiter-edit':
-          wx.navigateTo({url: `${RECRUITER}position/post/post?positionId=${this.data.infos.id}`})
           break
         // 求职者查看面试详情
         case 'job-hunting-view-detail':

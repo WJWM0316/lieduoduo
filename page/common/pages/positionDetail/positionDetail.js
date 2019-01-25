@@ -26,12 +26,14 @@ Page({
     cdnPath: app.globalData.cdnImagePath
   },
   onLoad(options) {
-    this.setData({query: options, identity: getApp().globalData.identity})
+    this.setData({query: options, identity: app.globalData.identity})
+  },
+  onShow() {
     this.getPositionDetail()
   },
   backEvent() {
      if(wx.getStorageSync('choseType') === 'RECRUITER') {
-      wx.redirectTo({url: `${RECRUITER}position/index/index`})
+      wx.navigateTo({url: `${RECRUITER}position/index/index`})
      } else {
       wx.navigateBack({delta: 1})
      }
@@ -60,11 +62,11 @@ Page({
         this.selectComponent('#interviewBar').init()
         app.getAllInfo()
           .then(userInfos => {
-            this.setData({isOwner: userInfos.uid === res.data.recruiterInfo.uid})
-            if(userInfos.uid === res.data.recruiterInfo.uid) {
-              wx.setStorageSync('choseType', 'RECRUITER')
-              this.setData({isRecruiter: true})
-            }
+            this.setData({isOwner: userInfos.uid === res.data.recruiterInfo.uid, isRecruiter: true})
+            // if(userInfos.uid === res.data.recruiterInfo.uid) {
+            //   wx.setStorageSync('choseType', 'RECRUITER')
+            //   this.setData({isRecruiter: true})
+            // }
           })
       })
   },
@@ -76,7 +78,38 @@ Page({
    */
   todoAction(e) {
     const type = e.currentTarget.dataset.type
+    const that = this
     switch(type) {
+      case 'open':
+        openPositionApi({id: this.data.detail.id})
+          .then(res => {
+            const detail = this.data.detail
+            detail.status = 0
+            this.setData({detail}, () => app.wxToast({title: '职位已开放'}))
+          })
+        break
+      case 'close':
+        app.wxConfirm({
+          title: '确认关闭职位',
+          content: '关闭职位后，候选人将不能查看和申请该职位',
+          confirmText: '关闭职位',
+          cancelText: '考虑一下',
+          confirmBack() {
+            closePositionApi({id: that.data.detail.id})
+              .then(res => {
+                const detail = that.data.detail
+                detail.status = 1
+                that.setData({detail}, () => app.wxToast({title: '职位已关闭'}))
+              })
+          }
+        })
+        break
+      case 'share':
+        console.log('share')
+        break
+      case 'edit':
+        wx.navigateTo({url: `${RECRUITER}position/post/post?positionId=${this.data.detail.id}`})
+        break
       case 'collect':
         getMycollectPositionApi({id: this.data.detail.id})
           .then(res => {
@@ -103,7 +136,6 @@ Page({
           scale: 14,
           name: this.data.detail.address,
           address: `${this.data.detail.doorplate}`,
-          // address: `${this.data.detail.address} ${this.data.detail.doorplate}`,
           fail: res => {
             app.wxToast({title: '获取位置失败'})
           }

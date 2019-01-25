@@ -32,6 +32,13 @@
   margin-right: 15rpx;
 }
 
+.office-manager-list .li .office-name{
+  max-width:512rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 .office-manager-list .li .tags-box {
   font-size:24rpx;
   font-weight:400;
