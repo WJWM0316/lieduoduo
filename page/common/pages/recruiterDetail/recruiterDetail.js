@@ -46,11 +46,11 @@ Page({
           })
         })
       })
-    })
-    getPositionListApi({recruiter: this.data.options.uid}).then(res => {
-      this.setData({positionList: res.data}, function() {
-        getSelectorQuery(".mainContent .position").then(res => {
-          positionTop = res.top - res.height
+      getPositionListApi({recruiter: this.data.options.uid}).then(res => {
+        this.setData({positionList: res.data}, function() {
+          getSelectorQuery(".mainContent .position").then(res => {
+            positionTop = res.top - res.height
+          })
         })
       })
     })
