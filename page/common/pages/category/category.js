@@ -92,6 +92,7 @@ Page({
     const storage = wx.getStorageSync('createPosition') || {}
     storage.type = result.labelId
     storage.typeName = result.name
+    if(this.data.positionTypeList[this.data.index1].labelId !== storage.parentType) storage.skills = []
     storage.parentType = this.data.positionTypeList[this.data.index1].labelId
     wx.setStorageSync('createPosition', storage)
     wx.navigateBack({delta: 1})
