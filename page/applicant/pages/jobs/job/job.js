@@ -50,7 +50,7 @@ Page({
     getCityLabelApi()
       .then(res => {
         const cityList = res.data
-        cityList.unshift({areaId: 'all', name: '选择地区'})
+        cityList.unshift({areaId: 'all', name: '全部地区'})
         this.setData({cityList})
       })
   },
@@ -67,7 +67,7 @@ Page({
         positionTypeList.map(field => field.active = false)
         positionTypeList.unshift({
           labelId: 'all',
-          name: '职位类型',
+          name: '全部类型',
           type: 'self_label_position'
         })
         this.setData({positionTypeList})
@@ -87,6 +87,12 @@ Page({
       }
       if(this.data.type) {
         params = Object.assign(params, {type: this.data.type})
+      }
+      if(!this.data.type) {
+        delete params.type
+      }
+      if(!this.data.city) {
+        delete params.city
       }
       getPositionListApi(params)
         .then(res => {
@@ -157,6 +163,8 @@ Page({
 
     if(typeof value === 'number') {
       this.setData({[key]: value, [key2]: Number(e.detail.value)}, () => this.reloadPositionLists())
+    } else {
+      this.setData({[key]: 0, [key2]: 0}, () => this.getPositionList(false).then(() => this.setData({onBottomStatus: 1})))
     }
   }
 })
