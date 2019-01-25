@@ -234,7 +234,6 @@ Page({
    */
   onLoad: function (options) {
     info = wx.getStorageSync('posterData')
-    console.log(info.recruiterInfo.avatar.url, info.companyInfo.logoInfo.url, info.positionQrCode)
     let that = this
     wx.showLoading({
       title: '正在生成...',
@@ -242,7 +241,7 @@ Page({
     let loadAvatar = new Promise((resolve, reject) => {
       // 头像
       wx.downloadFile({
-        url: info.recruiterInfo.avatar.url,
+        url: info.recruiterInfo.avatar.middleUrl,
         success(res) {
           if (res.statusCode === 200) {
             resolve(res)
@@ -254,7 +253,7 @@ Page({
     let loadCompany = new Promise((resolve, reject) => {
       // 二维码
       wx.downloadFile({
-        url: info.companyInfo.logoInfo.url,
+        url: info.companyInfo.logoInfo.middleUrl,
         success(res) {
           if (res.statusCode === 200) {
             resolve(res)

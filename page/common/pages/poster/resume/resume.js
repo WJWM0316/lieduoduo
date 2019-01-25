@@ -38,8 +38,9 @@ Page({
       curHeight = curHeight + 42
       ctx.fillText(`${info.lastCompanyName} | ${info.lastPosition}`, 375, curHeight)
     }
-    ctx.drawImage('../../../../../images/a7.png', 0, curHeight, 750, 150)
+    
     curHeight = curHeight + 28
+    ctx.drawImage('../../../../../images/a7.png', 0, curHeight, 750, 120)
     ctx.setFillStyle('#EFE9F4')
     ctx.fillRect(278, curHeight, 195, 38)
     ctx.setFontSize(24)
@@ -138,7 +139,7 @@ Page({
           descString = descString + info.signature[i]
           descWidth = ctx.measureText(descString).width
           if (info.signature[i] === '↵' || descWidth > 590) {
-            ctx.drawImage('../../../../../images/a7.png', 0, curHeight, 750, 48)
+            ctx.drawImage('../../../../../images/a7.png', 0, curHeight, 750, 110)
             ctx.fillText(descString.slice(0, descString.length-1), 80, curHeight + 30)
             descString = ''
             curHeight += 48
