@@ -71,28 +71,41 @@
 		<view
 			class="collect"
 			data-type="{{detail.isCollect ? 'uncollect' : 'collect'}}"
-			data-aa="{{detail.isCollect}}"
 			bindtap="todoAction">
 				<i class="icon iconfont icon-ganxingqu" wx:if="{{!detail.isCollect}}"></i>
 				<i class="icon iconfont icon-biaojiweiganxingqu" wx:else></i>
 		</view>
 	</view>
 	
-<!-- 	<view class="switch-tips">
-		<view class="h1">关闭职位</view>
-		<view class="h2">关闭职位后将不再产生招聘效果</view>
-		<i class="icon iconfont icon-disejiantou-you"></i>
-	</view> -->
-	
-	<view class="footer">
+	<block wx:if="{{isRecruiter && isOwner}}">
+		<view class="switch-tips" bindtap="todoAction" data-type="close">
+			<view class="h1">关闭职位</view>
+			<view class="h2">关闭职位后将不再产生招聘效果</view>
+			<i class="icon iconfont icon-disejiantou-you"></i>
+		</view>
 		
-	</view>
-	
+		<view class="footer">
+			<!-- 已经关闭的职位 -->
+			<block wx:if="{{detail.status === 0}}">
+				<view class="edit" bindtap="todoAction" data-type="edit">编辑职位</view>
+				<view class="share" bindtap="todoAction" data-type="open">开放职位</view>
+			</block>
+			<!-- 已经关闭的职位 -->
+			<block wx:elif="{{detail.status === 2 || detail.status === 3}}">
+				<view class="edit" bindtap="todoAction" data-type="edit">编辑职位</view>
+			</block>
+			<block wx:else>
+			    <view class="edit" bindtap="todoAction" data-type="edit">编辑职位</view>
+					<view class="share" bindtap="todoAction" data-type="share">分享职位</view>
+			</block>
+		</view>
+	</block>
+
 	<interviewBar
 		id="interviewBar"
 		infos="{{ detail }}"
 		bindresultevent="bindStatusChange"
 		type="position"
-		wx:if="{{detail.vkey}}"></interviewBar>
+		wx:if="{{detail.vkey && !isRecruiter && !isOwner}}"></interviewBar>
 
 </view>
