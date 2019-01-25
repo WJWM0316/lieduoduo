@@ -5,6 +5,7 @@ import { APPLICANT, COMMON } from '../../../../../../config.js'
 let target = null
 let title = null
 let info = null
+let list = []
 const app = getApp()
 let toToday = false // 是否至今
 Page({
@@ -25,6 +26,7 @@ Page({
     skillsId: '',
     isAdd: false,
     duty: '',
+    options: {},
     cdnImagePath: app.globalData.cdnImagePath
   },
 
@@ -38,23 +40,36 @@ Page({
         isAdd: true
       })
     }
-    if (options.id) {
-      this.init()
-    }
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady() {
-
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
   onShow() {
-    this.set()
+    if (this.data.options.id) {
+      this.init()
+    }
+    if (wx.getStorageSync('createPosition')) {
+      this.setData({jobCategories: wx.getStorageSync('createPosition')})
+    }
+    if (wx.getStorageSync('result')) {
+      let skill = wx.getStorageSync('result') || []
+      let skillsId = []
+      skill.map(item => {
+        if (skill) {
+          skillsId.push(item.name)
+        } else {
+          skillsId.push(item.name)
+        }
+      })
+      this.setData({skill, skillsId})
+    }
   },
   onHide () {
     // wx.removeStorageSync('result')
@@ -73,29 +88,6 @@ Page({
       nowInputNum: e.detail.cursor
     })
   },
-  // 存储拿回来的数据
-  set () {
-    switch (target) {
-      case '3':
-        this.setData({jobCategories: wx.getStorageSync('createPosition')})
-        break;
-      case '4':
-        let skillList = wx.getStorageSync('result') || []
-        let skill = null
-        let skillsId = []
-        skillList.map(item => {
-          if (skill) {
-            skill = `${skill},${item.name}`
-            skillsId.push(item.name)
-          } else {
-            skill = `${item.name}`
-            skillsId.push(item.name)
-          }
-        })
-        this.setData({skill, skillsId})
-        break;
-    }
-  },
   // 修改编辑页标题
   setTitle (target) {
     switch (target) {
@@ -112,7 +104,7 @@ Page({
     target = e.currentTarget.dataset.type
     this.setTitle(target)
     if (target === '4') {
-      wx.setStorageSync('result', this.data.list)
+      wx.setStorageSync('fildsLabel', list)
       wx.navigateTo({
         url: `${APPLICANT}center/resumeEditor/skills/skills?title=${title}`
       })
@@ -212,7 +204,7 @@ Page({
         })
       })
     }
-    
+    wx.removeStorageSync('result')
   },
   // 删除
   del () {
@@ -244,6 +236,7 @@ Page({
   init () {
     app.globalData.resumeInfo.careers.map((item, index) => {
       if (item.id === parseInt(this.data.options.id)) {
+        list = item.technicalLabels
         this.setData({
           company: item.company,
           positionName: item.position,

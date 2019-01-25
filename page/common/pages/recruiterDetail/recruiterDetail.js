@@ -70,6 +70,7 @@ Page({
   },
   onShow() {
     let options = this.data.options
+    let identity = wx.getStorageSync('choseType')
     if (app.globalData.isRecruiter) {
       this.setData({isRecruiter: app.globalData.isRecruiter})
     } else {
@@ -78,14 +79,14 @@ Page({
       }
     }
     let myInfo = {}
-    if (app.globalData.identity === "APPLICANT") {
+    if (identity === "APPLICANT") {
       myInfo = app.globalData.resumeInfo
     } else {
       myInfo = app.globalData.recruiterDetails
     }
     if (myInfo.uid) {
       if (myInfo.uid === parseInt(options.uid)) {
-        if (app.globalData.identity === "APPLICANT") {
+        if (identity === "APPLICANT") {
           this.getOthersInfo()
         } else {
           this.setData({info: myInfo, isOwner: true, btnTxt: '展开内容'})
@@ -96,7 +97,7 @@ Page({
       }
     } else {
       app.pageInit = () => {
-        if (app.globalData.identity === "APPLICANT") {
+        if (identity === "APPLICANT") {
           myInfo = app.globalData.resumeInfo
         } else {
           myInfo = app.globalData.recruiterDetails

@@ -23,7 +23,9 @@
   </view>
   <view class="commont" data-type="4" bindtap="choose">
     <view class="title"><text>*</text>技能标签</view>
-    <view class="result">{{skill}}<text wx:if="{{isAdd && !skill}}" class="placeholder">选择技能标签</text><i class="icon iconfont icon-xiangyou"></i></view>
+    <view class="result">
+      <text wx:for="{{skill}}" class="labelTxt" wx:key="{{index}}">{{item.name || item}}</text>
+      <text wx:if="{{isAdd && !skill}}" class="placeholder">选择技能标签</text><i class="icon iconfont icon-xiangyou"></i></view>
   </view>
   <!--工作内容-->
   <view class="title"><text>*</text>工作内容</view>

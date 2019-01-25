@@ -91,7 +91,7 @@
     <view class="collection icon iconfont icon-biaojiweiganxingqu" wx:else bindtap="collect"></view>
   </block>
 
-  <view class="positionBtn" bindtap="scrollPs" hidden="{{!isShowBtn}}" wx:if="{{!isOwner}}">{{positionList.length}}个热招职位</view>
+  <view class="positionBtn" bindtap="scrollPs" hidden="{{!isShowBtn}}" wx:if="{{!isOwner && positionList.length.length > 0}}">{{positionList.length}}个热招职位</view>
   <interviewBar
     id="interviewBar"
     infos="{{info}}"

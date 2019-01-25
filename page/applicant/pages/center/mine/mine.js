@@ -1,4 +1,6 @@
 import {COMMON,APPLICANT,RECRUITER} from '../../../../../config.js'
+import { getPersonalResumeApi } from '../../../../../api/pages/center.js'
+
 let app = getApp()
 Page({
 
@@ -8,7 +10,8 @@ Page({
   data: {
     myInfo: {},
     hasLogin: false,
-    hideBind: true
+    hideBind: true,
+    hasReFresh: false
   },
   /**
    * 生命周期函数--监听页面加载
@@ -26,6 +29,12 @@ Page({
         this.setData({myInfo, hasLogin})
       }
     }
+  },
+  online() {
+    app.wxConfirm({
+      title: '联系客服',
+      content: '欢迎添加猎多多了解更多内容 有疑问请添加客服微信：zhubin96'
+    })
   },
   onHide() {
     this.setData({hideBind: true})
@@ -80,6 +89,14 @@ Page({
   toEdit () {
     wx.navigateTo({
       url: `${COMMON}resumeDetail/resumeDetail`,
+    })
+  },
+  onPullDownRefresh(hasLoading = true) {
+    this.setData({hasReFresh: true})
+    getPersonalResumeApi().then(res => {
+      app.globalData.resumeInfo = res.data
+      wx.stopPullDownRefresh()
+      this.setData({hasReFresh: false})
     })
   }
 })

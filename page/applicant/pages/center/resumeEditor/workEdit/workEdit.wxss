@@ -156,3 +156,6 @@
   width: 248rpx;
   background-color: #BCBCBC;
 }
+.labelTxt {
+  margin-left: 10rpx;
+}

@@ -46,8 +46,8 @@ Page({
     } else {
       getLabelProfessionalSkillsApi().then(response => {
         const professionalSkills = response.data.labelProfessionalSkills
-        let skills = wx.getStorageSync('result') || []
-        console.log(skills, 11)
+        let skills = wx.getStorageSync('fildsLabel') || []
+        console.log(skills, 1111111111)
         skills.map((item, index) => {
           professionalSkills.map((n ,j) => {
             if (item === n.name || item.name === n.name) {
@@ -69,6 +69,7 @@ Page({
       return
     }
     wx.setStorageSync('result', this.data.skills)
+    wx.removeStorageSync('fildsLabel')
     wx.navigateBack({delta: 1})
   },
   onHide() {

@@ -1,5 +1,9 @@
 <view class='mine'>
 <navbar title="我的"></navbar>
+<view hidden="{{!hasReFresh}}">
+  <refreshStatus></refreshStatus>
+</view>
+
 <view class='header-bg'></view>
   <view class="floating-box">
 		<view class="header">
@@ -38,7 +42,7 @@
 
   <!-- bottom -->
   <view class="entry-list">
-		<view class="li">
+		<!-- <view class="li">
 			<view>
         <i class="icon iconfont icon-fujian"></i>
         <view class="text">附件简历</view>
@@ -47,8 +51,8 @@
         <view class="text2 appurtenance" bindtap="preview">上传附件</view>
         <i class="icon iconfont icon-xiangyou"></i>
       </view>
-		</view>
-		<view class="li">
+		</view> -->
+		<!-- <view class="li">
 			<view>
         <i class="icon iconfont icon-ganxingqu"></i>
         <view class="text">感兴趣的</view>
@@ -56,17 +60,17 @@
 			<view class='arrow-box'>
         <i class="icon iconfont icon-xiangyou"></i>
       </view>
-		</view>
-		<view class="li">
+		</view> -->
+		<view class="li" bindtap="online">
 			<view>
         <i class="icon iconfont icon-kefu"></i>
-        <view class="text">在线咨询</view>
+        <view class="text">联系客服</view>
       </view>
 			<view class='arrow-box'>
         <i class="icon iconfont icon-xiangyou"></i>
       </view>
 		</view>
-		<view class="li">
+		<!-- <view class="li">
 			<view>
         <i class="icon iconfont icon-dianhua"></i>
         <view class="text">客服电话</view>
@@ -75,7 +79,7 @@
         <view class="text2">020-61279889</view>
         <i class="icon iconfont icon-xiangyou"></i>
       </view>
-		</view>
+		</view> -->
 		<view class="li" bindtap="jump" data-type="settings">
 			<view>
         <i class="icon iconfont icon-shezhi"></i>
@@ -86,10 +90,10 @@
       </view>
 		</view>
 	</view>
-	<view class="copy-right">
+	<!-- <view class="copy-right">
 		<view class="li">使用帮助</view>
 		<view class="li">用户协议</view>
 		<view class="li">意见反馈</view>
-	</view>
+	</view> -->
 </view>
 <bindPhone hide="{{hideBind}}"></bindPhone>
