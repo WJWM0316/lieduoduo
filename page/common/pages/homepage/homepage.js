@@ -92,7 +92,27 @@ Page({
         field.active = false
       }
     })
-    this.setData({positionTypeList, labelId}, () => this.getPositionList())
+    this.setData({positionTypeList, labelId}, () => this.reloadData())
+  },
+  /**
+   * @Author   小书包
+   * @DateTime 2019-01-25
+   * @detail   重新加载数据
+   * @return   {[type]}   [description]
+   */
+  reloadData() {
+    const positionList = {list: [], pageNum: 1, isLastPage: false, isRequire: false}
+    this.setData({positionList, hasReFresh: false})
+    this.getPositionList(false)
+        .then(res => {
+          const positionList = {list: [], pageNum: 1, isLastPage: false, isRequire: false}
+          const onBottomStatus = res.meta.nextPageUrl ? 0 : 2
+          positionList.list = res.data
+          positionList.isLastPage = res.meta.nextPageUrl ? false : true
+          positionList.pageNum = 2
+          positionList.isRequire = true
+          this.setData({positionList, onBottomStatus, hasReFresh: false}, () => wx.stopPullDownRefresh())
+        })
   },
   /**
    * @Author   小书包

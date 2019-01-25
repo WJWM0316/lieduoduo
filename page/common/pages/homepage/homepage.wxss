@@ -465,6 +465,23 @@
   color: #5C565D;
 }
 
+.company-address .text {
+  max-width:501rpx;
+  font-size:26rrpx;
+  font-weight:300;
+  color:rgba(40,40,40,1);
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.company-address .icon-dizhi {
+  vertical-align: middle;
+  margin-right: 18rpx;
+}
+
 .company-website {
   margin: 40rpx;
   background: white;
