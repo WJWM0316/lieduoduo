@@ -16,7 +16,9 @@
   <view class="commont" data-type="2" bindtap="choose">
     <view class="title"><text>*</text>期望领域</view>
     <view class="result">
-      <text wx:for="{{info.fields}}" wx:key="{{index}}">{{item.field || item.name}}</text>
+      <text class="resultBox">
+        <text wx:for="{{info.fields}}" wx:key="{{index}}">{{item.field || item.name}}</text>
+      </text>
       <i class="icon iconfont icon-xiangyou"></i>
     </view>
   </view>

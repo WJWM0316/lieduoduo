@@ -29,6 +29,7 @@ Component({
       observer() {
         // 标注面试时间
         let list = this.data.list
+        let calendarBody = this.data.calendarBody
         this.data.setDateList.map((item, index) => {
           list.map((obj, j) => {
             if (item.date === obj.date) {
@@ -42,8 +43,20 @@ Component({
               return
             }
           })
+          calendarBody.map((obj, j) => {
+            if (item.date === obj.date) {
+              obj.haveView = true
+              // 已过期的面试时间
+              let curTime = `${curYear}/${curMonth}/${curDay}`
+              let objTime = `${obj.year}/${obj.month}/${obj.days}`
+              if (new Date(curTime).getTime() > new Date(objTime).getTime()) {
+                obj.haveViewed = true
+              }
+              return
+            }
+          })
         })
-        this.setData({list})
+        this.setData({list, calendarBody})
       }
     },
     calendarType: {
@@ -102,10 +115,12 @@ Component({
       this.scrollLeft()
     },
     changeType () {
+      console.log(this.data.list, 2222222)
       if (this.data.calendarType === 'roll') {
         this.setData({
           calendarType: 'normal'
         })
+        console.log(this.data.list, 3333333333333)
       } else if (this.data.calendarType === 'normal') {
         this.setData({
           calendarType: 'roll'

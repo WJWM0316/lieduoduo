@@ -4,8 +4,7 @@
     <image class="img" mode="widthFix" src="{{cdnImagePath}}bindPhoneBg.png"></image>
   </view>
   <view class="welcome">欢迎来到猎多多</view>
-  <text class="msgTxt">我们需要你同意以下授权 \n 才能提供更好的服</text>
-  <view class="txt1">将获取你的公开信息（昵称、头像、性别等）</view>
-  <view class="txt2">我们向你保证不会将你的信息泄露给第三方</view>
+  <text class="msgTxt">为了给你更好的求职招聘体验 \n 请允许我们获得你的基础授权</text>
+  <view class="txt1">平台承诺，授权信息将不会提供给第三方</view>
   <button class="authBtn" open-type="getUserInfo" bindgetuserinfo="onGotUserInfo" lang="zh_CN">好的，去授权</button>
 </view>

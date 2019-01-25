@@ -1,7 +1,6 @@
 import { getRecruiterMyInfoApi } from '../../../../../../api/pages/recruiter.js'
 import {RECRUITER, COMMON} from '../../../../../../config.js'
 import {getUserRoleApi} from "../../../../../../api/pages/user.js"
-
 const app = getApp()
 
 Page({
@@ -62,10 +61,9 @@ Page({
   },
   preview(e) {
     wx.previewImage({
-      current: this.data.recruiterInfo.avatar.middleUrl,
-      urls: [this.data.recruiterInfo.avatar.middleUrl],
+      current: this.data.recruiterInfo.avatar.url,
+      urls: [this.data.recruiterInfo.avatar.url],
       complete() {
-        console.log(111111111)
       }
     })
   }

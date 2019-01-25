@@ -6,45 +6,51 @@ Page({
    * 页面的初始数据
    */
   data: {
-    isComplete: false,
-    myInfo: {}
+    myInfo: {},
+    hasLogin: false
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onShow: function (options) {
+    let hasLogin = app.globalData.hasLogin
     if (app.globalData.resumeInfo.uid) {
       let myInfo = app.globalData.resumeInfo
       let isComplete = this.data.isComplete
-      if (myInfo.uid) {
-        isComplete = true
-      }
-      this.setData({myInfo, isComplete})
+      this.setData({myInfo, hasLogin})
     } else {
       app.pageInit = () => {
         let myInfo = app.globalData.resumeInfo
         let isComplete = this.data.isComplete
-        if (myInfo.uid) {
-          isComplete = true
-        }
-        this.setData({myInfo, isComplete})
+        this.setData({myInfo, hasLogin})
       }
     }
   },
+  login() {
+    wx.navigateTo({
+      url: `${COMMON}bindPhone/bindPhone`
+    })
+  },
   preview() {
-    wx.downloadFile({
-      url: 'https://lieduoduo-uploads-test.oss-cn-shenzhen.aliyuncs.com/front-assets/file/111.pdf',
+    // wx.downloadFile({
+    //   url: 'https://lieduoduo-uploads-test.oss-cn-shenzhen.aliyuncs.com/front-assets/file/111.pdf',
+    //   success(res) {
+    //     const filePath = res.tempFilePath
+    //     wx.openDocument({
+    //       filePath,
+    //       success(res) {
+    //         console.log('打开文档成功')
+    //       }
+    //     })
+    //   },
+    //   fail(e) {
+    //     console.log(e)
+    //   }
+    // })
+    wx.scanCode({
+      onlyFromCamera: true,
       success(res) {
-        const filePath = res.tempFilePath
-        wx.openDocument({
-          filePath,
-          success(res) {
-            console.log('打开文档成功')
-          }
-        })
-      },
-      fail(e) {
-        console.log(e)
+        console.log(res)
       }
     })
   },
@@ -70,7 +76,6 @@ Page({
   },
   /* 编辑简历 */
   toEdit () {
-    if (!this.data.isComplete) return
     wx.navigateTo({
       url: `${COMMON}resumeDetail/resumeDetail`,
     })

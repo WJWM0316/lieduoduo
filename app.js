@@ -19,28 +19,7 @@ App({
         console.log(err)
       }
     })
-    that = this
-    wx.login({
-      success: function (res0) {
-        wx.setStorageSync('code', res0.code)
-        loginApi({code: res0.code}).then(res => {
-          // 有token说明已经绑定过用户了
-          if (res.data.token) {
-            wx.setStorageSync('token', res.data.token)
-            that.checkLogin()
-            that.globalData.hasLogin = true
-            console.log('用户已认证')
-          } else {
-            console.log('用户未绑定手机号')
-            wx.setStorageSync('sessionToken', res.data.sessionToken)
-          }
-        })
-      },
-      fail: function (e) {
-        console.log('登录失败', e)
-      }
-    })
-    // this.checkLogin()
+    this.login()
   },
   globalData: {
     identity: "", // 身份标识
@@ -53,8 +32,41 @@ App({
     companyInfo: {}, // 公司信息
     resumeInfo: {}, // 个人简历信息
     recruiterDetails: {}, // 招聘官详情信息
+    pageCount: 20,
     systemInfo: wx.getSystemInfoSync(), // 系统信息
-    pageCount: 20, // 分页的大小
+  },
+  // 登录
+  login() {
+    that = this
+    wx.login({
+      success: function (res0) {
+        wx.setStorageSync('code', res0.code)
+        loginApi({code: res0.code}).then(res => {
+          if (!wx.getStorageSync('choseType')) {
+            wx.setStorageSync('choseType', 'APPLICANT')
+          }
+          that.globalData.identity = wx.getStorageSync('choseType')
+          // 登陆回调
+          if (that.loginInit) {
+            that.loginInit()
+          }
+          // 有token说明已经绑定过用户了
+          if (res.data.token) {
+            wx.setStorageSync('token', res.data.token)
+            that.getAllInfo()
+            that.getRoleInfo()
+            that.globalData.hasLogin = true
+            console.log('用户已认证')
+          } else {
+            console.log('用户未绑定手机号')
+            wx.setStorageSync('sessionToken', res.data.sessionToken)
+          }
+        })
+      },
+      fail: function (e) {
+        console.log('登录失败', e)
+      }
+    })
   },
   // 获取最全的角色信息
   getAllInfo() {
@@ -62,15 +74,33 @@ App({
       if (wx.getStorageSync('choseType') === 'RECRUITER') {
         getRecruiterDetailApi().then(res0 => {
           this.globalData.recruiterDetails = res0.data
-          this.globalData.identity = 'RECRUITER'
+          if (this.pageInit) { // 页面初始化
+            this.pageInit() //执行定义的回调函数
+          }
           resolve(res0.data)
         })
       } else {
         getPersonalResumeApi().then(res0 => {
           this.globalData.resumeInfo = res0.data
-          this.globalData.identity = 'APPLICANT'
+          if (this.pageInit) { // 页面初始化
+            this.pageInit() //执行定义的回调函数
+          }
           resolve(res0.data)
         })
+      }
+    })
+  },
+  // 获取角色身份
+  getRoleInfo() {
+    getUserRoleApi().then(res0 => {
+      if (res0.data.isRecruiter) {
+        this.globalData.isRecruiter = true
+      }
+      if (res0.data.isJobhunter) {
+        this.globalData.isJobhunter = true
+      }
+      if (this.getRoleInit) { // 登陆初始化
+        this.getRoleInit() //执行定义的回调函数
       }
     })
   },
@@ -90,17 +120,7 @@ App({
                 if (this.userInfoReadyCallback) {
                   this.userInfoReadyCallback(res)
                 }
-                getUserRoleApi().then(res0 => {
-                  if (res0.data.isRecruiter) {
-                    this.globalData.isRecruiter = true
-                  }
-                  if (res0.data.isJobhunter) {
-                    this.globalData.isJobhunter = true
-                  }
-                  if (this.getRoleInit) { // 登陆初始化
-                    this.getRoleInit() //执行定义的回调函数
-                  }
-                })
+
                 this.getAllInfo().then(() => {
                   // 没有身份默认求职者
                   if (!wx.getStorageSync('choseType')) {
@@ -159,6 +179,10 @@ App({
             if (!isNeedUrl) {
               wx.reLaunch({
                 url: `/${pageUrl}`
+              })
+            } else {
+              wx.navigateBack({
+                delta: 1
               })
             }
           })

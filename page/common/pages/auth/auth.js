@@ -20,7 +20,7 @@ Page({
     })
   },
   onGotUserInfo(e) {
-    getApp().onGotUserInfo(e)
+    getApp().onGotUserInfo(e, true)
   },
   /**
    * 生命周期函数--监听页面初次渲染完成

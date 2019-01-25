@@ -13,6 +13,7 @@
   <text wx:if="{{switchable}}" class="open icon iconfont icon-xiangyou" bindtap="changeType"></text>
   <view class="backToday" bindtap="backToday">回到今天<i class="icon iconfont icon-huidaojintian"></i></view>
 </view>
+
 <view class="newCalendar" wx:if="{{calendarType === 'normal'}}">
   <view class="calendar-head">
     <view class="inner">
@@ -26,7 +27,7 @@
   </view>
   <view class="calendar-body">
     <view class="day" wx:for="{{calendarBody}}" wx:key="{{index}}">
-      <text class="inner {{item.date === curDate && item.date !== choseDate ? 'curDay' : ''}} {{item.date === choseDate ? 'choseDate' : ''}} {{item.date !== choseDate && item.haveView && item.haveViewed ? 'overdue' : ''}} {{item.date !== choseDate && item.haveView && !item.haveViewed ? 'noOverdue' : ''}}" bindtap="toggle" data-year="{{item.year}}" data-month="{{item.month}}" data-days="{{item.days}}">{{item.day}}</text>
+      <text class="inner {{item.date === curDate && item.date !== choseDate ? 'curDay' : ''}} {{item.date === choseDate ? 'choseDate' : ''}} {{item.date !== choseDate && item.haveView && item.haveViewed ? 'overdue' : ''}} {{item.date !== choseDate && item.haveView && !item.haveViewed ? 'noOverdue' : ''}}" bindtap="toggle" data-year="{{item.year}}" data-ceshi="{{item.haveView}}" data-ce="{{item.haveViewed}}" data-month="{{item.month}}" data-days="{{item.days}}">{{item.day}}</text>
     </view>
   </view>
   <text wx:if="{{switchable}}" class="open icon iconfont icon-xiangyou up" bindtap="changeType"></text>

@@ -1,5 +1,5 @@
 import {uploginApi} from "../../../../api/pages/auth.js"
-import {COMMON,RECRUITER} from '../../../../config.js'
+import {COMMON,RECRUITER,APPLICANT} from '../../../../config.js'
 let app = getApp()
 Page({
 
@@ -30,13 +30,14 @@ Page({
             title: "退出成功",
             icon: "success"
           })
-          if (wx.getStorageSync('choseType') === 'RECRUITER') {
-            app.globalData.recruiterDetails = {}
-          } else {
-            app.globalData.resumeInfo = {}
-          }
-          wx.navigateBack({ delta: 1 })
-          wx.removeStorageSync("token")
+          wx.clearStorageSync()
+          app.globalData.identity = ''
+          app.globalData.hasLogin = false
+          app.globalData.resumeInfo = {}
+          app.globalData.recruiterDetails = {}
+          wx.reLaunch({
+            url: `${APPLICANT}index/index`
+          })
         })
       }
     })

@@ -53,7 +53,7 @@
         <text wx:for="{{item.fields}}" wx:key="{{index}}">{{item.field || item.name}}<text wx:if="{{index < 2}}"> · </text></text>
       </view>
     </view>
-    <text class="add" data-editName="intent" bindtap="edit" wx:if="{{isOwner && info.expects.length < 4}}" data-id="">添加求职意向</text>
+    <text class="add" data-editName="intent" bindtap="edit" wx:if="{{isOwner && info.expects.length < 3}}" data-id="">添加求职意向</text>
   </view>
   <!-- 工作经历 -->
   <view class="workExp commentBox" wx:if="{{(!isOwner && info.careers.length > 0) || isOwner}}">
@@ -118,7 +118,7 @@
       <!-- 工作内容 -->
       <view class="expContent">{{info.moreIntroduce.introduce}}</view>
       <view class="imgBox">
-        <image wx:for="{{info.moreIntroduce.imgs}}" wx:key="{{index}}" mode="aspectFill" src="{{item.smallUrl}}" bindtap="preview"></image>
+        <image wx:for="{{info.moreIntroduce.imgs}}" wx:key="{{index}}" mode="aspectFill" src="{{item.smallUrl}}" bindtap="preview" data-current="{{item.url}}"></image>
       </view>
     </view>
     <text class="add" data-editName="more" bindtap="edit" wx:if="{{!info.moreIntroduce.introduce && info.moreIntroduce.imgs.length === 0 && isOwner}}" data-id="0">完善更多介绍</text>

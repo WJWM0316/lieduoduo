@@ -3,6 +3,7 @@ import { getPersonalResumeApi } from '../../../../api/pages/center.js'
 import { inviteInterviewApi } from '../../../../api/pages/interview.js'
 import { getMyCollectUserApi, deleteMyCollectUserApi } from '../../../../api/pages/collect.js'
 import {APPLICANT} from '../../../../config.js'
+let isPreview = false
 const app = getApp()
 let resumeInfo = null
 Page({
@@ -28,7 +29,24 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
+    if (isPreview) {
+      isPreview = false
+      return
+    }
     this.init(this.data.options)
+  },
+  preview(e) {
+    let list = []
+    this.data.info.moreIntroduce.imgs.map((item) => {
+      list.push(item.url)
+    })
+    wx.previewImage({
+     current: e.currentTarget.dataset.current,
+     urls: list,
+     complete() {
+      isPreview = true
+     }
+    })
   },
   init(options) {
     let identity = wx.getStorageSync('choseType')

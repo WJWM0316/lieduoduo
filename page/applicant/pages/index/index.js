@@ -74,7 +74,7 @@ Page({
         this.getAvartList()
       }
     } else {
-      app.pageInit = () => {
+      app.loginInit = () => {
         if (app.globalData.identity === 'APPLICANT') {
           this.getLists()
           this.getAvartList()

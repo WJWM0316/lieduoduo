@@ -49,6 +49,47 @@ Page({
     }
     this.setData({info})
   },
+  openMap() {
+    wx.openLocation({
+      latitude: Number(this.data.info.lat),
+      longitude: Number(this.data.info.lng),
+      scale: 14,
+      name: this.data.info.address,
+      fail: res => {
+        app.wxToast({title: '获取位置失败'})
+      }
+    })
+  },
+  callPhone() {
+    let info = this.data.info
+    wx.showActionSheet({
+      itemList: ['拨打', '复制'],
+      success(res) {
+        if (res.tapIndex === 0) {
+          wx.makePhoneCall({
+            phoneNumber: info.arrangementInfo.mobile || info.recruiterRealMobile
+          })
+        } else {
+          wx.setClipboardData({
+            data: info.arrangementInfo.mobile || info.recruiterRealMobile,
+            success(res) {
+              wx.getClipboardData({
+                success(res) {
+                  app.wxToast({
+                    title: '复制成功',
+                    icon: 'success'
+                  })
+                }
+              })
+            }
+          })
+        }
+      },
+      fail(res) {
+        console.log(res.errMsg)
+      }
+    })
+  },
   jump(e) {
     let url = ''
     let info = this.data.info
@@ -62,13 +103,8 @@ Page({
       case 'position':
         url = `${COMMON}positionDetail/positionDetail?positionId=${info.positionId}`
         break
-      case 'map':
-        url = `${COMMON}positionDetail/positionDetail?positionId=${info.positionId}`
-        break
     }
-    wx.navigateTo({
-      url: url
-    })
+    wx.navigateTo({url})
   },
   radioChange(e) {
     let appointmentId = e.detail.value
@@ -93,6 +129,12 @@ Page({
       positionId: info.positionId,
       addressId: info.addressId,
       interviewTime: dateList.join(',')
+    }
+    if (!data.interviewTime) {
+      app.wxToast({
+        title: '请至少添加一个约面时间'
+      })
+      return
     }
     setInterviewDetailApi(data).then(res => {
       wx.removeStorageSync('interviewData')
@@ -119,7 +161,7 @@ Page({
       return;
     }
     sureInterviewApi(data).then(res => {
-      app.wxConfirm({
+      app.wxToast({
         title: '确定成功',
         icon: 'success'
       })

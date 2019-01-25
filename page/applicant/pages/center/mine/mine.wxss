@@ -64,7 +64,7 @@
 .mine .floating-box .directions{
   width: 343rpx;
   color: #929292;
-  line-height: 36rpx;
+  line-height: 20rpx;
 }
 
 .mine .floating-box .edit-box{

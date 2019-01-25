@@ -62,7 +62,7 @@ Component({
     },
     jumpApplicant() {
       wx.navigateTo({
-        url: `${COMMON}resumeDetail/resumeDetail?uid=${this.data.cardData.id}`
+        url: `${COMMON}resumeDetail/resumeDetail?uid=${this.data.cardData.uid}`
       })
     },
     jumpRecruiter() {

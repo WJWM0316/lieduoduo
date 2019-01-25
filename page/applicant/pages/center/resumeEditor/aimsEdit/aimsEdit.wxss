@@ -16,15 +16,28 @@
   color: #353943;
   border-bottom: 1px solid #E8E9EB;
 }
-.commont .result{
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
+
 .commont text{
   color: red;
   line-height: 122rpx;
   margin-right: 10rpx;
+  
+}
+.title {
+  min-width: 150rpx;
+}
+.result {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+.result .resultBox {
+  width: 80%;
+  display: inline-block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow:ellipsis;
+  white-space: nowrap;
 }
 .saveBox {
   width: 100%;

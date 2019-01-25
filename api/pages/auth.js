@@ -20,7 +20,7 @@ export const loginApi = data => {
 export const uploginApi = data => {
   return request({
     method: 'get',
-    url: '/auth/logout',
+    url: '/auth/wechat/mini/logout',
     data
   })
 }

@@ -2,7 +2,6 @@ import {COMMON,RECRUITER} from '../../../../config.js'
 import {sendCodeApi, bindPhoneApi} from "../../../../api/pages/auth.js"
 import {quickLoginApi} from '../../../../api/pages/auth.js'
 
-let realCode = '' // 短信验证码
 let mobileNumber = 0
 let app = getApp()
 Page({
@@ -75,7 +74,6 @@ Page({
         sendFun()
       }
     }
-    
   },
   bindSuccess() {
     app.globalData.hasLogin = true
