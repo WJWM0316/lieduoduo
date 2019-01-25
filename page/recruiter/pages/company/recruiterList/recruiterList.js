@@ -12,6 +12,7 @@ Page({
     recruiterList.map(field => field.active = false)
     let isCompanyAdmin = app.globalData.recruiterDetails.isCompanyAdmin || 0
     this.setData({recruiterList, isCompanyAdmin})
+    console.log(app.globalData.companyInfo)
   },
   /**
    * @Author   小书包
