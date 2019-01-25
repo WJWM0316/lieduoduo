@@ -25,7 +25,7 @@
   text-align: right;
 }
 .commont text{
-  color: red;
+  color: #282828;
   line-height: 122rpx;
   margin-right: 10rpx;
 }

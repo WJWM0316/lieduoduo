@@ -184,8 +184,16 @@ Page({
           map.latitude = latitude
           map.enableScroll = false
           map.markers.push({
+            id: 1,
             longitude,
-            latitude
+            latitude,
+            label: {
+              content: companyInfos.companyShortname,
+              fontSize:14,
+              color:'#282828',
+              anchorX: '20rpx',
+              anchorY: '-100rpx'
+            }
           })
           this.setData({companyInfos, map }, () => resolve(res))
         })
