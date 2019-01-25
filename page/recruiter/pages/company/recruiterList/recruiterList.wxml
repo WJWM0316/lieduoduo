@@ -1,7 +1,7 @@
 <view class="recruiterList">
 	<navbar title="公司招聘官" background="#fff" color="#22292C"></navbar>
 	<view class="ul">
-		<block wx:if="{{isCompanyAdmin}}">
+		<block wx:if="{{1 > 1111111111}}">
 			<view class="slide-view" wx:for="{{recruiterList}}" wx:key="{{index}}" wx-for-item="{{item}}">
 				<slide-view width="750" height="180" slide-width="180">
 					<view slot="left" class="content">
@@ -39,6 +39,6 @@
 		</block>
 	</view>
 	<view class="footer">
-		<view bindtap="authTransfer"><i class="backLast iconfont icon-bianji1"></i> 申请转移管理权限</view>
+		<!-- <view bindtap="authTransfer"><i class="backLast iconfont icon-bianji1"></i> 申请转移管理权限</view> -->
 	</view>
 </view>
