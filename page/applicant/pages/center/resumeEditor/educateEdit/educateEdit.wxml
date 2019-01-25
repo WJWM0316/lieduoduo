@@ -7,7 +7,7 @@
   </view>
   <view class="commont salary">
     <view class="title"><text>*</text>学历</view>
-    <myPicker class="myPicker" setResult="{{info.degreeDesc}}" pickerType="education" placeholderStyle="color: #BCBCBC" rangeKey="name" data-time="education" bindresultevent="getresult"></myPicker>
+    <myPicker class="myPicker" setResult="{{degreeDesc}}" pickerType="education" placeholderStyle="color: #BCBCBC" rangeKey="name" data-time="education" bindresultevent="getresult"></myPicker>
   </view>
   <view class="commont">
     <view class="title"><text>*</text>专业</view>
