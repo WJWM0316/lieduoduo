@@ -118,7 +118,7 @@ Component({
         } else {
           list.push([firstOption])
         }
-        this.setData({list, year, result, mode: 'multiSelector', firstOption, placeholder: '请选择时间'})
+        this.setData({list, year, result, mode: 'multiSelector', firstOption, placeholder: '选择参与工作时间'})
         break
       case 'dateTime':
         result = []
