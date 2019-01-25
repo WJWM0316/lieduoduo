@@ -30,7 +30,7 @@
 			<view class="text2 {{address ? '' : 'color-default'}}">{{address || '请选择'}}</view>
 		</view>
 		<view class="li link" bindtap="routeJump" data-route="skills">
-			<view class="key">技能要求</view>
+			<view class="key"><text>*</text>技能要求</view>
 			<i class="icon iconfont icon-xiangyou"></i>
 			<view class="text2 {{skills.length ? '' : 'color-default'}}" wx:if="{{!skills.length}}">请选择</view>
 			<view class="tags-list" wx:else>

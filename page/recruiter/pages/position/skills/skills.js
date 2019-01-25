@@ -2,6 +2,8 @@ import { getLabelProfessionalSkillsApi } from '../../../../../api/pages/label.js
 
 import {RECRUITER} from '../../../../../config.js'
 
+const app = getApp()
+
 Page({
   data: {
     professionalSkills: [],
@@ -20,15 +22,19 @@ Page({
     let activeSkills = professionalSkills.filter(field => field.active)
     if(activeSkills.length < this.data.limitNum) {
       professionalSkills.map(field => {
-        if(field.labelId === params.labelId) field.active = !field.active
+        if(field.labelId === params.item.labelId) field.active = !field.active
       })
     } else {
       professionalSkills.map(field => {
-        if(field.labelId === params.labelId) field.active = false
+        if(field.labelId === params.item.labelId) field.active = false
       })
     }
     activeSkills = professionalSkills.filter(field => field.active)
-    this.setData({professionalSkills, skills: activeSkills, canClick: activeSkills.length > 0})
+    this.setData({professionalSkills, skills: activeSkills, canClick: activeSkills.length > 0}, () => {
+      if(activeSkills.length === this.data.limitNum && !params.item.active ) {
+        app.wxToast({title: `最多只能添加${this.data.limitNum}个标签`})
+      }
+    })
   },
   onLoad() {
     getLabelProfessionalSkillsApi()
@@ -52,8 +58,6 @@ Page({
     const storage = wx.getStorageSync('createPosition')
     storage.skills = this.data.skills
     wx.setStorageSync('createPosition', storage)
-    wx.navigateBack({
-      delta: 1
-    })
+    wx.navigateBack({delta: 1})
   }
 })

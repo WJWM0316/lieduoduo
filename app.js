@@ -209,7 +209,7 @@ App({
     })
   },
   // 微信确认弹框
-  wxConfirm({title, content, showCancel = true, cancelText = '取消', confirmText = '确定', cancelColor = '#000000', confirmColor = '#652791', confirmBack = function() {}, cancelBack = function() {}}) {
+  wxConfirm({title, content, showCancel = true, cancelText = '取消', confirmText = '确定', cancelColor = '#BCBCBC', confirmColor = '#652791', confirmBack = function() {}, cancelBack = function() {}}) {
     wx.showModal({
       title,
       content,

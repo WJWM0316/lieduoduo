@@ -181,7 +181,7 @@
 						<text class="realname">{{companyInfos.adminInfo.name}}</text>
 						<text class="degress">{{companyInfos.adminInfo.position}}</text>
 					</view>
-					<view class="button-box"><i class="icon iconfont icon-kefu notice"></i>通知管理员</view>
+					<!-- <view class="button-box"><i class="icon iconfont icon-kefu notice"></i>通知管理员</view> -->
 				</view>
 			</view>
 		</view>

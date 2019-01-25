@@ -20,10 +20,6 @@ import {
 
 import {getSelectorQuery} from "../../../../utils/util.js"
 
-import {
-  mapInfos
-} from '../../../../utils/map.js'
-
 let app = getApp()
 
 Page({
@@ -44,9 +40,9 @@ Page({
     domHeight: 0,
     isFixed: false,
     map: {
-      ...mapInfos,
       longitude: 0,
       latitude: 0,
+      markers: []
     },
     positionList: {
       list: [],
@@ -167,6 +163,10 @@ Page({
           map.longitude = longitude
           map.latitude = latitude
           map.enableScroll = false
+          map.markers.push({
+            longitude,
+            latitude
+          })
           this.setData({companyInfos, map }, () => resolve(res))
         })
     })

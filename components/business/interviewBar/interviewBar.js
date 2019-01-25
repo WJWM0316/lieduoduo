@@ -193,7 +193,7 @@ Component({
           //   })
           break
         case 'job-hunting-applyed':
-          app.wxToast({title: '等待面试官处理'})
+          app.wxToast({title: '面试申请已发送'})
           break
         case 'recruiter-chat':
           wx.navigateTo({url: `${RECRUITER}position/jobList/jobList?type=recruiter_chat&from=${this.data.currentPage}&jobhunterUid=${this.data.infos.uid}&recruiterUid=${app.globalData.recruiterDetails.uid}`})

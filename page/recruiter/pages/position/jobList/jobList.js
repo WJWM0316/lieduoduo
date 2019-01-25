@@ -17,7 +17,7 @@ Page({
   onLoad(options) {
     this.setData({identity: wx.getStorageSync('choseType')})
     const storage = wx.getStorageSync('interviewChatLists')
-    if(storage && wx.getStorageSync('choseType') === 'APPLICANT') {
+    if(storage && wx.getStorageSync('choseType') === 'RECRUITER') {
       this.setData({items: storage.data, options})
       return;
     }

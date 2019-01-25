@@ -110,9 +110,7 @@
 				  longitude="{{ map.longitude }}"
 				  latitude="{{ map.latitude }}"
 				  scale="14"
-				  enable-scroll="{{map.enableScroll}}"
-				  controls="{{map.controls}}"
-				  controls="{{map.controls}}"
+				  enable-scroll="{{false}}"
 				  markers="{{map.markers}}"
 				  show-location></map>
 			</view>

@@ -9,7 +9,7 @@
 			class="li"
 			wx:for="{{skills}}"
 			wx:for-item="item"
-			wx:key="{{item.id}}"
+			wx:key="{{index}}"
 			data-item="{{item}}"
 			bindtap="onClick"> {{item.name}} <i class="icon iconfont icon-close"></i></view>
 	</view>
@@ -18,7 +18,7 @@
 			class="li {{item.active ? 'active' : ''}}"
 			wx:for="{{professionalSkills}}"
 			wx:for-item="item"
-			wx:key="{{item.id}}"
+			wx:key="{{index}}"
 			data-item="{{item}}"
 			bindtap="onClick"> {{item.name}} </view>
 	</view>
