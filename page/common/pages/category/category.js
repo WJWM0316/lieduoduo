@@ -18,13 +18,17 @@ Page({
     searing: false
   },
   onLoad(options) {
+    this.setData({query: options})
+    this.getLists()
+  },
+  getLists() {
+    const options = this.data.query
     getLabelPositionApi()
       .then(res => {
         const positionTypeList = res.data
         this.setData({positionTypeList: res.data, query: options})
       })
   },
-  preventTouchMove() {},
   onClick(e) {
     const params = e.currentTarget.dataset
     const storage = wx.getStorageSync('createPosition') || {}
@@ -100,7 +104,7 @@ Page({
    */
   bindInput(e) {
     const name = e.detail.value
-    if(name) this.debounce(this.getLabelLIsts, null, 500, name)
+    this.debounce(this.getLabelLIsts, null, 500, name)
   },
   /**
    * @Author   小书包
@@ -120,6 +124,10 @@ Page({
    */
   getLabelLIsts(name) {
     this.setData({showMask: false})
+    if(!name) {
+      this.setData({searing: false}, () => this.getLists())
+      return;
+    }
     getLabelLIstsApi({name})
       .then(res => {
         const positionTypeList = res.data

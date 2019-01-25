@@ -22,7 +22,8 @@ Page({
     },
     cdnImagePath: app.globalData.cdnImagePath,
     canClick: false,
-    options: {}
+    options: {},
+    applyJoin: false
   },
   onLoad(options) {
     this.setData({options})
@@ -45,6 +46,8 @@ Page({
         formData.passport_front = infos.passportFrontInfo
         formData.passport_reverse = infos.passportReverseInfo
         formData.handheld_passport = infos.handheldPassportInfo
+        formData.applyJoin = res.data.applyJoin
+        console.log(formData.applyJoin)
         Object.keys(formData).map(field => this.setData({[field]: formData[field]}))
         this.bindBtnStatus()
       })
@@ -163,21 +166,25 @@ Page({
     const formData = this.getParams()
     editCompanyIdentityInfosApi(formData)
       .then((res) => {
-        const options = this.data.options
-        let type = ''
-        switch(options.type) {
-          // 加入公司认证
-          case 'apply':
-            type = 'apply'
-            break
-          // 创建公司
-          case 'create':
-            type = 'company'
-            break
-          default:
-            break
+        // const options = this.data.options
+        // let type = ''
+        // switch(options.type) {
+        //   // 加入公司认证
+        //   case 'apply':
+        //     type = 'apply'
+        //     break
+        //   // 创建公司
+        //   case 'create':
+        //     type = 'company'
+        //     break
+        //   default:
+        //     break
+        // }
+        if(this.data.applyJoin) {
+          wx.navigateTo({url: `${RECRUITER}user/company/status/status?from=identity`})
+        } else {
+          wx.redirectTo({url: `${RECRUITER}user/company/status/status?from=identity`})
         }
-        wx.redirectTo({url: `${RECRUITER}user/company/status/status?from=${type}`})
       })
   }
 })

@@ -3,7 +3,7 @@
 	<view class="tips">* 职位名称、职位类别、工作地点发布后将不可修改</view>
 	<view bindsubmit="submit">
 		<view class="input-li">
-			<input placeholder="请输入职位名称" auto-focus bindinput="bindInput" value="{{keyword}}" />
+			<input placeholder="请输入职位名称" auto-focus bindinput="bindInput" value="{{keyword}}" maxlength="50"/>
 		</view>
 		<view class="name-lists">
 			<view

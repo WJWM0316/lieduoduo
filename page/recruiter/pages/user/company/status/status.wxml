@@ -1,5 +1,5 @@
 <view class="company-identity-status">
-	<navbar title="{{pageTitle}}" background="#FFFFFF" color="#22292C"></navbar>
+	<navbar title="{{pageTitle}}" background="#FFFFFF" color="#22292C" customBack bindbackEvent="backEvent"></navbar>
 	
 	<!-- 公司认证 start -->
 	<view class="header" wx:if="{{options.from === 'company'}}">
@@ -163,15 +163,15 @@
 				</view>
 				<view class="li">
 					<view class="key">姓名</view>
-					<view class="value">{{identityInfos.realName}}</view>
+					<view class="value">{{companyInfos.realName}}</view>
 				</view>
 				<view class="li">
 					<view class="key">担任职务</view>
-					<view class="value">{{identityInfos.userPosition}}</view>
+					<view class="value">{{companyInfos.userPosition}}</view>
 				</view>
 				<view class="li">
 					<view class="key">邮箱地址</view>
-					<view class="value">{{identityInfos.userEmail}}</view>
+					<view class="value">{{companyInfos.userEmail}}</view>
 				</view>
 				<view class="li item">
 					<view class="img-box">

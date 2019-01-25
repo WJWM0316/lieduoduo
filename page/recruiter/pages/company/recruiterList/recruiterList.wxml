@@ -26,7 +26,7 @@
 		  </view>
 		</block>
 		<block wx:else>
-			<view class="li">
+			<view class="li" wx:for="{{recruiterList}}" wx:key="{{index}}" wx-for-item="{{item}}" data-uid="{{item.uid}}"  bindtap="jump">
 				<view class="img-box">
 			    <image class="img" mode="aspectFill" src="{{item.avatar.middleUrl}}"></image>
 			    <view class="vip">V</view>

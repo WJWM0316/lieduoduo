@@ -1,5 +1,8 @@
 import {getRecruitersListApi} from '../../../../../api/pages/company.js'
 
+import {COMMON,RECRUITER} from "../../../../../config.js"
+
+
 let app = getApp()
 
 Page({
@@ -69,5 +72,11 @@ Page({
   	const recruiterList = this.data.recruiterList
   	recruiterList.map((field, index) => field.active = index === params.active ? true : false)
   	this.setData({recruiterList})
+  },
+  jump(e) {
+    const uid = e.currentTarget.dataset.uid
+    wx.navigateTo({
+      url: `${COMMON}recruiterDetail/recruiterDetail?uid=${uid}`
+    })
   }
 })

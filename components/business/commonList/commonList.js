@@ -62,6 +62,12 @@ Component({
           case 11:
             wx.navigateTo({url: `/page/common/pages/recruiterDetail/recruiterDetail?uid=${recruiteruid}`})
             break
+          case 21:
+            wx.navigateTo({url: `/page/common/pages/recruiterDetail/recruiterDetail?uid=${recruiteruid}`})
+            break
+          case 54:
+            wx.navigateTo({url: `/page/common/pages/recruiterDetail/recruiterDetail?uid=${recruiteruid}`})
+            break
           default:
             wx.navigateTo({url: `/page/common/pages/arrangement/arrangement?id=${itemId}`})
             break

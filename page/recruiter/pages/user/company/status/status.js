@@ -39,6 +39,9 @@ Page({
     		this.setData({identityInfos: infos, companyInfos, options})
     	})
   },
+  backEvent() {
+    wx.reLaunch({url: `${RECRUITER}user/mine/infos/infos`})
+  },
   todoAction(e) {
   	const params = e.currentTarget.dataset
   	switch(params.action) {
