@@ -138,7 +138,7 @@ Page({
         for (let i = 0; i < info.signature.length; i++) {
           descString = descString + info.signature[i]
           descWidth = ctx.measureText(descString).width
-          if (info.signature[i] === '↵' || descWidth > 590) {
+          if (descWidth > 590) {
             ctx.drawImage('../../../../../images/a7.png', 0, curHeight, 750, 110)
             ctx.fillText(descString.slice(0, descString.length-1), 80, curHeight + 30)
             descString = ''

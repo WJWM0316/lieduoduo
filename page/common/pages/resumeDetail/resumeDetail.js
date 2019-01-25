@@ -53,21 +53,27 @@ Page({
   init(options) {
     let identity = wx.getStorageSync('choseType')
     let myInfo = {}
-    if (app.globalData.identity === "APPLICANT") {
+    if (identity === "APPLICANT") {
       myInfo = app.globalData.resumeInfo
     } else {
-      this.getOthersInfo()
+      myInfo = app.globalData.recruiterDetails
     }
     if (myInfo.uid) {
       if (myInfo.uid === parseInt(options.uid) || !options.uid) {
-        this.setData({info: myInfo, isOwner: true, identity})
+        if (identity === "RECRUITER") {
+          this.getOthersInfo()
+        } else {
+          this.setData({info: myInfo, isOwner: true, identity})
+        }
       } else {
         this.getOthersInfo()
       }
     } else {
       app.pageInit = () => {
-        if (app.globalData.identity === "APPLICANT") {
+        if (identity === "APPLICANT") {
           myInfo = app.globalData.resumeInfo
+        } else {
+          myInfo = app.globalData.recruiterDetails
         }
         if (myInfo.uid === parseInt(options.uid)) {
           this.setData({info: myInfo, isOwner: true, identity})

@@ -190,7 +190,7 @@ Page({
       for (let i = 0; i < info.describe.length; i++) {
         descString = descString + info.describe[i]
         descWidth = ctx.measureText(descString).width
-        if (info.describe[i] === '↵' || descWidth > 590) {
+        if (descWidth > 590) {
           ctx.drawImage('../../../../../images/c2.png', 0, curHeight, 750, 48)
           ctx.fillText(descString.slice(0, descString.length-1), 80, curHeight)
           descString = ''
