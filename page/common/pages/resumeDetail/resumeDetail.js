@@ -1,5 +1,6 @@
 // page/common/pages/resumeDetail/resumeDetail.js
 import { getPersonalResumeApi } from '../../../../api/pages/center.js'
+
 import { inviteInterviewApi } from '../../../../api/pages/interview.js'
 import { getMyCollectUserApi, deleteMyCollectUserApi } from '../../../../api/pages/collect.js'
 import {APPLICANT} from '../../../../config.js'
@@ -14,6 +15,7 @@ Page({
   data: {
     info: null,
     isOwner: false,
+    hasReFresh: false,
     options: {},
     identity: '',
     cdnImagePath: app.globalData.cdnImagePath
@@ -76,10 +78,14 @@ Page({
     }
   },
   getOthersInfo() {
-    getPersonalResumeApi({uid: this.data.options.uid}).then(res => {
-      this.setData({info: res.data})
-      this.selectComponent('#interviewBar').init()
+    return new Promise((resolve, reject) => {
+      getPersonalResumeApi({uid: this.data.options.uid}).then(res => {
+        this.setData({info: res.data})
+        this.selectComponent('#interviewBar').init()
+        resolve(res)
+      })
     })
+    
   },
   /* 编辑 */
   edit (e) {
@@ -137,4 +143,19 @@ Page({
       })
     }
   },
+  onPullDownRefresh(hasLoading = true) {
+    this.setData({hasReFresh: true})
+    if (!this.options.uid || parseInt(this.options.uid) === app.globalData.resumeInfo.uid) {
+      getPersonalResumeApi().then(res => {
+        app.globalData.resumeInfo = res.data
+        wx.stopPullDownRefresh()
+        this.setData({info: app.globalData.resumeInfo, hasReFresh: false})
+      })
+    } else {
+      this.getOthersInfo().then(res => {
+        this.setData({hasReFresh: false})
+        wx.stopPullDownRefresh()
+      })
+    }
+  }
 })

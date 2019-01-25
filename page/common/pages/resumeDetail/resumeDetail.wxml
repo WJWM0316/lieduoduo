@@ -2,6 +2,10 @@
 <!-- 加载过滤器 -->
 <wxs src="../../../../utils/filters.wxs" module="filters" />
 <navbar title="简历详情" background="#FFFFFF" color="#22292C" showHome="{{true}}"></navbar>
+<view hidden="{{!hasReFresh}}">
+  <refreshStatus></refreshStatus>
+</view>
+
 <view class="resumeDetail {{isOwner? '' : 'addpadding'}}" wx:if="{{info}}">
   <view class="share" wx:if="{{isOwner && false}}"><i class="icon iconfont icon-fenxiang"></i></view>
 <!-- 基本信息 -->
@@ -61,7 +65,8 @@
     <view class="expTab" wx:for="{{info.careers}}" wx:key="{{index}}" wx:if="{{info.careers.length < 11}}">
       <view class="expTitle">
         <text class="expName">{{item.company}}</text>
-        <text class="expTime">{{filters.dateFormat(item.startTime, 'YYYY.MM')}}-{{filters.dateFormat(item.endTime, 'YYYY.MM')}}</text>
+        <text class="expTime" wx:if="{{item.endTime}}">{{filters.dateFormat(item.startTime, 'YYYY.MM')}}-{{filters.dateFormat(item.endTime, 'YYYY.MM')}}</text>
+        <text class="expTime" wx:else>{{filters.dateFormat(item.startTime, 'YYYY.MM')}}-至今</text>
         <i class="icon iconfont icon-bianji1 edit" data-editName="work" data-id="{{item.id}}" bindtap="edit" wx:if="{{isOwner}}"></i>
       </view>
       <view class="expInfo">{{item.position}}</view>
@@ -80,7 +85,8 @@
     <view class="expTab" wx:for="{{info.projects}}" wx:key="{{index}}" wx:if="{{info.projects.length < 11}}">
       <view class="expTitle">
         <text class="expName">{{item.name}}</text>
-        <text class="expTime">{{filters.dateFormat(item.startTime, 'YYYY.MM')}}-{{filters.dateFormat(item.endTime, 'YYYY.MM')}}</text>
+        <text class="expTime" wx:if="{{item.endTime}}">{{filters.dateFormat(item.startTime, 'YYYY.MM')}}-{{filters.dateFormat(item.endTime, 'YYYY.MM')}}</text>
+        <text class="expTime" wx:else>{{filters.dateFormat(item.startTime, 'YYYY.MM')}}-至今</text>
         <i class="icon iconfont icon-bianji1 edit" data-editName="project" data-id="{{item.id}}" bindtap="edit" wx:if="{{isOwner}}"></i>
       </view>
       <view class="expInfo">{{item.role}}</view>
@@ -99,7 +105,8 @@
     <view class="expTab" wx:if="{{info.educations.length < 11}}" wx:for="{{info.educations}}" wx:key="{{index}}">
       <view class="expTitle">
         <text class="expName">{{item.school}}</text>
-        <text class="expTime">{{filters.dateFormat(item.startTime, 'YYYY.MM')}}-{{filters.dateFormat(item.endTime, 'YYYY.MM')}}</text>
+        <text class="expTime" wx:if="{{item.endTime}}">{{filters.dateFormat(item.startTime, 'YYYY.MM')}}-{{filters.dateFormat(item.endTime, 'YYYY.MM')}}</text>
+        <text class="expTime" wx:else>{{filters.dateFormat(item.startTime, 'YYYY.MM')}}-至今</text>
         <i class="icon iconfont icon-bianji1 edit" data-editName="education" data-id="{{item.id}}" bindtap="edit" wx:if="{{isOwner}}"></i>
       </view>
       <view class="expInfo">{{item.degreeDesc}}·{{item.major}}</view>

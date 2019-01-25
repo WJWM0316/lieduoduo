@@ -22,6 +22,7 @@ Page({
     positionList: [],
     isShowBtn: true,
     options: {},
+    hasReFresh: false,
     cdnImagePath: app.globalData.cdnImagePath
   },
   /**
@@ -31,15 +32,18 @@ Page({
     this.setData({options})
   },
   getOthersInfo() {
-    getOthersRecruiterDetailApi({uid: this.data.options.uid}).then(res => {
-      this.setData({info: res.data, btnTxt: '展开内容'}, function() {
-        this.selectComponent('#interviewBar').init()
-        getSelectorQuery('.msg').then(res => {
-          if (res.height > 143) {
-            this.setData({isShrink: true, needShrink: true})
-          } else {
-            this.setData({isShrink: false, needShrink: false})
-          }
+    return new Promise((resolve, reject) => {
+      getOthersRecruiterDetailApi({uid: this.data.options.uid}).then(res => {
+        this.setData({info: res.data, btnTxt: '展开内容'}, function() {
+          this.selectComponent('#interviewBar').init()
+          resolve(res)
+          getSelectorQuery('.msg').then(res => {
+            if (res.height > 143) {
+              this.setData({isShrink: true, needShrink: true})
+            } else {
+              this.setData({isShrink: false, needShrink: false})
+            }
+          })
         })
       })
     })
@@ -227,6 +231,21 @@ Page({
     } else {
       if (this.data.isShowBtn) return
       this.setData({isShowBtn: true})
+    }
+  },
+  onPullDownRefresh(hasLoading = true) {
+    this.setData({hasReFresh: true})
+    if (!this.options.uid || parseInt(this.options.uid) === app.globalData.resumeInfo.uid) {
+      getRecruiterDetailApi().then(res => {
+        app.globalData.recruiterDetails = res.data
+        wx.stopPullDownRefresh()
+        this.setData({info: app.globalData.recruiterDetails, hasReFresh: false})
+      })
+    } else {
+      this.getOthersInfo().then(res => {
+        this.setData({hasReFresh: false})
+        wx.stopPullDownRefresh()
+      })
     }
   }
 })
