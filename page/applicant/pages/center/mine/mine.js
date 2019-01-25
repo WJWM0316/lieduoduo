@@ -7,7 +7,8 @@ Page({
    */
   data: {
     myInfo: {},
-    hasLogin: false
+    hasLogin: false,
+    hideBind: true
   },
   /**
    * 生命周期函数--监听页面加载
@@ -26,10 +27,11 @@ Page({
       }
     }
   },
+  onHide() {
+    this.setData({hideBind: true})
+  },
   login() {
-    wx.navigateTo({
-      url: `${COMMON}bindPhone/bindPhone`
-    })
+    this.setData({hideBind: false})
   },
   preview() {
     // wx.downloadFile({

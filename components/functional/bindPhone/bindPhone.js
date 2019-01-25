@@ -1,22 +1,22 @@
 // components/functional/bindPhone/bindPhone.js
 import {COMMON} from '../../../config.js'
-import {quickLoginApi} from '../../../api/pages/auth.js'
-
+let app = getApp()
 Component({
   /**
    * 组件的属性列表
    */
   properties: {
-
+    hide: {
+      type: Boolean,
+      value: true
+    }
   },
 
   /**
    * 组件的初始数据
    */
   data: {
-    hide: false
   },
-
   /**
    * 组件的方法列表
    */
@@ -27,11 +27,8 @@ Component({
       })
     },
     getPhoneNumber(e) {
-      let data = {
-        iv_key: e.detail.iv,
-        data: e.detail.encryptedData
-      }
-      quickLoginApi(data).then(res => {
+      app.quickLogin(e).then(res => {
+        this.close()
       })
     },
     phoneLogin() {

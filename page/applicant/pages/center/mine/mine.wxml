@@ -1,4 +1,5 @@
 <view class='mine'>
+<navbar title="我的"></navbar>
 <view class='header-bg'></view>
   <view class="floating-box">
 		<view class="header">
@@ -91,3 +92,4 @@
 		<view class="li">意见反馈</view>
 	</view>
 </view>
+<bindPhone hide="{{hideBind}}"></bindPhone>

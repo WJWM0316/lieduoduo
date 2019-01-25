@@ -4,6 +4,7 @@ import { APPLICANT, COMMON } from '../../../../../../config.js'
 
 let target = null
 let title = null
+let info = null
 const app = getApp()
 let toToday = false // 是否至今
 Page({
@@ -111,6 +112,7 @@ Page({
     target = e.currentTarget.dataset.type
     this.setTitle(target)
     if (target === '4') {
+      wx.setStorageSync('result', this.data.list)
       wx.navigateTo({
         url: `${APPLICANT}center/resumeEditor/skills/skills?title=${title}`
       })
@@ -216,8 +218,8 @@ Page({
   del () {
     let that = this
     app.wxConfirm({
-      title: '删除求职意向',
-      content: '求职意向删除后将无法恢复，是否确定删除？',
+      title: '删除工作经历',
+      content: '工作经历删除后将无法恢复，是否确定删除？',
       confirmBack() {
         deleteCareerApi({id: that.data.options.id}).then(res => {
           app.wxToast({

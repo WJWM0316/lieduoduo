@@ -2,22 +2,22 @@
 <navbar title="求职意向"></navbar>
 <view class="warp">
   <view class="commont">
-    <view class="title"><text>*</text>期望城市</view>
-    <myPicker class="myPicker" setResult="{{info.province}} {{info.city}}" pickerType="region" rangeKey="title" placeholderStyle="color: #BCBCBC" bindresultevent="getresult" data-type="region"></myPicker>
+    <view class="title"><text class="star">*</text>期望城市</view>
+    <myPicker class="myPicker" setResult="{{info.province}} {{info.city}}" pickerType="region" rangeKey="title" bindresultevent="getresult" data-type="region"></myPicker>
   </view>
   <view class="commont" data-type="1" bindtap="choose">
-    <view class="title"><text>*</text>期望职位</view>
+    <view class="title"><text class="star">*</text>期望职位</view>
     <view class="result">{{info.position}}<i class="icon iconfont icon-xiangyou"></i></view>
   </view>
   <view class="commont salary">
-    <view class="title"><text>*</text>期望薪资</view>
-    <myPicker class="myPicker" setResult="{{info.salaryFloor}}k~{{info.salaryCeil}}k" pickerType="salaryRangeC" placeholderStyle="color: #BCBCBC" bindresultevent="getresult" data-type="salaryRangeC"></myPicker>
+    <view class="title"><text class="star">*</text>期望薪资</view>
+    <myPicker class="myPicker" setResult="{{info.salaryFloor}}k~{{info.salaryCeil}}k" pickerType="salaryRangeC" bindresultevent="getresult" data-type="salaryRangeC"></myPicker>
   </view>
   <view class="commont" data-type="2" bindtap="choose">
-    <view class="title"><text>*</text>期望领域</view>
+    <view class="title"><text class="star">*</text>期望领域</view>
     <view class="result">
       <text class="resultBox">
-        <text wx:for="{{info.fields}}" wx:key="{{index}}">{{item.field || item.name}}</text>
+        <text class="label" wx:for="{{info.fields}}" wx:key="{{index}}">{{item.field || item.name}}</text>
       </text>
       <i class="icon iconfont icon-xiangyou"></i>
     </view>

@@ -1,6 +1,6 @@
-<view class="bindPhone">
+<view class="bindPhone" hidden="{{hide}}">
   <view class="inner">
-    <view class="colse" bindtap="close" wx:if="hide">X</view>
+    <i class="colse iconfont icon-close" bindtap="close" ></i>
     <view class="tip">登录或注册</view>
     <button class="wxBtn" open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber">微信账号快速登录</button>
     <button class="plogin" bindtap="phoneLogin">手机号注册/登录</button>

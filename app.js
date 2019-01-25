@@ -4,6 +4,7 @@ import {getPersonalResumeApi} from 'api/pages/center.js'
 import {getRecruiterDetailApi} from 'api/pages/recruiter.js'
 import {COMMON,RECRUITER,APPLICANT} from "config.js"
 import {getUserRoleApi} from "api/pages/user.js"
+import {quickLoginApi} from 'api/pages/auth.js'
 
 let app = getApp()
 let that = null
@@ -46,15 +47,15 @@ App({
             wx.setStorageSync('choseType', 'APPLICANT')
           }
           that.globalData.identity = wx.getStorageSync('choseType')
-          // 登陆回调
-          if (that.loginInit) {
-            that.loginInit()
-          }
+          
           // 有token说明已经绑定过用户了
           if (res.data.token) {
             wx.setStorageSync('token', res.data.token)
-            that.getAllInfo()
-            that.getRoleInfo()
+            // 登陆回调
+            if (that.loginInit) {
+              that.loginInit()
+            }
+            that.loginedLoadData()
             that.globalData.hasLogin = true
             console.log('用户已认证')
           } else {
@@ -104,6 +105,11 @@ App({
       }
     })
   },
+  // 登陆成功后下载一下数据
+  loginedLoadData() {
+    this.getAllInfo()
+    this.loginBack()
+  },
   // 检查登录
   checkLogin () {
     return new Promise((resolve, reject) => {
@@ -151,6 +157,7 @@ App({
           iv_key: e.detail.iv,
           data: e.detail.encryptedData
         }
+        that.globalData.userInfo = e.detail.userInfo
         let wxLogin = function () {
           // 请求接口获取服务器session_key
           var pages = getCurrentPages() //获取加载的页面
@@ -161,14 +168,17 @@ App({
           }
           pageUrl = `${pageUrl}?${params}`
           data.code = wx.getStorageSync('code')
-          
           loginApi(data).then(res => {
             // 有token说明已经绑定过用户了
             if (res.data.token) {
               wx.setStorageSync('token', res.data.token)
-              that.checkLogin()
-              that.globalData.userInfo = res.data
               that.globalData.hasLogin = true
+              that.loginedLoadData()
+              // 登陆回调
+              if (that.loginInit) {
+                that.loginInit()
+              }
+              
               console.log('用户已认证')
             } else {
               console.log('用户未绑定手机号')
@@ -189,6 +199,23 @@ App({
         }
         wxLogin()
       }
+    })
+  },
+  // 微信快速登陆
+  quickLogin(e) {
+    let data = {
+      iv_key: e.detail.iv,
+      data: e.detail.encryptedData
+    }
+    return new Promise((resolve, reject) => {
+      quickLoginApi(data).then(res => {
+        if (res.data.token) {
+          wx.setStorageSync('token', res.data.token)
+          this.loginedLoadData()
+          this.globalData.hasLogin = true
+          resolve(res)
+        } 
+      })
     })
   },
   // 微信toast
