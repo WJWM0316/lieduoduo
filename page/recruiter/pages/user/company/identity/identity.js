@@ -180,11 +180,12 @@ Page({
         //   default:
         //     break
         // }
-        if(this.data.applyJoin) {
-          wx.navigateTo({url: `${RECRUITER}user/company/status/status?from=identity`})
-        } else {
-          wx.redirectTo({url: `${RECRUITER}user/company/status/status?from=identity`})
-        }
+        wx.redirectTo({url: `${RECRUITER}user/company/status/status?from=identity`})
+        // if(this.data.applyJoin) {
+        //   wx.navigateTo({url: `${RECRUITER}user/company/status/status?from=identity`})
+        // } else {
+        //   wx.redirectTo({url: `${RECRUITER}user/company/status/status?from=identity`})
+        // }
       })
   }
 })
