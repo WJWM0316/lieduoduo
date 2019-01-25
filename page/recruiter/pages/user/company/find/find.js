@@ -149,7 +149,7 @@ Page({
     applyCompanyApi(params)
       .then(() => {
         // 手机号已经存在 ， 先跳转验证页面
-        wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=apply`})
+        wx.redirectTo({url: `${RECRUITER}user/company/status/status?from=apply`})
         wx.removeStorageSync('createdCompany')
       })
   },
@@ -172,7 +172,7 @@ Page({
     editApplyCompanyApi(params)
       .then(() => {
         // 手机号已经存在 ， 先跳转验证页面
-        wx.navigateTo({url: `${RECRUITER}user/company/status/status?from=apply`})
+        wx.redirectTo({url: `${RECRUITER}user/company/status/status?from=apply`})
         wx.removeStorageSync('createdCompany')
       })
   },
