@@ -401,5 +401,5 @@
 }
 .addpadding{
   padding-bottom: 138rpx;
-  height: 100vh;
+  min-height: 100vh;
 }

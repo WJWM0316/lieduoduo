@@ -116,7 +116,7 @@
     <text class="add" data-editName="education" bindtap="edit" wx:if="{{isOwner && info.educations.length < 11}}" data-id="">添加教育经历</text>
   </view>
   <!-- 更多 -->
-  <view class="more commentBox">
+  <view class="more commentBox" wx:if="{{(!isOwner && info.moreIntroduce.introduce || info.moreIntroduce.imgs.length > 0) || isOwner}}">
     <view class="intentTitle moreTitle">
       <view><view class="commontIcon"><view class="box"></view></view> 更多介绍 </view>
       <i class="icon iconfont icon-bianji1 edit" data-editName="more" data-id="{{item.id}}" bindtap="edit" wx:if="{{(info.moreIntroduce.introduce || info.moreIntroduce.imgs.length > 0) && isOwner}}"></i>
@@ -146,3 +146,4 @@
       wx:if="{{info.vkey && !isOwner}}"></interviewBar>
   </view>
 </view>
+<view style="height: 198rpx;"></view>
