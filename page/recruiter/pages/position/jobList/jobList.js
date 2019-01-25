@@ -21,7 +21,7 @@ Page({
       this.setData({items: storage.data, options})
       return;
     }
-    getPositionListApi({recruiter: options.recruiterUid}).then(res => {
+    getPositionListApi({recruiter: options.recruiterUid, is_online: 1}).then(res => {
       this.setData({items: res.data, options})
     })
   },
