@@ -14,7 +14,7 @@ Page({
   data: {
     pageList: 'myBrowse',
     cdnImagePath: app.globalData.cdnImagePath,
-    choseType: wx.getStorageSync('choseType') || null,
+    choseType: '',
     needLogin: false,
     myBrowse: {
       list: [],
@@ -43,7 +43,8 @@ Page({
     buttonType: 'delete'
   },
   onLoad() {
-    let choseType = wx.getStorageSync('choseType')
+    let choseType = wx.getStorageSync('choseType') || ''
+    this.setData({choseType})
     if (!choseType) {
       wx.hideTabBar()
     } else {

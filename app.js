@@ -1,5 +1,5 @@
       //app.js
-import {loginApi} from 'api/pages/auth.js'
+import {loginApi, bindPhoneApi} from 'api/pages/auth.js'
 import {getPersonalResumeApi} from 'api/pages/center.js'
 import {getRecruiterDetailApi} from 'api/pages/recruiter.js'
 import {COMMON,RECRUITER,APPLICANT} from "config.js"
@@ -108,7 +108,7 @@ App({
   // 登陆成功后下载一下数据
   loginedLoadData() {
     this.getAllInfo()
-    this.loginBack()
+    this.getRoleInfo()
   },
   // 检查登录
   checkLogin () {
@@ -213,8 +213,29 @@ App({
           wx.setStorageSync('token', res.data.token)
           this.loginedLoadData()
           this.globalData.hasLogin = true
+          var pages = getCurrentPages() //获取加载的页面
+          let pageUrl = pages[0].route
+          let params = ''
+          for (let i in pages[0].options) {
+            params = `${params}${i}=${pages[0].options[i]}&`
+          }
+          pageUrl = `${pageUrl}?${params}`
+          wx.reLaunch({
+            url: `/${pageUrl}`
+          })
           resolve(res)
         } 
+      })
+    })
+  },
+  // 手机登陆
+  phoneLogin(data) {
+    return new Promise((resolve, reject) => {
+      bindPhoneApi(data).then(res => {
+        wx.setStorageSync('token', res.data.token)
+        this.globalData.hasLogin = true
+        this.loginedLoadData()
+        resolve(res)
       })
     })
   },

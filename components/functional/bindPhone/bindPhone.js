@@ -27,9 +27,7 @@ Component({
       })
     },
     getPhoneNumber(e) {
-      app.quickLogin(e).then(res => {
-        this.close()
-      })
+      app.quickLogin(e)
     },
     phoneLogin() {
       wx.navigateTo({

@@ -75,25 +75,6 @@ Page({
       }
     }
   },
-  bindSuccess() {
-    app.globalData.hasLogin = true
-    app.checkLogin()
-    app.wxToast({
-      title: '注册成功',
-      icon: 'success',
-      callback() {
-        if (wx.getStorageSync('choseType') === 'APPLICANT') {
-          wx.navigateBack({
-            delta: 1
-          })
-        } else {
-          wx.reLaunch({
-            url: `${RECRUITER}user/company/apply/apply`
-          })
-        }
-      }
-    })
-  },
   bindPhone() {
     let data = {
       mobile: this.data.phone,
@@ -111,22 +92,32 @@ Page({
       })
       return
     }
-    bindPhoneApi(data).then(res => {
-      wx.setStorageSync('token', res.data.token)
-      app.globalData.userInfo = res.data
-      this.bindSuccess()
+    app.phoneLogin(data).then(res => {
+      app.wxToast({
+        title: '注册成功',
+        icon: 'success',
+        callback() {
+          if (wx.getStorageSync('choseType') === 'APPLICANT') {
+            wx.navigateBack({
+              delta: 1
+            })
+          } else {
+            if (!res.data.token) {
+              wx.reLaunch({
+                url: `${RECRUITER}user/company/apply/apply`
+              })
+            } else {
+              wx.navigateBack({
+                delta: 1
+              })
+            }
+          }
+        }
+      })
     })
   },
   getPhoneNumber(e) {
-    let data = {
-      iv_key: e.detail.iv,
-      data: e.detail.encryptedData
-    }
-    quickLoginApi(data).then(res => {
-      wx.setStorageSync('token', res.data.token)
-      app.globalData.userInfo = res.data
-      this.bindSuccess()
-    })
+    app.quickLogin(e)
   },
   /**
    * 生命周期函数--监听页面初次渲染完成
