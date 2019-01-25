@@ -12,7 +12,7 @@
     </div>
     <view class="userInfo">
       <view class="name">{{info.name}}</view>
-      <view class="position">{{info.companyName}} | {{info.position}}</view>
+      <view class="position">{{info.companyShortname}} | {{info.position}}</view>
       <view class="sign" wx:if="{{info.signature}}">{{info.signature}}</view>
     </view>
   </view>

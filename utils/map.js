@@ -4,6 +4,8 @@ const qqmapsdk = new QQMapWX({
   key: 'P63BZ-4RM35-BIJIV-QOL7E-XNCZZ-WIF4L'
 })
 
+const app = getApp()
+
 export const reverseGeocoder = (res) => {
 	return new Promise((resolve, reject) => {
 		qqmapsdk.reverseGeocoder({
@@ -23,32 +25,16 @@ export const reverseGeocoder = (res) => {
 
 export const mapInfos = {
 	markers: [],
-  polyline: [
-    {
-      points: [
-        {
-          longitude: 113.3245211,
-          latitude: 23.10229
-        },
-        {
-          longitude: 113.324520,
-          latitude: 23.21229
-        }
-      ],
-      color:"#FF0000DD",
-      width: 2,
-      dottedLine: true
-    }
-  ],
+  polyline: [],
   controls: [
     {
       id: 1,
-      iconPath: '../vendor/resources/location.png',
+      iconPath: `${app.globalData.cdnImagePath}location.png`,
       position: {
         left: 0,
-        top: 300 - 50,
-        width: 50,
-        height: 50
+        top: 300 - 30,
+        width: 30,
+        height: 30
       },
       clickable: true
     }
