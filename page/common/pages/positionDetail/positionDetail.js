@@ -62,11 +62,11 @@ Page({
         this.selectComponent('#interviewBar').init()
         app.getAllInfo()
           .then(userInfos => {
-            this.setData({isOwner: userInfos.uid === res.data.recruiterInfo.uid})
-            if(userInfos.uid === res.data.recruiterInfo.uid) {
-              wx.setStorageSync('choseType', 'RECRUITER')
-              this.setData({isRecruiter: true})
-            }
+            this.setData({isOwner: userInfos.uid === res.data.recruiterInfo.uid, isRecruiter: true})
+            // if(userInfos.uid === res.data.recruiterInfo.uid) {
+            //   wx.setStorageSync('choseType', 'RECRUITER')
+            //   this.setData({isRecruiter: true})
+            // }
           })
       })
   },
@@ -78,6 +78,7 @@ Page({
    */
   todoAction(e) {
     const type = e.currentTarget.dataset.type
+    const that = this
     switch(type) {
       case 'open':
         openPositionApi({id: this.data.detail.id})
@@ -94,11 +95,11 @@ Page({
           confirmText: '关闭职位',
           cancelText: '考虑一下',
           confirmBack() {
-            closePositionApi({id: this.data.detail.id})
+            closePositionApi({id: that.data.detail.id})
               .then(res => {
-                const detail = this.data.detail
+                const detail = that.data.detail
                 detail.status = 1
-                this.setData({detail}, () => app.wxToast({title: '职位已关闭'}))
+                that.setData({detail}, () => app.wxToast({title: '职位已关闭'}))
               })
           }
         })

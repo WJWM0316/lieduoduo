@@ -77,26 +77,22 @@
 		</view>
 	</view>
 	
-	<block wx:if="{{isRecruiter && isOwner}}">
-		<view class="switch-tips" bindtap="todoAction" data-type="close">
+	<block wx:if="{{isRecruiter && isOwner && identity !== 'APPLICANT'}}">
+		<view class="switch-tips" bindtap="todoAction" data-type="close" wx:if="{{detail.isOnline === 1}}">
 			<view class="h1">关闭职位</view>
 			<view class="h2">关闭职位后将不再产生招聘效果</view>
 			<i class="icon iconfont icon-disejiantou-you"></i>
 		</view>
-		
 		<view class="footer">
-			<!-- 已经关闭的职位 -->
-			<block wx:if="{{detail.status === 0}}">
+			<block wx:if="{{detail.status !== 3}}">
 				<view class="edit" bindtap="todoAction" data-type="edit">编辑职位</view>
-				<view class="share" bindtap="todoAction" data-type="open">开放职位</view>
+				<view class="share" bindtap="todoAction" data-type="open" wx:if="{{detail.isOnline === 2}}">开放职位</view>
 			</block>
-			<!-- 已经关闭的职位 -->
-			<block wx:elif="{{detail.status === 2 || detail.status === 3}}">
+			<block wx:elif="{{detail.status === 3}}">
 				<view class="edit" bindtap="todoAction" data-type="edit">编辑职位</view>
 			</block>
 			<block wx:else>
-			    <view class="edit" bindtap="todoAction" data-type="edit">编辑职位</view>
-					<view class="share" bindtap="todoAction" data-type="share">分享职位</view>
+				<view class="share" bindtap="todoAction" data-type="share" wx:if="{{detail.status !== 3 && detail.isOnline === 1}}">分享职位</view>
 			</block>
 		</view>
 	</block>
@@ -106,6 +102,5 @@
 		infos="{{ detail }}"
 		bindresultevent="bindStatusChange"
 		type="position"
-		wx:if="{{detail.vkey && !isRecruiter && !isOwner}}"></interviewBar>
-
+		wx:if="{{detail.vkey && !isOwner && identity === 'APPLICANT'}}"></interviewBar>
 </view>

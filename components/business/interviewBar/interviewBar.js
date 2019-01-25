@@ -170,7 +170,7 @@ Component({
               .then(res => {
                 this.getInterviewStatus()
                 app.wxToast({title: '面试申请已发送'})
-                this.triggerEvent('resultevent', this.data.infos)
+                // this.triggerEvent('resultevent', this.data.infos)
               })
           }
           // let uid = ''
@@ -210,7 +210,7 @@ Component({
           confirmInterviewApi({id: interviewInfos.data[0].interviewId})
             .then(res => {
               app.wxToast({title: '已接受约面'})
-              this.triggerEvent('resultevent', this.data.infos)
+              // this.triggerEvent('resultevent', this.data.infos)
               this.getInterviewStatus()
             })
           break

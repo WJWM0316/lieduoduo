@@ -30,7 +30,7 @@ Page({
     const storage = wx.getStorageSync('createPosition') || {}
     storage.type = params.labelId
     storage.typeName = params.name
-    storage.parentType = params.pid
+    storage.parentType = params.topPid
     wx.setStorageSync('createPosition', storage)
     wx.navigateBack({delta: 1})
   },
