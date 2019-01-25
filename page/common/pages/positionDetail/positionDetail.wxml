@@ -92,7 +92,7 @@
 				<view class="edit" bindtap="todoAction" data-type="edit">编辑职位</view>
 			</block>
 			<block wx:else>
-				<view class="share" bindtap="todoAction" data-type="share" wx:if="{{detail.status !== 3 && detail.isOnline === 1}}">分享职位</view>
+				<!-- <view class="share" bindtap="todoAction" data-type="share" wx:if="{{detail.status !== 3 && detail.isOnline === 1}}">分享职位</view> -->
 			</block>
 		</view>
 	</block>
