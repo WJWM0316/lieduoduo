@@ -66,7 +66,7 @@ Page({
   onTabClick(e) {
     const key = e.target.dataset.tab
     const value = this.data[key]
-    this.setData({tab: key}, () => {
+    this.setData({tab: key, commonList: value}, () => {
       if(!value.isRequire) this.getLists()
     })
   },
