@@ -38,14 +38,19 @@ Component({
      * @return   {[type]}     [description]
      */
     delete(e) {
-      const uid = e.currentTarget.dataset.uid
+      const params = e.currentTarget.dataset
       app.wxConfirm({
         title: '删除该记录',
         content: '确定删除该条浏览记录？',
         confirmBack: () => {
-          deleteBrowseUserApi({uid}).then(res => {
-            this.triggerEvent('refreshevent', {uid})
-          })
+          let list = this.data.list
+          list = list.filter(field => field.uid !== params.uid)
+          this.setData({list})
+          console.log(list, params)
+          // this.triggerEvent('refreshevent', {uid})
+          // deleteBrowseUserApi({uid}).then(res => {
+          //   this.triggerEvent('refreshevent', {uid})
+          // })
         }
       })
     },

@@ -38,7 +38,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 40,
+			"current": 42,
 			"list": [
 				{
 					"id": 0,
@@ -291,6 +291,12 @@
 					"name": "地址",
 					"pathName": "page/recruiter/pages/position/address/address",
 					"query": ""
+				},
+				{
+					"id": 42,
+					"name": "附件上传",
+					"pathName": "page/applicant/pages/center/attachment/attachment",
+					"query": "action=edit&type=apply"
 				}
 			]
 		}

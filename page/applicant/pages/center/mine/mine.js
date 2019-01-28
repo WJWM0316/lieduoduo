@@ -93,6 +93,11 @@ Page({
           url: `${COMMON}poster/resume/resume`
         })
         break
+      case "scanCode":
+        wx.navigateTo({url: `${APPLICANT}center/attachment/attachment` })
+        break
+      default:
+        break
     }
   },
   /* 去完善简历 */

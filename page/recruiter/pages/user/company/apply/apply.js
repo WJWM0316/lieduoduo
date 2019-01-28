@@ -16,6 +16,7 @@ Page({
     options: {
       type: 'create'
     },
+    applyStatus: 0,
     cdnImagePath: app.globalData.cdnImagePath
   },
   onLoad(options) {
@@ -71,7 +72,8 @@ Page({
           business_license: infos.businessLicenseInfo,
           on_job: infos.onJobInfo,
           applyId: infos.applyId,
-          canClick: true
+          canClick: true,
+          applyStatus: infos.status
         }
         wx.setStorageSync('createdCompany', formData)
         Object.keys(formData).map(field => this.setData({[field]: formData[field]}))

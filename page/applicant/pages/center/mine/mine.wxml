@@ -42,16 +42,16 @@
 
   <!-- bottom -->
   <view class="entry-list">
-		<!-- <view class="li">
+		<view class="li">
 			<view>
         <i class="icon iconfont icon-fujian"></i>
         <view class="text">附件简历</view>
       </view>
 			<view class='arrow-box'>
-        <view class="text2 appurtenance" bindtap="preview">上传附件</view>
+        <view class="text2 appurtenance" bindtap="jump" data-type="scanCode">上传附件</view>
         <i class="icon iconfont icon-xiangyou"></i>
       </view>
-		</view> -->
+		</view>
 		<!-- <view class="li">
 			<view>
         <i class="icon iconfont icon-ganxingqu"></i>

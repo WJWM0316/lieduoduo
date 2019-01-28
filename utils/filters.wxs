@@ -118,42 +118,6 @@ var positionFilter = function(num) {
   return status
 }
 
-var chatFilter = function(num) {
-  var status = null
-  switch(num) {
-    case 11:
-      status = '求职者已申请成为招聘管'
-      break
-    case 12:
-      status = '求职者已收到招聘管的邀请'
-      break
-    case 21:
-      status = '求职者等待招聘官安排面试'
-      break
-    case 31:
-      status = '招聘管等待求职者确认信息'
-      break
-    case 32:
-      status = '求职者等待招聘管修改面试信息'
-      break
-    case 41:
-      status = '招聘管已安排求职者面试'
-      break
-    case 51:
-      status = '招聘管已安排求职者面试结束'
-      break
-    case 52:
-      status = '招聘管设置求职者不合适'
-      break
-    case 53:
-      status = '系统设置求职者不合适'
-      break
-    default:
-      break
-  }
-  return status
-}
-
 // 手机格式转化
 var mobileFormat = function(mobile, type) {
   var mobile = mobile
@@ -165,9 +129,41 @@ var mobileFormat = function(mobile, type) {
   return mobile
 }
 
+// 文件后缀
+var fileFormat = function(ext) {
+  var defaultSrc = null
+  switch(ext) {
+    case 'xls':
+      defaultSrc = 'https://lieduoduo-uploads-test.oss-cn-shenzhen.aliyuncs.com/front-assets/images/xls.png'
+      break
+    case 'xlsx':
+      defaultSrc = 'https://lieduoduo-uploads-test.oss-cn-shenzhen.aliyuncs.com/front-assets/images/xls.png'
+      break
+    case 'ppt':
+      defaultSrc = 'https://lieduoduo-uploads-test.oss-cn-shenzhen.aliyuncs.com/front-assets/images/ppt.png'
+      break
+    case 'pptx':
+      defaultSrc = 'https://lieduoduo-uploads-test.oss-cn-shenzhen.aliyuncs.com/front-assets/images/ppt.png'
+      break
+    case 'pdf':
+      defaultSrc = 'https://lieduoduo-uploads-test.oss-cn-shenzhen.aliyuncs.com/front-assets/images/pdf.png'
+      break
+    case 'doc':
+      defaultSrc = 'https://lieduoduo-uploads-test.oss-cn-shenzhen.aliyuncs.com/front-assets/images/word.png'
+      break
+    case 'docx':
+      defaultSrc = 'https://lieduoduo-uploads-test.oss-cn-shenzhen.aliyuncs.com/front-assets/images/word.png'
+      break
+    default:
+      break
+  }
+  return defaultSrc
+}
+
 module.exports = {
   dateFormat: dateFormat,
   activeTime: activeTime,
   mobileFormat: mobileFormat,
-  positionFilter: positionFilter
+  positionFilter: positionFilter,
+  fileFormat: fileFormat
 }
