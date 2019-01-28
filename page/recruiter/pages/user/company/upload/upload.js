@@ -65,10 +65,11 @@ Page({
     createCompanyApi(formData)
       .then(res => {
         app.wxToast({title: res.msg})
+        const storage = wx.getStorageSync('createdCompany')
         const options = this.data.options
         const url = options.action && options.action === 'edit'
           ? `${RECRUITER}user/company/status/status?from=company`
-          : `${RECRUITER}user/company/identity/identity?type=create`
+          : `${RECRUITER}user/company/identity/identity?type=create&realName=${storage.real_name}`
         wx.redirectTo({url})
         wx.removeStorageSync('createdCompany')
       })

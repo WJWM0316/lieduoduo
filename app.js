@@ -338,9 +338,11 @@ App({
     } else {
       wx.setStorageSync('choseType', 'RECRUITER')
       if (!this.globalData.isRecruiter) {
-        wx.navigateTo({
-          url: `${RECRUITER}user/company/apply/apply`
-        })
+        // wx.navigateTo({
+        //   url: `${RECRUITER}user/company/apply/apply`
+        // })
+        // 重新请求一下接口
+        this.getAllInfo()
       } else {
         this.getAllInfo().then(res => {
           wx.reLaunch({

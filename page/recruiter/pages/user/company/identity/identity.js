@@ -26,7 +26,7 @@ Page({
     applyJoin: false
   },
   onLoad(options) {
-    this.setData({options})
+    this.setData({options, real_name: options.realName ? options.realName : ''})
     if(options.action && options.action === 'edit') this.getCompanyIdentityInfos()
   },
   /**

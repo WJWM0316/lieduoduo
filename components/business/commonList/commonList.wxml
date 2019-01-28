@@ -9,6 +9,7 @@
 		data-jobhunterUid="{{item.jobhunterUid}}"
 		data-uid="{{item.uid}}"
 		data-recruiterUid="{{item.recruiterUid}}"
+		data-positionId="{{item.positionId}}"
 		bindtap="routeJump">
 			<view class="img-box">
 				<image src="{{item.avatar.smallUrl}}"></image>

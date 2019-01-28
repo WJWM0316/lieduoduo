@@ -10,12 +10,11 @@ Page({
   data: {
     navH: app.globalData.navHeight,
     cdnPath: app.globalData.cdnImagePath,
-    attachResume: {
-      vkey: ''
-    }
+    attachResume: {vkey: ''}
   },
   onLoad() {
-    this.getAttachResume()
+    const attachResume = app.globalData.resumeInfo.resumeAttach ? app.globalData.resumeInfo.resumeAttach : this.data.attachResume
+    this.setData({attachResume})
   },
   /**
    * @Author   小书包

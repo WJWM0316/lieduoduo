@@ -17,6 +17,7 @@
   align-items: center;
   position: relative;
   width: 100%;
+  margin-bottom: 24rpx;
 }
 
 .recruiterList .li .img-box {
