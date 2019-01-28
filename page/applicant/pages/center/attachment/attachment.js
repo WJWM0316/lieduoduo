@@ -44,5 +44,22 @@ Page({
         })
       }
     })
-  }
+  },
+  preview() {
+    wx.downloadFile({
+      url: 'https://lieduoduo-uploads-test.oss-cn-shenzhen.aliyuncs.com/front-assets/file/111.pdf',
+      success(res) {
+        const filePath = res.tempFilePath
+        wx.openDocument({
+          filePath,
+          success(res) {
+            console.log('打开文档成功')
+          }
+        })
+      },
+      fail(e) {
+        console.log(e)
+      }
+    })
+  },
 })

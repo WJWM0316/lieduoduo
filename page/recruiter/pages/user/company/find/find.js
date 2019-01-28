@@ -181,7 +181,8 @@ Page({
     justifyCompanyExistApi({name: this.data.company_name})
       .then(res => {
         const options = this.data.options
-        const action = options.action === 'edit' ? 'editApplyCompany' : 'applyCompany'
+        const storage = wx.getStorageSync('createdCompany')
+        const action = options.action === 'edit' && storage.applyStatus !== 2 ? 'editApplyCompany' : 'applyCompany'
         if(res.data.exist) {
           this[action](res.data.id)
         } else {
