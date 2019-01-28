@@ -14,7 +14,7 @@ export const shareResume = (res) => {
 		'嘿，该不会没看出来我超靠谱的吧',
 		'看上我的人实在太多，抓紧机会~'
 	]
-	let random = Math.floor((Math.random()*txtList.length)+1)
+	let random = Math.floor((Math.random()*txtList.length))
 	return txtList[random]
 }
 
@@ -24,7 +24,7 @@ export const shareRecruiter = (res) => {
 		'我这么Nice的招聘官已经不多见了！',
 		'TA正在猎多多招人！'
 	]
-	let random = Math.floor((Math.random()*txtList.length)+1)
+	let random = Math.floor((Math.random()*txtList.length))
 	return txtList[random]
 }
 
@@ -39,7 +39,7 @@ export const sharePosition = (res) => {
 		'把握住缘分，搞不好能成为同事~',
 		'我这么Nice的招聘官已经不多见了！'
 	]
-	let random = Math.floor((Math.random()*txtList.length)+1)
+	let random = Math.floor((Math.random()*txtList.length))
 	return txtList[random]
 }
 

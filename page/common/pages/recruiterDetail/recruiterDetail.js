@@ -240,8 +240,8 @@ Page({
     if (!this.options.uid || parseInt(this.options.uid) === app.globalData.resumeInfo.uid) {
       getRecruiterDetailApi().then(res => {
         app.globalData.recruiterDetails = res.data
-        wx.stopPullDownRefresh()
         this.setData({info: app.globalData.recruiterDetails, hasReFresh: false})
+        wx.stopPullDownRefresh()
       })
     } else {
       this.getOthersInfo().then(res => {

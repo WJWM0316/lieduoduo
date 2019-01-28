@@ -4,6 +4,8 @@ import { getPersonalResumeApi } from '../../../../api/pages/center.js'
 import { inviteInterviewApi } from '../../../../api/pages/interview.js'
 import { getMyCollectUserApi, deleteMyCollectUserApi } from '../../../../api/pages/collect.js'
 import {APPLICANT} from '../../../../config.js'
+import {shareResume} from '../../../../utils/shareWord.js'
+
 let isPreview = false
 const app = getApp()
 let resumeInfo = null
@@ -87,7 +89,9 @@ Page({
     return new Promise((resolve, reject) => {
       getPersonalResumeApi({uid: this.data.options.uid}).then(res => {
         this.setData({info: res.data})
-        this.selectComponent('#interviewBar').init()
+        if (this.selectComponent('#interviewBar')) {
+          this.selectComponent('#interviewBar').init()
+        }
         resolve(res)
       })
     })
@@ -163,5 +167,13 @@ Page({
         wx.stopPullDownRefresh()
       })
     }
+  },
+  onShareAppMessage(options) {
+    let that = this
+　　return app.wxShare({
+      options,
+      title: shareResume(),
+      imageUrl: `${that.data.cdnImagePath}shareC.png`
+    })
   }
 })
