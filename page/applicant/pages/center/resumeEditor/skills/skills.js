@@ -47,7 +47,6 @@ Page({
       getLabelProfessionalSkillsApi().then(response => {
         const professionalSkills = response.data.labelProfessionalSkills
         let skills = wx.getStorageSync('fildsLabel') || []
-        console.log(skills, 1111111111)
         skills.map((item, index) => {
           professionalSkills.map((n ,j) => {
             if (item === n.name || item.name === n.name) {
@@ -56,7 +55,6 @@ Page({
           })
         })
         skills = professionalSkills.filter(field => field.active)
-        console.log(skills, 22222222222)
         this.setData({professionalSkills, skills})
       })
     }
