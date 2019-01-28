@@ -114,6 +114,7 @@ Page({
     const params = e.currentTarget.dataset
     // 判断是公司地址还是职位地址
     const options = this.data.options
+    console.log(params, options)
     wx.navigateTo({url: `${RECRUITER}position/address/address?id=${params.id}&type=${options.type}&selected=${options.selected}`})
   },
   /**

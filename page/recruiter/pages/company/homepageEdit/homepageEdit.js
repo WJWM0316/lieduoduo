@@ -37,7 +37,7 @@ Page({
         wx.navigateTo({url: `${RECRUITER}position/addressList/addressList?type=company&selected=0`})
         break
       case 'base':
-        wx.navigateTo({url: `${COMMON}recruiterDetail/recruiterDetail?uid=${app.globalData.recruiterDetails.uid}`})
+        wx.navigateTo({url: `${RECRUITER}company/baseEdit/baseEdit`})
         break
       case 'product':
         wx.navigateTo({url: `${RECRUITER}company/productList/productList?companyId=${app.globalData.recruiterDetails.companyInfo.id}`})

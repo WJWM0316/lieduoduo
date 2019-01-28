@@ -46,3 +46,11 @@
 .backHome {
   font-size: 39rpx;
 }
+
+.page-title {
+  max-width: 350rpx;
+  display: inline-block;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}

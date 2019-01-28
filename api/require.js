@@ -34,7 +34,6 @@ export const request = ({method = 'post', url, data = {}, needKey = true, hasLoa
       data: data,
       method: method,
       success(res) {
-        console.log(url, res)
         if (typeof res.data === 'string') { // 转换返回json
           res.data = JSON.parse(res.data)
         }
