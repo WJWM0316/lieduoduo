@@ -7,7 +7,7 @@
 	 			<i class="icon iconfont icon-chakan"></i>
 	 			看看别人怎么写
 	 		</view>
-	 		<view class="number">{{content.length}}/5000</view>
+	 		<view class="number">{{content.length || 0}}/5000</view>
 	 	</view>
 	 </view>
 	 <view class="btnBox">

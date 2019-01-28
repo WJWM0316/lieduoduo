@@ -39,21 +39,29 @@ Page({
       ctx.fillText(`${info.lastCompanyName} | ${info.lastPosition}`, 375, curHeight)
     }
     
-    curHeight = curHeight + 28
-    ctx.drawImage('../../../../../images/a7.png', 0, curHeight, 750, 120)
-    ctx.setFillStyle('#EFE9F4')
-    ctx.fillRect(278, curHeight, 195, 38)
-    ctx.setFontSize(24)
-    ctx.setFillStyle('#652791')
-    ctx.fillText(info.jobStatusDesc, 375, curHeight + 28)
+    if (info.jobStatusDesc) {
+      curHeight = curHeight + 28
+      ctx.drawImage('../../../../../images/a7.png', 0, curHeight, 750, 120)
+      ctx.setFillStyle('#EFE9F4')
+      ctx.fillRect(278, curHeight, 195, 38)
+      ctx.setFontSize(24)
+      ctx.setFillStyle('#652791')
+      ctx.fillText(info.jobStatusDesc, 375, curHeight + 28)
+    }
 
      curHeight = curHeight + 60
 
     ctx.setFontSize(24)
     ctx.setTextAlign('left')
      ctx.setFillStyle('#282828')
+    let ageDesc = ''
+    if (!info.age) {
+      ageDesc = '未填'
+    } else {
+      ageDesc = `${info.age}岁`
+    }
     let cityWidth = ctx.measureText(info.workAgeDesc).width
-    let edWidth = ctx.measureText(`${info.age}岁`).width
+    let edWidth = ctx.measureText(ageDesc).width
     let exWidth = ctx.measureText(`${info.degreeDesc}`).width
 
     let allWidth = cityWidth + edWidth + exWidth + 90 + 30 + 80
@@ -62,67 +70,71 @@ Page({
     msgWidth = msgWidth + 40
     ctx.fillText(info.workAgeDesc, msgWidth, curHeight + 25)
     msgWidth = msgWidth + cityWidth + 40
-    ctx.drawImage('../../../../../images/a2.png', msgWidth, curHeight, 30, 30)
+    ctx.drawImage('../../../../../images/a4.png', msgWidth, curHeight, 30, 30)
     msgWidth = msgWidth + 40
-    ctx.fillText(`${info.age}岁`, msgWidth, curHeight + 25)
+    ctx.fillText(ageDesc, msgWidth, curHeight + 25)
     msgWidth = msgWidth + exWidth + 40
-    ctx.drawImage('../../../../../images/a3.png', msgWidth, curHeight, 30, 30)
+    ctx.drawImage('../../../../../images/a2.png', msgWidth, curHeight, 30, 30)
     msgWidth = msgWidth + 40
     ctx.fillText(info.degreeDesc, msgWidth, curHeight + 25)
 
     ctx.drawImage('../../../../../images/a7.png', 0, curHeight + 30, 750, 50)
     // 画个性标签
-    curHeight = curHeight + 76
-    
-    let r = 24
-    let nextLabel = true
-    let position = {}
-    position = {
-      x: 78,
-      y: curHeight
-    }
-    ctx.setFontSize(26)
-    ctx.setStrokeStyle('#fff')
-    ctx.setLineWidth(1)
-    ctx.drawImage('../../../../../images/a7.png', 0, curHeight, 750, 65)
-    info.personalizedLabels.map((item, index) => {
-      addLabel(item, index)
-    })
-    function addLabel(item, index) {
+    // 
+    if (info.personalizedLabels.length > 0) {
+      curHeight = curHeight + 76
+      let r = 24
+      let nextLabel = true
+      let position = {}
+      position = {
+        x: 78,
+        y: curHeight
+      }
+      ctx.setFontSize(26)
+      ctx.setStrokeStyle('#fff')
+      ctx.setLineWidth(1)
+      ctx.drawImage('../../../../../images/a7.png', 0, curHeight, 750, 65)
+      info.personalizedLabels.map((item, index) => {
+        addLabel(item, index)
+      })
+      function addLabel(item, index) {
       // 下个标签的宽度
-      let newLabelWidth = 0
-      if (index < info.personalizedLabels.length-1) {
-        newLabelWidth = ctx.measureText(info.personalizedLabels[index+1]).width + 2*r
-      }
-      
-      let metricsW = ctx.measureText(item.labelName || item.name).width // 文本宽度
-      ctx.setFillStyle('#652791')
-      ctx.fillText(item.labelName || item.name, position.x + r, position.y + r + 10)
-      ctx.setStrokeStyle('#CEC5DF')
-      ctx.beginPath()
-      ctx.moveTo(position.x + r, position.y)
-      ctx.lineTo(position.x + r + metricsW, position.y)
-      ctx.stroke()
-      ctx.beginPath()
-      ctx.arc(position.x + r, position.y + r, r, 0.5*Math.PI, 1.5*Math.PI)
-      ctx.stroke()
-      ctx.beginPath()
-      ctx.moveTo(position.x + r + metricsW, position.y + 2*r)
-      ctx.lineTo(position.x + r, position.y + 2*r)
-      ctx.stroke()
-      ctx.beginPath()
-      ctx.arc(position.x + r + metricsW, position.y + r, r, 1.5*Math.PI, 0.5*Math.PI)
-      ctx.stroke()
-      // 下一个标签的横坐标
-      position.x = position.x + 2*r + metricsW + 16
-      // 判断是否需要换行
-      if (newLabelWidth > (750 - position.x)) {
-        position.x = 78
-        position.y = position.y + 2*r + 15
-        curHeight = position.y
-        ctx.drawImage('../../../../../images/a7.png', 0, curHeight, 750, 65)
+        let newLabelWidth = 0
+        if (index < info.personalizedLabels.length-1) {
+          newLabelWidth = ctx.measureText(info.personalizedLabels[index+1].labelName || info.personalizedLabels[index+1].name).width + 2*r
+        }
+        
+        let metricsW = ctx.measureText(item.labelName || item.name).width // 文本宽度
+        ctx.setFillStyle('#652791')
+        ctx.fillText(item.labelName || item.name, position.x + r, position.y + r + 10)
+        ctx.setStrokeStyle('#CEC5DF')
+        ctx.beginPath()
+        ctx.moveTo(position.x + r, position.y)
+        ctx.lineTo(position.x + r + metricsW, position.y)
+        ctx.stroke()
+        ctx.beginPath()
+        ctx.arc(position.x + r, position.y + r, r, 0.5*Math.PI, 1.5*Math.PI)
+        ctx.stroke()
+        ctx.beginPath()
+        ctx.moveTo(position.x + r + metricsW, position.y + 2*r)
+        ctx.lineTo(position.x + r, position.y + 2*r)
+        ctx.stroke()
+        ctx.beginPath()
+        ctx.arc(position.x + r + metricsW, position.y + r, r, 1.5*Math.PI, 0.5*Math.PI)
+        ctx.stroke()
+        // 下一个标签的横坐标
+        position.x = position.x + 2*r + metricsW + 16
+        // 判断是否需要换行
+        if (newLabelWidth > (750 - 78 - position.x)) {
+          position.x = 78
+          position.y = position.y + 2*r + 15
+          curHeight = position.y
+          ctx.drawImage('../../../../../images/a7.png', 0, curHeight, 750, 65)
+        }
       }
     }
+    
+
 
     // 个人简介
     let descWidth = 0
@@ -132,27 +144,27 @@ Page({
     ctx.setFontSize(28)
     ctx.setFillStyle('#282828')
     ctx.drawImage('../../../../../images/a7.png', 0, curHeight, 750, 78)
-    curHeight = curHeight + 10
-    if (info.signature) {
-      if (ctx.measureText(info.signature).width > 590) {
-        for (let i = 0; i < info.signature.length; i++) {
-          descString = descString + info.signature[i]
-          descWidth = ctx.measureText(descString).width
-          if (descWidth > 590) {
-            ctx.drawImage('../../../../../images/a7.png', 0, curHeight, 750, 110)
-            ctx.fillText(descString.slice(0, descString.length-1), 80, curHeight + 30)
-            descString = ''
-            curHeight += 48
-          }
+    curHeight = curHeight + 30
+    if (!info.signature) info.signature = '你还未填写个性签名，说说你的想法吧~'
+    info.signature = info.signature.replace(/[\r\n]/g, "")
+    if (ctx.measureText(info.signature).width > 590) {
+      let iIndex = 0 // 最后一行的第一个字的索引
+      for (let i = 0; i < info.signature.length; i++) {
+        descString = descString + info.signature[i]
+        descWidth = ctx.measureText(descString).width
+        if (descWidth > 590) {
+          iIndex = i
+          ctx.drawImage('../../../../../images/a7.png', 0, curHeight, 750, 110)
+          ctx.fillText(descString.slice(0, descString.length-1), 80, curHeight + 30)
+          curHeight = curHeight + 48
+          descString = ''
         }
-      } else {
-        ctx.fillText(info.signature, 80, curHeight + 30)
       }
+      ctx.fillText(info.signature.slice(iIndex, info.signature.length-1), 80, curHeight + 30)
+    } else {
+      ctx.fillText(info.signature, 80, curHeight + 30)
     }
-    
-
     curHeight = curHeight + 60
-
 
     // 求职意向
     ctx.drawImage('../../../../../images/a7.png', 0, curHeight, 750, 100)

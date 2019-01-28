@@ -5,7 +5,7 @@
 		<image class='showImg' src="{{imgUrl}}" style="width: 100%;" mode="widthFix"></image>
 	</view>
 	<view style="height: 90rpx;"></view>
-	<view class="save">
+	<view class="save" hidden="{{!imgUrl}}">
 		<view class="saveBtn" bindtap="saveImg" wx:if="{{openSet}}">
 			<view class="yellow">保存图片</view>
 			<view class="violet"></view>

@@ -7,6 +7,14 @@ Component({
     status: {
       type: Number,
       value: 0  // 0 不存在 1 正在加载  2 没有更多数据
+    },
+    listData: {
+      type: Array,
+      value: []
+    },
+    desc: {
+      type: String,
+      value: '没有一丁点数据哦~'
     }
   },
 

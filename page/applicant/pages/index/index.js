@@ -161,6 +161,18 @@ Page({
         })
     })
   },
+  jump () {
+    if (this.data.pageList === 'myBrowse') {
+      wx.switchTab({
+        url: `${APPLICANT}jobs/job/job`
+      })
+    } else {
+      wx.navigateTo({
+        url: `${APPLICANT}officerActive/more/more`
+      })
+    }
+    
+  },
   /**
    * @Author   小书包
    * @DateTime 2019-01-21

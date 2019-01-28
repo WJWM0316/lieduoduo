@@ -183,6 +183,7 @@ Page({
     let descWidth = 0
     let descString = ''
     let descIndex = 0
+    
     curHeight = curHeight + 90
     ctx.setFontSize(28)
     ctx.setFillStyle('#282828')
@@ -190,15 +191,21 @@ Page({
       for (let i = 0; i < info.describe.length; i++) {
         descString = descString + info.describe[i]
         descWidth = ctx.measureText(descString).width
+        if (!info.describe) info.describe = '你还未填写职位详情，快去填写吧~'
+        info.describe = info.describe.replace(/[\r\n]/g, "")
         if (descWidth > 590) {
+          let iIndex = 0 // 最后一行的第一个字的索引
           ctx.drawImage('../../../../../images/c2.png', 0, curHeight, 750, 48)
           ctx.fillText(descString.slice(0, descString.length-1), 80, curHeight)
           descString = ''
           curHeight += 48
         }
       }
+      ctx.fillText(info.describe.slice(iIndex, info.describe.length-1), 80, curHeight)
     } else {
+      ctx.drawImage('../../../../../images/c2.png', 0, curHeight, 750, 90)
       ctx.fillText(info.describe, 80, curHeight)
+      curHeight = curHeight + 30
     }
     ctx.drawImage('../../../../../images/c4.png', 0, curHeight - 200, 74, 92)
     ctx.drawImage(qrCodeUrl, 77, curHeight + 80, 167, 167)
