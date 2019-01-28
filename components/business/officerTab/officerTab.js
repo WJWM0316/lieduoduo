@@ -66,6 +66,9 @@ Component({
           })
         }
       })
+    },
+    formSubmit(e) {
+      console.log(e)
     }
   }
 })

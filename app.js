@@ -1,13 +1,15 @@
       //app.js
 import {loginApi, bindPhoneApi} from 'api/pages/auth.js'
+import {formIdApi} from 'api/pages/common.js'
 import {getPersonalResumeApi} from 'api/pages/center.js'
 import {getRecruiterDetailApi} from 'api/pages/recruiter.js'
 import {COMMON,RECRUITER,APPLICANT} from "config.js"
 import {getUserRoleApi} from "api/pages/user.js"
 import {quickLoginApi} from 'api/pages/auth.js'
-
+import {shareC, shareB} from 'utils/shareWord.js'
 let app = getApp()
 let that = null
+let formIdList = []
 App({
   onLaunch: function () {
     // 获取导航栏高度
@@ -278,20 +280,29 @@ App({
   wxShare({options, title, path, imageUrl, btnTitle, btnPath, btnImageUrl}) {
     let that = this
     // 设置菜单中的转发按钮触发转发事件时的转发内容
+    if (!title) {
+      title = wx.getStorageSync('choseType') === 'APPLICANT' ? shareC : shareB
+    }
+    if (!path) {
+      path = wx.getStorageSync('choseType') === 'APPLICANT' ? `${APPLICANT}index/index` : `${RECRUITER}index/index`
+    }
+    if (!imageUrl) {
+      imageUrl = wx.getStorageSync('choseType') === 'APPLICANT' ? `${this.globalData.cdnImagePath}shareC.png` : `${this.globalData.cdnImagePath}shareB.png`
+    }
     let shareObj = {
-      title: title || "小程序找工作神器",        // 默认是小程序的名称(可以写slogan等)
-      path: path || '/page/applicant/pages/index/index',        // 默认是当前页面，必须是以‘/’开头的完整路径
-      imageUrl: imageUrl || './images/choseIcon1.png',     //自定义图片路径，可以是本地文件路径、代码包文件路径或者网络图片路径，支持PNG及JPG，不传入 imageUrl 则使用默认截图。显示图片长宽比是 5:4
+      title: title,        // 默认是小程序的名称(可以写slogan等)
+      path: path,        // 默认是当前页面，必须是以‘/’开头的完整路径
+      imageUrl: imageUrl,     //自定义图片路径，可以是本地文件路径、代码包文件路径或者网络图片路径，支持PNG及JPG，不传入 imageUrl 则使用默认截图。显示图片长宽比是 5:4
       success: function(res){
         // 转发成功之后的回调
-        if(res.errMsg == 'shareAppMessage:ok'){
+        if (res.errMsg == 'shareAppMessage:ok'){
         }
       },
       fail: function(){
         // 转发失败之后的回调
-        if(res.errMsg == 'shareAppMessage:fail cancel'){
+        if (res.errMsg == 'shareAppMessage:fail cancel'){
         // 用户取消转发
-        }else if(res.errMsg == 'shareAppMessage:fail'){
+        } else if (res.errMsg == 'shareAppMessage:fail'){
         // 转发失败，其中 detail message 为详细失败信息
         }
       }
@@ -305,6 +316,7 @@ App({
         imageUrl: btnImageUrl || shareObj.imageUrl
       }
     }
+    console.log(shareObj, 1111111)
     return shareObj
   },
   // 切换身份
@@ -336,6 +348,16 @@ App({
           })
         })
       }
+    }
+  },
+  // 收集formId
+  postFormId(id) {
+    formIdList.push(id)
+    console.log(formIdList, 'form_id')
+    if (formIdList.length >= 1) {
+      formIdApi({form_id:formIdList}).then(res => {
+        formIdList = []
+      })
     }
   }
 })

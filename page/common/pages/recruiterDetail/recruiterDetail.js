@@ -3,6 +3,7 @@ import {getOthersRecruiterDetailApi, getRecruiterDetailApi, giveMecallApi, putLa
 import {getPositionListApi} from "../../../../api/pages/position.js"
 import {getMyCollectUserApi, deleteMyCollectUserApi} from "../../../../api/pages/collect.js"
 import {COMMON,RECRUITER,APPLICANT} from "../../../../config.js"
+import {shareRecruiter} from '../../../../utils/shareWord.js'
 
 let app = getApp()
 let positionTop = 0
@@ -248,5 +249,13 @@ Page({
         wx.stopPullDownRefresh()
       })
     }
+  },
+  onShareAppMessage(options) {
+    let that = this
+　　return app.wxShare({
+      options,
+      title: shareRecruiter(),
+      imageUrl: `${that.data.cdnImagePath}shareB.png`
+    })
   }
 })

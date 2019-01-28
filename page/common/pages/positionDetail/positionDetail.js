@@ -13,6 +13,8 @@ import {getUserRoleApi} from "../../../../api/pages/user.js"
 
 import {RECRUITER, COMMON} from '../../../../config.js'
 
+import {sharePosition} from '../../../../utils/shareWord.js'
+
 const app = getApp()
 
 Page({
@@ -144,5 +146,14 @@ Page({
       default:
         break
     }
+  },
+  onShareAppMessage(options) {
+    let that = this
+　　return app.wxShare({
+      options,
+      title: sharePosition(),
+      path: `${COMMON}positionDetail/positionDetail?positionId=${that.data.query.id}`,
+      imageUrl: `${that.data.cdnPath}positionList.png`
+    })
   }
 })

@@ -1,4 +1,3 @@
-// components/business/jobList/jobList.js
 Component({
   /**
    * 组件的属性列表
@@ -27,6 +26,10 @@ Component({
       wx.navigateTo({
         url: `/page/common/pages/positionDetail/positionDetail?positionId=${item.id}&companyId=${item.companyId}`
       })
+    },
+    formSubmit(e) {
+      console.log(e, '========================获取formID===================')
+      getApp().postFormId(e.detail.formId)
     }
   }
 })
