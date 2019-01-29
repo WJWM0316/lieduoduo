@@ -111,13 +111,12 @@ Component({
      * @return   {[type]}   [description]
      */
     getInterviewStatus() {
-      getInterviewStatusApi({type: this.data.type, vkey: this.data.infos.vkey})
-        .then(res => {
-          this.setData({interviewInfos: res.data, identity: wx.getStorageSync('choseType')})
-          if(res.code === 204) this.setData({isOwerner: true})
-          if(res.code === 230) this.showMergeBox(res.data)
-          if(res.code === 205) this.setData({isShare: true})
-        })
+      getInterviewStatusApi({type: this.data.type, vkey: this.data.infos.vkey}).then(res => {
+        this.setData({interviewInfos: res.data, identity: wx.getStorageSync('choseType')})
+        if(res.code === 204) this.setData({isOwerner: true})
+        if(res.code === 230) this.showMergeBox(res.data)
+        if(res.code === 205) this.setData({isShare: true})
+      })
     },
     /**
      * @Author   小书包
@@ -166,12 +165,11 @@ Component({
           if(this.data.type === 'recruiter') {
             wx.navigateTo({url: `${RECRUITER}position/jobList/jobList?type=job_hunting_chat&from=${this.data.currentPage}&showNotPositionApply=${interviewInfos.showNotPositionApply}&from=${this.data.currentPage}&recruiterUid=${this.data.infos.uid}`})
           } else {
-            applyInterviewApi({recruiterUid: this.data.infos.recruiterInfo.uid, positionId: this.data.infos.id})
-              .then(res => {
-                this.getInterviewStatus()
-                app.wxToast({title: '面试申请已发送'})
-                // this.triggerEvent('resultevent', this.data.infos)
-              })
+            applyInterviewApi({recruiterUid: this.data.infos.recruiterInfo.uid, positionId: this.data.infos.id}).then(res => {
+              this.getInterviewStatus()
+              app.wxToast({title: '面试申请已发送'})
+              // this.triggerEvent('resultevent', this.data.infos)
+            })
           }
           // let uid = ''
           // let positionId = ''
@@ -193,6 +191,16 @@ Component({
           //   })
           break
         case 'job-hunting-applyed':
+          // app.wxConfirm({
+          //   title: '开撩约面',
+          //   content: '该招聘官已邀请你面试了哦，暂时不能再申请约面',
+          //   confirmText: '去看看',
+          //   showCancel: true,
+          //   cancelText: '知道了',
+          //   confirmBack() {
+          //     wx.navigateTo({url: `${COMMON}arrangement/arrangement?id=${interviewInfos.data[0].interviewId}`})
+          //   }
+          // })
           app.wxToast({title: '面试申请已发送'})
           break
         case 'recruiter-chat':
@@ -207,21 +215,18 @@ Component({
           break
         // 求职者接受约面
         case 'job-hunting-accept':
-          confirmInterviewApi({id: interviewInfos.data[0].interviewId})
-            .then(res => {
-              app.wxToast({title: '已接受约面'})
-              // this.triggerEvent('resultevent', this.data.infos)
-              this.getInterviewStatus()
-            })
+          confirmInterviewApi({id: interviewInfos.data[0].interviewId}).then(res => {
+            app.wxToast({title: '已接受约面'})
+            // this.triggerEvent('resultevent', this.data.infos)
+            this.getInterviewStatus()
+          })
           break
         // 求职端拒绝招聘官
         case 'job-hunting-reject':
           if(this.data.type === 'recruiter') {
-            refuseInterviewApi({id: this.data.infos.uid})
-              .then(res => {
-                this.getInterviewStatus()
-              })
-            // wx.navigateTo({url: `${RECRUITER}position/jobList/jobList?type=reject_chat&from=${this.data.currentPage}&showNotPositionApply=${interviewInfos.showNotPositionApply}&from=${this.data.currentPage}&jobhunterUid=${this.data.infos.uid}&recruiterUid=${app.globalData.recruiterDetails.uid}`})
+            refuseInterviewApi({id: this.data.infos.uid}).then(res => {
+              this.getInterviewStatus()
+            })
           } else {
             app.wxConfirm({
               title: '暂不考虑该职位',
@@ -232,11 +237,10 @@ Component({
               cancelColor: '#BCBCBC',
               confirmColor: '#652791',
               confirmBack: () => {
-                refuseInterviewApi({id: interviewInfos.data[0].interviewId})
-                  .then(res => {
-                    this.getInterviewStatus()
-                    // this.triggerEvent('resultevent', res)
-                  })
+                refuseInterviewApi({id: this.data.infos.recruiterInfo.uid}).then(res => {
+                  this.getInterviewStatus()
+                  // this.triggerEvent('resultevent', res)
+                })
               }
             })
           }
@@ -256,10 +260,9 @@ Component({
               cancelColor: '#BCBCBC',
               confirmColor: '#652791',
               confirmBack: () => {
-                refuseInterviewApi({id: infos.uid})
-                  .then(() => {
-                    this.getInterviewStatus()
-                  })
+                refuseInterviewApi({id: infos.uid}).then(() => {
+                  this.getInterviewStatus()
+                })
               }
             })
           }
@@ -294,11 +297,10 @@ Component({
             wx.navigateTo({url: `${RECRUITER}position/jobList/jobList?type=confirm_chat&from=${this.data.currentPage}`})
             wx.setStorageSync('interviewChatLists', this.data.interviewInfos)
           } else {
-            confirmInterviewApi({id: interviewInfos.data[0].interviewId})
-              .then(res => {
-                // this.triggerEvent('resultevent', res)
-                wx.navigateTo({url: `${COMMON}arrangement/arrangement?id=${interviewInfos.data[0].interviewId}`})
-              })
+            confirmInterviewApi({id: interviewInfos.data[0].interviewId}).then(res => {
+              // this.triggerEvent('resultevent', res)
+              wx.navigateTo({url: `${COMMON}arrangement/arrangement?id=${interviewInfos.data[0].interviewId}`})
+            })
           }
           break
         case 'recruiter-apply':

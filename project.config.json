@@ -265,7 +265,7 @@
 				{
 					"id": 37,
 					"name": "招聘管-选择职位",
-					"pathName": "page/recruiter/pages/position/description/description",
+					"pathName": "page/recruiter/pages/position/search/search",
 					"query": "type=position&selected=1"
 				},
 				{

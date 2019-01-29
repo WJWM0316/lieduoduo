@@ -76,8 +76,8 @@
         <block wx:if="{{item.positionId || item.id}}">
           <view class="content">
             <view class="title">
-              <text class="txt1">{{item.positionName}}</text>
-              <text class="txt2">{{item.emolumentMin}}~{{item.emolumentMax}}k</text>
+              <view class="txt1">{{item.positionName}}</view>
+              <view class="txt2">{{item.emolumentMin}}~{{item.emolumentMax}}k</view>
             </view>
             <view class="labels">
               <text class="txt">{{item.city}}{{item.district}}</text>

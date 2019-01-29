@@ -2,6 +2,10 @@ import { getPositionListApi, getPositionListNumApi } from '../../../../../api/pa
 
 import {RECRUITER, COMMON} from '../../../../../config.js'
 
+import {
+  getCompanyIdentityInfosApi
+} from '../../../../../api/pages/company.js'
+
 const app = getApp()
 
 Page({
@@ -26,9 +30,11 @@ Page({
       isLastPage: false,
       isRequire: false
     },
-    hasReFresh: false
+    hasReFresh: false,
+    identityInfos: {}
   },
   onLoad() {
+    if(app.globalData.recruiterDetails.identityAuth !== 1) this.getCompanyIdentityInfos()
   },
   onShow() {
     let onLinePosition = {
@@ -49,6 +55,49 @@ Page({
       this.setData({onLinePosition, offLinePosition, onLinePositionNum: res.data.online, offLinePositionNum: res.data.offline})
       this.getLists()
     })
+  },
+  /**
+   * @Author   小书包
+   * @DateTime 2019-01-29
+   * @detail   获取个人身份信息
+   * @return   {[type]}   [description]
+   */
+  getCompanyIdentityInfos() {
+    getCompanyIdentityInfosApi().then(res => {
+      this.setData({identityInfos: res.data})
+    })
+  },
+  /**
+   * @Author   小书包
+   * @DateTime 2019-01-29
+   * @detail   发布职位
+   * @return   {[type]}   [description]
+   */
+  publicPosition() {
+    const identityInfos = this.data.identityInfos
+    if(!identityInfos.identityNum) {
+      app.wxConfirm({
+        title: '您的身份尚未认证',
+        content: `请先认证`,
+        confirmText: '知道了',
+        confirmBack: () => {
+          wx.redirectTo({url: `${RECRUITER}user/company/identity/identity?type=create&realName=${identityInfos.realName}`})
+        }
+      })
+    } else {
+      if(identityInfos.status !== 1) {
+        app.wxConfirm({
+          title: '您的身份尚未认证成功',
+          content: `请先认证`,
+          confirmText: '知道了',
+          confirmBack: () => {
+            wx.redirectTo({url: `${RECRUITER}user/company/identity/identity?type=create&realName=${identityInfos.realName}&action=edit`})
+          }
+        })
+      } else {
+        wx.navigateTo({url: `${RECRUITER}position/post/post`})
+      }
+    }
   },
   /**
    * @Author   小书包
