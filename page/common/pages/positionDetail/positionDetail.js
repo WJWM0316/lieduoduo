@@ -28,6 +28,9 @@ Page({
     cdnPath: app.globalData.cdnImagePath
   },
   onLoad(options) {
+    if (options.scene) {
+      options = app.getSceneParams(options.scene)
+    }
     let identity = wx.getStorageSync('choseType')
     this.setData({query: options, identity})
   },
@@ -77,7 +80,6 @@ Page({
       })
     } else {
       app.pageInit = () => {
-        console.log(11122)
         if (identity === "APPLICANT") {
           myInfo = app.globalData.resumeInfo
         } else {
@@ -86,7 +88,6 @@ Page({
         getPositionApi({id: this.data.query.positionId})
           .then(res => {
             this.setData({detail: res.data, companyInfos: res.data.companyInfo, recruiterInfo: res.data.recruiterInfo, isOwner: myInfo.uid === res.data.recruiterInfo.uid})
-            console.log(this.data.detail.vkey, this.data.isOwner, this.data.identity, 1111111)
             if(this.selectComponent('#interviewBar')) this.selectComponent('#interviewBar').init()
         })
       }
@@ -130,7 +131,7 @@ Page({
         })
         break
       case 'share':
-        console.log('share')
+        if(this.selectComponent('#shareBtn')) this.selectComponent('#shareBtn').oper()
         break
       case 'edit':
         wx.navigateTo({url: `${RECRUITER}position/post/post?positionId=${this.data.detail.id}`})

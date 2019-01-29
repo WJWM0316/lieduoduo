@@ -1,6 +1,7 @@
 import { getRecruiterMyInfoApi } from '../../../../../../api/pages/recruiter.js'
 import {RECRUITER, COMMON} from '../../../../../../config.js'
 import {getUserRoleApi} from "../../../../../../api/pages/user.js"
+
 const app = getApp()
 
 Page({

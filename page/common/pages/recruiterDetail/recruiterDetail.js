@@ -31,6 +31,9 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
+    if (options.scene) {
+      options = app.getSceneParams(options.scene)
+    }
     let identity = wx.getStorageSync('choseType')
     this.setData({options, identity})
   },
@@ -256,7 +259,7 @@ Page({
     let that = this
 　　return app.wxShare({
       options,
-      title: shareRecruiter(),
+      title: shareRecruiter,
       path: `${COMMON}recruiterDetail/recruiterDetail?uid=${this.data.options.uid}`,
       imageUrl: `${that.data.cdnImagePath}shareC.png`
     })

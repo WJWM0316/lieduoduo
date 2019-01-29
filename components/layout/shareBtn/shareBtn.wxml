@@ -9,7 +9,7 @@
 	<view class="shareBox" bindtap="close" hidden="{{!showChoose}}">
 	</view>
 	<view class="choseBox" hidden="{{!showChoose}}">
-		<button class="share" open-type="share">转发给好友</button>
+		<button class="share" open-type="share" bindtap="close">转发给好友</button>
 		<button class="poster" bindtap="jump">生成海报</button>
 		<button class="close" bindtap="close" >取消</button>
 	</view>

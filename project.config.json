@@ -38,7 +38,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 44,
+			"current": 45,
 			"list": [
 				{
 					"id": 0,
@@ -309,6 +309,12 @@
 					"name": "职位详情",
 					"pathName": "page/common/pages/positionDetail/positionDetail",
 					"query": "positionId=186"
+				},
+				{
+					"id": 45,
+					"name": "职位详情",
+					"pathName": "page/common/pages/positionDetail/positionDetail",
+					"query": "scene=positionId%3d193"
 				}
 			]
 		}
