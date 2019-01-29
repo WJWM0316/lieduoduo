@@ -94,7 +94,7 @@
       <view class='expContent'>内容：{{item.description}}</view>
       <!-- 相关链接 -->
       <view class="link" wx:if="{{item.link}}">
-        链接：<text>{{item.link}}</text>
+        链接：<text bindtap="copy" data-copyData="{{item.link}}">{{item.link}}</text>
       </view>
     </view>
     <text class="add" data-editName="project" bindtap="edit" wx:if="{{isOwner && info.projects.length < 11}}" data-id="">添加项目经历</text>

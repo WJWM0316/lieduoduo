@@ -11,7 +11,7 @@
           </view>
           <!-- 公司情况 -->
           <view class="company">
-            <text>{{item.companyInfo.companyName}}</text>
+            <text>{{item.companyInfo.companyShortname}}</text>
             <text wx:if="{{item.companyInfo.financing === '1'}}"> | 未融资</text>
             <text wx:if="{{item.companyInfo.financing === '2'}}"> | 天使轮</text>
             <text wx:if="{{item.companyInfo.financing === '3'}}"> | A轮</text>

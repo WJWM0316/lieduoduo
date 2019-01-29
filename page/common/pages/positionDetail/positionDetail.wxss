@@ -1,6 +1,6 @@
 @import '../../../../iconfont.wxss';
 .job-detail {
-	padding-bottom: 140rpx;
+	padding-bottom: 160rpx;
 	width: 100%;
 	overflow: hidden;
 }
@@ -285,21 +285,20 @@
 	font-size: 26rpx;
 }
 
-.make-homepage .collect {
-	width:80rpx;
-	height:80rpx;
-	background:rgba(255,255,255,1);
-	box-shadow:0rpx 4rpx 14rpx 0rpx rgba(40,120,255,0.26);
-	border-radius:40rpx;
-	display: inline-block;
-	vertical-align: middle;
-	line-height: 80rpx;
-	text-align: center;
-	font-size: 40rpx;
-	position: absolute;
-	right: 20rpx;
-	top: 50%;
-	transform: translateY(-50%);
+.collect {
+	width: 80rpx;
+  height: 80rpx;
+  background: #fff;
+  box-shadow: 0rpx 4rpx 14rpx 0rpx rgba(101,39,145,0.18);
+  border-radius: 40rpx;
+  text-align: center;
+  line-height: 80rpx;
+  font-size: 32rpx;
+  color: #8452A7;
+  position: fixed;
+  right: 20rpx;
+  bottom: 164rpx;
+  z-index: 10;
 }
 
 .interview-bar {

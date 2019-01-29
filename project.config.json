@@ -38,7 +38,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 43,
+			"current": 44,
 			"list": [
 				{
 					"id": 0,
@@ -303,6 +303,12 @@
 					"name": "我的公司",
 					"pathName": "page/recruiter/pages/company/indexEdit/indexEdit",
 					"query": "action=edit&type=apply"
+				},
+				{
+					"id": -1,
+					"name": "职位详情",
+					"pathName": "page/common/pages/positionDetail/positionDetail",
+					"query": "positionId=186"
 				}
 			]
 		}

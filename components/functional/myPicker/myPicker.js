@@ -18,9 +18,6 @@ Component({
       type: String,
       value: null
     },
-    placeholderStyle: {
-      type: String
-    },
     needSlot: {
       type: Boolean,
       value: false
@@ -211,7 +208,7 @@ Component({
         result[1] = endNum.indexOf(this.data.setResult.split('~')[1])
         if (result[1] === -1) result = 0
         list = [startNum, endNum]
-        this.setData({list, result, mode: 'multiSelector', placeholder: '请选择期望薪'})
+        this.setData({list, result, mode: 'multiSelector', placeholder: '请选择期望薪资'})
         break
       case 'salaryRangeB':
         let startNumB = []

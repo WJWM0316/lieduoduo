@@ -13,6 +13,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    identity: '',
     showPage: false,
     isShrink: false,
     needShrink: false,
@@ -30,7 +31,8 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
-    this.setData({options})
+    let identity = wx.getStorageSync('choseType')
+    this.setData({options, identity})
   },
   getOthersInfo() {
     return new Promise((resolve, reject) => {

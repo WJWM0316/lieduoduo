@@ -126,6 +126,17 @@ Page({
       url: url
     })
   },
+  copy(e) {
+    wx.setClipboardData({
+      data: e.currentTarget.dataset.copydata,
+      success(res) {
+        app.wxToast({
+          title: '复制成功',
+          icon: 'success'
+        })
+      }
+    })
+  },
   /* 收藏 */
   collect() {
     let data = {
