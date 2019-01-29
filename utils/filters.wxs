@@ -137,25 +137,34 @@ var fileFormat = function(ext) {
   var defaultSrc = null
   switch(ext) {
     case 'xls':
-      defaultSrc = 'https://lieduoduo-uploads-test.oss-cn-shenzhen.aliyuncs.com/front-assets/images/xls.png'
+      defaultSrc = 'https://lieduoduo-uploads-test.oss-cn-shenzhen.aliyuncs.com/front-assets/images/icon_document_excel@3x.png'
       break
     case 'xlsx':
-      defaultSrc = 'https://lieduoduo-uploads-test.oss-cn-shenzhen.aliyuncs.com/front-assets/images/xls.png'
+      defaultSrc = 'https://lieduoduo-uploads-test.oss-cn-shenzhen.aliyuncs.com/front-assets/images/icon_document_excel@3x.png'
       break
     case 'ppt':
-      defaultSrc = 'https://lieduoduo-uploads-test.oss-cn-shenzhen.aliyuncs.com/front-assets/images/ppt.png'
+      defaultSrc = 'https://lieduoduo-uploads-test.oss-cn-shenzhen.aliyuncs.com/front-assets/images/icon_document_ppt@3x.png'
       break
     case 'pptx':
-      defaultSrc = 'https://lieduoduo-uploads-test.oss-cn-shenzhen.aliyuncs.com/front-assets/images/ppt.png'
+      defaultSrc = 'https://lieduoduo-uploads-test.oss-cn-shenzhen.aliyuncs.com/front-assets/images/icon_document_ppt@3x.png'
       break
     case 'pdf':
-      defaultSrc = 'https://lieduoduo-uploads-test.oss-cn-shenzhen.aliyuncs.com/front-assets/images/pdf.png'
+      defaultSrc = 'https://lieduoduo-uploads-test.oss-cn-shenzhen.aliyuncs.com/front-assets/images/icon_document_ppt@3x.png'
       break
     case 'doc':
-      defaultSrc = 'https://lieduoduo-uploads-test.oss-cn-shenzhen.aliyuncs.com/front-assets/images/word.png'
+      defaultSrc = 'https://lieduoduo-uploads-test.oss-cn-shenzhen.aliyuncs.com/front-assets/images/icon_document_word@3x.png'
       break
     case 'docx':
-      defaultSrc = 'https://lieduoduo-uploads-test.oss-cn-shenzhen.aliyuncs.com/front-assets/images/word.png'
+      defaultSrc = 'https://lieduoduo-uploads-test.oss-cn-shenzhen.aliyuncs.com/front-assets/images/icon_document_word@3x.png'
+      break
+    case 'png':
+      defaultSrc = 'https://lieduoduo-uploads-test.oss-cn-shenzhen.aliyuncs.com/front-assets/images/icon_document_png@3x.png'
+      break
+    case 'jpg':
+      defaultSrc = 'https://lieduoduo-uploads-test.oss-cn-shenzhen.aliyuncs.com/front-assets/images/icon_document_jpg@3x.png'
+      break
+    case 'txt':
+      defaultSrc = 'https://lieduoduo-uploads-test.oss-cn-shenzhen.aliyuncs.com/front-assets/images/icon_document_txt@3x.png'
       break
     default:
       break

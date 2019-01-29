@@ -36,7 +36,7 @@ Page({
    */
   bindInput(e) {
     const name = e.detail.value
-    if(name || name !== '.') this.debounce(this.getPositionNameList, null, 500, name)
+    if(name && name !== '.') this.debounce(this.getPositionNameList, null, 500, name)
   },
   /**
    * @Author   小书包
