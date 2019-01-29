@@ -120,7 +120,7 @@
 				</view>
 				<view class="li">
 					<view class="key">认证资料</view>
-					<view class="value">{{identityInfos.identityNum ? '已上传' : '未上传'}}</view>
+					<view class="value">{{companyInfos.business_license.id ? '已上传' : '未上传'}}</view>
 				</view>
 			</view>
 		</view>

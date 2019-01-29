@@ -27,7 +27,7 @@
 			bindtap="onClick"
 			data-name="{{item.name}}"
 			data-label-id="{{item.labelId}}"
-			data-pid="{{item.pid}}"
+			data-topid="{{item.topPid}}"
 			class="search-item" >
 				<view class="first"><rich-text nodes="{{item.html}}"></rich-text></view>
 				<view class="second"><rich-text nodes="{{item.seriesName}}"></rich-text></view>

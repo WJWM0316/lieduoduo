@@ -107,9 +107,11 @@ var positionFilter = function(num) {
       status = ''
       break
     case 2:
-      status = '审核中'
+      // 先发后审
+      status = '审核通过'
       break
     case 3:
+      // 审核不通过，再次编辑提审状态
       status = '审核中'
       break
     case 4:
