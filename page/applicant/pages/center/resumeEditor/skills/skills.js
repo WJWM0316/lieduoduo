@@ -28,6 +28,7 @@ Page({
   onLoad(options) {
     this.getLabel(options)
   },
+  /* positionTypeTopPid: 职业类型id */
   getLabel (options) {
     if (options.target === '2') {
       getFieldListApi().then(response => {
@@ -45,17 +46,27 @@ Page({
       })
     } else {
       getLabelProfessionalSkillsApi().then(response => {
-        const professionalSkills = response.data.labelProfessionalSkills
-        let skills = wx.getStorageSync('fildsLabel') || []
+        let professionalSkills = []
+        response.data.labelProfessionalSkills.forEach(item => {
+          if (item.labelId === parseInt(options.positionTypeTopPid)) {
+            professionalSkills = item.children
+          }
+        })
+        let skills = []
+        if (options.selectLabel) { // 编辑职业技能标签
+          skills = JSON.parse(options.selectLabel)
+        }
+  //      let skills = wx.getStorageSync('fildsLabel') || []
         skills.map((item, index) => {
           professionalSkills.map((n ,j) => {
-            if (item === n.name || item.name === n.name) {
+            if (parseInt(item.labelId) === n.labelId) {
               professionalSkills[j].active = true
             }
           })
         })
         skills = professionalSkills.filter(field => field.active)
         this.setData({professionalSkills, skills})
+        
       })
     }
   },
