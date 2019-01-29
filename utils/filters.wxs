@@ -110,6 +110,9 @@ var positionFilter = function(num) {
       status = '审核中'
       break
     case 3:
+      status = '审核中'
+      break
+    case 4:
       status = '审核失败'
       break
     default:

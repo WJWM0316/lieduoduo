@@ -84,16 +84,9 @@
 			<i class="icon iconfont icon-disejiantou-you"></i>
 		</view>
 		<view class="footer">
-			<block wx:if="{{detail.status !== 3}}">
-				<view class="edit" bindtap="todoAction" data-type="edit">编辑职位</view>
-				<view class="share" bindtap="todoAction" data-type="open" wx:if="{{detail.isOnline === 2}}">开放职位</view>
-			</block>
-			<block wx:elif="{{detail.status === 3}}">
-				<view class="edit" bindtap="todoAction" data-type="edit">编辑职位</view>
-			</block>
-			<block wx:else>
-				<!-- <view class="share" bindtap="todoAction" data-type="share" wx:if="{{detail.status !== 3 && detail.isOnline === 1}}">分享职位</view> -->
-			</block>
+			<view class="edit" bindtap="todoAction" data-type="edit">编辑职位</view>
+			<view class="share" bindtap="todoAction" data-type="open" wx:if="{{detail.status !== 3 && detail.status !== 4 && detail.isOnline === 2}}">开放职位</view>
+			<view class="share" bindtap="todoAction" data-type="share" wx:if="{{detail.isOnline === 1}}">分享职位</view>
 		</view>
 	</block>
 
