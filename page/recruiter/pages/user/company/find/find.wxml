@@ -7,7 +7,7 @@
 		<view class="p">2、请注意区分总公司和分公司</view>
 		<view class="p">  3、公司名称将用于后续公司认证使用，请确保准确性</view>
 	</view>
-	<view bindsubmit="submit">
+	<view class="submit">
 		<view class="input-li clear-bottom">
 			<input placeholder="请输入所属公司营业执照上的公司全称" bindinput="bindInput" value="{{company_name}}" />
 		</view>
@@ -49,7 +49,7 @@
 					</view>
 				</view>
 			</view>
-			<button class="button-know}}" bindtap="closeMask">开始审核</button>
+			<button class="button-know" bindtap="closeMask">开始审核</button>
 		</view>
 	</view>
 </view>

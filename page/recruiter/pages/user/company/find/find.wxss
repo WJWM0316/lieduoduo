@@ -99,6 +99,10 @@
 	background: #E8E9EB;
 }
 
+.search-company-page .li:last-child:after {
+	display: none;
+}
+
 .certification-layout {
 	position: fixed;
 	left: 0;
@@ -213,7 +217,6 @@
 }
 
 .button-submit {
-	margin: 270rpx 100rpx 0;
 	height:88rpx;
 	background:#F5F4F7;
 	border-radius:48rpx;
@@ -223,13 +226,16 @@
 	color:#CDCBCF;
 	text-align: center;
 	line-height: 88rpx;
+	position: fixed;
+	left: 100rpx;
+	right: 100rpx;
+	bottom: 50rpx;
 }
 
 .button-enable {
 	background:rgba(101,39,145,1);
 	box-shadow:0rpx 20rpx 18rpx 0rpx rgba(101,39,145,0.2);
 	color:rgba(255,255,255,1);
-	margin: 270rpx 100rpx 0;
 }
 
 .icon-jiantou {
@@ -240,4 +246,8 @@
 	top: 50%;
 	transform: translateY(-50%);
 	font-size: 17rpx;
+}
+
+.search-company-page {
+	padding-bottom: 188rpx;
 }

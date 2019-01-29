@@ -1,10 +1,15 @@
 <view class="recruiter-index">
+
+	<navbar title="猎多多"></navbar>
+
 	<view class="index-bannar">
 		<image src="{{cdnImagePath}}bg_homepageh.png"></image>
 	</view>
+
 	<view hidden="{{!hasReFresh}}">
 		<refreshStatus></refreshStatus>
 	</view>
+	
 	<view class="index-list-box">
 		<view class="ul-tab-bar">
 			<view class="li {{pageList === 'browseMySelf' ? 'active' : ''}}" bindtap="ontabClick" data-key="browseMySelf">看过我的</view>
@@ -14,6 +19,15 @@
 		<commonList list="{{browseMySelf.list}}" identity="RECRUITER" wx:if="{{pageList === 'browseMySelf'}}"></commonList>
 		<commonList list="{{collectMySelf.list}}" identity="RECRUITER" isCollect="{{true}}" wx:if="{{pageList === 'collectMySelf'}}"></commonList>
 		<commonList list="{{collectUsers.list}}" showFooter="{{false}}" identity="RECRUITER" wx:if="{{pageList === 'collectUsers'}}"></commonList>
+		<bottomStatus wx:if="{{pageList === 'browseMySelf'}}" status="{{onBottomStatus}}" listData="{{browseMySelf.list}}" desc="还没有人看过您哟～">
+			<!-- <button class="jump" bindtap="jump">发现更多职业机会</button> -->
+		</bottomStatus>
+		<bottomStatus wx:if="{{pageList === 'collectMySelf'}}" status="{{onBottomStatus}}" listData="{{collectMySelf.list}}" desc="还没有人看过您哦~">
+			<!-- <button class="jump" bindtap="jump">发现更多职业机会</button> -->
+		</bottomStatus>
+		<bottomStatus wx:if="{{pageList === 'collectUsers'}}" status="{{onBottomStatus}}" listData="{{collectUsers.list}}" desc="您还没有收藏求职者哦~">
+			<!-- <button class="jump" bindtap="jump">发现更多职业机会</button> -->
+		</bottomStatus>
 	</view>
   <tabBar tabType="1"></tabBar>
 </view>
