@@ -3,7 +3,7 @@ import { getPersonalResumeApi } from '../../../../api/pages/center.js'
 
 import { inviteInterviewApi } from '../../../../api/pages/interview.js'
 import { getMyCollectUserApi, deleteMyCollectUserApi } from '../../../../api/pages/collect.js'
-import {APPLICANT} from '../../../../config.js'
+import {APPLICANT, COMMON} from '../../../../config.js'
 import {shareResume} from '../../../../utils/shareWord.js'
 
 let isPreview = false
@@ -173,6 +173,7 @@ Page({
 　　return app.wxShare({
       options,
       title: shareResume(),
+      path: `${COMMON}resumeDetail/resumeDetail?uid=${this.data.options.uid}`,
       imageUrl: `${that.data.cdnImagePath}shareC.png`
     })
   }

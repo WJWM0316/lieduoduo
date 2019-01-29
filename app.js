@@ -357,7 +357,8 @@ App({
     formIdList.push(id)
     console.log(formIdList, 'form_id')
     if (formIdList.length >= 1) {
-      formIdApi({form_id:formIdList}).then(res => {
+      console.log(formIdList, 11111111111)
+      formIdApi({form_id: formIdList, data: 1111}).then(res => {
         formIdList = []
       })
     }
