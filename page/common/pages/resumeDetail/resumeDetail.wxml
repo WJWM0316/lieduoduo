@@ -74,7 +74,7 @@
       <view class='expContent'>{{item.duty}}</view>
       <!-- 工作标签 -->
       <view class='expTip'>
-        <text wx:for="{{item.technicalLabels}}" wx:key="{{index}}"># {{item}}</text>
+        <text wx:for="{{item.technicalLabels}}" wx:key="{{index}}"># {{item.labelName}}</text>
       </view>
     </view>
     <text class="add" data-editName="work" bindtap="edit" wx:if="{{isOwner && info.careers.length < 11}}" data-id="">添加工作经历</text>

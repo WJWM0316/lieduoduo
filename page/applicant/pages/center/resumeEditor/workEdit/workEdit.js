@@ -5,7 +5,7 @@ import { APPLICANT, COMMON } from '../../../../../../config.js'
 let target = null
 let title = null
 let info = null
-let list = []
+//let list = []
 const app = getApp()
 let toToday = false // 是否至今
 Page({
@@ -27,7 +27,9 @@ Page({
     isAdd: false,
     duty: '',
     options: {},
-    cdnImagePath: app.globalData.cdnImagePath
+    cdnImagePath: app.globalData.cdnImagePath,
+    positionTypeTopPid: '',
+    positionTypeId: '' // 职位类别标签
   },
 
   /**
@@ -39,6 +41,9 @@ Page({
       this.setData({
         isAdd: true
       })
+    }
+    if (this.data.options.id) {
+      this.init()
     }
   },
 
@@ -52,27 +57,28 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow() {
-    if (this.data.options.id) {
-      this.init()
-    }
+//  if (this.data.options.id) {
+//    this.init()
+//  }
     if (wx.getStorageSync('createPosition')) {
-      this.setData({jobCategories: wx.getStorageSync('createPosition')})
+      let positionTypeTopPid = wx.getStorageSync('createPosition').parentType || []
+      this.setData({jobCategories: wx.getStorageSync('createPosition'), positionTypeTopPid: positionTypeTopPid})
     }
     if (wx.getStorageSync('result')) {
       let skill = wx.getStorageSync('result') || []
       let skillsId = []
       skill.map(item => {
         if (skill) {
-          skillsId.push(item.name)
+          skillsId.push(item.labelId)
         } else {
-          skillsId.push(item.name)
+          skillsId.push(item.labelId)
         }
       })
       this.setData({skill, skillsId})
     }
   },
   onHide () {
-    // wx.removeStorageSync('result')
+    wx.removeStorageSync('result')
     wx.removeStorageSync('createPosition')
   },
   /* 展示或关闭例子 */
@@ -104,15 +110,23 @@ Page({
     target = e.currentTarget.dataset.type
     this.setTitle(target)
     if (target === '4') {
-      wx.setStorageSync('fildsLabel', list)
+      let positionTypeTopPid = this.data.jobCategories.parentType || this.data.info.positionTypeTopPid
+//    wx.setStorageSync('fildsLabel', list)
+      if (this.data.isAdd) {
+        wx.navigateTo({
+          url: `${APPLICANT}center/resumeEditor/skills/skills?title=${title}&positionTypeTopPid=${positionTypeTopPid}`
+        })
+      } else {
+        let selectLabel = JSON.stringify(this.data.skill)
+        wx.navigateTo({
+          url: `${APPLICANT}center/resumeEditor/skills/skills?title=${title}&positionTypeTopPid=${positionTypeTopPid}&selectLabel=${selectLabel}`
+        })
+      }
+    } else {
       wx.navigateTo({
-        url: `${APPLICANT}center/resumeEditor/skills/skills?title=${title}`
+        url: `${COMMON}category/category?title=${title}`
       })
-      return
     }
-    wx.navigateTo({
-      url: `${COMMON}category/category?title=${title}`
-    })
   },
   // 输入公司名字
   inpCompany (e) {
@@ -141,18 +155,20 @@ Page({
       id: this.data.options.id,
       company: this.data.company,
       position: this.data.positionName,
-      positionType: this.data.jobCategories.typeName || this.data.jobCategories,
+//    positionType: this.data.jobCategories.type || this.data.jobCategories,
+      positionTypeId: this.data.jobCategories.type || this.data.positionTypeId,
       startTime: this.data.starTime,
       endTime: this.data.endTime,
-      labels: this.data.skillsId,
+      labelIds: this.data.skillsId + '',
       duty: this.data.duty
     }
+//  console.log(param, ' 7777')
     let itemName = ''
     if (!param.company) {
       itemName = '请填写公司名称'
     } else if (param.company && (param.company.length < 2 || param.company.length > 50)) {
       itemName = '公司名称需为2-50个字'
-    } else if (!param.positionType) {
+    } else if (!param.positionTypeId) {
       itemName = '请选择职位类型'
     } else if (!param.position) {
       itemName = '请填写职位名称'
@@ -164,7 +180,7 @@ Page({
       itemName = '请选择结束时间'
     } else if (param.endTime && param.startTime > param.endTime) {
       itemName = '开始时间不得晚于结束时间'
-    } else if (!param.labels) {
+    } else if (!param.labelIds) {
       itemName = '请选择技能标签'
     } else if (!param.duty) {
       itemName = '请填写工作内容'
@@ -236,7 +252,7 @@ Page({
   init () {
     app.globalData.resumeInfo.careers.map((item, index) => {
       if (item.id === parseInt(this.data.options.id)) {
-        list = item.technicalLabels
+//      list = item.technicalLabels
         this.setData({
           company: item.company,
           positionName: item.position,
@@ -244,8 +260,10 @@ Page({
           starTime: item.startTime,
           endTime: item.endTime,
           skill: item.technicalLabels,
-          skillsId: item.technicalLabels,
+          skillsId: item.technicalLabelIds,
           jobCategories: item.positionType,
+          positionTypeId: item.positionTypeId,
+          positionTypeTopPid: item.positionTypeTopPid,
           info: item
         })
         if (item.endTimeDesc === '至今') {

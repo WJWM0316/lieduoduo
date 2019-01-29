@@ -87,7 +87,7 @@ Page({
     postSecondStepApi(data).then(res => {
       wx.setStorageSync('createUserSecond', info)
       wx.navigateTo({
-        url: '/page/applicant/pages/center/educaExperience/educaExperience'
+        url: `${APPLICANT}center/educaExperience/educaExperience`
       })
     })
   }
