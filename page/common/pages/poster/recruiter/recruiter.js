@@ -88,7 +88,7 @@ Page({
         }
       }
       ctx.drawImage('../../../../../images/a8.png', 0, curHeight, 750, 48)
-      ctx.fillText(info.brief.slice(iIndex, info.brief.length-1), 80, curHeight)
+      ctx.fillText(info.brief.slice(iIndex, info.brief.length), 80, curHeight)
       curHeight = curHeight + 15
     } else {
       curHeight = curHeight + 15
@@ -188,7 +188,7 @@ Page({
             wx.hideLoading()
           }
         })
-      }, 300)
+      }, 500)
     })
   },
   /**

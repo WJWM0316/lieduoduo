@@ -339,10 +339,14 @@
 }
 
 .production-box .li {
+  padding: 40rpx;
+  background: white;
+  position: relative;
+}
+
+.production-box .base {
   overflow: hidden;
   display: flex;
-  padding: 35rpx 40rpx;
-  background: white;
   position: relative;
 }
 
@@ -372,29 +376,26 @@
 }
 
 .production-box .li .username {
-  display: inline-block;
   font-size:36rpx;
   font-weight:500;
   color:rgba(40,40,40,1);
-  border-right: 1px solid #E8E9EB;
-  padding-right: 15rpx;
-  margin-right: 15rpx;
 }
 
 .production-box .li .recruitment-number {
-  display: inline-block;
   font-size:28rpx;
   font-weight:300;
   color:rgba(40,40,40,1);
+  margin-top: 10rpx;
+  line-height: 32rpx;
 }
 
 .production-box .li .row-two {
   font-size:24rpx;
   font-weight:300;
   color:rgba(40,40,40,1);
-  margin-top: 15rpx;
+  margin-top: 25rpx;
   overflow: hidden;
-  background:rgba(248,248,248,1);
+  background:#F9F7FA;
   line-height: 50rpx;
   padding: 0 18rpx;
 }

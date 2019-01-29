@@ -1,6 +1,6 @@
 import {COMMON,APPLICANT,RECRUITER} from '../../../../../config.js'
 import { getPersonalResumeApi } from '../../../../../api/pages/center.js'
-
+import {shareResume} from '../../../../../utils/shareWord.js'
 let app = getApp()
 Page({
 
@@ -11,7 +11,8 @@ Page({
     myInfo: {},
     hasLogin: false,
     hideBind: true,
-    hasReFresh: false
+    hasReFresh: false,
+    cdnImagePath: app.globalData.cdnImagePath
   },
   /**
    * 生命周期函数--监听页面加载
@@ -95,11 +96,20 @@ Page({
     })
   },
   onPullDownRefresh(hasLoading = true) {
-    // this.setData({hasReFresh: true})
-    // getPersonalResumeApi().then(res => {
-    //   app.globalData.resumeInfo = res.data
-    //   wx.stopPullDownRefresh()
-    //   this.setData({hasReFresh: false})
-    // })
+    this.setData({hasReFresh: true})
+    getPersonalResumeApi().then(res => {
+      app.globalData.resumeInfo = res.data
+      wx.stopPullDownRefresh()
+      this.setData({hasReFresh: false})
+    })
+  },
+  onShareAppMessage(options) {
+    let that = this
+　　return app.wxShare({
+      options,
+      btnTitle: shareResume(),
+      btnPath: `${COMMON}resumeDetail/resumeDetail?uid=${this.data.myInfo.uid}`,
+      btnImageUrl: `${that.data.cdnImagePath}shareC.png`
+    })
   }
 })

@@ -43,7 +43,7 @@ Page({
       isRequire: false
     },
     // pageCount: app.globalData.pageCount,
-    pageCount: 12,
+    pageCount: 10,
     hasReFresh: false,
     onBottomStatus: 0,
     area_id: '',
@@ -170,6 +170,11 @@ Page({
         rankCity.isLastPage = res.meta.nextPageUrl ? false : true
         rankCity.pageNum = rankCity.pageNum + 1
         rankCity.isRequire = true
+        const firstItem = rankCity.list[1]
+        if(rankCity.list[0].influence > firstItem.influence) {
+          rankCity.list = rankCity.list.filter(field => field.uid !== firstItem.uid)
+          rankCity.list.unshift(firstItem)
+        }
         this.setData({rankCity, onBottomStatus, commonList: rankCity}, () => resolve(res))
       })
     })
@@ -190,6 +195,11 @@ Page({
         rankCate.isLastPage = res.meta.nextPageUrl ? false : true
         rankCate.pageNum = rankCate.pageNum + 1
         rankCate.isRequire = true
+        const firstItem = rankCate.list[1]
+        if(rankCate.list[0].influence > firstItem.influence) {
+          rankCate.list = rankCate.list.filter(field => field.uid !== firstItem.uid)
+          rankCate.list.unshift(firstItem)
+        }
         this.setData({rankCate, onBottomStatus, commonList: rankCate}, () => resolve(res))
       })
     })
@@ -210,9 +220,11 @@ Page({
         rankAll.isLastPage = res.meta.nextPageUrl ? false : true
         rankAll.pageNum = rankAll.pageNum + 1
         rankAll.isRequire = true
-        // if(rankAll.list[0].influence > rankAll.list[1].influence) {
-
-        // }
+        const firstItem = rankAll.list[1]
+        if(rankAll.list[0].influence > firstItem.influence) {
+          rankAll.list = rankAll.list.filter(field => field.uid !== firstItem.uid)
+          rankAll.list.unshift(firstItem)
+        }
         this.setData({rankAll, onBottomStatus, commonList: rankAll}, () => resolve(res))
       })
     })

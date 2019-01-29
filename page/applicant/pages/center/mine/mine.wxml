@@ -42,7 +42,7 @@
 
   <!-- bottom -->
   <view class="entry-list">
-		<view class="li" bindtap="jump" data-type="scanCode">
+		<view class="li" bindtap="jump" data-type="scanCode" wx:if='{{hasLogin}}'>
 			<view>
         <i class="icon iconfont icon-fujian"></i>
         <view class="text">附件简历</view>

@@ -201,7 +201,7 @@ Page({
           curHeight += 48
         }
       }
-      ctx.fillText(info.describe.slice(iIndex, info.describe.length-1), 80, curHeight)
+      ctx.fillText(info.describe.slice(iIndex, info.describe.length), 80, curHeight)
     } else {
       ctx.drawImage('../../../../../images/c2.png', 0, curHeight, 750, 90)
       ctx.fillText(info.describe, 80, curHeight)
@@ -233,7 +233,7 @@ Page({
             wx.removeStorageSync('posterData')
           }
         })
-      }, 300)
+      }, 500)
     })
   },
   /**
