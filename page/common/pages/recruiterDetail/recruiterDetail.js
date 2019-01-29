@@ -3,6 +3,7 @@ import {getOthersRecruiterDetailApi, getRecruiterDetailApi, giveMecallApi, putLa
 import {getPositionListApi} from "../../../../api/pages/position.js"
 import {getMyCollectUserApi, deleteMyCollectUserApi} from "../../../../api/pages/collect.js"
 import {COMMON,RECRUITER,APPLICANT} from "../../../../config.js"
+import {shareRecruiter} from '../../../../utils/shareWord.js'
 
 let app = getApp()
 let positionTop = 0
@@ -12,6 +13,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    identity: '',
     showPage: false,
     isShrink: false,
     needShrink: false,
@@ -29,7 +31,8 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
-    this.setData({options})
+    let identity = wx.getStorageSync('choseType')
+    this.setData({options, identity})
   },
   getOthersInfo() {
     return new Promise((resolve, reject) => {
@@ -239,8 +242,8 @@ Page({
     if (!this.options.uid || parseInt(this.options.uid) === app.globalData.resumeInfo.uid) {
       getRecruiterDetailApi().then(res => {
         app.globalData.recruiterDetails = res.data
-        wx.stopPullDownRefresh()
         this.setData({info: app.globalData.recruiterDetails, hasReFresh: false})
+        wx.stopPullDownRefresh()
       })
     } else {
       this.getOthersInfo().then(res => {
@@ -248,5 +251,14 @@ Page({
         wx.stopPullDownRefresh()
       })
     }
+  },
+  onShareAppMessage(options) {
+    let that = this
+　　return app.wxShare({
+      options,
+      title: shareRecruiter(),
+      path: `${COMMON}recruiterDetail/recruiterDetail?uid=${this.data.options.uid}`,
+      imageUrl: `${that.data.cdnImagePath}shareC.png`
+    })
   }
 })

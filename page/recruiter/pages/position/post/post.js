@@ -117,6 +117,7 @@ Page({
         formData.work_experience_name = infos.workExperienceName
         formData.lng = infos.lng
         formData.lat = infos.lat
+        formData.parentType = infos.skillsLabel[0].topPid
         Object.keys(formData).map(field => this.setData({[field]: formData[field]}))
       })
   },
@@ -250,9 +251,7 @@ Page({
           title: '创建成功',
           icon: 'success',
           callback() {
-            // wx.navigateBack({
-            //   delta: 1
-            // })
+            // wx.navigateBack({delta: 1 })
             wx.reLaunch({url: `${RECRUITER}position/index/index`})
           }
         })

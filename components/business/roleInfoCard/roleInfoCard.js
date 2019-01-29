@@ -50,9 +50,12 @@ Component({
       })
     },
     jumpEditBase() {
-      wx.navigateTo({
-        url: `${RECRUITER}company/baseEdit/baseEdit`
+      wx.redirectTo({
+        url: `${RECRUITER}company/homepageEdit/homepageEdit?companyId=${this.data.cardData.id}`
       })
+      // wx.navigateTo({
+      //   url: `${RECRUITER}company/baseEdit/baseEdit`
+      // })
     },
     jumpCompany() {
       if (this.data.isMain) { return }

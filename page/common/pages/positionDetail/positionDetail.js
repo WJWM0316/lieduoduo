@@ -13,6 +13,8 @@ import {getUserRoleApi} from "../../../../api/pages/user.js"
 
 import {RECRUITER, COMMON} from '../../../../config.js'
 
+import {sharePosition} from '../../../../utils/shareWord.js'
+
 const app = getApp()
 
 Page({
@@ -26,17 +28,14 @@ Page({
     cdnPath: app.globalData.cdnImagePath
   },
   onLoad(options) {
-    this.setData({query: options, identity: app.globalData.identity})
+    let identity = wx.getStorageSync('choseType')
+    this.setData({query: options, identity})
   },
   onShow() {
     this.getPositionDetail()
   },
   backEvent() {
-     if(wx.getStorageSync('choseType') === 'RECRUITER') {
-      wx.navigateTo({url: `${RECRUITER}position/index/index`})
-     } else {
-      wx.navigateBack({delta: 1})
-     }
+     wx.navigateBack({delta: 1})
   },
   /**
    * @Author   小书包
@@ -56,20 +55,46 @@ Page({
    * @return   {[type]}   [description]
    */
   getPositionDetail() {
-    getPositionApi({id: this.data.query.positionId})
-      .then(res => {
-        this.setData({detail: res.data, companyInfos: res.data.companyInfo, recruiterInfo: res.data.recruiterInfo})
-        app.getAllInfo()
-          .then(userInfos => {
-            this.setData({isOwner: userInfos.uid === res.data.recruiterInfo.uid, isRecruiter: true})
-            if(this.selectComponent('#interviewBar')) this.selectComponent('#interviewBar').init()
-            // if(userInfos.uid === res.data.recruiterInfo.uid) {
-            //   wx.setStorageSync('choseType', 'RECRUITER')
-            //   this.setData({isRecruiter: true})
-            // }
-          })
+    let identity = wx.getStorageSync('choseType')
+    if (app.globalData.isRecruiter) {
+      this.setData({isRecruiter: app.globalData.isRecruiter})
+    } else {
+      app.getRoleInit = () => {
+        this.setData({isRecruiter: app.globalData.isRecruiter})
+      }
+    }
+    let myInfo = {}
+    if (identity === "APPLICANT") {
+      myInfo = app.globalData.resumeInfo
+    } else {
+      myInfo = app.globalData.recruiterDetails
+    }
+    if (myInfo.uid) {
+      getPositionApi({id: this.data.query.positionId})
+        .then(res => {
+          this.setData({detail: res.data, companyInfos: res.data.companyInfo, recruiterInfo: res.data.recruiterInfo, isOwner: myInfo.uid === res.data.recruiterInfo.uid})
+          if(this.selectComponent('#interviewBar')) this.selectComponent('#interviewBar').init()
       })
+    } else {
+      app.pageInit = () => {
+        console.log(11122)
+        if (identity === "APPLICANT") {
+          myInfo = app.globalData.resumeInfo
+        } else {
+          myInfo = app.globalData.recruiterDetails
+        }
+        getPositionApi({id: this.data.query.positionId})
+          .then(res => {
+            this.setData({detail: res.data, companyInfos: res.data.companyInfo, recruiterInfo: res.data.recruiterInfo, isOwner: myInfo.uid === res.data.recruiterInfo.uid})
+            console.log(this.data.detail.vkey, this.data.isOwner, this.data.identity, 1111111)
+            if(this.selectComponent('#interviewBar')) this.selectComponent('#interviewBar').init()
+        })
+      }
+    }
+    
   },
+
+
   /**
    * @Author   小书包
    * @DateTime 2019-01-02
@@ -144,5 +169,14 @@ Page({
       default:
         break
     }
+  },
+  onShareAppMessage(options) {
+    let that = this
+　　return app.wxShare({
+      options,
+      title: sharePosition(),
+      path: `${COMMON}positionDetail/positionDetail?positionId=${that.data.query.positionId}`,
+      imageUrl: `${that.data.cdnPath}positionList.png`
+    })
   }
 })

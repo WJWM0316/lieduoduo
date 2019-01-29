@@ -26,7 +26,7 @@ Page({
     applyJoin: false
   },
   onLoad(options) {
-    this.setData({options})
+    this.setData({options, real_name: options.realName ? options.realName : ''})
     if(options.action && options.action === 'edit') this.getCompanyIdentityInfos()
   },
   /**
@@ -40,14 +40,17 @@ Page({
       .then(res => {
         const infos = res.data
         const formData = {}
-        formData.real_name = infos.realName
-        formData.identity_num = infos.identityNum
-        formData.validity = infos.validity
-        formData.passport_front = infos.passportFrontInfo
-        formData.passport_reverse = infos.passportReverseInfo
-        formData.handheld_passport = infos.handheldPassportInfo
+        const options = this.data.options
+        const data = this.data
+        if(!infos.handheldPassportInfo.smallUrl) delete options.action
+        formData.real_name = infos.realName ? infos.realName : ''
+        formData.identity_num = infos.identityNum ? infos.identityNum : ''
+        formData.validity = infos.validity ? infos.validity : ''
+        formData.passport_front = infos.passportFrontInfo.smallUrl ? infos.passportFrontInfo : data.passport_front
+        formData.passport_reverse = infos.passportReverseInfo.smallUrl ? infos.passportReverseInfo : data.passport_reverse
+        formData.handheld_passport = infos.handheldPassportInfo.smallUrl ? infos.handheldPassportInfo : data.handheld_passport
         formData.applyJoin = res.data.applyJoin
-        console.log(formData.applyJoin)
+        formData.options = options
         Object.keys(formData).map(field => this.setData({[field]: formData[field]}))
         this.bindBtnStatus()
       })
@@ -139,20 +142,7 @@ Page({
     const formData = this.getParams()
     identityCompanyApi(formData)
       .then((res) => {
-        const options = this.data.options
-        let type = ''
-        switch(options.type) {
-          // 加入公司认证
-          case 'apply':
-            type = 'apply'
-            break
-          // 创建公司
-          case 'create':
-            type = 'company'
-            break
-          default:
-            break
-        }
+        const type = this.data.options.type === 'apply' ? 'apply' : 'company'
         wx.redirectTo({url: `${RECRUITER}user/company/status/status?from=${type}`})
       })
   },

@@ -3,7 +3,9 @@ import { getPersonalResumeApi } from '../../../../api/pages/center.js'
 
 import { inviteInterviewApi } from '../../../../api/pages/interview.js'
 import { getMyCollectUserApi, deleteMyCollectUserApi } from '../../../../api/pages/collect.js'
-import {APPLICANT} from '../../../../config.js'
+import {APPLICANT, COMMON} from '../../../../config.js'
+import {shareResume} from '../../../../utils/shareWord.js'
+
 let isPreview = false
 const app = getApp()
 let resumeInfo = null
@@ -87,7 +89,9 @@ Page({
     return new Promise((resolve, reject) => {
       getPersonalResumeApi({uid: this.data.options.uid}).then(res => {
         this.setData({info: res.data})
-        this.selectComponent('#interviewBar').init()
+        if (this.selectComponent('#interviewBar')) {
+          this.selectComponent('#interviewBar').init()
+        }
         resolve(res)
       })
     })
@@ -120,6 +124,17 @@ Page({
     }
     wx.navigateTo({
       url: url
+    })
+  },
+  copy(e) {
+    wx.setClipboardData({
+      data: e.currentTarget.dataset.copydata,
+      success(res) {
+        app.wxToast({
+          title: '复制成功',
+          icon: 'success'
+        })
+      }
     })
   },
   /* 收藏 */
@@ -163,5 +178,14 @@ Page({
         wx.stopPullDownRefresh()
       })
     }
+  },
+  onShareAppMessage(options) {
+    let that = this
+　　return app.wxShare({
+      options,
+      title: shareResume(),
+      path: `${COMMON}resumeDetail/resumeDetail?uid=${this.data.options.uid}`,
+      imageUrl: `${that.data.cdnImagePath}shareC.png`
+    })
   }
 })

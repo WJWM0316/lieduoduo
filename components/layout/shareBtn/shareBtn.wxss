@@ -5,8 +5,8 @@
   background: #fff;
   box-shadow: 0rpx 4rpx 14rpx 0rpx rgba(101,39,145,0.18);
   border-radius: 36rpx 0rpx 0rpx 36rpx;
-  position:absolute;
-  top: 30rpx;
+  position:fixed;
+  top: 158rpx;
   right: 0;
   z-index: 2;
   padding: 0;

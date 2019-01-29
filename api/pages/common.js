@@ -102,3 +102,43 @@ export const removeFileApi = (data, hasLoading) => {
     hasLoading: false
   })
 }
+
+// 收集formID
+export const formIdApi = (data, hasLoading) => {
+  return request({
+    method: 'post',
+    url: `/wechat/mini/form_ids`,
+    data,
+    hasLoading: false
+  })
+}
+
+// 获取上传附件
+export const getAttachResumeApi = (data, hasLoading) => {
+  return request({
+    method: 'get',
+    url: `/jobhunter/attach_resume`,
+    hasLoading: false
+  })
+}
+
+// 扫码回调
+export const scanQrcodeApi = (data, hasLoading) => {
+  return request({
+    method: 'post',
+    url: `/qrcode/scan_qrcode`,
+    data,
+    hasLoading: false
+  })
+}
+
+
+// 确认登录
+export const scanLoginApi = (data, hasLoading) => {
+  return request({
+    method: 'post',
+    url: `/qrcode/login`,
+    data,
+    hasLoading: false
+  })
+}

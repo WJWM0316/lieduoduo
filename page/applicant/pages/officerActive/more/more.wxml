@@ -50,5 +50,5 @@
   </view>
   <!-- 第三名之后的数据 -->
   <rankingTab wx:for="{{commonList.list}}" wx:key="{{index}}" item="{{item}}" index="{{index}}" wx:if="{{index > 3}}"></rankingTab>
-
+  <bottomStatus status="{{onBottomStatus}}" listData="{{commonList.list}}"></bottomStatus>
 </view>

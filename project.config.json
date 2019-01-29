@@ -38,7 +38,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 40,
+			"current": 44,
 			"list": [
 				{
 					"id": 0,
@@ -265,7 +265,7 @@
 				{
 					"id": 37,
 					"name": "招聘管-选择职位",
-					"pathName": "page/recruiter/pages/position/description/description",
+					"pathName": "page/recruiter/pages/position/search/search",
 					"query": "type=position&selected=1"
 				},
 				{
@@ -291,6 +291,24 @@
 					"name": "地址",
 					"pathName": "page/recruiter/pages/position/address/address",
 					"query": ""
+				},
+				{
+					"id": 42,
+					"name": "附件上传",
+					"pathName": "page/applicant/pages/center/attachment/attachment",
+					"query": "action=edit&type=apply"
+				},
+				{
+					"id": -1,
+					"name": "我的公司",
+					"pathName": "page/recruiter/pages/company/indexEdit/indexEdit",
+					"query": "action=edit&type=apply"
+				},
+				{
+					"id": -1,
+					"name": "职位详情",
+					"pathName": "page/common/pages/positionDetail/positionDetail",
+					"query": "positionId=186"
 				}
 			]
 		}

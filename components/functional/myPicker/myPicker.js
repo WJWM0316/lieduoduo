@@ -18,9 +18,6 @@ Component({
       type: String,
       value: null
     },
-    placeholderStyle: {
-      type: String
-    },
     needSlot: {
       type: Boolean,
       value: false
@@ -88,13 +85,13 @@ Component({
         list.push(year)
         list.push(this.data.month)
         result = setResult()
-        this.setData({list, year, result, mode: 'multiSelector', placeholder: '请选择生'})
+        this.setData({list, year, result, mode: 'multiSelector', placeholder: '请选择出生年月'})
         break
       case 'startTime':
         list.push(year)
         list.push(this.data.month)
         result = setResult()
-        this.setData({list, year, result, mode: 'multiSelector', placeholder: '开始时间'})
+        this.setData({list, year, result, mode: 'multiSelector', placeholder: '请选择开始时间'})
         break
       case 'endTime':
         firstOption = '至今'
@@ -106,7 +103,7 @@ Component({
         } else {
           list.push([firstOption])
         }
-        this.setData({list, year, result, mode: 'multiSelector', firstOption, placeholder: '结束时间'})
+        this.setData({list, year, result, mode: 'multiSelector', firstOption, placeholder: '请选择结束时间'})
         break
       case 'workTime':
         firstOption = '在校生'
@@ -118,7 +115,7 @@ Component({
         } else {
           list.push([firstOption])
         }
-        this.setData({list, year, result, mode: 'multiSelector', firstOption, placeholder: '选择参与工作时间'})
+        this.setData({list, year, result, mode: 'multiSelector', firstOption, placeholder: '请选择参加工作时间'})
         break
       case 'dateTime':
         result = []
@@ -211,7 +208,7 @@ Component({
         result[1] = endNum.indexOf(this.data.setResult.split('~')[1])
         if (result[1] === -1) result = 0
         list = [startNum, endNum]
-        this.setData({list, result, mode: 'multiSelector', placeholder: '请选择期望薪'})
+        this.setData({list, result, mode: 'multiSelector', placeholder: '请选择期望薪资'})
         break
       case 'salaryRangeB':
         let startNumB = []
@@ -236,7 +233,7 @@ Component({
         result[1] = endNumB.indexOf(this.data.setResult.split('~')[1])
         if (result[1] === -1) result = 0
         list = [startNumB, endNumB]
-        this.setData({list, result, mode: 'multiSelector', placeholder: '请选择期望薪'})
+        this.setData({list, result, mode: 'multiSelector', placeholder: '请选择期望薪资'})
         break
       case 'occupation':
         getJobLabelApi({type: 'skills'}).then(res => {

@@ -12,7 +12,7 @@ export const request = ({method = 'post', url, data = {}, needKey = true, hasLoa
   if (wx.getStorageSync('sessionToken')) {
     addHttpHead['Authorization-Wechat'] = wx.getStorageSync('sessionToken')
   }
-  if (wx.getStorageSync('token')) {
+  if (wx.getStorageSync('token') && url !== '/bind/register') {
     addHttpHead['Authorization'] = wx.getStorageSync('token')
   }
   // 版本号， 每次上次发版 + 1
@@ -79,15 +79,20 @@ export const request = ({method = 'post', url, data = {}, needKey = true, hasLoa
                   wx.reLaunch({url: `${RECRUITER}user/company/apply/apply`})
                   return
                 }
-                // 是申请加入公司
-                if(msg.data.applyJoin) {
-                  wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=apply`})
-                  return
-                }
-                // 已创建公司，但是还在审核状态或者审核失败
-                if(!msg.data.applyJoin) {
+                // 创建公司，但是还在审核状态或者审核失败
+                if(!msg.data.applyJoin && res.data.data.companyInfo.status !== 1) {
                   wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=company`})
                   return;
+                }
+                // 创建公司，但是个人身份还在认证
+                if(!msg.data.applyJoin && msg.data.status !== 1) {
+                  wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=identity`})
+                  return;
+                }
+                // 是申请加入公司 并且个人身份还在认证
+                if(msg.data.applyJoin && msg.data.status !== 1) {
+                  wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=apply`})
+                  return
                 }
               }
           }

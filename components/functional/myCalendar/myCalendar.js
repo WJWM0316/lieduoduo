@@ -27,36 +27,7 @@ Component({
     setDateList: {
       type: Array,
       observer() {
-        // 标注面试时间
-        let list = this.data.list
-        let calendarBody = this.data.calendarBody
-        this.data.setDateList.map((item, index) => {
-          list.map((obj, j) => {
-            if (item.date === obj.date) {
-              obj.haveView = true
-              // 已过期的面试时间
-              let curTime = `${curYear}/${curMonth}/${curDay}`
-              let objTime = `${obj.year}/${obj.month}/${obj.days}`
-              if (new Date(curTime).getTime() > new Date(objTime).getTime()) {
-                obj.haveViewed = true
-              }
-              return
-            }
-          })
-          calendarBody.map((obj, j) => {
-            if (item.date === obj.date) {
-              obj.haveView = true
-              // 已过期的面试时间
-              let curTime = `${curYear}/${curMonth}/${curDay}`
-              let objTime = `${obj.year}/${obj.month}/${obj.days}`
-              if (new Date(curTime).getTime() > new Date(objTime).getTime()) {
-                obj.haveViewed = true
-              }
-              return
-            }
-          })
-        })
-        this.setData({list, calendarBody})
+        this.tagging()
       }
     },
     calendarType: {
@@ -115,12 +86,17 @@ Component({
       this.scrollLeft()
     },
     changeType () {
-      console.log(this.data.list, 2222222)
       if (this.data.calendarType === 'roll') {
+        let calendarBody = this.data.calendarBody
+        if (calendarBody.length === 0) {
+          calendarBody = this.getThisMonthDays(curYear, curMonth, 'seq', true)
+          calendarBody.splice(0, 1)
+        }
         this.setData({
-          calendarType: 'normal'
+          calendarType: 'normal',
+          calendarBody
         })
-        console.log(this.data.list, 3333333333333)
+        this.tagging()
       } else if (this.data.calendarType === 'normal') {
         this.setData({
           calendarType: 'roll'
@@ -149,8 +125,8 @@ Component({
           toggleMonth = 1
           toggleYear++
         }
-        this.getThisMonthDays(toggleYear, toggleMonth, 'seq')
-        this.setData({headYear: toggleYear, headMonth: toggleMonth})
+        let calendarBody = this.getThisMonthDays(toggleYear, toggleMonth, 'seq', true)
+        this.setData({calendarBody, headYear: toggleYear, headMonth: toggleMonth})
       }
     },
     // 上个月
@@ -180,22 +156,26 @@ Component({
           toggleMonth = 12
           toggleYear--
         }
-        this.getThisMonthDays(toggleYear, toggleMonth, 'ord')
-        this.setData({headYear: toggleYear, headMonth: toggleMonth})
+        let calendarBody = this.getThisMonthDays(toggleYear, toggleMonth, 'ord', true)
+        this.setData({calendarBody, headYear: toggleYear, headMonth: toggleMonth})
       }
     },
     // 获取当月共多少天
-    getThisMonthDays (year, month, sort) {
+    getThisMonthDays (year, month, sort, onlyOne) {
       let dayNum = new Date(year, parseInt(month), 0).getDate()
       let firstDayWeek = this.getFirstDayOfWeek(year, parseInt(month))
       firstWeek = firstDayWeek
       let thisMonthlist = [{'month': month}]
       let list = this.data.list
+      if (parseInt(month) < 10) {
+        month = `0${parseInt(month)}`
+      }
       for(let i = 1; i < dayNum + 1; i++) {
         let j = i
         if (j < 10) {
           j = `0${j}`
         }
+
         let obj = {
           year,
           month,
@@ -210,24 +190,79 @@ Component({
         }
         thisMonthlist.push(obj)
       }
-      // 只有nolmal 格式才需要执行
-      if (this.data.switchable || this.data.calendarType === 'normal') {
-        let calendarBody = thisMonthlist.slice(1)
-        for (let i = 0; i < firstWeek; i++) {
-          calendarBody.unshift('')
+      if (!onlyOne) {
+        if (sort === 'seq') {
+          list = list.concat(thisMonthlist)
+        } else {
+          list = thisMonthlist.concat(list)
         }
-        this.setData({calendarBody})
-      }
-      if (sort === 'seq') {
-        list = list.concat(thisMonthlist)
+        this.data.setDateList.map((item, index) => {
+          list.map((obj, j) => {
+            if (item.date === obj.date) {
+              obj.haveView = true
+              // 已过期的面试时间
+              let curTime = `${curYear}/${curMonth}/${curDay}`
+              let objTime = `${obj.year}/${obj.month}/${obj.days}`
+              if (new Date(curTime).getTime() > new Date(objTime).getTime()) {
+                obj.haveViewed = true
+              }
+              return
+            }
+          })
+        })
+        return list
       } else {
-        list = thisMonthlist.concat(list)
+        this.data.setDateList.map((item, index) => {
+          thisMonthlist.map((obj, j) => {
+            if (item.date === obj.date) {
+              obj.haveView = true
+              // 已过期的面试时间
+              let curTime = `${curYear}/${curMonth}/${curDay}`
+              let objTime = `${obj.year}/${obj.month}/${obj.days}`
+              if (new Date(curTime).getTime() > new Date(objTime).getTime()) {
+                obj.haveViewed = true
+              }
+              return
+            }
+          })
+        })
+        return thisMonthlist
       }
-      return list
     },
     // 获取当月第一天星期几
     getFirstDayOfWeek (year, month) {
       return new Date(Date.UTC(year, month - 1, 1)).getDay();
+    },
+    tagging() {
+      let list = this.data.list
+      let calendarBody = this.data.calendarBody
+      this.data.setDateList.map((item, index) => {
+        list.map((obj, j) => {
+          if (item.date === obj.date) {
+            obj.haveView = true
+            // 已过期的面试时间
+            let curTime = `${curYear}/${curMonth}/${curDay}`
+            let objTime = `${obj.year}/${obj.month}/${obj.days}`
+            if (new Date(curTime).getTime() > new Date(objTime).getTime()) {
+              obj.haveViewed = true
+            }
+            return
+          }
+        })
+        calendarBody.map((obj, j) => {
+          if (item.date === obj.date) {
+            obj.haveView = true
+            // 已过期的面试时间
+            let curTime = `${curYear}/${curMonth}/${curDay}`
+            let objTime = `${obj.year}/${obj.month}/${obj.days}`
+            if (new Date(curTime).getTime() > new Date(objTime).getTime()) {
+              obj.haveViewed = true
+            }
+            return
+          }
+        })
+      })
+      this.setData({list, calendarBody})
     }
   }
 })

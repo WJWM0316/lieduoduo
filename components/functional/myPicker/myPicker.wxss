@@ -13,3 +13,6 @@
 	margin-left: 11rpx;
 	vertical-align:middle;
 }
+.placeholder {
+	color: #BCBCBC;
+}

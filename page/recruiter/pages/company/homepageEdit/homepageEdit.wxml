@@ -35,7 +35,7 @@
 	<view class="introduction">
 		<view class="title">
 			<view class="self-icon"> <view class="fan"></view> </view> 公司介绍
-			<view class="icon-button" data-route="introduction" bindtap="routeJump" wx:if="{{!companyInfos.intro}}"><i class="icon iconfont icon-bianji"></i></view>
+			<view class="icon-button" data-route="introduction" bindtap="routeJump" wx:if="{{companyInfos.intro}}"><i class="icon iconfont icon-bianji"></i></view>
 		</view>
 		<view class="company-detail" wx:if="{{companyInfos.intro}}">
 			<text class="p">{{companyInfos.intro}}</text>

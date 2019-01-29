@@ -30,8 +30,6 @@ Component({
       this.setData({showChoose: false})
     },
     jump() {
-              console.log(this.data.posterType)
-
       switch(this.data.posterType) {
         case 'position':
           wx.navigateTo({

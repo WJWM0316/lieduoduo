@@ -75,3 +75,26 @@
 	transform: translateY(-50%);
 	right: 30rpx;
 }
+
+.more-icon {
+	width:60rpx;
+	height:60rpx;
+	background:rgba(248,248,248,1);
+	border:2rpx solid rgba(237,237,237,1);
+	border-radius: 50%;
+	line-height: 60rpx;
+	text-align: center;
+	display: inline-block;
+	vertical-align:top;
+	box-sizing:border-box;
+}
+
+.more-icon view {
+	width:8rpx;
+	height:8rpx;
+	background:rgba(216,216,216,1);
+	border-radius: 50%;
+	display: inline-block;
+	margin: 3rpx;
+	vertical-align: middle;
+}

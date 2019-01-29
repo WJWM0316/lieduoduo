@@ -63,18 +63,14 @@
 			<text class="rich-text">{{companyInfos.intro}}</text>
 		</view>
 	</view>
-	<view class="make-homepage" wx:if="{{ !isRecruiter }}">
-		<view>
-			我也要制作招聘主页
-			<i class="icon iconfont icon-disejiantou-you"></i>
-		</view>
-		<view
-			class="collect"
-			data-type="{{detail.isCollect ? 'uncollect' : 'collect'}}"
-			bindtap="todoAction">
-				<i class="icon iconfont icon-ganxingqu" wx:if="{{!detail.isCollect}}"></i>
-				<i class="icon iconfont icon-biaojiweiganxingqu" wx:else></i>
-		</view>
+	<view class="make-homepage" wx:if="{{ !isRecruiter }}"><view>我也要制作招聘主页<i class="icon iconfont icon-disejiantou-you"></i></view></view>
+	<view
+		wx:if="{{!isOwner && identity === 'APPLICANT'}}"
+		class="collect"
+		data-type="{{detail.isCollect ? 'uncollect' : 'collect'}}"
+		bindtap="todoAction">
+			<i class="icon iconfont icon-ganxingqu" wx:if="{{!detail.isCollect}}"></i>
+			<i class="icon iconfont icon-biaojiweiganxingqu" wx:else></i>
 	</view>
 	
 	<block wx:if="{{isRecruiter && isOwner && identity !== 'APPLICANT'}}">
@@ -84,16 +80,9 @@
 			<i class="icon iconfont icon-disejiantou-you"></i>
 		</view>
 		<view class="footer">
-			<block wx:if="{{detail.status !== 3}}">
-				<view class="edit" bindtap="todoAction" data-type="edit">编辑职位</view>
-				<view class="share" bindtap="todoAction" data-type="open" wx:if="{{detail.isOnline === 2}}">开放职位</view>
-			</block>
-			<block wx:elif="{{detail.status === 3}}">
-				<view class="edit" bindtap="todoAction" data-type="edit">编辑职位</view>
-			</block>
-			<block wx:else>
-				<!-- <view class="share" bindtap="todoAction" data-type="share" wx:if="{{detail.status !== 3 && detail.isOnline === 1}}">分享职位</view> -->
-			</block>
+			<view class="edit" bindtap="todoAction" data-type="edit">编辑职位</view>
+			<view class="share" bindtap="todoAction" data-type="open" wx:if="{{detail.status !== 3 && detail.status !== 4 && detail.isOnline === 2}}">开放职位</view>
+			<view class="share" bindtap="todoAction" data-type="share" wx:if="{{detail.isOnline === 1}}">分享职位</view>
 		</view>
 	</block>
 

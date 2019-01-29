@@ -6,7 +6,9 @@ Component({
   },
   methods: {
     changeMobile() {
-      this.setData({showBindMobile: !this.data.showBindMobile})
+      wx.makePhoneCall({
+        phoneNumber: '020-61279889'
+      })
     },
     hunterJob() {
       app.wxConfirm({

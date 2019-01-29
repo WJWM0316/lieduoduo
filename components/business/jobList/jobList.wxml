@@ -1,46 +1,47 @@
 <!--工作机会列表-->
 <view class="ul">
-  <view
-		class="li personality"
-		wx:for="{{ list }}"
-		wx:key="{{item.id}}"
-		data-item="{{item}}"
-		bindtap="routeJump">
-    <!-- 职位名称 -->
-    <view class="name">
-      <view class="title">{{item.positionName}}</view>
-      <view class="salary">{{item.emolumentMin}}K~{{item.emolumentMax}}K</view>
-    </view>
-    <!-- 公司情况 -->
-    <view class="company">
-      <text>{{item.companyInfo.companyName}}</text>
-      <text wx:if="{{item.companyInfo.financing === '1'}}"> | 未融资</text>
-      <text wx:if="{{item.companyInfo.financing === '2'}}"> | 天使轮</text>
-      <text wx:if="{{item.companyInfo.financing === '3'}}"> | A轮</text>
-      <text wx:if="{{item.companyInfo.financing === '4'}}"> | B轮</text>
-      <text wx:if="{{item.companyInfo.financing === '5'}}"> | C轮</text>
-      <text wx:if="{{item.companyInfo.financing === '6'}}"> | D轮</text>
-      <text wx:if="{{item.companyInfo.financing === '7'}}"> | 已上市</text>
-      <text wx:if="{{item.companyInfo.financing === '8'}}"> | 不需要融资</text>
-    </view>
-    <!-- 标签 -->
-    <view class="labelList">
-      <view class="label">
-        {{item.city}}{{item.district}}
-      </view>
-      <view class="label">
-        {{item.workExperienceName}}
-      </view>
-      <view class="label">
-        {{item.educationName}}
-      </view>
-    </view>
-    <!-- hr信息 -->
-    <view class="hr">
-      <view class="hrImg">
-        <image src="{{item.recruiterInfo.avatar.smallUrl}}"></image>
-      </view>
-      <view class="hrName">{{item.recruiterInfo.name}} · {{item.recruiterInfo.position}}</view>
-    </view>
+  <view wx:for="{{ list }}" wx:key="{{item.id}}">
+    <form bindsubmit="formSubmit" report-submit='{{true}}'  data-item="{{item}}" bindtap="routeJump">  
+      <button form-type="submit" class="formIdBtn" > 
+        <view class="li personality">
+          <!-- 职位名称 -->
+          <view class="name">
+            <view class="title">{{item.positionName}}</view>
+            <view class="salary">{{item.emolumentMin}}K~{{item.emolumentMax}}K</view>
+          </view>
+          <!-- 公司情况 -->
+          <view class="company">
+            <text>{{item.companyInfo.companyShortname}}</text>
+            <text wx:if="{{item.companyInfo.financing === '1'}}"> | 未融资</text>
+            <text wx:if="{{item.companyInfo.financing === '2'}}"> | 天使轮</text>
+            <text wx:if="{{item.companyInfo.financing === '3'}}"> | A轮</text>
+            <text wx:if="{{item.companyInfo.financing === '4'}}"> | B轮</text>
+            <text wx:if="{{item.companyInfo.financing === '5'}}"> | C轮</text>
+            <text wx:if="{{item.companyInfo.financing === '6'}}"> | D轮</text>
+            <text wx:if="{{item.companyInfo.financing === '7'}}"> | 已上市</text>
+            <text wx:if="{{item.companyInfo.financing === '8'}}"> | 不需要融资</text>
+          </view>
+          <!-- 标签 -->
+          <view class="labelList">
+            <view class="label">
+              {{item.city}}{{item.district}}
+            </view>
+            <view class="label">
+              {{item.workExperienceName}}
+            </view>
+            <view class="label">
+              {{item.educationName}}
+            </view>
+          </view>
+          <!-- hr信息 -->
+          <view class="hr">
+            <view class="hrImg">
+              <image src="{{item.recruiterInfo.avatar.smallUrl}}"></image>
+            </view>
+            <view class="hrName">{{item.recruiterInfo.name}} · {{item.recruiterInfo.position}}</view>
+          </view>
+        </view>
+    </button>  
+    </form>
   </view>
 </view>

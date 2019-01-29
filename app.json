@@ -35,7 +35,8 @@
     "page/applicant/pages/interview/interviewHistory/InterviewHistory",
     "page/common/pages/poster/position/position",
     "page/common/pages/poster/resume/resume",
-    "page/common/pages/poster/recruiter/recruiter"
+    "page/common/pages/poster/recruiter/recruiter",
+    "page/applicant/pages/center/attachment/attachment"
   ],
   "window": {
     "navigationBarTextStyle": "black",

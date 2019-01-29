@@ -1,7 +1,7 @@
 <view style="height:{{navH}}px;">
   <view class="navbar" style="height:{{navH}}px;background: {{background}};position: {{positionStatus}}">
     <view class="navbar-title" style="color: {{color}}"> 
-	    <view>{{ title }}</view>
+	    <view class="page-title">{{ title }}</view>
 	    <view class="return-back">
 	    	<i class="backLast iconfont icon-daohanglan-fanhui" wx:if="{{showBackBtn}}"  bindtap="navBack" style="color: {{color}}"></i>
     		<i class="line" wx:if="{{showBackBtn &&  showHome}}"></i>

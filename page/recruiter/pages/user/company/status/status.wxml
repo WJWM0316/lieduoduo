@@ -4,21 +4,21 @@
 	<!-- 公司认证 start -->
 	<view class="header" wx:if="{{options.from === 'company'}}">
 		<image src="{{cdnImagePath}}pic_await.png" mode="scaleToFill" class="default-status"></image>
+
 		<block wx:if="{{companyInfos.status === 0}}">
 			<view class="h1">公司认证审核中</view>
 			<view class="p">该申请将在24小时内审核，审核通过后即可开始招聘</view>
 		</block>
+
 		<block wx:elif="{{companyInfos.status === 2}}">
 			<view class="h3">公司认证审核未通过</view>
 			<view class="p2">请重新提交资料，完成公司创建</view>
 			<view class="h2">公司认证审核未通过的原因如下</view>
 			<view class="reation">
-				<view>·您提供的公司资质资料与猎多多不符；</view>
-				<view>·公司资质文件整体模糊； </view>
-				<view>·涉嫌使用他人证件提交认证，与猎多多的规则不符；</view>
-				<view>·身份证件整体模糊；</view>
+				<text>{{companyInfos.reviewNote}}</text>
 			</view>
 		</block>
+
 		<block wx:else>
 			<view class="h1">公司认证审核已通过</view>
 			<view class="p3">{{companyInfos.companyName}}</view>
@@ -35,26 +35,28 @@
 				</view>
 			</view>
 		</block>
+
 	</view>
 	<!-- 公司认证 end -->
 	
 	<!-- 身份认证 start -->
 	<view class="header" wx:if="{{options.from === 'identity'}}">
 		<image src="{{cdnImagePath}}pic_await.png" mode="scaleToFill" class="default-status"></image>
-		<block wx:if="{{companyInfos.status === 0}}">
+
+		<block wx:if="{{identityInfos.status === 0}}">
 			<view class="h1">实名认证审核中</view>
 			<view class="p">该申请将在24小时内审核，审核通过后即可开始招聘</view>
 		</block>
-		<block wx:elif="{{companyInfos.status === 2}}">
+
+		<block wx:elif="{{identityInfos.status === 2}}">
 			<view class="h3">实名认证审核未通过</view>
 			<view class="p2">请重新提交资料，完成个人信息认证</view>
 			<view class="h2">实名认证审核未通过的原因如下</view>
 			<view class="reation">
-				<view>·您提供的公司资质资料与猎多多不符；</view>
-				<view>·涉嫌使用他人证件提交认证，与猎多多的规则不符；</view>
-				<view>·身份证件整体模糊；</view>
+				<text>{{identityInfos.reviewNote}}</text>
 			</view>
 		</block>
+
 		<block wx:else>
 			<view class="h1">公司认证审核已通过</view>
 			<view class="p3">{{companyInfos.companyName}}</view>
@@ -71,6 +73,7 @@
 				</view>
 			</view>
 		</block>
+
 	</view>
 	<!-- 身份认证 end -->
 
@@ -88,7 +91,7 @@
 	</view>
 	<!-- 申请加入 end -->
 
-	<block wx:if="{{companyInfos.status !== 1}}">
+	<block wx:if="{{companyInfos.status !== 1 || identityInfos.status !== 1}}">
 		<view class="section" wx:if="{{options.from === 'company'}}">
 			<view class="title">
 				<view class="label">您的公司信息</view>
@@ -117,7 +120,7 @@
 				</view>
 				<view class="li">
 					<view class="key">认证资料</view>
-					<view class="value">{{identityInfos.identityNum ? '已上传' : '未上传'}}</view>
+					<view class="value">{{companyInfos.business_license.id ? '已上传' : '未上传'}}</view>
 				</view>
 			</view>
 		</view>
@@ -178,21 +181,21 @@
 						<image src="{{companyInfos.adminInfo.avatar.smallUrl}}" mode="scaleToFill" ></image>
 					</view>
 					<view class="infos">
-						<text class="realname">{{companyInfos.adminInfo.name}}</text>
-						<text class="degress">{{companyInfos.adminInfo.position}}</text>
+						<text class="realname">{{companyInfos.adminInfo.name}} </text>
+						<text class="degress"> {{companyInfos.adminInfo.position}}</text>
 					</view>
-					<!-- <view class="button-box"><i class="icon iconfont icon-kefu notice"></i>通知管理员</view> -->
+					<!-- <view class="button-box" data-action="notice" bindtap=""><i class="icon iconfont icon-kefu notice"></i>通知管理员</view> -->
 				</view>
 			</view>
 		</view>
 	</block>
 	<block wx:if="{{companyInfos.status === 1 && options.from === 'company' && !identityInfos.applyJoin}}">
 		<view class="div">
-			<view class="box1 perfect-button" bindtap="todoAction" data-action="perfect" wx:if="{{!isPerfect}}">
+			<view class="box1 perfect-button" wx:if="{{!identityInfos.identityNum}}">
 				<i class="icon iconfont icon-bianji label-icon"></i>
-				完善公司信息
+				完善个人信息
 			</view>
-			<view class="box1 email-button" bindtap="todoAction" data-action="email">
+			<view class="box1 email-button" bindtap="todoAction" data-action="email" wx:if="{{!companyInfos.email}}">
 				<i class="icon iconfont icon-renzheng label-icon"></i>
 				认证公司邮箱
 			</view>

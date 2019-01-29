@@ -51,7 +51,7 @@
 		<commonList personality="list" list="{{receiveData.list}}" list-type="default"></commonList>
 	</view>
 	<view hidden="{{tabIndex !== 2}}">
-		<myCalendar id="myCalendar" calendarType="roll" setDateList="{{dateList}}" switchable bindresultEvent="getResult"></myCalendar>
+		<myCalendar wx:if="{{tabIndex === 2}}" id="myCalendar" calendarType="roll" setDateList="{{dateList}}" switchable bindresultEvent="getResult"></myCalendar>
 		<commonList personality="list" list="{{interviewData.list}}" list-type="interview}}"></commonList>
 	</view>
 </view>

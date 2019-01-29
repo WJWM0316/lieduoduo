@@ -37,8 +37,8 @@
           </block>
         </block>
       </block>
-      <block wx:else>
-        <view class="placeholder" style="{{placeholderStyle}}">{{placeholder}}</view>
+      <block wx:else> 
+        <view class="placeholder">{{placeholder}}</view>
       </block>
     </block>
   </picker>
