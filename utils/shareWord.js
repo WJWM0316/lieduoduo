@@ -19,7 +19,7 @@ export const shareResume = (res) => {
 }
 
 // 分享招聘官
-export const shareRecruiter = `[我这么Nice的招聘官已经不多见了！]TA正在猎多多招人！`
+export const shareRecruiter = `我这么Nice的招聘官已经不多见了！ TA正在猎多多招人！`
 
 // 分享职位
 export const sharePosition = (res) => {

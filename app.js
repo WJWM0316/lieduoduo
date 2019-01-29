@@ -317,7 +317,6 @@ App({
         imageUrl: btnImageUrl || shareObj.imageUrl
       }
     }
-    console.log(shareObj, 1111111)
     return shareObj
   },
   // 切换身份

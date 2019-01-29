@@ -9,6 +9,9 @@ import {
   getCityRankApi
 } from '../../../../../api/pages/active'
 
+import {shareRanking} from '../../../../../utils/shareWord.js'
+import {APPLICANT} from '../../../../../config.js'
+
 const app = getApp()
 
 Page({
@@ -261,5 +264,14 @@ Page({
     if (!value.isLastPage) {
       this.getLists(false).then(() => this.setData({onBottomStatus: 1}))
     }
+  },
+  onShareAppMessage(options) {
+    let that = this
+　　return app.wxShare({
+      options,
+      title: shareRanking,
+      path: `${APPLICANT}officerActive/more/more`,
+      imageUrl: `${this.data.cdnImagePath}ranking.png`
+    })
   }
 })

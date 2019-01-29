@@ -13,6 +13,8 @@ import {
   getLabelPositionApi
 } from '../../../../../api/pages/label.js'
 
+import {shareChance} from '../../../../../utils/shareWord.js'
+
 const app = getApp()
 
 Page({
@@ -33,7 +35,8 @@ Page({
     cityList: [],
     positionTypeList: [],
     applyIndex: 0,
-    positionIndex: 0
+    positionIndex: 0,
+    cdnImagePath: app.globalData.cdnImagePath
   },
   onLoad() {
     this.getPositionList()
@@ -166,5 +169,14 @@ Page({
     } else {
       this.setData({[key]: 0, [key2]: 0}, () => this.getPositionList(false).then(() => this.setData({onBottomStatus: 1})))
     }
+  },
+  onShareAppMessage(options) {
+    let that = this
+　　return app.wxShare({
+      options,
+      title: shareChance,
+      path: `${APPLICANT}jobs/job/job`,
+      imageUrl: `${this.data.cdnImagePath}positionList.png`
+    })
   }
 })
