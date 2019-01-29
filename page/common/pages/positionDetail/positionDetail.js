@@ -34,11 +34,7 @@ Page({
     this.getPositionDetail()
   },
   backEvent() {
-     if(wx.getStorageSync('choseType') === 'RECRUITER') {
-      wx.navigateTo({url: `${RECRUITER}position/index/index`})
-     } else {
-      wx.navigateBack({delta: 1})
-     }
+     wx.navigateBack({delta: 1})
   },
   /**
    * @Author   小书包
@@ -152,7 +148,7 @@ Page({
 　　return app.wxShare({
       options,
       title: sharePosition(),
-      path: `${COMMON}positionDetail/positionDetail?positionId=${that.data.query.id}`,
+      path: `${COMMON}positionDetail/positionDetail?positionId=${that.data.query.positionId}`,
       imageUrl: `${that.data.cdnPath}positionList.png`
     })
   }

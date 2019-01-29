@@ -12,7 +12,7 @@ export const request = ({method = 'post', url, data = {}, needKey = true, hasLoa
   if (wx.getStorageSync('sessionToken')) {
     addHttpHead['Authorization-Wechat'] = wx.getStorageSync('sessionToken')
   }
-  if (wx.getStorageSync('token')) {
+  if (wx.getStorageSync('token') && url !== '/bind/register') {
     addHttpHead['Authorization'] = wx.getStorageSync('token')
   }
   // 版本号， 每次上次发版 + 1

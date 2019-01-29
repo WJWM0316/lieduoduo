@@ -30,6 +30,11 @@ Page({
       }
     }
   },
+  call() {
+    wx.makePhoneCall({
+      phoneNumber: '020-61279889'
+    })
+  },
   online() {
     app.wxConfirm({
       title: '联系客服',
@@ -57,29 +62,6 @@ Page({
   },
   login() {
     this.setData({hideBind: false})
-  },
-  preview() {
-    // wx.downloadFile({
-    //   url: 'https://lieduoduo-uploads-test.oss-cn-shenzhen.aliyuncs.com/front-assets/file/111.pdf',
-    //   success(res) {
-    //     const filePath = res.tempFilePath
-    //     wx.openDocument({
-    //       filePath,
-    //       success(res) {
-    //         console.log('打开文档成功')
-    //       }
-    //     })
-    //   },
-    //   fail(e) {
-    //     console.log(e)
-    //   }
-    // })
-    wx.scanCode({
-      onlyFromCamera: true,
-      success(res) {
-        console.log(res)
-      }
-    })
   },
   jump(e) {
     switch(e.currentTarget.dataset.type) {
@@ -113,11 +95,11 @@ Page({
     })
   },
   onPullDownRefresh(hasLoading = true) {
-    this.setData({hasReFresh: true})
-    getPersonalResumeApi().then(res => {
-      app.globalData.resumeInfo = res.data
-      wx.stopPullDownRefresh()
-      this.setData({hasReFresh: false})
-    })
+    // this.setData({hasReFresh: true})
+    // getPersonalResumeApi().then(res => {
+    //   app.globalData.resumeInfo = res.data
+    //   wx.stopPullDownRefresh()
+    //   this.setData({hasReFresh: false})
+    // })
   }
 })

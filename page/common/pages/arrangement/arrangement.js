@@ -1,5 +1,6 @@
 import {interviewDetailApi, setInterviewDetailApi, sureInterviewApi} from "../../../../api/pages/interview.js"
 import {COMMON,APPLICANT,RECRUITER} from "../../../../config.js"
+import {mobileReg} from "../../../../utils/fieldRegular.js"
 let app = getApp()
 Page({
 
@@ -119,9 +120,12 @@ Page({
   send() {
     let info = this.data.info
     let dateList = []
-    info.arrangementInfo.appointmentList.map((item, index) => {
-      dateList.push(item.appointmentTime)
-    })
+    if (info.arrangementInfo) {
+      info.arrangementInfo.appointmentList.map((item, index) => {
+        dateList.push(item.appointmentTime)
+      })
+    }
+
     let data = {
       interviewId: this.data.options.id,
       realname: info.recruiterInfo.realname,
@@ -130,10 +134,19 @@ Page({
       addressId: info.addressId,
       interviewTime: dateList.join(',')
     }
-    if (!data.interviewTime) {
-      app.wxToast({
-        title: '请至少添加一个约面时间'
-      })
+    let title = ''
+    if (!info.recruiterInfo.realname) {
+      title = '请填写面试联系人'
+    } else if (!info.recruiterInfo.mobile) {
+      title = '请填写面试联系电话'
+    } else if (info.recruiterInfo.mobile && !mobileReg.test(info.recruiterInfo.mobile)) {
+      title = '联系电话格式错误'
+    } else if (!data.interviewTime) {
+      title = '请至少添加一个约面时间'
+    }
+    console.log(title, !info.recruiterInfo.realname, info.recruiterInfo.realname)
+    if (title) {
+      app.wxToast({title})
       return
     }
     setInterviewDetailApi(data).then(res => {

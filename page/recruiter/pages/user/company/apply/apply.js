@@ -144,7 +144,7 @@ Page({
   },
   changePhone() {
     wx.navigateTo({
-      url: `${COMMON}changeMobile/changeMobile`
+      url: `${COMMON}bindPhone/bindPhone`
     })
   }
 })

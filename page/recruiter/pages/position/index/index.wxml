@@ -33,7 +33,7 @@
 		</view>
 		<view class="item-status">{{filters.positionFilter(item.status)}}</view>
 	</view>
-	<bottomStatus status="{{onBottomStatus}}"></bottomStatus>
+	<bottomStatus status="{{onBottomStatus}}" listData="{{onLinePosition.list}}"></bottomStatus>
 </view>
 <view class="office-manager-list"  hidden="{{positionStatus === '1'}}">
 	<view class="li"
@@ -55,7 +55,7 @@
 		</view>
 		<view class="item-status">{{filters.positionFilter(item.status)}}</view>
 	</view>
-	<bottomStatus status="{{offBottomStatus}}"></bottomStatus>
+	<bottomStatus status="{{offBottomStatus}}" listData="{{offLinePosition.list}}"></bottomStatus>
 </view>
 <tab-bar tabType="1"></tab-bar>
 <view style="height: 98rpx"></view>

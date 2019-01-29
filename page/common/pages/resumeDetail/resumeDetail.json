@@ -3,6 +3,7 @@
 	"backgroundTextStyle": "light",
   "usingComponents": {
     "navbar": "../../../../components/business/navbar/navbar",
+    "shareBtn": "../../../../components/layout/shareBtn/shareBtn",
     "interviewBar": "../../../../components/business/interviewBar/interviewBar"
   }
 }

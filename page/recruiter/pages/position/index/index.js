@@ -31,10 +31,24 @@ Page({
   onLoad() {
   },
   onShow() {
+    let onLinePosition = {
+      list: [],
+      pageNum: 1,
+      count: 20,
+      isLastPage: false,
+      isRequire: false
+    }
+    let offLinePosition = {
+      list: [],
+      pageNum: 1,
+      count: 20,
+      isLastPage: false,
+      isRequire: false
+    }
     getPositionListNumApi({recruiter: app.globalData.recruiterDetails.uid}).then(res => {
-      this.setData({onLinePositionNum: res.data.online, offLinePositionNum: res.data.offline})
+      this.setData({onLinePosition, offLinePosition, onLinePositionNum: res.data.online, offLinePositionNum: res.data.offline})
+      this.getLists()
     })
-    this.getLists()
   },
   /**
    * @Author   小书包
@@ -127,6 +141,10 @@ Page({
     if (positionStatus === '2') {
       if (!this.data.offLinePosition.isRequire) {
         this.getOffLineLists()
+      }
+    } else {
+      if (!this.data.onLinePosition.isRequire) {
+        this.getOnlineLists()
       }
     }
     this.setData({positionStatus})
