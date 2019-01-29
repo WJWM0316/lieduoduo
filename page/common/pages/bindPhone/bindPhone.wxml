@@ -17,8 +17,9 @@
       <view class="sendBtn wait" hidden="{{second === 60}}">等待{{second}}s</view>
     </view>
   </view>
+  <button class="bindBtn" catchtap="bindPhone">登录</button>
   <view class="wxBtn">
     <button class="wxLogin" open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber">微信账号快捷登录<view class="icon iconfont icon-disejiantou-you"></view></button>
   </view>
-  <button class="bindBtn" catchtap="bindPhone">绑定</button>
+  
 </view>

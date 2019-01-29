@@ -3,7 +3,7 @@
 <view class="textArea">
   <textarea placeholder="填写你工作内容" placeholder-class="placeholder" maxlength="300" bindinput="WriteContent"></textarea>
   <view class="bottom">
-    <view class="example" bindtap="showPopups"><i class="icon iconfont icon-chakan"></i>看看别人怎么写</view>
+    <view class="example" bindtap="showPopups"><!-- <i class="icon iconfont icon-chakan"></i>看看别人怎么写 --></view>
     <view class="num">{{nowInputNum}}/300</view>
   </view>
 </view>

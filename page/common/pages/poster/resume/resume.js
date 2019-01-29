@@ -164,7 +164,7 @@ Page({
     } else {
       ctx.fillText(info.signature, 80, curHeight + 30)
     }
-    curHeight = curHeight + 60
+    curHeight = curHeight + 45
 
     // 求职意向
     ctx.drawImage('../../../../../images/a7.png', 0, curHeight, 750, 100)
@@ -490,7 +490,7 @@ Page({
             wx.hideLoading()
           }
         })
-      }, 300)
+      }, 500)
     })
   },
   /**

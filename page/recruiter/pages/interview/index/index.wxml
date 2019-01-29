@@ -37,7 +37,7 @@
 		</view>
 		<commonList list="{{receiveData.list}}" identity="{{identity}}" dotType="{{'circle'}}">
 		</commonList>
-		<bottomStatus status="{{applyBottomStatus}}"></bottomStatus>
+		<bottomStatus status="{{applyBottomStatus}}" listData="{{receiveData.list}}"></bottomStatus>
 	</view>
 	<view hidden="{{tabIndex !== 1}}" class="list-box">
 		<view class="select-box">
@@ -56,13 +56,13 @@
 		</view>
 		<commonList list="{{applyData.list}}" identity="{{identity}}" dotType="{{'circle'}}">
 		</commonList>
-		<bottomStatus status="{{receiveBottomStatus}}"></bottomStatus>
+		<bottomStatus status="{{receiveBottomStatus}}" listData="{{applyData.list}}"></bottomStatus>
 	</view>
 	<view hidden="{{tabIndex !== 2}}" class="list-box">
 		<myCalendar id="myCalendar" calendarType="roll" setDateList="{{dateList}}" switchable bindresultEvent="getResult"></myCalendar>
 		<commonList list="{{interviewData.list}}" identity="{{identity}}" dotType="{{'circle'}}">
 		</commonList>
-		<bottomStatus status="{{interviewBottomStatus}}"></bottomStatus>
+		<bottomStatus status="{{interviewBottomStatus}}" listData="{{interviewData.list}}"></bottomStatus>
 	</view>
   <tab-bar tabType="1"></tab-bar>
 </view>
