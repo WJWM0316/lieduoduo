@@ -125,26 +125,22 @@ Page({
       !positionReg.test(this.data.user_position) ? reject('请填写有效的公司地址') : resolve()
     })
 
-    Promise
-      .all([checkRealName, checkUserEmail, checkUserPosition])
-      .then(res => {
-        const options = this.data.options
-        const url = options.action && options.action === 'edit'
-          ? `${RECRUITER}user/company/find/find?action=edit&type=${options.type}`
-          : `${RECRUITER}user/company/find/find?type=create`
-        wx.navigateTo({url})
-        wx.setStorageSync('createdCompany', this.data)
-      })
-      .catch(err => {
-        app.wxToast({title: err})
-      })
+    Promise.all([checkRealName, checkUserEmail, checkUserPosition]).then(res => {
+      const options = this.data.options
+      const url = options.action && options.action === 'edit'
+        ? `${RECRUITER}user/company/find/find?action=edit&type=${options.type}`
+        : `${RECRUITER}user/company/find/find?type=create`
+      wx.navigateTo({url})
+      wx.setStorageSync('createdCompany', this.data)
+    })
+    .catch(err => {
+      app.wxToast({title: err})
+    })
   },
   toggle() {
     app.toggleIdentity()
   },
   changePhone() {
-    wx.navigateTo({
-      url: `${COMMON}bindPhone/bindPhone`
-    })
+    wx.navigateTo({url: `${COMMON}bindPhone/bindPhone`})
   }
 })

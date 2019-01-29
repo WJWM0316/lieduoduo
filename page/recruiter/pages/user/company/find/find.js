@@ -2,8 +2,8 @@ import {
   applyCompanyApi,
   getCompanyNameListApi,
   justifyCompanyExistApi,
-  getCompanyIdentityInfosApi,
-  editApplyCompanyApi
+  editApplyCompanyApi,
+  getCompanyIdentityInfosApi
 } from '../../../../../../api/pages/company.js'
 
 import {realNameReg, emailReg, positionReg} from '../../../../../../utils/fieldRegular.js'
@@ -43,6 +43,20 @@ Page({
     this.setData({options})
     if(!storage) return
     if(storage.company_name) this.setData({company_name: storage.company_name, canClick: true})
+    if(options.action && options.action === 'edit') this.getCompanyIdentityInfos()
+  },
+  /**
+   * @Author   小书包
+   * @DateTime 2019-01-12
+   * @detail   获取编辑详情
+   * @return   {[type]}   [description]
+   */
+  getCompanyIdentityInfos(options) {
+    getCompanyIdentityInfosApi()
+      .then(res => {
+        const infos = res.data.companyInfo
+        this.setData({selectId: infos.applyId})
+      })
   },
 /**
  * @Author   小书包
@@ -161,7 +175,7 @@ Page({
    */
   editApplyCompany(companyId) {
     const storage = wx.getStorageSync('createdCompany')
-    let id = storage.applyId || this.data.selectId
+    const id = this.data.selectId
     const params = {
       id,
       real_name: storage.real_name,

@@ -1,5 +1,5 @@
 <view class="search-company-page">
-	<navbar title="输入公司全名称" background="#FFFFFF" color="#22292C"></navbar>
+	<navbar title="输入公司全称" background="#FFFFFF" color="#22292C"></navbar>
 	<view class="page-header">
 		<view class="h1">我们需要确认您的公司信息</view>
 		<view class="h2">如果公司已经注册，可直接查找公司信息</view>
