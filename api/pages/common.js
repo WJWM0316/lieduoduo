@@ -108,6 +108,7 @@ export const formIdApi = (data, hasLoading) => {
   return request({
     method: 'post',
     url: `/wechat/mini/form_ids`,
+    data,
     hasLoading: false
   })
 }

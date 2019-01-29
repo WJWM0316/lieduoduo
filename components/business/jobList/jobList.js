@@ -21,7 +21,6 @@ Component({
    */
   methods: {
     routeJump (e) {
-      console.log(e.currentTarget.dataset.item)
       let item = e.currentTarget.dataset.item
       wx.navigateTo({
         url: `/page/common/pages/positionDetail/positionDetail?positionId=${item.id}&companyId=${item.companyId}`

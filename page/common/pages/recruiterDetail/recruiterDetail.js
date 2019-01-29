@@ -255,6 +255,7 @@ Page({
 　　return app.wxShare({
       options,
       title: shareRecruiter(),
+      path: `${COMMON}recruiterDetail/recruiterDetail?uid=${this.data.options.uid}`,
       imageUrl: `${that.data.cdnImagePath}shareB.png`
     })
   }
