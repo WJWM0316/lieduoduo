@@ -17,7 +17,7 @@
 				<view class="degree-name directions">你与offer之间还差一份简历，快去完善吧~</view>
 			</view>
       <view class="content" wx:if='{{!hasLogin}}'>
-        <view class="realname">尚未登录</view>
+        <view class="realname">未登录</view>
         <text class="degree-name directions">登录可后使用完整功能 \n 快去登录吧~</text>
       </view>
 			<image class="img-box" src="{{myInfo.avatar.url}}"></image>

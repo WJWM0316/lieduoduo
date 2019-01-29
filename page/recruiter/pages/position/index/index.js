@@ -247,5 +247,9 @@ Page({
         this.setData({hasReFresh: false})
       })
     }
+  },
+  onShareAppMessage(options) {
+    let that = this
+　　return app.wxShare({options})
   }
 })

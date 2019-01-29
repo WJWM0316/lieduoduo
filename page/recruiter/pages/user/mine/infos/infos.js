@@ -1,7 +1,7 @@
 import { getRecruiterMyInfoApi } from '../../../../../../api/pages/recruiter.js'
 import {RECRUITER, COMMON} from '../../../../../../config.js'
 import {getUserRoleApi} from "../../../../../../api/pages/user.js"
-
+import {shareRecruiter} from '../../../../../../utils/shareWord.js'
 const app = getApp()
 
 Page({
@@ -66,6 +66,15 @@ Page({
       urls: [this.data.recruiterInfo.avatar.url],
       complete() {
       }
+    })
+  },
+  onShareAppMessage(options) {
+    let that = this
+　　return app.wxShare({
+      options,
+      btnTitle: shareRecruiter,
+      btnPath: `${COMMON}recruiterDetail/recruiterDetail?uid=${this.data.recruiterInfo.uid}`,
+      btnImageUrl: `${that.data.cdnPath}shareB.png`
     })
   }
 })

@@ -9,6 +9,7 @@ import {
 import {
   getBrowseMySelfListsApi
 } from '../../../../api/pages/recruiter.js'
+
 const app = getApp()
 
 Page({
@@ -166,5 +167,9 @@ Page({
       this.setData({onBottomStatus: 1})
       this.getLists(false)
     }
+  },
+  onShareAppMessage(options) {
+    let that = this
+　　return app.wxShare({options})
   }
 })

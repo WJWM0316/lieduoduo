@@ -37,7 +37,6 @@ Component({
           })
           break
       }
-      
       wx.setStorageSync('posterData', this.data.posterData)
       this.setData({showChoose: false})
     }

@@ -259,5 +259,9 @@ Page({
         })
       break
     }
+  },
+  onShareAppMessage(options) {
+    let that = this
+　　return app.wxShare({options})
   }
 })
