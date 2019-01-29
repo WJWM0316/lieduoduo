@@ -310,4 +310,13 @@ Page({
       this.getPositionList(false).then(() => this.setData({onBottomStatus: 1}))
     }
   },
+  onShareAppMessage(options) {
+    let that = this
+　　return app.wxShare({
+      options,
+      title: `${that.data.companyInfos.companyShortname}正在招聘，马上约面，极速入职！我在猎多多等你！`,
+      path: `${COMMON}homepage/homepage?companyId=${this.data.query.companyId}`,
+      imageUrl: `${that.data.cdnImagePath}shareB.png`
+    })
+  }
 })
