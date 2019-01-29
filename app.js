@@ -174,6 +174,7 @@ App({
             // 有token说明已经绑定过用户了
             if (res.data.token) {
               wx.setStorageSync('token', res.data.token)
+              wx.setStorageSync('sessionToken', res.data.sessionToken)
               that.globalData.hasLogin = true
               that.loginedLoadData()
               // 登陆回调

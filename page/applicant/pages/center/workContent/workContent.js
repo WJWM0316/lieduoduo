@@ -39,7 +39,7 @@ Page({
   WriteContent (e) {
     workContent = e.detail.value
    this.setData({
-     nowInputNum: e.detail.cursor
+     nowInputNum: e.detail.value.length
    })
   },
   send () {

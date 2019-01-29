@@ -104,7 +104,7 @@ Page({
           case 'label_life':
             i.checked = true
             choseLifeList.push(i)
-            if (i.pid === 100000) {
+            if (i.pid === 110000) {
               character.map((k, s) => {
                 if (k.labelId === i.labelId) {
                   character[s].checked = true
@@ -237,7 +237,7 @@ Page({
               relationList = this.data.literacy
               break
             case 'label_life':
-              if (choseData.pid === 100000) {
+              if (choseData.pid === 110000) {
                 relationType = 'character'
                 relationList = this.data.character
               } else {

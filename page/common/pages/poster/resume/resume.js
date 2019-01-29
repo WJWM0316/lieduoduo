@@ -160,7 +160,7 @@ Page({
           descString = ''
         }
       }
-      ctx.fillText(info.signature.slice(iIndex, info.signature.length-1), 80, curHeight + 30)
+      ctx.fillText(info.signature.slice(iIndex, info.signature.length), 80, curHeight + 30)
     } else {
       ctx.fillText(info.signature, 80, curHeight + 30)
     }

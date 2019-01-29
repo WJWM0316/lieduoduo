@@ -12,8 +12,13 @@ export const request = ({method = 'post', url, data = {}, needKey = true, hasLoa
   if (wx.getStorageSync('sessionToken')) {
     addHttpHead['Authorization-Wechat'] = wx.getStorageSync('sessionToken')
   }
-  if (wx.getStorageSync('token') && url !== '/bind/register') {
-    addHttpHead['Authorization'] = wx.getStorageSync('token')
+  if (wx.getStorageSync('token')) {
+    if (url !== '/bind/register' && url !== '/bind/quick_login') {
+      addHttpHead['Authorization'] = wx.getStorageSync('token')
+    } else {
+      addHttpHead['Authorization'] = ''
+    }
+    
   }
   // 版本号， 每次上次发版 + 1
   addHttpHead['cv'] = 100
