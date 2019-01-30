@@ -34,8 +34,6 @@
 	background:rgba(255,255,255,1);
 	position: relative;
 	display: flex;
-  justify-content: center;
-  align-items: center;
   padding: 32rpx 40rpx;
   box-sizing: border-box;
 }
@@ -61,7 +59,6 @@
 	box-shadow:0rpx 2rpx 12rpx 0rpx rgba(0,0,0,0.12);
 	border:2rpx solid rgba(232,233,235,1);
 	border-radius: 50%;
-	margin-right: 30rpx;
 	display: inline-block;
 	position: absolute;
 	left: 40rpx;
@@ -84,7 +81,7 @@
 
 .productList .content {
 	flex: 1;
-	padding: 0 108rpx 0 190rpx;
+	padding: 0 108rpx 0 150rpx;
 }
 
 .productList .first {
@@ -120,11 +117,13 @@
 	color:rgba(40,40,40,1);
 	padding: 8rpx 18rpx;
 	background: #F8F8F8;
-	max-width: 450rpx;
+	width: 450rpx;
 	margin-top: 16rpx;
 	line-height: 1.5;
 	position: relative;
 	display: inline-block;
+	word-wrap:break-word;
+	overflow: hidden;
 }
 
 .productList .second:before {
