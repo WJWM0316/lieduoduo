@@ -81,6 +81,9 @@ export const request = ({method = 'post', url, data = {}, needKey = true, hasLoa
                 })
               }
               if (msg.code === 801) {
+
+                wx.setStorageSync('companyInfos', res.data)
+                
                 // 还没有创建公司
                 if(!res.data.data.companyInfo.vkey) {
                   wx.reLaunch({url: `${RECRUITER}user/company/apply/apply`})

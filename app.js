@@ -334,17 +334,21 @@ App({
     let identity = wx.getStorageSync('choseType')
     if (identity === 'RECRUITER') {
       wx.setStorageSync('choseType', 'APPLICANT')
-      if (!this.globalData.isJobhunter) {
-        wx.reLaunch({
-          url: `${APPLICANT}center/createUser/createUser`
-        })
-      } else {
-        this.getAllInfo().then(res => {
-          wx.reLaunch({
-            url: `${APPLICANT}index/index`
-          })
-        })
-      }
+      // 都跳首页
+      wx.reLaunch({
+        url: `${APPLICANT}index/index`
+      })
+      // if (!this.globalData.isJobhunter) {
+      //   wx.reLaunch({
+      //     url: `${APPLICANT}center/createUser/createUser`
+      //   })
+      // } else {
+      //   this.getAllInfo().then(res => {
+      //     wx.reLaunch({
+      //       url: `${APPLICANT}index/index`
+      //     })
+      //   })
+      // }
     } else {
       wx.setStorageSync('choseType', 'RECRUITER')
       if (!this.globalData.isRecruiter) {

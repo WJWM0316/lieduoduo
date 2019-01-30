@@ -81,7 +81,7 @@ Page({
         content: `请先认证`,
         confirmText: '知道了',
         confirmBack: () => {
-          wx.redirectTo({url: `${RECRUITER}user/company/identity/identity?type=create&realName=${identityInfos.realName}`})
+          wx.navigateTo({url: `${RECRUITER}user/company/identity/identity?type=create&realName=${identityInfos.companyInfo.realName}`})
         }
       })
     } else {
@@ -91,7 +91,7 @@ Page({
           content: `请先认证`,
           confirmText: '知道了',
           confirmBack: () => {
-            wx.redirectTo({url: `${RECRUITER}user/company/identity/identity?type=create&realName=${identityInfos.realName}&action=edit`})
+            wx.navigateTo({url: `${RECRUITER}user/company/identity/identity?type=create&realName=${identityInfos.companyInfo.realName}&action=edit`})
           }
         })
       } else {
@@ -175,7 +175,7 @@ Page({
     const params = e.currentTarget.dataset
     switch(params.action) {
       case 'add':
-        wx.navigateTo({url: `${RECRUITER}position/post/post`})
+        this.publicPosition()
         break
       case 'detail':
         wx.navigateTo({url: `${COMMON}positionDetail/positionDetail?positionId=${params.positionId}&companyId=${params.companyId}`})

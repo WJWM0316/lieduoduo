@@ -103,12 +103,11 @@ var positionFilter = function(num) {
       status = '已关闭'
       break
     case 1:
-      // status = '审核通过'
-      status = ''
+      status = '审核通过'
       break
     case 2:
       // 先发后审
-      status = ''
+      status = '审核中'
       break
     case 3:
       // 审核不通过，再次编辑提审状态
