@@ -59,9 +59,19 @@ export const postThirdStepApi = (data) => {
 export const getPersonalResumeApi = (data) => {
   return request({
     method: 'get',
-    url: '/jobhunter/resume',
+    url: '/jobhunter/cur/resume',
     data,
     hasLoading: false
+  })
+}
+
+// 获取他人简历接口
+export const getOtherResumeApi = (data) => {
+  return request({
+    method: 'get',
+    url: '/jobhunter/resume',
+    data,
+    hasLoading: true
   })
 }
 

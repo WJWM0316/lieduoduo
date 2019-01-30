@@ -28,11 +28,11 @@
     <view class="edit">
       <radio-group class="radio-group" bindchange="radioChange" >
         <label class="radio">
-          <radio value="1" color="#652791" checked="{{gender === 1}}" disabled/>
+          <radio value="1" color="#652791" checked="{{gender === 1}}"/>
           男
         </label>
         <label class="radio">
-          <radio value="2" color="#652791" checked="{{gender === 2}}" disabled/>
+          <radio value="2" color="#652791" checked="{{gender === 2}}"/>
           女
         </label>
       </radio-group>

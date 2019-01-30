@@ -77,7 +77,8 @@ Page({
    * @detail   动态输入
    * @return   {[type]}     [description]
    */
-  bindInput(e) {
+  choseDate(e) {
+    console.log(e, 11)
     const field = e.currentTarget.dataset.field
     this.setData({[field]: e.detail.value})
     this.bindBtnStatus()

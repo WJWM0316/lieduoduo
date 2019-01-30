@@ -5,7 +5,7 @@
 			<view class="key">产品Logo</view>
 			<view class="value">
 				<view class="logo">
-					<unloadFile bindresultEvent="upload" unloadType="img">
+					<unloadFile bindresultEvent="upload" unloadType="img" number="{{number}}">
 						<image src="{{cdnPath}}pic_dafult_product.png" class="placeholder-image" mode="aspectFill"></image>
 						<image src="{{upload.middleUrl}}" wx:if="{{upload.middleUrl}}" mode="aspectFill" class="upload-image"></image>
 					</unloadFile>     

@@ -19,7 +19,8 @@ Page({
     	smallUrl: ''
     },
     cdnPath: app.globalData.cdnImagePath,
-    options: {}
+    options: {},
+    number: 1
   },
   onLoad(options) {
     this.setData({options})

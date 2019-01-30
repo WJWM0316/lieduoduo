@@ -75,7 +75,7 @@ Page({
    */
   bindInput(e) {
     const name = e.detail.value
-    if(name) this.debounce(this.getCompanyNameList, null, 500, name)
+    if(name) this.debounce(this.getCompanyNameList, null, 300, name)
   },
   /**
    * @Author   小书包

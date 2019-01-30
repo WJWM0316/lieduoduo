@@ -2,7 +2,8 @@ import { getCompanyIdentityInfosApi } from '../../../../../../api/pages/company.
 
 import {realNameReg, emailReg, positionReg} from '../../../../../../utils/fieldRegular.js'
 
-import {RECRUITER, COMMON} from '../../../../../../config.js'
+import {RECRUITER, COMMON, APPLICANT} from '../../../../../../config.js'
+import {uploginApi} from "../../../../../../api/pages/auth.js"
 
 const app = getApp()
 
@@ -141,6 +142,15 @@ Page({
     app.toggleIdentity()
   },
   changePhone() {
-    wx.navigateTo({url: `${COMMON}bindPhone/bindPhone`})
+    uploginApi().then(res => {
+      wx.clearStorageSync()
+      app.globalData.identity = ''
+      app.globalData.hasLogin = false
+      app.globalData.resumeInfo = {}
+      app.globalData.recruiterDetails = {}
+      wx.reLaunch({
+        url: `${APPLICANT}index/index`
+      })
+    })
   }
 })

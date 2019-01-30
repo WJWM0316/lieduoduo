@@ -42,10 +42,7 @@ Page({
       app.loginInit = () => {
         this.getPositionDetail()
       }
-    } 
-  },
-  backEvent() {
-    wx.navigateBack({delta: 1})
+    }
   },
   /**
    * @Author   小书包
@@ -101,7 +98,8 @@ Page({
           .then(res => {
             const detail = this.data.detail
             detail.status = 0
-            this.setData({detail}, () => app.wxToast({title: '职位已开放'}))
+            that.setData({detail}, () => app.wxToast({title: '职位已开放', icon: 'success'}))
+            that.getPositionDetail()
           })
         break
       case 'close':
@@ -114,14 +112,14 @@ Page({
             closePositionApi({id: that.data.detail.id})
               .then(res => {
                 const detail = that.data.detail
-                detail.status = 1
-                that.setData({detail}, () => app.wxToast({title: '职位已关闭'}))
+                that.setData({detail}, () => app.wxToast({title: '职位已关闭', icon: 'success'}))
+                that.getPositionDetail()
               })
           }
         })
         break
       case 'share':
-        console.log('share')
+        this.selectComponent('#shareBtn').oper()
         break
       case 'edit':
         wx.navigateTo({url: `${RECRUITER}position/post/post?positionId=${this.data.detail.id}`})
@@ -177,6 +175,7 @@ Page({
         break
     }
   },
+
   onPullDownRefresh(hasLoading = true) {
     this.setData({hasReFresh: true})
     this.getPositionDetail().then(res => {
@@ -184,6 +183,7 @@ Page({
       wx.stopPullDownRefresh()
     })
   },
+
   onShareAppMessage(options) {
     let that = this
 　　return app.wxShare({

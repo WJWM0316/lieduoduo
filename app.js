@@ -46,9 +46,6 @@ App({
       success: function (res0) {
         wx.setStorageSync('code', res0.code)
         loginApi({code: res0.code}).then(res => {
-          if (!wx.getStorageSync('choseType')) {
-            wx.setStorageSync('choseType', 'APPLICANT')
-          }
           that.globalData.identity = wx.getStorageSync('choseType')
 
           // 有token说明已经绑定过用户了
@@ -67,6 +64,7 @@ App({
             that.loginInit()
           }
           that.loginInit = function () {}
+
         })
       },
       fail: function (e) {
@@ -85,25 +83,15 @@ App({
             this.pageInit() //执行定义的回调函数
           }
           resolve(res0.data)
-        }).catch(e => {
-          if (this.pageInit) { // 页面初始化
-            this.pageInit() //执行定义的回调函数
-          }
-          resolve(e)
         })
       } else {
         getPersonalResumeApi().then(res0 => {
           this.globalData.resumeInfo = res0.data
+          this.globalData.isJobhunter = 1
           if (this.pageInit) { // 页面初始化
             this.pageInit() //执行定义的回调函数
           }
           resolve(res0.data)
-        }).catch(e => {
-          if (this.pageInit) { // 页面初始化
-            this.pageInit() //执行定义的回调函数
-          }
-          this.pageInit = function () {}
-          resolve(e)
         })
       }
     })

@@ -1,5 +1,5 @@
 // page/common/pages/resumeDetail/resumeDetail.js
-import { getPersonalResumeApi } from '../../../../api/pages/center.js'
+import { getOtherResumeApi } from '../../../../api/pages/center.js'
 
 import { inviteInterviewApi } from '../../../../api/pages/interview.js'
 import { getMyCollectUserApi, deleteMyCollectUserApi } from '../../../../api/pages/collect.js'
@@ -96,7 +96,7 @@ Page({
   },
   getOthersInfo() {
     return new Promise((resolve, reject) => {
-      getPersonalResumeApi({uid: this.data.options.uid}).then(res => {
+      getOtherResumeApi({uid: this.data.options.uid}).then(res => {
         this.setData({info: res.data})
         if (this.selectComponent('#interviewBar')) {
           this.selectComponent('#interviewBar').init()

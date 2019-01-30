@@ -3,11 +3,12 @@ import {APPLICANTHOST, RECRUITERHOST, COMMON, RECRUITER, APPLICANT} from '../con
 let loadNum = 0
 let addHttpHead = {}
 let BASEHOST = ''
+
 export const request = ({method = 'post', url, data = {}, needKey = true, hasLoading = true, loadingContent = '加载中...'}) => {
-  if (!wx.getStorageSync('choseType') || wx.getStorageSync('choseType') === "APPLICANT") {
-    BASEHOST = APPLICANTHOST
-  } else {
+  if (wx.getStorageSync('choseType') === "RECRUITER") {
     BASEHOST = RECRUITERHOST
+  } else {
+    BASEHOST = APPLICANTHOST
   }
   if (wx.getStorageSync('sessionToken')) {
     addHttpHead['Authorization-Wechat'] = wx.getStorageSync('sessionToken')
@@ -18,7 +19,6 @@ export const request = ({method = 'post', url, data = {}, needKey = true, hasLoa
     } else {
       addHttpHead['Authorization'] = ''
     }
-    
   }
   // 版本号， 每次上次发版 + 1
   addHttpHead['cv'] = 100

@@ -5,7 +5,6 @@
 	<view class="shareBtn" bindtap="oper">
 	  <view class="shareIcon iconfont icon-fenxiang"></view>
 	</view>
-
 	<view class="shareBox" bindtap="close" hidden="{{!showChoose}}">
 	</view>
 	<view class="choseBox" hidden="{{!showChoose}}">
