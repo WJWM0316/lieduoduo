@@ -38,11 +38,7 @@ Page({
    * @return   {[type]}           [description]
    */
   onLoad(options) {
-    const storage = wx.getStorageSync('createdCompany')
-    const params = ['real_name', 'user_email', 'user_position', 'canClick']
     this.setData({options})
-    if(!storage) return
-    if(storage.company_name) this.setData({company_name: storage.company_name, canClick: true})
     if(options.action && options.action === 'edit') this.getCompanyIdentityInfos()
   },
   /**
@@ -54,8 +50,9 @@ Page({
   getCompanyIdentityInfos(options) {
     getCompanyIdentityInfosApi()
       .then(res => {
+        const storage = wx.getStorageSync('createdCompany')
         const infos = res.data.companyInfo
-        this.setData({selectId: infos.applyId})
+        if(!storage.applyId) this.setData({selectId: infos.applyId, company_name: infos.companyName})
       })
   },
 /**
@@ -175,7 +172,7 @@ Page({
    */
   editApplyCompany(companyId) {
     const storage = wx.getStorageSync('createdCompany')
-    const id = this.data.selectId
+    const id = this.data.selectId || storage.applyId
     const params = {
       id,
       real_name: storage.real_name,

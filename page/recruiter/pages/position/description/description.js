@@ -53,6 +53,7 @@ Page({
     this.setData({canClick: this.data.describe})
   },
   submit(e) {
+    console.log(111111)
     const storage = wx.getStorageSync('createPosition')
     storage.describe = this.data.describe
     if(this.data.describe.length < 6) {

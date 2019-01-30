@@ -13,7 +13,14 @@ import {
   closePositionApi
 } from '../../../api/pages/position.js'
 
-import {RECRUITER, COMMON} from '../../../config.js'
+import {
+  getCompanyIdentityInfosApi
+} from '../../../api/pages/company.js'
+
+import {
+  RECRUITER, 
+  COMMON
+} from '../../../config.js'
 
 const app = getApp()
 
@@ -38,6 +45,7 @@ Component({
     }
   },
   data: {
+    showLoginBox: false,
     interviewInfos: {},
     identity: '', // 身份标识
     slogoIndex: 0,
@@ -150,6 +158,72 @@ Component({
     },
     /**
      * @Author   小书包
+     * @DateTime 2019-01-29
+     * @detail   获取个人身份信息
+     * @return   {[type]}   [description]
+     */
+    getCompanyIdentityInfos() {
+      getCompanyIdentityInfosApi().then(res => {
+        const companyInfo = res.data.companyInfo
+        if(companyInfo.status === 0 || companyInfo.status === 2) {
+          wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=company`})
+        }
+      })
+    },
+    /**
+     * @Author   小书包
+     * @DateTime 2019-01-30
+     * @detail   通过分享入口进行开撩
+     * @return   {[type]}   [description]
+     */
+    shareChat() {
+      let identity = wx.getStorageSync('choseType')
+      let hasLogin = app.globalData.hasLogin
+      let isRecruiter = app.globalData.isRecruiter
+      let isJobhunter = app.globalData.isJobhunter
+      let interviewInfos = this.data.interviewInfos
+
+      // 开撩动作
+      const chat = () => {
+        isRecruiter = app.globalData.isRecruiter
+        isJobhunter = app.globalData.isJobhunter
+        if(identity === 'APPLICANT') {
+          if(!isJobhunter) {
+            wx.navigateTo({url: `${APPLICANT}center/createUser/createUser`})
+          } else {
+            // 走正常流程
+            if(this.data.type === 'recruiter') {
+              wx.navigateTo({url: `${RECRUITER}position/jobList/jobList?type=job_hunting_chat&from=${this.data.currentPage}&showNotPositionApply=${interviewInfos.showNotPositionApply}&from=${this.data.currentPage}&recruiterUid=${this.data.infos.uid}`})
+            } else {
+              applyInterviewApi({recruiterUid: this.data.infos.recruiterInfo.uid, positionId: this.data.infos.id}).then(res => {
+                this.getInterviewStatus()
+                app.wxToast({title: '面试申请已发送'})
+              })
+            }
+          }
+        } else {
+          if(!isRecruiter) {
+            this.getCompanyIdentityInfos()
+          } else {
+            // 走正常流程
+            wx.navigateTo({url: `${RECRUITER}position/jobList/jobList?type=recruiter_chat&from=${this.data.currentPage}&jobhunterUid=${this.data.infos.uid}&recruiterUid=${app.globalData.recruiterDetails.uid}`})
+          }
+        }
+      }
+
+      //用户没有登录
+      if(!app.globalData.hasLogin) {
+         this.setData({showLoginBox: true})
+      } else {
+        if(app.getRoleInit) {
+          chat()
+        } else {
+          app.getRoleInit = () => chat()
+        }
+      }
+    },
+    /**
+     * @Author   小书包
      * @DateTime 2019-01-02
      * @detail   待办项
      * @return   {[type]}     [description]
@@ -161,16 +235,16 @@ Component({
       switch(action) {
         // 求职端发起开撩
         case 'job-hunting-chat':
+          this.shareChat()
           // 招聘管主页 直接跳转职位列表
-          if(this.data.type === 'recruiter') {
-            wx.navigateTo({url: `${RECRUITER}position/jobList/jobList?type=job_hunting_chat&from=${this.data.currentPage}&showNotPositionApply=${interviewInfos.showNotPositionApply}&from=${this.data.currentPage}&recruiterUid=${this.data.infos.uid}`})
-          } else {
-            applyInterviewApi({recruiterUid: this.data.infos.recruiterInfo.uid, positionId: this.data.infos.id}).then(res => {
-              this.getInterviewStatus()
-              app.wxToast({title: '面试申请已发送'})
-              // this.triggerEvent('resultevent', this.data.infos)
-            })
-          }
+          // if(this.data.type === 'recruiter') {
+          //   wx.navigateTo({url: `${RECRUITER}position/jobList/jobList?type=job_hunting_chat&from=${this.data.currentPage}&showNotPositionApply=${interviewInfos.showNotPositionApply}&from=${this.data.currentPage}&recruiterUid=${this.data.infos.uid}`})
+          // } else {
+          //   applyInterviewApi({recruiterUid: this.data.infos.recruiterInfo.uid, positionId: this.data.infos.id}).then(res => {
+          //     this.getInterviewStatus()
+          //     app.wxToast({title: '面试申请已发送'})
+          //   })
+          // }
           // let uid = ''
           // let positionId = ''
           // let params = {}
@@ -204,7 +278,8 @@ Component({
           app.wxToast({title: '面试申请已发送'})
           break
         case 'recruiter-chat':
-          wx.navigateTo({url: `${RECRUITER}position/jobList/jobList?type=recruiter_chat&from=${this.data.currentPage}&jobhunterUid=${this.data.infos.uid}&recruiterUid=${app.globalData.recruiterDetails.uid}`})
+          this.shareChat()
+          // wx.navigateTo({url: `${RECRUITER}position/jobList/jobList?type=recruiter_chat&from=${this.data.currentPage}&jobhunterUid=${this.data.infos.uid}&recruiterUid=${app.globalData.recruiterDetails.uid}`})
           break
         case 'job-hunting-waiting-interview':
           app.wxToast({title: '等待招聘官安排面试'})
