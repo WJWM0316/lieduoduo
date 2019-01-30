@@ -163,11 +163,12 @@ Page({
     const key = params.type
     const key2 = params.type === 'city' ? 'cityIndex' : 'typeIndex'
     const value = result[params.type === 'city' ? 'areaId' : 'labelId']
-
+    const positionList = this.data.positionList
+    positionList.pageNum = 1
     if(typeof value === 'number') {
       this.setData({[key]: value, [key2]: Number(e.detail.value)}, () => this.reloadPositionLists())
     } else {
-      this.setData({[key]: 0, [key2]: 0}, () => this.getPositionList(false).then(() => this.setData({onBottomStatus: 1})))
+      this.setData({[key]: 0, [key2]: 0, positionList}, () => this.getPositionList(false).then(() => this.setData({onBottomStatus: 1})))
     }
   },
   onShareAppMessage(options) {

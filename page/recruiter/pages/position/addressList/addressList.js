@@ -114,7 +114,8 @@ Page({
     const params = e.currentTarget.dataset
     // 判断是公司地址还是职位地址
     const options = this.data.options
-    wx.reLaunch({url: `${RECRUITER}position/address/address?id=${params.id}&type=${options.type}&selected=${options.selected}`})
+    // 缓存的历史记录页面 好像超过了最大数
+    wx.redirectTo({url: `${RECRUITER}position/address/address?id=${params.id}&type=${options.type}&selected=${options.selected}`})
   },
   /**
    * @Author   小书包

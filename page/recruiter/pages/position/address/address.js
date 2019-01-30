@@ -186,7 +186,7 @@ Page({
    * @return   {[type]}   [description]
    */
   deletePositionAddress() {
-    deleteCompanyAddressApi({id: this.data.options.id}).then(() => {
+    deletePositionAddressApi({id: this.data.options.id}).then(() => {
       wx.navigateBack({delta: 1})
     })
   },
@@ -255,7 +255,7 @@ Page({
     }
     editPositionAddressApi(formData).then(() => {
       wx.navigateBack({delta: 1})
-      // wx.navigateTo({url: `${RECRUITER}position/addressList/addressList?type=position&selected=${this.data.options.selected}`})
+      // wx.redirectTo({url: `${RECRUITER}position/addressList/addressList?type=position&selected=${this.data.options.selected}`})
     })
   },
   /**
@@ -276,7 +276,7 @@ Page({
     }
     editCompanyAddressApi(formData).then(() => {
       wx.navigateBack({delta: 1})
-      // wx.navigateTo({url: `${RECRUITER}position/addressList/addressList?type=company&selected=${this.data.options.selected}`})
+      // wx.redirectTo({url: `${RECRUITER}position/addressList/addressList?type=company&selected=${this.data.options.selected}`})
     })
   }
 })
