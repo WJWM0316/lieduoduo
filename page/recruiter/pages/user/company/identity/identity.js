@@ -97,7 +97,7 @@ Page({
 
     // 验证用户名
     let checkRealName = new Promise((resolve, reject) => {
-      !realNameReg.test(this.data.real_name) ? reject('请填写有效的姓名') : resolve()
+      !realNameReg.test(this.data.real_name) ? reject('姓名需为2-20个中文字符') : resolve()
     })
     
     // 验证身份证

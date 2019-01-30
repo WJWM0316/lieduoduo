@@ -47,12 +47,11 @@ Page({
   getPositionNameList(name) {
     this.setData({keyword: name})
     this.bindButtonStatus()
-    getPositionNameListApi({name})
-      .then(res => {
-        const nameLists = res.data
-        nameLists.map(field => field.html = '<div>' + field.name.replace(new RegExp(name,'g'), `<span style="color: #652791;">${name}</span>`) + '</div>')
-        this.setData({nameLists})
-      })
+    getPositionNameListApi({name}).then(res => {
+      const nameLists = res.data
+      nameLists.map(field => field.html = '<div>' + field.name.replace(new RegExp(name,'g'), `<span style="color: #652791;">${name}</span>`) + '</div>')
+      this.setData({nameLists})
+    })
   },
   /**
    * @Author   小书包
