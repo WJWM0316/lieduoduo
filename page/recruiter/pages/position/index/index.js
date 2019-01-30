@@ -75,28 +75,19 @@ Page({
    */
   publicPosition() {
     const identityInfos = this.data.identityInfos
-    if(!identityInfos.identityNum) {
-      app.wxConfirm({
-        title: '您的身份尚未认证',
-        content: `请先认证`,
-        confirmText: '知道了',
-        confirmBack: () => {
-          wx.redirectTo({url: `${RECRUITER}user/company/identity/identity?type=create&realName=${identityInfos.realName}`})
-        }
-      })
-    } else {
+    if(Object.keys(identityInfos).length) {
       if(identityInfos.status !== 1) {
         app.wxConfirm({
           title: '您的身份尚未认证成功',
           content: `请先认证`,
           confirmText: '知道了',
           confirmBack: () => {
-            wx.redirectTo({url: `${RECRUITER}user/company/identity/identity?type=create&realName=${identityInfos.realName}&action=edit`})
+            wx.navigateTo({url: `${RECRUITER}user/company/identity/identity?type=create&realName=${identityInfos.companyInfo.realName}&action=edit`})
           }
         })
-      } else {
-        wx.navigateTo({url: `${RECRUITER}position/post/post`})
       }
+    } else {
+      wx.navigateTo({url: `${RECRUITER}position/post/post`})
     }
   },
   /**
@@ -175,7 +166,7 @@ Page({
     const params = e.currentTarget.dataset
     switch(params.action) {
       case 'add':
-        wx.navigateTo({url: `${RECRUITER}position/post/post`})
+        this.publicPosition()
         break
       case 'detail':
         wx.navigateTo({url: `${COMMON}positionDetail/positionDetail?positionId=${params.positionId}&companyId=${params.companyId}`})

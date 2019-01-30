@@ -60,7 +60,29 @@ Component({
    */
   methods: {
     toggle(e) {
-      wx.reLaunch({ url: e.target.dataset.path })
+      // 根据状态来判断是否是否已经通过
+      const companyInfos = wx.getStorageSync('companyInfos')
+
+      // 是加入公司
+      if(companyInfos && companyInfos.applyJoin) {
+        if(companyInfos.companyInfo.status !== 1) {
+          wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=apply`})
+        }
+        return;
+      }
+
+      //  不是加入公司
+      if(companyInfos && companyInfos.applyJoin) {
+        if(companyInfos.companyInfo.status !== 1) {
+          wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=company`})
+        }
+        return;
+      }
+
+      wx.reLaunch({
+        url: e.target.dataset.path,
+        success: () => wx.removeStorageSync('companyInfos')
+      })
     }
   }
 })

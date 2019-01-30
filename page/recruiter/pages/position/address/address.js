@@ -22,7 +22,8 @@ Page({
     doorplate: '',
     address: '',
     lng: '',
-    lat: ''
+    lat: '',
+    title: ''
   },
   onLoad(options) {
     this.setData({options})
@@ -61,6 +62,7 @@ Page({
         formData.area_id = rtn.result.ad_info.adcode
         formData.lat = rtn.result.ad_info.location.lat
         formData.lng = rtn.result.ad_info.location.lng
+        // formData.title = rtn.result.ad_info.location.lng
         Object.keys(formData).map(field => this.setData({[field]: formData[field]}))
       })
   },
@@ -254,6 +256,10 @@ Page({
       doorplate: infos.doorplate
     }
     editPositionAddressApi(formData).then(() => {
+      const storage = wx.getStorageSync('createPosition') || {}
+      storage.address_id = infos.id
+      storage.address = infos.address
+      wx.setStorageSync('createPosition', storage)
       wx.navigateBack({delta: 1})
       // wx.redirectTo({url: `${RECRUITER}position/addressList/addressList?type=position&selected=${this.data.options.selected}`})
     })
