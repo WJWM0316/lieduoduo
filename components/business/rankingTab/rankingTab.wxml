@@ -20,6 +20,7 @@
   <!-- 头像 -->
   <view class='headImgBox'>
     <image class='headImg' src="{{item.avatar.smallUrl}}"></image>
-    <view class='sign' wx:if="{{item.certification}}" wx:if="{{item.certification}}">V</view>
+    <!--<view class="sign" wx:if="{{item.certification}}"><i class="icon iconfont icon-renzheng1"></i></view>-->
+    <view class='sign' wx:if="{{item.certification}}">V</view>
   </view>
 </view>

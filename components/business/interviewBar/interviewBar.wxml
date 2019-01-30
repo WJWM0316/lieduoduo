@@ -179,3 +179,4 @@
 		</block>
 	</block>
 </view>
+<bindPhone wx:if="{{showLoginBox}}"></bindPhone>
