@@ -11,6 +11,7 @@ Page({
     real_name: '',
     identity_num: '',
     validity: 0,
+    validityTxt: '请填写身份证背面有效期',
     passport_front: {
       smallUrl: ''
     },
@@ -73,12 +74,11 @@ Page({
   /**
    * @Author   小书包
    * @DateTime 2018-12-20
-   * @detail   动态输入
+   * @detail   日期选择
    * @return   {[type]}     [description]
    */
   choseDate(e) {
-    const field = e.currentTarget.dataset.field
-    this.setData({[field]: e.detail.value})
+    this.setData({validity: e.detail.value})
     this.bindBtnStatus()
   },
   /**
@@ -151,5 +151,16 @@ Page({
     editCompanyIdentityInfosApi(formData).then((res) => {
       wx.redirectTo({url: `${RECRUITER}user/company/status/status?from=identity`})
     })
+  },
+  /**
+   * @Author   小书包
+   * @DateTime 2019-01-30
+   * @detail   绑定用户输入
+   * @return   {[type]}     [description]
+   */
+  bindInput(e) {
+    const field = e.currentTarget.dataset.field
+    this.setData({[field]: e.detail.value})
+    this.bindBtnStatus()
   }
 })

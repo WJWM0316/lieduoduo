@@ -7,7 +7,7 @@
         </view>
         <view class="info">
           <view class="top">
-            <text class="name">{{item.name}}</text><text class="title"> | {{item.position}}</text>
+            <view class="name">{{item.name}}</view><view class="title"> | {{item.position}}</view>
           </view>
           <view class="bottom">
             <view class="company" wx:if="{{item.companyName}}"><i class="icon iconfont icon-gongsi"></i>{{item.companyName}}</view>
@@ -27,7 +27,7 @@
     </view>
     <view class="info">
       <view class="top">
-        <text class="name">{{item.name}}</text><text class="title"> | {{item.position}}</text>
+        <view class="name">{{item.name}}</view><view class="title"> | {{item.position}}</view>
       </view>
       <view class="bottom">
         <view class="company" wx:if="{{item.companyName}}"><i class="icon iconfont icon-gongsi"></i>{{item.companyName}}</view>

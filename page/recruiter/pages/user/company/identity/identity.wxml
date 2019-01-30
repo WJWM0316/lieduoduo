@@ -12,8 +12,7 @@
 	  </view>
 	  <view class="input-li clear-bottom">
 	    <view class="key">有效期</view>
-	    <picker class="value" mode = 'date' bindchange="choseDate" value="{{validity || 0}}"></picker>
-	    <!-- <input name="validity" class="value" placeholder="请填写身份证背面有效期" bindinput="bindInput" disabled data-field="validity" value="{{validity}}" maxlength="10" /> -->
+	    <picker class="value" mode = 'date' bindchange="choseDate" value="{{validity || 0}}">{{!validity  ? validityTxt : validity}}</picker>
 	  </view>
 	  <view class="upload-li">
 	  	<view class="text">

@@ -101,9 +101,9 @@ Page({
     if(!this.data.canClick) return;
     const formData = this.data.formData
     const infos = this.data.options
+    const action = infos.action === 'edit' ? 'editCreateCompany' : 'createCompany'
     formData.on_job = this.data.on_job.id
     formData.business_license = this.data.business_license.id
-    const action = infos.action === 'edit' ? 'editCreateCompany' : 'createdCompany'
     this[action](formData)
   }
 })
