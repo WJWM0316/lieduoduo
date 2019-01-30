@@ -175,10 +175,9 @@ Page({
    * @return   {[type]}   [description]
    */
   deleteCompanyAddress() {
-    deleteCompanyAddressApi({id: this.data.options.id})
-      .then(() => {
-        wx.navigateBack({delta: 1})
-      })
+    deleteCompanyAddressApi({id: this.data.options.id}).then(() => {
+      wx.navigateBack({delta: 1})
+    })
   },
   /**
    * @Author   小书包
@@ -187,10 +186,9 @@ Page({
    * @return   {[type]}   [description]
    */
   deletePositionAddress() {
-    deleteCompanyAddressApi({id: this.data.options.id})
-      .then(() => {
-        wx.navigateBack({delta: 1})
-      })
+    deleteCompanyAddressApi({id: this.data.options.id}).then(() => {
+      wx.navigateBack({delta: 1})
+    })
   },
   /**
    * @Author   小书包
@@ -211,10 +209,9 @@ Page({
       app.wxToast({title: '请选择公司地址'})
       return
     }
-    addPositionAddressApi(formData)
-      .then(res => {
-        wx.navigateBack({delta: 1})
-      })
+    addPositionAddressApi(formData).then(res => {
+      wx.navigateBack({delta: 1})
+    })
   },
   /**
    * @Author   小书包
@@ -236,10 +233,9 @@ Page({
       app.wxToast({title: '请选择公司地址'})
       return
     }
-    addCompanyAddressApi(formData)
-      .then(res => {
-        wx.navigateBack({delta: 1})
-      })
+    addCompanyAddressApi(formData).then(res => {
+      wx.navigateBack({delta: 1})
+    })
   },
   /**
    * @Author   小书包
@@ -257,10 +253,10 @@ Page({
       lat: infos.lat,
       doorplate: infos.doorplate
     }
-    editPositionAddressApi(formData)
-      .then(() => {
-        wx.navigateBack({delta: 1})
-      })
+    editPositionAddressApi(formData).then(() => {
+      wx.navigateBack({delta: 1})
+      // wx.navigateTo({url: `${RECRUITER}position/addressList/addressList?type=position&selected=${this.data.options.selected}`})
+    })
   },
   /**
    * @Author   小书包
@@ -278,9 +274,9 @@ Page({
       lat: infos.lat,
       doorplate: infos.doorplate
     }
-    editCompanyAddressApi(formData)
-      .then(() => {
-        wx.navigateBack({delta: 1})
-      })
+    editCompanyAddressApi(formData).then(() => {
+      wx.navigateBack({delta: 1})
+      // wx.navigateTo({url: `${RECRUITER}position/addressList/addressList?type=company&selected=${this.data.options.selected}`})
+    })
   }
 })

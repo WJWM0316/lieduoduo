@@ -114,7 +114,7 @@ Page({
     const params = e.currentTarget.dataset
     // 判断是公司地址还是职位地址
     const options = this.data.options
-    wx.navigateTo({url: `${RECRUITER}position/address/address?id=${params.id}&type=${options.type}&selected=${options.selected}`})
+    wx.reLaunch({url: `${RECRUITER}position/address/address?id=${params.id}&type=${options.type}&selected=${options.selected}`})
   },
   /**
    * @Author   小书包
@@ -127,16 +127,15 @@ Page({
     const options = this.data.options
     const action = options.type === 'position' ? 'getPositionAddressList' : 'getCompanyAddressList'
     this.setData({addressList, hasReFresh: true})
-    this[action]()
-        .then(res => {
-          const addressList = {list: [], pageNum: 1, isLastPage: false, isRequire: false}
-          const onBottomStatus = res.meta.nextPageUrl ? 0 : 2
-          addressList.list = res.data
-          addressList.isLastPage = res.meta.nextPageUrl ? false : true
-          addressList.pageNum = 2
-          addressList.isRequire = true
-          this.setData({addressList, onBottomStatus, hasReFresh: false}, () => wx.stopPullDownRefresh())
-        })
+    this[action]().then(res => {
+        const addressList = {list: [], pageNum: 1, isLastPage: false, isRequire: false}
+        const onBottomStatus = res.meta.nextPageUrl ? 0 : 2
+        addressList.list = res.data
+        addressList.isLastPage = res.meta.nextPageUrl ? false : true
+        addressList.pageNum = 2
+        addressList.isRequire = true
+        this.setData({addressList, onBottomStatus, hasReFresh: false}, () => wx.stopPullDownRefresh())
+      })
   },
   /**
    * @Author   小书包
