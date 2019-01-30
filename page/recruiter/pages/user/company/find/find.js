@@ -19,7 +19,9 @@ Page({
     showMaskBox: false,
     options: {},
     selectId: null,
-    nameList: []
+    type: 'create',
+    nameList: [],
+    infos: {}
   },
   /**
    * @Author   小书包
@@ -48,12 +50,11 @@ Page({
    * @return   {[type]}   [description]
    */
   getCompanyIdentityInfos(options) {
-    getCompanyIdentityInfosApi()
-      .then(res => {
-        const storage = wx.getStorageSync('createdCompany')
-        const infos = res.data.companyInfo
-        if(!storage.applyId) this.setData({selectId: infos.applyId, company_name: infos.companyName})
-      })
+    getCompanyIdentityInfosApi().then(res => {
+      const storage = wx.getStorageSync('createdCompany')
+      const infos = res.data.companyInfo
+      if(!storage.applyId) this.setData({selectId: infos.applyId, company_name: infos.companyName})
+    })
   },
 /**
  * @Author   小书包
@@ -83,15 +84,14 @@ Page({
   getCompanyNameList(name) {
     this.setData({company_name: name})
     this.bindButtonStatus()
-    getCompanyNameListApi({name})
-      .then(res => {
-        const nameList = res.data
-        nameList.map(field => {
-          field.html = field.companyName.replace(new RegExp(name,'g'),`<span style="color: #652791;">${name}</span>`)
-          field.html = `<div>${field.html}</div>`
-        })
-        this.setData({nameList})
+    getCompanyNameListApi({name}).then(res => {
+      const nameList = res.data
+      nameList.map(field => {
+        field.html = field.companyName.replace(new RegExp(name,'g'),`<span style="color: #652791;">${name}</span>`)
+        field.html = `<div>${field.html}</div>`
       })
+      this.setData({nameList})
+    })
   },
   /**
    * @Author   小书包
@@ -121,10 +121,9 @@ Page({
    * @return   {[type]}   [description]
    */
   search() {
-    getCompanyNameListApi({name: this.data.company_name})
-      .then(res => {
-        this.setData({nameList: res.data})
-      })
+    getCompanyNameListApi({name: this.data.company_name}).then(res => {
+      this.setData({nameList: res.data})
+    })
   },
   /**
    * @Author   小书包
@@ -135,13 +134,20 @@ Page({
   closeMask() {
     const storage = wx.getStorageSync('createdCompany') || {}
     const options = this.data.options
+    const infos = this.data.infos
+    const action = options.action === 'edit' && storage.applyStatus !== 2 ? 'editApplyCompany' : 'applyCompany'
+    storage.company_name = this.data.company_name
+    wx.setStorageSync('createdCompany', storage)
+
     const url = options.action && options.action === 'edit'
       ? `${RECRUITER}user/company/post/post?action=edit&type=${options.type}`
       : `${RECRUITER}user/company/post/post?type=create`
-    storage.company_name = this.data.company_name
-    wx.setStorageSync('createdCompany', storage)
-    wx.navigateTo({url})
-    this.setData({showMaskBox: false})
+
+    if(infos.exist) {
+      this[action](infos.id)
+    } else {
+      this.setData({showMaskBox: false}, () => wx.navigateTo({url}))
+    }
   },
   /**
    * @Author   小书包
@@ -157,12 +163,11 @@ Page({
       user_position: storage.user_position,
       company_id: companyId
     }
-    applyCompanyApi(params)
-      .then(() => {
-        // 手机号已经存在 ， 先跳转验证页面
-        wx.redirectTo({url: `${RECRUITER}user/company/status/status?from=apply`})
-        wx.removeStorageSync('createdCompany')
-      })
+    applyCompanyApi(params).then(() => {
+      // 手机号已经存在 ， 先跳转验证页面
+      wx.redirectTo({url: `${RECRUITER}user/company/status/status?from=apply`})
+      wx.removeStorageSync('createdCompany')
+    })
   },
   /**
    * @Author   小书包
@@ -180,25 +185,20 @@ Page({
       user_position: storage.user_position,
       company_id: companyId
     }
-    editApplyCompanyApi(params)
-      .then(() => {
-        // 手机号已经存在 ， 先跳转验证页面
-        wx.redirectTo({url: `${RECRUITER}user/company/status/status?from=apply`})
-        wx.removeStorageSync('createdCompany')
-      })
+    editApplyCompanyApi(params).then(() => {
+      // 手机号已经存在 ， 先跳转验证页面
+      wx.redirectTo({url: `${RECRUITER}user/company/status/status?from=apply`})
+      wx.removeStorageSync('createdCompany')
+    })
   },
   submit() {
     if(!this.data.canClick) return;
-    justifyCompanyExistApi({name: this.data.company_name})
-      .then(res => {
-        const options = this.data.options
-        const storage = wx.getStorageSync('createdCompany')
-        const action = options.action === 'edit' && storage.applyStatus !== 2 ? 'editApplyCompany' : 'applyCompany'
-        if(res.data.exist) {
-          this[action](res.data.id)
-        } else {
-          this.setData({showMaskBox: true})
-        }
-      })
+    justifyCompanyExistApi({name: this.data.company_name}).then(res => {
+      if(res.data.exist) {
+        this.setData({showMaskBox: true, type: 'apply', infos: res.data})
+      } else {
+        this.setData({showMaskBox: true, type: 'create'})
+      }
+    })
   }
 })
