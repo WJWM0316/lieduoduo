@@ -41,7 +41,7 @@ Page({
     return new Promise((resolve, reject) => {
       getOthersRecruiterDetailApi({uid: this.data.options.uid}).then(res => {
         this.setData({info: res.data, btnTxt: '展开内容', isOwner: res.data.isOwner}, function() {
-          this.selectComponent('#interviewBar').init()
+          if(this.selectComponent('#interviewBar')) this.selectComponent('#interviewBar').init()
           resolve(res)
             getSelectorQuery('.msg').then(res => {
               if (!res) return

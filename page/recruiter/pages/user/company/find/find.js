@@ -57,13 +57,8 @@ Page({
     getCompanyIdentityInfosApi().then(res => {
       const storage = wx.getStorageSync('createdCompany')
       const infos = res.data.companyInfo
-      if(!storage.applyId) this.setData({selectId: infos.applyId, company_name: infos.companyName})
+      if(!storage.applyId && infos.applyId) this.setData({selectId: infos.applyId, company_name: infos.companyName})
     })
-    getCompanyIdentityInfosApi()
-      .then(res => {
-        const infos = res.data.companyInfo
-        this.setData({selectId: infos.applyId})
-      })
   },
 /**
  * @Author   小书包

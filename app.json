@@ -107,7 +107,6 @@
         "pages/user/editDeclaration/editDeclaration",
         "pages/user/chooseTopic/chooseTopic",
         "pages/detail/position/position",
-        "pages/test/test",
         "pages/company/indexEdit/indexEdit",
         "pages/company/baseEdit/baseEdit",
         "pages/company/introducingEdit/introducingEdit",
