@@ -21,7 +21,7 @@
 					<view wx:if="{{identity === 'APPLICANT'}}" class="recruiter-infos">{{item.recruiterPositionName || item.position}}</view>
 					<view wx:else class="recruiter-infos">
 					  <text wx:if="{{item.workExperience}}">{{item.workExperience}}年</text>
-					  <text wx:if="{{item.workAge}}">{{item.workAge}}</text>
+					  <text>{{item.workAgeDesc}}</text>
 					  <text wx:if="{{item.educationDesc || item.degreeDesc}}">·{{item.educationDesc || item.degreeDesc}}</text>
 					  <text wx:if="{{item.emolumentMin || item.salaryFloor}}">·{{item.emolumentMin || item.salaryFloor}}-{{item.emolumentMax || item.saralyCeil}}K</text>
 					</view>

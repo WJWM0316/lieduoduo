@@ -73,7 +73,7 @@ export const getCompanyInfosApi = (data, hasLoading) => {
 export const editCompanyInfosApi = (data, hasLoading) => {
   return request({
     method: 'put',
-    url: `/company/${data.id}`,
+    url: `/company/temp/${data.id}`,
     data,
     hasLoading: true
   })
