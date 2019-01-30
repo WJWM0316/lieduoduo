@@ -165,6 +165,9 @@ var fileFormat = function(ext) {
     case 'jpg':
       defaultSrc = 'https://lieduoduo-uploads-test.oss-cn-shenzhen.aliyuncs.com/front-assets/images/icon_document_jpg@3x.png'
       break
+    case 'jpeg':
+      defaultSrc = 'https://lieduoduo-uploads-test.oss-cn-shenzhen.aliyuncs.com/front-assets/images/icon_document_jpg@3x.png'
+      break
     case 'txt':
       defaultSrc = 'https://lieduoduo-uploads-test.oss-cn-shenzhen.aliyuncs.com/front-assets/images/icon_document_txt@3x.png'
       break

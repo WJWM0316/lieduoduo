@@ -105,6 +105,7 @@ App({
       if (this.getRoleInit) { // 登陆初始化
         this.getRoleInit() //执行定义的回调函数
       }
+      this.getRoleInit = true
     })
   },
   // 登陆成功后下载一下数据
