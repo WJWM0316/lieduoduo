@@ -147,9 +147,7 @@ Page({
       app.globalData.hasLogin = false
       app.globalData.resumeInfo = {}
       app.globalData.recruiterDetails = {}
-      wx.reLaunch({
-        url: `${APPLICANT}index/index`
-      })
+      wx.reLaunch({url: `${APPLICANT}index/index`})
     })
   }
 })
