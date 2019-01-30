@@ -1,3 +1,0 @@
-<form bindsubmit="submit" report-submit="true" style="margin-top: 200px;display: block;width: 100%;">
-	<button class="item-text" formType="submit">获取formId</button>
-</form>

@@ -54,10 +54,9 @@ Page({
     if(!emailReg.test(this.data.email)) {
       app.wxToast({title: '请填写有效的邮箱'})
     } else {
-      sendEmailApi({email: this.data.email, company_id: this.data.ontions.id})
-        .then(res => {
-          this.setData({ step: 2 })
-        })
+      sendEmailApi({email: this.data.email, company_id: this.data.ontions.id}).then(res => {
+        this.setData({ step: 2 })
+      })
     }
   },
   /**

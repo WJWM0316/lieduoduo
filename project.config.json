@@ -16,7 +16,7 @@
 	"compileType": "miniprogram",
 	"libVersion": "2.4.2",
 	"appid": "wx225f017495e6e195",
-	"projectname": "lieduoduo%20%E6%AD%A3%E5%BC%8F%E5%8F%B7",
+	"projectname": "lieduoduo-test",
 	"debugOptions": {
 		"hidedInDevtools": []
 	},
@@ -38,7 +38,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 23,
+			"current": 37,
 			"list": [
 				{
 					"id": 0,
@@ -265,7 +265,7 @@
 				{
 					"id": 37,
 					"name": "招聘管-选择职位",
-					"pathName": "page/recruiter/pages/position/search/search",
+					"pathName": "page/common/pages/category/category",
 					"query": "type=position&selected=1"
 				},
 				{

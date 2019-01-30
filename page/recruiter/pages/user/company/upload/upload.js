@@ -1,4 +1,7 @@
-import { createCompanyApi } from '../../../../../../api/pages/company.js'
+import {
+  createCompanyApi,
+  editCompanyInfosApi
+} from '../../../../../../api/pages/company.js'
 
 import {RECRUITER} from '../../../../../../config.js'
 
@@ -57,24 +60,50 @@ Page({
     const canClick = this.data.business_license.smallUrl && this.data.on_job.smallUrl ? true : false
     this.setData({ canClick })
   },
+  /**
+   * @Author   小书包
+   * @DateTime 2019-01-30
+   * @detail    创建公司
+   * @return   {[type]}            [description]
+   */
+  createCompany(formData) {
+    const storage = wx.getStorageSync('createdCompany')
+    const options = this.data.options
+    const url = options.action && options.action === 'edit'
+      ? `${RECRUITER}user/company/status/status?from=company`
+      : `${RECRUITER}user/company/identity/identity?type=create&realName=${storage.real_name}`
+    createCompanyApi(formData).then(res => {
+      app.wxToast({title: '创建公司成功'})
+      wx.reLaunch({url})
+      wx.removeStorageSync('createdCompany')
+    })
+  },
+  /**
+   * @Author   小书包
+   * @DateTime 2019-01-30
+   * @detail    编辑公司
+   * @return   {[type]}            [description]
+   */
+  editCreateCompany(formData) {
+    const storage = wx.getStorageSync('createdCompany')
+    const params = Object.assign(formData, {id: storage.id})
+    const options = this.data.options
+    const url = options.action && options.action === 'edit'
+      ? `${RECRUITER}user/company/status/status?from=company`
+      : `${RECRUITER}user/company/identity/identity?type=create&realName=${storage.real_name}`
+    editCompanyInfosApi(formData).then(res => {
+      app.wxToast({title: '编辑公司成功'})
+      wx.reLaunch({url})
+      wx.removeStorageSync('createdCompany')
+    })
+  },
   submit() {
     if(!this.data.canClick) return;
     const formData = this.data.formData
+    const infos = this.data.options
     formData.on_job = this.data.on_job.id
     formData.business_license = this.data.business_license.id
-    createCompanyApi(formData)
-      .then(res => {
-        app.wxToast({title: res.msg})
-        const storage = wx.getStorageSync('createdCompany')
-        const options = this.data.options
-        const url = options.action && options.action === 'edit'
-          ? `${RECRUITER}user/company/status/status?from=company`
-          : `${RECRUITER}user/company/identity/identity?type=create&realName=${storage.real_name}`
-        wx.redirectTo({url})
-        wx.removeStorageSync('createdCompany')
-      })
-      .catch(err => {
-        app.wxToast({title: err.msg})
-      })
+    const action = infos.action === 'edit' ? 'editCreateCompany' : 'createdCompany'
+    this[action](formData)
   }
 })

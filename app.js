@@ -321,7 +321,7 @@ App({
     if (identity === 'RECRUITER') {
       wx.setStorageSync('choseType', 'APPLICANT')
       if (!this.globalData.isJobhunter) {
-        wx.navigateTo({
+        wx.reLaunch({
           url: `${APPLICANT}center/createUser/createUser`
         })
       } else {
