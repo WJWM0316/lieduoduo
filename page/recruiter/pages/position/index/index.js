@@ -34,7 +34,7 @@ Page({
     identityInfos: {}
   },
   onLoad() {
-    this.getCompanyIdentityInfos()
+    if(app.globalData.recruiterDetails.identityAuth !== 1) this.getCompanyIdentityInfos()
   },
   onShow() {
     let onLinePosition = {
@@ -81,10 +81,7 @@ Page({
         content: `请先认证`,
         confirmText: '知道了',
         confirmBack: () => {
-          const url = identityInfos.applyJoin
-            ?  `${RECRUITER}user/company/identity/identity?type=apply&realName=${identityInfos.companyInfo.realName}`
-            : `${RECRUITER}user/company/identity/identity?type=create&realName=${identityInfos.companyInfo.realName}`
-          wx.redirectTo({url})
+          wx.redirectTo({url: `${RECRUITER}user/company/identity/identity?type=create&realName=${identityInfos.realName}`})
         }
       })
     } else {
@@ -94,7 +91,7 @@ Page({
           content: `请先认证`,
           confirmText: '知道了',
           confirmBack: () => {
-            wx.redirectTo({url: `${RECRUITER}user/company/status/status?from=identity`})
+            wx.redirectTo({url: `${RECRUITER}user/company/identity/identity?type=create&realName=${identityInfos.realName}&action=edit`})
           }
         })
       } else {
@@ -178,7 +175,7 @@ Page({
     const params = e.currentTarget.dataset
     switch(params.action) {
       case 'add':
-        this.publicPosition()
+        wx.navigateTo({url: `${RECRUITER}position/post/post`})
         break
       case 'detail':
         wx.navigateTo({url: `${COMMON}positionDetail/positionDetail?positionId=${params.positionId}&companyId=${params.companyId}`})

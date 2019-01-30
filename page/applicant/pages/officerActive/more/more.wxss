@@ -1,7 +1,7 @@
 .more{
   width: 100%;
   min-height: 100vh;
-  background: #EFE9F4;
+  background: #E5EEFF;
 }
 .more .scrollView{
   height: 82vh;/*82vh*/
@@ -104,7 +104,6 @@
 }
 
 .more .topicBox{
-  padding-top: 18rpx;
   display: block;
   width: 100%;
   height: 441rpx;
@@ -113,7 +112,7 @@
   align-items: flex-end;
   justify-content: center;
   padding-bottom: 61rpx;
-  background: url('https://lieduoduo-uploads-test.oss-cn-shenzhen.aliyuncs.com/front-assets/images/topicBg.png') no-repeat;
+  background: url('https://attach.lieduoduo.ziwork.com/images/topicBg.png') no-repeat;
   background-color: #E5EEFF;
   background-size: 100% 100%;
 }
@@ -145,7 +144,7 @@
   height: 130rpx;
   border-radius: 50%;
   background-color: #ccc;
-  margin-bottom: 14rpx;
+  margin-bottom: 24rpx;
   box-shadow:0px 2px 12px 0px rgba(0,0,0,0.12);
 }
 .first .icon{
@@ -155,7 +154,7 @@
 .first image{
   width: 160rpx;
   height: 160rpx;
-  margin-bottom: 9rpx;
+  margin-bottom: 19rpx;
 }
 .name{
   width: 100%;
@@ -189,7 +188,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: 17rpx;
+  margin-top: 23rpx;
 }
 .influence text{
   color: #fff;
