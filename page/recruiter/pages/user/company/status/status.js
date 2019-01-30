@@ -32,12 +32,11 @@ Page({
       default:
         break
     }
-    getCompanyIdentityInfosApi()
-    	.then(res => {
-        const infos = res.data
-        const companyInfos = infos.companyInfo
-    		this.setData({identityInfos: infos, companyInfos, options})
-    	})
+    getCompanyIdentityInfosApi().then(res => {
+      const infos = res.data
+      const companyInfos = infos.companyInfo
+  		this.setData({identityInfos: infos, companyInfos, options})
+  	})
   },
   backEvent() {
     wx.reLaunch({url: `${RECRUITER}user/mine/infos/infos`})

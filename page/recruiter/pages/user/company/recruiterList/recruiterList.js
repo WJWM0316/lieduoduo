@@ -18,10 +18,9 @@ Page({
    * @return   {[type]}   [description]
    */
   getRecruitersList(options) {
-    getRecruitersListApi({id: options.companyId})
-      .then(res => {
-        this.setData({recruitersList: res.data})
-      })
+    getRecruitersListApi({id: options.companyId}).then(res => {
+      this.setData({recruitersList: res.data})
+    })
   },
   /**
    * @Author   小书包

@@ -127,7 +127,7 @@
 				{
 					"id": 14,
 					"name": "招聘官认证状态",
-					"pathName": "page/recruiter/pages/user/company/find/find",
+					"pathName": "page/recruiter/pages/user/company/apply/apply",
 					"query": "action=edit&type=apply"
 				},
 				{

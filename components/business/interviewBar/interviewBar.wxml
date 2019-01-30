@@ -95,7 +95,7 @@
 		<!-- 求职者已经已收到招聘官的邀请 end-->
 
 	</block>
-	<!-- 招聘端 -->
+
 	<block wx:else>
 
 		<view class="img-box">
@@ -179,3 +179,5 @@
 		</block>
 	</block>
 </view>
+
+<bindPhone wx:if="{{showLoginBox}}"></bindPhone>
