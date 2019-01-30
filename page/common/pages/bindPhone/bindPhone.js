@@ -94,7 +94,7 @@ Page({
     }
     app.phoneLogin(data).then(res => {
       app.wxToast({
-        title: '注册成功',
+        title: '登录成功',
         icon: 'success',
         callback() {
           if (wx.getStorageSync('choseType') === 'APPLICANT') {

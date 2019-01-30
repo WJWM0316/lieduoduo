@@ -3,6 +3,7 @@ import { getCompanyIdentityInfosApi } from '../../../../../../api/pages/company.
 import {realNameReg, emailReg, positionReg} from '../../../../../../utils/fieldRegular.js'
 
 import {RECRUITER, COMMON, APPLICANT} from '../../../../../../config.js'
+
 import {uploginApi} from "../../../../../../api/pages/auth.js"
 
 const app = getApp()
@@ -43,7 +44,6 @@ Page({
    * @return   {[type]}   [description]
    */
   getCompanyIdentityInfos(options) {
-
     const storage = wx.getStorageSync('createdCompany')
     const params = ['real_name', 'user_email', 'user_position']
     if(storage) {
@@ -51,7 +51,6 @@ Page({
       this.bindBtnStatus()
       return
     }
-
     getCompanyIdentityInfosApi().then(res => {
       const infos = res.data.companyInfo
       const user = res.data

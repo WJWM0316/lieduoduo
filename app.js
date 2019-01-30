@@ -210,29 +210,35 @@ App({
   },
   // 微信快速登陆
   quickLogin(e) {
-    let data = {
-      iv_key: e.detail.iv,
-      data: e.detail.encryptedData
-    }
-    return new Promise((resolve, reject) => {
-      quickLoginApi(data).then(res => {
-        if (res.data.token) {
-          wx.setStorageSync('token', res.data.token)
-          this.loginedLoadData()
-          this.globalData.hasLogin = true
-          var pages = getCurrentPages() //获取加载的页面
-          let pageUrl = pages[0].route
-          let params = ''
-          for (let i in pages[0].options) {
-            params = `${params}${i}=${pages[0].options[i]}&`
-          }
-          pageUrl = `${pageUrl}?${params}`
-          wx.reLaunch({
-            url: `/${pageUrl}`
+    wx.login({
+      success: function (res0) {
+        wx.setStorageSync('code', res0.code)
+        let data = {
+          code: wx.getStorageSync('code'),
+          iv_key: e.detail.iv,
+          data: e.detail.encryptedData
+        }
+        return new Promise((resolve, reject) => {
+          quickLoginApi(data).then(res => {
+            if (res.data.token) {
+              wx.setStorageSync('token', res.data.token)
+              this.loginedLoadData()
+              this.globalData.hasLogin = true
+              var pages = getCurrentPages() //获取加载的页面
+              let pageUrl = pages[0].route
+              let params = ''
+              for (let i in pages[0].options) {
+                params = `${params}${i}=${pages[0].options[i]}&`
+              }
+              pageUrl = `${pageUrl}?${params}`
+              wx.reLaunch({
+                url: `/${pageUrl}`
+              })
+              resolve(res)
+            } 
           })
-          resolve(res)
-        } 
-      })
+        })
+      }
     })
   },
   // 手机登陆
