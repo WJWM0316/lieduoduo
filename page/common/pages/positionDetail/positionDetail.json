@@ -1,4 +1,6 @@
 {
+	"enablePullDownRefresh": true,
+	"backgroundTextStyle": "light",
   "usingComponents": {
   	"shareBtn": "../../../../components/layout/shareBtn/shareBtn",
   	"navbar": "../../../../components/business/navbar/navbar",

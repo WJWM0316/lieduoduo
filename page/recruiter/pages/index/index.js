@@ -39,8 +39,16 @@ Page({
     hasReFresh: false,
     onBottomStatus: 0
   },
+  onShow() {
+    if (app.loginInit) {
+      this.getLists()
+    } else {
+      app.loginInit = () => {
+        this.getLists()
+      }
+    }
+  },
   onLoad() {
-    this.getLists()
   },
   /**
    * @Author   小书包

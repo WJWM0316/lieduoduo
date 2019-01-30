@@ -25,17 +25,27 @@ Page({
     isRecruiter: false,
     companyInfos: {},
     recruiterInfo: {},
+    hasReFresh: false,
     cdnPath: app.globalData.cdnImagePath
   },
   onLoad(options) {
+    if (options.scene) {
+      options = app.getSceneParams(options.scene)
+    }
     let identity = wx.getStorageSync('choseType')
     this.setData({query: options, identity})
   },
   onShow() {
-    this.getPositionDetail()
+    if (app.loginInit) {
+      this.getPositionDetail()
+    } else {
+      app.loginInit = () => {
+        this.getPositionDetail()
+      }
+    } 
   },
   backEvent() {
-     wx.navigateBack({delta: 1})
+    wx.navigateBack({delta: 1})
   },
   /**
    * @Author   小书包
@@ -63,35 +73,16 @@ Page({
         this.setData({isRecruiter: app.globalData.isRecruiter})
       }
     }
-    let myInfo = {}
-    if (identity === "APPLICANT") {
-      myInfo = app.globalData.resumeInfo
-    } else {
-      myInfo = app.globalData.recruiterDetails
-    }
-    if (myInfo.uid) {
-      getPositionApi({id: this.data.query.positionId})
-        .then(res => {
-          this.setData({detail: res.data, companyInfos: res.data.companyInfo, recruiterInfo: res.data.recruiterInfo, isOwner: myInfo.uid === res.data.recruiterInfo.uid})
-          if(this.selectComponent('#interviewBar')) this.selectComponent('#interviewBar').init()
-      })
-    } else {
-      app.pageInit = () => {
-        console.log(11122)
-        if (identity === "APPLICANT") {
-          myInfo = app.globalData.resumeInfo
-        } else {
-          myInfo = app.globalData.recruiterDetails
-        }
-        getPositionApi({id: this.data.query.positionId})
-          .then(res => {
-            this.setData({detail: res.data, companyInfos: res.data.companyInfo, recruiterInfo: res.data.recruiterInfo, isOwner: myInfo.uid === res.data.recruiterInfo.uid})
-            console.log(this.data.detail.vkey, this.data.isOwner, this.data.identity, 1111111)
-            if(this.selectComponent('#interviewBar')) this.selectComponent('#interviewBar').init()
+    return getPositionApi({id: this.data.query.positionId})
+      .then(res => {
+        this.setData({
+          detail: res.data, 
+          companyInfos: res.data.companyInfo, 
+          recruiterInfo: res.data.recruiterInfo, 
+          isOwner: res.data.isOwner && identity === 'RECRUITER'
         })
-      }
-    }
-    
+        if(this.selectComponent('#interviewBar')) this.selectComponent('#interviewBar').init()
+    })
   },
 
 
@@ -185,6 +176,13 @@ Page({
       default:
         break
     }
+  },
+  onPullDownRefresh(hasLoading = true) {
+    this.setData({hasReFresh: true})
+    this.getPositionDetail().then(res => {
+      this.setData({hasReFresh: false})
+      wx.stopPullDownRefresh()
+    })
   },
   onShareAppMessage(options) {
     let that = this

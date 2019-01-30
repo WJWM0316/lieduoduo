@@ -7,6 +7,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    navHeight: app.globalData.navHeight,
     cdnImagePath: app.globalData.cdnImagePath,
     info: {
       companyName: '',

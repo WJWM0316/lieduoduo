@@ -52,7 +52,9 @@ export const request = ({method = 'post', url, data = {}, needKey = true, hasLoa
             // console.log(msg)
           } else {
             reject(msg)
-            getApp().wxToast({title: msg.msg})
+            if (url !== '/jobhunter/resume' && url !== '/recruiter/detail') {
+              getApp().wxToast({title: msg.msg})
+            }
           }
           switch (msg.httpStatus) {
             case 200:

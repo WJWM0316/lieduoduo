@@ -40,7 +40,13 @@ Page({
       isPreview = false
       return
     }
-    this.init(this.data.options)
+    if (app.loginInit) {
+      this.init(this.data.options)
+    } else {
+      app.loginInit = () => {
+        this.init(this.data.options)
+      }
+    }
   },
   preview(e) {
     let list = []

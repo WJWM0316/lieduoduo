@@ -1,5 +1,7 @@
 <!--完善简历第一步-->
-<view class="header">
+<navbar title="完善简历" background="transparent" color="#fff"></navbar>
+
+<view class="header" style="margin-top: -{{navHeight}}px">
   <image class="headerBg" src="{{cdnImagePath}}pic_bg_new@3x.png"></image>
   <text class="title">介绍下最近一份工作吧</text>
   <text class="subtitle">真实可靠的职场形象总能碰到机遇</text>

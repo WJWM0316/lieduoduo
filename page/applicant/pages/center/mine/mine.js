@@ -18,17 +18,15 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onShow: function (options) {
-    let hasLogin = app.globalData.hasLogin
-    if (app.globalData.resumeInfo.uid) {
-      let myInfo = app.globalData.resumeInfo
-      let isComplete = this.data.isComplete
+    let hasLogin = false
+    let myInfo = {}
+    hasLogin = app.globalData.hasLogin
+    myInfo = app.globalData.resumeInfo
+    this.setData({myInfo, hasLogin})
+    app.pageInit = () => {
+      hasLogin = app.globalData.hasLogin
+      myInfo = app.globalData.resumeInfo
       this.setData({myInfo, hasLogin})
-    } else {
-      app.pageInit = () => {
-        let myInfo = app.globalData.resumeInfo
-        let isComplete = this.data.isComplete
-        this.setData({myInfo, hasLogin})
-      }
     }
   },
   call() {

@@ -3,7 +3,7 @@
   <view hidden="{{!hasReFresh}}">
     <refreshStatus></refreshStatus>
   </view>
-  <view class="header" wx:if="{{info.uid && !isOwner}}">
+  <view class="header" wx:if="{{!isOwner}}">
     <image class="bgImg" src="{{cdnImagePath}}bg_detail.png" mode="aspectFill"></image>
     <shareBtn></shareBtn>
     <div class="content">
@@ -19,7 +19,7 @@
       <view class="sign" wx:if="{{info.signature}}">{{info.signature}}</view>
     </view>
   </view>
-  <view class="head" wx:if="{{info.uid && isOwner}}">
+  <view class="head" wx:if="{{isOwner}}">
     <roleInfoCard my-class="roleInfoCard" roleType="recruiter" cardData="{{info}}" isMain="{{true}}"></roleInfoCard>
     <view class="line"></view>
   </view>
@@ -91,8 +91,8 @@
     <view class="collection icon iconfont icon-biaojiweiganxingqu" wx:else bindtap="collect"></view>
   </block>
 
-  <view class="positionBtn" bindtap="scrollPs" hidden="{{!isShowBtn}}" wx:if="{{!isOwner && positionList.length.length > 0}}">{{positionList.length}}个热招职位</view>
-  <interviewBar
+<!--   <view class="positionBtn" bindtap="scrollPs" hidden="{{!isShowBtn}}" wx:if="{{!isOwner && positionList.length > 0}}">{{positionList.length}}个热招职位</view>
+ -->  <interviewBar
     id="interviewBar"
     infos="{{info}}"
     bindresultevent="getPositionDetail"

@@ -40,23 +40,26 @@ Page({
   getOthersInfo() {
     return new Promise((resolve, reject) => {
       getOthersRecruiterDetailApi({uid: this.data.options.uid}).then(res => {
-        this.setData({info: res.data, btnTxt: '展开内容'}, function() {
+        this.setData({info: res.data, btnTxt: '展开内容', isOwner: res.data.isOwner}, function() {
           this.selectComponent('#interviewBar').init()
           resolve(res)
-          getSelectorQuery('.msg').then(res => {
-            if (res.height > 143) {
-              this.setData({isShrink: true, needShrink: true})
-            } else {
-              this.setData({isShrink: false, needShrink: false})
-            }
-          })
+            getSelectorQuery('.msg').then(res => {
+              if (!res) return
+              if (res.height > 143) {
+                this.setData({isShrink: true, needShrink: true})
+              } else {
+                this.setData({isShrink: false, needShrink: false})
+              }
+            })
+          
         })
       })
       getPositionListApi({recruiter: this.data.options.uid}).then(res => {
         this.setData({positionList: res.data}, function() {
-          getSelectorQuery(".mainContent .position").then(res => {
-            positionTop = res.top - res.height
-          })
+          // getSelectorQuery(".mainContent .position").then(res => {
+          //   console.log(res, res.top - res.height)
+          //   positionTop = res.top - res.height
+          // })
         })
       })
     })
@@ -72,11 +75,11 @@ Page({
     } else {
       this.setData({isShrink: false, needShrink: false})
     }
-    
   },
   onShow() {
     let options = this.data.options
     let identity = wx.getStorageSync('choseType')
+
     if (app.globalData.isRecruiter) {
       this.setData({isRecruiter: app.globalData.isRecruiter})
     } else {
@@ -84,36 +87,12 @@ Page({
         this.setData({isRecruiter: app.globalData.isRecruiter})
       }
     }
-    let myInfo = {}
-    if (identity === "APPLICANT") {
-      myInfo = app.globalData.resumeInfo
+
+    if (app.loginInit) {
+      this.getOthersInfo()
     } else {
-      myInfo = app.globalData.recruiterDetails
-    }
-    if (myInfo.uid) {
-      if (myInfo.uid === parseInt(options.uid)) {
-        if (identity === "APPLICANT") {
-          this.getOthersInfo()
-        } else {
-          this.setData({info: myInfo, isOwner: true, btnTxt: '展开内容'})
-          this.isShrink()
-        }
-      } else {
+      app.loginInit = () => {
         this.getOthersInfo()
-      }
-    } else {
-      app.pageInit = () => {
-        if (identity === "APPLICANT") {
-          myInfo = app.globalData.resumeInfo
-        } else {
-          myInfo = app.globalData.recruiterDetails
-        }
-        if (myInfo.uid === parseInt(options.uid)) {
-          this.setData({info: myInfo, isOwner: true, btnTxt: '展开内容'})
-          this.isShrink()
-        } else {
-          this.getOthersInfo()
-        }
       }
     }
   },
@@ -232,13 +211,14 @@ Page({
     })
   },
   onPageScroll(e) { // 获取滚动条当前位置
-    if (e.scrollTop >= positionTop) {
-      if (!this.data.isShowBtn) return
-      this.setData({isShowBtn: false})
-    } else {
-      if (this.data.isShowBtn) return
-      this.setData({isShowBtn: true})
-    }
+    // console.log(e.scrollTop >= positionTop, this.data.isShowBtn)
+    // if (e.scrollTop >= positionTop) {
+    //   if (!this.data.isShowBtn) return
+    //   this.setData({isShowBtn: false})
+    // } else {
+    //   if (this.data.isShowBtn) return
+    //   this.setData({isShowBtn: true})
+    // }
   },
   onPullDownRefresh(hasLoading = true) {
     this.setData({hasReFresh: true})

@@ -69,11 +69,9 @@ Page({
     }
   },
   onShow() {
-     if (app.globalData.resumeInfo.uid) {
-      if (app.globalData.identity === 'APPLICANT') {
-        this.getLists()
-        this.getAvartList()
-      }
+    if (app.loginInit) {
+      this.getLists()
+      this.getAvartList()
     } else {
       app.loginInit = () => {
         if (app.globalData.identity === 'APPLICANT') {
