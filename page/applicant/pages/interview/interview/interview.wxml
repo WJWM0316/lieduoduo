@@ -33,6 +33,7 @@
 			</view>
 		</view>
 		<commonList personality="list" list="{{applyData.list}}" list-type="default"></commonList>
+		<bottomStatus status="{{applyBottomStatus}}" listData="{{applyData.list}}"></bottomStatus>
 	</view>
 	<view hidden="{{tabIndex !== 1}}">
 		<view class="tab-tab-list">
@@ -49,9 +50,11 @@
 			</view>
 		</view>
 		<commonList personality="list" list="{{receiveData.list}}" list-type="default"></commonList>
+		<bottomStatus status="{{receiveBottomStatus}}" listData="{{receiveData.list}}"></bottomStatus>
 	</view>
 	<view hidden="{{tabIndex !== 2}}">
 		<myCalendar wx:if="{{tabIndex === 2}}" id="myCalendar" calendarType="roll" setDateList="{{dateList}}" switchable bindresultEvent="getResult"></myCalendar>
 		<commonList personality="list" list="{{interviewData.list}}" list-type="interview}}"></commonList>
+		<bottomStatus status="{{interviewBottomStatus}}" listData="{{interviewData.list}}"></bottomStatus>
 	</view>
 </view>

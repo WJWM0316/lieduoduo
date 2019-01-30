@@ -91,9 +91,9 @@ Page({
       this.setData({[key]: value})
       this.getLists().then(res => {
         const value = {list: [], pageNum: 1, isLastPage: false, isRequire: false}
-        const onBottomStatus = res.meta.nextPageUrl ? 0 : 2
+        const onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
         value.list = res.data
-        value.isLastPage = res.meta.nextPageUrl ? false : true
+        value.isLastPage = res.meta && res.meta.nextPageUrl ? false : true
         value.pageNum = 2
         value.isRequire = true
         this.setData({[key]: value, onBottomStatus})
@@ -168,9 +168,9 @@ Page({
       const params = {count: this.data.pageCount, page: this.data.rankCity.pageNum, hasLoading, area_id: this.data.area_id}
       getCityRankApi(params).then(res => {
         const rankCity = this.data.rankCity
-        const onBottomStatus = res.meta.nextPageUrl ? 0 : 2
+        const onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
         rankCity.list = rankCity.list.concat(res.data)
-        rankCity.isLastPage = res.meta.nextPageUrl ? false : true
+        rankCity.isLastPage = res.meta && res.meta.nextPageUrl ? false : true
         rankCity.pageNum = rankCity.pageNum + 1
         rankCity.isRequire = true
         const firstItem = rankCity.list[1]
@@ -193,9 +193,9 @@ Page({
       const params = {count: this.data.pageCount, page: this.data.rankCate.pageNum, hasLoading, cate_id: this.data.cate_id}
       getOfficeRankApi(params).then(res => {
         const rankCate = this.data.rankCate
-        const onBottomStatus = res.meta.nextPageUrl ? 0 : 2
+        const onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
         rankCate.list = rankCate.list.concat(res.data)
-        rankCate.isLastPage = res.meta.nextPageUrl ? false : true
+        rankCate.isLastPage = res.meta && res.meta.nextPageUrl ? false : true
         rankCate.pageNum = rankCate.pageNum + 1
         rankCate.isRequire = true
         const firstItem = rankCate.list[1]
@@ -218,9 +218,9 @@ Page({
       const params = {count: this.data.pageCount, page: this.data.rankAll.pageNum, hasLoading}
       getRankApi(params).then(res => {
         const rankAll = this.data.rankAll
-        const onBottomStatus = res.meta.nextPageUrl ? 0 : 2
+        const onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
         rankAll.list = rankAll.list.concat(res.data)
-        rankAll.isLastPage = res.meta.nextPageUrl ? false : true
+        rankAll.isLastPage = res.meta && res.meta.nextPageUrl ? false : true
         rankAll.pageNum = rankAll.pageNum + 1
         rankAll.isRequire = true
         const firstItem = rankAll.list[1]
@@ -244,9 +244,9 @@ Page({
     this.setData({[key]: value, hasReFresh: true})
     this.getLists().then(res => {
       const value = {list: [], pageNum: 1, isLastPage: false, isRequire: false}
-      const onBottomStatus = res.meta.nextPageUrl ? 0 : 2
+      const onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
       value.list = res.data
-      value.isLastPage = res.meta.nextPageUrl ? false : true
+      value.isLastPage = res.meta && res.meta.nextPageUrl ? false : true
       value.pageNum = 1
       value.isRequire = true
       this.setData({[key]: value, onBottomStatus, hasReFresh: false}, () => wx.stopPullDownRefresh())

@@ -23,10 +23,10 @@ Page({
       getTopicListApi(params)
         .then(res => {
           const list = this.data.list.concat(res.data)
-          const isLastPage = res.meta.nextPageUrl ? false : true
+          const isLastPage = res.meta && res.meta.nextPageUrl ? false : true
           const pageNum = this.data.pageNum + 1
           const isRequire = true
-          const onBottomStatus = res.meta.nextPageUrl ? 0 : 2
+          const onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
           this.setData({list, isLastPage, pageNum, isRequire, onBottomStatus})
           resolve(res)
         })
@@ -49,10 +49,10 @@ Page({
     this.getTopicList(false)
         .then((res) => {
           const list = res.data
-          const isLastPage = res.meta.nextPageUrl ? false : true
+          const isLastPage = res.meta && res.meta.nextPageUrl ? false : true
           const pageNum = 2
           const isRequire = true
-          const onBottomStatus = res.meta.nextPageUrl ? 0 : 2
+          const onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
           this.setData({list, isLastPage, pageNum, isRequire, onBottomStatus}, () => {
             wx.stopPullDownRefresh()
             this.setData({hasReFresh: false})

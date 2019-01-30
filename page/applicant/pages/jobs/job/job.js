@@ -100,9 +100,9 @@ Page({
       getPositionListApi(params)
         .then(res => {
           const positionList = this.data.positionList
-          const onBottomStatus = res.meta.nextPageUrl ? 0 : 2
+          const onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
           positionList.list = positionList.list.concat(res.data)
-          positionList.isLastPage = res.meta.nextPageUrl ? false : true
+          positionList.isLastPage = res.meta && res.meta.nextPageUrl ? false : true
           positionList.pageNum = positionList.pageNum + 1
           positionList.isRequire = true
           this.setData({positionList, onBottomStatus}, () => resolve(res))
@@ -121,9 +121,9 @@ Page({
     this.getPositionList()
         .then(res => {
           const positionList = {list: [], pageNum: 1, isLastPage: false, isRequire: false}
-          const onBottomStatus = res.meta.nextPageUrl ? 0 : 2
+          const onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
           positionList.list = res.data
-          positionList.isLastPage = res.meta.nextPageUrl ? false : true
+          positionList.isLastPage = res.meta && res.meta.nextPageUrl ? false : true
           positionList.pageNum = 2
           positionList.isRequire = true
           this.setData({positionList, onBottomStatus, hasReFresh: false}, () => wx.stopPullDownRefresh())

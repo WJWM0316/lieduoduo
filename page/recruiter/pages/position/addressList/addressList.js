@@ -40,9 +40,9 @@ Page({
       const options = this.data.options
       getCompanyAddressListApi(params).then(res => {
         const addressList = this.data.addressList
-        const onBottomStatus = res.meta.nextPageUrl ? 0 : 2
+        const onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
         addressList.list = addressList.list.concat(res.data)
-        addressList.isLastPage = res.meta.nextPageUrl ? false : true
+        addressList.isLastPage = res.meta && res.meta.nextPageUrl ? false : true
         addressList.pageNum = addressList.pageNum + 1
         addressList.isRequire = true
         addressList.list.map(field => field.active = field.id === parseInt(options.addressId) ? true : false)
@@ -62,9 +62,9 @@ Page({
       const params = {count: this.data.pageCount, page: this.data.addressList.pageNum, hasLoading}
       getPositionAddressListApi(params).then(res => {
         const addressList = this.data.addressList
-        const onBottomStatus = res.meta.nextPageUrl ? 0 : 2
+        const onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
         addressList.list = addressList.list.concat(res.data)
-        addressList.isLastPage = res.meta.nextPageUrl ? false : true
+        addressList.isLastPage = res.meta && res.meta.nextPageUrl ? false : true
         addressList.pageNum = addressList.pageNum + 1
         addressList.isRequire = true
         addressList.list.map(field => field.active = field.id === parseInt(options.addressId) ? true : false)
@@ -130,9 +130,9 @@ Page({
     this.setData({addressList, hasReFresh: true})
     this[action]().then(res => {
         const addressList = {list: [], pageNum: 1, isLastPage: false, isRequire: false}
-        const onBottomStatus = res.meta.nextPageUrl ? 0 : 2
+        const onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
         addressList.list = res.data
-        addressList.isLastPage = res.meta.nextPageUrl ? false : true
+        addressList.isLastPage = res.meta && res.meta.nextPageUrl ? false : true
         addressList.pageNum = 2
         addressList.isRequire = true
         this.setData({addressList, onBottomStatus, hasReFresh: false}, () => wx.stopPullDownRefresh())

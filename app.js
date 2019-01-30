@@ -41,7 +41,6 @@ App({
   },
   // 登录
   login() {
-    this.checkLogin()
     that = this
     wx.login({
       success: function (res0) {
@@ -66,7 +65,6 @@ App({
               that.globalData.identity = 'APPLICANT'
             }
           }
-          
           // 登陆回调
           if (that.loginInit) {
             that.loginInit()
@@ -141,12 +139,13 @@ App({
                   this.userInfoReadyCallback(res)
                 }
                 console.log('用户已授权')
-                resolve(res.userInfo)
+                resolve(res)
               }
             })
           } else {
             var pages = getCurrentPages() //获取加载的页面
             let pageUrl = pages[0].route
+            console.log(res, pageUrl, pageUrl !== 'page/applicant/pages/index/index')
             if (pageUrl !== 'page/applicant/pages/index/index') {
               wx.navigateTo({
                 url: `${COMMON}auth/auth`
@@ -210,36 +209,33 @@ App({
   },
   // 微信快速登陆
   quickLogin(e) {
-    wx.login({
-      success: function (res0) {
-        wx.setStorageSync('code', res0.code)
-        let data = {
-          code: wx.getStorageSync('code'),
-          iv_key: e.detail.iv,
-          data: e.detail.encryptedData
-        }
-        return new Promise((resolve, reject) => {
-          quickLoginApi(data).then(res => {
-            if (res.data.token) {
-              wx.setStorageSync('token', res.data.token)
-              this.loginedLoadData()
-              this.globalData.hasLogin = true
-              var pages = getCurrentPages() //获取加载的页面
-              let pageUrl = pages[0].route
-              let params = ''
-              for (let i in pages[0].options) {
-                params = `${params}${i}=${pages[0].options[i]}&`
-              }
-              pageUrl = `${pageUrl}?${params}`
-              wx.reLaunch({
-                url: `/${pageUrl}`
-              })
-              resolve(res)
-            } 
-          })
-        })
+    if (e.detail.errMsg === 'getPhoneNumber:ok') {
+      let data = {
+        iv_key: e.detail.iv,
+        data: e.detail.encryptedData
       }
-    })
+      return new Promise((resolve, reject) => {
+        quickLoginApi(data).then(res => {
+          if (res.data.token) {
+            wx.setStorageSync('token', res.data.token)
+            this.loginedLoadData()
+            this.globalData.hasLogin = true
+            var pages = getCurrentPages() //获取加载的页面
+            let pageUrl = pages[0].route
+            let params = ''
+            for (let i in pages[0].options) {
+              params = `${params}${i}=${pages[0].options[i]}&`
+            }
+            pageUrl = `${pageUrl}?${params}`
+            wx.reLaunch({
+              url: `/${pageUrl}`
+            })
+            resolve(res)
+          } 
+        })
+      })
+    }
+    
   },
   // 手机登陆
   phoneLogin(data) {

@@ -20,24 +20,24 @@
 					<view class="recruiter-name">{{item.recruiterRealname || item.jobhunterRealname || item.name}}</view>
 					<view wx:if="{{identity === 'APPLICANT'}}" class="recruiter-infos">{{item.recruiterPositionName || item.position}}</view>
 					<view wx:else class="recruiter-infos">
-					  <text wx:if="{{item.workExperience}}">{{item.workExperience}}年</text>
-					  <text>{{item.workAgeDesc}}</text>
-					  <text wx:if="{{item.educationDesc || item.degreeDesc}}">·{{item.educationDesc || item.degreeDesc}}</text>
-					  <text wx:if="{{item.emolumentMin || item.salaryFloor}}">·{{item.emolumentMin || item.salaryFloor}}-{{item.emolumentMax || item.saralyCeil}}K</text>
+						<text wx:if="{{item.workExperience}}">{{item.workExperienceDesc}}·</text>
+						<text wx:if="{{item.workAgeDesc}}">{{item.workAgeDesc}}·</text>
+						<text wx:if="{{item.educationDesc || item.degreeDesc}}">{{item.educationDesc || item.degreeDesc}}</text>
+						<text wx:if="{{item.emolumentMin || item.salaryFloor}}">·{{item.emolumentMin || item.salaryFloor}}-{{item.emolumentMax || item.salaryCeil}}K</text>
 					</view>
 				</view>
 				<view class="main" wx:if="{{item.lastCompanyName || item.companyName}}">
-				  <view wx:if="{{identity === 'APPLICANT'}}" class="company-name">
-				    <i class="icon iconfont icon-gongsi"></i> {{item.companyName}}
-				    <text wx:if="{{item.positionNum}}"><i class="icon iconfont icon-zhiwei"></i> {{item.positionNum}}个职位 </text>
-				  </view>
+					<view wx:if="{{identity === 'APPLICANT'}}" class="company-name">
+						<i class="icon iconfont icon-gongsi"></i> {{item.companyName}}
+						<text wx:if="{{item.positionNum}}"><i class="icon iconfont icon-zhiwei"></i> {{item.positionNum}}个职位 </text>
+					</view>
 					<view wx:else class="company-name"> {{item.lastCompanyName || item.lastCompanyName}}<text wx:if="{{item.lastPosition}}"> |  {{item.lastPosition}} </text></view>
 				</view>
 			</view>
 			<view class="footer {{ showDividingLine ? 'show-dividing-line' : ''}}" wx:if="{{showFooter}}">
 				<view class="time">{{item.createdAt || item.viewAt}}</view>
 				<view class="action" wx:if="{{identity !== 'APPLICANT' && !item.positionName && isCollect}}">收藏了我</view>
-        <view class="action" wx:elif="{{identity !== 'APPLICANT' && item.positionName && isCollect}}">收藏了我的职位<view class="strong">{{item.positionName}}</view></view>
+				<view class="action" wx:elif="{{identity !== 'APPLICANT' && item.positionName && isCollect}}">收藏了我的职位<view class="strong">{{item.positionName}}</view></view>
 				<view class="action" wx:elif="{{identity === 'APPLICANT' && !item.positionName && !isCollect}}">申请约面</view>
 				<view class="action" wx:elif="{{identity === 'APPLICANT' && item.positionName && !isCollect}}">申请约面<view class="strong">{{item.positionName}}</view></view>
 				<view class="action" wx:elif="{{item.positionName && identity !== 'APPLICANT' && !isCollect}}">查看了你的职位<view class="strong">{{item.positionName}}</view></view>
@@ -45,8 +45,8 @@
 				<view class="status">{{item.statusDesc}}</view>
 			</view>
 			<view wx:if="{{item.redDot}}">
-			  <view class="red-dot-circle" wx:if="{{ dotType === 'circle'}}"></view>
-        <view class="red-dot-text" wx:else>新</view>
+				<view class="red-dot-circle" wx:if="{{ dotType === 'circle'}}"></view>
+				<view class="red-dot-text" wx:else>新</view>
 			</view>
 	</view>
 </view>

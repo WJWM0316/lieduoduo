@@ -133,7 +133,7 @@ Page({
           onLinePosition.list = onLinePosition.list.concat(res.data || [])
           onLinePosition.pageNum++
           onLinePosition.isRequire = true
-          if (!res.meta.nextPageUrl) {
+          if (!res.meta || !res.meta.nextPageUrl) {
             onLinePosition.isLastPage = true
             onBottomStatus = 2
           } else {
@@ -154,7 +154,7 @@ Page({
           offLinePosition.list = offLinePosition.list.concat(res.data || [])
           offLinePosition.pageNum++
           offLinePosition.isRequire = true
-          if (!res.meta.nextPageUrl) {
+          if (!res.meta || !res.meta.nextPageUrl) {
             offLinePosition.isLastPage = true
             offBottomStatus = 2
           } else {
