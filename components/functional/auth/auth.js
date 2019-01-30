@@ -17,6 +17,14 @@ Component({
   /**
    * 组件的方法列表
    */
+  
+  attached: function () {
+    wx.login({
+      success: function (res0) {
+        wx.setStorageSync('code', res0.code)
+      }
+    })
+  }, 
   methods: {
     onGotUserInfo(e) {
       getApp().onGotUserInfo(e)

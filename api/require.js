@@ -75,7 +75,7 @@ export const request = ({method = 'post', url, data = {}, needKey = true, hasLoa
               }
               break
             case 400:
-              if (msg.code === 701 && url !== '/jobhunter/resume') {
+              if (msg.code === 701 && url !== '/jobhunter/cur/resume') {
                 wx.navigateTo({
                   url: `${APPLICANT}center/createUser/createUser`
                 })

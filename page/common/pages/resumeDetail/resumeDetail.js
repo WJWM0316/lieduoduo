@@ -3,7 +3,7 @@ import { getOtherResumeApi } from '../../../../api/pages/center.js'
 
 import { inviteInterviewApi } from '../../../../api/pages/interview.js'
 import { getMyCollectUserApi, deleteMyCollectUserApi } from '../../../../api/pages/collect.js'
-import {APPLICANT, COMMON} from '../../../../config.js'
+import {APPLICANT, COMMON, RECRUITER} from '../../../../config.js'
 import {shareResume} from '../../../../utils/shareWord.js'
 
 let isPreview = false
@@ -41,10 +41,10 @@ Page({
       return
     }
     if (app.loginInit) {
-      this.init(this.data.options)
+      this.getOthersInfo()
     } else {
       app.loginInit = () => {
-        this.init(this.data.options)
+        this.getOthersInfo()
       }
     }
   },
@@ -54,50 +54,18 @@ Page({
       list.push(item.url)
     })
     wx.previewImage({
-     current: e.currentTarget.dataset.current,
-     urls: list,
-     complete() {
-      isPreview = true
-     }
+      current: e.currentTarget.dataset.current,
+      urls: list,
+      complete() {
+        isPreview = true
+      }
     })
-  },
-  init(options) {
-    let identity = wx.getStorageSync('choseType')
-    let myInfo = {}
-    if (identity === "APPLICANT") {
-      myInfo = app.globalData.resumeInfo
-    } else {
-      myInfo = app.globalData.recruiterDetails
-    }
-    if (myInfo.uid) {
-      if (myInfo.uid === parseInt(options.uid) || !options.uid) {
-        if (identity === "RECRUITER") {
-          this.getOthersInfo()
-        } else {
-          this.setData({info: myInfo, isOwner: true, identity})
-        }
-      } else {
-        this.getOthersInfo()
-      }
-    } else {
-      app.pageInit = () => {
-        if (identity === "APPLICANT") {
-          myInfo = app.globalData.resumeInfo
-        } else {
-          myInfo = app.globalData.recruiterDetails
-        }
-        if (myInfo.uid === parseInt(options.uid)) {
-          this.setData({info: myInfo, isOwner: true, identity})
-        } else {
-          this.getOthersInfo()
-        }
-      }
-    }
   },
   getOthersInfo() {
     return new Promise((resolve, reject) => {
+      let identity = wx.getStorageSync('choseType')
       getOtherResumeApi({uid: this.data.options.uid}).then(res => {
-        this.setData({info: res.data})
+        this.setData({info: res.data, isOwner: res.data.isOwner && identity === 'APPLICANT'})
         if (this.selectComponent('#interviewBar')) {
           this.selectComponent('#interviewBar').init()
         }
@@ -175,18 +143,10 @@ Page({
   },
   onPullDownRefresh(hasLoading = true) {
     this.setData({hasReFresh: true})
-    if (!this.options.uid || parseInt(this.options.uid) === app.globalData.resumeInfo.uid) {
-      getPersonalResumeApi().then(res => {
-        app.globalData.resumeInfo = res.data
-        wx.stopPullDownRefresh()
-        this.setData({info: app.globalData.resumeInfo, hasReFresh: false})
-      })
-    } else {
-      this.getOthersInfo().then(res => {
-        this.setData({hasReFresh: false})
-        wx.stopPullDownRefresh()
-      })
-    }
+    this.getOthersInfo().then(res => {
+      this.setData({hasReFresh: false})
+      wx.stopPullDownRefresh()
+    })
   },
   onShareAppMessage(options) {
     let that = this

@@ -76,7 +76,7 @@ Page({
           detail: res.data, 
           companyInfos: res.data.companyInfo, 
           recruiterInfo: res.data.recruiterInfo, 
-          isOwner: res.data.isOwner && identity === 'RECRUITER'
+          isOwner: res.data.isOwner && identity === 'RECRUITER' ? true : false
         })
         if(this.selectComponent('#interviewBar')) this.selectComponent('#interviewBar').init()
     })

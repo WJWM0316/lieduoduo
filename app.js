@@ -23,7 +23,7 @@ App({
       }
     })
     this.login()
-    this.checkLogin()
+    
   },
   globalData: {
     identity: "", // 身份标识
@@ -41,13 +41,13 @@ App({
   },
   // 登录
   login() {
+    this.checkLogin()
     that = this
     wx.login({
       success: function (res0) {
         wx.setStorageSync('code', res0.code)
         loginApi({code: res0.code}).then(res => {
           that.globalData.identity = wx.getStorageSync('choseType')
-
           // 有token说明已经绑定过用户了
           if (res.data.token) {
             wx.setStorageSync('token', res.data.token)
@@ -58,7 +58,15 @@ App({
             console.log('用户未绑定手机号')
             wx.setStorageSync('sessionToken', res.data.sessionToken)
           }
-
+          var pages = getCurrentPages() //获取加载的页面
+          let pageUrl = pages[0].route
+          if (pageUrl !== 'page/applicant/pages/index/index') {
+            if (!wx.getStorageSync('choseType')) {
+              wx.setStorageSync('choseType', 'APPLICANT')
+              that.globalData.identity = 'APPLICANT'
+            }
+          }
+          
           // 登陆回调
           if (that.loginInit) {
             that.loginInit()

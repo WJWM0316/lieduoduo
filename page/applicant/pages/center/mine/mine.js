@@ -90,7 +90,7 @@ Page({
   /* 编辑简历 */
   toEdit () {
     wx.navigateTo({
-      url: `${COMMON}resumeDetail/resumeDetail`,
+      url: `${COMMON}resumeDetail/resumeDetail?uid=${this.data.myInfo.uid}`,
     })
   },
   onPullDownRefresh(hasLoading = true) {
