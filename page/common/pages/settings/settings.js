@@ -25,20 +25,7 @@ Page({
       title: '退出登录',
       content: `确定退出当前账号吗？`,
       confirmBack() {
-        uploginApi().then(res => {
-          app.wxToast({
-            title: "退出成功",
-            icon: "success"
-          })
-          wx.clearStorageSync()
-          app.globalData.identity = ''
-          app.globalData.hasLogin = false
-          app.globalData.resumeInfo = {}
-          app.globalData.recruiterDetails = {}
-          wx.reLaunch({
-            url: `${APPLICANT}index/index`
-          })
-        })
+        app.uplogin()
       }
     })
   },

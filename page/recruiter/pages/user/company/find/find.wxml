@@ -25,7 +25,10 @@
 				<i class="icon iconfont icon-jiantou"></i>
 			</view>
 		</view>
-		<view bindtap="submit" class="button-submit {{canClick ? 'button-enable' : ''}}">下一步</view>
+		<view class="bottomBox">
+			<view bindtap="submit" class="button-submit {{canClick ? 'button-enable' : ''}}">下一步</view>
+		</view>
+		
 	</view>
 	<view class="certification-layout {{showMaskBox ? 'certification-layout-show' : ''}}">
 		<view class="box {{showMaskBox ? 'box-show' : ''}}">

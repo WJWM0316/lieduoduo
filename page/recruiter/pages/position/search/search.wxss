@@ -60,7 +60,7 @@
 	font-size:32rpx;
 	font-weight:400;
 	color:rgba(205,203,207,1);
-	margin: 100rpx;
+	margin: 30rpx;
 	text-align: center;
 	line-height: 88rpx;
 }
@@ -78,6 +78,7 @@
 	right: 0;
 	bottom: 0;
 	z-index: 2;
+	background: #fff;
 }
 
 .name-lists {

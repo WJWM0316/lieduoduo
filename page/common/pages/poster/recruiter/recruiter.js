@@ -224,7 +224,8 @@ Page({
     let loadQrCode = new Promise((resolve, reject) => {
       // 二维码
       wx.downloadFile({
-        url: info.recruiterQrCode,
+        url:  '../../../../../images/ranking.png',
+        // url: info.recruiterQrCode || '../../../../../images/ranking.png',
         success(res) {
           if (res.statusCode === 200) {
             resolve(res)

@@ -36,7 +36,11 @@ Page({
    */
   bindInput(e) {
     const name = e.detail.value
-    if(name && name !== '.') this.debounce(this.getPositionNameList, null, 500, name)
+    if(name && name !== '.') {
+      this.debounce(this.getPositionNameList, null, 500, name)
+    } else {
+      this.setData({nameLists: []})
+    }
   },
   /**
    * @Author   小书包
@@ -68,7 +72,7 @@ Page({
     const storage = wx.getStorageSync('createPosition')
     storage.position_name = name
     wx.setStorageSync('createPosition', storage)
-    this.setData({keyword: name})
+    this.setData({keyword: name, nameLists: []})
   },
   submit(e) {
     const storage = wx.getStorageSync('createPosition')

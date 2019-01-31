@@ -1,5 +1,5 @@
 <view class="homepage">
-	<navbar title="{{companyInfos.companyName}}" background="#FFFFFF" color="#22292C"></navbar>
+	<navbar title="{{companyInfos.companyShortname}}" background="#FFFFFF" color="#22292C"></navbar>
 
 	<view hidden="{{!hasReFresh}}">
     <refreshStatus></refreshStatus>
@@ -73,7 +73,7 @@
 				wx:if="{{companyInfos.albumInfo.length}}"
 				autoplay="{{autoplay}}">
 				<swiper-item class="swiper-item" wx:for="{{companyInfos.albumInfo}}" wx:key="{{index}}" wx:for-item="item">
-					<image mode="aspectFill" class="slide-image {{swiperIndex == index ? 'active' : ''}}" src="{{item.smallUrl}}" bindtap="previewImage" data-index="{{index}}" />
+					<image mode="aspectFill" class="slide-image {{swiperIndex == index ? 'active' : ''}}" src="{{item.url}}" bindtap="previewImage" data-index="{{index}}" />
 				</swiper-item>
 			</swiper>
 			<view class="company-detail" wx:if="{{companyInfos.intro}}">
@@ -89,7 +89,7 @@
 				<view class="li" wx:for="{{companyInfos.product}}" wx:key="{{index}}" wx:for-item="item">
 					<view class="base">
 						<view class="img-box">
-							<image mode="aspectFill" src="{{item.logoInfo.smallUrl}}" />
+							<image mode="aspectFill" src="{{item.logoInfo.middleUrl}}" />
 						</view>
 						<view class="content">
 							<view class="row-one">

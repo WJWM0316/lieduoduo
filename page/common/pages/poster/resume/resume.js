@@ -505,19 +505,24 @@ Page({
 
     getPersonalResumeApi().then(res => {
       info = res.data
-      Promise.all([loadAvatar, loadQrCode]).then((result) => {
+      Promise.all([loadAvatar]).then((result) => {
         this.drawing (info, avatarUrl, qrCodeUrl)
       })
     })
     let loadAvatar = new Promise((resolve, reject) => {
+      // console.log(22222, info.avatar.middleUrl)
+      
       // 头像
       wx.downloadFile({
-        url: info.avatar.url,
+        url: '../../../../../images/04.png', //info.avatar.middleUrl,
         success(res) {
           if (res.statusCode === 200) {
             resolve(res)
             avatarUrl = res.tempFilePath
           }
+        },
+        fail(e) {
+          console.log(e, 11111111)
         }
       })
     })
@@ -525,7 +530,7 @@ Page({
     let loadQrCode = new Promise((resolve, reject) => {
       // 二维码
       wx.downloadFile({
-        url: info.resumeQrCode,
+        url: info.resumeQrCode || '../../../../../images/ranking.png',
         success(res) {
           if (res.statusCode === 200) {
             resolve(res)
@@ -534,6 +539,7 @@ Page({
         }
       })
     })
+
   },
 
   /**

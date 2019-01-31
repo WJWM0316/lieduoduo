@@ -1,7 +1,7 @@
 <!-- 加载过滤器 -->
 <wxs src="../../../../utils/filters.wxs" module="filters" />
 <view class="arrangement">
-  <navbar></navbar>
+  <navbar title="面试详情"></navbar>
   <view class="tip" wx:if="{{identity === 'RECRUITER' && info.status === 32}}">备选时间不合适，请联系候选人重新确定时间</view>
   <view class="headInfo">
     <roleInfoCard wx:if="{{identity === 'RECRUITER'}}" cardData="{{info.jobhunterInfo}}" my-class="roleDetail" roleType="applicant"></roleInfoCard>
@@ -43,7 +43,7 @@
         </view>
       </view>
 
-      <view class="detail read" wx:if="{{identity === 'APPLICANT' || (identity === 'RECRUITER' && (info.status === 31 || info.status === 41))}}">
+      <view class="detail read" wx:if="{{identity === 'APPLICANT' || (identity === 'RECRUITER' && (info.status === 31 || info.status === 41 || info.status === 51))}}">
         <view class="title"><icon class="icon"></icon>面试信息</view>
         <view class="msgItem" bindtap="callPhone">
           <view class="inner">

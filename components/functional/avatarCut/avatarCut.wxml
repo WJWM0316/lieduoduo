@@ -1,3 +1,4 @@
-<view class="avatarUpload">
-  <image class="avatarImg avatar" src="{{src}}" bindtap="upload" mode="aspectFill"></image>
+<view class="avatarUpload" bindtap="upload">
+	<block wx:if="{{!needBg}}"><image class="avatarImg avatar" src="{{src}} || {{cdnImagePath}}pic_dafult_head.png`" bindtap="upload" mode="aspectFill"></image></block>
+	<block wx:else><slot></slot></block>
 </view>

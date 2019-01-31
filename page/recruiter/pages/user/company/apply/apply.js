@@ -4,7 +4,6 @@ import {realNameReg, emailReg, positionReg} from '../../../../../../utils/fieldR
 
 import {RECRUITER, COMMON, APPLICANT} from '../../../../../../config.js'
 
-import {uploginApi} from "../../../../../../api/pages/auth.js"
 
 const app = getApp()
 
@@ -140,13 +139,6 @@ Page({
     app.toggleIdentity()
   },
   changePhone() {
-    uploginApi().then(res => {
-      wx.clearStorageSync()
-      app.globalData.identity = ''
-      app.globalData.hasLogin = false
-      app.globalData.resumeInfo = {}
-      app.globalData.recruiterDetails = {}
-      wx.reLaunch({url: `${APPLICANT}index/index`})
-    })
+    app.uplogin()
   }
 })

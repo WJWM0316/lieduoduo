@@ -260,7 +260,7 @@ Page({
     let loadCompany = new Promise((resolve, reject) => {
       // 二维码
       wx.downloadFile({
-        url: info.companyInfo.logoInfo.middleUrl,
+        url: info.companyInfo.logoInfo.middleUrl || '../../../../../images/ranking.png',
         success(res) {
           if (res.statusCode === 200) {
             resolve(res)

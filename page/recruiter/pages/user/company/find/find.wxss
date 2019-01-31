@@ -215,21 +215,25 @@
 	font-weight:400;
 	color:rgba(255,255,255,1);
 }
-
+.bottomBox {
+	position: fixed;
+	left: 0;
+	bottom: 0;
+	padding: 30rpx 100rpx;
+	background: #fff;
+	width: 100%;
+	box-sizing: border-box;
+}
 .button-submit {
-	height:88rpx;
+	height: 88rpx;
 	background:#F5F4F7;
 	border-radius:48rpx;
-	border: 1px solid #F5F4F7;
+	border: 1rpx solid #F5F4F7;
 	font-size:32rpx;
 	font-weight:400;
 	color:#CDCBCF;
 	text-align: center;
 	line-height: 88rpx;
-	position: fixed;
-	left: 100rpx;
-	right: 100rpx;
-	bottom: 50rpx;
 }
 
 .button-enable {

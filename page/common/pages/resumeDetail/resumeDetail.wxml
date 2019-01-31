@@ -54,7 +54,9 @@
           <i class="icon iconfont icon-bianji1 edit" data-editName="intent" data-id="{{item.id}}" bindtap="edit" wx:if="{{isOwner}}"></i></view>
       </view>
       <view class="officeInfo">
-        <text wx:for="{{item.fields}}" wx:key="{{index}}">{{item.field || item.name}}<text wx:if="{{index < 2}}"> · </text></text>
+        <block wx:for="{{item.fields}}" wx:key="{{index}}">
+          <text>{{item.field || item.name}} </text>
+        </block>
       </view>
     </view>
     <text class="add" data-editName="intent" bindtap="edit" wx:if="{{isOwner && info.expects.length < 3}}" data-id="">添加求职意向</text>

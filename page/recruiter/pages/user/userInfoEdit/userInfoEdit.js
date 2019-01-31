@@ -151,10 +151,12 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    let avatarUrl = wx.getStorageSync('avatarUrl')
-    let avatarId = wx.getStorageSync('avatarId')
-    if (avatarUrl && avatarId) {
-      this.setData({avatarUrl: avatarUrl, avatarId: avatarId})
+    let avatar = wx.getStorageSync('avatar')
+    if (avatar) {
+      let picList = this.data.picList
+      picList.push(avatar)
+      wx.removeStorageSync('avatar')
+      this.setData({picList})
     }
   },
 

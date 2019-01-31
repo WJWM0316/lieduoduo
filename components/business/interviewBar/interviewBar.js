@@ -13,7 +13,7 @@ import {
   closePositionApi
 } from '../../../api/pages/position.js'
 
-import {RECRUITER, COMMON} from '../../../config.js'
+import {RECRUITER, COMMON, APPLICANT} from '../../../config.js'
 
 const app = getApp()
 
@@ -69,6 +69,15 @@ Component({
     const key = wx.getStorageSync('choseType') === 'APPLICANT' ? 'jobWords' : 'recruiterWords'
     const length = this.data[key].length
     const index = this.getRandomNum(0, length)
+
+    switch(this.data.type) {
+      case 'resume':
+        if (wx.getStorageSync('choseType') === 'APPLICANT') this.setData({isOwerner: true})
+        break
+      case 'recruiter':
+        if (wx.getStorageSync('choseType') === 'RECRUITER') this.setData({isOwerner: true})
+        break
+    }
     this.setData({index})
   },
   methods: {
@@ -161,6 +170,14 @@ Component({
       let isJobhunter = app.globalData.isJobhunter
       let interviewInfos = this.data.interviewInfos
 
+      const getRole = () => {
+        if(app.getRoleInit) {
+          chat()
+        } else {
+          app.getRoleInit = () => chat()
+        }
+      }
+
       // 开撩动作
       const chat = () => {
         isRecruiter = app.globalData.isRecruiter
@@ -189,16 +206,25 @@ Component({
         }
       }
 
-      //用户没有登录
-      if(!app.globalData.hasLogin) {
-         this.setData({showLoginBox: true})
-      } else {
-        if(app.getRoleInit) {
-          chat()
+      // 判断用户是否登录
+      if (app.loginInit) {
+        if (!app.globalData.hasLogin) {
+          this.setData({showLoginBox: true})
         } else {
-          app.getRoleInit = () => chat()
+          getRole()
+        }
+      } else {
+        app.loginInit = () => {
+          if (!app.globalData.hasLogin) {
+            this.setData({showLoginBox: true})
+          } else {
+            getRole()
+          }
         }
       }
+      
+
+      
     },
     /**
      * @Author   小书包
@@ -213,16 +239,7 @@ Component({
       switch(action) {
         // 求职端发起开撩
         case 'job-hunting-chat':
-          // 招聘管主页 直接跳转职位列表
-          if(this.data.type === 'recruiter') {
-            wx.navigateTo({url: `${RECRUITER}position/jobList/jobList?type=job_hunting_chat&from=${this.data.currentPage}&showNotPositionApply=${interviewInfos.showNotPositionApply}&from=${this.data.currentPage}&recruiterUid=${this.data.infos.uid}`})
-          } else {
-            applyInterviewApi({recruiterUid: this.data.infos.recruiterInfo.uid, positionId: this.data.infos.id}).then(res => {
-              this.getInterviewStatus()
-              app.wxToast({title: '面试申请已发送'})
-              // this.triggerEvent('resultevent', this.data.infos)
-            })
-          }
+          this.shareChat()
 
           break
         case 'job-hunting-applyed':
@@ -239,7 +256,8 @@ Component({
           app.wxToast({title: '面试申请已发送'})
           break
         case 'recruiter-chat':
-          wx.navigateTo({url: `${RECRUITER}position/jobList/jobList?type=recruiter_chat&from=${this.data.currentPage}&jobhunterUid=${this.data.infos.uid}&recruiterUid=${app.globalData.recruiterDetails.uid}`})
+          this.shareChat()
+          // wx.navigateTo({url: `${RECRUITER}position/jobList/jobList?type=recruiter_chat&from=${this.data.currentPage}&jobhunterUid=${this.data.infos.uid}&recruiterUid=${app.globalData.recruiterDetails.uid}`})
           break
         case 'job-hunting-waiting-interview':
           app.wxToast({title: '等待招聘官安排面试'})
@@ -339,7 +357,7 @@ Component({
           }
           break
         case 'recruiter-apply':
-          // wx.navigateTo({url: `${COMMON}arrangement/arrangement?id=${interviewInfos.data[0].interviewId}`})
+          wx.navigateTo({url: `${APPLICANT}interview/interview/interview`})
           break
         case 'recruiter-arrangement':
           wx.navigateTo({url: `${COMMON}arrangement/arrangement?id=${interviewInfos.data[0].interviewId}`})

@@ -1,6 +1,6 @@
 {
   "usingComponents": {
-    "unloadFile": "../../../../../components/functional/unloadFile/unloadFile",
+    "avatarCut": "../../../../../components/functional/avatarCut/avatarCut",
     "navBar": "../../../../../components/business/navbar/navbar",
     "myPicker": "../../../../../components/functional/myPicker/myPicker"
   }

@@ -10,9 +10,9 @@
         </view>
 	  	</view>
 	  	<view class="pic" wx:if="{{picList.length < 6}}">
-	  		<unloadFile bindresultEvent="getResult" number="{{choseNum}}">
-		    	<view class="addPic">+</view>
-		    </unloadFile>
+        <avatarCut class="avatarCut" src="{{info.avatar.middleUrl}}" needBg="{{false}}">
+          <view class="addPic">+</view>
+        </avatarCut>
 	  	</view>
   	</view>
   </view>

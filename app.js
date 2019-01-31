@@ -1,5 +1,5 @@
       //app.js
-import {loginApi, bindPhoneApi} from 'api/pages/auth.js'
+import {loginApi, bindPhoneApi, uploginApi} from 'api/pages/auth.js'
 import {formIdApi} from 'api/pages/common.js'
 import {getPersonalResumeApi} from 'api/pages/center.js'
 import {getRecruiterDetailApi} from 'api/pages/recruiter.js'
@@ -23,7 +23,6 @@ App({
       }
     })
     this.login()
-    
   },
   globalData: {
     identity: "", // 身份标识
@@ -54,7 +53,8 @@ App({
             that.globalData.hasLogin = true
             console.log('用户已认证')
           } else {
-            console.log('用户未绑定手机号')
+            console.log('用户未绑定手机号', 'sessionToken', res.data.sessionToken)
+            that.checkLogin()
             wx.setStorageSync('sessionToken', res.data.sessionToken)
           }
           var pages = getCurrentPages() //获取加载的页面
@@ -76,6 +76,18 @@ App({
       fail: function (e) {
         console.log('登录失败', e)
       }
+    })
+  },
+  // 退出登录
+  uplogin() {
+    uploginApi().then(res => {
+      wx.clearStorageSync()
+      this.globalData.identity = ''
+      this.globalData.hasLogin = false
+      this.globalData.resumeInfo = {}
+      this.globalData.recruiterDetails = {}
+      this.loginInit = false
+      wx.reLaunch({url: `${APPLICANT}index/index`})
     })
   },
   // 获取最全的角色信息
@@ -122,6 +134,7 @@ App({
     this.getAllInfo()
     this.getRoleInfo()
   },
+
   // 检查微信授权
   checkLogin () {
     return new Promise((resolve, reject) => {
@@ -145,7 +158,6 @@ App({
           } else {
             var pages = getCurrentPages() //获取加载的页面
             let pageUrl = pages[0].route
-            console.log(res, pageUrl, pageUrl !== 'page/applicant/pages/index/index')
             if (pageUrl !== 'page/applicant/pages/index/index') {
               wx.navigateTo({
                 url: `${COMMON}auth/auth`
@@ -179,6 +191,7 @@ App({
           pageUrl = `${pageUrl}?${params}`
           data.code = wx.getStorageSync('code')
           loginApi(data).then(res => {
+            wx.removeStorageSync('code')
             // 有token说明已经绑定过用户了
             if (res.data.token) {
               wx.setStorageSync('token', res.data.token)
@@ -232,6 +245,8 @@ App({
             })
             resolve(res)
           } 
+        }).catch(e => {
+          this.login()
         })
       })
     }
@@ -245,6 +260,8 @@ App({
         this.globalData.hasLogin = true
         this.loginedLoadData()
         resolve(res)
+      }).catch(e => {
+        this.login()
       })
     })
   },
@@ -330,34 +347,20 @@ App({
     let identity = wx.getStorageSync('choseType')
     if (identity === 'RECRUITER') {
       wx.setStorageSync('choseType', 'APPLICANT')
-      // 都跳首页
       wx.reLaunch({
         url: `${APPLICANT}index/index`
       })
-      // if (!this.globalData.isJobhunter) {
-      //   wx.reLaunch({
-      //     url: `${APPLICANT}center/createUser/createUser`
-      //   })
-      // } else {
-      //   this.getAllInfo().then(res => {
-      //     wx.reLaunch({
-      //       url: `${APPLICANT}index/index`
-      //     })
-      //   })
-      // }
+      this.getAllInfo()
     } else {
       wx.setStorageSync('choseType', 'RECRUITER')
+      this.getAllInfo()
       if (!this.globalData.isRecruiter) {
-        // wx.navigateTo({
-        //   url: `${RECRUITER}user/company/apply/apply`
-        // })
-        // 重新请求一下接口
-        this.getAllInfo()
+        wx.reLaunch({
+          url: `${RECRUITER}user/company/apply/apply`
+        })
       } else {
-        this.getAllInfo().then(res => {
-          wx.reLaunch({
-            url: `${RECRUITER}index/index`
-          })
+        wx.reLaunch({
+          url: `${RECRUITER}index/index`
         })
       }
     }
