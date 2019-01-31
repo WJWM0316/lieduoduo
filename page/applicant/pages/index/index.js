@@ -69,11 +69,9 @@ Page({
     }
   },
   onShow() {
-     if (app.globalData.resumeInfo.uid) {
-      if (app.globalData.identity === 'APPLICANT') {
-        this.getLists()
-        this.getAvartList()
-      }
+    if (app.loginInit) {
+      this.getLists()
+      this.getAvartList()
     } else {
       app.loginInit = () => {
         if (app.globalData.identity === 'APPLICANT') {
@@ -125,9 +123,9 @@ Page({
       geMyBrowseUsersApi(params)
         .then(res => {
           const myBrowse = this.data.myBrowse
-          const onBottomStatus = res.meta.nextPageUrl ? 0 : 2
+          const onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
           myBrowse.list = myBrowse.list.concat(res.data)
-          myBrowse.isLastPage = res.meta.nextPageUrl ? false : true
+          myBrowse.isLastPage = res.meta && res.meta.nextPageUrl ? false : true
           myBrowse.pageNum = myBrowse.pageNum + 1
           myBrowse.isRequire = true
           this.setData({myBrowse, onBottomStatus}, () => {
@@ -149,9 +147,9 @@ Page({
       getMyCollectUsersApi(params)
         .then(res => {
           const myCollect = this.data.myCollect
-          const onBottomStatus = res.meta.nextPageUrl ? 0 : 2
+          const onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
           myCollect.list = myCollect.list.concat(res.data)
-          myCollect.isLastPage = res.meta.nextPageUrl ? false : true
+          myCollect.isLastPage = res.meta && res.meta.nextPageUrl ? false : true
           myCollect.pageNum = myCollect.pageNum + 1
           myCollect.isRequire = true
           this.setData({myCollect, onBottomStatus}, () => {
@@ -218,9 +216,9 @@ Page({
     this.getLists()
         .then(res => {
           const value = {list: [], pageNum: 1, isLastPage: false, isRequire: false}
-          const onBottomStatus = res.meta.nextPageUrl ? 0 : 2
+          const onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
           value.list = res.data
-          value.isLastPage = res.meta.nextPageUrl ? false : true
+          value.isLastPage = res.meta && res.meta.nextPageUrl ? false : true
           value.pageNum = 1
           value.isRequire = true
           this.setData({[key]: value, onBottomStatus, hasReFresh: false}, () => wx.stopPullDownRefresh())

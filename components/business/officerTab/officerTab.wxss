@@ -85,6 +85,8 @@
   font-size: 36rpx;
   font-weight: 500;
   color: #282828;
+  display: inline-block;
+  vertical-align: middle;
 }
 
 .info .top .title{
@@ -95,6 +97,7 @@
   font-size: 28rpx;
   font-weight: 300;
   color: #282828;
+  vertical-align: middle;
 }
 
 .info .bottom{

@@ -34,7 +34,7 @@ Page({
     identityInfos: {}
   },
   onLoad() {
-    this.getCompanyIdentityInfos()
+    if(app.globalData.recruiterDetails.identityAuth !== 1) this.getCompanyIdentityInfos()
   },
   onShow() {
     let onLinePosition = {
@@ -75,31 +75,19 @@ Page({
    */
   publicPosition() {
     const identityInfos = this.data.identityInfos
-    if(!identityInfos.identityNum) {
-      app.wxConfirm({
-        title: '您的身份尚未认证',
-        content: `请先认证`,
-        confirmText: '知道了',
-        confirmBack: () => {
-          const url = identityInfos.applyJoin
-            ?  `${RECRUITER}user/company/identity/identity?type=apply&realName=${identityInfos.companyInfo.realName}`
-            : `${RECRUITER}user/company/identity/identity?type=create&realName=${identityInfos.companyInfo.realName}`
-          wx.redirectTo({url})
-        }
-      })
-    } else {
+    if(Object.keys(identityInfos).length) {
       if(identityInfos.status !== 1) {
         app.wxConfirm({
           title: '您的身份尚未认证成功',
           content: `请先认证`,
           confirmText: '知道了',
           confirmBack: () => {
-            wx.redirectTo({url: `${RECRUITER}user/company/status/status?from=identity`})
+            wx.navigateTo({url: `${RECRUITER}user/company/identity/identity?type=create&realName=${identityInfos.companyInfo.realName}&action=edit`})
           }
         })
-      } else {
-        wx.navigateTo({url: `${RECRUITER}position/post/post`})
       }
+    } else {
+      wx.navigateTo({url: `${RECRUITER}position/post/post`})
     }
   },
   /**
@@ -136,7 +124,7 @@ Page({
           onLinePosition.list = onLinePosition.list.concat(res.data || [])
           onLinePosition.pageNum++
           onLinePosition.isRequire = true
-          if (!res.meta.nextPageUrl) {
+          if (!res.meta || !res.meta.nextPageUrl) {
             onLinePosition.isLastPage = true
             onBottomStatus = 2
           } else {
@@ -157,7 +145,7 @@ Page({
           offLinePosition.list = offLinePosition.list.concat(res.data || [])
           offLinePosition.pageNum++
           offLinePosition.isRequire = true
-          if (!res.meta.nextPageUrl) {
+          if (!res.meta || !res.meta.nextPageUrl) {
             offLinePosition.isLastPage = true
             offBottomStatus = 2
           } else {

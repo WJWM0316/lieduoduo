@@ -72,11 +72,11 @@ Page({
     getCollectMySelfApi({page: this.data.interestList.pageNum, count: this.data.pageCount, hasLoading})
     .then(res => {
       const interestList = this.data.interestList
-      const onBottomStatus = res.meta.nextPageUrl ? 0 : 2
+      const onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
       interestList.list = interestList.list.concat(res.data)
       interestList.pageNum = interestList.pageNum + 1
       interestList.list.isRequire = true
-      interestList.isLastPage = res.meta.nextPageUrl ? false : true
+      interestList.isLastPage = res.meta && res.meta.nextPageUrl ? false : true
       this.setData({interestList, onBottomStatus}, () => resolve(res))
     })
   })
@@ -92,11 +92,11 @@ Page({
     getBrowseMySelfApi({page: this.data.watchedList.pageNum, count: this.data.pageCount, hasLoading})
     .then(res => {
       const watchedList = this.data.watchedList
-      const onBottomStatus = res.meta.nextPageUrl ? 0 : 2
+      const onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
       watchedList.list = watchedList.list.concat(res.data)
       watchedList.pageNum = watchedList.pageNum + 1
       watchedList.list.isRequire = true
-      watchedList.isLastPage = res.meta.nextPageUrl ? false : true
+      watchedList.isLastPage = res.meta && res.meta.nextPageUrl ? false : true
       this.setData({watchedList, onBottomStatus}, () => resolve(res))
     })
   })
@@ -114,9 +114,9 @@ Page({
     this.getLists()
         .then(res => {
           const value = {list: [], pageNum: 1, isLastPage: false, isRequire: false}
-          const onBottomStatus = res.meta.nextPageUrl ? 0 : 2
+          const onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
           value.list = res.data
-          value.isLastPage = res.meta.nextPageUrl ? false : true
+          value.isLastPage = res.meta && res.meta.nextPageUrl ? false : true
           value.pageNum = 2
           value.isRequire = true
           this.setData({[key]: value, onBottomStatus, hasReFresh: false}, () => wx.stopPullDownRefresh())

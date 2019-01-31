@@ -3,11 +3,12 @@ import {APPLICANTHOST, RECRUITERHOST, COMMON, RECRUITER, APPLICANT} from '../con
 let loadNum = 0
 let addHttpHead = {}
 let BASEHOST = ''
+
 export const request = ({method = 'post', url, data = {}, needKey = true, hasLoading = true, loadingContent = '加载中...'}) => {
-  if (!wx.getStorageSync('choseType') || wx.getStorageSync('choseType') === "APPLICANT") {
-    BASEHOST = APPLICANTHOST
-  } else {
+  if (wx.getStorageSync('choseType') === "RECRUITER") {
     BASEHOST = RECRUITERHOST
+  } else {
+    BASEHOST = APPLICANTHOST
   }
   if (wx.getStorageSync('sessionToken')) {
     addHttpHead['Authorization-Wechat'] = wx.getStorageSync('sessionToken')
@@ -18,7 +19,6 @@ export const request = ({method = 'post', url, data = {}, needKey = true, hasLoa
     } else {
       addHttpHead['Authorization'] = ''
     }
-    
   }
   // 版本号， 每次上次发版 + 1
   addHttpHead['cv'] = 100
@@ -52,7 +52,9 @@ export const request = ({method = 'post', url, data = {}, needKey = true, hasLoa
             // console.log(msg)
           } else {
             reject(msg)
-            getApp().wxToast({title: msg.msg})
+            if (url !== '/jobhunter/resume' && url !== '/recruiter/detail') {
+              getApp().wxToast({title: msg.msg})
+            }
           }
           switch (msg.httpStatus) {
             case 200:
@@ -73,12 +75,15 @@ export const request = ({method = 'post', url, data = {}, needKey = true, hasLoa
               }
               break
             case 400:
-              if (msg.code === 701 && url !== '/jobhunter/resume') {
+              if (msg.code === 701 && url !== '/jobhunter/cur/resume') {
                 wx.navigateTo({
                   url: `${APPLICANT}center/createUser/createUser`
                 })
               }
               if (msg.code === 801) {
+
+                wx.setStorageSync('companyInfos', res.data)
+                
                 // 还没有创建公司
                 if(!res.data.data.companyInfo.vkey) {
                   wx.reLaunch({url: `${RECRUITER}user/company/apply/apply`})

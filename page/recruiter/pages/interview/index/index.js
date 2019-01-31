@@ -119,7 +119,7 @@ Page({
     return getApplyListApi({count: applyData.count, page: applyData.pageNum, status, positionId, hasLoading}).then(res => {
       applyData.list = res.data
       applyData.isRequire = true
-      if (!res.meta.nextPageUrl) {
+      if (!res.meta || !res.meta.nextPageUrl) {
         applyData.isLastPage = true
         applyBottomStatus = 2
       }
@@ -135,7 +135,7 @@ Page({
     return getInviteListApi({count: receiveData.count, page: receiveData.pageNum, status, positionId, hasLoading}).then(res => {
       receiveData.list = res.data
       receiveData.isRequire = true
-      if (!res.meta.nextPageUrl) {
+      if (!res.meta || !res.meta.nextPageUrl) {
         receiveData.isLastPage = true
         receiveBottomStatus = 2
       }
@@ -149,7 +149,7 @@ Page({
     return getScheduleListApi({count: interviewData.count, page: interviewData.pageNum, time: chooseTime, hasLoading}).then(res => {
       interviewData.list = res.data
       interviewData.isRequire = true
-      if (!res.meta.nextPageUrl) {
+      if (!res.meta || !res.meta.nextPageUrl) {
         interviewData.isLastPage = true
         interviewBottomStatus = 2
       }

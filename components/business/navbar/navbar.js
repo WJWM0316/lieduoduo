@@ -71,13 +71,13 @@ Component({
     },
     // 回到首页
     backHome() {
-      if (wx.getStorageSync('choseType') === 'APPLICANT') {
-        wx.switchTab({
-          url: `${APPLICANT}index/index`
-        })
-      } else {
+      if (wx.getStorageSync('choseType') === 'RECRUITER') {
         wx.redirectTo({
           url: `${RECRUITER}index/index`
+        })
+      } else {
+        wx.switchTab({
+          url: `${APPLICANT}index/index`
         })
       }
     }

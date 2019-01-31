@@ -16,12 +16,14 @@
 				<view class="realname">简历未完善</view>
 				<view class="degree-name directions">你与offer之间还差一份简历，快去完善吧~</view>
 			</view>
+
       <view class="content" wx:if='{{!hasLogin}}'>
         <view class="realname">未登录</view>
         <text class="degree-name directions">登录可后使用完整功能 \n 快去登录吧~</text>
       </view>
 			<image class="img-box" src="{{myInfo.avatar.url}}"></image>
 		</view>
+
     <view class='edit-box' wx:if='{{myInfo.uid}}'>
       <view class='left-text'>{{myInfo.jobStatusDesc || "待完善"}}</view>
       <view class='right-edit'>
@@ -34,7 +36,7 @@
     </view>
     <view class="share-resume" wx:if='{{!myInfo.uid && hasLogin}}' bindtap='completeResume'>立即完善简历 <i class="icon iconfont icon-xiangyou"></i></view>
     <view class="share-resume" wx:if='{{!hasLogin}}' bindtap='login'>立即登录 <i class="icon iconfont icon-xiangyou"></i></view>
-		<block wx:else>
+		<block wx:if="{{myInfo.uid}}">
       <button open-type="share" class="share-resume">发简历</button>
       <view class="save-resume-pic" bindtap="jump" data-type="poster">保存简历到相册</view>
     </block>

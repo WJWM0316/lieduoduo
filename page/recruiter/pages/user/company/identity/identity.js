@@ -10,7 +10,8 @@ Page({
   data: {
     real_name: '',
     identity_num: '',
-    validity: '',
+    validity: 0,
+    validityTxt: '请填写身份证背面有效期',
     passport_front: {
       smallUrl: ''
     },
@@ -36,24 +37,23 @@ Page({
    * @return   {[type]}   [description]
    */
   getCompanyIdentityInfos() {
-    getCompanyIdentityInfosApi()
-      .then(res => {
-        const infos = res.data
-        const formData = {}
-        const options = this.data.options
-        const data = this.data
-        if(!infos.handheldPassportInfo.smallUrl) delete options.action
-        formData.real_name = infos.realName ? infos.realName : ''
-        formData.identity_num = infos.identityNum ? infos.identityNum : ''
-        formData.validity = infos.validity ? infos.validity : ''
-        formData.passport_front = infos.passportFrontInfo.smallUrl ? infos.passportFrontInfo : data.passport_front
-        formData.passport_reverse = infos.passportReverseInfo.smallUrl ? infos.passportReverseInfo : data.passport_reverse
-        formData.handheld_passport = infos.handheldPassportInfo.smallUrl ? infos.handheldPassportInfo : data.handheld_passport
-        formData.applyJoin = res.data.applyJoin
-        formData.options = options
-        Object.keys(formData).map(field => this.setData({[field]: formData[field]}))
-        this.bindBtnStatus()
-      })
+    getCompanyIdentityInfosApi().then(res => {
+      const infos = res.data
+      const formData = {}
+      const options = this.data.options
+      const data = this.data
+      if(!infos.handheldPassportInfo.smallUrl) delete options.action
+      formData.real_name = infos.realName ? infos.realName : ''
+      formData.identity_num = infos.identityNum ? infos.identityNum : ''
+      formData.validity = infos.validity ? infos.validity : ''
+      formData.passport_front = infos.passportFrontInfo.smallUrl ? infos.passportFrontInfo : data.passport_front
+      formData.passport_reverse = infos.passportReverseInfo.smallUrl ? infos.passportReverseInfo : data.passport_reverse
+      formData.handheld_passport = infos.handheldPassportInfo.smallUrl ? infos.handheldPassportInfo : data.handheld_passport
+      formData.applyJoin = res.data.applyJoin
+      formData.options = options
+      Object.keys(formData).map(field => this.setData({[field]: formData[field]}))
+      this.bindBtnStatus()
+    })
   },
   /**
    * @Author   小书包
@@ -74,12 +74,11 @@ Page({
   /**
    * @Author   小书包
    * @DateTime 2018-12-20
-   * @detail   动态输入
+   * @detail   日期选择
    * @return   {[type]}     [description]
    */
-  bindInput(e) {
-    const field = e.currentTarget.dataset.field
-    this.setData({[field]: e.detail.value})
+  choseDate(e) {
+    this.setData({validity: e.detail.value})
     this.bindBtnStatus()
   },
   /**
@@ -98,7 +97,7 @@ Page({
 
     // 验证用户名
     let checkRealName = new Promise((resolve, reject) => {
-      !realNameReg.test(this.data.real_name) ? reject('请填写有效的姓名') : resolve()
+      !realNameReg.test(this.data.real_name) ? reject('姓名需为2-20个中文字符') : resolve()
     })
     
     // 验证身份证
@@ -106,15 +105,11 @@ Page({
       !idCardReg.test(this.data.identity_num) ? reject('请填写有效的身份证号') : resolve()
     })
 
-    Promise
-     .all([checkRealName, checkIdCard])
-     .then(res => {
-        const action = this.data.options.action === 'edit' ? 'editCompanyIdentityInfos' : 'identityCompany'
-        this[action]()
-     })
-     .catch(err => {
-      app.wxToast({title: err})
-     })
+    Promise.all([checkRealName, checkIdCard]).then(res => {
+      const action = this.data.options.action === 'edit' ? 'editCompanyIdentityInfos' : 'identityCompany'
+      this[action]()
+   })
+   .catch(err => app.wxToast({title: err}))
   },
   /**
    * @Author   小书包
@@ -140,11 +135,10 @@ Page({
    */
   identityCompany() {
     const formData = this.getParams()
-    identityCompanyApi(formData)
-      .then((res) => {
-        const type = this.data.options.type === 'apply' ? 'apply' : 'company'
-        wx.redirectTo({url: `${RECRUITER}user/company/status/status?from=${type}`})
-      })
+    identityCompanyApi(formData).then((res) => {
+      const type = this.data.options.type === 'apply' ? 'apply' : 'company'
+      wx.redirectTo({url: `${RECRUITER}user/company/status/status?from=${type}`})
+    })
   },
   /**
    * @Author   小书包
@@ -154,28 +148,19 @@ Page({
    */
   editCompanyIdentityInfos() {
     const formData = this.getParams()
-    editCompanyIdentityInfosApi(formData)
-      .then((res) => {
-        // const options = this.data.options
-        // let type = ''
-        // switch(options.type) {
-        //   // 加入公司认证
-        //   case 'apply':
-        //     type = 'apply'
-        //     break
-        //   // 创建公司
-        //   case 'create':
-        //     type = 'company'
-        //     break
-        //   default:
-        //     break
-        // }
-        wx.redirectTo({url: `${RECRUITER}user/company/status/status?from=identity`})
-        // if(this.data.applyJoin) {
-        //   wx.navigateTo({url: `${RECRUITER}user/company/status/status?from=identity`})
-        // } else {
-        //   wx.redirectTo({url: `${RECRUITER}user/company/status/status?from=identity`})
-        // }
-      })
+    editCompanyIdentityInfosApi(formData).then((res) => {
+      wx.redirectTo({url: `${RECRUITER}user/company/status/status?from=identity`})
+    })
+  },
+  /**
+   * @Author   小书包
+   * @DateTime 2019-01-30
+   * @detail   绑定用户输入
+   * @return   {[type]}     [description]
+   */
+  bindInput(e) {
+    const field = e.currentTarget.dataset.field
+    this.setData({[field]: e.detail.value})
+    this.bindBtnStatus()
   }
 })

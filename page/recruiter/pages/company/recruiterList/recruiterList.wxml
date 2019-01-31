@@ -38,7 +38,7 @@
 		  </view>
 		</block>
 	</view>
-	<view class="footer">
-		<!-- <view bindtap="authTransfer"><i class="backLast iconfont icon-bianji1"></i> 申请转移管理权限</view> -->
-	</view>
+	<!-- <view class="footer">
+		<view bindtap="authTransfer"><i class="backLast iconfont icon-bianji1"></i> 申请转移管理权限</view>
+	</view> -->
 </view>

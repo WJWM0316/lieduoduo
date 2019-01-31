@@ -23,6 +23,7 @@ App({
       }
     })
     this.login()
+    
   },
   globalData: {
     identity: "", // 身份标识
@@ -45,18 +46,10 @@ App({
       success: function (res0) {
         wx.setStorageSync('code', res0.code)
         loginApi({code: res0.code}).then(res => {
-          if (!wx.getStorageSync('choseType')) {
-            wx.setStorageSync('choseType', 'APPLICANT')
-          }
           that.globalData.identity = wx.getStorageSync('choseType')
-          
           // 有token说明已经绑定过用户了
           if (res.data.token) {
             wx.setStorageSync('token', res.data.token)
-            // 登陆回调
-            if (that.loginInit) {
-              that.loginInit()
-            }
             that.loginedLoadData()
             that.globalData.hasLogin = true
             console.log('用户已认证')
@@ -64,6 +57,20 @@ App({
             console.log('用户未绑定手机号')
             wx.setStorageSync('sessionToken', res.data.sessionToken)
           }
+          var pages = getCurrentPages() //获取加载的页面
+          let pageUrl = pages[0].route
+          if (pageUrl !== 'page/applicant/pages/index/index') {
+            if (!wx.getStorageSync('choseType')) {
+              wx.setStorageSync('choseType', 'APPLICANT')
+              that.globalData.identity = 'APPLICANT'
+            }
+          }
+          // 登陆回调
+          if (that.loginInit) {
+            that.loginInit()
+          }
+          that.loginInit = function () {}
+
         })
       },
       fail: function (e) {
@@ -77,6 +84,7 @@ App({
       if (wx.getStorageSync('choseType') === 'RECRUITER') {
         getRecruiterDetailApi().then(res0 => {
           this.globalData.recruiterDetails = res0.data
+          this.globalData.isRecruiter = 1
           if (this.pageInit) { // 页面初始化
             this.pageInit() //执行定义的回调函数
           }
@@ -85,6 +93,7 @@ App({
       } else {
         getPersonalResumeApi().then(res0 => {
           this.globalData.resumeInfo = res0.data
+          this.globalData.isJobhunter = 1
           if (this.pageInit) { // 页面初始化
             this.pageInit() //执行定义的回调函数
           }
@@ -105,7 +114,7 @@ App({
       if (this.getRoleInit) { // 登陆初始化
         this.getRoleInit() //执行定义的回调函数
       }
-      this.getRoleInit = true
+      this.getRoleInit = function () {}
     })
   },
   // 登陆成功后下载一下数据
@@ -113,7 +122,7 @@ App({
     this.getAllInfo()
     this.getRoleInfo()
   },
-  // 检查登录
+  // 检查微信授权
   checkLogin () {
     return new Promise((resolve, reject) => {
       wx.getSetting({
@@ -129,21 +138,19 @@ App({
                 if (this.userInfoReadyCallback) {
                   this.userInfoReadyCallback(res)
                 }
-
-                this.getAllInfo().then(() => {
-                  // 没有身份默认求职者
-                  if (!wx.getStorageSync('choseType')) {
-                    wx.setStorageSync('choseType', 'APPLICANT')
-                  }
-                  this.globalData.identity = wx.getStorageSync('choseType')
-                  if (this.pageInit) { // 页面初始化
-                    this.pageInit() //执行定义的回调函数
-                  }
-                })
                 console.log('用户已授权')
-                resolve(res.userInfo)
+                resolve(res)
               }
             })
+          } else {
+            var pages = getCurrentPages() //获取加载的页面
+            let pageUrl = pages[0].route
+            console.log(res, pageUrl, pageUrl !== 'page/applicant/pages/index/index')
+            if (pageUrl !== 'page/applicant/pages/index/index') {
+              wx.navigateTo({
+                url: `${COMMON}auth/auth`
+              })
+            }
           }
         }
       })
@@ -178,11 +185,6 @@ App({
               wx.setStorageSync('sessionToken', res.data.sessionToken)
               that.globalData.hasLogin = true
               that.loginedLoadData()
-              // 登陆回调
-              if (that.loginInit) {
-                that.loginInit()
-              }
-              
               console.log('用户已认证')
             } else {
               console.log('用户未绑定手机号')
@@ -207,30 +209,33 @@ App({
   },
   // 微信快速登陆
   quickLogin(e) {
-    let data = {
-      iv_key: e.detail.iv,
-      data: e.detail.encryptedData
-    }
-    return new Promise((resolve, reject) => {
-      quickLoginApi(data).then(res => {
-        if (res.data.token) {
-          wx.setStorageSync('token', res.data.token)
-          this.loginedLoadData()
-          this.globalData.hasLogin = true
-          var pages = getCurrentPages() //获取加载的页面
-          let pageUrl = pages[0].route
-          let params = ''
-          for (let i in pages[0].options) {
-            params = `${params}${i}=${pages[0].options[i]}&`
-          }
-          pageUrl = `${pageUrl}?${params}`
-          wx.reLaunch({
-            url: `/${pageUrl}`
-          })
-          resolve(res)
-        } 
+    if (e.detail.errMsg === 'getPhoneNumber:ok') {
+      let data = {
+        iv_key: e.detail.iv,
+        data: e.detail.encryptedData
+      }
+      return new Promise((resolve, reject) => {
+        quickLoginApi(data).then(res => {
+          if (res.data.token) {
+            wx.setStorageSync('token', res.data.token)
+            this.loginedLoadData()
+            this.globalData.hasLogin = true
+            var pages = getCurrentPages() //获取加载的页面
+            let pageUrl = pages[0].route
+            let params = ''
+            for (let i in pages[0].options) {
+              params = `${params}${i}=${pages[0].options[i]}&`
+            }
+            pageUrl = `${pageUrl}?${params}`
+            wx.reLaunch({
+              url: `/${pageUrl}`
+            })
+            resolve(res)
+          } 
+        })
       })
-    })
+    }
+    
   },
   // 手机登陆
   phoneLogin(data) {
@@ -325,17 +330,21 @@ App({
     let identity = wx.getStorageSync('choseType')
     if (identity === 'RECRUITER') {
       wx.setStorageSync('choseType', 'APPLICANT')
-      if (!this.globalData.isJobhunter) {
-        wx.navigateTo({
-          url: `${APPLICANT}center/createUser/createUser`
-        })
-      } else {
-        this.getAllInfo().then(res => {
-          wx.reLaunch({
-            url: `${APPLICANT}index/index`
-          })
-        })
-      }
+      // 都跳首页
+      wx.reLaunch({
+        url: `${APPLICANT}index/index`
+      })
+      // if (!this.globalData.isJobhunter) {
+      //   wx.reLaunch({
+      //     url: `${APPLICANT}center/createUser/createUser`
+      //   })
+      // } else {
+      //   this.getAllInfo().then(res => {
+      //     wx.reLaunch({
+      //       url: `${APPLICANT}index/index`
+      //     })
+      //   })
+      // }
     } else {
       wx.setStorageSync('choseType', 'RECRUITER')
       if (!this.globalData.isRecruiter) {
@@ -356,9 +365,7 @@ App({
   // 收集formId
   postFormId(id) {
     formIdList.push(id)
-    console.log(formIdList, 'form_id')
     if (formIdList.length >= 1) {
-      console.log(formIdList, 11111111111)
       formIdApi({form_id: formIdList, data: 1111}).then(res => {
         formIdList = []
       })

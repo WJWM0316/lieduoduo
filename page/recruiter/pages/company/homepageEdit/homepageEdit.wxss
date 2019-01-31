@@ -127,6 +127,10 @@
   font-weight:400;
   color:rgba(98,98,98,1);
   line-height: 1;
+  max-width: 400rpx;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 .icon-xiangyou {

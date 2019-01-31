@@ -3,7 +3,6 @@
 .ranking{
   margin: 0 auto;
   margin-bottom: 20rpx;
-  margin-left: 51rpx;
   width: 664rpx;
   height: 180rpx;
   display: flex;
@@ -21,12 +20,12 @@
   position: absolute;
   top: 62rpx;
   left: -26rpx;
-  width: 46rpx;
-  height: 46rpx;
+  width: 54rpx;
+  height: 54rpx;
   border: 4rpx solid #FFFFFF;
   background-color: #8452A7;
   text-align: center;
-  line-height: 46rpx;
+  line-height: 54rpx;
   border-radius: 50%;
   color: #FFFFFF;
   font-size: 26rpx;
@@ -41,13 +40,13 @@
   right: 4rpx;
   width: 36rpx;
   height: 36rpx;
-  background-color: #FFDC29;
+  background-color: #FF7F4C;
   line-height: 36rpx;
   text-align: center;
   border-radius: 50%;
   border: 2rpx solid #FFFFFF;
-  font-size: 20rpx;
-  color: #282828;
+  font-size: 22rpx;
+  color: #fff;
   font-weight: 700;
 }
 .headImgBox .headImg{
@@ -111,9 +110,6 @@
   flex-wrap: nowrap;
   font-size: 24rpx;
   font-weight: 300;
-}
-.influence .txt{
-  color: #929292;
 }
 .ranking .left .bottom .value{
   margin-left: 10rpx;

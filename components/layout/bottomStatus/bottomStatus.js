@@ -14,7 +14,7 @@ Component({
     },
     desc: {
       type: String,
-      value: '没有一丁点数据哦~'
+      value: '暂无数据'
     }
   },
 

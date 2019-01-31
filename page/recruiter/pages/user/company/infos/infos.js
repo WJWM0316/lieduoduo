@@ -5,8 +5,7 @@ Page({
   	companyInfo: {}
   },
   onLoad(options) {
-    getCompanyInfosApi({id: options.companyId})
-    	.then(res => {
+    getCompanyInfosApi({id: options.companyId}).then(res => {
     		this.setData({companyInfo: res.data})
     	})
   }

@@ -2,7 +2,9 @@ import { getCompanyIdentityInfosApi } from '../../../../../../api/pages/company.
 
 import {realNameReg, emailReg, positionReg} from '../../../../../../utils/fieldRegular.js'
 
-import {RECRUITER, COMMON} from '../../../../../../config.js'
+import {RECRUITER, COMMON, APPLICANT} from '../../../../../../config.js'
+
+import {uploginApi} from "../../../../../../api/pages/auth.js"
 
 const app = getApp()
 
@@ -13,6 +15,7 @@ Page({
     user_position: '',
     canClick: false,
     applyId: null,
+    id: null,
     options: {
       type: 'create'
     },
@@ -41,7 +44,6 @@ Page({
    * @return   {[type]}   [description]
    */
   getCompanyIdentityInfos(options) {
-
     const storage = wx.getStorageSync('createdCompany')
     const params = ['real_name', 'user_email', 'user_position']
     if(storage) {
@@ -49,35 +51,34 @@ Page({
       this.bindBtnStatus()
       return
     }
-
-    getCompanyIdentityInfosApi()
-      .then(res => {
-        const infos = res.data.companyInfo
-        const user = res.data
-        const formData = {
-          real_name: user.realName || infos.realName,
-          user_email: user.userEmail || infos.userEmail,
-          user_position:user.userPosition || infos.userPosition,
-          company_name: infos.companyName,
-          companyShortName: infos.companyShortname,
-          industry_id: infos.industryId,
-          industry_id_name: infos.industry,
-          selected_industry_id: true,
-          financing: infos.financing,
-          financingName: infos.financingInfo,
-          selected_financing: true,
-          employees: infos.employees,
-          employeesName: infos.employeesInfo,
-          selected_employees: true,
-          business_license: infos.businessLicenseInfo,
-          on_job: infos.onJobInfo,
-          applyId: infos.applyId,
-          canClick: true,
-          applyStatus: infos.status
-        }
-        wx.setStorageSync('createdCompany', formData)
-        Object.keys(formData).map(field => this.setData({[field]: formData[field]}))
-      })
+    getCompanyIdentityInfosApi().then(res => {
+      const infos = res.data.companyInfo
+      const user = res.data
+      const formData = {
+        real_name: user.realName || infos.realName,
+        user_email: user.userEmail || infos.userEmail,
+        user_position:user.userPosition || infos.userPosition,
+        company_name: infos.companyName,
+        companyShortName: infos.companyShortname,
+        industry_id: infos.industryId,
+        industry_id_name: infos.industry,
+        selected_industry_id: true,
+        financing: infos.financing,
+        financingName: infos.financingInfo,
+        selected_financing: true,
+        employees: infos.employees,
+        employeesName: infos.employeesInfo,
+        selected_employees: true,
+        business_license: infos.businessLicenseInfo,
+        on_job: infos.onJobInfo,
+        canClick: true,
+        applyStatus: infos.status,
+        id: infos.id
+      }
+      if(infos.applyId) formData.applyId = infos.applyId
+      wx.setStorageSync('createdCompany', formData)
+      Object.keys(formData).map(field => this.setData({[field]: formData[field]}))
+    })
   },
   /**
    * @Author   小书包
@@ -112,7 +113,7 @@ Page({
     
     // 验证用户名
     let checkRealName = new Promise((resolve, reject) => {
-      !realNameReg.test(this.data.real_name) ? reject('请填写有效的姓名') : resolve()
+      !realNameReg.test(this.data.real_name) ? reject('姓名需为2-20个中文字符') : resolve()
     })
 
     // 验证邮箱
@@ -133,14 +134,19 @@ Page({
       wx.navigateTo({url})
       wx.setStorageSync('createdCompany', this.data)
     })
-    .catch(err => {
-      app.wxToast({title: err})
-    })
+    .catch(err => app.wxToast({title: err}))
   },
   toggle() {
     app.toggleIdentity()
   },
   changePhone() {
-    wx.navigateTo({url: `${COMMON}bindPhone/bindPhone`})
+    uploginApi().then(res => {
+      wx.clearStorageSync()
+      app.globalData.identity = ''
+      app.globalData.hasLogin = false
+      app.globalData.resumeInfo = {}
+      app.globalData.recruiterDetails = {}
+      wx.reLaunch({url: `${APPLICANT}index/index`})
+    })
   }
 })

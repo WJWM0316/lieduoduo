@@ -20,17 +20,17 @@
 					<view class="recruiter-name">{{item.recruiterRealname || item.jobhunterRealname || item.name}}</view>
 					<view wx:if="{{identity === 'APPLICANT'}}" class="recruiter-infos">{{item.recruiterPositionName || item.position}}</view>
 					<view wx:else class="recruiter-infos">
-					  <text wx:if="{{item.workExperience}}">{{item.workExperience}}年</text>
-					  <text wx:if="{{item.workAge}}">{{item.workAge}}</text>
-					  <text wx:if="{{item.educationDesc || item.degreeDesc}}">·{{item.educationDesc || item.degreeDesc}}</text>
-					  <text wx:if="{{item.emolumentMin || item.salaryFloor}}">·{{item.emolumentMin || item.salaryFloor}}-{{item.emolumentMax || item.saralyCeil}}K</text>
+						<text wx:if="{{item.workExperience}}">{{item.workExperienceDesc}}·</text>
+						<text wx:if="{{item.workAgeDesc}}">{{item.workAgeDesc}}·</text>
+						<text wx:if="{{item.educationDesc || item.degreeDesc}}">{{item.educationDesc || item.degreeDesc}}</text>
+						<text wx:if="{{item.emolumentMin || item.salaryFloor}}">·{{item.emolumentMin || item.salaryFloor}}-{{item.emolumentMax || item.salaryCeil}}K</text>
 					</view>
 				</view>
 				<view class="main" wx:if="{{item.lastCompanyName || item.companyName}}">
-				  <view wx:if="{{identity === 'APPLICANT'}}" class="company-name">
-				    <i class="icon iconfont icon-gongsi"></i> {{item.companyName}}
-				    <text wx:if="{{item.positionNum}}"><i class="icon iconfont icon-zhiwei"></i> {{item.positionNum}}个职位 </text>
-				  </view>
+					<view wx:if="{{identity === 'APPLICANT'}}" class="company-name">
+						<i class="icon iconfont icon-gongsi"></i> {{item.companyName}}
+						<text wx:if="{{item.positionNum}}"><i class="icon iconfont icon-zhiwei"></i> {{item.positionNum}}个职位 </text>
+					</view>
 					<view wx:else class="company-name"> {{item.lastCompanyName || item.lastCompanyName}}<text wx:if="{{item.lastPosition}}"> |  {{item.lastPosition}} </text></view>
 				</view>
 			</view>
@@ -60,8 +60,8 @@
 				<view class="status">{{item.statusDesc}}</view>
 			</view>
 			<view wx:if="{{item.redDot}}">
-			  <view class="red-dot-circle" wx:if="{{ dotType === 'circle'}}"></view>
-        <view class="red-dot-text" wx:else>新</view>
+				<view class="red-dot-circle" wx:if="{{ dotType === 'circle'}}"></view>
+				<view class="red-dot-text" wx:else>新</view>
 			</view>
 	</view>
 </view>

@@ -100,9 +100,9 @@ Page({
       getPositionListApi(params)
         .then(res => {
           const positionList = this.data.positionList
-          const onBottomStatus = res.meta.nextPageUrl ? 0 : 2
+          const onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
           positionList.list = positionList.list.concat(res.data)
-          positionList.isLastPage = res.meta.nextPageUrl ? false : true
+          positionList.isLastPage = res.meta && res.meta.nextPageUrl ? false : true
           positionList.pageNum = positionList.pageNum + 1
           positionList.isRequire = true
           this.setData({positionList, onBottomStatus}, () => resolve(res))
@@ -121,9 +121,9 @@ Page({
     this.getPositionList()
         .then(res => {
           const positionList = {list: [], pageNum: 1, isLastPage: false, isRequire: false}
-          const onBottomStatus = res.meta.nextPageUrl ? 0 : 2
+          const onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
           positionList.list = res.data
-          positionList.isLastPage = res.meta.nextPageUrl ? false : true
+          positionList.isLastPage = res.meta && res.meta.nextPageUrl ? false : true
           positionList.pageNum = 2
           positionList.isRequire = true
           this.setData({positionList, onBottomStatus, hasReFresh: false}, () => wx.stopPullDownRefresh())
@@ -163,11 +163,12 @@ Page({
     const key = params.type
     const key2 = params.type === 'city' ? 'cityIndex' : 'typeIndex'
     const value = result[params.type === 'city' ? 'areaId' : 'labelId']
-
+    const positionList = this.data.positionList
+    positionList.pageNum = 1
     if(typeof value === 'number') {
       this.setData({[key]: value, [key2]: Number(e.detail.value)}, () => this.reloadPositionLists())
     } else {
-      this.setData({[key]: 0, [key2]: 0}, () => this.getPositionList(false).then(() => this.setData({onBottomStatus: 1})))
+      this.setData({[key]: 0, [key2]: 0, positionList}, () => this.getPositionList(false).then(() => this.setData({onBottomStatus: 1})))
     }
   },
   onShareAppMessage(options) {

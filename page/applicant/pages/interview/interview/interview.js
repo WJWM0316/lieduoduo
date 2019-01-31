@@ -72,6 +72,7 @@ Page({
     })
     tabLists[tabIndex].active = true
     this.setData({tabLists, tabIndex})
+
     let data = {}
     switch(index) {
       case 0:
@@ -136,7 +137,7 @@ Page({
     return getApplyListApi({count: applyData.count, page: applyData.pageNum, tab, hasLoading}).then(res => {
       applyData.list = res.data
       applyData.isRequire = true
-      if (!res.meta.nextPageUrl) {
+      if (!res.meta || !res.meta.nextPageUrl) {
         applyData.isLastPage = true
         applyBottomStatus = 2
       }
@@ -151,7 +152,7 @@ Page({
     return getInviteListApi({count: receiveData.count, page: receiveData.pageNum, tab, hasLoading}).then(res => {
       receiveData.list = res.data
       receiveData.isRequire = true
-      if (!res.meta.nextPageUrl) {
+      if (!res.meta || !res.meta.nextPageUrl) {
         receiveData.isLastPage = true
         receiveBottomStatus = 2
       }
@@ -165,52 +166,12 @@ Page({
     return getScheduleListApi({count: interviewData.count, page: interviewData.pageNum, time: chooseTime, hasLoading}).then(res => {
       interviewData.list = res.data
       interviewData.isRequire = true
-      if (!res.meta.nextPageUrl) {
+      if (!res.meta || !res.meta.nextPageUrl) {
         interviewData.isLastPage = true
         interviewBottomStatus = 2
       }
       this.setData({interviewData, interviewBottomStatus})
     })
-  },
-  chooseParentTab(e) {
-    let index = e.currentTarget.dataset.index
-    let tabIndex = this.data.tabIndex
-    if (tabIndex === index) return
-    let tabLists = this.data.tabLists
-    tabLists.map((item, i) => {
-      tabLists[i].active = false
-    })
-    tabLists[index].active = true
-    tabLists[index].showRedDot = false
-    tabIndex = index
-    this.setData({tabLists, tabIndex})
-    let data = {}
-    let dataRequire = null
-    switch(index) {
-      case 0:
-        data = this.data.receiveData
-        if (!data.isRequire) {
-          this.getInviteList()
-        }
-        break
-      case 1:
-        data = this.data.applyData
-        if (!data.isRequire) {
-          this.getApplyList()
-        }
-        break
-      case 2:
-        data = this.data.interviewData
-        if (!data.isRequire) {
-          this.selectComponent('#myCalendar').scrollLeft()
-          this.getScheduleList()
-          getScheduleNumberApi().then(res => {
-            let dateList = res.data
-            this.setData({dateList})
-          })
-        }
-        break
-    }
   },
   init () {
     let id = app.globalData.recruiterDetails.uid

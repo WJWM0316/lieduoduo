@@ -32,21 +32,27 @@ Page({
       default:
         break
     }
-    getCompanyIdentityInfosApi()
-    	.then(res => {
-        const infos = res.data
-        const companyInfos = infos.companyInfo
-    		this.setData({identityInfos: infos, companyInfos, options})
-    	})
+    getCompanyIdentityInfosApi().then(res => {
+      const infos = res.data
+      const companyInfos = infos.companyInfo
+  		this.setData({identityInfos: infos, companyInfos, options})
+  	})
   },
   backEvent() {
     wx.reLaunch({url: `${RECRUITER}user/mine/infos/infos`})
   },
   todoAction(e) {
   	const params = e.currentTarget.dataset
+    const companyInfos = this.data.companyInfos
+    const options = this.data.options
   	switch(params.action) {
   		case 'modifyIdentity':
-  			wx.navigateTo({url: `${RECRUITER}user/company/identity/identity?action=edit&type=create`})
+        if(companyInfos.status === 2) {
+          options.from = 'identity'
+          this.setData({options})
+        } else {
+          wx.navigateTo({url: `${RECRUITER}user/company/identity/identity?action=edit&type=create`})
+        }
   			break
   		case 'modifyCompany':
   			wx.navigateTo({url: `${RECRUITER}user/company/apply/apply?action=edit&type=create`})

@@ -13,14 +13,7 @@ import {
   closePositionApi
 } from '../../../api/pages/position.js'
 
-import {
-  getCompanyIdentityInfosApi
-} from '../../../api/pages/company.js'
-
-import {
-  RECRUITER, 
-  COMMON
-} from '../../../config.js'
+import {RECRUITER, COMMON} from '../../../config.js'
 
 const app = getApp()
 
@@ -45,8 +38,8 @@ Component({
     }
   },
   data: {
-    showLoginBox: false,
     interviewInfos: {},
+    showLoginBox: false,
     identity: '', // 身份标识
     slogoIndex: 0,
     // 是否是我发布
@@ -77,7 +70,6 @@ Component({
     const length = this.data[key].length
     const index = this.getRandomNum(0, length)
     this.setData({index})
-    // this.init()
   },
   methods: {
     init() {
@@ -158,20 +150,6 @@ Component({
     },
     /**
      * @Author   小书包
-     * @DateTime 2019-01-29
-     * @detail   获取个人身份信息
-     * @return   {[type]}   [description]
-     */
-    getCompanyIdentityInfos() {
-      getCompanyIdentityInfosApi().then(res => {
-        const companyInfo = res.data.companyInfo
-        if(companyInfo.status === 0 || companyInfo.status === 2) {
-          wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=company`})
-        }
-      })
-    },
-    /**
-     * @Author   小书包
      * @DateTime 2019-01-30
      * @detail   通过分享入口进行开撩
      * @return   {[type]}   [description]
@@ -235,34 +213,17 @@ Component({
       switch(action) {
         // 求职端发起开撩
         case 'job-hunting-chat':
-          this.shareChat()
           // 招聘管主页 直接跳转职位列表
-          // if(this.data.type === 'recruiter') {
-          //   wx.navigateTo({url: `${RECRUITER}position/jobList/jobList?type=job_hunting_chat&from=${this.data.currentPage}&showNotPositionApply=${interviewInfos.showNotPositionApply}&from=${this.data.currentPage}&recruiterUid=${this.data.infos.uid}`})
-          // } else {
-          //   applyInterviewApi({recruiterUid: this.data.infos.recruiterInfo.uid, positionId: this.data.infos.id}).then(res => {
-          //     this.getInterviewStatus()
-          //     app.wxToast({title: '面试申请已发送'})
-          //   })
-          // }
-          // let uid = ''
-          // let positionId = ''
-          // let params = {}
-          // if (this.data.type === 'position') {
-          //   params.recruiterUid = this.data.infos.recruiterInfo.uid
-          //   params.positionId = this.data.infos.id
-          // } else if(this.data.type === 'recruiter') {
-          //   params.recruiterUid = this.data.infos.uid
-          // } else {
-          //   params.recruiterUid = this.data.infos.uid
-          //   params.positionId = this.data.positionId
-          // }
-          // applyInterviewApi(params)
-          //   .then(res => {
-          //     this.getInterviewStatus()
-          //     app.wxToast({title: '面试申请已发送'})
-          //     this.triggerEvent('resultevent', res)
-          //   })
+          if(this.data.type === 'recruiter') {
+            wx.navigateTo({url: `${RECRUITER}position/jobList/jobList?type=job_hunting_chat&from=${this.data.currentPage}&showNotPositionApply=${interviewInfos.showNotPositionApply}&from=${this.data.currentPage}&recruiterUid=${this.data.infos.uid}`})
+          } else {
+            applyInterviewApi({recruiterUid: this.data.infos.recruiterInfo.uid, positionId: this.data.infos.id}).then(res => {
+              this.getInterviewStatus()
+              app.wxToast({title: '面试申请已发送'})
+              // this.triggerEvent('resultevent', this.data.infos)
+            })
+          }
+
           break
         case 'job-hunting-applyed':
           // app.wxConfirm({
@@ -278,8 +239,7 @@ Component({
           app.wxToast({title: '面试申请已发送'})
           break
         case 'recruiter-chat':
-          this.shareChat()
-          // wx.navigateTo({url: `${RECRUITER}position/jobList/jobList?type=recruiter_chat&from=${this.data.currentPage}&jobhunterUid=${this.data.infos.uid}&recruiterUid=${app.globalData.recruiterDetails.uid}`})
+          wx.navigateTo({url: `${RECRUITER}position/jobList/jobList?type=recruiter_chat&from=${this.data.currentPage}&jobhunterUid=${this.data.infos.uid}&recruiterUid=${app.globalData.recruiterDetails.uid}`})
           break
         case 'job-hunting-waiting-interview':
           app.wxToast({title: '等待招聘官安排面试'})

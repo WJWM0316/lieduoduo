@@ -10,6 +10,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    navHeight: app.globalData.navHeight,
     cdnImagePath: app.globalData.cdnImagePath
   },
 
@@ -83,6 +84,7 @@ Page({
     e.detail.value.startTime = starTime
     e.detail.value.endTime = endTime
     postThirdStepApi(e.detail.value).then(res => {
+      app.globalData.isJobhunter = 1
       wx.removeStorageSync('createUserFirst')
       wx.removeStorageSync('createPosition')
       wx.removeStorageSync('workContent')

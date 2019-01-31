@@ -6,6 +6,7 @@ Page({
   data: {
     cdnImagePath: app.globalData.cdnImagePath,
     name: '',
+    navHeight: app.globalData.navHeight,
     workTime: '',
     avatar: {},
     position: '',

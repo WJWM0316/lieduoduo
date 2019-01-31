@@ -22,7 +22,8 @@ Page({
     doorplate: '',
     address: '',
     lng: '',
-    lat: ''
+    lat: '',
+    title: ''
   },
   onLoad(options) {
     this.setData({options})
@@ -61,6 +62,7 @@ Page({
         formData.area_id = rtn.result.ad_info.adcode
         formData.lat = rtn.result.ad_info.location.lat
         formData.lng = rtn.result.ad_info.location.lng
+        // formData.title = rtn.result.ad_info.location.lng
         Object.keys(formData).map(field => this.setData({[field]: formData[field]}))
       })
   },
@@ -175,10 +177,9 @@ Page({
    * @return   {[type]}   [description]
    */
   deleteCompanyAddress() {
-    deleteCompanyAddressApi({id: this.data.options.id})
-      .then(() => {
-        wx.navigateBack({delta: 1})
-      })
+    deleteCompanyAddressApi({id: this.data.options.id}).then(() => {
+      wx.navigateBack({delta: 1})
+    })
   },
   /**
    * @Author   小书包
@@ -187,10 +188,9 @@ Page({
    * @return   {[type]}   [description]
    */
   deletePositionAddress() {
-    deleteCompanyAddressApi({id: this.data.options.id})
-      .then(() => {
-        wx.navigateBack({delta: 1})
-      })
+    deletePositionAddressApi({id: this.data.options.id}).then(() => {
+      wx.navigateBack({delta: 1})
+    })
   },
   /**
    * @Author   小书包
@@ -211,10 +211,9 @@ Page({
       app.wxToast({title: '请选择公司地址'})
       return
     }
-    addPositionAddressApi(formData)
-      .then(res => {
-        wx.navigateBack({delta: 1})
-      })
+    addPositionAddressApi(formData).then(res => {
+      wx.navigateBack({delta: 1})
+    })
   },
   /**
    * @Author   小书包
@@ -236,10 +235,9 @@ Page({
       app.wxToast({title: '请选择公司地址'})
       return
     }
-    addCompanyAddressApi(formData)
-      .then(res => {
-        wx.navigateBack({delta: 1})
-      })
+    addCompanyAddressApi(formData).then(res => {
+      wx.navigateBack({delta: 1})
+    })
   },
   /**
    * @Author   小书包
@@ -257,10 +255,14 @@ Page({
       lat: infos.lat,
       doorplate: infos.doorplate
     }
-    editPositionAddressApi(formData)
-      .then(() => {
-        wx.navigateBack({delta: 1})
-      })
+    editPositionAddressApi(formData).then(() => {
+      const storage = wx.getStorageSync('createPosition') || {}
+      storage.address_id = infos.id
+      storage.address = infos.address
+      wx.setStorageSync('createPosition', storage)
+      wx.navigateBack({delta: 1})
+      // wx.redirectTo({url: `${RECRUITER}position/addressList/addressList?type=position&selected=${this.data.options.selected}`})
+    })
   },
   /**
    * @Author   小书包
@@ -278,9 +280,9 @@ Page({
       lat: infos.lat,
       doorplate: infos.doorplate
     }
-    editCompanyAddressApi(formData)
-      .then(() => {
-        wx.navigateBack({delta: 1})
-      })
+    editCompanyAddressApi(formData).then(() => {
+      wx.navigateBack({delta: 1})
+      // wx.redirectTo({url: `${RECRUITER}position/addressList/addressList?type=company&selected=${this.data.options.selected}`})
+    })
   }
 })

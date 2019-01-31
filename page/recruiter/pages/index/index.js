@@ -39,8 +39,16 @@ Page({
     hasReFresh: false,
     onBottomStatus: 0
   },
+  onShow() {
+    if (app.loginInit) {
+      this.getLists()
+    } else {
+      app.loginInit = () => {
+        this.getLists()
+      }
+    }
+  },
   onLoad() {
-    this.getLists()
   },
   /**
    * @Author   小书包
@@ -73,9 +81,9 @@ Page({
       getBrowseMySelfApi(params)
         .then(res => {
           const browseMySelf = this.data.browseMySelf
-          const onBottomStatus = res.meta.nextPageUrl ? 0 : 2
+          const onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
           browseMySelf.list = browseMySelf.list.concat(res.data)
-          browseMySelf.isLastPage = res.meta.nextPageUrl ? false : true
+          browseMySelf.isLastPage = res.meta && res.meta.nextPageUrl ? false : true
           browseMySelf.pageNum = browseMySelf.pageNum + 1
           browseMySelf.isRequire = true
           this.setData({browseMySelf, onBottomStatus}, () => resolve(res))
@@ -94,7 +102,7 @@ Page({
       getCollectMySelfApi(params)
         .then(res => {
           const collectMySelf = this.data.collectMySelf
-          const onBottomStatus = res.meta.nextPageUrl ? 0 : 2
+          const onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
           collectMySelf.list = collectMySelf.list.concat(res.data)
           collectMySelf.isLastPage = res.meta.nextPageUrl ? false : true
           collectMySelf.pageNum = collectMySelf.pageNum + 1
@@ -115,9 +123,9 @@ Page({
       getMyCollectUsersApi(params)
         .then(res => {
           const collectUsers = this.data.collectUsers
-          const onBottomStatus = res.meta.nextPageUrl ? 0 : 2
+          const onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
           collectUsers.list = collectUsers.list.concat(res.data)
-          collectUsers.isLastPage = res.meta.nextPageUrl ? false : true
+          collectUsers.isLastPage = res.meta && res.meta.nextPageUrl ? false : true
           collectUsers.pageNum = collectUsers.pageNum + 1
           collectUsers.isRequire = true
           this.setData({collectUsers, onBottomStatus}, () => resolve(res))
@@ -144,9 +152,9 @@ Page({
     this.getLists()
         .then(res => {
           const value = {list: [], pageNum: 1, isLastPage: false, isRequire: false}
-          const onBottomStatus = res.meta.nextPageUrl ? 0 : 2
+          const onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
           value.list = res.data
-          value.isLastPage = res.meta.nextPageUrl ? false : true
+          value.isLastPage = res.meta && res.meta.nextPageUrl ? false : true
           value.pageNum = 1
           value.isRequire = true
           this.setData({[key]: value, onBottomStatus}, () => {
