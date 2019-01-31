@@ -61,6 +61,13 @@ Page({
       }
     })
   },
+  /* 点击查看大头像 */
+  readAvatar () {
+    wx.previewImage({
+      current: this.data.info.avatar.url, // 当前显示图片的http链接
+      urls: [this.data.info.avatar.url] // 需要预览的图片http链接列表
+    })
+  },
   getOthersInfo() {
     return new Promise((resolve, reject) => {
       let identity = wx.getStorageSync('choseType')
@@ -72,7 +79,6 @@ Page({
         resolve(res)
       })
     })
-    
   },
   /* 编辑 */
   edit (e) {

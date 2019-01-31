@@ -54,10 +54,18 @@ Page({
         confirmBack() {
           wx.removeStorageSync('createPosition')
           wx.navigateBack({delta: 1})
-        }
+        },
       })
     } else {
-      wx.navigateBack({delta: 1})
+      app.wxConfirm({
+        title: '温馨提示',
+        content: '离开当前页面，已填写的数据将会丢失，确认放弃发布吗？',
+        cancelText: '继续编辑',
+        confirmBack() {
+          wx.removeStorageSync('createPosition')
+          wx.navigateBack({delta: 1})
+        }
+      })
     }
   },
   /**
@@ -72,7 +80,7 @@ Page({
     const labels = []
 
     this.setData({query: options, company_id: app.globalData.recruiterDetails.companyInfo.id})
-
+    
     if(storage) {
       Object.keys(storage).map(field => this.setData({[field]: storage[field]}))
       return;

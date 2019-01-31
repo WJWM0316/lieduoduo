@@ -10,7 +10,7 @@
 			<view class="key">公司简称</view>
 			<input type="text" class="companyShortName {{companyShortName ? 'color' : ''}}" placeholder="示例：猎多多" value="{{companyShortName}}" bindinput="bindInput"></input>
 		</view>
-		<view class="exemple" wx:if="{{companyShortName}}">注： 公司简称能让候选人记住你的公司，可以是品牌名/产品 名/关键字等，创建后不可修改</view>
+		<view class="exemple" wx:if="{{companyShortName}}">注： 公司简称能让候选人记住你的公司，可以是品牌名/产品名/关键字等，创建后不可修改</view>
 		<view class="li">
 			<i class="icon iconfont icon-xiangyou"></i>
 			<view class="key">所属行业</view>

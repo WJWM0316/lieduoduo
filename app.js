@@ -287,6 +287,7 @@ App({
     wx.showModal({
       title,
       content,
+      cancelText,
       cancelColor,
       confirmColor,
       showCancel,

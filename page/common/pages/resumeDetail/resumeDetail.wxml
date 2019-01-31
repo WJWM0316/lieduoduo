@@ -11,7 +11,7 @@
 <!-- 基本信息 -->
   <view class="personalInfo commentBox">
     <view class="top">
-      <view class="avatarBox">
+      <view class="avatarBox" bindtap="readAvatar">
         <image src="{{info.avatar.smallUrl}}" class="avatar"></image>
         <view class="gender">
           <image class="sexIcon" src="{{cdnImagePath}}nan.png" wx:if="{{info.gender === 1}}"></image>

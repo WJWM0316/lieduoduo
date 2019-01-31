@@ -16,11 +16,7 @@
 	"compileType": "miniprogram",
 	"libVersion": "2.4.2",
 	"appid": "wx225f017495e6e195",
-<<<<<<< HEAD
 	"projectname": "lieduoduo",
-=======
-	"projectname": "lieduoduo-test",
->>>>>>> 27961e0f52f815545d7845c9fcb917915f288b9f
 	"debugOptions": {
 		"hidedInDevtools": []
 	},
@@ -42,7 +38,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 23,
+			"current": 2,
 			"list": [
 				{
 					"id": 0,
@@ -59,7 +55,7 @@
 				{
 					"id": 2,
 					"name": "index",
-					"pathName": "page/applicant/pages/index/index",
+					"pathName": "page/recruiter/pages/user/company/upload/upload",
 					"query": ""
 				},
 				{
@@ -131,7 +127,7 @@
 				{
 					"id": 14,
 					"name": "招聘官认证状态",
-					"pathName": "page/recruiter/pages/user/company/apply/apply",
+					"pathName": "page/recruiter/pages/user/company/find/find",
 					"query": "action=edit&type=apply"
 				},
 				{
@@ -186,7 +182,7 @@
 					"id": 23,
 					"name": "招聘管-简历详情",
 					"pathName": "page/common/pages/resumeDetail/resumeDetail",
-					"query": "uid=92"
+					"query": "uid=119"
 				},
 				{
 					"id": 24,
@@ -269,7 +265,7 @@
 				{
 					"id": 37,
 					"name": "招聘管-选择职位",
-					"pathName": "page/common/pages/category/category",
+					"pathName": "page/recruiter/pages/position/search/search",
 					"query": "type=position&selected=1"
 				},
 				{
@@ -319,12 +315,6 @@
 					"name": "职位详情",
 					"pathName": "page/common/pages/positionDetail/positionDetail",
 					"query": "scene=positionId%3d193"
-				},
-				{
-					"id": -1,
-					"name": "身份信息",
-					"pathName": "page/recruiter/pages/user/company/identity/identity",
-					"query": "positionId=186"
 				}
 			]
 		}
