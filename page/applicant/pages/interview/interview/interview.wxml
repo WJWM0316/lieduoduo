@@ -17,7 +17,7 @@
 				<view class="span">{{tab.text}}</view>
 		</view>
 	</view>
-
+  <!--申请记录-->
 	<view hidden="{{tabIndex !== 0}}">
 		<view class="tab-tab-list">
 			<view class="ul">
@@ -32,8 +32,9 @@
 				</view>
 			</view>
 		</view>
-		<commonList personality="list" list="{{applyData.list}}" list-type="default"></commonList>
+		<commonList personality="list" type="receive" list="{{applyData.list}}" list-type="default"></commonList>
 	</view>
+	<!--收到邀请-->
 	<view hidden="{{tabIndex !== 1}}">
 		<view class="tab-tab-list">
 			<view class="ul">
@@ -48,10 +49,11 @@
 				</view>
 			</view>
 		</view>
-		<commonList personality="list" list="{{receiveData.list}}" list-type="default"></commonList>
+		<commonList personality="list" type="apply" list="{{receiveData.list}}" list-type="default"></commonList>
 	</view>
+	<!--面试日程-->
 	<view hidden="{{tabIndex !== 2}}">
 		<myCalendar wx:if="{{tabIndex === 2}}" id="myCalendar" calendarType="roll" setDateList="{{dateList}}" switchable bindresultEvent="getResult"></myCalendar>
-		<commonList personality="list" list="{{interviewData.list}}" list-type="interview}}"></commonList>
+		<commonList personality="list" type="dateList" list="{{interviewData.list}}" list-type="interview}}"></commonList>
 	</view>
 </view>

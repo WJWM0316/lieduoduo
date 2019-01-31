@@ -20,6 +20,7 @@
 		<view class="text">面试安排(0)</view>
 		<view class="button" bindtap="jumpInterviewPage">面试历史</view> 
 	</view>
+	<!--收到意向-->
 	<view hidden="{{tabIndex !== 0}}" class="list-box">
 		<view class="select-box">
 			<view class="item">
@@ -35,10 +36,11 @@
 			  </picker>
 			</view>
 		</view>
-		<commonList list="{{receiveData.list}}" identity="{{identity}}" dotType="{{'circle'}}">
+		<commonList list="{{receiveData.list}}" type="receive" identity="{{identity}}" dotType="{{'circle'}}">
 		</commonList>
 		<bottomStatus status="{{applyBottomStatus}}" listData="{{receiveData.list}}"></bottomStatus>
 	</view>
+	<!--我的邀请-->
 	<view hidden="{{tabIndex !== 1}}" class="list-box">
 		<view class="select-box">
 			<view class="item">
@@ -54,13 +56,14 @@
 			  </picker>
 			</view>
 		</view>
-		<commonList list="{{applyData.list}}" identity="{{identity}}" dotType="{{'circle'}}">
+		<commonList list="{{applyData.list}}" type="apply" identity="{{identity}}" dotType="{{'circle'}}">
 		</commonList>
 		<bottomStatus status="{{receiveBottomStatus}}" listData="{{applyData.list}}"></bottomStatus>
 	</view>
+	<!--面试日程-->
 	<view hidden="{{tabIndex !== 2}}" class="list-box">
 		<myCalendar id="myCalendar" calendarType="roll" setDateList="{{dateList}}" switchable bindresultEvent="getResult"></myCalendar>
-		<commonList list="{{interviewData.list}}" identity="{{identity}}" dotType="{{'circle'}}">
+		<commonList list="{{interviewData.list}}" type="dateList" identity="{{identity}}" dotType="{{'circle'}}">
 		</commonList>
 		<bottomStatus status="{{interviewBottomStatus}}" listData="{{interviewData.list}}"></bottomStatus>
 	</view>

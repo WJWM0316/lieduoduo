@@ -7,7 +7,7 @@
     <image class="bgImg" src="{{cdnImagePath}}bg_detail.png" mode="aspectFill"></image>
     <shareBtn></shareBtn>
     <div class="content">
-      <view class="avatar vip">
+      <view class="avatar vip" bindtap="readAvatar">
         <image src="{{info.avatar.smallUrl}}" mode="aspectFill"></image>
       </view>
       <view class="labels label{{index}} {{item.hasFavor ? 'hasFavor': ''}}" wx:for="{{info.personalizedLabels}}" wx:key="{{index}}" bindtap="favor" data-item="{{item}}" data-index="{{index}}" wx:if="{{index <= 5}}">{{item.labelName}} <text wx:if="{{item.favorCount > 0}}">×{{item.favorCount}}</text> </view>

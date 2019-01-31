@@ -36,6 +36,11 @@ Component({
     isCollect: {
       type: Boolean,
       value: false
+    },
+    /* 底部状态栏类型 */
+    type: {
+      type: String,
+      value: ''
     }
   },
   attached() {
