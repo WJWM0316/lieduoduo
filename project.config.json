@@ -16,7 +16,11 @@
 	"compileType": "miniprogram",
 	"libVersion": "2.4.2",
 	"appid": "wx225f017495e6e195",
+<<<<<<< HEAD
+	"projectname": "lieduoduo",
+=======
 	"projectname": "lieduoduo-test",
+>>>>>>> 27961e0f52f815545d7845c9fcb917915f288b9f
 	"debugOptions": {
 		"hidedInDevtools": []
 	},
