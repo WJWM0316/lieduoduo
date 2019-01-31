@@ -505,7 +505,7 @@ Page({
 
     getPersonalResumeApi().then(res => {
       info = res.data
-      Promise.all([loadAvatar]).then((result) => {
+      Promise.all([loadAvatar, loadQrCode]).then((result) => {
         this.drawing (info, avatarUrl, qrCodeUrl)
       })
     })
@@ -514,7 +514,7 @@ Page({
       
       // 头像
       wx.downloadFile({
-        url: '../../../../../images/04.png', //info.avatar.middleUrl,
+        url: info.avatar.middleUrl,
         success(res) {
           if (res.statusCode === 200) {
             resolve(res)

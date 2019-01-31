@@ -1,5 +1,6 @@
 // components/functional/avatarUpload/avatarUpload.js
 import {COMMON} from '../../../config.js'
+const app = getApp()
 Component({
   externalClasses: ['avatar'],
   /**
@@ -9,6 +10,10 @@ Component({
     src: {
       type: String,
       value: ''
+    },
+    needBg: {
+      type: Boolean,
+      value: false
     }
   },
 
@@ -16,6 +21,7 @@ Component({
    * 组件的初始数据
    */
   data: {
+    cdnImagePath: app.globalData.cdnImagePath
     // src: ''
   },
 

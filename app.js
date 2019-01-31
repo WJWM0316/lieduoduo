@@ -1,4 +1,4 @@
-      //app.js
+//app.js
 import {loginApi, bindPhoneApi, uploginApi} from 'api/pages/auth.js'
 import {formIdApi} from 'api/pages/common.js'
 import {getPersonalResumeApi} from 'api/pages/center.js'

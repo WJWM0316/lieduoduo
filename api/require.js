@@ -52,7 +52,7 @@ export const request = ({method = 'post', url, data = {}, needKey = true, hasLoa
             // console.log(msg)
           } else {
             reject(msg)
-            if (url !== '/jobhunter/resume' && url !== '/recruiter/detail') {
+            if (msg.code !== 701 && msg.code !== 801) {
               getApp().wxToast({title: msg.msg})
             }
           }
@@ -81,7 +81,6 @@ export const request = ({method = 'post', url, data = {}, needKey = true, hasLoa
                 })
               }
               if (msg.code === 801) {
-
                 wx.setStorageSync('companyInfos', res.data)
                 
                 // 还没有创建公司

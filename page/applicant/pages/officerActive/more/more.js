@@ -46,14 +46,20 @@ Page({
       isRequire: false
     },
     // pageCount: app.globalData.pageCount,
-    pageCount: 10,
+    pageCount: 20,
     hasReFresh: false,
     onBottomStatus: 0,
     area_id: '',
     cate_id: ''
   },
-  onLoad() {
-    this.getLists().then(() => this.getSubmenuLists())
+  onShow() {
+    if (app.loginInit) {
+      this.getLists().then(() => this.getSubmenuLists())
+    } else {
+      app.loginInit = () => {
+        this.getLists().then(() => this.getSubmenuLists())
+      }
+    } 
   },
   toRecruitment (e) {
     wx.navigateTo({

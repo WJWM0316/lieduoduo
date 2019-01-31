@@ -1,5 +1,5 @@
 <view class="homepage">
-	<navbar title="{{companyInfos.companyShortname}}" background="#FFFFFF" color="#22292C"></navbar>
+	<navbar title="{{companyInfos.companyShortname}}" background="#652791" color="#fff" showHome="{{true}}"></navbar>
 
 	<view hidden="{{!hasReFresh}}">
     <refreshStatus></refreshStatus>

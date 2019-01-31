@@ -25,16 +25,13 @@ Page({
         if(field.labelId === params.item.labelId) field.active = !field.active
       })
     } else {
+      if(!params.item.active ) app.wxToast({title: `最多只能添加${this.data.limitNum}个标签`})
       professionalSkills.map(field => {
         if(field.labelId === params.item.labelId) field.active = false
       })
     }
     activeSkills = professionalSkills.filter(field => field.active)
-    this.setData({professionalSkills, skills: activeSkills, canClick: activeSkills.length > 0}, () => {
-      if(activeSkills.length === this.data.limitNum && !params.item.active ) {
-        app.wxToast({title: `最多只能添加${this.data.limitNum}个标签`})
-      }
-    })
+    this.setData({professionalSkills, skills: activeSkills, canClick: activeSkills.length > 0})
   },
   onLoad() {
     getLabelProfessionalSkillsApi()
