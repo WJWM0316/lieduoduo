@@ -9,7 +9,7 @@
   </view>
   <block>
     <view class="content">
-      <view class="detail" wx:if="{{identity === 'RECRUITER' && (info.status === 21 || info.status === 32 || info.status === 51)}}">
+      <view class="detail" wx:if="{{identity === 'RECRUITER' && (info.status === 21 || info.status === 32)}}">
         <view class="title"><icon class="icon"></icon>面试信息</view>
         <view class="msgItem">
           <view class="inner">
