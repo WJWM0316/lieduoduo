@@ -33,6 +33,7 @@ Component({
       app.quickLogin(e)
     },
     phoneLogin() {
+      this.close()
       wx.navigateTo({
         url: `${COMMON}bindPhone/bindPhone`
       })

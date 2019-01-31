@@ -55,6 +55,7 @@ Component({
     calendarBody: [],
     headYear: curYear,
     headMonth: curMonth,
+    choseOtherDate: false
   },
   attached () {
     let list = this.getThisMonthDays(curYear, curMonth) 
@@ -79,7 +80,7 @@ Component({
       let { year, month, days } = e.currentTarget.dataset
       let choseDate = `${year}年${month}月${days}日`
       let timeStamp = new Date(`${year}/${month}/${days}`).getTime()/1000
-      this.setData({choseDate})
+      this.setData({choseDate, choseOtherDate: true})
       this.triggerEvent('resultEvent', {year, month, days, timeStamp})
     },
     backToday() {

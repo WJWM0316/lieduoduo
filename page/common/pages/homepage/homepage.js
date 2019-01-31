@@ -57,13 +57,25 @@ Page({
   },
   onLoad(options) {
     this.setData({query: options})
-    this.init().then(() => this.getLabelPosition())
+    
   },
   onShow() {
-    getSelectorQuery('.banner')
+    if (app.loginInit) {
+      this.init().then(() => this.getLabelPosition())
+      getSelectorQuery('.banner')
       .then(res => {
         this.setData({domHeight: res.height})
       })
+    } else {
+      app.loginInit = () => {
+        this.init().then(() => this.getLabelPosition())
+        getSelectorQuery('.banner')
+        .then(res => {
+          this.setData({domHeight: res.height})
+        })
+      }
+    }
+    
   },
   /**
    * @Author   小书包
@@ -100,9 +112,9 @@ Page({
    * @detail   重新加载数据
    * @return   {[type]}   [description]
    */
-  reloadData() {
+  onPullDownRefresh() {
     const positionList = {list: [], pageNum: 1, isLastPage: false, isRequire: false}
-    this.setData({positionList, hasReFresh: false})
+    this.setData({positionList, hasReFresh: true})
     this.getPositionList(false)
         .then(res => {
           const positionList = {list: [], pageNum: 1, isLastPage: false, isRequire: false}

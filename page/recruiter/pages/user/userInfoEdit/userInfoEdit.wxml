@@ -10,7 +10,7 @@
         </view>
 	  	</view>
 	  	<view class="pic" wx:if="{{picList.length < 6}}">
-        <avatarCut class="avatarCut" src="{{info.avatar.middleUrl}}" needBg="{{false}}">
+        <avatarCut class="avatarCut" src="{{info.avatar.middleUrl}}" needBg="{{true}}">
           <view class="addPic">+</view>
         </avatarCut>
 	  	</view>

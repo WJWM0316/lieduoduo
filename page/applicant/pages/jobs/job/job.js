@@ -38,10 +38,35 @@ Page({
     positionIndex: 0,
     cdnImagePath: app.globalData.cdnImagePath
   },
-  onLoad() {
-    this.getPositionList()
-    this.getCityLabel()
-    this.getLabelPosition()
+  onShow() {
+    if (app.loginInit) {
+      this.getPositionList()
+      this.getCityLabel()
+      this.getLabelPosition()
+    } else {
+      app.loginInit = () => {
+        this.getPositionList()
+        this.getCityLabel()
+        this.getLabelPosition()
+      }
+    }
+    if (wx.getStorageSync('choseType') === 'RECRUITER') {
+      app.wxConfirm({
+        title: '提示',
+        content: '检测到你是招聘官，是否切换招聘端',
+        confirmBack() {
+          app.globalData.identity = 'RECRUITER'
+          wx.reLaunch({
+            url: `${RECRUITER}index/index`
+          })
+        },
+        cancelBack() {
+          app.globalData.identity = 'APPLICANT'
+          wx.setStorageSync('choseType', 'APPLICANT')
+          app.getAllInfo()
+        }
+      })
+    }
   },
   /**
    * @Author   小书包
