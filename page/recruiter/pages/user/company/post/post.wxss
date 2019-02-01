@@ -144,6 +144,9 @@
 .company-post .entry-list .link .text2{
 	margin-right: 5rpx;
 }
+.company-post .entry-list .link .defaultColor{
+  color: #BCBCBC;
+}
 
 .button-submit {
 	background:#F5F4F7;

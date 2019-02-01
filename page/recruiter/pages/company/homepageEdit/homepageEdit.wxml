@@ -4,7 +4,7 @@
 	<view class="base-info">
 		<view class="head">
 			<view class="img-box">
-				<image class="bgImg" src="{{companyInfos.logoInfo.smallUrl}}" mode="aspectFill"></image>
+				<image class="bgImg" src="{{companyInfos.logoInfo.smallUrl}}" mode="aspectFit"></image>
 			</view>
 			<view class="content">
 				<view class="h1">{{companyInfos.companyShortname}}</view>
