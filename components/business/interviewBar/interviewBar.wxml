@@ -152,7 +152,7 @@
 				<view class="second">待确认约面</view>
 			</view>
 			<view class="button-box button-box-color2">
-				<view data-action="recruiter-apply" bindtap="todoAction">查看邀请</view>
+				<view data-action="recruiter-apply" bindtap="todoAction">已邀请</view>
 			</view>
 		</block>
 
