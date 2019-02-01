@@ -13,6 +13,10 @@ import {
   closePositionApi
 } from '../../../api/pages/position.js'
 
+import {
+  getCompanyIdentityInfosApi
+} from '../../../api/pages/company.js'
+
 import {RECRUITER, COMMON, APPLICANT} from '../../../config.js'
 
 const app = getApp()
@@ -201,7 +205,6 @@ Component({
           if(!isRecruiter) {
             this.getCompanyIdentityInfos()
           } else {
-            console.log(this.data.infos, 11111111)
             // 走正常流程
             wx.navigateTo({url: `${RECRUITER}position/jobList/jobList?type=recruiter_chat&from=${this.data.currentPage}&jobhunterUid=${this.data.infos.uid}&recruiterUid=${app.globalData.recruiterDetails.uid}`})
           }
@@ -223,10 +226,21 @@ Component({
             getRole()
           }
         }
-      }
-      
-
-      
+      }      
+    },
+    /**
+     * @Author   小书包
+     * @DateTime 2019-01-29
+     * @detail   获取个人身份信息
+     * @return   {[type]}   [description]
+     */
+    getCompanyIdentityInfos() {
+      getCompanyIdentityInfosApi().then(res => {
+        const companyInfo = res.data.companyInfo
+        if(companyInfo.status === 0 || companyInfo.status === 2) {
+          wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=company`})
+        }
+      })
     },
     /**
      * @Author   小书包

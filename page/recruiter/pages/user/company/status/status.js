@@ -45,6 +45,7 @@ Page({
   	const params = e.currentTarget.dataset
     const companyInfos = this.data.companyInfos
     const options = this.data.options
+    
   	switch(params.action) {
   		case 'modifyIdentity':
         wx.navigateTo({url: `${RECRUITER}user/company/identity/identity?action=edit&type=create`})
