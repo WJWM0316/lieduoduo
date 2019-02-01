@@ -47,13 +47,14 @@ Page({
     const options = this.data.options
   	switch(params.action) {
   		case 'modifyIdentity':
-        if(companyInfos.status === 2) {
-          options.from = 'identity'
-          this.setData({options})
-          wx.navigateTo({url: `${RECRUITER}user/company/identity/identity?action=edit&type=create`})
-        } else {
-          wx.navigateTo({url: `${RECRUITER}user/company/identity/identity?action=edit&type=create`})
-        }
+        wx.navigateTo({url: `${RECRUITER}user/company/identity/identity?action=edit&type=create`})
+        // if(companyInfos.status === 2) {
+        //   options.from = 'identity'
+        //   this.setData({options})
+        //   wx.navigateTo({url: `${RECRUITER}user/company/identity/identity?action=edit&type=create`})
+        // } else {
+        //   wx.navigateTo({url: `${RECRUITER}user/company/identity/identity?action=edit&type=create`})
+        // }
   			break
   		case 'modifyCompany':
   			wx.navigateTo({url: `${RECRUITER}user/company/apply/apply?action=edit&type=create`})
