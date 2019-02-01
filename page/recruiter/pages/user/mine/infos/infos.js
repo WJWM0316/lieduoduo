@@ -60,6 +60,9 @@ Page({
         break
     }
   },
+  formSubmit(e) {
+    app.postFormId(e)
+  },
   preview(e) {
     wx.previewImage({
       current: this.data.recruiterInfo.avatar.url,

@@ -4,31 +4,33 @@
 </view>
 
 <view class="page-mine">
-	<view class="floating-box">
-		<view class="header">
+	<form bindsubmit="formSubmit" report-submit='{{true}}'>
+		<view class="floating-box">
+			<view class="header">
+				<view class="content">
+					<view class="realname">{{recruiterInfo.name}}</view>
+					<view class="degree-name">{{recruiterInfo.companyShortname}} | {{recruiterInfo.position}}</view>
+					<button form-type="submit" class="edit" bindtap="jumpUpdateInfos"><i class="icon iconfont icon-bianji"></i> 编辑资料</button>
+				</view>
+				<image class="img-box" src="{{recruiterInfo.avatar.middleUrl}}" bindtap="preview"></image>
+			</view>
+			<button form-type="submit" open-type="share" class="share-homepage">分享我的主页</button>
+			<button form-type="submit" class="share-homepage-pic" bindtap="routeJump" data-route="poster">生成朋友圈分享图</button>
+		</view>
+		<view class="show-off-block">
 			<view class="content">
-				<view class="realname">{{recruiterInfo.name}}</view>
-				<view class="degree-name">{{recruiterInfo.companyShortname}} | {{recruiterInfo.position}}</view>
-				<view class="edit" bindtap="jumpUpdateInfos"><i class="icon iconfont icon-bianji"></i> 编辑资料</view>
+				<view class="first">
+					<view class="strong">{{recruiterInfo.wantInterview}}</view>人想和我约面
+				</view>
+				<view class="second">
+					主页 <view class="strong">{{recruiterInfo.viewedCount}}</view> 次预览 已有 <view class="strong">{{recruiterInfo.influence}}</view>  人支持
+				</view>
 			</view>
-			<image class="img-box" src="{{recruiterInfo.avatar.middleUrl}}" bindtap="preview"></image>
+			<!-- <view class="btn-box">
+				<view class="btn">炫耀一下</view>
+			</view> -->
 		</view>
-		<button open-type="share" class="share-homepage" bindtap="share">分享我的主页</button>
-		<view class="share-homepage-pic" bindtap="routeJump" data-route="poster">生成朋友圈分享图</view>
-	</view>
-	<view class="show-off-block">
-		<view class="content">
-			<view class="first">
-				<view class="strong">{{recruiterInfo.wantInterview}}</view>人想和我约面
-			</view>
-			<view class="second">
-				主页 <view class="strong">{{recruiterInfo.viewedCount}}</view> 次预览 已有 <view class="strong">{{recruiterInfo.influence}}</view>  人支持
-			</view>
-		</view>
-		<!-- <view class="btn-box">
-			<view class="btn">炫耀一下</view>
-		</view> -->
-	</view>
+	</form>
 	<view class="entry-list">
 		<!-- <view class="li">
 			<i class="icon iconfont icon-zhiyejihui label-icon"></i>

@@ -52,9 +52,11 @@ Page({
     })
   },
   getOthersInfo() {
+    let identity = wx.getStorageSync('choseType')
     return new Promise((resolve, reject) => {
       getOthersRecruiterDetailApi({uid: this.data.options.uid}).then(res => {
-        this.setData({info: res.data, btnTxt: '展开内容', isOwner: res.data.isOwner}, function() {
+        let isOwner = res.data.isOwner && identity === 'RECRUITER' ? true : false
+        this.setData({info: res.data, btnTxt: '展开内容', isOwner}, function() {
           if(this.selectComponent('#interviewBar')) this.selectComponent('#interviewBar').init()
           resolve(res)
             getSelectorQuery('.msg').then(res => {

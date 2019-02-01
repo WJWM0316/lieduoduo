@@ -249,8 +249,7 @@ App({
           this.login()
         })
       })
-    }
-    
+    }  
   },
   // 手机登陆
   phoneLogin(data) {
@@ -371,7 +370,7 @@ App({
   },
   // 收集formId
   postFormId(id) {
-    console.log(`===================收集到这个formId了 ${id}=========================`)
+    console.log(`=======================收集到这个formId了 ${id}=========================`)
     formIdList.push(id)
     if (formIdList.length >= 3) {
       formIdApi({form_id: formIdList}).then(res => {
