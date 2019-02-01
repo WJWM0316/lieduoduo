@@ -193,3 +193,13 @@
 .common-lits-ul .footer .unsuitable {
 	color: #16274D;
 }
+
+.formIdBtn {
+  padding: 0;
+  background: none;
+  text-align: left;
+  line-height: normal;
+}
+.formIdBtn:after {
+  display: none;
+}

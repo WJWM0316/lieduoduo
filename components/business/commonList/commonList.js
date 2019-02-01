@@ -1,3 +1,4 @@
+const app = getApp()
 Component({
   externalClasses: ['personality'],
   behaviors: [],
@@ -46,6 +47,9 @@ Component({
   attached() {
   },
 	methods: {
+    formSubmit(e) {
+      app.postFormId(e.detail.formId)
+    },
 		routeJump(e) {
 		  const Identity = wx.getStorageSync('choseType')
 			const itemId = e.currentTarget.dataset.itemId

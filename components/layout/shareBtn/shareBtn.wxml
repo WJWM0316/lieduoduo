@@ -1,20 +1,22 @@
 <!--components/layout/shareBtn/shareBtn.wxml-->
 
-
-<block wx:if="{{posterType === 'position'}}">
-	<view class="shareBtn" bindtap="oper">
-	  <view class="shareIcon iconfont icon-fenxiang"></view>
-	</view>
-	<view class="shareBox" bindtap="close" hidden="{{!showChoose}}">
-	</view>
-	<view class="choseBox" hidden="{{!showChoose}}">
-		<button class="share" open-type="share" bindtap="close">转发给好友</button>
-		<button class="poster" bindtap="jump">生成海报</button>
-		<button class="close" bindtap="close" >取消</button>
-	</view>
-</block>
-<block wx:else>
-	<button open-type="share" class="shareBtn">
-		<view class="shareIcon iconfont icon-fenxiang"></view>
-	</button>
-</block>
+<form bindsubmit="formSubmit" report-submit='{{true}}'>  
+	<button form-type="submit" class="formIdBtn" ></button>
+	<block wx:if="{{posterType === 'position'}}">
+		<view class="shareBtn" bindtap="oper">
+		  <view class="shareIcon iconfont icon-fenxiang"></view>
+		</view>
+		<view class="shareBox" bindtap="close" hidden="{{!showChoose}}">
+		</view>
+		<view class="choseBox" hidden="{{!showChoose}}">
+			<button form-type="submit" class="share" open-type="share" bindtap="close">转发给好友</button>
+			<button form-type="submit" class="poster" bindtap="jump">生成海报</button>
+			<button form-type="submit" class="close" bindtap="close" >取消</button>
+		</view>
+	</block>
+	<block wx:else>
+		<button open-type="share" class="shareBtn" form-type="submit">
+			<view class="shareIcon iconfont icon-fenxiang"></view>
+		</button>
+	</block>
+</form>

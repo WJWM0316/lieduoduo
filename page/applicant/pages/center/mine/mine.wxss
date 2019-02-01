@@ -103,6 +103,13 @@
   align-items: center;
   justify-content: center;
   color: #652791;
+  padding: 0;
+  background: none;
+  font-size: 26rpx;
+  line-height: normal;
+}
+.edit-btn:after {
+  display: none;
 }
 /* 发简历按钮 */
 .mine .floating-box .share-resume {

@@ -2,6 +2,7 @@
 	"enablePullDownRefresh": true,
 	"backgroundTextStyle": "light",
   "usingComponents": {
+  	"choose": "../../../../components/business/choose/choose",
     "tabBar": "../../../../components/business/tabBar/tabBar",
     "commonList": "../../../../components/business/commonList/commonList"
   }

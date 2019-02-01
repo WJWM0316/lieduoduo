@@ -9,6 +9,7 @@
 	<view hidden="{{!hasReFresh}}">
 		<refreshStatus></refreshStatus>
 	</view>
+
 	
 	<view class="index-list-box">
 		<view class="ul-tab-bar">
@@ -16,6 +17,8 @@
 			<view class="li {{pageList === 'collectMySelf' ? 'active' : ''}}" bindtap="ontabClick" data-key="collectMySelf">对我感兴趣</view>
 			<view class="li {{pageList === 'collectUsers' ? 'active' : ''}}" bindtap="ontabClick" data-key="collectUsers">我感兴趣的</view>
 		</view>
+
+		
 		<commonList list="{{browseMySelf.list}}" identity="RECRUITER" wx:if="{{pageList === 'browseMySelf'}}"></commonList>
 		<commonList list="{{collectMySelf.list}}" identity="RECRUITER" isCollect="{{true}}" wx:if="{{pageList === 'collectMySelf'}}"></commonList>
 		<commonList list="{{collectUsers.list}}" showFooter="{{false}}" identity="RECRUITER" wx:if="{{pageList === 'collectUsers'}}"></commonList>
@@ -30,4 +33,5 @@
 		</bottomStatus>
 	</view>
   <tabBar tabType="1"></tabBar>
+  <choose wx:if="{{!choseType}}"></choose>
 </view>

@@ -328,7 +328,8 @@ Page({
       options,
       title: `${that.data.companyInfos.companyShortname}正在招聘，马上约面，极速入职！我在猎多多等你！`,
       path: `${COMMON}homepage/homepage?companyId=${this.data.query.companyId}`,
-      imageUrl: `${that.data.cdnImagePath}shareB.png`
+      noImg: true
+      // imageUrl: `${that.data.cdnImagePath}shareB.png`
     })
   }
 })

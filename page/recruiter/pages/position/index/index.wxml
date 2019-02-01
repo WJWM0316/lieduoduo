@@ -12,26 +12,31 @@
 <view hidden="{{!hasReFresh}}">
 	<refreshStatus></refreshStatus>
 </view>
-
+<form bindsubmit="formSubmit" report-submit='{{true}}'>
 <view class="office-manager-list" hidden="{{positionStatus === '2'}}">
 	<view class="li"
 		wx:for="{{onLinePosition.list}}"
 		wx:for-item="item"
 		wx:key="{{item.id}}"
-		data-action="detail"
-		data-position-id="{{item.id}}"
-		data-company-id="{{item.companyId}}"
-		bindtap="routeJump">
-		<view class="header">
-			<view class="office-name">{{item.positionName}}</view>
-			<view class="office-sarary">{{item.emolumentMin}}K~{{item.emolumentMax}}K</view>
-		</view>
-		<view class="tags-box">
-			<view class="item">{{item.city}}{{item.district}}</view>
-			<view class="item">{{item.workExperienceName}}</view>
-			<view class="item">{{item.educationName}}</view>
-		</view>
-		<view class="item-status"></view>
+		>
+		<button 
+			form-type="submit" 
+			class="formIdBtn"
+			data-action="detail"
+			data-position-id="{{item.id}}"
+			data-company-id="{{item.companyId}}"
+			bindtap="routeJump">
+			<view class="header">
+				<view class="office-name">{{item.positionName}}</view>
+				<view class="office-sarary">{{item.emolumentMin}}K~{{item.emolumentMax}}K</view>
+			</view>
+			<view class="tags-box">
+				<view class="item">{{item.city}}{{item.district}}</view>
+				<view class="item">{{item.workExperienceName}}</view>
+				<view class="item">{{item.educationName}}</view>
+			</view>
+			<view class="item-status"></view>
+		</button>
 	</view>
 	<bottomStatus status="{{onBottomStatus}}" listData="{{onLinePosition.list}}"></bottomStatus>
 </view>
@@ -57,5 +62,6 @@
 	</view>
 	<bottomStatus status="{{offBottomStatus}}" listData="{{offLinePosition.list}}"></bottomStatus>
 </view>
+</form>
 <tab-bar tabType="1"></tab-bar>
 <view style="height: 98rpx"></view>

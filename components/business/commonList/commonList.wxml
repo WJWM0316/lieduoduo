@@ -1,67 +1,76 @@
 <view class="common-lits-ul personality">
+	<form bindsubmit="formSubmit" report-submit='{{true}}'>  
+	
 	<view
 		class="li"
 		wx:for="{{ list }}"
 		wx:for-item="item"
 		wx:key="{{item.id}}"
-		data-item-id="{{item.interviewId}}"
-		data-status="{{item.status}}"
-		data-jobhunterUid="{{item.jobhunterUid}}"
-		data-uid="{{item.uid}}"
-		data-recruiterUid="{{item.recruiterUid}}"
-		data-positionId="{{item.positionId}}"
-		bindtap="routeJump">
-			<view class="img-box">
-				<image src="{{item.avatar.smallUrl}}"></image>
-				<view class="is-certification" wx:if="{{item.certification}}"></view>
-			</view>
-			<view class="content">
-				<view class="header">
-					<view class="recruiter-name">{{item.recruiterRealname || item.jobhunterRealname || item.name}}</view>
-					<view wx:if="{{identity === 'APPLICANT'}}" class="recruiter-infos">{{item.recruiterPositionName || item.position}}</view>
-					<view wx:else class="recruiter-infos">
-						<text wx:if="{{item.workExperience}}">{{item.workExperienceDesc}}·</text>
-						<text wx:if="{{item.workAgeDesc}}">{{item.workAgeDesc}}·</text>
-						<text wx:if="{{item.educationDesc || item.degreeDesc}}">{{item.educationDesc || item.degreeDesc}}</text>
-						<text wx:if="{{item.emolumentMin || item.salaryFloor}}">·{{item.emolumentMin || item.salaryFloor}}-{{item.emolumentMax || item.salaryCeil}}K</text>
+		>
+			<button 
+				form-type="submit" 
+				class="formIdBtn"
+				data-item-id="{{item.interviewId}}"
+				data-status="{{item.status}}"
+				data-jobhunterUid="{{item.jobhunterUid}}"
+				data-uid="{{item.uid}}"
+				data-recruiterUid="{{item.recruiterUid}}"
+				data-positionId="{{item.positionId}}"
+				bindtap="routeJump"
+				>
+				<view class="img-box">
+					<image src="{{item.avatar.smallUrl}}"></image>
+					<view class="is-certification" wx:if="{{item.certification}}"></view>
+				</view>
+				<view class="content">
+					<view class="header">
+						<view class="recruiter-name">{{item.recruiterRealname || item.jobhunterRealname || item.name}}</view>
+						<view wx:if="{{identity === 'APPLICANT'}}" class="recruiter-infos">{{item.recruiterPositionName || item.position}}</view>
+						<view wx:else class="recruiter-infos">
+							<text wx:if="{{item.workExperience}}">{{item.workExperienceDesc}}·</text>
+							<text wx:if="{{item.workAgeDesc}}">{{item.workAgeDesc}}·</text>
+							<text wx:if="{{item.educationDesc || item.degreeDesc}}">{{item.educationDesc || item.degreeDesc}}</text>
+							<text wx:if="{{item.emolumentMin || item.salaryFloor}}">·{{item.emolumentMin || item.salaryFloor}}-{{item.emolumentMax || item.salaryCeil}}K</text>
+						</view>
+					</view>
+					<view class="main" wx:if="{{item.lastCompanyName || item.companyName}}">
+						<view wx:if="{{identity === 'APPLICANT'}}" class="company-name">
+							<i class="icon iconfont icon-gongsi"></i> {{item.companyName}}
+							<text wx:if="{{item.positionNum}}"><i class="icon iconfont icon-zhiwei"></i> {{item.positionNum}}个职位 </text>
+						</view>
+						<view wx:else class="company-name"> {{item.lastCompanyName || item.lastCompanyName}}<text wx:if="{{item.lastPosition}}"> |  {{item.lastPosition}} </text></view>
 					</view>
 				</view>
-				<view class="main" wx:if="{{item.lastCompanyName || item.companyName}}">
-					<view wx:if="{{identity === 'APPLICANT'}}" class="company-name">
-						<i class="icon iconfont icon-gongsi"></i> {{item.companyName}}
-						<text wx:if="{{item.positionNum}}"><i class="icon iconfont icon-zhiwei"></i> {{item.positionNum}}个职位 </text>
+				<view class="footer {{ showDividingLine ? 'show-dividing-line' : ''}}" wx:if="{{showFooter}}">
+					<view class="time">{{item.createdAt || item.viewAt}}</view>
+					<!--招聘端底部状态-->
+					<view wx:if="{{identity !== 'APPLICANT'}}">
+					  <view class="action" wx:if="{{!item.positionName && isCollect}}">收藏了我</view>
+	          <view class="action" wx:elif="{{item.positionName && isCollect}}">收藏了我的职位<view class="strong">{{item.positionName}}</view></view>
+	          <view class="action" wx:elif="{{item.positionName && !isCollect && !type}}">查看了你的职位<view class="strong">{{item.positionName}}</view></view>
+	          <view class="action" wx:elif="{{!item.positionName && !isCollect && type && type === 'receive'}}">向您约面</view>
+	          <view class="action" wx:elif="{{item.positionName && !isCollect && type && type === 'receive'}}">向您约面的职位<view class="strong">{{item.positionName}}</view></view>
+	          <view class="action" wx:elif="{{!item.positionName && !isCollect && type && type === 'apply'}}">邀请TA面试</view>
+	          <view class="action" wx:elif="{{item.positionName && !isCollect && type && type === 'apply'}}">邀请TA面试<view class="strong">{{item.positionName}}</view></view>
+	          <view class="action" wx:elif="{{!item.positionName && !isCollect && type && type === 'dateList'}}">面试职位<view class="strong">无职位</view></view>
+	          <view class="action" wx:elif="{{item.positionName && !isCollect && type && type === 'dateList'}}">面试职位<view class="strong">{{item.positionName}}</view></view>
+	          <view class="action" wx:else>查看了你的<view class="strong">个人主页</view></view>
 					</view>
-					<view wx:else class="company-name"> {{item.lastCompanyName || item.lastCompanyName}}<text wx:if="{{item.lastPosition}}"> |  {{item.lastPosition}} </text></view>
+					<!--求职端底部状态-->
+					<view wx:else>
+	          <view class="action" wx:if="{{!item.positionName && type && type === 'receive'}}">申请约面</view>
+	          <view class="action" wx:elif="{{item.positionName && type && type === 'receive'}}">申请约面<view class="strong">{{item.positionName}}</view></view>
+	          <view class="action" wx:elif="{{!item.positionName && type && type === 'apply'}}">邀请约面</view>
+	          <view class="action" wx:elif="{{item.positionName && type && type === 'apply'}}">邀请约面<view class="strong">{{item.positionName}}</view></view>
+					</view>
+					
+					<view class="status">{{item.statusDesc}}</view>
 				</view>
-			</view>
-			<view class="footer {{ showDividingLine ? 'show-dividing-line' : ''}}" wx:if="{{showFooter}}">
-				<view class="time">{{item.createdAt || item.viewAt}}</view>
-				<!--招聘端底部状态-->
-				<view wx:if="{{identity !== 'APPLICANT'}}">
-				  <view class="action" wx:if="{{!item.positionName && isCollect}}">收藏了我</view>
-          <view class="action" wx:elif="{{item.positionName && isCollect}}">收藏了我的职位<view class="strong">{{item.positionName}}</view></view>
-          <view class="action" wx:elif="{{item.positionName && !isCollect && !type}}">查看了你的职位<view class="strong">{{item.positionName}}</view></view>
-          <view class="action" wx:elif="{{!item.positionName && !isCollect && type && type === 'receive'}}">向您约面</view>
-          <view class="action" wx:elif="{{item.positionName && !isCollect && type && type === 'receive'}}">向您约面的职位<view class="strong">{{item.positionName}}</view></view>
-          <view class="action" wx:elif="{{!item.positionName && !isCollect && type && type === 'apply'}}">邀请TA面试</view>
-          <view class="action" wx:elif="{{item.positionName && !isCollect && type && type === 'apply'}}">邀请TA面试<view class="strong">{{item.positionName}}</view></view>
-          <view class="action" wx:elif="{{!item.positionName && !isCollect && type && type === 'dateList'}}">面试职位<view class="strong">无职位</view></view>
-          <view class="action" wx:elif="{{item.positionName && !isCollect && type && type === 'dateList'}}">面试职位<view class="strong">{{item.positionName}}</view></view>
-          <view class="action" wx:else>查看了你的<view class="strong">个人主页</view></view>
+				<view wx:if="{{item.redDot}}">
+					<view class="red-dot-circle" wx:if="{{ dotType === 'circle'}}"></view>
+					<view class="red-dot-text" wx:else>新</view>
 				</view>
-				<!--求职端底部状态-->
-				<view wx:else>
-          <view class="action" wx:if="{{!item.positionName && type && type === 'receive'}}">申请约面</view>
-          <view class="action" wx:elif="{{item.positionName && type && type === 'receive'}}">申请约面<view class="strong">{{item.positionName}}</view></view>
-          <view class="action" wx:elif="{{!item.positionName && type && type === 'apply'}}">邀请约面</view>
-          <view class="action" wx:elif="{{item.positionName && type && type === 'apply'}}">邀请约面<view class="strong">{{item.positionName}}</view></view>
-				</view>
-				
-				<view class="status">{{item.statusDesc}}</view>
-			</view>
-			<view wx:if="{{item.redDot}}">
-				<view class="red-dot-circle" wx:if="{{ dotType === 'circle'}}"></view>
-				<view class="red-dot-text" wx:else>新</view>
-			</view>
+			</button>
 	</view>
+</form>
 </view>

@@ -32,7 +32,7 @@
       </view>
       <button hidden="{{info.isCall}}" class="callBtn" bindtap="callBtn">为Ta打Call，提高影响力</button>
       <button open-type="share" hidden="{{!info.isCall}}" class="callBtn isCalled" bindtap="shareBtn">帮Ta转发集Call</button>
-      <view class="more" bindtap="jump">查看更多热门招聘官<view class="icon iconfont icon-disejiantou-you"></view></view>
+      <view class="more" bindtap="jump" wx:if="{{isApplicant}}">查看更多热门招聘官<view class="icon iconfont icon-disejiantou-you"></view></view>
     </view>
     <view class="labelEdit {{info.personalizedLabels.length > 0 ? 'hasLabelEdit': ''}}" wx:if="{{isOwner}}">
       <view class="title">

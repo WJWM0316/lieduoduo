@@ -79,7 +79,7 @@
                 <view class="icon1"></view>
               </view>
               <view class="dateDetail">{{filters.dateFormat(item.appointmentTime, 'YYYY-MM-DD hh:mm')}}</view>
-              <icon class="icon iconfont icon-xiangyou"></icon>
+              <!-- <icon class="icon iconfont icon-xiangyou"></icon> -->
             </view>
           </view>
         </block>
@@ -90,7 +90,7 @@
                 <view class="icon1"></view>
               </view>
               <view class="dateDetail">{{filters.dateFormat(item.appointmentTime, 'YYYY-MM-DD hh:mm')}}</view>
-              <icon class="icon iconfont icon-xiangyou"></icon>
+              <!-- <icon class="icon iconfont icon-xiangyou"></icon> -->
             </view>
           </view>
         </block>
