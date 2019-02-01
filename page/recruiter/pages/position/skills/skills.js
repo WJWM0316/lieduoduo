@@ -38,7 +38,6 @@ Page({
       .then(response => {
         const storage = wx.getStorageSync('createPosition')
         const typeId = parseInt(storage.parentType)
-        console.log(typeId, '7777')
         const professionalSkills = response.data.labelProfessionalSkills.find(field => field.labelId === typeId).children
         const temLabelId = storage.skills.map(field => field.labelId)
         let canClick = false

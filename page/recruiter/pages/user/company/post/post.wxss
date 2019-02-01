@@ -68,6 +68,9 @@
 	font-size:28rpx;
 	font-weight:400;
 	color:rgba(188,188,188,1);
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
 }
 
 .company-post .entry-list .not-certified {

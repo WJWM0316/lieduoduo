@@ -57,7 +57,13 @@ Page({
     getCompanyIdentityInfosApi().then(res => {
       const storage = wx.getStorageSync('createdCompany')
       const infos = res.data.companyInfo
-      if(!storage.applyId && infos.applyId) this.setData({selectId: infos.applyId, company_name: infos.companyName})
+      if(infos.applyId) {
+        this.setData({selectId: infos.applyId, company_name: infos.companyName, canClick: true})
+        storage.applyId = infos.applyId
+        wx.setStorageSync('createdCompany', storage)
+      } else {
+        this.setData({company_name: infos.companyName, canClick: true})
+      }
     })
   },
 /**
