@@ -1,6 +1,7 @@
 // components/business/choose/choose.js
 import {RECRUITER, APPLICANT} from '../../../config.js'
 let identity = 'APPLICANT'
+const app = getApp()
 Component({
   /**
    * 组件的属性列表
@@ -34,6 +35,9 @@ Component({
    * 组件的方法列表
    */
   methods: {
+    formSubmit(e) {
+      app.postFormId(e.detail.formId)
+    },
     jump(e) {
       if (e.currentTarget.dataset.identity === 'APPLICANT') {
         identity = 'APPLICANT'

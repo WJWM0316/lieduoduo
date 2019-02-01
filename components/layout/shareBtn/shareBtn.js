@@ -1,4 +1,5 @@
 import {COMMON} from '../../../config.js'
+const app = getApp()
 Component({
   /**
    * 组件的属性列表
@@ -39,6 +40,9 @@ Component({
       }
       wx.setStorageSync('posterData', this.data.posterData)
       this.setData({showChoose: false})
+    },
+    formSubmit(e) {
+      app.postFormId(e.detail.formId)
     }
   }
 })

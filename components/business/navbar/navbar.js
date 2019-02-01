@@ -80,6 +80,9 @@ Component({
           url: `${APPLICANT}index/index`
         })
       }
+    },
+    formSubmit(e) {
+      App.postFormId(e.detail.formId)
     }
   }
 })

@@ -5,14 +5,16 @@
 		<image src="{{cdnImagePath}}choseIcon1.png" class="icon"></image>
 		<view class="desc">小程序找工作神器</view>
 	</view>
-  <button class="role1" bindtap='jump' data-identity="APPLICANT" open-type="getUserInfo" bindgetuserinfo="onGotUserInfo" lang="zh_CN">
-  	<view class="desc">我是求职者<icon class="icon iconfont icon-disejiantou-you"></icon></view>
-  	<image class="img" src="{{cdnImagePath}}choseIcon2.png"></image>
-  </button>
-  <button class="role2" bindtap='jump' data-identity="RECRUITER" open-type="getUserInfo" bindgetuserinfo="onGotUserInfo" lang="zh_CN">
-  	<view class="desc">我是招聘官<icon class="icon iconfont icon-disejiantou-you"></icon></view>
-  	<image class="img" src="{{cdnImagePath}}choseIcon3.png"></image>
-  </button>
+  <form bindsubmit="formSubmit" report-submit='{{true}}'>
+    <button class="role1" form-type="submit" bindtap='jump' data-identity="APPLICANT" open-type="getUserInfo" bindgetuserinfo="onGotUserInfo" lang="zh_CN">
+    	<view class="desc">我是求职者<icon class="icon iconfont icon-disejiantou-you"></icon></view>
+    	<image class="img" src="{{cdnImagePath}}choseIcon2.png"></image>
+    </button>
+    <button class="role2" form-type="submit" bindtap='jump' data-identity="RECRUITER" open-type="getUserInfo" bindgetuserinfo="onGotUserInfo" lang="zh_CN">
+    	<view class="desc">我是招聘官<icon class="icon iconfont icon-disejiantou-you"></icon></view>
+    	<image class="img" src="{{cdnImagePath}}choseIcon3.png"></image>
+    </button>
+  </form>
   <!-- <image class="ad" src="{{cdnImagePath}}ad.png"></image> -->
   <!-- <bindPhone></bindPhone> -->
 </view>

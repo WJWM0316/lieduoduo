@@ -25,16 +25,23 @@ Page({
     isShowBtn: true,
     options: {},
     hasReFresh: false,
+    isApplicant: false,
     cdnImagePath: app.globalData.cdnImagePath
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
+
     if (options.scene) {
       options = app.getSceneParams(options.scene)
     }
     let identity = wx.getStorageSync('choseType')
+
+    if (identity !== 'RECRUITER') {
+      this.setData({isApplicant: true})
+    }
+
     this.setData({options, identity})
   },
   /* 点击查看大头像 */
@@ -45,9 +52,11 @@ Page({
     })
   },
   getOthersInfo() {
+    let identity = wx.getStorageSync('choseType')
     return new Promise((resolve, reject) => {
       getOthersRecruiterDetailApi({uid: this.data.options.uid}).then(res => {
-        this.setData({info: res.data, btnTxt: '展开内容', isOwner: res.data.isOwner}, function() {
+        let isOwner = res.data.isOwner && identity === 'RECRUITER' ? true : false
+        this.setData({info: res.data, btnTxt: '展开内容', isOwner}, function() {
           if(this.selectComponent('#interviewBar')) this.selectComponent('#interviewBar').init()
           resolve(res)
             getSelectorQuery('.msg').then(res => {
@@ -247,8 +256,9 @@ Page({
 　　return app.wxShare({
       options,
       title: shareRecruiter,
-      path: `${COMMON}recruiterDetail/recruiterDetail?uid=${this.data.options.uid}`,
-      imageUrl: `${that.data.cdnImagePath}shareC.png`
+      noImg: true,
+      path: `${COMMON}recruiterDetail/recruiterDetail?uid=${this.data.options.uid}`
+      // imageUrl: `${that.data.cdnImagePath}shareC.png`
     })
   }
 })

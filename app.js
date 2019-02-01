@@ -249,8 +249,7 @@ App({
           this.login()
         })
       })
-    }
-    
+    }  
   },
   // 手机登陆
   phoneLogin(data) {
@@ -302,17 +301,20 @@ App({
     })
   },
   // 微信分享
-  wxShare({options, title, path, imageUrl, btnTitle, btnPath, btnImageUrl}) {
+  wxShare({options, title, path, imageUrl, noImg, btnTitle, btnPath, btnImageUrl}) {
     let that = this
     // 设置菜单中的转发按钮触发转发事件时的转发内容
     if (!title) {
-      title = wx.getStorageSync('choseType') === 'APPLICANT' ? shareC : shareB
+      title = wx.getStorageSync('choseType') !== 'RECRUITER' ? shareC : shareB
     }
     if (!path) {
-      path = wx.getStorageSync('choseType') === 'APPLICANT' ? `${APPLICANT}index/index` : `${RECRUITER}index/index`
+      path = wx.getStorageSync('choseType') !== 'RECRUITER' ? `${APPLICANT}index/index` : `${RECRUITER}index/index`
     }
     if (!imageUrl) {
-      imageUrl = wx.getStorageSync('choseType') === 'APPLICANT' ? `${this.globalData.cdnImagePath}shareC.png` : `${this.globalData.cdnImagePath}shareB.png`
+      imageUrl = wx.getStorageSync('choseType') !== 'RECRUITER' ? `${this.globalData.cdnImagePath}shareC.png` : `${this.globalData.cdnImagePath}shareB.png`
+    }
+    if (noImg) {
+      imageUrl = ''
     }
     let shareObj = {
       title: title,        // 默认是小程序的名称(可以写slogan等)
@@ -368,9 +370,10 @@ App({
   },
   // 收集formId
   postFormId(id) {
+    console.log(`=======================收集到这个formId了 ${id}=========================`)
     formIdList.push(id)
-    if (formIdList.length >= 1) {
-      formIdApi({form_id: formIdList, data: 1111}).then(res => {
+    if (formIdList.length >= 3) {
+      formIdApi({form_id: formIdList}).then(res => {
         formIdList = []
       })
     }

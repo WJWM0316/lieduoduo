@@ -56,6 +56,9 @@ Page({
       this.getLists()
     })
   },
+  formSubmit(e) {
+    app.postFormId(e.detail.formId)
+  },
   /**
    * @Author   小书包
    * @DateTime 2019-01-29

@@ -22,8 +22,10 @@
 	display: block;
 }
 .desc {
+	width: 500rpx;
+	margin: 0 auto;
 	font-weight:300;
 	color: #5C565D;
-	line-height:26rpx;
+	line-height:36rpx;
 	font-size: 26rpx;
 }

@@ -9,6 +9,7 @@ import {
 import {
   getBrowseMySelfListsApi
 } from '../../../../api/pages/recruiter.js'
+import {RECRUITER, COMMON, APPLICANT} from '../../../../config.js'
 
 const app = getApp()
 
@@ -16,6 +17,7 @@ Page({
   data: {
     pageList: 'browseMySelf',
     cdnImagePath: app.globalData.cdnImagePath,
+    choseType: '',
     browseMySelf: {
       list: [],
       pageNum: 1,
@@ -49,6 +51,30 @@ Page({
     }
   },
   onLoad() {
+    let choseType = wx.getStorageSync('choseType') || ''
+    this.setData({choseType})
+    if (!choseType) {
+      wx.hideTabBar()
+    } else {
+      wx.showTabBar()
+    }
+    if (choseType === 'APPLICANT') {
+      app.wxConfirm({
+        title: '提示',
+        content: '检测到你是求职者，是否切换求职者',
+        confirmBack() {
+          app.globalData.identity = 'APPLICANT'
+          wx.reLaunch({
+            url: `${APPLICANT}index/index`
+          })
+        },
+        cancelBack() {
+          app.globalData.identity = 'RECRUITER'
+          wx.setStorageSync('choseType', 'RECRUITER')
+          app.getAllInfo()
+        }
+      })
+    }
   },
   /**
    * @Author   小书包

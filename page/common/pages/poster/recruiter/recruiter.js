@@ -44,10 +44,10 @@ Page({
     ctx.setFontSize(28)
     let cutString = ''
     let ellipsisWidth = ctx.measureText('...').width
-    if (!info.signature) info.signature = '你还未填写个性签名，说说你的想法吧~'
-    if (ctx.measureText(info.signature).width > 466) {
-      for (let i = 0; i < info.signature.length; i++) {
-        cutString = cutString + info.signature[i]
+    let companyDesc = `Ta属于【${info.companyInfo.companyShortname}】星球`
+    if (ctx.measureText(companyDesc).width > 466) {
+      for (let i = 0; i < companyDesc.length; i++) {
+        cutString = cutString + companyDesc[i]
         if (ctx.measureText(cutString).width >= 466 - ellipsisWidth) {
           cutString = cutString + '...'
           ctx.fillText(cutString, 375, 397)
@@ -55,7 +55,7 @@ Page({
         }
       }
     } else {
-      ctx.fillText(info.signature, 375, 397)
+      ctx.fillText(companyDesc, 375, 397)
     }
 
     let curHeight = 515

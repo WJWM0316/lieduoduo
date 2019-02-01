@@ -34,6 +34,9 @@ Page({
       phoneNumber: '020-61279889'
     })
   },
+  formSubmit(e) {
+    app.postFormId(e.detail.formId)
+  },
   online() {
     app.wxConfirm({
       title: '联系客服',
@@ -98,7 +101,7 @@ Page({
     getPersonalResumeApi().then(res => {
       app.globalData.resumeInfo = res.data
       wx.stopPullDownRefresh()
-      this.setData({hasReFresh: false})
+      this.setData({hasReFresh: false, myInfo: res.data})
     })
   },
   onShareAppMessage(options) {
