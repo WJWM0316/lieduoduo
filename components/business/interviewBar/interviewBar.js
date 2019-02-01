@@ -237,7 +237,7 @@ Component({
     getCompanyIdentityInfos() {
       getCompanyIdentityInfosApi().then(res => {
         const companyInfo = res.data.companyInfo
-        if(companyInfo.status === 0 || companyInfo.status === 2) {
+        if(companyInfo.status !== 1) {
           wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=company`})
         }
       })

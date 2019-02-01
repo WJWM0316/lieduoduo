@@ -13,7 +13,6 @@ Page({
     user_email: '',
     user_position: '',
     canClick: false,
-    applyId: null,
     id: null,
     options: {
       type: 'create'
@@ -74,7 +73,6 @@ Page({
         applyStatus: infos.status,
         id: infos.id
       }
-      if(infos.applyId) formData.applyId = infos.applyId
       wx.setStorageSync('createdCompany', formData)
       Object.keys(formData).map(field => this.setData({[field]: formData[field]}))
     })
