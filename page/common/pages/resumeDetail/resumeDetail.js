@@ -17,6 +17,7 @@ Page({
   data: {
     info: null,
     isOwner: false,
+    realIsOwner: false,
     hasReFresh: false,
     options: {},
     identity: '',
@@ -72,7 +73,7 @@ Page({
     return new Promise((resolve, reject) => {
       let identity = wx.getStorageSync('choseType')
       getOtherResumeApi({uid: this.data.options.uid}).then(res => {
-        this.setData({info: res.data, isOwner: res.data.isOwner && identity === 'APPLICANT'})
+        this.setData({info: res.data, isOwner: res.data.isOwner && identity === 'APPLICANT', realIsOwner: res.data.isOwner})
         if (this.selectComponent('#interviewBar')) {
           this.selectComponent('#interviewBar').init()
         }
@@ -151,6 +152,8 @@ Page({
     this.setData({hasReFresh: true})
     this.getOthersInfo().then(res => {
       this.setData({hasReFresh: false})
+      wx.stopPullDownRefresh()
+    }).catch(e => {
       wx.stopPullDownRefresh()
     })
   },

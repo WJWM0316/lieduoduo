@@ -136,6 +136,8 @@ Page({
         addressList.pageNum = 2
         addressList.isRequire = true
         this.setData({addressList, onBottomStatus, hasReFresh: false}, () => wx.stopPullDownRefresh())
+      }).catch(e => {
+        wx.stopPullDownRefresh()
       })
   },
   /**

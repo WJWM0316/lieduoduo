@@ -213,6 +213,8 @@ Page({
         this.getApplyList(false).then(res => {
           wx.stopPullDownRefresh()
           this.setData({hasReFresh: false})
+        }).catch(e => {
+          wx.stopPullDownRefresh()
         })
       break
       case 1:
@@ -221,6 +223,8 @@ Page({
         this.getInviteList(false).then(res => {
           wx.stopPullDownRefresh()
           this.setData({hasReFresh: false})
+        }).catch(e => {
+          wx.stopPullDownRefresh()
         })
       break
       case 2:
@@ -229,6 +233,8 @@ Page({
         this.getScheduleList(false).then(res => {
           wx.stopPullDownRefresh()
           this.setData({hasReFresh: false})
+        }).catch(e => {
+          wx.stopPullDownRefresh()
         })
       break
     }

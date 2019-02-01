@@ -84,7 +84,11 @@ Component({
       this.triggerEvent('resultEvent', {year, month, days, timeStamp})
     },
     backToday() {
-      this.scrollLeft()
+      this.setData({choseDate: this.data.curDate}, function() {
+        getSelectorQuery(".choseDate").then(res => {
+        })
+      })
+      // this.scrollLeft()
     },
     changeType () {
       if (this.data.calendarType === 'roll') {

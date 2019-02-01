@@ -222,6 +222,8 @@ Page({
           value.pageNum = 1
           value.isRequire = true
           this.setData({[key]: value, onBottomStatus, hasReFresh: false}, () => wx.stopPullDownRefresh())
+        }).catch(e => {
+          wx.stopPullDownRefresh()
         })
   },
   /**

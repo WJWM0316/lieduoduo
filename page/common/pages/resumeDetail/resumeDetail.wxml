@@ -133,7 +133,7 @@
     <text class="add" data-editName="more" bindtap="edit" wx:if="{{!info.moreIntroduce.introduce && info.moreIntroduce.imgs.length === 0 && isOwner}}" data-id="0">完善更多介绍</text>
   </view>
 </view>
-<view wx:if="{{!isOwner}}" class="collect" bindtap="collect">
+<view wx:if="{{!realIsOwner}}" class="collect" bindtap="collect">
   <i class="icon iconfont icon-ganxingqu" wx:if="{{!info.interested}}"></i>
   <i class="icon iconfont icon-biaojiweiganxingqu" wx:else></i>
 </view>

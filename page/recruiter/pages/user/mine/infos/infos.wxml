@@ -1,4 +1,4 @@
-<navbar title="" background="transparent" color="#fff"></navbar>
+<navbar title="" background="transparent" title="我的" color="#fff"></navbar>
 <view class="top-banner">
 	<image class="bgImg" mode="aspectFill" src="{{cdnPath}}recruiter_mine_bg.png"></image>
 </view>
@@ -71,4 +71,5 @@
 		<view class="li">意见反馈</view>
 	</view> -->
 </view>
+<view style="height: 100rpx;"></view>
 <tab-bar tabType="1"></tab-bar>

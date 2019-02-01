@@ -20,6 +20,7 @@ Page({
     btnTxt: '展开内容',
     info: {},
     isOwner: false,
+    realIsOwner: false,
     isRecruiter: false,
     positionList: [],
     isShowBtn: true,
@@ -56,7 +57,7 @@ Page({
     return new Promise((resolve, reject) => {
       getOthersRecruiterDetailApi({uid: this.data.options.uid}).then(res => {
         let isOwner = res.data.isOwner && identity === 'RECRUITER' ? true : false
-        this.setData({info: res.data, btnTxt: '展开内容', isOwner}, function() {
+        this.setData({info: res.data, btnTxt: '展开内容', isOwner, realIsOwner: res.data.isOwner}, function() {
           if(this.selectComponent('#interviewBar')) this.selectComponent('#interviewBar').init()
           resolve(res)
             getSelectorQuery('.msg').then(res => {
@@ -243,10 +244,14 @@ Page({
         app.globalData.recruiterDetails = res.data
         this.setData({info: app.globalData.recruiterDetails, hasReFresh: false})
         wx.stopPullDownRefresh()
+      }).catch(e => {
+        wx.stopPullDownRefresh()
       })
     } else {
       this.getOthersInfo().then(res => {
         this.setData({hasReFresh: false})
+        wx.stopPullDownRefresh()
+      }).catch(e => {
         wx.stopPullDownRefresh()
       })
     }

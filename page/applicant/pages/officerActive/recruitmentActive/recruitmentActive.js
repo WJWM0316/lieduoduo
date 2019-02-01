@@ -120,7 +120,9 @@ Page({
           value.pageNum = 2
           value.isRequire = true
           this.setData({[key]: value, onBottomStatus, hasReFresh: false}, () => wx.stopPullDownRefresh())
-        })
+        }).catch(e => {
+        wx.stopPullDownRefresh()
+      })
   },
   /**
    * @Author   小书包

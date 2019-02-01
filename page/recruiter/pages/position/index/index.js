@@ -226,6 +226,8 @@ Page({
       this.getOnlineLists(false).then(res => {
         wx.stopPullDownRefresh()
         this.setData({hasReFresh: false})
+      }).catch(e => {
+        wx.stopPullDownRefresh()
       })
     } else {
       let offLinePosition = {
@@ -239,6 +241,8 @@ Page({
       this.getOffLineLists(false).then(res => {
         wx.stopPullDownRefresh()
         this.setData({hasReFresh: false})
+      }).catch(e => {
+        wx.stopPullDownRefresh()
       })
     }
   },
