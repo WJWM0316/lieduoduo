@@ -69,6 +69,25 @@ Page({
     }
   },
   onShow() {
+    const myBrowse = {
+      list: [],
+      pageNum: 1,
+      isLastPage: false,
+      isRequire: false
+    }
+    const myCollect = {
+      list: [],
+      pageNum: 1,
+      isLastPage: false,
+      isRequire: false
+    }
+    const commonList = {
+      list: [],
+      pageNum: 1,
+      isLastPage: false,
+      isRequire: false
+    }
+    this.setData({myBrowse, myCollect, commonList})
     if (app.loginInit) {
       this.getLists()
       this.getAvartList()

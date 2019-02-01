@@ -27,7 +27,20 @@ Page({
     hasReFresh: false,
     onBottomStatus: 0
   },
-  onLoad() {
+  onShow() {
+    const watchedList = {
+      list: [],
+      pageNum: 1,
+      isLastPage: false,
+      isRequire: false
+    }
+    const interestList = {
+      list: [],
+      pageNum: 1,
+      isLastPage: false,
+      isRequire: false
+    }
+    this.setData({watchedList, interestList})
     this.getLists()
   },
   /**
