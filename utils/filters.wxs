@@ -103,7 +103,7 @@ var positionFilter = function(num) {
       status = '已关闭'
       break
     case 1:
-      status = '审核通过'
+      status = '已关闭'
       break
     case 2:
       // 先发后审

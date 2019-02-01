@@ -50,6 +50,7 @@ Page({
         if(companyInfos.status === 2) {
           options.from = 'identity'
           this.setData({options})
+          wx.navigateTo({url: `${RECRUITER}user/company/identity/identity?action=edit&type=create`})
         } else {
           wx.navigateTo({url: `${RECRUITER}user/company/identity/identity?action=edit&type=create`})
         }
