@@ -109,5 +109,14 @@ Page({
         // })
         wx.removeStorageSync('interviewChatLists')
       })
+  },
+  /**
+   * @Author   小书包
+   * @DateTime 2019-02-01
+   * @detail   f布职位
+   * @return   {[type]}   [description]
+   */
+  publicPosition() {
+    wx.navigateTo({url: `${RECRUITER}position/post/post`})
   }
 })
