@@ -188,6 +188,7 @@ Component({
           } else {
             // 走正常流程
             if(this.data.type === 'recruiter') {
+
               wx.navigateTo({url: `${RECRUITER}position/jobList/jobList?type=job_hunting_chat&from=${this.data.currentPage}&showNotPositionApply=${interviewInfos.showNotPositionApply}&from=${this.data.currentPage}&recruiterUid=${this.data.infos.uid}`})
             } else {
               applyInterviewApi({recruiterUid: this.data.infos.recruiterInfo.uid, positionId: this.data.infos.id}).then(res => {
@@ -200,6 +201,7 @@ Component({
           if(!isRecruiter) {
             this.getCompanyIdentityInfos()
           } else {
+            console.log(this.data.infos, 11111111)
             // 走正常流程
             wx.navigateTo({url: `${RECRUITER}position/jobList/jobList?type=recruiter_chat&from=${this.data.currentPage}&jobhunterUid=${this.data.infos.uid}&recruiterUid=${app.globalData.recruiterDetails.uid}`})
           }
@@ -357,7 +359,7 @@ Component({
           }
           break
         case 'recruiter-apply':
-          wx.navigateTo({url: `${APPLICANT}interview/interview/interview`})
+          // wx.navigateTo({url: `${RECRUITER}interview/index/index`})
           break
         case 'recruiter-arrangement':
           wx.navigateTo({url: `${COMMON}arrangement/arrangement?id=${interviewInfos.data[0].interviewId}`})

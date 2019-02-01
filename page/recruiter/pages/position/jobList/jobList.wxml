@@ -53,7 +53,7 @@
           </view>
         </view>
       </label>
-      <view class="example" wx:if="{{options.showNotPositionApply === '1'}}">TA的在找职位</view>
+      <view class="example" wx:if="{{options.showNotPositionApply === '1'}}">TA的在线职位</view>
     </block>
     <!-- 求职端开撩 end -->
 
