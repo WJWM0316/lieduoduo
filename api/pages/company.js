@@ -305,6 +305,7 @@ export const getRecruitersListApi = (data, hasLoading) => {
   return request({
     method: 'get',
     url: `/company/recruiters/${data.id}`,
+    data,
     hasLoading: true
   })
 }

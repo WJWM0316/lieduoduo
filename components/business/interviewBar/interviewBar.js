@@ -19,6 +19,8 @@ import {
 
 import {RECRUITER, COMMON, APPLICANT} from '../../../config.js'
 
+import { agreedTxtC, agreedTxtB } from '../../../utils/randomCopy.js'
+
 const app = getApp()
 
 Component({
@@ -50,30 +52,11 @@ Component({
     isOwerner: false,
     currentPage: '',
     index: 0,
-    jobWords: [
-      '我一直在等，等一个懂我的老大~',
-      '工作中的我一个顶俩，用过都说好',
-      '看在我简历这么好看的份上，约呗',
-      '确认过眼神，我是你想要的那个人',
-      '嘿，该不会没看出来我超靠谱的吧',
-      '看上我的人实在太多，抓紧机会~'
-    ],
-    recruiterWords: [
-      '工作易得，知音难觅，壮士约乎？',
-      '我不想懂天文地理，我只想懂你~',
-      '公司的进口零食得找个人清一清了',
-      '我看你骨骼精奇，是块耐磨的料子',
-      '好看的和能干的，都欢迎来开撩哦',
-      '把握住缘分，搞不好能成为同事~',
-      '我这么Nice的招聘官已经不多见了！'
-    ],
+    jobWords: agreedTxtC(),
+    recruiterWords: agreedTxtB(),
     isShare: false
   },
   attached() {
-    const key = wx.getStorageSync('choseType') === 'APPLICANT' ? 'jobWords' : 'recruiterWords'
-    const length = this.data[key].length
-    const index = this.getRandomNum(0, length)
-
     switch(this.data.type) {
       case 'resume':
         if (wx.getStorageSync('choseType') === 'APPLICANT') this.setData({isOwerner: true})
@@ -82,40 +65,26 @@ Component({
         if (wx.getStorageSync('choseType') === 'RECRUITER') this.setData({isOwerner: true})
         break
     }
-    this.setData({index})
   },
   methods: {
     init() {
       this.getInterviewStatus()
-      const infos = this.data.infos
       let currentPage = ''
       switch(this.data.type) {
         case 'position':
           currentPage = 'positionDetail'
-          if(infos.recruiterInfo.manifestos.length) {
-            let randomIndex1 = this.getRandomNum(0, infos.recruiterInfo.manifestos.length)
-            infos.recruiterInfo.manifestosText = infos.recruiterInfo.manifestos[randomIndex1].content
-          } else {
-            infos.recruiterInfo.manifestosText = ''
-          }
           break
         case 'resume':
           currentPage = 'resumeDetail'
           break
         case 'recruiter':
           currentPage = 'recruiterDetail'
-          if(infos.manifestos.length) {
-            let randomIndex2 = this.getRandomNum(0, infos.manifestos.length)
-            infos.manifestosText = infos.manifestos[randomIndex2].content
-          } else {
-            infos.manifestosText = ''
-          }
           break
         default:
           currentPage = ''
           break
       }
-      this.setData({currentPage, infos})
+      this.setData({currentPage, jobWords: agreedTxtC(), recruiterWords: agreedTxtB()})
     },
     /**
      * @Author   小书包
