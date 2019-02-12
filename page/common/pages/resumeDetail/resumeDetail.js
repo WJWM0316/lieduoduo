@@ -17,6 +17,7 @@ Page({
   data: {
     info: null,
     isOwner: false,
+    realIsOwner: false,
     hasReFresh: false,
     options: {},
     identity: '',
@@ -72,7 +73,7 @@ Page({
     return new Promise((resolve, reject) => {
       let identity = wx.getStorageSync('choseType')
       getOtherResumeApi({uid: this.data.options.uid}).then(res => {
-        this.setData({info: res.data, isOwner: res.data.isOwner && identity === 'APPLICANT'})
+        this.setData({info: res.data, isOwner: res.data.isOwner && identity === 'APPLICANT', realIsOwner: res.data.isOwner})
         if (this.selectComponent('#interviewBar')) {
           this.selectComponent('#interviewBar').init()
         }
@@ -128,7 +129,7 @@ Page({
     if (!this.data.info.interested) {
       getMyCollectUserApi(data).then(res => {
         app.wxToast({
-          title: '收藏成功',
+          title: '已标记感兴趣',
           icon: 'success'
         })
         let info = this.data.info
@@ -138,7 +139,7 @@ Page({
     } else {
       deleteMyCollectUserApi(data).then(res => {
         app.wxToast({
-          title: '取消收藏',
+          title: '取消标记感兴趣',
           icon: 'success'
         })
         let info = this.data.info
@@ -151,6 +152,8 @@ Page({
     this.setData({hasReFresh: true})
     this.getOthersInfo().then(res => {
       this.setData({hasReFresh: false})
+      wx.stopPullDownRefresh()
+    }).catch(e => {
       wx.stopPullDownRefresh()
     })
   },

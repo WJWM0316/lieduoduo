@@ -1,4 +1,4 @@
-<navbar title="" background="transparent" color="#fff"></navbar>
+<navbar title="" background="transparent" title="我的" color="#fff"></navbar>
 <view class="top-banner">
 	<image class="bgImg" mode="aspectFill" src="{{cdnPath}}recruiter_mine_bg.png"></image>
 </view>
@@ -12,7 +12,10 @@
 					<view class="degree-name">{{recruiterInfo.companyShortname}} | {{recruiterInfo.position}}</view>
 					<button form-type="submit" class="edit" bindtap="jumpUpdateInfos"><i class="icon iconfont icon-bianji"></i> 编辑资料</button>
 				</view>
-				<image class="img-box" src="{{recruiterInfo.avatar.middleUrl}}" bindtap="preview"></image>
+				<view class="img-box">
+					<image class="img-box" src="{{recruiterInfo.avatar.middleUrl}}" bindtap="preview"></image>
+					<!-- <i class="certification-icon">V</i> -->
+				</view>
 			</view>
 			<button form-type="submit" open-type="share" class="share-homepage">分享我的主页</button>
 			<button form-type="submit" class="share-homepage-pic" bindtap="routeJump" data-route="poster">生成朋友圈分享图</button>
@@ -71,4 +74,5 @@
 		<view class="li">意见反馈</view>
 	</view> -->
 </view>
+<view style="height: 100rpx;"></view>
 <tab-bar tabType="1"></tab-bar>

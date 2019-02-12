@@ -41,15 +41,6 @@ Page({
     hasReFresh: false,
     onBottomStatus: 0
   },
-  onShow() {
-    if (app.loginInit) {
-      this.getLists()
-    } else {
-      app.loginInit = () => {
-        this.getLists()
-      }
-    }
-  },
   onLoad() {
     let choseType = wx.getStorageSync('choseType') || ''
     this.setData({choseType})
@@ -74,6 +65,34 @@ Page({
           app.getAllInfo()
         }
       })
+    }
+  },
+  onShow() {
+    const browseMySelf = {
+      list: [],
+      pageNum: 1,
+      isLastPage: false,
+      isRequire: false
+    }
+    const collectMySelf = {
+      list: [],
+      pageNum: 1,
+      isLastPage: false,
+      isRequire: false
+    }
+    const collectUsers = {
+      list: [],
+      pageNum: 1,
+      isLastPage: false,
+      isRequire: false
+    }
+    this.setData({browseMySelf, collectUsers, collectMySelf})
+    if (app.loginInit) {
+      this.getLists()
+    } else {
+      app.loginInit = () => {
+        this.getLists()
+      }
     }
   },
   /**
@@ -187,6 +206,8 @@ Page({
             wx.stopPullDownRefresh()
             this.setData({hasReFresh: false})
           })
+        }).catch(e => {
+          wx.stopPullDownRefresh()
         })
   },
   /**

@@ -26,7 +26,9 @@ Page({
     })
   },
   radioChange(e) {
-    this.setData({gender: parseInt(e.detail.value)})
+    let info = this.data.info
+    info.gender = parseInt(e.detail.value)
+    this.setData({info})
   },
   getResult(e) {
     let info = this.data.info
@@ -76,8 +78,13 @@ Page({
   },
   singInput(e) {
     let info = this.data.info
-    info.signature = e.detail.value
-    this.setData({info})
+    if (e.detail.value === ' ') {
+      info.signature = ''
+      this.setData({info})
+    } else {
+      info.signature = e.detail.value
+      this.setData({info})
+    }
   },
   saveInfo() {
     let info = this.data.info

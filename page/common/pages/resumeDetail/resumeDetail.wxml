@@ -28,9 +28,8 @@
     <view class="experience">
       <view class="time"><i class="icon iconfont icon-zhiwei"></i> {{info.workAgeDesc}}</view>
       <view class="age" wx:if="{{info.age}}"><i class="icon iconfont icon-nianling"></i> {{info.age}}岁</view>
-      <view class="age" wx:else><i class="icon iconfont icon-nianling"></i> 待完善</view>
       <view class="education"> <i class="icon iconfont icon-xueli"></i> {{info.degreeDesc}}</view>
-      <view class="status">{{info.jobStatusDesc || "待完善"}}</view>
+      <view class="status" wx:if="{{info.jobStatusDesc}}">{{info.jobStatusDesc}}</view>
     </view>
     <block wx:if="{{info.signature}}">
       <image class="line" src="{{cdnImagePath}}line.png"></image>
@@ -133,7 +132,7 @@
     <text class="add" data-editName="more" bindtap="edit" wx:if="{{!info.moreIntroduce.introduce && info.moreIntroduce.imgs.length === 0 && isOwner}}" data-id="0">完善更多介绍</text>
   </view>
 </view>
-<view wx:if="{{!isOwner}}" class="collect" bindtap="collect">
+<view wx:if="{{!realIsOwner}}" class="collect" bindtap="collect">
   <i class="icon iconfont icon-ganxingqu" wx:if="{{!info.interested}}"></i>
   <i class="icon iconfont icon-biaojiweiganxingqu" wx:else></i>
 </view>

@@ -70,7 +70,6 @@ App({
             that.loginInit()
           }
           that.loginInit = function () {}
-
         })
       },
       fail: function (e) {
@@ -137,35 +136,44 @@ App({
 
   // 检查微信授权
   checkLogin () {
-    return new Promise((resolve, reject) => {
-      wx.getSetting({
-        success: res => {
-          if (res.authSetting['scope.userInfo']) {
-            // 已经授权，可以直接调用 getUserInfo 获取头像昵称，不会弹框
-            wx.getUserInfo({
-              success: res => {
-                // 可以将 res 发送给后台解码出 unionId
-                this.globalData.userInfo = res.userInfo
-                // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
-                // 所以此处加入 callback 以防止这种情况
-                if (this.userInfoReadyCallback) {
-                  this.userInfoReadyCallback(res)
+    let that = this
+    wx.login({
+      success: function (res0) {
+        wx.setStorageSync('code', res0.code)
+        return new Promise((resolve, reject) => {
+          wx.getSetting({
+            success: res => {
+              if (res.authSetting['scope.userInfo']) {
+                // 已经授权，可以直接调用 getUserInfo 获取头像昵称，不会弹框
+                wx.getUserInfo({
+                  success: res => {
+                    // 可以将 res 发送给后台解码出 unionId
+                    that.globalData.userInfo = res.userInfo
+                    // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
+                    // 所以此处加入 callback 以防止这种情况
+                    if (that.userInfoReadyCallback) {
+                      that.userInfoReadyCallback(res)
+                    }
+                    const e = {}
+                    e.detail = res
+                    that.onGotUserInfo(e)
+                    console.log('用户已授权')
+                    resolve(res)
+                  }
+                })
+              } else {
+                var pages = getCurrentPages() //获取加载的页面
+                let pageUrl = pages[0].route
+                if (pageUrl !== 'page/applicant/pages/index/index') {
+                  wx.navigateTo({
+                    url: `${COMMON}auth/auth`
+                  })
                 }
-                console.log('用户已授权')
-                resolve(res)
               }
-            })
-          } else {
-            var pages = getCurrentPages() //获取加载的页面
-            let pageUrl = pages[0].route
-            if (pageUrl !== 'page/applicant/pages/index/index') {
-              wx.navigateTo({
-                url: `${COMMON}auth/auth`
-              })
             }
-          }
-        }
-      })
+          })
+        })
+      }
     })
   },
   // 授权button 回调
@@ -220,6 +228,7 @@ App({
       }
     })
   },
+
   // 微信快速登陆
   quickLogin(e) {
     if (e.detail.errMsg === 'getPhoneNumber:ok') {
@@ -356,16 +365,24 @@ App({
       this.getAllInfo()
     } else {
       wx.setStorageSync('choseType', 'RECRUITER')
-      this.getAllInfo()
-      if (!this.globalData.isRecruiter) {
-        wx.reLaunch({
-          url: `${RECRUITER}user/company/apply/apply`
+      if (!this.globalData.hasLogin) {
+        wx.navigateTo({
+          url: `${COMMON}bindPhone/bindPhone`
         })
       } else {
-        wx.reLaunch({
-          url: `${RECRUITER}index/index`
-        })
+        this.getAllInfo()
+        if (!this.globalData.isRecruiter) {
+          wx.reLaunch({
+            url: `${RECRUITER}user/company/apply/apply`
+          })
+        } else {
+          wx.reLaunch({
+            url: `${RECRUITER}index/index`
+          })
+        }
       }
+      
+      
     }
   },
   // 收集formId

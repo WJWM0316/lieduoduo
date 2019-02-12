@@ -102,6 +102,9 @@ Page({
       app.globalData.resumeInfo = res.data
       wx.stopPullDownRefresh()
       this.setData({hasReFresh: false, myInfo: res.data})
+    }).catch(e => {
+      this.setData({hasReFresh: false})
+      wx.stopPullDownRefresh()
     })
   },
   onShareAppMessage(options) {

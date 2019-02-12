@@ -39,6 +39,13 @@ Page({
     cdnImagePath: app.globalData.cdnImagePath
   },
   onShow() {
+    const positionList = {
+      list: [],
+      pageNum: 1,
+      isLastPage: false,
+      isRequire: false
+    }
+    this.setData({positionList})
     if (app.loginInit) {
       this.getPositionList()
       this.getCityLabel()
@@ -143,7 +150,7 @@ Page({
   reloadPositionLists(hasLoading = true) {
     const positionList = {list: [], pageNum: 1, isLastPage: false, isRequire: false}
     this.setData({positionList, hasReFresh: true})
-    this.getPositionList()
+    return this.getPositionList()
         .then(res => {
           const positionList = {list: [], pageNum: 1, isLastPage: false, isRequire: false}
           const onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
@@ -161,7 +168,11 @@ Page({
    * @return   {[type]}              [description]
    */
   onPullDownRefresh() {
-    this.reloadPositionLists()
+    this.reloadPositionLists().then(res => {
+      wx.stopPullDownRefresh()
+    }).catch(e => {
+      wx.stopPullDownRefresh()
+    })
   },
   /**
    * @Author   小书包

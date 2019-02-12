@@ -9,7 +9,7 @@
 		<image class="bgImg" src="{{cdnImagePath}}company_banner.png" mode="aspectFill"></image>
 		<view class="box">
 			<view class="company-logo">
-				<image class="bgImg" src="{{companyInfos.logoInfo.url}}" mode="aspectFill"></image>
+				<image class="bgImg" src="{{companyInfos.logoInfo.smallUrl}}" mode="aspectFit"></image>
 			</view>
 			<view class="title">{{companyInfos.companyShortname}}</view>
 			<view class="infos">{{companyInfos.industry}} | {{companyInfos.financingInfo}} | {{companyInfos.employeesInfo}}</view>

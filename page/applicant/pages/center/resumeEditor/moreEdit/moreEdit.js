@@ -50,11 +50,26 @@ Page({
     })
   },
   // 编辑自我介绍
-  WriteContent (e) {
-    if (e.detail.value === ' ') return
-    this.data.introduce = e.detail.value
-    this.setData({
-      introduce: e.detail.value
+  writeContent (e) {
+    if (e.detail.value === ' ') {
+      this.setData({
+        introduce: ''
+      })
+    } else {
+      this.setData({
+        introduce: e.detail.value
+      })
+    }
+  },
+  previewImg(e) {
+    let imgList = this.data.imgList
+    let list = []
+    imgList.map((item) => {
+      list.push(item.url)
+    })
+    wx.previewImage({
+      current: e.currentTarget.dataset.src, // 当前显示图片的http链接
+      urls: list // 需要预览的图片http链接列表
     })
   },
   // 编辑保存

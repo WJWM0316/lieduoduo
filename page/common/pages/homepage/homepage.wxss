@@ -10,7 +10,7 @@
   position: fixed;
   left: 0rpx;
   right: 0rpx;
-  z-index: 9;
+  z-index: 3;
   background-color: #F5F4F7;
 }
 

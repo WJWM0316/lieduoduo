@@ -135,6 +135,8 @@ Page({
           positionList.pageNum = 2
           positionList.isRequire = true
           this.setData({positionList, onBottomStatus, hasReFresh: false}, () => wx.stopPullDownRefresh())
+        }).catch(e => {
+          wx.stopPullDownRefresh()
         })
   },
   /**

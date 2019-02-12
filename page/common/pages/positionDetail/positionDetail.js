@@ -181,6 +181,8 @@ Page({
     this.getPositionDetail().then(res => {
       this.setData({hasReFresh: false})
       wx.stopPullDownRefresh()
+    }).catch(e => {
+      wx.stopPullDownRefresh()
     })
   },
 

@@ -57,7 +57,9 @@ Page({
             wx.stopPullDownRefresh()
             this.setData({hasReFresh: false})
           })
-        })
+        }).catch(e => {
+        wx.stopPullDownRefresh()
+      })
   },
   /**
    * @Author   小书包

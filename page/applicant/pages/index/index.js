@@ -69,15 +69,32 @@ Page({
     }
   },
   onShow() {
+    const myBrowse = {
+      list: [],
+      pageNum: 1,
+      isLastPage: false,
+      isRequire: false
+    }
+    const myCollect = {
+      list: [],
+      pageNum: 1,
+      isLastPage: false,
+      isRequire: false
+    }
+    const commonList = {
+      list: [],
+      pageNum: 1,
+      isLastPage: false,
+      isRequire: false
+    }
+    this.setData({myBrowse, myCollect, commonList})
     if (app.loginInit) {
       this.getLists()
       this.getAvartList()
     } else {
       app.loginInit = () => {
-        if (app.globalData.identity === 'APPLICANT') {
-          this.getLists()
-          this.getAvartList()
-        }
+        this.getLists()
+        this.getAvartList()
       }
     }
   },
@@ -222,6 +239,8 @@ Page({
           value.pageNum = 1
           value.isRequire = true
           this.setData({[key]: value, onBottomStatus, hasReFresh: false}, () => wx.stopPullDownRefresh())
+        }).catch(e => {
+          wx.stopPullDownRefresh()
         })
   },
   /**

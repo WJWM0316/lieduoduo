@@ -27,7 +27,8 @@
   height: 164rpx;
   border-radius: 50%;
   overflow: hidden;
-  background: #BCBCBC;
+  background: #BCBCBC url('https://lieduoduo-uploads-test.oss-cn-shenzhen.aliyuncs.com/front-assets/images/pic_dafult_head.png');
+  background-size: 100% 100%;
 }
 
 .mine .floating-box .content {
