@@ -174,3 +174,12 @@
   font-weight: 700;
   color: #652791;
 }
+
+.waiting{
+  font-size: 28rpx;
+  font-weight: 400;
+  color: #626262;
+  border-top: 1rpx dashed #BACED8;
+  text-align: center;
+  width: 100%;
+}
