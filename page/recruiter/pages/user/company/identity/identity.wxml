@@ -1,6 +1,6 @@
 <view class="company-identity">
 	<navbar title="填写身份信息" background="#FFFFFF" color="#22292C"></navbar>
-	<view class="warning"><i class="icon iconfont icon-zhongxinshangchuan"></i>请确保上传的公司信息真实有效，有助审核通过</view>
+	<view class="warning"><i class="icon iconfont icon-tixing"></i> 填写本人真实信息，才能通过身份审核</view>
 	<view bindsubmit="submit">
 	  <view class="input-li">
 	    <view class="key">真实姓名</view>
@@ -12,7 +12,17 @@
 	  </view>
 	  <view class="input-li clear-bottom">
 	    <view class="key">有效期</view>
-	    <picker class="value" mode = 'date' bindchange="choseDate" value="{{validity || 0}}">{{!validity  ? validityTxt : validity}}</picker>
+	    <view class="time-zone">
+		    <view class="start-time">
+		    	<picker class="value" mode = 'date' bindchange="getStartDate" value="{{validity_start}}">{{!validity_start  ? '请选择' : validity_start}}</picker>
+		    	<i class="icon iconfont icon-zhishibiao"></i>
+		    </view>
+		     至 
+		    <view class="end-time">
+		    	<picker class="value" mode = 'date' bindchange="getEndDate" value="{{validity_end}}">{{!validity_end  ? '请选择' : validity_end}}</picker>
+		    	<i class="icon iconfont icon-zhishibiao"></i>
+		    </view>
+		  </view>
 	  </view>
 	  <view class="upload-li">
 	  	<view class="text">

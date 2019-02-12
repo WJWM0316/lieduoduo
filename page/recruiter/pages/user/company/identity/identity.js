@@ -10,8 +10,6 @@ Page({
   data: {
     real_name: '',
     identity_num: '',
-    validity: 0,
-    validityTxt: '请填写身份证背面有效期',
     passport_front: {
       smallUrl: ''
     },
@@ -24,6 +22,8 @@ Page({
     cdnImagePath: app.globalData.cdnImagePath,
     canClick: false,
     options: {},
+    validity_start: '',
+    validity_end: '',
     applyJoin: false
   },
   onLoad(options) {
@@ -50,6 +50,8 @@ Page({
       formData.passport_reverse = infos.passportReverseInfo.smallUrl ? infos.passportReverseInfo : data.passport_reverse
       formData.handheld_passport = infos.handheldPassportInfo.smallUrl ? infos.handheldPassportInfo : data.handheld_passport
       formData.applyJoin = res.data.applyJoin
+      formData.validity_start = infos.validityStart
+      formData.validity_end = infos.validityEnd
       formData.options = options
       Object.keys(formData).map(field => this.setData({[field]: formData[field]}))
       this.bindBtnStatus()
@@ -62,7 +64,7 @@ Page({
    * @return   {[type]}   [description]
    */
   bindBtnStatus() {
-    const bindKeys = ['real_name', 'identity_num', 'validity']
+    const bindKeys = ['real_name', 'identity_num', 'validity_start', 'validity_end']
     let canClick = bindKeys.every(field => this.data[field])
     let hasUploadImage =
       canClick
@@ -77,9 +79,33 @@ Page({
    * @detail   日期选择
    * @return   {[type]}     [description]
    */
-  choseDate(e) {
-    this.setData({validity: e.detail.value})
+  getStartDate(e) {
+    const validity_start = e.detail.value.replace(/-/g, '.')
+    this.setData({validity_start})
     this.bindBtnStatus()
+  },
+  /**
+   * @Author   小书包
+   * @DateTime 2018-12-20
+   * @detail   日期选择
+   * @return   {[type]}     [description]
+   */
+  getEndDate(e) {
+    const startTime = this.data.validity_start
+    const timestamp1 = Date.parse(startTime)
+    const timestamp2 = Date.parse(e.detail.value)
+    const validity_end = e.detail.value.replace(/-/g, '.')
+    if(!startTime) {
+      app.wxToast({title: '请选择开始时间'})
+      return
+    }
+    // 结束时间必须大于开始时间
+    if(timestamp2 - timestamp1 > 0) {
+      this.setData({validity_end})
+      this.bindBtnStatus()
+    } else {
+      app.wxToast({title: '结束时间必须大于开始时间'})
+    }
   },
   /**
    * @Author   小书包
@@ -124,7 +150,8 @@ Page({
     formData.passport_front = this.data.passport_front.id
     formData.passport_reverse = this.data.passport_reverse.id
     formData.handheld_passport = this.data.handheld_passport.id
-    if(this.data.validity) formData.validity = this.data.validity
+    formData.validity_end = this.data.validity_end.replace(/-/g, '.')
+    formData.validity_start = this.data.validity_start.replace(/-/g, '.')
     return formData
   },
   /**
