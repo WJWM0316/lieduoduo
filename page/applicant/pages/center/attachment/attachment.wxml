@@ -22,10 +22,10 @@
 	<view class="attach-box" wx:else>
 		<view class="item" bindtap="preview">
 			<view class="img-box">
-				<image class="img" mode="aspectFill" src="{{filter.fileFormat(attachResume.extension)}}"></image>
+				<image class="img" mode="aspectFill" src="{{filter.fileFormat(attachResume.url)}}"></image>
 			</view>
 			<view class="content">
-				<view class="filename"><text>{{attachResume.attachName}}</text></view>
+				<view class="filename">{{attachResume.attachName}}</view>
 				<view class="date">{{attachResume.createdAt}}</view>
 			</view>
 			<i class="icon iconfont icon-xiangyou"></i>

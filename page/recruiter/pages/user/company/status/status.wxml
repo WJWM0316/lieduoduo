@@ -1,6 +1,9 @@
+<!-- 加载过滤器 -->
+<wxs src="../../../../../../utils/filters.wxs" module="filters" />
+
 <view class="company-identity-status">
 	<navbar title="{{pageTitle}}" background="#FFFFFF" color="#22292C"></navbar>
-	
+
 	<!-- 公司认证 start -->
 	<view class="header" wx:if="{{options.from === 'company'}}">
 		<image src="{{cdnImagePath}}pic_await.png" mode="scaleToFill" class="default-status"></image>
@@ -15,7 +18,8 @@
 			<view class="p2">请重新提交资料，完成公司创建</view>
 			<view class="h2">公司认证审核未通过的原因如下</view>
 			<view class="reation" wx:if="{{companyInfos.reviewNote}}">
-				<text>{{companyInfos.reviewNote}}</text>
+				<text wx:if="{{companyInfos.reviewNote}}">{{companyInfos.reviewNote}}</text>
+				<text wx:if="{{identityInfos.reviewNote}}">{{identityInfos.reviewNote}}</text>
 			</view>
 		</block>
 
@@ -139,11 +143,11 @@
 				</view>
 				<view class="li">
 					<view class="key">身份证号</view>
-					<view class="value">{{identityInfos.identityNum}}</view>
+					<view class="value">{{filters.encryptId(identityInfos.identityNum, 1, 1)}}</view>
 				</view>
-				<view class="li">
+				<view class="li" wx:if="{{identityInfos.validityStart}}">
 					<view class="key">身份证有效期</view>
-					<view class="value">{{identityInfos.validity}}</view>
+					<view class="value">{{identityInfos.validityStart}} - {{identityInfos.validityEnd}}</view>
 				</view>
 				<view class="li">
 					<view class="key">认证资料</view>

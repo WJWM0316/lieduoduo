@@ -110,6 +110,7 @@
   flex-wrap: nowrap;
   font-size: 24rpx;
   font-weight: 300;
+  color: #929292;
 }
 .ranking .left .bottom .value{
   margin-left: 10rpx;

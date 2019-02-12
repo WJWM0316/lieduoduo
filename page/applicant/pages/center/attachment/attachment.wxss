@@ -140,11 +140,8 @@
 	font-size:28rpx;
 	font-weight:500;
 	color:rgba(40,40,40,1);
-	line-height: 1;
+	line-height: 36rpx;
 	margin-bottom: 10rpx;
-}
-
-.attachment text {
 	max-width:450rpx;
 	overflow: hidden;
 	text-overflow: ellipsis;

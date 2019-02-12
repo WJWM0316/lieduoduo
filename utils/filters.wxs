@@ -134,8 +134,9 @@ var mobileFormat = function(mobile, type) {
 }
 
 // 文件后缀
-var fileFormat = function(ext) {
+var fileFormat = function(url) {
   var defaultSrc = null
+  var ext = url.split('.')[url.split('.').length - 1]
   switch(ext) {
     case 'xls':
       defaultSrc = 'https://lieduoduo-uploads-test.oss-cn-shenzhen.aliyuncs.com/front-assets/images/icon_document_excel@3x.png'
@@ -164,6 +165,9 @@ var fileFormat = function(ext) {
     case 'jpg':
       defaultSrc = 'https://lieduoduo-uploads-test.oss-cn-shenzhen.aliyuncs.com/front-assets/images/icon_document_jpg@3x.png'
       break
+    case 'jpeg':
+      defaultSrc = 'https://lieduoduo-uploads-test.oss-cn-shenzhen.aliyuncs.com/front-assets/images/icon_document_jpg@3x.png'
+      break
     case 'txt':
       defaultSrc = 'https://lieduoduo-uploads-test.oss-cn-shenzhen.aliyuncs.com/front-assets/images/icon_document_txt@3x.png'
       break
@@ -173,10 +177,21 @@ var fileFormat = function(ext) {
   return defaultSrc
 }
 
+// 加密身份证
+var encryptId = function(str, frontLen, endLen) {
+  var len = str.length - frontLen - endLen;
+  var xing = '';
+  for (var i = 0; i < len; i++) {
+    xing += '*';
+  }
+  return str.substring(0, frontLen) + xing + str.substring(str.length - endLen);
+}
+
 module.exports = {
   dateFormat: dateFormat,
   activeTime: activeTime,
   mobileFormat: mobileFormat,
   positionFilter: positionFilter,
-  fileFormat: fileFormat
+  fileFormat: fileFormat,
+  encryptId: encryptId
 }

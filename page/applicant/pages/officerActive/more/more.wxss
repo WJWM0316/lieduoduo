@@ -1,7 +1,7 @@
 .more{
   width: 100%;
   min-height: 100vh;
-  background: #E5EEFF;
+  background: #EFE9F4;
 }
 .more .scrollView{
   height: 82vh;/*82vh*/
@@ -110,8 +110,8 @@
   align-items: flex-end;
   justify-content: center;
   padding-bottom: 61rpx;
-  background: url('https://attach.lieduoduo.ziwork.com/images/topicBg.png') no-repeat;
-  background-color: #E5EEFF;
+  background: url('https://lieduoduo-uploads-test.oss-cn-shenzhen.aliyuncs.com/front-assets/images/topicBg.png') no-repeat;
+  background-color: #EFE9F4;
   background-size: 100% 100%;
 }
 /* 前3名样式 */

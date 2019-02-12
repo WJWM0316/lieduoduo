@@ -125,6 +125,7 @@ Page({
         formData.work_experience_name = infos.workExperienceName
         formData.lng = infos.lng
         formData.lat = infos.lat
+        formData.address_id = infos.addressId
         formData.parentType = infos.skillsLabel.length ? infos.skillsLabel[0].topPid : ''
         Object.keys(formData).map(field => this.setData({[field]: formData[field]}))
       })
@@ -215,7 +216,6 @@ Page({
       'position_name',
       'company_id',
       'type',
-      'address',
       'area_id',
       'address',
       'labels',
@@ -243,7 +243,60 @@ Page({
     } else {
       delete formData.address_id
     }
-    this[action](formData)
+
+    // 验证职位名称是否已经完善
+    const positionName = new Promise((resolve, reject) => {
+      !this.data.position_name ? reject('请填写职位名称') : resolve()
+    })
+
+    // 验证职位类型是否已经选择
+    const positionType = new Promise((resolve, reject) => {
+      !this.data.type ? reject('请选择职位类别') : resolve()
+    })
+
+    // 验证地址是否已经选择
+    const positionAddress = new Promise((resolve, reject) => {
+      !this.data.address_id ? reject('请选择地址') : resolve()
+    })
+
+    // 验证技能是否已经选择
+    const positionSkills = new Promise((resolve, reject) => {
+      !this.data.skills.length ? reject('请选择技能要求') : resolve()
+    })
+
+    // 验证薪资是否已经选择
+    const positionEmolument = new Promise((resolve, reject) => {
+      !this.data.emolument_min ? reject('请选择薪资范围') : resolve()
+    })
+
+    // 验证经验是否已经选择
+    const positionExperience = new Promise((resolve, reject) => {
+      !this.data.emolument_min ? reject('请选择经验要求') : resolve()
+    })
+
+    // 验证学历是否已经选择
+    const positionEducation = new Promise((resolve, reject) => {
+      !this.data.emolument_min ? reject('请选择学历要求') : resolve()
+    })
+
+    // 验证职位描述是否已经完善
+    const positionDescribe = new Promise((resolve, reject) => {
+      !this.data.emolument_min ? reject('请填写职位描述') : resolve()
+    })
+
+    Promise.all([
+      positionName, 
+      positionType, 
+      positionAddress,
+      positionSkills,
+      positionEmolument,
+      positionExperience,
+      positionEducation,
+      positionDescribe
+    ]).then(res => {
+      this[action](formData)
+    })
+    .catch(err => app.wxToast({title: err}))
   },
   /**
    * @Author   小书包
