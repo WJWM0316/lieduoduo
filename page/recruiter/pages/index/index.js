@@ -76,6 +76,27 @@ Page({
       })
     }
   },
+  onShow() {
+    const browseMySelf = {
+      list: [],
+      pageNum: 1,
+      isLastPage: false,
+      isRequire: false
+    }
+    const collectMySelf = {
+      list: [],
+      pageNum: 1,
+      isLastPage: false,
+      isRequire: false
+    }
+    const collectUsers = {
+      list: [],
+      pageNum: 1,
+      isLastPage: false,
+      isRequire: false
+    }
+    this.setData({browseMySelf, collectUsers, collectMySelf})
+  },
   /**
    * @Author   小书包
    * @DateTime 2019-01-21

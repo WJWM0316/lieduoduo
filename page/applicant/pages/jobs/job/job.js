@@ -39,6 +39,13 @@ Page({
     cdnImagePath: app.globalData.cdnImagePath
   },
   onShow() {
+    const positionList = {
+      list: [],
+      pageNum: 1,
+      isLastPage: false,
+      isRequire: false
+    }
+    this.setData({positionList})
     if (app.loginInit) {
       this.getPositionList()
       this.getCityLabel()
