@@ -9,7 +9,7 @@
     </view>
   </view>
   <view class="imgBox">
-    <image class="commont img" mode="aspectFill" bindtap="previewImg" data-src="{{item.url}}" wx:for="{{imgList}}" wx:key="{{item}}" src="{{item.smallUrl}}" wx:if="{{index<20}}"><view class="close" data-imgIndex="{{index}}" bindtap="delImg"><i class="icon iconfont icon-close"></i></view></image>
+    <image class="commont img" mode="aspectFill" bindtap="previewImg" data-src="{{item.url}}" wx:for="{{imgList}}" wx:key="{{item}}" src="{{item.smallUrl}}" wx:if="{{index<20}}"><view class="close" data-imgIndex="{{index}}" catchtap="delImg"><i class="icon iconfont icon-close"></i></view></image>
     <unloadFile class="commont addImg" bindresultEvent="getResult" unloadType="img" number="{{limitNum}}" wx:if="{{imgList.length<20}}">
       <view class="add"><i class="icon iconfont icon-jiahao"></i></view>
     </unloadFile> 
