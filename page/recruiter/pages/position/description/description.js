@@ -1,17 +1,17 @@
 import {RECRUITER} from '../../../../../config.js'
-
+import {othersPositionTxtB} from '../../../../../utils/randomCopy.js'
 const app = getApp()
 
 Page({
 	data: {
 		describe: '',
     canClick: false,
-    index: 1,
-    show: false
+    randomCopy: {}
 	},
 	onLoad(options) {
     const storage = wx.getStorageSync('createPosition')
     if(storage.describe) this.setData({ describe: storage.describe, canClick: true })
+    this.setData({randomCopy: othersPositionTxtB()})
 	},
   /**
    * @Author   小书包
@@ -63,8 +63,7 @@ Page({
     wx.navigateBack({delta: 1})
   },
   next() {
-    const index = Math.floor(Math.random() * 10 )
-    this.setData({index})
+    this.setData({randomCopy: othersPositionTxtB()})
   },
   view() {
     this.setData({show: !this.data.show})

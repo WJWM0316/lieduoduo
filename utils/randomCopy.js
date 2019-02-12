@@ -1,4 +1,6 @@
 
+const cdnImagePath = 'https://lieduoduo-uploads-test.oss-cn-shenzhen.aliyuncs.com/front-assets/images/'
+
 // 底部栏开撩文案
 
 // 【C端】
@@ -33,38 +35,46 @@ export const agreedTxtB= (res) => {
 // B端“看看别人怎么写”的文案
 
 // 个人简介
+let othersBriefTxtBIndex = null
 export const othersBriefTxtB= (res) => {
 	let txtList = [
 		{
+			icon: `${cdnImagePath}nanpic.png`,
 			name: '有赞',
 			txt: 	'白鸦是中国最早的用户体验设计师之一，在创立有赞之前，曾担任支付宝首席产品设计师、百度产品设计师，有着丰富的在线支付、企业服务、电子商务、互联网社区、搜索等各互联网领域经验。'
 		},
 		{
+			icon: `${cdnImagePath}nanpic.png`,
 			name: '要出发',
 			txt: 	'丁根芳本、硕、博均毕业于合肥工业大学，获工学博士学位。2000年在校读博期间，创立“给排水在线网”，担任CEO。2004年“给排水在线网”被网易收购，成为“土木工程”事业部，04年至08年期间担任总监，一手打造出中国最大的建筑工程网站。此后两年，热爱创业的丁根芳离开网易，凭借一腔热情，不断的尝试互联网新模式新思路，2010年成功创立要出发周边游。'
 		},
 		{
+			icon: `${cdnImagePath}nanpic.png`,
 			name: '小米',
 			txt: 	'雷军1992年参与创办金山软件，1998年出任金山软件CEO。1999年创办了卓越网。 2007年，金山软件上市后，雷军卸任金山软件总裁兼CEO职务，担任副董事长。 之后几年，雷军作为天使投资人，投资了凡客诚品、多玩、优视科技等多家创新型企业。 2011年7月，雷军重返金山软件，任金山软件公司董事长。 2010年4月6日，雷军选择重新创业，建立了小米公司。'
 		},
 		{
+			icon: `${cdnImagePath}nanpic.png`,
 			name: '字节跳动',
 			txt: 	'创始人兼CEO张一鸣毕业于南开大学软件工程学院；2006年加入旅游信息搜索公司“酷讯”，曾任“酷讯”技术委员会主席；2009年创立房产信息搜索公司“九九房”；2012年创立“字节跳动”公司并担任CEO。张一鸣与今日头条团队的愿景是成为“最懂你的信息平台，连接人与信息，促进创作和交流。”'
 		}
 	]
 	let random = Math.floor((Math.random()*txtList.length))
-	let nextOne = () => {
+	if (random === othersBriefTxtBIndex) {
 		random++
-		if (random > txtList.length - 1) random = 0
-		return txtList[random]
+		if(random > txtList.length - 1) random = 0
+	} else {
+		othersBriefTxtBIndex = random
 	}
 	return txtList[random]
 }
 
 // 职位描述
+let othersPositionTxtBIndex = null
 export const othersPositionTxtB= (res) => {
 	let txtList = [
 		{
+			icon: `${cdnImagePath}nvpic.png`,
 			name: '总经理助理/秘书',
 			txt: `岗位职责：
 					 1、负责公文、会议纪要、工作报告等起草及日常文秘、信息报送工作；
@@ -82,6 +92,7 @@ export const othersPositionTxtB= (res) => {
 					 7、有亲和力。`
 		},
 		{
+			icon: `${cdnImagePath}nanpic.png`,
 			name: 'java工程师',
 			txt:  `岗位职责：
 						1.负责软件需求设计、详细设计、编码、单元测试等开发活动；
@@ -100,6 +111,7 @@ export const othersPositionTxtB= (res) => {
 						7.全日制本科及以上学历，计算机、电子、软件、通讯相关专业毕业。`
 		},
 		{
+			icon: `${cdnImagePath}nanpic.png`,
 			name: '产品经理',
 			txt: `岗位职责：
 						1、负责产品的设计/规划，开发计划的跟进，产品上线并对整体用户体验负责；
@@ -114,6 +126,7 @@ export const othersPositionTxtB= (res) => {
 						4、注重用户体验，能将用户需求转化成产品需求。`
 		},
 		{
+			icon: `${cdnImagePath}nvpic.png`,
 			name: 'UI设计师',
 			txt: `岗位职责：
 						1、负责公司产品的UI设计工作(含Web/App)； 
@@ -129,6 +142,7 @@ export const othersPositionTxtB= (res) => {
 						6、精通 Photoshop、AI 、Sketch、AE、Princisple等视觉交互设计软件。`
 		},
 		{
+			icon: `${cdnImagePath}nvpic.png`,
 			name: '运营专员',
 			txt: `岗位职责：
 						1、熟悉部门现有产品及现有客户基本信息和状况，做好客户关系维系；
@@ -141,6 +155,7 @@ export const othersPositionTxtB= (res) => {
 						3、具有良好的综合素质和培养潜力，有志于在本行业长期发展。`
 		},
 		{
+			icon: `${cdnImagePath}nanpic.png`,
 			name: '销售专员',
 			txt: `岗位职责：
 						1、以电话沟通的形式初步筛选客户，为客户提供专业的网络营销策划方案并与客户建立长期合作;
@@ -155,10 +170,11 @@ export const othersPositionTxtB= (res) => {
 		}
 	]
 	let random = Math.floor((Math.random()*txtList.length))
-	let nextOne = () => {
+	if (random === othersPositionTxtBIndex) {
 		random++
-		if (random > txtList.length - 1) random = 0
-		return txtList[random]
+		if(random > txtList.length - 1) random = 0
+	} else {
+		othersPositionTxtBIndex = random
 	}
 	return txtList[random]
 }
