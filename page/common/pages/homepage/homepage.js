@@ -53,7 +53,18 @@ Page({
     // pageCount: app.globalData.pageCount,
     pageCount: 4,
     hasReFresh: false,
-    onBottomStatus: 0
+    onBottomStatus: 0,
+    // 招聘官个性文案
+    recruiterWords: [
+      '工作易得，知音难觅，壮士约乎？',
+      '我不想懂天文地理，我只想懂你~',
+      '公司的进口零食得找个人清一清了',
+      '我看你骨骼精奇，是块耐磨的料子',
+      '好看的和能干的，都欢迎来开撩哦',
+      '把握住缘分，搞不好能成为同事~',
+      '我这么Nice的招聘官已经不多见了！'
+    ],
+    wordIndex: 0
   },
   onLoad(options) {
     this.setData({query: options})
@@ -220,7 +231,8 @@ Page({
   getRecruitersList() {
     getRecruitersListApi({id: this.data.query.companyId, page: 1, count: 3})
       .then(res => {
-        this.setData({recruitersList: res.data})
+        const wordIndex = Math.floor(Math.random()*8)
+        this.setData({recruitersList: res.data, wordIndex})
       })
   },
   /**

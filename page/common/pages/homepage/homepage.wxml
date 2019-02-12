@@ -51,7 +51,7 @@
 							<view class="recruitment-number" wx:if="{{companyInfos.recruiterInfo.positionNum}}">{{recruiter.positionNum}} 个在招职位</view>
 						</view>
 						<view class="row-two">{{recruiter.position}}</view>
-						<view class="row-three" wx:if="{{recruiter.signature}}">{{recruiter.signature}}</view>
+						<view class="row-three">{{recruiter.signature || recruiterWords[wordIndex]}}</view>
 					</view>
 				</view>
 			</view>
