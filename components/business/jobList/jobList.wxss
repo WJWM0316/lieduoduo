@@ -22,6 +22,9 @@
   font-weight:600;
   color: #354048;
 }
+.li .name .title {
+  line-height: 36rpx;
+}
 .li .name .salary{
   color: #FF7F4C;
   font-weight:bold;

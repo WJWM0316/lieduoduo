@@ -10,6 +10,18 @@
 	 		<view class="number">{{content.length || 0}}/5000</view>
 	 	</view>
 	 </view>
+	 <block>
+			<view class="example">
+				<view class="infos">
+					<image class="img-box" src="{{randomCopy.icon}}" mode="aspectFill"></image>
+					<view class="degress">{{randomCopy.name}}</view>
+				</view>
+				<view class="change" bindtap="next"><i class="icon iconfont icon-huanyihuan"></i>换一个</view>
+			</view>
+			<view class="floating-box">
+				<text>{{randomCopy.txt}}</text>
+			</view>
+		</block>
 	 <view class="btnBox">
 	 		<button class="btn" bindtap="saveInfo">保存</button>
 	 </view>

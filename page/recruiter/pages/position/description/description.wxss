@@ -1,5 +1,7 @@
 @import '../../../../../iconfont.wxss';
-
+.position-description {
+	padding-bottom: 170rpx;
+}
 .position-description .tips {
 	height:72rpx;
 	line-height: 72rpx;
@@ -142,6 +144,16 @@
   content: '';
 }
 
+.btn-area {
+	width: 100%;
+	padding: 30rpx 100rpx;
+	background: #fff;
+	box-shadow:0rpx -1rpx 0rpx 0rpx rgba(206,215,220,1);
+	box-sizing: border-box;
+	position: fixed;
+	left: 0;
+	bottom: 0;
+}
 .position-description .button-submit {
 	height:88rpx;
 	background:rgba(245,244,247,1);
@@ -151,7 +163,6 @@
 	color:rgba(205,203,207,1);
 	text-align: center;
 	line-height: 88rpx;
-	margin: 100rpx;
 }
 
 .position-description .button-enable {

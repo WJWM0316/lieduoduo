@@ -1,4 +1,6 @@
 import {setBriefApi} from '../../../../../api/pages/recruiter.js'
+import {othersBriefTxtB} from '../../../../../utils/randomCopy.js'
+
 let app = getApp()
 Page({
 
@@ -6,7 +8,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-    content: ""
+    content: "",
+    randomCopy: {}
   },
   changeVal(e) {
     this.setData({
@@ -29,6 +32,9 @@ Page({
         delta: 1
       })
     }
+  },
+  next() {
+    this.setData({randomCopy: othersBriefTxtB()})
   },
   saveInfo() {
     if (this.data.content && this.data.content.length < 6) {
@@ -56,7 +62,7 @@ Page({
    */
   onLoad: function (options) {
     let content = app.globalData.recruiterDetails.brief
-    this.setData({content})
+    this.setData({content, randomCopy: othersBriefTxtB()})
   },
 
   /**

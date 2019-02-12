@@ -188,13 +188,13 @@ Page({
     ctx.setFontSize(28)
     ctx.setFillStyle('#282828')
     if (ctx.measureText(info.describe).width > 590) {
+      let iIndex = 0 // 最后一行的第一个字的索引
       for (let i = 0; i < info.describe.length; i++) {
         descString = descString + info.describe[i]
         descWidth = ctx.measureText(descString).width
         if (!info.describe) info.describe = '你还未填写职位详情，快去填写吧~'
         info.describe = info.describe.replace(/[\r\n]/g, "")
         if (descWidth > 590) {
-          let iIndex = 0 // 最后一行的第一个字的索引
           ctx.drawImage('../../../../../images/c2.png', 0, curHeight, 750, 48)
           ctx.fillText(descString.slice(0, descString.length-1), 80, curHeight)
           descString = ''

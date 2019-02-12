@@ -198,6 +198,7 @@ App({
           }
           pageUrl = `${pageUrl}?${params}`
           data.code = wx.getStorageSync('code')
+          console.log(2222)
           loginApi(data).then(res => {
             wx.removeStorageSync('code')
             // 有token说明已经绑定过用户了
