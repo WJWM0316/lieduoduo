@@ -3,6 +3,7 @@ import {
   getMyBrowseUsersApi,
   getCollectMySelfApi
 } from '../../../../../api/pages/active'
+import { APPLICANT } from '../../../../../config.js'
 
 const app = getApp()
 
@@ -149,5 +150,10 @@ Page({
     if (!value.isLastPage) {
       this.getLists(false).then(() => this.setData({onBottomStatus: 1}))
     }
+  },
+  
+  jump () {
+    wx.navigateTo({url: `${APPLICANT}officerActive/more/more`})
+//  console.log('page/applicant/pages/officerActive/more/more')
   }
 })

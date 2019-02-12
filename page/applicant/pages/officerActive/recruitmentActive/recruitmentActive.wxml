@@ -19,5 +19,6 @@
   	<commonList iconfont1="more" list="{{interestList.list}}" showFooter="{{false}}" dotType="circle"></commonList>
   	<bottomStatus status="{{offBottomStatus}}"></bottomStatus>
   </view>
-
+  <bottomStatus wx:if="{{active === 'interestList'}}" status="2" listData="{{interestList.list}}" desc="还没有招聘官对我感兴趣～"><button class="jump" bindtap="jump">发现更多招聘官</button></bottomStatus>
+  <bottomStatus wx:if="{{active === 'watchedList'}}" status="2" listData="{{watchedList.list}}" desc="还没有招聘官看过我～"><button class="jump" bindtap="jump">发现更多招聘官</button></bottomStatus>
 </view>
