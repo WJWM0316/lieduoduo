@@ -93,10 +93,8 @@ Page({
       this.getAvartList()
     } else {
       app.loginInit = () => {
-        if (app.globalData.identity === 'APPLICANT') {
-          this.getLists()
-          this.getAvartList()
-        }
+        this.getLists()
+        this.getAvartList()
       }
     }
   },

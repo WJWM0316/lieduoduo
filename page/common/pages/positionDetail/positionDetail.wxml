@@ -13,7 +13,7 @@
 					<view class="position-salary">{{detail.emolumentMin}}k-{{detail.emolumentMax}}k</view>
 				</view>
 				<view class="img-box">
-					<image mode="aspectFill" src="{{detail.companyInfo.logoInfo.smallUrl}}"></image>
+					<image mode="aspectFit" src="{{detail.companyInfo.logoInfo.smallUrl}}"></image>
 				</view>
 			</view>
 			<view class="infos">
@@ -47,7 +47,7 @@
 		</view>
 		<view class="tab-company-homepage" data-type="about" bindtap="todoAction">
 			<view class="left">
-				<view class="img-box"><image mode="aspectFill" src="{{detail.companyInfo.logoInfo.smallUrl}}" mode="aspectFill"></image></view>
+				<view class="img-box"><image mode="aspectFill" src="{{detail.companyInfo.logoInfo.smallUrl}}" mode="aspectFit"></image></view>
 			</view>
 			<view class="content">
 				<view class="company-name">{{detail.companyInfo.companyShortname}}</view>

@@ -78,8 +78,13 @@ Page({
   },
   singInput(e) {
     let info = this.data.info
-    info.signature = e.detail.value
-    this.setData({info})
+    if (e.detail.value === ' ') {
+      info.signature = ''
+      this.setData({info})
+    } else {
+      info.signature = e.detail.value
+      this.setData({info})
+    }
   },
   saveInfo() {
     let info = this.data.info

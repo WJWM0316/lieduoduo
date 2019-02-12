@@ -41,15 +41,6 @@ Page({
     hasReFresh: false,
     onBottomStatus: 0
   },
-  onShow() {
-    if (app.loginInit) {
-      this.getLists()
-    } else {
-      app.loginInit = () => {
-        this.getLists()
-      }
-    }
-  },
   onLoad() {
     let choseType = wx.getStorageSync('choseType') || ''
     this.setData({choseType})
@@ -96,6 +87,13 @@ Page({
       isRequire: false
     }
     this.setData({browseMySelf, collectUsers, collectMySelf})
+    if (app.loginInit) {
+      this.getLists()
+    } else {
+      app.loginInit = () => {
+        this.getLists()
+      }
+    }
   },
   /**
    * @Author   小书包

@@ -70,7 +70,6 @@ App({
             that.loginInit()
           }
           that.loginInit = function () {}
-
         })
       },
       fail: function (e) {
