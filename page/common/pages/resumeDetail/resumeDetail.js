@@ -129,7 +129,7 @@ Page({
     if (!this.data.info.interested) {
       getMyCollectUserApi(data).then(res => {
         app.wxToast({
-          title: '收藏成功',
+          title: '已标记感兴趣',
           icon: 'success'
         })
         let info = this.data.info
@@ -139,7 +139,7 @@ Page({
     } else {
       deleteMyCollectUserApi(data).then(res => {
         app.wxToast({
-          title: '取消收藏',
+          title: '取消标记感兴趣',
           icon: 'success'
         })
         let info = this.data.info

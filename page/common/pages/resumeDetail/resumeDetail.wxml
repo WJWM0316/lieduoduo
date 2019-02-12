@@ -28,9 +28,8 @@
     <view class="experience">
       <view class="time"><i class="icon iconfont icon-zhiwei"></i> {{info.workAgeDesc}}</view>
       <view class="age" wx:if="{{info.age}}"><i class="icon iconfont icon-nianling"></i> {{info.age}}岁</view>
-      <view class="age" wx:else><i class="icon iconfont icon-nianling"></i> 待完善</view>
       <view class="education"> <i class="icon iconfont icon-xueli"></i> {{info.degreeDesc}}</view>
-      <view class="status">{{info.jobStatusDesc || "待完善"}}</view>
+      <view class="status" wx:if="{{info.jobStatusDesc}}">{{info.jobStatusDesc}}</view>
     </view>
     <block wx:if="{{info.signature}}">
       <image class="line" src="{{cdnImagePath}}line.png"></image>

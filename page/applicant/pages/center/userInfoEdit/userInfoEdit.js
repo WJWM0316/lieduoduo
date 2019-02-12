@@ -26,7 +26,9 @@ Page({
     })
   },
   radioChange(e) {
-    this.setData({gender: parseInt(e.detail.value)})
+    let info = this.data.info
+    info.gender = parseInt(e.detail.value)
+    this.setData({info})
   },
   getResult(e) {
     let info = this.data.info

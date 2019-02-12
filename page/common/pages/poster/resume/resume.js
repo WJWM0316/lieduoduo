@@ -331,7 +331,7 @@ Page({
       ctx.setFontSize(24)
 
       item.technicalLabels.map((item, index) => {
-        addTeamLabel(item, index)
+        addTeamLabel(item.labelName, index)
       })
 
       function addTeamLabel(n, j) {
