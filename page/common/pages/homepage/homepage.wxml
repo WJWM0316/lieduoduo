@@ -1,5 +1,5 @@
 <view class="homepage">
-	<navbar title="{{companyInfos.companyShortname}}" background="#652791" color="#fff" showHome="{{true}}"></navbar>
+	<navbar title="{{companyInfos.companyShortname}}" background="#fff" color="#22292C" showHome="{{true}}"></navbar>
 
 	<view hidden="{{!hasReFresh}}">
     <refreshStatus></refreshStatus>
@@ -11,7 +11,7 @@
 			<view class="company-logo">
 				<image class="bgImg" src="{{companyInfos.logoInfo.smallUrl}}" mode="aspectFit"></image>
 			</view>
-			<view class="title">{{companyInfos.companyShortname}}</view>
+			<view class="company-name">{{companyInfos.companyShortname}}</view>
 			<view class="infos">{{companyInfos.industry}} | {{companyInfos.financingInfo}} | {{companyInfos.employeesInfo}}</view>
 		</view>
 		<shareBtn></shareBtn>
@@ -48,7 +48,7 @@
 					<view class="content">
 						<view class="row-one">
 							<view class="username">{{recruiter.name}}</view>
-							<view class="recruitment-number" wx:if="{{companyInfos.recruiterInfo.positionNum}}">{{recruiter.positionNum}} 个在招职位</view>
+							<view class="recruitment-number" wx:if="{{recruiter.positionNum}}">{{recruiter.positionNum}} 个在招职位</view>
 						</view>
 						<view class="row-two">{{recruiter.position}}</view>
 						<view class="row-three">{{recruiter.randomTxt}}</view>
@@ -111,7 +111,7 @@
 				<map
 				  longitude="{{ map.longitude }}"
 				  latitude="{{ map.latitude }}"
-				  scale="14"
+				  scale="16"
 				  enable-scroll="{{false}}"
 				  markers="{{map.markers}}"
 				  show-location></map>

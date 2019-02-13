@@ -2,7 +2,6 @@
 .ul{
   box-sizing: border-box;
   width: 100%;
-  background: #FAFCFF;
   padding: 30rpx;
 }
 .li{

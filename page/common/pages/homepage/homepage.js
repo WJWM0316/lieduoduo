@@ -204,10 +204,10 @@ Page({
             latitude,
             label: {
               content: companyInfos.companyShortname,
-              fontSize:14,
+              fontSize:'18rpx',
               color:'#282828',
-              anchorX: '20rpx',
-              anchorY: '-100rpx'
+              anchorX: '30rpx',
+              anchorY: '-60rpx'
             }
           })
           this.setData({companyInfos, map }, () => resolve(res))
@@ -284,11 +284,11 @@ Page({
    */
   viewMap(e) {
     const params = e.currentTarget.dataset
+    console.log(params);return;
     wx.openLocation({
       latitude: Number(params.latitude),
       longitude: Number(params.longitude),
       scale: 14,
-      name: '公司地址',
       address: `${params.address} ${params.doorplate}`,
       fail: res => {
         app.wxToast({title: '获取位置失败'})

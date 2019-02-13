@@ -118,6 +118,9 @@ Component({
           case 52:
             wx.navigateTo({url: `/page/common/pages/resumeDetail/resumeDetail?uid=${jobhunteruid}`})
             break
+          case 54:
+            wx.navigateTo({url: `/page/common/pages/resumeDetail/resumeDetail?uid=${jobhunteruid}`})
+            break
           default:
             wx.navigateTo({url: `/page/common/pages/arrangement/arrangement?id=${itemId}`})
             break

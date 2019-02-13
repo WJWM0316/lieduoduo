@@ -24,6 +24,9 @@
 	margin: 24rpx 30rpx;
 	box-sizing: border-box;
 	padding: 48rpx 40rpx 40rpx 40rpx;
+	background:rgba(255,255,255,1);
+	box-shadow:0rpx 10rpx 30rpx 0rpx rgba(22,39,77,0.05),0rpx -5rpx 40rpx 0rpx rgba(22,39,77,0.05);
+	border-radius:10rpx;
 }
 
 .page-mine .floating-box .header {
