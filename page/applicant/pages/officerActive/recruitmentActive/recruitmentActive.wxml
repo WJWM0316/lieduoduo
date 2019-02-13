@@ -11,12 +11,12 @@
   </view>
 
   <view hidden="{{active === 'interestList'}}" class="list-box">
-  	<commonList iconfont1="more" list="{{watchedList.list}}" showFooter="{{false}}" dotType="circle"></commonList>
+  	<commonList iconfont1="more" personality="list" list="{{watchedList.list}}" showFooter="{{false}}" dotType="circle"></commonList>
     <bottomStatus status="{{onBottomStatus}}" listData="{{watchedList.list}}" desc="还没有招聘官看过我～"><button class="jump" bindtap="jump">发现更多招聘官</button></bottomStatus>
   </view>
 
   <view hidden="{{active === 'watchedList'}}" class="list-box">
-  	<commonList iconfont1="more" list="{{interestList.list}}" showFooter="{{false}}" dotType="circle"></commonList>
+  	<commonList iconfont1="more" personality="list" list="{{interestList.list}}" showFooter="{{false}}" dotType="circle"></commonList>
     <bottomStatus status="{{onBottomStatus}}" listData="{{interestList.list}}" desc="还没有招聘官对我感兴趣～"><button class="jump" bindtap="jump">发现更多招聘官</button></bottomStatus>
   </view>
 

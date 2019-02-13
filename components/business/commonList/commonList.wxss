@@ -70,6 +70,9 @@
 	vertical-align: middle;
 }
 .li .content .main {
+  margin-top: 20rpx;
+  /*display: flex;
+  flex-wrap: nowrap;*/
   white-space: nowrap;
 }
 
@@ -109,10 +112,11 @@
 	color:rgba(146,146,146,1);
 	line-height:24rpx;
 	display: inline-block;
-	width: 100%;
+	/*width: 100%;*/
 	text-overflow: ellipsis;
 	white-space: nowrap;
 	overflow: hidden;
+	display: flex;
 }
 
 .common-lits-ul .li .company-name text{}
@@ -230,3 +234,15 @@
 .formIdBtn:after {
   display: none;
 }
+/*.main .position {
+  margin-left: 40rpx;
+  max-width: 240rpx;
+  font-size: 24rpx;
+  font-weight: 300;
+  color: #929292;
+}
+
+.main .position .num {
+  margin-left: 10rpx;
+  color: #8452A7;
+}*/

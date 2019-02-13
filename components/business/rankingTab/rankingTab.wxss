@@ -2,6 +2,7 @@
 
 .ranking{
   margin: 0 auto;
+  margin-right: 30rpx;
   margin-bottom: 20rpx;
   width: 664rpx;
   height: 180rpx;
@@ -40,13 +41,13 @@
   right: 4rpx;
   width: 36rpx;
   height: 36rpx;
-  background-color: #FF7F4C;
+  background-color: #FFDC29;
   line-height: 36rpx;
   text-align: center;
   border-radius: 50%;
   border: 2rpx solid #FFFFFF;
   font-size: 22rpx;
-  color: #fff;
+  color: #282828;
   font-weight: 700;
 }
 .headImgBox .headImg{
