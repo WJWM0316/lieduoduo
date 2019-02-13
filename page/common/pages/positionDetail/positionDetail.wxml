@@ -36,7 +36,7 @@
 			class="li"
 			wx:for="{{detail.skillsLabel}}"
 			wx:for-item="item"
-			wx:key="{{item.id}}">{{item.name}}</view>
+			wx:key="{{item.id}}"># {{item.name}}</view>
 		</view>
 		<text class="rich-text">{{ detail.describe }}</text>
 	</view>
@@ -57,12 +57,12 @@
 				<i class="icon iconfont icon-xiangyou"></i>
 			</view>
 		</view>
-		<view class="tab-company-address" data-type="map" bindtap="todoAction">
+		<view class="tab-company-address" data-type="map" bindtap="todoAction" wx:if="{{detail.companyInfo.address.length}}">
 			<i class="icon iconfont icon-dizhi"></i>
-			<text>{{detail.address}}</text>
+			<view>{{detail.companyInfo.address[0].address}}</view>
 			<i class="icon iconfont icon-xiangyou"></i>
 		</view>
-		<view class="detail">
+		<view class="detail" wx:if="{{companyInfos.intro}}">
 			<text class="rich-text">{{companyInfos.intro}}</text>
 		</view>
 	</view>

@@ -174,13 +174,19 @@
   font-weight:300;
   color: #626262;
 }
+.dataShow .dataBox .icon-zhushi{
+  color: #BACED8;
+  margin-left: 5rpx;
+  vertical-align: middle;
+  font-size: 28rpx;
+}
 .num {
   font-size: 50rpx;
   font-weight: 500;
   color: #282828;
+  margin-right: 6rpx;
 }
 .callBtn {
-  width: 618rpx;
   height: 88rpx;
   background: #FFDC29;
   box-shadow: 0rpx 6rpx 12rpx 0rpx rgba(101,39,145,0.15);
@@ -191,6 +197,31 @@
   color: #282828;
   line-height: 88rpx;
 }
+.button-bg {
+  height: 88rpx;
+  border-radius: 45rpx;
+  margin: 36rpx auto 38rpx;
+  font-size: 30rpx;
+  font-weight: 400;
+  color: #282828;
+  line-height: 88rpx;
+  position: relative;
+}
+
+.button-bg image{
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  bottom: -5rpx;
+  left: 0;
+  z-index: 0;
+}
+
+.button-bg button{
+  position: relative;
+  z-index: 1;
+}
+
 .callBtn.isCalled {
   color: #652791;
   background: #EFE9F4;
@@ -219,6 +250,7 @@
   box-shadow: 0rpx 4rpx 20rpx 0rpx rgba(101,39,145,0.1);
   border-radius: 10rpx;
 }
+
 .title {
   font-size: 28rpx;
   font-weight: 500;
@@ -260,6 +292,12 @@
 .title .iconfont.shareBtn {
   right: 93rpx;
 }
+
+.profile .title {
+  margin-bottom: 30rpx;
+}
+
+
 .labelBox {
   margin-top: 30rpx;
 }
@@ -279,42 +317,6 @@
 .hasLabelEdit {
   padding-bottom: 24rpx;
 }
-.msg {
-  font-size: 28rpx;
-  margin-top: 36rpx;
-  font-weight: 300;
-  color: #282828;
-  line-height: 48rpx;
-}
-.msg.shrink {
-  height: 286rpx;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 6;
-  overflow: hidden;
-}
-.openbtn {
-  font-size: 26rpx;
-  font-weight: 400;
-  color: #652791;
-  line-height: 26rpx;
-  margin-top: 24rpx;
-  height: 26rpx;
-  display: flex;
-  align-items: center;
-}
-.openbtn .icon {
-  width: 30rpx;
-  height: 30rpx;
-  line-height: 30rpx;
-  font-size: 30rpx;
-  color: #652791;
-  font-weight: 300;
-  margin-left: 10rpx;
-}
-.openbtn .icon.shrink {
-  transform: rotate(180deg);
-}
 .declaration, .mainContent .position {
   margin-top: 20rpx;
 }
@@ -322,7 +324,7 @@
   margin-top: 46rpx;
 }
 .descList .descItem {
-  margin-bottom: 20rpx;
+  margin-bottom: 30rpx;
 }
 .descList .descItem:last-child {
   margin-bottom: 0;
@@ -351,6 +353,9 @@
   z-index: 1;
   background: #fff;
   display: inline-block;
+}
+.descAnswer .msg {
+  margin-top: 0;
 }
 .declaration.recruiterMain .descItem {
   margin-bottom: 40rpx;

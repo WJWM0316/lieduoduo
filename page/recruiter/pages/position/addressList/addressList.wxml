@@ -19,6 +19,6 @@
     </view>
   </view>
   <view class="footer">
-    <button class="button-submit" bindtap="add">新增地址</button>
+    <button class="button-submit clear-style" bindtap="add">新增地址</button>
   </view>
 </view>

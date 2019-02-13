@@ -42,7 +42,7 @@ Component({
     staffMembers: [{name: '0-20人', value: 1}, {name: '20-99人', value: 2}, {name: '100-499人', value: 3}, {name: '500-999人', value: 4}, {name: '1000-9999人', value: 5}, {name: '10000以上', value: 6}],
     experience: [{name: '不限', value: 1}, {name: '应届生', value: 2}, {name: '1年以内', value: 3}, {name: '1-3年', value: 4}, {name: '3-5年', value: 5}, {name: '5-10年', value: 6}, {name: '10年以上', value: 7}],
     jobStatus: [{name: '离职，随时到岗', value: 2}, {name: '在职，暂不考虑', value: 1}, {name: '在职，考虑机会', value: 4}, {name: '在职，月内到岗', value: 3}],
-    education: [{name: '本科', value: 25}, {name: '博士', value: 35}, {name: '硕士', value: 30}, {name: '大专', value: 20}, {name: '高中', value: 15}, {name: '中专/中技', value: 10}, {name: '初中及以下', value: 5}],
+    education: [{name: '博士', value: 35}, {name: '硕士', value: 30}, {name: '本科', value: 25}, {name: '大专', value: 20}, {name: '高中', value: 15}, {name: '中专/中技', value: 10}, {name: '初中及以下', value: 5}],
     sex: [{name: '男', value: 1}, {name:'女', value: 2}],
     dateType: ['startTime', 'endTime', 'workTime', 'dateTime', 'birthday'],
     year: [],

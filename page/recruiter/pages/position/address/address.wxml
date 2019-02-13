@@ -14,7 +14,7 @@
     </view>
   </view>
 	<view class="footer">
-    <button class="button-delete" bindtap="delete" wx:if="{{options.id}}">删除</button>
-    <button class="button-save" bindtap="submit">保存</button>
+    <button class="button-delete clear-style" bindtap="delete" wx:if="{{options.id}}">删除</button>
+    <button class="button-save clear-style" bindtap="submit">保存</button>
   </view>
 </view>

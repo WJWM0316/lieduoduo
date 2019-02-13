@@ -38,7 +38,7 @@
         </block>
       </block>
       <block wx:else> 
-        <view class="placeholder">{{placeholder}}</view>
+        <view class="placeholder">{{placeholder}} 11{{result}}</view>
       </block>
     </block>
   </picker>

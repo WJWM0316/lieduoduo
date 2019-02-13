@@ -91,10 +91,16 @@ Page({
    * @return   {[type]}     [description]
    */
   getEndDate(e) {
-    const startTime = this.data.validity_start
-    const timestamp1 = Date.parse(startTime)
-    const timestamp2 = Date.parse(e.detail.value)
-    const validity_end = e.detail.value.replace(/-/g, '.')
+    let startTime = this.data.validity_start
+
+    let beforeTime = startTime.replace(/\./g, '/')
+    let lastTime = e.detail.value.replace(/-/g, '/')
+
+    let timestamp1 = Date.parse(beforeTime)
+    let timestamp2 = Date.parse(lastTime)
+
+    let validity_end = e.detail.value.replace(/-/g, '.')
+
     if(!startTime) {
       app.wxToast({title: '请选择开始时间'})
       return

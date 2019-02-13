@@ -1,7 +1,7 @@
 // page/common/pages/resumeDetail/resumeDetail.js
 import { getOtherResumeApi } from '../../../../api/pages/center.js'
-
 import { inviteInterviewApi } from '../../../../api/pages/interview.js'
+import {getSelectorQuery} from "../../../../utils/util.js"
 import { getMyCollectUserApi, deleteMyCollectUserApi } from '../../../../api/pages/collect.js'
 import {APPLICANT, COMMON, RECRUITER} from '../../../../config.js'
 import {shareResume} from '../../../../utils/shareWord.js'
@@ -23,7 +23,6 @@ Page({
     identity: '',
     cdnImagePath: app.globalData.cdnImagePath
   },
-
   /**
    * 生命周期函数--监听页面加载
    */
@@ -73,11 +72,13 @@ Page({
     return new Promise((resolve, reject) => {
       let identity = wx.getStorageSync('choseType')
       getOtherResumeApi({uid: this.data.options.uid}).then(res => {
-        this.setData({info: res.data, isOwner: res.data.isOwner && identity === 'APPLICANT', realIsOwner: res.data.isOwner})
-        if (this.selectComponent('#interviewBar')) {
-          this.selectComponent('#interviewBar').init()
-        }
-        resolve(res)
+        this.setData({info: res.data, isOwner: res.data.isOwner && identity === 'APPLICANT', realIsOwner: res.data.isOwner}, function() {
+          if (this.selectComponent('#interviewBar')) {
+            this.selectComponent('#interviewBar').init()
+          }
+          resolve(res)
+        })
+        
       })
     })
   },

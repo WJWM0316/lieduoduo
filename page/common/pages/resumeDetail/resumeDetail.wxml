@@ -72,7 +72,7 @@
       </view>
       <view class="expInfo">{{item.position}}</view>
       <!-- 工作内容 -->
-      <view class='expContent'>{{item.duty}}</view>
+      <shrinkText class="expContent" textData="{{item.duty}}"></shrinkText>
       <!-- 工作标签 -->
       <view class='expTip'>
         <text wx:for="{{item.technicalLabels}}" wx:key="{{index}}"># {{item.labelName}}</text>
@@ -92,7 +92,7 @@
       </view>
       <view class="expInfo">{{item.role}}</view>
       <!-- 工作内容 -->
-      <view class='expContent'>内容：{{item.description}}</view>
+      <shrinkText class="expContent" textData="内容：{{item.description}}"></shrinkText>
       <!-- 相关链接 -->
       <view class="link" wx:if="{{item.link}}">
         链接：<text bindtap="copy" data-copyData="{{item.link}}">{{item.link}}</text>
@@ -112,7 +112,7 @@
       </view>
       <view class="expInfo">{{item.degreeDesc}}·{{item.major}}</view>
       <!-- 教育经历 -->
-      <view class='expContent'>{{item.experience}}</view>
+      <shrinkText class="expContent" textData="{{item.experience}}"></shrinkText>
     </view>
     <text class="add" data-editName="education" bindtap="edit" wx:if="{{isOwner && info.educations.length < 11}}" data-id="">添加教育经历</text>
   </view>
@@ -124,7 +124,7 @@
     </view>
     <view class="expTab" hidden="{{!info.moreIntroduce.introduce && info.moreIntroduce.imgs.length === 0}}">
       <!-- 工作内容 -->
-      <view class="expContent">{{info.moreIntroduce.introduce}}</view>
+      <shrinkText textData="{{info.moreIntroduce.introduce}}"></shrinkText>
       <view class="imgBox">
         <image wx:for="{{info.moreIntroduce.imgs}}" wx:key="{{index}}" mode="aspectFill" src="{{item.smallUrl}}" bindtap="preview" data-current="{{item.url}}"></image>
       </view>

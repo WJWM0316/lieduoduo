@@ -12,3 +12,7 @@ page {
 	height: 0;
 	color: transparent;
 }
+
+.clear-style::after{
+	border:none;
+}

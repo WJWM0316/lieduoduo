@@ -181,6 +181,7 @@
 .more .expContent{
   color: #282828 !important;
 }
+
 .more .imgBox{
   margin-top: 20rpx;
 }

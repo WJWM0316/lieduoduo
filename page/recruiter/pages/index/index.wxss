@@ -1,6 +1,7 @@
 .recruiter-index .index-bannar image {
   width: 100%;
   display: block;
+  height: 430rpx;
 }
 
 .index-list-box {
@@ -30,6 +31,16 @@
 
 .recruiter-index .ul-tab-bar .li:last-child {
   border-top-right-radius: 10rpx;
+}
+
+.recruiter-index .ul-tab-bar .li view {
+  width:3rpx;
+  height:31rpx;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 0;
+  background: rgba(232,233,235,1)
 }
 
 .recruiter-index .ul-tab-bar .li:before {
@@ -76,6 +87,14 @@
   font-size:28rpx;
   font-weight:500;
   color:rgba(101,39,145,1);
+}
+
+.recruiter-index .ul-tab-bar .active view{
+  display: none;
+}
+
+.recruiter-index .ul-tab-bar .active:nth-child(1) view{
+  display: none;
 }
 
 .recruiter-index .ul-tab-bar .active:before {

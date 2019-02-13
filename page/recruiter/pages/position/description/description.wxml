@@ -22,7 +22,7 @@
 				<view class="change" bindtap="next"><i class="icon iconfont icon-huanyihuan"></i>换一个</view>
 			</view>
 			<view class="floating-box">
-				<text>{{randomCopy.txt}}</text>
+				<text bindtap="copyText">{{randomCopy.txt}}</text>
 			</view>
 		</block>
 		<view class="btn-area">

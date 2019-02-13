@@ -8,16 +8,9 @@ import {shareRecruiter} from '../../../../utils/shareWord.js'
 let app = getApp()
 let positionTop = 0
 Page({
-
-  /**
-   * 页面的初始数据
-   */
   data: {
     identity: '',
     showPage: false,
-    isShrink: false,
-    needShrink: false,
-    btnTxt: '展开内容',
     info: {},
     isOwner: false,
     realIsOwner: false,
@@ -33,7 +26,6 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
-
     if (options.scene) {
       options = app.getSceneParams(options.scene)
     }
@@ -57,18 +49,9 @@ Page({
     return new Promise((resolve, reject) => {
       getOthersRecruiterDetailApi({uid: this.data.options.uid}).then(res => {
         let isOwner = res.data.isOwner && identity === 'RECRUITER' ? true : false
-        this.setData({info: res.data, btnTxt: '展开内容', isOwner, realIsOwner: res.data.isOwner}, function() {
+        this.setData({info: res.data, isOwner, realIsOwner: res.data.isOwner}, function() {
           if(this.selectComponent('#interviewBar')) this.selectComponent('#interviewBar').init()
           resolve(res)
-            getSelectorQuery('.msg').then(res => {
-              if (!res) return
-              if (res.height > 143) {
-                this.setData({isShrink: true, needShrink: true})
-              } else {
-                this.setData({isShrink: false, needShrink: false})
-              }
-            })
-          
         })
       })
       getPositionListApi({recruiter: this.data.options.uid}).then(res => {
@@ -81,22 +64,9 @@ Page({
       })
     })
   },
-  isShrink() {
-    let info = this.data.info
-    if (info.brief) {
-      getSelectorQuery('.msg').then(res => {
-        if (res.height > 143) {
-          this.setData({isShrink: true, needShrink: true})
-        }
-      })
-    } else {
-      this.setData({isShrink: false, needShrink: false})
-    }
-  },
   onShow() {
     let options = this.data.options
     let identity = wx.getStorageSync('choseType')
-
     if (app.globalData.isRecruiter) {
       this.setData({isRecruiter: app.globalData.isRecruiter})
     } else {
@@ -144,17 +114,6 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady() {
-  },
-  toggle() {
-    let isShrink = this.data.isShrink
-    let btnTxt = ''
-    isShrink = !isShrink
-    if (!isShrink) {
-      btnTxt = '收起内容'
-    } else {
-      btnTxt = '展开内容'
-    }
-    this.setData({isShrink, btnTxt})
   },
   callBtn() {
     let info = this.data.info

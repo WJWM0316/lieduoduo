@@ -342,7 +342,7 @@ Component({
           }
           break
         case 'recruiter-apply':
-          // wx.navigateTo({url: `${RECRUITER}interview/index/index`})
+          wx.navigateTo({url: `${COMMON}arrangement/arrangement?id=${interviewInfos.data[0].interviewId}`})
           break
         case 'recruiter-arrangement':
           wx.navigateTo({url: `${COMMON}arrangement/arrangement?id=${interviewInfos.data[0].interviewId}`})

@@ -27,11 +27,17 @@
     <view class="dataShow" wx:if="{{!isOwner}}">
       <view class="dataBox">
         <view class="data"><text class="num">{{info.viewedCount}}</text>人气</view>
-        <view class="data"><text class="num">{{info.influence}}</text>影响力</view>
+        <view class="data"><text class="num">{{info.influence}}</text>影响力<!-- <i class="icon iconfont icon-zhushi"></i> --></view>
         <view class="data"><text class="num">{{info.ranking}}</text>排名</view>
       </view>
-      <button hidden="{{info.isCall}}" class="callBtn" bindtap="callBtn">为Ta打Call，提高影响力</button>
-      <button open-type="share" hidden="{{!info.isCall}}" class="callBtn isCalled" bindtap="shareBtn">帮Ta转发集Call</button>
+      <view class="button-bg"  hidden="{{info.isCall}}">
+        <button hidden="{{info.isCall}}" class="callBtn clear-style" bindtap="callBtn">为Ta打Call，提高影响力</button>
+        <image src="{{cdnImagePath}}button_bg.png"></image>
+      </view>
+      <view class="button-bg" hidden="{{!info.isCall}}">
+        <button open-type="share" hidden="{{!info.isCall}}" class="callBtn isCalled clear-style" bindtap="shareBtn">帮Ta转发集Call</button>
+        <image src="{{cdnImagePath}}button_bg.png"></image>
+      </view>
       <view class="more" bindtap="jump" wx:if="{{isApplicant}}">查看更多热门招聘官<view class="icon iconfont icon-disejiantou-you"></view></view>
     </view>
     <view class="labelEdit {{info.personalizedLabels.length > 0 ? 'hasLabelEdit': ''}}" wx:if="{{isOwner}}">
@@ -56,8 +62,7 @@
         <i wx:if="{{isOwner && info.brief}}" class="editBtn iconfont icon-bianji1" bindtap="editJump" data-type="profile"></i>
       </view>
       <view wx:if="{{!info.brief}}" class="addDeclaration" bindtap="editJump" data-type="profile">添加个人简介</view>
-      <view wx:if="{{info.brief}}" class="msg {{isShrink ? 'shrink':''}}"><text>{{info.brief}}</text></view>
-      <view class="openbtn" wx:if="{{needShrink}}" bindtap="toggle">{{btnTxt}}<i class="icon iconfont icon-zhishibiao {{!isShrink ? 'shrink':''}}"></i></view>
+      <shrinkText textData="{{info.brief}}"></shrinkText>
     </view>
     <view class="declaration {{isOwner ? 'recruiterMain' : ''}}" wx:if="{{(!isOwner && info.manifestos.length > 0) || isOwner}}">
       <view class="title">
@@ -69,7 +74,7 @@
       <view class="descList">
         <view class="descItem" wx:for="{{info.manifestos}}" wx:key="{{index}}">
           <view class="descTitle">{{item.topicTitle}}<i wx:if="{{isOwner}}" data-item="{{item}}" class="editBtn iconfont icon-bianji1" bindtap="editJump" data-type="declaration"></i></view>
-          <view><view class="descAnswer"><text>{{item.content}}</text></view></view>
+          <view><view class="descAnswer"><shrinkText my-class="descAnswer" wx:if="{{item.content}}" textData="{{item.content}}"></shrinkText></view></view>
         </view>
       </view>
       <view wx:if="{{isOwner}}" class="addDeclaration" bindtap="editJump" data-type="addDeclaration">添加招聘宣言</view>

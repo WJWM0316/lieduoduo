@@ -47,7 +47,7 @@
         <view class="title"><icon class="icon"></icon>面试信息</view>
         <view class="msgItem" bindtap="callPhone">
           <view class="inner">
-            <view class="icon1 iconfont icon-zhiwei"></view>
+            <view class="icon1 iconfont icon-mianshiguan"></view>
             <view class="msg">
               <text>{{info.arrangementInfo.realname || info.recruiterRealname}} | <text class="phone">{{info.arrangementInfo.mobile || info.recruiterRealMobile}}</text></text>
             </view>
@@ -63,7 +63,7 @@
         </view>
         <view class="msgItem jump" wx:if="{{info.address}}" bindtap="openMap">
           <view class="inner noborder">
-            <view class="icon1 iconfont icon-zhiwei"></view>
+            <view class="icon1 iconfont icon-dizhi"></view>
             <view class="msg">{{info.address}}</view>
             <icon class="icon iconfont icon-xiangyou"></icon>
           </view>
@@ -154,6 +154,13 @@
         <view class="txt1">面试已结束</view>
         <view class="txt3 end">{{filters.dateFormat(info.arrangementInfo.appointmentTime, 'YYYY-MM-DD hh:mm')}}</view>
       </view>
+      
+      <!-- 招聘官主动发起开撩 求职者暂未同意 -->
+      <view class="recruiter-waiting" wx:if="{{identity === 'RECRUITER' && info.status === 12}}">
+        <view class="h1">等待候选人接受邀请</view>
+        <view class="h2">候选人将收到你的面试邀请，请耐心等待</view>
+      </view>
+
     </view>
 
     <view class="btnBox" wx:if="{{identity === 'RECRUITER' && (info.status === 21 || info.status === 32)}}">
@@ -169,5 +176,6 @@
     <!-- <view class="btnBox" wx:if="{{identity === 'RECRUITER' && info.status === 41}}">
       <button class="btn">转发安排给其他同事</button>
     </view> -->
+
   </block>
 </view>

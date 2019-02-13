@@ -8,7 +8,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-    info: {}
+    info: {},
+    cdnImagePath: app.globalData.cdnImagePath
   },
   onShow(options) {
     this.init()

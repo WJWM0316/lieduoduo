@@ -81,6 +81,7 @@
   line-height: 54rpx;
   border-radius: 27rpx;
   display: inline-block;
+  overflow-x: auto;
 }
 .more .childTabBar text:nth-of-type(1){
   margin-left: 0;

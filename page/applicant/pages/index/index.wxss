@@ -1,3 +1,6 @@
+.container {
+  background: #FBFBFF;
+}
 .more{
   background-color: #FFFFFF;
   width: 690rpx;

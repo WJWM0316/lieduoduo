@@ -31,13 +31,13 @@ Page({
     emolument_range: '请选择薪资范围',
     work_experience: '',
     work_experience_name: '请选择经验要求',
-    education: '',
-    educationName: '请选择学历',
+    education: '25',
+    educationName: '本科',
     describe: '',
     skills: [],
     query: {},
     pageTitle: '',
-    canClick: true
+    canClick: false
   },
   onLoad(options) {
     this.setData({pageTitle: options.positionId ? '编辑职位' : '发布职位', query: options})
@@ -83,6 +83,7 @@ Page({
     
     if(storage) {
       Object.keys(storage).map(field => this.setData({[field]: storage[field]}))
+      this.bindButtonStatus()
       return;
     }
 
@@ -128,6 +129,8 @@ Page({
         formData.address_id = infos.addressId
         formData.parentType = infos.skillsLabel.length ? infos.skillsLabel[0].topPid : ''
         Object.keys(formData).map(field => this.setData({[field]: formData[field]}))
+        this.bindButtonStatus()
+        console.log(this.data)
       })
   },
   /**
@@ -271,17 +274,17 @@ Page({
 
     // 验证经验是否已经选择
     const positionExperience = new Promise((resolve, reject) => {
-      !this.data.emolument_min ? reject('请选择经验要求') : resolve()
+      !this.data.work_experience ? reject('请选择经验要求') : resolve()
     })
 
     // 验证学历是否已经选择
     const positionEducation = new Promise((resolve, reject) => {
-      !this.data.emolument_min ? reject('请选择学历要求') : resolve()
+      !this.data.education ? reject('请选择学历要求') : resolve()
     })
 
     // 验证职位描述是否已经完善
     const positionDescribe = new Promise((resolve, reject) => {
-      !this.data.emolument_min ? reject('请填写职位描述') : resolve()
+      !this.data.describe ? reject('请填写职位描述') : resolve()
     })
 
     Promise.all([
@@ -313,7 +316,6 @@ Page({
           icon: 'success',
           callback() {
             wx.navigateBack({delta: 1 })
-            // wx.reLaunch({url: `${RECRUITER}position/index/index`})
           }
         })
       })
@@ -331,5 +333,24 @@ Page({
         wx.reLaunch({url: `${RECRUITER}position/index/index`})
         app.wxToast({title: '编辑成功'})
       })
+  },
+  /**
+   * @Author   小书包
+   * @DateTime 2019-02-13
+   * @detail   绑定按钮状态
+   * @return   {[type]}   [description]
+   */
+  bindButtonStatus() {
+    const infos = this.data
+    const canClick = infos.position_name
+      && infos.type
+      && infos.address_id
+      && infos.skills.length
+      && infos.emolument_min
+      && infos.work_experience
+      && infos.education
+      && infos.describe
+      ? true : false
+    this.setData({canClick})
   }
 })

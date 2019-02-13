@@ -46,18 +46,23 @@ Page({
     let edWidth = ctx.measureText(info.educationName).width
     let exWidth = ctx.measureText(info.workExperienceName).width
     let allWidth = cityWidth + edWidth + exWidth + 90 + 30 + 80
+
     let msgWidth = 375 - allWidth / 2
-    ctx.drawImage('../../../../../images/a1.png', msgWidth, 404, 30, 30)
+    ctx.drawImage('../../../../../images/a3.png', msgWidth, 404, 30, 30)
     msgWidth = msgWidth + 40
     ctx.fillText(info.city, msgWidth, 428)
+
+    
     msgWidth = msgWidth + cityWidth + 40
+    
+    ctx.drawImage('../../../../../images/a1.png', msgWidth, 404, 30, 30)
+    msgWidth = msgWidth + 40
+    ctx.fillText(info.workExperienceName, msgWidth, 428)
+
+    msgWidth = msgWidth + exWidth + 40
     ctx.drawImage('../../../../../images/a2.png', msgWidth, 404, 30, 30)
     msgWidth = msgWidth + 40
     ctx.fillText(info.educationName, msgWidth, 428)
-    msgWidth = msgWidth + exWidth + 40
-    ctx.drawImage('../../../../../images/a3.png', msgWidth, 404, 30, 30)
-    msgWidth = msgWidth + 40
-    ctx.fillText(info.workExperienceName, msgWidth, 428)
 
     // 画笔Y坐标
     let curHeight = 483
@@ -119,7 +124,23 @@ Page({
     ctx.drawImage(companyUrl, 88, curHeight + 34, 98, 98)
     ctx.drawImage('../../../../../images/canvas4.png', 38, curHeight, 674, 166)
     ctx.setFontSize(32)
-    ctx.fillText(companyInfo.companyName, 210, curHeight + 75)
+    let companyName = companyInfo.companyName
+    // 需要省略号
+    if (ctx.measureText(companyName).width > 456) {
+      let ellipsisWidth = ctx.measureText('...').width
+      let cutString = ''
+      for (let i = 0; i < companyName.length; i++) {
+        cutString = cutString + companyName[i]
+        if (ctx.measureText(cutString).width >= 456 - ellipsisWidth) {
+          cutString = cutString + '...'
+          ctx.fillText(cutString, 210, curHeight + 75)
+          break
+        }
+      }
+    } else {
+      ctx.fillText(companyInfo.companyName, 210, curHeight + 75)
+    }
+    
     ctx.setFontSize(26)
     // 需要省略号
     let desc = `${companyInfo.industry} · ${companyInfo.financingInfo} · ${companyInfo.employeesInfo}`
@@ -127,7 +148,7 @@ Page({
       let ellipsisWidth = ctx.measureText('...').width
       let cutString = ''
       for (let i = 0; i < desc.length; i++) {
-        cutString = cutString + info.desc[i]
+        cutString = cutString + desc[i]
         if (ctx.measureText(cutString).width >= 456 - ellipsisWidth) {
           cutString = cutString + '...'
           ctx.fillText(cutString, 210, curHeight + 115)
@@ -193,10 +214,11 @@ Page({
         descString = descString + info.describe[i]
         descWidth = ctx.measureText(descString).width
         if (!info.describe) info.describe = '你还未填写职位详情，快去填写吧~'
-        info.describe = info.describe.replace(/[\r\n]/g, "")
-        if (descWidth > 590) {
-          ctx.drawImage('../../../../../images/c2.png', 0, curHeight, 750, 48)
+        // info.describe = info.describe.replace(/[\r\n]/g, "")
+        if (info.describe[i] === '↵' || descWidth > 590) {
+          ctx.drawImage('../../../../../images/c2.png', 0, curHeight, 750, 90)
           ctx.fillText(descString.slice(0, descString.length-1), 80, curHeight)
+          iIndex = i
           descString = ''
           curHeight += 48
         }
@@ -208,8 +230,8 @@ Page({
       curHeight = curHeight + 30
     }
     ctx.drawImage('../../../../../images/c4.png', 0, curHeight - 200, 74, 92)
-    ctx.drawImage(qrCodeUrl, 77, curHeight + 80, 167, 167)
-    ctx.drawImage('../../../../../images/canvas5.png', 0, curHeight, 750, 287)
+    ctx.drawImage(qrCodeUrl, 75, curHeight + 88, 170, 170)
+    ctx.drawImage('../../../../../images/canvas5.png', 0, curHeight + 10, 750, 287)
     ctx.setFontSize(30)
     ctx.setFillStyle('#fff')
     ctx.fillText('长按打开小程序与Ta约面吧！', 276, curHeight + 160)
@@ -223,8 +245,6 @@ Page({
           y: 0,
           width: 750,
           height: curHeight,
-          destWidth: 750 * 2,
-          destHeight: curHeight * 2,
           quality: 1,
           canvasId: 'canvas',
           success(res) {

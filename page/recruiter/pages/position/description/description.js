@@ -75,6 +75,6 @@ Page({
    * @return   {[type]}   [description]
    */
   copyText() {
-    wx.setClipboardData({data: this.data.companyInfos.website })
+    wx.setClipboardData({data: this.data.randomCopy.txt })
   }
 })

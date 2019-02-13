@@ -127,7 +127,7 @@
 				{
 					"id": 14,
 					"name": "招聘官认证状态",
-					"pathName": "page/recruiter/pages/user/company/identity/identity",
+					"pathName": "page/recruiter/pages/user/company/find/find",
 					"query": "action=edit&type=apply"
 				},
 				{
@@ -170,7 +170,7 @@
 					"id": 21,
 					"name": "招聘管-职位详情",
 					"pathName": "page/common/pages/positionDetail/positionDetail",
-					"query": "positionId=129&companyId=46"
+					"query": "positionId=192"
 				},
 				{
 					"id": 21,

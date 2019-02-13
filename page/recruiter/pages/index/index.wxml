@@ -9,27 +9,25 @@
 	<view hidden="{{!hasReFresh}}">
 		<refreshStatus></refreshStatus>
 	</view>
-
 	
 	<view class="index-list-box">
 		<view class="ul-tab-bar">
-			<view class="li {{pageList === 'browseMySelf' ? 'active' : ''}}" bindtap="ontabClick" data-key="browseMySelf">看过我的</view>
-			<view class="li {{pageList === 'collectMySelf' ? 'active' : ''}}" bindtap="ontabClick" data-key="collectMySelf">对我感兴趣</view>
+			<view class="li {{pageList === 'browseMySelf' ? 'active' : ''}}" bindtap="ontabClick" data-key="browseMySelf">看过我的<view></view></view>
+			<view class="li {{pageList === 'collectMySelf' ? 'active' : ''}}" bindtap="ontabClick" data-key="collectMySelf">对我感兴趣<view></view></view>
 			<view class="li {{pageList === 'collectUsers' ? 'active' : ''}}" bindtap="ontabClick" data-key="collectUsers">我感兴趣的</view>
 		</view>
 
-		
 		<commonList list="{{browseMySelf.list}}" identity="RECRUITER" wx:if="{{pageList === 'browseMySelf'}}"></commonList>
 		<commonList list="{{collectMySelf.list}}" identity="RECRUITER" isCollect="{{true}}" wx:if="{{pageList === 'collectMySelf'}}"></commonList>
 		<commonList list="{{collectUsers.list}}" showFooter="{{false}}" identity="RECRUITER" wx:if="{{pageList === 'collectUsers'}}"></commonList>
 		<bottomStatus wx:if="{{pageList === 'browseMySelf'}}" status="{{onBottomStatus}}" listData="{{browseMySelf.list}}" desc="还没有候选人看过你哟～ 试试分享你的职位，让更多人来围观吧！">
-			<!-- <button class="jump" bindtap="jump">发现更多职业机会</button> -->
+			<!-- <button class="jump" bindtap="jump">分享我的职位</button> -->
 		</bottomStatus>
 		<bottomStatus wx:if="{{pageList === 'collectMySelf'}}" status="{{onBottomStatus}}" listData="{{collectMySelf.list}}" desc="还没有候选人看过你哟～ 试试分享你的职位，让更多人来围观吧！~">
-			<!-- <button class="jump" bindtap="jump">发现更多职业机会</button> -->
+			<!-- <button class="jump" bindtap="jump">分享我的职位</button> -->
 		</bottomStatus>
 		<bottomStatus wx:if="{{pageList === 'collectUsers'}}" status="{{onBottomStatus}}" listData="{{collectUsers.list}}" desc="还没有感兴趣的候选人哟~">
-			<!-- <button class="jump" bindtap="jump">发现更多职业机会</button> -->
+			<!-- <button class="jump" bindtap="jump">分享我的职位</button> -->
 		</bottomStatus>
 	</view>
   <tabBar tabType="1"></tabBar>
