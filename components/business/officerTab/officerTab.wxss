@@ -108,6 +108,7 @@
 
 .info .bottom i{
   margin-right: 12rpx;
+  font-size: 24rpx;
 }
 
 .info .bottom .company{

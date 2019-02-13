@@ -161,11 +161,11 @@ Page({
         break
       case 'map':
         wx.openLocation({
-          latitude: Number(this.data.detail.lat),
-          longitude: Number(this.data.detail.lng),
+          latitude: Number(this.data.detail.companyInfo.address[0].lat),
+          longitude: Number(this.data.detail.companyInfo.address[0].lng),
           scale: 14,
-          name: this.data.detail.address,
-          address: `${this.data.detail.doorplate}`,
+          name: this.data.detail.companyInfo.address[0].address,
+          address: `${this.data.detail.companyInfo.address[0].doorplate}`,
           fail: res => {
             app.wxToast({title: '获取位置失败'})
           }

@@ -36,7 +36,7 @@
 				<view class="item">{{item.workExperienceName}}</view>
 				<view class="item">{{item.educationName}}</view>
 			</view>
-			<view class="item-status"></view>
+			<!-- <view class="item-status"></view> -->
 		</button>
 	</view>
 	<bottomStatus status="{{onBottomStatus}}" listData="{{onLinePosition.list}}"></bottomStatus>
