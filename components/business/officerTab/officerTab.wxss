@@ -65,12 +65,32 @@
   height: 120rpx;
   margin-right: 30rpx;
   flex-shrink: 0;
+  box-shadow:0rpx 2rpx 12rpx 0rpx rgba(0,0,0,0.12);
+  border:2rpx solid rgba(232,233,235,1);
+  border-radius: 50%;
+  position: relative;
 }
 
 .headerImg image{
   width: 100%;
   height: 100%;
   border-radius: 50%;
+}
+
+.headerImg .certification-icon {
+  position: absolute;
+  bottom: 4rpx;
+  right: 4rpx;
+  width: 36rpx;
+  height: 36rpx;
+  background-color: #FFDC29;
+  line-height: 36rpx;
+  text-align: center;
+  border-radius: 50%;
+  border: 2rpx solid #FFFFFF;
+  font-size: 22rpx;
+  color: #282828;
+  font-weight: 700;
 }
 
 .info .top{
@@ -109,6 +129,7 @@
 .info .bottom i{
   margin-right: 12rpx;
   font-size: 24rpx;
+  color: #CDCBCF;
 }
 
 .info .bottom .company{

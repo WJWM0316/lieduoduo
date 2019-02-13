@@ -4,6 +4,7 @@
       <view class="officerTab" bindtap="routeJump" data-companyId="{{item.id}}" data-uid="{{item.uid}}">
         <view class="headerImg">
           <image src="{{item.avatar.smallUrl}}"></image>
+          <i class="certification-icon">V</i>
         </view>
         <view class="info">
           <view class="top">
@@ -24,6 +25,7 @@
   <view class="officerTab2" bindtap="routeJump" data-companyId="{{item.id}}" data-uid="{{item.uid}}" wx:for="{{ list }}" wx:key="{{index}}" wx:if="{{!showSlideView}}">
     <view class="headerImg">
       <image src="{{item.avatar.smallUrl}}"></image>
+      <i class="certification-icon">V</i>
     </view>
     <view class="info">
       <view class="top">
