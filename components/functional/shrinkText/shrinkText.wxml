@@ -1,0 +1,2 @@
+<view wx:if="{{textData}}" class="my-class msg {{isShrink ? 'shrink':''}}"><text>{{textData}}</text></view>
+<view class="openbtn" wx:if="{{needShrink}}" bindtap="toggle">{{btnTxt}}<i class="icon iconfont icon-zhishibiao {{!isShrink ? 'shrink':''}}"></i></view>

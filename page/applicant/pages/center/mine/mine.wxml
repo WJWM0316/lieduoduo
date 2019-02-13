@@ -15,7 +15,7 @@
   			</view> 
         <view class="content" wx:if='{{!myInfo.uid && hasLogin}}'>
   				<view class="realname">简历未完善</view>
-  				<view class="degree-name directions">你与offer之间还差一份简历 \n 快去完善吧~</view>
+  				<text class="degree-name directions">你与offer之间还差一份简历 \n 快去完善吧~</text>
   			</view>
 
         <view class="content" wx:if='{{!hasLogin}}'>

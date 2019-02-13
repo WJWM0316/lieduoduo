@@ -2,6 +2,7 @@
 	"enablePullDownRefresh": true,
 	"backgroundTextStyle": "light",
   "usingComponents": {
+  	"shrinkText": "../../../../components/functional/shrinkText/shrinkText",
     "navbar": "../../../../components/business/navbar/navbar",
     "roleInfoCard": "../../../../components/business/roleInfoCard/roleInfoCard",
     "shareBtn": "../../../../components/layout/shareBtn/shareBtn",
