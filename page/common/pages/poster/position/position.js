@@ -218,6 +218,7 @@ Page({
         if (descWidth > 590) {
           ctx.drawImage('../../../../../images/c2.png', 0, curHeight, 750, 48)
           ctx.fillText(descString.slice(0, descString.length-1), 80, curHeight)
+          iIndex = i
           descString = ''
           curHeight += 48
         }
@@ -230,7 +231,7 @@ Page({
     }
     ctx.drawImage('../../../../../images/c4.png', 0, curHeight - 200, 74, 92)
     ctx.drawImage(qrCodeUrl, 77, curHeight + 80, 167, 167)
-    ctx.drawImage('../../../../../images/canvas5.png', 0, curHeight, 750, 287)
+    ctx.drawImage('../../../../../images/canvas5.png', 0, curHeight + 5, 750, 287)
     ctx.setFontSize(30)
     ctx.setFillStyle('#fff')
     ctx.fillText('长按打开小程序与Ta约面吧！', 276, curHeight + 160)

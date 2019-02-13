@@ -1,5 +1,6 @@
 <view class="poster">
 	<navbar title="简历分享" background="#fff" color="#22292C"></navbar>
+	<cover-view class="cover" hidden="{{imgUrl}}"></cover-view>
 	<canvas canvas-id="canvas" id="canvas" width="750px" height="3000px" hidden="{{imgUrl}}"></canvas>
 	
 	<view class="imgBox" wx:if="{{imgUrl}}">

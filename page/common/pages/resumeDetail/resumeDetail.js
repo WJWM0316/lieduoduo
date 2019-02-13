@@ -1,6 +1,5 @@
 // page/common/pages/resumeDetail/resumeDetail.js
 import { getOtherResumeApi } from '../../../../api/pages/center.js'
-
 import { inviteInterviewApi } from '../../../../api/pages/interview.js'
 import {getSelectorQuery} from "../../../../utils/util.js"
 import { getMyCollectUserApi, deleteMyCollectUserApi } from '../../../../api/pages/collect.js'

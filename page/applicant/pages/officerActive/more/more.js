@@ -52,32 +52,7 @@ Page({
     area_id: '',
     cate_id: ''
   },
-  onShow() {
-    const rankAll = {
-      list: [],
-      pageNum: 1,
-      isLastPage: false,
-      isRequire: false
-    }
-    const rankCate = {
-      list: [],
-      pageNum: 1,
-      isLastPage: false,
-      isRequire: false
-    }
-    const rankCity = {
-      list: [],
-      pageNum: 1,
-      isLastPage: false,
-      isRequire: false
-    }
-    const commonList = {
-      list: [],
-      pageNum: 1,
-      isLastPage: false,
-      isRequire: false
-    }
-    this.setData({rankAll, rankCate, rankCity, commonList})
+  onLoad() {
     if (app.loginInit) {
       this.getLists().then(() => this.getSubmenuLists())
     } else {

@@ -1,16 +1,15 @@
 <view class="moreActive" bindtap='toMore'>
   <view class="left" wx:if="{{type == 1}}">
-    <text class="title">发现更多招聘官</text>
-    <text class="info">Ta们都在积极抢人，欢迎围观</text>
+    <view class="title">发现更多招聘官</view>
+    <view class="info">Ta们都在积极抢人，欢迎围观</view>
   </view>
   <view class="left" wx:if="{{type == 2}}">
-    <text class="title">招聘官动态</text><view class="dot" wx:if="{{redDotActiveList}}"></view>
-    <text class="info">看过我、对我感兴趣的招聘官</text>
+    <view class="title">招聘官动态</view>
+    <view class="dot" wx:if="{{redDotActiveList}}"></view>
+    <view class="info">看过我、对我感兴趣的招聘官</view>
   </view>
   <view class="right">
-    <image class="avatar" wx:for="{{avatarList}}" wx:key="{{index}}" src="{{item.smallUrl}}"></image>
-    <!--<image class="avatar"></image>
-    <image class="avatar"></image>
-    <image class="avatar"></image>-->
+    <image class="avatar" wx:for="{{avatarList}}" wx:key="{{index}}" src="{{item.smallUrl}}" wx:if="{{index <= 2}}"></image>
+    <image class="avatar" wx:if="{{avatarList.length > 3}}" src="{{cdnImagePath}}more.png"></image>
   </view>
 </view>    

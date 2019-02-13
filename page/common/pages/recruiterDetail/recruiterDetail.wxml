@@ -56,7 +56,7 @@
         <i wx:if="{{isOwner && info.brief}}" class="editBtn iconfont icon-bianji1" bindtap="editJump" data-type="profile"></i>
       </view>
       <view wx:if="{{!info.brief}}" class="addDeclaration" bindtap="editJump" data-type="profile">添加个人简介</view>
-      <shrinkText wx:if="{{info.brief}}" textData="{{info.brief}}"></shrinkText>
+      <shrinkText textData="{{info.brief}}"></shrinkText>
     </view>
     <view class="declaration {{isOwner ? 'recruiterMain' : ''}}" wx:if="{{(!isOwner && info.manifestos.length > 0) || isOwner}}">
       <view class="title">
