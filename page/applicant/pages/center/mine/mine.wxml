@@ -29,7 +29,7 @@
         <view class='left-text'>{{myInfo.jobStatusDesc || "待完善"}}</view>
         <view class='right-edit'>
           <text class='progress-rate'>完善度 {{myInfo.resumeCompletePercentageDesc}}</text>
-          <button class='edit-btn' form-type="submit" bindtap='toEdit'>
+          <button class='edit-btn clear-style' form-type="submit" bindtap='toEdit'>
             <i class="icon iconfont icon-bianji"></i>
             <text class='edit-resume'>编辑简历</text>
           </button>
@@ -38,8 +38,8 @@
       <button class="share-resume" form-type="submit" wx:if='{{!myInfo.uid && hasLogin}}' bindtap='completeResume'>立即完善简历 <i class="icon iconfont icon-xiangyou"></i></button>
       <button class="share-resume" form-type="submit" wx:if='{{!hasLogin}}' bindtap='login'>立即登录 <i class="icon iconfont icon-xiangyou"></i></button>
   		<block wx:if="{{myInfo.uid}}">
-        <button open-type="share" form-type="submit" class="share-resume">发简历</button>
-        <button class="save-resume-pic" form-type="submit" bindtap="jump" data-type="poster">保存简历到相册</button>
+        <button open-type="share" form-type="submit" class="share-resume clear-style">发简历</button>
+        <button class="save-resume-pic clear-style" form-type="submit" bindtap="jump" data-type="poster">保存简历到相册</button>
       </block>
   	</view>
 

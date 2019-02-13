@@ -27,11 +27,17 @@
     <view class="dataShow" wx:if="{{!isOwner}}">
       <view class="dataBox">
         <view class="data"><text class="num">{{info.viewedCount}}</text>人气</view>
-        <view class="data"><text class="num">{{info.influence}}</text>影响力</view>
+        <view class="data"><text class="num">{{info.influence}}</text>影响力<!-- <i class="icon iconfont icon-zhushi"></i> --></view>
         <view class="data"><text class="num">{{info.ranking}}</text>排名</view>
       </view>
-      <button hidden="{{info.isCall}}" class="callBtn" bindtap="callBtn">为Ta打Call，提高影响力</button>
-      <button open-type="share" hidden="{{!info.isCall}}" class="callBtn isCalled" bindtap="shareBtn">帮Ta转发集Call</button>
+      <view class="button-bg"  hidden="{{info.isCall}}">
+        <button hidden="{{info.isCall}}" class="callBtn clear-style" bindtap="callBtn">为Ta打Call，提高影响力</button>
+        <image src="{{cdnImagePath}}button_bg.png"></image>
+      </view>
+      <view class="button-bg" hidden="{{!info.isCall}}">
+        <button open-type="share" hidden="{{!info.isCall}}" class="callBtn isCalled clear-style" bindtap="shareBtn">帮Ta转发集Call</button>
+        <image src="{{cdnImagePath}}button_bg.png"></image>
+      </view>
       <view class="more" bindtap="jump" wx:if="{{isApplicant}}">查看更多热门招聘官<view class="icon iconfont icon-disejiantou-you"></view></view>
     </view>
     <view class="labelEdit {{info.personalizedLabels.length > 0 ? 'hasLabelEdit': ''}}" wx:if="{{isOwner}}">

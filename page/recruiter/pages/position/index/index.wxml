@@ -22,7 +22,7 @@
 		>
 		<button 
 			form-type="submit" 
-			class="formIdBtn"
+			class="formIdBtn clear-style"
 			data-action="detail"
 			data-position-id="{{item.id}}"
 			data-company-id="{{item.companyId}}"

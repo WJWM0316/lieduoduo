@@ -10,7 +10,7 @@
 			<view class="content">
 				<view class="first">
 					<view class="name">{{infos.name}}</view>
-					<view class="hunter-infos"> <view class="strong">{{infos.positionNum}}</view>个职位 </view>
+					<!-- <view class="hunter-infos"> <view class="strong">{{infos.positionNum}}</view>个职位 </view> -->
 				</view>
 				<view class="second">{{recruiterWords}}</view>
 			</view>

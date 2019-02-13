@@ -54,7 +54,7 @@
 }
 .companyMsg .detail, .applicantMsg .detail, .recruiterMsg .detail {
   margin-top: 14rpx;
-  font-size: 26rpx;
+  font-size: 24rpx;
   font-weight: 300;
   color: #5C565D;
   line-height: 26rpx;
