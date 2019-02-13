@@ -31,8 +31,8 @@ Page({
     emolument_range: '请选择薪资范围',
     work_experience: '',
     work_experience_name: '请选择经验要求',
-    education: '',
-    educationName: '请选择学历',
+    education: '25',
+    educationName: '本科',
     describe: '',
     skills: [],
     query: {},
@@ -130,6 +130,7 @@ Page({
         formData.parentType = infos.skillsLabel.length ? infos.skillsLabel[0].topPid : ''
         Object.keys(formData).map(field => this.setData({[field]: formData[field]}))
         this.bindButtonStatus()
+        console.log(this.data)
       })
   },
   /**

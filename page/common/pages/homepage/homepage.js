@@ -284,7 +284,6 @@ Page({
    */
   viewMap(e) {
     const params = e.currentTarget.dataset
-    console.log(params);return;
     wx.openLocation({
       latitude: Number(params.latitude),
       longitude: Number(params.longitude),

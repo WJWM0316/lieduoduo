@@ -159,6 +159,7 @@
   font-weight:bold;
   margin-right: 40rpx;
   color:#652791;
+  font-style: re
 }
 
 .scroll-view_H {

@@ -68,6 +68,16 @@
 	max-width: 70%;
 }
 
+.position-post .text4 {
+	position:relative;
+	line-height:122rpx;
+	width:400rpx;
+	height:122rpx;
+	position:absolute;
+	right:20rpx;
+	top: 0;
+}
+
 .position-post .li .icon-xiangyou {
   float: right;
   color: #CED7DC;
