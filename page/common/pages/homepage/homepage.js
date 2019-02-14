@@ -194,9 +194,13 @@ Page({
           const companyInfos = res.data
           const longitude = companyInfos.address.length ? companyInfos.address[0].lng : 0
           const latitude = companyInfos.address.length ? companyInfos.address[0].lat : 0
+          const address = companyInfos.address.length ? companyInfos.address[0].address : ''
+          const doorplate = companyInfos.address.length ? companyInfos.address[0].doorplate : ''
           const map = this.data.map
           map.longitude = longitude
           map.latitude = latitude
+          map.address = address
+          map.doorplate = doorplate
           map.enableScroll = false
           map.markers.push({
             id: 1,
