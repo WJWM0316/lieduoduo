@@ -1,4 +1,3 @@
-@import '../../../../iconfont.wxss';
 .job-detail {
 	padding-bottom: 160rpx;
 	width: 100%;

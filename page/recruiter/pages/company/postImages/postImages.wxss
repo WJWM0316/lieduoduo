@@ -1,5 +1,3 @@
-@import '../../../../../iconfont.wxss';
-
 .company-images .ul{
   padding: 30rpx 40rpx;
   box-sizing: border-box;

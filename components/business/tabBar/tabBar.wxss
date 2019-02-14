@@ -1,5 +1,3 @@
-/* components/business/tabBar/tabBar.wxss */
-@import '../../../iconfont.wxss';
 
 .tabBar {
   width: 100%;

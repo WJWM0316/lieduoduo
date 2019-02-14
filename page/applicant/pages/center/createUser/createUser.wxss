@@ -1,5 +1,3 @@
-/* page/applicant/pages/center/firstStep/fitstStep.wxss */
-@import '../../../../../iconfont.wxss';
 .myPicker{
   height: 100rpx;
 }

@@ -1,5 +1,3 @@
-/* page/applicant/pages/center/secondStep/secondStep.wxss */
-@import '../../../../../iconfont.wxss';
 .header{
   box-sizing: border-box;
   padding-top: 185rpx;

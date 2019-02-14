@@ -23,7 +23,7 @@ Page({
     let myInfo = {}
     hasLogin = app.globalData.hasLogin
     myInfo = app.globalData.resumeInfo
-    this.setData({myInfo, hasLogin, resumeAttach: myInfo.resumeAttach})
+    this.setData({myInfo, hasLogin, resumeAttach: myInfo.resumeAttach || {}})
     app.pageInit = () => {
       hasLogin = app.globalData.hasLogin
       myInfo = app.globalData.resumeInfo

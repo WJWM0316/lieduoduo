@@ -1,4 +1,3 @@
-@import '../../../../../../iconfont.wxss';
 
 .category-list .li {
   background: white;

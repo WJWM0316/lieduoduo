@@ -1,4 +1,3 @@
-@import '../../../../../iconfont.wxss';
 
 .entry-list {
 	padding-bottom: 212rpx;

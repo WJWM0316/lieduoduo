@@ -1,4 +1,3 @@
-@import '../../../../iconfont.wxss';
 
 .resumeDetail{
   background: #F5F4F7;

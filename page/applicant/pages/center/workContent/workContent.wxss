@@ -1,5 +1,3 @@
-/* page/applicant/pages/center/workContent/workContent.wxss */
-@import '../../../../../iconfont.wxss';
 .textArea{
   width: 100%;
   height: 460rpx;

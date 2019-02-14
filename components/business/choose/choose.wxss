@@ -1,4 +1,3 @@
-@import '../../../iconfont.wxss';
 .choose {
   width: 100%;
   min-height: 100%;

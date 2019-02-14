@@ -1,4 +1,3 @@
-@import '../../../../../iconfont.wxss';
 .office-manager-list {
   overflow: hidden;
   padding: 0 30rpx;

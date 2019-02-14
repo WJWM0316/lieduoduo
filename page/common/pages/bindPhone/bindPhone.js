@@ -14,7 +14,8 @@ Page({
     phone: '',
     code: '',
     cdnImagePath: app.globalData.cdnImagePath,
-    second: 60
+    second: 60,
+    canClick: false
   },
 
   /**
@@ -34,12 +35,17 @@ Page({
       this.setData({
         phone: e.detail.value
       })
+      this.setData({canClick: this.data.code && this.data.phone ? true : false})
     }, 300)
   },
   getCode(e) {
-    this.setData({
-      code: e.detail.value
-    })
+    clearTimeout(timer)
+    timer = setTimeout(() => {
+      this.setData({
+        code: e.detail.value
+      })
+      this.setData({canClick: this.data.code && this.data.phone ? true : false})
+    }, 300)
   },
   sendCode() {
     if (!mobileNumber) {
@@ -71,6 +77,7 @@ Page({
     })
   },
   bindPhone() {
+    if (!this.data.canClick) return
     let data = {
       mobile: this.data.phone,
       code: this.data.code

@@ -1,5 +1,5 @@
 /**app.wxss**/
-
+@import 'iconfont.wxss'
 .container {
 } 
 
@@ -13,6 +13,7 @@ page {
 	color: transparent;
 }
 
-.clear-style::after{
-	border:none;
+button::after{
+	display: none;
 }
+

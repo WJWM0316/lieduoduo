@@ -1,4 +1,3 @@
-@import '../../../../iconfont.wxss';
 .bindPhone .img {
   width: 100%;
 }
@@ -8,6 +7,7 @@
   left: 0;
   width: 100%;
   min-height: 100vh;
+  background: #fff;
 }
 .bindPhone .msg {
   width: 100%;
@@ -88,6 +88,7 @@
   line-height: 28rpx;
   text-align: center;
   display: inline-block;
+  background: none;
 }
 .wxLogin::after{border:none}
 .icon {
@@ -109,4 +110,10 @@
   bottom: 126rpx;
   left: 50%;
   margin-left: -275rpx;
+}
+
+.bindBtn.noClick {
+  background: #F5F4F7;
+  color: #CDCBCF;
+  box-shadow: none;
 }

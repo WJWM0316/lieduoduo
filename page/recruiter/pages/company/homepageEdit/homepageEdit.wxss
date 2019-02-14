@@ -1,4 +1,3 @@
-@import '../../../../../iconfont.wxss';
 
 .title {
   font-size:28rpx;

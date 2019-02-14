@@ -1,4 +1,3 @@
-@import '../../../../../iconfont.wxss';
 
 .productList .button-save {
   height:88rpx;

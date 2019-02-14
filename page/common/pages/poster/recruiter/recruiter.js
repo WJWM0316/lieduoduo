@@ -94,10 +94,8 @@ Page({
       ctx.setFontSize(32)
       ctx.setFillStyle('#282828')
       ctx.setTextAlign('left')
-
-
+      
       ellipsis(ctx, item.positionName, 390, 80, curHeight + 32)
-
 
       // 其他
       ctx.setFontSize(24)

@@ -1,5 +1,3 @@
-/* page/applicant/pages/center/resumeEditor/aimsEdit/aimsEdit.wxss */
-@import '../../../../../../iconfont.wxss';
 .warp{
   box-sizing: border-box;
   width: 100%;

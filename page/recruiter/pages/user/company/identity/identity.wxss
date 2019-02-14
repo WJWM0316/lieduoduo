@@ -1,4 +1,3 @@
-@import '../../../../../../iconfont.wxss';
 .button-submit {
 	background:#F5F4F7;
 	border-radius:48rpx;
