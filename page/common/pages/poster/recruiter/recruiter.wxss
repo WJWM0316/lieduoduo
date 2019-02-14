@@ -20,7 +20,8 @@
 }
 .showImg {
 	width: 100%;
-	display: block
+	display: block;
+	border-radius: 16rpx;
 }
 .save {
 	padding: 16rpx 85rpx 8rpx;
