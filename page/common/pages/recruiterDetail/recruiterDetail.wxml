@@ -74,7 +74,7 @@
       <view class="descList">
         <view class="descItem" wx:for="{{info.manifestos}}" wx:key="{{index}}">
           <view class="descTitle">{{item.topicTitle}}<i wx:if="{{isOwner}}" data-item="{{item}}" class="editBtn iconfont icon-bianji1" bindtap="editJump" data-type="declaration"></i></view>
-          <view><view class="descAnswer"><shrinkText my-class="descAnswer" wx:if="{{item.content}}" textData="{{item.content}}"></shrinkText></view></view>
+          <view><view><shrinkText my-class="descAnswer" wx:if="{{item.content}}" textData="{{item.content}}"></shrinkText></view></view>
         </view>
       </view>
       <view wx:if="{{isOwner}}" class="addDeclaration" bindtap="editJump" data-type="addDeclaration">添加招聘宣言</view>

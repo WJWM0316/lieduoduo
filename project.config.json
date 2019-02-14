@@ -38,7 +38,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 14,
+			"current": 46,
 			"list": [
 				{
 					"id": 0,
@@ -315,6 +315,12 @@
 					"name": "职位详情",
 					"pathName": "page/common/pages/positionDetail/positionDetail",
 					"query": "scene=positionId%3d193"
+				},
+				{
+					"id": -1,
+					"name": "招聘官动态",
+					"pathName": "page/applicant/pages/officerActive/recruitmentActive/recruitmentActive",
+					"query": "action=edit&type=apply"
 				}
 			]
 		}

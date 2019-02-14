@@ -12,17 +12,18 @@ Page({
     hasLogin: false,
     hideBind: true,
     hasReFresh: false,
-    cdnImagePath: app.globalData.cdnImagePath
+    cdnImagePath: app.globalData.cdnImagePath,
+    resumeAttach: {}
   },
   /**
    * 生命周期函数--监听页面加载
    */
-  onShow: function (options) {
+  onShow() {
     let hasLogin = false
     let myInfo = {}
     hasLogin = app.globalData.hasLogin
     myInfo = app.globalData.resumeInfo
-    this.setData({myInfo, hasLogin})
+    this.setData({myInfo, hasLogin, resumeAttach: myInfo.resumeAttach})
     app.pageInit = () => {
       hasLogin = app.globalData.hasLogin
       myInfo = app.globalData.resumeInfo

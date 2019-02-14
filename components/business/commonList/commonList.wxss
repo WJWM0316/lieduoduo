@@ -119,7 +119,11 @@
 	display: flex;
 }
 
-.common-lits-ul .li .company-name text{}
+.common-lits-ul .li .company-name i{
+	margin-right: 6rpx;
+	font-size: 24rpx;
+	color: #CDCBCF;
+}
 
 .common-lits-ul .li .position-number {
 	font-size:24rpx;
