@@ -93,10 +93,11 @@
 }
 
 .info .top{
-  width: 480rpx;
+  max-width: 465rpx;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  line-height: 1;
 }
 
 .info .top .name{
@@ -109,25 +110,24 @@
 }
 
 .info .top .title{
-  white-space: nowrap;
-  text-overflow: ellipsis;
   display: inline-block;
-  max-width: 363rpx;
   font-size: 28rpx;
   font-weight: 300;
   color: #282828;
   vertical-align: middle;
+  border-left: 1px solid #e8e9eb;
+  padding-left: 17rpx;
 }
 
 .info .bottom{
   display: flex;
   align-items: center;
-  margin-top: 18rpx;
+  margin-top: 20rpx;
 }
 
 .info .bottom i{
-  margin-right: 12rpx;
-  font-size: 24rpx;
+  margin-right: 10rpx;
+  font-size: 26rpx;
   color: #CDCBCF;
 }
 

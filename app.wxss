@@ -4,7 +4,7 @@
 } 
 
 page {
-	background:rgba(250,252,255,1);
+	background:#FBFBFF;
 }
 
 ::-webkit-scrollbar {

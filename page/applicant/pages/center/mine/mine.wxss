@@ -1,15 +1,21 @@
 .mine .header-bg{
   height: 278rpx;
+}
+.bgImg {
   width: 100%;
-  background: #652791;
+  height: 415rpx;
+  display: block;
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: -1;
 }
 
 .mine .floating-box {
   overflow: hidden;
   background: white;
   border-radius: 10rpx;
-  margin: 24rpx 30rpx;
-  margin-top: -278rpx;
+  margin: 0 30rpx;
   box-sizing: border-box;
   padding: 48rpx 40rpx 40rpx 40rpx;
   box-shadow:0rpx 10rpx 30rpx 0rpx rgba(22,39,77,0.05);
