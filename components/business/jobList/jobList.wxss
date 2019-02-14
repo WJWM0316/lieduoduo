@@ -74,8 +74,11 @@
   font-size: 24rpx;
   font-weight: 400;
   color: #626262;
-  display: flex;
   align-items: center;
+  max-width: 550rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .formIdBtn {
   position:relative;

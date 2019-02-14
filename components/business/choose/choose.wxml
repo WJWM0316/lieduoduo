@@ -1,6 +1,6 @@
 <!--components/business/choose/choose.wxml-->
 <view class="choose" wx:if="{{!isChose}}">
-	<navbar title="选择身份"></navbar>
+	<navbar title="选择身份" background="#FFFFFF" color="#22292C"></navbar>
 	<view class="title">
 		<image src="{{cdnImagePath}}choseIcon1.png" class="icon"></image>
 		<view class="desc">小程序找工作神器</view>

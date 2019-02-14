@@ -36,7 +36,7 @@
 }
 
 .office-manager-list .li .office-name{
-  max-width:490rpx;
+  max-width:400rpx;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
