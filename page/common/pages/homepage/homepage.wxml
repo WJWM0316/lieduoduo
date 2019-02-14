@@ -107,7 +107,13 @@
 			<view class="title">
 				<view class="icon"> <view class="fan"></view> </view> 公司地址
 			</view>
-			<view class="map">
+			<view
+				class="map"
+				bindtap="viewMap"
+				data-longitude="{{map.longitude}}"
+				data-latitude="{{ map.latitude }}"
+				data-address="{{map.address}}"
+				data-doorplate="{{map.doorplate}}">
 				<map
 				  longitude="{{ map.longitude }}"
 				  latitude="{{ map.latitude }}"

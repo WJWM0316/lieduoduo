@@ -32,7 +32,7 @@
 				<view class="office-sarary">{{item.emolumentMin}}K~{{item.emolumentMax}}K</view>
 			</view>
 			<view class="tags-box">
-				<view class="item">{{item.city}}{{item.district}}</view>
+				<view class="item" wx:if="{{item.city}}">{{item.city}}{{item.district}}</view>
 				<view class="item">{{item.workExperienceName}}</view>
 				<view class="item">{{item.educationName}}</view>
 			</view>
@@ -56,7 +56,7 @@
 			<view class="office-sarary">{{item.emolumentMin}}K~{{item.emolumentMax}}K</view>
 		</view>
 		<view class="tags-box">
-			<view class="item">{{item.city}}{{item.district}}</view>
+			<view class="item" wx:if="{{item.city}}">{{item.city}}{{item.district}}</view>
 			<view class="item">{{item.workExperienceName}}</view>
 			<view class="item">{{item.educationName}}</view>
 		</view>
