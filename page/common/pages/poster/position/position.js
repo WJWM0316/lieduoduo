@@ -1,4 +1,4 @@
-import {ellipsis} from '../../../../../utils/canvas.js'
+import {ellipsis, lineFeed} from '../../../../../utils/canvas.js'
 
 let app = getApp()
 let info = null
@@ -212,29 +212,7 @@ Page({
     ctx.setFontSize(28)
     ctx.setFillStyle('#282828')
     if (!info.describe) info.describe = '你还未填写职位详情，快去填写吧~'
-    info.describe = info.describe.replace(/[\r\n]/g, "")
-    if (ctx.measureText(info.describe).width > 590) {
-      let iIndex = 0 // 最后一行的第一个字的索引
-      for (let i = 0; i < info.describe.length; i++) {
-        descString = descString + info.describe[i]
-        descWidth = ctx.measureText(descString).width
-        
-        if (descWidth > 590) {
-          ctx.drawImage('../../../../../images/c2.png', 0, curHeight, 750, 90)
-          ctx.fillText(descString.slice(0, descString.length), 80, curHeight)
-          iIndex = i
-          descString = ''
-          curHeight += 48
-        }
-      }
-      ctx.drawImage('../../../../../images/c2.png', 0, curHeight, 750, 90)
-      ctx.fillText(info.describe.slice(iIndex, info.describe.length), 80, curHeight)
-    } else {
-      ctx.drawImage('../../../../../images/c2.png', 0, curHeight, 750, 90)
-      ctx.fillText(info.describe, 80, curHeight)
-      curHeight = curHeight + 30
-    }
-
+    curHeight = lineFeed(ctx, info.describe, 590, 80, curHeight, '../../../../../images/c2.png', 750, 90)
     ctx.drawImage('../../../../../images/c4.png', 0, curHeight - 200, 74, 92)
     ctx.drawImage(qrCodeUrl, 75, curHeight + 88, 170, 170)
     ctx.drawImage('../../../../../images/canvas5.png', 0, curHeight + 10, 750, 287)

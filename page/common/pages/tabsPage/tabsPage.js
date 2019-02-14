@@ -389,6 +389,7 @@ Page({
     let literacyLabels = []
     let lifeList = []
     let personalizedLabels = this.data.choseJobList.concat(this.data.choseLifeList)
+    let choseType = wx.getStorageSync('choseType')
     this.data.choseJobList.map((item, index) => {
       if (item.type === 'label_professional_literacy') {
         literacyLabels.push({labelId: item.labelId, source: item.source})
@@ -407,7 +408,7 @@ Page({
       literacyLabels: literacyLabels,
       lifeLabels: lifeList
     }
-    if (app.globalData.identity === "APPLICANT") {
+    if (choseType === "APPLICANT") {
       saveLabelApi(data).then(res => {
         app.globalData.resumeInfo.personalizedLabels = personalizedLabels
         app.wxToast({

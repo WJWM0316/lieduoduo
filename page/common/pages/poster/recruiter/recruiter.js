@@ -1,6 +1,6 @@
 import {getPositionListApi} from '../../../../../api/pages/position.js'
 import {getRecruiterDetailApi} from '../../../../../api/pages/recruiter.js'
-import {ellipsis} from '../../../../../utils/canvas.js'
+import {ellipsis, lineFeed} from '../../../../../utils/canvas.js'
 
 let app = getApp()
 let info = null
@@ -24,7 +24,6 @@ Page({
     ctx.setFillStyle('#652791')
     ctx.fillRect(0, 0, 750, 2500)
 
-    
     // 头像
     ctx.drawImage(avatarUrl, 290, 71, 168, 168)
 
@@ -75,28 +74,8 @@ Page({
     let descString = ''
     let descWidth = 0
     if (!info.brief) info.brief = '你还未填写个人简介，快去填写吧~'
-    info.brief = info.brief.replace(/[\r\n]/g, "")
-    if (ctx.measureText(info.brief).width > 590) {
-      let iIndex = 0 // 最后一行的第一个字的索引
-      for (let i = 0; i < info.brief.length; i++) {
-        descString = descString + info.brief[i]
-        descWidth = ctx.measureText(descString).width
-        if (descWidth > 590) {
-          iIndex = i
-          ctx.drawImage('../../../../../images/a8.png', 0, curHeight, 750, 48)
-          ctx.fillText(descString.slice(0, descString.length), 80, curHeight)
-          descString = ''
-          curHeight += 48
-        }
-      }
-      ctx.drawImage('../../../../../images/a8.png', 0, curHeight, 750, 48)
-      ctx.fillText(info.brief.slice(iIndex, info.brief.length), 80, curHeight)
-      curHeight = curHeight + 15
-    } else {
-      curHeight = curHeight + 15
-      ctx.drawImage('../../../../../images/a8.png', 0, curHeight, 750, 48)
-      ctx.fillText(info.brief, 80, curHeight - 10)
-    }
+    curHeight = lineFeed(ctx, info.brief, 590, 80, curHeight, '../../../../../images/a8.png', 750, 48)
+
     // 在招职位
     ctx.drawImage('../../../../../images/a8.png', 0, curHeight, 750, 100)
     curHeight = curHeight + 30

@@ -1,6 +1,6 @@
 import {getPositionListApi} from '../../../../../api/pages/position.js'
 import {getPersonalResumeApi} from '../../../../../api/pages/center.js'
-import {ellipsis} from '../../../../../utils/canvas.js'
+import {ellipsis, lineFeed} from '../../../../../utils/canvas.js'
 let app = getApp()
 let qrCodeUrl = ''
 let avatarUrl = ''
@@ -145,25 +145,8 @@ Page({
     ctx.drawImage('../../../../../images/a7.png', 0, curHeight, 750, 78)
     curHeight = curHeight + 30
     if (!info.signature) info.signature = '你还未填写个性签名，说说你的想法吧~'
-    info.signature = info.signature.replace(/[\r\n]/g, "")
-    if (ctx.measureText(info.signature).width > 590) {
-      let iIndex = 0 // 最后一行的第一个字的索引
-      for (let i = 0; i < info.signature.length; i++) {
-        descString = descString + info.signature[i]
-        descWidth = ctx.measureText(descString).width
-        if (descWidth > 590) {
-          iIndex = i
-          ctx.drawImage('../../../../../images/a7.png', 0, curHeight, 750, 110)
-          ctx.fillText(descString.slice(0, descString.length), 80, curHeight + 30)
-          curHeight = curHeight + 48
-          descString = ''
-        }
-      }
-      ctx.fillText(info.signature.slice(iIndex, info.signature.length), 80, curHeight + 30)
-    } else {
-      ctx.fillText(info.signature, 80, curHeight + 30)
-    }
-    curHeight = curHeight + 45
+
+    curHeight = lineFeed(ctx, info.signature, 590, 80, curHeight, '../../../../../images/a7.png', 750, 110)
 
     // 求职意向
     ctx.drawImage('../../../../../images/a7.png', 0, curHeight, 750, 100)
