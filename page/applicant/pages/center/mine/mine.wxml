@@ -1,10 +1,10 @@
 <view class='mine'>
-<navbar title="我的"></navbar>
-<view hidden="{{!hasReFresh}}">
-  <refreshStatus></refreshStatus>
-</view>
-
-<view class='header-bg'></view>
+  <navbar title="我的" background="transparent" title="我的" color="#fff"></navbar>
+  <view hidden="{{!hasReFresh}}">
+    <refreshStatus></refreshStatus>
+  </view>
+  <image class="bgImg" mode="aspectFill" src="{{cdnImagePath}}mine_job_hunter.png"></image>
+  <view style="height: 24rpx"></view>
   <form bindsubmit="formSubmit" report-submit='{{true}}'>
     <view class="floating-box">
   		<view class="header">

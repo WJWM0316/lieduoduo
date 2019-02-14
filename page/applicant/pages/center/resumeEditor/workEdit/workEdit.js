@@ -37,7 +37,7 @@ Page({
    */
   onLoad(options) {
     this.setData({options})
-    if (!options.id || app.globalData.resumeInfo.careers.length === 1) {
+    if (!options.id || app.globalData.resumeInfo.careers.length > 1) {
       this.setData({
         isAdd: true
       })
