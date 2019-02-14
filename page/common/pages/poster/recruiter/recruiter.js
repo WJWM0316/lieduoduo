@@ -1,5 +1,7 @@
 import {getPositionListApi} from '../../../../../api/pages/position.js'
 import {getRecruiterDetailApi} from '../../../../../api/pages/recruiter.js'
+import {ellipsis} from '../../../../../utils/canvas.js'
+
 let app = getApp()
 let info = null
 let avatarUrl = ''
@@ -40,7 +42,7 @@ Page({
     ctx.setTextAlign('center')
     ctx.fillText(info.name, 375, 305)
     ctx.setFontSize(26)
-    ctx.fillText(info.position, 375, 350)
+    ellipsis(ctx, info.position, 500, 375, 350)
     ctx.setFontSize(28)
     let cutString = ''
     let ellipsisWidth = ctx.measureText('...').width
@@ -82,7 +84,7 @@ Page({
         if (descWidth > 590) {
           iIndex = i
           ctx.drawImage('../../../../../images/a8.png', 0, curHeight, 750, 48)
-          ctx.fillText(descString.slice(0, descString.length-1), 80, curHeight)
+          ctx.fillText(descString.slice(0, descString.length), 80, curHeight)
           descString = ''
           curHeight += 48
         }
@@ -109,24 +111,14 @@ Page({
 
     function positionItem(item, index) {
       ctx.drawImage('../../../../../images/a8.png', 0, curHeight, 750, 135)
-      let nameWidth = ctx.measureText(item.positionName).width
-      let nameString = ''
-      let nameStringWidth = 0
       // 职位名
       ctx.setFontSize(32)
       ctx.setFillStyle('#282828')
       ctx.setTextAlign('left')
-      if (nameWidth > 392) {
-        for (let i = 0; i < info.positionName.length; i++) {
-          nameString = nameString + info.positionName[i]
-          nameStringWidth = ctx.measureText(nameString).width
-          if (nameStringWidth > 392) {
-            ctx.fillText(nameString, 80, curHeight + 32)
-          }
-        }
-      } else {
-        ctx.fillText(item.positionName, 80, curHeight + 32)
-      }
+
+
+      ellipsis(ctx, item.positionName, 390, 80, curHeight + 32)
+
 
       // 其他
       ctx.setFontSize(24)
@@ -210,12 +202,15 @@ Page({
     let loadAvatar = new Promise((resolve, reject) => {
       // 头像
       wx.downloadFile({
-        url: info.avatar.url,
+        url: info.avatar.smallUrl,
         success(res) {
           if (res.statusCode === 200) {
             resolve(res)
             avatarUrl = res.tempFilePath
           }
+        },
+        fail(e) {
+          app.wxToast({title: '图片加载失败，请退出重新生成'})
         }
       })
     })
@@ -228,6 +223,9 @@ Page({
             resolve(res)
             qrCodeUrl = res.tempFilePath
           }
+        },
+        fail(e) {
+          app.wxToast({title: '图片加载失败，请退出重新生成'})
         }
       })
     })

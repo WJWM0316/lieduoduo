@@ -73,6 +73,9 @@ Page({
       let identity = wx.getStorageSync('choseType')
       getOtherResumeApi({uid: this.data.options.uid}).then(res => {
         this.setData({info: res.data, isOwner: res.data.isOwner && identity === 'APPLICANT', realIsOwner: res.data.isOwner}, function() {
+          if (this.data.isOwner) {
+            app.globalData.resumeInfo = res.data
+          }
           if (this.selectComponent('#interviewBar')) {
             this.selectComponent('#interviewBar').init()
           }

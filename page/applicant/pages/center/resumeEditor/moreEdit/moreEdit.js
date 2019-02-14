@@ -89,7 +89,13 @@ Page({
     editIntroduceApi(param).then(res => {
       app.globalData.resumeInfo.moreIntroduce.imgs = this.data.imgList
       app.globalData.resumeInfo.moreIntroduce.introduce = this.data.introduce
-      wx.navigateBack({delta: 1})
+      app.wxToast({
+        title: '保存成功',
+        icon: 'success',
+        callback() {
+          wx.navigateBack({delta: 1})
+        }
+      })
     })
   }
 })

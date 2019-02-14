@@ -1,4 +1,5 @@
-  // page/common/pages/poster/position/position.js
+import {ellipsis} from '../../../../../utils/canvas.js'
+
 let app = getApp()
 let info = null
 let avatarUrl = ''
@@ -30,14 +31,16 @@ Page({
     ctx.setTextAlign('left')
     ctx.setFillStyle('#ffffff')
     ctx.setFontSize(28)
-    ctx.fillText(`${info.recruiterInfo.name} | ${info.recruiterInfo.position}`, 212, 85)
+
+    ellipsis(ctx, `${info.recruiterInfo.name} | ${info.recruiterInfo.position}`, 360, 212, 85)
+
     ctx.setFontSize(22)
     ctx.fillText('工作不易，知音难觅，壮士约乎？', 212, 119)
 
     // 主要内容
     ctx.setTextAlign('center')
     ctx.setFontSize(46)
-    ctx.fillText(info.positionName, 375, 272)
+    ellipsis(ctx, info.positionName, 500, 375, 272)
     ctx.fillText(`${info.emolumentMin}~${info.emolumentMax}K`, 375, 345)
     // ctx.font = "normal normal lighter 46px arial,sans-serif"
     ctx.setFontSize(24)
@@ -164,7 +167,7 @@ Page({
     curHeight = curHeight + 131
     ctx.drawImage('../../../../../images/c1.png', 0, curHeight, 750, 174)
     curHeight = curHeight + 174
-    ctx.drawImage('../../../../../images/c2.png', 0, curHeight, 750, 120)
+    ctx.drawImage('../../../../../images/c2.png', 0, curHeight, 750, 180)
     
     // 画职位标签
     let padding = 20
@@ -208,27 +211,30 @@ Page({
     curHeight = curHeight + 90
     ctx.setFontSize(28)
     ctx.setFillStyle('#282828')
+    if (!info.describe) info.describe = '你还未填写职位详情，快去填写吧~'
+    info.describe = info.describe.replace(/[\r\n]/g, "")
     if (ctx.measureText(info.describe).width > 590) {
       let iIndex = 0 // 最后一行的第一个字的索引
       for (let i = 0; i < info.describe.length; i++) {
         descString = descString + info.describe[i]
         descWidth = ctx.measureText(descString).width
-        if (!info.describe) info.describe = '你还未填写职位详情，快去填写吧~'
-        // info.describe = info.describe.replace(/[\r\n]/g, "")
-        if (info.describe[i] === '↵' || descWidth > 590) {
+        
+        if (descWidth > 590) {
           ctx.drawImage('../../../../../images/c2.png', 0, curHeight, 750, 90)
-          ctx.fillText(descString.slice(0, descString.length-1), 80, curHeight)
+          ctx.fillText(descString.slice(0, descString.length), 80, curHeight)
           iIndex = i
           descString = ''
           curHeight += 48
         }
       }
+      ctx.drawImage('../../../../../images/c2.png', 0, curHeight, 750, 90)
       ctx.fillText(info.describe.slice(iIndex, info.describe.length), 80, curHeight)
     } else {
       ctx.drawImage('../../../../../images/c2.png', 0, curHeight, 750, 90)
       ctx.fillText(info.describe, 80, curHeight)
       curHeight = curHeight + 30
     }
+
     ctx.drawImage('../../../../../images/c4.png', 0, curHeight - 200, 74, 92)
     ctx.drawImage(qrCodeUrl, 75, curHeight + 88, 170, 170)
     ctx.drawImage('../../../../../images/canvas5.png', 0, curHeight + 10, 750, 287)
@@ -274,11 +280,13 @@ Page({
             resolve(res)
             avatarUrl = res.tempFilePath
           }
+        },
+        fail(e) {
+          app.wxToast({title: '图片加载失败，请退出重新生成'})
         }
       })
     })
     let loadCompany = new Promise((resolve, reject) => {
-      // 二维码
       wx.downloadFile({
         url:  info.companyInfo.logoInfo.middleUrl,
         success(res) {
@@ -286,6 +294,9 @@ Page({
             resolve(res)
             companyUrl = res.tempFilePath
           }
+        },
+        fail(e) {
+          app.wxToast({title: '图片加载失败，请退出重新生成'})
         }
       })
     })
@@ -298,6 +309,9 @@ Page({
             resolve(res)
             qrCodeUrl = res.tempFilePath
           }
+        },
+        fail(e) {
+          app.wxToast({title: '图片加载失败，请退出重新生成'})
         }
       })
     })

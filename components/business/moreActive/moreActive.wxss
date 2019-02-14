@@ -36,12 +36,14 @@
   font-size: 32rpx;
   color:#282828;
   font-weight: 500;
+  line-height: 32rpx;
 }
 
 .left .info{
   font-size: 24rpx;
   color: #929292;
   font-weight: 300;
+  line-height: 24rpx;
 }
 
 .right{

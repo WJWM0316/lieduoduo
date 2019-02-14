@@ -4,6 +4,7 @@ import {quickLoginApi} from '../../../../api/pages/auth.js'
 
 let mobileNumber = 0
 let app = getApp()
+let timer = null
 Page({
 
   /**
@@ -28,13 +29,12 @@ Page({
   },
   getPhone(e) {
     mobileNumber = e.detail.value
-    this.setData({
-      phone: e.detail.value
-    })
-    this.isBlured = true
-    if (this.callback) {
-      this.callback()
-    }
+    clearTimeout(timer)
+    timer = setTimeout(() => {
+      this.setData({
+        phone: e.detail.value
+      })
+    }, 300)
   },
   getCode(e) {
     this.setData({
@@ -42,42 +42,33 @@ Page({
     })
   },
   sendCode() {
-    let sendFun = () => {
-      if (!mobileNumber) {
-        app.wxToast({
-          title: '请填写手机号'
-        })
-        return
-      }
-      let data = {
-        mobile: mobileNumber
-      }
-      sendCodeApi(data).then(res => {
-        this.isBlured = false
-        this.callback = null
-        let second = 60
-        let timer = null
-        app.wxToast({
-          title: '验证码发送成功',
-          icon: 'success'
-        })
-        timer = setInterval(() => {
-          second--
-          if (second === 0) {
-            second = 60
-            clearInterval(timer)
-          }
-          this.setData({second})
-        }, 1000)
+    if (!mobileNumber) {
+      app.wxToast({
+        title: '请填写手机号'
       })
+      return
     }
-    if (this.isBlured) {
-      sendFun()
-    } else {
-      this.callback = () => {
-        sendFun()
-      }
+    let data = {
+      mobile: mobileNumber
     }
+    sendCodeApi(data).then(res => {
+      this.isBlured = false
+      this.callback = null
+      let second = 60
+      let timer = null
+      app.wxToast({
+        title: '验证码发送成功',
+        icon: 'success'
+      })
+      timer = setInterval(() => {
+        second--
+        if (second === 0) {
+          second = 60
+          clearInterval(timer)
+        }
+        this.setData({second})
+      }, 1000)
+    })
   },
   bindPhone() {
     let data = {

@@ -1,5 +1,6 @@
 import {getPositionListApi} from '../../../../../api/pages/position.js'
 import {getPersonalResumeApi} from '../../../../../api/pages/center.js'
+import {ellipsis} from '../../../../../utils/canvas.js'
 let app = getApp()
 let qrCodeUrl = ''
 let avatarUrl = ''
@@ -36,7 +37,7 @@ Page({
     if (info.lastCompanyName) {
       ctx.setFontSize(26)
       curHeight = curHeight + 42
-      ctx.fillText(`${info.lastCompanyName} | ${info.lastPosition}`, 375, curHeight)
+      ellipsis(ctx, `${info.lastCompanyName} | ${info.lastPosition}`, 500, 375, curHeight)
     }
     
     if (info.jobStatusDesc) {
@@ -133,8 +134,6 @@ Page({
         }
       }
     }
-    
-
 
     // 个人简介
     let descWidth = 0
@@ -155,7 +154,7 @@ Page({
         if (descWidth > 590) {
           iIndex = i
           ctx.drawImage('../../../../../images/a7.png', 0, curHeight, 750, 110)
-          ctx.fillText(descString.slice(0, descString.length-1), 80, curHeight + 30)
+          ctx.fillText(descString.slice(0, descString.length), 80, curHeight + 30)
           curHeight = curHeight + 48
           descString = ''
         }
@@ -208,17 +207,8 @@ Page({
       ctx.setFontSize(32)
       ctx.setFillStyle('#282828')
       ctx.setTextAlign('left')
-      if (title > 392) {
-        for (let i = 0; i < title.length; i++) {
-          nameString = nameString + title[i]
-          nameStringWidth = ctx.measureText(nameString).width
-          if (nameStringWidth > 392) {
-            ctx.fillText(nameString, 80, curHeight + 32)
-          }
-        }
-      } else {
-        ctx.fillText(title, 80, curHeight + 32)
-      }
+
+      ellipsis(ctx, title, 390, 80, curHeight + 32)
 
       // 其他
       ctx.setFontSize(24)
@@ -230,7 +220,8 @@ Page({
           desc = n.field
         }
       })
-      ctx.fillText(desc, 80, curHeight + 72)
+
+      ellipsis(ctx, desc, 390, 80, curHeight + 72)
 
       // 薪资
       ctx.setFontSize(36)
@@ -295,18 +286,8 @@ Page({
       ctx.setFontSize(32)
       ctx.setFillStyle('#282828')
       ctx.setTextAlign('left')
-      if (title > 392) {
-        for (let i = 0; i < title.length; i++) {
-          nameString = nameString + title[i]
-          nameStringWidth = ctx.measureText(nameString).width
-          if (nameStringWidth > 392) {
-            ctx.fillText(nameString, 80, curHeight + 32)
-          }
-        }
-      } else {
-        ctx.fillText(title, 80, curHeight + 32)
-      }
 
+      ellipsis(ctx, title, 390, 80, curHeight + 32)
       
       // 日期
       ctx.setFontSize(24)
@@ -314,15 +295,15 @@ Page({
       ctx.setTextAlign('right')
       item.startTimeDesc = item.startTimeDesc.split('-').join('.')
       item.endTimeDesc = item.endTimeDesc.split('-').join('.')
-      ctx.fillText(`${item.startTimeDesc}-${item.endTimeDesc}`, 670, curHeight + 36)
 
+      ellipsis(ctx, `${item.startTimeDesc}-${item.endTimeDesc}`, 390, 670, curHeight + 36)
 
       // 其他
       ctx.setFontSize(28)
       ctx.setTextAlign('left')
-      ctx.fillText(item.positionType, 80, curHeight + 72)
-      let padding = 20
+      ellipsis(ctx, item.positionType, 390, 80, curHeight + 72)
 
+      let padding = 20
       curHeight = curHeight + 105
       let teamPosition = {
         x: 80,
@@ -421,17 +402,8 @@ Page({
       ctx.setFontSize(32)
       ctx.setFillStyle('#282828')
       ctx.setTextAlign('left')
-      if (title > 392) {
-        for (let i = 0; i < title.length; i++) {
-          nameString = nameString + title[i]
-          nameStringWidth = ctx.measureText(nameString).width
-          if (nameStringWidth > 392) {
-            ctx.fillText(nameString, 80, curHeight + 32)
-          }
-        }
-      } else {
-        ctx.fillText(title, 80, curHeight + 32)
-      }
+
+      ellipsis(ctx, title, 390, 80, curHeight + 32)
 
       
       // 日期
@@ -447,8 +419,7 @@ Page({
       ctx.setFontSize(28)
       ctx.setFillStyle('#282828')
       ctx.setTextAlign('left')
-
-      ctx.fillText(`${item.degreeDesc} · ${item.major}`, 80, curHeight)
+      ellipsis(ctx, `${item.degreeDesc} · ${item.major}`, 390, 80, curHeight)
 
       curHeight = curHeight + 40
 
@@ -508,11 +479,9 @@ Page({
       })
     })
     let loadAvatar = new Promise((resolve, reject) => {
-      // console.log(22222, info.avatar.middleUrl)
-      
       // 头像
       wx.downloadFile({
-        url: info.avatar.middleUrl,
+        url: info.avatar.smallUrl,
         success(res) {
           if (res.statusCode === 200) {
             resolve(res)
@@ -520,7 +489,7 @@ Page({
           }
         },
         fail(e) {
-          console.log(e, 11111111)
+          app.wxToast({title: '图片加载失败，请退出重新生成'})
         }
       })
     })
@@ -534,6 +503,9 @@ Page({
             resolve(res)
             qrCodeUrl = res.tempFilePath
           }
+        },
+        fail(e) {
+          app.wxToast({title: '图片加载失败，请退出重新生成'})
         }
       })
     })
