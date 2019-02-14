@@ -27,13 +27,15 @@
 }
 .avatarBox .gender{
   position: absolute;
-  bottom: 0;
-  right: 0;
-  font-size: 32rpx;
-}
-.avatarBox .gender .sexIcon{
+  bottom: 4rpx;
+  right: 4rpx;
   width: 32rpx;
   height: 32rpx;
+}
+.avatarBox .gender .sexIcon{
+  width: 100%;
+  height: 100%;
+  display: block;
 }
 .girl{
   background-color: #FE6795;
@@ -61,14 +63,14 @@
   font-size: 26rpx;
   font-weight: 300;
   color: #282828;
-  padding: 16rpx 0;
+  padding: 12rpx 0;
   flex-grow: 1;
 }
 .personalInfo .info .name{
   font-size: 46rpx;
   font-weight: 500;
   line-height: 46rpx;
-  margin-bottom: 16rpx;
+  margin-bottom: 10rpx;
   display: flex;
   justify-content: space-between;
   align-content: center;
@@ -80,19 +82,24 @@
   font-size: 24rpx;
   font-weight: 300;
   color: #282828;
-  margin: 36rpx 0;
+  margin: 16rpx 0 20rpx 0;
   
 }
 .experience view{
   white-space: nowrap;
   margin-right: 32rpx;
 }
+.experience i {
+  color: #CDCBCF;
+  font-size: 28rpx;
+  margin-right: 12rpx;
+}
 .experience .status{
   height: 38rpx;
   line-height: 38rpx;
   color: #652791;
   background-color: #EFE9F4;
-  padding: 7rpx 18rpx !important;
+  padding: 0 18rpx !important;
   max-width:200rpx;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -107,11 +114,14 @@
 }
 .personalTip{
   box-sizing: border-box;
-  margin-top: 36rpx;
+  margin-top: 20rpx;
   width: 100%;
 }
 .personalTip .text{
   font-size: 28rpx;
+  line-height: 1.5;
+  font-weight: 300;
+  color: #282828;
 }
 .personalTip .tipBox{
   margin-top: 46rpx;
@@ -124,9 +134,11 @@
   display: inline-block;
   border: 1rpx solid #CEC5DF;
   border-radius: 30rpx;
-  padding: 11rpx 30rpx;
+  padding: 0 30rpx;
   margin-left: 16rpx;
   margin-bottom: 16rpx;
+  height: 48rpx;
+  line-height: 48rpx;
 }
 .personalTip .text{
 }
@@ -161,7 +173,7 @@
 .intent .officeTab .officeInfo{
   font-size: 28rpx;
   font-weight: 300;
-  margin-top: 20rpx;
+  margin-top: 5rpx;
 }
 /*工作经历*/
 .workExp{}
@@ -344,7 +356,7 @@
 .expTab .expTitle{
   display: flex;
   justify-content: space-between;
-  margin-bottom: 24rpx;
+  margin-bottom: 5rpx;
 }
 .expTab .expName{
   display: inline-block;
@@ -363,7 +375,6 @@
   color: #626262;
 }
 .expTab .expInfo{
-  margin-bottom: 20rpx;
   font-size: 28rpx;
   font-weight: 400;
 }
@@ -384,7 +395,9 @@
   font-weight: 300;
   display: inline-block;
   background-color: #EFE9F4;
-  padding: 11rpx 20rpx;
+  padding: 0 20rpx;
+  height: 46rpx;
+  line-height: 46rpx;
 }
 .expTab .link{
   line-height: 48rpx;
