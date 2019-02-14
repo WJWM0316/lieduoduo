@@ -36,9 +36,10 @@
 					<view class="main" wx:if="{{item.lastCompanyName || item.companyName}}">
 						<view wx:if="{{identity === 'APPLICANT'}}" class="company-name">
 							<i class="icon iconfont icon-gongsi"></i> {{item.companyName}}
-							<text wx:if="{{item.positionNum}}"><i class="icon iconfont icon-zhiwei"></i> {{item.positionNum}}个职位 </text>
+							<view wx:if="{{item.positionNum}}"><i class="icon iconfont icon-zhiwei"></i> {{item.positionNum}}个职位 </view>
 						</view>
 						<view wx:else class="company-name"> {{item.lastCompanyName || item.lastCompanyName}}<text wx:if="{{item.lastPosition}}"> |  {{item.lastPosition}} </text></view>
+						<!--<view class="position" wx:if="{{item.positionNum >= 0}}"><i class="icon iconfont icon-zhiwei"></i><text class="num">{{item.positionNum}}</text>个职位</view>-->
 					</view>
 				</view>
 				<view class="footer {{ showDividingLine ? 'show-dividing-line' : ''}}" wx:if="{{showFooter}}">

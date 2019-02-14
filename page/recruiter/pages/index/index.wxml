@@ -21,13 +21,13 @@
 		<commonList list="{{collectMySelf.list}}" identity="RECRUITER" isCollect="{{true}}" wx:if="{{pageList === 'collectMySelf'}}"></commonList>
 		<commonList list="{{collectUsers.list}}" showFooter="{{false}}" identity="RECRUITER" wx:if="{{pageList === 'collectUsers'}}"></commonList>
 		<bottomStatus wx:if="{{pageList === 'browseMySelf'}}" status="{{onBottomStatus}}" listData="{{browseMySelf.list}}" desc="还没有候选人看过你哟～ 试试分享你的职位，让更多人来围观吧！">
-			<!-- <button class="jump" bindtap="jump">分享我的职位</button> -->
+			<!-- <button class="jump clear-style" bindtap="jump">分享我的职位</button> -->
 		</bottomStatus>
 		<bottomStatus wx:if="{{pageList === 'collectMySelf'}}" status="{{onBottomStatus}}" listData="{{collectMySelf.list}}" desc="还没有候选人看过你哟～ 试试分享你的职位，让更多人来围观吧！~">
-			<!-- <button class="jump" bindtap="jump">分享我的职位</button> -->
+			<!-- <button class="jump clear-style" bindtap="jump">分享我的职位</button> -->
 		</bottomStatus>
 		<bottomStatus wx:if="{{pageList === 'collectUsers'}}" status="{{onBottomStatus}}" listData="{{collectUsers.list}}" desc="还没有感兴趣的候选人哟~">
-			<!-- <button class="jump" bindtap="jump">分享我的职位</button> -->
+			<!-- <button class="jump clear-style" bindtap="jump">分享我的职位</button> -->
 		</bottomStatus>
 	</view>
   <tabBar tabType="1"></tabBar>

@@ -23,6 +23,10 @@
 }
 .li .name .title {
   line-height: 36rpx;
+  max-width: 400rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .li .name .salary{
   color: #FF7F4C;

@@ -65,7 +65,7 @@
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
-	max-width: 70%;
+	max-width: 60%;
 }
 
 .position-post .text4 {

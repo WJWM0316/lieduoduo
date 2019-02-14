@@ -52,6 +52,14 @@
 	height: 200rpx;
 	display: block;
 	float: right;
+	border: 1px solid #FAD728;
+	border-radius: 50%;
+}
+.role1 .img{
+	border: 8rpx solid #FAD728;
+}
+.role2 .img {
+	border: 8rpx solid #5A2382;
 }
 .role1 .desc, .role2 .desc  {
 	float: left;

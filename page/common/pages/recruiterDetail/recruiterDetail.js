@@ -8,10 +8,6 @@ import {shareRecruiter} from '../../../../utils/shareWord.js'
 let app = getApp()
 let positionTop = 0
 Page({
-
-  /**
-   * 页面的初始数据
-   */
   data: {
     identity: '',
     showPage: false,

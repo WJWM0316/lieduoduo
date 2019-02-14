@@ -38,7 +38,7 @@
 .recruitmentActive .tabBar .active::after{
   width: 50rpx;
   height: 8rpx;
-  background-color: #2878FF;
+  background-color: #FFDC29;
   content: '';
   display: block;
   position: absolute;
@@ -60,4 +60,26 @@
   font-weight:400;
   color:rgba(40,40,40,1);
   line-height: 98rpx;
+}
+.list {
+  padding:0 30rpx;
+  margin-top:18rpx;
+}
+
+.li-item {
+  background:rgba(255,255,255,1);
+  box-shadow:0rpx 8rpx 20rpx 0rpx rgba(34,56,101,0.08);
+  border-radius:10rpx;
+  margin: 18rpx 30rpx;
+  overflow: hidden;
+  padding: 30rpx 40rpx;
+  display: flex;
+}
+
+.li-item .img-box {
+  width:120rpx;
+  height:120rpx;
+  box-shadow:0rpx 2rpx 12rpx 0rpx rgba(0,0,0,0.12);
+  border:2rpx solid rgba(232,233,235,1);
+  border-radius: 50%;
 }

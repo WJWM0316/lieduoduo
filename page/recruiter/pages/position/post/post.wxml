@@ -33,13 +33,8 @@
 			<view class="key"><text>*</text>技能要求</view>
 			<i class="icon iconfont icon-xiangyou"></i>
 			<view class="text2 {{skills.length ? '' : 'color-default'}}" wx:if="{{!skills.length}}">请选择</view>
-			<view class="tags-list" wx:else>
-				<view
-				class="item"
-				wx:for="{{skills}}"
-				wx:for-item="item"
-				wx:key="{{item.labelId}}"
-				data-label-id="{{item.labelId}}">{{item.name}}</view>
+			<view class="text2" wx:else>
+				<text wx:for="{{skills}}" wx:for-item="item" wx:key="{{item.labelId}}">{{item.name}}、</text>
 			</view>
 		</view>
 		<view class="li dropdown">
@@ -71,10 +66,10 @@
 			<i class="icon iconfont icon-xiangyou"></i>
 			<view class="text2 {{describe ? '' : 'color-default'}}">{{describe || '请填写'}}</view>
 		</view>
-		<view class="publish-tips">
+<!-- 		<view class="publish-tips">
 			<view>发布职位即代表同意<text>《猎多多职位信息发布规则》</text></view>
 			<view>如违反规则，可能导致你的账号被锁定</view>
-		</view>
+		</view> -->
 	</view>
 	<view class="btn-area">
     <view class="button-submit {{canClick ? 'button-enable' : ''}}" bindtap="submit">发布</view>

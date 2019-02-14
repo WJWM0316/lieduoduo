@@ -195,6 +195,10 @@
   color: #652791;
 }
 
+.mine .entry-list .gray{
+  color: #BCBCBC;
+}
+
 .mine .entry-list .not-certified {
 	display: inline-block;
 	color: #2878FF;
