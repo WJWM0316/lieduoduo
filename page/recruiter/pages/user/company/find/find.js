@@ -135,6 +135,9 @@ Page({
       this.setData({nameList: res.data})
     })
   },
+  close() {
+    this.setData({showMaskBox: false})
+  },
   /**
    * @Author   小书包
    * @DateTime 2019-01-08
