@@ -1,3 +1,4 @@
+@import '../../../iconfont.wxss'
 .msg {
   font-size: 28rpx;
   /*margin-top: 36rpx;*/

@@ -1,5 +1,5 @@
 <!--完善简历第一步-->
-<navbar title="完善简历" background="transparent" color="#fff"></navbar>
+<navbar background="transparent" color="#fff"></navbar>
 
 <view class="header" style="margin-top: -{{navHeight}}px">
   <image class="headerBg" src="{{cdnImagePath}}pic_bg_new@3x.png"></image>
@@ -15,22 +15,16 @@
       <input name="major" placeholder-class="holderStyle" placeholder="填写专业名称" />
     </view>
     <view class="degree">
-      <myPicker class="myPicker" data-type="education" placeholderStyle="color: #BCBCBC" pickerType="education" bindresultevent="getresult"  rangeKey="name"></myPicker>
+      <myPicker class="myPicker" data-type="education" isTriangle="{{true}}" placeholderStyle="color: #BCBCBC" pickerType="education" bindresultevent="getresult"  rangeKey="name"></myPicker>
     </view>
     <view class="timeBox">
       <view class="startTime">
-        <myPicker class="myPicker" data-type="starTime" pickerType="startTime" placeholderStyle="color: #BCBCBC" bindresultevent="getresult"></myPicker>
+        <myPicker class="myPicker" data-type="starTime" pickerType="startTime" isTriangle="{{true}}" bindresultevent="getresult"></myPicker>
       </view> ~ 
       <view class="endTime">
-        <myPicker class="myPicker" pickerType="endTime" placeholderStyle="color: #BCBCBC" bindresultevent="getresult"></myPicker>
+        <myPicker class="myPicker" pickerType="endTime" isTriangle="{{true}}" bindresultevent="getresult"></myPicker>
       </view>
     </view>
-    <!--<view class="startTime">
-      <myPicker class="myPicker" data-type="starTime" placeholderStyle="color: #BCBCBC" pickerType="startTime" bindresultevent="getresult"></myPicker>
-    </view>
-    <view class="endTime">
-      <myPicker class="myPicker" pickerType="endTime" placeholderStyle="color: #BCBCBC" bindresultevent="getresult"></myPicker>
-    </view>-->
     <view class="btn-area">
       <button formType="submit"><i class="icon iconfont icon-wancheng"></i></button>
     </view>

@@ -82,18 +82,6 @@ Page({
       mobile: this.data.phone,
       code: this.data.code
     }
-    if (this.data.phone === '') {
-      app.wxToast({
-        title: '请填写手机号'
-      })
-      return
-    }
-    if (this.data.code === '') {
-      app.wxToast({
-        title: '请填写验证码'
-      })
-      return
-    }
     app.phoneLogin(data).then(res => {
       app.wxToast({
         title: '登录成功',

@@ -17,3 +17,7 @@ button::after{
 	display: none;
 }
 
+.holderStyle{
+  color: #BCBCBC;
+  font-weight: 300;
+}

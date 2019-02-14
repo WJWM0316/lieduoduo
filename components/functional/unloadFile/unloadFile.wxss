@@ -1,4 +1,4 @@
-/* components/functional/unloadFile/unloadFile.wxss */
+@import '../../../iconfont.wxss'
 .unloadWrap {
 	width: 100%;
 	height: 100%;

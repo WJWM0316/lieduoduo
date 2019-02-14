@@ -191,14 +191,13 @@ App({
         let wxLogin = function () {
           // 请求接口获取服务器session_key
           var pages = getCurrentPages() //获取加载的页面
-          let pageUrl = pages[0].route
+          let pageUrl = pages[pages.length - 1].route
           let params = ''
           for (let i in pages[0].options) {
             params = `${params}${i}=${pages[0].options[i]}&`
           }
           pageUrl = `${pageUrl}?${params}`
           data.code = wx.getStorageSync('code')
-          console.log(2222)
           loginApi(data).then(res => {
             wx.removeStorageSync('code')
             // 有token说明已经绑定过用户了
@@ -256,7 +255,7 @@ App({
             resolve(res)
           } 
         }).catch(e => {
-          this.login()
+          this.checkLogin()
         })
       })
     }  
@@ -270,7 +269,7 @@ App({
         this.loginedLoadData()
         resolve(res)
       }).catch(e => {
-        this.login()
+        this.checkLogin()
       })
     })
   },

@@ -1,3 +1,5 @@
+@import '../../../iconfont.wxss'
+
 .interview-bar {
   height:138rpx;
   background:rgba(255,255,255,1);

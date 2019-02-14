@@ -38,7 +38,7 @@
         </block>
       </block>
       <block wx:else> 
-        <view class="placeholder">{{placeholder}}</view>
+        <view class="placeholder">{{placeholder}}<i class="iconfont icon-zhishibiao triangle1" wx:if="{{isTriangle}}"></i></view>
       </block>
     </block>
   </picker>

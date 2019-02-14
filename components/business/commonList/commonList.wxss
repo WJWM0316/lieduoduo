@@ -1,3 +1,4 @@
+@import '../../../iconfont.wxss'
 
 .common-lits-ul .li {
 	overflow: hidden;

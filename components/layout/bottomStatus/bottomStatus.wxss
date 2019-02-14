@@ -1,3 +1,4 @@
+@import '../../../iconfont.wxss'
 .bottomStatus {
 	padding-bottom: 55rpx;
 }

@@ -90,9 +90,16 @@ Page({
       wx.removeStorageSync('workContent')
       wx.removeStorageSync('createUserSecond')
       app.getAllInfo().then(() => {
-        wx.reLaunch({
-          url: '/page/applicant/pages/center/mine/mine'
+        app.wxToast({
+          title: '创建成功',
+          icon: 'success',
+          callback() {
+            wx.reLaunch({
+              url: '/page/applicant/pages/center/mine/mine'
+            })
+          }
         })
+        
       })
     })
   }

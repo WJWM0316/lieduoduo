@@ -1,5 +1,5 @@
 <!--完善简历第一步-->
-<navbar title="完善简历" background="transparent" color="#fff"></navbar>
+<navbar background="transparent" color="#fff"></navbar>
 
 <view class="header" style="margin-top: -{{navHeight}}px">
   <image class="headerBg" src="{{cdnImagePath}}pic_bg_new@3x.png"></image>
@@ -8,21 +8,21 @@
 </view>
 <view>
   <view class="company commont">
-    <input name="company" placeholderStyle="color: #BCBCBC" bindinput="getValue" data-type="companyName" placeholder="填写公司名称" value="{{info.companyName}}"/>
+    <input name="company" placeholder-class="holderStyle" bindinput="getValue" data-type="companyName" placeholder="填写公司名称" value="{{info.companyName}}"/>
   </view>
   <view class="positionType commont" bindtap="jumpType">
-    <input name="positionType" placeholderStyle="color: #BCBCBC" placeholder="选择职位类型" value="{{info.positionType.typeName || ''}}" disabled />
+    <input name="positionType" placeholder-class="holderStyle" placeholder="选择职位类型" value="{{info.positionType.typeName || ''}}" disabled />
   </view>
   <view class="timeBox">
     <view class="startTime">
-      <myPicker class="myPicker" setResult="{{info.startTimeDesc}}" placeholderStyle="color: #BCBCBC" data-type="starTime" pickerType="startTime" bindresultevent="getresult"></myPicker>
+      <myPicker class="myPicker" setResult="{{info.startTimeDesc}}" isTriangle="{{true}}" data-type="starTime" pickerType="startTime" bindresultevent="getresult"></myPicker>
     </view> ~ 
     <view class="endTime">
-      <myPicker class="myPicker" setResult="{{info.endTimeDesc}}" placeholderStyle="color: #BCBCBC" data-type="endTime" pickerType="endTime" bindresultevent="getresult"></myPicker>
+      <myPicker class="myPicker" setResult="{{info.endTimeDesc}}" isTriangle="{{true}}" data-type="endTime" pickerType="endTime" bindresultevent="getresult"></myPicker>
     </view>
   </view>
   <view class="duty commont" bindtap="eidt">
-    <input name="duty" placeholderStyle="color: #BCBCBC" type="text" placeholder="工作内容" value="{{info.duty}}" disabled/>
+    <input name="duty" placeholder-class="holderStyle" type="text" placeholder="工作内容" value="{{info.duty}}" disabled/>
   </view>
   <view class="btn-area" >
     <button bindtap="submit"><i class="icon iconfont icon-xiayibu"></i></button>

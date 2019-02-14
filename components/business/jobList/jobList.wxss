@@ -1,4 +1,5 @@
-/* components/business/jobList/jobList.wxss */
+
+@import '../../../iconfont.wxss'
 .ul{
   box-sizing: border-box;
   width: 100%;

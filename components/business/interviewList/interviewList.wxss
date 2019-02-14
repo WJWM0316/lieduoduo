@@ -1,3 +1,4 @@
+@import '../../../iconfont.wxss'
 
 .interview-list-ul .li {
 	position: relative;

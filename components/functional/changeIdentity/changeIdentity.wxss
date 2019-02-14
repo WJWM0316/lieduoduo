@@ -1,3 +1,4 @@
+@import '../../../iconfont.wxss'
 .change-identity {
 	display: table;
 	margin: 50rpx auto;

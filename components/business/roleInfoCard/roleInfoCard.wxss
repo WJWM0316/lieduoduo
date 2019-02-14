@@ -1,3 +1,4 @@
+@import '../../../iconfont.wxss'
 .company {
   position: relative;
   padding-left: 134rpx;

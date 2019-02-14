@@ -1,3 +1,4 @@
+@import '../../../iconfont.wxss'
 .refresh {
 	padding: 36rpx 0;
 }
