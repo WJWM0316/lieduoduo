@@ -1,4 +1,4 @@
-<view class="bottomStatus" wx:if="{{status}}">
+<view class="bottomStatus" wx:if="{{status}}"  style="margin-top: {{marginTop}}rpx">
 	<image class="loading" wx:if="{{status === 1}}" src='{{cdnImagePath}}gif_listloading@3x.gif'></image>
 	<text class="txt" wx:if="{{status === 2 && listData.length > 0}}">没有更多数据</text>
 	<view class="txt" wx:if="{{status === 2 && listData.length === 0}}">

@@ -15,6 +15,10 @@ Component({
     desc: {
       type: String,
       value: '暂无数据'
+    },
+    marginTop: {
+      type: Number,
+      value: 30
     }
   },
 

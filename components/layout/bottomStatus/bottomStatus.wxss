@@ -19,7 +19,7 @@
 .pic {
 	width: 340rpx;
 	height: 240rpx;
-	margin: 39rpx auto 26rpx;
+	margin: 0 auto 26rpx;
 	display: block;
 }
 .desc {
