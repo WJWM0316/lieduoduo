@@ -85,7 +85,7 @@
 	line-height: 1;
 	text-overflow: ellipsis;
 	white-space: nowrap;
-	width: 300rpx;
+	width: 100%;
 }
 
 .company-infos .header .position-salary {

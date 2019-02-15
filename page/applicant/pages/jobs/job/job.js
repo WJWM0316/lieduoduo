@@ -19,7 +19,7 @@ const app = getApp()
 
 Page({
   data: {
-    pageCount: app.globalData.pageCount,
+    pageCount: 6,
     hasReFresh: false,
     onBottomStatus: 0,
     positionList: {
@@ -196,15 +196,16 @@ Page({
     const params = e.currentTarget.dataset
     const list = params.type === 'city' ? this.data.cityList : this.data.positionTypeList
     const result = list.find((field, index) => index === Number(e.detail.value))
-    const key = params.type
-    const key2 = params.type === 'city' ? 'cityIndex' : 'typeIndex'
-    const value = result[params.type === 'city' ? 'areaId' : 'labelId']
+    const type = params.type
+    const otherParamsIndex = params.type === 'city' ? 'cityIndex' : 'typeIndex'
+    const otherParamValue = result[params.type === 'city' ? 'areaId' : 'labelId']
     const positionList = this.data.positionList
     positionList.pageNum = 1
-    if(typeof value === 'number') {
-      this.setData({[key]: value, [key2]: Number(e.detail.value)}, () => this.reloadPositionLists())
+
+    if(typeof otherParamValue === 'number') {
+      this.setData({[type]: otherParamValue, [otherParamsIndex]: Number(e.detail.value)}, () => this.reloadPositionLists())
     } else {
-      this.setData({[key]: 0, [key2]: 0, positionList}, () => this.getPositionList(false).then(() => this.setData({onBottomStatus: 1})))
+      this.setData({[type]: 0, [otherParamsIndex]: 0, positionList}, () => this.reloadPositionLists())
     }
   },
   onShareAppMessage(options) {
