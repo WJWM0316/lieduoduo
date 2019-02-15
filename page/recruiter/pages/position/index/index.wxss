@@ -172,3 +172,7 @@
 .formIdBtn:after {
   display: none;
 }
+
+.nodata {
+  padding-top: 294rpx;
+}

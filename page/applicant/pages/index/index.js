@@ -36,8 +36,7 @@ Page({
     },
     moreRecruiter: [],
     recruiterDynamic: [],
-    pageCount: app.globalData.pageCount,
-    // pageCount: 6,
+    pageCount: 6,
     hasReFresh: false,
     onBottomStatus: 0,
     buttonType: 'delete'

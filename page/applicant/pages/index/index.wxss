@@ -110,3 +110,10 @@
   color:rgba(40,40,40,1);
   line-height: 98rpx;
 }
+
+.nodata {
+  background:rgba(255,255,255,1);
+  box-shadow:0rpx 8rpx 20rpx 0rpx rgba(34,56,101,0.08);
+  border-radius:10rpx;
+  margin:0 30rpx;
+}

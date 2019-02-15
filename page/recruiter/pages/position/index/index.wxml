@@ -14,7 +14,7 @@
 </view>
 <form bindsubmit="formSubmit" report-submit='{{true}}'>
 <!--招聘中职位-->
-<view class="office-manager-list" hidden="{{positionStatus === '2'}}">
+<view class="office-manager-list {{onLinePosition.list.length ? '' : 'nodata'}}" hidden="{{positionStatus === '2'}}">
 	<view class="li"
 		wx:for="{{onLinePosition.list}}"
 		wx:for-item="item"
@@ -42,7 +42,7 @@
 	<bottomStatus status="{{onBottomStatus}}" listData="{{onLinePosition.list}}" desc="没有更多内容了~"></bottomStatus>
 </view>
 <!--下线-->
-<view class="office-manager-list"  hidden="{{positionStatus === '1'}}">
+<view class="office-manager-list {{offLinePosition.list.length ? '' : 'nodata'}}"  hidden="{{positionStatus === '1'}}">
 	<view class="li"
 		wx:for="{{offLinePosition.list}}"
 		wx:for-item="item"
