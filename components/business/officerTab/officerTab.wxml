@@ -24,8 +24,9 @@
   </view>
   <view class="officerTab2" bindtap="routeJump" data-companyId="{{item.id}}" data-uid="{{item.uid}}" wx:for="{{ list }}" wx:key="{{index}}" wx:if="{{!showSlideView}}">
     <view class="headerImg">
-      <image src="{{item.avatar.smallUrl}}"></image>
-      <i class="certification-icon">V</i>
+      <image src="{{item.avatar.smallUrl}}" class="avatar"></image>
+      <image src="{{cdnImagePath}}sign1.png" mode="aspectFill" class="certification-icon"></image>
+      <!-- <i class="certification-icon">V</i> -->
     </view>
     <view class="info">
       <view class="top">

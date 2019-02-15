@@ -15,6 +15,7 @@ page {
 
 button::after{
 	display: none;
+	border: none;
 }
 
 .holderStyle{

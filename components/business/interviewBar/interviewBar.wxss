@@ -85,7 +85,7 @@
 
 .interview-bar .first {
   line-height: 1;
-  margin-top: 15rpx;
+  margin-top: 20rpx;
 }
 
 .interview-bar .second {
@@ -98,7 +98,7 @@
 	text-overflow: ellipsis;
 	white-space: nowrap;
 	max-width: 330rpx;
-	margin-top: 15rpx;
+	margin-top: 10rpx;
 }
 
 .interview-bar .name {

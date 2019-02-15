@@ -106,3 +106,14 @@
   opacity: 1;
   visibility: visible;
 }
+
+.nodata {
+  background:rgba(255,255,255,1);
+  box-shadow:0rpx 8rpx 20rpx 0rpx rgba(34,56,101,0.08);
+  border-radius:0rpx 0rpx 10rpx 10rpx;
+  display: inline-block;
+  vertical-align: middle;
+  width: 100%;
+  padding-bottom: 185rpx;
+  padding-top: 144rpx;
+}

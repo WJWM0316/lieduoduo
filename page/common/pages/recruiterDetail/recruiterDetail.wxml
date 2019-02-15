@@ -1,5 +1,5 @@
 <view class="recruiterDetail">
-  <navbar title="招聘官主页" background="#fff" color="#22292C" showHome="{{true}}"></navbar>
+  <navbar title="{{info.companyInfo.companyShortname}}-{{info.position}}" background="#fff" color="#22292C" showHome="{{true}}"></navbar>
   <view hidden="{{!hasReFresh}}">
     <refreshStatus></refreshStatus>
   </view>
@@ -7,8 +7,9 @@
     <image class="bgImg" src="{{cdnImagePath}}bg_detail.png" mode="aspectFill"></image>
     <shareBtn></shareBtn>
     <div class="content">
-      <view class="avatar vip" bindtap="readAvatar">
-        <image src="{{info.avatar.smallUrl}}" mode="aspectFill"></image>
+      <view class="avatar" bindtap="readAvatar">
+        <image src="{{info.avatar.smallUrl}}" mode="aspectFill" class="avatar"></image>
+        <image src="{{cdnImagePath}}sign1.png" mode="aspectFill" class="sign1"></image>
       </view>
       <view class="labels label{{index}} {{item.hasFavor ? 'hasFavor': ''}}" wx:for="{{info.personalizedLabels}}" wx:key="{{index}}" bindtap="favor" data-item="{{item}}" data-index="{{index}}" wx:if="{{index <= 5}}">{{item.labelName}} <text wx:if="{{item.favorCount > 0}}">×{{item.favorCount}}</text> </view>
       <image class="favor" src="{{cdnImagePath}}dianzan.png"></image>

@@ -20,7 +20,11 @@
   height: 100%;
   line-height: 68rpx;
   margin: 0 20rpx 0 29rpx;
+<<<<<<< HEAD
   font-size: 27rpx;
+=======
+  font-size: 28rpx;
+>>>>>>> 3c3a6013212368873cd0b8aef532dd74470db310
   color: #626262;
 }
 .shareBox {

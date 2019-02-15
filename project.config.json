@@ -38,7 +38,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 47,
+			"current": 48,
 			"list": [
 				{
 					"id": 0,
@@ -158,7 +158,7 @@
 					"id": 19,
 					"name": "招聘官主页",
 					"pathName": "page/common/pages/recruiterDetail/recruiterDetail",
-					"query": "uid=92"
+					"query": "uid=237"
 				},
 				{
 					"id": -1,
@@ -170,7 +170,7 @@
 					"id": 21,
 					"name": "招聘管-职位详情",
 					"pathName": "page/common/pages/positionDetail/positionDetail",
-					"query": "positionId=192"
+					"query": "positionId=437"
 				},
 				{
 					"id": 21,
@@ -326,6 +326,12 @@
 					"id": 47,
 					"name": "简历详情",
 					"pathName": "page/common/pages/resumeDetail/resumeDetail",
+					"query": "uid=237"
+				},
+				{
+					"id": -1,
+					"name": "招聘官发布地址",
+					"pathName": "page/recruiter/pages/position/address/address",
 					"query": "uid=237"
 				}
 			]

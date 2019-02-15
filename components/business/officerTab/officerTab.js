@@ -22,7 +22,7 @@ Component({
     }
   },
   data: {
-
+    cdnImagePath: app.globalData.cdnImagePath
   },
   methods: {
     routeJump (e) {

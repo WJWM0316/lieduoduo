@@ -69,13 +69,6 @@
 	margin-left: 30rpx;
 	vertical-align: middle;
 }
-.li .content .main {
-  margin-top: 20rpx;
-  /*display: flex;
-  flex-wrap: nowrap;*/
-  white-space: nowrap;
-}
-
 .common-lits-ul .li .header {
   display: flex;
   align-items: center;
@@ -95,27 +88,24 @@
 .common-lits-ul .li .recruiter-infos {
 	font-size:28rpx;
 	font-weight:300;
-	color:#223865;
-	/*line-height:28rpx;*/
 	display: inline-block;
-	/*border-left: 1px solid #979797;*/
 	margin-left: 15px;
-	/*width: 200rpx;*/
 	overflow: hidden;
   text-overflow:ellipsis;
   white-space: nowrap;
+  max-width: 300rpx;
 }
 
 .common-lits-ul .li .company-name {
 	font-size:24rpx;
 	font-weight:300;
 	color:rgba(146,146,146,1);
-	line-height:26rpx;
+	line-height:1;
 	display: inline-block;
 	text-overflow: ellipsis;
 	white-space: nowrap;
 	overflow: hidden;
-	display: flex;
+	width: 100%;
 }
 
 .common-lits-ul .li .company-name i{
@@ -171,8 +161,10 @@
 	line-height:1;
 	margin-top: 20rpx;
 	padding-top: 25rpx;
-	/*display: flex;
-	flex-wrap: nowrap;*/
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	width: calc(100vw - 140rpx)
 }
 
 .common-lits-ul .li .show-dividing-line {
@@ -180,20 +172,8 @@
 }
 
 .common-lits-ul .footer view {
-	display: inline-block;
+	display: inline;
 	margin-right: 16rpx;
-}
-
-.common-lits-ul .footer .time {
-  flex-shrink: 0;
-}
-
-.common-lits-ul .footer .action {
-  margin-right: 0;
-  white-space: nowrap;
-  overflow: hidden;
-  display: flex;
-  flex-wrap: nowrap;
 }
 
 .common-lits-ul .footer .action .strong {
@@ -201,13 +181,12 @@
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
-  max-width: 220rpx;
 }
 
 .common-lits-ul .footer .strong {
 	font-size:24rpx;
 	font-weight:400;
-	color:rgba(40,120,255,1);
+	color:#8452A7;
 	margin-left: 8rpx;
 }
 

@@ -8,11 +8,6 @@ Component({
     	type: Array,
     	value: []
     },
-    // 当前用户的身份
-    identity: {
-      type: String,
-      value:'APPLICANT' //默认求职者
-    },
     // 红点类型 text circle
     dotType: {
     	type: String,
@@ -44,7 +39,11 @@ Component({
       value: ''
     }
   },
+  data: {
+    identity: ''
+  },
   attached() {
+    this.setData({identity: wx.getStorageSync('choseType')})
   },
 	methods: {
     formSubmit(e) {

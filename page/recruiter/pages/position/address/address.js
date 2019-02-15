@@ -58,7 +58,7 @@ Page({
     reverseGeocoder(res)
       .then(rtn => {
         const formData = {}
-        formData.address = `${rtn.result.address}${rtn.result.formatted_addresses.recommend}`
+        formData.address = `${rtn.result.address} ${rtn.result.address_reference.landmark_l2.title}`
         formData.area_id = rtn.result.ad_info.adcode
         formData.lat = rtn.result.ad_info.location.lat
         formData.lng = rtn.result.ad_info.location.lng

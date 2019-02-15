@@ -28,18 +28,11 @@ Page({
       isLastPage: false,
       isRequire: false
     },
-    commonList: {
-      list: [],
-      pageNum: 1,
-      isLastPage: false,
-      isRequire: false
-    },
     moreRecruiter: [],
     recruiterDynamic: [],
     pageCount: 6,
     hasReFresh: false,
-    onBottomStatus: 0,
-    buttonType: 'delete'
+    onBottomStatus: 0
   },
   onLoad() {
     let choseType = wx.getStorageSync('choseType') || ''
@@ -80,13 +73,7 @@ Page({
       isLastPage: false,
       isRequire: false
     }
-    const commonList = {
-      list: [],
-      pageNum: 1,
-      isLastPage: false,
-      isRequire: false
-    }
-    this.setData({myBrowse, myCollect, commonList})
+    this.setData({myBrowse, myCollect})
     if (app.loginInit) {
       this.getLists()
       this.getAvartList()
@@ -104,10 +91,7 @@ Page({
    * @return   {[type]}   [description]
    */
   refreshEvent(res) {
-    const key = this.data.pageList
-    let commonList = this.data[key]
-    commonList = commonList.list.filter(field => field.uid !== res.detail.uid)
-    this.setData({commonList})
+    console.log('refreshEvent')
   },
   /**
    * @Author   小书包
@@ -144,10 +128,7 @@ Page({
           myBrowse.isLastPage = res.meta && res.meta.nextPageUrl ? false : true
           myBrowse.pageNum = myBrowse.pageNum + 1
           myBrowse.isRequire = true
-          this.setData({myBrowse, onBottomStatus}, () => {
-            resolve(res)
-            if(this.data.pageList === 'myBrowse') this.setData({commonList: myBrowse})
-          })
+          this.setData({myBrowse, onBottomStatus}, () => resolve(res))
         })
     })
   },
@@ -168,10 +149,7 @@ Page({
           myCollect.isLastPage = res.meta && res.meta.nextPageUrl ? false : true
           myCollect.pageNum = myCollect.pageNum + 1
           myCollect.isRequire = true
-          this.setData({myCollect, onBottomStatus}, () => {
-            resolve(res)
-            if(this.data.pageList === 'myCollect') this.setData({commonList: myCollect})
-          })
+          this.setData({myCollect, onBottomStatus}, () => resolve(res))
         })
     })
   },
@@ -211,8 +189,7 @@ Page({
     const pageList = e.currentTarget.dataset.key
     const key = e.currentTarget.dataset.key
     const value = this.data[key]
-    const buttonType = pageList === 'myBrowse' ? 'delete' : 'unsubscribe'
-    this.setData({commonList: value, pageList, buttonType}, () => {
+    this.setData({pageList}, () => {
       if(!value.isRequire) this.getLists()
     })
   },
@@ -251,8 +228,6 @@ Page({
   onReachBottom() {
     const key = this.data.pageList
     const value = this.data[key]
-    if (!value.isLastPage) {
-      this.getLists(false).then(() => this.setData({commonList: value, onBottomStatus: 1}))
-    }
+    if (!value.isLastPage) this.getLists(false).then(() => this.setData({onBottomStatus: 1}))
   }
 })

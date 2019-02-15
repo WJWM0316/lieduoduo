@@ -11,24 +11,33 @@
 	</view>
 	
 	<view class="index-list-box">
+
 		<view class="ul-tab-bar">
 			<view class="li {{pageList === 'browseMySelf' ? 'active' : ''}}" bindtap="ontabClick" data-key="browseMySelf">看过我的<view></view></view>
 			<view class="li {{pageList === 'collectMySelf' ? 'active' : ''}}" bindtap="ontabClick" data-key="collectMySelf">对我感兴趣<view></view></view>
 			<view class="li {{pageList === 'collectUsers' ? 'active' : ''}}" bindtap="ontabClick" data-key="collectUsers">我感兴趣的</view>
 		</view>
+		
+		<view class="{{browseMySelf.list.length ? '' : 'nodata'}}" hidden="{{pageList === 'collectMySelf' || pageList === 'collectUsers'}}">
+			<commonList list="{{browseMySelf.list}}"></commonList>
+			<bottomStatus status="{{onBottomStatus}}" listData="{{browseMySelf.list}}" desc="还没有候选人看过你哟～ 试试分享你的职位，让更多人来围观吧！" marginTop="{{30}}">
+				<!-- <button class="jump clear-style" bindtap="jump">分享我的职位</button> -->
+			</bottomStatus>
+		</view>
 
-		<commonList list="{{browseMySelf.list}}" identity="RECRUITER" wx:if="{{pageList === 'browseMySelf'}}"></commonList>
-		<commonList list="{{collectMySelf.list}}" identity="RECRUITER" isCollect="{{true}}" wx:if="{{pageList === 'collectMySelf'}}"></commonList>
-		<commonList list="{{collectUsers.list}}" showFooter="{{false}}" identity="RECRUITER" wx:if="{{pageList === 'collectUsers'}}"></commonList>
-		<bottomStatus wx:if="{{pageList === 'browseMySelf'}}" marginTop="{{30}}" status="{{onBottomStatus}}" listData="{{browseMySelf.list}}" desc="还没有候选人看过你哟～ 试试分享你的职位，让更多人来围观吧！">
-			<!-- <button class="jump clear-style" bindtap="jump">分享我的职位</button> -->
-		</bottomStatus>
-		<bottomStatus wx:if="{{pageList === 'collectMySelf'}}" marginTop="{{30}}" status="{{onBottomStatus}}" listData="{{collectMySelf.list}}" desc="还没有候选人看过你哟～ 试试分享你的职位，让更多人来围观吧！~">
-			<!-- <button class="jump clear-style" bindtap="jump">分享我的职位</button> -->
-		</bottomStatus>
-		<bottomStatus wx:if="{{pageList === 'collectUsers'}}" marginTop="{{30}}" status="{{onBottomStatus}}" listData="{{collectUsers.list}}" desc="还没有感兴趣的候选人哟~">
-			<!-- <button class="jump clear-style" bindtap="jump">分享我的职位</button> -->
-		</bottomStatus>
+		<view class="{{collectMySelf.list.length ? '' : 'nodata'}}" hidden="{{pageList === 'browseMySelf' || pageList === 'collectUsers'}}">
+			<commonList list="{{collectMySelf.list}}" isCollect="{{true}}" showFooter="{{false}}"></commonList>
+			<bottomStatus status="{{onBottomStatus}}" listData="{{collectMySelf.list}}" desc="还没有候选人看过你哟～ 试试分享你的职位，让更多人来围观吧！~" marginTop="{{30}}">
+				<!-- <button class="jump clear-style" bindtap="jump">分享我的职位</button> -->
+			</bottomStatus>
+		</view>
+
+		<view class="{{collectUsers.list.length ? '' : 'nodata'}}" hidden="{{pageList === 'collectMySelf' || pageList === 'browseMySelf'}}">
+			<commonList list="{{collectUsers.list}}" showFooter="{{false}}"></commonList>
+			<bottomStatus status="{{onBottomStatus}}" listData="{{collectUsers.list}}" desc="还没有感兴趣的候选人哟~" marginTop="{{30}}">
+				<!-- <button class="jump clear-style" bindtap="jump">分享我的职位</button> -->
+			</bottomStatus>
+		</view>
 	</view>
   <tabBar tabType="1"></tabBar>
   <choose wx:if="{{!choseType}}"></choose>

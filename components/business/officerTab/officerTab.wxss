@@ -61,8 +61,8 @@
 }
 
 .headerImg{
-  width: 120rpx;
-  height: 120rpx;
+  width: 116rpx;
+  height: 116rpx;
   margin-right: 30rpx;
   flex-shrink: 0;
   box-shadow:0rpx 2rpx 12rpx 0rpx rgba(0,0,0,0.12);
@@ -71,7 +71,7 @@
   position: relative;
 }
 
-.headerImg image{
+.headerImg .avatar{
   width: 100%;
   height: 100%;
   border-radius: 50%;
@@ -83,14 +83,6 @@
   right: 4rpx;
   width: 36rpx;
   height: 36rpx;
-  background-color: #FFDC29;
-  line-height: 36rpx;
-  text-align: center;
-  border-radius: 50%;
-  border: 2rpx solid #FFFFFF;
-  font-size: 22rpx;
-  color: #282828;
-  font-weight: 700;
 }
 
 .info .top{
@@ -116,7 +108,7 @@
   font-weight: 300;
   color: #282828;
   vertical-align: middle;
-  border-left: 1px solid #e8e9eb;
+  border-left: 1px solid #979797;
   padding-left: 17rpx;
 }
 

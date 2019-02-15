@@ -201,5 +201,5 @@
 }
 
 .list-box {
-  padding-bottom: 122rpx;
+  padding: 0 30rpx 122rpx 30rpx;
 }
