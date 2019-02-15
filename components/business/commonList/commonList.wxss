@@ -229,3 +229,10 @@
   margin-left: 10rpx;
   color: #8452A7;
 }*/
+
+.limit-width .strong{
+	max-width: 300rpx;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	white-space: nowrap;
+}

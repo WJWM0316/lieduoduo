@@ -32,7 +32,7 @@
 				</view>
 			</view>
 		</view>
-		<commonList personality="list" type="receive" list="{{applyData.list}}" list-type="default"></commonList>
+		<commonList personality="list" type="receive" list="{{applyData.list}}" list-type="default" showItemStatus="{{true}}"></commonList>
 		<bottomStatus status="{{applyBottomStatus}}" listData="{{applyData.list}}"></bottomStatus>
 	</view>
 	<!--收到邀请-->
@@ -50,7 +50,7 @@
 				</view>
 			</view>
 		</view>
-		<commonList personality="list" type="apply" list="{{receiveData.list}}" list-type="default"></commonList>
+		<commonList personality="list" type="apply" list="{{receiveData.list}}" list-type="default" showItemStatus="{{true}}"></commonList>
 		<bottomStatus status="{{receiveBottomStatus}}" listData="{{receiveData.list}}"></bottomStatus>
 	</view>
 	<!--面试日程-->
