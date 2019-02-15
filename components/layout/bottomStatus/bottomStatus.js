@@ -18,7 +18,7 @@ Component({
     },
     marginTop: {
       type: Number,
-      value: 30
+      value: 120
     }
   },
 
@@ -28,7 +28,9 @@ Component({
   data: {
     cdnImagePath: getApp().globalData.cdnImagePath
   },
-
+  attached() {
+    console.log(this.data.marginTop, 1111111111)
+  },
   /**
    * 组件的方法列表
    */
