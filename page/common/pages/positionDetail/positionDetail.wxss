@@ -42,7 +42,6 @@
 	box-shadow:0rpx 4rpx 20rpx 0rpx rgba(101,39,145,0.1);
 	border-radius:10rpx;
 	display: block;
-	overflow: hidden;
 	box-sizing: border-box;
 	padding: 60rpx;
 	background: white;
@@ -111,8 +110,8 @@
 
 .company-infos .infos .icon {
 	color: #CDCBCF;
-	margin-right: 12rpx;
-	vertical-align:-2rpx;
+	margin-right: 10rpx;
+	font-size: 27rpx;
 }
 
 .company-infos .infos .icon-zhiwei {
@@ -192,15 +191,15 @@
 }
 
 .about-company .detail {
-	margin-top: 50rpx;
+	padding-top: 50rpx;
 	font-size: 28rpx;
+	border-top:1px dotted rgba(206,215,220,1);
 }
 
 .tab-company-homepage {
 	display: flex;
 	padding: 40rpx 0;
 	overflow: hidden;
-	border-bottom:1px dotted rgba(206,215,220,1);
 }
 
 .tab-company-homepage .left {
@@ -253,7 +252,7 @@
 
 .tab-company-address {
 	overflow: hidden;
-	border-bottom:1px dotted rgba(206,215,220,1);
+	border-top:1px dotted rgba(206,215,220,1);
 	height: 108rpx;
 	line-height: 108rpx;
 }
@@ -295,7 +294,6 @@
 }
 
 .make-homepage .icon-disejiantou-you {
-	vertical-align: middle;
 	color: #652791;
 	font-size: 26rpx;
 	margin-left: 8rpx;

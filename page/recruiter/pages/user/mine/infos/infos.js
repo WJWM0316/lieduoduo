@@ -71,6 +71,17 @@ Page({
       }
     })
   },
+  onPullDownRefresh(hasLoading = true) {
+    this.setData({hasReFresh: true})
+    getRecruiterMyInfoApi().then(res => {
+      app.globalData.recruiterDetails = res.data
+      wx.stopPullDownRefresh()
+      this.setData({hasReFresh: false, myInfo: res.data})
+    }).catch(e => {
+      this.setData({hasReFresh: false})
+      wx.stopPullDownRefresh()
+    })
+  },
   onShareAppMessage(options) {
     let that = this
 　　return app.wxShare({

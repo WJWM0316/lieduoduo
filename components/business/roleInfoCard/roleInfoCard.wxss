@@ -1,7 +1,7 @@
 @import '../../../iconfont.wxss'
 .company {
   position: relative;
-  padding-left: 134rpx;
+  padding-left: 124rpx;
   padding-right: 50rpx;
   background: #fff;
 }
@@ -65,7 +65,7 @@
 .company .icon {
   font-size: 32rpx;
   position: absolute;
-  right: 0rpx;
+  right: -10rpx;
   top: 50%;
   transform: translateY(-50%);
   color: #D3CFD6;

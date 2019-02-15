@@ -42,8 +42,8 @@
 			<view class="ul">
 				<view class="li" wx:for="{{ recruitersList }}" wx:key="{{index}}" wx:for-item="recruiter" bindtap="bindMain" data-uid="{{recruiter.uid}}" wx:if="{{index < 3}}">
 					<view class="img-box">
-						<image src="{{recruiter.avatar.smallUrl}}"></image>
-						<i class="certification-icon">V</i>
+						<image src="{{recruiter.avatar.smallUrl}}" class="avatar"></image>
+						<image src="{{cdnImagePath}}sign1.png" mode="aspectFill" class="sign1"></image>
 					</view>
 					<view class="content">
 						<view class="row-one">

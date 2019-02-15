@@ -57,9 +57,9 @@
 				<i class="icon iconfont icon-xiangyou"></i>
 			</view>
 		</view>
-		<view class="tab-company-address" data-type="map" bindtap="todoAction" wx:if="{{detail.companyInfo.address.length}}">
+		<view class="tab-company-address" data-type="map" bindtap="todoAction" wx:if="{{detail.address}}">
 			<i class="icon iconfont icon-dizhi"></i>
-			<view>{{detail.companyInfo.address[0].address}}</view>
+			<view>{{detail.address}}</view>
 			<i class="icon iconfont icon-xiangyou"></i>
 		</view>
 		<view class="detail" wx:if="{{companyInfos.intro}}">

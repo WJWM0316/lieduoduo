@@ -161,8 +161,10 @@
 	line-height:1;
 	margin-top: 20rpx;
 	padding-top: 25rpx;
-	/*display: flex;
-	flex-wrap: nowrap;*/
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	width: calc(100vw - 140rpx)
 }
 
 .common-lits-ul .li .show-dividing-line {
@@ -170,20 +172,8 @@
 }
 
 .common-lits-ul .footer view {
-	display: inline-block;
+	display: inline;
 	margin-right: 16rpx;
-}
-
-.common-lits-ul .footer .time {
-  flex-shrink: 0;
-}
-
-.common-lits-ul .footer .action {
-  margin-right: 0;
-  white-space: nowrap;
-  overflow: hidden;
-  display: flex;
-  flex-wrap: nowrap;
 }
 
 .common-lits-ul .footer .action .strong {
@@ -191,7 +181,6 @@
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
-  max-width: 220rpx;
 }
 
 .common-lits-ul .footer .strong {

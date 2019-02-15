@@ -26,7 +26,7 @@
 		</view>
 
 		<view class="{{collectMySelf.list.length ? '' : 'nodata'}}" hidden="{{pageList === 'browseMySelf' || pageList === 'collectUsers'}}">
-			<commonList list="{{collectMySelf.list}}" isCollect="{{true}}"></commonList>
+			<commonList list="{{collectMySelf.list}}" isCollect="{{true}}" showFooter="{{false}}"></commonList>
 			<bottomStatus status="{{onBottomStatus}}" listData="{{collectMySelf.list}}" desc="还没有候选人看过你哟～ 试试分享你的职位，让更多人来围观吧！~" marginTop="{{30}}">
 				<!-- <button class="jump clear-style" bindtap="jump">分享我的职位</button> -->
 			</bottomStatus>
