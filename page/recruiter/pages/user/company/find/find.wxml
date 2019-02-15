@@ -31,7 +31,7 @@
 		
 	</view>
 	<view class="certification-layout {{showMaskBox ? 'certification-layout-show' : ''}}">
-		<view class="mask {{showMaskBox ? 'certification-layout-show' : ''}}" bindtap="closeMask"></view>
+		<view class="mask {{showMaskBox ? 'certification-layout-show' : ''}}" bindtap="close"></view>
 		<view class="box {{showMaskBox ? 'box-show' : ''}}">
 			<block wx:if="{{type === 'create'}}">
 				<view class="h1">了解创建公司审核流程</view>
