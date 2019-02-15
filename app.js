@@ -36,7 +36,7 @@ App({
     resumeInfo: {}, // 个人简历信息
     recruiterDetails: {}, // 招聘官详情信息
     pageCount: 20,
-    systemInfo: wx.getSystemInfoSync(), // 系统信息
+    systemInfo: wx.getSystemInfoSync() // 系统信息
   },
   // 登录
   login() {

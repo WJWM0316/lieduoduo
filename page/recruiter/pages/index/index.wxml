@@ -20,25 +20,24 @@
 		
 		<view class="{{browseMySelf.list.length ? '' : 'nodata'}}" hidden="{{pageList === 'collectMySelf' || pageList === 'collectUsers'}}">
 			<commonList list="{{browseMySelf.list}}"></commonList>
-			<bottomStatus status="{{onBottomStatus}}" listData="{{browseMySelf.list}}" desc="还没有候选人看过你哟～ 试试分享你的职位，让更多人来围观吧！">
+			<bottomStatus status="{{onBottomStatus}}" listData="{{browseMySelf.list}}" desc="还没有候选人看过你哟～ 试试分享你的职位，让更多人来围观吧！" marginTop="{{30}}">
 				<!-- <button class="jump clear-style" bindtap="jump">分享我的职位</button> -->
 			</bottomStatus>
 		</view>
 
 		<view class="{{collectMySelf.list.length ? '' : 'nodata'}}" hidden="{{pageList === 'browseMySelf' || pageList === 'collectUsers'}}">
 			<commonList list="{{collectMySelf.list}}" isCollect="{{true}}"></commonList>
-			<bottomStatus status="{{onBottomStatus}}" listData="{{collectMySelf.list}}" desc="还没有候选人看过你哟～ 试试分享你的职位，让更多人来围观吧！~">
+			<bottomStatus status="{{onBottomStatus}}" listData="{{collectMySelf.list}}" desc="还没有候选人看过你哟～ 试试分享你的职位，让更多人来围观吧！~" marginTop="{{30}}">
 				<!-- <button class="jump clear-style" bindtap="jump">分享我的职位</button> -->
 			</bottomStatus>
 		</view>
 
 		<view class="{{collectUsers.list.length ? '' : 'nodata'}}" hidden="{{pageList === 'collectMySelf' || pageList === 'browseMySelf'}}">
 			<commonList list="{{collectUsers.list}}" showFooter="{{false}}"></commonList>
-			<bottomStatus status="{{onBottomStatus}}" listData="{{collectUsers.list}}" desc="还没有感兴趣的候选人哟~">
+			<bottomStatus status="{{onBottomStatus}}" listData="{{collectUsers.list}}" desc="还没有感兴趣的候选人哟~" marginTop="{{30}}">
 				<!-- <button class="jump clear-style" bindtap="jump">分享我的职位</button> -->
 			</bottomStatus>
 		</view>
-
 	</view>
   <tabBar tabType="1"></tabBar>
   <choose wx:if="{{!choseType}}"></choose>

@@ -85,7 +85,7 @@
 	line-height: 1;
 	text-overflow: ellipsis;
 	white-space: nowrap;
-	width: 100%;
+	width: 428rpx;
 }
 
 .company-infos .header .position-salary {
@@ -111,7 +111,8 @@
 
 .company-infos .infos .icon {
 	color: #CDCBCF;
-	margin-right: 12rpx
+	margin-right: 12rpx;
+	vertical-align:-2rpx;
 }
 
 .company-infos .infos .icon-zhiwei {
