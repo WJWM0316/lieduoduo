@@ -78,8 +78,8 @@ Page({
     }
   },
   onHide () {
-    wx.removeStorageSync('result')
-    wx.removeStorageSync('createPosition')
+    // wx.removeStorageSync('result')
+    // wx.removeStorageSync('createPosition')
   },
   /* 展示或关闭例子 */
   showPopups () {

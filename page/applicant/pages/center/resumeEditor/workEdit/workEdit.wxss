@@ -17,7 +17,11 @@
 .commont .result{
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-end;
+  width: 488rpx;
+  overflow: hidden;
+  text-overflow:ellipsis;
+  white-space: nowrap;
 }
 .commont .result input{
   text-align: right;

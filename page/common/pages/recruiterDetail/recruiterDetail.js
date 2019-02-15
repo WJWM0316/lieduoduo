@@ -51,6 +51,9 @@ Page({
         let isOwner = res.data.isOwner && identity === 'RECRUITER' ? true : false
         this.setData({info: res.data, isOwner, realIsOwner: res.data.isOwner}, function() {
           if(this.selectComponent('#interviewBar')) this.selectComponent('#interviewBar').init()
+          if (this.data.isOwner) {
+            app.globalData.recruiterDetails = res.data
+          }
           resolve(res)
         })
       })

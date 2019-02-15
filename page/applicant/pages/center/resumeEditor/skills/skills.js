@@ -45,6 +45,7 @@ Page({
         this.setData({professionalSkills, skills})
       })
     } else {
+      console.log(1111111111111111111111111111)
       getLabelProfessionalSkillsApi().then(response => {
         let professionalSkills = []
         response.data.labelProfessionalSkills.forEach(item => {

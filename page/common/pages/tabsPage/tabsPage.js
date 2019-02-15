@@ -29,7 +29,7 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onShow: function (options) {
     let character = []
     let interest = []
     let skills = []
@@ -38,7 +38,8 @@ Page({
     let choseJobList = []
     let choseLifeList = []
     let choseFirstName = ''
-    if (getApp().globalData.identity === "APPLICANT") {
+    let choseType = wx.getStorageSync('choseType')
+    if (choseType === "APPLICANT") {
       choseAllList = app.globalData.resumeInfo.personalizedLabels || []
     } else {
       choseAllList = app.globalData.recruiterDetails.personalizedLabels || []
@@ -128,7 +129,7 @@ Page({
   },
   openPop () {
     if (this.data.pageType === 'life') {
-      if (this.data.lifeChoseNum < 3) {
+      if (this.data.choseLifeList.length < 3) {
         this.setData({hidePop: false})
       } else {
         app.wxToast({
@@ -136,7 +137,7 @@ Page({
         })
       }
     } else {
-      if (this.data.jobChoseNum < 3) {
+      if (this.data.choseJobList < 3) {
         this.setData({hidePop: false})
       } else {
         app.wxToast({

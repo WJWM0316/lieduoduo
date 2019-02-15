@@ -21,7 +21,7 @@ Page({
     const ctx = wx.createCanvasContext('canvas')
     ctx.width = 750
     ctx.setFillStyle('#652791')
-    ctx.fillRect(0, 0, 750, 2500)
+    ctx.fillRect(0, 0, 750, 5000)
 
     ctx.drawImage(avatarUrl, 306, 58, 133, 133)
 
