@@ -192,8 +192,8 @@ Page({
       options,
       title: sharePosition(),
       noImg: true,
-      path: `${COMMON}positionDetail/positionDetail?positionId=${that.data.query.positionId}`
-      // imageUrl: `${that.data.cdnPath}positionList.png`
+      path: `${COMMON}positionDetail/positionDetail?positionId=${that.data.query.positionId}`,
+      imageUrl: `${that.data.cdnPath}positionList.png`
     })
   }
 })

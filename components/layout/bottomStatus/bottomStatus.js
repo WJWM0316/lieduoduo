@@ -29,7 +29,6 @@ Component({
     cdnImagePath: getApp().globalData.cdnImagePath
   },
   attached() {
-    console.log(this.data.marginTop, 1111111111)
   },
   /**
    * 组件的方法列表

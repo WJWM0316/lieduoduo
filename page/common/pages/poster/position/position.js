@@ -22,7 +22,7 @@ Page({
     let that = this
     ctx.width = 750
     ctx.setFillStyle('#652791')
-    ctx.fillRect(0, 0, 750, 2500)
+    ctx.fillRect(0, 0, 750, 2600)
     // 头像
     ctx.drawImage(avatarUrl, 80, 40, 98, 98)
     // 背景图1
@@ -212,7 +212,7 @@ Page({
     ctx.setFontSize(28)
     ctx.setFillStyle('#282828')
     if (!info.describe) info.describe = '你还未填写职位详情，快去填写吧~'
-    curHeight = lineFeed(ctx, info.describe, 590, 80, curHeight, '../../../../../images/c2.png', 750, 90)
+    curHeight = lineFeed(ctx, info.describe, 590, 80, curHeight, '../../../../../images/c2.png', 750, 100)
     ctx.drawImage('../../../../../images/c4.png', 0, curHeight - 200, 74, 92)
     ctx.drawImage(qrCodeUrl, 75, curHeight + 88, 170, 170)
     ctx.drawImage('../../../../../images/canvas5.png', 0, curHeight + 10, 750, 287)
@@ -252,7 +252,7 @@ Page({
     let loadAvatar = new Promise((resolve, reject) => {
       // 头像
       wx.downloadFile({
-        url: info.recruiterInfo.avatar.middleUrl,
+        url: info.recruiterInfo.avatar.smallUrl,
         success(res) {
           if (res.statusCode === 200) {
             resolve(res)
@@ -266,7 +266,7 @@ Page({
     })
     let loadCompany = new Promise((resolve, reject) => {
       wx.downloadFile({
-        url:  info.companyInfo.logoInfo.middleUrl,
+        url:  info.companyInfo.logoInfo.smallUrl,
         success(res) {
           if (res.statusCode === 200) {
             resolve(res)

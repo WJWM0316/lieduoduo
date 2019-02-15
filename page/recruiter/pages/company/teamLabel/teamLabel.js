@@ -104,7 +104,7 @@ Page({
     })
     if (isRepeat) return
     diyTeamlabApi(data).then(res => {
-      let data = {}
+      let data = res.data
       data.title = this.data.customLabel
       data.select = true
       list.push(data)

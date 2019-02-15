@@ -167,8 +167,8 @@ Page({
       options,
       title: shareResume(),
       noImg: true,
-      path: `${COMMON}resumeDetail/resumeDetail?uid=${this.data.options.uid}`
-      // imageUrl: `${that.data.cdnImagePath}shareC.png`
+      path: `${COMMON}resumeDetail/resumeDetail?uid=${this.data.options.uid}`,
+      imageUrl: `${that.data.cdnImagePath}shareC.png`
     })
   }
 })

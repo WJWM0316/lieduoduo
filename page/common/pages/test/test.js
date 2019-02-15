@@ -37,7 +37,15 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    const ctx = wx.createCanvasContext('cardCanvas')
+    console.log(112222333)
+    // ctx.drawImage('../../../images/jianli.png', 0, 0, 420, 336)
+    ctx.setFontSize(24)
+    ctx.setFillStyle('#652791')
+    ctx.setTextAlign('left')
+    ctx.fillText('啊飒飒的撒旦', 100, 100)
+    console.log(ctx)
+    ctx.draw()
   },
 
   /**
