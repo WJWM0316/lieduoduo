@@ -26,7 +26,7 @@ Component({
     // 是否显示底部
     showItemStatus: {
       type: Boolean,
-      value: true
+      value: false
     },
     // 是否收藏
     isCollect: {
