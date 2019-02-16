@@ -1,6 +1,6 @@
 import {RECRUITER} from '../../../../../config.js'
 import { getInviteListApi, getApplyListApi, getScheduleListApi, getScheduleNumberApi} from '../../../../../api/pages/interview.js'
-import {getPositionListApi} from '../../../../../api/pages/position.js'
+import {getRecruiterPositionListApi} from '../../../../../api/pages/position.js'
 const app = getApp()
 let chooseTime = parseInt(new Date().getTime() / 1000)
 let positionList = []
@@ -197,7 +197,7 @@ Page({
   },
   init () {
     let id = app.globalData.recruiterDetails.uid
-    getPositionListApi({recruiter: id, status: 1}).then(res => {
+    getRecruiterPositionListApi({recruiter: id, status: 1}).then(res => {
       positionList = res.data
       positionList.unshift({positionName: '所有职位', id: 0})
       this.setData({positionList})
