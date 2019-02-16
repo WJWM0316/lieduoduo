@@ -121,16 +121,15 @@ Page({
   getMyBrowseList(hasLoading = true) {
     return new Promise((resolve, reject) => {
       const params = {count: this.data.pageCount, page: this.data.myBrowse.pageNum, hasLoading}
-      geMyBrowseUsersApi(params)
-        .then(res => {
-          const myBrowse = this.data.myBrowse
-          const onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
-          myBrowse.list = myBrowse.list.concat(res.data)
-          myBrowse.isLastPage = res.meta && res.meta.nextPageUrl ? false : true
-          myBrowse.pageNum = myBrowse.pageNum + 1
-          myBrowse.isRequire = true
-          this.setData({myBrowse, onBottomStatus}, () => resolve(res))
-        })
+      geMyBrowseUsersApi(params).then(res => {
+        const myBrowse = this.data.myBrowse
+        const onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
+        myBrowse.list = myBrowse.list.concat(res.data)
+        myBrowse.isLastPage = res.meta && res.meta.nextPageUrl ? false : true
+        myBrowse.pageNum = myBrowse.pageNum + 1
+        myBrowse.isRequire = true
+        this.setData({myBrowse, onBottomStatus}, () => resolve(res))
+      })
     })
   },
   /**
@@ -142,16 +141,15 @@ Page({
   getMyCollectList(hasLoading = true) {
     return new Promise((resolve, reject) => {
       const params = {count: this.data.pageCount, page: this.data.myCollect.pageNum, hasLoading}
-      getMyCollectUsersApi(params)
-        .then(res => {
-          const myCollect = this.data.myCollect
-          const onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
-          myCollect.list = myCollect.list.concat(res.data)
-          myCollect.isLastPage = res.meta && res.meta.nextPageUrl ? false : true
-          myCollect.pageNum = myCollect.pageNum + 1
-          myCollect.isRequire = true
-          this.setData({myCollect, onBottomStatus}, () => resolve(res))
-        })
+      getMyCollectUsersApi(params).then(res => {
+        const myCollect = this.data.myCollect
+        const onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
+        myCollect.list = myCollect.list.concat(res.data)
+        myCollect.isLastPage = res.meta && res.meta.nextPageUrl ? false : true
+        myCollect.pageNum = myCollect.pageNum + 1
+        myCollect.isRequire = true
+        this.setData({myCollect, onBottomStatus}, () => resolve(res))
+      })
     })
   },
   jump () {
@@ -173,12 +171,11 @@ Page({
    * @return   {[type]}   [description]
    */
   getAvartList() {
-    getAvartListApi()
-      .then(res => {
-        const moreRecruiter = res.data.moreRecruiter
-        const recruiterDynamic = res.data.recruiterDynamic
-        this.setData({moreRecruiter, recruiterDynamic})
-      })
+    getAvartListApi().then(res => {
+      const moreRecruiter = res.data.moreRecruiter
+      const recruiterDynamic = res.data.recruiterDynamic
+      this.setData({moreRecruiter, recruiterDynamic})
+    })
   },
   /**
    * @Author   小书包
@@ -206,19 +203,19 @@ Page({
   onPullDownRefresh(hasLoading = true) {
     const key = this.data.pageList
     const value = {list: [], pageNum: 1, isLastPage: false, isRequire: false}
+    console.log(key, '----', value)
     this.setData({[key]: value, hasReFresh: true})
-    this.getLists()
-        .then(res => {
-          const value = {list: [], pageNum: 1, isLastPage: false, isRequire: false}
-          const onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
-          value.list = res.data
-          value.isLastPage = res.meta && res.meta.nextPageUrl ? false : true
-          value.pageNum = 1
-          value.isRequire = true
-          this.setData({[key]: value, onBottomStatus, hasReFresh: false}, () => wx.stopPullDownRefresh())
-        }).catch(e => {
-          wx.stopPullDownRefresh()
-        })
+    this.getLists().then(res => {
+      const value = {list: [], pageNum: 1, isLastPage: false, isRequire: false}
+      const onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
+      value.list = res.data
+      value.isLastPage = res.meta && res.meta.nextPageUrl ? false : true
+      value.pageNum = 1
+      value.isRequire = true
+      this.setData({[key]: value, onBottomStatus, hasReFresh: false}, () => wx.stopPullDownRefresh())
+    }).catch(e => {
+      wx.stopPullDownRefresh()
+    })
   },
   /**
    * @Author   小书包
