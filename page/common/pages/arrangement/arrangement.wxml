@@ -11,7 +11,7 @@
   </view>
   <block>
     <view class="content">
-      <view class="detail" wx:if="{{identity === 'RECRUITER' && (info.status === 12 || info.status === 21 || info.status === 32)}}">
+      <view class="detail" wx:if="{{identity === 'RECRUITER' && (info.status === 21 || info.status === 32)}}">
         <view class="title"><icon class="icon"></icon>面试信息</view>
         <view class="msgItem">
           <view class="inner">
@@ -45,7 +45,7 @@
         </view>
       </view>
 
-      <view class="detail read" wx:if="{{identity === 'APPLICANT' || (identity === 'RECRUITER' && (info.status === 31 || info.status === 41 || info.status === 51))}}">
+      <view class="detail read" wx:if="{{identity === 'APPLICANT' || (identity === 'RECRUITER' && (info.status === 12 || info.status === 31 || info.status === 41 || info.status === 51))}}">
         <view class="title"><icon class="icon"></icon>面试信息</view>
         <view class="msgItem" bindtap="callPhone">
           <view class="inner">
