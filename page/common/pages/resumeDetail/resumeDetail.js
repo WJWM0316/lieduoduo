@@ -166,9 +166,8 @@ Page({
 　　return app.wxShare({
       options,
       title: shareResume(),
-      noImg: true,
       path: `${COMMON}resumeDetail/resumeDetail?uid=${this.data.options.uid}`,
-      imageUrl: `${that.data.cdnImagePath}shareC.png`
+      imageUrl: `${that.data.cdnImagePath}shareB.png`
     })
   }
 })

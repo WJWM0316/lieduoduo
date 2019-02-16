@@ -2,7 +2,7 @@
   <view class="inner">
     <i class="colse iconfont icon-close" bindtap="close" ></i>
     <view class="tip">登录或注册</view>
-    <button class="wxBtn" open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber">微信账号快速登录</button>
+    <button class="wxBtn" open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber"><i class="wxIcon iconfont icon-weixin"></i>微信账号快速登录</button>
     <button class="plogin" bindtap="phoneLogin">手机号注册/登录</button>
   </view>
 </view>

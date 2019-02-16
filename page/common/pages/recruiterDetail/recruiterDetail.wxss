@@ -29,7 +29,8 @@
   position: relative;
   width: 184rpx;
   height: 184rpx;
-  margin: 70rpx auto 24rpx;
+  margin: 0 auto;
+  padding: 70rpx 0 24rpx;
   display: block;
 }
 .content .avatar {
@@ -95,7 +96,7 @@
   width: 30rpx;
   height: 30rpx;
   position: absolute;
-  top: -33rpx;
+  top: 37rpx;
   left: -30rpx;
 }
 .hasFavor {
@@ -109,33 +110,33 @@
 .label0 {
   font-size: 24rpx;
   font-weight:500;
-  top: -17rpx;
+  top: 53rpx;
   left: -6rpx;
   transform: translateX(-100%);
   box-shadow: 0 3rpx 3rpx #fff;
 }
 .label1 {
-  top: -5rpx;
+  top: 65rpx;
   right: -10rpx;
   transform: translateX(100%);
 }
 .label2 {
-  top: 70rpx;
+  top: 140rpx;
   left: -36rpx;
   transform: translateX(-100%);
 }
 .label3 {
-  top: 70rpx;
+  top: 140rpx;
   right: -36rpx;
   transform: translateX(100%);
 }
 .label4 {
-  top: 143rpx;
+  top: 213rpx;
   left: -10rpx;
   transform: translateX(-100%);
 }
 .label5 {
-  top: 143rpx;
+  top: 213rpx;
   right: -10rpx;
   transform: translateX(100%);
 }

@@ -150,7 +150,7 @@
 }
 .recruiter .status {
   font-size: 26rpx;
-  font-weight: 400;
+  font-weight: 300;
   color: #929292;
   position: absolute;
   top: 50%;

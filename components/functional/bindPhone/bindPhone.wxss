@@ -61,3 +61,7 @@
   line-height: 88rpx;
   margin-top: 32rpx;
 }
+.wxIcon {
+  font-size: 26rpx;
+  margin-right: 16rpx;
+}

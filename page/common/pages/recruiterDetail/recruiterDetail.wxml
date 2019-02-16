@@ -12,7 +12,7 @@
         <image src="{{cdnImagePath}}sign1.png" mode="aspectFill" class="sign1"></image>
       </view>
       <view class="labels label{{index}} {{item.hasFavor ? 'hasFavor': ''}}" wx:for="{{info.personalizedLabels}}" wx:key="{{index}}" bindtap="favor" data-item="{{item}}" data-index="{{index}}" wx:if="{{index <= 5}}">{{item.labelName}} <text wx:if="{{item.favorCount > 0}}">×{{item.favorCount}}</text> </view>
-      <image class="favor" src="{{cdnImagePath}}dianzan.png"></image>
+      <image class="favor" wx:if="{{info.personalizedLabels.length > 0}}" src="{{cdnImagePath}}dianzan.png"></image>
     </div>
     <view class="userInfo">
       <view class="name">{{info.name}}</view>

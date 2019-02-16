@@ -191,7 +191,6 @@ Page({
 　　return app.wxShare({
       options,
       title: sharePosition(),
-      noImg: true,
       path: `${COMMON}positionDetail/positionDetail?positionId=${that.data.query.positionId}`,
       imageUrl: `${that.data.cdnPath}positionList.png`
     })
