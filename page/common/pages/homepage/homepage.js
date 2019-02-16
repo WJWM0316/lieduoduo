@@ -30,7 +30,7 @@ Page({
     navH: app.globalData.navHeight,
     tab: 'about',
     indicatorDots: false,
-    autoplay: true,
+    autoplay: false,
     interval: 1000,
     duration: 1000,
     query: {},

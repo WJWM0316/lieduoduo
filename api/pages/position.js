@@ -10,6 +10,16 @@ export const getPositionListApi = (data, hasLoading) => {
   })
 }
 
+// 招聘官的职位列表
+export const getRecruiterPositionListApi = (data, hasLoading) => {
+  return request({
+    method: 'get',
+    url: '/position/mylist',
+    data,
+    hasLoading: hasLoading
+  })
+}
+
 export const getPositionListNumApi = (data, hasLoading) => {
   return request({
     method: 'get',

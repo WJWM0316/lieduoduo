@@ -45,7 +45,6 @@ Page({
       isLastPage: false,
       isRequire: false
     },
-    // pageCount: app.globalData.pageCount,
     pageCount: 20,
     hasReFresh: false,
     onBottomStatus: 0,
@@ -245,17 +244,17 @@ Page({
    * @return   {[type]}              [description]
    */
   onPullDownRefresh(hasLoading = true) {
-    const key = this.data.tab
-    const value = {list: [], pageNum: 1, isLastPage: false, isRequire: false}
-    this.setData({[key]: value, hasReFresh: true})
+    let key = this.data.tab
+    let value = {list: [], pageNum: 1, isLastPage: false, isRequire: false}
+    this.setData({[key]: value, hasReFresh: true, commonList: value})
     this.getLists().then(res => {
-      const value = {list: [], pageNum: 1, isLastPage: false, isRequire: false}
-      const onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
+      let value = {list: [], pageNum: 1, isLastPage: false, isRequire: false}
+      let onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
       value.list = res.data
       value.isLastPage = res.meta && res.meta.nextPageUrl ? false : true
       value.pageNum = 1
       value.isRequire = true
-      this.setData({[key]: value, onBottomStatus, hasReFresh: false}, () => wx.stopPullDownRefresh())
+      this.setData({[key]: value, onBottomStatus, hasReFresh: false, commonList: value}, () => wx.stopPullDownRefresh())
     }).catch(e => {
       wx.stopPullDownRefresh()
     })
