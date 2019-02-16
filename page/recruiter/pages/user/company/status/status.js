@@ -93,11 +93,13 @@ Page({
       // 公司验证已经通过
       if(companyInfos.status === 1 && (options.from === 'company' || options.from === 'apply')) {
         wx.reLaunch({url: `${RECRUITER}index/index`})
+        app.getAllInfo()
         return;
       }
       // 身份验证已经通过
       if(infos.status === 1) {
         wx.reLaunch({url: `${RECRUITER}index/index`})
+        app.getAllInfo()
         return;
       }
     })
