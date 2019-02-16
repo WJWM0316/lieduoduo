@@ -31,7 +31,7 @@ Page({
     },
     moreRecruiter: [],
     recruiterDynamic: [],
-    pageCount: 6,
+    pageCount: 20,
     hasReFresh: false,
     onBottomStatus: 0
   },

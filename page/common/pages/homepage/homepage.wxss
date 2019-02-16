@@ -166,6 +166,7 @@
   box-shadow:0rpx 4rpx 20rpx 0rpx rgba(101,39,145,0.1);
   border-radius:10rpx;
   margin-bottom: 20rpx;
+  overflow: hidden;
 }
 
 .homepage-team-box .li {
@@ -232,7 +233,7 @@
   font-size:24rpx;
   font-weight:300;
   color:rgba(40,40,40,1);
-  margin: 16rpx 0 22rpx 0;
+  margin: 8rpx 0 22rpx 0;
   overflow: hidden;
   text-overflow: ellipsis;
   overflow: hidden;
@@ -257,7 +258,7 @@
 .homepage-team-box .li::after {
   content: '';
   display: block;
-  height: 2rpx;
+  height: 1rpx;
   left: 40rpx;
   right: 40rpx;
   background: #E8E9EB;
@@ -345,6 +346,7 @@
   background:rgba(255,255,255,1);
   box-shadow:0px 4rpx 20rpx 0rpx rgba(101,39,145,0.1);
   border-radius:10rpx;
+  overflow: hidden;
 }
 
 .production-box .li {
@@ -442,6 +444,7 @@
   border: 1px solid #CED7DC;
   box-sizing: border-box;
   position: relative;
+  z-index: 1;
 }
 
 .company-address map {
@@ -508,7 +511,7 @@
 }
 
 .company-website .link-box {
-  line-height: 1;
+  /*line-height: 1;*/
   padding: 40rpx;
   margin-bottom: 40rpx;
 }

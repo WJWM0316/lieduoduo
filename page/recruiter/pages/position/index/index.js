@@ -1,4 +1,4 @@
-import { getPositionListApi, getPositionListNumApi } from '../../../../../api/pages/position.js'
+import { getRecruiterPositionListApi, getPositionListNumApi } from '../../../../../api/pages/position.js'
 
 import {RECRUITER, COMMON} from '../../../../../config.js'
 
@@ -121,10 +121,9 @@ Page({
    */
   getOnlineLists(hasLoading = true) {
     return new Promise((resolve, reject) => {
-      let uid = app.globalData.recruiterDetails.uid
       let onLinePosition = this.data.onLinePosition
       let onBottomStatus = this.data.onBottomStatus
-      getPositionListApi({is_online: 1, recruiter: uid, count: onLinePosition.count, page: onLinePosition.pageNum, hasLoading})
+      getRecruiterPositionListApi({is_online: 1, count: onLinePosition.count, page: onLinePosition.pageNum, hasLoading})
         .then(res => {
           onLinePosition.list = onLinePosition.list.concat(res.data || [])
           onLinePosition.pageNum++
@@ -142,10 +141,9 @@ Page({
   },
   getOffLineLists(hasLoading = true) {
     return new Promise((resolve, reject) => {
-      let uid = app.globalData.recruiterDetails.uid
       let offLinePosition = this.data.offLinePosition
       let offBottomStatus = this.data.offBottomStatus
-      getPositionListApi({is_online: 2, recruiter: uid, count: offLinePosition.count, page: offLinePosition.pageNum, hasLoading})
+      getRecruiterPositionListApi({is_online: 2, count: offLinePosition.count, page: offLinePosition.pageNum, hasLoading})
         .then(res => {
           offLinePosition.list = offLinePosition.list.concat(res.data || [])
           offLinePosition.pageNum++

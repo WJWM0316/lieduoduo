@@ -192,13 +192,14 @@
 .about-company .detail {
 	padding-top: 50rpx;
 	font-size: 28rpx;
-	border-top:1px dotted rgba(206,215,220,1);
+	border-top:1px dashed rgba(206,215,220,1);
 }
 
 .tab-company-homepage {
 	display: flex;
 	padding: 40rpx 0;
 	overflow: hidden;
+	position: relative;
 }
 
 .tab-company-homepage .left {
@@ -206,6 +207,9 @@
 	height:108rpx;
 	border-radius:24rpx;
 	overflow: hidden;
+	position: absolute;
+	left: 0;
+	top: 40rpx;
 }
 
 .tab-company-homepage .left image {
@@ -214,7 +218,6 @@
 }
 
 .tab-company-homepage .right {
-	width:108rpx;
 	line-height: 108rpx;
 	border-radius:24rpx;
 	text-align: right;
@@ -224,7 +227,8 @@
 .tab-company-homepage .content {
 	flex: 1;
 	line-height: 1;
-	margin-left: 25rpx;
+	margin-left: 124rpx;
+	position: relative;
 }
 
 .tab-company-homepage .company-name {
@@ -232,7 +236,7 @@
 	font-weight:500;
 	color:rgba(40,40,40,1);
 	margin-top: 15rpx;
-	max-width: 300rpx;
+	max-width: 450rpx;
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
@@ -243,7 +247,7 @@
 	font-weight:300;
 	color:rgba(40,40,40,1);
 	margin-top: 15rpx;
-	max-width: 350rpx;
+	max-width: 450rpx;
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
@@ -251,7 +255,7 @@
 
 .tab-company-address {
 	overflow: hidden;
-	border-top:1px dotted rgba(206,215,220,1);
+	border-top:1px dashed rgba(206,215,220,1);
 	height: 108rpx;
 	line-height: 108rpx;
 }

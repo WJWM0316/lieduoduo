@@ -37,8 +37,7 @@ Page({
       isLastPage: false,
       isRequire: false
     },
-    pageCount: app.globalData.pageCount,
-    // pageCount: 6,
+    pageCount: 20,
     hasReFresh: false,
     onBottomStatus: 0
   },
