@@ -1,7 +1,11 @@
-.recruiter-index .index-bannar image {
+.index-bannar image {
   width: 100%;
   display: block;
   height: 430rpx;
+}
+
+.index-bannar {
+  border-top: 30rpx solid #652791;
 }
 
 .index-list-box {
@@ -9,13 +13,13 @@
   transform: translateY(-130rpx);
 }
 
-.recruiter-index .ul-tab-bar {
+.ul-tab-bar {
   display: flex;
   line-height: 80rpx;
   border-bottom: 1rpx solid #BACED8;
 }
 
-.recruiter-index .ul-tab-bar .li {
+.ul-tab-bar .li {
   flex: 1;
   font-size:28rpx;
   font-weight:400;
@@ -25,15 +29,15 @@
   background:rgba(243,245,248,1);
 }
 
-.recruiter-index .ul-tab-bar .li:first-child {
+.ul-tab-bar .li:first-child {
   border-top-left-radius: 10rpx;
 }
 
-.recruiter-index .ul-tab-bar .li:last-child {
+.ul-tab-bar .li:last-child {
   border-top-right-radius: 10rpx;
 }
 
-.recruiter-index .ul-tab-bar .li view {
+.ul-tab-bar .li view {
   width:3rpx;
   height:31rpx;
   position: absolute;
@@ -43,7 +47,7 @@
   background: rgba(232,233,235,1)
 }
 
-.recruiter-index .ul-tab-bar .li:before {
+.ul-tab-bar .li:before {
   content: '';
   display: block;
   position: absolute;
@@ -62,7 +66,7 @@
   z-index: 2;
 }
 
-.recruiter-index .ul-tab-bar .li:after {
+.ul-tab-bar .li:after {
   content: '';
   display: block;
   position: absolute;
@@ -81,7 +85,7 @@
   z-index: 1;
 }
 
-.recruiter-index .ul-tab-bar .active {
+.ul-tab-bar .active {
   background: #F7EBFF;
   pointer-events: none;
   font-size:28rpx;
@@ -89,20 +93,20 @@
   color:rgba(101,39,145,1);
 }
 
-.recruiter-index .ul-tab-bar .active view{
+.ul-tab-bar .active view{
   display: none;
 }
 
-.recruiter-index .ul-tab-bar .active:nth-child(1) view{
+.ul-tab-bar .active:nth-child(1) view{
   display: none;
 }
 
-.recruiter-index .ul-tab-bar .active:before {
+.ul-tab-bar .active:before {
   opacity: 1;
   visibility: visible;
 }
 
-.recruiter-index .ul-tab-bar .active:after {
+.ul-tab-bar .active:after {
   opacity: 1;
   visibility: visible;
 }
@@ -115,5 +119,6 @@
   vertical-align: middle;
   width: 100%;
   padding-bottom: 185rpx;
-  padding-top: 144rpx;
+  padding-top: 114rpx;
+  overflow: hidden;
 }

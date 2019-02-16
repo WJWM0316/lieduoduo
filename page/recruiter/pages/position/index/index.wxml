@@ -39,7 +39,7 @@
 			<!-- <view class="item-status"></view> -->
 		</button>
 	</view>
-	<bottomStatus status="{{onBottomStatus}}" listData="{{onLinePosition.list}}" desc="没有更多内容了~"></bottomStatus>
+	<bottomStatus status="{{onBottomStatus}}" listData="{{onLinePosition.list}}" desc="没有更多内容了~" marginTop="{{0}}"></bottomStatus>
 </view>
 <!--下线-->
 <view class="office-manager-list {{offLinePosition.list.length ? '' : 'nodata'}}"  hidden="{{positionStatus === '1'}}">
@@ -62,7 +62,7 @@
 		</view>
 		<view class="item-status {{item.status === 4 ? 'fail' : ''}} {{item.status === 2 || item.status === 3 ? 'under-review' : ''}} {{item.status === 0 ? 'close' : ''}}">{{filters.positionFilter(item.status)}}</view>
 	</view>
-	<bottomStatus status="{{offBottomStatus}}" listData="{{offLinePosition.list}}" desc="没有更多内容了~"></bottomStatus>
+	<bottomStatus status="{{offBottomStatus}}" listData="{{offLinePosition.list}}" desc="没有更多内容了~" marginTop="{{0}}"></bottomStatus>
 </view>
 </form>
 <tab-bar tabType="1"></tab-bar>

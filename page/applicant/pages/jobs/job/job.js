@@ -19,7 +19,7 @@ const app = getApp()
 
 Page({
   data: {
-    pageCount: 6,
+    pageCount: 20,
     hasReFresh: false,
     onBottomStatus: 0,
     positionList: {

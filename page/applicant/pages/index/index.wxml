@@ -1,41 +1,38 @@
-<view class="container">
-  <!-- <navbar title="猎多多"></navbar> -->
+<view>
+  <navbar title="猎多多"  background="transparent" color="#fff"></navbar>
 
   <view hidden="{{!hasReFresh}}">
     <refreshStatus></refreshStatus>
   </view>
   
-  <view class="applicant-index">
-
-    <view class="index-bannar">
-      <image src="{{cdnImagePath}}bg_homepageh.png"></image>
-    </view>
-
-    <view class='more'>
-      <moreActive type="1" avatarList="{{moreRecruiter}}"></moreActive>
-      <moreActive type="2" avatarList="{{recruiterDynamic}}" redDotActiveList="{{false}}"></moreActive>
-    </view>
-
-    <view class="ul-tab-bar">
-      <view class="li {{pageList === 'myBrowse' ? 'active' : ''}}" bindtap="onTabClick" data-key="myBrowse">我看过的</view>
-      <view class="li {{pageList === 'myCollect' ? 'active' : ''}}" bindtap="onTabClick" data-key="myCollect">我感兴趣的</view>
-    </view>
-    
-    <view class="{{myBrowse.list.length ? '' : 'nodata'}}" hidden="{{pageList === 'myCollect'}}">
-      <officerTab list="{{myBrowse.list}}" showSlideView="{{false}}" buttonType="delete" bindrefreshevent="refreshEvent"></officerTab>
-      <bottomStatus status="{{onBottomStatus}}" listData="{{myBrowse.list}}" desc="你还没有看过的职位和招聘官哟～" marginTop="{{30}}">
-        <button class="jump clear-style" bindtap="jump">发现更多职业机会</button>
-      </bottomStatus>
-    </view>
-    
-    <view class="{{myCollect.list.length ? '' : 'nodata'}}" hidden="{{pageList === 'myBrowse'}}">
-      <officerTab list="{{myCollect.list}}" showSlideView="{{false}}" buttonType="unsubscribe" bindrefreshevent="refreshEvent"></officerTab>
-      <bottomStatus status="{{onBottomStatus}}" listData="{{myCollect.list}}" desc="你还没有感兴趣的招聘官哟～" marginTop="{{30}}">
-        <button class="jump clear-style" bindtap="jump">发现更多招聘官</button>
-      </bottomStatus>
-    </view>
-
-    <bindPhone wx:if="{{needLogin}}"></bindPhone>
-    <choose wx:if="{{!choseType}}"></choose>
+  <view class="index-bannar" style="margin-top: -{{navH}}px;">
+    <image src="{{cdnImagePath}}bg_homepageh.png"></image>
   </view>
+
+  <view class='more'>
+    <moreActive type="1" avatarList="{{moreRecruiter}}"></moreActive>
+    <moreActive type="2" avatarList="{{recruiterDynamic}}" redDotActiveList="{{false}}"></moreActive>
+  </view>
+
+  <view class="ul-tab-bar">
+    <view class="li {{pageList === 'myBrowse' ? 'active' : ''}}" bindtap="onTabClick" data-key="myBrowse">我看过的</view>
+    <view class="li {{pageList === 'myCollect' ? 'active' : ''}}" bindtap="onTabClick" data-key="myCollect">我感兴趣的</view>
+  </view>
+  
+  <view class="{{myBrowse.list.length ? '' : 'nodata'}}" hidden="{{pageList === 'myCollect'}}">
+    <officerTab list="{{myBrowse.list}}" showSlideView="{{false}}" buttonType="delete" bindrefreshevent="refreshEvent"></officerTab>
+    <bottomStatus status="{{onBottomStatus}}" listData="{{myBrowse.list}}" desc="你还没有看过的职位和招聘官哟～" marginTop="{{0}}">
+      <button class="jump clear-style" bindtap="jump">发现更多职业机会</button>
+    </bottomStatus>
+  </view>
+  
+  <view class="{{myCollect.list.length ? '' : 'nodata'}}" hidden="{{pageList === 'myBrowse'}}">
+    <officerTab list="{{myCollect.list}}" showSlideView="{{false}}" buttonType="unsubscribe" bindrefreshevent="refreshEvent"></officerTab>
+    <bottomStatus status="{{onBottomStatus}}" listData="{{myCollect.list}}" desc="你还没有感兴趣的招聘官哟～" marginTop="{{0}}">
+      <button class="jump clear-style" bindtap="jump">发现更多招聘官</button>
+    </bottomStatus>
+  </view>
+
+  <bindPhone wx:if="{{needLogin}}"></bindPhone>
+  <choose wx:if="{{!choseType}}"></choose>
 </view>
