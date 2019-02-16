@@ -79,7 +79,7 @@ Page({
   publicPosition() {
     const identityInfos = this.data.identityInfos
     if(identityInfos.identityNum) {
-      if(identityInfos.status !== 1) {
+      if(identityInfos.status !== 1 || !identityInfos.status) {
         app.wxConfirm({
           title: '您的身份尚未认证成功',
           content: `请先认证`,

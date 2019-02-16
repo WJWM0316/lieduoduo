@@ -76,9 +76,9 @@
   align-content: center;
 }
 .experience{
-  display: flex;
+/*  display: flex;
   flex-wrap: nowrap;
-  align-items: center;
+  align-items: center;*/
   font-size: 24rpx;
   font-weight: 300;
   color: #282828;
@@ -88,6 +88,7 @@
 .experience view{
   white-space: nowrap;
   margin-right: 32rpx;
+  display: inline-block;
 }
 .experience i {
   color: #CDCBCF;
@@ -106,6 +107,7 @@
   white-space: nowrap;
   display: inline-block;
   margin-right: 0;
+  float: right;
 }
 .line{
   display: block;
@@ -135,7 +137,7 @@
   border: 1rpx solid #CEC5DF;
   border-radius: 30rpx;
   padding: 0 30rpx;
-  margin-left: 16rpx;
+  margin-right: 16rpx;
   margin-bottom: 16rpx;
   height: 48rpx;
   line-height: 48rpx;
