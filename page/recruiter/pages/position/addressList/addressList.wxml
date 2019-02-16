@@ -1,5 +1,5 @@
 <view class="addressList">
-  <navbar title="{{options.type === 'position' ? '工作地点' : '公司地址'}}" background="#FFFFFF" color="#22292C"></navbar>
+  <navbar title="{{options.type === 'position' ? '选择地址' : '公司地址'}}"></navbar>
 
   <view hidden="{{!hasReFresh}}">
     <refreshStatus></refreshStatus>
@@ -14,7 +14,7 @@
       </view>
       <view class="center">{{item.title || item.address}}</view>
       <view class="right">
-        <view class="edit" bindtap="edit" data-id="{{item.id}}"><i class="icon iconfont icon-bianji"></i> 编辑</view>
+        <view class="edit" bindtap="edit" data-id="{{item.id}}"><i class="icon iconfont icon-bianji"></i></view>
       </view>
     </view>
   </view>

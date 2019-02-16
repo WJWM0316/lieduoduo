@@ -138,6 +138,7 @@
 }
 .read.detail .inner .msg {
   padding-left: 54rpx;
+  padding-right: 30rpx;
 }
 
 .dateItem .inner.noborder {
@@ -278,6 +279,9 @@
   margin-top: 20rpx;
   padding: 78rpx 0;
 }
+.realDate.wait {
+  padding: 56rpx 0 40rpx;
+}
 .realDate .txt1 {
   text-align: center;
   font-size: 36rpx;
@@ -304,8 +308,14 @@
 .realDate .txt3.end {
   color: #BCBCBC;
 }
-
+.realDate .pic {
+  width: 340rpx;
+  height: 240rpx;
+  margin: 58rpx auto 0;
+  display: block;
+}
 .recruiter-waiting {
+  margin-top: 20rpx;
   padding: 30rpx;
   text-align: center;
   background: white;

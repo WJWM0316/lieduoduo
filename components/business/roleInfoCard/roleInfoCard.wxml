@@ -18,7 +18,7 @@
       <image class="img" src="{{cardData.avatar.middleUrl}}" mode="aspectFill"></image>
       <view class="applicantMsg">
         <view class="name">{{cardData.jobhunterRealname || cardData.realname}}<text class="msg"><text wx:if="{{cardData.workAge}}">{{cardData.workAge}}年</text><text wx:else>在校生</text> · {{cardData.degreeDesc}}<text wx:if="{{cardData.salaryFloor}}"> · {{cardData.salaryFloor}}-{{cardData.salaryCeil}}k</text></text></view>
-        <view class="detail">{{cardData.lastCompanyName}} | {{cardData.positionName || cardData.lastPosition}}</view>
+        <view class="detail" wx:if="{{cardData.lastCompanyName}}">{{cardData.lastCompanyName}} | {{cardData.positionName || cardData.lastPosition}}</view>
       </view>
     </view>
     <view class="contact">

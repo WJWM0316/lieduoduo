@@ -182,7 +182,13 @@
   text-overflow: ellipsis;
   overflow: hidden;
 }
-
+.common-lits-ul .footer .action.limit-width {
+  width: 320rpx;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  display: inline-block;
+}
 .common-lits-ul .footer .strong {
 	font-size:24rpx;
 	font-weight:400;

@@ -4,12 +4,14 @@
   <navbar title="面试详情" background="#652791" color="#fff"></navbar>
   <view class="tip" wx:if="{{identity === 'RECRUITER' && info.status === 32}}">备选时间不合适，请联系候选人重新确定时间</view>
   <view class="headInfo">
-    <roleInfoCard wx:if="{{identity === 'RECRUITER'}}" cardData="{{info.jobhunterInfo}}" class="roleDetail" roleType="applicant"></roleInfoCard>
-    <roleInfoCard wx:if="{{identity === 'APPLICANT'}}" cardData="{{info.recruiterInfo}}" class="roleDetail" roleType="recruiter"></roleInfoCard>
+    <view class="roleDetail">
+      <roleInfoCard wx:if="{{identity === 'RECRUITER'}}" cardData="{{info.jobhunterInfo}}" roleType="applicant"></roleInfoCard>
+      <roleInfoCard wx:if="{{identity === 'APPLICANT'}}" cardData="{{info.recruiterInfo}}" roleType="recruiter"></roleInfoCard>
+    </view>
   </view>
   <block>
     <view class="content">
-      <view class="detail" wx:if="{{identity === 'RECRUITER' && (info.status === 21 || info.status === 32)}}">
+      <view class="detail" wx:if="{{identity === 'RECRUITER' && (info.status === 12 || info.status === 21 || info.status === 32)}}">
         <view class="title"><icon class="icon"></icon>面试信息</view>
         <view class="msgItem">
           <view class="inner">
@@ -108,10 +110,10 @@
         </view>
       </view>
 
-      <view class="realDate" wx:if="{{identity === 'APPLICANT' && info.status === 21}}">
+      <view class="realDate wait" wx:if="{{identity === 'APPLICANT' && (info.status === 21 || info.status === 32)}}">
         <view class="txt1">等待招聘官安排面试</view>
         <view class="txt2">你也可以通过上方的电话，联系招聘官确认时间~</view>
-        <!-- <view class="txt3">没有插画先占个位</view> -->
+        <image class="pic" src="{{cdnImagePath}}wait.png"></image>
       </view>
 
       <view class="date read" wx:if="{{identity === 'APPLICANT' && info.status === 31}}">
@@ -138,12 +140,6 @@
         </radio-group>
       </view>
       
-      <view class="realDate" wx:if="{{identity === 'APPLICANT' && info.status === 32}}">
-        <view class="txt1">等待招聘官修改面试时间</view>
-        <view class="txt2">你也可以通过上方的电话，联系招聘官确认时间~</view>
-        <!-- <view class="txt3">没有插画先占个位</view> -->
-      </view>
-
       <view class="realDate" wx:if="{{info.status === 41}}">
         <view class="txt1">面试时间已确认</view>
         <view class="txt2" wx:if="{{identity === 'RECRUITER'}}">时间已添加到面试日程，准备迎接候选人吧~</view>

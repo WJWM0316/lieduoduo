@@ -10,6 +10,7 @@ Page({
   data: {
     identity: "", // 身份标识
     options: {},
+    cdnImagePath: app.globalData.cdnImagePath,
     appointmentId: '',
     info: {}
   },
@@ -109,7 +110,6 @@ Page({
   },
   radioChange(e) {
     let appointmentId = e.detail.value
-    console.log(appointmentId, 1111111)
     this.setData({appointmentId})
   },
   removeDate(e) {
@@ -187,10 +187,15 @@ Page({
    */
   onLoad: function (options) {
     this.setData({options})
-    this.pageInit()
+    
   },
   pageInit() {
     interviewDetailApi({interviewId: this.data.options.id}).then(res => {
+      let createPosition = wx.getStorageSync('createPosition')
+      if (createPosition && (res.data.status === 12 || res.data.status === 21 || res.data.status === 32) && wx.getStorageSync('choseType') === 'RECRUITER') {
+        res.data.addressId = createPosition.address_id
+        res.data.address = createPosition.address
+      }
       this.setData({info: res.data})
     })
   },
@@ -217,6 +222,7 @@ Page({
       info.addressId = addressData.address_id
     }
     this.setData({identity, info})
+    this.pageInit()
   },
 
   /**
