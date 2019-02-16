@@ -19,25 +19,24 @@ Page({
     cdnImagePath: app.globalData.cdnImagePath
   },
   onLoad(options) {
+    let pageTitle = ''
     switch(options.from) {
       case 'identity':
-        this.setData({pageTitle: '身份认证'})
+        pageTitle = '身份认证'
         break
       case 'company':
-        this.setData({pageTitle: '公司认证'})
+        pageTitle = '公司认证'
         break
       case 'apply':
-        this.setData({pageTitle: '申请加入公司'})
+        pageTitle = '申请加入公司'
         break
       default:
         break
     }
-    getCompanyIdentityInfosApi().then(res => {
-      const infos = res.data
-      const companyInfos = infos.companyInfo
-  		this.setData({identityInfos: infos, companyInfos, options})
-  	})
+    this.setData({pageTitle, options})
+    this.getCompanyIdentityInfos()
   },
+  onShow() {},
   backEvent() {
     wx.reLaunch({url: `${RECRUITER}user/mine/infos/infos`})
   },
@@ -49,13 +48,6 @@ Page({
   	switch(params.action) {
   		case 'modifyIdentity':
         wx.navigateTo({url: `${RECRUITER}user/company/identity/identity?action=edit&type=create`})
-        // if(companyInfos.status === 2) {
-        //   options.from = 'identity'
-        //   this.setData({options})
-        //   wx.navigateTo({url: `${RECRUITER}user/company/identity/identity?action=edit&type=create`})
-        // } else {
-        //   wx.navigateTo({url: `${RECRUITER}user/company/identity/identity?action=edit&type=create`})
-        // }
   			break
   		case 'modifyCompany':
   			wx.navigateTo({url: `${RECRUITER}user/company/apply/apply?action=edit&type=create`})
@@ -84,5 +76,34 @@ Page({
   		default:
   			break
   	}
+  },
+  /**
+   * @Author   小书包
+   * @DateTime 2019-02-16
+   * @detail   获取公司状态和个人身份状态
+   * @return   {[type]}   [description]
+   */
+  getCompanyIdentityInfos() {
+    getCompanyIdentityInfosApi().then(res => {
+      const infos = res.data
+      const companyInfos = infos.companyInfo
+      const options = this.data.options
+      this.setData({identityInfos: infos, companyInfos})
+
+      // 公司验证已经通过
+      if(companyInfos.status === 1 && (options.from === 'company' || options.from === 'apply')) {
+        wx.reLaunch({url: `${RECRUITER}index/index`})
+        return;
+      }
+      // 身份验证已经通过
+      if(infos.status === 1) {
+        wx.reLaunch({url: `${RECRUITER}index/index`})
+        return;
+      }
+    })
+  },
+  // 下拉刷新
+  onPullDownRefresh() {
+    this.getCompanyIdentityInfos()
   }
 })

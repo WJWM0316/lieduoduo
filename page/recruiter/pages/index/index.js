@@ -17,6 +17,7 @@ Page({
   data: {
     pageList: 'browseMySelf',
     cdnImagePath: app.globalData.cdnImagePath,
+    navH: app.globalData.navHeight,
     choseType: '',
     browseMySelf: {
       list: [],
@@ -226,5 +227,8 @@ Page({
   onShareAppMessage(options) {
     let that = this
 　　return app.wxShare({options})
+  },
+  onPageScroll(e) {
+    // console.log(e.scrollTop)
   }
 })

@@ -14,6 +14,7 @@ Page({
   data: {
     pageList: 'myBrowse',
     cdnImagePath: app.globalData.cdnImagePath,
+    navH: app.globalData.navHeight,
     choseType: '',
     needLogin: false,
     myBrowse: {
