@@ -109,6 +109,7 @@ Page({
   },
   radioChange(e) {
     let appointmentId = e.detail.value
+    console.log(appointmentId, 1111111)
     this.setData({appointmentId})
   },
   removeDate(e) {

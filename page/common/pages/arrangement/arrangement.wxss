@@ -1,5 +1,5 @@
 .arrangement {
-  background: #F5F5F9;
+  background: #FBFBFF;
   padding-bottom: 148rpx;
   min-height: 100vh;
   box-sizing: border-box;
@@ -30,7 +30,7 @@
   margin-top: 24rpx;
 }
 .title {
-  padding: 28rpx 0 12rpx;
+  padding: 28rpx 0 8rpx;
   font-size: 32rpx;
   font-weight: bold;
   color: #282828;
@@ -76,14 +76,20 @@
   flex-basis: 144rpx;
   color: #929292;
   display: inline-block;
+  font-weight: 500;
 }
 .detail .inner .msg {
-  display: flex;
   color: #282828;
   overflow: hidden;
   line-height: 40rpx;
   align-items: center;
   flex: 1;
+  text-overflow:ellipsis;
+  white-space: nowrap;
+  font-weight:500;
+}
+.detail .inner .msg.noWrap {
+  white-space: normal;
 }
 .detail .inner .msg input {
   font-size: 28rpx;
@@ -92,15 +98,21 @@
   font-size: 32rpx;
   position: absolute;
   right: 0rpx;
-  top: 0;
   color: #D3CFD6;
 }
 .detail .inner .iconfont.icon1 {
-  width: 27rpx;
   display: inline-block;
-  font-size: 27rpx;
+  font-size: 34rpx;
   color: #DCDCDC;
   margin-right: 20rpx;
+
+  position:absolute;
+  left:0rpx;
+  top:0;
+
+}
+.detail .inner .phone {
+  color: #652791;
 }
 .dateItem {
   padding: 0 32rpx 0 30rpx;
@@ -113,12 +125,27 @@
 .read .inner {
   border: none;
 }
+.read.detail {
+  padding-bottom: 46rpx;
+}
+.read.detail .inner {
+  height: auto;
+  line-height: inherit;
+  margin-top: 52rpx;
+}
+.read.detail .inner:first-child {
+  margin-top: 44rpx;
+}
+.read.detail .inner .msg {
+  padding-left: 54rpx;
+}
+
 .dateItem .inner.noborder {
   border: none;
 }
 .dateItem .inner .txt {
   font-size: 28rpx;
-  font-weight: 400;
+  font-weight: 300;
   color: #929292;
   line-height: 28rpx;
   float: left;
@@ -163,7 +190,7 @@
   font-weight: 500;
   color: #929292;
   float: left;
-  margin-right: 48rpx;
+  width: 121rpx;
 }
 .dateDetail {
   font-size: 28rpx;
@@ -172,7 +199,9 @@
   line-height: 28rpx;
   float: left;
 }
-
+.dateDetail.choseDate {
+  color: #652791;
+}
 .dateItem .inner {
   position: relative;
 }
@@ -183,7 +212,7 @@
   align-items: center;
 }
 .radioBtn {
-  transform: scale(0.62);
+  transform: scale(0.7);
 }
 .dateItem .inner .icon {
   font-size: 32rpx;
@@ -207,6 +236,7 @@
   position: fixed;
   left: 0;
   bottom: 0;
+  box-shadow:0rpx -1rpx 0rpx 0rpx rgba(206,215,220,1);
 }
 .btnBox .btn {
   height: 88rpx;

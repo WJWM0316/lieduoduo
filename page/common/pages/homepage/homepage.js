@@ -315,7 +315,7 @@ Page({
    * @detail   就算页面的滚动
    * @return   {[type]}     [description]
    */
-  onPageScroll(e) {
+  onPageScrolld(e) {
     let isFixed = e.scrollTop > this.data.domHeight
     this.setData({isFixed})
   },
@@ -337,8 +337,7 @@ Page({
       options,
       title: `${that.data.companyInfos.companyShortname}正在招聘，马上约面，极速入职！我在猎多多等你！`,
       path: `${COMMON}homepage/homepage?companyId=${this.data.query.companyId}`,
-      noImg: true
-      // imageUrl: `${that.data.cdnImagePath}shareB.png`
+      imageUrl: `${that.data.cdnImagePath}shareC.png`
     })
   }
 })

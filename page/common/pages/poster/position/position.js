@@ -127,40 +127,14 @@ Page({
     ctx.drawImage(companyUrl, 88, curHeight + 34, 98, 98)
     ctx.drawImage('../../../../../images/canvas4.png', 38, curHeight, 674, 166)
     ctx.setFontSize(32)
-    let companyName = companyInfo.companyName
+    let companyName = companyInfo.companyShortname
     // 需要省略号
-    if (ctx.measureText(companyName).width > 456) {
-      let ellipsisWidth = ctx.measureText('...').width
-      let cutString = ''
-      for (let i = 0; i < companyName.length; i++) {
-        cutString = cutString + companyName[i]
-        if (ctx.measureText(cutString).width >= 456 - ellipsisWidth) {
-          cutString = cutString + '...'
-          ctx.fillText(cutString, 210, curHeight + 75)
-          break
-        }
-      }
-    } else {
-      ctx.fillText(companyInfo.companyName, 210, curHeight + 75)
-    }
-    
+    ellipsis(ctx, companyName, 456, 210, curHeight + 75)
+
     ctx.setFontSize(26)
     // 需要省略号
     let desc = `${companyInfo.industry} · ${companyInfo.financingInfo} · ${companyInfo.employeesInfo}`
-    if (ctx.measureText(desc).width > 456) {
-      let ellipsisWidth = ctx.measureText('...').width
-      let cutString = ''
-      for (let i = 0; i < desc.length; i++) {
-        cutString = cutString + desc[i]
-        if (ctx.measureText(cutString).width >= 456 - ellipsisWidth) {
-          cutString = cutString + '...'
-          ctx.fillText(cutString, 210, curHeight + 115)
-          break
-        }
-      }
-    } else {
-      ctx.fillText(desc, 210, curHeight + 115)
-    }
+    ellipsis(ctx, desc, 456, 210, curHeight + 115)
     
 
     // 画团队描述
