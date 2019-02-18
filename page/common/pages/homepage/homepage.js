@@ -313,7 +313,7 @@ Page({
    * @detail   就算页面的滚动
    * @return   {[type]}     [description]
    */
-  onPageScrolld(e) {
+  onPageScroll(e) {
     let isFixed = e.scrollTop > this.data.domHeight
     this.setData({isFixed})
   },

@@ -28,7 +28,7 @@
     <view class="dataShow" wx:if="{{!isOwner}}">
       <view class="dataBox">
         <view class="data"><text class="num">{{info.viewedCount}}</text>人气</view>
-        <view class="data"><text class="num">{{info.influence}}</text>影响力<!-- <i class="icon iconfont icon-zhushi"></i> --></view>
+        <view class="data"><text class="num">{{info.influence}}</text>影响力<!-- <i class="icon iconfont icon-zhushi" bindtap="tips"></i> --></view>
         <view class="data"><text class="num">{{info.ranking}}</text>排名</view>
       </view>
       <view class="button-bg"  hidden="{{info.isCall}}">
@@ -97,8 +97,8 @@
     <view class="collection icon iconfont icon-biaojiweiganxingqu" wx:else bindtap="collect"></view>
   </block>
 
-<!--   <view class="positionBtn" bindtap="scrollPs" hidden="{{!isShowBtn}}" wx:if="{{!isOwner && positionList.length > 0}}">{{positionList.length}}个热招职位</view>
- -->  
+  <view class="positionBtn" bindtap="scrollPs" hidden="{{!isShowBtn}}" wx:if="{{!isOwner && positionList.length > 0}}">{{positionList.length}}个热招职位<i class="icon iconfont icon-xiayi"></i></view>
+
  <interviewBar
     id="interviewBar"
     infos="{{info}}"

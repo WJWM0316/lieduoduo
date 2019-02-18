@@ -16,6 +16,7 @@
   height: 430rpx;
   vertical-align: text-top;
   position: relative;
+  margin-top: -1rpx;
 }
 
 .ul-tab-bar {

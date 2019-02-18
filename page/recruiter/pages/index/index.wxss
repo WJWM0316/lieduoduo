@@ -3,6 +3,7 @@
   display: inline-block;
   height: 430rpx;
   vertical-align: text-top;
+  margin-top: -1rpx;
 }
 
 .index-bannar {

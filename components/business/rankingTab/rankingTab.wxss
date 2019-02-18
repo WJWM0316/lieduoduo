@@ -1,10 +1,7 @@
 @import '../../../iconfont.wxss'
 
 .ranking{
-  margin: 0 auto;
-  margin-right: 30rpx;
-  margin-bottom: 20rpx;
-  width: 664rpx;
+  margin: 0 30rpx 20rpx 56rpx;
   height: 180rpx;
   display: flex;
   flex-wrap: wrap;
@@ -19,14 +16,15 @@
 }
 .serialNum{
   position: absolute;
-  top: 62rpx;
-  left: -26rpx;
-  width: 54rpx;
-  height: 54rpx;
+  top: 50%;
+  transform: translateY(-50%);
+  left: -28rpx;
+  width: 46rpx;
+  height: 46rpx;
   border: 4rpx solid #FFFFFF;
   background-color: #8452A7;
   text-align: center;
-  line-height: 54rpx;
+  line-height: 46rpx;
   border-radius: 50%;
   color: #FFFFFF;
   font-size: 26rpx;
@@ -37,18 +35,10 @@
 }
 .headImgBox .sign{
   position: absolute;
-  bottom: 10rpx;
+  bottom: 4rpx;
   right: 4rpx;
   width: 36rpx;
   height: 36rpx;
-  background-color: #FFDC29;
-  line-height: 36rpx;
-  text-align: center;
-  border-radius: 50%;
-  border: 2rpx solid #FFFFFF;
-  font-size: 22rpx;
-  color: #282828;
-  font-weight: 700;
 }
 .headImgBox .headImg{
   width: 120rpx;

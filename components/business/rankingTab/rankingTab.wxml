@@ -20,6 +20,6 @@
   <!-- 头像 -->
   <view class='headImgBox'>
     <image class='headImg' src="{{item.avatar.smallUrl}}"></image>
-    <view class='sign' wx:if="{{item.certification}}" wx:if="{{item.certification}}">V</view>
+    <image src="{{cdnImagePath}}sign1.png" mode="aspectFill" class="sign" wx:if="{{item.certification}}"></image>
   </view>
 </view>
