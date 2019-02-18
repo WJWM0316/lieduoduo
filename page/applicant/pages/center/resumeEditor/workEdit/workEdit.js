@@ -22,7 +22,7 @@ Page({
     positionName: '',
     starTime: '',
     endTime: '',
-    skill: '选择技能标签', // 技能标签
+    skill: [], // 技能标签
     skillsId: '',
     isAdd: false,
     duty: '',
@@ -57,15 +57,12 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow() {
-//  if (this.data.options.id) {
-//    this.init()
-//  }
     if (wx.getStorageSync('createPosition')) {
       let positionTypeTopPid = wx.getStorageSync('createPosition').parentType || []
       this.setData({jobCategories: wx.getStorageSync('createPosition'), positionTypeTopPid: positionTypeTopPid})
     }
-    if (wx.getStorageSync('result')) {
-      let skill = wx.getStorageSync('result') || []
+    if (wx.getStorageSync('skillsLabel')) {
+      let skill = wx.getStorageSync('skillsLabel') || []
       let skillsId = []
       skill.map(item => {
         if (skill) {
@@ -110,18 +107,16 @@ Page({
     target = e.currentTarget.dataset.type
     this.setTitle(target)
     if (target === '4') {
-      let positionTypeTopPid = this.data.jobCategories.parentType || this.data.info.positionTypeTopPid
-//    wx.setStorageSync('fildsLabel', list)
-      if (this.data.isAdd) {
-        wx.navigateTo({
-          url: `${APPLICANT}center/resumeEditor/skills/skills?title=${title}&positionTypeTopPid=${positionTypeTopPid}`
-        })
-      } else {
-        let selectLabel = JSON.stringify(this.data.skill)
-        wx.navigateTo({
-          url: `${APPLICANT}center/resumeEditor/skills/skills?title=${title}&positionTypeTopPid=${positionTypeTopPid}&selectLabel=${selectLabel}`
-        })
+      if (!this.data.positionTypeTopPid) {
+        app.wxToast({title: '请先选择职位类别'})
+        return
       }
+      if (this.data.options.id) {
+        wx.setStorageSync('skillsLabel', this.data.info.technicalLabels)
+      }
+      wx.navigateTo({
+        url: `${APPLICANT}center/resumeEditor/skills/skills?positionTypeTopPid=${this.data.positionTypeTopPid}`
+      })
     } else {
       wx.navigateTo({
         url: `${COMMON}category/category?title=${title}`
@@ -220,7 +215,7 @@ Page({
         })
       })
     }
-    wx.removeStorageSync('result')
+    wx.removeStorageSync('skillsLabel')
   },
   // 删除
   del () {
@@ -252,7 +247,6 @@ Page({
   init () {
     app.globalData.resumeInfo.careers.map((item, index) => {
       if (item.id === parseInt(this.data.options.id)) {
-//      list = item.technicalLabels
         this.setData({
           company: item.company,
           positionName: item.position,

@@ -70,5 +70,7 @@
     <textarea class="sign" value="{{info.signature}}" maxlength='150' placeholder="用一句话介绍你自己吧~" bindinput="singInput" placeholder-style="color: #B2B6C2; font-weight: 300"></textarea>
     <view class="number">{{info.signature.length}}/150</view>
   </view>
-  <button class="save" bindtap="saveInfo">保存资料</button>
+  <view class="botBtn">
+    <button class="save" bindtap="saveInfo">保存资料</button>
+  </view>
 </view>

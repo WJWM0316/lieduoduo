@@ -2,6 +2,9 @@
 <wxs src="../../../../utils/filters.wxs" module="filters" />
 <view class="arrangement">
   <navbar title="面试详情" background="#652791" color="#fff"></navbar>
+  <view hidden="{{!hasReFresh}}">
+    <refreshStatus></refreshStatus>
+  </view>
   <view class="tip" wx:if="{{identity === 'RECRUITER' && info.status === 32}}">备选时间不合适，请联系候选人重新确定时间</view>
   <view class="headInfo">
     <view class="roleDetail">

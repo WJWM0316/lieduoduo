@@ -40,7 +40,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    let result = wx.getStorageSync('result')
+    let result = wx.getStorageSync('skillsLabel')
     let info = this.data.info
     let position = wx.getStorageSync('createPosition')
     if (result) {
@@ -50,8 +50,9 @@ Page({
       info.position = position.typeName
       info.positionId = position.type
     }
-    wx.setStorageSync('fieldsData', info.fields)
-    
+    if (info.fields) {
+      wx.setStorageSync('skillsLabel', info.fields)
+    }
     this.setData({info})
   },
   onHide () {
@@ -118,8 +119,7 @@ Page({
       addExpectApi(param).then(res => {
         app.globalData.resumeInfo.expects.push(res.data)
         wx.removeStorageSync('createPosition')
-        wx.removeStorageSync('fieldsData')
-        wx.removeStorageSync('result')
+        wx.removeStorageSync('skillsLabel')
         app.wxToast({
           title: '发布成功',
           icon: 'success',
@@ -132,8 +132,7 @@ Page({
       editExpectApi(param).then(res => {
         app.globalData.resumeInfo.expects[this.data.info] = info
         wx.removeStorageSync('createPosition')
-        wx.removeStorageSync('fieldsData')
-        wx.removeStorageSync('result')
+        wx.removeStorageSync('skillsLabel')
         app.wxToast({
           title: '保存成功',
           icon: 'success',

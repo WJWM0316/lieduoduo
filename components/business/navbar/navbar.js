@@ -1,5 +1,5 @@
 import {APPLICANT,RECRUITER} from "../../../config.js"
-const App = getApp();
+const app = getApp();
 Component({
   options: {
     addGlobalClass: true,
@@ -36,19 +36,17 @@ Component({
   },
   data: {
     showBackBtn: false,
+    navH: app.globalData.navHeight,
     positionStatus: 'fixed'
   },
-  lifetimes: {
-    attached() {
-      let positionStatus = this.data.positionStatus
-      if (!this.data.isFixed) {
-        positionStatus = 'relative'
-      }
-      this.setData({
-        navH: App.globalData.navHeight,
-        positionStatus
-      })
+  attached() {
+    let positionStatus = this.data.positionStatus
+    if (!this.data.isFixed) {
+      positionStatus = 'relative'
     }
+    this.setData({
+      positionStatus
+    })
   },
   pageLifetimes: {
     show() {
@@ -82,7 +80,7 @@ Component({
       }
     },
     formSubmit(e) {
-      App.postFormId(e.detail.formId)
+      app.postFormId(e.detail.formId)
     }
   }
 })

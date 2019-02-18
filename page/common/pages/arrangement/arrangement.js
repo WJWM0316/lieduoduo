@@ -12,6 +12,8 @@ Page({
     options: {},
     cdnImagePath: app.globalData.cdnImagePath,
     appointmentId: '',
+    hasReFresh: false,
+    revised: false, // 重新编辑面试安排信息
     info: {}
   },
   getResult(e) {
@@ -145,7 +147,6 @@ Page({
     } else if (!data.interviewTime) {
       title = '请至少添加一个约面时间'
     }
-    console.log(title, !info.recruiterInfo.realname, info.recruiterInfo.realname)
     if (title) {
       app.wxToast({title})
       return
@@ -163,7 +164,7 @@ Page({
   revise() {
     let info = this.data.info
     info.status = 21
-    this.setData({info})
+    this.setData({info, revised: true})
   },
   sureDate() {
     let data = {
@@ -190,7 +191,7 @@ Page({
     
   },
   pageInit() {
-    interviewDetailApi({interviewId: this.data.options.id}).then(res => {
+    return interviewDetailApi({interviewId: this.data.options.id}).then(res => {
       let createPosition = wx.getStorageSync('createPosition')
       if (createPosition && (res.data.status === 12 || res.data.status === 21 || res.data.status === 32) && wx.getStorageSync('choseType') === 'RECRUITER') {
         res.data.addressId = createPosition.address_id
@@ -222,7 +223,9 @@ Page({
       info.addressId = addressData.address_id
     }
     this.setData({identity, info})
-    this.pageInit()
+    if (!this.data.revised) {
+      this.pageInit()
+    }
   },
 
   /**
@@ -242,8 +245,14 @@ Page({
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {
-
+  onPullDownRefresh(hasLoading = true) {
+    this.setData({hasReFresh: true, revised:false})
+    this.pageInit().then(res => {
+      this.setData({hasReFresh: false})
+      wx.stopPullDownRefresh()
+    }).catch(e => {
+      wx.stopPullDownRefresh()
+    })
   },
 
   /**

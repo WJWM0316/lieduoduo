@@ -5,7 +5,7 @@
 		    <view class="return-back">
 		    	<form bindsubmit="formSubmit" report-submit='{{true}}' class="formIdBox">  
 			    	<button form-type="submit" class="backLast formIdBtn iconfont icon-daohanglan-fanhui" wx:if="{{showBackBtn}}"  bindtap="navBack" style="color: {{color}}"></button>
-		    		<button class="formIdBtn"><i class="line" wx:if="{{showBackBtn &&  showHome}}"></i></button>
+		    		<button class="formIdBtn"><i class="line" wx:if="{{showBackBtn && showHome}}"></i></button>
 		    		<button form-type="submit" class="backHome formIdBtn iconfont icon-fanhuishouye"  wx:if="{{showHome}}" bindtap="backHome" style="color: {{color}}"></button>
   				</form>
   			</view>

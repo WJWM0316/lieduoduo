@@ -33,7 +33,7 @@ Page({
     if (options.target === '2') {
       getFieldListApi().then(response => {
         const professionalSkills = response.data
-        let skills = wx.getStorageSync('fieldsData') || []
+        let skills = wx.getStorageSync('skillsLabel') || []
         skills.map((item, index) => {
           skills[index].active = true
           professionalSkills.map((n ,j) => {
@@ -52,21 +52,18 @@ Page({
             professionalSkills = item.children
           }
         })
-        let skills = []
-        if (options.selectLabel) { // 编辑职业技能标签
-          skills = JSON.parse(options.selectLabel)
-        }
-  //      let skills = wx.getStorageSync('fildsLabel') || []
-        skills.map((item, index) => {
-          professionalSkills.map((n ,j) => {
-            if (parseInt(item.labelId) === n.labelId) {
-              professionalSkills[j].active = true
-            }
+        let skills = wx.getStorageSync('skillsLabel') || []
+        if (skills) { // 编辑职业技能标签
+          skills.map((item, index) => {
+            professionalSkills.map((n ,j) => {
+              if (parseInt(item.labelId) === n.labelId) {
+                professionalSkills[j].active = true
+              }
+            })
           })
-        })
-        skills = professionalSkills.filter(field => field.active)
-        this.setData({professionalSkills, skills})
-        
+          skills = professionalSkills.filter(field => field.active)
+        }
+        this.setData({professionalSkills, skills})   
       })
     }
   },
@@ -77,12 +74,13 @@ Page({
       })
       return
     }
-    wx.setStorageSync('result', this.data.skills)
-    wx.removeStorageSync('fildsLabel')
-    wx.navigateBack({delta: 1})
-  },
-  onHide() {
-    wx.remove            
-     StorageSync('fieldsData')
+    wx.setStorageSync('skillsLabel', this.data.skills)
+    app.wxToast({
+      title: '保存成功',
+      icon: 'success',
+      callback() {
+        wx.navigateBack({delta: 1})
+      }
+    })   
   }
 })

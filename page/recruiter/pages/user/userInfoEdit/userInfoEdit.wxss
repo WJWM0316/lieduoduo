@@ -1,5 +1,6 @@
 .userInfoEdit {
 	background: #fff;
+  padding-bottom: 148rpx;
 }
 .title {
 	padding: 0 40rpx;
@@ -133,16 +134,26 @@
   font-weight: 300;
   color: #B2B6C2;
 }
-.save {
-  width: 550rpx;
-	height: 88rpx;
+
+.botBtn {
+  width: 100%;
+  padding: 30rpx 100rpx;
+  box-sizing: border-box;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  background: #fff;
+  box-shadow:0rpx -1rpx 0rpx 0rpx rgba(206,215,220,1);
+  z-index: 2;
+}
+
+.botBtn .save {
+  width: 100%;
+  height: 88rpx;
   line-height: 88rpx;
   background: #652791;
   color: #fff;
   font-size: 32rpx;
   font-weight: 400;
-  margin: 31rpx 0;
   border-radius: 50rpx;
-  margin: 0 auto 30rpx;
 }
-

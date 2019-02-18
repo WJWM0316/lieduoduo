@@ -1,6 +1,7 @@
 .userInfoEdit {
   padding: 0 40rpx;
   background: #fff;
+  padding-bottom: 148rpx;
 }
 .title {
   height: 90rpx;
@@ -108,15 +109,25 @@
   font-weight: 300;
   color: #B2B6C2;
 }
-.save {
+.botBtn {
   width: 100%;
-  height: 100rpx;
-  line-height: 100rpx;
+  padding: 30rpx 100rpx;
+  box-sizing: border-box;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  background: #fff;
+  box-shadow:0rpx -1rpx 0rpx 0rpx rgba(206,215,220,1);
+  z-index: 2;
+}
+
+.botBtn .save {
+  width: 100%;
+  height: 88rpx;
+  line-height: 88rpx;
   background: #652791;
   color: #fff;
   font-size: 32rpx;
   font-weight: 400;
-  margin: 31rpx 0;
   border-radius: 50rpx;
 }
-

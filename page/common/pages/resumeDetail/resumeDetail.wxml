@@ -63,27 +63,31 @@
   <!-- 工作经历 -->
   <view class="workExp commentBox" wx:if="{{(!isOwner && info.careers.length > 0) || isOwner}}">
     <view class="intentTitle"><view class="commontIcon"><view class="box"></view></view> 工作经历</view>
-    <view class="expTab" wx:for="{{info.careers}}" wx:key="{{index}}" wx:if="{{info.careers.length < 11}}">
-      <view class="expTitle">
-        <text class="expName">{{item.company}}</text>
-        <text class="expTime" wx:if="{{item.endTime}}">{{filters.dateFormat(item.startTime, 'YYYY.MM')}}-{{filters.dateFormat(item.endTime, 'YYYY.MM')}}</text>
-        <text class="expTime" wx:else>{{filters.dateFormat(item.startTime, 'YYYY.MM')}}-至今</text>
-        <i class="icon iconfont icon-bianji1 edit" data-editName="work" data-id="{{item.id}}" bindtap="edit" wx:if="{{isOwner}}"></i>
-      </view>
-      <view class="expInfo">{{item.position}}</view>
-      <!-- 工作内容 -->
-      <shrinkText class="expContent" textData="{{item.duty}}"></shrinkText>
-      <!-- 工作标签 -->
-      <view class='expTip'>
-        <text wx:for="{{item.technicalLabels}}" wx:key="{{index}}"># {{item.labelName}}</text>
+    <view class="listCareers">
+      <view class="expTab" wx:for="{{info.careers}}" wx:key="{{index}}" wx:if="{{isOwner || (!isOwner && index < showLimit)}}">
+        <view class="expTitle">
+          <text class="expName">{{item.company}}</text>
+          <text class="expTime" wx:if="{{item.endTime}}">{{filters.dateFormat(item.startTime, 'YYYY.MM')}}-{{filters.dateFormat(item.endTime, 'YYYY.MM')}}</text>
+          <text class="expTime" wx:else>{{filters.dateFormat(item.startTime, 'YYYY.MM')}}-至今</text>
+          <i class="icon iconfont icon-bianji1 edit" data-editName="work" data-id="{{item.id}}" bindtap="edit" wx:if="{{isOwner}}"></i>
+        </view>
+        <view class="expInfo">{{item.position}}</view>
+        <!-- 工作内容 -->
+        <shrinkText class="expContent" textData="{{item.duty}}" line="{{isOwner ? 1 : 0}}"></shrinkText>
+        <!-- 工作标签 -->
+        <view class='expTip'>
+          <text wx:for="{{item.technicalLabels}}" wx:key="{{index}}"># {{item.labelName}}</text>
+        </view>
       </view>
     </view>
-    <text class="add" data-editName="work" bindtap="edit" wx:if="{{isOwner && info.careers.length < 11}}" data-id="">添加工作经历</text>
+    <view class="openbtn" bindtap="openMoreCareer" wx:if="{{!isOwner && info.careers.length > 3 && showLimit === 3}}">展开全部{{info.careers.length}}个工作经历<i class="icon iconfont icon-zhishibiao {{showLimit === 100 ? 'shrink':''}}"></i></view>
+    <view class="openbtn" bindtap="openMoreCareer" wx:if="{{!isOwner && info.careers.length > 3 && showLimit === 100}}">折叠收起<i class="icon iconfont icon-zhishibiao {{showLimit === 100 ? 'shrink':''}}"></i></view>
+    <text class="add" data-editName="work" bindtap="edit" wx:if="{{isOwner && info.careers.length < 10}}" data-id="">添加工作经历</text>
   </view>
   <!-- 项目经历 -->
   <view class="projectExp commentBox" wx:if="{{(!isOwner && info.projects.length > 0) || isOwner}}">
     <view class="intentTitle"><view class="commontIcon"><view class="box"></view></view> 项目经历</view>
-    <view class="expTab" wx:for="{{info.projects}}" wx:key="{{index}}" wx:if="{{info.projects.length < 11}}">
+    <view class="expTab" wx:for="{{info.projects}}" wx:key="{{index}}">
       <view class="expTitle">
         <text class="expName">{{item.name}}</text>
         <text class="expTime" wx:if="{{item.endTime}}">{{filters.dateFormat(item.startTime, 'YYYY.MM')}}-{{filters.dateFormat(item.endTime, 'YYYY.MM')}}</text>

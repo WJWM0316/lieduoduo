@@ -24,9 +24,9 @@
   <view class="commont" data-type="4" bindtap="choose">
     <view class="title"><text>*</text>技能标签</view>
     <view class="result">
-      <text wx:for="{{skill}}" class="labelTxt" wx:key="{{index}}">{{item.labelName || item.name}}<text wx:if="{{index !== skill.length-1}}">、</text></text>
-
-      <text wx:if="{{isAdd && !skill}}" class="placeholder">选择技能标签</text><i class="icon iconfont icon-xiangyou"></i></view>
+      <text wx:for="{{skill}}" wx:if="{{skill.length > 0}}" class="labelTxt" wx:key="{{index}}">{{item.labelName || item.name}}<text wx:if="{{index !== skill.length-1}}">、</text></text>
+      <text wx:if="{{skill.length === 0}}" class="placeholder">选择技能标签</text><i class="icon iconfont icon-xiangyou"></i>
+    </view>
 
   </view>
   <!--工作内容-->

@@ -21,6 +21,7 @@ Page({
     hasReFresh: false,
     options: {},
     identity: '',
+    showLimit: 3,
     cdnImagePath: app.globalData.cdnImagePath
   },
   /**
@@ -47,6 +48,11 @@ Page({
         this.getOthersInfo()
       }
     }
+  },
+  openMoreCareer() {
+    let showLimit = this.data.showLimit
+    showLimit === 3 ? showLimit = 100 : showLimit = 3
+    this.setData({showLimit})
   },
   preview(e) {
     let list = []

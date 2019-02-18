@@ -8,6 +8,10 @@ Component({
     textData: {
       type: String,
       value: ''
+    },
+    line: {
+      type: Number,
+      value: 3
     }
   },
 
