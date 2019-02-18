@@ -2,7 +2,10 @@
 <view class="top-banner">
 	<image class="bgImg" mode="aspectFill" src="{{cdnPath}}recruiter_mine_bg.png"></image>
 </view>
-
+<view hidden="{{!hasReFresh}}">
+  <refreshStatus></refreshStatus>
+</view>
+  
 <view class="page-mine">
 	<form bindsubmit="formSubmit" report-submit='{{true}}'>
 		<view class="floating-box">

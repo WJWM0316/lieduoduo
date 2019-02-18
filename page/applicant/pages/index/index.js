@@ -76,18 +76,18 @@ Page({
     }
     this.setData({myBrowse, myCollect})
     if (app.loginInit) {
-      this.getLists()
+      this.getLists().then(() => this.getDomNodePosition())
       this.getAvartList()
     } else {
       app.loginInit = () => {
-        this.getLists()
+        this.getLists().then(() => this.getDomNodePosition())
         this.getAvartList()
       }
     }
   },
   getDomNodePosition() {
-    getSelectorQuery('.mainContent .position').then(res => {
-      this.setData({scrollHere: res.height})
+    getSelectorQuery('.ul-tab-bar').then(res => {
+      this.setData({scrollHere: res.top})
     })
   },
   /**
@@ -240,7 +240,7 @@ Page({
    */
   onPageScroll(e) {
     let isFixed = e.scrollTop > this.data.domHeight
-    console.log(e.scrollTop)
+    console.log(e.scrollTop > this.data.scrollHere)
     this.setData({isFixed})
   }
 })
