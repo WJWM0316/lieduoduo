@@ -20,7 +20,8 @@ Page({
     options: {},
     hasReFresh: false,
     isApplicant: false,
-    cdnImagePath: app.globalData.cdnImagePath
+    cdnImagePath: app.globalData.cdnImagePath,
+    scrollHere: 0
   },
   /**
    * 生命周期函数--监听页面加载
@@ -51,6 +52,7 @@ Page({
         let isOwner = res.data.isOwner && identity === 'RECRUITER' ? true : false
         this.setData({info: res.data, isOwner, realIsOwner: res.data.isOwner}, function() {
           if(this.selectComponent('#interviewBar')) this.selectComponent('#interviewBar').init()
+          this.getDomNodePosition()
           if (this.data.isOwner) {
             app.globalData.recruiterDetails = res.data
           }
@@ -85,6 +87,11 @@ Page({
         this.getOthersInfo()
       }
     }
+  },
+  getDomNodePosition() {
+    getSelectorQuery('.mainContent .position').then(res => {
+      this.setData({scrollHere: res.height})
+    })
   },
   jump() {
     wx.navigateTo({
@@ -180,8 +187,9 @@ Page({
     })
   },
   scrollPs() {
+    console.log(this.data.scrollHere)
     wx.pageScrollTo({
-      scrollTop: positionTop
+      scrollTop: this.data.scrollHere
     })
   },
   create() {
@@ -226,5 +234,8 @@ Page({
       path: `${COMMON}recruiterDetail/recruiterDetail?uid=${this.data.options.uid}`,
       imageUrl: `${that.data.cdnImagePath}shareC.png`
     })
+  },
+  tips() {
+    console.log(11111)
   }
 })

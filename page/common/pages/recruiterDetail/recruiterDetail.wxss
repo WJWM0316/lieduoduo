@@ -540,3 +540,9 @@
   border-radius: 33rpx;
   border: 1rpx solid rgba(239,233,244,1);
 }
+
+.positionBtn .icon {
+  font-size: 20rpx;
+  margin-left: 8rpx;
+  vertical-align: middle;
+}

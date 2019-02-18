@@ -63,15 +63,13 @@ Page({
   onShow() {
     if (app.loginInit) {
       this.init().then(() => this.getLabelPosition())
-      getSelectorQuery('.banner')
-      .then(res => {
+      getSelectorQuery('.banner').then(res => {
         this.setData({domHeight: res.height})
       })
     } else {
       app.loginInit = () => {
         this.init().then(() => this.getLabelPosition())
-        getSelectorQuery('.banner')
-        .then(res => {
+        getSelectorQuery('.banner').then(res => {
           this.setData({domHeight: res.height})
         })
       }
@@ -315,7 +313,7 @@ Page({
    * @detail   就算页面的滚动
    * @return   {[type]}     [description]
    */
-  onPageScrolld(e) {
+  onPageScroll(e) {
     let isFixed = e.scrollTop > this.data.domHeight
     this.setData({isFixed})
   },

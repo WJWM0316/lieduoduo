@@ -10,7 +10,10 @@ import {
 } from '../../../../../api/pages/active'
 
 import {shareRanking} from '../../../../../utils/shareWord.js'
+
 import {APPLICANT} from '../../../../../config.js'
+
+import {getSelectorQuery} from "../../../../../utils/util.js"
 
 const app = getApp()
 
@@ -21,6 +24,7 @@ Page({
     jobLabel: [],
     cityLabel: [],
     cdnImagePath: app.globalData.cdnImagePath,
+    navH: app.globalData.navHeight,
     rankAll: {
       list: [],
       pageNum: 1,
@@ -49,9 +53,11 @@ Page({
     hasReFresh: false,
     onBottomStatus: 0,
     area_id: '',
-    cate_id: ''
+    cate_id: '',
+    fixedHeight: ''
   },
   onLoad() {
+    this.getFixedBoxHeight()
     if (app.loginInit) {
       this.getLists().then(() => this.getSubmenuLists())
     } else {
@@ -59,6 +65,17 @@ Page({
         this.getLists().then(() => this.getSubmenuLists())
       }
     } 
+  },
+  /**
+   * @Author   小书包
+   * @DateTime 2019-02-18
+   * @detail   获取定位dom的高度
+   * @return   {[type]}   [description]
+   */
+  getFixedBoxHeight() {
+    getSelectorQuery('.fixed-box').then(res => {
+      this.setData({fixedHeight: res.height})
+    })
   },
   toRecruitment (e) {
     wx.navigateTo({
@@ -75,7 +92,10 @@ Page({
     const key = e.target.dataset.tab
     const value = this.data[key]
     this.setData({tab: key, commonList: value}, () => {
-      if(!value.isRequire) this.getLists()
+      if(!value.isRequire) {
+        this.getLists()
+      }
+      this.getFixedBoxHeight()
     })
   },
   /**
@@ -91,6 +111,7 @@ Page({
     value.pageNum = 1
     const params = e.currentTarget.dataset
     this.setData({nowIndex: params.nowindex, [tab]: params.id, [key]: value}, () => {
+      let secondtItem = {}
       const key = this.data.tab
       const value = {list: [], pageNum: 1, isLastPage: false, isRequire: false}
       this.setData({[key]: value, commonList: value})
@@ -101,6 +122,13 @@ Page({
         value.isLastPage = res.meta && res.meta.nextPageUrl ? false : true
         value.pageNum = 2
         value.isRequire = true
+        if(value.list.length > 1) {
+          secondtItem = value.list[1]
+        }
+        if(value.list[0].influence > secondtItem.influence && value.list.length > 1) {
+          value.list = value.list.filter(field => field.uid !== secondtItem.uid)
+          value.list.unshift(secondtItem)
+        }
         this.setData({[key]: value, onBottomStatus, commonList: value})
       })
     })

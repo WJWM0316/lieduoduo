@@ -3,6 +3,7 @@
   margin: -138rpx 30rpx 36rpx 30rpx;
   border-radius: 10rpx;
   box-shadow:0px 8px 22px 0px rgba(34,56,101,0.08);
+  position: relative;
 }
 
 .index-bannar {
@@ -11,8 +12,11 @@
 
 .index-bannar image {
   width: 100%;
-  display: block;
+  display: inline-block;
   height: 430rpx;
+  vertical-align: text-top;
+  position: relative;
+  margin-top: -1rpx;
 }
 
 .ul-tab-bar {

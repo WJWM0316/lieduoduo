@@ -82,12 +82,11 @@ Page({
    * @return   {[type]}   [description]
    */
   getCityLabel() {
-    getCityLabelApi()
-      .then(res => {
-        const cityList = res.data
-        cityList.unshift({areaId: 'all', name: '全部地区'})
-        this.setData({cityList})
-      })
+    getCityLabelApi().then(res => {
+      const cityList = res.data
+      cityList.unshift({areaId: 'all', name: '全部地区'})
+      this.setData({cityList})
+    })
   },
   /**
    * @Author   小书包
@@ -96,17 +95,16 @@ Page({
    * @return   {[type]}   [description]
    */
   getLabelPosition() {
-    getLabelPositionApi()
-      .then(res => {
-        const positionTypeList = res.data
-        positionTypeList.map(field => field.active = false)
-        positionTypeList.unshift({
-          labelId: 'all',
-          name: '全部类型',
-          type: 'self_label_position'
-        })
-        this.setData({positionTypeList})
+    getLabelPositionApi().then(res => {
+      const positionTypeList = res.data
+      positionTypeList.map(field => field.active = false)
+      positionTypeList.unshift({
+        labelId: 'all',
+        name: '全部类型',
+        type: 'self_label_position'
       })
+      this.setData({positionTypeList})
+    })
   },
   /**
    * @Author   小书包
@@ -129,16 +127,15 @@ Page({
       if(!this.data.city) {
         delete params.city
       }
-      getPositionListApi(params)
-        .then(res => {
-          const positionList = this.data.positionList
-          const onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
-          positionList.list = positionList.list.concat(res.data)
-          positionList.isLastPage = res.meta && res.meta.nextPageUrl ? false : true
-          positionList.pageNum = positionList.pageNum + 1
-          positionList.isRequire = true
-          this.setData({positionList, onBottomStatus}, () => resolve(res))
-        })
+      getPositionListApi(params).then(res => {
+        const positionList = this.data.positionList
+        const onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
+        positionList.list = positionList.list.concat(res.data)
+        positionList.isLastPage = res.meta && res.meta.nextPageUrl ? false : true
+        positionList.pageNum = positionList.pageNum + 1
+        positionList.isRequire = true
+        this.setData({positionList, onBottomStatus}, () => resolve(res))
+      })
     })
   },
   /**
@@ -150,16 +147,15 @@ Page({
   reloadPositionLists(hasLoading = true) {
     const positionList = {list: [], pageNum: 1, isLastPage: false, isRequire: false}
     this.setData({positionList, hasReFresh: true})
-    return this.getPositionList()
-        .then(res => {
-          const positionList = {list: [], pageNum: 1, isLastPage: false, isRequire: false}
-          const onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
-          positionList.list = res.data
-          positionList.isLastPage = res.meta && res.meta.nextPageUrl ? false : true
-          positionList.pageNum = 2
-          positionList.isRequire = true
-          this.setData({positionList, onBottomStatus, hasReFresh: false}, () => wx.stopPullDownRefresh())
-        })
+    return this.getPositionList().then(res => {
+      const positionList = {list: [], pageNum: 1, isLastPage: false, isRequire: false}
+      const onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
+      positionList.list = res.data
+      positionList.isLastPage = res.meta && res.meta.nextPageUrl ? false : true
+      positionList.pageNum = 2
+      positionList.isRequire = true
+      this.setData({positionList, onBottomStatus, hasReFresh: false}, () => wx.stopPullDownRefresh())
+    })
   },
   /**
    * @Author   小书包

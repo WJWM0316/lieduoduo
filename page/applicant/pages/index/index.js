@@ -85,6 +85,11 @@ Page({
       }
     }
   },
+  getDomNodePosition() {
+    getSelectorQuery('.mainContent .position').then(res => {
+      this.setData({scrollHere: res.height})
+    })
+  },
   /**
    * @Author   小书包
    * @DateTime 2019-01-23
@@ -203,7 +208,6 @@ Page({
   onPullDownRefresh(hasLoading = true) {
     const key = this.data.pageList
     const value = {list: [], pageNum: 1, isLastPage: false, isRequire: false}
-    console.log(key, '----', value)
     this.setData({[key]: value, hasReFresh: true})
     this.getLists().then(res => {
       const value = {list: [], pageNum: 1, isLastPage: false, isRequire: false}
@@ -227,5 +231,16 @@ Page({
     const key = this.data.pageList
     const value = this.data[key]
     if (!value.isLastPage) this.getLists(false).then(() => this.setData({onBottomStatus: 1}))
+  },
+/**
+   * @Author   小书包
+   * @DateTime 2019-01-23
+   * @detail   就算页面的滚动
+   * @return   {[type]}     [description]
+   */
+  onPageScroll(e) {
+    let isFixed = e.scrollTop > this.data.domHeight
+    console.log(e.scrollTop)
+    this.setData({isFixed})
   }
 })
