@@ -137,7 +137,7 @@ Page({
         })
       }
     } else {
-      if (this.data.choseJobList < 3) {
+      if (this.data.choseJobList.length < 3) {
         this.setData({hidePop: false})
       } else {
         app.wxToast({

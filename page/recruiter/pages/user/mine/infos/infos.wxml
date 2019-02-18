@@ -56,12 +56,12 @@
 			<view class="text">在线咨询</view>
 			<i class="icon iconfont icon-zhishibiao"></i>
 		</view> -->
-		<!-- <view class="li">
+		<view class="li" bindtap="callPhone">
 			<i class="icon iconfont icon-dianhua label-icon"></i>
 			<i class="icon iconfont icon-zhishibiao"></i>
 			<view class="text">客服电话</view>
 			<view class="text2">020-61279889</view>
-		</view> -->
+		</view>
 		<view class="li" bindtap="routeJump" data-route="settings">
 			<i class="icon iconfont icon-shezhi label-icon"></i>
 			<view class="text">账号设置</view>
