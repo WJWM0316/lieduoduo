@@ -320,7 +320,7 @@
 .company-address .link-box .link {
   display: inline-block;
   float: left;
-  max-width: 70%;
+  max-width: 550rpx;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;

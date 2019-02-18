@@ -40,6 +40,9 @@ Page({
         wx.navigateTo({url: `${RECRUITER}company/baseEdit/baseEdit`})
         break
       case 'product':
+        wx.navigateTo({url: `${RECRUITER}company/postProduct/postProduct?companyId=${app.globalData.recruiterDetails.companyInfo.id}`})
+        break
+      case 'product-edit':
         wx.navigateTo({url: `${RECRUITER}company/productList/productList?companyId=${app.globalData.recruiterDetails.companyInfo.id}`})
         break
       case 'image':

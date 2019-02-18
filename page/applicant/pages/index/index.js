@@ -33,7 +33,9 @@ Page({
     recruiterDynamic: [],
     pageCount: 20,
     hasReFresh: false,
-    onBottomStatus: 0
+    onBottomStatus: 0,
+    isFixed: true,
+    background: 'transparent'
   },
   onLoad() {
     let choseType = wx.getStorageSync('choseType') || ''
@@ -239,8 +241,11 @@ Page({
    * @return   {[type]}     [description]
    */
   onPageScroll(e) {
-    let isFixed = e.scrollTop > this.data.domHeight
-    console.log(e.scrollTop > this.data.scrollHere)
-    this.setData({isFixed})
+    let isFixed = e.scrollTop > this.data.navH
+    if(e.scrollTop > this.data.navH) {
+      this.setData({isFixed: true, background: '#652791'})
+    } else {
+      this.setData({isFixed: false, background: 'transparent'})
+    }
   }
 })

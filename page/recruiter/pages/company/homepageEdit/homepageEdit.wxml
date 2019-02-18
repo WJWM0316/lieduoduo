@@ -59,7 +59,7 @@
 	<view class="production-box">
 		<view class="title">
 			<view class="self-icon"> <view class="fan"></view> </view> 产品介绍 
-			<view class="icon-button" data-route="product" bindtap="routeJump" wx:if="{{companyInfos.product.length}}"><i class="icon iconfont icon-bianji"></i></view>
+			<view class="icon-button" data-route="product-edit" bindtap="routeJump" wx:if="{{companyInfos.product.length}}"><i class="icon iconfont icon-bianji"></i></view>
 		</view>
 		<view class="ul" wx:if="{{companyInfos.product.length}}">
 			<view class="li" wx:for="{{companyInfos.product}}" wx:key="{{index}}" wx:for-item="item">
@@ -69,9 +69,9 @@
 				<view class="content">
 					<view class="row-one">
 						<view class="username">{{item.productName}}</view>
-						<view class="recruitment-number">{{item.lightspot}}</view>
+						<view class="recruitment-number">{{item.slogan}}</view>
 					</view>
-					<view class="row-two"># {{item.slogan}}</view>
+					<view class="row-two"># {{item.lightspot}}</view>
 				</view>
 			</view>
 		</view>
