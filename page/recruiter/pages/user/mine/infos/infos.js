@@ -8,7 +8,8 @@ Page({
 	data: {
     recruiterInfo: {},
     isRecruiter: app.globalData.isRecruiter,
-    cdnPath: app.globalData.cdnImagePath
+    cdnPath: app.globalData.cdnImagePath,
+    hasReFresh: false
   },
   onLoad() {
     let recruiterInfo = app.globalData.recruiterDetails
@@ -78,13 +79,8 @@ Page({
   },
   onPullDownRefresh(hasLoading = true) {
     this.setData({hasReFresh: true})
-    getRecruiterMyInfoApi().then(res => {
-      app.globalData.recruiterDetails = res.data
-      wx.stopPullDownRefresh()
-      this.setData({hasReFresh: false, myInfo: res.data})
-    }).catch(e => {
-      this.setData({hasReFresh: false})
-      wx.stopPullDownRefresh()
+    app.getAllInfo().then(res => {
+      this.setData({recruiterInfo: res, hasReFresh: false}, () => wx.stopPullDownRefresh())
     })
   },
   onShareAppMessage(options) {

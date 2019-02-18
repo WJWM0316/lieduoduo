@@ -77,7 +77,7 @@
   display: block;
   opacity: 0;
 }
-.more .childTabBar view{
+.more .childTabBar view {
   box-sizing: border-box;
   padding: 0 30rpx;
   height: 54rpx;
@@ -90,6 +90,7 @@
   line-height: 54rpx;
   border-radius: 27rpx;
   display: inline-block;
+  padding-right: 35rpx;
 }
 .more .childTabBar text:nth-of-type(1){
   margin-left: 0;

@@ -16,6 +16,7 @@ Page({
     pageTitle: '公司认证',
     options: {},
     isPerfect: false,
+    hasReFresh: false,
     cdnImagePath: app.globalData.cdnImagePath
   },
   onLoad(options) {
@@ -84,11 +85,12 @@ Page({
    * @return   {[type]}   [description]
    */
   getCompanyIdentityInfos() {
+    this.setData({hasReFresh: true})
     getCompanyIdentityInfosApi().then(res => {
       const infos = res.data
       const companyInfos = infos.companyInfo
       const options = this.data.options
-      this.setData({identityInfos: infos, companyInfos})
+      this.setData({identityInfos: infos, companyInfos}, () => wx.stopPullDownRefresh())
 
       // 公司验证已经通过
       if(companyInfos.status === 1 && (options.from === 'company' || options.from === 'apply')) {
