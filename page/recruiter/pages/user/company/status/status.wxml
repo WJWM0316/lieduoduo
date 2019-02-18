@@ -3,7 +3,9 @@
 
 <view class="company-identity-status">
 	<navbar title="{{pageTitle}}" background="#FFFFFF" color="#22292C"></navbar>
-
+	<view hidden="{{!hasReFresh}}">
+	  <refreshStatus></refreshStatus>
+	</view>
 	<!-- 公司认证 start -->
 	<view class="header" wx:if="{{options.from === 'company'}}">
 		<image src="{{cdnImagePath}}pic_await.png" mode="scaleToFill" class="default-status"></image>
