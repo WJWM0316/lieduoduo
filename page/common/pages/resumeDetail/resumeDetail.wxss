@@ -357,6 +357,7 @@
 }
 .expTab:last-child {
   border: none;
+  padding-bottom: 0;
 }
 .expTab .expTitle{
   display: flex;

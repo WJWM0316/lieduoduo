@@ -14,7 +14,8 @@ Page({
     imgUrl: '',
     imgW: 750,
     imgH: 0,
-    openSet: true
+    openSet: true,
+    timerSecond: 30
   },
   drawing (info, avatarUrl, qrCodeUrl) {
     let that = this
@@ -461,18 +462,34 @@ Page({
         this.drawing (info, avatarUrl, qrCodeUrl)
       })
     })
+    const loadResult = (res, resolve) => {
+      let timer = null
+      timer = setTimeout(() => {
+        app.wxToast({
+          title: '图片加载失败，请重新生成',
+          callback() {
+            wx.navigateBack({
+              delta: 1
+            })
+          }
+        })
+      }, this.data.timerSecond)
+      timer
+      if (res.statusCode === 200) {
+        resolve(res)
+        clearTimeout(timer)
+        return res.tempFilePath
+      }
+    }
     let loadAvatar = new Promise((resolve, reject) => {
       // 头像
       wx.downloadFile({
         url: info.avatar.smallUrl,
         success(res) {
-          if (res.statusCode === 200) {
-            resolve(res)
-            avatarUrl = res.tempFilePath
-          }
+          avatarUrl = loadResult(res, resolve)
         },
         fail(e) {
-          app.wxToast({title: '图片加载失败，请退出重新生成'})
+          app.wxToast({title: '图片加载失败，请重新生成', callback() {wx.navigateBack({ delta: 1 })}})
         }
       })
     })
@@ -480,15 +497,12 @@ Page({
     let loadQrCode = new Promise((resolve, reject) => {
       // 二维码
       wx.downloadFile({
-        url: info.resumeQrCode || '../../../../../images/ranking.png',
+        url: info.resumeQrCode,
         success(res) {
-          if (res.statusCode === 200) {
-            resolve(res)
-            qrCodeUrl = res.tempFilePath
-          }
+          qrCodeUrl = loadResult(res, resolve)
         },
         fail(e) {
-          app.wxToast({title: '图片加载失败，请退出重新生成'})
+          app.wxToast({title: '图片加载失败，请重新生成', callback() {wx.navigateBack({ delta: 1 })}})
         }
       })
     })

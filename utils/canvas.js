@@ -27,7 +27,6 @@ export const lineFeed = (ctx, text, width, x, y, bgUrl, bgW = 750, bgH = 90) => 
 		let descString = ''
 		let descWidth = 0
 		let item = textArray[j].trim()
-		console.log(item, textArray.length, curHeight, 111111)
 		if (ctx.measureText(item).width > width) {
 	    let iIndex = 0 // 最后一行的第一个字的索引
 	    for (let i = 0; i < item.length; i++) {
@@ -53,7 +52,6 @@ export const lineFeed = (ctx, text, width, x, y, bgUrl, bgW = 750, bgH = 90) => 
 
 	  curHeight += 48
 	  if (curHeight > 2120) {
-	  	console.log(333333333)
 	  	ctx.setTextAlign('center')
     	ctx.setFontSize(28)
     	ctx.setFillStyle('#652791')
