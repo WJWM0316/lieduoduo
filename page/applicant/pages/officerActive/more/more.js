@@ -254,6 +254,11 @@ Page({
       value.isLastPage = res.meta && res.meta.nextPageUrl ? false : true
       value.pageNum = 1
       value.isRequire = true
+      const firstItem = value.list[1]
+      if(value.list[0].influence > firstItem.influence) {
+        value.list = value.list.filter(field => field.uid !== firstItem.uid)
+        value.list.unshift(firstItem)
+      }
       this.setData({[key]: value, onBottomStatus, hasReFresh: false, commonList: value}, () => wx.stopPullDownRefresh())
     }).catch(e => {
       wx.stopPullDownRefresh()

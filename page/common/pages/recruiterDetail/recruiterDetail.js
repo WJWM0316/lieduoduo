@@ -1,6 +1,6 @@
 import {getSelectorQuery} from "../../../../utils/util.js"
 import {getOthersRecruiterDetailApi, getRecruiterDetailApi, giveMecallApi, putLabelFavorApi, removeLabelFavorApi} from "../../../../api/pages/recruiter.js"
-import {getRecruiterPositionListApi} from "../../../../api/pages/position.js"
+import {getPositionListApi} from "../../../../api/pages/position.js"
 import {getMyCollectUserApi, deleteMyCollectUserApi} from "../../../../api/pages/collect.js"
 import {COMMON,RECRUITER,APPLICANT} from "../../../../config.js"
 import {shareRecruiter} from '../../../../utils/shareWord.js'
@@ -57,7 +57,7 @@ Page({
           resolve(res)
         })
       })
-      getRecruiterPositionListApi({recruiter: this.data.options.uid}).then(res => {
+      getPositionListApi({recruiter: this.data.options.uid}).then(res => {
         this.setData({positionList: res.data}, function() {
           // getSelectorQuery(".mainContent .position").then(res => {
           //   console.log(res, res.top - res.height)
