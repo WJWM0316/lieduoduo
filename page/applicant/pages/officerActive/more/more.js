@@ -93,7 +93,7 @@ Page({
     this.setData({nowIndex: params.nowindex, [tab]: params.id, [key]: value}, () => {
       const key = this.data.tab
       const value = {list: [], pageNum: 1, isLastPage: false, isRequire: false}
-      this.setData({[key]: value})
+      this.setData({[key]: value, commonList: value})
       this.getLists().then(res => {
         const value = {list: [], pageNum: 1, isLastPage: false, isRequire: false}
         const onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
@@ -101,7 +101,7 @@ Page({
         value.isLastPage = res.meta && res.meta.nextPageUrl ? false : true
         value.pageNum = 2
         value.isRequire = true
-        this.setData({[key]: value, onBottomStatus})
+        this.setData({[key]: value, onBottomStatus, commonList: value})
       })
     })
   },
@@ -174,14 +174,17 @@ Page({
       getCityRankApi(params).then(res => {
         const rankCity = this.data.rankCity
         const onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
+        let secondtItem = {}
         rankCity.list = rankCity.list.concat(res.data)
         rankCity.isLastPage = res.meta && res.meta.nextPageUrl ? false : true
         rankCity.pageNum = rankCity.pageNum + 1
         rankCity.isRequire = true
-        const firstItem = rankCity.list[1]
-        if(rankCity.list[0].influence > firstItem.influence) {
-          rankCity.list = rankCity.list.filter(field => field.uid !== firstItem.uid)
-          rankCity.list.unshift(firstItem)
+        if(rankCity.list.length > 1) {
+          secondtItem = rankCity.list[1]
+        }
+        if(rankCity.list[0].influence > secondtItem.influence && rankCity.list.length > 1) {
+          rankCity.list = rankCity.list.filter(field => field.uid !== secondtItem.uid)
+          rankCity.list.unshift(secondtItem)
         }
         this.setData({rankCity, onBottomStatus, commonList: rankCity}, () => resolve(res))
       })
@@ -199,14 +202,17 @@ Page({
       getOfficeRankApi(params).then(res => {
         const rankCate = this.data.rankCate
         const onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
+        let secondtItem = {}
         rankCate.list = rankCate.list.concat(res.data)
         rankCate.isLastPage = res.meta && res.meta.nextPageUrl ? false : true
         rankCate.pageNum = rankCate.pageNum + 1
         rankCate.isRequire = true
-        const firstItem = rankCate.list[1]
-        if(rankCate.list[0].influence > firstItem.influence) {
-          rankCate.list = rankCate.list.filter(field => field.uid !== firstItem.uid)
-          rankCate.list.unshift(firstItem)
+        if(rankCate.list.length > 1) {
+          secondtItem = rankCate.list[1]
+        }
+        if(rankCate.list[0].influence > secondtItem.influence && rankCate.list.length > 1) {
+          rankCate.list = rankCate.list.filter(field => field.uid !== secondtItem.uid)
+          rankCate.list.unshift(secondtItem)
         }
         this.setData({rankCate, onBottomStatus, commonList: rankCate}, () => resolve(res))
       })
@@ -224,14 +230,17 @@ Page({
       getRankApi(params).then(res => {
         const rankAll = this.data.rankAll
         const onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
+        let secondtItem = {}
         rankAll.list = rankAll.list.concat(res.data)
         rankAll.isLastPage = res.meta && res.meta.nextPageUrl ? false : true
         rankAll.pageNum = rankAll.pageNum + 1
         rankAll.isRequire = true
-        const firstItem = rankAll.list[1]
-        if(rankAll.list[0].influence > firstItem.influence) {
-          rankAll.list = rankAll.list.filter(field => field.uid !== firstItem.uid)
-          rankAll.list.unshift(firstItem)
+        if(rankAll.list.length > 1) {
+          secondtItem = rankAll.list[1]
+        }
+        if(rankAll.list[0].influence > secondtItem.influence && rankAll.list.length > 1) {
+          rankAll.list = rankAll.list.filter(field => field.uid !== secondtItem.uid)
+          rankAll.list.unshift(secondtItem)
         }
         this.setData({rankAll, onBottomStatus, commonList: rankAll}, () => resolve(res))
       })
@@ -248,16 +257,19 @@ Page({
     let value = {list: [], pageNum: 1, isLastPage: false, isRequire: false}
     this.setData({[key]: value, hasReFresh: true, commonList: value})
     this.getLists().then(res => {
+      let secondtItem = {}
       let value = {list: [], pageNum: 1, isLastPage: false, isRequire: false}
       let onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
       value.list = res.data
       value.isLastPage = res.meta && res.meta.nextPageUrl ? false : true
       value.pageNum = 1
       value.isRequire = true
-      const firstItem = value.list[1]
-      if(value.list[0].influence > firstItem.influence) {
-        value.list = value.list.filter(field => field.uid !== firstItem.uid)
-        value.list.unshift(firstItem)
+      if(value.list.length > 1) {
+        secondtItem = value.list[1]
+      }
+      if(value.list[0].influence > secondtItem.influence && value.list.length > 1) {
+        value.list = value.list.filter(field => field.uid !== secondtItem.uid)
+        value.list.unshift(secondtItem)
       }
       this.setData({[key]: value, onBottomStatus, hasReFresh: false, commonList: value}, () => wx.stopPullDownRefresh())
     }).catch(e => {
