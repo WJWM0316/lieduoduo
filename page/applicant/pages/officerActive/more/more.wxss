@@ -13,6 +13,11 @@
   width: 0;
   display: none;
 }
+.fixed-box {
+  position: fixed;
+  left: 0;
+  width: 100%;
+}
 .more .tabBar{
   background-color: #FFFFFF;
   width: 100%;
@@ -21,6 +26,7 @@
   align-items: center;
   justify-content: center;
   box-shadow:0px 11px 30px 0px rgba(153,193,214,0.08);
+  position: relative;
 }
 .more .tabBar text{
   height: 100%;

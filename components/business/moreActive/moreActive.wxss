@@ -6,9 +6,10 @@
   flex-wrap: nowrap;
   align-items: center;
   justify-content: space-between;
-  padding: 37rpx 40rpx;
+  padding: 0 40rpx;
   box-sizing: border-box;
   border-bottom: 1rpx solid #E8E9EB;
+  height: 144rpx;
 }
 
 .left{

@@ -10,7 +10,8 @@ Page({
   data: {
     navH: app.globalData.navHeight,
     cdnPath: app.globalData.cdnImagePath,
-    attachResume: {vkey: ''}
+    attachResume: {vkey: ''},
+    hasReFresh: false
   },
   onLoad() {
     const attachResume = app.globalData.resumeInfo.resumeAttach ? app.globalData.resumeInfo.resumeAttach : this.data.attachResume
@@ -60,6 +61,13 @@ Page({
       fail(e) {
         console.log(e)
       }
+    })
+  },
+  onPullDownRefresh(hasLoading = true) {
+    this.setData({hasReFresh: true})
+    app.getAllInfo().then(() => {
+      this.setData({hasReFresh: false})
+      wx.stopPullDownRefresh()
     })
   }
 })

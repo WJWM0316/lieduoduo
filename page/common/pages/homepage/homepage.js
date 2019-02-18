@@ -63,15 +63,13 @@ Page({
   onShow() {
     if (app.loginInit) {
       this.init().then(() => this.getLabelPosition())
-      getSelectorQuery('.banner')
-      .then(res => {
+      getSelectorQuery('.banner').then(res => {
         this.setData({domHeight: res.height})
       })
     } else {
       app.loginInit = () => {
         this.init().then(() => this.getLabelPosition())
-        getSelectorQuery('.banner')
-        .then(res => {
+        getSelectorQuery('.banner').then(res => {
           this.setData({domHeight: res.height})
         })
       }

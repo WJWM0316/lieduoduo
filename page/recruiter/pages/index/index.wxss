@@ -1,7 +1,8 @@
 .index-bannar image {
   width: 100%;
-  display: block;
+  display: inline-block;
   height: 430rpx;
+  vertical-align: text-top;
 }
 
 .index-bannar {

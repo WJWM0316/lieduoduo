@@ -38,7 +38,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 14,
+			"current": 46,
 			"list": [
 				{
 					"id": 0,
@@ -318,9 +318,9 @@
 					"query": "scene=positionId%3d193"
 				},
 				{
-					"id": -1,
+					"id": 46,
 					"name": "招聘官动态",
-					"pathName": "page/applicant/pages/officerActive/recruitmentActive/recruitmentActive",
+					"pathName": "page/applicant/pages/officerActive/more/more",
 					"query": "action=edit&type=apply"
 				},
 				{
