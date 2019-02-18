@@ -19,6 +19,8 @@ export const request = ({method = 'post', url, data = {}, needKey = true, hasLoa
     } else {
       addHttpHead['Authorization'] = ''
     }
+  } else {
+    addHttpHead['Authorization'] = ''
   }
   // 版本号， 每次上次发版 + 1
   addHttpHead['cv'] = 100

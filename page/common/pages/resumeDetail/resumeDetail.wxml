@@ -66,7 +66,7 @@
     <view class="listCareers">
       <view class="expTab" wx:for="{{info.careers}}" wx:key="{{index}}" wx:if="{{isOwner || (!isOwner && index < showLimit)}}">
         <view class="expTitle">
-          <text class="expName">{{item.company}}</text>
+          <text class="expName {{isOwner ? 'ellipsis':''}}">{{item.company}}</text>
           <text class="expTime" wx:if="{{item.endTime}}">{{filters.dateFormat(item.startTime, 'YYYY.MM')}}-{{filters.dateFormat(item.endTime, 'YYYY.MM')}}</text>
           <text class="expTime" wx:else>{{filters.dateFormat(item.startTime, 'YYYY.MM')}}-至今</text>
           <i class="icon iconfont icon-bianji1 edit" data-editName="work" data-id="{{item.id}}" bindtap="edit" wx:if="{{isOwner}}"></i>
@@ -75,7 +75,7 @@
         <!-- 工作内容 -->
         <shrinkText class="expContent" textData="{{item.duty}}" line="{{isOwner ? 1 : 0}}"></shrinkText>
         <!-- 工作标签 -->
-        <view class='expTip'>
+        <view class='expTip' wx:if="{{item.technicalLabels}}">
           <text wx:for="{{item.technicalLabels}}" wx:key="{{index}}"># {{item.labelName}}</text>
         </view>
       </view>
@@ -89,14 +89,14 @@
     <view class="intentTitle"><view class="commontIcon"><view class="box"></view></view> 项目经历</view>
     <view class="expTab" wx:for="{{info.projects}}" wx:key="{{index}}">
       <view class="expTitle">
-        <text class="expName">{{item.name}}</text>
+        <text class="expName {{isOwner ? 'ellipsis':''}}">{{item.name}}</text>
         <text class="expTime" wx:if="{{item.endTime}}">{{filters.dateFormat(item.startTime, 'YYYY.MM')}}-{{filters.dateFormat(item.endTime, 'YYYY.MM')}}</text>
         <text class="expTime" wx:else>{{filters.dateFormat(item.startTime, 'YYYY.MM')}}-至今</text>
         <i class="icon iconfont icon-bianji1 edit" data-editName="project" data-id="{{item.id}}" bindtap="edit" wx:if="{{isOwner}}"></i>
       </view>
       <view class="expInfo">{{item.role}}</view>
       <!-- 工作内容 -->
-      <shrinkText class="expContent" textData="内容：{{item.description}}"></shrinkText>
+      <shrinkText class="expContent" textData="内容：{{item.description}}" line="{{isOwner ? 1 : 0}}"></shrinkText>
       <!-- 相关链接 -->
       <view class="link" wx:if="{{item.link}}">
         链接：<text bindtap="copy" data-copyData="{{item.link}}">{{item.link}}</text>
@@ -109,14 +109,14 @@
     <view class="intentTitle"><view class="commontIcon"><view class="box"></view></view> 教育经历</view>
     <view class="expTab" wx:if="{{info.educations.length < 11}}" wx:for="{{info.educations}}" wx:key="{{index}}">
       <view class="expTitle">
-        <text class="expName">{{item.school}}</text>
+        <text class="expName {{isOwner ? 'ellipsis':''}}">{{item.school}}</text>
         <text class="expTime" wx:if="{{item.endTime}}">{{filters.dateFormat(item.startTime, 'YYYY.MM')}}-{{filters.dateFormat(item.endTime, 'YYYY.MM')}}</text>
         <text class="expTime" wx:else>{{filters.dateFormat(item.startTime, 'YYYY.MM')}}-至今</text>
         <i class="icon iconfont icon-bianji1 edit" data-editName="education" data-id="{{item.id}}" bindtap="edit" wx:if="{{isOwner}}"></i>
       </view>
       <view class="expInfo">{{item.degreeDesc}}·{{item.major}}</view>
       <!-- 教育经历 -->
-      <shrinkText class="expContent" textData="{{item.experience}}"></shrinkText>
+      <shrinkText class="expContent" textData="{{item.experience}}" line="{{isOwner ? 1 : 0}}"></shrinkText>
     </view>
     <text class="add" data-editName="education" bindtap="edit" wx:if="{{isOwner && info.educations.length < 11}}" data-id="">添加教育经历</text>
   </view>
@@ -128,7 +128,7 @@
     </view>
     <view class="expTab" hidden="{{!info.moreIntroduce.introduce && info.moreIntroduce.imgs.length === 0}}">
       <!-- 工作内容 -->
-      <shrinkText textData="{{info.moreIntroduce.introduce}}"></shrinkText>
+      <shrinkText textData="{{info.moreIntroduce.introduce}}" line="{{isOwner ? 1 : 0}}"></shrinkText>
       <view class="imgBox">
         <image wx:for="{{info.moreIntroduce.imgs}}" wx:key="{{index}}" mode="aspectFill" src="{{item.smallUrl}}" bindtap="preview" data-current="{{item.url}}"></image>
       </view>

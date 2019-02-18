@@ -55,7 +55,11 @@ Page({
     }
     this.setData({info})
   },
-  onHide () {
+  onUnload: function () {
+    if (!this.data.options.id) {
+      wx.removeStorageSync('createPosition')
+      wx.removeStorageSync('skillsLabel')
+    }
   },
   /* 去选择页面(0、选择城市，1、选择职位，2、选择领域) */
   choose (e) {

@@ -366,11 +366,13 @@
 .expTab .expName{
   display: inline-block;
   min-width: 349rpx;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
   font-size: 32rpx;
   font-weight: 500;
+}
+.expName.ellipsis {
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
 }
 .expTab .expTime{
   margin: 0 10rpx;
@@ -378,10 +380,12 @@
   font-size: 24rpx;
   font-weight: 300;
   color: #626262;
+  line-height: 40rpx;
 }
 .expTab .expInfo{
   font-size: 28rpx;
   font-weight: 400;
+  padding: 24rpx 0 16rpx;
 }
 .expTab .expContent{
   line-height: 48rpx;

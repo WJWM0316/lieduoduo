@@ -74,9 +74,11 @@ Page({
       this.setData({skill, skillsId})
     }
   },
-  onHide () {
-    // wx.removeStorageSync('result')
-    // wx.removeStorageSync('createPosition')
+  onUnload: function () {
+    if (!this.data.options.id) {
+      wx.removeStorageSync('createPosition')
+      wx.removeStorageSync('skillsLabel')
+    }
   },
   /* 展示或关闭例子 */
   showPopups () {
