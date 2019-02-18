@@ -197,7 +197,7 @@ Page({
   },
   init () {
     let id = app.globalData.recruiterDetails.uid
-    getRecruiterPositionListApi({recruiter: id, status: 1}).then(res => {
+    getRecruiterPositionListApi({status: 1}).then(res => {
       positionList = res.data
       positionList.unshift({positionName: '所有职位', id: 0})
       this.setData({positionList})
