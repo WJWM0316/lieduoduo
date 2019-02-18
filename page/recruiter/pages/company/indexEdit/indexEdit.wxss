@@ -13,7 +13,7 @@
 .head .msg {
 	margin-top: 30rpx;
 	padding: 38rpx 0 0;
-	border-top: 1rpx dotted #BACED8;
+	border-top: 1rpx dashed #BACED8;
 }
 .head .msg .item {
 	overflow: hidden;

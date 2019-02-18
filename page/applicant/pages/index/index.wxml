@@ -1,5 +1,5 @@
 <view>
-  <navbar title="猎多多"  background="transparent" color="#fff"></navbar>
+  <navbar title="猎多多"  background="{{background}}" color="#fff" isFixed="{{isFixed}}"></navbar>
 
   <view hidden="{{!hasReFresh}}">
     <refreshStatus></refreshStatus>
