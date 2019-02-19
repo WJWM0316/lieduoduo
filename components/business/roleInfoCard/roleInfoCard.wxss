@@ -1,26 +1,31 @@
 @import '../../../iconfont.wxss'
 .company {
   position: relative;
-  padding-left: 124rpx;
+  padding-left: 164rpx;
   padding-right: 50rpx;
   background: #fff;
+  height:140rpx;
 }
 .company.edit {
   padding-right: 0;
 }
 .company .img {
-  width: 108rpx;
-  height: 108rpx;
+  width: 140rpx;
+  height: 140rpx;
   position: absolute;
   top: 0;
   left: 0;
-  border-radius: 24rpx;
+  box-shadow:0rpx 8rpx 20rpx 0rpx rgba(45,45,45,0.06);
+  border-radius:18px;
 }
 .company .companyMsg, .applicant .applicantMsg, .recruiter .recruiterMsg {
   display: flex;
   flex-direction: column;
   justify-content: center;
   height: 108rpx;
+}
+.company .companyMsg {
+  height: 140rpx;
 }
 .applicant .applicantMsg, .recruiter .recruiterMsg {
   height: 120rpx;
@@ -72,10 +77,8 @@
 }
 .editIcon {
   position: absolute;
-  font-size: 36rpx;
+  font-size: 30rpx;
   color: #652791;
-  width: 50rpx;
-  height: 50rpx;
   text-align: center;
   display: block;
   line-height: 50rpx;

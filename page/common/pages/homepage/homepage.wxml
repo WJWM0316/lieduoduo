@@ -115,6 +115,7 @@
 				data-address="{{map.address}}"
 				data-doorplate="{{map.doorplate}}">
 				<map
+					wx:if="{{tab !== 'recruitment'}}"
 				  longitude="{{ map.longitude }}"
 				  latitude="{{ map.latitude }}"
 				  scale="16"

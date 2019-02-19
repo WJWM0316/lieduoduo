@@ -59,10 +59,10 @@
   </view>
   <view class="title">个性签名</view>
   <view class="signBox">
-    <textarea class="sign" value="{{signature}}" maxlength='30' placeholder="用一句话介绍你自己吧~" bindinput="singInput" placeholder-style="color: #B2B6C2; font-weight: 300"></textarea>
+    <textarea class="sign" value="{{signature}}" auto-height maxlength='30' placeholder="用一句话介绍你自己吧~" bindinput="singInput" placeholder-style="color: #B2B6C2; font-weight: 300"></textarea>
     <view class="number">{{signature.length || 0}}/30</view>
   </view>
-  <view class="botBtn">
+  <cover-view class="botBtn">
     <button class="save" bindtap="saveInfo">保存资料</button>
-  </view>
+  </cover-view>
 </view>

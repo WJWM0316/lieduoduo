@@ -10,7 +10,7 @@
   padding: 10rpx;
   display: block;
   font-size: 32rpx;
-  color: #2878FF;
+  color: #652791;
 }
 .open.up {
   bottom: 9rpx;
@@ -19,7 +19,7 @@
 .calendar .wrap {
   width: 100%;
   height: 190rpx;
-  padding: 34rpx 0 41rpx;
+  padding: 34rpx 0 0rpx;
   box-sizing: border-box;
   white-space: nowrap;
   background: #fff;
@@ -105,7 +105,7 @@
   line-height: 86rpx;
   padding: 0 210rpx;
   box-sizing: border-box;
-  color: #2878FF;
+  color: #652791;
   font-size: 32rpx;
   font-weight: 700;
 }
@@ -162,12 +162,13 @@
 .calendar-body .day .inner.curDay {
   border-radius: 50%;
   background: #E4EEFF;
+  box-shadow:0rpx 10rpx 18rpx 0rpx rgba(101,39,145,0.3);
 }
 .calendar-body .day .inner.choseDate {
   border-radius: 50%;
   background: #652791;
   color: #fff;
-  box-shadow: 0px 10rpx 18rpx 0px rgba(40,120,255,0.3)
+  box-shadow:0rpx 10rpx 18rpx 0rpx rgba(101,39,145,0.3);
 }
 
 .calendar-body .day .inner.overdue::after {

@@ -7,10 +7,9 @@
   position: relative;
 }
 
-.base-info .title .icon-bianji {
-  font-size:36rpx;
+.icon-bianji1 {
+  font-size:30rpx;
   float: right;
-  margin-right: 30rpx;
   color: #652791;
 }
 
@@ -96,7 +95,6 @@
 
 .base-info .value {
   font-size:28rpx;
-  font-weight:500;
   color:rgba(40,40,40,1);
   flex: 1;
   text-align: right;
@@ -193,7 +191,6 @@
 .production-box {
   margin: 30rpx;
   background: white;
-  margin-bottom: 40rpx;
   background:rgba(255,255,255,1);
   box-shadow:0px 4rpx 20rpx 0rpx rgba(101,39,145,0.1);
   border-radius:10rpx;
@@ -201,8 +198,7 @@
 }
 
 .production-box .ul {
-  padding-bottom: 40rpx;
-}
+} 
 
 .production-box .li {
   overflow: hidden;
@@ -262,7 +258,7 @@
   font-size:24rpx;
   font-weight:300;
   color:rgba(40,40,40,1);
-  margin-top: 20rpx;
+  margin-top: 8rpx;
   background:rgba(248,248,248,1);
   line-height: 1.5;
   padding: 8rpx 18rpx;
@@ -298,7 +294,7 @@
 }
 
 .company-address {
-  margin: 40rpx;
+  margin: 30rpx;
   background: white;
   margin-bottom: 40rpx;
   background:rgba(255,255,255,1);

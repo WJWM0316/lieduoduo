@@ -33,6 +33,7 @@
 					placeholder-style="color:#BCBCBC"
 					bindinput="bindInput"
 					data-key="slogan"
+					maxlength="30"
 					value="{{slogan}}" />
 				<view class="calc-box"><text class="{{slogan.length > 30 ? 'red' : ''}}">{{slogan.length}}</text>/30</view>
 			</view>
@@ -45,6 +46,7 @@
 					placeholder-style="color:#BCBCBC"
 					bindinput="bindInput"
 					data-key="lightspot"
+					maxlength="50"
 					value="{{lightspot}}" />
 				<view class="calc-box"><text class="{{lightspot.length > 50 ? 'red' : ''}}">{{lightspot.length}}</text>/50</view>
 			</view>

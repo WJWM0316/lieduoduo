@@ -9,7 +9,7 @@
       <view class="name">{{cardData.companyShortname}}</view>
       <view class="detail">{{cardData.companyName}}</view>
     </view>
-    <i bindtap="jumpEditBase" class="editIcon iconfont icon-bianji" wx:if="{{isMain && isCompanyAdmin}}"></i>
+    <i bindtap="jumpEditBase" class="editIcon iconfont icon-bianji1" wx:if="{{isMain && isCompanyAdmin}}"></i>
     <i class="icon iconfont icon-xiangyou" wx:if="{{!isMain}}"></i>
   </view>
 

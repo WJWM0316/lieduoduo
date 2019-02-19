@@ -18,7 +18,6 @@
 .head .msg .item {
 	overflow: hidden;
 	font-size:28rpx;
-	font-weight:500;
 	color:rgba(40,40,40,1);
 	line-height:28rpx;
 	margin-bottom: 32rpx;

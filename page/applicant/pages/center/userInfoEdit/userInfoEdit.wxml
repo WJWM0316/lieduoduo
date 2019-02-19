@@ -67,10 +67,10 @@
   </view>
   <view class="title">自我描述</view>
   <view class="signBox">
-    <textarea class="sign" value="{{info.signature}}" maxlength='150' placeholder="用一句话介绍你自己吧~" bindinput="singInput" placeholder-style="color: #B2B6C2; font-weight: 300"></textarea>
+    <textarea class="sign" value="{{info.signature}}" auto-height maxlength='150' placeholder="用一句话介绍你自己吧~" bindinput="singInput" placeholder-style="color: #B2B6C2; font-weight: 300"></textarea>
     <view class="number">{{info.signature.length}}/150</view>
   </view>
-  <view class="botBtn">
+  <cover-view class="botBtn">
     <button class="save" bindtap="saveInfo">保存资料</button>
-  </view>
+  </cover-view>
 </view>

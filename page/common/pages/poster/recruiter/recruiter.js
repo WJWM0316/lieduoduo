@@ -193,7 +193,7 @@ Page({
         return res.tempFilePath
       }
     }
-    let getList = getPositionListApi({recruiter: info.uid, count:2}).then(res => {
+    let getList = getPositionListApi({recruiter: info.uid, count:2, is_online: 1}).then(res => {
       info.positionList = res.data
     })
     let loadAvatar = new Promise((resolve, reject) => {
