@@ -78,17 +78,24 @@ Page({
    */
   publicPosition() {
     const identityInfos = this.data.identityInfos
-    if((identityInfos.identityNum && identityInfos.status !== 1) || !identityInfos.identityNum) {
-      app.wxConfirm({
-        title: '您的身份尚未认证成功',
-        content: `请先认证`,
-        confirmText: '知道了',
-        confirmBack: () => {
-          wx.navigateTo({url: `${RECRUITER}user/company/identity/identity?type=create&realName=${identityInfos.companyInfo.realName}&action=edit`})
-        }
-      })
-    } else {
+
+    // 没有去请求身份认证接口
+    if(!Object.keys(identityInfos).length) {
       wx.navigateTo({url: `${RECRUITER}position/post/post`})
+    } else {
+      // 兼容旧数据 没有
+      if(!identityInfos.identityNum || (identityInfos.identityNum && identityInfos.status !== 1)) {
+        app.wxConfirm({
+          title: '您的身份尚未认证成功',
+          content: `请先认证`,
+          confirmText: '知道了',
+          confirmBack: () => {
+            wx.navigateTo({url: `${RECRUITER}user/company/identity/identity?type=create&realName=${identityInfos.companyInfo.realName}&action=edit`})
+          }
+        })
+      } else {
+        wx.navigateTo({url: `${RECRUITER}position/post/post`})
+      }
     }
   },
   /**

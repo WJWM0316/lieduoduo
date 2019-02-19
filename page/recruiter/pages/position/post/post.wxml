@@ -1,6 +1,6 @@
 <view class="position-post">
 	<navbar title="{{pageTitle}}" background="#FFFFFF" color="#22292C" customBack bindbackEvent="backEvent"></navbar>
-	<view class="warning" wx:if="{{false}}"><i class="icon iconfont icon-PC"></i>前往PC端发布新职位<i class="icon iconfont icon-xiangyou"></i></view>
+	<view class="warning" bindtap="showTips"><i class="icon iconfont icon-PC"></i>前往PC端发布新职位<i class="icon iconfont icon-xiangyou"></i></view>
 	<view class="tips">* 职位名称、职位类别、工作地点发布后将不可修改</view>
 	<view class="entry-list">
 
@@ -73,5 +73,22 @@
 	</view>
 	<view class="btn-area">
     <view class="button-submit {{canClick ? 'button-enable' : ''}}" bindtap="submit">发布</view>
+  </view>
+  <view class="over-layout" wx:if="{{showScanBox}}">
+  	<view class="box">
+  		<i class="icon iconfont icon-close close-button" bindtap="showTips"></i>
+  		<view class="h1">登录PC端发布职位</view>
+  		<view class="dl">
+				<view class="dt">
+					<view class="label">第1步</view>
+					<view class="value">电脑浏览器打开网址“<text>www.lieduoduo.com</text>”</view>
+				</view>
+				<view class="dt">
+					<view class="label">第2步</view>
+					<view class="value">扫描页面中二维码即可登录网页端进行操作</view>
+				</view>
+			</view>
+			<view class="scan-button" bindtap="scanCode">立即扫码</view>
+  	</view>
   </view>
 </view>

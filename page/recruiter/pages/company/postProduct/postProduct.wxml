@@ -1,5 +1,5 @@
 <view class="product-post">
-	<navbar title="{{options.productId ? '编辑产品信息' : '新增产品信息'}}" background="#fff" color="#22292C"></navbar>
+	<navbar title="{{options.productId ? '编辑产品信息' : '新增产品信息'}}" background="#fff" color="#22292C" isFixed="{{true}}"></navbar>
 	<view class="ul">
 		<view class="li flex-box">
 			<view class="key">产品Logo</view>
