@@ -121,7 +121,7 @@
 	font-weight:500;
 	color:rgba(40,40,40,1);
 	text-align: left;
-	height: 100rpx;
+	height: 114rpx;
 	width: 100%;
 	line-height: 1.5;
 	padding-top: 10rpx;

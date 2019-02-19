@@ -1,5 +1,5 @@
 <view class="product-post">
-	<navbar title="{{options.productId ? '编辑产品信息' : '新增产品信息'}}" background="#fff" color="#22292C"></navbar>
+	<navbar title="{{options.productId ? '编辑产品信息' : '新增产品信息'}}" background="#fff" color="#22292C" isFixed="{{true}}"></navbar>
 	<view class="ul">
 		<view class="li flex-box">
 			<view class="key">产品Logo</view>
@@ -26,28 +26,32 @@
 			</view>
 		</view>
 		<view class="li">
-			<view class="key">产品slogan</view>
-			<view class="value">
-				<textarea
-					placeholder="简单介绍下公司的产品"
-					placeholder-style="color:#BCBCBC"
-					bindinput="bindInput"
-					data-key="slogan"
-					value="{{slogan}}" />
-				<view class="calc-box"><text class="{{slogan.length > 30 ? 'red' : ''}}">{{slogan.length}}</text>/30</view>
-			</view>
+			<cover-view>
+				<view class="key">产品slogan</view>
+				<view class="value">
+					<textarea
+						placeholder="简单介绍下公司的产品"
+						placeholder-style="color:#BCBCBC"
+						bindinput="bindInput"
+						data-key="slogan"
+						value="{{slogan}}" />
+					<view class="calc-box"><text class="{{slogan.length > 30 ? 'red' : ''}}">{{slogan.length}}</text>/30</view>
+				</view>
+			</cover-view>
 		</view>
 		<view class="li">
-			<view class="key">产品亮点</view>
-			<view class="value">
-				<textarea
-					placeholder="说说公司产品的亮点吧"
-					placeholder-style="color:#BCBCBC"
-					bindinput="bindInput"
-					data-key="lightspot"
-					value="{{lightspot}}" />
-				<view class="calc-box"><text class="{{lightspot.length > 50 ? 'red' : ''}}">{{lightspot.length}}</text>/50</view>
-			</view>
+			<cover-view>
+				<view class="key">产品亮点</view>
+				<view class="value">
+					<textarea
+						placeholder="说说公司产品的亮点吧"
+						placeholder-style="color:#BCBCBC"
+						bindinput="bindInput"
+						data-key="lightspot"
+						value="{{lightspot}}" />
+					<view class="calc-box"><text class="{{lightspot.length > 50 ? 'red' : ''}}">{{lightspot.length}}</text>/50</view>
+				</view>
+			</cover-view>
 		</view>
 	</view>
 	<view class="footer">

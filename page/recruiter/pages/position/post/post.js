@@ -4,6 +4,11 @@ import {
   getPositionApi
 } from '../../../../../api/pages/position.js'
 
+import {
+  scanQrcodeApi,
+  scanLoginApi
+} from '../../../../../api/pages/common.js'
+
 import {realNameReg, emailReg, positionReg} from '../../../../../utils/fieldRegular.js'
 
 import {RECRUITER, COMMON} from '../../../../../config.js'
@@ -12,11 +17,7 @@ const app = getApp()
 
 Page({
   data: {
-    choseType: wx.getStorageSync('choseType') || null,
-    userInfo: null,
-    needLogin: false,
     position_name: '',
-    company_id: '',
     lng: '',
     lat: '',
     area_id: '',
@@ -37,7 +38,8 @@ Page({
     skills: [],
     query: {},
     pageTitle: '',
-    canClick: false
+    canClick: false,
+    showScanBox: false
   },
   onLoad(options) {
     this.setData({pageTitle: options.positionId ? '编辑职位' : '发布职位', query: options})
@@ -79,7 +81,7 @@ Page({
 
     const labels = []
 
-    this.setData({query: options, company_id: app.globalData.recruiterDetails.companyInfo.id})
+    this.setData({query: options})
     
     if(storage) {
       Object.keys(storage).map(field => this.setData({[field]: storage[field]}))
@@ -116,7 +118,6 @@ Page({
         formData.emolument_max = infos.emolumentMax
         formData.emolument_range = `${formData.emolument_min}k~${formData.emolument_max}k`
         formData.doorplate = infos.doorplate
-        formData.company_id = infos.companyId
         formData.address = infos.address
         formData.skills = infos.skillsLabel
         formData.describe = infos.describe
@@ -217,7 +218,6 @@ Page({
     const action = this.data.query.positionId ? 'editPositionApi' : 'createPositionApi'
     const params = [
       'position_name',
-      'company_id',
       'type',
       'area_id',
       'address',
@@ -352,5 +352,25 @@ Page({
       && infos.describe
       ? true : false
     this.setData({canClick})
-  }
+  },
+  showTips() {
+    this.setData({showScanBox: !this.data.showScanBox})
+  },
+  /**
+   * @Author   小书包
+   * @DateTime 2019-01-28
+   * @detail   扫码上传
+   * @return   {[type]}   [description]
+   */
+  scanCode() {
+    wx.scanCode({
+      onlyFromCamera: true,
+      success: res => {
+        const uuid = res.result.split('&')[0].slice(5)
+        scanQrcodeApi({uuid, isBusiness: 1}).then(res => {
+          scanLoginApi({uuid}).then(res => console.log(res))
+        })
+      }
+    })
+  },
 })
