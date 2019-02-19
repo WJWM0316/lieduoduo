@@ -309,7 +309,7 @@ Page({
         // 下个标签的宽度
         let newLabelWidth = 0
         if (j < item.technicalLabels.length-1) {
-          newLabelWidth = ctx.measureText(item.technicalLabels[j+1]).width + 2*padding
+          newLabelWidth = ctx.measureText(item.technicalLabels[j+1].labelName).width + 2*padding
         }
 
         // 下一个标签的横坐标

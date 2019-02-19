@@ -244,6 +244,7 @@ App({
         quickLoginApi(data).then(res => {
           if (res.data.token) {
             wx.setStorageSync('token', res.data.token)
+            wx.setStorageSync('sessionToken', res.data.sessionToken)
             this.loginedLoadData()
             this.globalData.hasLogin = true
             var pages = getCurrentPages() //获取加载的页面
@@ -269,6 +270,7 @@ App({
     return new Promise((resolve, reject) => {
       bindPhoneApi(data).then(res => {
         wx.setStorageSync('token', res.data.token)
+        wx.setStorageSync('sessionToken', res.data.sessionToken)
         this.globalData.hasLogin = true
         this.loginedLoadData()
         resolve(res)
