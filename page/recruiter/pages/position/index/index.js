@@ -34,7 +34,7 @@ Page({
     identityInfos: {}
   },
   onLoad() {
-    if(app.globalData.recruiterDetails.identityAuth !== 1) this.getCompanyIdentityInfos()
+    this.getCompanyIdentityInfos()
   },
   onShow() {
     let onLinePosition = {
@@ -78,24 +78,17 @@ Page({
    */
   publicPosition() {
     const identityInfos = this.data.identityInfos
-
-    // 没有去请求身份认证接口
-    if(!Object.keys(identityInfos).length) {
-      wx.navigateTo({url: `${RECRUITER}position/post/post`})
+    if(!identityInfos.identityNum || (identityInfos.identityNum && identityInfos.status !== 1)) {
+      app.wxConfirm({
+        title: '您的身份尚未认证成功',
+        content: `请先认证`,
+        confirmText: '知道了',
+        confirmBack: () => {
+          wx.navigateTo({url: `${RECRUITER}user/company/identity/identity?type=create&realName=${identityInfos.companyInfo.realName}&action=edit`})
+        }
+      })
     } else {
-      // 兼容旧数据 没有
-      if(!identityInfos.identityNum || (identityInfos.identityNum && identityInfos.status !== 1)) {
-        app.wxConfirm({
-          title: '您的身份尚未认证成功',
-          content: `请先认证`,
-          confirmText: '知道了',
-          confirmBack: () => {
-            wx.navigateTo({url: `${RECRUITER}user/company/identity/identity?type=create&realName=${identityInfos.companyInfo.realName}&action=edit`})
-          }
-        })
-      } else {
-        wx.navigateTo({url: `${RECRUITER}position/post/post`})
-      }
+      wx.navigateTo({url: `${RECRUITER}position/post/post`})
     }
   },
   /**

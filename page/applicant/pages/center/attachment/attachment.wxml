@@ -1,8 +1,10 @@
 <wxs src="../../../../../utils/filters.wxs" module="filter" />
-
-<navbar title="附件简历" background="#FFFFFF" color="#22292C"></navbar>
-
-<view class="attachment" style="top: {{navH}}px">
+<view class="attachment">
+	<navbar title="附件简历" background="#FFFFFF" color="#22292C"></navbar>
+	<view class="bg" style="top: {{navH}}px"></view>
+	<view hidden="{{!hasReFresh}}">
+	  <refreshStatus></refreshStatus>
+	</view>
 	<view class="infos">
 		<image class="img" mode="aspectFill" src="{{cdnPath}}scan_code_default.png" wx:if="{{!attachResume.vkey}}"></image>
 		<image class="img" mode="aspectFill" src="{{cdnPath}}scan_code_complate.png" wx:else></image>

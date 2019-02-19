@@ -38,7 +38,6 @@ Page({
     wx.scanCode({
       onlyFromCamera: true,
       success: res => {
-        console.log(res)
         const uuid = res.result.split('&')[0].slice(5)
         scanQrcodeApi({uuid}).then(res => {
           scanLoginApi({uuid}).then(res => console.log(res))
