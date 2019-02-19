@@ -9,7 +9,7 @@ import { agreedTxtC, agreedTxtB } from '../../../../../../utils/randomCopy.js'
 Page({
   data: {
     options: {},
-    pageCount: 10,
+    pageCount: 20,
     hasReFresh: false,
     onBottomStatus: 0,
     recruitersList: {
@@ -21,7 +21,15 @@ Page({
   },
   onLoad(options) {
     this.setData({options})
-    this.getLists()
+  },
+  onShow() {
+    const recruitersList = {
+      list: [],
+      pageNum: 1,
+      isLastPage: false,
+      isRequire: false
+    }
+    this.setData({recruitersList}, () => this.getLists())
   },
   /**
    * @Author   小书包
@@ -80,15 +88,15 @@ Page({
     const recruitersList = {list: [], pageNum: 1, isLastPage: false, isRequire: false}
     this.setData({recruitersList, hasReFresh: true})
     this.getLists().then(res => {
-        const recruitersList = {list: [], pageNum: 1, isLastPage: false, isRequire: false}
-        const onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
-        const list = res.data
-        list.map(field => field.randomTxt = agreedTxtB())
-        recruitersList.list = list
-        recruitersList.isLastPage = res.meta && res.meta.nextPageUrl ? false : true
-        recruitersList.pageNum = 2
-        recruitersList.isRequire = true
-        this.setData({recruitersList, onBottomStatus, hasReFresh: false}, () => wx.stopPullDownRefresh())
-      })
+      const recruitersList = {list: [], pageNum: 1, isLastPage: false, isRequire: false}
+      const onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
+      const list = res.data
+      list.map(field => field.randomTxt = agreedTxtB())
+      recruitersList.list = list
+      recruitersList.isLastPage = res.meta && res.meta.nextPageUrl ? false : true
+      recruitersList.pageNum = 2
+      recruitersList.isRequire = true
+      this.setData({recruitersList, onBottomStatus, hasReFresh: false}, () => wx.stopPullDownRefresh())
+    })
   }
 })
