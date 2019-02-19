@@ -81,6 +81,7 @@ Page({
     let data = {
       company: info.companyName,
       positionType: info.positionType.typeName,
+      positionTypeId: info.positionType.type,
       duty: info.duty,
       startTime: info.starTime,
       endTime: info.endTime
