@@ -56,7 +56,7 @@
   align-items: center;
   background: white;
   border-radius:10rpx;
-  box-shadow:0rpx 8rpx 20rpx 0rpx rgba(34,56,101,0.08);
+  box-shadow:0rpx 8rpx 40rpx 0rpx rgba(34,56,101,0.08);
   margin-bottom: 20rpx;
 }
 

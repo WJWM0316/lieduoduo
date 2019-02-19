@@ -172,6 +172,7 @@ var fileFormat = function(url) {
       defaultSrc = 'https://lieduoduo-uploads-test.oss-cn-shenzhen.aliyuncs.com/front-assets/images/icon_document_txt@3x.png'
       break
     default:
+      defaultSrc = 'https://lieduoduo-uploads-test.oss-cn-shenzhen.aliyuncs.com/front-assets/images/default_ext.png'
       break
   }
   return defaultSrc

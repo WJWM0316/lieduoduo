@@ -63,18 +63,25 @@ Page({
   onShow() {
     if (app.loginInit) {
       this.init().then(() => this.getLabelPosition())
-      getSelectorQuery('.banner').then(res => {
-        this.setData({domHeight: res.height})
-      })
+      this.getDomNodePosition()
     } else {
       app.loginInit = () => {
         this.init().then(() => this.getLabelPosition())
-        getSelectorQuery('.banner').then(res => {
-          this.setData({domHeight: res.height})
-        })
+        this.getDomNodePosition()
       }
     }
     
+  },
+  /**
+   * @Author   小书包
+   * @DateTime 2019-02-19
+   * @detail   获取定位结点的位置
+   * @return   {[type]}   [description]
+   */
+  getDomNodePosition() {
+    getSelectorQuery('.banner').then(res => {
+      this.setData({domHeight: res.height})
+    })
   },
   /**
    * @Author   小书包
@@ -113,19 +120,18 @@ Page({
    */
   onPullDownRefresh() {
     const positionList = {list: [], pageNum: 1, isLastPage: false, isRequire: false}
-    this.setData({positionList, hasReFresh: true})
-    this.getPositionList(false)
-        .then(res => {
-          const positionList = {list: [], pageNum: 1, isLastPage: false, isRequire: false}
-          const onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
-          positionList.list = res.data
-          positionList.isLastPage = res.meta && res.meta.nextPageUrl ? false : true
-          positionList.pageNum = 2
-          positionList.isRequire = true
-          this.setData({positionList, onBottomStatus, hasReFresh: false}, () => wx.stopPullDownRefresh())
-        }).catch(e => {
-          wx.stopPullDownRefresh()
-        })
+    this.setData({positionList, hasReFresh: true, isFixed: false})
+    this.getPositionList(false).then(res => {
+      const positionList = {list: [], pageNum: 1, isLastPage: false, isRequire: false}
+      const onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
+      positionList.list = res.data
+      positionList.isLastPage = res.meta && res.meta.nextPageUrl ? false : true
+      positionList.pageNum = 2
+      positionList.isRequire = true
+      this.setData({positionList, onBottomStatus, hasReFresh: false}, () => wx.stopPullDownRefresh())
+    }).catch(e => {
+      wx.stopPullDownRefresh()
+    })
   },
   /**
    * @Author   小书包
@@ -158,17 +164,16 @@ Page({
    * @return   {[type]}   [description]
    */
   getLabelPosition() {
-    getLabelPositionApi()
-      .then(res => {
-        const positionTypeList = res.data
-        positionTypeList.map(field => field.active = false)
-        positionTypeList.unshift({
-          labelId: 'all',
-          name: '全部',
-          active: true
-        })
-        this.setData({positionTypeList}, () => this.getPositionList())
+    getLabelPositionApi().then(res => {
+      const positionTypeList = res.data
+      positionTypeList.map(field => field.active = false)
+      positionTypeList.unshift({
+        labelId: 'all',
+        name: '全部',
+        active: true
       })
+      this.setData({positionTypeList}, () => this.getPositionList())
+    })
   },
   /**
    * @Author   小书包
@@ -187,33 +192,32 @@ Page({
    */
   getCompanyDetail() {
     return new Promise((resolve, reject) => {
-      getCompanyInfosApi({id: this.data.query.companyId})
-        .then(res => {
-          const companyInfos = res.data
-          const longitude = companyInfos.address.length ? companyInfos.address[0].lng : 0
-          const latitude = companyInfos.address.length ? companyInfos.address[0].lat : 0
-          const address = companyInfos.address.length ? companyInfos.address[0].address : ''
-          const doorplate = companyInfos.address.length ? companyInfos.address[0].doorplate : ''
-          const map = this.data.map
-          map.longitude = longitude
-          map.latitude = latitude
-          map.address = address
-          map.doorplate = doorplate
-          map.enableScroll = false
-          map.markers.push({
-            id: 1,
-            longitude,
-            latitude,
-            label: {
-              content: companyInfos.companyShortname,
-              fontSize:'18rpx',
-              color:'#282828',
-              anchorX: '30rpx',
-              anchorY: '-60rpx'
-            }
-          })
-          this.setData({companyInfos, map }, () => resolve(res))
+      getCompanyInfosApi({id: this.data.query.companyId}).then(res => {
+        const companyInfos = res.data
+        const longitude = companyInfos.address.length ? companyInfos.address[0].lng : 0
+        const latitude = companyInfos.address.length ? companyInfos.address[0].lat : 0
+        const address = companyInfos.address.length ? companyInfos.address[0].address : ''
+        const doorplate = companyInfos.address.length ? companyInfos.address[0].doorplate : ''
+        const map = this.data.map
+        map.longitude = longitude
+        map.latitude = latitude
+        map.address = address
+        map.doorplate = doorplate
+        map.enableScroll = false
+        map.markers.push({
+          id: 1,
+          longitude,
+          latitude,
+          label: {
+            content: companyInfos.companyShortname,
+            fontSize:'18rpx',
+            color:'#282828',
+            anchorX: '30rpx',
+            anchorY: '-60rpx'
+          }
         })
+        this.setData({companyInfos, map }, () => resolve(res))
+      })
     })
   },
   /**
@@ -223,13 +227,12 @@ Page({
    * @return   {[type]}   [description]
    */
   getRecruitersList() {
-    getRecruitersListApi({id: this.data.query.companyId, page: 1, count: 4})
-      .then(res => {
-        const wordIndex = Math.floor(Math.random()*8)
-        const recruitersList = res.data
-        recruitersList.map(field => field.randomTxt = agreedTxtB())
-        this.setData({recruitersList, wordIndex})
-      })
+    getRecruitersListApi({id: this.data.query.companyId, page: 1, count: 4}).then(res => {
+      const wordIndex = Math.floor(Math.random()*8)
+      const recruitersList = res.data
+      recruitersList.map(field => field.randomTxt = agreedTxtB())
+      this.setData({recruitersList, wordIndex})
+    })
   },
   /**
    * @Author   小书包

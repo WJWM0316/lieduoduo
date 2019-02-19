@@ -81,7 +81,7 @@
   		<view class="dl">
 				<view class="dt">
 					<view class="label">第1步</view>
-					<view class="value">电脑浏览器打开网址“<text>www.lieduoduo.com</text>”</view>
+					<view class="value">电脑浏览器打开网址“<text bindtap="copy">www.lieduoduo.com</text>”</view>
 				</view>
 				<view class="dt">
 					<view class="label">第2步</view>

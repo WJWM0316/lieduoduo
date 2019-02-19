@@ -367,10 +367,11 @@ Page({
       onlyFromCamera: true,
       success: res => {
         const uuid = res.result.split('&')[0].slice(5)
-        scanQrcodeApi({uuid, isBusiness: 1}).then(res => {
-          scanLoginApi({uuid}).then(res => console.log(res))
-        })
+        scanQrcodeApi({uuid, isBusiness: 1}).then(res => scanLoginApi({uuid}))
       }
     })
   },
+  copy() {
+    wx.setClipboardData({data: 'https://lieduoduo.com' })
+  }
 })
