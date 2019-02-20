@@ -47,7 +47,7 @@ Component({
         path: `${RECRUITER}user/mine/infos/infos`
       }
     ],
-    systemInfo: app.globalData.systemInfo
+    isIphoneX: app.globalData.isIphoneX
   },
   attached() {
     const list = this.data.list
