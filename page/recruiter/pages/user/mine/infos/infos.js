@@ -2,6 +2,10 @@ import { getRecruiterMyInfoApi } from '../../../../../../api/pages/recruiter.js'
 import {RECRUITER, COMMON} from '../../../../../../config.js'
 import {getUserRoleApi} from "../../../../../../api/pages/user.js"
 import {shareRecruiter} from '../../../../../../utils/shareWord.js'
+import {
+  getCompanyIdentityInfosApi
+} from '../../../../../../api/pages/company.js'
+
 const app = getApp()
 
 Page({
@@ -90,6 +94,17 @@ Page({
       btnTitle: shareRecruiter,
       btnPath: `${COMMON}recruiterDetail/recruiterDetail?uid=${this.data.recruiterInfo.uid}`,
       btnImageUrl: `${that.data.cdnPath}shareB.png`
+    })
+  },
+  /**
+   * @Author   小书包
+   * @DateTime 2019-01-29
+   * @detail   获取个人身份信息
+   * @return   {[type]}   [description]
+   */
+  getCompanyIdentityInfos() {
+    getCompanyIdentityInfosApi().then(res => {
+      this.setData({identityInfos: res.data})
     })
   }
 })
