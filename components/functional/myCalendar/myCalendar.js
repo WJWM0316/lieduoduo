@@ -97,7 +97,7 @@ Component({
       this.triggerEvent('resultEvent', {year, month, days, timeStamp})
     },
     backToday() {
-      this.setData({choseDate: this.data.curDate}, function() {
+      this.setData({choseDate: this.data.curDate, choseOtherDate: false}, function() {
         this.scrollLeft()
       })
     },

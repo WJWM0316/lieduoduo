@@ -11,7 +11,7 @@
     </view>
   </scroll-view>
   <text wx:if="{{switchable}}" class="open icon iconfont icon-xiangyou" bindtap="changeType"></text>
-  <view class="backToday {{choseType === 'RECRUITER' && iphoneX ? 'iphoneX':''}} {{choseType === 'RECRUITER' && !iphoneX ? 'noIphoneX':''}}" bindtap="backToday" hidden="{{!choseOtherDate}}">回到今天<i class="icon iconfont icon-huidaojintian"></i></view>
+  <view class="backToday {{(choseType === 'RECRUITER' && iphoneX) ? 'iphoneX':''}} {{(choseType === 'RECRUITER' && !iphoneX) ? 'noIphoneX':''}}" bindtap="backToday" hidden="{{!choseOtherDate}}">回到今天<i class="icon iconfont icon-huidaojintian"></i></view>
 </view>
 
 <view class="newCalendar" wx:if="{{calendarType === 'normal'}}">
