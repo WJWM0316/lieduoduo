@@ -23,9 +23,11 @@ export const lineFeed = (ctx, text, width, x, y, bgUrl, bgW = 750, bgH = 90) => 
 	text = text.replace(/[\r\n]/g, '<newLine>')
 	let textArray = text.split('<newLine>')
 	let curHeight = y
+	console.log(textArray, 111111111)
 	for (let j = 0; j < textArray.length; j++) {
 		let item = textArray[j].trim()
-		if (item.length > 0) {
+		if (item !== '') {
+			console.log(item === '', 1111111111111)
 			let descString = ''
 			let descWidth = 0
 			if (ctx.measureText(item).width > width) {
@@ -54,6 +56,7 @@ export const lineFeed = (ctx, text, width, x, y, bgUrl, bgW = 750, bgH = 90) => 
 		  	ctx.setTextAlign('center')
 	    	ctx.setFontSize(28)
 	    	ctx.setFillStyle('#652791')
+	    	if (bgUrl) ctx.drawImage(bgUrl, 0, curHeight, bgW, bgH)
 		  	ctx.fillText('长按识别查看完整职位详情', 375, curHeight)
 		  	curHeight += 40
 		  	ctx.setTextAlign('left')
