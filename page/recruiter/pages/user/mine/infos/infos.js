@@ -87,6 +87,7 @@ Page({
     this.setData({hasReFresh: true})
     app.getAllInfo().then(res => {
       this.setData({recruiterInfo: res, hasReFresh: false}, () => wx.stopPullDownRefresh())
+      this.getCompanyIdentityInfos()
     })
   },
   onShareAppMessage(options) {
@@ -118,6 +119,7 @@ Page({
   viewIdentity() {
     
     const identityInfos = this.data.identityInfos
+
     //还没有填写身份信息
     if(!identityInfos.identityNum) {
       wx.navigateTo({url: `${RECRUITER}user/company/identity/identity?type=create&realName=${identityInfos.companyInfo.realName}`})

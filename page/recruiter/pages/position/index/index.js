@@ -88,9 +88,9 @@ Page({
     // 没有填身份证 则没有验证
     if(!identityInfos.identityNum) {
       app.wxConfirm({
-        title: '您的身份尚未认证',
-        content: `请先认证`,
-        confirmText: '知道了',
+        title: '',
+        content: `检测到您尚未认证身份，请立即认证，完成发布职位`,
+        confirmText: '去认证',
         confirmBack: () => {
           wx.navigateTo({url: `${RECRUITER}user/company/identity/identity?type=create&realName=${identityInfos.companyInfo.realName}`})
         }
@@ -101,11 +101,15 @@ Page({
     // 已经填写身份证 但是管理员还没有处理或者身份证信息不符合规范
     if(identityInfos.status === 0 || identityInfos.status === 2) {
       app.wxConfirm({
-        title: '您的身份尚未认证成功',
-        content: `请先认证`,
-        confirmText: '知道了',
+        title: '',
+        content: `您当前认证身份信息已提交申请，猎多多将尽快审核处理，请耐心的等待，感谢您的配合~`,
+        cancelText: '联系客服',
+        confirmText: '我知道了',
         confirmBack: () => {
           wx.navigateTo({url: `${RECRUITER}user/company/status/status?from=identity`})
+        },
+        cancelBack: () => {
+          wx.makePhoneCall({phoneNumber: '020-61279889'})
         }
       })
       return;
