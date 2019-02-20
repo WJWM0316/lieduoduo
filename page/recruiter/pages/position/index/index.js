@@ -105,7 +105,7 @@ Page({
       return;
     }
 
-    if(identityInfos.status === 0) {
+    if(identityInfos.status === 1) {
       wx.navigateTo({url: `${RECRUITER}position/post/post`})
     }
   },
