@@ -86,7 +86,7 @@ Page({
     }
 
     // 没有填身份证 则没有验证
-    if(!identityInfos.status) {
+    if(!identityInfos.identityNum) {
       app.wxConfirm({
         title: '您的身份尚未认证',
         content: `请先认证`,
