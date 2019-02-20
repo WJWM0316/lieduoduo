@@ -71,7 +71,7 @@ Page({
     const options = this.data.options
     const url = options.action && options.action === 'edit'
       ? `${RECRUITER}user/company/status/status?from=company`
-      : `${RECRUITER}user/company/identity/identity?type=create&realName=${storage.real_name}`
+      : `${RECRUITER}user/company/identity/identity?type=company&realName=${storage.real_name}`
     createCompanyApi(formData).then(res => {
       app.wxToast({title: '创建公司成功'})
       wx.reLaunch({url})
@@ -90,7 +90,7 @@ Page({
     const options = this.data.options
     const url = options.action && options.action === 'edit'
       ? `${RECRUITER}user/company/status/status?from=company`
-      : `${RECRUITER}user/company/identity/identity?type=create&realName=${storage.real_name}`
+      : `${RECRUITER}user/company/identity/identity?type=company&realName=${storage.real_name}`
     editCompanyInfosApi(formData).then(res => {
       app.wxToast({title: '编辑公司成功'})
       wx.reLaunch({url})

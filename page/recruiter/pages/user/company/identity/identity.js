@@ -169,7 +169,7 @@ Page({
   identityCompany() {
     const formData = this.getParams()
     identityCompanyApi(formData).then((res) => {
-      const type = this.data.options.type === 'apply' ? 'apply' : 'company'
+      const type = this.data.options.type
       wx.redirectTo({url: `${RECRUITER}user/company/status/status?from=${type}`})
     })
   },
@@ -182,7 +182,8 @@ Page({
   editCompanyIdentityInfos() {
     const formData = this.getParams()
     editCompanyIdentityInfosApi(formData).then((res) => {
-      wx.redirectTo({url: `${RECRUITER}user/company/status/status?from=identity`})
+      const type = this.data.options.type
+      wx.redirectTo({url: `${RECRUITER}user/company/status/status?from=${type}`})
     })
   },
   /**

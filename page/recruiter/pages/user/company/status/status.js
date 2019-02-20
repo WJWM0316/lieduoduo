@@ -35,9 +35,10 @@ Page({
         break
     }
     this.setData({pageTitle, options})
+  },
+  onShow() {
     this.getCompanyIdentityInfos()
   },
-  onShow() {},
   backEvent() {
     wx.reLaunch({url: `${RECRUITER}user/mine/infos/infos`})
   },
@@ -48,10 +49,10 @@ Page({
     
   	switch(params.action) {
   		case 'modifyIdentity':
-        wx.navigateTo({url: `${RECRUITER}user/company/identity/identity?action=edit&type=create`})
+        wx.navigateTo({url: `${RECRUITER}user/company/identity/identity?action=edit&type=identity`})
   			break
   		case 'modifyCompany':
-  			wx.navigateTo({url: `${RECRUITER}user/company/apply/apply?action=edit&type=create`})
+  			wx.navigateTo({url: `${RECRUITER}user/company/apply/apply?action=edit&type=company`})
   			break
       case 'email':
         wx.navigateTo({url: `${RECRUITER}user/company/email/email?id=${this.data.companyInfos.id}`})

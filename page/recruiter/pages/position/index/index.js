@@ -92,7 +92,7 @@ Page({
         content: `检测到您尚未认证身份，请立即认证，完成发布职位`,
         confirmText: '去认证',
         confirmBack: () => {
-          wx.navigateTo({url: `${RECRUITER}user/company/identity/identity?type=create&realName=${identityInfos.companyInfo.realName}`})
+          wx.navigateTo({url: `${RECRUITER}user/company/identity/identity?type=identity&realName=${identityInfos.companyInfo.realName}`})
         }
       })
       return;

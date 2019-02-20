@@ -26,6 +26,8 @@ Page({
         this.setData({recruiterInfo})
       })
     }
+  },
+  onShow() {
     this.getCompanyIdentityInfos()
   },
   /**
@@ -122,7 +124,7 @@ Page({
 
     //还没有填写身份信息
     if(!identityInfos.identityNum) {
-      wx.navigateTo({url: `${RECRUITER}user/company/identity/identity?type=create&realName=${identityInfos.companyInfo.realName}`})
+      wx.navigateTo({url: `${RECRUITER}user/company/identity/identity?type=identity&realName=${identityInfos.companyInfo.realName}`})
       return;
     }
 
