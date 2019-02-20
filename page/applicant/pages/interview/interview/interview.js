@@ -67,6 +67,8 @@ Page({
     const index = e.currentTarget.dataset.index
     const tabLists = this.data.tabLists
     let tabIndex = index
+
+    
     tabLists.map((field, i) => {
       field.active = false
     })

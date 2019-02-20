@@ -16,6 +16,7 @@ App({
     wx.getSystemInfo({
       success: res => {
         //导航高度
+        console.log(res, 1)
         this.globalData.navHeight = res.statusBarHeight + 46
       },
       fail: err => {

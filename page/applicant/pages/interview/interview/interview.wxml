@@ -1,5 +1,5 @@
 <view class="applicant-interview">
-	<navbar title="猎多多"  background="#652791" color="#fff"></navbar>
+	<navbar title="面试"  background="#652791" color="#fff"></navbar>
 
 	<view hidden="{{!hasReFresh}}">
 		<refreshStatus></refreshStatus>
