@@ -290,7 +290,7 @@ Page({
       let onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
       value.list = res.data
       value.isLastPage = res.meta && res.meta.nextPageUrl ? false : true
-      value.pageNum = 1
+      value.pageNum = 2
       value.isRequire = true
       if(value.list.length > 1) {
         secondtItem = value.list[1]

@@ -78,16 +78,34 @@ Page({
    */
   publicPosition() {
     const identityInfos = this.data.identityInfos
-    if(!identityInfos.identityNum || (identityInfos.identityNum && identityInfos.status !== 1)) {
+
+    // 没有填身份证 则没有验证
+    if(!identityInfos.identityNum) {
       app.wxConfirm({
-        title: '您的身份尚未认证成功',
+        title: '您的身份尚未认证',
         content: `请先认证`,
         confirmText: '知道了',
         confirmBack: () => {
           wx.navigateTo({url: `${RECRUITER}user/company/identity/identity?type=create&realName=${identityInfos.companyInfo.realName}&action=edit`})
         }
       })
-    } else {
+      return;
+    }
+
+    // 已经填写身份证 但是管理员还没有处理或者身份证信息不符合规范
+    if(identityInfos.identityNum && (identityInfos.status === 0 || identityInfos.status === 2)) {
+      app.wxConfirm({
+        title: '您的身份尚未认证成功',
+        content: `请先认证`,
+        confirmText: '知道了',
+        confirmBack: () => {
+          wx.navigateTo({url: `${RECRUITER}user/company/status/status?from=identity`})
+        }
+      })
+      return;
+    }
+
+    if(identityInfos.status === 0) {
       wx.navigateTo({url: `${RECRUITER}position/post/post`})
     }
   },

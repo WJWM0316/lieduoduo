@@ -17,7 +17,7 @@
 				</view>
 			</view>
 			<view class="infos">
-				<view><i class="icon iconfont icon-dizhi"></i>{{detail.city}}</view>
+				<view wx:if="{{detail.city}}"><i class="icon iconfont icon-dizhi"></i>{{detail.city}}</view>
 				<view><i class="icon iconfont icon-zhiwei"></i>{{detail.workExperienceName}}</view>
 				<view><i class="icon iconfont icon-xueli"></i>{{detail.educationName}}</view>
 			</view>

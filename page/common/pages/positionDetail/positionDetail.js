@@ -129,7 +129,7 @@ Page({
           .then(res => {
             const detail = this.data.detail
             detail.isCollect = true
-            this.setData({detail})
+            this.setData({detail}, () => app.wxToast({title: '收藏成功'}))
           })
         break
       case 'uncollect':
@@ -137,7 +137,7 @@ Page({
           .then(res => {
             const detail = this.data.detail
             detail.isCollect = false
-            this.setData({detail})
+            this.setData({detail}, () => app.wxToast({title: '取消收藏成功'}))
           })
         break
       case 'about':

@@ -64,18 +64,21 @@
 			<view class="title">
 				<view class="icon"> <view class="fan"></view> </view> 公司介绍
 			</view>
-			<swiper
-				class="swiper-block"
-				previous-margin="40rpx"
-				next-margin="40rpx"
-				current="0"
-				bindchange="swiperChange"
-				wx:if="{{companyInfos.albumInfo.length}}"
-				autoplay="{{autoplay}}">
-				<swiper-item class="swiper-item" wx:for="{{companyInfos.albumInfo}}" wx:key="{{index}}" wx:for-item="item">
-					<image mode="aspectFill" class="slide-image {{swiperIndex == index ? 'active' : ''}}" src="{{item.url}}" bindtap="previewImage" data-index="{{index}}" />
-				</swiper-item>
-			</swiper>
+			<view class="swiper-box">
+				<view class="num-box">{{swiperIndex + 1}}/{{companyInfos.albumInfo.length}}</view>
+				<swiper
+					class="swiper-block"
+					previous-margin="40rpx"
+					next-margin="40rpx"
+					current="{{1}}"
+					bindchange="swiperChange"
+					wx:if="{{companyInfos.albumInfo.length}}"
+					autoplay="{{autoplay}}">
+					<swiper-item class="swiper-item" wx:for="{{companyInfos.albumInfo}}" wx:key="{{index}}" wx:for-item="item">
+						<image mode="aspectFill" class="slide-image {{swiperIndex == index ? 'active' : ''}}" src="{{item.url}}" bindtap="previewImage" />
+					</swiper-item>
+				</swiper>
+			</view>
 			<view class="company-detail" wx:if="{{companyInfos.intro}}">
 				<text class="p">{{companyInfos.intro}}</text>
 			</view>
