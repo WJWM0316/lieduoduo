@@ -1,12 +1,16 @@
 <!--components/business/tabBar/tabBar.wxml-->
-<view class="tabBar">
-  <view
-  	class="tabBar-item {{item.active ? 'tabBar-item-active' : ''}}"
-  	wx:for="{{list}}"
-  	wx:key="{{index}}">
-  		<view class="tap" data-path="{{item.path}}" bindtap="toggle" data-index="{{index}}"></view>
-  		<image class="tabIcon" src="{{item.iconPath}}" hidden="{{item.active}}"></image>
-  		<image class="tabIcon" src="{{item.selectedIconPath}}" hidden="{{!item.active}}"></image>
-  		<view class="p">{{item.title}}</view>
-  </view>
+<view class="tabBar {{systemInfo.model === 'iPhone X' ? 'iphoneX' : ''}}">
+	<view class="tabList">
+	  <view
+	  	class="tabBar-item {{item.active ? 'tabBar-item-active' : ''}}"
+	  	wx:for="{{list}}"
+	  	wx:key="{{index}}">
+	  		<view class="tap" data-path="{{item.path}}" bindtap="toggle" data-index="{{index}}"></view>
+	  		<image class="tabIcon" src="{{item.iconPath}}" hidden="{{item.active}}"></image>
+	  		<image class="tabIcon" src="{{item.selectedIconPath}}" hidden="{{!item.active}}"></image>
+	  		<view class="p">{{item.title}}</view>
+	  </view>
+	</view>
+	<view class="viewBlock" wx:if="{{systemInfo.model === 'iPhone X'}}"></view>
 </view>
+<view class="viewBlock" wx:if="{{systemInfo.model === 'iPhone X'}}"></view>

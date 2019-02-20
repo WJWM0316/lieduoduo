@@ -134,7 +134,7 @@ Page({
     let applyData = this.data.applyData
     let tab = this.data.applyScreen[this.data.applyIndex].value
     let applyBottomStatus = 0
-    return getApplyListApi({count: applyData.count, page: applyData.pageNum, tab, hasLoading}).then(res => {
+    return getApplyListApi({count: applyData.count, page: applyData.pageNum, tab}, hasLoading).then(res => {
       applyData.list = res.data
       applyData.isRequire = true
       if (!res.meta || !res.meta.nextPageUrl) {
@@ -149,7 +149,7 @@ Page({
     let receiveData = this.data.receiveData
     let tab = this.data.receiveScreen[this.data.receiveIndex].value
     let receiveBottomStatus = 0
-    return getInviteListApi({count: receiveData.count, page: receiveData.pageNum, tab, hasLoading}).then(res => {
+    return getInviteListApi({count: receiveData.count, page: receiveData.pageNum, tab}, hasLoading).then(res => {
       receiveData.list = res.data
       receiveData.isRequire = true
       if (!res.meta || !res.meta.nextPageUrl) {
@@ -163,7 +163,7 @@ Page({
   getScheduleList(hasLoading = true) {
     let interviewData = this.data.interviewData
     let interviewBottomStatus = 0
-    return getScheduleListApi({count: interviewData.count, page: interviewData.pageNum, time: chooseTime, hasLoading}).then(res => {
+    return getScheduleListApi({count: interviewData.count, page: interviewData.pageNum, time: chooseTime}, hasLoading).then(res => {
       interviewData.list = res.data
       interviewData.isRequire = true
       if (!res.meta || !res.meta.nextPageUrl) {

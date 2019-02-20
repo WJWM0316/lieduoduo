@@ -1,7 +1,7 @@
 // components/business/tabBar/tabBar.js
 import {RECRUITER, APPLICANT} from '../../../config.js'
-const cdnImagePath = getApp().globalData.cdnImagePath
-
+const app = getApp()
+const cdnImagePath = app.globalData.cdnImagePath
 Component({
   /**
    * 组件的属性列表
@@ -47,7 +47,7 @@ Component({
         path: `${RECRUITER}user/mine/infos/infos`
       }
     ],
-    url: ''
+    systemInfo: app.globalData.systemInfo
   },
   attached() {
     const list = this.data.list
