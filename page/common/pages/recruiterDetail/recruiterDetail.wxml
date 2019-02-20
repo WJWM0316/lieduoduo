@@ -85,7 +85,11 @@
       <view class="positionList" wx:if="{{positionList.length > 0}}">
         <view class="positionItem" wx:for="{{positionList}}" wx:key="{{index}}" bindtap="jumpPage" data-id="{{item.id}}">
           <view class="positionHead"><text class="positionTitle">{{item.positionName}}</text><text class="money">{{item.emolumentMin}}~{{item.emolumentMax}}k</text></view>
-          <view class="positionDeatil">{{item.city}}-{{item.district}} · {{item.workExperienceName}} · {{item.educationName}}</view>
+          <view class="positionDeatil">
+            <text wx:if="{{item.city && item.district}}">{{item.city}}-{{item.district}} · </text>
+            <text>{{item.workExperienceName}} · </text>
+            <text>{{item.educationName}}</text>
+          </view>
         </view>
       </view>
     </view>

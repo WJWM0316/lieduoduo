@@ -54,7 +54,8 @@ Page({
     },
     pageCount: 4,
     hasReFresh: false,
-    onBottomStatus: 0
+    onBottomStatus: 0,
+    swiperIndex: 1
   },
   onLoad(options) {
     this.setData({query: options})
@@ -251,6 +252,7 @@ Page({
    * @return   {[type]}     [description]
    */
   swiperChange(e) {
+    console.log(1)
     this.setData({swiperIndex: e.detail.current})
   },
   /**

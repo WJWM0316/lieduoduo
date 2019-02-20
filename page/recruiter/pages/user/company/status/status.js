@@ -90,7 +90,7 @@ Page({
       const infos = res.data
       const companyInfos = infos.companyInfo
       const options = this.data.options
-      this.setData({identityInfos: infos, companyInfos}, () => wx.stopPullDownRefresh())
+      this.setData({identityInfos: infos, companyInfos, hasReFresh: false}, () => wx.stopPullDownRefresh())
 
       // 公司验证已经通过
       if(companyInfos.status === 1 && (options.from === 'company' || options.from === 'apply')) {
