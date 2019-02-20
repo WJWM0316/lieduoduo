@@ -2,6 +2,10 @@ import { getRecruiterMyInfoApi } from '../../../../../../api/pages/recruiter.js'
 import {RECRUITER, COMMON} from '../../../../../../config.js'
 import {getUserRoleApi} from "../../../../../../api/pages/user.js"
 import {shareRecruiter} from '../../../../../../utils/shareWord.js'
+import {
+  getCompanyIdentityInfosApi
+} from '../../../../../../api/pages/company.js'
+
 const app = getApp()
 
 Page({
@@ -9,7 +13,8 @@ Page({
     recruiterInfo: {},
     isRecruiter: app.globalData.isRecruiter,
     cdnPath: app.globalData.cdnImagePath,
-    hasReFresh: false
+    hasReFresh: false,
+    identityInfos: {}
   },
   onLoad() {
     let recruiterInfo = app.globalData.recruiterDetails
@@ -21,6 +26,7 @@ Page({
         this.setData({recruiterInfo})
       })
     }
+    this.getCompanyIdentityInfos()
   },
   /**
    * @Author   小书包
@@ -49,7 +55,7 @@ Page({
         wx.navigateTo({url: `${RECRUITER}user/mine/base/base`})
         break
       case 'identity':
-        wx.navigateTo({url: `${RECRUITER}user/company/status/status?from=identity`})
+        this.viewIdentity()
         break
       case 'settings':
         wx.navigateTo({url: `${COMMON}settings/settings`})
@@ -91,5 +97,37 @@ Page({
       btnPath: `${COMMON}recruiterDetail/recruiterDetail?uid=${this.data.recruiterInfo.uid}`,
       btnImageUrl: `${that.data.cdnPath}shareB.png`
     })
+  },
+  /**
+   * @Author   小书包
+   * @DateTime 2019-01-29
+   * @detail   获取个人身份信息
+   * @return   {[type]}   [description]
+   */
+  getCompanyIdentityInfos() {
+    getCompanyIdentityInfosApi().then(res => {
+      this.setData({identityInfos: res.data})
+    })
+  },
+  /**
+   * @Author   小书包
+   * @DateTime 2019-02-20
+   * @detail   查看认证状态
+   * @return   {[type]}   [description]
+   */
+  viewIdentity() {
+    const identityInfos = this.data.identityInfos
+
+    //还没有填写身份信息
+    if(!identityInfos.status) {
+      wx.navigateTo({url: `${RECRUITER}user/company/identity/identity?type=create&realName=${identityInfos.companyInfo.realName}`})
+      return;
+    }
+
+    // 已经填写身份证 但是管理员还没有处理或者身份证信息不符合规范
+    if(identityInfos.status === 0 || identityInfos.status === 2) {
+      wx.navigateTo({url: `${RECRUITER}user/company/status/status?from=identity`})
+      return;
+    }
   }
 })

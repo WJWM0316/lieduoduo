@@ -281,3 +281,15 @@
   float: right;
   color: #CED7DC;
 }
+
+.page-mine .entry-list .color-gray {
+	color: #BCBCBC !important;
+}
+
+.page-mine .entry-list .color-pedding {
+	color: #652791 !important;
+}
+
+.page-mine .entry-list .color-fail {
+	color: #ED5C5C !important;
+}
