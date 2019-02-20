@@ -229,7 +229,8 @@
 
 .production-box .li .row-one {
   overflow: hidden;
-  line-height: 1;
+  line-height: 36rpx;
+  line-height: 36rpx;
   margin-top: 15rpx;
 }
 
@@ -241,6 +242,7 @@
   border-right: 1px solid #E8E9EB;
   padding-right: 15rpx;
   margin-right: 15rpx;
+  vertical-align: middle;
 }
 
 .production-box .li .recruitment-number {
@@ -251,7 +253,8 @@
   max-width:200rpx;
   overflow: hidden;
   text-overflow: ellipsis;
-  white-space: nowrap
+  white-space: nowrap;
+  vertical-align: middle;
 }
 
 .production-box .li .row-two {
