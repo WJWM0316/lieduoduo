@@ -2,13 +2,12 @@
 .baseEdit {
 	min-height: 100vh;
 	background: #FAFCFF;
-	padding: 24rpx 30rpx;
 }
 .head {
 	background:rgba(255,255,255,1);
-	box-shadow:0rpx 10rpx 30rpx 0rpx rgba(22,39,77,0.05);
 	border-radius:10rpx;
 	padding: 0 40rpx;
+	margin-top: 24rpx;
 }
 .head .msg .item {
 	font-size:28rpx;
