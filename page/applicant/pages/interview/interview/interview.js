@@ -90,7 +90,6 @@ Page({
       case 2:
         data = this.data.interviewData
         if (!data.isRequire) {
-          console.log(this.selectComponent('#myCalendar'))
           this.selectComponent('#myCalendar').scrollLeft()
           this.getScheduleList()
         }

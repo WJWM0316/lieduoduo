@@ -71,9 +71,15 @@ Component({
   methods: {
     scrollLeft() {
       let systemInfo = getApp().globalData.systemInfo
-      itemWidth = 0.14285 * systemInfo.windowWidth
-      let scrollLeft = itemWidth * (curDay - 3)
-      this.setData({scrollLeft})
+      let itemWidth = 0.14285 * systemInfo.windowWidth
+      let scrollLeft = 0
+      for(let i = 0; i < this.data.list.length; i++) {
+        if (this.data.list[i].date === this.data.curDate) {
+          scrollLeft = itemWidth * (i - 3)
+          this.setData({scrollLeft})
+          return
+        }
+      }
     },
     toggle (e) {
       if (!this.data.isClick) return
@@ -85,12 +91,8 @@ Component({
     },
     backToday() {
       this.setData({choseDate: this.data.curDate}, function() {
-        getSelectorQuery(".choseDate", this).then(res => {
-          console.log(res, 5555555555)
-          this.setData({scrollLeft: res.left})
-        })
+        this.scrollLeft()
       })
-      // this.scrollLeft()
     },
     changeType () {
       if (this.data.calendarType === 'roll') {

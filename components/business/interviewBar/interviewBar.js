@@ -97,7 +97,6 @@ Component({
         this.setData({interviewInfos: res.data, identity: wx.getStorageSync('choseType')})
         if(res.code === 204) this.setData({isOwerner: true})
         if(res.code === 230) this.showMergeBox(res.data)
-        if(res.code === 205) this.setData({isShare: true})
       })
     },
     /**

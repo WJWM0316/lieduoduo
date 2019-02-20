@@ -48,14 +48,11 @@ export const lineFeed = (ctx, text, width, x, y, bgUrl, bgW = 750, bgH = 90) => 
 	    if (bgUrl) ctx.drawImage(bgUrl, 0, curHeight, bgW, bgH)
 	    ctx.fillText(item, x, curHeight)
 	  }
-	  
-
 	  curHeight += 48
 	  if (curHeight > 2120) {
 	  	ctx.setTextAlign('center')
     	ctx.setFontSize(28)
     	ctx.setFillStyle('#652791')
-
 	  	ctx.fillText('长按识别查看完整职位详情', 375, curHeight)
 	  	curHeight += 40
 	  	ctx.setTextAlign('left')
