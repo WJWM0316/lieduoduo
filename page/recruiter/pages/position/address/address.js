@@ -124,19 +124,18 @@ Page({
    * @return   {[type]}   [description]
    */
   getPositionAddressDetail(options) {
-    getPositionAddressDetailApi({id: options.id})
-      .then(res => {
-        const infos = res.data
-        const formData = {
-          id: infos.id,
-          area_id: infos.areaId,
-          address: infos.address,
-          doorplate: infos.doorplate,
-          lng: infos.lng,
-          lat: infos.lat
-        }
-        Object.keys(formData).map(field => this.setData({[field]: formData[field]}))
-      })
+    getPositionAddressDetailApi({id: options.id}).then(res => {
+      const infos = res.data
+      const formData = {
+        id: infos.id,
+        area_id: infos.areaId,
+        address: infos.address,
+        doorplate: infos.doorplate,
+        lng: infos.lng,
+        lat: infos.lat
+      }
+      Object.keys(formData).map(field => this.setData({[field]: formData[field]}))
+    })
   },
   /**
    * @Author   小书包
@@ -146,19 +145,18 @@ Page({
    */
   getCompanyAddressDetail(options) {
     const id = this.data.options.id
-    getCompanyAddressDetailApi({id})
-      .then(res => {
-        const infos = res.data
-        const formData = {
-          id: infos.id,
-          area_id: infos.areaId,
-          address: infos.address,
-          doorplate: infos.doorplate,
-          lng: infos.lng,
-          lat: infos.lat
-        }
-        Object.keys(formData).map(field => this.setData({[field]: formData[field]}))
-      })
+    getCompanyAddressDetailApi({id}).then(res => {
+      const infos = res.data
+      const formData = {
+        id: infos.id,
+        area_id: infos.areaId,
+        address: infos.address,
+        doorplate: infos.doorplate,
+        lng: infos.lng,
+        lat: infos.lat
+      }
+      Object.keys(formData).map(field => this.setData({[field]: formData[field]}))
+    })
   },
   /**
    * @Author   小书包

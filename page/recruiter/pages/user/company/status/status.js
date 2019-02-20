@@ -85,12 +85,24 @@ Page({
    * @return   {[type]}   [description]
    */
   getCompanyIdentityInfos() {
-    this.setData({hasReFresh: true})
-    getCompanyIdentityInfosApi().then(res => {
+    return new Promise((resolve, reject) => {
+      this.setData({hasReFresh: true})
+      getCompanyIdentityInfosApi().then(res => {
+        const infos = res.data
+        const companyInfos = infos.companyInfo
+        this.setData({identityInfos: infos, companyInfos, hasReFresh: false}, () => {
+          resolve(res)
+          wx.stopPullDownRefresh()
+        })
+      })
+    })
+  },
+  // 下拉刷新
+  onPullDownRefresh() {
+    this.getCompanyIdentityInfos().then(res => {
       const infos = res.data
       const companyInfos = infos.companyInfo
       const options = this.data.options
-      this.setData({identityInfos: infos, companyInfos, hasReFresh: false}, () => wx.stopPullDownRefresh())
 
       // 公司验证已经通过
       if(companyInfos.status === 1 && (options.from === 'company' || options.from === 'apply')) {
@@ -98,6 +110,7 @@ Page({
         app.getAllInfo()
         return;
       }
+
       // 身份验证已经通过
       if(infos.status === 1) {
         wx.reLaunch({url: `${RECRUITER}index/index`})
@@ -105,9 +118,5 @@ Page({
         return;
       }
     })
-  },
-  // 下拉刷新
-  onPullDownRefresh() {
-    this.getCompanyIdentityInfos()
   }
 })
