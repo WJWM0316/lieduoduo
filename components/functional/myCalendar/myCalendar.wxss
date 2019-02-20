@@ -161,7 +161,7 @@
 }
 .calendar-body .day .inner.curDay {
   border-radius: 50%;
-  background: #E4EEFF;
+  background: #EFE9F4;
 }
 .calendar-body .day .inner.choseDate {
   border-radius: 50%;
