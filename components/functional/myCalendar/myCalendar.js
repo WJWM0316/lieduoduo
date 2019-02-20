@@ -1,5 +1,6 @@
 // components/business/myCalendar/myCalendar.js
 import {getSelectorQuery}  from '../../../utils/util.js'
+const app = getApp()
 let isLoadData = false  // 由于setData是异步的需要加个锁来控制
 let itemWidth = 0 // 计算单个item的宽度
 let nextMonth = 0 // 下个月份保存
@@ -55,6 +56,8 @@ Component({
     calendarBody: [],
     headYear: curYear,
     headMonth: curMonth,
+    choseType: wx.getStorageSync('choseType'),
+    iphoneX: app.globalData.isIphoneX,
     choseOtherDate: false
   },
   attached () {
@@ -86,7 +89,11 @@ Component({
       let { year, month, days } = e.currentTarget.dataset
       let choseDate = `${year}年${month}月${days}日`
       let timeStamp = new Date(`${year}/${month}/${days}`).getTime()/1000
-      this.setData({choseDate, choseOtherDate: true})
+      let choseOtherDate = true
+      if (choseDate === this.data.curDate) {
+        choseOtherDate = false
+      }
+      this.setData({choseDate, choseOtherDate})
       this.triggerEvent('resultEvent', {year, month, days, timeStamp})
     },
     backToday() {

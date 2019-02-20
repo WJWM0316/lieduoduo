@@ -24,40 +24,42 @@ export const lineFeed = (ctx, text, width, x, y, bgUrl, bgW = 750, bgH = 90) => 
 	let textArray = text.split('<newLine>')
 	let curHeight = y
 	for (let j = 0; j < textArray.length; j++) {
-		let descString = ''
-		let descWidth = 0
 		let item = textArray[j].trim()
-		if (ctx.measureText(item).width > width) {
-	    let iIndex = 0 // 最后一行的第一个字的索引
-	    for (let i = 0; i < item.length; i++) {
-	      descString = descString + item[i]
-	      descWidth = ctx.measureText(descString).width   
-	      if (descWidth > width) {
-	      	if (bgUrl) ctx.drawImage(bgUrl, 0, curHeight, bgW, bgH)
-	        ctx.fillText(descString, 80, curHeight)
-	        iIndex = i
-	        descString = ''
-	        curHeight += 48
-	      }
-	    }
-	    if (iIndex !== item.length - 1) {
-	    	if (bgUrl) ctx.drawImage(bgUrl, 0, curHeight, bgW, bgH)
-	    	ctx.fillText(item.slice(iIndex + 1, item.length), 80, curHeight)
-	    }
-	  } else {
-	    if (bgUrl) ctx.drawImage(bgUrl, 0, curHeight, bgW, bgH)
-	    ctx.fillText(item, x, curHeight)
-	  }
-	  curHeight += 48
-	  if (curHeight > 2120) {
-	  	ctx.setTextAlign('center')
-    	ctx.setFontSize(28)
-    	ctx.setFillStyle('#652791')
-	  	ctx.fillText('长按识别查看完整职位详情', 375, curHeight)
-	  	curHeight += 40
-	  	ctx.setTextAlign('left')
-	  	return curHeight
-	  }
+		if (item.length > 0) {
+			let descString = ''
+			let descWidth = 0
+			if (ctx.measureText(item).width > width) {
+		    let iIndex = 0 // 最后一行的第一个字的索引
+		    for (let i = 0; i < item.length; i++) {
+		      descString = descString + item[i]
+		      descWidth = ctx.measureText(descString).width   
+		      if (descWidth > width) {
+		      	if (bgUrl) ctx.drawImage(bgUrl, 0, curHeight, bgW, bgH)
+		        ctx.fillText(descString, 80, curHeight)
+		        iIndex = i
+		        descString = ''
+		        curHeight += 48
+		      }
+		    }
+		    if (iIndex !== item.length - 1) {
+		    	if (bgUrl) ctx.drawImage(bgUrl, 0, curHeight, bgW, bgH)
+		    	ctx.fillText(item.slice(iIndex + 1, item.length), 80, curHeight)
+		    }
+		  } else {
+		    if (bgUrl) ctx.drawImage(bgUrl, 0, curHeight, bgW, bgH)
+		    ctx.fillText(item, x, curHeight)
+		  }
+		  curHeight += 48
+		  if (curHeight > 2120) {
+		  	ctx.setTextAlign('center')
+	    	ctx.setFontSize(28)
+	    	ctx.setFillStyle('#652791')
+		  	ctx.fillText('长按识别查看完整职位详情', 375, curHeight)
+		  	curHeight += 40
+		  	ctx.setTextAlign('left')
+		  	return curHeight
+		  }
+		}
 	}
   return curHeight
 }

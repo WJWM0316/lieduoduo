@@ -18,12 +18,16 @@ App({
         //导航高度
         console.log(res, '系统信息')
         this.globalData.navHeight = res.statusBarHeight + 46
+        if (res.model.indexOf('iPhone X') !== -1) {
+          this.globalData.isIphoneX = true
+        }
       },
       fail: err => {
         console.log(err)
       }
     })
     this.login()
+
   },
   globalData: {
     identity: "", // 身份标识
@@ -37,6 +41,7 @@ App({
     resumeInfo: {}, // 个人简历信息
     recruiterDetails: {}, // 招聘官详情信息
     pageCount: 20,
+    isIphoneX: false,
     systemInfo: wx.getSystemInfoSync() // 系统信息
   },
   // 登录
@@ -276,7 +281,9 @@ App({
         this.loginedLoadData()
         resolve(res)
       }).catch(e => {
-        this.checkLogin()
+        if (e.code !== 604) {
+          this.checkLogin()
+        } 
       })
     })
   },

@@ -1,5 +1,5 @@
 <!--components/business/tabBar/tabBar.wxml-->
-<view class="tabBar {{systemInfo.model === 'iPhone X' ? 'iphoneX' : ''}}">
+<view class="tabBar {{isIphoneX ? 'iphoneX' : ''}}">
 	<view class="tabList">
 	  <view
 	  	class="tabBar-item {{item.active ? 'tabBar-item-active' : ''}}"
@@ -11,6 +11,6 @@
 	  		<view class="p">{{item.title}}</view>
 	  </view>
 	</view>
-	<view class="viewBlock" wx:if="{{systemInfo.model === 'iPhone X'}}"></view>
+	<view class="viewBlock" wx:if="{{isIphoneX}}"></view>
 </view>
-<view class="viewBlock" wx:if="{{systemInfo.model === 'iPhone X'}}"></view>
+<view class="viewBlock" wx:if="{{isIphoneX}}"></view>
