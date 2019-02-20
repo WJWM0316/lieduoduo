@@ -5,7 +5,8 @@ export const inviteInterviewApi = (data, hasLoading) => {
   return request({
     method: 'post',
     url: '/interview/inviteInterview',
-    data
+    data,
+    hasLoading
   })
 }
 
@@ -13,7 +14,9 @@ export const inviteInterviewApi = (data, hasLoading) => {
 export const interviewDetailApi = (data, hasLoading) => {
   return request({
     method: 'get',
-    url: `/interview/detail/${data.interviewId}`
+    url: `/interview/detail/${data.interviewId}`,
+    data,
+    hasLoading
   })
 }
 
@@ -22,7 +25,8 @@ export const setInterviewDetailApi = (data, hasLoading) => {
   return request({
     method: 'post',
     url: `/interview/setInterviewInfo/${data.interviewId}`,
-    data
+    data,
+    hasLoading
   })
 }
 
@@ -31,7 +35,8 @@ export const applyInterviewApi = (data, hasLoading) => {
   return request({
     method: 'post',
     url: '/interview/applyInterview',
-    data
+    data,
+    hasLoading
   })
 }
 
@@ -40,7 +45,8 @@ export const sureInterviewApi = (data, hasLoading) => {
   return request({
     method: 'post',
     url: `/interview/confirmArrangementInfo/${data.interviewId}`,
-    data
+    data,
+    hasLoading
   })
 }
 
@@ -49,7 +55,8 @@ export const getApplyListApi = (data, hasLoading) => {
   return request({
     method: 'get',
     url: '/interview/apply',
-    data
+    data,
+    hasLoading
   })
 }
 
@@ -58,7 +65,8 @@ export const getInviteListApi = (data, hasLoading) => {
   return request({
     method: 'get',
     url: '/interview/invite',
-    data
+    data,
+    hasLoading
   })
 }
 
@@ -67,7 +75,8 @@ export const getScheduleListApi = (data, hasLoading) => {
   return request({
     method: 'get',
     url: '/interview/schedule',
-    data
+    data,
+    hasLoading
   })
 }
 
@@ -76,7 +85,8 @@ export const getScheduleNumberApi = (data, hasLoading) => {
   return request({
     method: 'get',
     url: '/interview/scheduleNumber',
-    data
+    data,
+    hasLoading
   })
 }
 
@@ -86,7 +96,8 @@ export const getInterviewStatusApi = (data, hasLoading) => {
   return request({
     method: 'get',
     url: '/interview/getInterviewStatus',
-    data
+    data,
+    hasLoading
   })
 }
 
@@ -94,7 +105,9 @@ export const getInterviewStatusApi = (data, hasLoading) => {
 export const confirmInterviewApi = (data, hasLoading) => {
   return request({
     method: 'post',
-    url: `/interview/confirm/${data.id}`
+    url: `/interview/confirm/${data.id}`,
+    data,
+    hasLoading
   })
 }
 
@@ -102,7 +115,8 @@ export const confirmInterviewApi = (data, hasLoading) => {
 export const refuseInterviewApi = (data, hasLoading) => {
   return request({
     method: 'post',
-    url: `/interview/refuse/${data.id}`
+    url: `/interview/refuse/${data.id}`,
+    hasLoading
   })
 }
 
@@ -112,7 +126,8 @@ export const getIntentionListApi = (data, hasLoading) => {
   return request({
     method: 'get',
     url: `/interview/intention`,
-    data
+    data,
+    hasLoading
   })
 }
 
@@ -121,7 +136,8 @@ export const getRedDotListApi = (data, hasLoading) => {
   return request({
     method: 'get',
     url: `/interview/getRedDotInfo`,
-    data
+    data,
+    hasLoading
   })
 }
 
@@ -129,6 +145,7 @@ export const getRedDotListApi = (data, hasLoading) => {
 export const notonsiderInterviewApi = (data, hasLoading) => {
   return request({
     method: 'post',
-    url: `/interview/notonsider/${data.id}`
+    url: `/interview/notonsider/${data.id}`,
+    hasLoading
   })
 }
