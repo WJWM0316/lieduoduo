@@ -28,7 +28,6 @@ export const request = ({method = 'post', url, data = {}, needKey = true, hasLoa
     // 开启菊花图
     if (hasLoading) {
       if (loadNum === 0) {
-        console.log(1111111)
         wx.showLoading({
           title: loadingContent,
           mask: true

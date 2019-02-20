@@ -85,8 +85,9 @@ Component({
     },
     backToday() {
       this.setData({choseDate: this.data.curDate}, function() {
-        getSelectorQuery(".choseDate").then(res => {
-          console.log(res, 111111111111111111)
+        getSelectorQuery(".choseDate", this).then(res => {
+          console.log(res, 5555555555)
+          this.setData({scrollLeft: res.left})
         })
       })
       // this.scrollLeft()
