@@ -139,10 +139,10 @@
 		<block wx:elif="{{interviewInfos.interviewStatus === 31}}">
 			<view class="content">
 				<view class="first"><view class="name">{{infos.name || infos.recruiterInfo.name}}</view></view>
-				<view class="second">待求职者确认</view>
+				<view class="second">修改面试</view>
 			</view>
-			<view class="button-box button-box-color2">
-				<view bindtap="todoAction">待求职者确认</view>
+			<view class="button-box button-box-color2" data-action="recruiter-modify" bindtap="todoAction">
+				<view bindtap="todoAction">修改面试</view>
 			</view>
 		</block>
 
