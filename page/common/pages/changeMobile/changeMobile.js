@@ -18,7 +18,7 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onShow: function (options) {
     let mobile = app.globalData.resumeInfo.mobile || app.globalData.recruiterDetails.mobile
     this.setData({mobile})
   },
@@ -46,7 +46,8 @@ Page({
         return
       }
       let data = {
-        mobile: mobileNumber
+        mobile: mobileNumber,
+        type: 'change'
       }
       sendCodeApi(data).then(res => {
         this.isBlured = false
@@ -83,10 +84,13 @@ Page({
     changePhoneApi(data).then(res => {
       app.wxToast({
         title: '修改成功',
-        icon: 'success'
-      })
-      wx.navigateBack({
-        delta: 1
+        icon: 'success',
+        callback() {
+          app.globalData.mobile = data.mobile
+          wx.navigateBack({
+            delta: 1
+          })
+        }
       })
     })
   },
@@ -94,13 +98,6 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
 
   },
 

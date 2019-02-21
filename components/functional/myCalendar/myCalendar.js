@@ -13,6 +13,7 @@ if (curMonth < 10) {
   curMonth = `0${curMonth}`
 }
 let curDay = new Date().getDate()
+let curDayTimeStamp = parseInt(new Date().getTime()/1000)
 let firstWeek = 0
 let toggleYear = curYear
 let toggleMonth = curMonth
@@ -98,6 +99,8 @@ Component({
     },
     backToday() {
       this.setData({choseDate: this.data.curDate, choseOtherDate: false}, function() {
+        let timeStamp = curDayTimeStamp
+        this.triggerEvent('resultEvent', {timeStamp})
         this.scrollLeft()
       })
     },
@@ -193,7 +196,6 @@ Component({
         if (j < 10) {
           j = `0${j}`
         }
-
         let obj = {
           year,
           month,
