@@ -1,5 +1,8 @@
 <view class="recruiterList">
 	<navbar title="公司招聘官" background="#fff" color="#22292C"></navbar>
+	<view hidden="{{!hasReFresh}}">
+    <refreshStatus></refreshStatus>
+  </view>
 	<view class="ul">
 		<block wx:if="{{1 > 1111111111}}">
 			<view class="slide-view" wx:for="{{recruiterList}}" wx:key="{{index}}" wx-for-item="{{item}}">
@@ -26,7 +29,7 @@
 		  </view>
 		</block>
 		<block wx:else>
-			<view class="li" wx:for="{{recruiterList}}" wx:key="{{index}}" wx-for-item="{{item}}" data-uid="{{item.uid}}"  bindtap="jump">
+			<view class="li" wx:for="{{recruitersList.list}}" wx:key="{{index}}" wx-for-item="{{item}}" data-uid="{{item.uid}}"  bindtap="jump">
 				<view class="img-box">
 			    <image class="img" mode="aspectFill" src="{{item.avatar.middleUrl}}"></image>
 			    <view class="vip">V</view>
@@ -38,6 +41,7 @@
 		  </view>
 		</block>
 	</view>
+	<bottomStatus status="{{onBottomStatus}}" listData="{{recruitersList.list}}"></bottomStatus>
 	<!-- <view class="footer">
 		<view bindtap="authTransfer"><i class="backLast iconfont icon-bianji1"></i> 申请转移管理权限</view>
 	</view> -->
