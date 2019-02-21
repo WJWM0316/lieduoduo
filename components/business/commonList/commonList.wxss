@@ -93,7 +93,7 @@
 	overflow: hidden;
   text-overflow:ellipsis;
   white-space: nowrap;
-  max-width: 300rpx;
+  max-width: 240rpx;
 }
 
 .common-lits-ul .li .company-name {
@@ -176,6 +176,14 @@
 	margin-right: 16rpx;
 }
 
+.common-lits-ul .footer .limit-width {
+	max-width: 300rpx;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	display: inline-block;
+}
+
 .common-lits-ul .footer .action .strong {
   margin-right: 0;
   white-space: nowrap;
@@ -183,7 +191,7 @@
   overflow: hidden;
 }
 .common-lits-ul .footer .action.limit-width {
-  width: 320rpx;
+  max-width: 340rpx;
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;

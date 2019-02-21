@@ -200,7 +200,7 @@ Page({
           const onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
           value.list = res.data
           value.isLastPage = res.meta && res.meta.nextPageUrl ? false : true
-          value.pageNum = 1
+          value.pageNum = 2
           value.isRequire = true
           this.setData({[key]: value, onBottomStatus}, () => {
             wx.stopPullDownRefresh()

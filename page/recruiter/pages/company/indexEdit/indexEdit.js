@@ -22,7 +22,6 @@ Page({
       getRecruitersListApi({id}).then(res0 => {
         app.globalData.companyInfo.recruiterList = res0.data
         this.setData({info: res.data})
-        console.log(res.data, 'ddddddddd')
       })
     })
   },
@@ -44,7 +43,7 @@ Page({
       break
       case 'peoples':
         wx.navigateTo({
-          url: `${RECRUITER}company/recruiterList/recruiterList`
+          url: `${RECRUITER}company/recruiterList/recruiterList?companyId=${app.globalData.companyInfo.id}`
         })
       break
       case 'bright':
