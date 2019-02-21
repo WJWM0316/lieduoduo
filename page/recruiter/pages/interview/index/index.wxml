@@ -36,8 +36,7 @@
 			  </picker>
 			</view>
 		</view>
-		<commonList list="{{receiveData.list}}" type="receive" identity="{{identity}}" dotType="{{'circle'}}">
-		</commonList>
+		<commonList list="{{receiveData.list}}" type="receive" dotType="{{'circle'}}" showItemStatus="{{true}}"></commonList>
 		<bottomStatus status="{{applyBottomStatus}}" listData="{{receiveData.list}}"></bottomStatus>
 	</view>
 	<!--我的邀请-->
@@ -56,15 +55,13 @@
 			  </picker>
 			</view>
 		</view>
-		<commonList list="{{applyData.list}}" type="apply" identity="{{identity}}" dotType="{{'circle'}}">
-		</commonList>
+		<commonList list="{{applyData.list}}" type="apply" dotType="{{'circle'}}" showItemStatus="{{true}}"> </commonList>
 		<bottomStatus status="{{receiveBottomStatus}}" listData="{{applyData.list}}"></bottomStatus>
 	</view>
 	<!--面试日程-->
 	<view hidden="{{tabIndex !== 2}}" class="list-box">
 		<myCalendar id="myCalendar" calendarType="roll" setDateList="{{dateList}}" switchable bindresultEvent="getResult"></myCalendar>
-		<commonList list="{{interviewData.list}}" type="dateList" identity="{{identity}}" dotType="{{'circle'}}">
-		</commonList>
+		<commonList list="{{interviewData.list}}" type="dateList" dotType="{{'circle'}}" showItemStatus="{{true}}"></commonList>
 		<bottomStatus status="{{interviewBottomStatus}}" listData="{{interviewData.list}}"></bottomStatus>
 	</view>
   <tab-bar tabType="1"></tab-bar>

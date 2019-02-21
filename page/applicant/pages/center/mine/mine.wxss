@@ -1,6 +1,3 @@
-.mine .header-bg{
-  height: 278rpx;
-}
 .bgImg {
   width: 100%;
   height: 415rpx;
@@ -9,6 +6,7 @@
   left: 0;
   top: 0;
   z-index: -1;
+  transform: translate3d(0,0,0);
 }
 
 .mine .floating-box {

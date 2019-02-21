@@ -3,11 +3,7 @@
   display: inline-block;
   height: 430rpx;
   vertical-align: text-top;
-  margin-top: -1rpx;
-}
-
-.index-bannar {
-  border-top: 30rpx solid #652791;
+  border-top: 20rpx solid #652791;
 }
 
 .index-list-box {

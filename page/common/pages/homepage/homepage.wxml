@@ -64,7 +64,7 @@
 			<view class="title">
 				<view class="icon"> <view class="fan"></view> </view> 公司介绍
 			</view>
-			<view class="swiper-box">
+			<view class="swiper-box" wx:if="{{companyInfos.albumInfo.length}}">
 				<view class="num-box">{{swiperIndex + 1}}/{{companyInfos.albumInfo.length}}</view>
 				<swiper
 					class="swiper-block"

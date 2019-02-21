@@ -133,8 +133,9 @@ Page({
         const onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
         myBrowse.list = myBrowse.list.concat(res.data)
         myBrowse.isLastPage = res.meta && res.meta.nextPageUrl ? false : true
-        myBrowse.pageNum = myBrowse.pageNum + 1
+        myBrowse.pageNum++
         myBrowse.isRequire = true
+        console.log(myBrowse)
         this.setData({myBrowse, onBottomStatus}, () => resolve(res))
       })
     })
@@ -216,7 +217,7 @@ Page({
       const onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
       value.list = res.data
       value.isLastPage = res.meta && res.meta.nextPageUrl ? false : true
-      value.pageNum = 1
+      value.pageNum = 2
       value.isRequire = true
       this.setData({[key]: value, onBottomStatus, hasReFresh: false}, () => wx.stopPullDownRefresh())
     }).catch(e => {
@@ -232,7 +233,10 @@ Page({
   onReachBottom() {
     const key = this.data.pageList
     const value = this.data[key]
-    if (!value.isLastPage) this.getLists(false).then(() => this.setData({onBottomStatus: 1}))
+    if (!value.isLastPage) {
+      this.setData({onBottomStatus: 1})
+      this.getLists(false)
+    }
   },
 /**
    * @Author   小书包

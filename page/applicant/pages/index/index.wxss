@@ -6,17 +6,13 @@
   position: relative;
 }
 
-.index-bannar {
-  border-top: 30rpx solid #652791;
-}
-
 .index-bannar image {
   width: 100%;
   display: inline-block;
   height: 430rpx;
   vertical-align: text-top;
   position: relative;
-  margin-top: -1rpx;
+  border-top: 20rpx solid #652791;
 }
 
 .ul-tab-bar {
