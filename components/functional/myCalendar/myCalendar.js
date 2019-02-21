@@ -74,7 +74,7 @@ Component({
   methods: {
     scrollLeft() {
       let systemInfo = getApp().globalData.systemInfo
-      let itemWidth = 0.14285 * systemInfo.windowWidth
+      itemWidth = 0.14285 * systemInfo.windowWidth
       let scrollLeft = 0
       for(let i = 0; i < this.data.list.length; i++) {
         if (this.data.list[i].date === this.data.curDate) {
@@ -164,7 +164,9 @@ Component({
         let scrollLeft = itemWidth * 28
         let list = this.getThisMonthDays(prevYear, prevMonth, 'ord')
         this.setData({list, scrollLeft}, function() {
-          isLoadData = false
+          setTimeout(() => {
+            isLoadData = false
+          }, 1000)
         })
       } else {
         toggleMonth--

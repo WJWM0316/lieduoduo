@@ -20,22 +20,23 @@ export const ellipsis = (ctx, text, width, x, y) => {
 
 // 文本换行  ctx canvas对象 text 文本  width 限制宽度  bgUrl 背景图url
 export const lineFeed = (ctx, text, width, x, y, bgUrl, bgW = 750, bgH = 90) => {
+	bgH = 150
 	text = text.replace(/[\r\n]/g, '<newLine>')
 	let textArray = text.split('<newLine>')
 	let curHeight = y
-	console.log(textArray, 111111111)
 	for (let j = 0; j < textArray.length; j++) {
 		let item = textArray[j].trim()
-		if (item !== '') {
-			console.log(item === '', 1111111111111)
+		if (!item.match(/^[ ]+$/)) {
 			let descString = ''
-			let descWidth = 0
+			let nextDescString = ''
+			let nextDescWidth = 0
 			if (ctx.measureText(item).width > width) {
 		    let iIndex = 0 // 最后一行的第一个字的索引
 		    for (let i = 0; i < item.length; i++) {
 		      descString = descString + item[i]
-		      descWidth = ctx.measureText(descString).width   
-		      if (descWidth > width) {
+		      nextDescString = descString + item[i]
+		      nextDescWidth = ctx.measureText(nextDescString).width
+		      if (nextDescWidth > width + 20) {
 		      	if (bgUrl) ctx.drawImage(bgUrl, 0, curHeight, bgW, bgH)
 		        ctx.fillText(descString, 80, curHeight)
 		        iIndex = i

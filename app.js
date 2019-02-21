@@ -172,6 +172,7 @@ App({
                   }
                 })
               } else {
+                wx.removeStorageSync('sessionToken')
                 var pages = getCurrentPages() //获取加载的页面
                 let pageUrl = pages[0].route
                 if (pageUrl !== 'page/applicant/pages/index/index') {
@@ -201,13 +202,16 @@ App({
         let wxLogin = function () {
           // 请求接口获取服务器session_key
           var pages = getCurrentPages() //获取加载的页面
-          let pageUrl = pages[pages.length - 1].route
+          let pageUrl = pages[0].route
           let params = ''
           for (let i in pages[0].options) {
             params = `${params}${i}=${pages[0].options[i]}&`
           }
           pageUrl = `${pageUrl}?${params}`
           data.code = wx.getStorageSync('code')
+          if (wx.getStorageSync('sessionToken')) {
+            data.session_token = wx.getStorageSync('sessionToken')
+          }
           loginApi(data).then(res => {
             wx.removeStorageSync('code')
             // 有token说明已经绑定过用户了
@@ -232,6 +236,13 @@ App({
                 delta: 1
               })
             }
+          }).catch(e => {
+            wx.login({
+              success: function (res0) {
+                wx.setStorageSync('code', res0.code)
+              }
+            })
+            reject(e)
           })
         }
         wxLogin()

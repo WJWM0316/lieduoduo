@@ -10,10 +10,12 @@
   </view>
   <view class="form">
     <view class="phone">
-      <input type="number" value="{{phone}}" placeholder="请输入手机号码" placeholder-style="color: #A59CB6" bindconfirm="getPhone" bindinput="getPhone" maxlength="11"></input>
+      <input class="phoneInput" type="number" value="{{phone}}" placeholder="请输入手机号码" placeholder-style="color: #A59CB6" bindconfirm="getPhone" bindinput="getPhone" maxlength="11"></input>
     </view>
     <view class="code">
-      <input type="number" value="{{code}}" placeholder="请输入短信验证码" bindinput="getCode" placeholder-style="color: #A59CB6"></input>
+      <view class="inputBox">
+        <input class="codeInput" type="number" value="{{code}}" placeholder="请输入短信验证码" bindinput="getCode" placeholder-style="color: #A59CB6"></input>
+      </view>
       <view bindtap="sendCode" class="sendBtn" hidden="{{second < 60}}">获取验证码</view>
       <view class="sendBtn wait" hidden="{{second === 60}}">{{second}}s</view>
     </view>

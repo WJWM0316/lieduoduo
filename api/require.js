@@ -71,9 +71,11 @@ export const request = ({method = 'post', url, data = {}, needKey = true, hasLoa
               }
               // 需要用到微信token， 需要授权
               if (msg.code === 902) {
-                wx.navigateTo({
-                  url: `${COMMON}auth/auth`
-                })
+                if (url !== '/wechat/login/mini') {
+                  wx.navigateTo({
+                    url: `${COMMON}auth/auth`
+                  })
+                }
               }
               break
             case 400:
