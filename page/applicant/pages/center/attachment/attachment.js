@@ -41,7 +41,8 @@ Page({
         console.log(res, '扫码信息')
         const uuid = res.result.split('&')[0].slice(5)
         scanQrcodeApi({uuid}).then(res => {
-          scanLoginApi({uuid, isBusiness: 0}).then(res => console.log(res))
+          const isBusiness = 0
+          scanLoginApi({uuid, isBusiness}).then(res => console.log(res))
         })
       }
     })
