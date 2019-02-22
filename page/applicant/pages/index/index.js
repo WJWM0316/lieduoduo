@@ -40,13 +40,11 @@ Page({
     fixedDom: false
   },
   onLoad() {
+
+  },
+  onShow() {
     let choseType = wx.getStorageSync('choseType') || ''
     this.setData({choseType})
-    if (!choseType) {
-      wx.hideTabBar()
-    } else {
-      wx.showTabBar()
-    }
     if (choseType === 'RECRUITER') {
       app.wxConfirm({
         title: '提示',
@@ -64,8 +62,12 @@ Page({
         }
       })
     }
-  },
-  onShow() {
+    if (!choseType) {
+      wx.hideTabBar()
+      wx.setStorageSync('choseType', 'APPLICANT')
+    } else {
+      wx.showTabBar()
+    }
     const myBrowse = {
       list: [],
       pageNum: 1,

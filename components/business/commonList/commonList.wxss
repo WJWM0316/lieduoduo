@@ -7,7 +7,6 @@
 	box-shadow:0px 8rpx 20rpx 0rpx rgba(34,56,101,0.08);
 	padding: 30rpx 40rpx;
 	margin-bottom: 18rpx;
-	position: relative;
 	border-radius: 10rpx;
 }
 
