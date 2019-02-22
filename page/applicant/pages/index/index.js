@@ -35,7 +35,9 @@ Page({
     hasReFresh: false,
     onBottomStatus: 0,
     isFixed: true,
-    background: 'transparent'
+    background: 'transparent',
+    fixedDomPosition: 0,
+    fixedDom: false
   },
   onLoad() {
     let choseType = wx.getStorageSync('choseType') || ''
@@ -89,7 +91,7 @@ Page({
   },
   getDomNodePosition() {
     getSelectorQuery('.ul-tab-bar').then(res => {
-      this.setData({scrollHere: res.top})
+      this.setData({fixedDomPosition: res.top - this.data.navH})
     })
   },
   /**
@@ -135,7 +137,6 @@ Page({
         myBrowse.isLastPage = res.meta && res.meta.nextPageUrl ? false : true
         myBrowse.pageNum++
         myBrowse.isRequire = true
-        console.log(myBrowse)
         this.setData({myBrowse, onBottomStatus}, () => resolve(res))
       })
     })
@@ -238,7 +239,7 @@ Page({
       this.getLists(false)
     }
   },
-/**
+  /**
    * @Author   小书包
    * @DateTime 2019-01-23
    * @detail   就算页面的滚动
@@ -246,10 +247,16 @@ Page({
    */
   onPageScroll(e) {
     let isFixed = e.scrollTop > this.data.navH
-    if(e.scrollTop > this.data.navH) {
+    if(e.scrollTop > this.data.navH - 5) {
       this.setData({isFixed: true, background: '#652791'})
     } else {
       this.setData({isFixed: false, background: 'transparent'})
+    }
+
+    if(e.scrollTop > this.data.fixedDomPosition) {
+      this.setData({fixedDom: true})
+    } else {
+      this.setData({fixedDom: false})
     }
   }
 })

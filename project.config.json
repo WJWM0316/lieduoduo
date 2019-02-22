@@ -38,7 +38,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 50,
+			"current": 53,
 			"list": [
 				{
 					"id": 0,
@@ -345,6 +345,27 @@
 					"id": 50,
 					"name": "招聘官列表",
 					"pathName": "page/recruiter/pages/company/recruiterList/recruiterList",
+					"query": "companyId=36",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "B端面试",
+					"pathName": "page/recruiter/pages/interview/index/index",
+					"query": "companyId=36",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "c端面试",
+					"pathName": "page/applicant/pages/interview/interview/interview",
+					"query": "companyId=36",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "c端职位广场",
+					"pathName": "page/applicant/pages/jobs/job/job",
 					"query": "companyId=36",
 					"scene": null
 				}

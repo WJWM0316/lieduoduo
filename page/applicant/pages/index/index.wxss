@@ -1,6 +1,6 @@
 .more{
   background-color: #FFFFFF;
-  margin: -138rpx 30rpx 36rpx 30rpx;
+  margin: -138rpx 30rpx 0 30rpx;
   border-radius: 10rpx;
   box-shadow:0px 8px 22px 0px rgba(34,56,101,0.08);
   position: relative;
@@ -8,18 +8,31 @@
 
 .index-bannar image {
   width: 100%;
-  display: inline-block;
   height: 430rpx;
   vertical-align: text-top;
   position: relative;
   border-top: 20rpx solid #652791;
+  display: block;
 }
 
 .ul-tab-bar {
   display: flex;
   line-height: 80rpx;
   border-bottom: 1rpx solid rgba(243,233,249,1);
-  margin: 0 30rpx;
+}
+
+.default {
+  padding: 0 30rpx;
+  background: #FBFBFF;
+  padding-top: 36rpx;
+  z-index: 222;
+}
+
+.fixed {
+  position: fixed;
+  left: 0;
+  right: 0;
+  padding-top: 24rpx;
 }
 
 .ul-tab-bar .li {

@@ -1,4 +1,4 @@
-.interview-tab-bar {
+.fixed-bar {
   display: flex;
   line-height: 98rpx;
 	background:rgba(255,255,255,1);
@@ -7,7 +7,7 @@
 	z-index: 2;
 }
 
-.interview-tab-bar .li {
+.fixed-bar .li {
   flex-grow: 1;
 	font-size:32rpx;
 	font-weight:400;
@@ -16,14 +16,14 @@
 	position: relative;
 }
 
-.interview-tab-bar .li .span{
+.fixed-bar .li .span{
 	display: inline-block;
 	position: relative;
 	line-height: 1;
 	vertical-align: middle;
 }
 
-.interview-tab-bar .red-dot .span:before {
+.fixed-bar .red-dot .span:before {
   position: absolute;
   top: -15rpx;
   right: -15rpx;
@@ -36,7 +36,7 @@
 	border-radius: 50%;
 }
 
-.interview-tab-bar .li:before {
+.fixed-bar .li:before {
   position: absolute;
   display: block;
   content: '';
@@ -52,11 +52,12 @@
 	transition: all ease .4s;
 }
 
-.interview-tab-bar .li.active {
+.fixed-bar .li.active {
 	pointer-events: none;
+	font-weight: bold;
 }
 
-.interview-tab-bar .li.active:before {
+.fixed-bar .li.active:before {
 	opacity: 1;
 	visibility: visible;
 }
@@ -146,3 +147,11 @@
   padding: 0 30rpx;
   margin-top: 18rpx;
 }
+.fixed-dom {
+	position: fixed;
+	left: 0;
+	right: 0;
+	z-index: 2;
+}
+
+.list-box {}

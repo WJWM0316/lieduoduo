@@ -1,9 +1,17 @@
 import {RECRUITER} from '../../../../../config.js'
+
 import { getInviteListApi, getApplyListApi, getScheduleListApi, getScheduleNumberApi} from '../../../../../api/pages/interview.js'
+
 import {getRecruiterPositionListApi} from '../../../../../api/pages/position.js'
+
 const app = getApp()
+
 let chooseTime = parseInt(new Date().getTime() / 1000)
+
+import {getSelectorQuery} from "../../../../../utils/util.js"
+
 let positionList = []
+
 let initData = {
   list: [],
   pageNum: 1,
@@ -11,9 +19,11 @@ let initData = {
   isLastPage: false,
   isRequire: false
 }
+
 Page({
   data: {
     navH: app.globalData.navHeight,
+    fixedBarHeight: 0,
     tabIndex: 0,
     hasReFresh: false,
     applyData: initData,
@@ -194,6 +204,7 @@ Page({
         }
         break
     }
+    this.getFixedDomNodePosition()
   },
   init () {
     let id = app.globalData.recruiterDetails.uid
@@ -206,6 +217,13 @@ Page({
   },
   onShow () {
     this.init()
+    this.getFixedDomNodePosition()
+  },
+  getFixedDomNodePosition() {
+    getSelectorQuery('.fixed-dom').then(res => {
+      console.log(res)
+      this.setData({fixedBarHeight: res.height})
+    })
   },
   onReachBottom(e) {
     switch(this.data.tabIndex) {
