@@ -1,9 +1,9 @@
 .index-bannar image {
   width: 100%;
-  display: inline-block;
   height: 430rpx;
   vertical-align: text-top;
   border-top: 20rpx solid #652791;
+  display: block;
 }
 
 .index-list-box {

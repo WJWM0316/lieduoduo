@@ -1,6 +1,7 @@
 
 .productList .button-save {
   height:88rpx;
+  line-height: 88rpx;
   background:rgba(101,39,145,1);
   border-radius:48px;
   font-size:32rpx;

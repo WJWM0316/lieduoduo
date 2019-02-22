@@ -13,12 +13,14 @@
     <moreActive type="1" avatarList="{{moreRecruiter}}"></moreActive>
     <moreActive type="2" avatarList="{{recruiterDynamic}}" redDotActiveList="{{false}}"></moreActive>
   </view>
-
-  <view class="ul-tab-bar">
-    <view class="li {{pageList === 'myBrowse' ? 'active' : ''}}" bindtap="onTabClick" data-key="myBrowse">我看过的</view>
-    <view class="li {{pageList === 'myCollect' ? 'active' : ''}}" bindtap="onTabClick" data-key="myCollect">我感兴趣的</view>
-  </view>
   
+  <view class="default {{fixedDom ? 'fixed' : ''}}" style="top: {{navH}}px">
+    <view class="ul-tab-bar">
+      <view class="li {{pageList === 'myBrowse' ? 'active' : ''}}" bindtap="onTabClick" data-key="myBrowse">我看过的</view>
+      <view class="li {{pageList === 'myCollect' ? 'active' : ''}}" bindtap="onTabClick" data-key="myCollect">我感兴趣的</view>
+    </view>
+  </view>
+
   <view class="{{myBrowse.list.length ? '' : 'nodata'}}" hidden="{{pageList === 'myCollect'}}">
     <officerTab list="{{myBrowse.list}}" showSlideView="{{false}}" buttonType="delete" bindrefreshevent="refreshEvent"></officerTab>
     <bottomStatus status="{{onBottomStatus}}" listData="{{myBrowse.list}}" desc="你还没有看过的职位和招聘官哟～" marginTop="{{0}}">

@@ -5,39 +5,25 @@
 		<refreshStatus></refreshStatus>
 	</view>
 	
-	<view class="interview-tab-bar">
-		<view
-			class="li {{tab.active ? 'active' : ''}} {{tab.showRedDot ? 'red-dot' : ''}}"
-			bindtap="chooseParentTab"
-			data-mark="{{tab.id}}"
-			wx:for="{{tabLists}}"
-			wx:for-item="tab"
-			data-index="{{index}}"
-			wx:key="{{tab.id}}">
-				<view class="span">{{tab.text}}</view>
-		</view>
-	</view>
-  <!--申请记录-->
-	<view hidden="{{tabIndex !== 0}}">
-		<view class="tab-tab-list">
-			<view class="ul">
-				<view
-				 	wx:for="{{applyScreen}}" 
-				 	wx:key="{{index}}"
-					class="item {{item.active ? 'active' : ''}} {{item.showRedDot ? 'red-dot' : ''}}"
-					bindtap="chooseItem"
-					data-index="{{index}}"
-					>
-						<view class="span">{{item.key}}</view>
-				</view>
+	<view class="fixed-dom" style="top: {{navH}}px">
+
+		<!-- 一级导航栏 start -->
+		<view class="fixed-bar">
+			<view
+				class="li {{tab.active ? 'active' : ''}} {{tab.showRedDot ? 'red-dot' : ''}}"
+				bindtap="chooseParentTab"
+				data-mark="{{tab.id}}"
+				wx:for="{{tabLists}}"
+				wx:for-item="tab"
+				data-index="{{index}}"
+				wx:key="{{tab.id}}">
+					<view class="span">{{tab.text}}</view>
 			</view>
 		</view>
-		<commonList personality="list" type="receive" list="{{applyData.list}}" list-type="default" showItemStatus="{{true}}"></commonList>
-		<bottomStatus status="{{applyBottomStatus}}" listData="{{applyData.list}}"></bottomStatus>
-	</view>
-	<!--收到邀请-->
-	<view hidden="{{tabIndex !== 1}}">
-		<view class="tab-tab-list">
+		<!-- 一级导航栏 end -->
+
+		<!-- 申请记录 start -->
+		<view class="tab-tab-list" hidden="{{tabIndex !== 1}}">
 			<view class="ul">
 				<view
 				 	wx:for="{{receiveScreen}}" 
@@ -50,12 +36,41 @@
 				</view>
 			</view>
 		</view>
+		<!-- 申请记录 end -->
+
+		<!-- 收到邀请 start -->
+		<view class="tab-tab-list" hidden="{{tabIndex !== 0}}">
+			<view class="ul">
+				<view
+				 	wx:for="{{applyScreen}}" 
+				 	wx:key="{{index}}"
+					class="item {{item.active ? 'active' : ''}} {{item.showRedDot ? 'red-dot' : ''}}"
+					bindtap="chooseItem"
+					data-index="{{index}}"
+					>
+						<view class="span">{{item.key}}</view>
+				</view>
+			</view>
+		</view>
+		<!-- 收到邀请 end -->
+		
+		<!-- 面试日程 start-->
+		<myCalendar wx:if="{{tabIndex === 2}}" id="myCalendar" calendarType="roll" setDateList="{{dateList}}" switchable bindresultEvent="getResult"></myCalendar>
+		<!-- 面试日程 end-->
+	</view>
+
+  <!--申请记录-->
+	<view hidden="{{tabIndex !== 0}}" class="list-box" style="padding-top: {{fixedBarHeight}}px">
+		<commonList personality="list" type="receive" list="{{applyData.list}}" list-type="default" showItemStatus="{{true}}"></commonList>
+		<bottomStatus status="{{applyBottomStatus}}" listData="{{applyData.list}}"></bottomStatus>
+	</view>
+	<!--收到邀请-->
+	<view hidden="{{tabIndex !== 1}}" class="list-box" style="padding-top: {{fixedBarHeight}}px">
 		<commonList personality="list" type="apply" list="{{receiveData.list}}" list-type="default" showItemStatus="{{true}}"></commonList>
 		<bottomStatus status="{{receiveBottomStatus}}" listData="{{receiveData.list}}"></bottomStatus>
 	</view>
 	<!--面试日程-->
-	<view hidden="{{tabIndex !== 2}}">
-		<myCalendar wx:if="{{tabIndex === 2}}" id="myCalendar" calendarType="roll" setDateList="{{dateList}}" switchable bindresultEvent="getResult"></myCalendar>
+	<view hidden="{{tabIndex !== 2}}" class="list-box" style="padding-top: {{fixedBarHeight}}px">
 		<commonList personality="list" type="dateList" list="{{interviewData.list}}" list-type="interview}}"></commonList>
 		<bottomStatus status="{{interviewBottomStatus}}" listData="{{interviewData.list}}"></bottomStatus>
 	</view>

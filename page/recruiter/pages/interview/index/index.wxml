@@ -1,28 +1,29 @@
 <view class="recruiter-interview">
 	<navbar title="面试"></navbar>
+
 	<view hidden="{{!hasReFresh}}">
 		<refreshStatus></refreshStatus>
 	</view>
-	<view style="height: 98rpx"></view>
-	<view class="interview-tab-bar" style="top: {{navH}}px">
-		<view
-			class="li {{tab.active ? 'active' : ''}} {{tab.showRedDot ? 'red-dot' : ''}}"
-			bindtap="chooseParentTab"
-			data-mark="{{tab.id}}"
-			wx:for="{{tabLists}}"
-			wx:for-item="tab"
-			data-index="{{index}}"
-			wx:key="{{tab.id}}">
-				<view class="span">{{tab.text}}</view>
+
+	<view class="fixed-dom" style="top: {{navH}}px">
+
+		<!-- 顶部tab栏 start-->
+		<view class="fixed-bar">
+			<view
+				class="li {{tab.active ? 'active' : ''}} {{tab.showRedDot ? 'red-dot' : ''}}"
+				bindtap="chooseParentTab"
+				data-mark="{{tab.id}}"
+				wx:for="{{tabLists}}"
+				wx:for-item="tab"
+				data-index="{{index}}"
+				wx:key="{{tab.id}}">
+					<view class="span">{{tab.text}}</view>
+			</view>
 		</view>
-	</view>
-	<view class="interview-page-title" wx:if="{{tabParentIndex === 2}}">
-		<view class="text">面试安排(0)</view>
-		<view class="button" bindtap="jumpInterviewPage">面试历史</view> 
-	</view>
-	<!--收到意向-->
-	<view hidden="{{tabIndex !== 0}}" class="list-box">
-		<view class="select-box">
+		<!-- 顶部tab栏 end-->
+
+		<!-- 收到意向 start-->
+		<view class="select-box" hidden="{{tabIndex !== 0}}">
 			<view class="item">
 				<picker range="{{receiveScreen}}" range-key="key" bindchange="bindChange" data-type="receiveStatus" value="{{receiveIndex}}">
 			    <view class="picker">{{receiveScreen[receiveIndex].key}}</view>
@@ -36,12 +37,10 @@
 			  </picker>
 			</view>
 		</view>
-		<commonList list="{{receiveData.list}}" type="receive" dotType="{{'circle'}}" showItemStatus="{{true}}"></commonList>
-		<bottomStatus status="{{applyBottomStatus}}" listData="{{receiveData.list}}"></bottomStatus>
-	</view>
-	<!--我的邀请-->
-	<view hidden="{{tabIndex !== 1}}" class="list-box">
-		<view class="select-box">
+		<!-- 收到意向 end-->
+		
+		<!-- 我的邀请 start-->
+		<view class="select-box" hidden="{{tabIndex !== 1}}">
 			<view class="item">
 				<picker range="{{applyScreen}}" range-key="key" bindchange="bindChange" data-type="applyStatus" value="{{applyIndex}}">
 			    <view class="picker">{{applyScreen[applyIndex].key}}</view>
@@ -55,12 +54,31 @@
 			  </picker>
 			</view>
 		</view>
+		<!-- 收到意向 end-->
+		
+		<!-- 面试日程 start-->
+		<myCalendar id="myCalendar" calendarType="roll" setDateList="{{dateList}}" switchable bindresultEvent="getResult" wx:if="{{tabIndex === 2}}"></myCalendar>
+
+<!-- 		<view class="interview-page-title" wx:if="{{tabIndex === 2}}">
+			<view class="text">面试安排(0)</view>
+			<view class="button" bindtap="jumpInterviewPage">面试历史</view> 
+		</view> -->
+		<!-- 面试日程 end-->
+	</view>
+
+
+	<!--收到意向-->
+	<view hidden="{{tabIndex !== 0}}" class="list-box" style="padding-top: {{fixedBarHeight}}px">
+		<commonList list="{{receiveData.list}}" type="receive" dotType="{{'circle'}}" showItemStatus="{{true}}"></commonList>
+		<bottomStatus status="{{applyBottomStatus}}" listData="{{receiveData.list}}"></bottomStatus>
+	</view>
+	<!--我的邀请-->
+	<view hidden="{{tabIndex !== 1}}" class="list-box" style="padding-top: {{fixedBarHeight}}px">
 		<commonList list="{{applyData.list}}" type="apply" dotType="{{'circle'}}" showItemStatus="{{true}}"> </commonList>
 		<bottomStatus status="{{receiveBottomStatus}}" listData="{{applyData.list}}"></bottomStatus>
 	</view>
 	<!--面试日程-->
-	<view hidden="{{tabIndex !== 2}}" class="list-box">
-		<myCalendar id="myCalendar" calendarType="roll" setDateList="{{dateList}}" switchable bindresultEvent="getResult"></myCalendar>
+	<view hidden="{{tabIndex !== 2}}" class="list-box" style="padding-top: {{fixedBarHeight}}px">
 		<commonList list="{{interviewData.list}}" type="dateList" dotType="{{'circle'}}" showItemStatus="{{true}}"></commonList>
 		<bottomStatus status="{{interviewBottomStatus}}" listData="{{interviewData.list}}"></bottomStatus>
 	</view>

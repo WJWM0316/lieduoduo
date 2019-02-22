@@ -20,6 +20,8 @@ const app = getApp()
 Page({
   data: {
     pageCount: 20,
+    navH: app.globalData.navHeight,
+    fixedBarHeight: 0,
     hasReFresh: false,
     onBottomStatus: 0,
     positionList: {

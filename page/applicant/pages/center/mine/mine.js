@@ -14,7 +14,8 @@ Page({
     hasReFresh: false,
     cdnImagePath: app.globalData.cdnImagePath,
     resumeAttach: {},
-    navH: app.globalData.navHeight
+    navH: app.globalData.navHeight,
+    isJobhunter: 0
   },
   /**
    * 生命周期函数--监听页面加载
@@ -22,13 +23,16 @@ Page({
   onShow() {
     let hasLogin = false
     let myInfo = {}
+    let isJobhunter = 0
     hasLogin = app.globalData.hasLogin
     myInfo = app.globalData.resumeInfo
-    this.setData({myInfo, hasLogin, resumeAttach: myInfo.resumeAttach || {}})
+    isJobhunter = app.globalData.isJobhunter
+    this.setData({myInfo, isJobhunter, hasLogin, resumeAttach: myInfo.resumeAttach || {}})
     app.pageInit = () => {
       hasLogin = app.globalData.hasLogin
       myInfo = app.globalData.resumeInfo
-      this.setData({myInfo, hasLogin})
+      isJobhunter = app.globalData.isJobhunter
+      this.setData({myInfo, hasLogin, isJobhunter})
     }
   },
   call() {
@@ -80,7 +84,9 @@ Page({
         })
         break
       case "scanCode":
-        wx.navigateTo({url: `${APPLICANT}center/attachment/attachment` })
+        if(this.data.isJobhunter) {
+          wx.navigateTo({url: `${APPLICANT}center/attachment/attachment` })
+        }
         break
       default:
         break

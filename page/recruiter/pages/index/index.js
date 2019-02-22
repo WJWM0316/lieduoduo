@@ -9,7 +9,10 @@ import {
 import {
   getBrowseMySelfListsApi
 } from '../../../../api/pages/recruiter.js'
+
 import {RECRUITER, COMMON, APPLICANT} from '../../../../config.js'
+
+import {getSelectorQuery}  from '../../../../utils/util.js'
 
 const app = getApp()
 
@@ -39,7 +42,9 @@ Page({
     },
     pageCount: 20,
     hasReFresh: false,
-    onBottomStatus: 0
+    onBottomStatus: 0,
+    fixedDomPosition: 0,
+    fixedDom: false
   },
   onLoad() {
     let choseType = wx.getStorageSync('choseType') || ''
@@ -94,6 +99,12 @@ Page({
         this.getLists()
       }
     }
+    this.getDomNodePosition()
+  },
+  getDomNodePosition() {
+    getSelectorQuery('.ul-tab-bar').then(res => {
+      this.setData({fixedDomPosition: res.top - this.data.navH})
+    })
   },
   /**
    * @Author   小书包
@@ -227,7 +238,24 @@ Page({
     let that = this
 　　return app.wxShare({options})
   },
+  /**
+   * @Author   小书包
+   * @DateTime 2019-01-23
+   * @detail   就算页面的滚动
+   * @return   {[type]}     [description]
+   */
   onPageScroll(e) {
-    // console.log(e.scrollTop)
+    let isFixed = e.scrollTop > this.data.navH
+    if(e.scrollTop > this.data.navH - 5) {
+      this.setData({isFixed: true, background: '#652791'})
+    } else {
+      this.setData({isFixed: false, background: 'transparent'})
+    }
+
+    if(e.scrollTop > this.data.fixedDomPosition) {
+      this.setData({fixedDom: true})
+    } else {
+      this.setData({fixedDom: false})
+    }
   }
 })

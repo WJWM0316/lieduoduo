@@ -1,7 +1,19 @@
-import { getApplyListApi, getInviteListApi, getScheduleListApi, getRedDotListApi, getScheduleNumberApi} from '../../../../../api/pages/interview.js'
+import {
+  getApplyListApi,
+  getInviteListApi,
+  getScheduleListApi,
+  getRedDotListApi,
+  getScheduleNumberApi
+} from '../../../../../api/pages/interview.js'
+
 import {RECRUITER} from '../../../../../config.js'
+
+import {getSelectorQuery} from "../../../../../utils/util.js"
+
 const app = getApp()
+
 let chooseTime = parseInt(new Date().getTime() / 1000)
+
 let initData = {
   list: [],
   pageNum: 1,
@@ -9,10 +21,12 @@ let initData = {
   isLastPage: false,
   isRequire: false
 }
+
 Page({
   data: {
     cdnImagePath: app.globalData.cdnImagePath,
     navH: app.globalData.navHeight,
+    fixedBarHeight: 0,
     dateList: [],
     hasReFresh: false,
     tabIndex: 0,
@@ -178,6 +192,12 @@ Page({
   },
   onShow () {
     this.init()
+    this.getFixedDomNodePosition()
+  },
+  getFixedDomNodePosition() {
+    getSelectorQuery('.fixed-dom').then(res => {
+      this.setData({fixedBarHeight: res.height})
+    })
   },
   onReachBottom(e) {
     switch(this.data.tabIndex) {
