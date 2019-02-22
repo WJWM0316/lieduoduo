@@ -28,6 +28,8 @@ Component({
       this.setData({
         isChose: true
       })
+    } else {
+      wx.setStorageSync('choseType', 'APPLICANT')
     }
   },
 

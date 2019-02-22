@@ -86,11 +86,7 @@ App({
   // 退出登录
   uplogin() {
     uploginApi().then(res => {
-      let sessionToken = wx.getStorageSync('sessionToken')
-      let choseType = wx.getStorageSync('choseType')
       wx.clearStorageSync()
-      wx.setStorageSync('sessionToken', sessionToken)
-      wx.setStorageSync('choseType', choseType)
       this.globalData.identity = ''
       this.globalData.hasLogin = false
       this.globalData.resumeInfo = {}
