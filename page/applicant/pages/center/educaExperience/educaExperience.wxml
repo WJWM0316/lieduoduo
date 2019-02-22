@@ -1,5 +1,5 @@
 <!--完善简历第一步-->
-<navbar background="transparent" color="#fff"></navbar>
+<navbar title=" " background="transparent" color="#fff"></navbar>
 
 <view class="header" style="margin-top: -{{navHeight}}px">
   <image class="headerBg" src="{{cdnImagePath}}pic_bg_new@3x.png"></image>
