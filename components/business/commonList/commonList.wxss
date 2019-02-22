@@ -94,13 +94,14 @@
   text-overflow:ellipsis;
   white-space: nowrap;
   max-width: 240rpx;
+  color: #929292;
 }
 
 .common-lits-ul .li .company-name {
-	font-size:24rpx;
+	font-size:28rpx;
 	font-weight:300;
 	color:rgba(146,146,146,1);
-	line-height:1;
+	line-height:28rpx;
 	display: inline-block;
 	text-overflow: ellipsis;
 	white-space: nowrap;
@@ -160,7 +161,7 @@
 	color:rgba(146,146,146,1);
 	line-height:1;
 	margin-top: 20rpx;
-	padding-top: 25rpx;
+	padding-top: 24rpx;
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;

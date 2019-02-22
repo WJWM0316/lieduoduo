@@ -28,9 +28,14 @@ Page({
     let info = this.data.info
     let hasFilter = false
     if (!info.arrangementInfo) {
-      info.arrangementInfo = {}
+      info.arrangementInfo = {
+        appointmentList: []
+      }
+    } else {
+      if (!info.arrangementInfo.appointmentList) {
+        info.arrangementInfo.appointmentList = []
+      }
     }
-    info.arrangementInfo.appointmentList = []
     info.arrangementInfo.appointmentList.map((item, index) => {
       if (item.appointmentTime === date) {
         getApp().wxToast({

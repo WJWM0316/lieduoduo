@@ -173,7 +173,6 @@ Component({
       case 'staffMembers':
         list = this.data.staffMembers
         result = 0
-        
         list.map((item, index) => {
           if (item.name === this.data.setResult) {
             result = `${index}`

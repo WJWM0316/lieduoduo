@@ -32,7 +32,7 @@
           </block>
 
           <block wx:if="{{mode === 'selector'}}">
-            <view  class="showTxt" wx:if="{{rangeKey}}">{{list[result][rangeKey]}}<i class="iconfont icon-sanjiaoshaixuan triangle" wx:if="{{isTriangle}}"></i></view>
+            <view  class="showTxt" wx:if="{{rangeKey}}">{{list[result][rangeKey]}}<i class="iconfont icon-sanjiaoshaixuan triangle" wx:if="{{pickerType === 'occupation' && isTriangle}}"></i></view>
             <view  class="showTxt" wx:else>{{list[result]}}</view>
           </block>
         </block>
