@@ -1,7 +1,6 @@
 @import '../../../iconfont.wxss'
 .refresh {
 	padding: 36rpx 0;
-	background: #652791;
 }
 .load {
 	width: 66rpx;
