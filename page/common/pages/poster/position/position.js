@@ -15,7 +15,8 @@ Page({
     imgW: 750,
     imgH: 0,
     openSet: true,
-    timerSecond: 30
+    timerSecond: 30,
+    cdnImagePath: app.globalData.cdnImagePath
   },
   drawing (avatarUrl, companyUrl, qrCodeUrl) {
     
@@ -27,7 +28,7 @@ Page({
     // 头像
     ctx.drawImage(avatarUrl, 80, 40, 98, 98)
     // 背景图1
-    ctx.drawImage('../../../../../images/canvas1.png', 0, 0, 750, 402)
+    ctx.drawImage(`${that.data.cdnImagePath}canvas1.png`, 0, 0, 750, 402)
     // 个人资料
     ctx.setTextAlign('left')
     ctx.setFillStyle('#ffffff')
@@ -52,19 +53,19 @@ Page({
     let allWidth = cityWidth + edWidth + exWidth + 90 + 30 + 80
 
     let msgWidth = 375 - allWidth / 2
-    ctx.drawImage('../../../../../images/a3.png', msgWidth, 404, 30, 30)
+    ctx.drawImage(`${that.data.cdnImagePath}a3.png`, msgWidth, 404, 30, 30)
     msgWidth = msgWidth + 40
     ctx.fillText(info.city, msgWidth, 428)
 
     
     msgWidth = msgWidth + cityWidth + 40
     
-    ctx.drawImage('../../../../../images/a1.png', msgWidth, 404, 30, 30)
+    ctx.drawImage(`${that.data.cdnImagePath}a1.png`, msgWidth, 404, 30, 30)
     msgWidth = msgWidth + 40
     ctx.fillText(info.workExperienceName, msgWidth, 428)
 
     msgWidth = msgWidth + exWidth + 40
-    ctx.drawImage('../../../../../images/a2.png', msgWidth, 404, 30, 30)
+    ctx.drawImage(`${that.data.cdnImagePath}a2.png`, msgWidth, 404, 30, 30)
     msgWidth = msgWidth + 40
     ctx.fillText(info.educationName, msgWidth, 428)
 
@@ -126,7 +127,7 @@ Page({
       curHeight = curHeight + 94
     }
     ctx.drawImage(companyUrl, 88, curHeight + 34, 98, 98)
-    ctx.drawImage('../../../../../images/canvas4.png', 38, curHeight, 674, 166)
+    ctx.drawImage(`${that.data.cdnImagePath}canvas4.png`, 38, curHeight, 674, 166)
     ctx.setFontSize(32)
     let companyName = companyInfo.companyShortname
     // 需要省略号
@@ -140,9 +141,9 @@ Page({
 
     // 画团队描述
     curHeight = curHeight + 131
-    ctx.drawImage('../../../../../images/c1.png', 0, curHeight, 750, 174)
+    ctx.drawImage(`${that.data.cdnImagePath}c1.png`, 0, curHeight, 750, 174)
     curHeight = curHeight + 174
-    ctx.drawImage('../../../../../images/c2.png', 0, curHeight, 750, 180)
+    ctx.drawImage(`${that.data.cdnImagePath}c2.png`, 0, curHeight, 750, 180)
     
     // 画职位标签
     let padding = 20
@@ -187,10 +188,10 @@ Page({
     ctx.setFontSize(28)
     ctx.setFillStyle('#282828')
     if (!info.describe) info.describe = '你还未填写职位详情，快去填写吧~'
-    curHeight = lineFeed(ctx, info.describe, 590, 80, curHeight, '../../../../../images/c2.png', 750, 100)
-    ctx.drawImage('../../../../../images/c4.png', 0, curHeight - 200, 74, 92)
+    curHeight = lineFeed(ctx, info.describe, 590, 80, curHeight, `${that.data.cdnImagePath}c2.png`, 750, 100)
+    ctx.drawImage(`${that.data.cdnImagePath}c4.png`, 0, curHeight - 200, 74, 92)
     ctx.drawImage(qrCodeUrl, 75, curHeight + 88, 170, 170)
-    ctx.drawImage('../../../../../images/canvas5.png', 0, curHeight + 10, 750, 287)
+    ctx.drawImage(`${that.data.cdnImagePath}canvas5.png`, 0, curHeight + 10, 750, 287)
     ctx.setFontSize(30)
     ctx.setFillStyle('#fff')
     ctx.fillText('长按打开小程序与Ta约面吧！', 276, curHeight + 160)

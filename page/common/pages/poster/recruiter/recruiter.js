@@ -16,7 +16,8 @@ Page({
     imgW: 750,
     imgH: 0,
     openSet: true,
-    timerSecond: 30
+    timerSecond: 30,
+    cdnImagePath: app.globalData.cdnImagePath
   },
   drawing (info, avatarUrl, qrCodeUrl) {
     let that = this
@@ -29,11 +30,11 @@ Page({
     ctx.drawImage(avatarUrl, 290, 71, 168, 168)
 
     // 背景图1
-    ctx.drawImage('../../../../../images/j1.png', 0, 0, 750, 515)
+    ctx.drawImage(`${that.data.cdnImagePath}j1.png`, 0, 0, 750, 515)
 
     // vip
     if (info.companyInfo.id) {
-      ctx.drawImage('../../../../../images/vip.png', 410, 190, 46, 46)
+      ctx.drawImage(`${that.data.cdnImagePath}vip.png`, 410, 190, 46, 46)
     }
 
     // 画资料
@@ -63,8 +64,8 @@ Page({
     let curHeight = 515
 
     // 开始主要内容
-    ctx.drawImage('../../../../../images/a8.png', 0, curHeight, 750, 100)
-    ctx.drawImage('../../../../../images/a6.png', 79, curHeight - 20, 163, 32)
+    ctx.drawImage(`${that.data.cdnImagePath}a8.png`, 0, curHeight, 750, 100)
+    ctx.drawImage(`${that.data.cdnImagePath}a6.png`, 79, curHeight - 20, 163, 32)
     ctx.setFontSize(28)
     ctx.setTextAlign('left')
     ctx.setFillStyle('#282828')
@@ -75,12 +76,12 @@ Page({
     let descString = ''
     let descWidth = 0
     if (!info.brief) info.brief = '你还未填写个人简介，快去填写吧~'
-    curHeight = lineFeed(ctx, info.brief, 590, 80, curHeight, '../../../../../images/a8.png', 750, 48)
+    curHeight = lineFeed(ctx, info.brief, 590, 80, curHeight, `${that.data.cdnImagePath}a8.png`, 750, 48)
 
     // 在招职位
-    ctx.drawImage('../../../../../images/a8.png', 0, curHeight, 750, 100)
+    ctx.drawImage(`${that.data.cdnImagePath}a8.png`, 0, curHeight, 750, 100)
     curHeight = curHeight + 30
-    ctx.drawImage('../../../../../images/a6.png', 79, curHeight, 163, 32)
+    ctx.drawImage(`${that.data.cdnImagePath}a6.png`, 79, curHeight, 163, 32)
     ctx.fillText('在招职位', 114, curHeight + 26)
 
     curHeight = curHeight + 70
@@ -90,7 +91,7 @@ Page({
     })
 
     function positionItem(item, index) {
-      ctx.drawImage('../../../../../images/a8.png', 0, curHeight, 750, 135)
+      ctx.drawImage(`${that.data.cdnImagePath}a8.png`, 0, curHeight, 750, 135)
       // 职位名
       ctx.setFontSize(32)
       ctx.setFillStyle('#282828')
@@ -123,7 +124,7 @@ Page({
     }
 
     ctx.drawImage(qrCodeUrl, 82, curHeight + 195, 160, 160)
-    ctx.drawImage('../../../../../images/j2.png', 0, curHeight, 750, 408)
+    ctx.drawImage(`${that.data.cdnImagePath}j2.png`, 0, curHeight, 750, 408)
     ctx.setFontSize(26)
     ctx.setFillStyle('#282828')
     ctx.setTextAlign('center')

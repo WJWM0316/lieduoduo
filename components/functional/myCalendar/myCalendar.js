@@ -62,6 +62,10 @@ Component({
     choseOtherDate: false
   },
   attached () {
+    nextMonth = 0 // 下个月份保存
+    prevMonth = 0 // 上个月份保存
+    nextYear = 0 // 下个年份保存
+    prevYear = 0 // 上个年份保存
     let list = this.getThisMonthDays(curYear, curMonth) 
     if (this.data.switchable || this.data.calendarType === 'roll') {
       this.setData({list, choseDate: this.data.curDate})
@@ -125,8 +129,9 @@ Component({
     // 下个月
     nextMonth () {
       if (this.data.calendarType === 'roll') {
+        let month = parseInt(curMonth)
         if (!nextMonth) {
-          nextMonth = curMonth
+          nextMonth = month
         }
         if (!nextYear) {
           nextYear = curYear
@@ -151,10 +156,11 @@ Component({
     // 上个月
     prevMonth () {
       if (this.data.calendarType === 'roll') {
+        let month = parseInt(curMonth)
         if (isLoadData) return
         isLoadData = true
         if (!prevMonth) {
-          prevMonth = curMonth
+          prevMonth = month
         }
         if (!prevYear) {
           prevYear = curYear
@@ -166,10 +172,11 @@ Component({
         }
         let scrollLeft = itemWidth * 28
         let list = this.getThisMonthDays(prevYear, prevMonth, 'ord')
-        this.setData({list, scrollLeft}, function() {
+        this.setData({list}, function() {
           setTimeout(() => {
+            this.setData({scrollLeft})
             isLoadData = false
-          }, 1000)
+          }, 300)
         })
       } else {
         toggleMonth--

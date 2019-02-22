@@ -86,7 +86,8 @@ Page({
         title: '修改成功',
         icon: 'success',
         callback() {
-          app.globalData.mobile = data.mobile
+          if (app.globalData.resumeInfo) app.globalData.resumeInfo.mobile = res.data.mobile
+          if (app.globalData.recruiterDetails) app.globalData.recruiterDetails.mobile = res.data.mobile
           wx.navigateBack({
             delta: 1
           })

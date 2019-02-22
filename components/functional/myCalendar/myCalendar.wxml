@@ -1,5 +1,5 @@
 <view class="calendar" wx:if="{{calendarType === 'roll'}}">
-  <scroll-view class="wrap" scroll-x style="width: 100%" scroll-left="{{scrollLeft}}px" bindscrolltolower="nextMonth" bindscrolltoupper="prevMonth" upper-threshold lower-threshold>
+  <scroll-view class="wrap" scroll-x style="width: 100%" scroll-left="{{scrollLeft}}px" bindscrolltolower="nextMonth" bindscrolltoupper="prevMonth" upper-threshold="500" lower-threshold="200">
     <view wx:for="{{list}}" wx:key="{{index}}" class="item {{item.month && !item.day ? 'head' : ''}}">
       <view wx:if="{{item.day}}" bindtap="toggle" data-year="{{item.year}}" data-month="{{item.month}}" data-days="{{item.days}}" class="have {{item.haveView && item.haveViewed ? 'overdue' : ''}} {{item.haveView && !item.haveViewed && item.date !== curDate ? 'noOverdue' : ''}}">
         <view class="week">{{item.week}}</view>

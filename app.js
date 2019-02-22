@@ -294,7 +294,7 @@ App({
       }).catch(e => {
         if (e.code !== 604) {
           this.checkLogin()
-        } 
+        }
       })
     })
   },
