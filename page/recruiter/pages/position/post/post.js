@@ -367,8 +367,8 @@ Page({
       onlyFromCamera: true,
       success: res => {
         const uuid = res.result.split('&')[0].slice(5)
-        const isBusiness = 1
-        scanQrcodeApi({uuid, isBusiness}).then(res => scanLoginApi({uuid}))
+        const params = {uuid, isBusiness: 1}
+        scanQrcodeApi({uuid}).then(res => scanLoginApi(params))
       }
     })
   },
