@@ -129,5 +129,4 @@
   border-radius:10rpx;
   margin:0 30rpx;
   overflow: hidden;
-  padding-top: 30rpx;
 }

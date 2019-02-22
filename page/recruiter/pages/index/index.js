@@ -41,8 +41,10 @@ Page({
       isRequire: false
     },
     pageCount: 20,
+    background: 'transparent',
     hasReFresh: false,
     onBottomStatus: 0,
+    isFixed: true,
     fixedDomPosition: 0,
     fixedDom: false
   },
@@ -102,7 +104,7 @@ Page({
     this.getDomNodePosition()
   },
   getDomNodePosition() {
-    getSelectorQuery('.ul-tab-bar').then(res => {
+    getSelectorQuery('.index-list-box').then(res => {
       this.setData({fixedDomPosition: res.top - this.data.navH})
     })
   },
@@ -245,7 +247,7 @@ Page({
    * @return   {[type]}     [description]
    */
   onPageScroll(e) {
-    let isFixed = e.scrollTop > this.data.navH
+    console.log(e.scrollTop ,'------', this.data.navH)
     if(e.scrollTop > this.data.navH - 5) {
       this.setData({isFixed: true, background: '#652791'})
     } else {

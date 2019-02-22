@@ -7,10 +7,19 @@
 }
 
 .index-list-box {
-  margin: 0 30rpx;
   transform: translateY(-130rpx);
 }
 
+.default {
+  padding: 0 30rpx;
+}
+.fixed {
+  position: fixed;
+  left: 0;
+  right: 0;
+  padding-top: 24rpx;
+  z-index: 22;
+}
 .ul-tab-bar {
   display: flex;
   line-height: 80rpx;
@@ -109,14 +118,19 @@
   visibility: visible;
 }
 
+.list-box {
+  padding: 0 30rpx;
+}
+
 .nodata {
   background:rgba(255,255,255,1);
   box-shadow:0rpx 8rpx 20rpx 0rpx rgba(34,56,101,0.08);
   border-radius:0rpx 0rpx 10rpx 10rpx;
   display: inline-block;
   vertical-align: middle;
-  width: 100%;
-  padding-bottom: 185rpx;
-  padding-top: 114rpx;
+  width: calc(100% - 60rpx);
+  margin-left: 30rpx;
+  padding: 0;
+  padding-bottom: 185rpx !important;
   overflow: hidden;
 }
