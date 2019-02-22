@@ -1,6 +1,6 @@
 <view class="position-post">
 	<navbar title="{{pageTitle}}" background="#FFFFFF" color="#22292C" customBack bindbackEvent="backEvent"></navbar>
-	<!-- <view class="warning" bindtap="showTips"><i class="icon iconfont icon-PC"></i>前往PC端发布新职位<i class="icon iconfont icon-xiangyou"></i></view> -->
+	<view class="warning" bindtap="showTips"><i class="icon iconfont icon-PC"></i>前往PC端发布新职位<i class="icon iconfont icon-xiangyou"></i></view>
 	<view class="tips">* 职位名称、职位类别、工作地点发布后将不可修改</view>
 	<view class="entry-list">
 
