@@ -20,8 +20,7 @@ Page({
     options: {},
     hasReFresh: false,
     isApplicant: false,
-    cdnImagePath: app.globalData.cdnImagePath,
-    scrollHere: 0
+    cdnImagePath: app.globalData.cdnImagePath
   },
   /**
    * 生命周期函数--监听页面加载
@@ -52,7 +51,7 @@ Page({
         let isOwner = res.data.isOwner && identity === 'RECRUITER' ? true : false
         this.setData({info: res.data, isOwner, realIsOwner: res.data.isOwner}, function() {
           if(this.selectComponent('#interviewBar')) this.selectComponent('#interviewBar').init()
-          this.getDomNodePosition()
+          // this.getDomNodePosition()
           if (this.data.isOwner) {
             app.globalData.recruiterDetails = res.data
           }
@@ -60,12 +59,7 @@ Page({
         })
       })
       getPositionListApi({recruiter: this.data.options.uid}).then(res => {
-        this.setData({positionList: res.data}, function() {
-          // getSelectorQuery(".mainContent .position").then(res => {
-          //   console.log(res, res.top - res.height)
-          //   positionTop = res.top - res.height
-          // })
-        })
+        this.setData({positionList: res.data})
       })
     })
   },
@@ -90,7 +84,10 @@ Page({
   },
   getDomNodePosition() {
     getSelectorQuery('.mainContent .position').then(res => {
-      this.setData({scrollHere: res.height})
+      positionTop = res.top - res.height + app.globalData.navHeight - app.globalData.systemInfo.screenHeight
+      if (res.top < app.globalData.systemInfo.screenHeight) {
+        this.setData({isShowBtn: false})
+      }
     })
   },
   jump() {
@@ -187,9 +184,8 @@ Page({
     })
   },
   scrollPs() {
-    console.log(this.data.scrollHere)
     wx.pageScrollTo({
-      scrollTop: this.data.scrollHere
+      scrollTop: positionTop + 400
     })
   },
   create() {
@@ -197,16 +193,16 @@ Page({
       url: `${RECRUITER}user/company/apply/apply`
     })
   },
-  onPageScroll(e) { // 获取滚动条当前位置
-    // console.log(e.scrollTop >= positionTop, this.data.isShowBtn)
-    // if (e.scrollTop >= positionTop) {
-    //   if (!this.data.isShowBtn) return
-    //   this.setData({isShowBtn: false})
-    // } else {
-    //   if (this.data.isShowBtn) return
-    //   this.setData({isShowBtn: true})
-    // }
-  },
+  // onPageScroll(e) { // 获取滚动条当前位置
+  //   console.log(e)
+  //   if (e.scrollTop >= positionTop) {
+  //     if (!this.data.isShowBtn) return
+  //     this.setData({isShowBtn: false})
+  //   } else {
+  //     if (this.data.isShowBtn) return
+  //     this.setData({isShowBtn: true})
+  //   }
+  // },
   onPullDownRefresh(hasLoading = true) {
     this.setData({hasReFresh: true})
     if (!this.options.uid || parseInt(this.options.uid) === app.globalData.resumeInfo.uid) {

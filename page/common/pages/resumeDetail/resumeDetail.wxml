@@ -128,8 +128,8 @@
     </view>
     <view class="expTab" hidden="{{!info.moreIntroduce.introduce && info.moreIntroduce.imgs.length === 0}}">
       <!-- 工作内容 -->
-      <shrinkText textData="{{info.moreIntroduce.introduce}}" line="{{isOwner ? 1 : 0}}"></shrinkText>
-      <view class="imgBox">
+      <shrinkText textData="{{info.moreIntroduce.introduce}}" wx:if="{{info.moreIntroduce.introduce}}" line="{{isOwner ? 1 : 0}}"></shrinkText>
+      <view class="imgBox" wx:if="{{info.moreIntroduce.imgs.length > 0}}">
         <image wx:for="{{info.moreIntroduce.imgs}}" wx:key="{{index}}" mode="aspectFill" src="{{item.smallUrl}}" bindtap="preview" data-current="{{item.url}}"></image>
       </view>
     </view>
