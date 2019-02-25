@@ -111,7 +111,6 @@ Page({
         const infos = res.data
         formData.position_name = infos.positionName
         formData.area_id = infos.areaId
-        formData.work_experience_name = infos.workExperience
         formData.type = infos.type
         formData.typeName = infos.typeName
         formData.emolument_min = infos.emolumentMin

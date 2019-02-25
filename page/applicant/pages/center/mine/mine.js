@@ -21,7 +21,6 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onShow() {
-    console.log(app)
     let hasLogin = false
     let myInfo = {}
     let isJobhunter = 0

@@ -15,8 +15,7 @@ Page({
     imgW: 750,
     imgH: 0,
     openSet: true,
-    timerSecond: 30,
-    cdnImagePath: app.globalData.cdnImagePath
+    timerSecond: 30
   },
   drawing (info, avatarUrl, qrCodeUrl) {
     let that = this
@@ -28,7 +27,7 @@ Page({
     ctx.drawImage(avatarUrl, 306, 58, 133, 133)
 
     // 背景图1
-    ctx.drawImage(`${that.data.cdnImagePath}j4.png`, 0, 0, 750, 401)
+    ctx.drawImage(`../../../../../images/j4.png`, 0, 0, 750, 401)
     // 个人资料
     ctx.setFontSize(46)
     ctx.setFillStyle('#282828')
@@ -44,7 +43,7 @@ Page({
     
     if (info.jobStatusDesc) {
       curHeight = curHeight + 28
-      ctx.drawImage(`${that.data.cdnImagePath}a7.png`, 0, curHeight, 750, 120)
+      ctx.drawImage(`../../../../../images/a7.png`, 0, curHeight, 750, 120)
       ctx.setFillStyle('#EFE9F4')
       ctx.fillRect(278, curHeight, 195, 38)
       ctx.setFontSize(24)
@@ -69,19 +68,19 @@ Page({
 
     let allWidth = cityWidth + edWidth + exWidth + 90 + 30 + 80
     let msgWidth = 375 - allWidth / 2
-    ctx.drawImage(`${that.data.cdnImagePath}a1.png`, msgWidth, curHeight, 30, 30)
+    ctx.drawImage(`../../../../../images/a1.png`, msgWidth, curHeight, 30, 30)
     msgWidth = msgWidth + 40
     ctx.fillText(info.workAgeDesc, msgWidth, curHeight + 25)
     msgWidth = msgWidth + cityWidth + 40
-    ctx.drawImage(`${that.data.cdnImagePath}a4.png`, msgWidth, curHeight, 30, 30)
+    ctx.drawImage(`../../../../../images/a4.png`, msgWidth, curHeight, 30, 30)
     msgWidth = msgWidth + 40
     ctx.fillText(ageDesc, msgWidth, curHeight + 25)
     msgWidth = msgWidth + exWidth + 40
-    ctx.drawImage(`${that.data.cdnImagePath}a2.png`, msgWidth, curHeight, 30, 30)
+    ctx.drawImage(`../../../../../images/a2.png`, msgWidth, curHeight, 30, 30)
     msgWidth = msgWidth + 40
     ctx.fillText(info.degreeDesc, msgWidth, curHeight + 25)
 
-    ctx.drawImage(`${that.data.cdnImagePath}a7.png`, 0, curHeight + 30, 750, 50)
+    ctx.drawImage(`../../../../../images/a7.png`, 0, curHeight + 30, 750, 50)
     // 画个性标签
     // 
     if (info.personalizedLabels.length > 0) {
@@ -96,7 +95,7 @@ Page({
       ctx.setFontSize(26)
       ctx.setStrokeStyle('#fff')
       ctx.setLineWidth(1)
-      ctx.drawImage(`${that.data.cdnImagePath}a7.png`, 0, curHeight, 750, 65)
+      ctx.drawImage(`../../../../../images/a7.png`, 0, curHeight, 750, 65)
       info.personalizedLabels.map((item, index) => {
         addLabel(item, index)
       })
@@ -132,7 +131,7 @@ Page({
           position.x = 78
           position.y = position.y + 2*r + 15
           curHeight = position.y
-          ctx.drawImage(`${that.data.cdnImagePath}a7.png`, 0, curHeight, 750, 65)
+          ctx.drawImage(`../../../../../images/a7.png`, 0, curHeight, 750, 65)
         }
       }
     }
@@ -144,18 +143,18 @@ Page({
     curHeight = curHeight + 60
     ctx.setFontSize(28)
     ctx.setFillStyle('#282828')
-    ctx.drawImage(`${that.data.cdnImagePath}a7.png`, 0, curHeight, 750, 78)
+    ctx.drawImage(`../../../../../images/a7.png`, 0, curHeight, 750, 78)
     curHeight = curHeight + 30
     if (!info.signature) info.signature = '你还未填写个性签名，说说你的想法吧~'
 
-    curHeight = lineFeed(ctx, info.signature, 590, 80, curHeight, `${that.data.cdnImagePath}a7.png`, 750, 110)
+    curHeight = lineFeed(ctx, info.signature, 590, 80, curHeight, `../../../../../images/a7.png`, 750, 110)
 
     // 求职意向
-    ctx.drawImage(`${that.data.cdnImagePath}a7.png`, 0, curHeight, 750, 100)
+    ctx.drawImage(`../../../../../images/a7.png`, 0, curHeight, 750, 100)
     curHeight = curHeight + 30
     ctx.setFontSize(28)
     ctx.setFillStyle('#282828')
-    ctx.drawImage(`${that.data.cdnImagePath}a5.png`, 80, curHeight, 193, 50)
+    ctx.drawImage(`../../../../../images/a5.png`, 80, curHeight, 193, 50)
     ctx.fillText('求职意向', 125, curHeight + 36)
     // 虚线
     ctx.beginPath()
@@ -175,7 +174,7 @@ Page({
     } else {
       ctx.setTextAlign('center')
       
-      ctx.drawImage(`${that.data.cdnImagePath}a7.png`, 0, curHeight, 750, 100)
+      ctx.drawImage(`../../../../../images/a7.png`, 0, curHeight, 750, 100)
       curHeight = curHeight + 36
 
       ctx.fillText('尚未完善', 375, curHeight)
@@ -183,7 +182,7 @@ Page({
     
 
     function expectsItem(item, index) {
-      ctx.drawImage(`${that.data.cdnImagePath}a7.png`, 0, curHeight, 750, 150)
+      ctx.drawImage(`../../../../../images/a7.png`, 0, curHeight, 750, 150)
       let title = `${item.position} | ${item.city}`
       let nameWidth = ctx.measureText(title).width
       let nameString = ''
@@ -232,12 +231,12 @@ Page({
     curHeight = curHeight + 25
 
     // 工作经历
-    ctx.drawImage(`${that.data.cdnImagePath}a7.png`, 0, curHeight, 750, 100)
+    ctx.drawImage(`../../../../../images/a7.png`, 0, curHeight, 750, 100)
     curHeight = curHeight + 20
     ctx.setFontSize(28)
     ctx.setFillStyle('#282828')
     ctx.setTextAlign('left')
-    ctx.drawImage(`${that.data.cdnImagePath}a5.png`, 80, curHeight, 193, 50)
+    ctx.drawImage(`../../../../../images/a5.png`, 80, curHeight, 193, 50)
     ctx.fillText('工作经历', 125, curHeight + 36)
     // 虚线
     ctx.beginPath()
@@ -256,13 +255,13 @@ Page({
       })
     } else {
       ctx.setTextAlign('center')
-      ctx.drawImage(`${that.data.cdnImagePath}a7.png`, 0, curHeight, 750, 100)
+      ctx.drawImage(`../../../../../images/a7.png`, 0, curHeight, 750, 100)
       ctx.fillText('尚未完善', 375, curHeight + 36)
       curHeight = curHeight + 76
     }
 
     function careersItem(item, index) {
-      ctx.drawImage(`${that.data.cdnImagePath}a7.png`, 0, curHeight, 750, 200)
+      ctx.drawImage(`../../../../../images/a7.png`, 0, curHeight, 750, 200)
       let title = `${item.company}`
       let nameWidth = ctx.measureText(title).width
       let nameString = ''
@@ -339,12 +338,12 @@ Page({
     }
     
     // 教育经历
-    ctx.drawImage(`${that.data.cdnImagePath}a7.png`, 0, curHeight, 750, 100)
+    ctx.drawImage(`../../../../../images/a7.png`, 0, curHeight, 750, 100)
     curHeight = curHeight + 20
     ctx.setFontSize(28)
     ctx.setFillStyle('#282828')
     ctx.setTextAlign('left')
-    ctx.drawImage(`${that.data.cdnImagePath}a5.png`, 80, curHeight, 193, 50)
+    ctx.drawImage(`../../../../../images/a5.png`, 80, curHeight, 193, 50)
     ctx.fillText('教育经历', 125, curHeight + 36)
 
     // 虚线
@@ -363,7 +362,7 @@ Page({
       })
     } else {
       ctx.setTextAlign('center')
-      ctx.drawImage(`${that.data.cdnImagePath}a7.png`, 0, curHeight, 750, 100)
+      ctx.drawImage(`../../../../../images/a7.png`, 0, curHeight, 750, 100)
       ctx.fillText('尚未完善', 375, curHeight + 30)
       curHeight = curHeight + 70
       // 虚线
@@ -378,7 +377,7 @@ Page({
     
 
     function educationsItem(item, index) {
-      ctx.drawImage(`${that.data.cdnImagePath}a7.png`, 0, curHeight, 750, 150)
+      ctx.drawImage(`../../../../../images/a7.png`, 0, curHeight, 750, 150)
       let title = `${item.school}`
       let nameWidth = ctx.measureText(title).width
       let nameString = ''
@@ -421,7 +420,7 @@ Page({
     }
 
     ctx.drawImage(qrCodeUrl, 113, curHeight + 42, 168, 168)
-    ctx.drawImage(`${that.data.cdnImagePath}j3.png`, 0, curHeight, 750, 412)
+    ctx.drawImage(`../../../../../images/j3.png`, 0, curHeight, 750, 412)
 
     ctx.setFontSize(32)
     ctx.setTextAlign('left')

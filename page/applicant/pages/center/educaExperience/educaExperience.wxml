@@ -15,7 +15,7 @@
       <input name="major" placeholder-class="holderStyle" placeholder="填写专业名称" />
     </view>
     <view class="degree">
-      <myPicker class="myPicker" data-type="education" isTriangle="{{true}}" placeholderStyle="color: #BCBCBC" pickerType="education" bindresultevent="getresult"  rangeKey="name"></myPicker>
+      <myPicker class="myPicker" data-type="education" isTriangle="{{true}}" placeholderStyle="color: #BCBCBC" pickerType="education" bindresultevent="getresult" rangeKey="text"></myPicker>
     </view>
     <view class="timeBox">
       <view class="startTime">

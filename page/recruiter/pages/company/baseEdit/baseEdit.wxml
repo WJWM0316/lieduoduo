@@ -14,14 +14,14 @@
 			<view class="item">
 				<view class="txt red">融资阶段</view>
 				<view class="value">
-					<myPicker pickerType="financing" setResult="{{info.financingInfo}}" rangeKey="name" bindresultevent="getResult" data-type="financing"></myPicker>
+					<myPicker pickerType="financing" setResult="{{info.financingInfo}}" rangeKey="text" bindresultevent="getResult" data-type="financing"></myPicker>
 				</view>
 				<i class="icon iconfont icon-xiangyou"></i>
 			</view>
 			<view class="item">
 				<view class="txt red">公司规模</view>
 				<view class="value">
-					<myPicker pickerType="staffMembers" setResult="{{info.employeesInfo}}" rangeKey="name" bindresultevent="getResult" data-type="staffMembers"></myPicker>
+					<myPicker pickerType="staffMembers" setResult="{{info.employeesInfo}}" rangeKey="text" bindresultevent="getResult" data-type="staffMembers"></myPicker>
 				</view>
 				<i class="icon iconfont icon-xiangyou"></i>
 			</view>

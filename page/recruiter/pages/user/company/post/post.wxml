@@ -33,7 +33,7 @@
 			<i class="icon iconfont icon-xiangyou"></i>
 		  <view class="text2 {{selected_financing ? 'color' : ''}}">{{financingName}}</view>
 			<view class="picker-box">
-				<myPicker setResult="{{ financingName }}" pickerType="financing" bindresultevent="getFinancing" rangeKey="name"></myPicker>
+				<myPicker setResult="{{ financingName }}" pickerType="financing" bindresultevent="getFinancing" rangeKey="text"></myPicker>
 			</view>
 		</view>
 		<view class="li clear-bottom">
@@ -41,7 +41,7 @@
 			<view class="key">人员规模</view>
 		  <view class="text2 {{selected_employees ? 'color' : ''}}">{{employeesName}}</view>
 			<view class="picker-box">
-				<myPicker setResult="{{ employeesName }}" pickerType="staffMembers" bindresultevent="getStaffMembers" rangeKey="name"></myPicker>
+				<myPicker setResult="{{ employeesName }}" pickerType="staffMembers" bindresultevent="getStaffMembers" rangeKey="text"></myPicker>
 			</view>
 		</view>
 	  <view class="btn-area">

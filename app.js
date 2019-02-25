@@ -86,7 +86,9 @@ App({
   // 退出登录
   uplogin() {
     uploginApi().then(res => {
+      let sessionToken = wx.getStorageSync('sessionToken')
       wx.clearStorageSync()
+      wx.setStorageSync('sessionToken', sessionToken)
       this.globalData.identity = ''
       this.globalData.hasLogin = false
       this.globalData.resumeInfo = {}
@@ -413,9 +415,11 @@ App({
     console.log(`=======================收集到这个formId了 ${id}=========================`)
     formIdList.push(id)
     if (formIdList.length >= 3) {
-      formIdApi({form_id: formIdList}).then(res => {
-        formIdList = []
-      })
+      if (wx.getStorageSync('sessionToken') || wx.getStorageSync('token')) {
+        formIdApi({form_id: formIdList}).then(res => {
+          formIdList = []
+        })
+      }
     }
   },
   /**

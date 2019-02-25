@@ -36,7 +36,7 @@ export const lineFeed = (ctx, text, width, x, y, bgUrl, bgW = 750, bgH = 90) => 
 		      descString = descString + item[i]
 		      nextDescString = descString + item[i]
 		      nextDescWidth = ctx.measureText(nextDescString).width
-		      if (nextDescWidth > width + 20) {
+		      if (nextDescWidth > width + 35) {
 		      	if (bgUrl) ctx.drawImage(bgUrl, 0, curHeight, bgW, bgH)
 		        ctx.fillText(descString, 80, curHeight)
 		        iIndex = i

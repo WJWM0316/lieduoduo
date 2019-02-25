@@ -50,7 +50,7 @@
 			<i class="icon iconfont icon-xiangyou"></i>
 			<view class="text2 {{work_experience_name !== '请选择经验要求' ? '' : 'color-default'}}">{{work_experience_name}}</view>
 			<view class="picker-box">
-				<myPicker setResult="{{ work_experience_name }}" pickerType="experience" bindresultevent="getExperience" rangeKey="name"></myPicker>
+				<myPicker setResult="{{ work_experience_name }}" pickerType="experience" bindresultevent="getExperience" rangeKey="text"></myPicker>
 			</view>
 		</view>
 		<view class="li dropdown">
@@ -58,7 +58,7 @@
 			<i class="icon iconfont icon-xiangyou"></i>
 			<view class="text2 {{educationName !== '请选择学历' ? '' : 'color-default'}}">{{educationName}}</view>
 			<view class="picker-box">
-				<myPicker setResult="{{ educationName }}" pickerType="education" bindresultevent="getEducation" rangeKey="name"></myPicker>
+				<myPicker setResult="{{ educationName }}" pickerType="education" bindresultevent="getEducation" rangeKey="text"></myPicker>
 			</view>
 		</view>
 		<view class="li link clear-bottom" bindtap="routeJump" data-route="description">

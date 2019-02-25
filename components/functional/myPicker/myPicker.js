@@ -1,6 +1,7 @@
 // components/layout/myPicker/myPicker.js
 import {getJobLabelApi} from '../../../api/pages/common.js'
 import {getAreaListApi} from '../../../api/pages/label.js'
+import {getFinancingApi, getEmployeesApi, getDegreeApi, getJobstatusApi, getExperienceApi} from '../../../api/pages/picker.js'
 Component({
   externalClasses: ['my-class'],
   /**
@@ -38,11 +39,11 @@ Component({
     firstOption: '', // 自定义选型
     placeholder: '', // placeholder
     provice: '', // 省份
-    financing: [{name: '未融资', value: 1}, {name: '天使轮', value: 2}, {name: 'A轮', value: 3}, {name: 'B轮', value: 4}, {name: 'C轮', value: 5}, {name: 'D轮及以上', value: 6}, {name: '已上市', value: 7}, {name: '不需要融资', value: 8}],
-    staffMembers: [{name: '0-20人', value: 1}, {name: '20-99人', value: 2}, {name: '100-499人', value: 3}, {name: '500-999人', value: 4}, {name: '1000-9999人', value: 5}, {name: '10000人以上', value: 6}],
-    experience: [{name: '不限', value: 1}, {name: '应届生', value: 2}, {name: '1年以内', value: 3}, {name: '1-3年', value: 4}, {name: '3-5年', value: 5}, {name: '5-10年', value: 6}, {name: '10年以上', value: 7}],
-    jobStatus: [{name: '离职，随时到岗', value: 2}, {name: '在职，暂不考虑', value: 1}, {name: '在职，考虑机会', value: 4}, {name: '在职，月内到岗', value: 3}],
-    education: [{name: '博士', value: 35}, {name: '硕士', value: 30}, {name: '本科', value: 25}, {name: '大专', value: 20}, {name: '高中', value: 15}, {name: '中专/中技', value: 10}, {name: '初中及以下', value: 5}],
+    financing: [],
+    staffMembers: [],
+    experience: [],
+    jobStatus: [],
+    education: [],
     sex: [{name: '男', value: 1}, {name:'女', value: 2}],
     dateType: ['startTime', 'endTime', 'workTime', 'dateTime', 'birthday'],
     year: [],
@@ -132,15 +133,17 @@ Component({
         this.setData({list, year, days, result, mode: 'multiSelector', placeholder: '请选择面试时间'})
         break
       case 'education':
-        list = this.data.education
-        result = 0 
-        list.map((item, index) => {
-          if (item.name === this.data.setResult) {
-            result = `${index}`
-            return
-          }
+        getDegreeApi().then(res => {
+          list = res.data
+          result = 0 
+          list.map((item, index) => {
+            if (item.text === this.data.setResult) {
+              result = `${index}`
+              return
+            }
+          })
+          this.setData({list, result, mode: 'selector', placeholder: '请选择学历'})
         })
-        this.setData({list, result, mode: 'selector', placeholder: '请选择学历'})
         break
       case 'sex':
         list = this.data.sex
@@ -149,48 +152,58 @@ Component({
         this.setData({list, result, mode: 'selector', placeholder: '请选择性别'})
         break
       case 'jobStatus':
-        list = this.data.jobStatus
-        result = 0 
-        list.map((item, index) => {
-          if (item.name === this.data.setResult) {
-            result = `${index}`
-            return
-          }
+        getJobstatusApi().then(res => {
+          list = res.data
+          result = 0 
+          list.map((item, index) => {
+            if (item.text === this.data.setResult) {
+              result = `${index}`
+              return
+            }
+          })
+          this.setData({list, result, mode: 'selector', placeholder: '请选择求职状态'})
         })
-        this.setData({list, result, mode: 'selector', placeholder: '请选择求职状态'})
         break
       case 'experience':
-        list = this.data.experience
-        result = 0 
-        list.map((item, index) => {
-          if (item.name === this.data.setResult) {
-            result = `${index}`
-            return
-          }
+        getExperienceApi().then(res => {
+          list = res.data
+          result = 0 
+          list.map((item, index) => {
+            if (item.text === this.data.setResult) {
+              result = `${index}`
+              return
+            }
+          })
+          this.setData({list, result, mode: 'selector', placeholder: '请选择经验要求'})
         })
-        this.setData({list, result, mode: 'selector', placeholder: '请选择经验要求'})
         break
       case 'staffMembers':
-        list = this.data.staffMembers
-        result = 0
-        list.map((item, index) => {
-          if (item.name === this.data.setResult) {
-            result = `${index}`
-            return
-          }
+        getEmployeesApi().then(res => {
+          console.log(res)
+          list = res.data
+          result = 0
+          list.map((item, index) => {
+            if (item.text === this.data.setResult) {
+              result = `${index}`
+              return
+            }
+          })
+          this.setData({list, result, mode: 'selector', placeholder: '请选择人员规模'})
         })
-        this.setData({list, result, mode: 'selector', placeholder: '请选择人员规模'})
         break
       case 'financing':
-        list = this.data.financing
-        result = 0
-        list.map((item, index) => {
-          if (item.name === this.data.setResult) {
-            result = `${index}`
-            return
-          }
+        getFinancingApi().then(res => {
+          list = res.data
+          result = 0
+          list.map((item, index) => {
+            if (item.text === this.data.setResult) {
+              result = `${index}`
+              return
+            }
+          })
+          this.setData({list, result, mode: 'selector', placeholder: '请选择融资情况'})
         })
-        this.setData({list, result, mode: 'selector', placeholder: '请选择融资情况'})
+        
         break
       case 'salaryRangeC':
         let startNum = []
@@ -311,7 +324,7 @@ Component({
           propsResult = list[parseInt(result)]
         } else {
           propsResult = list[result].value
-          propsDesc = list[result].name
+          propsDesc = list[result].name || list[result].text
         }
       }
       this.triggerEvent('resultevent', {propsResult, propsDesc})

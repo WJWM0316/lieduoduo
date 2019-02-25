@@ -43,7 +43,7 @@
   <view class="item">
     <view class="txt">求职状态</view>
     <view class="edit">
-      <myPicker pickerType="jobStatus" placeholderStyle="color: #B2B6C2" rangeKey="name" data-type="jobStatus" bindresultevent="getResult" setResult="{{info.jobStatusDesc}}"></myPicker>
+      <myPicker pickerType="jobStatus" placeholderStyle="color: #B2B6C2" rangeKey="text" data-type="jobStatus" bindresultevent="getResult" setResult="{{info.jobStatusDesc}}"></myPicker>
     </view>
   </view>
   <view class="item">
