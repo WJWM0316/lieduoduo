@@ -25,7 +25,6 @@ Page({
   onLoad(options) {
     let isCompanyAdmin = app.globalData.recruiterDetails.isCompanyAdmin || 0
     this.setData({options, isCompanyAdmin})
-    this.getLists()
   },
   onShow() {
     let recruitersList = {
@@ -34,7 +33,7 @@ Page({
       isLastPage: false,
       isRequire: false
     }
-    this.setData({recruitersList})
+    this.setData({recruitersList}, () => this.getLists())
   },
   /**
    * @Author   小书包
