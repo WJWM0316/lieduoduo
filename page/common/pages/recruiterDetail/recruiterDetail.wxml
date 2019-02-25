@@ -86,8 +86,8 @@
 
       <view class="position" wx:if="{{!isOwner}}">
         <company roleType="company" cardData="{{info.companyInfo}}"></company>
-        <view class="positionList" wx:if="{{positionList.length > 0}}">
-          <view class="positionItem" wx:for="{{positionList}}" wx:key="{{index}}" bindtap="jumpPage" data-id="{{item.id}}">
+        <view class="positionList" wx:if="{{positionList.total}}">
+          <view class="positionItem" wx:for="{{positionList.list}}" wx:key="{{index}}" bindtap="jumpPage" data-id="{{item.id}}">
             <view class="positionHead"><text class="positionTitle">{{item.positionName}}</text><text class="money">{{item.emolumentMin}}~{{item.emolumentMax}}k</text></view>
             <view class="positionDeatil">
               <text wx:if="{{item.city && item.district}}">{{item.city}}-{{item.district}} · </text>
@@ -97,7 +97,7 @@
           </view>
         </view>
       </view>
-
+      <bottomStatus status="{{positionList.onBottomStatus}}" listData="{{positionList.list}}"></bottomStatus>
     <view class="more meToo" bindtap="create" wx:if="{{!isRecruiter}}">我也要制作招聘主页<view class="icon iconfont icon-disejiantou-you"></view></view>
 
     <block wx:if="{{!realIsOwner}}">
@@ -105,7 +105,7 @@
       <view class="collection icon iconfont icon-biaojiweiganxingqu" wx:else bindtap="collect"></view>
     </block>
   </view>
-  <!-- <view class="positionBtn" bindtap="scrollPs" hidden="{{!isShowBtn}}" wx:if="{{!isOwner && positionList.length > 0}}">{{positionList.length}}个热招职位<i class="icon iconfont icon-xiayi"></i></view> -->
+  <!-- <view class="positionBtn" bindtap="scrollPs" hidden="{{!isShowBtn}}" wx:if="{{!isOwner && positionList.total > 0}}">{{positionList.total}}个热招职位<i class="icon iconfont icon-xiayi"></i></view> -->
 
  <interviewBar
     id="interviewBar"
