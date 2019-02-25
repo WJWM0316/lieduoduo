@@ -45,7 +45,44 @@ Page({
    * @return   {[type]}   [description]
    */
   selectAddress() {
-    wx.chooseLocation({success: res => this.reverseGeocoder(res)})
+
+    // 获取权限
+    const getPermission = () => {
+      wx.getSetting({
+        success: rtn => {
+          const statu = rtn.authSetting
+          if(!statu['scope.userLocation']) {
+            app.wxConfirm({
+              title: '是否授权当前位置',
+              content: '需要获取您的地理位置，请确认授权，否则地图功能将无法使用',
+              confirmBack() {
+                wx.openSetting({
+                  success: res1 => {
+                    if(res1.authSetting['scope.userLocation'] === true) {
+                      app.wxToast({title: '授权成功'})
+                      //授权成功之后，再调用chooseLocation选择地方
+                      wx.chooseLocation({success: res => this.reverseGeocoder(res)})
+                    } else {
+                      app.wxToast({title: '授权失败'})
+                    }
+                  }
+                })
+              }
+            })
+          }
+        },
+        fail: fail => {
+          app.wxToast({title: '调用授权窗口失败'})
+        }
+      })
+    }
+
+    wx.chooseLocation({
+      success: res => this.reverseGeocoder(res),
+      fail: res => {
+        getPermission()
+      }
+    })
   },
   /**
    * @Author   小书包
