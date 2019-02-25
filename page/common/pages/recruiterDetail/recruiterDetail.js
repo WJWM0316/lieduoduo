@@ -15,7 +15,15 @@ Page({
     isOwner: false,
     realIsOwner: false,
     isRecruiter: false,
-    positionList: [],
+    positionList: {
+      list: [],
+      pageNum: 1,
+      isLastPage: false,
+      isRequire: false,
+      hasReFresh: false,
+      onBottomStatus: 0,
+    },
+    pageCount: 20,
     isShowBtn: true,
     options: {},
     hasReFresh: false,
@@ -58,14 +66,35 @@ Page({
           resolve(res)
         })
       })
-      getPositionListApi({recruiter: this.data.options.uid, count: 50}).then(res => {
-        this.setData({positionList: res.data})
+      this.getPositionLists()
+    })
+  },
+  getPositionLists(hasLoading = true) {
+    return new Promise((resolve, reject) => {
+      const params = {recruiter: this.data.options.uid, count: this.data.pageCount, page: this.data.positionList.pageNum, hasLoading}
+      getPositionListApi(params).then(res => {
+        const positionList = this.data.positionList
+        positionList.onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
+        positionList.list = positionList.list.concat(res.data)
+        positionList.isLastPage = res.meta && res.meta.nextPageUrl ? false : true
+        positionList.pageNum = positionList.pageNum + 1
+        positionList.isRequire = true
+        positionList.total = res.meta.total
+        this.setData({positionList}, () => resolve(res))
       })
     })
   },
   onShow() {
     let options = this.data.options
     let identity = wx.getStorageSync('choseType')
+    const positionList = {
+      list: [],
+      pageNum: 1,
+      isLastPage: false,
+      isRequire: false,
+      onBottomStatus: false
+    }
+    this.setData({positionList})
     if (app.globalData.isRecruiter) {
       this.setData({isRecruiter: app.globalData.isRecruiter})
     } else {
@@ -205,6 +234,14 @@ Page({
   // },
   onPullDownRefresh(hasLoading = true) {
     this.setData({hasReFresh: true})
+    const positionList = {
+      list: [],
+      pageNum: 1,
+      isLastPage: false,
+      isRequire: false,
+      onBottomStatus: false
+    }
+    this.setData({positionList})
     if (!this.options.uid || parseInt(this.options.uid) === app.globalData.resumeInfo.uid) {
       getRecruiterDetailApi().then(res => {
         app.globalData.recruiterDetails = res.data
@@ -230,6 +267,18 @@ Page({
       path: `${COMMON}recruiterDetail/recruiterDetail?uid=${this.data.options.uid}`,
       imageUrl: `${that.data.cdnImagePath}shareC.png`
     })
+  },
+  /**
+   * @Author   小书包
+   * @DateTime 2019-01-21
+   * @detail   触底加载数据
+   * @return   {[type]}   [description]
+   */
+  onReachBottom() {
+    const positionList = this.data.positionList
+    if (!positionList.isLastPage) {
+      this.getPositionLists(false)
+    }
   },
   tips() {
     console.log(11111)
