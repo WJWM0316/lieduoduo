@@ -208,12 +208,14 @@ Page({
   },
   init () {
     let id = app.globalData.recruiterDetails.uid
-    getRecruiterPositionListApi({status: 1}).then(res => {
-      positionList = res.data
-      positionList.unshift({positionName: '所有职位', id: 0})
-      this.setData({positionList})
-      this.getInviteList()
-    })
+    if (id) {
+      getRecruiterPositionListApi({status: 1}).then(res => {
+        positionList = res.data
+        positionList.unshift({positionName: '所有职位', id: 0})
+        this.setData({positionList})
+        this.getInviteList()
+      })
+    }
   },
   onShow () {
     this.init()

@@ -1,5 +1,5 @@
 import {COMMON,RECRUITER} from '../../../../config.js'
-import {sendCodeApi, bindPhoneApi} from "../../../../api/pages/auth.js"
+import {sendCodeApi, bindPhoneApi, checkSessionKeyApi} from "../../../../api/pages/auth.js"
 import {quickLoginApi} from '../../../../api/pages/auth.js'
 
 let mobileNumber = 0
@@ -23,7 +23,15 @@ Page({
    */
   onLoad: function (options) {
     wx.getSetting({
-      success: res => {},
+      success: res => {
+        if (res.authSetting['scope.userInfo']) {
+          checkSessionKeyApi().catch(e => {
+            wx.navigateTo({
+              url: `${COMMON}auth/auth`
+            })
+          })
+        }
+      },
       fail: e => {
         wx.navigateTo({
           url: `${COMMON}auth/auth`

@@ -192,7 +192,9 @@ Page({
   },
   init () {
     let id = app.globalData.recruiterDetails.uid
-    this.getApplyList()
+    if (id) {
+      this.getApplyList()
+    }
   },
   onShow () {
     this.init()

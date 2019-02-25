@@ -65,14 +65,14 @@ export const request = ({method = 'post', url, data = {}, needKey = true, hasLoa
               break
             case 401:
               wx.removeStorageSync('token')
-              // 需要用到token， 需要绑定手机号 但是需要先授权
-              if (msg.code === 901) {
+              // 需要用到token， 需要绑定手机号
+              if (msg.code === 4010) {
                 wx.navigateTo({
                   url: `${COMMON}bindPhone/bindPhone`
                 })
               }
               // 需要用到微信token， 需要授权
-              if (msg.code === 902) {
+              if (msg.code === 0) {
                 if (url !== '/wechat/login/mini') {
                   wx.navigateTo({
                     url: `${COMMON}auth/auth`
@@ -88,7 +88,6 @@ export const request = ({method = 'post', url, data = {}, needKey = true, hasLoa
               }
               if (msg.code === 801) {
                 wx.setStorageSync('companyInfos', res.data)
-                
                 // 还没有创建公司
                 if(!res.data.data.companyInfo.vkey) {
                   wx.reLaunch({url: `${RECRUITER}user/company/apply/apply`})
