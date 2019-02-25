@@ -58,7 +58,7 @@ Page({
           resolve(res)
         })
       })
-      getPositionListApi({recruiter: this.data.options.uid}).then(res => {
+      getPositionListApi({recruiter: this.data.options.uid, count: 50}).then(res => {
         this.setData({positionList: res.data})
       })
     })
