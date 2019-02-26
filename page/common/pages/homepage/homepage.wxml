@@ -70,7 +70,7 @@
 					class="swiper-block"
 					previous-margin="40rpx"
 					next-margin="40rpx"
-					current="{{1}}"
+					current="{{swiperIndex}}"
 					bindchange="swiperChange"
 					wx:if="{{companyInfos.albumInfo.length}}"
 					autoplay="{{autoplay}}">
