@@ -151,6 +151,8 @@ App({
         return new Promise((resolve, reject) => {
           wx.getSetting({
             success: res => {
+              var pages = getCurrentPages() //获取加载的页面
+              let pageUrl = pages[0].route
               if (res.authSetting['scope.userInfo']) {
                 // 已经授权，可以直接调用 getUserInfo 获取头像昵称，不会弹框
                 checkSessionKeyApi().then(res0 => {
@@ -171,17 +173,19 @@ App({
                     }
                   })
                 }).catch(e => {
-                  wx.navigateTo({
-                    url: `${COMMON}auth/auth`
-                  })
+                  if (pageUrl === `${APPLICANT}index/index`) {
+                    wx.navigateTo({
+                      url: `${COMMON}auth/auth`
+                    })
+                  }
                 })
               } else {
                 wx.removeStorageSync('sessionToken')
-                var pages = getCurrentPages() //获取加载的页面
-                let pageUrl = pages[0].route
-                wx.navigateTo({
-                  url: `${COMMON}auth/auth`
-                })
+                if (pageUrl === `${APPLICANT}index/index`) {
+                  wx.navigateTo({
+                    url: `${COMMON}auth/auth`
+                  })
+                }
               }
             }
           })
@@ -392,13 +396,13 @@ App({
       })
       this.getAllInfo()
     } else {
-      wx.setStorageSync('choseType', 'RECRUITER')
-      this.globalData.identity = 'RECRUITER'
       if (!this.globalData.hasLogin) {
         wx.navigateTo({
           url: `${COMMON}bindPhone/bindPhone`
         })
       } else {
+        wx.setStorageSync('choseType', 'RECRUITER')
+        this.globalData.identity = 'RECRUITER'
         this.getAllInfo()
         if (!this.globalData.isRecruiter) {
           wx.reLaunch({

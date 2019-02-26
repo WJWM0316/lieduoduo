@@ -7,7 +7,13 @@ export const getSessionKeyApi = (data, hasLoading) => {
     hasLoading: false
   })
 }
-
+export const checkSessionKeyApi = (data, hasLoading) => {
+  return request({
+    url: '/wechat/check/session',
+    data,
+    hasLoading: false
+  })
+}
 export const loginApi = data => {
   return request({
   	method: 'post',

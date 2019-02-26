@@ -3,7 +3,8 @@ import {APPLICANTHOST, RECRUITERHOST, COMMON, RECRUITER, APPLICANT} from '../con
 let loadNum = 0
 let addHttpHead = {}
 let BASEHOST = ''
-
+let toAuth = false
+let toBindPhone = false
 export const request = ({method = 'post', url, data = {}, needKey = true, hasLoading = true, loadingContent = '加载中...'}) => {
   if (wx.getStorageSync('choseType') === "RECRUITER") {
     BASEHOST = RECRUITERHOST
@@ -64,18 +65,33 @@ export const request = ({method = 'post', url, data = {}, needKey = true, hasLoa
             case 200:
               break
             case 401:
-              wx.removeStorageSync('token')
               // 需要用到token， 需要绑定手机号
               if (msg.code === 4010) {
+                if (toBindPhone) return
+                toBindPhone = true
+                setTimeout(() => {
+                  toBindPhone = false
+                }, 60000)
+                wx.removeStorageSync('token')
                 wx.navigateTo({
                   url: `${COMMON}bindPhone/bindPhone`
                 })
               }
               // 需要用到微信token， 需要授权
               if (msg.code === 0) {
+                if (toAuth) return
+                toAuth = true
+                setTimeout(() => {
+                  toAuth = false
+                }, 60000)
+                wx.removeStorageSync('sessionToken')
                 if (url !== '/wechat/login/mini') {
                   wx.navigateTo({
-                    url: `${COMMON}auth/auth`
+                    url: `${COMMON}auth/auth`,
+                    complete() {
+                      wx.removeStorageSync('toAuth')
+                      console.log('1111')
+                    }
                   })
                 }
               }
