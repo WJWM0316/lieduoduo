@@ -97,7 +97,7 @@
           </view>
         </view>
       </view>
-      <bottomStatus status="{{positionList.onBottomStatus}}" listData="{{positionList.list}}"></bottomStatus>
+      <!-- <bottomStatus status="{{positionList.onBottomStatus}}" listData="{{positionList.list}}"></bottomStatus> -->
     <view class="more meToo" bindtap="create" wx:if="{{!isRecruiter}}">我也要制作招聘主页<view class="icon iconfont icon-disejiantou-you"></view></view>
 
     <block wx:if="{{!realIsOwner}}">
