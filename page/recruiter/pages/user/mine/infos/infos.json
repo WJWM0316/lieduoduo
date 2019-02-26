@@ -2,6 +2,7 @@
 	"enablePullDownRefresh": true,
 	"backgroundTextStyle": "light",
   "usingComponents": {
+  	"canvasCard": "../../../../components/business/canvasCard/canvasCard",
   	"navbar": "../../../../components/business/navbar/navbar",
   	"tab-bar": "../../../../components/business/tabBar/tabBar"
   }

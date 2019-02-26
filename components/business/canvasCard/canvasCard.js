@@ -18,7 +18,7 @@ Component({
   },
   ready() {
     let that = this
-    console.log(that.data.cardData, 1111111111)
+    console.log(this.data.cardData,1111)
     let loadAvatar = new Promise((resolve, reject) => {
       // 头像
       wx.downloadFile({
@@ -43,34 +43,38 @@ Component({
     drawing (avatarUrl) {
       let info = this.data.cardData
       const ctx = wx.createCanvasContext('cardCanvas', this)
+
+      // switch(this.data.type) {
+      //   case 'recruiter':
+      //     ctx.drawImage(avatarUrl, 40, 56, 100, 100)
+      //     ctx.drawImage('../../../images/zhaopin.png', 0, 0, 420, 336)
+      //     ctx.setFontSize(28)
+      //     ctx.setFillStyle('#ffffff')
+      //     ctx.setTextAlign('left')
+      //     ctx.fillText(info.name, 160, 106)
+      //     ctx.setFontSize(22)
+      //     ctx.fillText(info.jobStatusDesc, 160, 137)
+
+      //     let cityWidth = ctx.measureText(item.name).width
+      //     ctx.fillRect(teamPosition.x, teamPosition.y, metricsW + 40, 42)
+
+
+      //     ctx.draw(true, () => {
+      //       // setTimeout(() => {
+      //       //   wx.canvasToTempFilePath({
+      //       //     x: 0,
+      //       //     y: 0,
+      //       //     quality: 1,
+      //       //     canvasId: 'canvas',
+      //       //     success(res) {
+      //       //       console.log(res, 1)
+      //       //     }
+      //       //   })
+      //       // }, 500)
+      //     })
+      //   break
+      // }
       
-      ctx.drawImage(avatarUrl, 40, 56, 100, 100)
-
-      ctx.drawImage('../../../images/jianli.png', 0, 0, 420, 336)
-      ctx.setFontSize(28)
-      ctx.setFillStyle('#ffffff')
-      ctx.setTextAlign('left')
-      ctx.fillText(info.name, 160, 106)
-      ctx.setFontSize(22)
-      ctx.fillText(info.jobStatusDesc, 160, 137)
-
-      let cityWidth = ctx.measureText(item.name).width
-      ctx.fillRect(teamPosition.x, teamPosition.y, metricsW + 40, 42)
-
-
-      ctx.draw(true, () => {
-        // setTimeout(() => {
-        //   wx.canvasToTempFilePath({
-        //     x: 0,
-        //     y: 0,
-        //     quality: 1,
-        //     canvasId: 'canvas',
-        //     success(res) {
-        //       console.log(res, 1)
-        //     }
-        //   })
-        // }, 500)
-      })
     }
   }
 })

@@ -73,7 +73,7 @@
         </view>
         <view class="expInfo">{{item.position}}</view>
         <!-- 工作内容 -->
-        <shrinkText class="expContent" textData="{{item.duty}}" line="{{isOwner ? 1 : 0}}"></shrinkText>
+        <shrinkText class="expContent" wx:if="{{item.duty}}" textData="{{item.duty}}" line="{{isOwner ? 1 : 0}}"></shrinkText>
         <!-- 工作标签 -->
         <view class='expTip' wx:if="{{item.technicalLabels}}">
           <text wx:for="{{item.technicalLabels}}" wx:key="{{index}}"># {{item.labelName}}</text>
@@ -96,10 +96,9 @@
       </view>
       <view class="expInfo">{{item.role}}</view>
       <!-- 工作内容 -->
-      <shrinkText class="expContent" textData="内容：{{item.description}}" line="{{isOwner ? 1 : 0}}"></shrinkText>
+      <shrinkText class="expContent" wx:if="{{item.description}}" textData="内容：{{item.description}}" line="{{isOwner ? 1 : 0}}"></shrinkText>
       <!-- 相关链接 -->
-      <view class="link" wx:if="{{item.link}}">
-        链接：<text bindtap="copy" data-copyData="{{item.link}}">{{item.link}}</text>
+      <view class="link" wx:if="{{item.link}}">链接：<text bindtap="copy" data-copyData="{{item.link}}">{{item.link}}</text>
       </view>
     </view>
     <text class="add" data-editName="project" bindtap="edit" wx:if="{{isOwner && info.projects.length < 11}}" data-id="">添加项目经历</text>
@@ -116,7 +115,7 @@
       </view>
       <view class="expInfo">{{item.degreeDesc}}·{{item.major}}</view>
       <!-- 教育经历 -->
-      <shrinkText class="expContent" textData="{{item.experience}}" line="{{isOwner ? 1 : 0}}"></shrinkText>
+      <shrinkText class="expContent" wx:if="{{item.experience}}" textData="{{item.experience}}" line="{{isOwner ? 1 : 0}}"></shrinkText>
     </view>
     <text class="add" data-editName="education" bindtap="edit" wx:if="{{isOwner && info.educations.length < 11}}" data-id="">添加教育经历</text>
   </view>

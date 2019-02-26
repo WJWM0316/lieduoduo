@@ -231,7 +231,7 @@ Component({
         for (let i = 30; i <= 95; i+=5) {
           startNumB.push(`${i}k`)
         }
-        for (let i = 100; i <= 260; i+=10) {
+        for (let i = 100; i <= 250; i+=10) {
           startNumB.push(`${i}k`)
         }
         result = []
@@ -393,10 +393,28 @@ Component({
         if (this.data.pickerType === 'salaryRangeB') {
           if (e.detail.column === 0) { // 选择起始工资
             list = this.data.list
-            let startNum = list[0][e.detail.value]
+            let startNum = parseInt(list[0][e.detail.value])
             let endNum = []
-            for (let i = parseInt(startNum) + 1; i <= parseInt(startNum) + 5; i++) {
-              endNum.push(`${i}k`)
+            if (startNum >= 1 && startNum <= 10) {
+              for (let i = startNum + 1; i <= startNum + 5; i++) {
+                endNum.push(`${i}k`)
+              }
+            } else if (startNum >= 11 && startNum <= 30) {
+              for (let i = startNum + 1; i <= 2*startNum; i++) {
+                endNum.push(`${i}k`)
+              }
+            } else if (startNum >= 35 && startNum <= 70) {
+              for (let i = startNum + 1; i <= startNum + 30; i++) {
+                endNum.push(`${i}k`)
+              }
+            } else if (startNum >= 75 && startNum <= 95) {
+              for (let i = startNum + 1; i <= startNum + 30; i++) {
+                endNum.push(`${i}k`)
+              }
+            } else if (startNum >= 100 && startNum <= 250) {
+              for (let i = startNum + 1; i <= 2*startNum; i++) {
+                endNum.push(`${i}k`)
+              }
             }
             list[1] = endNum
             this.setData({list})

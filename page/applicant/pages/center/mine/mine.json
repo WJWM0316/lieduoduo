@@ -2,6 +2,7 @@
 	"enablePullDownRefresh": true,
 	"backgroundTextStyle": "light",
   "usingComponents": {
+  	"canvasCard": "../../../../../components/business/canvasCard/canvasCard",
     "bindPhone": "../../../../components/functional/bindPhone/bindPhone",
     "navbar": "../../../../../components/business/navbar/navbar"  
   }

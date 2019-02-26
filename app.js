@@ -13,6 +13,7 @@ let formIdList = []
 App({
   onLaunch: function () {
     // 获取导航栏高度
+    this.checkUpdateVersion()
     wx.getSystemInfo({
       success: res => {
         //导航高度
@@ -21,13 +22,15 @@ App({
         if (res.model.indexOf('iPhone X') !== -1) {
           this.globalData.isIphoneX = true
         }
+        if (res.system.indexOf('iOS') !== -1) {
+          this.globalData.isIphone = true
+        }
       },
       fail: err => {
         console.log(err)
       }
     })
     this.login()
-
   },
   globalData: {
     identity: "", // 身份标识
@@ -42,6 +45,7 @@ App({
     recruiterDetails: {}, // 招聘官详情信息
     pageCount: 20,
     isIphoneX: false,
+    isIphone: false,
     systemInfo: wx.getSystemInfoSync() // 系统信息
   },
   // 登录
@@ -141,7 +145,6 @@ App({
     this.getAllInfo()
     this.getRoleInfo()
   },
-
   // 检查微信授权
   checkLogin () {
     let that = this
@@ -167,7 +170,9 @@ App({
                       }
                       const e = {}
                       e.detail = res
-                      that.onGotUserInfo(e)
+                      if (!that.globalData.isIphone) {
+                        that.onGotUserInfo(e)
+                      }
                       console.log('用户已授权')
                       resolve(res)
                     }
@@ -255,7 +260,6 @@ App({
       }
     })
   },
-
   // 微信快速登陆
   quickLogin(e) {
     if (e.detail.errMsg === 'getPhoneNumber:ok') {
@@ -267,7 +271,6 @@ App({
         quickLoginApi(data).then(res => {
           if (res.data.token) {
             wx.setStorageSync('token', res.data.token)
-            wx.setStorageSync('sessionToken', res.data.sessionToken)
             this.loginedLoadData()
             this.globalData.hasLogin = true
             var pages = getCurrentPages() //获取加载的页面
@@ -303,6 +306,37 @@ App({
         }
       })
     })
+  },
+  checkUpdateVersion() {
+    //判断微信版本是否 兼容小程序更新机制API的使用
+    if (wx.canIUse('getUpdateManager')) {
+      //创建 UpdateManager 实例
+      const updateManager = wx.getUpdateManager();
+      //检测版本更新
+      updateManager.onCheckForUpdate(function(res) {
+        // 请求完新版本信息的回调
+        if (res.hasUpdate) {
+          //监听小程序有版本更新事件
+          updateManager.onUpdateReady(function() {
+            //TODO 新的版本已经下载好，调用 applyUpdate 应用新版本并重启 （ 此处进行了自动更新操作）
+            updateManager.applyUpdate();
+          })
+          updateManager.onUpdateFailed(function() {
+            // 新版本下载失败
+            wx.showModal({
+              title: '已经有新版本喽~',
+              content: '请您删除当前小程序，到微信 “发现-小程序” 页，重新搜索打开哦~',
+            })
+          })
+        }
+      })
+    } else {
+      //TODO 此时微信版本太低（一般而言版本都是支持的）
+      wx.showModal({
+        title: '溫馨提示',
+        content: '当前微信版本过低，无法使用该功能，请升级到最新微信版本后重试。'
+      })
+    }
   },
   // 微信toast
   wxToast({title, icon = 'none', image, mask = true, duration = 1500, callback = function(){} }) {

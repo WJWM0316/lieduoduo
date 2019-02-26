@@ -6,6 +6,9 @@
   color: #282828;
   line-height: 48rpx;
 }
+.expContent .msg {
+  margin-top: 0;
+}
 .shrink {
   height: 143rpx;
   display: -webkit-box;

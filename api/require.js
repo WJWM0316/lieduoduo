@@ -71,7 +71,7 @@ export const request = ({method = 'post', url, data = {}, needKey = true, hasLoa
                 toBindPhone = true
                 setTimeout(() => {
                   toBindPhone = false
-                }, 60000)
+                }, 1000)
                 wx.removeStorageSync('token')
                 wx.navigateTo({
                   url: `${COMMON}bindPhone/bindPhone`
@@ -83,14 +83,13 @@ export const request = ({method = 'post', url, data = {}, needKey = true, hasLoa
                 toAuth = true
                 setTimeout(() => {
                   toAuth = false
-                }, 60000)
+                }, 1000)
                 wx.removeStorageSync('sessionToken')
                 if (url !== '/wechat/login/mini') {
                   wx.navigateTo({
                     url: `${COMMON}auth/auth`,
                     complete() {
                       wx.removeStorageSync('toAuth')
-                      console.log('1111')
                     }
                   })
                 }

@@ -1,5 +1,5 @@
 import {ellipsis, lineFeed} from '../../../../../utils/canvas.js'
-
+import {agreedTxtB} from '../../../../../utils/randomCopy.js'
 let app = getApp()
 let info = null
 let avatarUrl = ''
@@ -36,7 +36,8 @@ Page({
     ellipsis(ctx, `${info.recruiterInfo.name} | ${info.recruiterInfo.position}`, 360, 212, 85)
 
     ctx.setFontSize(22)
-    ctx.fillText('工作不易，知音难觅，壮士约乎？', 212, 119)
+
+    ctx.fillText(agreedTxtB(), 212, 119)
 
     // 主要内容
     ctx.setTextAlign('center')
