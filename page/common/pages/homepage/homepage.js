@@ -55,7 +55,7 @@ Page({
     pageCount: 4,
     hasReFresh: false,
     onBottomStatus: 0,
-    swiperIndex: 1
+    swiperIndex: 0
   },
   onLoad(options) {
     this.setData({query: options})

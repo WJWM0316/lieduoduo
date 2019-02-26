@@ -311,6 +311,7 @@
 .swiper-box {
   height:312rpx;
   position: relative;
+  margin-bottom: 40rpx;
 }
 .num-box {
   position: absolute;
@@ -346,6 +347,7 @@
 .company-detail {
   overflow: hidden;
   margin: 40rpx;
+  margin-top: 0;
 }
 
 .company-detail .p {
@@ -355,6 +357,7 @@
   color:rgba(40,40,40,1);
   line-height:48rpx;
   margin-bottom: 20rpx;
+  vertical-align:text-top;
 }
 
 .production-box {
