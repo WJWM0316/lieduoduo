@@ -191,8 +191,7 @@ Page({
     })
   },
   init () {
-    let id = app.globalData.recruiterDetails.uid
-    if (id) {
+    if (app.globalData.isJobhunter) {
       this.getApplyList()
     }
   },

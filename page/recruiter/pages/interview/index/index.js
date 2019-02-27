@@ -207,8 +207,7 @@ Page({
     this.getFixedDomNodePosition()
   },
   init () {
-    let id = app.globalData.recruiterDetails.uid
-    if (id) {
+    if (app.globalData.isRecruiter) {
       getRecruiterPositionListApi({status: 1}).then(res => {
         positionList = res.data
         positionList.unshift({positionName: '所有职位', id: 0})

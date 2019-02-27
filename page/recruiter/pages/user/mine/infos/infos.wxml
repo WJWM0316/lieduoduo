@@ -81,4 +81,5 @@
 	</view> -->
 </view>
 <view style="height: 100rpx;"></view>
-<tab-bar tabType="1"></tab-bar>
+<!-- <canvasCard cardData="{{recruiterInfo}}" type="recruiter"></canvasCard>
+ --><tab-bar tabType="1"></tab-bar>

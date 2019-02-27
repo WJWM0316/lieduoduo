@@ -1,6 +1,6 @@
 
 // 文本溢出打点  ctx canvas对象 text 文本  width 限制宽度 
-export const ellipsis = (ctx, text, width, x, y) => {
+export const ellipsis = (ctx, text, width, x, y, color, bgObject) => {
 	let ellipsisWidth = ctx.measureText('...').width
 	let textWidth = ctx.measureText(text).width
 	let curString = ''
@@ -9,14 +9,32 @@ export const ellipsis = (ctx, text, width, x, y) => {
 			curString = curString + text[i]
 			if (ctx.measureText(curString).width >= (width - ellipsisWidth)) {
 				curString = curString + '...'
+				addBorder({ctx, text:curString, bgObject})
+				ctx.setFillStyle(color)
         ctx.fillText(curString, x, y)
         break
 			}
 		}
 	} else {
+		addBorder({ctx, text, bgObject})
+		ctx.setFillStyle(color)
 		ctx.fillText(text, x, y)
 	}
 } 
+
+export const addBorder = ({ctx, text, bgObject}) => {
+	if (bgObject) {
+		let metricsW = ctx.measureText(text).width
+		if (!bgObject.x) {
+			bgObject.x = (bgObject.maxWidth-(metricsW+2*bgObject.r)) / 2
+		}
+		ctx.beginPath()
+    ctx.setFillStyle(bgObject.color)
+    ctx.arc(bgObject.x + bgObject.r, bgObject.y + bgObject.r, bgObject.r, 0.5*Math.PI, 1.5*Math.PI)
+    ctx.arc(bgObject.x + metricsW + bgObject.r, bgObject.y + bgObject.r, bgObject.r, 1.5*Math.PI, 0.5*Math.PI)
+    ctx.fill()
+	}
+}
 
 // 文本换行  ctx canvas对象 text 文本  width 限制宽度  bgUrl 背景图url
 export const lineFeed = (ctx, text, width, x, y, bgUrl, bgW = 750, bgH = 90) => {

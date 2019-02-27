@@ -10,7 +10,7 @@
 		"minified": true,
 		"newFeature": true,
 		"nodeModules": true,
-		"autoAudits": true,
+		"autoAudits": false,
 		"uglifyFileName": false
 	},
 	"compileType": "miniprogram",
@@ -38,7 +38,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 53,
+			"current": 55,
 			"list": [
 				{
 					"id": 0,
@@ -368,6 +368,18 @@
 					"pathName": "page/applicant/pages/jobs/job/job",
 					"query": "companyId=36",
 					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "测试",
+					"pathName": "page/applicant/pages/index/index",
+					"query": ""
+				},
+				{
+					"id": 55,
+					"name": "测试",
+					"pathName": "page/applicant/pages/index/index",
+					"query": ""
 				}
 			]
 		}

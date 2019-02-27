@@ -4,6 +4,7 @@ import {ellipsis, lineFeed} from '../../../../../utils/canvas.js'
 
 let app = getApp()
 let info = null
+let positionList = []
 let avatarUrl = ''
 let qrCodeUrl = ''
 Page({
@@ -84,8 +85,7 @@ Page({
     ctx.fillText('在招职位', 114, curHeight + 26)
 
     curHeight = curHeight + 70
-
-    info.positionList.map((item, index) => {
+    positionList.map((item, index) => {
       positionItem(item, index)
     })
 
@@ -194,7 +194,7 @@ Page({
       }
     }
     let getList = getPositionListApi({recruiter: info.uid, count:2, is_online: 1}).then(res => {
-      info.positionList = res.data
+      positionList = res.data
     })
     let loadAvatar = new Promise((resolve, reject) => {
       // 头像
