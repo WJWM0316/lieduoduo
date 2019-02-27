@@ -16,7 +16,7 @@
   top: 0;
   left: 0;
   box-shadow:0rpx 8rpx 20rpx 0rpx rgba(45,45,45,0.06);
-  border-radius:18px;
+  border-radius:18rpx;
 }
 .company .companyMsg, .applicant .applicantMsg, .recruiter .recruiterMsg {
   display: flex;

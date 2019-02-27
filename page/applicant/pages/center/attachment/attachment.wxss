@@ -49,6 +49,8 @@
 	color:rgba(98,98,98,1);
 	margin-bottom: 32rpx;
 	text-align: center;
+	height: 37rpx;
+	line-height: 37rpx;
 }
 
 .button {
@@ -130,7 +132,7 @@
 
 .attachment .attach-box {
 	margin: 0 40rpx;
-	padding-bottom: 250rpx;
+	padding-bottom: 273rpx;
 }
 
 .attachment .filename {
