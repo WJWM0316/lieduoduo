@@ -191,7 +191,7 @@
   overflow: hidden;
 }
 .common-lits-ul .footer .action.limit-width {
-  max-width: 330rpx;
+  max-width: 310rpx;
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;

@@ -291,3 +291,11 @@
 	color:rgba(255,255,255,1);
 	margin-top: 84rpx;
 }
+
+.marginB24 {
+	margin-bottom: 24rpx;
+}
+
+.position-post .marginB24:after {
+	display: none;
+}
