@@ -1,6 +1,6 @@
 
 .position-skills .li {
-	padding:0 38rpx;
+	padding:0 30rpx;
 	height:58rpx;
 	line-height:58rpx;
 	text-align:center;
@@ -83,4 +83,12 @@
 	font-size:32rpx;
 	font-weight:400;
 	color:rgba(255,255,255,1);
+}
+
+.icon-close {
+	font-size: 28rpx;
+	color: #BCBCBC;
+	margin-left: 8rpx;
+	font-weight: 900;
+	display: inline-block;
 }

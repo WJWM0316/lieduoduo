@@ -36,7 +36,7 @@
 }
 .role1 .icon, .role2 .icon {
 	margin-left: 16rpx;
-	font-size: 36rpx;
+	font-size: 34rpx;
 }
 .role2 {
 	margin-top: 32rpx;

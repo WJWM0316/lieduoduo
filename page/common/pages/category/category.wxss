@@ -223,3 +223,7 @@
 .search-item .second {
 	color:#929292;
 }
+
+.icon-wancheng {
+	font-weight: 400;
+}

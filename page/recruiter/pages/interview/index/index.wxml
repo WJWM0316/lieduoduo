@@ -1,10 +1,6 @@
 <view class="recruiter-interview">
 	<navbar title="面试"></navbar>
 
-	<view hidden="{{!hasReFresh}}">
-		<refreshStatus></refreshStatus>
-	</view>
-
 	<view class="fixed-dom" style="top: {{navH}}px">
 
 		<!-- 顶部tab栏 start-->
@@ -57,28 +53,39 @@
 		<!-- 收到意向 end-->
 		
 		<!-- 面试日程 start-->
-		<myCalendar id="myCalendar" calendarType="roll" setDateList="{{dateList}}" switchable bindresultEvent="getResult" wx:if="{{tabIndex === 2}}"></myCalendar>
+		<myCalendar
+			id="myCalendar"
+			calendarType="roll"
+			setDateList="{{dateList}}"
+			switchable
+			bindresultEvent="getResult"
+			wx:if="{{tabIndex === 2}}"></myCalendar>
 
-<!-- 		<view class="interview-page-title" wx:if="{{tabIndex === 2}}">
-			<view class="text">面试安排(0)</view>
-			<view class="button" bindtap="jumpInterviewPage">面试历史</view> 
-		</view> -->
+		<view class="interview-page-title" wx:if="{{tabIndex === 2}}"></view>
 		<!-- 面试日程 end-->
 	</view>
 
-
 	<!--收到意向-->
 	<view hidden="{{tabIndex !== 0}}" class="list-box" style="padding-top: {{fixedBarHeight}}px">
+		<view hidden="{{!hasReFresh}}">
+			<refreshStatus></refreshStatus>
+		</view>
 		<commonList list="{{receiveData.list}}" type="receive" dotType="{{'circle'}}" showItemStatus="{{true}}"></commonList>
 		<bottomStatus status="{{applyBottomStatus}}" listData="{{receiveData.list}}"></bottomStatus>
 	</view>
 	<!--我的邀请-->
 	<view hidden="{{tabIndex !== 1}}" class="list-box" style="padding-top: {{fixedBarHeight}}px">
+		<view hidden="{{!hasReFresh}}">
+			<refreshStatus></refreshStatus>
+		</view>
 		<commonList list="{{applyData.list}}" type="apply" dotType="{{'circle'}}" showItemStatus="{{true}}"> </commonList>
 		<bottomStatus status="{{receiveBottomStatus}}" listData="{{applyData.list}}"></bottomStatus>
 	</view>
 	<!--面试日程-->
 	<view hidden="{{tabIndex !== 2}}" class="list-box" style="padding-top: {{fixedBarHeight}}px">
+		<view hidden="{{!hasReFresh}}">
+			<refreshStatus></refreshStatus>
+		</view>
 		<commonList list="{{interviewData.list}}" type="dateList" dotType="{{'circle'}}" showItemStatus="{{true}}"></commonList>
 		<bottomStatus status="{{interviewBottomStatus}}" listData="{{interviewData.list}}"></bottomStatus>
 	</view>

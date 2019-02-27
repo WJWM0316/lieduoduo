@@ -14,6 +14,8 @@ import {RECRUITER, COMMON, APPLICANT} from '../../../../config.js'
 
 import {getSelectorQuery}  from '../../../../utils/util.js'
 
+import { getPositionListNumApi } from '../../../../api/pages/position.js'
+
 const app = getApp()
 
 Page({
@@ -247,7 +249,6 @@ Page({
    * @return   {[type]}     [description]
    */
   onPageScroll(e) {
-    console.log(e.scrollTop ,'------', this.data.navH)
     if(e.scrollTop > this.data.navH - 5) {
       this.setData({isFixed: true, background: '#652791'})
     } else {
@@ -259,5 +260,10 @@ Page({
     } else {
       this.setData({fixedDom: false})
     }
+  },
+  jump() {
+    getPositionListNumApi().then(res => {
+      console.log(res.data)
+    })
   }
 })

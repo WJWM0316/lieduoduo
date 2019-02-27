@@ -117,8 +117,11 @@ Page({
     }
   },
   getResult(e) {
-    chooseTime = e.detail.timeStamp
-    this.getScheduleList()
+    if(e && e.detail && e.detail.timeStamp) {
+      chooseTime = e.detail.timeStamp
+      this.getScheduleList()
+    }
+    this.getFixedDomNodePosition()
   },
   // 我的邀请
   getApplyList(hasLoading = true) {

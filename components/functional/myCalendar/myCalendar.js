@@ -125,6 +125,8 @@ Component({
           calendarType: 'roll'
         })
       }
+      // 两个端的面试列表的日历展开需要重新计算高度 需要出发父级的一个方法
+      this.triggerEvent('resultEvent')
     },
     // 下个月
     nextMonth () {
