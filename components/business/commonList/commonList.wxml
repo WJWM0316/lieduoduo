@@ -38,7 +38,10 @@
 							<i class="icon iconfont icon-gongsi"></i> {{item.companyName}}
 							<view wx:if="{{item.positionNum}}"><i class="icon iconfont icon-zhiwei"></i> {{item.positionNum}}个职位 </view>
 						</view>
-						<view wx:else class="company-name"> {{item.lastCompanyName || item.lastCompanyName}}<text wx:if="{{item.lastPosition}}"> |  {{item.lastPosition}} </text></view>
+						<view wx:else class="company-name">
+							{{item.lastCompanyName || item.lastCompanyName || item.companyName}} | {{item.positionName}}
+							<text wx:if="{{item.lastPosition}}"> |  {{item.lastPosition}} </text>
+						</view>
 					</view>
 				</view>
 				<view class="footer {{ showDividingLine ? 'show-dividing-line' : ''}}" wx:if="{{showFooter}}">
