@@ -39,11 +39,9 @@ Page({
     fixedDomPosition: 0,
     fixedDom: false
   },
-  onLoad() {
-
-  },
   onShow() {
     let choseType = wx.getStorageSync('choseType') || ''
+    let that = this
     this.setData({choseType})
     if (choseType === 'RECRUITER') {
       app.wxConfirm({
@@ -55,10 +53,12 @@ Page({
             url: `${RECRUITER}index/index`
           })
         },
-        cancelBack() {
+        cancelBack: () => {
           app.globalData.identity = 'APPLICANT'
           wx.setStorageSync('choseType', 'APPLICANT')
           app.getAllInfo()
+          this.clearListsData()
+          this.getLists().then(() => this.getDomNodePosition())
         }
       })
     }
@@ -68,19 +68,7 @@ Page({
     } else {
       wx.showTabBar()
     }
-    const myBrowse = {
-      list: [],
-      pageNum: 1,
-      isLastPage: false,
-      isRequire: false
-    }
-    const myCollect = {
-      list: [],
-      pageNum: 1,
-      isLastPage: false,
-      isRequire: false
-    }
-    this.setData({myBrowse, myCollect})
+    this.clearListsData()
     if (app.loginInit) {
       this.getLists().then(() => this.getDomNodePosition())
       this.getAvartList()
@@ -96,14 +84,20 @@ Page({
       this.setData({fixedDomPosition: res.top - this.data.navH})
     })
   },
-  /**
-   * @Author   小书包
-   * @DateTime 2019-01-23
-   * @detail   重新拿数据
-   * @return   {[type]}   [description]
-   */
-  refreshEvent(res) {
-    console.log('refreshEvent')
+  clearListsData() {
+    const myBrowse = {
+      list: [],
+      pageNum: 1,
+      isLastPage: false,
+      isRequire: false
+    }
+    const myCollect = {
+      list: [],
+      pageNum: 1,
+      isLastPage: false,
+      isRequire: false
+    }
+    this.setData({myBrowse, myCollect})
   },
   /**
    * @Author   小书包

@@ -74,8 +74,11 @@ Page({
   },
   /* 面试日程 */
   getResult(e) {
-    chooseTime = e.detail.timeStamp
-    this.getScheduleList()
+    if(e && e.detail && e.detail.timeStamp) {
+      chooseTime = e.detail.timeStamp
+      this.getScheduleList()
+    }
+    this.getFixedDomNodePosition()
   },
   chooseParentTab(e) {
     const index = e.currentTarget.dataset.index
@@ -86,7 +89,7 @@ Page({
     })
     tabLists[tabIndex].active = true
     this.setData({tabLists, tabIndex})
-
+    this.getFixedDomNodePosition()
     let data = {}
     switch(index) {
       case 0:
@@ -192,6 +195,7 @@ Page({
   },
   init () {
     let id = app.globalData.recruiterDetails.uid
+    // console.log(app.globalData)
     if (id) {
       this.getApplyList()
     }

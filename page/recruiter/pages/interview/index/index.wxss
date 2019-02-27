@@ -182,7 +182,7 @@
 .interview-page-title {
   overflow: hidden;
   line-height: 1;
-  margin: 40rpx 32rpx 60rpx 32rpx;
+  margin: 10rpx 30rpx;
 }
 
 .interview-page-title .text {
