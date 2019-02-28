@@ -7,6 +7,7 @@
     "roleInfoCard": "../../../../components/business/roleInfoCard/roleInfoCard",
     "shareBtn": "../../../../components/layout/shareBtn/shareBtn",
     "interviewBar": "../../../../components/business/interviewBar/interviewBar",
-    "company": "../../../../components/business/roleInfoCard/roleInfoCard"
+    "company": "../../../../components/business/roleInfoCard/roleInfoCard",
+    "canvasCard": "../../../../components/business/canvasCard/canvasCard"
   }
 }

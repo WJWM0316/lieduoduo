@@ -81,6 +81,6 @@
 	</view> -->
 </view>
 <view style="height: 100rpx;"></view>
-<block wx:if="{{recruiterInfo.uid}}"><canvasCard cardData="{{recruiterInfo}}" type="recruiter"></canvasCard>
+<block wx:if="{{recruiterInfo.uid}}"><canvasCard cardData="{{recruiterInfo}}" type="recruiter" bindgetCreatedImg="getCreatedImg"></canvasCard>
 </block>
 <tab-bar tabType="1"></tab-bar>

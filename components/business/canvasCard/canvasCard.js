@@ -27,7 +27,6 @@ Component({
     if (this.data.type === 'position') {
       avatarImg = that.data.cardData.recruiterInfo.avatar.smallUrl
     } else {
-      console.log(that.data.cardData, 111)
       avatarImg = that.data.cardData.avatar.smallUrl
     }
     let loadAvatar = new Promise((resolve, reject) => {
@@ -62,7 +61,7 @@ Component({
           ctx.setFontSize(28)
           ctx.setFillStyle('#ffffff')
           ctx.setTextAlign('center')
-          ctx.fillText(info.name, 210, 215)
+          ellipsis(ctx, info.name, 168, 210, 215 )
           ctx.setFontSize(20)
           ctx.setTextAlign('left')
           let r = 17
@@ -70,28 +69,28 @@ Component({
             let x=0, y=0
             switch(index) {
               case 0: 
-                x = 185
-                y = 25
+                x = 198
+                y = 34
                 break
               case 1:
-                x = 219
-                y = 20
+                x = 226
+                y = 28
                 break
               case 2: 
-                x = 152
-                y = 95
+                x = 154
+                y = 90
                 break
               case 3:
-                x = 271
+                x = 264
                 y = 84
                 break
               case 4: 
-                x = 136
-                y = 168
+                x = 159
+                y = 150
                 break
               case 5:
-                x = 268
-                y = 158
+                x = 264
+                y = 144
                 break
             }
             let metricsW = ctx.measureText(item).width // 文本宽度
@@ -109,7 +108,6 @@ Component({
           info.personalizedLabels.map((item, index) => {
             addLabel(item.labelName, index)
           })
-          ctx.beginPath()
           ctx.setFillStyle('#8452A7')
           let position = `${info.companyInfo.companyShortname} | ${info.position}`
           ctx.setFontSize(24)
@@ -122,7 +120,6 @@ Component({
           ctx.drawImage('../../../images/zhiwei.png', 0, 0, 420, 336)
           ctx.setFontSize(26)
           ctx.setFillStyle('#ffffff')
-          ctx.fillText(info.recruiterInfo.name, 113, 62)
           ellipsis(ctx, info.recruiterInfo.name, 194, 113, 62)
           ctx.setFontSize(22)
           ellipsis(ctx, info.recruiterInfo.position, 194, 113, 94)
@@ -131,14 +128,14 @@ Component({
           ctx.fillText(`${info.emolumentMin}K~${info.emolumentMax}K`, 20, 173)
           ctx.setFontSize(28)
           ctx.setFillStyle('#ffffff')
-          ellipsis(ctx, info.recruiterInfo.position, 194, 20, 216)
+          ellipsis(ctx, info.positionName, 380, 20, 216)
           ctx.setFontSize(20)
           let positionX = 0
           positionX = ellipsis(ctx, `${info.city}${info.district}`, 155, 32, 258, '#ffffff', {color: '#8452A7', padding: 12, height: 34, x: 22, y:234})
           positionX = ellipsis(ctx, `${info.workExperienceName}`, 155, positionX + 20, 258, '#ffffff', {color: '#8452A7', padding: 12, height: 34, x: positionX + 8, y:234})
           positionX = ellipsis(ctx, `${info.educationName}`, 155, positionX + 20, 258, '#ffffff', {color: '#8452A7', padding: 12, height: 34, x: positionX + 8, y:234})
           ctx.setFontSize(26)
-          ellipsis(ctx, info.companyInfo.companyShortname, 194, 24, 312)
+          ellipsis(ctx, info.companyInfo.companyShortname, 380, 24, 312)
         break
       }
       ctx.draw(true, () => {
@@ -149,14 +146,7 @@ Component({
             quality: 1,
             canvasId: 'cardCanvas',
             success(res) {
-              switch(that.data.type) {
-                case 'recruiter':
-                  app.globalData.recruiterCard = res.tempFilePath
-                break
-                case 'position':
-                  app.globalData.positionCard = res.tempFilePath
-                break
-              }        
+              that.triggerEvent('getCreatedImg', res.tempFilePath)     
               console.log(res, '生成图片成功')
             },
             fail(e) {

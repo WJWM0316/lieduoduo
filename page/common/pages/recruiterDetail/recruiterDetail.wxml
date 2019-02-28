@@ -106,6 +106,7 @@
     </block>
   </view>
   <!-- <view class="positionBtn" bindtap="scrollPs" hidden="{{!isShowBtn}}" wx:if="{{!isOwner && positionList.total > 0}}">{{positionList.total}}个热招职位<i class="icon iconfont icon-xiayi"></i></view> -->
+  <block wx:if="{{info.uid}}"><canvasCard cardData="{{info}}" type="recruiter" bindgetCreatedImg="getCreatedImg"></canvasCard></block>
 
  <interviewBar
     id="interviewBar"

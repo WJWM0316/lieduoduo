@@ -15,6 +15,7 @@ import {RECRUITER, COMMON} from '../../../../config.js'
 
 import {sharePosition} from '../../../../utils/shareWord.js'
 
+let positionCard = ''
 const app = getApp()
 
 Page({
@@ -29,6 +30,7 @@ Page({
     cdnPath: app.globalData.cdnImagePath
   },
   onLoad(options) {
+    positionCard = ''
     if (options.scene) {
       options = app.getSceneParams(options.scene)
     }
@@ -185,14 +187,16 @@ Page({
       wx.stopPullDownRefresh()
     })
   },
-
+  getCreatedImg(e) {
+    positionCard = e.detail
+  },
   onShareAppMessage(options) {
     let that = this
 　　return app.wxShare({
       options,
       title: sharePosition(),
       path: `${COMMON}positionDetail/positionDetail?positionId=${that.data.query.positionId}`,
-      imageUrl: app.globalData.positionCard
+      imageUrl: positionCard
     })
   }
 })

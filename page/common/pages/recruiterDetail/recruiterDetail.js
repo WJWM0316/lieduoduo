@@ -5,6 +5,7 @@ import {getMyCollectUserApi, deleteMyCollectUserApi} from "../../../../api/pages
 import {COMMON,RECRUITER,APPLICANT} from "../../../../config.js"
 import {shareRecruiter} from '../../../../utils/shareWord.js'
 
+let recruiterCard = ''
 let app = getApp()
 let positionTop = 0
 Page({
@@ -34,6 +35,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
+    recruiterCard = ''
     if (options.scene) {
       options = app.getSceneParams(options.scene)
     }
@@ -259,13 +261,16 @@ Page({
       })
     }
   },
+  getCreatedImg(e) {
+    recruiterCard = e.detail
+  },
   onShareAppMessage(options) {
     let that = this
 　　return app.wxShare({
       options,
-      title: shareRecruiter,
+      title: shareRecruiter(),
       path: `${COMMON}recruiterDetail/recruiterDetail?uid=${this.data.options.uid}`,
-      imageUrl: `${that.data.cdnImagePath}shareC.png`
+      imageUrl: recruiterCard
     })
   },
   /**

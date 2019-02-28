@@ -7,7 +7,7 @@ import {
 } from '../../../../../../api/pages/company.js'
 
 const app = getApp()
-
+let recruiterCard = ''
 Page({
 	data: {
     recruiterInfo: {},
@@ -17,6 +17,7 @@ Page({
     identityInfos: {}
   },
   onLoad() {
+    recruiterCard = ''
     let recruiterInfo = app.globalData.recruiterDetails
     if (recruiterInfo.uid) {
       this.setData({recruiterInfo})
@@ -92,13 +93,16 @@ Page({
       this.getCompanyIdentityInfos()
     })
   },
+  getCreatedImg(e) {
+    recruiterCard = e.detail
+  },
   onShareAppMessage(options) {
     let that = this
 　　return app.wxShare({
       options,
-      title: shareRecruiter,
+      title: shareRecruiter(),
       path: `${COMMON}recruiterDetail/recruiterDetail?uid=${this.data.recruiterInfo.uid}`,
-      imageUrl: app.globalData.recruiterCard
+      imageUrl: recruiterCard
     })
   },
   /**

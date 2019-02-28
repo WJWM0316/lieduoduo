@@ -19,7 +19,19 @@ export const shareResume = (res) => {
 }
 
 // 分享招聘官
-export const shareRecruiter = `我这么Nice的招聘官已经不多见了！ TA正在猎多多招人！`
+export const shareRecruiter = (res) => {
+	let txtList = [
+		'【工作易得，知音难觅，壮士约乎？】TA正在猎多多招人！',
+		'【我不想懂天文地理，我只想懂你~】TA正在猎多多招人！',
+		'【公司的进口零食得找个人清一清了】TA正在猎多多招人！',
+		'【我看你骨骼精奇，是块耐磨的料子】TA正在猎多多招人！',
+		'【好看的和能干的，都欢迎来开撩哦】TA正在猎多多招人！',
+		'【把握住缘分，搞不好能成为同事~】TA正在猎多多招人！',
+		'【我这么Nice的招聘官已经不多见了！】TA正在猎多多招人！'
+	]
+	let random = Math.floor((Math.random()*txtList.length))
+	return txtList[random]
+}
 
 // 分享职位
 export const sharePosition = (res) => {

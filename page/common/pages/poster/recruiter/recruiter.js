@@ -122,7 +122,7 @@ Page({
       curHeight = curHeight + 20
     }
 
-    ctx.drawImage(qrCodeUrl, 82, curHeight + 195, 160, 160)
+    ctx.drawImage(qrCodeUrl, 77, curHeight + 193, 167, 167)
     ctx.drawImage(`../../../../../images/j2.png`, 0, curHeight, 750, 408)
     ctx.setFontSize(26)
     ctx.setFillStyle('#282828')

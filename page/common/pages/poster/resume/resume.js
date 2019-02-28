@@ -24,7 +24,7 @@ Page({
     ctx.setFillStyle('#652791')
     ctx.fillRect(0, 0, 750, 5000)
 
-    ctx.drawImage(avatarUrl, 306, 58, 133, 133)
+    ctx.drawImage(avatarUrl, 306, 55, 138, 138)
 
     // 背景图1
     ctx.drawImage(`../../../../../images/j4.png`, 0, 0, 750, 401)
