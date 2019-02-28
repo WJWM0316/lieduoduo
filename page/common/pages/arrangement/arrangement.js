@@ -128,6 +128,10 @@ Page({
   send() {
     let info = this.data.info
     let dateList = []
+    if(!info.arrangementInfo.appointmentList || (info.arrangementInfo.appointmentList && info.arrangementInfo.appointmentList.length === 0)) {
+      app.wxToast({title: '请编辑面试时间'})
+      return
+    }
     if (info.arrangementInfo) {
       info.arrangementInfo.appointmentList.map((item, index) => {
         dateList.push(item.appointmentTime)
