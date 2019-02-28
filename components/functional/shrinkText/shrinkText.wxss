@@ -3,7 +3,7 @@
   font-size: 28rpx;
   /*margin-top: 36rpx;*/
   font-weight: 300;
-  color: #282828;
+  color: #626262;
   line-height: 48rpx;
 }
 .expContent .msg {

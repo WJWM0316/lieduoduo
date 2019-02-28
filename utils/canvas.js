@@ -4,35 +4,50 @@ export const ellipsis = (ctx, text, width, x, y, color, bgObject) => {
 	let ellipsisWidth = ctx.measureText('...').width
 	let textWidth = ctx.measureText(text).width
 	let curString = ''
+	let nextString = ''
 	if (textWidth > width) {
 		for(let i = 0; i < text.length; i++) {
 			curString = curString + text[i]
-			if (ctx.measureText(curString).width >= (width - ellipsisWidth)) {
+			if (i < text.length - 1) nextString = curString + text[i+1]
+			if (ctx.measureText(nextString).width >= (width - ellipsisWidth)) {
 				curString = curString + '...'
-				addBorder({ctx, text:curString, bgObject})
+				let nextPositionX = addBorder({ctx, text:curString, bgObject})
 				ctx.setFillStyle(color)
         ctx.fillText(curString, x, y)
-        break
+        return nextPositionX
 			}
 		}
 	} else {
-		addBorder({ctx, text, bgObject})
+		let nextPositionX = addBorder({ctx, text, bgObject})
 		ctx.setFillStyle(color)
 		ctx.fillText(text, x, y)
+		return nextPositionX
 	}
 } 
 
 export const addBorder = ({ctx, text, bgObject}) => {
 	if (bgObject) {
-		let metricsW = ctx.measureText(text).width
-		if (!bgObject.x) {
-			bgObject.x = (bgObject.maxWidth-(metricsW+2*bgObject.r)) / 2
+		if (bgObject.r) {
+			let metricsW = ctx.measureText(text).width
+			if (!bgObject.x) {
+				bgObject.x = (bgObject.maxWidth-(metricsW+2*bgObject.r)) / 2
+			}
+			ctx.beginPath()
+	    ctx.setFillStyle(bgObject.color)
+	    ctx.arc(bgObject.x + bgObject.r, bgObject.y + bgObject.r, bgObject.r, 0.5*Math.PI, 1.5*Math.PI)
+	    ctx.arc(bgObject.x + metricsW + bgObject.r, bgObject.y + bgObject.r, bgObject.r, 1.5*Math.PI, 0.5*Math.PI)
+	    ctx.fill()
+		} else {
+			let metricsW = ctx.measureText(text).width
+			if (!bgObject.x) {
+				bgObject.x = (bgObject.maxWidth-(metricsW+2*bgObject.padding)) / 2
+			}
+			ctx.beginPath()
+	    ctx.setFillStyle(bgObject.color)
+	    ctx.fillRect(bgObject.x, bgObject.y, metricsW+2*bgObject.padding, bgObject.height)
+	    ctx.fill()
+	    return bgObject.x + metricsW + 2*bgObject.padding
 		}
-		ctx.beginPath()
-    ctx.setFillStyle(bgObject.color)
-    ctx.arc(bgObject.x + bgObject.r, bgObject.y + bgObject.r, bgObject.r, 0.5*Math.PI, 1.5*Math.PI)
-    ctx.arc(bgObject.x + metricsW + bgObject.r, bgObject.y + bgObject.r, bgObject.r, 1.5*Math.PI, 0.5*Math.PI)
-    ctx.fill()
 	}
 }
 

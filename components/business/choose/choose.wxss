@@ -64,7 +64,7 @@
 }
 .role1 .desc, .role2 .desc  {
 	float: left;
-	line-height: 200rpx;
+	line-height: 218rpx;
 	font-size: 36rpx;
 	font-weight: 500;
 }

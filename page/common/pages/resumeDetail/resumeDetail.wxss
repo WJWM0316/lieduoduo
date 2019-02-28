@@ -103,11 +103,11 @@
   padding: 0 18rpx !important;
   max-width:200rpx;
   overflow: hidden;
-  margin-top: -4rpx;
+  margin-top: 0rpx;
   text-overflow: ellipsis;
   white-space: nowrap;
   display: inline-block;
-  margin-right: 0;
+  margin-right: -2rpx;
   float: right;
 }
 .line{
@@ -143,6 +143,7 @@
   margin-top: 16rpx;
   height: 48rpx;
   line-height: 48rpx;
+  box-sizing:border-box;
 }
 .personalTip .text{
 }

@@ -88,6 +88,8 @@
 			<view class="share" bindtap="todoAction" data-type="share" wx:if="{{detail.isOnline === 1}}">分享职位</view>
 		</view>
 	</block>
+	<block wx:if="{{detail.id}}"><canvasCard cardData="{{detail}}" type="position"></canvasCard></block>
+	
 
 	<interviewBar
 		id="interviewBar"

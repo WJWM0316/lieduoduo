@@ -197,15 +197,15 @@ Page({
         break
       case 2:
         data = this.data.interviewData
-        if (!data.isRequire) {
-          this.selectComponent('#myCalendar').scrollLeft()
-          this.getScheduleList()
-          getScheduleNumberApi().then(res => {
-            let dateList = res.data
-            this.setData({dateList})
-          })
-        }
-        break
+        let interviewData = initData
+        chooseTime = ''
+        this.setData({interviewData})
+        this.selectComponent('#myCalendar').scrollLeft()
+        this.getScheduleList()
+        getScheduleNumberApi().then(res => {
+          let dateList = res.data
+          this.setData({dateList})
+        })
     }
     this.getFixedDomNodePosition()
   },

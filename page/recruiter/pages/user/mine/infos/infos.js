@@ -96,9 +96,9 @@ Page({
     let that = this
 　　return app.wxShare({
       options,
-      btnTitle: shareRecruiter,
-      btnPath: `${COMMON}recruiterDetail/recruiterDetail?uid=${this.data.recruiterInfo.uid}`,
-      btnImageUrl: `${that.data.cdnPath}shareB.png`
+      title: shareRecruiter,
+      path: `${COMMON}recruiterDetail/recruiterDetail?uid=${this.data.recruiterInfo.uid}`,
+      imageUrl: app.globalData.recruiterCard
     })
   },
   /**

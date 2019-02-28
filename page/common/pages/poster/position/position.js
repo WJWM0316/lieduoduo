@@ -18,7 +18,6 @@ Page({
     timerSecond: 30
   },
   drawing (avatarUrl, companyUrl, qrCodeUrl) {
-    
     const ctx = wx.createCanvasContext('canvas')
     let that = this
     ctx.width = 750
@@ -376,13 +375,5 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
   }
 })

@@ -75,7 +75,7 @@
         <!-- 工作内容 -->
         <shrinkText class="expContent" wx:if="{{item.duty}}" textData="{{item.duty}}" line="{{isOwner ? 1 : 0}}"></shrinkText>
         <!-- 工作标签 -->
-        <view class='expTip' wx:if="{{item.technicalLabels}}">
+        <view class='expTip' wx:if="{{item.technicalLabels.length > 0}}">
           <text wx:for="{{item.technicalLabels}}" wx:key="{{index}}"># {{item.labelName}}</text>
         </view>
       </view>

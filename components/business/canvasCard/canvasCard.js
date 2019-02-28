@@ -1,5 +1,6 @@
 import {ellipsis} from '../../../utils/canvas.js'
 let avatarUrl = ''
+const app = getApp()
 Component({
   /**
    * 组件的属性列表
@@ -19,14 +20,20 @@ Component({
    * 组件的初始数据
    */
   data: {
-
   },
-  ready() {
+  attached() {
     let that = this
+    let avatarImg = ''
+    if (this.data.type === 'position') {
+      avatarImg = that.data.cardData.recruiterInfo.avatar.smallUrl
+    } else {
+      console.log(that.data.cardData, 111)
+      avatarImg = that.data.cardData.avatar.smallUrl
+    }
     let loadAvatar = new Promise((resolve, reject) => {
       // 头像
       wx.downloadFile({
-        url: that.data.cardData.avatar.smallUrl,
+        url: avatarImg,
         success(res) {
           if (res.statusCode === 200) {
             resolve(res)
@@ -108,25 +115,56 @@ Component({
           ctx.setFontSize(24)
           ctx.setTextAlign('center')
           ellipsis(ctx, position, 285, 210, 277, '#282828', {color: '#FFDC29', r: 25, y:243, maxWidth: 420})
-          ctx.draw(true, () => {
-            setTimeout(() => {
-              wx.canvasToTempFilePath({
-                x: 0,
-                y: 0,
-                quality: 1,
-                canvasId: 'canvas',
-                success(res) {
-                  console.log(res, 1)
-                },
-                fail(e) {
-                  console.log(e, 2)
-                }
-              }, that)
-            }, 3000)
-          })
+        break
+        case 'position':
+          ctx.setTextAlign('left')
+          ctx.drawImage(avatarUrl, 22, 24, 90, 90)
+          ctx.drawImage('../../../images/zhiwei.png', 0, 0, 420, 336)
+          ctx.setFontSize(26)
+          ctx.setFillStyle('#ffffff')
+          ctx.fillText(info.recruiterInfo.name, 113, 62)
+          ellipsis(ctx, info.recruiterInfo.name, 194, 113, 62)
+          ctx.setFontSize(22)
+          ellipsis(ctx, info.recruiterInfo.position, 194, 113, 94)
+          ctx.setFontSize(40)
+          ctx.setFillStyle('#FFDC29')
+          ctx.fillText(`${info.emolumentMin}K~${info.emolumentMax}K`, 20, 173)
+          ctx.setFontSize(28)
+          ctx.setFillStyle('#ffffff')
+          ellipsis(ctx, info.recruiterInfo.position, 194, 20, 216)
+          ctx.setFontSize(20)
+          let positionX = 0
+          positionX = ellipsis(ctx, `${info.city}${info.district}`, 155, 32, 258, '#ffffff', {color: '#8452A7', padding: 12, height: 34, x: 22, y:234})
+          positionX = ellipsis(ctx, `${info.workExperienceName}`, 155, positionX + 20, 258, '#ffffff', {color: '#8452A7', padding: 12, height: 34, x: positionX + 8, y:234})
+          positionX = ellipsis(ctx, `${info.educationName}`, 155, positionX + 20, 258, '#ffffff', {color: '#8452A7', padding: 12, height: 34, x: positionX + 8, y:234})
+          ctx.setFontSize(26)
+          ellipsis(ctx, info.companyInfo.companyShortname, 194, 24, 312)
         break
       }
-      
+      ctx.draw(true, () => {
+        setTimeout(() => {
+          wx.canvasToTempFilePath({
+            x: 0,
+            y: 0,
+            quality: 1,
+            canvasId: 'cardCanvas',
+            success(res) {
+              switch(that.data.type) {
+                case 'recruiter':
+                  app.globalData.recruiterCard = res.tempFilePath
+                break
+                case 'position':
+                  app.globalData.positionCard = res.tempFilePath
+                break
+              }        
+              console.log(res, '生成图片成功')
+            },
+            fail(e) {
+              console.log(e, '生成图片失败')
+            }
+          }, this)
+        }, 500)
+      })
     }
   }
 })
