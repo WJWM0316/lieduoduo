@@ -21,4 +21,5 @@
 }
 .placeholder {
 	color: #BCBCBC;
+	font-weight: unset;
 }

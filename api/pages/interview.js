@@ -151,10 +151,11 @@ export const notonsiderInterviewApi = (data, hasLoading) => {
 }
 
 // 全部面试
-export const getInterviewHistory = (data, hasLoading) => {
+export const getInterviewHistoryApi = (data, hasLoading) => {
   return request({
-    method: 'post',
+    method: 'get',
     url: `/interview/history`,
+    data,
     hasLoading
   })
 }

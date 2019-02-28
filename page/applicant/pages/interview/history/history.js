@@ -1,66 +1,53 @@
-// page/applicant/pages/interview/interviewHistory/InterviewHistory.js
+import {
+  getInterviewHistoryApi
+} from '../../../../../api/pages/interview.js'
+
+import {RECRUITER, APPLICANT, COMMON} from '../../../../../config.js'
+
+const app = getApp()
+
 Page({
-
-  /**
-   * 页面的初始数据
-   */
   data: {
-
+    hasReFresh: false,
+    onBottomStatus: 0,
+    tab: 'positionList',
+    navH: app.globalData.navHeight,
+    pageCount: 8,
+    interviewList: {
+      list: [],
+      pageNum: 1,
+      isLastPage: false,
+      isRequire: false
+    }
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onShow(options) {
+    this.getLists()
+  },
+  onPullDownRefresh() {
 
   },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
+  getLists(hasLoading = true) {
+    return new Promise((resolve, reject) => {
+      let params = {count: this.data.pageCount, page: this.data.interviewList.pageNum, hasLoading}
+      getInterviewHistoryApi(params).then(res => {
+        const interviewList = this.data.interviewList
+        const onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
+        interviewList.list = interviewList.list.concat(res.data)
+        interviewList.isLastPage = res.meta && res.meta.nextPageUrl ? false : true
+        interviewList.pageNum = interviewList.pageNum + 1
+        interviewList.isRequire = true
+        this.setData({interviewList, onBottomStatus}, () => resolve(res))
+      })
+    })
   },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
+  onReachBottom() {
 
   }
 })

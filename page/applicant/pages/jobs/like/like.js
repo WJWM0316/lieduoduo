@@ -5,7 +5,10 @@ import {
   deleteMyCollectUserApi
 } from '../../../../../api/pages/collect.js'
 
+import {RECRUITER, APPLICANT, COMMON} from '../../../../../config.js'
+
 const app = getApp()
+
 Page({
   data: {
     hasReFresh: false,
@@ -67,7 +70,7 @@ Page({
    */
   getCollectRecruiterListLists(hasLoading = true) {
     return new Promise((resolve, reject) => {
-      let params = {count: this.data.pageCount, page: this.data.positionList.pageNum, hasLoading}
+      let params = {count: this.data.pageCount, page: this.data.recruiterList.pageNum, hasLoading}
       getMyCollectUsersApi(params).then(res => {
         const recruiterList = this.data.recruiterList
         const onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
@@ -127,7 +130,7 @@ Page({
         const item = recruiterList.list.find((item, index, arr) => index === params.index)
         recruiterList.list.splice(params.index, 1)
         this.setData({recruiterList: {}})
-        deleteMyCollectUserApi().then(() => {
+        deleteMyCollectUserApi({uid: item.uid}).then(() => {
           this.setData({recruiterList}, () => app.wxToast({title: '删除成功'}))
         })
       }
@@ -175,4 +178,11 @@ Page({
       this.getLists(false)
     }
   },
+  jump() {
+    if(this.data.tab === 'positionList') {
+      wx.switchTab({url: `${APPLICANT}jobs/job/job`})
+    } else {
+      wx.navigateTo({url: `${APPLICANT}officerActive/more/more`})
+    }
+  }
 })

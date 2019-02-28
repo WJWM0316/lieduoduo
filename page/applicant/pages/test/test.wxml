@@ -1,0 +1,20 @@
+<view class="ul">
+	<view class="item3">
+		<button form-type="submit" bindtap="routeJump" class="formIdBtn">
+			<view class="row-one">
+				<view class="img-box"></view>
+				<view class="content">
+					<view class="name">戴勇</view>
+					<view class="mix">2年·本科·12~20k</view>
+					<view class="degress">腾讯微信 | 小程序高级前端开发工程师</view>
+				</view>
+				<view class="time active"><i class="icon iconfont icon-lishijilu"></i>14:00</view>
+			</view>
+			<view class="row-two">
+				<i class="icon iconfont icon-mianshizhiwei"></i>面试职位：<text>微信小程序前端开发工程师</text>
+			</view>
+		</button>
+	</view>
+
+	<view class="item2"></view>
+</view>
