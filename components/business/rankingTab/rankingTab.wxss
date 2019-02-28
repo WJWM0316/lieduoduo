@@ -87,7 +87,7 @@
   align-items: center;
 }
 .ranking .left .bottom .company{
-  width: 196rpx;
+  max-width: 196rpx;
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
