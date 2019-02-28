@@ -116,7 +116,7 @@ Component({
         break
         case 'position':
           ctx.setTextAlign('left')
-          ctx.drawImage(avatarUrl, 22, 24, 90, 90)
+          ctx.drawImage(avatarUrl, 22, 24, 78, 78)
           ctx.drawImage('../../../images/zhiwei.png', 0, 0, 420, 336)
           ctx.setFontSize(26)
           ctx.setFillStyle('#ffffff')
