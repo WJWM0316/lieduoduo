@@ -37,7 +37,8 @@
     "page/common/pages/poster/resume/resume",
     "page/common/pages/poster/recruiter/recruiter",
     "page/applicant/pages/center/attachment/attachment",
-    "page/applicant/pages/jobs/like/like"
+    "page/applicant/pages/jobs/like/like",
+    "page/applicant/pages/test/test"
   ],
   "window": {
     "navigationBarTextStyle": "black",

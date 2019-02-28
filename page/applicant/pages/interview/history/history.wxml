@@ -1,13 +1,13 @@
 <view class="history">
 	<navbar title="全部面试" background="#FFFFFF" color="#22292C" showBackBtn="{{true}}"></navbar>
 	<view class="ul">
-		<view class="li" wx:for="{{[1,2,3,4]}}" wx:key="{{index}}">
+		<view class="li" wx:for="{{interviewList.list}}" wx:key="{{index}}" wx:for-item="item">
 			<view class="row-one">
 				<view class="img-box"></view>
 				<view class="content">
 					<view class="header">
 						<view class="infos1">
-							<view class="name">戴勇</view>
+							<view class="name">{{item.recruiterRealname}}</view>
 							<view class="degree">CEO&产品总监</view>
 						</view>
 						<view class="time">02-28 19:00</view>
