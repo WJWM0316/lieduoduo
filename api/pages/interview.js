@@ -149,3 +149,12 @@ export const notonsiderInterviewApi = (data, hasLoading) => {
     hasLoading
   })
 }
+
+// 全部面试
+export const getInterviewHistory = (data, hasLoading) => {
+  return request({
+    method: 'post',
+    url: `/interview/history`,
+    hasLoading
+  })
+}

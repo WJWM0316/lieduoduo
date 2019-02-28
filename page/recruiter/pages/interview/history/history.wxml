@@ -1,5 +1,19 @@
-<navbar title="面试历史" background="#FFFFFF" color="#22292C" showBackBtn="{{true}}"></navbar>
-<scroll-view class="scroll-view_H" scroll-y='true'>
-  <interviewList list="{{companyList}}" list-type="{{tabParentIndex === 2 ? 'interview' : 'default'}}"></interviewList>
-</scroll-view>
-<tab-bar tabType="1"></tab-bar>
+<view class="history">
+	<navbar title="全部面试" background="#FFFFFF" color="#22292C" showBackBtn="{{true}}"></navbar>
+	<view class="ul">
+		<view class="li" wx:for="{{[1,2,3,4]}}" wx:key="{{index}}">
+			<view class="row-one">
+				<view class="img-box"></view>
+				<view class="content">
+					<view class="time">02-28 19:00</view>
+					<view class="user-name">戴勇</view>
+					<view class="infos1">2年·本科·12~20k</view>
+					<view class="infos2">腾讯微信 | 小程序高级前端开发工程师</view>
+				</view>
+			</view>
+			<view class="row-two">
+				<i class="icon iconfont icon-mianshizhiwei"></i>面试职位：<text>微信小程序前端开发工程师</text>
+			</view>
+		</view>
+	</view>
+</view>
