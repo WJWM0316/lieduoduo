@@ -1,0 +1,26 @@
+<view class="history">
+	<navbar title="全部面试" background="#FFFFFF" color="#22292C" showBackBtn="{{true}}"></navbar>
+	<view class="ul">
+		<view class="li" wx:for="{{[1,2,3,4]}}" wx:key="{{index}}">
+			<view class="row-one">
+				<view class="img-box"></view>
+				<view class="content">
+					<view class="header">
+						<view class="infos1">
+							<view class="name">戴勇</view>
+							<view class="degree">CEO&产品总监</view>
+						</view>
+						<view class="time">02-28 19:00</view>
+					</view>
+					<view class="infos2">深圳市腾讯有限公司</view>
+				</view>
+			</view>
+			<view class="row-two">
+				<i class="icon iconfont icon-mianshizhiwei"></i>面试职位：微信小程序前端开发工程师
+			</view>
+			<view class="row-three">
+				<i class="icon iconfont icon-mianshidizhi"></i>面试职位：微信小程序前端开发工程师
+			</view>
+		</view>
+	</view>
+</view>

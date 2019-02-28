@@ -38,7 +38,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 55,
+			"current": 56,
 			"list": [
 				{
 					"id": 0,
@@ -379,6 +379,12 @@
 					"id": 55,
 					"name": "测试",
 					"pathName": "page/applicant/pages/index/index",
+					"query": ""
+				},
+				{
+					"id": 56,
+					"name": "我感兴趣",
+					"pathName": "page/applicant/pages/jobs/like/like",
 					"query": ""
 				}
 			]

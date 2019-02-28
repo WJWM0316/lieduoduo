@@ -32,11 +32,12 @@
     "page/applicant/pages/center/resumeEditor/educateEdit/educateEdit",
     "page/applicant/pages/center/resumeEditor/skills/skills",
     "page/applicant/pages/center/resumeEditor/moreEdit/moreEdit",
-    "page/applicant/pages/interview/interviewHistory/InterviewHistory",
+    "page/applicant/pages/interview/history/history",
     "page/common/pages/poster/position/position",
     "page/common/pages/poster/resume/resume",
     "page/common/pages/poster/recruiter/recruiter",
-    "page/applicant/pages/center/attachment/attachment"
+    "page/applicant/pages/center/attachment/attachment",
+    "page/applicant/pages/jobs/like/like"
   ],
   "window": {
     "navigationBarTextStyle": "black",
