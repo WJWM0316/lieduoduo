@@ -1,4 +1,4 @@
-import {RECRUITER} from '../../../../../config.js'
+import {RECRUITER, COMMON, APPLICANT} from '../../../../../config.js'
 
 import { getInviteListApi, getApplyListApi, getScheduleListApi, getScheduleNumberApi} from '../../../../../api/pages/interview.js'
 
@@ -74,9 +74,7 @@ Page({
   },
   // 查看面试历史
   jumpInterviewPage(e) {
-    wx.navigateTo({
-      url: `${RECRUITER}interview/history/history`
-    })
+    wx.navigateTo({url: `${RECRUITER}interview/history/history`})
   },
   bindChange(e) {
     let type = ''
@@ -224,10 +222,7 @@ Page({
     this.getFixedDomNodePosition()
   },
   getFixedDomNodePosition() {
-    getSelectorQuery('.fixed-dom').then(res => {
-      console.log(res)
-      this.setData({fixedBarHeight: res.height})
-    })
+    getSelectorQuery('.fixed-dom').then(res => this.setData({fixedBarHeight: res.height}))
   },
   onReachBottom(e) {
     switch(this.data.tabIndex) {
@@ -285,5 +280,36 @@ Page({
   onShareAppMessage(options) {
     let that = this
 　　return app.wxShare({options})
+  },
+  /**
+   * @Author   小书包
+   * @DateTime 2019-03-01
+   * @detail   detail
+   */
+  routeJump(e) {
+    const params = e.currentTarget.dataset
+    switch(params.status) {
+      case 51:
+        wx.navigateTo({url: `${COMMON}arrangement/arrangement?id=${params.itemId}`})
+        break
+      case 12:
+        wx.navigateTo({url: `${COMMON}resumeDetail/resumeDetail?uid=${params.jobhunteruid}`})
+        break
+      case 11:
+        wx.navigateTo({url: `${COMMON}resumeDetail/resumeDetail?uid=${params.jobhunteruid}`})
+        break
+      case 52:
+        wx.navigateTo({url: `${COMMON}resumeDetail/resumeDetail?uid=${params.jobhunteruid}`})
+        break
+      case 54:
+        wx.navigateTo({url: `${COMMON}resumeDetail/resumeDetail?uid=${params.jobhunteruid}`})
+        break
+      default:
+        wx.navigateTo({url: `${COMMON}arrangement/arrangement?id=${params.itemId}`})
+        break
+    }
+  },
+  formSubmit(e) {
+    app.postFormId(e.detail.formId)
   }
 })

@@ -29,10 +29,10 @@ Page({
    * @return   {[type]}   [description]
    */
   getCompanyDetail(options) {
-    getCompanyInfosApi({id: options.companyId})
-      .then(res => {
-        this.setData({intro: res.data.intro, options})
-      })
+    getCompanyInfosApi({id: options.companyId}).then(res => {
+      const intro = res.data.intro.replace(/\\n/g, '\n')
+      this.setData({intro, options})
+    })
   },
   /**
    * @Author   小书包
@@ -56,10 +56,9 @@ Page({
   submit() {
     let id = this.data.options.companyId
     let intro = this.data.intro
-    putCompanyBriefApi({id, intro})
-      .then(res => {
-        app.wxToast({title: '保存成功'})
-        wx.navigateBack({delta: 1})
-      })
+    putCompanyBriefApi({id, intro}).then(res => {
+      app.wxToast({title: '保存成功'})
+      wx.navigateBack({delta: 1})
+    })
   }
 })

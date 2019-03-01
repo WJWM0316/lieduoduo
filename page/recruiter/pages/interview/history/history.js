@@ -1,137 +1,121 @@
+import {
+  getInterviewHistoryApi
+} from '../../../../../api/pages/interview.js'
+
+import {RECRUITER, APPLICANT, COMMON} from '../../../../../config.js'
+
 const app = getApp()
 
 Page({
   data: {
-    cityLabel: ['广州', '深圳', '上海', '北京', '杭州', '重庆', '合肥'],
-    listStatus: [
-      {
-        id: 'all',
-        active: true,
-        text: '全部'
-      },
-      {
-        id: 'opening',
-        active: false,
-        text: '开放中'
-      },
-      {
-        id: 'pending',
-        active: false,
-        text: '审核中'
-      },
-      {
-        id: 'fail',
-        active: false,
-        text: '审核失败'
-      },
-      {
-        id: 'closed',
-        active: false,
-        text: '已关闭'
-      }
-    ],
-    companyList: [
-      {
-        id: 1,
-        recruiterName: '文双',
-        certification: false,
-        recruiterPosition: '创始人、CEO',
-        companyName: '老虎科技',
-        positionNumber: 18,
-        status: 1
-      },
-      {
-        id: 2,
-        recruiterName: '文双',
-        certification: true,
-        recruiterPosition: '创始人、CEO',
-        companyName: '老虎科技',
-        positionNumber: 18,
-        status: 0
-      },
-      {
-        id: 3,
-        recruiterName: '文双',
-        certification: true,
-        recruiterPosition: '创始人、CEO',
-        companyName: '老虎科技',
-        positionNumber: 18,
-        status: 0
-      },
-      {
-        id: 4,
-        recruiterName: '文双',
-        certification: true,
-        recruiterPosition: '创始人、CEO',
-        companyName: '老虎科技',
-        positionNumber: 18,
-        status: 0
-      },
-      {
-        id: 5,
-        recruiterName: '文双',
-        certification: true,
-        recruiterPosition: '创始人、CEO',
-        companyName: '老虎科技',
-        positionNumber: 18,
-        status: 0
-      },
-      {
-        id: 6,
-        recruiterName: '文双',
-        certification: true,
-        recruiterPosition: '创始人、CEO',
-        companyName: '老虎科技',
-        positionNumber: 18,
-        status: 0
-      },
-      {
-        id: 7,
-        recruiterName: '文双',
-        certification: true,
-        recruiterPosition: '创始人、CEO',
-        companyName: '老虎科技',
-        positionNumber: 18,
-        status: 0
-      },
-      {
-        id: 8,
-        recruiterName: '文双',
-        certification: true,
-        recruiterPosition: '创始人、CEO',
-        companyName: '老虎科技',
-        positionNumber: 18,
-        status: 0
-      },
-      {
-        id: 9,
-        recruiterName: '文双',
-        certification: true,
-        recruiterPosition: '创始人、CEO',
-        companyName: '老虎科技',
-        positionNumber: 18,
-        status: 0
-      },
-      {
-        id: 10,
-        recruiterName: '文双',
-        certification: true,
-        recruiterPosition: '创始人、CEO',
-        companyName: '老虎科技',
-        positionNumber: 18,
-        status: 0
-      }
-    ]
+    hasReFresh: false,
+    onBottomStatus: 0,
+    tab: 'positionList',
+    navH: app.globalData.navHeight,
+    pageCount: 20,
+    interviewList: {
+      list: [],
+      pageNum: 1,
+      isLastPage: false,
+      isRequire: false
+    }
   },
+  onShow(options) {
+    const interviewList = {
+      list: [],
+      pageNum: 1,
+      isLastPage: false,
+      isRequire: false
+    }
+    this.setData({interviewList}, () => this.getLists())
+  },
+  onPullDownRefresh() {
+    const interviewList = {list: [], pageNum: 1, isLastPage: false, isRequire: false}
+    this.setData({interviewList, hasReFresh: true})
+    return this.getLists(false).then(res => {
+      const interviewList = {list: [], pageNum: 1, isLastPage: false, isRequire: false}
+      const onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
+      interviewList.list = res.data
+      interviewList.isLastPage = res.meta && res.meta.nextPageUrl ? false : true
+      interviewList.pageNum = 2
+      interviewList.isRequire = true
+      this.setData({interviewList, onBottomStatus, hasReFresh: false}, () => wx.stopPullDownRefresh())
+    })
+  },
+  getLists(hasLoading = true) {
+    return new Promise((resolve, reject) => {
+      let params = {count: this.data.pageCount, page: this.data.interviewList.pageNum, hasLoading}
+      getInterviewHistoryApi(params).then(res => {
+        const interviewList = this.data.interviewList
+        const onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
+        interviewList.list = interviewList.list.concat(res.data)
+        interviewList.isLastPage = res.meta && res.meta.nextPageUrl ? false : true
+        interviewList.pageNum = interviewList.pageNum + 1
+        interviewList.isRequire = true
+        this.setData({interviewList, onBottomStatus}, () => resolve(res))
+      })
+    })
+  },
+  /**
+   * 页面上拉触底事件的处理函数
+   */
+  onReachBottom() {
+    const interviewList = this.data.interviewList
+    if (!interviewList.isLastPage) {
+      this.getLists(false).then(() => this.setData({onBottomStatus: 1}))
+    }
+  },
+  /**
+   * @Author   小书包
+   * @DateTime 2019-03-01
+   * @detail   detail
+   */
   routeJump(e) {
-    let companyId = e.currentTarget.dataset.companyId
-    console.log(companyId)
+    const params = e.currentTarget.dataset
+    // 不知道什么情款  有时候拿不到数据
+    if(!Object.keys(params).length) return
+    switch(params.status) {
+      case 51:
+        if(Number(params.positionid)) {
+          wx.navigateTo({url: `${COMMON}positionDetail/positionDetail?positionId=${params.positionid}`})
+        } else {
+          wx.navigateTo({url: `${COMMON}recruiterDetail/recruiterDetail?uid=${params.recruiteruid}`})
+        }
+        break
+      case 12:
+        if(Number(params.positionid)) {
+          wx.navigateTo({url: `${COMMON}positionDetail/positionDetail?positionId=${params.positionid}`})
+        } else {
+          wx.navigateTo({url: `${COMMON}recruiterDetail/recruiterDetail?uid=${params.recruiteruid}`})
+        }
+        break
+      case 11:
+        if(Number(params.positionid)) {
+          wx.navigateTo({url: `${COMMON}positionDetail/positionDetail?positionId=${params.positionid}`})
+        } else {
+          wx.navigateTo({url: `${COMMON}recruiterDetail/recruiterDetail?uid=${params.recruiteruid}`})
+        }
+        break
+      case 21:
+        if(Number(params.positionid)) {
+          wx.navigateTo({url: `${COMMON}positionDetail/positionDetail?positionId=${params.positionid}`})
+        } else {
+          wx.navigateTo({url: `${COMMON}recruiterDetail/recruiterDetail?uid=${params.recruiteruid}`})
+        }
+        break
+      case 54:
+        if(Number(params.positionid)) {
+          wx.navigateTo({url: `${COMMON}positionDetail/positionDetail?positionId=${params.positionid}`})
+        } else {
+          wx.navigateTo({url: `${COMMON}recruiterDetail/recruiterDetail?uid=${params.recruiteruid}`})
+        }
+        break
+      default:
+        wx.navigateTo({url: `${COMMON}arrangement/arrangement?id=${params.itemId}`})
+        break
+    }
   },
-  /* 子级tab栏切换 */
-  onClickTab(e) {
-    let params = e.currentTarget.dataset
-    const listStatus = this.data.listStatus
-    listStatus.map((field, index) => field.active = index === params.index ? true : false)
-    this.setData({listStatus})
+  formSubmit(e) {
+    app.postFormId(e.detail.formId)
   }
 })
