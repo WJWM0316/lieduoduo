@@ -1,5 +1,5 @@
 
-// 文本溢出打点  ctx canvas对象 text 文本  width 限制宽度 
+// 文本溢出打点并渲染  ctx canvas对象 text 文本  width 限制宽度 
 export const ellipsis = (ctx, text, width, x, y, color, bgObject) => {
 	let ellipsisWidth = ctx.measureText('...').width
 	let textWidth = ctx.measureText(text).width
@@ -25,30 +25,48 @@ export const ellipsis = (ctx, text, width, x, y, color, bgObject) => {
 	}
 } 
 
+// 文本溢出打点不渲染  ctx canvas对象 text 文本  width 限制宽度 
+export const ellipsisText = (ctx, text, width) => {
+	let ellipsisWidth = ctx.measureText('...').width
+	let textWidth = ctx.measureText(text).width
+	let curString = ''
+	let nextString = ''
+	if (textWidth > width) {
+		for(let i = 0; i < text.length; i++) {
+			curString = curString + text[i]
+			if (i < text.length - 1) nextString = curString + text[i+1]
+			if (ctx.measureText(nextString).width >= (width - ellipsisWidth)) {
+				curString = curString + '...'
+				return curString
+			}
+		}
+	} else {
+		return text
+	}
+}
+
+
 export const addBorder = ({ctx, text, bgObject}) => {
 	if (bgObject) {
-		if (bgObject.r) {
-			let metricsW = ctx.measureText(text).width
-			if (!bgObject.x) {
-				bgObject.x = (bgObject.maxWidth-(metricsW+2*bgObject.r)) / 2
-			}
-			ctx.beginPath()
-	    ctx.setFillStyle(bgObject.color)
-	    ctx.arc(bgObject.x + bgObject.r, bgObject.y + bgObject.r, bgObject.r, 0.5*Math.PI, 1.5*Math.PI)
-	    ctx.arc(bgObject.x + metricsW + bgObject.r, bgObject.y + bgObject.r, bgObject.r, 1.5*Math.PI, 0.5*Math.PI)
-	    ctx.fill()
-		} else {
-			let metricsW = ctx.measureText(text).width
-			if (!bgObject.x) {
-				bgObject.x = (bgObject.maxWidth-(metricsW+2*bgObject.padding)) / 2
-			}
-			ctx.beginPath()
-	    ctx.setFillStyle(bgObject.color)
-	    ctx.fillRect(bgObject.x, bgObject.y, metricsW+2*bgObject.padding, bgObject.height)
-	    ctx.fill()
-	    return bgObject.x + metricsW + 2*bgObject.padding
+		let metricsW = ctx.measureText(text).width
+		if (!bgObject.x) {
+			bgObject.x = (bgObject.maxWidth-(metricsW+2*bgObject.r)) / 2
 		}
-	}
+		ctx.beginPath()
+    ctx.setFillStyle(bgObject.color)
+    if (bgObject.r) {
+    ctx.arc(bgObject.x + bgObject.r, bgObject.y + bgObject.r, bgObject.r, 0.5*Math.PI, 1.5*Math.PI)
+    ctx.arc(bgObject.x + metricsW + bgObject.r, bgObject.y + bgObject.r, bgObject.r, 1.5*Math.PI, 0.5*Math.PI)
+  	} else {
+  		ctx.fillRect(bgObject.x, bgObject.y, metricsW+2*bgObject.padding, bgObject.height)
+  	}
+  	if (bgObject.opacity) {
+  		ctx.setGlobalAlpha(bgObject.opacity)
+  	}
+    ctx.fill()
+    ctx.setGlobalAlpha(1)
+    return bgObject.x + metricsW + 2*bgObject.padding
+  }
 }
 
 // 文本换行  ctx canvas对象 text 文本  width 限制宽度  bgUrl 背景图url

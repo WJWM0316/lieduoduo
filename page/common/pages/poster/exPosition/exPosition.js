@@ -1,4 +1,4 @@
-import {ellipsis, lineFeed} from '../../../../../utils/canvas.js'
+import {ellipsis, ellipsisText} from '../../../../../utils/canvas.js'
 import {agreedTxtB} from '../../../../../utils/randomCopy.js'
 let app = getApp()
 let info = null
@@ -31,7 +31,7 @@ Page({
     ctx.setTextAlign('center')
     ctx.setFillStyle('#ffffff')
     ctx.setFontSize(34)
-    ellipsis(ctx, `${info.recruiterInfo.name}`, 388, 375, 340)
+    ellipsis(ctx, `${info.recruiterInfo.name}`, 260, 375, 340)
     ctx.setFontSize(24)
     ellipsis(ctx, `${info.recruiterInfo.companyShortname} | ${info.recruiterInfo.position}`, 550, 375, 378)
     ctx.setFontSize(22)
@@ -41,7 +41,7 @@ Page({
     ctx.setFontSize(58)
     ellipsis(ctx, info.positionName, 640, 375, 616)
     ctx.setFontSize(50)
-    ctx.fillText(`${info.emolumentMin}~${info.emolumentMax}K`, 375, 682)
+    ctx.fillText(`${info.emolumentMin}K~${info.emolumentMax}K`, 375, 682)
 
     // icon
     ctx.setFontSize(24)
@@ -63,21 +63,7 @@ Page({
     msgWidth = msgWidth + 40
     ctx.fillText(info.educationName, msgWidth, 741)
 
-    ctx.setTextAlign('center')
-    ctx.setFontSize(26)
-    ctx.fillText('长按打开小程序查看职位详情', 375, 1050)
-
-    let types = ''
-    info.recruiterInfo.recruiterTypes.map((item, index) => {
-      if (index === 0) {
-        types = item.name
-      } else {
-        types = `${types}、${item.name}`
-      }
-    })
-
-    let string = `Ta还有${types}等${info.recruiterInfo.positionNum}个职位在招 !`
-    ellipsis(ctx, string, 500, 375, 1097, '#FFFFFF', {color: '#8757A9', r: 21, y:1066, maxWidth: 750})
+    
     // 标签
     let r = 24
     ctx.setTextAlign('left')
@@ -142,6 +128,22 @@ Page({
       addLabel(item, index)
     })
 
+    ctx.setTextAlign('center')
+    ctx.setFontSize(26)
+    ctx.fillText('长按打开小程序查看职位详情', 375, 1050)
+
+    if (info.recruiterInfo.recruiterTypes.length !== 0) {
+      let types = ''
+      info.recruiterInfo.recruiterTypes.map((item, index) => {
+        if (index === 0) {
+          types = item.name
+        } else {
+          types = `${types}、${item.name}`
+        }
+      })
+      let string = `Ta还有${ellipsisText(ctx, types, 275)}等${info.recruiterInfo.positionNum}个职位在招 !`
+      ellipsis(ctx, string, 554, 375, 1097, '#FFFFFF', {color: '#ffffff', r:21, y:1066, maxWidth: 750, opacity: 0.3})
+    }
     
     
     ctx.draw(true, () => {
