@@ -96,7 +96,7 @@
 							<view class="degress">{{item.companyName}} | {{item.positionName}}</view>
 						</view>
 					</view>
-					<view class="reddot" wx:if="{{item.redDot}}"></view>
+					<!-- <view class="reddot" wx:if="{{item.redDot}}"></view> -->
 					<view class="row-two">
 						<view class="infos">
 							<view class="day">{{item.createdAt}}</view>
@@ -140,7 +140,7 @@
 							<view class="degress">{{item.companyName}} | {{item.positionName}}</view>
 						</view>
 					</view>
-					<view class="reddot" wx:if="{{item.redDot}}"></view>
+					<!-- <view class="reddot" wx:if="{{item.redDot}}"></view> -->
 					<view class="row-two">
 						<view class="infos">
 							<view class="day">{{item.createdAt}}</view>
