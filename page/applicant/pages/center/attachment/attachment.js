@@ -40,7 +40,7 @@ Page({
       success: res => {
         const uuid = res.result.split('&')[0].slice(5)
         const params = {uuid, isBusiness: 0}
-        console.log(params)
+        console.log(res, '扫码结果')
         scanQrcodeApi({uuid}).then(res => scanLoginApi(params))
       }
     })
