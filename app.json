@@ -118,7 +118,9 @@
         "pages/company/homepageEdit/homepageEdit",
         "pages/company/teamLabel/teamLabel",
         "pages/company/postProduct/postProduct",
-        "pages/company/postImages/postImages"
+        "pages/company/postImages/postImages",
+        "pages/company/verify/verify",
+        "pages/company/verifyResult/verifyResult"
       ]
     }
   ],

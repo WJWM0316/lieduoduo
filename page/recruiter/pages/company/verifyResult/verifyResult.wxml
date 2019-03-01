@@ -1,0 +1,28 @@
+<view class="verify">
+	<navbar title="审核结果" background="#fff" color="#22292C"></navbar>
+	<view class="box">
+		<view class="title">申请信息</view>
+		<view class="ul">
+			<view class="li">
+				<view class="key">申请人</view>
+				<view class="value">阎常振</view>
+			</view>
+			<view class="li">
+				<view class="key">公司邮箱</view>
+				<view class="value">leland.konopelski@msn.com</view>
+			</view>
+			<view class="li">
+				<view class="key">担任职务</view>
+				<view class="value">产品经理</view>
+			</view>
+			<view class="li footer">
+				<view class="key">申请时间</view>
+				<view class="value">2019-07-13 21:26</view>
+			</view>
+		</view>
+	</view>
+	<view class="button-box">
+		<view class="button button1">不予通过</view>
+		<view class="button button2">审核通过</view>
+	</view>
+</view>
