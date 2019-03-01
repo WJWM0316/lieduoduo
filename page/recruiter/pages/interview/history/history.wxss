@@ -24,12 +24,12 @@
 .ul .li .img-box {
   width:120rpx;
   height:120rpx;
-  background:red;
   box-shadow:0rpx -5rpx 40rpx 0rpx rgba(22,39,77,0.05);
   border-radius:50%;
   position: absolute;
   top: 40rpx;
   left: 0;
+  overflow: hidden;
 }
 
 .ul .li .img-box image{
@@ -113,4 +113,13 @@
   color: #DCDCDC;
   margin-right: 16rpx;
   font-size: 34rpx;
+}
+
+.formIdBtn {
+  padding: 0;
+  background: none;
+  text-align: left;
+  line-height: normal;
+  overflow: unset;
+  margin-bottom: 44rpx;
 }

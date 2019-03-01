@@ -6,7 +6,6 @@
   background:rgba(255,255,255,1);
   box-shadow:0rpx -5rpx 40rpx 0rpx rgba(22,39,77,0.05);
   border-radius:10rpx;
-  margin-bottom: 44rpx;
   position: relative;
   padding-bottom: 5rpx;
 }
@@ -23,7 +22,6 @@
 .ul .li .img-box {
   width:120rpx;
   height:120rpx;
-  background:red;
   box-shadow:0rpx -5rpx 40rpx 0rpx rgba(22,39,77,0.05);
   border-radius:50%;
   position: absolute;
@@ -31,6 +29,7 @@
   left: 0;
   border: 4rpx solid white;
   box-sizing: border-box;
+  overflow: hidden;
 }
 
 .ul .li .img-box image{
@@ -108,7 +107,7 @@
 .ul .li .time {
   font-size:24rpx;
   font-weight:400;
-  color:#929292;
+  color:#652791;
   display: inline-block;
   float: right;
 }
@@ -130,4 +129,13 @@
   white-space: nowrap;
   margin: 0 28rpx;
   padding-bottom: 26rpx;
+}
+
+.formIdBtn {
+  padding: 0;
+  background: none;
+  text-align: left;
+  line-height: normal;
+  overflow: unset;
+  margin-bottom: 44rpx;
 }

@@ -66,9 +66,10 @@ Page({
    * @return   {[type]}   [description]
    */
   getCompanyDetail() {
-    getCompanyInfosApi({id: this.data.query.companyId})
-      .then(res => {
-        this.setData({companyInfos: res.data})
-      })
+    getCompanyInfosApi({id: this.data.query.companyId}).then(res => {
+      const companyInfos = res.data
+      companyInfos.intro = companyInfos.intro.replace(/\\n/g, '\n')
+      this.setData({companyInfos})
+    })
   }
 })

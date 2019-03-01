@@ -6,7 +6,7 @@ import {
   getScheduleNumberApi
 } from '../../../../../api/pages/interview.js'
 
-import {RECRUITER} from '../../../../../config.js'
+import {RECRUITER, COMMON, APPLICANT} from '../../../../../config.js'
 
 import {getSelectorQuery} from "../../../../../utils/util.js"
 
@@ -266,5 +266,58 @@ Page({
         })
       break
     }
+  },
+  /**
+   * @Author   小书包
+   * @DateTime 2019-03-01
+   * @detail   detail
+   */
+  routeJump(e) {
+    const params = e.currentTarget.dataset
+    // 不知道什么情款  有时候拿不到数据
+    if(!Object.keys(params).length) return
+    switch(params.status) {
+      case 51:
+        if(Number(params.positionid)) {
+          wx.navigateTo({url: `${COMMON}positionDetail/positionDetail?positionId=${params.positionid}`})
+        } else {
+          wx.navigateTo({url: `${COMMON}recruiterDetail/recruiterDetail?uid=${params.recruiteruid}`})
+        }
+        break
+      case 12:
+        if(Number(params.positionid)) {
+          wx.navigateTo({url: `${COMMON}positionDetail/positionDetail?positionId=${params.positionid}`})
+        } else {
+          wx.navigateTo({url: `${COMMON}recruiterDetail/recruiterDetail?uid=${params.recruiteruid}`})
+        }
+        break
+      case 11:
+        if(Number(params.positionid)) {
+          wx.navigateTo({url: `${COMMON}positionDetail/positionDetail?positionId=${params.positionid}`})
+        } else {
+          wx.navigateTo({url: `${COMMON}recruiterDetail/recruiterDetail?uid=${params.recruiteruid}`})
+        }
+        break
+      case 21:
+        if(Number(params.positionid)) {
+          wx.navigateTo({url: `${COMMON}positionDetail/positionDetail?positionId=${params.positionid}`})
+        } else {
+          wx.navigateTo({url: `${COMMON}recruiterDetail/recruiterDetail?uid=${params.recruiteruid}`})
+        }
+        break
+      case 54:
+        if(Number(params.positionid)) {
+          wx.navigateTo({url: `${COMMON}positionDetail/positionDetail?positionId=${params.positionid}`})
+        } else {
+          wx.navigateTo({url: `${COMMON}recruiterDetail/recruiterDetail?uid=${params.recruiteruid}`})
+        }
+        break
+      default:
+        wx.navigateTo({url: `${COMMON}arrangement/arrangement?id=${params.itemId}`})
+        break
+    }
+  },
+  formSubmit(e) {
+    app.postFormId(e.detail.formId)
   }
 })

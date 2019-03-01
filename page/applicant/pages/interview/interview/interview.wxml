@@ -60,23 +60,131 @@
 		<view hidden="{{!hasReFresh}}">
 			<refreshStatus></refreshStatus>
 		</view>
-		<commonList personality="list" type="receive" list="{{applyData.list}}" list-type="default" showItemStatus="{{true}}"></commonList>
+		<form bindsubmit="formSubmit" report-submit='{{true}}'> 
+			<button
+				form-type="submit" 
+				class="formIdBtn"
+				data-positionId="{{item.positionId}}"
+				bindtap="routeJump"
+				wx:for="{{applyData.list}}"
+				wx:for-item="item"
+				data-item-id="{{item.interviewId}}"
+				data-recruiterUid="{{item.recruiterUid}}"
+				data-status="{{item.status}}"
+				wx:key="{{index}}">
+				<view class="item2">
+					<view class="row-one">
+						<view class="img-box"><image src="{{item.avatar.smallUrl}}"></image></view>
+						<view class="content">
+							<view class="header">
+								<view class="name">{{item.recruiterRealname}}</view>
+								<view class="zhiwei">{{item.recruiterPositionName}}</view>
+							</view>
+							<view class="degress">{{item.companyName}}</view>
+						</view>
+					</view>
+					<view class="reddot" wx:if="{{item.redDot}}"></view>
+					<view class="row-two">
+						<view class="infos">
+							<view class="day">{{item.createdAt}}</view>
+							<view class="action">申请约面</view>
+							<view class="position">{{item.positionName}}</view>
+						</view>
+						<view class="status">{{item.statusDesc}}</view>
+					</view>
+				</view>
+			</button>
+		</form>
+		<!-- <commonList personality="list" type="receive" list="{{applyData.list}}" list-type="default" showItemStatus="{{true}}"></commonList> -->
 		<bottomStatus status="{{applyBottomStatus}}" listData="{{applyData.list}}"></bottomStatus>
 	</view>
+
 	<!--收到邀请-->
 	<view hidden="{{tabIndex !== 1}}" class="list-box" style="padding-top: {{fixedBarHeight}}px">
 		<view hidden="{{!hasReFresh}}">
 			<refreshStatus></refreshStatus>
 		</view>
-		<commonList personality="list" type="apply" list="{{receiveData.list}}" list-type="default" showItemStatus="{{true}}"></commonList>
+		<form bindsubmit="formSubmit" report-submit='{{true}}'> 
+			<button
+				form-type="submit" 
+				class="formIdBtn"
+				data-positionId="{{item.positionId}}"
+				bindtap="routeJump"
+				wx:for="{{receiveData.list}}"
+				wx:for-item="item"
+				data-item-id="{{item.interviewId}}"
+				data-recruiterUid="{{item.recruiterUid}}"
+				data-status="{{item.status}}"
+				wx:key="{{index}}">
+				<view class="item2">
+					<view class="row-one">
+						<view class="img-box"><image src="{{item.avatar.smallUrl}}"></image></view>
+						<view class="content">
+							<view class="header">
+								<view class="name">{{item.recruiterRealname}}</view>
+								<view class="zhiwei">{{item.recruiterPositionName}}</view>
+							</view>
+							<view class="degress">{{item.companyName}}</view>
+						</view>
+					</view>
+					<view class="reddot" wx:if="{{item.redDot}}"></view>
+					<view class="row-two">
+						<view class="infos">
+							<view class="day">{{item.createdAt}}</view>
+							<view class="action">邀请约面</view>
+							<view class="position">{{item.positionName}}</view>
+						</view>
+						<view class="status {{item.status === 41 ? 'dark' : ''}}">{{item.statusDesc}}</view>
+					</view>
+				</view>
+			</button>
+		</form>
+		<!-- <commonList personality="list" type="apply" list="{{receiveData.list}}" list-type="default" showItemStatus="{{true}}"></commonList> -->
 		<bottomStatus status="{{receiveBottomStatus}}" listData="{{receiveData.list}}"></bottomStatus>
 	</view>
+
 	<!--面试日程-->
 	<view hidden="{{tabIndex !== 2}}" class="list-box" style="padding-top: {{fixedBarHeight}}px">
 		<view hidden="{{!hasReFresh}}">
 			<refreshStatus></refreshStatus>
 		</view>
-		<commonList personality="list" type="dateList" list="{{interviewData.list}}" list-type="interview}}"></commonList>
+		<form bindsubmit="formSubmit" report-submit='{{true}}'> 
+			<button
+				form-type="submit" 
+				class="formIdBtn"
+				data-positionId="{{item.positionId}}"
+				bindtap="routeJump"
+				wx:for="{{interviewData.list}}"
+				wx:for-item="item"
+				data-item-id="{{item.interviewId}}"
+				data-recruiterUid="{{item.recruiterUid}}"
+				data-status="{{item.status}}"
+				wx:key="{{index}}">
+				<view class="item3">
+					<button form-type="submit" bindtap="routeJump" class="formIdBtn">
+						<view class="row-one">
+							<view class="img-box"><image src="{{item.avatar.smallUrl}}"></image></view>
+							<view class="content">
+								<view class="header">
+									<view class="name">{{item.recruiterRealname}}</view>
+									<view class="zhiwei">{{item.recruiterPositionName}}</view>
+								</view>
+								<view class="degress">{{item.companyName}}</view>
+							</view>
+							<view class="time {{item.status !== 51 ? 'active' : ''}}"><i class="icon iconfont icon-lishijilu"></i>14:00</view>
+						</view>
+						<view class="row-two">
+							<i class="icon iconfont icon-mianshizhiwei"></i>
+							面试职位：{{item.positionId ? item.positionName : '未选择面试职位'}}
+						</view>
+						<view class="row-three">
+							<i class="icon iconfont icon-mianshizhiwei"></i>{{item.address}}</view>
+					</button>
+				</view>
+			</button>
+		</form>
+		<!-- <commonList personality="list" type="dateList" list="{{interviewData.list}}" list-type="interview}}"></commonList> -->
 		<bottomStatus status="{{interviewBottomStatus}}" listData="{{interviewData.list}}"></bottomStatus>
 	</view>
+
 </view>

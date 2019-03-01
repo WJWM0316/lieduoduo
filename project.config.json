@@ -38,7 +38,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 56,
+			"current": 59,
 			"list": [
 				{
 					"id": 0,
@@ -386,6 +386,24 @@
 					"name": "我感兴趣",
 					"pathName": "page/applicant/pages/test/test",
 					"query": ""
+				},
+				{
+					"id": 57,
+					"name": "1111111",
+					"pathName": "page/recruiter/pages/interview/history/history",
+					"query": "companyId=844"
+				},
+				{
+					"id": -1,
+					"name": "招聘端面试",
+					"pathName": "page/recruiter/pages/interview/index/index",
+					"query": "companyId=844"
+				},
+				{
+					"id": 59,
+					"name": "c端全部面试",
+					"pathName": "page/recruiter/pages/interview/history/history",
+					"query": "companyId=844"
 				}
 			]
 		}

@@ -1,26 +1,44 @@
 <view class="history">
 	<navbar title="全部面试" background="#FFFFFF" color="#22292C" showBackBtn="{{true}}"></navbar>
-	<view class="ul">
-		<view class="li" wx:for="{{interviewList.list}}" wx:key="{{index}}" wx:for-item="item">
-			<view class="row-one">
-				<view class="img-box"></view>
-				<view class="content">
-					<view class="header">
-						<view class="infos1">
-							<view class="name">{{item.recruiterRealname}}</view>
-							<view class="degree">CEO&产品总监</view>
-						</view>
-						<view class="time">02-28 19:00</view>
-					</view>
-					<view class="infos2">深圳市腾讯有限公司</view>
-				</view>
-			</view>
-			<view class="row-two">
-				<i class="icon iconfont icon-mianshizhiwei"></i>面试职位：微信小程序前端开发工程师
-			</view>
-			<view class="row-three">
-				<i class="icon iconfont icon-mianshidizhi"></i>面试职位：微信小程序前端开发工程师
-			</view>
-		</view>
+	<view hidden="{{!hasReFresh}}">
+		<refreshStatus></refreshStatus>
 	</view>
+	<view class="ul" wx:if="{{interviewList.list.length}}">
+		<form bindsubmit="formSubmit" report-submit='{{true}}'> 
+			<button
+				form-type="submit" 
+				class="formIdBtn"
+				data-positionId="{{item.positionId}}"
+				bindtap="routeJump"
+				wx:for="{{interviewList.list}}"
+				wx:for-item="item"
+				data-item-id="{{item.interviewId}}"
+				data-recruiterUid="{{item.recruiterUid}}"
+				data-status="{{item.status}}"
+				wx:key="{{index}}">
+				<view class="li">
+					<view class="row-one">
+						<view class="img-box"><image src="{{item.avatar.smallUrl}}"></image></view>
+						<view class="content">
+							<view class="header">
+								<view class="infos1">
+									<view class="name">{{item.recruiterRealname}}</view>
+									<view class="degree" wx:if="{{item.recruiterPositionName}}">{{item.recruiterPositionName}}</view>
+								</view>
+								<view class="time">{{item.createdAt}}</view>
+							</view>
+							<view class="infos2">{{item.companyName}}</view>
+						</view>
+					</view>
+					<view class="row-two">
+						<i class="icon iconfont icon-mianshizhiwei"></i>面试职位：{{item.positionId ? item.positionName : '未选择面试职位'}}
+					</view>
+					<view class="row-three" wx:if="{{item.address}}">
+						<i class="icon iconfont icon-mianshidizhi"></i>{{item.address}}
+					</view>
+				</view>
+			</button>
+		</form>
+	</view>
+	<bottomStatus status="{{applyBottomStatus}}" listData="{{interviewList.list}}"></bottomStatus>
 </view>

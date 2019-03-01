@@ -4,8 +4,10 @@
 			<view class="row-one">
 				<view class="img-box"></view>
 				<view class="content">
-					<view class="name">戴勇</view>
-					<view class="mix">2年·本科·12~20k</view>
+					<view class="header">
+						<view class="name">戴勇</view>
+						<view class="zhiwei">产品总监</view>
+					</view>
 					<view class="degress">腾讯微信 | 小程序高级前端开发工程师</view>
 				</view>
 				<view class="time active"><i class="icon iconfont icon-lishijilu"></i>14:00</view>
@@ -13,8 +15,33 @@
 			<view class="row-two">
 				<i class="icon iconfont icon-mianshizhiwei"></i>面试职位：<text>微信小程序前端开发工程师</text>
 			</view>
+			<view class="row-three">
+				<i class="icon iconfont icon-mianshizhiwei"></i>面试职位：<text>微信小程序前端开发工程师</text>
+			</view>
 		</button>
 	</view>
 
-	<view class="item2"></view>
+	<view class="item2">
+		<view class="row-one">
+			<view class="img-box"></view>
+			<view class="content">
+				<view class="header">
+					<view class="name">戴勇</view>
+					<view class="zhiwei">产品总监</view>
+				</view>
+				<view class="degress">广州老虎科技有限公司</view>
+			</view>
+		</view>
+		<view class="reddot"></view>
+		<view class="row-two">
+			<view class="infos">
+				<view class="day">03-15</view>
+				<view class="time">19:00</view>
+				<view class="action">申请约面</view>
+				<view class="position">微信小程序前端微信小程序前端微信小程序前端</view>
+			</view>
+			<view class="status">标记不合适</view>
+		</view>
+	</view>
+
 </view>
