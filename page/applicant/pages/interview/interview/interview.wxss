@@ -431,7 +431,7 @@
 }
 
 .item2 .row-two .infos {
-	max-width: 470rpx;
+	max-width: 460rpx;
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
