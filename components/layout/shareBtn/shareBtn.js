@@ -30,12 +30,19 @@ Component({
     close() {
       this.setData({showChoose: false})
     },
-    jump() {
+    jump(e) {
+      console.log(e, 111)
       switch(this.data.posterType) {
         case 'position':
-          wx.navigateTo({
-            url: `${COMMON}poster/position/position`
-          })
+          if (e.currentTarget.dataset.type === 'position')
+            wx.navigateTo({
+              url: `${COMMON}poster/position/position`
+            })
+          else {
+            wx.navigateTo({
+              url: `${COMMON}poster/exPosition/exPosition`
+            })
+          }
           break
       }
       wx.setStorageSync('posterData', this.data.posterData)

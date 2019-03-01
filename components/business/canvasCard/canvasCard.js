@@ -61,7 +61,7 @@ Component({
           ctx.setFontSize(28)
           ctx.setFillStyle('#ffffff')
           ctx.setTextAlign('center')
-          ellipsis(ctx, info.name, 168, 210, 215 )
+          ellipsis(ctx, info.name, 168, 210, 215)
           ctx.setFontSize(20)
           ctx.setTextAlign('left')
           let r = 17
@@ -103,7 +103,7 @@ Component({
             ctx.arc(x + metricsW + r, y + r, r, 1.5*Math.PI, 0.5*Math.PI)
             ctx.fill()
             ctx.setFillStyle('#ffffff')
-            ctx.fillText(item, x + r, y + 24)
+            ctx.fillText(item, x + r, y + 26)
           }
           info.personalizedLabels.map((item, index) => {
             addLabel(item.labelName, index)
@@ -131,9 +131,9 @@ Component({
           ellipsis(ctx, info.positionName, 380, 20, 216)
           ctx.setFontSize(20)
           let positionX = 0
-          positionX = ellipsis(ctx, `${info.city}${info.district}`, 155, 32, 258, '#ffffff', {color: '#8452A7', padding: 12, height: 34, x: 22, y:234})
-          positionX = ellipsis(ctx, `${info.workExperienceName}`, 155, positionX + 20, 258, '#ffffff', {color: '#8452A7', padding: 12, height: 34, x: positionX + 8, y:234})
-          positionX = ellipsis(ctx, `${info.educationName}`, 155, positionX + 20, 258, '#ffffff', {color: '#8452A7', padding: 12, height: 34, x: positionX + 8, y:234})
+          positionX = ellipsis(ctx, `${info.city}${info.district}`, 155, 32, 259, '#ffffff', {color: '#8452A7', padding: 12, height: 34, x: 22, y:234})
+          positionX = ellipsis(ctx, `${info.workExperienceName}`, 155, positionX + 20, 259, '#ffffff', {color: '#8452A7', padding: 12, height: 34, x: positionX + 8, y:234})
+          positionX = ellipsis(ctx, `${info.educationName}`, 155, positionX + 20, 259, '#ffffff', {color: '#8452A7', padding: 12, height: 34, x: positionX + 8, y:234})
           ctx.setFontSize(26)
           ellipsis(ctx, info.companyInfo.companyShortname, 380, 24, 312)
         break

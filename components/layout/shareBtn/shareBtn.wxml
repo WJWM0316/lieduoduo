@@ -10,7 +10,8 @@
 		</view>
 		<view class="choseBox" hidden="{{!showChoose}}">
 			<button form-type="submit" class="share clear-style" open-type="share" bindtap="close">转发给好友</button>
-			<button form-type="submit" class="poster clear-style" bindtap="jump">生成海报</button>
+			<button form-type="submit" class="poster clear-style" bindtap="jump" data-type="exPosition">生成精美海报</button>
+			<button form-type="submit" class="poster clear-style" bindtap="jump" data-type="position">生成职位长图</button>
 			<button form-type="submit" class="close clear-style" bindtap="close" >取消</button>
 		</view>
 	</block>

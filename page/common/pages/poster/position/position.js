@@ -5,6 +5,10 @@ let info = null
 let avatarUrl = ''
 let companyUrl = ''
 let qrCodeUrl = ''
+let cWidth = 0,
+    cHeight = 0,
+    cX = 0,
+    cY = 0
 Page({
 
   /**
@@ -125,7 +129,27 @@ Page({
     if (info.lightspotInfo.length > 0) {
       curHeight = curHeight + 94
     }
-    ctx.drawImage(companyUrl, 88, curHeight + 34, 98, 98)
+    ctx.setFillStyle('#ffffff')
+    ctx.fillRect(88, curHeight + 34, 98, 98)
+    // 横向长图
+    if (cWidth > cHeight) {
+      cHeight = 98 * cHeight / cWidth
+      cWidth = 98
+      cX = 88
+      cY = curHeight + 34 + ((98 - cHeight) / 2)
+      console.log(cX, cY, cWidth, cHeight, 333333333)
+    } else if (cWidth < cHeight) {
+      cWidth = 98 * cWidth / cHeight
+      cHeight = 98
+      cY = curHeight + 34
+      cX = 88 + (98 - cWidth) / 2
+    } else {
+      cWidth = 98
+      cHeight = 98
+      cX = 88
+      cY = curHeight + 34
+    }
+    ctx.drawImage(companyUrl, cX, cY, cWidth, cHeight)
     ctx.drawImage(`../../../../../images/canvas4.png`, 38, curHeight, 674, 166)
     ctx.setFontSize(32)
     let companyName = companyInfo.companyShortname
@@ -260,6 +284,13 @@ Page({
         url:  info.companyInfo.logoInfo.smallUrl,
         success(res) {
           companyUrl = loadResult(res, resolve)
+          wx.getImageInfo({
+            src: companyUrl,
+            success(res) {
+              cWidth = res.width
+              cHeight = res.height
+            }
+          })
         },
         fail(e) {
           app.wxToast({title: '图片加载失败，请重新生成', callback() {wx.navigateBack({ delta: 1 })}})

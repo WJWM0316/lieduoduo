@@ -23,7 +23,7 @@ export const passwordReg = /^[0-9A-Za-z_\-\@\#\$\%\^&\*\'\/\<\>]{6,20}$/
 export const captchaCodeReg = /^[0-9A-Za-z]{6,8}$/
 
 // 职位
-export const positionReg = /^.{2,50}$/
+export const positionReg = /^.{2,20}$/
 
 // 公司简称
 export const abbreviationReg = /^.{1,10}$/
