@@ -69,7 +69,7 @@
   font-size: 28rpx;
   font-weight: 500;
   color: #626262;
-  line-height: 32rpx;
+  line-height: 36rpx;
   display: inline-block;
   display: -webkit-box;
   -webkit-box-orient: vertical;

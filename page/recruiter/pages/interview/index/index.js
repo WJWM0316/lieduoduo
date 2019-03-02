@@ -158,7 +158,12 @@ Page({
     let interviewData = this.data.interviewData
     let interviewBottomStatus = 0
     return getScheduleListApi({count: interviewData.count, page: interviewData.pageNum, time: chooseTime}, hasLoading).then(res => {
-      interviewData.list = res.data
+      const list = res.data
+      list.map(field => {
+        const time = field.arrangementInfo.appointment.split(' ')[1].slice(0, 5)
+        field.createdAtTime = time
+      })
+      interviewData.list = list
       interviewData.isRequire = true
       if (!res.meta || !res.meta.nextPageUrl) {
         interviewData.isLastPage = true

@@ -18,21 +18,127 @@
 			</view>
 		</view>
 		<view class="list-box {{browseMySelf.list.length ? '' : 'nodata'}}" hidden="{{pageList === 'collectMySelf' || pageList === 'collectUsers'}}">
-			<commonList list="{{browseMySelf.list}}"></commonList>
+			<form bindsubmit="formSubmit" report-submit='{{true}}'> 
+				<button
+					form-type="submit"
+					bindtap="routeJump"
+					class="formIdBtn"
+					wx:for="{{browseMySelf.list}}"
+					wx:for-item="item"
+					data-jobhunterUid="{{item.uid}}"
+					wx:key="{{index}}">
+					<view class="item2">
+						<view class="row-one">
+							<view class="img-box"><image src="{{item.avatar.smallUrl}}"></image></view>
+							<view class="content">
+								<view class="header">
+									<view class="name">{{item.name}}</view>
+									<view class="zhiwei">
+										<block>{{item.workAgeDesc}}</block>
+										<block> . {{item.degreeDesc}}</block>
+										<block wx:if="{{item.salary}}"> . {{item.salary}}</block>
+									</view>
+								</view>
+								<view class="degress" wx:if="{{item.lastCompanyName || item.lastPosition}}">
+									<block wx:if="{{item.lastCompanyName}}">{{item.lastCompanyName}}</block>
+									<block wx:if="{{item.lastPosition}}"> | {{item.lastPosition}}</block>
+								</view>
+							</view>
+						</view>
+						<!-- <view class="reddot"></view> -->
+						<view class="row-two">
+							<view class="infos">
+								<view class="day">{{item.viewAt}}</view>
+								<view class="action">
+									<block wx:if="{{item.positionName}}">查看了你的职位</block>
+									<block wx:if="{{!item.positionName}}">查看了你的</block>
+								</view>
+								<view class="position">
+									<block wx:if="{{item.positionName}}">{{item.positionName}}</block>
+									<block wx:if="{{!item.positionName}}">个人主页</block>
+								</view>
+							</view>
+						</view>
+					</view>
+				</button>
+			</form>
+			<!-- <commonList list="{{browseMySelf.list}}"></commonList> -->
 			<bottomStatus status="{{onBottomStatus}}" listData="{{browseMySelf.list}}" desc="还没有候选人看过你哟～ 试试分享你的职位，让更多人来围观吧！" marginTop="{{114}}">
 				<!-- <button class="jump" bindtap="jump">分享我的职位</button> -->
 			</bottomStatus>
 		</view>
 
 		<view class="list-box {{collectMySelf.list.length ? '' : 'nodata'}}" hidden="{{pageList === 'browseMySelf' || pageList === 'collectUsers'}}">
-			<commonList list="{{collectMySelf.list}}" isCollect="{{true}}" showFooter="{{false}}"></commonList>
+			<form bindsubmit="formSubmit" report-submit='{{true}}'> 
+				<button
+					form-type="submit"
+					bindtap="routeJump"
+					class="formIdBtn"
+					wx:for="{{collectMySelf.list}}"
+					wx:for-item="item"
+					data-jobhunterUid="{{item.uid}}"
+					wx:key="{{index}}">
+					<view class="item2">
+						<view class="row-one">
+							<view class="img-box"><image src="{{item.avatar.smallUrl}}"></image></view>
+							<view class="content">
+								<view class="header">
+									<view class="name">{{item.name}}</view>
+									<view class="zhiwei">
+										<block>{{item.workAgeDesc}}</block>
+										<block> . {{item.degreeDesc}}</block>
+										<block wx:if="{{item.salary}}"> . {{item.salary}}</block>
+									</view>
+								</view>
+								<view class="degress" wx:if="{{item.lastCompanyName || item.lastPosition}}">
+									<block wx:if="{{item.lastCompanyName}}">{{item.lastCompanyName}}</block>
+									<block wx:if="{{item.lastPosition}}"> | {{item.lastPosition}}</block>
+								</view>
+							</view>
+						</view>
+						<!-- <view class="reddot"></view> -->
+					</view>
+				</button>
+			</form>
+			<!-- <commonList list="{{collectMySelf.list}}" isCollect="{{true}}" showFooter="{{false}}"></commonList> -->
 			<bottomStatus status="{{onBottomStatus}}" listData="{{collectMySelf.list}}" desc="还没有候选人看过你哟～ 试试分享你的职位，让更多人来围观吧！~" marginTop="{{114}}">
 				<!-- <button class="jump" bindtap="jump">分享我的职位</button> -->
 			</bottomStatus>
 		</view>
 
 		<view class="list-box {{collectUsers.list.length ? '' : 'nodata'}}" hidden="{{pageList === 'collectMySelf' || pageList === 'browseMySelf'}}">
-			<commonList list="{{collectUsers.list}}" showFooter="{{false}}"></commonList>
+			<form bindsubmit="formSubmit" report-submit='{{true}}'> 
+				<button
+					form-type="submit"
+					bindtap="routeJump"
+					class="formIdBtn"
+					wx:for="{{collectUsers.list}}"
+					wx:for-item="item"
+					data-jobhunterUid="{{item.uid}}"
+					wx:key="{{index}}">
+					<view class="item2">
+						<view class="row-one">
+							<view class="img-box"><image src="{{item.avatar.smallUrl}}"></image></view>
+							<view class="content">
+								<view class="header">
+									<view class="name">{{item.name}}</view>
+									<view class="zhiwei">
+										<block>{{item.workAgeDesc}}</block>
+										<block> . {{item.degreeDesc}}</block>
+										<block wx:if="{{item.salary}}"> . {{item.salary}}</block>
+									</view>
+								</view>
+								<view class="degress" wx:if="{{item.lastCompanyName || item.lastPosition}}">
+									<block wx:if="{{item.lastCompanyName}}">{{item.lastCompanyName}}</block>
+									<block wx:if="{{item.lastPosition}}"> | {{item.lastPosition}}</block>
+								</view>
+							</view>
+						</view>
+						<!-- <view class="reddot"></view> -->
+					</view>
+				</button>
+			</form>
+			<!-- <commonList list="{{collectUsers.list}}" showFooter="{{false}}"></commonList> -->
 			<bottomStatus status="{{onBottomStatus}}" listData="{{collectUsers.list}}" desc="还没有感兴趣的候选人哟~" marginTop="{{114}}">
 			</bottomStatus>
 		</view>

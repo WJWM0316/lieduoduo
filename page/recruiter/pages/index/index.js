@@ -265,5 +265,15 @@ Page({
     getPositionListNumApi().then(res => {
       console.log(res.data)
     })
+  },
+  formSubmit(e) {
+    app.postFormId(e.detail.formId)
+  },
+  routeJump(e) {
+    const params = e.currentTarget.dataset
+    // 可能会存在空对象
+    if(!Object.keys(params).length) return;
+    // console.log(params)
+    wx.navigateTo({url: `/page/common/pages/resumeDetail/resumeDetail?uid=${params.jobhunteruid}`})
   }
 })

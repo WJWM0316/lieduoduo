@@ -117,6 +117,13 @@ Page({
       title: '删除地址',
       content: '地址删除后将无法恢复，是否确定删除？',
       confirmBack() {
+        const storage = wx.getStorageSync('createPosition')
+        // 如果删除的地址于之前选择的地址
+        if(storage.address_id === that.data.id) {
+          storage.address = ''
+          storage.address_id = ''
+          wx.setStorageSync('createPosition', storage)
+        }
         that[action]()
       }
     })
