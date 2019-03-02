@@ -1,10 +1,13 @@
 <view class="verify">
 	<navbar title="审核管理" background="#fff" color="#22292C"></navbar>
+	<view hidden="{{!hasReFresh}}">
+    <refreshStatus></refreshStatus>
+  </view>
 	<view style="height: 98rpx"></view>
 	<view class="office-status-bar" style="top:{{navH}}px">
-	  <view class="item {{tab === '1' ? 'active' : ''}}" bindtap="onClickTab" data-tab="1">待审核</view>
-	  <view class="item {{tab === '2' ? 'active' : ''}}" bindtap="onClickTab" data-tab="2">审核未通过</view>
-	  <view class="item {{tab === '3' ? 'active' : ''}}" bindtap="onClickTab" data-tab="3">已通过</view>
+	  <view class="item {{tab === 'list0' ? 'active' : ''}}" bindtap="onClickTab" data-tab="list0">待审核</view>
+	  <view class="item {{tab === 'list2' ? 'active' : ''}}" bindtap="onClickTab" data-tab="list2">审核未通过</view>
+	  <view class="item {{tab === 'list1' ? 'active' : ''}}" bindtap="onClickTab" data-tab="list1">已通过</view>
 	</view>
 	<view class="ul">
 		<view class="li">
@@ -14,4 +17,5 @@
 			<view class="reddot"></view>
 		</view>
 	</view>
+	<bottomStatus status="{{onBottomStatus}}" listData="{{recruitersList.list}}"></bottomStatus>
 </view>

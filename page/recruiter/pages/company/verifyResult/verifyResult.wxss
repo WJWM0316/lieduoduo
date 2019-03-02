@@ -6,13 +6,15 @@
 }
 
 .box .title{
-	padding: 36rpx 30rpx 30rpx 30rpx;
+	padding: 32rpx 30rpx 32rpx 30rpx;
 	font-size:32rpx;
 	font-weight:500;
 	color:rgba(11,9,26,1);
 	position: relative;
-	margin-bottom: 20rpx;
+	margin-bottom: 23rpx;
 	line-height: 1;
+	height: 40rpx;
+	line-height: 40rpx;
 }
 
 .box .title:before {
@@ -38,7 +40,7 @@
 }
 
 .box .footer {
-	border-top: 1rpx dotted #652791;
+	border-top: 1rpx dotted #BCBCBC;
 	padding-top: 32rpx ;
 }
 
@@ -53,8 +55,16 @@
 	font-size:28rpx;
 	font-weight:400;
 	color:rgba(40,40,40,1);
-	text-align: right;
 	flex: 1;
+	text-align: right;
+}
+
+.box .li .value view{
+	max-width: 400rpx;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	display: inline-block;
 }
 
 .button-box{
@@ -83,4 +93,43 @@
 	background:rgba(101,39,145,1);
 	color: white;
 	margin-left: 15rpx;
+}
+
+.header {
+	text-align: center;
+	margin: 56rpx auto 40rpx auto;
+}
+.status-txt {
+	font-size:40rpx;
+	font-weight:500;
+	color:rgba(101,39,145,1);
+	line-height:1;
+	text-align: center;
+}
+
+.time {
+	font-size:28rpx;
+	font-weight:400;
+	color:rgba(98,98,98,1);
+	line-height:1;
+	text-align: center;
+	margin-top: 16rpx;
+}
+
+.default-status {
+	width: 180rpx;
+	height: 135rpx;
+}
+
+.return {
+	height:98rpx;
+	background:rgba(101,39,145,1);
+	box-shadow:0rpx -5rpx 40rpx 0rpx rgba(22,39,77,0.05);
+	border-radius:49rpx;
+	font-size:32rpx;
+	font-weight:500;
+	color:rgba(255,255,255,1);
+	margin: 56rpx 100rpx;
+	text-align: center;
+	line-height: 98rpx;
 }

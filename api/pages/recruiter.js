@@ -122,3 +122,13 @@ export const removeLabelFavorApi = (data) => {
     hasLoading: true
   })
 }
+
+// 获取招聘官审核列表
+export const getApplyjoinListApi = (data, hasLoading) => {
+  return request({
+    url: `/applyjoin/list`,
+    method: 'get',
+    data,
+    hasLoading: hasLoading
+  })
+}
