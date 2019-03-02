@@ -113,7 +113,7 @@ Page({
         app.wxToast({title: '请先选择职位类别'})
         return
       }
-      if (this.data.options.id) {
+      if (this.data.options.id && !wx.getStorageSync('skillsLabel')) {
         wx.setStorageSync('skillsLabel', this.data.info.technicalLabels)
       }
       wx.navigateTo({
@@ -267,5 +267,9 @@ Page({
         }
       }
     })
+  },
+  onUnload() {
+    wx.removeStorageSync('createPosition')
+    wx.removeStorageSync('skillsLabel')
   }
 })

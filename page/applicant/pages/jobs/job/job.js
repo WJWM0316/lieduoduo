@@ -40,7 +40,7 @@ Page({
     positionIndex: 0,
     cdnImagePath: app.globalData.cdnImagePath
   },
-  onShow() {
+  onLoad() {
     const positionList = {
       list: [],
       pageNum: 1,

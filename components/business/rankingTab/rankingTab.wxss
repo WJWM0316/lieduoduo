@@ -50,7 +50,6 @@
   vertical-align: middle;
 }
 .ranking .left .top{
-  display: flex;
   flex-wrap: nowrap;
   align-items: center;
   width: 430rpx;

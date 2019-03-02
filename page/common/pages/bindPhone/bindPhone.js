@@ -3,8 +3,10 @@ import {sendCodeApi, bindPhoneApi, checkSessionKeyApi} from "../../../../api/pag
 import {quickLoginApi} from '../../../../api/pages/auth.js'
 
 let mobileNumber = 0
+let second = 60
 let app = getApp()
 let timer = null
+let timerInt = null
 Page({
 
   /**
@@ -48,7 +50,7 @@ Page({
         phone: e.detail.value
       })
       this.setData({canClick: this.data.code && this.data.phone ? true : false})
-    }, 300)
+    }, 500)
   },
   getCode(e) {
     clearTimeout(timer)
@@ -57,35 +59,37 @@ Page({
         code: e.detail.value
       })
       this.setData({canClick: this.data.code && this.data.phone ? true : false})
-    }, 300)
+    }, 500)
+  },
+  setTime (second) {
+    timerInt = setInterval(() => {
+      second--
+      if (second === 0) {
+        second = 60
+        clearInterval(timerInt)
+      }
+      this.setData({second})
+    }, 1000)
   },
   sendCode() {
-    if (!mobileNumber) {
+    if (!this.data.phone) {
       app.wxToast({
         title: '请填写手机号'
       })
       return
     }
     let data = {
-      mobile: mobileNumber
+      mobile: this.data.phone
     }
     sendCodeApi(data).then(res => {
       this.isBlured = false
       this.callback = null
-      let second = 60
-      let timer = null
+      second = 60
       app.wxToast({
         title: '验证码发送成功',
         icon: 'success'
       })
-      timer = setInterval(() => {
-        second--
-        if (second === 0) {
-          second = 60
-          clearInterval(timer)
-        }
-        this.setData({second})
-      }, 1000)
+      this.setTime(second)
     })
   },
   bindPhone() {
@@ -131,16 +135,12 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    this.setData({
-      second: 60
-    })
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
-    clearTimeout(timer)
   },
 
   /**

@@ -172,6 +172,8 @@ Page({
         })
       }
     })
-    
+  },
+  onUnload() {
+    wx.removeStorageSync('skillsLabel')
   }
 })
