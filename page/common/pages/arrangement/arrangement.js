@@ -201,10 +201,17 @@ Page({
   },
   pageInit() {
     return interviewDetailApi({interviewId: this.data.options.id}).then(res => {
-      let createPosition = wx.getStorageSync('createPosition')
-      if (createPosition && (res.data.status === 12 || res.data.status === 21 || res.data.status === 32) && wx.getStorageSync('choseType') === 'RECRUITER') {
-        res.data.addressId = createPosition.address_id
-        res.data.address = createPosition.address
+      let addressData = wx.getStorageSync('createPosition')
+      let positionData = wx.getStorageSync('interviewData')
+      if ((res.data.status === 12 || res.data.status === 21 || res.data.status === 32) && wx.getStorageSync('choseType') === 'RECRUITER') {
+        if (addressData) {
+          res.data.addressId = addressData.address_id
+          res.data.address = addressData.address
+        }
+        if (positionData) {
+          res.data.positionName = positionData.positionName
+          res.data.positionId = positionData.positionId
+        }
       }
       this.setData({info: res.data})
     })
@@ -248,7 +255,8 @@ Page({
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
-
+    wx.removeStorageSync('createPosition')
+    wx.removeStorageSync('interviewData')
   },
 
   /**
