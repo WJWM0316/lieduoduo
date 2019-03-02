@@ -57,7 +57,7 @@ Component({
     calendarBody: [],
     headYear: curYear,
     headMonth: curMonth,
-    choseType: wx.getStorageSync('choseType'),
+    choseType: '',
     iphoneX: app.globalData.isIphoneX,
     choseOtherDate: false
   },
@@ -66,11 +66,12 @@ Component({
     prevMonth = 0 // 上个月份保存
     nextYear = 0 // 下个年份保存
     prevYear = 0 // 上个年份保存
+    let choseType = wx.getStorageSync('choseType')
     let list = this.getThisMonthDays(curYear, curMonth) 
     if (this.data.switchable || this.data.calendarType === 'roll') {
-      this.setData({list, choseDate: this.data.curDate})
+      this.setData({list, choseDate: this.data.curDate, choseType})
     } else {
-      this.setData({choseDate: this.data.curDate})
+      this.setData({choseDate: this.data.curDate, choseType})
     }
   },
   /**
