@@ -132,3 +132,12 @@ export const getApplyjoinListApi = (data, hasLoading) => {
     hasLoading: hasLoading
   })
 }
+
+// 获取招聘官审核信息
+export const getApplyjoinInfosApi = (data, hasLoading) => {
+  return request({
+    url: `/applyjoin/${data.id}`,
+    method: 'get',
+    hasLoading: hasLoading
+  })
+}
