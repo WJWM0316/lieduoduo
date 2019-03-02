@@ -197,7 +197,7 @@
 						<view class="time {{item.status !== 51 ? 'active' : ''}}"><i class="icon iconfont icon-lishijilu"></i>{{item.createdAtTime}}</view>
 					</view>
 					<view class="row-two">
-						<i class="icon iconfont icon-mianshizhiwei"></i>
+						<i class="icon iconfont icon-mianshidizhi"></i>
 						面试职位：<text>{{item.positionId ? item.positionName : '未选择面试职位'}}</text>
 					</view>
 				</view>
