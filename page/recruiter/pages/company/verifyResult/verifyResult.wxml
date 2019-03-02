@@ -1,6 +1,6 @@
 <view class="verify">
-	<navbar title="审核结果" background="#fff" color="#22292C"></navbar>
-	<view class="header">
+	<navbar title="{{infos.status !== 1 ? '待审核' : '审核结果'}}" background="#fff" color="#22292C"></navbar>
+	<view class="header" wx:if="{{infos.status === 1}}">
 		<image src="{{cdnImagePath}}pic_await.png" mode="scaleToFill" class="default-status"></image>
 		<view class="status-txt">审核处理成功</view>
 		<view class="time">审核时间：2019-10-27 01:11</view>
@@ -11,32 +11,32 @@
 			<view class="li">
 				<view class="key">申请人</view>
 				<view class="value">
-					<view>阎常振</view>
+					<view>{{infos.realName}}</view>
 				</view>
 			</view>
 			<view class="li">
 				<view class="key">公司邮箱</view>
 				<view class="value">
-					<view>leland.konopelski@msn.com</view>
+					<view>{{infos.userEmail}}</view>
 				</view>
 			</view>
 			<view class="li">
 				<view class="key">担任职务</view>
 				<view class="value">
-					<view>产品经理</view>
+					<view>{{infos.userPosition}}</view>
 				</view>
 			</view>
 			<view class="li footer">
 				<view class="key">申请时间</view>
 				<view class="value">
-					<view>2019-07-13 21:26</view>
+					<view>{{infos.createdAt}}</view>
 				</view>
 			</view>
 		</view>
 	</view>
-	<!-- <view class="button-box">
+	<view class="button-box" wx:if="{{infos.status !== 1}}">
 		<view class="button button1">不予通过</view>
 		<view class="button button2">审核通过</view>
-	</view> -->
-	<view class="return">返回首页</view>
+	</view>
+	<view class="return" wx:if="{{infos.status === 1}}">返回首页</view>
 </view>

@@ -2,6 +2,8 @@ import {
   getApplyjoinListApi
 } from '../../../../../api/pages/recruiter.js'
 
+import {RECRUITER} from '../../../../../config.js'
+
 const app = getApp()
 
 Page({
@@ -38,7 +40,7 @@ Page({
   },
   onClickTab(e) {
     const tab = e.currentTarget.dataset.tab
-    this.setData({tab})
+    this.setData({tab}, () => this.getLists())
   },
   getLists() {
   	return this[`getApplyjoin${this.data.tab}`]()
@@ -67,7 +69,7 @@ Page({
    * @DateTime 2019-03-02
    * @detail   获取未通过列表
    */
-  getApplyjoinlist2() {
+  getApplyjoinlist2(hasLoading = true) {
   	return new Promise((resolve, reject) => {
       let params = {count: this.data.pageCount, page: this.data.list2.pageNum, hasLoading, status: 2}
       getApplyjoinListApi(params).then(res => {
@@ -86,7 +88,7 @@ Page({
    * @DateTime 2019-03-02
    * @detail   获取已通过列表
    */
-  getApplyjoinlist1() {
+  getApplyjoinlist1(hasLoading = true) {
   	return new Promise((resolve, reject) => {
       let params = {count: this.data.pageCount, page: this.data.list1.pageNum, hasLoading, status: 1}
       getApplyjoinListApi(params).then(res => {
@@ -99,5 +101,47 @@ Page({
         this.setData({list1, onBottomStatus}, () => resolve(res))
       })
     })
+  },
+  /**
+   * @Author   小书包
+   * @DateTime 2019-01-21
+   * @detail   触底加载数据
+   * @return   {[type]}   [description]
+   */
+  onReachBottom() {
+    const tab = this.data.tab
+    const value = this.data[key]
+    if (!value.isLastPage) {
+      this.setData({onBottomStatus: 1})
+      this.getLists(false)
+    }
+  },
+  /**
+   * @Author   小书包
+   * @DateTime 2019-01-21
+   * @detail   下拉重新获取数据
+   * @return   {[type]}              [description]
+   */
+  onPullDownRefresh(hasLoading = true) {
+    const key = this.data.tab
+    const value = {list: [], pageNum: 1, isLastPage: false, isRequire: false}
+    this.setData({[key]: value, hasReFresh: true})
+    this[`getApplyjoin${this.data.tab}`](false).then(res => {
+      const value = {list: [], pageNum: 1, isLastPage: false, isRequire: false}
+      const onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
+      value.list = res.data
+      value.isLastPage = res.meta && res.meta.nextPageUrl ? false : true
+      value.pageNum = 2
+      value.isRequire = true
+      this.setData({[key]: value, onBottomStatus, hasReFresh: false}, () => wx.stopPullDownRefresh())
+    }).catch(e => {
+      wx.stopPullDownRefresh()
+    })
+  },
+  routeJump(e) {
+    const params = e.currentTarget.dataset
+    const list = this.data[this.data.tab].list
+    const result = list.find((field, index, arr) => index === params.index)
+    wx.navigateTo({url: `${RECRUITER}company/verifyResult/verifyResult?id=${result.id}`})
   }
 })
