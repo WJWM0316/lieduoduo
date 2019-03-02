@@ -178,7 +178,7 @@
 							面试职位：{{item.positionId ? item.positionName : '未选择面试职位'}}
 						</view>
 						<view class="row-three">
-							<i class="icon iconfont icon-mianshizhiwei"></i>{{item.address}}</view>
+							<i class="icon iconfont icon-mianshidizhi"></i>{{item.address}}</view>
 					</button>
 				</view>
 			</button>

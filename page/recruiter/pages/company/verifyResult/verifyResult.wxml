@@ -35,8 +35,8 @@
 		</view>
 	</view>
 	<view class="button-box" wx:if="{{infos.status !== 1}}">
-		<view class="button button1">不予通过</view>
-		<view class="button button2">审核通过</view>
+		<view class="button button1" bindtap="failApplyjoin">不予通过</view>
+		<view class="button button2" bindtap="passApplyjoin">审核通过</view>
 	</view>
-	<view class="return" wx:if="{{infos.status === 1}}">返回首页</view>
+	<view class="return" wx:if="{{infos.status === 1}}" bindtap="goHome">返回首页</view>
 </view>
