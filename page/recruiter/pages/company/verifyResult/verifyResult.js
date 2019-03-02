@@ -18,8 +18,8 @@ Page({
   	this.setData({options})
   	this.getApplyjoinInfos()
   },
-  getApplyjoinInfos() {
-  	getApplyjoinInfosApi({id: this.data.options.id}).then(res => {
+  getApplyjoinInfos(hasLoading = true) {
+  	getApplyjoinInfosApi({id: this.data.options.id, hasLoading}).then(res => {
   		this.setData({infos: res.data.applyInfo})
   	})
   },
@@ -52,7 +52,7 @@ Page({
     const infos = this.data.infos
     app.wxConfirm({
       title: '温馨提示',
-      content: '确认该申请人不予加入组织？',
+      content: '确认该申请人加入组织？',
       showCancel: true,
       cancelText: '取消',
       confirmText: '确定',
@@ -75,6 +75,6 @@ Page({
     wx.reLaunch({url: `${RECRUITER}index/index`})
   },
   onPullDownRefresh() {
-    this.getApplyjoinInfos()
+    this.getApplyjoinInfos(false)
   }
 })
