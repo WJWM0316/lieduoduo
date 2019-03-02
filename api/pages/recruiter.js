@@ -141,3 +141,21 @@ export const getApplyjoinInfosApi = (data, hasLoading) => {
     hasLoading: hasLoading
   })
 }
+
+// 加入公司申请审核不通过
+export const failApplyjoinApi = (data, hasLoading) => {
+  return request({
+    url: `/applyjoin/fail/${data.id}`,
+    method: 'put',
+    hasLoading: hasLoading
+  })
+}
+
+// 加入公司申请审核通过
+export const passApplyjoinApi = (data, hasLoading) => {
+  return request({
+    url: `/applyjoin/pass/${data.id}`,
+    method: 'put',
+    hasLoading: hasLoading
+  })
+}
