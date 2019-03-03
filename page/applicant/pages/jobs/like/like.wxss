@@ -109,6 +109,7 @@
   position: fixed;
   left: 0;
   z-index: 1;
+  display: flex;
 }
 
 .office-status-bar::after{
@@ -129,6 +130,7 @@
   font-weight:400;
   color:rgba(98,98,98,1);
   display: inline-block;
+  flex: 1;
 }
 
 .office-status-bar .item::after {
