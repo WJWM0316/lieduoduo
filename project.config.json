@@ -38,7 +38,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 61,
+			"current": 59,
 			"list": [
 				{
 					"id": 0,
@@ -401,9 +401,9 @@
 				},
 				{
 					"id": 59,
-					"name": "c端全部面试",
+					"name": "b端全部面试",
 					"pathName": "page/recruiter/pages/interview/history/history",
-					"query": "companyId=844"
+					"query": ""
 				},
 				{
 					"id": -1,
