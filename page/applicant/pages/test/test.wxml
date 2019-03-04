@@ -43,5 +43,24 @@
 			<view class="status">标记不合适</view>
 		</view>
 	</view>
-
+	
+	<view class="item4">
+		<view class="row-one">
+			<view class="position">UI设计师</view>
+			<view class="salary">12K~20K</view>
+		</view>
+		<view class="row-two">
+			<view class="address">广州市天河区</view>
+			<view class="experience">不限</view>
+			<view class="degress">本科</view>
+		</view>
+		<view class="row-three">36氪集团 | 已上市</view>
+		<view class="row-four">
+			<view class="img-box">
+				<image src="{{cdnImagePath}}sign1.png" mode="aspectFill" class="sign"></image>
+			</view>
+			<view class="name-position">林卓明 · 人力资源经理</view>
+			<view class="logo-box"></view>
+		</view>
+	</view>
 </view>
