@@ -1,5 +1,12 @@
 .img {
   width: 100%;
+  display: block;
+}
+.auth {
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
 }
 .welcome {
   font-size: 46rpx;
@@ -7,6 +14,7 @@
   color: #652791;
   line-height: 56rpx;
   text-align: center;
+  margin-top: 24rpx;
 }
 .msgTxt {
   width: 100%;
@@ -15,7 +23,7 @@
   font-weight: bold;
   color: #353943;
   line-height: 1.4;
-  margin-top: 86rpx;
+  margin-top: 84rpx;
   text-align: center;
 }
 .txt1, .txt2 {
@@ -39,5 +47,8 @@
   font-weight: 400;
   color: #fff;
   line-height: 98rpx;
-  margin-top: 200rpx;
+  position: fixed;
+  bottom: 126rpx;
+  left: 50%;
+  margin-left: -290rpx;
 }

@@ -1,4 +1,5 @@
 <!--page/common/pages/auth/auth.wxml-->
+<navbar title="获取权限" background="transparent" color="#fff" showBack="{{false}}"></navbar>
 <view class="auth">
   <view class="head">
     <image class="img" mode="widthFix" src="{{cdnImagePath}}bindPhoneBg.png"></image>

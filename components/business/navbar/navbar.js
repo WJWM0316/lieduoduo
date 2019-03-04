@@ -13,6 +13,10 @@ Component({
       type: Boolean,
       value:true
     },
+    showBack: {
+      type: Boolean,
+      value: true
+    },
     showHome: {
       type: Boolean,
       value: false

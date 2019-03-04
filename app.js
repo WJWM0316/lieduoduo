@@ -186,7 +186,7 @@ App({
                 })
               } else {
                 wx.removeStorageSync('sessionToken')
-                if (pageUrl === `${APPLICANT}index/index`) {
+                if (pageUrl !== `${APPLICANT}index/index`) {
                   wx.navigateTo({
                     url: `${COMMON}auth/auth`
                   })
