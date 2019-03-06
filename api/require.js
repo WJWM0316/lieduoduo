@@ -44,7 +44,12 @@ export const request = ({method = 'post', url, data = {}, needKey = true, hasLoa
       data: data,
       method: method,
       success(res) {
-        console.log(url, res)
+        loadNum--
+        if (loadNum <= 0) {
+          wx.hideLoading()
+          loadNum = 0
+        }
+        console.log(url, res, data, addHttpHead)
         if (typeof res.data === 'string') { // 转换返回json
           res.data = JSON.parse(res.data)
         }
@@ -54,12 +59,11 @@ export const request = ({method = 'post', url, data = {}, needKey = true, hasLoa
           msg.httpStatus = parseInt(msg.httpStatus)
           if (msg.httpStatus === 200) {
             resolve(msg)
-            // console.log(msg)
           } else {
-            reject(msg)
             if (msg.code !== 701 && msg.code !== 801) {
-              getApp().wxToast({title: msg.msg})
+              getApp().wxToast({title: msg.msg, duration: 2000})
             }
+            // reject(msg)
           }
           switch (msg.httpStatus) {
             case 200:
@@ -72,7 +76,7 @@ export const request = ({method = 'post', url, data = {}, needKey = true, hasLoa
                 let timer = setTimeout(() => {
                   toBindPhone = false
                   clearTimeout(timer)
-                }, 5000)
+                }, 3000)
                 wx.removeStorageSync('token')
                 wx.navigateTo({
                   url: `${COMMON}bindPhone/bindPhone`
@@ -85,7 +89,7 @@ export const request = ({method = 'post', url, data = {}, needKey = true, hasLoa
                 let timer = setTimeout(() => {
                   toAuth = false
                   clearTimeout(timer)
-                }, 5000)
+                }, 3000)
                 wx.removeStorageSync('sessionToken')
                 wx.removeStorageSync('token')
                 if (url !== '/wechat/login/mini') {
@@ -131,14 +135,12 @@ export const request = ({method = 'post', url, data = {}, needKey = true, hasLoa
         }
       },
       fail(e) {
-        console.log(e, 'wx.request发神经了')
-      },
-      complete() {
         loadNum--
         if (loadNum <= 0) {
           wx.hideLoading()
           loadNum = 0
         }
+        console.log(e, 'wx.request发神经了')
       }
     })
   })

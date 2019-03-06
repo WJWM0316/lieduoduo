@@ -319,8 +319,6 @@ App({
           //监听小程序有版本更新事件
           updateManager.onUpdateReady(function() {
             //TODO 新的版本已经下载好，调用 applyUpdate 应用新版本并重启 （ 此处进行了自动更新操作）
-            console.log(111111111, 22222222, 33)
-            console.log(22222)
             updateManager.applyUpdate();
           })
           updateManager.onUpdateFailed(function() {
@@ -349,11 +347,15 @@ App({
       icon,
       image,
       mask,
+      duration,
       success() {
         setTimeout(() => {
           // 自定义一个回调函数
           callback()
         }, duration)
+      },
+      complete(e) {
+        console.log(e, 11111)
       }
     })
   },

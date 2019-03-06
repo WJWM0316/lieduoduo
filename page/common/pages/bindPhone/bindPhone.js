@@ -24,7 +24,6 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    wx.removeStorageSync('toBindPhone')
     wx.getSetting({
       success: res => {
         if (res.authSetting['scope.userInfo']) {
@@ -50,7 +49,7 @@ Page({
         phone: e.detail.value
       })
       this.setData({canClick: this.data.code && this.data.phone ? true : false})
-    }, 500)
+    }, 100)
   },
   getCode(e) {
     clearTimeout(timer)
@@ -60,7 +59,7 @@ Page({
       })
       this.setData({canClick: this.data.code && this.data.phone ? true : false})
       clearTimeout(timer)
-    }, 500)
+    }, 100)
   },
   setTime (second) {
     timerInt = setInterval(() => {
@@ -162,13 +161,6 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
 
   }
 })

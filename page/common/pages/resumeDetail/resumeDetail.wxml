@@ -53,8 +53,8 @@
           <i class="icon iconfont icon-bianji1 edit" data-editName="intent" data-id="{{item.id}}" bindtap="edit" wx:if="{{isOwner}}"></i></view>
       </view>
       <view class="officeInfo">
-        <block wx:for="{{item.fields}}" wx:for-item="{{info}}" wx:for-number="{{item.fields.length}}" wx:key="{{index}}">
-          <text>{{info.field || info.name}} <block wx:if="{{item.fields.length - 1 !== index}}" > · {{number}}{{index}}</block></text>
+        <block wx:for="{{item.fields}}" wx:for-item="officeInfo" wx:for-number="{{item.fields.length}}" wx:key="{{index}}">
+          <text>{{officeInfo.field || officeInfo.name}} <block wx:if="{{item.fields.length - 1 !== index}}" > · </block></text>
         </block>
       </view>
     </view>

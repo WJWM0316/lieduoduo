@@ -34,9 +34,9 @@ Page({
     identityInfos: {}
   },
   onLoad() {
-    this.getCompanyIdentityInfos()
   },
   onShow() {
+    this.getCompanyIdentityInfos()
     let onLinePosition = {
       list: [],
       pageNum: 1,
@@ -83,18 +83,8 @@ Page({
       return;
     }
 
-    // 没有填身份证 则没有验证
-    if(!identityInfos.identityNum) {
-      app.wxConfirm({
-        title: '',
-        content: `检测到您尚未认证身份，请立即认证，完成发布职位`,
-        confirmText: '去认证',
-        confirmBack: () => {
-          const realName = identityInfos.companyInfo.realName ? identityInfos.companyInfo.realName : ''
-          wx.navigateTo({url: `${RECRUITER}user/company/identity/identity?type=identity&realName=${realName}`})
-        }
-      })
-      return;
+    if(identityInfos.status === 1) {
+      wx.navigateTo({url: `${RECRUITER}position/post/post`})
     }
 
     // 已经填写身份证 但是管理员还没有处理或者身份证信息不符合规范
@@ -114,8 +104,18 @@ Page({
       return;
     }
 
-    if(identityInfos.status === 1) {
-      wx.navigateTo({url: `${RECRUITER}position/post/post`})
+    // 没有填身份证 则没有验证
+    if(!identityInfos.identityNum) {
+      app.wxConfirm({
+        title: '',
+        content: `检测到您尚未认证身份，请立即认证，完成发布职位`,
+        confirmText: '去认证',
+        confirmBack: () => {
+          const realName = identityInfos.companyInfo.realName ? identityInfos.companyInfo.realName : ''
+          wx.navigateTo({url: `${RECRUITER}user/company/identity/identity?type=identity&realName=${realName}`})
+        }
+      })
+      return;
     }
   },
   /**

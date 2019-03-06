@@ -27,7 +27,6 @@ Component({
       })
     },
     formSubmit(e) {
-      console.log(e, '========================获取formID===================')
       getApp().postFormId(e.detail.formId)
     }
   }

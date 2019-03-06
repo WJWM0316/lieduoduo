@@ -126,17 +126,17 @@ Page({
     
     const identityInfos = this.data.identityInfos
 
-    //还没有填写身份信息
-    if(!identityInfos.identityNum) {
+    //未认证
+    if(!identityInfos.identityAuth && (identityInfos.status !== 0 && identityInfos.status !== 1 && identityInfos.status !== 2)) {
       const realName = identityInfos.companyInfo.realName ? identityInfos.companyInfo.realName : ''
       wx.navigateTo({url: `${RECRUITER}user/company/identity/identity?type=identity&realName=${realName}`})
-      return;
+      return
     }
 
     // 已经填写身份证 但是管理员还没有处理或者身份证信息不符合规范
     if(identityInfos.status === 0 || identityInfos.status === 2) {
       wx.navigateTo({url: `${RECRUITER}user/company/status/status?from=identity`})
-      return;
+      return
     }
   }
 })

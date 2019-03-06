@@ -52,10 +52,10 @@
 			<i class="icon iconfont icon-renzheng label-icon"></i>
 			<i class="icon iconfont icon-zhishibiao"></i>
 			<view class="text">认证</view>
-			<view class="text2 color-pedding" wx:if="{{!identityInfos.status && identityInfos.status !== 0}}">未认证</view>
-			<view class="text2 color-gray" wx:if="{{identityInfos.status === 1}}">已认证</view>
-			<view class="text2 color-pedding" wx:if="{{identityInfos.status === 0}}">认证审核中</view>
-			<view class="text2 color-fail" wx:if="{{identityInfos.status === 2}}">认证审核失败</view>
+			<view class="text2 color-gray" wx:if="{{identityInfos.identityAuth}}">已认证</view>
+			<view class="text2 color-pedding" wx:if="{{!identityInfos.identityAuth && (identityInfos.status !== 0 && identityInfos.status !== 1 && identityInfos.status !== 2)}}">未认证</view>
+			<view class="text2 color-pedding" wx:if="{{!identityInfos.identityAuth && identityInfos.status === 0}}">认证审核中</view>
+			<view class="text2 color-fail" wx:if="{{!identityInfos.identityAuth && identityInfos.status === 2}}">认证审核失败</view>
 		</view>
 		<!-- <view class="li">
 			<i class="icon iconfont icon-kefu label-icon"></i>

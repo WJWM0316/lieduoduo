@@ -17,7 +17,7 @@ Page({
     imgW: 750,
     imgH: 0,
     openSet: true,
-    timerSecond: 30
+    timerSecond: 30000
   },
   drawing (info, avatarUrl, qrCodeUrl) {
     let that = this
@@ -186,7 +186,6 @@ Page({
           }
         })
       }, this.data.timerSecond)
-      timer
       if (res.statusCode === 200) {
         resolve(res)
         clearTimeout(timer)
