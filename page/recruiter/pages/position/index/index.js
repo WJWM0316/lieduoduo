@@ -66,9 +66,7 @@ Page({
    * @return   {[type]}   [description]
    */
   getCompanyIdentityInfos() {
-    getCompanyIdentityInfosApi().then(res => {
-      this.setData({identityInfos: res.data})
-    })
+    getCompanyIdentityInfosApi().then(res => this.setData({identityInfos: res.data}))
   },
   /**
    * @Author   小书包
@@ -80,7 +78,7 @@ Page({
     const identityInfos = this.data.identityInfos
 
     // 跟后端协商  =1 则可以发布
-    if(app.globalData.recruiterDetails.identityAuth) {
+    if(identityInfos.identityAuth) {
       wx.navigateTo({url: `${RECRUITER}position/post/post`})
       return;
     }
@@ -270,6 +268,7 @@ Page({
         wx.stopPullDownRefresh()
       })
     }
+    this.getCompanyIdentityInfos()
   },
   onShareAppMessage(options) {
     let that = this

@@ -22,7 +22,7 @@ export const request = ({method = 'post', url, data = {}, needKey = true, hasLoa
     } else {
       addHttpHead['Authorization'] = ''
     }
-  }  else {
+  } else {
     addHttpHead['Authorization'] = ''
   }
   // 版本号， 每次上次发版 + 1
@@ -69,9 +69,10 @@ export const request = ({method = 'post', url, data = {}, needKey = true, hasLoa
               if (msg.code === 4010) {
                 if (toBindPhone) return
                 toBindPhone = true
-                setTimeout(() => {
+                let timer = setTimeout(() => {
                   toBindPhone = false
-                }, 1000)
+                  clearTimeout(timer)
+                }, 5000)
                 wx.removeStorageSync('token')
                 wx.navigateTo({
                   url: `${COMMON}bindPhone/bindPhone`
@@ -81,10 +82,12 @@ export const request = ({method = 'post', url, data = {}, needKey = true, hasLoa
               if (msg.code === 0) {
                 if (toAuth) return
                 toAuth = true
-                setTimeout(() => {
+                let timer = setTimeout(() => {
                   toAuth = false
-                }, 1000)
+                  clearTimeout(timer)
+                }, 5000)
                 wx.removeStorageSync('sessionToken')
+                wx.removeStorageSync('token')
                 if (url !== '/wechat/login/mini') {
                   wx.navigateTo({
                     url: `${COMMON}auth/auth`,

@@ -214,7 +214,7 @@ Page({
   },
   init () {
     if (app.globalData.isRecruiter) {
-      getRecruiterPositionListApi({status: 1}).then(res => {
+      getRecruiterPositionListApi({is_online: 1, count: 50, page: 1}).then(res => {
         positionList = res.data
         positionList.unshift({positionName: '所有职位', id: 0})
         this.setData({positionList})

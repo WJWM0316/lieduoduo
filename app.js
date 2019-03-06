@@ -155,10 +155,10 @@ App({
           wx.getSetting({
             success: res => {
               var pages = getCurrentPages() //获取加载的页面
-              let pageUrl = pages[0].route
+              let pageUrl = `/${pages[0].route}`
               if (res.authSetting['scope.userInfo']) {
                 // 已经授权，可以直接调用 getUserInfo 获取头像昵称，不会弹框
-                checkSessionKeyApi().then(res0 => {
+                checkSessionKeyApi({session_token: wx.getStorageSync('sessionToken')}).then(res0 => {
                   wx.getUserInfo({
                     success: res => {
                       // 可以将 res 发送给后台解码出 unionId
@@ -178,7 +178,7 @@ App({
                     }
                   })
                 }).catch(e => {
-                  if (pageUrl === `${APPLICANT}index/index`) {
+                  if (pageUrl !== `${APPLICANT}index/index`) {
                     wx.navigateTo({
                       url: `${COMMON}auth/auth`
                     })

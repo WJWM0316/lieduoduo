@@ -28,7 +28,7 @@ Page({
     wx.getSetting({
       success: res => {
         if (res.authSetting['scope.userInfo']) {
-          checkSessionKeyApi().catch(e => {
+          checkSessionKeyApi({session_token: wx.getStorageSync('sessionToken')}).catch(e => {
             wx.navigateTo({
               url: `${COMMON}auth/auth`
             })
@@ -59,6 +59,7 @@ Page({
         code: e.detail.value
       })
       this.setData({canClick: this.data.code && this.data.phone ? true : false})
+      clearTimeout(timer)
     }, 500)
   },
   setTime (second) {
