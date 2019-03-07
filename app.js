@@ -61,10 +61,22 @@ App({
             wx.setStorageSync('token', res.data.token)
             that.loginedLoadData()
             that.globalData.hasLogin = true
+
+            // 登陆回调
+            if (that.loginInit) {
+              that.loginInit()
+            }
+            that.loginInit = function () {}
             console.log('用户已认证')
           } else {
             console.log('用户未绑定手机号', 'sessionToken', res.data.sessionToken)
-            that.checkLogin()
+            that.checkLogin().then(() => {
+              // 登陆回调
+              if (that.loginInit) {
+                that.loginInit()
+              }
+              that.loginInit = function () {}
+            })
             wx.setStorageSync('sessionToken', res.data.sessionToken)
           }
           var pages = getCurrentPages() //获取加载的页面
@@ -75,11 +87,7 @@ App({
               that.globalData.identity = 'APPLICANT'
             }
           }
-          // 登陆回调
-          if (that.loginInit) {
-            that.loginInit()
-          }
-          that.loginInit = function () {}
+          
         })
       },
       fail: function (e) {
@@ -148,10 +156,10 @@ App({
   // 检查微信授权
   checkLogin () {
     let that = this
-    wx.login({
-      success: function (res0) {
-        wx.setStorageSync('code', res0.code)
-        return new Promise((resolve, reject) => {
+    return new Promise((resolve, reject) => {
+      wx.login({
+        success: function (res0) {
+          wx.setStorageSync('code', res0.code)
           wx.getSetting({
             success: res => {
               var pages = getCurrentPages() //获取加载的页面
@@ -194,8 +202,8 @@ App({
               }
             }
           })
-        })
-      }
+        }
+      })
     })
   },
   // 授权button 回调
@@ -353,9 +361,6 @@ App({
           // 自定义一个回调函数
           callback()
         }, duration)
-      },
-      complete(e) {
-        console.log(e, 11111)
       }
     })
   },

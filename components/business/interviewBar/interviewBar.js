@@ -59,7 +59,7 @@ Component({
   attached() {
     switch(this.data.type) {
       case 'resume':
-        if (wx.getStorageSync('choseType') === 'APPLICANT') this.setData({isOwerner: true})
+        if (wx.getStorageSync('choseType') !== 'RECRUITER') this.setData({isOwerner: true})
         break
       case 'recruiter':
         if (wx.getStorageSync('choseType') === 'RECRUITER') this.setData({isOwerner: true})
@@ -68,6 +68,7 @@ Component({
   },
   methods: {
     init() {
+      console.log(2222222222222)
       this.getInterviewStatus()
       let currentPage = ''
       switch(this.data.type) {
@@ -93,6 +94,7 @@ Component({
      * @return   {[type]}   [description]
      */
     getInterviewStatus() {
+      console.log(1111111111111111111)
       getInterviewStatusApi({type: this.data.type, vkey: this.data.infos.vkey}).then(res => {
         this.setData({interviewInfos: res.data, identity: wx.getStorageSync('choseType')})
         if(res.code === 204) this.setData({isOwerner: true})

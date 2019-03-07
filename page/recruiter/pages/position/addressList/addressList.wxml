@@ -13,8 +13,8 @@
         </view>
       </view>
       <view class="center">{{item.title || item.address}}</view>
-      <view class="right">
-        <view class="edit" bindtap="edit" data-id="{{item.id}}"><i class="icon iconfont icon-bianji"></i></view>
+      <view class="right" catchtap="edit" data-id="{{item.id}}">
+        <view class="edit"><i class="icon iconfont icon-bianji"></i></view>
       </view>
     </view>
   </view>
