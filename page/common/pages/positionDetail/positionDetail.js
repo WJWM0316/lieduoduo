@@ -34,7 +34,7 @@ Page({
     if (options.scene) {
       options = app.getSceneParams(options.scene)
     }
-    let identity = wx.getStorageSync('choseType')
+    let identity = wx.getStorageSync('choseType') || 'APPLICANT'
     this.setData({query: options, identity})
   },
   onShow() {

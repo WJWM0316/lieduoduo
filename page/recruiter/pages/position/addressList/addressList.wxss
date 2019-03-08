@@ -58,6 +58,7 @@
 }
 .addressList .right {
   width: 145rpx;
+  height: 100%;
   font-size:26rpx;
   font-weight:500;
   color:rgba(101,39,145,1);

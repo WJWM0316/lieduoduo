@@ -61,10 +61,22 @@ App({
             wx.setStorageSync('token', res.data.token)
             that.loginedLoadData()
             that.globalData.hasLogin = true
+
+            // 登陆回调
+            if (that.loginInit) {
+              that.loginInit()
+            }
+            that.loginInit = function () {}
             console.log('用户已认证')
           } else {
             console.log('用户未绑定手机号', 'sessionToken', res.data.sessionToken)
-            that.checkLogin()
+            that.checkLogin().then(() => {
+              // 登陆回调
+              if (that.loginInit) {
+                that.loginInit()
+              }
+              that.loginInit = function () {}
+            })
             wx.setStorageSync('sessionToken', res.data.sessionToken)
           }
           var pages = getCurrentPages() //获取加载的页面
@@ -75,11 +87,7 @@ App({
               that.globalData.identity = 'APPLICANT'
             }
           }
-          // 登陆回调
-          if (that.loginInit) {
-            that.loginInit()
-          }
-          that.loginInit = function () {}
+          
         })
       },
       fail: function (e) {
@@ -148,17 +156,17 @@ App({
   // 检查微信授权
   checkLogin () {
     let that = this
-    wx.login({
-      success: function (res0) {
-        wx.setStorageSync('code', res0.code)
-        return new Promise((resolve, reject) => {
+    return new Promise((resolve, reject) => {
+      wx.login({
+        success: function (res0) {
+          wx.setStorageSync('code', res0.code)
           wx.getSetting({
             success: res => {
               var pages = getCurrentPages() //获取加载的页面
-              let pageUrl = pages[0].route
+              let pageUrl = `/${pages[0].route}`
               if (res.authSetting['scope.userInfo']) {
                 // 已经授权，可以直接调用 getUserInfo 获取头像昵称，不会弹框
-                checkSessionKeyApi().then(res0 => {
+                checkSessionKeyApi({session_token: wx.getStorageSync('sessionToken')}).then(res0 => {
                   wx.getUserInfo({
                     success: res => {
                       // 可以将 res 发送给后台解码出 unionId
@@ -178,7 +186,7 @@ App({
                     }
                   })
                 }).catch(e => {
-                  if (pageUrl === `${APPLICANT}index/index`) {
+                  if (pageUrl !== `${APPLICANT}index/index`) {
                     wx.navigateTo({
                       url: `${COMMON}auth/auth`
                     })
@@ -194,8 +202,8 @@ App({
               }
             }
           })
-        })
-      }
+        }
+      })
     })
   },
   // 授权button 回调
@@ -319,8 +327,6 @@ App({
           //监听小程序有版本更新事件
           updateManager.onUpdateReady(function() {
             //TODO 新的版本已经下载好，调用 applyUpdate 应用新版本并重启 （ 此处进行了自动更新操作）
-            console.log(111111111, 22222222, 33)
-            console.log(22222)
             updateManager.applyUpdate();
           })
           updateManager.onUpdateFailed(function() {
@@ -349,6 +355,7 @@ App({
       icon,
       image,
       mask,
+      duration,
       success() {
         setTimeout(() => {
           // 自定义一个回调函数

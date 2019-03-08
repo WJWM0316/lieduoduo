@@ -43,7 +43,7 @@ export const sendCodeApi = data => {
     method: 'post',
     url: '/bind/sendMessage',
     data,
-    hasLoading: true
+    hasLoading: false
   })
 }
 
