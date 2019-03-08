@@ -196,6 +196,8 @@
 	font-size:26rpx;
 	font-weight:300;
 	color:rgba(98,98,98,1);
+	width: 130rpx;
+	float: left;
 }
 
 .company-identity-status .value {
@@ -204,12 +206,16 @@
 	color:rgba(40,40,40,1);
 	flex: 1;
 	text-align: right;
+	width: calc(100% - 130rpx);
+	float: left;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
 }
 
 .company-identity-status .li {
-	display: flex;
-	line-height: 1;
-	margin: 33rpx 0;
+	line-height: 1.1;
+	padding: 33rpx 0;
 }
 
 .company-identity-status .ul {
@@ -280,6 +286,8 @@
 	color:rgba(146,146,146,1);
 	padding-top: 32rpx;
 	overflow: hidden;
+	margin-top: 32rpx;
+	padding-bottom: 0;
 }
 
 .company-identity-status .item .img-box{

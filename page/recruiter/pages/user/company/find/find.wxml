@@ -9,7 +9,7 @@
 	</view>
 	<view class="submit">
 		<view class="input-li clear-bottom">
-			<input placeholder="请输入所属公司营业执照上的公司全称" bindinput="bindInput" value="{{company_name}}" />
+			<input placeholder="请输入所属公司营业执照上的公司全称" bindinput="bindInput" value="{{formData.company_name}}" />
 		</view>
 		<view class="example">示例：广州老虎信息科技有限公司</view>
 		<view class="ul" wx:if="{{nameList.length > 0}}">

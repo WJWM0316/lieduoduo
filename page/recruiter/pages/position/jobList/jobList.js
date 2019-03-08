@@ -15,15 +15,13 @@ Page({
     identity: ''
   },
   onLoad(options) {
-    this.setData({identity: wx.getStorageSync('choseType')})
+    this.setData({identity: wx.getStorageSync('choseType'), options})
     const storage = wx.getStorageSync('interviewChatLists')
     if(storage && wx.getStorageSync('choseType') === 'RECRUITER') {
-      this.setData({items: storage.data, options})
+      this.setData({items: storage.data})
       return;
     }
-    getPositionListApi({recruiter: options.recruiterUid, is_online: 1}).then(res => {
-      this.setData({items: res.data, options})
-    })
+    getPositionListApi({recruiter: options.recruiterUid, is_online: 1}).then(res => this.setData({items: res.data}))
   },
   radioChange(e) {
     const data = wx.getStorageSync('interviewData') || {}
@@ -48,17 +46,18 @@ Page({
         break
       case 'reject_chat':
         params.id = job[1]
+
         // 都不合适 传对方的ID
         if(this.data.identity === 'APPLICANT' && job[1] === 'unsuitable') {
-          this.refuseInterview({recruiterUid: this.data.options.recruiterUid})
+          this.refuseInterview({id: this.data.options.recruiterUid})
           return;
         }
         // 都不合适 传对方的ID
         if(this.data.identity === 'RECRUITER' && job[1] === 'unsuitable') {
-          this.refuseInterview({jobhunterUid: this.data.options.jobhunterUid})
+          this.refuseInterview({id: this.data.options.jobhunterUid})
           return;
         }
-        this.refuseInterview(params)
+        // this.refuseInterview(params)
         break
       default:
         wx.setStorageSync('interviewData', data)

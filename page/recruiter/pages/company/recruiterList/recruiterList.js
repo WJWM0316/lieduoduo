@@ -20,7 +20,8 @@ Page({
       isRequire: false
     },
     isCompanyAdmin: 0,
-    options: {}
+    options: {},
+    cdnImagePath: app.globalData.cdnImagePath
   },
   onLoad(options) {
     let isCompanyAdmin = app.globalData.recruiterDetails.isCompanyAdmin || 0
@@ -89,18 +90,18 @@ Page({
    * @return   {[type]}   [description]
    */
   delete(e) {
-  	const params = e.currentTarget.dataset
-  	const result = (params) => {
-  		let recruiterList = this.data.recruiterList
-  		recruiterList = recruiterList.filter(field => field.uid !== params.uid)
-  		this.setData(recruiterList)
-  	}
+  	let params = e.currentTarget.dataset
+    let recruitersList = this.data.recruitersList
+  	let callback = () => this.setData({recruitersList})
+
+    const result = recruitersList.list.find((field, index) => params.index === index)
   	app.wxConfirm({
       title: '移除招聘官',
-      content: `即将从公司中移除${'陆强'}，该招聘官发布的职位将被关闭且无法继续进行招聘，确认移除吗?`,
+      content: `即将从公司中移除${result.name}，该招聘官发布的职位将被关闭且无法继续进行招聘，确认移除吗?`,
       confirmText: '移除',
       confirmBack: () => {
-        result(params)
+        recruitersList.list.splice(params.index, 1)
+        callback()
       }
     })
   },
@@ -117,9 +118,7 @@ Page({
   },
   jump(e) {
     const uid = e.currentTarget.dataset.uid
-    wx.navigateTo({
-      url: `${COMMON}recruiterDetail/recruiterDetail?uid=${uid}`
-    })
+    wx.navigateTo({url: `${COMMON}recruiterDetail/recruiterDetail?uid=${uid}`})
   },
   /**
    * @Author   小书包
@@ -152,5 +151,8 @@ Page({
       recruitersList.isRequire = true
       this.setData({recruitersList, onBottomStatus, hasReFresh: false}, () => wx.stopPullDownRefresh())
     })
+  },
+  routeJump() {
+    wx.navigateTo({url: `${RECRUITER}company/verify/verify`})
   }
 })

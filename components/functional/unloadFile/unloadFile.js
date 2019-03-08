@@ -19,6 +19,10 @@ Component({
     url: {
       type: String,
       value: ''
+    },
+    cardInfo: {
+      type: Object,
+      value: {}
     }
   },
 
@@ -40,10 +44,9 @@ Component({
         success: (res) => {
           this.setData({url: res.tempFiles[0].path})
           fileNum = res.tempFiles.length
-          wx.showLoading({
-            title: '上传中...',
-            mask: true
-          })
+          if(this.data.cardInfo.type !== 'idCard') {
+            wx.showLoading({title: '上传中...', mask: true})
+          }
           res.tempFiles.forEach((item) => {
             this.wxupLoad(item)
           })
@@ -55,13 +58,23 @@ Component({
     },
     wxupLoad(file) {
       let BASEHOST = ''
+      let type = this.data.cardInfo.type === 'idCard' ? 'attaches/idcard' : 'attaches'
+      let formData = {
+        'img1': file.path,
+        'attach_type': this.data.unloadType,
+        'size': file.size,
+        'side': this.data.cardInfo.side
+      }
+
+      this.triggerEvent('beforeUpload')
+
       if (getApp().globalData.identity === 'APPLICAN') {
         BASEHOST = APPLICANTHOST
       } else {
         BASEHOST = RECRUITERHOST
       }
       wx.uploadFile({
-        url: `${BASEHOST}/attaches`,
+        url: `${BASEHOST}/${type}`,
         filePath: file.path,//此处为图片的path
         methos: 'post',
         name:"file",
@@ -69,18 +82,19 @@ Component({
           'Authorization': wx.getStorageSync('token')
         }, 
         // 设置请求的 header
-        formData: {
-          'img1': file.path,
-          'attach_type': this.data.unloadType,
-          'size': file.size
-        },
+        formData,
         complete: (res) => {
           if (res.statusCode === 200) {
             console.log(res, "上传成功")
             // result = JSON.parse(res.data)
-            result.push(JSON.parse(res.data).data[0])
+            if(this.data.cardInfo.type === 'idCard') {
+              result.push(JSON.parse(res.data))
+            } else {
+              result.push(JSON.parse(res.data).data[0])
+            }
           } else {
             console.log(res, "上传失败")
+            this.triggerEvent('failUpload', res)
           }
           fileNum--
           if (fileNum === 0) {

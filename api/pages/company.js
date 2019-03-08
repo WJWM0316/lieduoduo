@@ -50,6 +50,16 @@ export const identityCompanyApi = (data, hasLoading) => {
   })
 }
 
+// 填写身份信息(加入公司)
+export const joinidentityApi = (data, hasLoading) => {
+  return request({
+    method: 'post',
+    url: '/company/joinidentity',
+    data,
+    hasLoading: true
+  })
+}
+
 // 创建公司
 export const createCompanyApi = (data, hasLoading) => {
   return request({
@@ -271,11 +281,21 @@ export const getCompanyIdentityInfosApi = (data, hasLoading) => {
   })
 }
 
-// 编辑身份信息
+// 编辑身份信息 创建
 export const editCompanyIdentityInfosApi = (data, hasLoading) => {
   return request({
     method: 'put',
     url: `/company/identity`,
+    data,
+    hasLoading: true
+  })
+}
+
+// 编辑身份信息 加入
+export const editIdentityJoinApi = (data, hasLoading) => {
+  return request({
+    method: 'put',
+    url: `/company/joinidentity`,
     data,
     hasLoading: true
   })

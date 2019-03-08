@@ -9,35 +9,26 @@ const app = getApp()
 
 Page({
   data: {
-    business_license: {
-      smallUrl: ''
-    },
-    on_job: {
-      smallUrl: ''
+    step: 4,
+    formData: {
+      business_license: {
+        smallUrl: ''
+      },
+      on_job: {
+        smallUrl: ''
+      }
     },
     options: {},
-    canClick: false,
-    formData: {
-      real_name: '',
-      user_email: '',
-      user_position: '',
-      company_name: '',
-      company_shortname: '',
-      industry_id: '',
-      financing: '',
-      employees: ''
-    }
+    canClick: false
   },
   onLoad(options) {
     const storage = wx.getStorageSync('createdCompany')
     const formData = {}
-    const params = ['real_name', 'user_email', 'user_position', 'company_name', 'industry_id', 'financing', 'employees']
-    this.setData({options})
-    formData.company_shortname = storage.companyShortName
-    if(!storage) return;
-    params.map(field => formData[field] = storage[field])
-    this.setData({formData, business_license: storage.business_license || {}, on_job: storage.on_job || {}})
-    this.bindBtnStatus()
+    if((storage.business_license && storage.business_license.smallUrl) || (storage.on_job && storage.on_job.smallUrl)) {
+      formData.business_license = storage.business_license
+      formData.on_job = storage.on_job
+    }
+    this.setData({options, formData}, () => this.bindBtnStatus())
   },
   /**
    * @Author   小书包
@@ -47,8 +38,9 @@ Page({
    */
   upload(e) {
     const key = e.currentTarget.dataset.type
-    this.setData({[key]: e.detail[0]})
-    this.bindBtnStatus()
+    const formData = this.data.formData
+    formData[key] = e.detail[0]
+    this.setData({formData}, () => this.bindBtnStatus())
   },
   /**
    * @Author   小书包
@@ -57,8 +49,9 @@ Page({
    * @return   {[type]}   [description]
    */
   bindBtnStatus() {
-    const canClick = this.data.business_license.smallUrl && this.data.on_job.smallUrl ? true : false
-    this.setData({ canClick })
+    const formData = this.data.formData
+    const canClick = (formData.business_license && formData.business_license.smallUrl) && (formData.on_job && formData.on_job.smallUrl) ? true : false
+    this.setData({canClick})
   },
   /**
    * @Author   小书包
@@ -69,12 +62,16 @@ Page({
   createCompany(formData) {
     const storage = wx.getStorageSync('createdCompany')
     const options = this.data.options
-    const url = options.action && options.action === 'edit'
-      ? `${RECRUITER}user/company/status/status?from=company`
-      : `${RECRUITER}user/company/identity/identity?type=company&realName=${storage.real_name}`
+
     createCompanyApi(formData).then(res => {
       app.wxToast({title: '创建公司成功'})
-      wx.reLaunch({url})
+
+      if(options.action && options.action === 'edit') {
+        wx.reLaunch({url: `${RECRUITER}user/company/status/status`})
+      } else {
+        wx.reLaunch({url: `${RECRUITER}user/company/identity/identity?realName=${storage.real_name}`})
+      }
+
       wx.removeStorageSync('createdCompany')
     })
   },
@@ -86,24 +83,55 @@ Page({
    */
   editCreateCompany(formData) {
     const storage = wx.getStorageSync('createdCompany')
-    const params = Object.assign(formData, {id: storage.id})
     const options = this.data.options
-    const url = options.action && options.action === 'edit'
-      ? `${RECRUITER}user/company/status/status?from=company`
-      : `${RECRUITER}user/company/identity/identity?type=company&realName=${storage.real_name}`
+
     editCompanyInfosApi(formData).then(res => {
-      app.wxToast({title: '编辑公司成功'})
-      wx.reLaunch({url})
-      wx.removeStorageSync('createdCompany')
+      if(options.action && options.action === 'edit') {
+        app.wxToast({
+          title: '编辑公司成功',
+          callback() {
+            wx.reLaunch({url: `${RECRUITER}user/company/status/status`})
+            wx.removeStorageSync('createdCompany')
+          }
+        })
+      } else {
+        app.wxToast({
+          title: '编辑公司成功',
+          callback() {
+            wx.reLaunch({url: `${RECRUITER}user/company/identity/identity?realName=${storage.real_name}`})
+            wx.removeStorageSync('createdCompany')
+          }
+        })
+      }
     })
   },
   submit() {
     if(!this.data.canClick) return;
-    const formData = this.data.formData
-    const infos = this.data.options
-    const action = infos.action === 'edit' ? 'editCreateCompany' : 'createCompany'
-    formData.on_job = this.data.on_job.id
-    formData.business_license = this.data.business_license.id
-    this[action](formData)
+    const storage = wx.getStorageSync('createdCompany')
+    const formData = {}
+    const options = this.data.options
+
+    formData.real_name = storage.real_name
+    formData.user_email = storage.user_email
+    formData.user_position = storage.user_position
+    formData.company_name = storage.company_name
+    formData.industry_id = storage.industry_id
+    formData.financing = storage.financing
+    formData.employees = storage.employees
+    formData.business_license = storage.business_license
+    formData.on_job = storage.on_job
+    formData.logo = storage.logo.id
+    formData.intro = storage.intro
+    formData.company_shortname = storage.company_shortname
+    formData.on_job = this.data.formData.on_job.id
+    formData.business_license = this.data.formData.business_license.id
+
+    if(storage.id) formData.id = storage.id
+
+    if(options.action && options.action === 'edit') {
+      this.editCreateCompany(formData)
+    } else {
+      this.createCompany(formData)
+    }
   }
 })

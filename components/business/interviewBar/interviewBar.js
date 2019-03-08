@@ -285,7 +285,7 @@ Component({
         // 招聘官拒绝求职者
         case 'recruiter-reject':
           if(interviewInfos.data.length > 1) {
-            wx.navigateTo({url: `${RECRUITER}position/jobList/jobList?type=reject_chat&from=${this.data.currentPage}`})
+            wx.navigateTo({url: `${RECRUITER}position/jobList/jobList?type=reject_chat&from=${this.data.currentPage}&jobhunterUid=${infos.uid}`})
             wx.setStorageSync('interviewChatLists', this.data.interviewInfos)
           } else {
             app.wxConfirm({
@@ -297,9 +297,7 @@ Component({
               cancelColor: '#BCBCBC',
               confirmColor: '#652791',
               confirmBack: () => {
-                refuseInterviewApi({id: infos.uid}).then(() => {
-                  this.getInterviewStatus()
-                })
+                refuseInterviewApi({id: infos.uid}).then(() => this.getInterviewStatus())
               }
             })
           }

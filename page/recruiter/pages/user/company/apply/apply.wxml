@@ -1,27 +1,35 @@
 <view class="company-apply-page">
-	<navbar title="填写个人信息" background="rgba(0,0,0,0)"></navbar>
+	<navbar title="填写个人信息" background="rgba(0,0,0,0)" customBack bindbackEvent="backEvent"></navbar>
 	<view class="banner">
 		<image class="bgImg" src="{{cdnImagePath}}bg_authentication@3x.png" mode="aspectFill"></image>
 	</view>
-	<form bindsubmit="submit" class="form">
+	<view class="form" style="margin-top: {{height - navH}}px">
 	  <view class="input-li">
 	    <view class="key">真实姓名</view>
-	    <input name="real_name" class="value" placeholder="申请人的真实姓名" bindinput="bindInput" data-field="real_name" value="{{real_name}}" />
+	    <view class="value">
+	    	<input placeholder="申请人的真实姓名" bindinput="bindInput" data-field="real_name" value="{{formData.real_name}}" maxlength="20"/>
+	    </view>
 	  </view>
 	  <view class="input-li">
 	    <view class="key">邮箱地址</view>
-	    <input name="user_email" class="value" placeholder="企业常用的邮箱地址" bindinput="bindInput" data-field="user_email" value="{{user_email}}" />
+	    <view class="value">
+	    	<input placeholder="企业常用的邮箱地址" bindinput="bindInput" data-field="user_email" value="{{formData.user_email}}" />
+	    </view>
 	  </view>
 	  <view class="input-li clear-bottom">
 	    <view class="key">担任职务</view>
-	    <input name="user_position" class="value" placeholder="在公司担任的职务" bindinput="bindInput" data-field="user_position" value="{{user_position}}" />
+	    <view class="value">
+	    	<input placeholder="在公司担任的职务" bindinput="bindInput" data-field="user_position" value="{{formData.user_position}}" />
+	    </view>
 	  </view>
 	  <view class="footer">
 	    <view bindtap="submit" class="button-submit {{canClick ? 'button-enable' : ''}}">下一步</view>
 	  </view>
-	  	<view class="enter"><text class="toggle" bindtap="toggle">前往求职端</text> | <text class="changePhone" bindtap="changePhone">更换手机登录</text></view>
-
-	</form>
-
-	<changeIdentity></changeIdentity>
+	  	<view class="enter">
+	  		<text class="toggle" bindtap="toggle">前往求职端</text>
+	  		 |
+	  		<text class="changePhone" bindtap="changePhone">更换手机登录</text>
+	  	</view>
+	</view>
+	<!-- <changeIdentity></changeIdentity> -->
 </view>

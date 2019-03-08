@@ -33,7 +33,6 @@
 
 .company-apply-page .input-li {
 	height:122rpx;
-	display: flex;
 	line-height: 122rpx;
 	padding: 0 40rpx;
 	position: relative;
@@ -58,15 +57,27 @@
 	font-size:28rpx;
 	font-weight:300;
 	color:rgba(53,57,67,1);
+	width: 130rpx;
+	float: left;
 }
 
 .company-apply-page .input-li .value {
-	flex: 1;
 	height: 100%;
 	font-size:28rpx;
 	font-weight:500;
 	color:rgba(98,98,98,1);
 	text-align: right;
+	width: calc(100% - 130rpx);
+	position: relative;
+	float: left;
+}
+
+.company-apply-page .input-li input {
+	width: 100%;
+	overflow: hidden;
+	display: inline-block;
+	height: 122rpx;
+	line-height: 122rpx;
 }
 
 .company-apply-page .ul {
@@ -86,12 +97,6 @@
 .company-apply-page .ul .column-line {
 	border-right: 1px solid #DCDCDC;
 	padding-right: 25rpx;
-}
-.form {
-	position: fixed;
-	top: 495rpx;
-	left: 0;
-	width: 100%;
 }
 .enter {
 	width: 100%;

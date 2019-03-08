@@ -157,3 +157,61 @@
 	box-shadow:0rpx 4rpx 12rpx 0rpx rgba(101,39,145,0.38);
 	border-radius:44rpx;
 }
+
+.overlay {
+	position: fixed;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	top: 0;
+	background: rgba(0,0,0,.6);
+	z-index: 10000000;
+}
+
+.overlay .box {
+	width: calc(100% - 100rpx);
+	background: white;
+	padding: 56rpx 50rpx 0 50rpx;
+	border-radius: 18rpx;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	box-sizing: border-box;
+	transform: translate(-50%, -50%);
+}
+
+.overlay .button {
+	height:88rpx;
+	background:rgba(101,39,145,1);
+	box-shadow:0rpx 20rpx 18rpx 0rpx rgba(101,39,145,0.2);
+	border-radius:49rpx;
+	font-size:32rpx;
+	font-weight:400;
+	color:rgba(255,255,255,1);
+	text-align: center;
+	line-height: 88rpx;
+	margin: 56rpx 0;
+}
+
+.overlay .p1 {
+	font-size:32rpx;
+	font-weight:400;
+	color:rgba(40,40,40,1);
+	line-height:48rpx;
+	text-align: center;
+}
+
+.overlay .p2 {
+	font-size:32rpx;
+	font-weight:400;
+	color:rgba(40,40,40,1);
+	line-height:48rpx;
+	text-align: center;
+}
+
+.overlay .icon-close {
+	position: absolute;
+	top: 31rpx;
+	right: 31rpx;
+	color: #CDCBCF;
+}

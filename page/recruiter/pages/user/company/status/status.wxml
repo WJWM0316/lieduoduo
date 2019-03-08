@@ -6,8 +6,10 @@
 	<view hidden="{{!hasReFresh}}">
 	  <refreshStatus></refreshStatus>
 	</view>
-	<!-- 公司认证 start -->
-	<view class="header" wx:if="{{options.from === 'company'}}">
+
+	<!-- 创建公司 start -->
+	<view class="header" wx:if="{{!identityInfos.applyJoin && options.from !== 'identity'}}">
+
 		<image src="{{cdnImagePath}}pic_await.png" mode="scaleToFill" class="default-status"></image>
 
 		<block wx:if="{{companyInfos.status === 0}}">
@@ -43,7 +45,7 @@
 		</block>
 
 	</view>
-	<!-- 公司认证 end -->
+	<!-- 创建公司 end -->
 	
 	<!-- 身份认证 start -->
 	<view class="header" wx:if="{{options.from === 'identity'}}">
@@ -84,7 +86,7 @@
 	<!-- 身份认证 end -->
 
 	<!-- 申请加入 start -->
-	<view class="header" wx:if="{{options.from === 'apply'}}">
+	<view class="header" wx:if="{{identityInfos.applyJoin && options.from !== 'identity'}}">
 		<image src="{{cdnImagePath}}pic_await.png" mode="scaleToFill" class="default-status"></image>
 
 		<block wx:if="{{companyInfos.status === 0}}">
@@ -133,10 +135,10 @@
 			</view>
 		</view>
 
-		<view class="section" wx:if="{{options.from === 'identity' || options.from === 'company'}}">
+		<view class="section" wx:if="{{!identityInfos.applyJoin || options.from === 'identity'}}">
 			<view class="title">
 				<view class="label">您的身份信息</view>
-				<view class="jump" bindtap="todoAction" data-action="modifyIdentity">申请信息有误？去更改</view>
+				<view class="jump" bindtap="todoAction" data-action="identity">申请信息有误？去更改</view>
 			</view>
 			<view class="ul">
 				<view class="li">
@@ -162,7 +164,7 @@
 			</view>
 		</view>
 
-		<view class="section" wx:if="{{options.from === 'apply'}}">
+		<view class="section" wx:if="{{identityInfos.applyJoin && options.from !== 'identity'}}">
 			<view class="title">
 				<view class="label">您的申请</view>
 				<view class="jump" bindtap="todoAction" data-action="applyAddModify">申请信息有误？去更改</view>
@@ -197,7 +199,8 @@
 			</view>
 		</view>
 	</block>
-	<block wx:if="{{companyInfos.status === 1 && options.from === 'company' && !identityInfos.applyJoin}}">
+
+	<block wx:if="{{companyInfos.status === 1 && !identityInfos.applyJoin}}">
 		<view class="div">
 			<view class="box1 perfect-button" wx:if="{{!identityInfos.identityNum}}">
 				<i class="icon iconfont icon-bianji label-icon"></i>
@@ -209,14 +212,16 @@
 			</view> -->
 		</view>
 	</block>
-	<block wx:if="{{options.from === 'apply' && identityInfos.applyJoin}}">
+
+	<block wx:if="{{identityInfos.applyJoin && options.from !== 'identity'}}">
 		<view class="div">
-			<view class="box" bindtap="todoAction" data-action="{{!identityInfos.passportFrontInfo.id ? 'applyIdentity' : 'modifyAddIdentity'}}">
+			<view class="box" bindtap="todoAction" data-action="identity">
 				<i class="icon iconfont icon-bianji label-icon"></i>
 				认证个人身份
 				<i class="icon iconfont icon-xiangyou"></i>
 			</view>
 		</view>
 	</block>
+
 	<changeIdentity></changeIdentity>
 </view>

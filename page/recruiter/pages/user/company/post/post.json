@@ -1,5 +1,6 @@
 {
 	"usingComponents": {
+		"unloadFile": "../../../../../components/functional/unloadFile/unloadFile",
 		"myPicker": "../../../../../components/functional/myPicker/myPicker",
     "navbar": "../../../../../components/business/navbar/navbar"
   }

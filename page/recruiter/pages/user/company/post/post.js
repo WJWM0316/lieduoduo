@@ -15,28 +15,26 @@ const app = getApp()
 
 Page({
   data: {
-    company_name: '',
+    step: 3,
+    formData: {
+      company_name: '',
+      industry_id: 0,
+      industry_id_name: '请选择行业范围',
+      financing: 0,
+      employees: 0,
+      company_shortname: '',
+      logo: {},
+      intro: ''
+    },
     companyLabelField: [],
-    // 所属行业
-    industry_id: 0,
-    industry_id_name: '请选择行业范围',
-    // 行业领域
-    selected_industry_id: false,
-    // 公司融资情况
-    financing: 0,
-    financingName: '请选择融资情况',
-    selected_financing: false,
-    // 人员规模
-    employees: 0,
-    employeesName: '请选择人员规模',
-    selected_employees: false,
-    // 公司简称
-    companyShortName: '',
     canClick: false,
-    options: {}
+    options: {},
+    cdnPath: app.globalData.cdnImagePath
   },
   onLoad(options) {
     this.setData({options})
+  },
+  onShow() {
     this.init()
   },
   /**
@@ -47,30 +45,28 @@ Page({
    */
   init() {
     const storage = wx.getStorageSync('createdCompany')
-    getLabelFieldApi()
-      .then(res => {
-        this.setData({companyLabelField: res.data})
-      })
+    const formData = this.data.formData
+    getLabelFieldApi().then(res => this.setData({companyLabelField: res.data}))
+
     const params = [
-      'companyLabelField',
       'industry_id',
       'financing',
       'employees',
-      'selected_industry_id',
-      'selected_financing',
-      'selected_employees',
       'employeesName',
       'financingName',
       'industry_id_name',
       'company_name',
-      'companyShortName',
-      'canClick'
+      'company_shortname',
+      'intro',
+      'logo'
     ]
-    if(!storage) return;
-    params.map(field => {
-      if(storage[field]) this.setData({ [field]: storage[field] })
-    })
-    this.bindBtnStatus()
+    // 是否已经编辑过当前页面
+    if(storage.financing || storage.industry_id || storage.intro || storage.employees || storage.company_shortname ) {
+      params.map(field => formData[field] = storage[field])
+    } else {
+      formData.company_name = storage.company_name
+    }
+    this.setData({ formData }, () => this.bindBtnStatus())
   },
   /**
    * @Author   小书包
@@ -79,11 +75,15 @@ Page({
    * @return   {[type]}   [description]
    */
   bindBtnStatus() {
+    const formData = this.data.formData
     const canClick =
-      !!this.data.companyShortName
-      && this.data.selected_employees
-      && this.data.selected_financing
-      && this.data.selected_industry_id
+      !!formData.company_shortname
+      && formData.industry_id
+      && formData.financing
+      && formData.employees
+      && formData.intro
+      && formData.logo.smallUrl
+      
     this.setData({ canClick })
   },
   /**
@@ -96,12 +96,14 @@ Page({
     if(!this.data.canClick) return;
     const storage = wx.getStorageSync('createdCompany')
     const options = this.data.options
-    const url = options.action && options.action === 'edit'
-      ? `${RECRUITER}user/company/upload/upload?action=edit&type=create`
-      : `${RECRUITER}user/company/upload/upload?type=create`
-      
-    wx.setStorageSync('createdCompany', Object.assign(storage, this.data))
-    wx.navigateTo({url})
+    
+    if(options.action && options.action === 'edit') {
+      wx.navigateTo({url: `${RECRUITER}user/company/upload/upload?action=edit`})
+    } else {
+      wx.navigateTo({url: `${RECRUITER}user/company/upload/upload`})
+    }
+
+    wx.setStorageSync('createdCompany', Object.assign(storage, this.data.formData))
   },
   /**
    * @Author   小书包
@@ -112,12 +114,15 @@ Page({
   bindChange(e) {
     const index = parseInt(e.detail.value)
     const companyLabelField = this.data.companyLabelField
-    this.setData({industry_id: companyLabelField[index].labelId, selected_industry_id: true, industry_id_name: companyLabelField[index].name})
-    this.bindBtnStatus()
+    const formData = this.data.formData
+    formData.industry_id = companyLabelField[index].labelId
+    formData.industry_id_name = companyLabelField[index].name
+    this.setData({formData}, () => this.bindBtnStatus())
   },
   bindInput(e) {
-    this.setData({companyShortName: e.detail.value})
-    this.bindBtnStatus()
+    const formData = this.data.formData
+    formData.company_shortname = e.detail.value
+    this.setData({formData}, () => this.bindBtnStatus())
   },
   /**
    * @Author   小书包
@@ -126,8 +131,10 @@ Page({
    * @return   {[type]}   [description]
    */
   getStaffMembers(res) {
-    this.setData({employees: res.detail.propsResult, employeesName: res.detail.propsDesc, selected_employees: true})
-    this.bindBtnStatus()
+    const formData = this.data.formData
+    formData.employees = res.detail.propsResult
+    formData.employeesName = res.detail.propsDesc
+    this.setData({formData}, () => this.bindBtnStatus())
   },
   /**
    * @Author   小书包
@@ -136,7 +143,27 @@ Page({
    * @return   {[type]}   [description]
    */
   getFinancing(res) {
-    this.setData({financing: res.detail.propsResult, financingName: res.detail.propsDesc, selected_financing: true})
-    this.bindBtnStatus()
+    const formData = this.data.formData
+    formData.financing = res.detail.propsResult
+    formData.financingName = res.detail.propsDesc
+    this.setData({formData}, () => this.bindBtnStatus())
+  },
+  /**
+   * @Author   小书包
+   * @DateTime 2019-01-16
+   * @detail   上传头像
+   * @return   {[type]}       [description]
+   */
+  upload(e) {
+    const formData = this.data.formData
+    formData.logo = e.detail[0]
+    this.setData({formData}, () => this.bindBtnStatus())
+    console.log(this.data)
+  },
+
+  routeJump() {
+    const storage = wx.getStorageSync('createdCompany')
+    wx.setStorageSync('createdCompany', Object.assign(storage, this.data.formData))
+    wx.navigateTo({url: `${RECRUITER}company/introducingEdit/introducingEdit`})
   }
 })

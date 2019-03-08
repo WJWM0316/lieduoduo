@@ -48,11 +48,11 @@ Page({
     const options = this.data.options
     
   	switch(params.action) {
-  		case 'modifyIdentity':
-        wx.navigateTo({url: `${RECRUITER}user/company/identity/identity?action=edit&type=identity`})
+  		case 'identity':
+        wx.navigateTo({url: `${RECRUITER}user/company/identity/identity`})
   			break
   		case 'modifyCompany':
-  			wx.navigateTo({url: `${RECRUITER}user/company/apply/apply?action=edit&type=company`})
+  			wx.navigateTo({url: `${RECRUITER}user/company/apply/apply?action=edit`})
   			break
       case 'email':
         wx.navigateTo({url: `${RECRUITER}user/company/email/email?id=${this.data.companyInfos.id}`})
@@ -60,17 +60,11 @@ Page({
       case 'position':
         wx.redirectTo({url: `${RECRUITER}position/post/post`})
         break
-      case 'applyIdentity':
-        wx.navigateTo({url: `${RECRUITER}user/company/identity/identity?type=apply`})
-        break
-      case 'modifyAddIdentity':
-        wx.navigateTo({url: `${RECRUITER}user/company/identity/identity?type=apply&action=edit`})
-        break
       case 'perfect':
         wx.navigateTo({url: `${RECRUITER}company/baseEdit/baseEdit`})
         break
       case 'applyAddModify':
-        wx.navigateTo({url: `${RECRUITER}user/company/apply/apply?type=apply&action=edit`})
+        wx.navigateTo({url: `${RECRUITER}user/company/apply/apply?action=edit`})
         break
       case 'notice':
         app.wxToast({title: '通知成功'})
@@ -106,16 +100,14 @@ Page({
       const options = this.data.options
 
       // 公司验证已经通过
-      if(companyInfos.status === 1 && (options.from === 'company' || options.from === 'apply')) {
-        wx.reLaunch({url: `${RECRUITER}index/index`})
-        app.getAllInfo()
+      if(companyInfos.status === 1 && options.from !== 'identity') {
+        app.getAllInfo().then(() => wx.reLaunch({url: `${RECRUITER}index/index`}))
         return;
       }
 
       // 身份验证已经通过
-      if(infos.status === 1) {
-        wx.reLaunch({url: `${RECRUITER}index/index`})
-        app.getAllInfo()
+      if(infos.identityAuth === 1) {
+        app.getAllInfo().then(() => wx.reLaunch({url: `${RECRUITER}index/index`}))
         return;
       }
     })

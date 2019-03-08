@@ -21,7 +21,7 @@
 			</view>
 		</view>
 		<bottomStatus status="{{onBottomStatus}}" listData="{{list0.list}}" desc="暂无面试官加入组织 邀请同事加入，一起开启社交招聘~">
-			<button class="jump" bindtap="jump">邀请面试官加入</button>
+			<!-- <button class="jump" bindtap="jump">邀请面试官加入</button> -->
 		</bottomStatus>
 	</view>
 	<!-- 未审核 end-->
@@ -37,7 +37,7 @@
 			</view>
 		</view>
 		<bottomStatus status="{{onBottomStatus}}" listData="{{list1.list}}" desc="暂无面试官加入组织 邀请同事加入，一起开启社交招聘~">
-			<button class="jump" bindtap="jump">邀请面试官加入</button>
+			<!-- <button class="jump" bindtap="jump">邀请面试官加入</button> -->
 		</bottomStatus>
 	</view>
 	<!-- 已通过 end-->
@@ -53,7 +53,7 @@
 			</view>
 		</view>
 		<bottomStatus status="{{onBottomStatus}}" listData="{{list2.list}}" desc="暂无面试官加入组织 邀请同事加入，一起开启社交招聘~">
-			<button class="jump" bindtap="jump">邀请面试官加入</button>
+			<!-- <button class="jump" bindtap="jump">邀请面试官加入</button> -->
 		</bottomStatus>
 	</view>
 	<!-- 未通过 end-->

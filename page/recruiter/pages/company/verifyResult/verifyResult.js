@@ -4,7 +4,7 @@ import {
   passApplyjoinApi
 } from '../../../../../api/pages/recruiter.js'
 
-import {COMMON,RECRUITER} from "../../../../../config.js"
+import {COMMON, RECRUITER} from "../../../../../config.js"
 
 const app = getApp()
 
@@ -12,16 +12,27 @@ Page({
   data: {
     cdnImagePath: app.globalData.cdnImagePath,
     options: {},
-    infos: {}
+    infos: {},
+    hasReFresh: false,
+    onBottomStatus: 0
   },
   onLoad(options) {
   	this.setData({options})
   	this.getApplyjoinInfos()
   },
+  /**
+   * @Author   小书包
+   * @DateTime 2019-03-07
+   * @detail   获取加入者信息
+   * @return   {[type]}              [description]
+   */
   getApplyjoinInfos(hasLoading = true) {
-  	getApplyjoinInfosApi({id: this.data.options.id, hasLoading}).then(res => {
-  		this.setData({infos: res.data.applyInfo})
-  	})
+    return new Promise((resolve, reject) => {
+      const params = {id: this.data.options.id, hasLoading}
+    	getApplyjoinInfosApi(params).then(res => {
+    		this.setData({infos: res.data.applyInfo}, () => resolve(res))
+    	})
+    })
   },
   /**
    * @Author   小书包
@@ -38,7 +49,12 @@ Page({
       confirmText: '确定',
       confirmBack: () => {
         failApplyjoinApi({id: infos.id}).then(res => {
-          app.wxToast({title: '操作成功'})
+          app.wxToast({
+            title: '处理成功',
+            callback() {
+              this.getApplyjoinInfos(false)
+            }}
+          )
         })
       }
     })
@@ -50,6 +66,7 @@ Page({
    */
   passApplyjoin() {
     const infos = this.data.infos
+    const that = this
     app.wxConfirm({
       title: '温馨提示',
       content: '确认该申请人加入组织？',
@@ -58,15 +75,31 @@ Page({
       confirmText: '确定',
       confirmBack: () => {
         passApplyjoinApi({id: infos.id}).then(res => {
-          app.wxToast({title: '操作成功'})
-        }).catch(err => {
-          app.wxConfirm({
-            title: '温馨提示',
-            content: '该招聘官已加入其它公司 无需处理审核',
-            showCancel: false,
-            confirmText: '知道了',
-            confirmBack() {}
-          })
+          if(res.data.code === 402) {
+            app.wxConfirm({
+              title: '温馨提示',
+              content: '该招聘官已加入其它公司 无需处理审核',
+              showCancel: false,
+              confirmText: '知道了',
+              confirmBack:() => {
+                failApplyjoinApi({id: infos.id}).then(res => {
+                  app.wxToast({
+                    title: '处理成功',
+                    callback() {
+                      that.getApplyjoinInfos(false)
+                    }}
+                  )
+                })
+              }
+            })
+          } else {
+            app.wxToast({
+              title: '处理成功',
+              callback() {
+                this.getApplyjoinInfos(false)
+              }}
+            )
+          }
         })
       }
     })
@@ -75,6 +108,10 @@ Page({
     wx.reLaunch({url: `${RECRUITER}index/index`})
   },
   onPullDownRefresh() {
-    this.getApplyjoinInfos(false)
+    this.setData({hasReFresh: true})
+    this.getApplyjoinInfos(false).then(() => {
+      this.setData({hasReFresh: false})
+      wx.stopPullDownRefresh()
+    })
   }
 })

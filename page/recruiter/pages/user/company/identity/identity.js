@@ -1,34 +1,49 @@
-import { identityCompanyApi, getCompanyIdentityInfosApi, editCompanyIdentityInfosApi } from '../../../../../../api/pages/company.js'
+import {
+  identityCompanyApi,
+  getCompanyIdentityInfosApi,
+  editCompanyIdentityInfosApi,
+  joinidentityApi,
+  editIdentityJoinApi
+} from '../../../../../../api/pages/company.js'
 
 import {realNameReg, idCardReg} from '../../../../../../utils/fieldRegular.js'
 
 import {RECRUITER} from '../../../../../../config.js'
 
-const app = getApp()
+let app = getApp()
 
 Page({
   data: {
-    real_name: '',
-    identity_num: '',
-    passport_front: {
-      smallUrl: ''
-    },
-    passport_reverse: {
-      smallUrl: ''
-    },
-    handheld_passport: {
-      smallUrl: ''
+    formData: {
+      real_name: '',
+      identity_num: '',
+      passport_front: {
+        url: '',
+        loading: false
+      },
+      passport_reverse: {
+        url: '',
+        loading: false
+      },
+      validity_start: '',
+      validity_end: ''
     },
     cdnImagePath: app.globalData.cdnImagePath,
     canClick: false,
     options: {},
-    validity_start: '',
-    validity_end: '',
-    applyJoin: false
+    applyJoin: false,
+    cardInfo_front: {
+      type: 'idCard',
+      side: 1
+    },
+    cardInfo_back: {
+      type: 'idCard',
+      side: 0
+    },
+    infos: {}
   },
   onLoad(options) {
-    this.setData({options, real_name: options.realName ? options.realName : ''})
-    if(options.action && options.action === 'edit') this.getCompanyIdentityInfos()
+    this.getCompanyIdentityInfos()
   },
   /**
    * @Author   小书包
@@ -38,23 +53,27 @@ Page({
    */
   getCompanyIdentityInfos() {
     getCompanyIdentityInfosApi().then(res => {
-      const infos = res.data
-      const formData = {}
-      const options = this.data.options
-      const data = this.data
-      if(!infos.handheldPassportInfo.smallUrl) delete options.action
-      formData.real_name = infos.realName ? infos.realName : ''
-      formData.identity_num = infos.identityNum ? infos.identityNum : ''
-      formData.validity = infos.validity ? infos.validity : ''
-      formData.passport_front = infos.passportFrontInfo.smallUrl ? infos.passportFrontInfo : data.passport_front
-      formData.passport_reverse = infos.passportReverseInfo.smallUrl ? infos.passportReverseInfo : data.passport_reverse
-      formData.handheld_passport = infos.handheldPassportInfo.smallUrl ? infos.handheldPassportInfo : data.handheld_passport
-      formData.applyJoin = res.data.applyJoin
-      formData.validity_start = infos.validityStart
-      formData.validity_end = infos.validityEnd
-      formData.options = options
-      Object.keys(formData).map(field => this.setData({[field]: formData[field]}))
-      this.bindBtnStatus()
+      let infos = res.data
+      let formData = {}
+      let options = this.data.options
+      let data = this.data
+      let applyJoin = false
+
+      if(infos.applyJoin) {
+        formData.real_name = infos.realName || ''
+        formData.identity_num = infos.identityNum || ''
+        applyJoin = true
+      } else {
+        applyJoin = false
+        formData.real_name = infos.realName || ''
+        formData.identity_num = infos.identityNum || ''
+        formData.passport_front = infos.passportFrontInfo
+        formData.passport_reverse = infos.passportReverseInfo
+        formData.validity_start = infos.validityStart
+        formData.validity_end = infos.validityEnd
+      }
+      
+      this.setData({formData: Object.assign(this.data.formData, formData), applyJoin, infos}, () => this.bindBtnStatus())
     })
   },
   /**
@@ -64,14 +83,22 @@ Page({
    * @return   {[type]}   [description]
    */
   bindBtnStatus() {
-    const bindKeys = ['real_name', 'identity_num', 'validity_start', 'validity_end']
-    let canClick = bindKeys.every(field => this.data[field])
-    let hasUploadImage =
-      canClick
-      && this.data.passport_front.smallUrl
-      && this.data.passport_reverse.smallUrl
-      && this.data.handheld_passport.smallUrl
-    this.setData({canClick})
+    let applyJoin = this.data.applyJoin
+    let bindKeys = []
+    let canClick = false
+    let hasUpload = false
+
+    if(applyJoin) {
+      bindKeys = ['real_name', 'identity_num']
+      canClick = bindKeys.every(field => this.data.formData[field])
+    } else {
+      bindKeys = ['real_name', 'identity_num', 'validity_start', 'validity_end']
+      canClick = bindKeys.every(field => this.data.formData[field])
+      hasUpload = this.data.formData.passport_front.url && this.data.formData.passport_reverse.url
+      canClick = canClick && hasUpload
+    }
+
+    this.setData({ canClick })
   },
   /**
    * @Author   小书包
@@ -80,9 +107,10 @@ Page({
    * @return   {[type]}     [description]
    */
   getStartDate(e) {
-    const validity_start = e.detail.value.replace(/-/g, '.')
-    this.setData({validity_start})
-    this.bindBtnStatus()
+    let validity_start = e.detail.value.replace(/-/g, '.')
+    let formData = this.data.formData
+    formData.validity_start = validity_start
+    this.setData({ formData }, () => this.bindBtnStatus())
   },
   /**
    * @Author   小书包
@@ -91,7 +119,8 @@ Page({
    * @return   {[type]}     [description]
    */
   getEndDate(e) {
-    let startTime = this.data.validity_start
+    let formData = this.data.formData
+    let startTime = formData.validity_start
 
     let beforeTime = startTime.replace(/\./g, '/')
     let lastTime = e.detail.value.replace(/-/g, '/')
@@ -107,8 +136,8 @@ Page({
     }
     // 结束时间必须大于开始时间
     if(timestamp2 - timestamp1 > 0) {
-      this.setData({validity_end})
-      this.bindBtnStatus()
+      formData.validity_end = validity_end
+      this.setData({ formData }, () => this.bindBtnStatus())
     } else {
       app.wxToast({title: '结束时间必须大于开始时间'})
     }
@@ -119,29 +148,68 @@ Page({
    * @detail   图片上传
    * @return   {[type]}     [description]
    */
-  upload(e) {
-    const key = e.currentTarget.dataset.type
-    this.setData({[key]: e.detail[0]})
-    this.bindBtnStatus()
+  upload_front(e) {
+    let infos = e.detail[0]
+    let idCardInfo = infos.meta.idCardInfo
+    let formData = this.data.formData
+    formData.passport_front = infos.data[0]
+    formData.real_name = idCardInfo.name
+    formData.identity_num = idCardInfo.num
+    this.setData({formData}, () => this.bindBtnStatus())
+  },
+  /**
+   * @Author   小书包
+   * @DateTime 2018-12-21
+   * @detail   图片上传
+   * @return   {[type]}     [description]
+   */
+  upload_back(e) {
+    let infos = e.detail[0]
+    let idCardInfo = infos.meta.idCardInfo
+    let validity_start = idCardInfo.startDateDesc.replace(/-/g, '.')
+    let validity_end = idCardInfo.endDateDesc.replace(/-/g, '.')
+    let formData = this.data.formData
+    formData.passport_reverse = infos.data[0]
+    formData.validity_start = validity_start
+    formData.validity_end = validity_end
+    this.setData({formData}, () => this.bindBtnStatus())
   },
   submit() {
     if(!this.data.canClick) return;
 
-    // 验证用户名
+    let formData = this.data.formData
+
+    // 验证姓名
     let checkRealName = new Promise((resolve, reject) => {
-      !realNameReg.test(this.data.real_name) ? reject('姓名需为2-20个中文字符') : resolve()
+      !realNameReg.test(formData.real_name) ? reject('姓名需为2-20个中文字符') : resolve()
     })
     
     // 验证身份证
     let checkIdCard = new Promise((resolve, reject) => {
-      !idCardReg.test(this.data.identity_num) ? reject('请填写有效的身份证号') : resolve()
+      !idCardReg.test(formData.identity_num) ? reject('请填写有效的身份证号') : resolve()
     })
 
-    Promise.all([checkRealName, checkIdCard]).then(res => {
-      const action = this.data.options.action === 'edit' ? 'editCompanyIdentityInfos' : 'identityCompany'
+    Promise
+    .all([checkRealName, checkIdCard]).then(res => {
+      let action = ''
+      let infos = this.data.infos
+
+      if(infos.applyJoin) {
+        if(infos.haveIdentity) {
+          action = 'editIdentityJoin'
+        } else {
+          action = 'identityJoin'
+        }
+      } else {
+        if(infos.haveIdentity) {
+          action = 'editIdentityCompany'
+        } else {
+          action = 'identityCompany'
+        }
+      }
       this[action]()
-   })
-   .catch(err => app.wxToast({title: err}))
+    })
+    .catch(err => app.wxToast({title: err}))
   },
   /**
    * @Author   小书包
@@ -150,40 +218,70 @@ Page({
    * @return   {[type]}   [description]
    */
   getParams() {
-    const formData = {}
-    formData.real_name = this.data.real_name
-    formData.identity_num = this.data.identity_num
-    formData.passport_front = this.data.passport_front.id
-    formData.passport_reverse = this.data.passport_reverse.id
-    formData.handheld_passport = this.data.handheld_passport.id
-    formData.validity_end = this.data.validity_end.replace(/-/g, '.')
-    formData.validity_start = this.data.validity_start.replace(/-/g, '.')
-    return formData
+    let rtn = {}
+    let applyJoin = this.data.applyJoin
+    let formData = this.data.formData
+    if(applyJoin) {
+      rtn.real_name = formData.real_name
+      rtn.identity_num = formData.identity_num
+    } else {
+      rtn.real_name = formData.real_name
+      rtn.identity_num = formData.identity_num
+      rtn.passport_front = formData.passport_front.id
+      rtn.passport_reverse = formData.passport_reverse.id
+      rtn.validity_end = formData.validity_end.replace(/-/g, '.')
+      rtn.validity_start = formData.validity_start.replace(/-/g, '.')
+    }
+    return rtn
   },
   /**
    * @Author   小书包
    * @DateTime 2018-12-22
-   * @detail   身份认证 判断页面来源
+   * @detail   创建身份认证
    * @return   {[type]}   [description]
    */
   identityCompany() {
-    const formData = this.getParams()
+    let formData = this.getParams()
     identityCompanyApi(formData).then((res) => {
-      const type = this.data.options.type
-      wx.redirectTo({url: `${RECRUITER}user/company/status/status?from=${type}`})
+      wx.redirectTo({url: `${RECRUITER}user/company/status/status?from=identity`})
     })
   },
   /**
    * @Author   小书包
    * @DateTime 2018-12-22
-   * @detail   身份认证
+   * @detail   加入公司身份认证
    * @return   {[type]}   [description]
    */
-  editCompanyIdentityInfos() {
-    const formData = this.getParams()
+  identityJoin() {
+    let formData = this.getParams()
+    joinidentityApi(formData).then((res) => {
+      wx.redirectTo({url: `${RECRUITER}user/company/status/status?from=identity`})
+    })
+  },
+  /**
+   * @Author   小书包
+   * @DateTime 2018-12-22
+   * @detail   创建公司身份认证 编辑
+   * @return   {[type]}   [description]
+   */
+  editIdentityCompany() {
+    let formData = this.getParams()
     editCompanyIdentityInfosApi(formData).then((res) => {
-      const type = this.data.options.type
-      wx.redirectTo({url: `${RECRUITER}user/company/status/status?from=${type}`})
+      let type = this.data.options.type
+      wx.redirectTo({url: `${RECRUITER}user/company/status/status?from=identity`})
+    })
+  },
+  /**
+   * @Author   小书包
+   * @DateTime 2018-12-22
+   * @detail   加入公司身份认证 编辑
+   * @return   {[type]}   [description]
+   */
+  editIdentityJoin() {
+    let formData = this.getParams()
+    editIdentityJoinApi(formData).then((res) => {
+      let type = this.data.options.type
+      wx.redirectTo({url: `${RECRUITER}user/company/status/status?from=identity`})
     })
   },
   /**
@@ -193,8 +291,21 @@ Page({
    * @return   {[type]}     [description]
    */
   bindInput(e) {
-    const field = e.currentTarget.dataset.field
-    this.setData({[field]: e.detail.value})
-    this.bindBtnStatus()
+    let field = e.currentTarget.dataset.field
+    let formData = this.data.formData
+    formData[field] = e.detail.value
+    this.setData({formData}, () => this.bindBtnStatus())
+  },
+  beforeUpload(e) {
+    let type = e.currentTarget.dataset.type
+    let formData = this.data.formData
+    formData[type].loading = true
+    this.setData({ formData })
+  },
+  failUpload(e) {
+    let type = e.currentTarget.dataset.type
+    let formData = this.data.formData
+    formData[type].loading = false
+    this.setData({ formData })
   }
 })

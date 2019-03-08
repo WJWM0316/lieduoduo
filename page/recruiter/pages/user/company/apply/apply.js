@@ -4,36 +4,50 @@ import {realNameReg, emailReg, positionReg} from '../../../../../../utils/fieldR
 
 import {RECRUITER, COMMON, APPLICANT} from '../../../../../../config.js'
 
+import {getSelectorQuery} from "../../../../../../utils/util.js"
 
-const app = getApp()
+let app = getApp()
 
 Page({
   data: {
-    real_name: '',
-    user_email: '',
-    user_position: '',
-    canClick: false,
-    id: null,
-    options: {
-      type: 'create'
+    step: 1,
+    formData: {
+      real_name: '',
+      user_email: '',
+      user_position: '',
     },
-    applyStatus: 0,
-    cdnImagePath: app.globalData.cdnImagePath
+    canClick: false,
+    options: {},
+    cdnImagePath: app.globalData.cdnImagePath,
+    navH: app.globalData.navHeight,
+    height: 0
   },
   onLoad(options) {
-    const storage = wx.getStorageSync('createdCompany')
-    const params = ['real_name', 'user_email', 'user_position']
-    this.setData({options})
 
-    // 编辑页面
-    if(options.action && options.action === 'edit') {
-      this.getCompanyIdentityInfos(options)
-      return;
-    }
+    let storage = wx.getStorageSync('createdCompany')
+    let params = ['real_name', 'user_email', 'user_position']
+    let formData = this.data.formData
+    params.map(field => formData[field] = storage[field])
 
-    if(!storage) return
-    params.map(field => this.setData({[field]: storage[field] }))
-    this.bindBtnStatus()
+    this.setData({formData, options}, () => {
+      this.bindBtnStatus()
+      this.getBannerHeight()
+    })
+
+    this.getCompanyIdentityInfos()
+  },
+  backEvent() {
+    wx.removeStorageSync('createdCompany')
+    wx.navigateBack({delta: 1})
+  },
+  /**
+   * @Author   小书包
+   * @DateTime 2019-03-05
+   * @detail   获取banner高度
+   * @return   {[type]}   [description]
+   */
+  getBannerHeight() {
+    getSelectorQuery('.banner').then(res => this.setData({height: res.height}))
   },
   /**
    * @Author   小书包
@@ -41,40 +55,41 @@ Page({
    * @detail   获取编辑详情
    * @return   {[type]}   [description]
    */
-  getCompanyIdentityInfos(options) {
-    const storage = wx.getStorageSync('createdCompany')
-    const params = ['real_name', 'user_email', 'user_position']
-    if(storage) {
-      params.map(field => this.setData({ [field]: storage[field] }))
-      this.bindBtnStatus()
+  getCompanyIdentityInfos() {
+    let storage = wx.getStorageSync('createdCompany')
+    let params = ['real_name', 'user_email', 'user_position']
+    let formData = this.data.formData
+
+    // 是否已经填写过当前页面的信息
+    if(storage.real_name || storage.user_email || storage.user_position) {
+      params.map(field => formData[field] = storage[field])
+      this.setData({formData}, () => this.bindBtnStatus())
       return
     }
+
     getCompanyIdentityInfosApi().then(res => {
-      const infos = res.data.companyInfo
-      const user = res.data
-      const formData = {
-        real_name: user.realName || infos.realName,
-        user_email: user.userEmail || infos.userEmail,
-        user_position:user.userPosition || infos.userPosition,
-        company_name: infos.companyName,
-        companyShortName: infos.companyShortname,
-        industry_id: infos.industryId,
-        industry_id_name: infos.industry,
-        selected_industry_id: true,
-        financing: infos.financing,
-        financingName: infos.financingInfo,
-        selected_financing: true,
+      let infos = res.data.companyInfo
+      let formData = {
+        real_name: infos.realName || '',
+        user_email: infos.userEmail || '',
+        user_position: infos.userPosition || '',
+        company_name: infos.companyName || '',
+        company_shortname: infos.companyShortname || '',
+        industry_id: infos.industryId || '',
+        industry_id_name: infos.industry || '',
+        financing: infos.financing || '',
+        financingName: infos.financingInfo || '',
         employees: infos.employees,
-        employeesName: infos.employeesInfo,
-        selected_employees: true,
-        business_license: infos.businessLicenseInfo,
-        on_job: infos.onJobInfo,
-        canClick: true,
-        applyStatus: infos.status,
-        id: infos.id
+        employeesName: infos.employeesInfo || '',
+        business_license: infos.businessLicenseInfo || {},
+        on_job: infos.onJobInfo || {},
+        id: infos.id || '',
+        logo: infos.logoInfo || {}
       }
-      wx.setStorageSync('createdCompany', formData)
-      Object.keys(formData).map(field => this.setData({[field]: formData[field]}))
+      if(infos.intro) formData.intro = infos.intro
+      if(infos.applyId) formData.applyId = infos.applyId
+      this.setData({formData, canClick: true})
+      wx.setStorageSync('createdCompany', Object.assign(formData, this.data.formData))
     })
   },
   /**
@@ -84,8 +99,9 @@ Page({
    * @return   {[type]}   [description]
    */
   bindBtnStatus() {
-    const bindKeys = ['real_name', 'user_position', 'user_email']
-    const canClick = bindKeys.every(field => this.data[field])
+    let formData = this.data.formData
+    let bindKeys = ['real_name', 'user_position', 'user_email']
+    let canClick = bindKeys.every(field => this.data.formData[field])
     this.setData({ canClick })
   },
   /**
@@ -95,9 +111,10 @@ Page({
    * @return   {[type]}     [description]
    */
   bindInput(e) {
-    const field = e.currentTarget.dataset.field
-    this.setData({[field]: e.detail.value})
-    this.bindBtnStatus()
+    let field = e.currentTarget.dataset.field
+    let formData = this.data.formData
+    formData[field] = e.detail.value
+    this.setData({formData: Object.assign(this.data.formData, formData)}, () => this.bindBtnStatus())
   },
   /**
    * @Author   小书包
@@ -106,30 +123,34 @@ Page({
    * @return   {[type]}   [description]
    */
   submit() {
+    let formData = this.data.formData
+    let storage = wx.getStorageSync('createdCompany')
     if(!this.data.canClick) return;
-    
+
     // 验证用户名
     let checkRealName = new Promise((resolve, reject) => {
-      !realNameReg.test(this.data.real_name) ? reject('姓名需为2-20个中文字符') : resolve()
+      !realNameReg.test(formData.real_name) ? reject('姓名需为2-20个中文字符') : resolve()
     })
 
     // 验证邮箱
     let checkUserEmail = new Promise((resolve, reject) => {
-      !emailReg.test(this.data.user_email) ? reject('请填写有效的邮箱') : resolve()
+      !emailReg.test(formData.user_email) ? reject('请填写有效的邮箱') : resolve()
     })
 
     // 验证公司地址
     let checkUserPosition = new Promise((resolve, reject) => {
-      !positionReg.test(this.data.user_position) ? reject('请填写有效的公司地址') : resolve()
+      !positionReg.test(formData.user_position) ? reject('请填写有效的公司地址') : resolve()
     })
 
     Promise.all([checkRealName, checkUserEmail, checkUserPosition]).then(res => {
-      const options = this.data.options
-      const url = options.action && options.action === 'edit'
-        ? `${RECRUITER}user/company/find/find?action=edit&type=${options.type}`
-        : `${RECRUITER}user/company/find/find?type=create`
-      wx.navigateTo({url})
-      wx.setStorageSync('createdCompany', this.data)
+      let options = this.data.options
+      
+      if(options.action && options.action === 'edit') {
+        wx.navigateTo({url: `${RECRUITER}user/company/find/find?action=edit&type=${options.type}`})
+      } else {
+        wx.navigateTo({url: `${RECRUITER}user/company/find/find?type=create`})
+      }
+      wx.setStorageSync('createdCompany', Object.assign(storage, this.data.formData))
     })
     .catch(err => app.wxToast({title: err}))
   },

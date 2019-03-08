@@ -109,6 +109,7 @@
 				<view class="second">约你面试</view>
 			</view>
 			<view class="button-box">
+				<view class="reject" data-action="recruiter-reject" bindtap="todoAction">不合适</view>
 				<view class="accept" data-action="recruiter-accept" bindtap="todoAction">确认约面</view>
 			</view>
 		</block>
@@ -181,3 +182,12 @@
 </view>
 
 <bindPhone hide="{{!showLoginBox}}"></bindPhone>
+
+<!-- <view class="overlay">
+	<view class="box">
+		<i class="icon iconfont icon-close"></i>
+		<view class="p1">邀请候选人面试</view>
+		<view class="p2">至少需要一个招聘中职位~</view>
+		<view class="button">发布职位</view>
+	</view>
+</view> -->

@@ -14,11 +14,13 @@ const app = getApp()
 
 Page({
   data: {
-    company_name: '',
+    step: 2,
+    formData: {
+      company_name: ''
+    },
     canClick: false,
     showMaskBox: false,
     options: {},
-    selectId: null,
     type: 'create',
     nameList: [],
     infos: {}
@@ -41,30 +43,11 @@ Page({
    */
   onLoad(options) {
     const storage = wx.getStorageSync('createdCompany')
-    const params = ['real_name', 'user_email', 'user_position', 'canClick']
-    this.setData({options})
-    if(!storage) return
-    if(storage.company_name) this.setData({company_name: storage.company_name, canClick: true})
-    if(options.action && options.action === 'edit') this.getCompanyIdentityInfos()
-  },
-  /**
-   * @Author   小书包
-   * @DateTime 2019-01-12
-   * @detail   获取编辑详情
-   * @return   {[type]}   [description]
-   */
-  getCompanyIdentityInfos(options) {
-    getCompanyIdentityInfosApi().then(res => {
-      const storage = wx.getStorageSync('createdCompany')
-      const infos = res.data.companyInfo
-      if(infos.applyId) {
-        this.setData({selectId: infos.applyId, company_name: infos.companyName, canClick: true})
-        storage.applyId = infos.applyId
-        wx.setStorageSync('createdCompany', storage)
-      } else {
-        this.setData({company_name: infos.companyName, canClick: true})
-      }
-    })
+    const formData = this.data.formData
+    let canClick = this.data.canClick
+    canClick = storage.company_name ? true : false
+    formData.company_name = storage.company_name
+    this.setData({formData, canClick, options})
   },
 /**
  * @Author   小书包
@@ -73,7 +56,7 @@ Page({
  * @return   {[type]}   [description]
  */
   bindButtonStatus() {
-    this.setData({canClick: this.data.company_name ? true : false})
+    this.setData({canClick: this.data.formData.company_name ? true : false})
   },
   /**
    * @Author   小书包
@@ -92,9 +75,10 @@ Page({
    * @return   {[type]}     [description]
    */
   getCompanyNameList(name) {
-    this.setData({company_name: name})
-    this.bindButtonStatus()
-    getCompanyNameListApi({name}).then(res => {
+    const formData = this.data.formData
+    formData.company_name = name
+    this.setData({formData, canClick: true}, () => this.bindButtonStatus())
+    getCompanyNameListApi({name: name}).then(res => {
       const nameList = res.data
       nameList.map(field => {
         field.html = field.companyName.replace(new RegExp(name,'g'),`<span style="color: #652791;">${name}</span>`)
@@ -111,29 +95,9 @@ Page({
    */
   selectCompany(e) {
     const params = e.currentTarget.dataset
-    this.setData({canClick: true, company_name: params.name, nameList: [], selectId: params.id})
-  },
-  /**
-   * @Author   小书包
-   * @DateTime 2018-12-21
-   * @detail   保存当前页面的编辑数据
-   * @return   {[type]}   [description]
-   */
-  saveFormData() {
-    const storage = wx.getStorageSync('createdCompany')
-    storage.company_name = this.data.company_name
-    wx.setStorageSync('createdCompany', storage)
-  },
-  /**
-   * @Author   小书包
-   * @DateTime 2019-01-03
-   * @detail   公司搜索
-   * @return   {[type]}   [description]
-   */
-  search() {
-    getCompanyNameListApi({name: this.data.company_name}).then(res => {
-      this.setData({nameList: res.data})
-    })
+    const formData = this.data.formData
+    formData.company_name = params.name
+    this.setData({canClick: true, formData, nameList: []})
   },
   close() {
     this.setData({showMaskBox: false})
@@ -145,22 +109,30 @@ Page({
    * @return   {[type]}   [description]
    */
   closeMask() {
-    const storage = wx.getStorageSync('createdCompany') || {}
-    const options = this.data.options
-    const infos = this.data.infos
-    const action = options.action === 'edit' && storage.applyStatus !== 2 ? 'editApplyCompany' : 'applyCompany'
-    storage.company_name = this.data.company_name
-    wx.setStorageSync('createdCompany', storage)
+    let storage = wx.getStorageSync('createdCompany') || {}
+    let options = this.data.options
+    let infos = this.data.infos
+    storage.company_name = this.data.formData.company_name
+    wx.setStorageSync('createdCompany', Object.assign(storage, this.data.formData))
 
-    const url = options.action && options.action === 'edit'
-      ? `${RECRUITER}user/company/post/post?action=edit&type=${options.type}`
-      : `${RECRUITER}user/company/post/post?type=create`
-
+    // 加入公司流程
     if(infos.exist) {
-      this[action](infos.id)
-    } else {
-      this.setData({showMaskBox: false}, () => wx.navigateTo({url}))
+      if(options.action && options.action === 'edit') {
+        this.editApplyCompany()
+      } else {
+        this.applyCompany()
+      }
+      return
     }
+    
+    // 创建公司流程
+    this.setData({showMaskBox: false}, () => {
+      if(options.action && options.action === 'edit') {
+        wx.navigateTo({url: `${RECRUITER}user/company/post/post?action=edit`})
+      } else {
+        wx.navigateTo({url: `${RECRUITER}user/company/post/post`})
+      }
+    })
   },
   /**
    * @Author   小书包
@@ -168,17 +140,17 @@ Page({
    * @detail   申请加入公司
    * @return   {[type]}   [description]
    */
-  applyCompany(companyId) {
-    const storage = wx.getStorageSync('createdCompany')
-    const params = {
+  applyCompany() {
+    let storage = wx.getStorageSync('createdCompany')
+    let infos = this.data.infos
+    let params = {
       real_name: storage.real_name,
       user_email: storage.user_email,
       user_position: storage.user_position,
-      company_id: companyId
+      company_id: infos.id
     }
     applyCompanyApi(params).then(() => {
-      // 手机号已经存在 ， 先跳转验证页面
-      wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=apply`})
+      wx.reLaunch({url: `${RECRUITER}user/company/status/status`})
       wx.removeStorageSync('createdCompany')
     })
   },
@@ -188,25 +160,25 @@ Page({
    * @detail   编辑申请加入公司
    * @return   {[type]}   [description]
    */
-  editApplyCompany(companyId) {
-    const storage = wx.getStorageSync('createdCompany')
-    const id = this.data.selectId
-    const params = {
+  editApplyCompany() {
+    let storage = wx.getStorageSync('createdCompany')
+    let id = storage.applyId
+    let infos = this.data.infos
+    let params = {
       id,
       real_name: storage.real_name,
       user_email: storage.user_email,
       user_position: storage.user_position,
-      company_id: companyId
+      company_id: infos.id
     }
     editApplyCompanyApi(params).then(() => {
-      // 手机号已经存在 ， 先跳转验证页面
-      wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=apply`})
+      wx.reLaunch({url: `${RECRUITER}user/company/status/status`})
       wx.removeStorageSync('createdCompany')
     })
   },
   submit() {
     if(!this.data.canClick) return;
-    justifyCompanyExistApi({name: this.data.company_name}).then(res => {
+    justifyCompanyExistApi({name: this.data.formData.company_name}).then(res => {
       if(res.data.exist) {
         this.setData({showMaskBox: true, type: 'apply', infos: res.data})
       } else {

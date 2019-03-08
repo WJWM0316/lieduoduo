@@ -39,8 +39,9 @@ Page({
   	this.getLists()
   },
   onClickTab(e) {
-    const tab = e.currentTarget.dataset.tab
-    this.setData({tab}, () => this.getLists())
+    let tab = e.currentTarget.dataset.tab
+    this.setData({tab})
+    if(!this.data[tab].isRequire) this.getLists(false)
   },
   getLists() {
   	return this[`getApplyjoin${this.data.tab}`]()
@@ -122,7 +123,7 @@ Page({
    * @detail   下拉重新获取数据
    * @return   {[type]}              [description]
    */
-  onPullDownRefresh(hasLoading = true) {
+  onPullDownRefresh() {
     const key = this.data.tab
     const value = {list: [], pageNum: 1, isLastPage: false, isRequire: false}
     this.setData({[key]: value, hasReFresh: true})

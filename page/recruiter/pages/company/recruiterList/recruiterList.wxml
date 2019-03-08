@@ -3,15 +3,22 @@
 	<view hidden="{{!hasReFresh}}">
     <refreshStatus></refreshStatus>
   </view>
+
+  <view class="todo-tab" bindtap="routeJump">
+  	<i class="icon iconfont icon-bianji1 icon1"></i>
+  	招聘官加入申请
+  	<i class="icon iconfont icon-xiangyou icon2"></i>
+  </view>
+
 	<view class="ul">
-		<block wx:if="{{1 > 1111111111}}">
-			<view class="slide-view" wx:for="{{recruiterList}}" wx:key="{{index}}" wx-for-item="{{item}}">
+		<block wx:if="{{isCompanyAdmin > 10000000}}">
+			<view class="slide-view" wx:for="{{recruitersList.list}}" wx:key="{{index}}" wx-for-item="item">
 				<slide-view width="750" height="180" slide-width="180">
 					<view slot="left" class="content">
 						<view class="li">
 							<view class="img-box">
 						    <image class="img" mode="aspectFill" src="{{item.avatar.middleUrl}}"></image>
-						    <view class="vip">V</view>
+						    <image src="{{cdnImagePath}}sign1.png" mode="aspectFill" class="vip" wx:if="{{item.identityAuth}}"></image>
 					    </view>
 					    <view class="recruiterMsg">
 					      <view class="name">{{item.name}}</view>
@@ -23,7 +30,7 @@
 				    </view>
 				  </view>
 				  <view slot="right" class="button-box">
-		        <view class="button" bindtap="delete" data-uid="{{item.uid}}" bindtap="delete">移除</view>
+		        <view class="button" bindtap="delete" data-index="{{index}}" bindtap="delete">移除</view>
 		      </view>
 			  </slide-view>
 		  </view>
@@ -32,7 +39,7 @@
 			<view class="li" wx:for="{{recruitersList.list}}" wx:key="{{index}}" wx-for-item="{{item}}" data-uid="{{item.uid}}"  bindtap="jump">
 				<view class="img-box">
 			    <image class="img" mode="aspectFill" src="{{item.avatar.middleUrl}}"></image>
-			    <view class="vip">V</view>
+			    <image src="{{cdnImagePath}}sign1.png" mode="aspectFill" class="vip" wx:if="{{item.identityAuth}}"></image>
 		    </view>
 		    <view class="recruiterMsg">
 		      <view class="name">{{item.name}}</view>

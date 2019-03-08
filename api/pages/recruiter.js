@@ -124,21 +124,21 @@ export const removeLabelFavorApi = (data) => {
 }
 
 // 获取招聘官审核列表
-export const getApplyjoinListApi = (data, hasLoading) => {
+export const getApplyjoinListApi = (data) => {
   return request({
     url: `/applyjoin/list`,
     method: 'get',
     data,
-    hasLoading: hasLoading
+    hasLoading: data.hasLoading
   })
 }
 
 // 获取招聘官审核信息
-export const getApplyjoinInfosApi = (data, hasLoading) => {
+export const getApplyjoinInfosApi = (data) => {
   return request({
     url: `/applyjoin/${data.id}`,
     method: 'get',
-    hasLoading: hasLoading
+    hasLoading: data.hasLoading
   })
 }
 

@@ -7,10 +7,16 @@ let app = getApp()
 
 Page({
   data: {
-    intro: ''
+    intro: '',
+    options: {}
   },
   onLoad(options) {
-    this.getCompanyDetail(options)
+    this.setData({options})
+    if(options.companyId) this.getCompanyDetail()
+  },
+  onShow() {
+    const storage = wx.getStorageSync('createdCompany')
+    this.setData({intro: storage.intro })
   },
   /**
    * @Author   小书包
@@ -28,7 +34,8 @@ Page({
    * @detail   获取公司详情
    * @return   {[type]}   [description]
    */
-  getCompanyDetail(options) {
+  getCompanyDetail() {
+    const options = this.data.options
     getCompanyInfosApi({id: options.companyId}).then(res => {
       const intro = res.data.intro.replace(/\\n/g, '\n')
       this.setData({intro, options})
@@ -53,12 +60,24 @@ Page({
   bindChange(intro) {
     this.setData({intro})
   },
-  submit() {
+  save() {
     let id = this.data.options.companyId
     let intro = this.data.intro
     putCompanyBriefApi({id, intro}).then(res => {
       app.wxToast({title: '保存成功'})
       wx.navigateBack({delta: 1})
     })
+  },
+
+  submit() {
+    const infos = this.data
+    const storage = wx.getStorageSync('createdCompany')
+    if(infos.options.companyId) {
+      this.save()
+    } else {
+      storage.intro = infos.intro
+      wx.setStorageSync('createdCompany', storage)
+      wx.navigateBack({delta: 1})
+    }
   }
 })
