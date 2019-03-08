@@ -149,10 +149,11 @@ Page({
    * @return   {[type]}     [description]
    */
   upload_front(e) {
+    if(!e.detail.length) return
     let infos = e.detail[0]
-    let idCardInfo = infos.meta.idCardInfo
+    let idCardInfo = infos.idCardInfo
     let formData = this.data.formData
-    formData.passport_front = infos.data[0]
+    formData.passport_front = infos.file
     formData.real_name = idCardInfo.name
     formData.identity_num = idCardInfo.num
     this.setData({formData}, () => this.bindBtnStatus())
@@ -164,12 +165,13 @@ Page({
    * @return   {[type]}     [description]
    */
   upload_back(e) {
+    if(!e.detail.length) return
     let infos = e.detail[0]
-    let idCardInfo = infos.meta.idCardInfo
+    let idCardInfo = infos.idCardInfo
     let validity_start = idCardInfo.startDateDesc.replace(/-/g, '.')
     let validity_end = idCardInfo.endDateDesc.replace(/-/g, '.')
     let formData = this.data.formData
-    formData.passport_reverse = infos.data[0]
+    formData.passport_reverse = infos.file
     formData.validity_start = validity_start
     formData.validity_end = validity_end
     this.setData({formData}, () => this.bindBtnStatus())

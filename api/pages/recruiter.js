@@ -159,3 +159,12 @@ export const passApplyjoinApi = (data, hasLoading) => {
     hasLoading: hasLoading
   })
 }
+
+// 获取当前招聘官的权益
+export const getRecruiterInterestApi = (data, hasLoading) => {
+  return request({
+    url: `/right/cur/recruiter`,
+    method: 'get',
+    hasLoading: hasLoading
+  })
+}

@@ -41,6 +41,7 @@ Page({
    */
   failApplyjoin() {
     const infos = this.data.infos
+    const that = this
     app.wxConfirm({
       title: '温馨提示',
       content: '确认该申请人不予加入组织？',
@@ -52,7 +53,7 @@ Page({
           app.wxToast({
             title: '处理成功',
             callback() {
-              this.getApplyjoinInfos(false)
+              that.getApplyjoinInfos(false)
             }}
           )
         })

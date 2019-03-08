@@ -146,9 +146,9 @@ Page({
       let options = this.data.options
       
       if(options.action && options.action === 'edit') {
-        wx.navigateTo({url: `${RECRUITER}user/company/find/find?action=edit&type=${options.type}`})
+        wx.navigateTo({url: `${RECRUITER}user/company/find/find?action=edit`})
       } else {
-        wx.navigateTo({url: `${RECRUITER}user/company/find/find?type=create`})
+        wx.navigateTo({url: `${RECRUITER}user/company/find/find`})
       }
       wx.setStorageSync('createdCompany', Object.assign(storage, this.data.formData))
     })

@@ -154,7 +154,7 @@
 	background:rgba(255,255,255,1);
 	box-shadow:0rpx 10rpx 30rpx 0rpx rgba(22,39,77,0.05);
 	border-radius:10rpx;
-	padding: 32rpx 30rpx;
+	padding: 32rpx 30rpx 16rpx 30rpx;
 	overflow: hidden;
 }
 
@@ -196,7 +196,7 @@
 	font-size:26rpx;
 	font-weight:300;
 	color:rgba(98,98,98,1);
-	width: 130rpx;
+	width: 170rpx;
 	float: left;
 }
 
@@ -204,9 +204,8 @@
 	font-size:26rpx;
 	font-weight:500;
 	color:rgba(40,40,40,1);
-	flex: 1;
 	text-align: right;
-	width: calc(100% - 130rpx);
+	width: calc(100% - 170rpx);
 	float: left;
 	overflow: hidden;
 	text-overflow: ellipsis;
@@ -214,13 +213,16 @@
 }
 
 .company-identity-status .li {
-	line-height: 1.1;
-	padding: 33rpx 0;
+	line-height: 1.2;
+	height: 40rpx;
+	line-height: 40rpx;
+	margin: 16rpx 0;
 }
 
 .company-identity-status .ul {
 	overflow: hidden;
 	width: 100%;
+	padding-top: 5rpx;
 }
 
 .company-identity-status .div {

@@ -386,3 +386,11 @@ export const getCompanyPerfectApi = (data, hasLoading) => {
     hasLoading: true
   })
 }
+// 发送加入公司通知给管理员
+export const notifyadminApi = (data) => {
+  return request({
+    url: `/company/notifyadmin`,
+    method: 'get',
+    hasLoading: false
+  })
+}

@@ -3,10 +3,12 @@ import {RECRUITER, COMMON} from '../../../../../../config.js'
 import {getUserRoleApi} from "../../../../../../api/pages/user.js"
 import {shareRecruiter} from '../../../../../../utils/shareWord.js'
 import {
-  getCompanyIdentityInfosApi
+  getCompanyIdentityInfosApi,
+  getCompanyInfosApi,
+  getRecruitersListApi
 } from '../../../../../../api/pages/company.js'
 
-const app = getApp()
+let app = getApp()
 let recruiterCard = ''
 Page({
 	data: {
@@ -14,7 +16,8 @@ Page({
     isRecruiter: app.globalData.isRecruiter,
     cdnPath: app.globalData.cdnImagePath,
     hasReFresh: false,
-    identityInfos: {}
+    identityInfos: {},
+    infos: {}
   },
   onLoad() {
     recruiterCard = ''
@@ -28,7 +31,19 @@ Page({
       })
     }
   },
+  init() {
+    let id = app.globalData.recruiterDetails.companyInfo.id
+    let info = this.data.info
+    getCompanyInfosApi({id}).then(res => {
+      app.globalData.companyInfo = res.data
+      getRecruitersListApi({id}).then(res0 => {
+        app.globalData.companyInfo.recruiterList = res0.data
+        this.setData({info: res.data})
+      })
+    })
+  },
   onShow() {
+    this.init()
     this.getCompanyIdentityInfos()
   },
   /**
@@ -66,6 +81,12 @@ Page({
       case 'poster':
         wx.navigateTo({url: `${COMMON}poster/recruiter/recruiter`})
         break
+      case 'team':
+        wx.navigateTo({
+          url: `${RECRUITER}company/recruiterList/recruiterList?companyId=${app.globalData.companyInfo.id}`
+        })
+      case 'interest':
+        wx.navigateTo({url: `${RECRUITER}company/interest/interest` })
       default:
         break
     }
@@ -128,8 +149,7 @@ Page({
 
     //未认证
     if(!identityInfos.identityAuth && (identityInfos.status !== 0 && identityInfos.status !== 1 && identityInfos.status !== 2)) {
-      const realName = identityInfos.companyInfo.realName ? identityInfos.companyInfo.realName : ''
-      wx.navigateTo({url: `${RECRUITER}user/company/identity/identity?type=identity&realName=${realName}`})
+      wx.navigateTo({url: `${RECRUITER}user/company/identity/identity`})
       return
     }
 

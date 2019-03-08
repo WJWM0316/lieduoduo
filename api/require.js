@@ -109,27 +109,22 @@ export const request = ({method = 'post', url, data = {}, needKey = true, hasLoa
                 })
               }
               if (msg.code === 801) {
+
                 wx.setStorageSync('companyInfos', res.data)
-                // 还没有创建公司
-                if(!res.data.data.companyInfo.vkey) {
-                  wx.reLaunch({url: `${RECRUITER}user/company/apply/apply`})
-                  return
+
+                if(msg.data.applyJoin) {
+                  // 加入公司
+                  wx.reLaunch({url: `${RECRUITER}user/company/status/status`})
+                } else {
+                  if(!msg.data.companyInfo.id) {
+                    // 还没有填写公司信息
+                    wx.reLaunch({url: `${RECRUITER}user/company/apply/apply`})
+                  } else {
+                    // 已经填写公司信息
+                    wx.reLaunch({url: `${RECRUITER}user/company/status/status`})
+                  }
                 }
-                // 创建公司，但是还在审核状态或者审核失败
-                if(!msg.data.applyJoin && res.data.data.companyInfo.status !== 1) {
-                  wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=company`})
-                  return;
-                }
-                // 创建公司，但是个人身份还在认证
-                if(!msg.data.applyJoin && msg.data.status !== 1) {
-                  wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=identity`})
-                  return;
-                }
-                // 是申请加入公司 并且个人身份还在认证
-                if(msg.data.applyJoin && msg.data.status !== 1) {
-                  wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=apply`})
-                  return
-                }
+
               }
           }
         }

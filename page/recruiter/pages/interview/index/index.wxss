@@ -269,6 +269,9 @@
   color:rgba(146,146,146,1);
   line-height:26rpx;
   margin-bottom: 14rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .item3 .row-one .degress {

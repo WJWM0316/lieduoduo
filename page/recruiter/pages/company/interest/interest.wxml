@@ -1,0 +1,50 @@
+<view class="interest">
+	<navbar title="我的权益" background="#fff" color="#22292C"></navbar>
+	<view class="box">
+		<view class="card">
+			<image class="bg" mode="aspectFill" src="{{cdnImagePath}}interest_02.png"></image>
+			<image class="bg" mode="aspectFill" src="{{cdnImagePath}}interest_02.png" wx:if="{{1 > 2}}"></image>
+			<view class="overlay">
+				<view class="header">
+					<view class="img-box">
+						<image class="bg" mode="aspectFill" src="{{recruiterInfo.avatar.smallUrl}}"></image>
+					</view>
+					<view class="content">
+						<view class="name">{{infos.rtVersionName}}</view>
+						<view class="time">有效期至 {{!infos.expired ? '无限' : infos.expiredDesc}}</view>
+					</view>
+				</view>
+				<view class="footer">
+					<view class="button" bindtap="alert">升级专业版</view>
+				</view>
+			</view>
+			<view class="filter"></view>
+		</view>
+		<view class="ul">
+			<view class="li">
+				<view class="key1">面试官人数上限</view>
+				<view class="key2"><text>{{infos.cRecruiterNum}}</text>人</view>
+				<view class="key3">已加入公司面试官{{infos.cRecruiterNumUsed}}人</view>
+			</view>
+			<view class="li">
+				<view class="key1">在线职位数上限</view>
+				<view class="key2"><text>{{infos.rOnlinePosition}}</text>人</view>
+				<view class="key3">在线职位{{infos.rOnlinePositionUsed}}个</view>
+			</view>
+			<view class="li">
+				<view class="key1">每日面试邀约数上限</view>
+				<view class="key2"><text>{{infos.rDayInviteInterview}}</text>人</view>
+				<view class="key3">已邀约{{infos.rDayInviteInterviewUsed}}人</view>
+			</view>
+			<view class="li">
+				<view class="key1">每日查看简历上限</view>
+				<view class="key2"><text class="chine">不限</text></view>
+				<view class="key3">已查看简历{{infos.rDayBrowseResumeUsed}}份</view>
+			</view>
+		</view>
+		<view class="contact">
+			<view class="tips">了解更多招聘权益，欢迎联系我们</view>
+			<view class="phone"><i class="icon iconfont icon-dianhua1"></i>400-065-5788</view>
+		</view>
+	</view>
+</view>

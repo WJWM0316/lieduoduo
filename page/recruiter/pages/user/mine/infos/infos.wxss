@@ -14,6 +14,7 @@
 
 .page-mine {
 	position: relative;
+	padding-bottom: 98rpx;
 }
 
 .page-mine .floating-box {
@@ -237,7 +238,7 @@
 	display: inline-block;
 	color: #353943;
 	float: right;
-	margin-right: 16rpx;
+	margin-right: 40rpx;
 }
 
 .page-mine .entry-list .not-certified {
@@ -276,10 +277,12 @@
 	border-right: unset;
 }
 
-.page-mine .entry-list .icon-zhishibiao {
-  transform: rotate(-90deg);
-  float: right;
+.page-mine .entry-list .icon-xiangyou {
   color: #CED7DC;
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 .page-mine .entry-list .color-gray {
@@ -292,4 +295,32 @@
 
 .page-mine .entry-list .color-fail {
 	color: #ED5C5C !important;
+}
+
+.boxs {
+	display: inline-block;
+	font-size: 0;
+	float: right;
+	margin-right: 40rpx;
+	line-height: 120rpx;
+}
+.boxs .people {
+	margin-right: -12rpx;
+	border-radius: 50%;
+	vertical-align: middle;
+	width:56rpx;
+	height:56rpx;
+	border:2rpx solid rgba(255,255,255,1);
+	box-sizing: border-box;
+}
+.boxs .people:last-child {
+	margin-right: 0;
+}
+
+.sign{
+  position: absolute;
+  bottom: 4rpx;
+  right: 4rpx;
+  width: 48rpx;
+  height: 48rpx;
 }

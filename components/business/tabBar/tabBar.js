@@ -60,22 +60,11 @@ Component({
    */
   methods: {
     toggle(e) {
-      // 根据状态来判断是否是否已经通过
-      const companyInfos = wx.getStorageSync('companyInfos')
+      
+      let companyInfos = wx.getStorageSync('companyInfos')
+      if(companyInfos && companyInfos.companyInfo.status !== 1) {
 
-      // 是加入公司
-      if(companyInfos && companyInfos.applyJoin) {
-        if(companyInfos.companyInfo.status !== 1) {
-          wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=apply`})
-        }
-        return;
-      }
-
-      //  不是加入公司
-      if(companyInfos && companyInfos.applyJoin) {
-        if(companyInfos.companyInfo.status !== 1) {
-          wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=company`})
-        }
+        wx.reLaunch({url: `${RECRUITER}user/company/status/status`})
         return;
       }
 

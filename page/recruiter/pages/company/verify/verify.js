@@ -36,7 +36,28 @@ Page({
     }
   },
   onShow() {
-  	this.getLists()
+    let list0 = {
+      list: [],
+      pageNum: 1,
+      count: 20,
+      isLastPage: false,
+      isRequire: false
+    }
+    let list1 = {
+      list: [],
+      pageNum: 1,
+      count: 20,
+      isLastPage: false,
+      isRequire: false
+    }
+    let list2 = {
+      list: [],
+      pageNum: 1,
+      count: 20,
+      isLastPage: false,
+      isRequire: false
+    }
+    this.setData({list0, list1, list2}, () => this.getLists())
   },
   onClickTab(e) {
     let tab = e.currentTarget.dataset.tab

@@ -1,11 +1,12 @@
 import {
   getCompanyIdentityInfosApi,
-  getCompanyPerfectApi
+  getCompanyPerfectApi,
+  notifyadminApi
 } from '../../../../../../api/pages/company.js'
 
 import {RECRUITER} from '../../../../../../config.js'
 
-const app = getApp()
+let app = getApp()
 
 Page({
   data: {
@@ -20,21 +21,7 @@ Page({
     cdnImagePath: app.globalData.cdnImagePath
   },
   onLoad(options) {
-    let pageTitle = ''
-    switch(options.from) {
-      case 'identity':
-        pageTitle = '身份认证'
-        break
-      case 'company':
-        pageTitle = '公司认证'
-        break
-      case 'apply':
-        pageTitle = '申请加入公司'
-        break
-      default:
-        break
-    }
-    this.setData({pageTitle, options})
+    this.setData({options})
   },
   onShow() {
     this.getCompanyIdentityInfos()
@@ -43,9 +30,9 @@ Page({
     wx.reLaunch({url: `${RECRUITER}user/mine/infos/infos`})
   },
   todoAction(e) {
-  	const params = e.currentTarget.dataset
-    const companyInfos = this.data.companyInfos
-    const options = this.data.options
+  	let params = e.currentTarget.dataset
+    let companyInfos = this.data.companyInfos
+    let options = this.data.options
     
   	switch(params.action) {
   		case 'identity':
@@ -67,7 +54,9 @@ Page({
         wx.navigateTo({url: `${RECRUITER}user/company/apply/apply?action=edit`})
         break
       case 'notice':
-        app.wxToast({title: '通知成功'})
+        notifyadminApi().then(() => {
+          app.wxToast({title: '通知成功'})
+        })
         break
   		default:
   			break
@@ -82,9 +71,18 @@ Page({
   getCompanyIdentityInfos() {
     return new Promise((resolve, reject) => {
       getCompanyIdentityInfosApi().then(res => {
-        const infos = res.data
-        const companyInfos = infos.companyInfo
-        this.setData({identityInfos: infos, companyInfos}, () => {
+        let infos = res.data
+        let companyInfos = infos.companyInfo
+        let pageTitle = ''
+        if(infos.applyJoin) {
+          pageTitle = '申请加入公司'
+        } else {
+          pageTitle = '公司认证'
+        }
+        if(this.data.options.from === 'identity') {
+          pageTitle = '身份认证'
+        }
+        this.setData({identityInfos: infos, companyInfos, pageTitle}, () => {
           resolve(res)
           wx.stopPullDownRefresh()
         })
@@ -95,12 +93,12 @@ Page({
   onPullDownRefresh() {
     this.setData({hasReFresh: true})
     this.getCompanyIdentityInfos().then(res => {
-      const infos = res.data
-      const companyInfos = infos.companyInfo
-      const options = this.data.options
+      let infos = res.data
+      let companyInfos = infos.companyInfo
       this.setData({hasReFresh: false})
+
       // 公司验证已经通过
-      if(companyInfos.status === 1 && options.from !== 'identity') {
+      if(companyInfos.status === 1 && this.data.options.from !== 'identity') {
         app.getAllInfo().then(() => wx.reLaunch({url: `${RECRUITER}index/index`}))
         return;
       }

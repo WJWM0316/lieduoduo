@@ -101,8 +101,8 @@
 	</view>
 	<!-- 申请加入 end -->
 
-	<block wx:if="{{companyInfos.status !== 1 || identityInfos.status !== 1}}">
-		<view class="section" wx:if="{{options.from === 'company'}}">
+	<block wx:if="{{(companyInfos.status !== 1 || identityInfos.status !== 1) && !identityInfos.applyJoin}}">
+		<view class="section">
 			<view class="title">
 				<view class="label">您的公司信息</view>
 				<view class="jump" bindtap="todoAction" data-action="modifyCompany">申请信息有误？去更改</view>
@@ -194,7 +194,9 @@
 						<text class="realname">{{companyInfos.adminInfo.name}} </text>
 						<text class="degress"> {{companyInfos.adminInfo.position}}</text>
 					</view>
-					<!-- <view class="button-box" data-action="notice" bindtap=""><i class="icon iconfont icon-kefu notice"></i>通知管理员</view> -->
+					<view class="button-box" data-action="notice" bindtap="todoAction">
+						<i class="icon iconfont icon-kefu notice"></i>通知管理员
+					</view>
 				</view>
 			</view>
 		</view>

@@ -118,6 +118,11 @@ Page({
     // 加入公司流程
     if(infos.exist) {
       if(options.action && options.action === 'edit') {
+        // 创建公司过程中过来 从新选择一个公司加入
+        if(infos.exist) {
+          this.applyCompany()
+          return;
+        }
         this.editApplyCompany()
       } else {
         this.applyCompany()
@@ -128,6 +133,22 @@ Page({
     // 创建公司流程
     this.setData({showMaskBox: false}, () => {
       if(options.action && options.action === 'edit') {
+        // 加入公司过程中过来 从新选择一个公司 可能不存在 应该是新建流程
+        if(!infos.exist) {
+          wx.navigateTo({url: `${RECRUITER}user/company/post/post`})
+          storage.company_shortname = ''
+          storage.logo = {}
+          storage.business_license = {}
+          storage.on_job = {}
+          storage.industry_id = 0
+          storage.industry_id_name = '请选择行业范围'
+          storage.financing = 0
+          storage.employees = 0
+          storage.company_shortname = ''
+          storage.intro = ''
+          wx.setStorageSync('createdCompany', storage)
+          return;
+        }
         wx.navigateTo({url: `${RECRUITER}user/company/post/post?action=edit`})
       } else {
         wx.navigateTo({url: `${RECRUITER}user/company/post/post`})

@@ -87,14 +87,12 @@ Component({
           if (res.statusCode === 200) {
             console.log(res, "上传成功")
             // result = JSON.parse(res.data)
-            if(this.data.cardInfo.type === 'idCard') {
-              result.push(JSON.parse(res.data))
-            } else {
-              result.push(JSON.parse(res.data).data[0])
-            }
+            result.push(JSON.parse(res.data).data[0])
           } else {
             console.log(res, "上传失败")
-            this.triggerEvent('failUpload', res)
+            this.triggerEvent('failUpload')
+            getApp().wxToast({title: JSON.parse(res.data).msg})
+            return;
           }
           fileNum--
           if (fileNum === 0) {
