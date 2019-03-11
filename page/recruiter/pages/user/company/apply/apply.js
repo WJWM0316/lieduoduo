@@ -137,9 +137,9 @@ Page({
       !emailReg.test(formData.user_email) ? reject('请填写有效的邮箱') : resolve()
     })
 
-    // 验证公司地址
+    // 验证职位
     let checkUserPosition = new Promise((resolve, reject) => {
-      !positionReg.test(formData.user_position) ? reject('请填写有效的公司地址') : resolve()
+      !positionReg.test(formData.user_position) ? reject('担任职务需为2-50个字') : resolve()
     })
 
     Promise.all([checkRealName, checkUserEmail, checkUserPosition]).then(res => {
