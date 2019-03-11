@@ -97,7 +97,7 @@
 			<i class="icon iconfont icon-dianhua label-icon"></i>
 			<i class="icon iconfont icon-xiangyou"></i>
 			<view class="text">客服电话</view>
-			<view class="text2">020-61279889</view>
+			<view class="text2">{{telePhone}}</view>
 		</view>
 
 		<view class="li" bindtap="routeJump" data-route="settings">

@@ -14,14 +14,12 @@ const app = getApp()
 
 Page({
   data: {
-    step: 2,
     formData: {
       company_name: ''
     },
     canClick: false,
     showMaskBox: false,
     options: {},
-    type: 'create',
     nameList: [],
     infos: {}
   },
@@ -66,7 +64,7 @@ Page({
    */
   bindInput(e) {
     const name = e.detail.value
-    if(name) this.debounce(this.getCompanyNameList, null, 300, name)
+    this.debounce(this.getCompanyNameList, null, 300, name)
   },
   /**
    * @Author   小书包
@@ -199,11 +197,15 @@ Page({
   },
   submit() {
     if(!this.data.canClick) return;
+    if(this.data.formData.company_name.length < 2) {
+      app.wxToast({title: '公司名称至少两个字'})
+      return;
+    }
     justifyCompanyExistApi({name: this.data.formData.company_name}).then(res => {
       if(res.data.exist) {
-        this.setData({showMaskBox: true, type: 'apply', infos: res.data})
+        this.setData({showMaskBox: true, infos: res.data})
       } else {
-        this.setData({showMaskBox: true, type: 'create'})
+        this.setData({showMaskBox: true})
       }
     })
   }

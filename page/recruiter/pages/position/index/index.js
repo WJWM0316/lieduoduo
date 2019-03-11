@@ -31,7 +31,8 @@ Page({
       isRequire: false
     },
     hasReFresh: false,
-    identityInfos: {}
+    identityInfos: {},
+    telePhone: app.globalData.telePhone
   },
   onLoad() {
   },
@@ -98,7 +99,7 @@ Page({
           wx.navigateTo({url: `${RECRUITER}user/company/status/status?from=identity`})
         },
         cancelBack: () => {
-          wx.makePhoneCall({phoneNumber: '020-61279889'})
+          wx.makePhoneCall({phoneNumber: this.data.telePhone})
         }
       })
       return;

@@ -15,7 +15,8 @@ Page({
     cdnImagePath: app.globalData.cdnImagePath,
     resumeAttach: {},
     navH: app.globalData.navHeight,
-    isJobhunter: 0
+    isJobhunter: 0,
+    telePhone: app.globalData.telePhone
   },
   /**
    * 生命周期函数--监听页面加载

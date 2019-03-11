@@ -79,7 +79,7 @@
           <view class="text">客服电话</view>
         </view>
         <view class='arrow-box'>
-          <view class="text2">020-61279889</view>
+          <view class="text2">{{telePhone}}</view>
           <i class="icon iconfont icon-xiangyou"></i>
         </view>
   		</view>

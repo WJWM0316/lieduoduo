@@ -16,7 +16,8 @@ Page({
     isRecruiter: app.globalData.isRecruiter,
     cdnPath: app.globalData.cdnImagePath,
     hasReFresh: false,
-    pageInfos: {}
+    pageInfos: {},
+    telePhone: app.globalData.telePhone
   },
   onLoad() {
     recruiterCard = ''

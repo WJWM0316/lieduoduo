@@ -10,7 +10,6 @@ let app = getApp()
 
 Page({
   data: {
-    step: 1,
     formData: {
       real_name: '',
       user_email: '',
