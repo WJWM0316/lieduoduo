@@ -6,7 +6,7 @@ import {
   getCompanyIdentityInfosApi
 } from '../../../../../../api/pages/company.js'
 
-import {realNameReg, emailReg, positionReg} from '../../../../../../utils/fieldRegular.js'
+import {companyNameReg} from '../../../../../../utils/fieldRegular.js'
 
 import {RECRUITER} from '../../../../../../config.js'
 
@@ -21,6 +21,7 @@ Page({
     showMaskBox: false,
     options: {},
     nameList: [],
+    type: 'create',
     infos: {}
   },
   /**
@@ -197,15 +198,17 @@ Page({
   },
   submit() {
     if(!this.data.canClick) return;
-    if(this.data.formData.company_name.length < 2) {
-      app.wxToast({title: '公司名称至少两个字'})
+
+    if(!companyNameReg.test(this.data.formData.company_name)) {
+      app.wxToast({title: '公司名称需为2-50个字'})
       return;
     }
+    
     justifyCompanyExistApi({name: this.data.formData.company_name}).then(res => {
       if(res.data.exist) {
-        this.setData({showMaskBox: true, infos: res.data})
+        this.setData({showMaskBox: true, type: 'apply', infos: res.data})
       } else {
-        this.setData({showMaskBox: true})
+        this.setData({showMaskBox: true, type: 'create'})
       }
     })
   }

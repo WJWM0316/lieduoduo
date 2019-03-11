@@ -3,6 +3,8 @@ import {
   getCompanyInfosApi
 } from '../../../../../api/pages/company.js'
 
+import {companyIntroReg} from '../../../../../utils/fieldRegular.js'
+
 let app = getApp()
 
 Page({

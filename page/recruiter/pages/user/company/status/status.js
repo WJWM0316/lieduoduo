@@ -10,12 +10,10 @@ let app = getApp()
 
 Page({
   data: {
-  	// status状态： 0审核中（已提交），1审核通过，2审核未通过，3重新提交
     identityInfos: {},
     companyInfos: {},
-    pageTitle: '公司认证',
+    pageTitle: '',
     options: {},
-    isPerfect: false,
     hasReFresh: false,
     cdnImagePath: app.globalData.cdnImagePath
   },
@@ -25,9 +23,6 @@ Page({
   onShow() {
     this.getCompanyIdentityInfos()
   },
-  backEvent() {
-    wx.reLaunch({url: `${RECRUITER}user/mine/infos/infos`})
-  },
   todoAction(e) {
   	let params = e.currentTarget.dataset
     let companyInfos = this.data.companyInfos
@@ -35,20 +30,22 @@ Page({
     
   	switch(params.action) {
   		case 'identity':
-        wx.navigateTo({url: `${RECRUITER}user/company/identity/identity?from=identity`})
+        if(options.from === 'identity') {
+          wx.navigateTo({url: `${RECRUITER}user/company/identity/identity?from=identity`})
+        } else {
+          wx.navigateTo({url: `${RECRUITER}user/company/identity/identity`})
+        }
   			break
   		case 'modifyCompany':
   			wx.navigateTo({url: `${RECRUITER}user/company/apply/apply?action=edit`})
   			break
       case 'email':
-        console.log('招聘官公司id', app.globalData.recruiterDetails.companyInfo.id)
         wx.navigateTo({url: `${RECRUITER}user/company/email/email?id=${app.globalData.recruiterDetails.companyInfo.id}`})
         break
       case 'position':
         wx.redirectTo({url: `${RECRUITER}position/post/post`})
         break
       case 'perfect':
-        console.log('招聘官uid', app.globalData.recruiterDetails.uid)
         wx.navigateTo({url: `${COMMON}recruiterDetail/recruiterDetail?uid=${app.globalData.recruiterDetails.uid}`})
         break
       case 'applyModify':
@@ -73,21 +70,23 @@ Page({
         let infos = res.data
         let companyInfos = infos.companyInfo
         let pageTitle = ''
+        let options = this.data.options
+
         if(infos.applyJoin) {
           pageTitle = '申请加入公司'
         } else {
           pageTitle = '公司认证'
         }
+
         if(this.data.options.from === 'identity') {
           pageTitle = '身份认证'
         }
+
         this.setData({identityInfos: infos, companyInfos, pageTitle}, () => {
           resolve(res)
           wx.stopPullDownRefresh()
           // 认证通过 重新那一次招聘管的数据
-          if(companyInfos.status === 1) {
-            app.getAllInfo()
-          }
+          if(companyInfos.status === 1) app.getAllInfo()
         })
       })
     })

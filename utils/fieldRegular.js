@@ -40,3 +40,9 @@ export const urlReg = /^((https?|ftp|news):\/\/)?([a-z]([a-z0-9\-]*[\.。])+([a-
 
 // 工作内容
 export const productNameReg = /^.{1,20}$/
+
+// 公司名称 
+export const companyNameReg = /^[\u0391-\uFFE5A-Za-z]{2,50}$/
+
+// 公司简介
+export const companyIntroReg = /^[\u0391-\uFFE5A-Za-z]{20,5000}$/

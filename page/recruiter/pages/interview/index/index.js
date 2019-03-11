@@ -17,7 +17,8 @@ let initData = {
   pageNum: 1,
   count: 20,
   isLastPage: false,
-  isRequire: false
+  isRequire: false,
+  total: 0
 }
 
 Page({
@@ -130,6 +131,7 @@ Page({
     return getApplyListApi({count: applyData.count, page: applyData.pageNum, status, positionId}, hasLoading).then(res => {
       applyData.list = res.data
       applyData.isRequire = true
+      applyData.total = res.meta.total
       if (!res.meta || !res.meta.nextPageUrl) {
         applyData.isLastPage = true
         applyBottomStatus = 2
@@ -146,6 +148,7 @@ Page({
     return getInviteListApi({count: receiveData.count, page: receiveData.pageNum, status, positionId}, hasLoading).then(res => {
       receiveData.list = res.data
       receiveData.isRequire = true
+      receiveData.total = res.meta.total
       if (!res.meta || !res.meta.nextPageUrl) {
         receiveData.isLastPage = true
         receiveBottomStatus = 2
@@ -165,6 +168,7 @@ Page({
       })
       interviewData.list = list
       interviewData.isRequire = true
+      interviewData.total = res.meta.total
       if (!res.meta || !res.meta.nextPageUrl) {
         interviewData.isLastPage = true
         interviewBottomStatus = 2

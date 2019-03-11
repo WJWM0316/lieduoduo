@@ -14,7 +14,7 @@
 					</view>
 					<view class="content">
 						<view class="name">{{infos.rtVersionName}}</view>
-						<view class="time">有效期至 {{!infos.expired ? '无限' : infos.expiredDesc}}</view>
+						<view class="time">有效期{{!infos.expired ? ' 无限' : '至 ' + infos.expiredDesc}}</view>
 					</view>
 				</view>
 				<view class="footer">

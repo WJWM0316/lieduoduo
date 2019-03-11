@@ -43,6 +43,9 @@ Page({
     infos: {}
   },
   onLoad(options) {
+    this.setData({options})
+  },
+  onShow() {
     this.getCompanyIdentityInfos()
   },
   /**
@@ -245,13 +248,11 @@ Page({
   identityCompany() {
     let formData = this.getParams()
     identityCompanyApi(formData).then((res) => {
-      let url = ''
       if(this.data.options.from === 'identity') {
-        url = `${RECRUITER}user/company/status/status?from=identity`
+        wx.redirectTo({url: `${RECRUITER}user/company/status/status?from=identity`})
       } else {
-        url = `${RECRUITER}user/company/status/status`
+        wx.redirectTo({url: `${RECRUITER}user/company/status/status`})
       }
-      wx.redirectTo({url})
     })
   },
   /**
@@ -263,13 +264,11 @@ Page({
   identityJoin() {
     let formData = this.getParams()
     joinidentityApi(formData).then((res) => {
-      let url = ''
       if(this.data.options.from === 'identity') {
-        url = `${RECRUITER}user/company/status/status?from=identity`
+        wx.redirectTo({url: `${RECRUITER}user/company/status/status?from=identity`})
       } else {
-        url = `${RECRUITER}user/company/status/status`
+        wx.redirectTo({url: `${RECRUITER}user/company/status/status`})
       }
-      wx.redirectTo({url})
     })
   },
   /**
@@ -281,13 +280,11 @@ Page({
   editIdentityCompany() {
     let formData = this.getParams()
     editCompanyIdentityInfosApi(formData).then((res) => {
-      let url = ''
       if(this.data.options.from === 'identity') {
-        url = `${RECRUITER}user/company/status/status?from=identity`
+        wx.redirectTo({url: `${RECRUITER}user/company/status/status?from=identity`})
       } else {
-        url = `${RECRUITER}user/company/status/status`
+        wx.redirectTo({url: `${RECRUITER}user/company/status/status`})
       }
-      wx.redirectTo({url})
     })
   },
   /**
@@ -299,13 +296,11 @@ Page({
   editIdentityJoin() {
     let formData = this.getParams()
     editIdentityJoinApi(formData).then((res) => {
-      let url = ''
       if(this.data.options.from === 'identity') {
-        url = `${RECRUITER}user/company/status/status?from=identity`
+        wx.redirectTo({url: `${RECRUITER}user/company/status/status?from=identity`})
       } else {
-        url = `${RECRUITER}user/company/status/status`
+        wx.redirectTo({url: `${RECRUITER}user/company/status/status`})
       }
-      wx.redirectTo({url})
     })
   },
   /**

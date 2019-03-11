@@ -114,11 +114,16 @@ export const request = ({method = 'post', url, data = {}, needKey = true, hasLoa
                   // 加入公司
                   wx.reLaunch({url: `${RECRUITER}user/company/status/status`})
                 } else {
+
                   if(!msg.data.companyInfo.id) {
                     // 还没有填写公司信息
                     wx.reLaunch({url: `${RECRUITER}user/company/apply/apply`})
                   } else {
-                    // 已经填写公司信息
+                    // 接入ocr 首页会先验证身份证
+                    if(msg.data.status === 2 && msg.data.companyInfo.status !== 1) {
+                      wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=identity`})
+                      return
+                    }
                     wx.reLaunch({url: `${RECRUITER}user/company/status/status`})
                   }
                 }
