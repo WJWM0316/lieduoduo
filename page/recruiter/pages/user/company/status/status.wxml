@@ -200,7 +200,7 @@
 					<text class="degress"> {{companyInfos.adminInfo.position}}</text>
 				</view>
 				<view class="button-box" data-action="notice" bindtap="todoAction">
-					<i class="icon iconfont icon-kefu notice"></i>通知管理员
+					<i class="icon iconfont icon-tongzhi notice"></i>通知管理员
 				</view>
 			</view>
 		</view>
@@ -222,7 +222,7 @@
 	<block wx:if="{{identityInfos.applyJoin && options.from !== 'identity'}}">
 		<view class="div">
 			<view class="box" bindtap="todoAction" data-action="identity">
-				<i class="icon iconfont icon-bianji label-icon"></i>
+				<i class="icon iconfont icon-renzheng label-icon"></i>
 				认证个人身份
 				<i class="icon iconfont icon-xiangyou"></i>
 			</view>
