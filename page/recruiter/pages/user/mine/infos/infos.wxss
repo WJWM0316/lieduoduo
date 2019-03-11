@@ -245,6 +245,10 @@
 	color: #353943;
 	float: right;
 	margin-right: 40rpx;
+	max-width: 300rpx;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
 }
 
 .entry-list .not-certified {

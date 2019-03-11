@@ -2,6 +2,8 @@
 	min-height: 100vh;
 	background: white;
 	width: 100vw;
+	z-index: 1;
+	position: relative;
 }
 
 .box {
@@ -25,7 +27,7 @@
 	position: absolute;
 	left: 50%;
 	transform: translateX(-50%);
-	z-index: -1;
+	z-index: 2;
 	bottom: -13rpx;
 }
 
@@ -43,6 +45,7 @@
 	bottom: 0;
 	box-sizing: border-box;
 	padding: 32rpx;
+	z-index: 3;
 }
 
 .card .overlay .button {
@@ -147,6 +150,7 @@
 	color:rgba(40,40,40,1);
 	line-height:60rpx;
 	display: inline-block;
+	/*font-family: designFont;*/
 }
 
 .ul .li .key3{
@@ -160,9 +164,10 @@
 .ul .li .chine {
 	height:42rpx;
 	font-size:42rpx;
-	font-weight:600;
+	font-weight:900;
 	color:rgba(40,40,40,1);
-	line-height:42rpx;
+	line-height:66rpx;
+	margin-bottom: 16rpx;
 }
 
 .contact {

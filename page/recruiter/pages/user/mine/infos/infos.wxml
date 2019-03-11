@@ -47,13 +47,13 @@
 		</view> -->
 
 		<view class="li" bindtap="routeJump" data-route="company">
-			<i class="icon iconfont icon-gongsi label-icon"></i>
+			<i class="icon iconfont icon-gongsi1 label-icon"></i>
 			<view class="text">我的公司</view>
 			<i class="icon iconfont icon-xiangyou"></i>
 		</view>
 
 		<view class="li" bindtap="routeJump" data-route="team">
-			<i class="icon iconfont icon-gongsi label-icon"></i>
+			<i class="icon iconfont icon-zhaopintuandui label-icon"></i>
 			<view class="text">招聘团队</view>
 			<view class="boxs">
 				<image
@@ -71,7 +71,7 @@
 		</view>
 
 		<view class="li" bindtap="routeJump" data-route="interest">
-			<i class="icon iconfont icon-renzheng label-icon"></i>
+			<i class="icon iconfont icon-wodequanyi label-icon"></i>
 			<i class="icon iconfont icon-xiangyou"></i>
 			<view class="text">我的权益</view>
 			<view class="text2">{{pageInfos.rtVersionName}}</view>
