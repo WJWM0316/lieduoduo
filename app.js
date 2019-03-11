@@ -46,6 +46,8 @@ App({
     pageCount: 20,
     isIphoneX: false,
     isIphone: false,
+    // 联系电话
+    telePhone: '400-065-5788',
     systemInfo: wx.getSystemInfoSync() // 系统信息
   },
   // 登录

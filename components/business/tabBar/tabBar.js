@@ -60,13 +60,6 @@ Component({
    */
   methods: {
     toggle(e) {
-      
-      let companyInfos = wx.getStorageSync('companyInfos')
-      if(companyInfos && companyInfos.companyInfo.status !== 1) {
-
-        wx.reLaunch({url: `${RECRUITER}user/company/status/status`})
-        return;
-      }
 
       wx.reLaunch({
         url: e.target.dataset.path,

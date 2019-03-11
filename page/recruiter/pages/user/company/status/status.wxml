@@ -1,8 +1,10 @@
 <!-- 加载过滤器 -->
 <wxs src="../../../../../../utils/filters.wxs" module="filters" />
 
+<navbar title="{{pageTitle}}" background="#FFFFFF" color="#22292C"></navbar>
+
 <view class="company-identity-status">
-	<navbar title="{{pageTitle}}" background="#FFFFFF" color="#22292C"></navbar>
+	
 	<view hidden="{{!hasReFresh}}">
 	  <refreshStatus></refreshStatus>
 	</view>
@@ -102,6 +104,7 @@
 	<!-- 申请加入 end -->
 
 	<block wx:if="{{(companyInfos.status !== 1 || identityInfos.status !== 1) && !identityInfos.applyJoin}}">
+
 		<view class="section">
 			<view class="title">
 				<view class="label">您的公司信息</view>
@@ -135,7 +138,7 @@
 			</view>
 		</view>
 
-		<view class="section" wx:if="{{!identityInfos.applyJoin || options.from === 'identity'}}">
+		<view class="section">
 			<view class="title">
 				<view class="label">您的身份信息</view>
 				<view class="jump" bindtap="todoAction" data-action="identity">申请信息有误？去更改</view>
@@ -164,54 +167,55 @@
 			</view>
 		</view>
 
-		<view class="section" wx:if="{{identityInfos.applyJoin && options.from !== 'identity'}}">
-			<view class="title">
-				<view class="label">您的申请</view>
-				<view class="jump" bindtap="todoAction" data-action="applyAddModify">申请信息有误？去更改</view>
+	</block>
+	
+	<view class="section" wx:if="{{identityInfos.applyJoin && options.from !== 'identity'}}">
+		<view class="title">
+			<view class="label">您的申请</view>
+			<view class="jump" bindtap="todoAction" data-action="applyModify">申请信息有误？去更改</view>
+		</view>
+		<view class="ul">
+			<view class="li">
+				<view class="key">公司全称</view>
+				<view class="value">{{identityInfos.companyInfo.companyName}}</view>
 			</view>
-			<view class="ul">
-				<view class="li">
-					<view class="key">公司全称</view>
-					<view class="value">{{identityInfos.companyInfo.companyName}}</view>
+			<view class="li">
+				<view class="key">姓名</view>
+				<view class="value">{{companyInfos.realName}}</view>
+			</view>
+			<view class="li">
+				<view class="key">担任职务</view>
+				<view class="value">{{companyInfos.userPosition}}</view>
+			</view>
+			<view class="li">
+				<view class="key">邮箱地址</view>
+				<view class="value">{{companyInfos.userEmail}}</view>
+			</view>
+			<view class="li item">
+				<view class="img-box">
+					<image src="{{companyInfos.adminInfo.avatar.smallUrl}}" mode="scaleToFill" ></image>
 				</view>
-				<view class="li">
-					<view class="key">姓名</view>
-					<view class="value">{{companyInfos.realName}}</view>
+				<view class="infos">
+					<text class="realname">{{companyInfos.adminInfo.name}} </text>
+					<text class="degress"> {{companyInfos.adminInfo.position}}</text>
 				</view>
-				<view class="li">
-					<view class="key">担任职务</view>
-					<view class="value">{{companyInfos.userPosition}}</view>
-				</view>
-				<view class="li">
-					<view class="key">邮箱地址</view>
-					<view class="value">{{companyInfos.userEmail}}</view>
-				</view>
-				<view class="li item">
-					<view class="img-box">
-						<image src="{{companyInfos.adminInfo.avatar.smallUrl}}" mode="scaleToFill" ></image>
-					</view>
-					<view class="infos">
-						<text class="realname">{{companyInfos.adminInfo.name}} </text>
-						<text class="degress"> {{companyInfos.adminInfo.position}}</text>
-					</view>
-					<view class="button-box" data-action="notice" bindtap="todoAction">
-						<i class="icon iconfont icon-kefu notice"></i>通知管理员
-					</view>
+				<view class="button-box" data-action="notice" bindtap="todoAction">
+					<i class="icon iconfont icon-kefu notice"></i>通知管理员
 				</view>
 			</view>
 		</view>
-	</block>
-
-	<block wx:if="{{companyInfos.status === 1 && !identityInfos.applyJoin}}">
-		<view class="div">
-			<view class="box1 perfect-button" wx:if="{{!identityInfos.identityNum}}">
+	</view>
+	
+	<block wx:if="{{!identityInfos.applyJoin && companyInfos.status === 1}}">
+		<view class="div margintop">
+			<view class="box1 perfect-button" bindtap="todoAction" data-action="perfect">
 				<i class="icon iconfont icon-bianji label-icon"></i>
 				完善个人信息
 			</view>
-			<!-- <view class="box1 email-button" bindtap="todoAction" data-action="email" wx:if="{{!companyInfos.email}}">
+			<view class="box1 email-button" bindtap="todoAction" data-action="email">
 				<i class="icon iconfont icon-renzheng label-icon"></i>
 				认证公司邮箱
-			</view> -->
+			</view>
 		</view>
 	</block>
 
@@ -224,6 +228,6 @@
 			</view>
 		</view>
 	</block>
-
+	
 	<changeIdentity></changeIdentity>
 </view>

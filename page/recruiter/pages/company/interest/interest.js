@@ -11,17 +11,32 @@ Page({
     recruiterInfo: {}
   },
   onShow() {
-    let recruiterInfo = app.globalData.recruiterDetails
-    if (recruiterInfo.uid) {
-      this.setData({recruiterInfo})
-    } else {
-      app.getAllInfo().then(res => {
-        recruiterInfo = app.globalData.recruiterDetails
-        this.setData({recruiterInfo}, () => console.log('b', recruiterInfo))
-      })
-    }
-    getRecruiterInterestApi().then(res => {
-      this.setData({infos: res.data})
+    this.getPageInfos()
+  },
+  getPageInfos() {
+    return new Promise((resolve, reject) => {
+      let recruiterInfo = app.globalData.recruiterDetails
+      if (recruiterInfo.uid) {
+        this.setData({recruiterInfo})
+        this.getRecruiterInterest().then(() => resolve())
+      } else {
+        app.getAllInfo().then(res => {
+          recruiterInfo = app.globalData.recruiterDetails
+          this.setData({recruiterInfo})
+          this.getRecruiterInterest().then(() => resolve())
+        })
+      }
+    })
+  },
+  /**
+   * @Author   小书包
+   * @DateTime 2019-03-11
+   * @detail   获取权益信息
+   * @return   {[type]}   [description]
+   */
+  getRecruiterInterest() {
+    return new Promise((resolve, reject) => {
+      getRecruiterInterestApi().then(res => this.setData({infos: res.data}, () => resolve(res)))
     })
   },
   alert() {
@@ -36,6 +51,21 @@ Page({
       cancelBack: () => {
         // wx.makePhoneCall({phoneNumber: '020-61279889'})
       }
+    })
+  },
+  /**
+   * @Author   小书包
+   * @DateTime 2019-01-21
+   * @detail   下拉重新获取数据
+   * @return   {[type]}              [description]
+   */
+  onPullDownRefresh() {
+    this.setData({hasReFresh: true})
+    this.getPageInfos(false).then(res => {
+      console.log(res)
+      this.setData({hasReFresh: false}, () => wx.stopPullDownRefresh())
+    }).catch(e => {
+      wx.stopPullDownRefresh()
     })
   }
 })

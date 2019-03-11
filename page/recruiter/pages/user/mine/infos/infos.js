@@ -1,23 +1,22 @@
-import { getRecruiterMyInfoApi } from '../../../../../../api/pages/recruiter.js'
+import { getRecruiterOtherInfosApi } from '../../../../../../api/pages/recruiter.js'
+
 import {RECRUITER, COMMON} from '../../../../../../config.js'
+
 import {getUserRoleApi} from "../../../../../../api/pages/user.js"
+
 import {shareRecruiter} from '../../../../../../utils/shareWord.js'
-import {
-  getCompanyIdentityInfosApi,
-  getCompanyInfosApi,
-  getRecruitersListApi
-} from '../../../../../../api/pages/company.js'
 
 let app = getApp()
+
 let recruiterCard = ''
+
 Page({
 	data: {
     recruiterInfo: {},
     isRecruiter: app.globalData.isRecruiter,
     cdnPath: app.globalData.cdnImagePath,
     hasReFresh: false,
-    identityInfos: {},
-    infos: {}
+    pageInfos: {}
   },
   onLoad() {
     recruiterCard = ''
@@ -31,20 +30,19 @@ Page({
       })
     }
   },
-  init() {
-    let id = app.globalData.recruiterDetails.companyInfo.id
-    let info = this.data.info
-    getCompanyInfosApi({id}).then(res => {
-      app.globalData.companyInfo = res.data
-      getRecruitersListApi({id}).then(res0 => {
-        app.globalData.companyInfo.recruiterList = res0.data
-        this.setData({info: res.data})
-      })
+  /**
+   * @Author   小书包
+   * @DateTime 2019-03-11
+   * @detail   招聘官-“我的”页面下面一些栏目简单的信息
+   * @return   {[type]}   [description]
+   */
+  getRecruiterOtherInfos() {
+    getRecruiterOtherInfosApi().then(res => {
+      this.setData({pageInfos: res.data})
     })
   },
   onShow() {
-    this.init()
-    this.getCompanyIdentityInfos()
+    this.getRecruiterOtherInfos()
   },
   /**
    * @Author   小书包
@@ -83,7 +81,7 @@ Page({
         break
       case 'team':
         wx.navigateTo({
-          url: `${RECRUITER}company/recruiterList/recruiterList?companyId=${app.globalData.companyInfo.id}`
+          url: `${RECRUITER}company/recruiterList/recruiterList?companyId=${this.data.recruiterInfo.companyInfo.id}`
         })
       case 'interest':
         wx.navigateTo({url: `${RECRUITER}company/interest/interest` })
@@ -111,12 +109,13 @@ Page({
     this.setData({hasReFresh: true})
     app.getAllInfo().then(res => {
       this.setData({recruiterInfo: res, hasReFresh: false}, () => wx.stopPullDownRefresh())
-      this.getCompanyIdentityInfos()
+      this.getRecruiterOtherInfos()
     })
   },
   getCreatedImg(e) {
     recruiterCard = e.detail
   },
+
   onShareAppMessage(options) {
     let that = this
 　　return app.wxShare({
@@ -128,33 +127,22 @@ Page({
   },
   /**
    * @Author   小书包
-   * @DateTime 2019-01-29
-   * @detail   获取个人身份信息
-   * @return   {[type]}   [description]
-   */
-  getCompanyIdentityInfos() {
-    getCompanyIdentityInfosApi().then(res => {
-      this.setData({identityInfos: res.data})
-    })
-  },
-  /**
-   * @Author   小书包
    * @DateTime 2019-02-20
    * @detail   查看认证状态
    * @return   {[type]}   [description]
    */
   viewIdentity() {
     
-    const identityInfos = this.data.identityInfos
+    const pageInfos = this.data.pageInfos
 
     //未认证
-    if(!identityInfos.identityAuth && (identityInfos.status !== 0 && identityInfos.status !== 1 && identityInfos.status !== 2)) {
+    if(!pageInfos.identityAuth && (pageInfos.identityStatus !== 0 && pageInfos.identityStatus !== 1 && pageInfos.identityStatus !== 2)) {
       wx.navigateTo({url: `${RECRUITER}user/company/identity/identity`})
       return
     }
 
     // 已经填写身份证 但是管理员还没有处理或者身份证信息不符合规范
-    if(identityInfos.status === 0 || identityInfos.status === 2) {
+    if(pageInfos.identityStatus === 0 || pageInfos.identityStatus === 2) {
       wx.navigateTo({url: `${RECRUITER}user/company/status/status?from=identity`})
       return
     }

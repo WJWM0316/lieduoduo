@@ -30,7 +30,12 @@ Page({
    * @return   {[type]}   [description]
    */
   bindBtnStatus() {
-    const canClick = emailReg.test(this.data.email) ? true : false
+    let canClick = false
+    if(emailReg.test(this.data.email)) {
+      canClick = true
+    } else {
+      canClick = false
+    }
     this.setData({ canClick })
   },
   /**
@@ -42,7 +47,6 @@ Page({
   bindInput(e) {
     const field = e.currentTarget.dataset.field
     this.setData({[field]: e.detail.value})
-    this.bindBtnStatus()
   },
   /**
    * @Author   小书包
@@ -66,7 +70,7 @@ Page({
    * @return   {[type]}     [description]
    */
   onFocus(e){
-    this.setData({Value: e.detail.value})
+    this.setData({Value: e.detail.value, code: e.detail.value}, () => this.bindBtnStatus())
   },
   /**
    * @Author   小书包
@@ -83,7 +87,7 @@ Page({
    * @return   {[type]}     [description]
    */
   verifyEmail(e){
-    verifyEmailApi({email: this.data.email, company_id: this.data.ontions.id, code: e.detail.value.password})
+    verifyEmailApi({email: this.data.email, company_id: this.data.ontions.id, code: this.data.code})
       .then(res => {
         wx.redirectTo({url: `${RECRUITER}user/company/status/status?from=identity`})
       })

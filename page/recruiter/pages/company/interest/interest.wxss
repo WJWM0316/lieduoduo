@@ -1,6 +1,13 @@
+.interest {
+	min-height: 100vh;
+	background: white;
+	width: 100vw;
+}
+
 .box {
-	padding-top: 30rpx;
+	border-top: 24rpx solid #FBFBFF;
 	overflow: hidden;
+	padding-top: 32rpx;
 }
 
 .card {

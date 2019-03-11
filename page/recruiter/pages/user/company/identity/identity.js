@@ -245,7 +245,13 @@ Page({
   identityCompany() {
     let formData = this.getParams()
     identityCompanyApi(formData).then((res) => {
-      wx.redirectTo({url: `${RECRUITER}user/company/status/status?from=identity`})
+      let url = ''
+      if(this.data.options.from === 'identity') {
+        url = `${RECRUITER}user/company/status/status?from=identity`
+      } else {
+        url = `${RECRUITER}user/company/status/status`
+      }
+      wx.redirectTo({url})
     })
   },
   /**
@@ -257,7 +263,13 @@ Page({
   identityJoin() {
     let formData = this.getParams()
     joinidentityApi(formData).then((res) => {
-      wx.redirectTo({url: `${RECRUITER}user/company/status/status?from=identity`})
+      let url = ''
+      if(this.data.options.from === 'identity') {
+        url = `${RECRUITER}user/company/status/status?from=identity`
+      } else {
+        url = `${RECRUITER}user/company/status/status`
+      }
+      wx.redirectTo({url})
     })
   },
   /**
@@ -269,8 +281,13 @@ Page({
   editIdentityCompany() {
     let formData = this.getParams()
     editCompanyIdentityInfosApi(formData).then((res) => {
-      let type = this.data.options.type
-      wx.redirectTo({url: `${RECRUITER}user/company/status/status?from=identity`})
+      let url = ''
+      if(this.data.options.from === 'identity') {
+        url = `${RECRUITER}user/company/status/status?from=identity`
+      } else {
+        url = `${RECRUITER}user/company/status/status`
+      }
+      wx.redirectTo({url})
     })
   },
   /**
@@ -282,8 +299,13 @@ Page({
   editIdentityJoin() {
     let formData = this.getParams()
     editIdentityJoinApi(formData).then((res) => {
-      let type = this.data.options.type
-      wx.redirectTo({url: `${RECRUITER}user/company/status/status?from=identity`})
+      let url = ''
+      if(this.data.options.from === 'identity') {
+        url = `${RECRUITER}user/company/status/status?from=identity`
+      } else {
+        url = `${RECRUITER}user/company/status/status`
+      }
+      wx.redirectTo({url})
     })
   },
   /**

@@ -32,29 +32,33 @@
 					主页 <view class="strong">{{recruiterInfo.viewedCount}}</view> 次预览 已有 <view class="strong">{{recruiterInfo.influence}}</view>  人支持
 				</view>
 			</view>
-			<!-- <view class="btn-box">
-				<view class="btn">炫耀一下</view>
+	<!-- 		<view class="btn-box">
+				<view class="btn">查看排行榜</view>
+				<i class="icon iconfont icon-xiangyou"></i>
 			</view> -->
 		</view>
 	</form>
 	<view class="entry-list">
-		<!-- <view class="li">
+
+<!-- 		<view class="li">
 			<i class="icon iconfont icon-zhiyejihui label-icon"></i>
 			<view class="text">我感兴趣的</view>
 			<i class="icon iconfont icon-xiangyou"></i>
 		</view> -->
+
 		<view class="li" bindtap="routeJump" data-route="company">
 			<i class="icon iconfont icon-gongsi label-icon"></i>
 			<view class="text">我的公司</view>
 			<i class="icon iconfont icon-xiangyou"></i>
 		</view>
+
 		<view class="li" bindtap="routeJump" data-route="team">
 			<i class="icon iconfont icon-gongsi label-icon"></i>
 			<view class="text">招聘团队</view>
 			<view class="boxs">
 				<image
 					class="people"
-					wx:for="{{info.recruiterList}}"
+					wx:for="{{pageInfos.recruiters}}"
 					src="{{item.avatar.smallUrl}}"
 					wx:key="{{index}}"
 					wx:if="{{index < 4}}"></image>
@@ -77,27 +81,31 @@
 			<i class="icon iconfont icon-renzheng label-icon"></i>
 			<i class="icon iconfont icon-xiangyou"></i>
 			<view class="text">认证</view>
-			<view class="text2 color-gray" wx:if="{{identityInfos.identityAuth}}">已认证</view>
-			<view class="text2 color-pedding" wx:if="{{!identityInfos.identityAuth && (identityInfos.status !== 0 && identityInfos.status !== 1 && identityInfos.status !== 2)}}">未认证</view>
-			<view class="text2 color-pedding" wx:if="{{!identityInfos.identityAuth && identityInfos.status === 0}}">认证审核中</view>
-			<view class="text2 color-fail" wx:if="{{!identityInfos.identityAuth && identityInfos.status === 2}}">认证审核失败</view>
+			<view class="text2 color-gray" wx:if="{{pageInfos.identityAuth}}">已认证</view>
+			<view class="text2 color-pedding" wx:if="{{!pageInfos.identityAuth && (pageInfos.identityStatus !== 0 && pageInfos.identityStatus !== 1 && pageInfos.identityStatus !== 2)}}">未认证</view>
+			<view class="text2 color-pedding" wx:if="{{!pageInfos.identityAuth && pageInfos.identityStatus === 0}}">认证审核中</view>
+			<view class="text2 color-fail" wx:if="{{!pageInfos.identityAuth && pageInfos.identityStatus === 2}}">认证审核失败</view>
 		</view>
+
 		<!-- <view class="li">
 			<i class="icon iconfont icon-kefu label-icon"></i>
 			<view class="text">在线咨询</view>
 			<i class="icon iconfont icon-xiangyou"></i>
 		</view> -->
+
 		<view class="li" bindtap="callPhone">
 			<i class="icon iconfont icon-dianhua label-icon"></i>
 			<i class="icon iconfont icon-xiangyou"></i>
 			<view class="text">客服电话</view>
 			<view class="text2">020-61279889</view>
 		</view>
+
 		<view class="li" bindtap="routeJump" data-route="settings">
 			<i class="icon iconfont icon-shezhi label-icon"></i>
 			<view class="text">账号设置</view>
 			<i class="icon iconfont icon-xiangyou"></i>
 		</view>
+
 	</view>
 	<!-- <view class="copy-right">
 		<view class="li">使用帮助</view>

@@ -168,3 +168,12 @@ export const getRecruiterInterestApi = (data, hasLoading) => {
     hasLoading: hasLoading
   })
 }
+
+// 获取招聘官我的页面信息
+export const getRecruiterOtherInfosApi = (data, hasLoading) => {
+  return request({
+    url: `/recruiter/mine/extra`,
+    method: 'get',
+    hasLoading: hasLoading
+  })
+}

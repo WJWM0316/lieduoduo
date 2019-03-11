@@ -4,7 +4,7 @@ import {
   notifyadminApi
 } from '../../../../../../api/pages/company.js'
 
-import {RECRUITER} from '../../../../../../config.js'
+import {RECRUITER, COMMON} from '../../../../../../config.js'
 
 let app = getApp()
 
@@ -13,7 +13,6 @@ Page({
   	// status状态： 0审核中（已提交），1审核通过，2审核未通过，3重新提交
     identityInfos: {},
     companyInfos: {},
-    page: '',
     pageTitle: '公司认证',
     options: {},
     isPerfect: false,
@@ -36,27 +35,27 @@ Page({
     
   	switch(params.action) {
   		case 'identity':
-        wx.navigateTo({url: `${RECRUITER}user/company/identity/identity`})
+        wx.navigateTo({url: `${RECRUITER}user/company/identity/identity?from=identity`})
   			break
   		case 'modifyCompany':
   			wx.navigateTo({url: `${RECRUITER}user/company/apply/apply?action=edit`})
   			break
       case 'email':
-        wx.navigateTo({url: `${RECRUITER}user/company/email/email?id=${this.data.companyInfos.id}`})
+        console.log('招聘官公司id', app.globalData.recruiterDetails.companyInfo.id)
+        wx.navigateTo({url: `${RECRUITER}user/company/email/email?id=${app.globalData.recruiterDetails.companyInfo.id}`})
         break
       case 'position':
         wx.redirectTo({url: `${RECRUITER}position/post/post`})
         break
       case 'perfect':
-        wx.navigateTo({url: `${RECRUITER}company/baseEdit/baseEdit`})
+        console.log('招聘官uid', app.globalData.recruiterDetails.uid)
+        wx.navigateTo({url: `${COMMON}recruiterDetail/recruiterDetail?uid=${app.globalData.recruiterDetails.uid}`})
         break
-      case 'applyAddModify':
+      case 'applyModify':
         wx.navigateTo({url: `${RECRUITER}user/company/apply/apply?action=edit`})
         break
       case 'notice':
-        notifyadminApi().then(() => {
-          app.wxToast({title: '通知成功'})
-        })
+        notifyadminApi().then(() => app.wxToast({title: '通知成功'}))
         break
   		default:
   			break
@@ -85,6 +84,10 @@ Page({
         this.setData({identityInfos: infos, companyInfos, pageTitle}, () => {
           resolve(res)
           wx.stopPullDownRefresh()
+          // 认证通过 重新那一次招聘管的数据
+          if(companyInfos.status === 1) {
+            app.getAllInfo()
+          }
         })
       })
     })
@@ -99,7 +102,7 @@ Page({
 
       // 公司验证已经通过
       if(companyInfos.status === 1 && this.data.options.from !== 'identity') {
-        app.getAllInfo().then(() => wx.reLaunch({url: `${RECRUITER}index/index`}))
+        app.getAllInfo()
         return;
       }
 

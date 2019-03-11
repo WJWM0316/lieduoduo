@@ -1,5 +1,8 @@
 <view class="interest">
 	<navbar title="我的权益" background="#fff" color="#22292C"></navbar>
+	<view hidden="{{!hasReFresh}}">
+    <refreshStatus></refreshStatus>
+  </view>
 	<view class="box">
 		<view class="card">
 			<image class="bg" mode="aspectFill" src="{{cdnImagePath}}interest_02.png"></image>
@@ -44,7 +47,7 @@
 		</view>
 		<view class="contact">
 			<view class="tips">了解更多招聘权益，欢迎联系我们</view>
-			<view class="phone"><i class="icon iconfont icon-dianhua1"></i>400-065-5788</view>
+			<view class="phone" bindtap="alert"><i class="icon iconfont icon-dianhua1"></i>400-065-5788</view>
 		</view>
 	</view>
 </view>

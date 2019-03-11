@@ -334,3 +334,7 @@
 .company-identity-status .item .notice {
 	margin-right: 10rpx;
 }
+
+.company-identity-status .margintop {
+	margin-top: 56rpx;
+}
