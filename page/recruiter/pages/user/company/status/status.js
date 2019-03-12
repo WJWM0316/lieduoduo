@@ -27,6 +27,7 @@ Page({
   	let params = e.currentTarget.dataset
     let companyInfos = this.data.companyInfos
     let options = this.data.options
+    let identityInfos = this.data.identityInfos
     
   	switch(params.action) {
   		case 'identity':

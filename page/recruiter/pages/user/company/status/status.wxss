@@ -228,6 +228,7 @@
 .company-identity-status .div {
 	margin: 24rpx 30rpx;
 	overflow: hidden;
+	position: relative;
 }
 
 .company-identity-status .div .box{
@@ -337,4 +338,11 @@
 
 .company-identity-status .margintop {
 	margin-top: 56rpx;
+}
+
+.has {
+	position: absolute;
+	top: 50%;
+	right: 70rpx;
+	transform: translateY(-50%);
 }
