@@ -59,7 +59,7 @@
 		</view>
 		<view class="contact">
 			<view class="tips">了解更多招聘权益，欢迎联系我们</view>
-			<view class="phone" bindtap="alert"><i class="icon iconfont icon-dianhua1"></i>400-065-5788</view>
+			<view class="phone" bindtap="call"><i class="icon iconfont icon-dianhua1"></i>400-065-5788</view>
 		</view>
 	</view>
 </view>

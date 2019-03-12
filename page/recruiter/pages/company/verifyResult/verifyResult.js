@@ -78,7 +78,7 @@ Page({
         passApplyjoinApi({id: infos.id}).then(res => {
           if(res.code === 402) {
             app.wxConfirm({
-              title: '温馨提示',
+              title: '',
               content: '该招聘官已加入其它公司 无需处理审核',
               showCancel: false,
               confirmText: '知道了',

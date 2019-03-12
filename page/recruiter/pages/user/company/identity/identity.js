@@ -77,6 +77,8 @@ Page({
         formData.passport_reverse = infos.passportReverseInfo
         formData.validity_start = infos.validityStart
         formData.validity_end = infos.validityEnd
+        formData.passport_front.hasUpload = true
+        formData.passport_reverse.hasUpload = true
       }
       
       this.setData({formData: Object.assign(this.data.formData, formData), applyJoin, infos}, () => this.bindBtnStatus())
@@ -159,7 +161,9 @@ Page({
     let infos = e.detail[0]
     let idCardInfo = infos.idCardInfo
     let formData = this.data.formData
-    formData.passport_front = infos.file
+    formData.passport_front.loading = false
+    formData.passport_front.hasUpload = true
+    formData.passport_front = Object.assign(formData.passport_front, infos.file)
     formData.real_name = idCardInfo.name
     formData.identity_num = idCardInfo.num
     this.setData({formData}, () => this.bindBtnStatus())
@@ -177,7 +181,9 @@ Page({
     let validity_start = idCardInfo.startDateDesc.replace(/-/g, '.')
     let validity_end = idCardInfo.endDateDesc.replace(/-/g, '.')
     let formData = this.data.formData
-    formData.passport_reverse = infos.file
+    formData.passport_reverse.loading = false
+    formData.passport_reverse.hasUpload = true
+    formData.passport_reverse = Object.assign(formData.passport_reverse, infos.file)
     formData.validity_start = validity_start
     formData.validity_end = validity_end
     this.setData({formData}, () => this.bindBtnStatus())

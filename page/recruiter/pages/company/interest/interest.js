@@ -54,6 +54,9 @@ Page({
       }
     })
   },
+  call() {
+    wx.makePhoneCall({phoneNumber: app.globalData.telePhone})
+  },
   /**
    * @Author   小书包
    * @DateTime 2019-01-21
