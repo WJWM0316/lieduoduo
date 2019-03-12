@@ -48,14 +48,14 @@
 				</view>
 				<view class="key3">已邀约{{infos.rDayInviteInterviewUsed}}人</view>
 			</view>
-			<!-- <view class="li">
+			<view class="li">
 				<view class="key1">每日查看简历上限</view>
 				<view class="key2">
 					<block wx:if="{{infos.rDayBrowseResume !== -1}}"><text>{{infos.rDayBrowseResume}}</text>份</block>
 					<block wx:else><text class="chine">不限</text></block>
 				</view>
-				<view class="key3">已查看简历{{infos.rDayBrowseResumeUsed}}份</view>
-			</view> -->
+				<view class="key3"><!-- 已查看简历{{infos.rDayBrowseResumeUsed}}份 --></view>
+			</view>
 		</view>
 		<view class="contact">
 			<view class="tips">了解更多招聘权益，欢迎联系我们</view>
