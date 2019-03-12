@@ -384,8 +384,9 @@
 				{
 					"id": 56,
 					"name": "我感兴趣",
-					"pathName": "page/applicant/pages/test/test",
-					"query": ""
+					"pathName": "page/applicant/pages/jobs/like/like",
+					"query": "",
+					"scene": null
 				},
 				{
 					"id": 57,

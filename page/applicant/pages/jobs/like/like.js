@@ -15,6 +15,7 @@ Page({
     onBottomStatus: 0,
     tab: 'positionList',
     navH: app.globalData.navHeight,
+    cdnImagePath: app.globalData.cdnImagePath,
     pageCount: 8,
     positionList: {
       list: [],
@@ -30,7 +31,19 @@ Page({
     }
   },
   onShow() {
-    this.getLists()
+    const positionList = {
+      list: [],
+      pageNum: 1,
+      isLastPage: false,
+      isRequire: false
+    }
+    const recruiterList = {
+      list: [],
+      pageNum: 1,
+      isLastPage: false,
+      isRequire: false
+    }
+    this.setData({positionList, recruiterList}, () => this.getLists())
   },
   /**
    * @Author   小书包
@@ -82,60 +95,6 @@ Page({
       })
     })
   },
-  /**
-   * @Author   小书包
-   * @DateTime 2019-02-28
-   * @detail   删除职位
-   * @return   {[type]}     [description]
-   */
-  deletePosition(e) {
-    const params = e.currentTarget.dataset
-    let positionList = this.data.positionList
-    app.wxConfirm({
-      title: '删除该记录',
-      content: '确定删除该条收藏记录？',
-      showCancel: true,
-      cancelText: '取消',
-      confirmText: '确定',
-      cancelColor: '#BCBCBC',
-      confirmColor: '#652791',
-      confirmBack: () => {
-        const item = positionList.list.find((item, index, arr) => index === params.index)
-        positionList.list.splice(params.index, 1)
-        this.setData({positionList: {}})
-        deleteMycollectPositionApi({id: item.id}).then(res => {
-          this.setData({positionList}, () => app.wxToast({title: '删除成功'}))
-        })
-      }
-    })
-  },
-  /**
-   * @Author   小书包
-   * @DateTime 2019-02-28
-   * @detail   删除招聘官
-   * @return   {[type]}     [description]
-   */
-  deleteRecruiter(e) {
-    const params = e.currentTarget.dataset
-    let recruiterList = this.data.recruiterList
-    app.wxConfirm({
-      title: '删除该记录',
-      content: '确定删除该条收藏记录？',
-      showCancel: true,
-      cancelText: '取消',
-      confirmText: '确定',
-      cancelColor: '#BCBCBC',
-      confirmColor: '#652791',
-      confirmBack: () => {
-        const item = recruiterList.list.find((item, index, arr) => index === params.index)
-        recruiterList.list.splice(params.index, 1)
-        this.setData({recruiterList: {}})
-        deleteMyCollectUserApi({uid: item.uid}).then(() => {
-          this.setData({recruiterList}, () => app.wxToast({title: '删除成功'}))
-        })
-      }
-    })
-  },
   onClickTab(e) {
     const tab = e.currentTarget.dataset.tab
     this.setData({tab}, () => {
@@ -178,11 +137,16 @@ Page({
       this.getLists(false)
     }
   },
-  jump() {
+  routeJump(e) {
+    let params = e.currentTarget.dataset
+    // console.log(params);return;
     if(this.data.tab === 'positionList') {
-      wx.switchTab({url: `${APPLICANT}jobs/job/job`})
+      wx.navigateTo({url: `${COMMON}positionDetail/positionDetail?positionId=${params.positionid}`})
     } else {
-      wx.navigateTo({url: `${APPLICANT}officerActive/more/more`})
+      wx.navigateTo({url: `${COMMON}recruiterDetail/recruiterDetail`})
     }
+  },
+  formSubmit(e) {
+    app.postFormId(e.detail.formId)
   }
 })
