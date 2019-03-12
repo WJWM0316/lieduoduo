@@ -76,7 +76,7 @@ Page({
   getOthersInfo() {
     return new Promise((resolve, reject) => {
       let identity = wx.getStorageSync('choseType')
-      getOtherResumeApi({uid: this.data.options.uid}).then(res => {
+      getOtherResumeApi({uid: this.data.options.uid, sCode: this.data.options.sCode}).then(res => {
         this.setData({info: res.data, isOwner: res.data.isOwner && identity === 'APPLICANT', realIsOwner: res.data.isOwner}, function() {
           if (this.data.isOwner) {
             app.globalData.resumeInfo = res.data
@@ -189,7 +189,7 @@ Page({
 　　return app.wxShare({
       options,
       title: shareResume(),
-      path: `${COMMON}resumeDetail/resumeDetail?uid=${this.data.options.uid}`,
+      path: `${COMMON}resumeDetail/resumeDetail?uid=${this.data.options.uid}&sCode=${this.data.info.sCode}`,
       imageUrl: `${that.data.cdnImagePath}shareB.png`
     })
   }

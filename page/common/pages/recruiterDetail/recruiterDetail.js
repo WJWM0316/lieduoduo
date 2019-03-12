@@ -57,7 +57,7 @@ Page({
   getOthersInfo() {
     let identity = wx.getStorageSync('choseType')
     return new Promise((resolve, reject) => {
-      getOthersRecruiterDetailApi({uid: this.data.options.uid}).then(res => {
+      getOthersRecruiterDetailApi({uid: this.data.options.uid, sCode: this.data.options.sCode}).then(res => {
         let isOwner = res.data.isOwner && identity === 'RECRUITER' ? true : false
         this.setData({info: res.data, isOwner, realIsOwner: res.data.isOwner}, function() {
           if(this.selectComponent('#interviewBar')) this.selectComponent('#interviewBar').init()
@@ -269,7 +269,7 @@ Page({
 　　return app.wxShare({
       options,
       title: shareRecruiter(),
-      path: `${COMMON}recruiterDetail/recruiterDetail?uid=${this.data.options.uid}`,
+      path: `${COMMON}recruiterDetail/recruiterDetail?uid=${this.data.options.uid}&sCode=${this.data.info.sCode}`,
       imageUrl: recruiterCard
     })
   },

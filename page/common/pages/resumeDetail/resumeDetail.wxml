@@ -1,7 +1,7 @@
 <!--求职者个人简历页-->
 <!-- 加载过滤器 -->
 <wxs src="../../../../utils/filters.wxs" module="filters" />
-<navbar title="简历详情" background="#FFFFFF" color="#22292C" showHome="{{true}}"></navbar>
+<!-- <navbar title="简历详情" background="#FFFFFF" color="#22292C" showHome="{{true}}"></navbar> -->
 <view hidden="{{!hasReFresh}}">
   <refreshStatus></refreshStatus>
 </view>

@@ -196,7 +196,7 @@ Page({
    */
   getCompanyDetail() {
     return new Promise((resolve, reject) => {
-      getCompanyInfosApi({id: this.data.query.companyId}).then(res => {
+      getCompanyInfosApi({id: this.data.query.companyId, sCode: this.data.query.sCode}).then(res => {
         const companyInfos = res.data
         const longitude = companyInfos.address.length ? companyInfos.address[0].lng : 0
         const latitude = companyInfos.address.length ? companyInfos.address[0].lat : 0
@@ -342,7 +342,7 @@ Page({
 　　return app.wxShare({
       options,
       title: `${that.data.companyInfos.companyShortname}正在招聘，马上约面，极速入职！我在猎多多等你！`,
-      path: `${COMMON}homepage/homepage?companyId=${this.data.query.companyId}`,
+      path: `${COMMON}homepage/homepage?companyId=${this.data.query.companyId}&sCode=${this.data.companyInfos.sCode}`,
       imageUrl: `${that.data.cdnImagePath}shareC.png`
     })
   }
