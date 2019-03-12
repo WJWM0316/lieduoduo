@@ -73,7 +73,7 @@ Page({
         this.setData({isRecruiter: app.globalData.isRecruiter})
       }
     }
-    return getPositionApi({id: this.data.query.positionId, scode: this.data.query.scode})
+    return getPositionApi({id: this.data.query.positionId, sCode: this.data.query.sCode})
       .then(res => {
         this.setData({
           detail: res.data, 
@@ -196,7 +196,7 @@ Page({
 　　return app.wxShare({
       options,
       title: sharePosition(),
-      path: `${COMMON}positionDetail/positionDetail?positionId=${that.data.query.positionId}&scode=${this.data.detail.scode}`,
+      path: `${COMMON}positionDetail/positionDetail?positionId=${that.data.query.positionId}&sCode=${this.data.detail.sCode}`,
       imageUrl: positionCard
     })
   }

@@ -20,10 +20,9 @@ export const request = ({method = 'post', url, host, data = {}, needKey = true, 
   }
 
   // 如果连接带参数scode, 则存到头部
-  if (data.scode) {
-    addHttpHead['act_code'] = data.scode
+  if (data.sCode) {
+    addHttpHead['act_code'] = data.sCode
     addHttpHead['act_pid'] = data.id || data.uid
-    delete data.scode
   } else {
     delete addHttpHead['act_code']
     delete addHttpHead['act_pid']
