@@ -63,7 +63,7 @@ Page({
       let applyJoin = false
 
       if(infos.applyJoin) {
-        formData.real_name = infos.realName || ''
+        formData.real_name = infos.realName || infos.companyInfo.realName || ''
         formData.identity_num = infos.identityNum || ''
         applyJoin = true
       } else {
