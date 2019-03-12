@@ -42,8 +42,8 @@
 			"list": [
 				{
 					"id": 0,
-					"name": "test测试页面",
-					"pathName": "page/common/pages/test/test",
+					"name": "startPage测试页面",
+					"pathName": "page/common/pages/startPage/startPage",
 					"query": ""
 				},
 				{

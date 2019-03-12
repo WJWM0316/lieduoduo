@@ -39,7 +39,8 @@
     "page/applicant/pages/center/attachment/attachment",
     "page/applicant/pages/jobs/like/like",
     "page/applicant/pages/test/test",
-    "page/common/pages/poster/exPosition/exPosition"
+    "page/common/pages/poster/exPosition/exPosition",
+    "page/common/pages/startPage/startPage"
   ],
   "window": {
     "navigationBarTextStyle": "black",
