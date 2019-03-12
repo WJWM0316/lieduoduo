@@ -12,7 +12,23 @@
 	<!-- 创建公司 start -->
 	<view class="header" wx:if="{{!identityInfos.applyJoin && options.from !== 'identity'}}">
 
-		<image src="{{cdnImagePath}}pic_await.png" mode="scaleToFill" class="default-status"></image>
+		<image
+			src="{{cdnImagePath}}pic_await001.png"
+			mode="scaleToFill"
+			class="default-status"
+			wx:if="{{companyInfos.status === 0}}"></image>
+		
+		<image
+			src="{{cdnImagePath}}pic_defeated001.png"
+			mode="scaleToFill"
+			class="default-status"
+			wx:if="{{companyInfos.status === 2}}"></image>
+		
+		<image 
+		src="{{cdnImagePath}}pic_succeed001.png" 
+		mode="scaleToFill" 
+		class="default-status"
+		wx:if="{{companyInfos.status === 1}}"></image>
 
 		<block wx:if="{{companyInfos.status === 0}}">
 			<view class="h1">公司认证审核中</view>
@@ -51,7 +67,16 @@
 	
 	<!-- 身份认证 start -->
 	<view class="header" wx:if="{{options.from === 'identity'}}">
-		<image src="{{cdnImagePath}}pic_await.png" mode="scaleToFill" class="default-status"></image>
+		<image
+			src="{{cdnImagePath}}pic_await001.png"
+			mode="scaleToFill"
+			class="default-status"
+			wx:if="{{identityInfos.status === 0}}"></image>
+		<image
+			src="{{cdnImagePath}}pic_defeated001.png"
+			mode="scaleToFill"
+			class="default-status"
+			wx:if="{{identityInfos.status === 2}}"></image>
 
 		<block wx:if="{{identityInfos.status === 0}}">
 			<view class="h1">实名认证审核中</view>
@@ -67,7 +92,7 @@
 			</view>
 		</block>
 
-		<block wx:else>
+<!-- 		<block wx:else>
 			<view class="h1">公司认证审核已通过</view>
 			<view class="p3">{{companyInfos.companyName}}</view>
 			<view class="p4">审核已通过，马上去招聘吧</view>
@@ -83,13 +108,22 @@
 				</view>
 			</view>
 		</block>
-
+ -->
 	</view>
 	<!-- 身份认证 end -->
 
 	<!-- 申请加入 start -->
 	<view class="header" wx:if="{{identityInfos.applyJoin && options.from !== 'identity'}}">
-		<image src="{{cdnImagePath}}pic_await.png" mode="scaleToFill" class="default-status"></image>
+		<image
+			src="{{cdnImagePath}}pic_await001.png"
+			mode="scaleToFill"
+			class="default-status"
+			wx:if="{{companyInfos.status === 0}}"></image>
+		<image
+			src="{{cdnImagePath}}pic_defeated001.png"
+			mode="scaleToFill"
+			class="default-status"
+			wx:if="{{companyInfos.status === 2}}"></image>
 
 		<block wx:if="{{companyInfos.status === 0}}">
 			<view class="h1">加入公司申请审核中</view>

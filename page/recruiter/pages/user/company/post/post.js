@@ -123,6 +123,7 @@ Page({
     const formData = this.data.formData
     formData.company_shortname = e.detail.value
     this.setData({formData}, () => this.bindBtnStatus())
+    console.log(this.data)
   },
   /**
    * @Author   小书包

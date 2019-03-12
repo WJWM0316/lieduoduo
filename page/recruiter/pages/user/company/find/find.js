@@ -111,8 +111,6 @@ Page({
     let storage = wx.getStorageSync('createdCompany') || {}
     let options = this.data.options
     let infos = this.data.infos
-    storage.company_name = this.data.formData.company_name
-    wx.setStorageSync('createdCompany', Object.assign(storage, this.data.formData))
 
     // 加入公司流程
     if(infos.exist) {
@@ -132,9 +130,9 @@ Page({
     // 创建公司流程
     this.setData({showMaskBox: false}, () => {
       if(options.action && options.action === 'edit') {
-        // 加入公司过程中过来 从新选择一个公司 可能不存在 应该是新建流程
-        if(!infos.exist) {
-          wx.navigateTo({url: `${RECRUITER}user/company/post/post`})
+        console.log(storage, 'dddddddd')
+        // 加入公司过程中过来 从新创建一个公司 应该是新建流程
+        if(!infos.exist && storage.company_name !== this.data.formData.company_name) {
           storage.company_shortname = ''
           storage.logo = {}
           storage.business_license = {}
@@ -145,11 +143,16 @@ Page({
           storage.employees = 0
           storage.company_shortname = ''
           storage.intro = ''
+          storage.company_name = this.data.formData.company_name
           wx.setStorageSync('createdCompany', storage)
+          wx.navigateTo({url: `${RECRUITER}user/company/post/post`})
           return;
+        } else {
+          wx.navigateTo({url: `${RECRUITER}user/company/post/post?action=edit`})
         }
-        wx.navigateTo({url: `${RECRUITER}user/company/post/post?action=edit`})
       } else {
+        storage.company_name = this.data.formData.company_name
+        wx.setStorageSync('createdCompany', Object.assign(storage, this.data.formData))
         wx.navigateTo({url: `${RECRUITER}user/company/post/post`})
       }
     })

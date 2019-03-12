@@ -85,8 +85,17 @@ Page({
         this.setData({identityInfos: infos, companyInfos, pageTitle}, () => {
           resolve(res)
           wx.stopPullDownRefresh()
-          // 认证通过 重新那一次招聘管的数据
-          if(companyInfos.status === 1) app.getAllInfo()
+          
+          // 申请加入公司 通过则回到首页 守则停留在此页面 让招聘官手动点击跳转
+          if(companyInfos.status === 1) {
+            if(infos.applyJoin) {
+              app.getAllInfo().then(() => {
+                wx.reLaunch({url: `${RECRUITER}index/index`})
+              })
+            } else {
+              app.getAllInfo()
+            }
+          }
         })
       })
     })
@@ -101,7 +110,16 @@ Page({
 
       // 公司验证已经通过
       if(companyInfos.status === 1 && this.data.options.from !== 'identity') {
-        app.getAllInfo()
+
+        // 申请加入公司 通过则回到首页 守则停留在此页面 让招聘官手动点击跳转
+        if(infos.applyJoin) {
+          app.getAllInfo().then(() => {
+            wx.reLaunch({url: `${RECRUITER}index/index`})
+          })
+        } else {
+          app.getAllInfo()
+        }
+
         return;
       }
 
