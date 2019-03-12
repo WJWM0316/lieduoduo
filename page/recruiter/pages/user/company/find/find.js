@@ -117,10 +117,12 @@ Page({
       if(options.action && options.action === 'edit') {
         // 创建公司过程中过来 从新选择一个公司加入
         if(infos.exist) {
-          this.applyCompany()
-          return;
+          if(storage.company_name !== this.data.formData.company_name) {
+            this.applyCompany()
+          } else {
+            this.editApplyCompany()
+          }
         }
-        this.editApplyCompany()
       } else {
         this.applyCompany()
       }
