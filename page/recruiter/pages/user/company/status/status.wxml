@@ -173,7 +173,7 @@
 	<view class="section" wx:if="{{(companyInfos.status !== 1 || identityInfos.status !== 1) && (options.from === 'identity' || !identityInfos.applyJoin)}}">
 		<view class="title">
 			<view class="label">您的身份信息</view>
-			<view class="jump" bindtap="todoAction" data-action="identity" wx:if="{{!identityInfos.applyJoin && identityInfos.status !== 1}}">申请信息有误？去更改</view>
+			<view class="jump" bindtap="todoAction" data-action="identity" wx:if="{{(!identityInfos.applyJoin && identityInfos.status !== 1) || (options.from === 'identity' && identityInfos.status !== 1)}}">申请信息有误？去更改</view>
 		</view>
 		<view class="ul">
 			<view class="li">
