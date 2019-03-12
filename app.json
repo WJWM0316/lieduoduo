@@ -1,6 +1,5 @@
 {
   "pages": [
-    "page/applicant/pages/index/index",
     "page/common/pages/startPage/startPage",
     "page/common/pages/poster/position/position",
     "page/common/pages/poster/resume/resume",
