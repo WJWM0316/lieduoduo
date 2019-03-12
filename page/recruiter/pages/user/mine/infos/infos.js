@@ -15,8 +15,10 @@ Page({
     recruiterInfo: {},
     isRecruiter: app.globalData.isRecruiter,
     cdnPath: app.globalData.cdnImagePath,
+    navH: app.globalData.navHeight,
     hasReFresh: false,
     pageInfos: {},
+    navbarBg: 'transparent',
     telePhone: app.globalData.telePhone
   },
   onLoad() {
@@ -116,7 +118,14 @@ Page({
   getCreatedImg(e) {
     recruiterCard = e.detail
   },
-
+  onPageScroll(e) {
+    let isFixed = e.scrollTop > this.data.navH
+    if(e.scrollTop > this.data.navH - 5) {
+      if (this.data.navbarBg === 'transparent') this.setData({navbarBg: '#652791'})
+    } else {
+      if (this.data.navbarBg !== 'transparent') this.setData({navbarBg: 'transparent'})
+    }
+  },
   onShareAppMessage(options) {
     let that = this
 　　return app.wxShare({

@@ -204,10 +204,6 @@
   padding: 0 30rpx 112rpx 30rpx;
 }
 
-.recruiter-interview {
-  padding-bottom: 122rpx;
-}
-
 .fixed-dom {
   position: fixed;
   left: 0;

@@ -190,5 +190,5 @@
 		<!-- <commonList personality="list" type="dateList" list="{{interviewData.list}}" list-type="interview}}"></commonList> -->
 		<bottomStatus status="{{interviewBottomStatus}}" listData="{{interviewData.list}}"></bottomStatus>
 	</view>
-
+	<tabBar></tabBar>
 </view>

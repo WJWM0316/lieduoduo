@@ -1,6 +1,6 @@
 <!-- 加载过滤器 -->
 <wxs src="../../../../../utils/filters.wxs" module="filters" />
-
+<view class="positionList">
 <navbar title="职位管理"></navbar>
 <view style="height: 98rpx"></view>
 <view class="office-status-bar" style="top:{{navH}}px">
@@ -71,4 +71,4 @@
 </view>
 </form>
 <tab-bar tabType="1"></tab-bar>
-<view style="height: 98rpx"></view>
+</view>

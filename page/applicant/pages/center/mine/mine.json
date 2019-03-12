@@ -3,6 +3,7 @@
 	"backgroundTextStyle": "light",
   "usingComponents": {
   	"canvasCard": "../../../../../components/business/canvasCard/canvasCard",
+  	"tabBar": "../../../../components/business/tabBar/tabBar",
     "bindPhone": "../../../../components/functional/bindPhone/bindPhone",
     "navbar": "../../../../../components/business/navbar/navbar"  
   }

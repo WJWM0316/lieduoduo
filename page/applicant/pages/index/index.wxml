@@ -37,4 +37,5 @@
 
   <bindPhone wx:if="{{needLogin}}"></bindPhone>
   <choose wx:if="{{!choseType}}"></choose>
+  <tabBar></tabBar>
 </view>

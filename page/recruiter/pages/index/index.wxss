@@ -7,7 +7,7 @@
 }
 
 .index-list-box {
-  transform: translateY(-130rpx);
+  margin-top: -130rpx;
 }
 
 .default {

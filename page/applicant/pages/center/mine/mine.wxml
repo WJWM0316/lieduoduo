@@ -100,4 +100,5 @@
 	</view> -->
   </form>
 </view>
+<tabBar></tabBar>
 <bindPhone hide="{{hideBind}}"></bindPhone>

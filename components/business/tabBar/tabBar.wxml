@@ -13,4 +13,4 @@
 	</view>
 	<view class="viewBlock" wx:if="{{isIphoneX}}"></view>
 </view>
-<!-- <view class="viewBlock" wx:if="{{isIphoneX}}"></view> -->
+<view class="extraBlock {{isIphoneX ? 'extraIphoneX' : ''}}"></view>

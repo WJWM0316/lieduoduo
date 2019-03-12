@@ -1,6 +1,8 @@
-
+.center {
+	position: relative;
+}
 .top-banner {
-	position: fixed;
+	position: absolute;
 	left: 0;
 	top: 0;
 	width: 100%;
@@ -14,16 +16,13 @@
 
 .page-mine {
 	position: relative;
-	padding-bottom: 98rpx;
 	margin: 0 30rpx;
-	/*background: #FBFBFF;*/
 }
 
 .floating-box {
 	overflow: hidden;
 	background:white;
 	border-radius:10rpx;
-	margin: 24rpx auto;
 	box-sizing: border-box;
 	padding: 48rpx 40rpx 40rpx 40rpx;
 	background:rgba(255,255,255,1);

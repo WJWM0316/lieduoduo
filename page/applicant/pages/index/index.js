@@ -244,15 +244,15 @@ Page({
   onPageScroll(e) {
     let isFixed = e.scrollTop > this.data.navH
     if(e.scrollTop > this.data.navH - 5) {
-      this.setData({isFixed: true, background: '#652791'})
+      if (!this.data.isFixed) this.setData({isFixed: true, background: '#652791'})
     } else {
-      this.setData({isFixed: false, background: 'transparent'})
+      if (this.data.isFixed) this.setData({isFixed: false, background: 'transparent'})
     }
 
     if(e.scrollTop > this.data.fixedDomPosition) {
-      this.setData({fixedDom: true})
+      if (!this.data.fixedDom) this.setData({fixedDom: true})
     } else {
-      this.setData({fixedDom: false})
+      if (this.data.fixedDom) this.setData({fixedDom: false})
     }
   }
 })

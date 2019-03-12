@@ -1,7 +1,6 @@
 .office-manager-list {
   overflow: hidden;
   padding: 0 30rpx;
-  margin-bottom: 18rpx;
   margin-top: 24rpx;
 }
 
@@ -90,6 +89,7 @@
   box-shadow:0rpx 11rpx 30rpx 0rpx rgba(153,193,214,0.08);
   position: fixed;
   left: 0;
+  z-index: 1;
 }
 
 .office-status-bar::after{

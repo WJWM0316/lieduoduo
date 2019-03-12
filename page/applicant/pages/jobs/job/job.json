@@ -3,6 +3,7 @@
 	"backgroundTextStyle": "light",
   "usingComponents": {
     "jobList": "../../../../components/business/jobList/jobList",
+    "tabBar": "../../../../components/business/tabBar/tabBar",
     "myPicker": "../../../../components/functional/myPicker/myPicker",
     "navbar": "../../../../components/business/navbar/navbar"
   }

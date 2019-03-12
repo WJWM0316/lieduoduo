@@ -17,7 +17,7 @@ Component({
    * 组件的初始数据
    */
   data: {
-    list: [
+    recruiterList: [
       {
         title: '首页',
         iconPath: `${cdnImagePath}tab_home_nor@3x.png`,
@@ -47,10 +47,40 @@ Component({
         path: `${RECRUITER}user/mine/infos/infos`
       }
     ],
+    applicantList: [
+      {
+        title: '首页',
+        iconPath: `${cdnImagePath}tab_home_nor@3x.png`,
+        selectedIconPath: `${cdnImagePath}tab_home_sel@3x.png`,
+        active: true,
+        path: `${APPLICANT}index/index`
+      },
+      {
+        title: '职位机会',
+        iconPath: `${cdnImagePath}tab_job_nor@3x.png`,
+        selectedIconPath: `${cdnImagePath}tab_job_sel@3x.png`,
+        active: false,
+        path: `${APPLICANT}jobs/job/job`
+      },
+      {
+        title: '面试',
+        iconPath: `${cdnImagePath}tab_interview_nor@3x.png`,
+        selectedIconPath: `${cdnImagePath}tab_interview_sel@3x.png`,
+        active: false,
+        path: `${APPLICANT}interview/interview/interview`
+      },
+      {
+        title: '我的',
+        iconPath: `${cdnImagePath}tab_me_nor@3x.png`,
+        selectedIconPath: `${cdnImagePath}tab_me_sel@3x.png`,
+        active: false,
+        path: `${APPLICANT}center/mine/mine`
+      }
+    ],
     isIphoneX: app.globalData.isIphoneX
   },
   attached() {
-    const list = this.data.list
+    const list = !this.data.tabType  ? this.data.applicantList : this.data.recruiterList
     const currentRoute = '/' + getCurrentPages()[getCurrentPages().length - 1].route
     list.map(field => field.active = field.path === currentRoute ? true : false)
     this.setData({ list })
@@ -60,7 +90,6 @@ Component({
    */
   methods: {
     toggle(e) {
-
       wx.reLaunch({
         url: e.target.dataset.path,
         success: () => wx.removeStorageSync('companyInfos')
