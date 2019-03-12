@@ -17,7 +17,7 @@
 		  	<view class="upload-box">
 			    <unloadFile bindresultEvent="upload_front"  bindbeforeUpload="beforeUpload" bindfailUpload="failUpload" unloadType="img" data-type="passport_front" cardInfo="{{cardInfo_front}}">
 			    	<image src="{{cdnImagePath}}pic_identitycard_01.png" mode="scaleToFill" class="default-image"></image>
-			    	<image src="{{formData.passport_front.url}}" mode="scaleToFill" class="upload-image"></image>
+			    	<image src="{{formData.passport_front.url}}" wx:if="{{formData.passport_front.url}}" mode="scaleToFill" class="upload-image"></image>
 					  <view class="upload-button">{{formData.passport_front.url ? '重新上传' : '点击上传'}}</view>
 					</unloadFile>
 					<view class="mask" wx:if="{{formData.passport_front.loading}}">上传识别中..</view>
@@ -44,7 +44,7 @@
 		  	<view class="upload-box">
 			    <unloadFile bindresultEvent="upload_back" unloadType="img" data-type="passport_reverse" cardInfo="{{cardInfo_back}}" bindbeforeUpload="beforeUpload" bindfailUpload="failUpload">
 			    	<image src="{{cdnImagePath}}pic_identitycard_02.png" mode="scaleToFill" class="default-image"></image>
-			    	<image src="{{formData.passport_reverse.url}}" mode="scaleToFill" class="upload-image"></image>
+			    	<image src="{{formData.passport_reverse.url}}" wx:if="{{formData.passport_reverse.url}}" mode="scaleToFill" class="upload-image"></image>
 					  <view class="upload-button">{{formData.passport_reverse.url ? '重新上传' : '点击上传'}}</view>
 					</unloadFile>
 					<view class="mask" wx:if="{{formData.passport_reverse.loading}}">上传识别中..</view>

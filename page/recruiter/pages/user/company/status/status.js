@@ -30,11 +30,7 @@ Page({
     
   	switch(params.action) {
   		case 'identity':
-        if(options.from === 'identity') {
-          wx.navigateTo({url: `${RECRUITER}user/company/identity/identity?from=identity`})
-        } else {
-          wx.navigateTo({url: `${RECRUITER}user/company/identity/identity`})
-        }
+        wx.navigateTo({url: `${RECRUITER}user/company/identity/identity?from=identity`})
   			break
   		case 'modifyCompany':
   			wx.navigateTo({url: `${RECRUITER}user/company/apply/apply?action=edit`})
@@ -88,10 +84,8 @@ Page({
           
           // 申请加入公司 通过则回到首页 守则停留在此页面 让招聘官手动点击跳转
           if(companyInfos.status === 1) {
-            if(infos.applyJoin) {
-              app.getAllInfo().then(() => {
-                wx.reLaunch({url: `${RECRUITER}index/index`})
-              })
+            if(infos.applyJoin && infos.identityAuth === 1) {
+              app.getAllInfo().then(() => wx.reLaunch({url: `${RECRUITER}index/index`}))
             } else {
               app.getAllInfo()
             }

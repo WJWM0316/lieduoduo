@@ -6,7 +6,7 @@
 	<view class="header" wx:if="{{infos.status}}">
 		<image src="{{cdnImagePath}}pic_await.png" mode="scaleToFill" class="default-status"></image>
 		<view class="status-txt">审核处理成功</view>
-		<view class="time">审核时间：2019-10-27 01:11</view>
+		<view class="time">审核时间：{{infos.updatedAt}}</view>
 	</view>
 	<view class="box">
 		<view class="title">申请信息</view>

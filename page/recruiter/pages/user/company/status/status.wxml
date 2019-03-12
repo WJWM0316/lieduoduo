@@ -137,72 +137,68 @@
 	</view>
 	<!-- 申请加入 end -->
 
-	<block wx:if="{{(companyInfos.status !== 1 || identityInfos.status !== 1) && !identityInfos.applyJoin}}">
-
-		<view class="section" wx:if="{{options.from !== 'identity'}}">
-			<view class="title">
-				<view class="label">您的公司信息</view>
-				<view class="jump" bindtap="todoAction" data-action="modifyCompany">申请信息有误？去更改</view>
+	<view class="section" wx:if="{{(companyInfos.status !== 1 || identityInfos.status !== 1) && !identityInfos.applyJoin }}">
+		<view class="title">
+			<view class="label">您的公司信息</view>
+			<view class="jump" bindtap="todoAction" data-action="modifyCompany">申请信息有误？去更改</view>
+		</view>
+		<view class="ul">
+			<view class="li">
+				<view class="key">公司全称</view>
+				<view class="value">{{companyInfos.companyName}}</view>
 			</view>
-			<view class="ul">
-				<view class="li">
-					<view class="key">公司全称</view>
-					<view class="value">{{companyInfos.companyName}}</view>
-				</view>
-				<view class="li">
-					<view class="key">公司简称</view>
-					<view class="value">{{companyInfos.companyShortname}}</view>
-				</view>
-				<view class="li">
-					<view class="key">所属行业</view>
-					<view class="value">{{companyInfos.industry}}</view>
-				</view>
-				<view class="li">
-					<view class="key">融资阶段</view>
-					<view class="value">{{companyInfos.financingInfo}}</view>
-				</view>
-				<view class="li">
-					<view class="key">人员规模</view>
-					<view class="value">{{companyInfos.employeesInfo}}</view>
-				</view>
-				<view class="li">
-					<view class="key">认证资料</view>
-					<view class="value">{{companyInfos.businessLicense ? '已上传' : '未上传'}}</view>
-				</view>
+			<view class="li">
+				<view class="key">公司简称</view>
+				<view class="value">{{companyInfos.companyShortname}}</view>
+			</view>
+			<view class="li">
+				<view class="key">所属行业</view>
+				<view class="value">{{companyInfos.industry}}</view>
+			</view>
+			<view class="li">
+				<view class="key">融资阶段</view>
+				<view class="value">{{companyInfos.financingInfo}}</view>
+			</view>
+			<view class="li">
+				<view class="key">人员规模</view>
+				<view class="value">{{companyInfos.employeesInfo}}</view>
+			</view>
+			<view class="li">
+				<view class="key">认证资料</view>
+				<view class="value">{{companyInfos.businessLicense ? '已上传' : '未上传'}}</view>
 			</view>
 		</view>
+	</view>
 
-		<view class="section">
-			<view class="title">
-				<view class="label">您的身份信息</view>
-				<view class="jump" bindtap="todoAction" data-action="identity">申请信息有误？去更改</view>
+	<view class="section" wx:if="{{(companyInfos.status !== 1 || identityInfos.status !== 1) && (options.from === 'identity' || !identityInfos.applyJoin)}}">
+		<view class="title">
+			<view class="label">您的身份信息</view>
+			<view class="jump" bindtap="todoAction" data-action="identity">申请信息有误？去更改</view>
+		</view>
+		<view class="ul">
+			<view class="li">
+				<view class="key">姓名</view>
+				<view class="value">{{identityInfos.realName}}</view>
 			</view>
-			<view class="ul">
-				<view class="li">
-					<view class="key">姓名</view>
-					<view class="value">{{identityInfos.realName}}</view>
-				</view>
-				<view class="li">
-					<view class="key">身份证号</view>
-					<view class="value">{{filters.encryptId(identityInfos.identityNum, 1, 1)}}</view>
-				</view>
-				<view class="li" wx:if="{{identityInfos.validityStart}}">
-					<view class="key">身份证有效期</view>
-					<view class="value">{{identityInfos.validityStart}} - {{identityInfos.validityEnd}}</view>
-				</view>
-				<view class="li">
-					<view class="key">认证资料</view>
-					<view class="value">{{identityInfos.identityNum ? '已上传' : '未上传'}}</view>
-				</view>
-				<view class="li">
-					<view class="key">提交时间</view>
-					<view class="value">{{identityInfos.createdAt}}</view>
-				</view>
+			<view class="li">
+				<view class="key">身份证号</view>
+				<view class="value">{{filters.encryptId(identityInfos.identityNum, 1, 1)}}</view>
+			</view>
+			<view class="li" wx:if="{{identityInfos.validityStart}}">
+				<view class="key">身份证有效期</view>
+				<view class="value">{{identityInfos.validityStart}} - {{identityInfos.validityEnd}}</view>
+			</view>
+			<view class="li">
+				<view class="key">认证资料</view>
+				<view class="value">{{identityInfos.identityNum ? '已上传' : '未上传'}}</view>
+			</view>
+			<view class="li">
+				<view class="key">提交时间</view>
+				<view class="value">{{identityInfos.createdAt}}</view>
 			</view>
 		</view>
+	</view>
 
-	</block>
-	
 	<view class="section" wx:if="{{identityInfos.applyJoin && options.from !== 'identity'}}">
 		<view class="title">
 			<view class="label">您的申请</view>

@@ -44,10 +44,11 @@ Page({
   },
   onLoad(options) {
     this.setData({options})
-  },
-  onShow() {
     this.getCompanyIdentityInfos()
   },
+  // onShow() {
+  //   this.getCompanyIdentityInfos()
+  // },
   /**
    * @Author   小书包
    * @DateTime 2019-01-10
