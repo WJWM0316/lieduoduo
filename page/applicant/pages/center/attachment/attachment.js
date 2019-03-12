@@ -14,19 +14,8 @@ Page({
     hasReFresh: false
   },
   onLoad() {
-    const attachResume = app.globalData.resumeInfo.resumeAttach ? app.globalData.resumeInfo.resumeAttach : this.data.attachResume
+    const attachResume = app.globalData.resumeInfo.resumeAttach
     this.setData({attachResume})
-  },
-  /**
-   * @Author   小书包
-   * @DateTime 2019-01-28
-   * @detail   获取附件信息
-   * @return   {[type]}   [description]
-   */
-  getAttachResume() {
-    getAttachResumeApi().then(res => {
-      this.setData({attachResume: res.data})
-    })
   },
   /**
    * @Author   小书包
@@ -46,8 +35,9 @@ Page({
     })
   },
   preview() {
+    let that = this
     wx.downloadFile({
-      url: 'https://lieduoduo-uploads-test.oss-cn-shenzhen.aliyuncs.com/front-assets/file/111.pdf',
+      url: that.data.attachResume.url,
       success(res) {
         const filePath = res.tempFilePath
         wx.openDocument({

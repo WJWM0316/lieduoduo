@@ -8,6 +8,10 @@
 
 <view class="resumeDetail {{isOwner? '' : 'addpadding'}}" wx:if="{{info}}">
   <shareBtn wx:if="{{!isOwner}}"></shareBtn>
+  <view class="previewFile" wx:if="{{info.resumeAttach && !isOwner}}" bindtap="previewFile" data-file="{{info.resumeAttach.url}}">
+    <view class="fileName"><image class="fileIcon" src="{{cdnImagePath}}jianliIcon.png"></image><text>该候选人已上传附件简历</text></view>
+    <view class="previewBtn"><text>在线查看</text><i class="btnIcon iconfont icon-disejiantou-you"></i></view>
+  </view>
 <!-- 基本信息 -->
   <view class="personalInfo commentBox">
     <view class="top">

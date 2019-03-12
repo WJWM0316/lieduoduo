@@ -58,8 +58,11 @@ Page({
     swiperIndex: 0
   },
   onLoad(options) {
+    if (options.scene) {
+      let parames = app.getSceneParams(options.scene)
+      options.companyId = parames.cid
+    }
     this.setData({query: options})
-    
   },
   onShow() {
     if (app.loginInit) {

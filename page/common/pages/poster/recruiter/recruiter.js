@@ -1,6 +1,7 @@
 import {getPositionListApi} from '../../../../../api/pages/position.js'
 import {getRecruiterDetailApi} from '../../../../../api/pages/recruiter.js'
 import {ellipsis, lineFeed} from '../../../../../utils/canvas.js'
+import {getRecruiterQrcodeApi} from '../../../../../api/pages/qrcode.js'
 
 let app = getApp()
 let info = null
@@ -165,12 +166,12 @@ Page({
   onLoad: function (options) {
     let that = this
     info = app.globalData.recruiterDetails
-    wx.showLoading({
-      title: '正在生成...',
-    })
     getRecruiterDetailApi().then(res => {
       info = res.data
       Promise.all([loadAvatar, loadQrCode, getList]).then((result) => {
+        wx.showLoading({
+          title: '正在生成...',
+        })
         this.drawing(info, avatarUrl, qrCodeUrl)
       })
     })
@@ -209,17 +210,18 @@ Page({
     })
     let loadQrCode = new Promise((resolve, reject) => {
       // 二维码
-      wx.downloadFile({
-        url: info.recruiterQrCode,
-        success(res) {
-          qrCodeUrl = loadResult(res, resolve)
-        },
-        fail(e) {
-          app.wxToast({title: '图片加载失败，请重新生成', callback() {wx.navigateBack({ delta: 1 })}})
-        }
+      getRecruiterQrcodeApi().then(res => {
+        wx.downloadFile({
+          url: res.data.positionQrCodeUrl,
+          success(res) {
+            qrCodeUrl = loadResult(res, resolve)
+          },
+          fail(e) {
+            app.wxToast({title: '图片加载失败，请重新生成', callback() {wx.navigateBack({ delta: 1 })}})
+          }
+        })
       })
-    })
-    
+    })    
   },
 
   /**

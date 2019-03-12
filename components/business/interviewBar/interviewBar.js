@@ -68,7 +68,6 @@ Component({
   },
   methods: {
     init() {
-      console.log(2222222222222)
       this.getInterviewStatus()
       let currentPage = ''
       switch(this.data.type) {
@@ -94,7 +93,6 @@ Component({
      * @return   {[type]}   [description]
      */
     getInterviewStatus() {
-      console.log(1111111111111111111)
       getInterviewStatusApi({type: this.data.type, vkey: this.data.infos.vkey}).then(res => {
         this.setData({interviewInfos: res.data, identity: wx.getStorageSync('choseType')})
         if(res.code === 204) this.setData({isOwerner: true})

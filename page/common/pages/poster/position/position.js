@@ -1,4 +1,5 @@
 import {ellipsis, lineFeed} from '../../../../../utils/canvas.js'
+import {getPositionQrcodeApi} from '../../../../../api/pages/qrcode.js'
 import {agreedTxtB} from '../../../../../utils/randomCopy.js'
 let app = getApp()
 let info = null
@@ -211,7 +212,7 @@ Page({
     ctx.setFontSize(28)
     ctx.setFillStyle('#282828')
     if (!info.describe) info.describe = '你还未填写职位详情，快去填写吧~'
-    curHeight = lineFeed(ctx, info.describe, 590, 80, curHeight, `../../../../../images/c2.png`, 750, 100)
+    curHeight = lineFeed(ctx, info.describe, 570, 80, curHeight, `../../../../../images/c2.png`, 750, 100)
     ctx.drawImage(`../../../../../images/c4.png`, 0, curHeight - 200, 74, 92)
     ctx.drawImage(qrCodeUrl, 75, curHeight + 88, 170, 170)
     ctx.drawImage(`../../../../../images/canvas5.png`, 0, curHeight + 10, 750, 287)
@@ -245,9 +246,7 @@ Page({
   onLoad: function (options) {
     info = wx.getStorageSync('posterData')
     let that = this
-    wx.showLoading({
-      title: '正在生成...',
-    })
+    
     const loadResult = (res, resolve) => {
       let timer = null
       timer = setTimeout(() => {
@@ -280,7 +279,7 @@ Page({
     })
     let loadCompany = new Promise((resolve, reject) => {
       wx.downloadFile({
-        url:  info.companyInfo.logoInfo.smallUrl,
+        url: info.companyInfo.logoInfo.smallUrl,
         success(res) {
           companyUrl = loadResult(res, resolve)
           wx.getImageInfo({
@@ -297,18 +296,24 @@ Page({
       })
     })
     let loadQrCode = new Promise((resolve, reject) => {
-      // 二维码
-      wx.downloadFile({
-        url: info.positionQrCode,
-        success(res) {
-          qrCodeUrl = loadResult(res, resolve)
-        },
-        fail(e) {
-          app.wxToast({title: '图片加载失败，请重新生成', callback() {wx.navigateBack({ delta: 1 })}})
-        }
+      getPositionQrcodeApi({positionId: info.id}).then(res => {
+        // 二维码
+        wx.downloadFile({
+          url: res.data.positionQrCodeUrl,
+          success(res) {
+            qrCodeUrl = loadResult(res, resolve)
+          },
+          fail(e) {
+            app.wxToast({title: '图片加载失败，请重新生成', callback() {wx.navigateBack({ delta: 1 })}})
+          }
+        })
       })
+      
     })
     Promise.all([loadAvatar, loadCompany, loadQrCode]).then((result) => {
+      wx.showLoading({
+        title: '正在生成...',
+      })
       this.drawing (avatarUrl, companyUrl, qrCodeUrl)
     })
 
