@@ -8,7 +8,8 @@ Page({
   data: {
     cdnImagePath: app.globalData.cdnImagePath,
     infos: {},
-    recruiterInfo: {}
+    recruiterInfo: {},
+    telePhone: app.globalData.telePhone
   },
   onShow() {
     this.getPageInfos()
@@ -46,7 +47,7 @@ Page({
       cancelText: '取消',
       confirmText: '联系客服',
       confirmBack: () => {
-        wx.makePhoneCall({phoneNumber: '400-065-5788'})
+        wx.makePhoneCall({phoneNumber: app.globalData.telePhone})
       },
       cancelBack: () => {
         // wx.makePhoneCall({phoneNumber: '020-61279889'})

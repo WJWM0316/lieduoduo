@@ -2,12 +2,13 @@ const app = getApp()
 
 Component({
   data: {
-    showBindMobile: false
+    showBindMobile: false,
+    telePhone: app.globalData.telePhone
   },
   methods: {
     changeMobile() {
       wx.makePhoneCall({
-        phoneNumber: '020-61279889'
+        phoneNumber: app.globalData.telePhone
       })
     },
     hunterJob() {

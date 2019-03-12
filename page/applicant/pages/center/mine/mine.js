@@ -38,7 +38,7 @@ Page({
   },
   call() {
     wx.makePhoneCall({
-      phoneNumber: '020-61279889'
+      phoneNumber: app.globalData.telePhone
     })
   },
   formSubmit(e) {

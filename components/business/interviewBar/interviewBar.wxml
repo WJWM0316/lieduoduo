@@ -109,7 +109,7 @@
 				<view class="second">约你面试</view>
 			</view>
 			<view class="button-box">
-				<view class="reject" data-action="recruiter-reject" bindtap="todoAction">不合适</view>
+				<!-- <view class="reject" data-action="recruiter-reject" bindtap="todoAction">不合适</view> -->
 				<view class="accept" data-action="recruiter-accept" bindtap="todoAction">确认约面</view>
 			</view>
 		</block>

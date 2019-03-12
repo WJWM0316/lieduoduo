@@ -43,7 +43,7 @@
 }
 
 .ul .li .user-name {
-  max-width:500rpx;
+  max-width:314rpx;
   height:36rpx;
   font-size:36rpx;
   font-weight:600;
@@ -103,6 +103,10 @@
   font-weight:400;
   color:rgba(146,146,146,1);
   line-height:24rpx;
+}
+
+.ul .li .time.color {
+  color: #652791;
 }
 
 .ul .li .row-two text{

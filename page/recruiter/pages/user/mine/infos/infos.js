@@ -103,7 +103,7 @@ Page({
   },
   callPhone() {
     wx.makePhoneCall({
-      phoneNumber: '020-61279889' // 仅为示例，并非真实的电话号码
+      phoneNumber: app.globalData.telePhone // 仅为示例，并非真实的电话号码
     })
   },
   onPullDownRefresh(hasLoading = true) {
