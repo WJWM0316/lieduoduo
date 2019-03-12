@@ -105,11 +105,13 @@
 .ul .li .time {
   font-size:24rpx;
   font-weight:400;
-  color:#652791;
+  color:#BCBCBC;
   display: inline-block;
   float: right;
 }
-
+.ul .li .time.color {
+  color: #652791;
+}
 .ul .li .icon {
   color: #BACED8;
   margin-right: 16rpx;
