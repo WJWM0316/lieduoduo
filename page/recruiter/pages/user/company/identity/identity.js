@@ -63,12 +63,14 @@ Page({
       let applyJoin = false
 
       if(infos.applyJoin) {
-        formData.real_name = infos.realName || ''
+        // 身份姓名 > 加入公司填写的姓名
+        formData.real_name = infos.realName || infos.companyInfo.realName || ''
         formData.identity_num = infos.identityNum || ''
         applyJoin = true
       } else {
+        // 身份姓名 > 加入公司填写的姓名
         applyJoin = false
-        formData.real_name = infos.realName || ''
+        formData.real_name = infos.realName || infos.companyInfo.realName || ''
         formData.identity_num = infos.identityNum || ''
         formData.passport_front = infos.passportFrontInfo
         formData.passport_reverse = infos.passportReverseInfo
@@ -249,9 +251,9 @@ Page({
     let formData = this.getParams()
     identityCompanyApi(formData).then((res) => {
       if(this.data.options.from === 'identity') {
-        wx.redirectTo({url: `${RECRUITER}user/company/status/status?from=identity`})
+        wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=identity&showBack=1`})
       } else {
-        wx.redirectTo({url: `${RECRUITER}user/company/status/status`})
+        wx.redirectTo({url: `${RECRUITER}user/company/status/status?showBack=1`})
       }
     })
   },
@@ -265,9 +267,9 @@ Page({
     let formData = this.getParams()
     joinidentityApi(formData).then((res) => {
       if(this.data.options.from === 'identity') {
-        wx.redirectTo({url: `${RECRUITER}user/company/status/status?from=identity`})
+        wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=identity&showBack=1`})
       } else {
-        wx.redirectTo({url: `${RECRUITER}user/company/status/status`})
+        wx.redirectTo({url: `${RECRUITER}user/company/status/status?showBack=1`})
       }
     })
   },
@@ -281,9 +283,9 @@ Page({
     let formData = this.getParams()
     editCompanyIdentityInfosApi(formData).then((res) => {
       if(this.data.options.from === 'identity') {
-        wx.redirectTo({url: `${RECRUITER}user/company/status/status?from=identity`})
+        wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=identity&showBack=1`})
       } else {
-        wx.redirectTo({url: `${RECRUITER}user/company/status/status`})
+        wx.redirectTo({url: `${RECRUITER}user/company/status/status?showBack=1`})
       }
     })
   },
@@ -297,9 +299,9 @@ Page({
     let formData = this.getParams()
     editIdentityJoinApi(formData).then((res) => {
       if(this.data.options.from === 'identity') {
-        wx.redirectTo({url: `${RECRUITER}user/company/status/status?from=identity`})
+        wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=identity&showBack=1`})
       } else {
-        wx.redirectTo({url: `${RECRUITER}user/company/status/status`})
+        wx.redirectTo({url: `${RECRUITER}user/company/status/status?showBack=1`})
       }
     })
   },
