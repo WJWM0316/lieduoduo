@@ -43,7 +43,7 @@ Page({
   alert() {
     app.wxConfirm({
       title: '升级专业版',
-      content: `了解更多猎多多招聘权益 欢迎联系我们~`,
+      content: `了解更多猎多多招聘权益，欢迎联系我们~`,
       cancelText: '取消',
       confirmText: '联系客服',
       confirmBack: () => {
