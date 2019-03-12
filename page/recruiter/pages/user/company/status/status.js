@@ -85,7 +85,6 @@ Page({
           resolve(res)
           wx.stopPullDownRefresh()
           
-
           if(companyInfos.status === 1) {
             if(infos.applyJoin) {
               if(infos.identityAuth === 1) app.getAllInfo().then(() => wx.reLaunch({url: `${RECRUITER}index/index`}))

@@ -217,19 +217,19 @@
 			</view>
 		</view>
 	</view>
-	
+<!-- 	
 	<block wx:if="{{!identityInfos.applyJoin && companyInfos.status === 1 && identityInfos.status === 1}}">
 		<view class="div margintop">
 			<view class="box1 perfect-button" bindtap="todoAction" data-action="perfect">
 				<i class="icon iconfont icon-bianji label-icon"></i>
 				完善个人信息
 			</view>
-			<!-- <view class="box1 email-button" bindtap="todoAction" data-action="email">
+			<view class="box1 email-button" bindtap="todoAction" data-action="email">
 				<i class="icon iconfont icon-renzheng label-icon"></i>
 				认证公司邮箱
-			</view> -->
+			</view>
 		</view>
-	</block>
+	</block> -->
 
 	<block wx:if="{{identityInfos.applyJoin && (options.from === 'identity' || !options.from)}}">
 		<view class="div">
