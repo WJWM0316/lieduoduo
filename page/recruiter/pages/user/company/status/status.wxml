@@ -24,7 +24,7 @@
 			class="default-status"
 			wx:if="{{companyInfos.status === 2}}"></image>
 		
-		<image 
+		<image
 		src="{{cdnImagePath}}pic_succeed001.png" 
 		mode="scaleToFill" 
 		class="default-status"
@@ -91,24 +91,6 @@
 				<text>{{identityInfos.reviewNote}}</text>
 			</view>
 		</block>
-
-<!-- 		<block wx:else>
-			<view class="h1">公司认证审核已通过</view>
-			<view class="p3">{{companyInfos.companyName}}</view>
-			<view class="p4">审核已通过，马上去招聘吧</view>
-			<view class="line-box"> <view class="line-left"></view> 获得权益 <view class="line-right"></view> </view>
-			<view class="button-box">
-				<view class="button">
-					<image src="{{cdnImagePath}}equities_01.png" mode="scaleToFill" class="button-image"></image>
-					<text bindtap="todoAction" data-action="position">免费发布职位</text>
-				</view>
-				<view class="button">
-					<image src="{{cdnImagePath}}equities_02.png" mode="scaleToFill" class="button-image"></image>
-					<text>免费查看简历</text>
-				</view>
-			</view>
-		</block>
- -->
 	</view>
 	<!-- 身份认证 end -->
 
@@ -236,7 +218,7 @@
 		</view>
 	</view>
 	
-	<block wx:if="{{!identityInfos.applyJoin && companyInfos.status === 1}}">
+	<block wx:if="{{!identityInfos.applyJoin && companyInfos.status === 1 && identityInfos.status === 1}}">
 		<view class="div margintop">
 			<view class="box1 perfect-button" bindtap="todoAction" data-action="perfect">
 				<i class="icon iconfont icon-bianji label-icon"></i>

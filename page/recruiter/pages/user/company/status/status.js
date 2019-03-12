@@ -86,9 +86,12 @@ Page({
           // 申请加入公司 通过则回到首页 守则停留在此页面 让招聘官手动点击跳转
           if(companyInfos.status === 1) {
             if(infos.applyJoin && infos.identityAuth === 1) {
-              app.getAllInfo().then(() => wx.reLaunch({url: `${RECRUITER}index/index`}))
+              // app.getAllInfo().then(() => wx.reLaunch({url: `${RECRUITER}index/index`}))
             } else {
-              app.getAllInfo()
+              if(infos.status !== 1) {
+                wx.reLaunch({url: `${RECRUITER}user/company/identity/identity?from=identity`})
+              }
+              // app.getAllInfo()
             }
           }
         })

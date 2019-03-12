@@ -76,7 +76,7 @@ Page({
       confirmText: '确定',
       confirmBack: () => {
         passApplyjoinApi({id: infos.id}).then(res => {
-          if(res.data.code === 402) {
+          if(res.code === 402) {
             app.wxConfirm({
               title: '温馨提示',
               content: '该招聘官已加入其它公司 无需处理审核',
@@ -91,6 +91,17 @@ Page({
                     }}
                   )
                 })
+              }
+            })
+          } else if(res.code === 803) {
+            app.wxConfirm({
+              title: '温馨提示',
+              content: '招聘官人数已到达上限 可升级版本或申请增值权益',
+              showCancel: true,
+              cancelText: '考虑一下',
+              confirmText: '联系客服',
+              confirmBack:() => {
+                wx.makePhoneCall({phoneNumber: app.globalData.telePhone})
               }
             })
           } else {

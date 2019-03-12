@@ -143,10 +143,14 @@ export const request = ({method = 'post', url, host, data = {}, needKey = true, 
                       wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=identity`})
                       return
                     }
+                    // 创建公司  公司审核已经通过 但是没填身份信息
+                    if(msg.data.companyInfo.status === 1 && !msg.data.id) {
+                      wx.reLaunch({url: `${RECRUITER}user/company/identity/identity?from=identity`})
+                      return;
+                    }
                     wx.reLaunch({url: `${RECRUITER}user/company/status/status`})
                   }
                 }
-
               }
           }
         }
