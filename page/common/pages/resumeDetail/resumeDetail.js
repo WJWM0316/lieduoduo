@@ -5,7 +5,6 @@ import {getSelectorQuery} from "../../../../utils/util.js"
 import { getMyCollectUserApi, deleteMyCollectUserApi } from '../../../../api/pages/collect.js'
 import {APPLICANT, COMMON, RECRUITER} from '../../../../config.js'
 import {shareResume} from '../../../../utils/shareWord.js'
-
 let isPreview = false
 const app = getApp()
 let resumeInfo = null
@@ -128,6 +127,24 @@ Page({
           title: '复制成功',
           icon: 'success'
         })
+      }
+    })
+  },
+  previewFile(e) {
+    isPreview = true
+    wx.downloadFile({
+      url: e.currentTarget.dataset.file,
+      success(res) {
+        const filePath = res.tempFilePath
+        wx.openDocument({
+          filePath,
+          success(res) {
+            console.log('打开文档成功')
+          }
+        })
+      },
+      fail(e) {
+        console.log(e)
       }
     })
   },

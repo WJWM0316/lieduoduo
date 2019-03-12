@@ -168,9 +168,7 @@ Page({
   onLoad: function (options) {
     info = wx.getStorageSync('posterData')
     let that = this
-    wx.showLoading({
-      title: '正在生成...',
-    })
+    
     const loadResult = (res, resolve) => {
       let timer = null
       timer = setTimeout(() => {
@@ -214,6 +212,9 @@ Page({
       })
     })
     Promise.all([loadAvatar, loadQrCode]).then((result) => {
+      wx.showLoading({
+        title: '正在生成...'
+      })
       this.drawing (avatarUrl, qrCodeUrl)
     })
 

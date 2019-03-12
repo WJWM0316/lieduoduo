@@ -1,32 +1,51 @@
-import {APPLICANTHOST, RECRUITERHOST, COMMON, RECRUITER, APPLICANT} from '../config.js'
+import {APPLICANTHOST, RECRUITERHOST, PUBAPIHOST, COMMON, RECRUITER, APPLICANT} from '../config.js'
 
 let loadNum = 0
 let addHttpHead = {}
 let BASEHOST = ''
 let toAuth = false
 let toBindPhone = false
-export const request = ({method = 'post', url, data = {}, needKey = true, hasLoading = true, loadingContent = '加载中...'}) => {
-  if (wx.getStorageSync('choseType') === "RECRUITER") {
-    BASEHOST = RECRUITERHOST
-  } else {
-    BASEHOST = APPLICANTHOST
+export const request = ({method = 'post', url, host, data = {}, needKey = true, hasLoading = true, loadingContent = '加载中...'}) => {
+  // baceHost 切换
+  switch(host) {
+    case 'PUBAPIHOST':
+      BASEHOST = PUBAPIHOST
+      break
+    default:
+      if (wx.getStorageSync('choseType') === "RECRUITER") {
+        BASEHOST = RECRUITERHOST
+      } else {
+        BASEHOST = APPLICANTHOST
+      }
   }
+
+  // 如果连接带参数scode, 则存到头部
+  if (data.scode) {
+    addHttpHead['act_code'] = data.scode
+    addHttpHead['act_pid'] = data.id || data.uid
+    delete data.scode
+  } else {
+    delete addHttpHead['act_code']
+    delete addHttpHead['act_pid']
+  }
+  
+  // header 传递token, sessionToken
   if (wx.getStorageSync('sessionToken') && !wx.getStorageSync('token')) {
     addHttpHead['Authorization-Wechat'] = wx.getStorageSync('sessionToken')
   } else {
-    addHttpHead['Authorization-Wechat'] = ''
+    delete addHttpHead['Authorization']
   }
   if (wx.getStorageSync('token')) {
     if (url !== '/bind/register' && url !== '/bind/quick_login') {
       addHttpHead['Authorization'] = wx.getStorageSync('token')
     } else {
-      addHttpHead['Authorization'] = ''
+      delete addHttpHead['Authorization']
     }
   } else {
-    addHttpHead['Authorization'] = ''
+    delete addHttpHead['Authorization']
   }
-  // 版本号， 每次上次发版 + 1
-  addHttpHead['cv'] = 100
+
+  // 请求中间件
   const promise = new Promise((resolve, reject) => {
     // 开启菊花图
     if (hasLoading) {
@@ -49,7 +68,7 @@ export const request = ({method = 'post', url, data = {}, needKey = true, hasLoa
           wx.hideLoading()
           loadNum = 0
         }
-        console.log(url, res, data, addHttpHead)
+        console.log(url, res)
         if (typeof res.data === 'string') { // 转换返回json
           res.data = JSON.parse(res.data)
         }

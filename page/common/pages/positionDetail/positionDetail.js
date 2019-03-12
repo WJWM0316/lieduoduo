@@ -32,7 +32,8 @@ Page({
   onLoad(options) {
     positionCard = ''
     if (options.scene) {
-      options = app.getSceneParams(options.scene)
+      let parames = app.getSceneParams(options.scene)
+      options.positionId = parames.pid
     }
     let identity = wx.getStorageSync('choseType') || 'APPLICANT'
     this.setData({query: options, identity})
@@ -72,7 +73,7 @@ Page({
         this.setData({isRecruiter: app.globalData.isRecruiter})
       }
     }
-    return getPositionApi({id: this.data.query.positionId})
+    return getPositionApi({id: this.data.query.positionId, scode: this.data.query.scode})
       .then(res => {
         this.setData({
           detail: res.data, 
@@ -195,7 +196,7 @@ Page({
 　　return app.wxShare({
       options,
       title: sharePosition(),
-      path: `${COMMON}positionDetail/positionDetail?positionId=${that.data.query.positionId}`,
+      path: `${COMMON}positionDetail/positionDetail?positionId=${that.data.query.positionId}&scode=${this.data.detail.scode}`,
       imageUrl: positionCard
     })
   }
