@@ -31,7 +31,7 @@ Page({
     
   	switch(params.action) {
   		case 'identity':
-        if(identityInfos.status !== 2) {
+        if(identityInfos.status === 2) {
           wx.navigateTo({url: `${RECRUITER}user/company/identity/identity?from=identity`})
         }
   			break
