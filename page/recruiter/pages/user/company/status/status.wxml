@@ -137,7 +137,7 @@
 	</view>
 	<!-- 申请加入 end -->
 
-	<view class="section" wx:if="{{(companyInfos.status !== 1 || identityInfos.status !== 1) && !identityInfos.applyJoin }}">
+	<view class="section" wx:if="{{(companyInfos.status !== 1 || identityInfos.status !== 1) && (!identityInfos.applyJoin && options.from !== 'identity') }}">
 		<view class="title">
 			<view class="label">您的公司信息</view>
 			<view class="jump" bindtap="todoAction" data-action="modifyCompany">申请信息有误？去更改</view>
