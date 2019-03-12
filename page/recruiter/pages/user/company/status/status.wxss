@@ -345,4 +345,7 @@
 	top: 50%;
 	right: 70rpx;
 	transform: translateY(-50%);
+	color: #BCBCBC;
+	font-size:28rpx;
+	font-weight:300;
 }

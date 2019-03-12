@@ -31,7 +31,9 @@ Page({
     
   	switch(params.action) {
   		case 'identity':
-        wx.navigateTo({url: `${RECRUITER}user/company/identity/identity?from=identity`})
+        if(identityInfos.status !== 1) {
+          wx.navigateTo({url: `${RECRUITER}user/company/identity/identity?from=identity`})
+        }
   			break
   		case 'modifyCompany':
   			wx.navigateTo({url: `${RECRUITER}user/company/apply/apply?action=edit`})
@@ -75,7 +77,7 @@ Page({
           pageTitle = '公司认证'
         }
 
-        if(this.data.options.from === 'identity') {
+        if(this.data.options.from === 'identity' || (companyInfos.status === 1 && infos.status === 2)) {
           pageTitle = '身份认证'
         }
 
@@ -88,11 +90,11 @@ Page({
             if(infos.applyJoin && infos.identityAuth === 1) {
               app.getAllInfo().then(() => wx.reLaunch({url: `${RECRUITER}index/index`}))
             } else {
-              if(infos.status === 1) {
-                app.getAllInfo()
-              } else {
-                wx.reLaunch({url: `${RECRUITER}user/company/identity/identity?from=identity`})
-              }
+              // if(infos.status === 1) {
+              //   app.getAllInfo()
+              // } else {
+              //   wx.reLaunch({url: `${RECRUITER}user/company/identity/identity?from=identity`})
+              // }
             }
           }
         })
