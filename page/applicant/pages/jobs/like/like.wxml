@@ -9,35 +9,34 @@
 		<view hidden="{{!hasReFresh}}">
 			<refreshStatus></refreshStatus>
 		</view>
-		<view wx:for="{{positionList.list}}" wx:key="{{index}}" class="item" wx:for-item="item">
-			<slide-view width="750" height="180" slide-width="300">
-				<view slot="left" class="content">
-					<view class="li">
-						<view class="img-box">
-							<image class="img" src="{{item.companyInfo.logoInfo.smallUrl}}" mode="aspectFit"></image>
-						</view>
-						<view class="content">
-							<view class="row-one">
-								<view class="name">{{item.recruiterInfo.name}}</view>
-								<view class="mix">{{item.workExperienceName}}·{{item.educationName}}·{{item.emolumentMin}}k-{{item.emolumentMax}}k</view>
-							</view>
-							<view class="row-two">
-								{{item.companyInfo.companyShortname}} | {{item.positionName}}
-							</view>
-						</view>
-					</view>
+		<view class="item4" wx:for="{{positionList.list}}" wx:key="{{index}}" wx:for-item="item">
+			<view class="row-one">
+				<view class="position">{{item.positionName}}</view>
+				<view class="salary">12K~20K</view>
+			</view>
+			<view class="row-two">
+				<view class="address">{{item.city}}{{item.district}}</view>
+				<view class="experience">{{item.workExperienceName}}</view>
+				<view class="degress">{{item.educationName}}</view>
+			</view>
+			<view class="row-three">{{item.companyInfo.companyShortname}} | {{item.companyInfo.financingInfo}}</view>
+			<view class="row-four">
+				<view class="img-box">
+					<image src="{{item.recruiterInfo.avatar.smallUrl}}" mode="aspectFill" class="avatar"></image>
+					<image src="{{cdnImagePath}}sign1.png" mode="aspectFill" class="sign"></image>
 				</view>
-				<view slot="right" class="button-box">
-					<view class="button" bindtap="deletePosition" data-index="{{index}}">删除</view>
+				<view class="name-position">{{item.recruiterInfo.name}} · {{item.recruiterInfo.position}}</view>
+				<view class="logo-box">
+					<image src="{{item.companyInfo.logoInfo.smallUrl}}" mode="aspectFill" class="logo"></image>
 				</view>
-			</slide-view>
+			</view>
 		</view>
 		<bottomStatus status="{{onBottomStatus}}" listData="{{positionList.list}}" desc="没有更多内容了~" marginTop="{{0}}" >
 			<button class="jump" bindtap="jump">发现更多职业机会</button>
 		</bottomStatus>
 	</view>
 
-	<view class="ul" hidden="{{tab === 'positionList'}}">
+	<!-- <view class="ul" hidden="{{tab === 'positionList'}}">
 		<view hidden="{{!hasReFresh}}">
 			<refreshStatus></refreshStatus>
 		</view>
@@ -67,5 +66,5 @@
 		<bottomStatus status="{{onBottomStatus}}" listData="{{recruiterList.list}}" desc="没有更多内容了~" marginTop="{{0}}" >
 			<button class="jump" bindtap="jump">发现更多招聘官</button>
 		</bottomStatus>
-	</view>
+	</view> -->
 </view>

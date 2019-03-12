@@ -15,6 +15,7 @@ Page({
     onBottomStatus: 0,
     tab: 'positionList',
     navH: app.globalData.navHeight,
+    cdnImagePath: app.globalData.cdnImagePath,
     pageCount: 8,
     positionList: {
       list: [],
