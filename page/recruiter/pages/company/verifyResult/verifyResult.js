@@ -78,7 +78,7 @@ Page({
         passApplyjoinApi({id: infos.id}).then(res => {
           if(res.code === 402) {
             app.wxConfirm({
-              title: '',
+              title: '温馨提示',
               content: '该招聘官已加入其它公司 无需处理审核',
               showCancel: false,
               confirmText: '知道了',
@@ -95,7 +95,7 @@ Page({
             })
           } else if(res.code === 803) {
             app.wxConfirm({
-              title: '温馨提示',
+              title: '',
               content: '招聘官人数已到达上限 可升级版本或申请增值权益',
               showCancel: true,
               cancelText: '考虑一下',
