@@ -202,12 +202,19 @@ Page({
   },
   submit() {
     if(!this.data.canClick) return;
+    let company_name = this.data.formData.company_name
+    company_name = company_name.trim()
 
-    if(!companyNameReg.test(this.data.formData.company_name)) {
+    // if(!companyNameReg.test(this.data.formData.company_name)) {
+    //   app.wxToast({title: '公司名称需为2-50个字'})
+    //   return;
+    // }
+    
+    if(company_name.length < 2) {
       app.wxToast({title: '公司名称需为2-50个字'})
       return;
     }
-    
+
     justifyCompanyExistApi({name: this.data.formData.company_name}).then(res => {
       if(res.data.exist) {
         this.setData({showMaskBox: true, type: 'apply', infos: res.data})
