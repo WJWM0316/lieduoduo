@@ -1,7 +1,7 @@
 <!-- 加载过滤器 -->
 <wxs src="../../../../../../utils/filters.wxs" module="filters" />
 
-<navbar title="{{pageTitle}}" background="#FFFFFF" color="#22292C"></navbar>
+<navbar title="{{pageTitle}}" background="#FFFFFF" color="#22292C" showBack="{{options.showBack ? false : true}}"></navbar>
 
 <view class="company-identity-status">
 	
