@@ -28,7 +28,7 @@
 							</view>
 							<view class="infos2">
 								<block>{{item.lastCompanyName ? item.lastCompanyName : '暂无工作经历'}}</block>
-								<view wx:if="{{item.lastPosition}}">| {{item.lastPosition}}</view>
+								<block wx:if="{{item.lastPosition}}"> | {{item.lastPosition}}</block>
 							</view>
 						</view>
 					</view>
