@@ -6,7 +6,7 @@
 
 .index-list-box {
   margin: 0 30rpx;
-  transform: translateY(-130rpx);
+  margin-top: -130rpx;
   border-radius: 10rpx 10rpx 0 0;
   overflow: hidden;
 }
@@ -201,7 +201,7 @@
 }
 
 .list-box {
-  padding: 0 30rpx 112rpx 30rpx;
+  padding: 0 30rpx;
 }
 
 .fixed-dom {

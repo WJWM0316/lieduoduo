@@ -73,7 +73,6 @@
 		<view hidden="{{!hasReFresh}}">
 			<refreshStatus></refreshStatus>
 		</view>
-		<!-- <commonList list="{{receiveData.list}}" type="receive" dotType="{{'circle'}}" showItemStatus="{{true}}"></commonList> -->
 		<form bindsubmit="formSubmit" report-submit='{{true}}'> 
 			<button
 				form-type="submit"
@@ -115,7 +114,7 @@
 				</view>
 			</button>
 		</form>
-		<bottomStatus status="{{applyBottomStatus}}" listData="{{receiveData.list}}"></bottomStatus>
+		<bottomStatus status="{{receiveBottomStatus}}" listData="{{receiveData.list}}"></bottomStatus>
 	</view>
 	<!--我的邀请-->
 	<view hidden="{{tabIndex !== 1}}" class="list-box" style="padding-top: {{fixedBarHeight}}px">
@@ -163,8 +162,7 @@
 				</view>
 			</button>
 		</form>
-		<!-- <commonList list="{{applyData.list}}" type="apply" dotType="{{'circle'}}" showItemStatus="{{true}}"> </commonList> -->
-		<bottomStatus status="{{receiveBottomStatus}}" listData="{{applyData.list}}"></bottomStatus>
+		<bottomStatus status="{{applyBottomStatus}}" listData="{{applyData.list}}"></bottomStatus>
 	</view>
 	<!--面试日程-->
 	<view hidden="{{tabIndex !== 2}}" class="list-box" style="padding-top: {{fixedBarHeight}}px">
@@ -206,7 +204,6 @@
 				</view>
 			</button>
 		</form>
-		<!-- <commonList list="{{interviewData.list}}" type="dateList" dotType="{{'circle'}}" showItemStatus="{{true}}"></commonList> -->
 		<bottomStatus status="{{interviewBottomStatus}}" listData="{{interviewData.list}}"></bottomStatus>
 	</view>
   <tab-bar tabType="1"></tab-bar>
