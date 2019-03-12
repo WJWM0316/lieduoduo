@@ -66,7 +66,7 @@
 	<!-- 创建公司 end -->
 	
 	<!-- 身份认证 start -->
-	<view class="header" wx:if="{{ (options.from === 'identity' || !options.from) && identityInfos.status !== 1 }}">
+	<view class="header" wx:if="{{(options.from === 'identity' || !options.from) && identityInfos.status !== 1 && !identityInfos.applyJoin}}">
 		<image
 			src="{{cdnImagePath}}pic_await001.png"
 			mode="scaleToFill"
@@ -237,6 +237,7 @@
 				<i class="icon iconfont icon-renzheng label-icon"></i>
 				认证个人身份
 				<view class="has" wx:if="{{identityInfos.status === 1}}">已认证</view>
+				<view class="has" wx:if="{{identityInfos.status === 0}}">审核中</view>
 				<i class="icon iconfont icon-xiangyou"></i>
 			</view>
 		</view>

@@ -31,7 +31,8 @@ Page({
     
   	switch(params.action) {
   		case 'identity':
-        if(identityInfos.status === 2) {
+        // 没有填写身份信息或者身份信息审核失败
+        if(identityInfos.status === 2 || !identityInfos.id) {
           wx.navigateTo({url: `${RECRUITER}user/company/identity/identity?from=identity`})
         }
   			break
