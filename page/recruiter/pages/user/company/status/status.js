@@ -77,7 +77,7 @@ Page({
           pageTitle = '公司认证'
         }
 
-        if(this.data.options.from === 'identity' || (companyInfos.status === 1 && infos.status === 2)) {
+        if(options.from === 'identity' || (companyInfos.status === 1 && infos.status === 2)) {
           pageTitle = '身份认证'
         }
 
@@ -85,10 +85,10 @@ Page({
           resolve(res)
           wx.stopPullDownRefresh()
           
-          // 申请加入公司 通过则回到首页 守则停留在此页面 让招聘官手动点击跳转
+
           if(companyInfos.status === 1) {
-            if(infos.applyJoin && infos.identityAuth === 1) {
-              app.getAllInfo().then(() => wx.reLaunch({url: `${RECRUITER}index/index`}))
+            if(infos.applyJoin) {
+              if(infos.identityAuth === 1) app.getAllInfo().then(() => wx.reLaunch({url: `${RECRUITER}index/index`}))
             } else {
               // if(infos.status === 1) {
               //   app.getAllInfo()
@@ -107,10 +107,11 @@ Page({
     this.getCompanyIdentityInfos().then(res => {
       let infos = res.data
       let companyInfos = infos.companyInfo
+      let options = this.data.options
       this.setData({hasReFresh: false})
 
       // 公司验证已经通过
-      if(companyInfos.status === 1 && this.data.options.from !== 'identity') {
+      if(companyInfos.status === 1 && options.from !== 'identity') {
 
         // 申请加入公司 通过则回到首页 守则停留在此页面 让招聘官手动点击跳转
         if(infos.applyJoin) {
