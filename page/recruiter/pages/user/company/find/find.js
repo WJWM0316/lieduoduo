@@ -130,7 +130,6 @@ Page({
     // 创建公司流程
     this.setData({showMaskBox: false}, () => {
       if(options.action && options.action === 'edit') {
-        console.log(storage, 'dddddddd')
         // 加入公司过程中过来 从新创建一个公司 应该是新建流程
         if(!infos.exist && storage.company_name !== this.data.formData.company_name) {
           storage.company_shortname = ''

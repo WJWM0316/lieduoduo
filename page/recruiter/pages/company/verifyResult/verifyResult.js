@@ -97,7 +97,7 @@ Page({
             app.wxToast({
               title: '处理成功',
               callback() {
-                this.getApplyjoinInfos(false)
+                that.getApplyjoinInfos(false)
               }}
             )
           }
