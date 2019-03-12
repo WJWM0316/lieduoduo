@@ -183,6 +183,7 @@
   overflow: hidden;
   line-height: 1.1;
   margin: 40rpx 30rpx;
+  background: #FBFBFF;
 }
 
 .interview-page-title .total {

@@ -74,47 +74,7 @@ Page({
     const params = e.currentTarget.dataset
     // 不知道什么情款  有时候拿不到数据
     if(!Object.keys(params).length) return
-    switch(params.status) {
-      case 51:
-        if(Number(params.positionid)) {
-          wx.navigateTo({url: `${COMMON}positionDetail/positionDetail?positionId=${params.positionid}`})
-        } else {
-          wx.navigateTo({url: `${COMMON}arrangement/arrangement?id=${params.itemId}`})
-          // wx.navigateTo({url: `${COMMON}recruiterDetail/recruiterDetail?uid=${params.recruiteruid}`})
-        }
-        break
-      case 12:
-        if(Number(params.positionid)) {
-          wx.navigateTo({url: `${COMMON}positionDetail/positionDetail?positionId=${params.positionid}`})
-        } else {
-          wx.navigateTo({url: `${COMMON}recruiterDetail/recruiterDetail?uid=${params.recruiteruid}`})
-        }
-        break
-      case 11:
-        if(Number(params.positionid)) {
-          wx.navigateTo({url: `${COMMON}positionDetail/positionDetail?positionId=${params.positionid}`})
-        } else {
-          wx.navigateTo({url: `${COMMON}recruiterDetail/recruiterDetail?uid=${params.recruiteruid}`})
-        }
-        break
-      case 21:
-        if(Number(params.positionid)) {
-          wx.navigateTo({url: `${COMMON}positionDetail/positionDetail?positionId=${params.positionid}`})
-        } else {
-          wx.navigateTo({url: `${COMMON}recruiterDetail/recruiterDetail?uid=${params.recruiteruid}`})
-        }
-        break
-      case 54:
-        if(Number(params.positionid)) {
-          wx.navigateTo({url: `${COMMON}positionDetail/positionDetail?positionId=${params.positionid}`})
-        } else {
-          wx.navigateTo({url: `${COMMON}recruiterDetail/recruiterDetail?uid=${params.recruiteruid}`})
-        }
-        break
-      default:
-        wx.navigateTo({url: `${COMMON}arrangement/arrangement?id=${params.itemId}`})
-        break
-    }
+    wx.navigateTo({url: `${COMMON}arrangement/arrangement?id=${params.itemId}`})
   },
   formSubmit(e) {
     app.postFormId(e.detail.formId)
