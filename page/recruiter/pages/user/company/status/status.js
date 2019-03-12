@@ -90,11 +90,7 @@ Page({
             if(infos.applyJoin) {
               if(infos.identityAuth === 1) app.getAllInfo().then(() => wx.reLaunch({url: `${RECRUITER}index/index`}))
             } else {
-              // if(infos.status === 1) {
-              //   app.getAllInfo()
-              // } else {
-              //   wx.reLaunch({url: `${RECRUITER}user/company/identity/identity?from=identity`})
-              // }
+              if(infos.identityAuth === 1) app.getAllInfo()
             }
           }
         })
@@ -119,7 +115,7 @@ Page({
             wx.reLaunch({url: `${RECRUITER}index/index`})
           })
         } else {
-          app.getAllInfo()
+          if(infos.identityAuth === 1) app.getAllInfo()
         }
 
         return;
