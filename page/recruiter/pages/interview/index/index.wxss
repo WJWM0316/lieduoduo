@@ -426,7 +426,7 @@
 }
 
 .item2 .row-two view {
-  display: inline-block;
+  display: inline;
 }
 
 .item2 .row-two .infos {
@@ -434,6 +434,7 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  display: inline-block;
 }
 
 .item2 .row-two .status {

@@ -38,7 +38,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 23,
+			"current": 62,
 			"list": [
 				{
 					"id": 0,
@@ -417,6 +417,13 @@
 					"name": "招聘官审核列表",
 					"pathName": "page/applicant/pages/jobs/like/like",
 					"query": "action=edit&type=apply"
+				},
+				{
+					"id": -1,
+					"name": "权益",
+					"pathName": "page/recruiter/pages/company/interest/interest",
+					"query": "",
+					"scene": null
 				}
 			]
 		}

@@ -238,6 +238,7 @@
 				认证个人身份
 				<view class="has" wx:if="{{identityInfos.status === 1}}">已认证</view>
 				<view class="has" wx:if="{{identityInfos.status === 0}}">审核中</view>
+				<view class="has red" wx:if="{{identityInfos.status === 2}}">认证失败</view>
 				<i class="icon iconfont icon-xiangyou"></i>
 			</view>
 		</view>

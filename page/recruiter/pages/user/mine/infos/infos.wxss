@@ -233,6 +233,7 @@
 .entry-list .label-icon {
 	margin-right: 24rpx;
 	color: #CED7DC;
+	font-size: 34rpx;
 }
 
 .entry-list .text {
@@ -296,7 +297,7 @@
 }
 
 .entry-list .color-gray {
-	color: #BCBCBC !important;
+	color: #929292 !important;
 }
 
 .entry-list .color-pedding {
@@ -333,4 +334,8 @@
   right: 4rpx;
   width: 48rpx;
   height: 48rpx;
+}
+
+.color-default {
+	color: #929292 !important;
 }

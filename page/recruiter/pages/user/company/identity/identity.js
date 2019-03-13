@@ -55,8 +55,8 @@ Page({
    * @detail   获取认证详情
    * @return   {[type]}   [description]
    */
-  getCompanyIdentityInfos() {
-    getCompanyIdentityInfosApi().then(res => {
+  getCompanyIdentityInfos(hasLoading = true) {
+    getCompanyIdentityInfosApi({hasLoading}).then(res => {
       let infos = res.data
       let formData = {}
       let options = this.data.options

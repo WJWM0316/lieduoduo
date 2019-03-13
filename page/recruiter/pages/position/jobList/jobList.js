@@ -16,44 +16,51 @@ Page({
   },
   onLoad(options) {
     this.setData({identity: wx.getStorageSync('choseType'), options})
-    const storage = wx.getStorageSync('interviewChatLists')
+    let storage = wx.getStorageSync('interviewChatLists')
+    let items = []
     if(storage && wx.getStorageSync('choseType') === 'RECRUITER') {
-      this.setData({items: storage.data})
+      items = storage.data
+      this.setData({items})
       return;
     }
-    getPositionListApi({recruiter: options.recruiterUid, is_online: 1}).then(res => this.setData({items: res.data}))
+    getPositionListApi({recruiter: options.recruiterUid, is_online: 1}).then(res => {
+      items = res.data
+      items.map(field => field.active = false)
+      this.setData({items})
+    })
   },
-  radioChange(e) {
-    const data = wx.getStorageSync('interviewData') || {}
-    const job = e.detail.value.split(' ')
-    const params = {}
-    data.positionName = job[0]
-    data.positionId = job[1]
+  onClick(e) {
+    let data = wx.getStorageSync('interviewData') || {}
+    let job = e.currentTarget.dataset
+    let params = {}
+
+    data.positionName = job.name
+    data.positionId = job.id
     switch(this.data.options.type) {
       case 'recruiter_chat':
         params.jobhunterUid = this.data.options.jobhunterUid
-        params.positionId = job[1]
+        params.positionId = job.id
         this.applyInterview(params)
         break
       case 'job_hunting_chat':
         params.recruiterUid = this.data.options.recruiterUid
-        if(job[1] !== 'person') params.positionId = job[1]
+        if(job.id !== 'person') params.positionId = job.id
         this.applyInterview(params)
         break
       case 'confirm_chat':
-        params.id = job[1]
+        params.id = job.id
         this.confirmInterview(params)
         break
       case 'reject_chat':
-        params.id = job[1]
+        params.id = job.id
 
         // 都不合适 传对方的ID
-        if(this.data.identity === 'APPLICANT' && job[1] === 'unsuitable') {
+        if(this.data.identity === 'APPLICANT' && job.id === 'unsuitable') {
           this.refuseInterview({id: this.data.options.recruiterUid})
           return;
         }
         // 都不合适 传对方的ID
-        if(this.data.identity === 'RECRUITER' && job[1] === 'unsuitable') {
+        if(this.data.identity === 'RECRUITER' && job.id === 'unsuitable') {
           this.refuseInterview({id: this.data.options.jobhunterUid})
           return;
         }
@@ -72,13 +79,9 @@ Page({
    * @return   {[type]}          [description]
    */
   applyInterview(params) {
-    applyInterviewApi(params)
-      .then(res => {
-        wx.navigateBack({delta: 1})
-        // wx.redirectTo({
-        //   url: `${COMMON}${this.data.options.from}/${this.data.options.from}?uid=${this.data.options.jobhunterUid}`
-        // })
-      })
+    applyInterviewApi(params).then(res => {
+      wx.navigateBack({delta: 1})
+    })
   },
   /**
    * @Author   小书包
@@ -87,11 +90,10 @@ Page({
    * @return   {[type]}          [description]
    */
   confirmInterview(params) {
-    confirmInterviewApi(params)
-      .then(res => {
-       wx.removeStorageSync('interviewChatLists')
-       wx.redirectTo({url: `${COMMON}arrangement/arrangement?id=${params.id}`})
-      })
+    confirmInterviewApi(params).then(res => {
+     wx.removeStorageSync('interviewChatLists')
+     wx.redirectTo({url: `${COMMON}arrangement/arrangement?id=${params.id}`})
+    })
   },
   /**
    * @Author   小书包
@@ -100,14 +102,10 @@ Page({
    * @return   {[type]}          [description]
    */
   refuseInterview(params) {
-    refuseInterviewApi(params)
-      .then(res => {
-        wx.navigateBack({delta: 1})
-        // wx.redirectTo({
-        //   url: `${COMMON}${this.data.options.from}/${this.data.options.from}?uid=${this.data.options.jobhunterUid}`
-        // })
-        wx.removeStorageSync('interviewChatLists')
-      })
+    refuseInterviewApi(params).then(res => {
+      wx.navigateBack({delta: 1})
+      wx.removeStorageSync('interviewChatLists')
+    })
   },
   /**
    * @Author   小书包

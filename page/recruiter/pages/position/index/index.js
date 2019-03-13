@@ -66,8 +66,8 @@ Page({
    * @detail   获取个人身份信息
    * @return   {[type]}   [description]
    */
-  getCompanyIdentityInfos() {
-    getCompanyIdentityInfosApi().then(res => this.setData({identityInfos: res.data}))
+  getCompanyIdentityInfos(hasLoading = true) {
+    getCompanyIdentityInfosApi({hasLoading}).then(res => this.setData({identityInfos: res.data}))
   },
   /**
    * @Author   小书包

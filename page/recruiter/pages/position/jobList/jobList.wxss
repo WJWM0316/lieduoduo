@@ -157,7 +157,31 @@
   padding: 0 40rpx;
 }
 
-.job-list radio-group {
+.job-list .radio-group {
   margin-top: 24rpx;
   padding-bottom: 154rpx;
+}
+
+.myRadio {
+  width:36rpx;
+  height:36rpx;
+  position: relative;
+  display: inline-block;
+  border-radius: 50%;
+  border: 1px solid #BCBCBC;
+  line-height: 36rpx;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.myRadio.active {
+  background: #652791;
+  color: white;
+  border: unset;
+}
+
+.myRadio.active .icon{
+  font-size: 24rpx;
+  display:inline-block;
+  transform:translateY(-4rpx);
 }

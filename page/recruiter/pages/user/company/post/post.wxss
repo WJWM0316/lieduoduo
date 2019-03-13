@@ -112,14 +112,12 @@
 .button-submit {
 	background:#F5F4F7;
 	border-radius:48rpx;
-	border: 1px solid #F5F4F7;
 	font-size:32rpx;
 	font-weight:400;
 	color:#CDCBCF;
 	text-align: center;
 	line-height: 88rpx;
 	height:88rpx;
-	margin: 224rpx 100rpx;
 }
 
 .button-enable {
@@ -189,4 +187,14 @@
 	right: 0;
 	bottom: 0;
 	top: 0;
+}
+
+.btn-area {
+	position: fixed;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background: white;
+	box-sizing: border-box;
+	padding: 30rpx 100rpx;
 }

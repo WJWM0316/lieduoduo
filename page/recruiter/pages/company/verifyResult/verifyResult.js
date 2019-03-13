@@ -84,33 +84,12 @@ Page({
               confirmText: '知道了',
               confirmBack:() => {
                 failApplyjoinApi({id: infos.id}).then(res => {
-                  app.wxToast({
-                    title: '处理成功',
-                    callback() {
-                      that.getApplyjoinInfos(false)
-                    }}
-                  )
+                  that.getApplyjoinInfos(false).then(() => app.wxToast({title: '处理成功'}))
                 })
               }
             })
-          } else if(res.code === 803) {
-            app.wxConfirm({
-              title: '',
-              content: '招聘官人数已到达上限 可升级版本或申请增值权益',
-              showCancel: true,
-              cancelText: '考虑一下',
-              confirmText: '联系客服',
-              confirmBack:() => {
-                wx.makePhoneCall({phoneNumber: app.globalData.telePhone})
-              }
-            })
           } else {
-            app.wxToast({
-              title: '处理成功',
-              callback() {
-                that.getApplyjoinInfos(false)
-              }}
-            )
+            that.getApplyjoinInfos(false).then(() => app.wxToast({title: '处理成功'}))
           }
         })
       }

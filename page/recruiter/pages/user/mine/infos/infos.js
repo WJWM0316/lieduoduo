@@ -140,7 +140,7 @@ Page({
 
     //未认证
     if(!pageInfos.identityAuth && (pageInfos.identityStatus !== 0 && pageInfos.identityStatus !== 1 && pageInfos.identityStatus !== 2)) {
-      wx.navigateTo({url: `${RECRUITER}user/company/identity/identity`})
+      wx.navigateTo({url: `${RECRUITER}user/company/identity/identity?from=identity`})
       return
     }
 

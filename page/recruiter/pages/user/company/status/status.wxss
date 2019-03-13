@@ -349,3 +349,7 @@
 	font-size:28rpx;
 	font-weight:300;
 }
+
+.red {
+	color: #ed5c5c;
+}
