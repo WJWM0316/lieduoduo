@@ -87,11 +87,22 @@ Page({
           resolve(res)
           wx.stopPullDownRefresh()
           
-          if(companyInfos.status === 1) {
-            if(infos.applyJoin) {
-              if(infos.identityAuth === 1) app.getAllInfo().then(() => wx.reLaunch({url: `${RECRUITER}index/index`}))
-            } else {
-              if(infos.identityAuth === 1) app.getAllInfo()
+          // 加入公司
+          if(infos.applyJoin) {
+            if(infos.identityAuth === 1) app.getAllInfo().then(() => wx.reLaunch({url: `${RECRUITER}index/index`}))
+          } else {
+
+            // 公司已经认证
+            if(companyInfos.status === 1) {
+              // 个人身份已经认证
+              if(infos.identityAuth === 1) {
+                app.getAllInfo()
+                return;
+              }
+              // 还没有填写个人信息
+              if(!infos.id) {
+                wx.reLaunch({url: `${RECRUITER}user/company/identity/identity?from=identity`})
+              }
             }
           }
         })
@@ -101,32 +112,6 @@ Page({
   // 下拉刷新
   onPullDownRefresh() {
     this.setData({hasReFresh: true})
-    this.getCompanyIdentityInfos().then(res => {
-      let infos = res.data
-      let companyInfos = infos.companyInfo
-      let options = this.data.options
-      this.setData({hasReFresh: false})
-
-      // 公司验证已经通过
-      if(companyInfos.status === 1 && options.from !== 'identity') {
-
-        // 申请加入公司 通过则回到首页 守则停留在此页面 让招聘官手动点击跳转
-        if(infos.applyJoin) {
-          app.getAllInfo().then(() => {
-            wx.reLaunch({url: `${RECRUITER}index/index`})
-          })
-        } else {
-          if(infos.identityAuth === 1) app.getAllInfo()
-        }
-
-        return;
-      }
-
-      // 身份验证已经通过
-      if(infos.identityAuth === 1) {
-        app.getAllInfo().then(() => wx.reLaunch({url: `${RECRUITER}index/index`}))
-        return;
-      }
-    })
+    this.getCompanyIdentityInfos().then(res => this.setData({hasReFresh: false}))
   }
 })
