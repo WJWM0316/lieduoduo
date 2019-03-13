@@ -41,17 +41,14 @@
 						<view class="img-box"><view class="circle">1</view></view>
 						<view class="text">
 							<view class="h2">验证公司信息</view>
-							<view class="p">通过录入公司信息与营业执照，验证工商信息；</view>
-							<view class="p">· 营业执照</view>
-							<view class="p">· 工牌／名片／在职证明</view>
+							<view class="p">通过录入公司信息与营业执照，工牌名片/在职证明等，验证公司信息；</view>
 						</view>
 					</view>
 					<view class="item">
 						<view class="img-box"><view class="circle">2</view></view>
 						<view class="text">
 							<view class="h2">验证个人身份信息</view>
-							<view class="p">通过身份信息，验证您的本人身份；</view>
-							<view class="p">· 身份证件</view>
+							<view class="p">通过录入身份证信息，验证您的本人身份；</view>
 						</view>
 					</view>
 				</view>

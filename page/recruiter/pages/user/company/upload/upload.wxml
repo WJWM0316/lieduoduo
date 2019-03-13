@@ -11,7 +11,7 @@
 		    	<view class="icon-box">+</view>
 				  <view>上传营业执照</view>
 				  <image src="{{formData.business_license.middleUrl}}" mode="aspectFill"></image>
-				  <view class="mask"></view>
+				  <view class="mask" wx:if="{{formData.business_license.middleUrl}}"></view>
 				  <view class="replace-image" wx:if="{{formData.business_license.middleUrl}}"><i class="icon iconfont icon-zhongxinshangchuan"></i>重新上传</view>
 				</unloadFile>
 			</view>
@@ -25,7 +25,7 @@
 				  <view class="icon-box">+</view>
 				  <view>上传图片</view>
 				  <image src="{{formData.on_job.middleUrl}}" mode="aspectFill"></image>
-				  <view class="mask"></view>
+				  <view class="mask" wx:if="{{formData.business_license.middleUrl}}"></view>
 				  <view class="replace-image" wx:if="{{formData.on_job.middleUrl}}"><i class="icon iconfont icon-zhongxinshangchuan"></i>重新上传</view>
 				</unloadFile>
 			</view>

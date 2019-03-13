@@ -3,7 +3,6 @@
 	height:88rpx;
 	background:#F5F4F7;
 	border-radius:48rpx;
-	border: 1px solid #F5F4F7;
 	font-size:32rpx;
 	font-weight:400;
 	color:#CDCBCF;

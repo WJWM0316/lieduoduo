@@ -233,6 +233,7 @@
 .entry-list .label-icon {
 	margin-right: 24rpx;
 	color: #CED7DC;
+	font-size: 34rpx;
 }
 
 .entry-list .text {

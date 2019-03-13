@@ -89,13 +89,15 @@ Page({
           
           // 加入公司
           if(infos.applyJoin) {
-            if(infos.identityAuth === 1) app.getAllInfo().then(() => wx.reLaunch({url: `${RECRUITER}index/index`}))
+            if(infos.identityAuth || companyInfos.status === 1) {
+              app.getAllInfo().then(() => wx.reLaunch({url: `${RECRUITER}index/index`}))
+            }
           } else {
 
             // 公司已经认证
             if(companyInfos.status === 1) {
               // 个人身份已经认证
-              if(infos.identityAuth === 1) {
+              if(infos.identityAuth) {
                 app.getAllInfo()
                 return;
               }

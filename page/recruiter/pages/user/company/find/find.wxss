@@ -151,7 +151,7 @@
 	font-weight:500;
 	color:rgba(53,57,67,1);
 	line-height: 1;
-	margin-bottom: 88rpx;
+	margin-bottom: 60rpx;
 	text-align: center;
 }
 
@@ -178,10 +178,8 @@
 
 .certification-layout .ul {
 	overflow: hidden;
-	height: 311rpx;
-	overflow: hidden;
-	overflow-y: scroll;
-	margin-bottom: 64rpx;
+	height: 360rpx;
+	margin-bottom: 30rpx;
 }
 
 .certification-layout .circle {
@@ -231,7 +229,6 @@
 	height: 88rpx;
 	background:#F5F4F7;
 	border-radius:48rpx;
-	border: 1rpx solid #F5F4F7;
 	font-size:32rpx;
 	font-weight:400;
 	color:#CDCBCF;
