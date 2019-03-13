@@ -176,8 +176,7 @@
 	font-size:28rpx;
 	font-weight:300;
 	color:#282828;
-	display: inline-block;
-	vertical-align: top;
+	display: inline;
 	padding-left: 30rpx;
 	position: relative;
 }
@@ -216,7 +215,7 @@
 }
 
 .item3 .row-one .header {
-	width:314rpx;
+	max-width:314rpx;
 	height:36rpx;
 	font-size:36rpx;
 	font-weight:600;
@@ -226,6 +225,7 @@
 	overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  display: inline-block;
 }
 
 .item3 .row-one .name {
@@ -384,14 +384,14 @@
 	font-size:36rpx;
 	font-weight:bold;
 	color:rgba(40,40,40,1);
-	display: inline-block;
+	display: inline;
 }
 
 .item2 .header .zhiwei{
 	font-size:26rpx;
 	font-weight:300;
 	color:rgba(146,146,146,1);
-	display: inline-block;
+	display: inline;
 	vertical-align: top;
 	padding-left: 30rpx;
 	position: relative;
@@ -433,7 +433,7 @@
 }
 
 .item2 .row-two view {
-	display: inline-block;
+	display: inline;
 }
 
 .item2 .row-two .infos {
@@ -441,6 +441,7 @@
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
+	display: inline-block;
 }
 
 .item2 .row-two .status {

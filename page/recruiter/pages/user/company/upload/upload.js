@@ -19,6 +19,7 @@ Page({
       }
     },
     options: {},
+    cdnImagePath: app.globalData.cdnImagePath,
     canClick: false
   },
   onLoad(options) {

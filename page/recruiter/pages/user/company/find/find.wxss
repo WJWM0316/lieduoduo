@@ -215,6 +215,10 @@
 	font-size:32rpx;
 	font-weight:400;
 	color:rgba(255,255,255,1);
+	position:absolute;
+	left:55rpx;
+	right:55rpx;
+	bottom:44rpx;
 }
 .bottomBox {
 	position: fixed;

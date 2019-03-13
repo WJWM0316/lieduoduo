@@ -58,7 +58,7 @@
 	z-index: 2;
 }
 
-.company-upload image {
+.company-upload .image {
 	position: absolute;
 	left: 0;
 	top: 0;
@@ -79,14 +79,6 @@
 .company-upload .icon-box {
 	width:92rpx;
 	height:92rpx;
-	background:white;
-	border: 8rpx solid rgba(232,233,235,1);
-	box-sizing: border-box;
-	border-radius: 50%;
-	display: inline-block;
-	font-weight: 700;
-	font-size: 55rpx;
-	color: rgba(232,233,235,1);
 	margin: 124rpx auto 10rpx auto;
 }
 
@@ -140,4 +132,8 @@
   height: 148rpx;
   background-color: #fff;
   z-index: 10;
+}
+
+.upload-tips{
+	color: #BCBCBC
 }

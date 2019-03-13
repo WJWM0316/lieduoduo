@@ -112,6 +112,8 @@
 	margin: 24rpx 0;
 	padding: 40rpx;
 	box-sizing: border-box;
+	justify-content: center;
+  align-items: center;
 }
 
 .company-identity  .upload-li .upload-box{
@@ -234,6 +236,6 @@
 	color: #BCBCBC;
 }
 
-.margintop24 {
-	marign-top: 24rpx;
+.company-identity .margintop24 {
+	margin-top: 0 !important;
 }

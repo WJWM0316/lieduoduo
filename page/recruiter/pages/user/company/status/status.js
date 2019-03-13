@@ -89,8 +89,19 @@ Page({
           
           // 加入公司
           if(infos.applyJoin) {
-            if(infos.identityAuth || companyInfos.status === 1) {
+
+            // 这里的判断是 加入公司审核已经通过 但是还没有填写身份信息 在当前页面刷新 直接返回首页
+            if(companyInfos.status === 1 && options.from === 'join' && !infos.id) {
               app.getAllInfo().then(() => wx.reLaunch({url: `${RECRUITER}index/index`}))
+            }
+
+            // 这里的判断是从发布职位过来或者我的页面过来或者api判断过来 个人身份已经通过 则返回上一个页面或者首页
+            if(companyInfos.status === 1 && options.from === 'identity' && infos.identityAuth) {
+              if(getCurrentPages().length > 1) {
+                wx.navigateBack({delta: 1 })
+              } else {
+                wx.reLaunch({url: `${RECRUITER}index/index`})
+              }
             }
           } else {
 
