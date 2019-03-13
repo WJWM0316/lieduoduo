@@ -109,7 +109,9 @@ Page({
             if(companyInfos.status === 1) {
               // 个人身份已经认证
               if(infos.identityAuth) {
-                app.getAllInfo()
+                app.getAllInfo().then(() => {
+                  wx.reLaunch({url: `${RECRUITER}index/index`})
+                })
                 return;
               }
               // 还没有填写个人信息
