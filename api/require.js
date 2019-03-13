@@ -138,11 +138,6 @@ export const request = ({method = 'post', url, host, data = {}, needKey = true, 
                     // 还没有填写公司信息
                     wx.reLaunch({url: `${RECRUITER}user/company/apply/apply`})
                   } else {
-                    // 接入ocr 首页会先验证身份证
-                    if(msg.data.status === 2 && !msg.data.id) {
-                      wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=identity`})
-                      return
-                    }
                     // 创建公司  公司审核已经通过 但是没填身份信息
                     if(msg.data.companyInfo.status === 1 && !msg.data.id) {
                       wx.reLaunch({url: `${RECRUITER}user/company/identity/identity?from=identity`})
