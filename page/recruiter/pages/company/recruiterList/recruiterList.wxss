@@ -159,6 +159,7 @@
 .todo-tab .icon1{
   color: #652791;
   font-size: 36rpx;
+  marign-right: 16rpx;
 }
 
 .todo-tab .icon2{
