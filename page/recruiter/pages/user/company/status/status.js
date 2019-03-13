@@ -19,6 +19,7 @@ Page({
   },
   onLoad(options) {
     this.setData({options})
+    console.log(options)
   },
   onShow() {
     this.getCompanyIdentityInfos()
@@ -33,7 +34,7 @@ Page({
   		case 'identity':
         // 没有填写身份信息或者身份信息审核失败
         if(identityInfos.status === 2 || !identityInfos.id) {
-          wx.navigateTo({url: `${RECRUITER}user/company/identity/identity?from=identity`})
+          wx.navigateTo({url: `${RECRUITER}user/company/identity/identity?from=${options.from}`})
         }
   			break
   		case 'modifyCompany':

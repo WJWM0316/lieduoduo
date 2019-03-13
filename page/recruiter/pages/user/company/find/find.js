@@ -146,15 +146,15 @@ Page({
           storage.intro = ''
           storage.company_name = this.data.formData.company_name
           wx.setStorageSync('createdCompany', storage)
-          wx.navigateTo({url: `${RECRUITER}user/company/post/post`})
+          wx.navigateTo({url: `${RECRUITER}user/company/post/post?from=company`})
           return;
         } else {
-          wx.navigateTo({url: `${RECRUITER}user/company/post/post?action=edit`})
+          wx.navigateTo({url: `${RECRUITER}user/company/post/post?action=edit&from=company`})
         }
       } else {
         storage.company_name = this.data.formData.company_name
         wx.setStorageSync('createdCompany', Object.assign(storage, this.data.formData))
-        wx.navigateTo({url: `${RECRUITER}user/company/post/post`})
+        wx.navigateTo({url: `${RECRUITER}user/company/post/post?from=company`})
       }
     })
   },
@@ -174,7 +174,7 @@ Page({
       company_id: infos.id
     }
     applyCompanyApi(params).then(() => {
-      wx.reLaunch({url: `${RECRUITER}user/company/status/status`})
+      wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=join`})
       wx.removeStorageSync('createdCompany')
     })
   },
@@ -196,7 +196,7 @@ Page({
       company_id: infos.id
     }
     editApplyCompanyApi(params).then(() => {
-      wx.reLaunch({url: `${RECRUITER}user/company/status/status`})
+      wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=join`})
       wx.removeStorageSync('createdCompany')
     })
   },

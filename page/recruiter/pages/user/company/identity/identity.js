@@ -256,11 +256,12 @@ Page({
    */
   identityCompany() {
     let formData = this.getParams()
+    let options = this.data.options
     identityCompanyApi(formData).then((res) => {
       if(this.data.options.from === 'identity') {
-        wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=identity&showBack=1`})
+        wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=identity&showBack=1&from=${options.from}`})
       } else {
-        wx.redirectTo({url: `${RECRUITER}user/company/status/status?showBack=1`})
+        wx.redirectTo({url: `${RECRUITER}user/company/status/status?showBack=1&from=${options.from}`})
       }
     })
   },
@@ -272,11 +273,12 @@ Page({
    */
   identityJoin() {
     let formData = this.getParams()
+    let options = this.data.options
     joinidentityApi(formData).then((res) => {
       if(this.data.options.from === 'identity') {
-        wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=identity&showBack=1`})
+        wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=identity&showBack=1&from=${options.from}`})
       } else {
-        wx.redirectTo({url: `${RECRUITER}user/company/status/status?showBack=1`})
+        wx.redirectTo({url: `${RECRUITER}user/company/status/status?showBack=1&from=${options.from}`})
       }
     })
   },
@@ -288,11 +290,12 @@ Page({
    */
   editIdentityCompany() {
     let formData = this.getParams()
+    let options = this.data.options
     editCompanyIdentityInfosApi(formData).then((res) => {
       if(this.data.options.from === 'identity') {
-        wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=identity&showBack=1`})
+        wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=identity&showBack=1&from=${options.from}`})
       } else {
-        wx.redirectTo({url: `${RECRUITER}user/company/status/status?showBack=1`})
+        wx.redirectTo({url: `${RECRUITER}user/company/status/status?showBack=1&from=${options.from}`})
       }
     })
   },
@@ -304,11 +307,12 @@ Page({
    */
   editIdentityJoin() {
     let formData = this.getParams()
+    let options = this.data.options
     editIdentityJoinApi(formData).then((res) => {
       if(this.data.options.from === 'identity') {
-        wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=identity&showBack=1`})
+        wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=identity&showBack=1&from=${options.from}`})
       } else {
-        wx.redirectTo({url: `${RECRUITER}user/company/status/status?showBack=1`})
+        wx.redirectTo({url: `${RECRUITER}user/company/status/status?showBack=1&from=${options.from}`})
       }
     })
   },

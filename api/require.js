@@ -131,7 +131,7 @@ export const request = ({method = 'post', url, host, data = {}, needKey = true, 
 
                 if(msg.data.applyJoin) {
                   // 加入公司
-                  wx.reLaunch({url: `${RECRUITER}user/company/status/status`})
+                  wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=join`})
                 } else {
 
                   if(!msg.data.companyInfo.id) {
@@ -139,7 +139,7 @@ export const request = ({method = 'post', url, host, data = {}, needKey = true, 
                     wx.reLaunch({url: `${RECRUITER}user/company/apply/apply`})
                   } else {
                     // 接入ocr 首页会先验证身份证
-                    if(msg.data.status === 2 && msg.data.companyInfo.status !== 1) {
+                    if(msg.data.status === 2 && !msg.data.id) {
                       wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=identity`})
                       return
                     }
@@ -148,7 +148,7 @@ export const request = ({method = 'post', url, host, data = {}, needKey = true, 
                       wx.reLaunch({url: `${RECRUITER}user/company/identity/identity?from=identity`})
                       return;
                     }
-                    wx.reLaunch({url: `${RECRUITER}user/company/status/status`})
+                    wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=company`})
                   }
                 }
               }
