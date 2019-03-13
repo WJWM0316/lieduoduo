@@ -54,7 +54,7 @@
 					<block wx:if="{{infos.rDayBrowseResume !== -1}}"><text>{{infos.rDayBrowseResume}}</text>份</block>
 					<block wx:else><text class="chine">不限</text></block>
 				</view>
-				<view class="key3"><!-- 已查看简历{{infos.rDayBrowseResumeUsed}}份 --></view>
+				<view class="key3">已查看简历{{infos.rDayBrowseResumeUsed}}份 </view>
 			</view>
 		</view>
 		<view class="contact">
