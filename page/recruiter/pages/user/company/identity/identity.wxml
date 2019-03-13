@@ -12,7 +12,7 @@
 		  <view class="upload-li">
 		  	<view class="text">
 		  		<view class="h1">上传身份证正面</view>
-		  		<view class="p">正面身份证，人像信息均在照片内清晰可识别，否则审核将不被通过</view>
+		  		<view class="p">正面身份证人像面信息均在照片内清晰可识别身份信息</view>
 		  	</view>
 		  	<view class="upload-box">
 			    <unloadFile bindresultEvent="upload_front"  bindbeforeUpload="beforeUpload" bindfailUpload="failUpload" unloadType="img" data-type="passport_front" cardInfo="{{cardInfo_front}}">
@@ -39,7 +39,7 @@
 		  <view class="upload-li">
 		  	<view class="text">
 		  		<view class="h1">上传身份证反面</view>
-		  		<view class="p">反面身份证，国徽信息均在照片内清晰可识别，否则审核将不被通过</view>
+		  		<view class="p">反面身份证，国徽信息均在照片内清晰可识别身份信息</view>
 		  	</view>
 		  	<view class="upload-box">
 			    <unloadFile bindresultEvent="upload_back" unloadType="img" data-type="passport_reverse" cardInfo="{{cardInfo_back}}" bindbeforeUpload="beforeUpload" bindfailUpload="failUpload">

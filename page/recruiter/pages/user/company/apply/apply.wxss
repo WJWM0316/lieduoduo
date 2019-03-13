@@ -36,6 +36,7 @@
 	line-height: 122rpx;
 	padding: 0 40rpx;
 	position: relative;
+	background: white;
 }
 
 .company-apply-page .input-li:after {
@@ -50,13 +51,13 @@
 }
 
 .company-apply-page .clear-bottom:after {
-	border-bottom: unset;
+	display: none;
 }
 
 .company-apply-page .input-li .key {
 	font-size:28rpx;
 	font-weight:300;
-	color:rgba(53,57,67,1);
+	color:#353943;
 	width: 130rpx;
 	float: left;
 }
@@ -100,10 +101,18 @@
 }
 .enter {
 	width: 100%;
-	margin-top: 50rpx;
+	margin: 50rpx auto;
 	text-align: center;
 	font-size:28rpx;
 	font-weight:500;
 	color:#BCBCBC;
 	line-height:28rpx;
+}
+
+.footer {
+	position: fixed;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background: #FBFBFF;
 }

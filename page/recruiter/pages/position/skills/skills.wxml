@@ -23,6 +23,6 @@
 			bindtap="onClick"> {{item.name}} </view>
 	</view>
 	<view class="footer">
-    <view class="button-submit {{canClick ? 'button-enable' : ''}}" bindtap="submit">发布</view>
+    <view class="button-submit {{canClick ? 'button-enable' : ''}}" bindtap="submit">保存</view>
   </view>
 </view>

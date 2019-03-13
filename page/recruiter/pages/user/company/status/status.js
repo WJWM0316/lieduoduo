@@ -65,9 +65,9 @@ Page({
    * @detail   获取公司状态和个人身份状态
    * @return   {[type]}   [description]
    */
-  getCompanyIdentityInfos() {
+  getCompanyIdentityInfos(hasLoading = true) {
     return new Promise((resolve, reject) => {
-      getCompanyIdentityInfosApi().then(res => {
+      getCompanyIdentityInfosApi({hasLoading}).then(res => {
         let infos = res.data
         let companyInfos = infos.companyInfo
         let pageTitle = ''
@@ -112,6 +112,6 @@ Page({
   // 下拉刷新
   onPullDownRefresh() {
     this.setData({hasReFresh: true})
-    this.getCompanyIdentityInfos().then(res => this.setData({hasReFresh: false}))
+    this.getCompanyIdentityInfos(false).then(res => this.setData({hasReFresh: false}))
   }
 })

@@ -54,7 +54,7 @@ Page({
    * @detail   获取编辑详情
    * @return   {[type]}   [description]
    */
-  getCompanyIdentityInfos() {
+  getCompanyIdentityInfos(hasLoading = true) {
     let storage = wx.getStorageSync('createdCompany')
     let params = ['real_name', 'user_email', 'user_position']
     let formData = this.data.formData
@@ -66,7 +66,7 @@ Page({
       return
     }
 
-    getCompanyIdentityInfosApi().then(res => {
+    getCompanyIdentityInfosApi({hasLoading}).then(res => {
       let infos = res.data.companyInfo
       let formData = {
         real_name: infos.realName || '',
