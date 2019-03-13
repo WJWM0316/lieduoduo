@@ -5,7 +5,7 @@
   </view>
 
   <view class="todo-tab" bindtap="routeJump" wx:if="{{isCompanyAdmin}}">
-  	<i class="icon iconfont icon-bianji1 icon1"></i>
+  	<i class="icon iconfont icon-tongzhi icon1"></i>
   	招聘官加入申请
   	<i class="icon iconfont icon-xiangyou icon2"></i>
   </view>
