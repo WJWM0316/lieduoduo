@@ -63,8 +63,8 @@ Component({
     unsubscribe(e) {
       const uid = e.currentTarget.dataset.uid
       app.wxConfirm({
-        title: '不再对该招聘官感兴趣',
-        content: '确定取消对该招聘官感兴趣？',
+        title: '不再对该面试官感兴趣',
+        content: '确定取消对该面试官感兴趣？',
         confirmBack: () => {
           deleteMyCollectUserApi({uid}).then(res => {
             this.triggerEvent('refreshevent', {uid})

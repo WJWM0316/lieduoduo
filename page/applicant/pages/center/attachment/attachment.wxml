@@ -34,7 +34,7 @@
 		</view>
 	</view>
 	<view class="footer">
-		<view class="p" wx:if="{{!attachResume.vkey}}">附件简历上传后，招聘官在确认预约面试后可查看</view>
+		<view class="p" wx:if="{{!attachResume.vkey}}">附件简历上传后，面试官在确认预约面试后可查看</view>
 		<view class="p" wx:else>打开网址“www.lieduoduo.com”扫码上传附件简历</view>
 		<view class="button" bindtap="scanCode">扫码上传</view>
 	</view>

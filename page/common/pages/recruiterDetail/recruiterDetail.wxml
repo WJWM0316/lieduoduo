@@ -41,7 +41,7 @@
           <button open-type="share" hidden="{{!info.isCall}}" class="callBtn isCalled clear-style" bindtap="shareBtn">帮Ta转发集Call</button>
           <image src="{{cdnImagePath}}button_bg.png"></image>
         </view>
-        <view class="more" bindtap="jump" wx:if="{{isApplicant}}">查看更多热门招聘官<view class="icon iconfont icon-disejiantou-you"></view></view>
+        <view class="more" bindtap="jump" wx:if="{{isApplicant}}">查看更多热门面试官<view class="icon iconfont icon-disejiantou-you"></view></view>
       </view>
       <view class="labelEdit {{info.personalizedLabels.length > 0 ? 'hasLabelEdit': ''}}" wx:if="{{isOwner}}">
         <view class="title">

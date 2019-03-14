@@ -54,7 +54,7 @@
 				</view>
 			</block>
 			<block wx:else>
-				<view class="h1">了解招聘官身份审核流程</view>
+				<view class="h1">了解面试官身份审核流程</view>
 				<view class="ul">
 					<view class="item">
 						<view class="img-box"><view class="circle">1</view></view>

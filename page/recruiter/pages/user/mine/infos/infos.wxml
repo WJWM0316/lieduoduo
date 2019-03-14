@@ -79,9 +79,9 @@
 
 		<view class="li" bindtap="routeJump" data-route="identity">
 			<i class="icon iconfont icon-renzheng label-icon"></i>
-			<i class="icon iconfont icon-xiangyou"></i>
+			<i class="icon iconfont icon-xiangyou" wx:if="{{!pageInfos.identityAuth}}"></i>
 			<view class="text">认证</view>
-			<view class="text2 color-gray" wx:if="{{pageInfos.identityAuth}}">已认证</view>
+			<view class="text2 color-gray rz" wx:if="{{pageInfos.identityAuth}}">已认证</view>
 			<view class="text2 color-pedding" wx:if="{{!pageInfos.identityAuth && (pageInfos.identityStatus !== 0 && pageInfos.identityStatus !== 1 && pageInfos.identityStatus !== 2)}}">未认证</view>
 			<view class="text2 color-pedding" wx:if="{{!pageInfos.identityAuth && pageInfos.identityStatus === 0}}">认证审核中</view>
 			<view class="text2 color-fail" wx:if="{{!pageInfos.identityAuth && pageInfos.identityStatus === 2}}">认证审核失败</view>

@@ -27,7 +27,7 @@ export const shareRecruiter = (res) => {
 		'【我看你骨骼精奇，是块耐磨的料子】TA正在猎多多招人！',
 		'【好看的和能干的，都欢迎来开撩哦】TA正在猎多多招人！',
 		'【把握住缘分，搞不好能成为同事~】TA正在猎多多招人！',
-		'【我这么Nice的招聘官已经不多见了！】TA正在猎多多招人！'
+		'【我这么Nice的面试官已经不多见了！】TA正在猎多多招人！'
 	]
 	let random = Math.floor((Math.random()*txtList.length))
 	return txtList[random]
@@ -42,7 +42,7 @@ export const sharePosition = (res) => {
 		'【我看你骨骼精奇，是块耐磨的料子】试试这个好职位~',
 		'【好看的和能干的，都欢迎来开撩哦】试试这个好职位~',
 		'【把握住缘分，搞不好能成为同事~】试试这个好职位~',
-		'【我这么Nice的招聘官已经不多见了！】试试这个好职位~'
+		'【我这么Nice的面试官已经不多见了！】试试这个好职位~'
 	]
 	let random = Math.floor((Math.random()*txtList.length))
 	return txtList[random]
@@ -55,7 +55,7 @@ export const shareCompany = '正在招聘，马上约面，极速入职！我在
 export const shareInterviewr = '邀请你面试一个优秀候选人，快去Look吧~'
 
 // 分享排行榜
-export const shareRanking = '全国的招聘官，都在这里招聘'
+export const shareRanking = '全国的面试官，都在这里招聘'
 
 // 分享职业机会
 export const shareChance = '你要的高薪福利好，都藏在猎多多'

@@ -152,7 +152,7 @@ Page({
       case 'make':
         app.wxConfirm({
           title: '切换身份',
-          content: '是否切换为招聘官身份',
+          content: '是否切换为面试官身份',
           confirmText: '确定',
           showCancel: true,
           cancelText: '我再想想',
