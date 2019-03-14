@@ -32,10 +32,11 @@ Page({
   onLoad(options) {
     positionCard = ''
     if (options.scene) {
-      let parames = app.getSceneParams(options.scene)
-      if (parames.pid) {
-        options.positionId = parames.pid
+      options = app.getSceneParams(options.scene)
+      if (options.pid) {
+        options.positionId = options.pid
       }
+      console.log(options, 111)
     }
     let identity = wx.getStorageSync('choseType') || 'APPLICANT'
     this.setData({query: options, identity})

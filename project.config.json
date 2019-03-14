@@ -38,7 +38,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 62,
+			"current": 21,
 			"list": [
 				{
 					"id": 0,
@@ -171,7 +171,7 @@
 					"id": 21,
 					"name": "招聘管-职位详情",
 					"pathName": "page/common/pages/positionDetail/positionDetail",
-					"query": "positionId=437&sCode=222"
+					"query": "scene=positionId%3D437%26sCode%3D222"
 				},
 				{
 					"id": 21,

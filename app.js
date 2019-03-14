@@ -52,7 +52,7 @@ App({
   },
   // 登录
   login() {
-    that = this
+    let that = this
     wx.login({
       success: function (res0) {
         wx.setStorageSync('code', res0.code)
@@ -63,7 +63,7 @@ App({
             wx.setStorageSync('token', res.data.token)
             that.loginedLoadData()
             that.globalData.hasLogin = true
-
+            console.log(that.globalData, 11)
             // 登陆回调
             if (that.loginInit) {
               that.loginInit()

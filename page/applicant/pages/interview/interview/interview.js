@@ -13,7 +13,7 @@ import {getSelectorQuery} from "../../../../../utils/util.js"
 const app = getApp()
 
 let chooseTime = parseInt(new Date().getTime() / 1000)
-
+let hasLogin = false //  是否登录
 let initData = {
   list: [],
   pageNum: 1,
@@ -156,6 +156,7 @@ Page({
   },
   // 我的邀请
   getApplyList(hasLoading = true) {
+    if (!hasLogin) return
     let applyData = this.data.applyData
     let tab = this.data.applyScreen[this.data.applyIndex].value
     let applyBottomStatus = 0
@@ -172,6 +173,7 @@ Page({
   },
   // 收到意向
   getInviteList(hasLoading = true) {
+    if (!hasLogin) return
     let receiveData = this.data.receiveData
     let tab = this.data.receiveScreen[this.data.receiveIndex].value
     let receiveBottomStatus = 0
@@ -188,6 +190,7 @@ Page({
   },
   // 面试日程
   getScheduleList(hasLoading = true) {
+    if (!hasLogin) return
     let interviewData = this.data.interviewData
     let interviewBottomStatus = 0
     return getScheduleListApi({count: interviewData.count, page: interviewData.pageNum, time: chooseTime}, hasLoading).then(res => {
@@ -212,6 +215,7 @@ Page({
     }
   },
   onShow () {
+    hasLogin = app.globalData.hasLogin
     this.init()
     this.getFixedDomNodePosition()
   },
@@ -246,6 +250,7 @@ Page({
     }
   },
   onPullDownRefresh () {
+    if (!hasLogin) return
     switch(this.data.tabIndex) {
       case 0:
         let applyData = initData
