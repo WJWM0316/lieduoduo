@@ -114,8 +114,8 @@
       </view>
 
       <view class="realDate wait" wx:if="{{identity === 'APPLICANT' && (info.status === 21 || info.status === 32)}}">
-        <view class="txt1">等待招聘官安排面试</view>
-        <view class="txt2">你也可以通过上方的电话，联系招聘官确认时间~</view>
+        <view class="txt1">等待面试官安排面试</view>
+        <view class="txt2">你也可以通过上方的电话，联系面试官确认时间~</view>
         <image class="pic" src="{{cdnImagePath}}wait.png"></image>
       </view>
 

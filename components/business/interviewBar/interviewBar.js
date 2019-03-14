@@ -107,8 +107,8 @@ Component({
      */
     showMergeBox(infos) {
       const content = infos.tipsData.positionId === 0
-        ? '招聘官已接受与你约面，但没有选择约面职位，其他职位申请将自动合并，如需修改约面职位，可直接与招聘官协商'
-        : `招聘官已选择你申请职位中的“${infos.tipsData.positionName}”，其他职位申请将自动合并，如需修改约面职位，可直接与招聘官协商。`
+        ? '面试官已接受与你约面，但没有选择约面职位，其他职位申请将自动合并，如需修改约面职位，可直接与面试官协商'
+        : `面试官已选择你申请职位中的“${infos.tipsData.positionName}”，其他职位申请将自动合并，如需修改约面职位，可直接与面试官协商。`
       app.wxConfirm({
         title: '',
         content,
@@ -247,7 +247,7 @@ Component({
           // wx.navigateTo({url: `${RECRUITER}position/jobList/jobList?type=recruiter_chat&from=${this.data.currentPage}&jobhunterUid=${this.data.infos.uid}&recruiterUid=${app.globalData.recruiterDetails.uid}`})
           break
         case 'job-hunting-waiting-interview':
-          app.wxToast({title: '等待招聘官安排面试'})
+          app.wxToast({title: '等待面试官安排面试'})
           break
         // 求职者等待招聘管确认
         case 'waiting-staff-confirm':
@@ -270,7 +270,7 @@ Component({
           } else {
             app.wxConfirm({
               title: '暂不考虑该职位',
-              content: '确定暂不考虑后，招聘官将终止这次约面流程',
+              content: '确定暂不考虑后，面试官将终止这次约面流程',
               showCancel: true,
               cancelText: '我再想想',
               confirmText: '确定',

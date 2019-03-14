@@ -22,7 +22,7 @@
 		</view>
 	</view>
 	<!-- <view class="peoples" bindtap="jumpPage" data-type="peoples">
-		<view class="txt">公司招聘官</view>
+		<view class="txt">公司面试官</view>
 		<view class="boxs">
 			<image class="people" wx:for="{{info.recruiterList}}" src="{{item.avatar.smallUrl}}" wx:key="{{index}}" wx:if="{{index < 4}}"></image>
 			<image class="people" wx:if="{{info.recruiterList.length > 3}}" src="{{cdnImagePath}}more.png"></image>

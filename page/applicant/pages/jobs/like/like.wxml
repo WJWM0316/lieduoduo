@@ -2,7 +2,7 @@
 	<navbar title="感兴趣的" background="#FFFFFF" color="#22292C" showBackBtn="{{true}}"></navbar>
 	<view class="office-status-bar" style="top: {{navH}}px">
 		<view class="item {{tab === 'positionList' ? 'active' : ''}}" bindtap="onClickTab" data-tab="positionList">机会</view>
-  	<view class="item {{tab === 'recruiterList' ? 'active' : ''}}" bindtap="onClickTab" data-tab="recruiterList">招聘官</view>
+  	<view class="item {{tab === 'recruiterList' ? 'active' : ''}}" bindtap="onClickTab" data-tab="recruiterList">面试官</view>
 	</view>
 
 	<view class="ul" hidden="{{tab === 'recruiterList'}}">
@@ -75,7 +75,7 @@
 			</slide-view>
 		</view>
 		<bottomStatus status="{{onBottomStatus}}" listData="{{recruiterList.list}}" desc="没有更多内容了~" marginTop="{{0}}" >
-			<button class="jump" bindtap="jump">发现更多招聘官</button>
+			<button class="jump" bindtap="jump">发现更多面试官</button>
 		</bottomStatus>
 	</view> -->
 </view>

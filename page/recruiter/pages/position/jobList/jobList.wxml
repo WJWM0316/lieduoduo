@@ -27,7 +27,7 @@
     <!-- 求职端开撩 start -->
     <block wx:if="{{identity === 'APPLICANT' && options.type === 'job_hunting_chat'}}">
       <view class="h1">选择约面职位</view>
-      <view class="p" wx:if="{{options.showNotPositionApply === '1'}}">请从招聘官的招聘职位中选择1个，发起面试申请。你也可以不选择职位，直接申请面试</view>
+      <view class="p" wx:if="{{options.showNotPositionApply === '1'}}">请从面试官的招聘职位中选择1个，发起面试申请。你也可以不选择职位，直接申请面试</view>
 
       <view class="li clear-bottom" wx:if="{{options.showNotPositionApply === '1' && identity === 'APPLICANT'}}">
         <view class="content unsuitable">暂不选择职位</view>

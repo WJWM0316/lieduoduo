@@ -2,7 +2,7 @@
 	<navbar title="验证邮箱" background="#FFFFFF" color="#22292C"></navbar>
 	<view class="form" wx:if="{{step === 1}}">
 		<view class="h1">公司邮箱验证</view>
-		<view class="p">公司邮箱，用于验证招聘官个人与公司所属关系的真实性</view>
+		<view class="p">公司邮箱，用于验证面试官个人与公司所属关系的真实性</view>
 	  <view class="input-li clear-bottom">
 	    <input name="email" class="value" placeholder="输入公司邮箱" bindinput="bindInput" data-field="email" value="{{email}}" />
 	  </view>

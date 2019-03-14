@@ -251,7 +251,9 @@
 	text-overflow: ellipsis;
 	white-space: nowrap;
 }
-
+.entry-list .text2.rz {
+  margin-right: 0;
+}
 .entry-list .not-certified {
 	display: inline-block;
 	color: #2878FF;

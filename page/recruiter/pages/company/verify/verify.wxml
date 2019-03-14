@@ -20,7 +20,7 @@
 				<view class="reddot"></view>
 			</view>
 		</view>
-		<bottomStatus status="{{onBottomStatus}}" listData="{{list0.list}}" desc="暂无面试官加入组织 邀请同事加入，一起开启社交招聘~">
+		<bottomStatus status="{{onBottomStatus}}" listData="{{list0.list}}" desc="暂无面试官加入组织 /n \n 邀请同事加入，一起开启社交招聘~">
 			<!-- <button class="jump" bindtap="jump">邀请面试官加入</button> -->
 		</bottomStatus>
 	</view>
@@ -36,7 +36,7 @@
 				<!-- <view class="reddot"></view> -->
 			</view>
 		</view>
-		<bottomStatus status="{{onBottomStatus}}" listData="{{list1.list}}" desc="暂无面试官加入组织 邀请同事加入，一起开启社交招聘~">
+		<bottomStatus status="{{onBottomStatus}}" listData="{{list1.list}}" desc="暂无面试官加入组织 /n \n 邀请同事加入，一起开启社交招聘~">
 			<!-- <button class="jump" bindtap="jump">邀请面试官加入</button> -->
 		</bottomStatus>
 	</view>
@@ -52,7 +52,7 @@
 				<!-- <view class="reddot"></view> -->
 			</view>
 		</view>
-		<bottomStatus status="{{onBottomStatus}}" listData="{{list2.list}}" desc="暂无面试官加入组织 邀请同事加入，一起开启社交招聘~">
+		<bottomStatus status="{{onBottomStatus}}" listData="{{list2.list}}" desc="暂无面试官加入组织 \n 邀请同事加入，一起开启社交招聘~">
 			<!-- <button class="jump" bindtap="jump">邀请面试官加入</button> -->
 		</bottomStatus>
 	</view>
