@@ -31,7 +31,7 @@ Page({
     unsuitableChecked: false,
     personChecked: false,
     nowTab: 'online',
-    buttonClick: true
+    buttonClick: false
   },
   onLoad(options) {
     this.setData({identity: wx.getStorageSync('choseType'), options})
@@ -42,7 +42,7 @@ Page({
     let value = this.data.onLinePositionList
     if(storage && wx.getStorageSync('choseType') === 'RECRUITER') {
       value.list = storage.data
-      this.setData({[key]: value})
+      this.setData({onLinePositionList: value})
       return;
     }
     this.setData({onLinePositionList}, () => this.getLists())
@@ -120,8 +120,6 @@ Page({
     let items = this.data.onLinePositionList
     let key = ''
     let result = {}
-    let buttonClick = this.data.buttonClick
-    let that = this
 
     // 给不合适或者直接与我约面加按钮状态 并且选中的按钮只能有一个
     if(typeof job.id === 'string') {
@@ -148,10 +146,8 @@ Page({
       case 'recruiter_chat':
         params.jobhunterUid = options.jobhunterUid
         params.positionId = job.id
-        if(this.data.nowTab === 'offline') {
-          buttonClick = false
-        }
-        this.setData({params, buttonClick})
+        result = items.list.find((find, index) => job.index === index)
+        this.setData({params, buttonClick: result.active})
         break
       case 'job_hunting_chat':
         params.recruiterUid = this.data.options.recruiterUid
@@ -160,10 +156,13 @@ Page({
         break
       case 'confirm_chat':
         params.id = job.id
-        this.setData({params})
+        this.setData({params, buttonClick: true})
         break
       case 'reject_chat':
+        result = items.list.find((find, index) => job.index === index)
         params.id = job.id
+        params.positionId = result.positionId
+        params.jobhunterUid = options.jobhunterUid
 
         // 都不合适 传对方的ID
         if(this.data.identity === 'APPLICANT' && job.id === 'unsuitable') {
@@ -173,7 +172,7 @@ Page({
         if(this.data.identity === 'RECRUITER' && job.id === 'unsuitable') {
           params.id = options.jobhunterUid
         }
-        this.setData({params})
+        this.setData({params, buttonClick: result.active})
         break
       default:
         wx.setStorageSync('interviewData', data)
@@ -188,8 +187,12 @@ Page({
    * @return   {[type]}          [description]
    */
   applyInterview(params) {
-    applyInterviewApi(params).then(res => {
-      wx.navigateBack({delta: 1})
+    return new Promise((resolve, reject) => {
+      applyInterviewApi(params).then(res => {
+        resolve(params)
+        wx.removeStorageSync('interviewChatLists')
+        wx.navigateTo({url: `${COMMON}arrangement/arrangement?id=${params.id}`})
+      })
     })
   },
   /**
@@ -211,9 +214,12 @@ Page({
    * @return   {[type]}          [description]
    */
   refuseInterview(params) {
-    refuseInterviewApi(params).then(res => {
-      wx.navigateBack({delta: 1})
-      wx.removeStorageSync('interviewChatLists')
+    return new Promise((resolve, reject) => {
+      refuseInterviewApi(params).then(res => {
+        resolve(params)
+        wx.removeStorageSync('interviewChatLists')
+        wx.navigateTo({url: `${COMMON}arrangement/arrangement?id=${params.id}`})
+      })
     })
   },
   /**
@@ -233,8 +239,9 @@ Page({
   submit() {
     let options = this.data.options
     let params = this.data.params
-    let buttonClick = this.data.buttonClick
-    if(!buttonClick) {
+    let that = this
+
+    if(!this.data.buttonClick) {
       app.wxConfirm({
         title: '开放职位约面',
         content: '确认开放该职位进行约面吗？',
@@ -244,9 +251,8 @@ Page({
         cancelColor: '#BCBCBC',
         confirmColor: '#652791',
         confirmBack: () => {
-          let onLinePositionList = {list: [], pageNum: 1, count: 20, isLastPage: false, isRequire: false}
           openPositionApi({id: params.positionId}).then(res => {
-            that.setData({onLinePositionList}, () => that.getLists(true))
+            that.applyInterview(params).then(() => wx.navigateBack({delta: 1 }))
           })
         }
       })
@@ -257,7 +263,9 @@ Page({
         this.confirmInterview(params)
         break
       case 'reject_chat':
-        this.refuseInterview(params)
+        this.applyInterview(params)
+        // this.refuseInterview(params)
+        break
       case 'recruiter_chat':
         this.applyInterview(params)
       default:
@@ -271,9 +279,20 @@ Page({
    * @return   {[type]}   [description]
    */
   onReachBottom() {
-    let onLinePositionList = this.data.onLinePositionList
-    let nowTab = this.data.nowTab
-    let api = nowTab === 'online' ? 'getonLinePositionList' : 'getoffLinePositionList'
+    let onLinePositionList = {}
+    let api = this.data.nowTab === 'online' ? 'getonLinePositionList' : 'getoffLinePositionList'
+    let storage = wx.getStorageSync('interviewChatLists')
+    let value = this.data.onLinePositionList
+
+    onLinePositionList = {list: [], pageNum: 1, count: 20, isLastPage: false, isRequire: false}
+    if(storage && wx.getStorageSync('choseType') === 'RECRUITER') {
+      value.list = storage.data
+      this.setData({onLinePositionList: value})
+      return;
+    }
+
+    onLinePositionList = this.data.onLinePositionList
+    this.setData({onLinePositionList}, () => this.getLists())
     if(!onLinePositionList.isLastPage) {
       this[api](false).then(() => this.setData({onBottomStatus: 1}))
     }
@@ -285,9 +304,17 @@ Page({
    * @return   {[type]}              [description]
    */
   onPullDownRefresh() {
-    let onLinePositionList = {list: [], pageNum: 1, isLastPage: false, isRequire: false, count: 20}
-    let nowTab = this.data.nowTab
-    let api = nowTab === 'online' ? 'getonLinePositionList' : 'getoffLinePositionList'
+    let api = this.data.nowTab === 'online' ? 'getonLinePositionList' : 'getoffLinePositionList'
+    let onLinePositionList = {list: [], pageNum: 1, count: 20, isLastPage: false, isRequire: false}
+    let storage = wx.getStorageSync('interviewChatLists')
+    let value = this.data.onLinePositionList
+
+    if(storage && wx.getStorageSync('choseType') === 'RECRUITER') {
+      value.list = storage.data
+      this.setData({onLinePositionList: value})
+      return;
+    }
+
     this.setData({onLinePositionList, hasReFresh: true})
     this[api](false).then(res => {
       wx.stopPullDownRefresh()

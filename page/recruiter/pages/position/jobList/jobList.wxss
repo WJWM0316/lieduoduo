@@ -209,11 +209,13 @@
   color:#CDCBCF;
   text-align: center;
   line-height: 88rpx;
+}
+
+.button-enable {
   background:rgba(101,39,145,1);
   box-shadow:0rpx 20rpx 18rpx 0rpx rgba(101,39,145,0.2);
   color:rgba(255,255,255,1);
 }
-
 .footer {
   position: fixed;
   left: 0;
