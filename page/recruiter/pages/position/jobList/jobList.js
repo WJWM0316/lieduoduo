@@ -19,7 +19,7 @@ Page({
   },
   onLoad(options) {
     this.setData({identity: wx.getStorageSync('choseType'), options})
-    console.log(this.data)
+
     let storage = wx.getStorageSync('interviewChatLists')
     let items = []
     if(storage && wx.getStorageSync('choseType') === 'RECRUITER') {
@@ -40,6 +40,8 @@ Page({
     let options = this.data.options
     let items = this.data.items
     let key = ''
+    let recruiter_chat_infos = wx.getStorageSync('recruiter_chat_infos') || {}
+    let result = {}
 
     // 给不合适或者直接与我约面加按钮状态 并且选中的按钮只能有一个
     if(typeof job.id === 'string') {
@@ -65,8 +67,13 @@ Page({
     switch(options.type) {
       case 'recruiter_chat':
         params.jobhunterUid = this.data.options.jobhunterUid
-        params.positionId = job.id
-        this.applyInterview(params)
+        params.positionId = job.identity
+        result = items.find((field, index) => index === job.index)
+        recruiter_chat_infos.positionInfos = result
+        wx.setStorageSync('recruiter_chat_infos', recruiter_chat_infos)
+        wx.navigateTo({url: `${COMMON}arrangement/arrangement`})
+
+        // this.applyInterview(params)
         break
       case 'job_hunting_chat':
         params.recruiterUid = this.data.options.recruiterUid

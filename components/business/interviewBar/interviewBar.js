@@ -174,6 +174,9 @@ Component({
             this.getCompanyIdentityInfos()
           } else {
             // 走正常流程
+            wx.setStorageSync('recruiter_chat_infos', {
+              personInfos: this.data.infos
+            })
             wx.navigateTo({url: `${RECRUITER}position/jobList/jobList?type=recruiter_chat&from=${this.data.currentPage}&jobhunterUid=${this.data.infos.uid}&recruiterUid=${app.globalData.recruiterDetails.uid}`})
           }
         }
