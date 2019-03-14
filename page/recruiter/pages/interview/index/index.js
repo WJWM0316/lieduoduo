@@ -44,7 +44,9 @@ Page({
       {key: '待对方确认', value: 31},
       {key: '待我修改', value: 32},
       {key: '对方暂不考虑', value: 54},
-      {key: '不合适', value: 52}
+      {key: '不合适', value: 52},
+      {key: '已安排', value: 41},
+      {key: '已结束', value: 51},
     ],
     receiveScreen: [
       {key: '所有状态', value: 0},
@@ -52,7 +54,9 @@ Page({
       {key: '待安排', value: 21},
       {key: '待对方确认', value: 31},
       {key: '待我修改', value: 32},
-      {key: '不合适', value: 52}
+      {key: '不合适', value: 52},
+      {key: '已安排', value: 41},
+      {key: '已结束', value: 51}
     ],
     positionList: [],
     tabLists: [

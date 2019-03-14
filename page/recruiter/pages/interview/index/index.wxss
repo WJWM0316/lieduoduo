@@ -417,11 +417,10 @@
 }
 
 .item2 .row-two {
-  height:26rpx;
   font-size:26rpx;
   font-weight:400;
   color:rgba(98,98,98,1);
-  line-height:26rpx;
+  line-height:1.1;
   padding: 23rpx 28rpx 25rpx 28rpx;
 }
 

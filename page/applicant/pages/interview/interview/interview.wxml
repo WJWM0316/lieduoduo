@@ -55,7 +55,7 @@
 		<!-- 面试日程 end-->
 		<view class="interview-page-title" wx:if="{{tabIndex === 2}}">
 			<view class="total">面试安排（{{interviewData.total}}）</view>
-			<!-- <view class="history" bindtap="jumpInterviewPage"><i class="icon iconfont icon-lishijilu"></i> 全部面试</view> -->
+			<view class="history" bindtap="jumpInterviewPage"><i class="icon iconfont icon-lishijilu"></i> 全部面试</view>
 		</view>
 	</view>
 
