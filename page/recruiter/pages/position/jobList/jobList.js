@@ -1,7 +1,8 @@
 import {
   getPositionListApi,
   openPositionApi,
-  getRecruiterPositionListApi
+  getRecruiterPositionListApi,
+  getfilterPositionListApi
 } from "../../../../../api/pages/position.js"
 
 import {
@@ -48,7 +49,11 @@ Page({
     this.setData({onLinePositionList}, () => this.getLists())
   },
   getLists() {
-    return this.getonLinePositionList()
+    if(wx.getStorageSync('choseType') === 'RECRUITER') {
+      return this.getonLinePositionListB()
+    } else {
+      return this.getonLinePositionListC()
+    }
   },
   /**
    * @Author   小书包
@@ -56,7 +61,7 @@ Page({
    * @detail   获取上线职位列表
    * @return   {[type]}   [description]
    */
-  getonLinePositionList(hasLoading = true) {
+  getonLinePositionListB(hasLoading = true) {
     return new Promise((resolve, reject) => {
       let options = this.data.options
       let onLinePositionList = this.data.onLinePositionList
@@ -70,9 +75,37 @@ Page({
       getRecruiterPositionListApi(params).then(res => {
         // 如果没有数据 则拿下线数据
         if(!res.meta.total) {
-          this.setData({nowTab: 'offline'}, () => this.getoffLinePositionList(false))
+          this.setData({nowTab: 'offline'}, () => this.getoffLinePositionListB(false))
           return
         }
+        let onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
+        let list = res.data || []
+        list.map(field => field.active = false)
+        onLinePositionList.list = onLinePositionList.list.concat(list)
+        onLinePositionList.pageNum++
+        onLinePositionList.isRequire = true
+        onLinePositionList.isLastPage = res.meta && res.meta.nextPageUrl ? false : true
+        this.setData({onLinePositionList, onBottomStatus}, () => resolve(res))
+      })
+    })
+  },
+  /**
+   * @Author   小书包
+   * @DateTime 2019-03-14
+   * @detail   获取上线职位列表
+   * @return   {[type]}   [description]
+   */
+  getonLinePositionListC(hasLoading = true) {
+    return new Promise((resolve, reject) => {
+      let options = this.data.options
+      let onLinePositionList = this.data.onLinePositionList
+      let params = {
+        count: onLinePositionList.count,
+        page: onLinePositionList.pageNum,
+        hasLoading,
+        recruiter: options.recruiterUid
+      }
+      getPositionListApi(params).then(res => {
         let onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
         let list = res.data || []
         list.map(field => field.active = false)
@@ -90,10 +123,11 @@ Page({
    * @detail   获取下线职位列表
    * @return   {[type]}   [description]
    */
-  getoffLinePositionList(hasLoading = true) {
+  getoffLinePositionListB(hasLoading = true) {
     return new Promise((resolve, reject) => {
       let options = this.data.options
       let onLinePositionList = this.data.onLinePositionList
+      let api = wx.getStorageSync('choseType') === 'RECRUITER' ? 'getRecruiterPositionListApi' : 'getPositionListApi'
       let params = {
         recruiter: options.recruiterUid,
         is_online: 2,
@@ -187,12 +221,13 @@ Page({
    * @return   {[type]}          [description]
    */
   applyInterview(params) {
-    return new Promise((resolve, reject) => {
-      applyInterviewApi(params).then(res => {
-        resolve(params)
-        wx.removeStorageSync('interviewChatLists')
+    applyInterviewApi(params).then(res => {
+      wx.removeStorageSync('interviewChatLists')
+      if(wx.getStorageSync('choseType') === 'RECRUITER') {
         wx.navigateTo({url: `${COMMON}arrangement/arrangement?id=${params.id}`})
-      })
+      } else {
+        wx.navigateBack({delta: 1 })
+      }
     })
   },
   /**
@@ -204,7 +239,11 @@ Page({
   confirmInterview(params) {
     confirmInterviewApi(params).then(res => {
      wx.removeStorageSync('interviewChatLists')
-     wx.redirectTo({url: `${COMMON}arrangement/arrangement?id=${params.id}`})
+      if(wx.getStorageSync('choseType') === 'RECRUITER') {
+        wx.navigateTo({url: `${COMMON}arrangement/arrangement?id=${params.id}`})
+      } else {
+        wx.navigateBack({delta: 1 })
+      }
     })
   },
   /**
@@ -214,12 +253,14 @@ Page({
    * @return   {[type]}          [description]
    */
   refuseInterview(params) {
-    return new Promise((resolve, reject) => {
-      refuseInterviewApi(params).then(res => {
-        resolve(params)
-        wx.removeStorageSync('interviewChatLists')
+    refuseInterviewApi(params).then(res => {
+      resolve(params)
+      wx.removeStorageSync('interviewChatLists')
+      if(wx.getStorageSync('choseType') === 'RECRUITER') {
         wx.navigateTo({url: `${COMMON}arrangement/arrangement?id=${params.id}`})
-      })
+      } else {
+        wx.navigateBack({delta: 1 })
+      }
     })
   },
   /**
@@ -280,10 +321,14 @@ Page({
    */
   onReachBottom() {
     let onLinePositionList = {}
-    let api = this.data.nowTab === 'online' ? 'getonLinePositionList' : 'getoffLinePositionList'
+    let api = ''
     let storage = wx.getStorageSync('interviewChatLists')
     let value = this.data.onLinePositionList
-
+    if(wx.getStorageSync('choseType') === 'RECRUITER') {
+      api = this.data.nowTab === 'online' ? 'getonLinePositionListB' : 'getoffLinePositionListB'
+    } else {
+      api = 'getonLinePositionListC'
+    }
     onLinePositionList = {list: [], pageNum: 1, count: 20, isLastPage: false, isRequire: false}
     if(storage && wx.getStorageSync('choseType') === 'RECRUITER') {
       value.list = storage.data
@@ -304,7 +349,7 @@ Page({
    * @return   {[type]}              [description]
    */
   onPullDownRefresh() {
-    let api = this.data.nowTab === 'online' ? 'getonLinePositionList' : 'getoffLinePositionList'
+    let api = this.data.nowTab === 'online' ? 'getonLinePositionListB' : 'getoffLinePositionListB'
     let onLinePositionList = {list: [], pageNum: 1, count: 20, isLastPage: false, isRequire: false}
     let storage = wx.getStorageSync('interviewChatLists')
     let value = this.data.onLinePositionList

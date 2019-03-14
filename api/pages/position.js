@@ -11,14 +11,14 @@ export const getPositionListApi = (data) => {
 }
 
 // 职位列表
-// export const getPositionListApi = (data, hasLoading) => {
-//   return request({
-//     method: 'get',
-//     url: '/position/list',
-//     data,
-//     hasLoading: hasLoading
-//   })
-// }
+export const getfilterPositionListApi = (data, hasLoading) => {
+  return request({
+    method: 'get',
+    url: '/position/surface',
+    data,
+    hasLoading: hasLoading
+  })
+}
 
 // 招聘官的职位列表
 export const getRecruiterPositionListApi = (data, hasLoading) => {
