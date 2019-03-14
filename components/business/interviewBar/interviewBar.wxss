@@ -179,6 +179,7 @@
 	left: 50rpx;
 	right: 50rpx;
 	height: 712rpx;
+	text-align: center;
 }
 
 .overlay .button {
@@ -218,4 +219,10 @@
 	top: 31rpx;
 	right: 31rpx;
 	color: #CDCBCF;
+}
+
+.overlay image {
+	width: 440rpx;
+	height: 290rpx;
+	margin: 38rpx auto 32rpx auto;
 }

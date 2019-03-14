@@ -1,14 +1,24 @@
 import { request } from '../require.js'
 
 // 职位列表
-export const getPositionListApi = (data, hasLoading) => {
+export const getPositionListApi = (data) => {
   return request({
     method: 'get',
     url: '/position/list',
     data,
-    hasLoading: hasLoading
+    hasLoading: data.hasLoading
   })
 }
+
+// 职位列表
+// export const getPositionListApi = (data, hasLoading) => {
+//   return request({
+//     method: 'get',
+//     url: '/position/list',
+//     data,
+//     hasLoading: hasLoading
+//   })
+// }
 
 // 招聘官的职位列表
 export const getRecruiterPositionListApi = (data, hasLoading) => {

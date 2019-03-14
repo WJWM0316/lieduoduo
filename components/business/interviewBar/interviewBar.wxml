@@ -183,11 +183,25 @@
 
 <bindPhone hide="{{!showLoginBox}}"></bindPhone>
 
-<!-- <view class="overlay">
+<view class="overlay" wx:if="{{currentPage === 'resumeDetail' && !positionInfos.online  && show}}">
 	<view class="box">
-		<i class="icon iconfont icon-close"></i>
+		<i class="icon iconfont icon-close" bindtap="todoAction" data-action="close"></i>
+		<image src="{{cdnImagePath}}none_position.png"></image>
 		<view class="p1">邀请候选人面试</view>
 		<view class="p2">至少需要一个招聘中职位~</view>
-		<view class="button">发布职位</view>
+		<view
+			class="button"
+			wx:if="{{!positionInfos.online && (!positionInfos.offline || !positionInfos.close)}}"
+			bindtap="todoAction"
+			data-action="public">
+			发布职位
+		</view>
+		<view
+			class="button"
+			wx:if="{{!positionInfos.online && (positionInfos.offline || positionInfos.close)}}"
+			bindtap="todoAction"
+			data-action="openPosition">
+			去发布/开放职位
+		</view>
 	</view>
-</view> -->
+</view>

@@ -158,6 +158,7 @@
       <view class="recruiter-waiting" wx:if="{{identity === 'RECRUITER' && info.status === 12}}">
         <view class="h1">等待候选人接受邀请</view>
         <view class="h2">候选人将收到你的面试邀请，请耐心等待</view>
+        <image src="{{cdnImagePath}}clock_show.png" class="clock_show"></image>
       </view>
 
     </view>

@@ -32,9 +32,13 @@ Page({
     },
     hasReFresh: false,
     identityInfos: {},
-    telePhone: app.globalData.telePhone
+    telePhone: app.globalData.telePhone,
+    options: {}
   },
-  onLoad() {
+  onLoad(options) {
+    if(options.positionStatus) {
+      this.setData({positionStatus: options.positionStatus})
+    }
   },
   onShow() {
     this.getCompanyIdentityInfos()

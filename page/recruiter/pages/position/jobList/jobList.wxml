@@ -1,5 +1,9 @@
 <view class="job-list">
   <navbar title="{{pageTitle}}" background="#FFFFFF" color="#22292C"></navbar>
+  
+  <view hidden="{{!hasReFresh}}">
+    <refreshStatus></refreshStatus>
+  </view>
 
   <block wx:if="{{identity === 'RECRUITER' && (options.type === 'confirm_chat' || options.type === 'reject_chat')}}">
     <view class="h1">以下是候选人多条申请记录，请选择处理</view>
@@ -56,7 +60,7 @@
       </view>
     </view> -->
 
-    <view class="li" wx:for="{{items}}" wx:key="{{index}}">
+    <view class="li" wx:for="{{onLinePositionList.list}}" wx:key="{{index}}">
       <block wx:if="{{item.positionId || item.id}}">
         <view class="content">
           <view class="title">
@@ -69,7 +73,7 @@
             <text class="txt">{{item.educationName}}</text>
           </view>
         </view>
-        <view class="status-box" wx:if="{{!item.status}}"> 该职位已关闭 </view>
+        <view class="status-box" wx:if="{{ options.type === 'recruiter_chat' && nowTab === 'offline' && (item.status === 0 || item.status === 1 || item.status === 3) }}"> 该职位已关闭 </view>
         <view class="radio-box">
           <view
             class="myRadio {{item.active ? 'active' : ''}}"
@@ -93,6 +97,7 @@
       </block>
     </view>
   </view>
+
   <view class="li2" wx:if="{{identity === 'RECRUITER' && options.type === 'reject_chat'}}">
     <view class="content">
       <view class="unsuitable">都不合适</view>
@@ -107,7 +112,9 @@
       </view>
     </view>
   </view>
-    
-  <view class="footer" wx:if="{{options.type === 'confirm_chat' || options.type === 'reject_chat'}}"><view bindtap="submit" class="button-submit">确定</view></view>
+
+  <bottomStatus status="{{onLinePositionList}}" listData="{{onLinePositionList.list}}" desc="没有更多内容了~"></bottomStatus>
+
+  <view class="footer" wx:if="{{options.type === 'confirm_chat' || options.type === 'reject_chat' || options.type === 'recruiter_chat'}}"><view bindtap="submit" class="button-submit">确定</view></view>
 <!--   <view class="edit-button"  wx:if="{{identity === 'RECRUITER'}}" bindtap="publicPosition"><i class="icon iconfont icon-bianji"></i> 发布职位</view> -->
 </view>
