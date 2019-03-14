@@ -40,5 +40,6 @@
 			</button>
 		</form>
 	</view>
-	<bottomStatus status="{{applyBottomStatus}}" listData="{{interviewList.list}}"></bottomStatus>
+	<bottomStatus status="{{onBottomStatus}}" listData="{{interviewList.list}}" desc="暂时没有发现面试记录~">
+	</bottomStatus>
 </view>
