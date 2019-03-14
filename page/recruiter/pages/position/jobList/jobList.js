@@ -154,6 +154,7 @@ Page({
     let items = this.data.onLinePositionList
     let key = ''
     let result = {}
+    let buttonClick = this.data.buttonClick
 
     // 给不合适或者直接与我约面加按钮状态 并且选中的按钮只能有一个
     if(typeof job.id === 'string') {
@@ -193,20 +194,21 @@ Page({
         this.setData({params, buttonClick: true})
         break
       case 'reject_chat':
-        result = items.list.find((find, index) => job.index === index)
-        params.id = job.id
-        params.positionId = result.positionId
-        params.jobhunterUid = options.jobhunterUid
 
-        // 都不合适 传对方的ID
         if(this.data.identity === 'APPLICANT' && job.id === 'unsuitable') {
           params.id = options.recruiterUid
-        }
-        // 都不合适 传对方的ID
-        if(this.data.identity === 'RECRUITER' && job.id === 'unsuitable') {
+          buttonClick = this.data.unsuitableChecked
+        } else if(this.data.identity === 'RECRUITER' && job.id === 'unsuitable') {
           params.id = options.jobhunterUid
+          buttonClick = this.data.unsuitableChecked
+        } else {
+          result = items.list.find((find, index) => job.index === index)
+          params.id = job.id
+          params.positionId = result.positionId
+          params.jobhunterUid = options.jobhunterUid
+          buttonClick = result.active
         }
-        this.setData({params, buttonClick: result.active})
+        this.setData({params, buttonClick})
         break
       default:
         wx.setStorageSync('interviewData', data)
@@ -254,9 +256,8 @@ Page({
    */
   refuseInterview(params) {
     refuseInterviewApi(params).then(res => {
-      resolve(params)
       wx.removeStorageSync('interviewChatLists')
-      if(wx.getStorageSync('choseType') === 'RECRUITER') {
+      if(wx.getStorageSync('choseType') === 'RECRUITER' && !this.data.unsuitableChecked) {
         wx.navigateTo({url: `${COMMON}arrangement/arrangement?id=${params.id}`})
       } else {
         wx.navigateBack({delta: 1 })
@@ -304,8 +305,11 @@ Page({
         this.confirmInterview(params)
         break
       case 'reject_chat':
-        this.applyInterview(params)
-        // this.refuseInterview(params)
+        if(this.data.unsuitableChecked) {
+          this.refuseInterview(params)
+        } else {
+          this.confirmInterview(params)
+        }
         break
       case 'recruiter_chat':
         this.applyInterview(params)
@@ -349,7 +353,7 @@ Page({
    * @return   {[type]}              [description]
    */
   onPullDownRefresh() {
-    let api = this.data.nowTab === 'online' ? 'getonLinePositionListB' : 'getoffLinePositionListB'
+    let api = ''
     let onLinePositionList = {list: [], pageNum: 1, count: 20, isLastPage: false, isRequire: false}
     let storage = wx.getStorageSync('interviewChatLists')
     let value = this.data.onLinePositionList
@@ -359,7 +363,11 @@ Page({
       this.setData({onLinePositionList: value})
       return;
     }
-
+    if(wx.getStorageSync('choseType') === 'RECRUITER') {
+      api = this.data.nowTab === 'online' ? 'getonLinePositionListB' : 'getoffLinePositionListB'
+    } else {
+      api = 'getonLinePositionListC'
+    }
     this.setData({onLinePositionList, hasReFresh: true})
     this[api](false).then(res => {
       wx.stopPullDownRefresh()
