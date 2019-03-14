@@ -164,7 +164,7 @@ Page({
       })
     } else {
       wx.navigateTo({
-        url: `${APPLICANT}officerActive/more/more`
+        url: `${COMMON}rank/rank`
       })
     }
     

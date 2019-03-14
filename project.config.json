@@ -38,7 +38,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 23,
+			"current": 2,
 			"list": [
 				{
 					"id": 0,
@@ -47,15 +47,15 @@
 					"query": ""
 				},
 				{
-					"id": -1,
-					"name": "地图",
-					"pathName": "page/common/pages/map/map",
+					"id": 1,
+					"name": "职位机会",
+					"pathName": "page/common/pages/careerChance/careerChance",
 					"query": ""
 				},
 				{
 					"id": 2,
-					"name": "index",
-					"pathName": "page/recruiter/pages/user/company/upload/upload",
+					"name": "排行版",
+					"pathName": "page/common/pages/rank/rank",
 					"query": ""
 				},
 				{

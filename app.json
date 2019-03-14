@@ -16,7 +16,9 @@
     "page/common/pages/auth/auth",
     "page/common/pages/tabsPage/tabsPage",
     "page/common/pages/poster/exPosition/exPosition",
-    "page/common/pages/cutInside/cutInside"
+    "page/common/pages/cutInside/cutInside",
+    "page/common/pages/rank/rank",
+    "page/common/pages/careerChance/careerChance"
   ],
   "window": {
     "navigationBarTextStyle": "black",

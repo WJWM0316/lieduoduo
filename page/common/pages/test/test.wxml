@@ -1,5 +1,0 @@
-<view class="canvasCard">
-	<canvas canvas-id="cardCanvas" class="canvas" id="cardCanvas" width="420px" height="336px"></canvas>
-	<image class="canvas" src="../../../images/jianli.png"></image>
-</view>
-<canvasCard></canvasCard>

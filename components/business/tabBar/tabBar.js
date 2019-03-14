@@ -1,5 +1,5 @@
 // components/business/tabBar/tabBar.js
-import {RECRUITER, APPLICANT} from '../../../config.js'
+import {RECRUITER, APPLICANT, COMMON} from '../../../config.js'
 const app = getApp()
 const cdnImagePath = app.globalData.cdnImagePath
 Component({
@@ -60,7 +60,7 @@ Component({
         iconPath: `${cdnImagePath}tab_job_nor@3x.png`,
         selectedIconPath: `${cdnImagePath}tab_job_sel@3x.png`,
         active: false,
-        path: `${APPLICANT}jobs/job/job`
+        path: `${COMMON}careerChance/careerChance`
       },
       {
         title: '面试',
