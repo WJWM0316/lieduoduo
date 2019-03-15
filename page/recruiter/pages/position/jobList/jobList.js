@@ -397,7 +397,11 @@ Page({
         } else if(params.status === 3 || params.status === 4) {
           app.wxToast({title: '该职位未开放，不可选择约面'})
         } else {
-          this.confirmInterview(params)
+          if(this.data.personChecked) {
+            this.confirmInterview({id: options.recruiterId})
+          } else {
+            this.confirmInterview(params)
+          }
         }
         break
       // 招聘官拒绝开撩 需要判断职位的状态

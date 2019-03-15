@@ -339,15 +339,12 @@ Component({
           break
         // B端开撩成功后跳转安排面试页面
         case 'recruiter-accept':
-          // wx.navigateTo({url: `${RECRUITER}position/jobList/jobList?type=confirm_chat&from=${this.data.currentPage}`})
-          // wx.setStorageSync('interviewChatLists', this.data.interviewInfos)
           // 求职者发起多条撩的记录
           if(interviewInfos.data.length > 1) {
-            wx.navigateTo({url: `${RECRUITER}position/jobList/jobList?type=confirm_chat&from=${this.data.currentPage}`})
+            wx.navigateTo({url: `${RECRUITER}position/jobList/jobList?type=confirm_chat&from=${this.data.currentPage}&recruiterId=${interviewInfos.data[0].recruiterUid}`})
             wx.setStorageSync('interviewChatLists', this.data.interviewInfos)
           } else {
             confirmInterviewApi({id: interviewInfos.data[0].interviewId}).then(res => {
-              // this.triggerEvent('resultevent', res)
               wx.navigateTo({url: `${COMMON}arrangement/arrangement?id=${interviewInfos.data[0].interviewId}`})
             })
           }
