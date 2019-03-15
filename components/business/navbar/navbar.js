@@ -55,7 +55,6 @@ Component({
   },
   pageLifetimes: {
     show() {
-      console.log(33333333333333333)
       if (getCurrentPages().length > 1) {
         this.setData({showBackBtn: true})
       }

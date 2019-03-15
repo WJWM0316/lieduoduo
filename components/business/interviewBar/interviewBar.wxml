@@ -1,6 +1,6 @@
 <view class="interview-bar {{ !isOwerner ? 'interview-bar-radius' : ''}}" wx:if="{{ !isOwerner }}">
 	
-	<block wx:if="{{identity === 'APPLICANT'}}">
+	<block wx:if="{{type === 'recruiter' || type === 'position'}}">
 		<view class="img-box" bindtap="todoAction" data-action="viewRecruiter">
 			<image mode="aspectFill" src="{{infos.avatar.smallUrl || infos.recruiterInfo.avatar.smallUrl}}"></image>
 		</view>

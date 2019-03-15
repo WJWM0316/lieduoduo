@@ -56,12 +56,9 @@ Component({
     recruiterWords: agreedTxtB(),
     isShare: false
   },
-  pageLifetimes: {
-    show() {
-      identity = wx.getStorageSync('choseType')
-      console.log(identity, 333333333333)
-      this.setData({identity})
-    }
+  attached() {
+    identity = wx.getStorageSync('choseType')
+    this.setData({identity})
   },
   methods: {
     init() {
@@ -219,8 +216,13 @@ Component({
       switch(action) {
         // 求职端发起开撩
         case 'job-hunting-chat':
-          this.shareChat()
-
+          if (identity === 'APPLICANT') {
+            this.shareChat()
+          } else {
+            app.promptSwitch({
+              source: identity
+            })
+          }
           break
         case 'job-hunting-applyed':
           // app.wxConfirm({
@@ -236,8 +238,8 @@ Component({
           app.wxToast({title: '面试申请已发送'})
           break
         case 'recruiter-chat':
-          console.log(identity, 111111111)
-          if (identity === 'RECRUITER') {
+          let type = this.data.type
+          if ((identity !== 'RECRUITER' && type === 'position') || (identity === 'RECRUITER' && type === 'resume')) {
             this.shareChat()
           } else {
             app.promptSwitch({

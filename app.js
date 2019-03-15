@@ -478,6 +478,13 @@ App({
   },
   // 提示切换身份
   promptSwitch({source, jumpPath, confirmBack, cancelBack}) {
+    var pages = getCurrentPages() //获取加载的页面
+    let pageUrl = pages[pages.length - 1].route
+    let params = ''
+    for (let i in pages[pages.length - 1].options) {
+      params = `${params}${i}=${pages[0].options[i]}&`
+    }
+    let path = `/${pageUrl}?${params}`
     let content = ''
     if (source === 'RECRUITER') {
       jumpPath ? content = '检测到你是面试官，是否切换面试官' : content = '切换为求职者身份后可使用该功能'
@@ -487,33 +494,44 @@ App({
         confirmBack: () => {
           if (jumpPath) {
             wx.reLaunch({
-              url: `${RECRUITER}index/index`
+              url: jumpPath || `${RECRUITER}index/index`
             })
           } else {
             wx.setStorageSync('choseType', 'APPLICANT')
-            var pages = getCurrentPages() //获取加载的页面
-            let pageUrl = pages[pages.length - 1].route
-            console.log(pages)
-            app.getAllInfo().then(() => {
+            this.getAllInfo().then(() => {
+              wx.reLaunch({url: path})
             })
           }
         },
         cancelBack: () => {
-          wx.setStorageSync('choseType', 'APPLICANT')
-          app.getAllInfo()
+          if (jumpPath) {
+            wx.setStorageSync('choseType', 'APPLICANT')
+            this.getAllInfo()
+          }
         }
       })
     } else {
+      jumpPath ? content = '检测到你是求职者，是否切换求职者' : content = '切换为面试官身份后可使用该功能'
       this.wxConfirm({
-        content: '检测到你是求职者，是否切换求职者',
+        title: '提示',
+        content,
         confirmBack: () => {
-          wx.reLaunch({
-            url: `${APPLICANT}index/index`
-          })
+          if (jumpPath) {
+            wx.reLaunch({
+              url: jumpPath || `${APPLICANT}index/index`
+            })
+          } else {
+            wx.setStorageSync('choseType', 'RECRUITER')
+            this.getAllInfo().then(() => {
+              wx.reLaunch({url: path})
+            })
+          }
         },
         cancelBack: () => {
-          wx.setStorageSync('choseType', 'RECRUITER')
-          app.getAllInfo()
+          if (jumpPath) {
+            wx.setStorageSync('choseType', 'APPLICANT')
+            this.getAllInfo()
+          }
         }
       })
     }
