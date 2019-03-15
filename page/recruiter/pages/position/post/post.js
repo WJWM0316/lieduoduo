@@ -314,9 +314,11 @@ Page({
     createPositionApi(formData).then(res => {
       let options = this.data.options
       let params = {}
+      const recruiterChatFirst = wx.getStorageSync('recruiter_chat_first')
       wx.removeStorageSync('createPosition')
-      if(options.from && options.from === 'recruiter_chat') {
-        params.jobhunterUid = options.jobhunterUid
+
+      if(recruiterChatFirst) {
+        params.jobhunterUid = recruiterChatFirst.jobhunterUid
         params.positionId = res.data.id
         this.applyInterview(params)
       } else {
@@ -391,7 +393,8 @@ Page({
    * @return   {[type]}   [description]
    */
   applyInterview(params) {
-    applyInterviewApi().then(res => {
+    applyInterviewApi(params).then(res => {
+      wx.removeStorageSync('recruiter_chat_first')
       wx.redirectTo({url: `${COMMON}arrangement/arrangement?id=${res.data.interviewId}`})
     })
   }

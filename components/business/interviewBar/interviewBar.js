@@ -178,8 +178,15 @@ Component({
           } else {
             // 走正常流程
             if(this.data.type === 'recruiter') {
-
-              wx.navigateTo({url: `${RECRUITER}position/jobList/jobList?type=job_hunting_chat&from=${this.data.currentPage}&showNotPositionApply=${interviewInfos.showNotPositionApply}&from=${this.data.currentPage}&recruiterUid=${this.data.infos.uid}`})
+              // 招聘官没有在线职位或者招聘官没发布过职位
+              if(!this.data.infos.positionNum) {
+                applyInterviewApi({recruiterUid: this.data.infos.uid}).then(res => {
+                  this.getInterviewStatus()
+                  app.wxToast({title: '面试申请已发送'})
+                })
+              } else {
+                wx.navigateTo({url: `${RECRUITER}position/jobList/jobList?type=job_hunting_chat&from=${this.data.currentPage}&showNotPositionApply=${interviewInfos.showNotPositionApply}&from=${this.data.currentPage}&recruiterUid=${this.data.infos.uid}`})
+              }
             } else {
               applyInterviewApi({recruiterUid: this.data.infos.recruiterInfo.uid, positionId: this.data.infos.id}).then(res => {
                 this.getInterviewStatus()
@@ -243,7 +250,6 @@ Component({
         // 求职端发起开撩
         case 'job-hunting-chat':
           this.shareChat()
-
           break
         case 'job-hunting-applyed':
           // app.wxConfirm({
@@ -365,7 +371,8 @@ Component({
           this.setData({show: !this.data.show})
           break
         case 'public':
-          wx.navigateTo({url: `${RECRUITER}position/post/post?from=recruiter_chat&jobhunterUid=${infos.uid}`})
+          wx.setStorageSync('recruiter_chat_first', {jobhunterUid: infos.uid })
+          wx.navigateTo({url: `${RECRUITER}position/post/post`})
           break
         case 'openPosition':
           wx.navigateTo({url: `${RECRUITER}position/jobList/jobList?type=recruiter_chat&from=${this.data.currentPage}&jobhunterUid=${infos.uid}`})

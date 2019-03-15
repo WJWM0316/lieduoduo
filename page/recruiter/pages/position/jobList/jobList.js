@@ -2,7 +2,8 @@ import {
   getPositionListApi,
   openPositionApi,
   getRecruiterPositionListApi,
-  getfilterPositionListApi
+  getfilterPositionListApi,
+  getPositionListNumApi
 } from "../../../../../api/pages/position.js"
 
 import {
@@ -28,7 +29,7 @@ Page({
     onLinePositionList: {
       list: [],
       pageNum: 1,
-      count: 20,
+      count: 10,
       isLastPage: false,
       isRequire: false
     },
@@ -81,11 +82,20 @@ Page({
    */
   getLists() {
 
-    if(wx.getStorageSync('choseType') === 'RECRUITER') {
-      return this.getonLinePositionListB()
-    } else {
+    // 求职端
+    if(wx.getStorageSync('choseType') !== 'RECRUITER') {
       return this.getonLinePositionListC()
     }
+
+    getPositionListNumApi().then(res => {
+      let api = ''
+      if(!res.data.online) {
+        api = 'getoffLinePositionListB'
+      } else {
+        api = 'getonLinePositionListB'
+      }
+      this.setData({api}, () => this[api]())
+    })
   },
   /**
    * @Author   小书包
@@ -107,13 +117,6 @@ Page({
 
         let onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
         let list = res.data || []
-
-        // 如果没有上线数据 则拿下线数据
-        if(!res.meta.total) {
-          this.setData({nowTab: 'offline'}, () => this.getoffLinePositionListB(false))
-          return
-        }
-
         list.map(field => field.active = false)
         onLinePositionList.list = onLinePositionList.list.concat(list)
         onLinePositionList.pageNum++
@@ -175,7 +178,8 @@ Page({
         onLinePositionList.list = onLinePositionList.list.concat(res.data || [])
         onLinePositionList.pageNum++
         onLinePositionList.isRequire = true
-        onLinePositionList.isLastPage = res.meta && res.meta.nextPageUrl ? false : true
+        onLinePositionList.isLastPage = res.meta.nextPageUrl ? false : true
+        console.log(res.meta.nextPageUrl, 'fffff', onLinePositionList)
         this.setData({onLinePositionList, onBottomStatus}, () => resolve(res))
       })
     })
@@ -495,7 +499,7 @@ Page({
     }
 
     onLinePositionList = this.data.onLinePositionList
-    this.setData({onLinePositionList}, () => this.getLists())
+    this.setData({onLinePositionList}, () => this[this.data.api]())
     if(!onLinePositionList.isLastPage) {
       this[this.data.api](false).then(() => this.setData({onBottomStatus: 1}))
     }
