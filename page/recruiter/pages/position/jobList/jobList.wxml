@@ -93,10 +93,10 @@
         <view class="content chat-me">直接与我约面</view>
         <view class="radio-box">
           <view
-            class="myRadio {{item.active ? 'active' : ''}}"
+            class="myRadio {{personChecked ? 'active' : ''}}"
             bindtap="onClick"
             data-name="{{item.positionName}}"
-            data-id="{{item.interviewId}}"><i class="icon iconfont icon-wancheng" wx:if="{{item.active}}"></i>
+            data-id="{{'person'}}"><i class="icon iconfont icon-wancheng" wx:if="{{personChecked}}"></i>
           </view>
         </view>
       </block>

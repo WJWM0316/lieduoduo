@@ -43,7 +43,8 @@ Page({
     query: {},
     pageTitle: '',
     canClick: false,
-    showScanBox: false
+    showScanBox: false,
+    options: {}
   },
   onLoad(options) {
     this.setData({pageTitle: options.positionId ? '编辑职位' : '发布职位', query: options})
@@ -134,7 +135,6 @@ Page({
         formData.parentType = infos.skillsLabel.length ? infos.skillsLabel[0].topPid : ''
         Object.keys(formData).map(field => this.setData({[field]: formData[field]}))
         this.bindButtonStatus()
-        console.log(this.data)
       })
   },
   /**
@@ -314,12 +314,10 @@ Page({
     createPositionApi(formData).then(res => {
       let options = this.data.options
       let params = {}
-      params.jobhunterUid = options.jobhunterUid
-      params.positionId = res.data.positionId
-      
       wx.removeStorageSync('createPosition')
-
-      if(options.from === 'recruiter_chat') {
+      if(options.from && options.from === 'recruiter_chat') {
+        params.jobhunterUid = options.jobhunterUid
+        params.positionId = res.data.id
         this.applyInterview(params)
       } else {
         app.wxToast({

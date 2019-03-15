@@ -201,13 +201,13 @@ Page({
     if(typeof job.id === 'string') {
       key = `${job.id}Checked`
       items.list.map(field => field.active = false)
-      this.setData({onLinePositionList: items, unsuitableChecked: false, personChecked: false, [key]: !this.data[key]})
+      this.setData({onLinePositionList: items, unsuitableChecked: false, personChecked: false, [key]: true})
     } else {
 
       // 给列表判断选中的状态
       items.list.map((field, index) => {
         if(job.index === index) {
-          field.active = !field.active
+          field.active = true
         } else {
           field.active = false
         }
