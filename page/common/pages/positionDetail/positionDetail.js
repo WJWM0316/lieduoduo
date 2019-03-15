@@ -17,10 +17,9 @@ import {sharePosition} from '../../../../utils/shareWord.js'
 
 let positionCard = ''
 const app = getApp()
-
+let identity = ''
 Page({
   data: {
-    identity: '',
     detail: {},
     query: {},
     isRecruiter: false,
@@ -32,11 +31,13 @@ Page({
   onLoad(options) {
     positionCard = ''
     if (options.scene) {
-      let parames = app.getSceneParams(options.scene)
-      options.positionId = parames.pid
+      options = app.getSceneParams(options.scene)
+      if (options.pid) {
+        options.positionId = options.pid
+      }
     }
-    let identity = wx.getStorageSync('choseType') || 'APPLICANT'
-    this.setData({query: options, identity})
+    identity = app.identification(options)
+    this.setData({query: options})
   },
   onShow() {
     if (app.loginInit) {
@@ -149,7 +150,7 @@ Page({
       case 'make':
         app.wxConfirm({
           title: '切换身份',
-          content: '是否切换为招聘官身份',
+          content: '是否切换为面试官身份',
           confirmText: '确定',
           showCancel: true,
           cancelText: '我再想想',

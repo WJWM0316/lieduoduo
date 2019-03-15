@@ -35,6 +35,7 @@ Page({
     telePhone: app.globalData.telePhone
   },
   onLoad() {
+    wx.setStorageSync('choseType', 'RECRUITER')
   },
   onShow() {
     this.getCompanyIdentityInfos()

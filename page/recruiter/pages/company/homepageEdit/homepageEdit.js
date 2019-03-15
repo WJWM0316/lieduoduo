@@ -19,6 +19,7 @@ Page({
     jobList: []
   },
   onLoad(options) {
+    wx.setStorageSync('choseType', 'RECRUITER')
     this.setData({query: options})
   },
   onShow() {

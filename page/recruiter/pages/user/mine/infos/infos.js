@@ -22,6 +22,7 @@ Page({
     telePhone: app.globalData.telePhone
   },
   onLoad() {
+    wx.setStorageSync('choseType', 'RECRUITER')
     recruiterCard = ''
     let recruiterInfo = app.globalData.recruiterDetails
     if (recruiterInfo.uid) {

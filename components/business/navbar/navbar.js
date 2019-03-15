@@ -1,5 +1,6 @@
 import {APPLICANT,RECRUITER} from "../../../config.js"
-const app = getApp();
+const app = getApp()
+let identity = ''
 Component({
   options: {
     addGlobalClass: true,
@@ -54,9 +55,11 @@ Component({
   },
   pageLifetimes: {
     show() {
+      console.log(33333333333333333)
       if (getCurrentPages().length > 1) {
         this.setData({showBackBtn: true})
       }
+      identity = wx.getStorageSync('choseType')
     }
   },
   /**
@@ -73,7 +76,7 @@ Component({
     },
     // 回到首页
     backHome() {
-      if (wx.getStorageSync('choseType') === 'RECRUITER') {
+      if (identity === 'RECRUITER') {
         wx.redirectTo({
           url: `${RECRUITER}index/index`
         })

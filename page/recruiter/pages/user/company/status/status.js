@@ -18,6 +18,7 @@ Page({
     cdnImagePath: app.globalData.cdnImagePath
   },
   onLoad(options) {
+    wx.setStorageSync('choseType', 'RECRUITER')
     this.setData({options})
   },
   onShow() {

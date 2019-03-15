@@ -79,6 +79,9 @@ Page({
       gender: e.target.dataset.gender
     })
   },
+  onLoad() {
+    wx.setStorageSync('choseType', 'APPLICANT')
+  },
   onShow() {
     let avatar = wx.getStorageSync('avatar')
     let createUser = wx.getStorageSync('createUserFirst')

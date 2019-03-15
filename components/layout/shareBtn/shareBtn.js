@@ -31,7 +31,6 @@ Component({
       this.setData({showChoose: false})
     },
     jump(e) {
-      console.log(e, 111)
       switch(this.data.posterType) {
         case 'position':
           if (e.currentTarget.dataset.type === 'position')

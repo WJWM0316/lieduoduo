@@ -11,7 +11,7 @@ let app = getApp()
 let that = null
 let formIdList = []
 App({
-  onLaunch: function () {
+  onLaunch: function (e) {
     // 获取导航栏高度
     this.checkUpdateVersion()
     wx.getSystemInfo({
@@ -52,18 +52,17 @@ App({
   },
   // 登录
   login() {
-    that = this
+    let that = this
     wx.login({
       success: function (res0) {
         wx.setStorageSync('code', res0.code)
         loginApi({code: res0.code}).then(res => {
-          that.globalData.identity = wx.getStorageSync('choseType')
           // 有token说明已经绑定过用户了
           if (res.data.token) {
             wx.setStorageSync('token', res.data.token)
             that.loginedLoadData()
             that.globalData.hasLogin = true
-
+            console.log(that.globalData, 11)
             // 登陆回调
             if (that.loginInit) {
               that.loginInit()
@@ -86,7 +85,6 @@ App({
           if (pageUrl !== 'page/applicant/pages/index/index') {
             if (!wx.getStorageSync('choseType')) {
               wx.setStorageSync('choseType', 'APPLICANT')
-              that.globalData.identity = 'APPLICANT'
             }
           }
           
@@ -103,7 +101,6 @@ App({
       let sessionToken = wx.getStorageSync('sessionToken')
       wx.clearStorageSync()
       wx.setStorageSync('sessionToken', sessionToken)
-      this.globalData.identity = ''
       this.globalData.hasLogin = false
       this.globalData.resumeInfo = {}
       this.globalData.recruiterDetails = {}
@@ -317,6 +314,7 @@ App({
       })
     })
   },
+  // 小程序热更新
   checkUpdateVersion() {
     //判断微信版本是否 兼容小程序更新机制API的使用
     if (wx.canIUse('getUpdateManager')) {
@@ -367,7 +365,7 @@ App({
     })
   },
   // 微信确认弹框
-  wxConfirm({title, content, showCancel = true, cancelText = '取消', confirmText = '确定', cancelColor = '#BCBCBC', confirmColor = '#652791', confirmBack = function() {}, cancelBack = function() {}}) {
+  wxConfirm({title = '', content, showCancel = true, cancelText = '取消', confirmText = '确定', cancelColor = '#BCBCBC', confirmColor = '#652791', confirmBack = function() {}, cancelBack = function() {}}) {
     wx.showModal({
       title,
       content,
@@ -435,7 +433,6 @@ App({
     let identity = wx.getStorageSync('choseType')
     if (identity === 'RECRUITER') {
       wx.setStorageSync('choseType', 'APPLICANT')
-      this.globalData.identity = 'APPLICANT'
       wx.reLaunch({
         url: `${APPLICANT}index/index`
       })
@@ -447,7 +444,6 @@ App({
         })
       } else {
         wx.setStorageSync('choseType', 'RECRUITER')
-        this.globalData.identity = 'RECRUITER'
         this.getAllInfo()
         if (!this.globalData.isRecruiter) {
           wx.reLaunch({
@@ -458,9 +454,68 @@ App({
             url: `${RECRUITER}index/index`
           })
         }
+      }  
+    }
+  },
+  // 身份识别
+  identification(options) {
+    if (options.identity) {
+      let identity = ''
+      switch(options.identity) {
+        case 'recruiter':
+          wx.setStorageSync('choseType', 'RECRUITER')
+          identity = 'RECRUITER'
+          break
+        case 'jobhunter':
+          wx.setStorageSync('choseType', 'APPLICANT')
+          identity = 'APPLICANT'
+          break
       }
-      
-      
+      return identity
+    } else {
+      return wx.getStorageSync('choseType') || 'APPLICANT'
+    }
+  },
+  // 提示切换身份
+  promptSwitch({source, jumpPath, confirmBack, cancelBack}) {
+    let content = ''
+    if (source === 'RECRUITER') {
+      jumpPath ? content = '检测到你是面试官，是否切换面试官' : content = '切换为求职者身份后可使用该功能'
+      this.wxConfirm({
+        title: '提示',
+        content,
+        confirmBack: () => {
+          if (jumpPath) {
+            wx.reLaunch({
+              url: `${RECRUITER}index/index`
+            })
+          } else {
+            wx.setStorageSync('choseType', 'APPLICANT')
+            var pages = getCurrentPages() //获取加载的页面
+            let pageUrl = pages[pages.length - 1].route
+            console.log(pages)
+            app.getAllInfo().then(() => {
+            })
+          }
+        },
+        cancelBack: () => {
+          wx.setStorageSync('choseType', 'APPLICANT')
+          app.getAllInfo()
+        }
+      })
+    } else {
+      this.wxConfirm({
+        content: '检测到你是求职者，是否切换求职者',
+        confirmBack: () => {
+          wx.reLaunch({
+            url: `${APPLICANT}index/index`
+          })
+        },
+        cancelBack: () => {
+          wx.setStorageSync('choseType', 'RECRUITER')
+          app.getAllInfo()
+        }
+      })
     }
   },
   // 收集formId

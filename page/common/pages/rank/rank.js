@@ -16,7 +16,7 @@ import {APPLICANT} from '../../../../config.js'
 import {getSelectorQuery} from "../../../../utils/util.js"
 
 const app = getApp()
-
+let identity = ''
 Page({
   data: {
     tab: 'rankAll',
@@ -58,6 +58,7 @@ Page({
   },
   onLoad() {
     this.getFixedBoxHeight()
+    identity = app.identification(options)
     if (app.loginInit) {
       this.getLists().then(() => this.getSubmenuLists())
     } else {

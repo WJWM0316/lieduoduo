@@ -226,6 +226,9 @@ Page({
       })
     }
   },
+  onLoad() {
+    wx.setStorageSync('choseType', 'RECRUITER')
+  },
   onShow () {
     this.init()
     this.getFixedDomNodePosition()

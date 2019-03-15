@@ -17,6 +17,7 @@ Page({
     onBottomStatus: 0
   },
   onLoad(options) {
+    wx.setStorageSync('choseType', 'RECRUITER')
   	this.setData({options})
   	this.getApplyjoinInfos()
   },

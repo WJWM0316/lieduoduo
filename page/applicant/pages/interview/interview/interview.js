@@ -211,6 +211,9 @@ Page({
       this.getApplyList()
     }
   },
+  onLoad () {
+    wx.setStorageSync('choseType', 'APPLICANT')
+  },
   onShow () {
     this.init()
     this.getFixedDomNodePosition()

@@ -28,6 +28,9 @@ Page({
     hasReFresh: false,
     onBottomStatus: 0
   },
+  onLoad() {
+    wx.setStorageSync('choseType', 'APPLICANT')
+  },
   onShow() {
     const watchedList = {
       list: [],

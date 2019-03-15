@@ -20,7 +20,10 @@ Page({
       isRequire: false
     }
   },
-  onShow(options) {
+  onLoad() {
+    wx.setStorageSync('choseType', 'APPLICANT')
+  },
+  onShow() {
     const interviewList = {
       list: [],
       pageNum: 1,

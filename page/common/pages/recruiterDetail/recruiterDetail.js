@@ -8,6 +8,7 @@ import {shareRecruiter} from '../../../../utils/shareWord.js'
 let recruiterCard = ''
 let app = getApp()
 let positionTop = 0
+let identity = ''
 Page({
   data: {
     identity: '',
@@ -39,12 +40,10 @@ Page({
     if (options.scene) {
       options = app.getSceneParams(options.scene)
     }
-    let identity = wx.getStorageSync('choseType') || 'APPLICANT'
-
     if (identity !== 'RECRUITER') {
       this.setData({isApplicant: true})
     }
-
+    identity = app.identification(options)
     this.setData({options, identity})
   },
   /* 点击查看大头像 */
@@ -55,7 +54,6 @@ Page({
     })
   },
   getOthersInfo() {
-    let identity = wx.getStorageSync('choseType')
     return new Promise((resolve, reject) => {
       getOthersRecruiterDetailApi({uid: this.data.options.uid, sCode: this.data.options.sCode}).then(res => {
         let isOwner = res.data.isOwner && identity === 'RECRUITER' ? true : false
@@ -88,7 +86,6 @@ Page({
   },
   onShow() {
     let options = this.data.options
-    let identity = wx.getStorageSync('choseType')
     const positionList = {
       list: [],
       pageNum: 1,

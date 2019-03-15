@@ -20,6 +20,9 @@ Page({
       isRequire: false
     }
   },
+  onLoad() {
+    wx.setStorageSync('choseType', 'RECRUITER')
+  },
   onShow(options) {
     const interviewList = {
       list: [],

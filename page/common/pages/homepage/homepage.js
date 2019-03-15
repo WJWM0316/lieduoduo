@@ -23,7 +23,7 @@ import {getSelectorQuery} from "../../../../utils/util.js"
 import { agreedTxtC, agreedTxtB } from '../../../../utils/randomCopy.js'
 
 let app = getApp()
-
+let identity = ''
 Page({
 
   data: {
@@ -62,6 +62,7 @@ Page({
       let parames = app.getSceneParams(options.scene)
       options.companyId = parames.cid
     }
+    identity = app.identification(options)
     this.setData({query: options})
   },
   onShow() {

@@ -16,7 +16,7 @@ import {
 import {shareChance} from '../../../../utils/shareWord.js'
 
 const app = getApp()
-
+let identity = ''
 Page({
   data: {
     pageCount: 20,
@@ -40,7 +40,8 @@ Page({
     positionIndex: 0,
     cdnImagePath: app.globalData.cdnImagePath
   },
-  onLoad() {
+  onLoad(options) {
+    identity = app.identification(options)
     const positionList = {
       list: [],
       pageNum: 1,
@@ -64,13 +65,11 @@ Page({
         title: '提示',
         content: '检测到你是招聘官，是否切换招聘端',
         confirmBack() {
-          app.globalData.identity = 'RECRUITER'
           wx.reLaunch({
             url: `${RECRUITER}index/index`
           })
         },
         cancelBack() {
-          app.globalData.identity = 'APPLICANT'
           wx.setStorageSync('choseType', 'APPLICANT')
           app.getAllInfo()
         }

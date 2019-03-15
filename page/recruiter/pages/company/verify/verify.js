@@ -35,6 +35,9 @@ Page({
       isRequire: false
     }
   },
+  onLoad() {
+    wx.setStorageSync('choseType', 'RECRUITER')
+  },
   onShow() {
     let list0 = {
       list: [],

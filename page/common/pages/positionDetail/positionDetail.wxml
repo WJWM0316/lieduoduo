@@ -68,7 +68,7 @@
 	</view>
 	<view class="make-homepage" wx:if="{{ !isRecruiter }}"><view bindtap="todoAction" data-type="make">我也要制作招聘主页<i class="icon iconfont icon-disejiantou-you"></i></view></view>
 	<view
-		wx:if="{{!isOwner && identity === 'APPLICANT'}}"
+		wx:if="{{!isOwner}}"
 		class="collect"
 		data-type="{{detail.isCollect ? 'uncollect' : 'collect'}}"
 		bindtap="todoAction">
@@ -76,7 +76,7 @@
 			<i class="icon iconfont icon-biaojiweiganxingqu" wx:else></i>
 	</view>
 	
-	<block wx:if="{{isRecruiter && isOwner && identity !== 'APPLICANT'}}">
+	<block wx:if="{{isRecruiter && isOwner}}">
 		<view class="switch-tips" bindtap="todoAction" data-type="close" wx:if="{{detail.isOnline === 1}}">
 			<view class="h1">关闭职位</view>
 			<view class="h2">关闭职位后将不再产生招聘效果</view>
@@ -89,12 +89,10 @@
 		</view>
 	</block>
 	<block wx:if="{{detail.id}}"><canvasCard cardData="{{detail}}" type="position" bindgetCreatedImg="getCreatedImg"></canvasCard></block>
-	
-
 	<interviewBar
 		id="interviewBar"
 		infos="{{ detail }}"
 		bindresultevent="bindStatusChange"
 		type="position"
-		wx:if="{{detail.vkey && !isOwner && identity === 'APPLICANT'}}"></interviewBar>
+		wx:if="{{detail.vkey && !isOwner}}"></interviewBar>
 </view>

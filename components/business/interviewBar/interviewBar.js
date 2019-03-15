@@ -22,7 +22,7 @@ import {RECRUITER, COMMON, APPLICANT} from '../../../config.js'
 import { agreedTxtC, agreedTxtB } from '../../../utils/randomCopy.js'
 
 const app = getApp()
-
+let identity = ''
 Component({
   properties: {
     infos: {
@@ -56,14 +56,11 @@ Component({
     recruiterWords: agreedTxtB(),
     isShare: false
   },
-  attached() {
-    switch(this.data.type) {
-      case 'resume':
-        if (wx.getStorageSync('choseType') !== 'RECRUITER') this.setData({isOwerner: true})
-        break
-      case 'recruiter':
-        if (wx.getStorageSync('choseType') === 'RECRUITER') this.setData({isOwerner: true})
-        break
+  pageLifetimes: {
+    show() {
+      identity = wx.getStorageSync('choseType')
+      console.log(identity, 333333333333)
+      this.setData({identity})
     }
   },
   methods: {
@@ -136,7 +133,6 @@ Component({
      * @return   {[type]}   [description]
      */
     shareChat() {
-      let identity = wx.getStorageSync('choseType')
       let hasLogin = app.globalData.hasLogin
       let isRecruiter = app.globalData.isRecruiter
       let isJobhunter = app.globalData.isJobhunter
@@ -240,8 +236,15 @@ Component({
           app.wxToast({title: '面试申请已发送'})
           break
         case 'recruiter-chat':
-          this.shareChat()
-          // wx.navigateTo({url: `${RECRUITER}position/jobList/jobList?type=recruiter_chat&from=${this.data.currentPage}&jobhunterUid=${this.data.infos.uid}&recruiterUid=${app.globalData.recruiterDetails.uid}`})
+          console.log(identity, 111111111)
+          if (identity === 'RECRUITER') {
+            this.shareChat()
+          } else {
+            app.promptSwitch({
+              source: identity
+            })
+          }
+          
           break
         case 'job-hunting-waiting-interview':
           app.wxToast({title: '等待招聘官安排面试'})

@@ -165,15 +165,15 @@ export const getRecruiterInterestApi = (data, hasLoading) => {
   return request({
     url: `/right/cur/recruiter`,
     method: 'get',
-    hasLoading: hasLoading
+    hasLoading: false
   })
 }
 
 // 获取招聘官我的页面信息
-export const getRecruiterOtherInfosApi = (data, hasLoading) => {
+export const getRecruiterOtherInfosApi = (data) => {
   return request({
     url: `/recruiter/mine/extra`,
     method: 'get',
-    hasLoading: hasLoading
+    hasLoading: false
   })
 }

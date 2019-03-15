@@ -23,6 +23,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    wx.setStorageSync('choseType', 'RECRUITER')
     let userInfo = app.globalData.recruiterDetails
     this.setData({
       userName: userInfo.name,

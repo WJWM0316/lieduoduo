@@ -196,8 +196,8 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.setData({options})
-    
+    identity = app.identification(options)
+    this.setData({options, identity})
   },
   pageInit() {
     return interviewDetailApi({interviewId: this.data.options.id}).then(res => {
@@ -228,7 +228,6 @@ Page({
   onShow: function () {
     let positionData = wx.getStorageSync('interviewData')
     let addressData = wx.getStorageSync('createPosition')
-    let identity = wx.getStorageSync('choseType')
     let info = this.data.info
     if (positionData) {
       info.positionName = positionData.positionName
@@ -238,7 +237,7 @@ Page({
       info.address = addressData.address
       info.addressId = addressData.address_id
     }
-    this.setData({identity, info})
+    this.setData({info})
     if (!this.data.revised) {
       this.pageInit()
     }

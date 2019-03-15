@@ -8,6 +8,7 @@ import {shareResume} from '../../../../utils/shareWord.js'
 let isPreview = false
 const app = getApp()
 let resumeInfo = null
+let identity = ''
 Page({
 
   /**
@@ -30,6 +31,7 @@ Page({
     if (options.scene) {
       options = app.getSceneParams(options.scene)
     }
+    identity = app.identification(options)
     this.setData({options})
   },
   /**
@@ -75,7 +77,6 @@ Page({
   },
   getOthersInfo() {
     return new Promise((resolve, reject) => {
-      let identity = wx.getStorageSync('choseType')
       getOtherResumeApi({uid: this.data.options.uid, sCode: this.data.options.sCode}).then(res => {
         this.setData({info: res.data, isOwner: res.data.isOwner && identity === 'APPLICANT', realIsOwner: res.data.isOwner}, function() {
           if (this.data.isOwner) {
