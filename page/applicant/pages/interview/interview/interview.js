@@ -14,7 +14,7 @@ const app = getApp()
 
 let chooseTime = parseInt(new Date().getTime() / 1000)
 let hasLogin = false //  是否登录
-let initData = {
+const initData = {
   list: [],
   pageNum: 1,
   count: 20,
@@ -110,7 +110,7 @@ Page({
         break
       case 2:
         data = this.data.interviewData
-        let interviewData = initData
+        let interviewData = {...initData}
         chooseTime = ''
         this.setData({interviewData})
         this.selectComponent('#myCalendar').scrollLeft()
@@ -135,9 +135,16 @@ Page({
         obj.map((item, index) => {
           item.active = false
         })
-        let applyData = initData
+        let applyData = {
+          list: [],
+          pageNum: 1,
+          count: 20,
+          isLastPage: false,
+          isRequire: false,
+          total: 0
+        }
         obj[index].active = true
-        this.setData({[type]: obj, [typeIndex]: index})
+        this.setData({applyData, [type]: obj, [typeIndex]: index})
         this.getApplyList()
         break
       case 1:
@@ -147,9 +154,16 @@ Page({
         obj.map((item, index) => {
           item.active = false
         })
-        let receiveData = initData
+        let receiveData = {
+          list: [],
+          pageNum: 1,
+          count: 20,
+          isLastPage: false,
+          isRequire: false,
+          total: 0
+        }
         obj[index].active = true
-        this.setData({[type]: obj, [typeIndex]: index})
+        this.setData({receiveData, [type]: obj, [typeIndex]: index})
         this.getInviteList()
       break
     }
@@ -256,7 +270,14 @@ Page({
     if (!hasLogin) return
     switch(this.data.tabIndex) {
       case 0:
-        let applyData = initData
+        let applyData = {
+          list: [],
+          pageNum: 1,
+          count: 20,
+          isLastPage: false,
+          isRequire: false,
+          total: 0
+        }
         this.setData({applyData, applyBottomStatus: 0, hasReFresh: true})
         this.getApplyList(false).then(res => {
           wx.stopPullDownRefresh()
@@ -266,7 +287,14 @@ Page({
         })
       break
       case 1:
-        let receiveData = initData
+        let receiveData = {
+          list: [],
+          pageNum: 1,
+          count: 20,
+          isLastPage: false,
+          isRequire: false,
+          total: 0
+        }
         this.setData({receiveData, receiveBottomStatus: 0, hasReFresh: true})
         this.getInviteList(false).then(res => {
           wx.stopPullDownRefresh()
@@ -276,7 +304,14 @@ Page({
         })
       break
       case 2:
-        let interviewData = initData
+        let interviewData = {
+          list: [],
+          pageNum: 1,
+          count: 20,
+          isLastPage: false,
+          isRequire: false,
+          total: 0
+        }
         this.setData({interviewData, interviewBottomStatus: 0, hasReFresh: true})
         this.getScheduleList(false).then(res => {
           wx.stopPullDownRefresh()

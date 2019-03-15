@@ -114,7 +114,7 @@
 				</view>
 			</button>
 		</form>
-		<bottomStatus status="{{applyBottomStatus}}" listData="{{receiveData.list}}"></bottomStatus>
+		<bottomStatus status="{{receiveBottomStatus}}" listData="{{receiveData.list}}"></bottomStatus>
 	</view>
 	
 	<!--我的邀请-->
@@ -163,7 +163,7 @@
 				</view>
 			</button>
 		</form>
-		<bottomStatus status="{{receiveBottomStatus}}" listData="{{applyData.list}}"></bottomStatus>
+		<bottomStatus status="{{applyBottomStatus}}" listData="{{applyData.list}}"></bottomStatus>
 	</view>
 
 	<!--面试日程-->

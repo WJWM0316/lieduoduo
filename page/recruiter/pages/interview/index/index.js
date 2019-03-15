@@ -12,7 +12,7 @@ import {getSelectorQuery} from "../../../../../utils/util.js"
 
 let positionList = []
 
-let initData = {
+const initData = {
   list: [],
   pageNum: 1,
   count: 20,
@@ -84,27 +84,49 @@ Page({
   bindChange(e) {
     let type = ''
     let value = 0
+    console.log(e.currentTarget.dataset.type)
     switch(e.currentTarget.dataset.type) {
       case 'applyStatus':
         type = 'applyIndex'
         value = parseInt(e.detail.value)
-        let applyData = initData
-        this.setData({[type]: value, applyData})
-        this.getApplyList()
+        let applyData = {
+          list: [],
+          pageNum: 1,
+          count: 20,
+          isLastPage: false,
+          isRequire: false,
+          total: 0
+        }
+        this.setData({applyData, [type]: value},  function() {
+          this.getApplyList()
+        })
         break
       case 'receiveStatus':
         type = 'receiveIndex'
         value = parseInt(e.detail.value)
-        let receiveData = initData
-        this.setData({[type]: value, receiveData}, function() {
-          this.getInviteList()
-        })
+        let receiveData = {
+          list: [],
+          pageNum: 1,
+          count: 20,
+          isLastPage: false,
+          isRequire: false,
+          total: 0
+        }
+        this.setData({receiveData, [type]: value})
+        this.getInviteList()
         break
       case 'position':
         type = 'positionIndex'
         value = parseInt(e.detail.value)
         let data = {}
-        let dataValue = initData
+        let dataValue = {
+          list: [],
+          pageNum: 1,
+          count: 20,
+          isLastPage: false,
+          isRequire: false,
+          total: 0
+        }
         if (this.data.tabIndex === 1) {
           data = 'applyData'
           this.setData({[type]: value, [data]: dataValue}, function() {
@@ -147,6 +169,7 @@ Page({
   // 收到意向
   getInviteList(hasLoading = true) {
     let receiveData = this.data.receiveData
+    console.log(this.data.receiveData, 111111111)
     let status = this.data.receiveScreen[this.data.receiveIndex].value
     let positionId = this.data.positionList[this.data.positionIndex].id
     let receiveBottomStatus = 0
@@ -211,8 +234,14 @@ Page({
         break
       case 2:
         data = this.data.interviewData
-        let interviewData = initData
-        chooseTime = ''
+        let interviewData = {
+          list: [],
+          pageNum: 1,
+          count: 20,
+          isLastPage: false,
+          isRequire: false,
+          total: 0
+        }
         this.setData({interviewData})
         this.selectComponent('#myCalendar').scrollLeft()
         this.getScheduleList()
@@ -268,7 +297,14 @@ Page({
   onPullDownRefresh () {
     switch(this.data.tabIndex) {
       case 0:
-        let receiveData = initData
+        let receiveData = {
+          list: [],
+          pageNum: 1,
+          count: 20,
+          isLastPage: false,
+          isRequire: false,
+          total: 0
+        }
         this.setData({receiveData, receiveBottomStatus: 0, hasReFresh: true})
         this.getInviteList(false).then(res => {
           wx.stopPullDownRefresh()
@@ -276,7 +312,14 @@ Page({
         })
       break
       case 1:
-        let applyData = initData
+        let applyData = {
+          list: [],
+          pageNum: 1,
+          count: 20,
+          isLastPage: false,
+          isRequire: false,
+          total: 0
+        }
         this.setData({applyData, applyBottomStatus: 0, hasReFresh: true})
         this.getApplyList(false).then(res => {
           wx.stopPullDownRefresh()
@@ -284,7 +327,14 @@ Page({
         })
       break
       case 2:
-        let interviewData = initData
+        let interviewData = {
+          list: [],
+          pageNum: 1,
+          count: 20,
+          isLastPage: false,
+          isRequire: false,
+          total: 0
+        }
         this.setData({interviewData, interviewBottomStatus: 0, hasReFresh: true})
         this.getScheduleList(false).then(res => {
           wx.stopPullDownRefresh()
