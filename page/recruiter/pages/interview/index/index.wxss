@@ -171,6 +171,11 @@
 
 .select-box .picker {
   display: inline-block;
+  max-width:110px;
+  overflow:hidden;
+  line-height:1.1;
+  white-space:nowrap;
+  text-overflow:ellipsis;
 }
 
 .select-box .iconfont {
