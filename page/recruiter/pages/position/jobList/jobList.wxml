@@ -71,6 +71,7 @@
             data-name="{{item.positionName}}"
             data-index="{{index}}"
             data-status="{{item.positionStatus}}"
+            data-position-id="{{item.positionId}}"
             data-id="{{item.id || item.interviewId}}"><i class="icon iconfont icon-wancheng" wx:if="{{item.active}}"></i>
           </view>
         </view>

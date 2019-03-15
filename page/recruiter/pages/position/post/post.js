@@ -311,9 +311,17 @@ Page({
    * @return   {[type]}   [description]
    */
   createPositionApi(formData) {
-    createPositionApi(formData)
-      .then(res => {
-        wx.removeStorageSync('createPosition')
+    createPositionApi(formData).then(res => {
+      let options = this.data.options
+      let params = {}
+      params.jobhunterUid = options.jobhunterUid
+      params.positionId = res.data.positionId
+      
+      wx.removeStorageSync('createPosition')
+
+      if(options.from === 'recruiter_chat') {
+        this.applyInterview(params)
+      } else {
         app.wxToast({
           title: '创建成功',
           icon: 'success',
@@ -321,7 +329,8 @@ Page({
             wx.navigateBack({delta: 1 })
           }
         })
-      })
+      }
+    })
   },
   /**
    * @Author   小书包
@@ -330,12 +339,11 @@ Page({
    * @return   {[type]}   [description]
    */
   editPositionApi(formData) {
-    editPositionApi(formData)
-      .then(res => {
-        wx.removeStorageSync('createPosition')
-        wx.reLaunch({url: `${RECRUITER}position/index/index`})
-        app.wxToast({title: '编辑成功'})
-      })
+    editPositionApi(formData).then(res => {
+      wx.removeStorageSync('createPosition')
+      wx.reLaunch({url: `${RECRUITER}position/index/index`})
+      app.wxToast({title: '编辑成功'})
+    })
   },
   /**
    * @Author   小书包
@@ -384,7 +392,7 @@ Page({
    * @detail   招聘官申请开撩
    * @return   {[type]}   [description]
    */
-  applyInterview() {
+  applyInterview(params) {
     applyInterviewApi().then(res => {
       wx.redirectTo({url: `${COMMON}arrangement/arrangement?id=${res.data.interviewId}`})
     })
