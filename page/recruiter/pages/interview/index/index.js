@@ -133,9 +133,10 @@ Page({
     let positionId = this.data.positionList[this.data.positionIndex].id
     let applyBottomStatus = 0
     return getApplyListApi({count: applyData.count, page: applyData.pageNum, status, positionId}, hasLoading).then(res => {
-      applyData.list = res.data
+      applyData.list.push(...res.data)
       applyData.isRequire = true
       applyData.total = res.meta.total
+      applyData.pageNum++
       if (!res.meta || !res.meta.nextPageUrl) {
         applyData.isLastPage = true
         applyBottomStatus = 2
@@ -150,9 +151,10 @@ Page({
     let positionId = this.data.positionList[this.data.positionIndex].id
     let receiveBottomStatus = 0
     return getInviteListApi({count: receiveData.count, page: receiveData.pageNum, status, positionId}, hasLoading).then(res => {
-      receiveData.list = res.data
+      receiveData.list.push(...res.data)
       receiveData.isRequire = true
       receiveData.total = res.meta.total
+      receiveData.pageNum++
       if (!res.meta || !res.meta.nextPageUrl) {
         receiveData.isLastPage = true
         receiveBottomStatus = 2
@@ -170,9 +172,10 @@ Page({
         const time = field.arrangementInfo.appointment.split(' ')[1].slice(0, 5)
         field.createdAtTime = time
       })
-      interviewData.list = list
+      interviewData.list.push(...list)
       interviewData.isRequire = true
       interviewData.total = res.meta.total
+      interviewData.pageNum++
       if (!res.meta || !res.meta.nextPageUrl) {
         interviewData.isLastPage = true
         interviewBottomStatus = 2
