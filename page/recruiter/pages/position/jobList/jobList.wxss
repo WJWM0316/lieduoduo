@@ -58,7 +58,7 @@
 }
 
 .job-list .title .txt1 {
-  max-width: 380rpx;
+  max-width: 320rpx;
   overflow: hidden;
   text-overflow:ellipsis;
   white-space: nowrap;

@@ -89,12 +89,15 @@ Page({
 
     getPositionListNumApi().then(res => {
       let api = ''
+      let nowTab = this.data.nowTab
       if(!res.data.online) {
         api = 'getoffLinePositionListB'
+        nowTab = 'offline'
       } else {
         api = 'getonLinePositionListB'
+        nowTab = 'online'
       }
-      this.setData({api}, () => this[api]())
+      this.setData({api, nowTab}, () => this[api]())
     })
   },
   /**
@@ -121,7 +124,11 @@ Page({
         onLinePositionList.list = onLinePositionList.list.concat(list)
         onLinePositionList.pageNum++
         onLinePositionList.isRequire = true
-        onLinePositionList.isLastPage = res.meta && res.meta.nextPageUrl ? false : true
+        if(res.meta.nextPageUrl) {
+          onLinePositionList.isLastPage = false
+        } else {
+          onLinePositionList.isLastPage = true
+        }
         this.setData({onLinePositionList, onBottomStatus}, () => resolve(res))
       })
     })
@@ -150,7 +157,11 @@ Page({
         onLinePositionList.list = onLinePositionList.list.concat(list)
         onLinePositionList.pageNum++
         onLinePositionList.isRequire = true
-        onLinePositionList.isLastPage = res.meta && res.meta.nextPageUrl ? false : true
+        if(res.meta.nextPageUrl) {
+          onLinePositionList.isLastPage = false
+        } else {
+          onLinePositionList.isLastPage = true
+        }
         this.setData({onLinePositionList, onBottomStatus}, () => resolve(res))
       })
     })
@@ -178,8 +189,11 @@ Page({
         onLinePositionList.list = onLinePositionList.list.concat(res.data || [])
         onLinePositionList.pageNum++
         onLinePositionList.isRequire = true
-        onLinePositionList.isLastPage = res.meta.nextPageUrl ? false : true
-        console.log(res.meta.nextPageUrl, 'fffff', onLinePositionList)
+        if(res.meta.nextPageUrl) {
+          onLinePositionList.isLastPage = false
+        } else {
+          onLinePositionList.isLastPage = true
+        }
         this.setData({onLinePositionList, onBottomStatus}, () => resolve(res))
       })
     })
@@ -489,44 +503,21 @@ Page({
    * @return   {[type]}   [description]
    */
   onReachBottom() {
-    let onLinePositionList = {list: [], pageNum: 1, count: 20, isLastPage: false, isRequire: false}
+    let onLinePositionList = {}
     let storage = wx.getStorageSync('interviewChatLists')
 
     if(storage && wx.getStorageSync('choseType') === 'RECRUITER') {
+      onLinePositionList = {list: [], pageNum: 1, count: 20, isLastPage: false, isRequire: false}
       onLinePositionList.list = storage.data
       this.setData({onLinePositionList})
       return;
     }
 
     onLinePositionList = this.data.onLinePositionList
+
     this.setData({onLinePositionList}, () => this[this.data.api]())
     if(!onLinePositionList.isLastPage) {
       this[this.data.api](false).then(() => this.setData({onBottomStatus: 1}))
     }
-  },
-  /**
-   * @Author   小书包
-   * @DateTime 2019-01-21
-   * @detail   下拉重新获取数据
-   * @return   {[type]}              [description]
-   */
-  onPullDownRefresh() {
-    let onLinePositionList = {list: [], pageNum: 1, count: 20, isLastPage: false, isRequire: false}
-    let storage = wx.getStorageSync('interviewChatLists')
-
-    if(storage && wx.getStorageSync('choseType') === 'RECRUITER') {
-      onLinePositionList.list = storage.data
-      this.setData({onLinePositionList})
-      return;
-    }
-
-    this.setData({onLinePositionList, hasReFresh: true})
-    this[this.data.api](false).then(res => {
-      wx.stopPullDownRefresh()
-      this.setData({hasReFresh: false})
-
-      // 招聘端 下拉刷新要去检查改招聘官身份是否已经认证
-      if(wx.getStorageSync('choseType') === 'RECRUITER') this.getCompanyIdentityInfos()
-    })
   }
 })

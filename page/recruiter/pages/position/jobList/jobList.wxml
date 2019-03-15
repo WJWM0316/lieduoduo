@@ -6,9 +6,9 @@
     <view class="public" bindtap="publicPosition"><i class="icon iconfont icon-bianji"></i>发布职位</view>
   </view>
 
-  <view hidden="{{!hasReFresh}}">
+<!--   <view hidden="{{!hasReFresh}}">
     <refreshStatus></refreshStatus>
-  </view>
+  </view> -->
 
   <block wx:if="{{identity === 'RECRUITER' && (options.type === 'confirm_chat' || options.type === 'reject_chat')}}">
     <view class="h1">以下是候选人多条申请记录，请选择处理</view>

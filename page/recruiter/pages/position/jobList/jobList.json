@@ -1,6 +1,4 @@
 {
-	"enablePullDownRefresh": true,
-	"backgroundTextStyle": "light",
   "usingComponents": {
     "navbar": "../../../../../components/business/navbar/navbar"
   }
