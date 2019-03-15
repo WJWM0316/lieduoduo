@@ -368,7 +368,7 @@ Component({
           this.setData({show: !this.data.show})
           break
         case 'public':
-          wx.navigateTo({url: `${RECRUITER}position/post/post`})
+          wx.navigateTo({url: `${RECRUITER}position/post/post?from=recruiter_chat&jobhunterUid=${infos.uid}`})
           break
         case 'openPosition':
           wx.navigateTo({url: `${RECRUITER}position/jobList/jobList?type=recruiter_chat&from=${this.data.currentPage}&jobhunterUid=${infos.uid}`})

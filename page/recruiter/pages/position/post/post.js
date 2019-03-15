@@ -43,7 +43,8 @@ Page({
     query: {},
     pageTitle: '',
     canClick: false,
-    showScanBox: false
+    showScanBox: false,
+    options: {}
   },
   onLoad(options) {
     this.setData({pageTitle: options.positionId ? '编辑职位' : '发布职位', query: options})
@@ -134,7 +135,6 @@ Page({
         formData.parentType = infos.skillsLabel.length ? infos.skillsLabel[0].topPid : ''
         Object.keys(formData).map(field => this.setData({[field]: formData[field]}))
         this.bindButtonStatus()
-        console.log(this.data)
       })
   },
   /**
@@ -311,9 +311,15 @@ Page({
    * @return   {[type]}   [description]
    */
   createPositionApi(formData) {
-    createPositionApi(formData)
-      .then(res => {
-        wx.removeStorageSync('createPosition')
+    createPositionApi(formData).then(res => {
+      let options = this.data.options
+      let params = {}
+      wx.removeStorageSync('createPosition')
+      if(options.from && options.from === 'recruiter_chat') {
+        params.jobhunterUid = options.jobhunterUid
+        params.positionId = res.data.id
+        this.applyInterview(params)
+      } else {
         app.wxToast({
           title: '创建成功',
           icon: 'success',
@@ -321,7 +327,8 @@ Page({
             wx.navigateBack({delta: 1 })
           }
         })
-      })
+      }
+    })
   },
   /**
    * @Author   小书包
@@ -330,12 +337,11 @@ Page({
    * @return   {[type]}   [description]
    */
   editPositionApi(formData) {
-    editPositionApi(formData)
-      .then(res => {
-        wx.removeStorageSync('createPosition')
-        wx.reLaunch({url: `${RECRUITER}position/index/index`})
-        app.wxToast({title: '编辑成功'})
-      })
+    editPositionApi(formData).then(res => {
+      wx.removeStorageSync('createPosition')
+      wx.reLaunch({url: `${RECRUITER}position/index/index`})
+      app.wxToast({title: '编辑成功'})
+    })
   },
   /**
    * @Author   小书包
@@ -384,7 +390,7 @@ Page({
    * @detail   招聘官申请开撩
    * @return   {[type]}   [description]
    */
-  applyInterview() {
+  applyInterview(params) {
     applyInterviewApi().then(res => {
       wx.redirectTo({url: `${COMMON}arrangement/arrangement?id=${res.data.interviewId}`})
     })

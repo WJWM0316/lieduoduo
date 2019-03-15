@@ -71,7 +71,6 @@ Page({
       this.setData({onLinePositionList: value})
       return;
     }
-
     this.setData({onLinePositionList}, () => this.getLists())
   },
   /**
@@ -202,13 +201,13 @@ Page({
     if(typeof job.id === 'string') {
       key = `${job.id}Checked`
       items.list.map(field => field.active = false)
-      this.setData({onLinePositionList: items, unsuitableChecked: false, personChecked: false, [key]: !this.data[key]})
+      this.setData({onLinePositionList: items, unsuitableChecked: false, personChecked: false, [key]: true})
     } else {
 
       // 给列表判断选中的状态
       items.list.map((field, index) => {
         if(job.index === index) {
-          field.active = !field.active
+          field.active = true
         } else {
           field.active = false
         }
@@ -241,6 +240,7 @@ Page({
       case 'confirm_chat':
         params.id = job.id
         params.status = job.status
+        params.positionId = job.positionId
         this.setData({params, buttonClick: true})
         break
 
@@ -375,12 +375,30 @@ Page({
     let options = this.data.options
     let params = this.data.params
     let that = this
-    
+    if(!this.data.buttonClick) return;
     switch(options.type) {
 
       // 确认开撩
       case 'confirm_chat':
-        this.confirmInterview(params)
+        // console.log(params);return
+        if(params.status === 0) {
+          app.wxConfirm({
+            title: '开放职位约面',
+            content: '确认开放该职位进行约面吗？',
+            showCancel: true,
+            cancelText: '再想想',
+            confirmText: '确定',
+            cancelColor: '#BCBCBC',
+            confirmColor: '#652791',
+            confirmBack: () => {
+              openPositionApi({id: params.positionId}).then(res => that.confirmInterview(params))
+            }
+          })
+        } else if(params.status === 3 || params.status === 4) {
+          app.wxToast({title: '该职位未开放，不可选择约面'})
+        } else {
+          this.confirmInterview(params)
+        }
         break
       // 招聘官拒绝开撩 需要判断职位的状态
       case 'reject_chat':
