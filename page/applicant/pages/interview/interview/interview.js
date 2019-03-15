@@ -17,7 +17,7 @@ let hasLogin = false //  是否登录
 let initData = {
   list: [],
   pageNum: 1,
-  count: 20,
+  count: 10,
   isLastPage: false,
   isRequire: false
 }

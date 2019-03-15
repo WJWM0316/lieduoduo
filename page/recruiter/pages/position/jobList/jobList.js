@@ -11,9 +11,13 @@ import {
   refuseInterviewApi
 } from '../../../../../api/pages/interview.js'
 
+import {
+  getCompanyIdentityInfosApi
+} from '../../../../../api/pages/company.js'
+
 import {RECRUITER, COMMON} from '../../../../../config.js'
 
-const app = getApp()
+let app = getApp()
 
 Page({
   data: {
@@ -32,10 +36,28 @@ Page({
     unsuitableChecked: false,
     personChecked: false,
     nowTab: 'online',
-    buttonClick: false
+    buttonClick: false,
+    api: '',
+    identityInfos: {}
   },
   onLoad(options) {
-    this.setData({identity: wx.getStorageSync('choseType'), options})
+    let api = ''
+    if(wx.getStorageSync('choseType') === 'RECRUITER') {
+      api = this.data.nowTab === 'online' ? 'getonLinePositionListB' : 'getoffLinePositionListB'
+      this.getCompanyIdentityInfos()
+    } else {
+      api = 'getonLinePositionListC'
+    }
+    this.setData({identity: wx.getStorageSync('choseType'), options, api})
+  },
+  /**
+   * @Author   小书包
+   * @DateTime 2019-01-29
+   * @detail   获取个人身份信息
+   * @return   {[type]}   [description]
+   */
+  getCompanyIdentityInfos(hasLoading = true) {
+    getCompanyIdentityInfosApi({hasLoading}).then(res => this.setData({identityInfos: res.data}))
   },
   onShow() {
     let onLinePositionList = {list: [], pageNum: 1, count: 20, isLastPage: false, isRequire: false}
@@ -105,7 +127,7 @@ Page({
         hasLoading,
         recruiter: options.recruiterUid
       }
-      getPositionListApi(params).then(res => {
+      getfilterPositionListApi(params).then(res => {
         let onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
         let list = res.data || []
         list.map(field => field.active = false)
@@ -271,7 +293,47 @@ Page({
    * @return   {[type]}   [description]
    */
   publicPosition() {
-    wx.navigateTo({url: `${RECRUITER}position/post/post`})
+    let identityInfos = this.data.identityInfos
+
+    // 跟后端协商  =1 则可以发布
+    if(identityInfos.identityAuth) {
+      wx.navigateTo({url: `${RECRUITER}position/post/post`})
+      return;
+    }
+
+    if(identityInfos.status === 1) {
+      wx.navigateTo({url: `${RECRUITER}position/post/post`})
+    }
+
+    // 已经填写身份证 但是管理员还没有处理或者身份证信息不符合规范
+    if(identityInfos.status === 0 || identityInfos.status === 2) {
+      app.wxConfirm({
+        title: '',
+        content: `您当前认证身份信息已提交申请，猎多多将尽快审核处理，请耐心的等待，感谢您的配合~`,
+        cancelText: '联系客服',
+        confirmText: '我知道了',
+        confirmBack: () => {
+          wx.navigateTo({url: `${RECRUITER}user/company/status/status?from=identity`})
+        },
+        cancelBack: () => {
+          wx.makePhoneCall({phoneNumber: this.data.telePhone})
+        }
+      })
+      return;
+    }
+
+    // 没有填身份证 则没有验证
+    if(!identityInfos.identityNum) {
+      app.wxConfirm({
+        title: '',
+        content: `检测到您尚未认证身份，请立即认证，完成发布职位`,
+        confirmText: '去认证',
+        confirmBack: () => {
+          wx.navigateTo({url: `${RECRUITER}user/company/identity/identity?type=identity`})
+        }
+      })
+      return;
+    }
   },
   /**
    * @Author   小书包
@@ -324,26 +386,20 @@ Page({
    * @return   {[type]}   [description]
    */
   onReachBottom() {
-    let onLinePositionList = {}
-    let api = ''
+    let onLinePositionList = {list: [], pageNum: 1, count: 20, isLastPage: false, isRequire: false}
     let storage = wx.getStorageSync('interviewChatLists')
-    let value = this.data.onLinePositionList
-    if(wx.getStorageSync('choseType') === 'RECRUITER') {
-      api = this.data.nowTab === 'online' ? 'getonLinePositionListB' : 'getoffLinePositionListB'
-    } else {
-      api = 'getonLinePositionListC'
-    }
     onLinePositionList = {list: [], pageNum: 1, count: 20, isLastPage: false, isRequire: false}
+
     if(storage && wx.getStorageSync('choseType') === 'RECRUITER') {
-      value.list = storage.data
-      this.setData({onLinePositionList: value})
+      onLinePositionList.list = storage.data
+      this.setData({onLinePositionList})
       return;
     }
 
     onLinePositionList = this.data.onLinePositionList
     this.setData({onLinePositionList}, () => this.getLists())
     if(!onLinePositionList.isLastPage) {
-      this[api](false).then(() => this.setData({onBottomStatus: 1}))
+      this[this.data.api](false).then(() => this.setData({onBottomStatus: 1}))
     }
   },
   /**
@@ -353,25 +409,22 @@ Page({
    * @return   {[type]}              [description]
    */
   onPullDownRefresh() {
-    let api = ''
     let onLinePositionList = {list: [], pageNum: 1, count: 20, isLastPage: false, isRequire: false}
     let storage = wx.getStorageSync('interviewChatLists')
-    let value = this.data.onLinePositionList
 
     if(storage && wx.getStorageSync('choseType') === 'RECRUITER') {
-      value.list = storage.data
-      this.setData({onLinePositionList: value})
+      onLinePositionList.list = storage.data
+      this.setData({onLinePositionList})
       return;
     }
-    if(wx.getStorageSync('choseType') === 'RECRUITER') {
-      api = this.data.nowTab === 'online' ? 'getonLinePositionListB' : 'getoffLinePositionListB'
-    } else {
-      api = 'getonLinePositionListC'
-    }
+
     this.setData({onLinePositionList, hasReFresh: true})
-    this[api](false).then(res => {
+    this[this.data.api](false).then(res => {
       wx.stopPullDownRefresh()
       this.setData({hasReFresh: false})
+      if(wx.getStorageSync('choseType') === 'RECRUITER') {
+        this.getCompanyIdentityInfos()
+      }
     })
   }
 })

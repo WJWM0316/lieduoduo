@@ -1,6 +1,11 @@
 <view class="job-list">
   <navbar title="{{pageTitle}}" background="#FFFFFF" color="#22292C"></navbar>
-  
+
+  <view class="position-tab" wx:if="{{identity === 'RECRUITER' && options.type === 'recruiter_chat'}}">
+    <view class="name">可选择以下职位</view>
+    <view class="public" bindtap="publicPosition"><i class="icon iconfont icon-bianji"></i>发布职位</view>
+  </view>
+
   <view hidden="{{!hasReFresh}}">
     <refreshStatus></refreshStatus>
   </view>

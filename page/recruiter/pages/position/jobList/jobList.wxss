@@ -230,9 +230,10 @@
 }
 
 .position-tab {
-  margin: 32rpx;
-  height:42rpx;
-  line-height:42rpx;
+  height:98rpx;
+  line-height:98rpx;
+  background: white;
+  padding: 0 40rpx;
 }
 
 .position-tab .name{
@@ -243,11 +244,14 @@
 }
 
 .position-tab .icon{
-  float: right;
   color: #652791;
-  transition: all ease .2s;
+  font-size: 28rpx;
+  margin-right: 10rpx;
 }
 
-.position-tab .show{
-  transform: rotate(-180deg);
+.position-tab .public{
+  font-size:28rpx;
+  font-weight:500;
+  color:#652791;
+  float: right;
 }
