@@ -159,8 +159,8 @@ Page({
   },
   jump () {
     if (this.data.pageList === 'myBrowse') {
-      wx.switchTab({
-        url: `${APPLICANT}jobs/job/job`
+      wx.reLaunch({
+        url: `${COMMON}careerChance/careerChance`
       })
     } else {
       wx.navigateTo({
