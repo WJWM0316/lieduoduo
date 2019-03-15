@@ -515,7 +515,7 @@ Page({
 
     onLinePositionList = this.data.onLinePositionList
 
-    this.setData({onLinePositionList}, () => this[this.data.api]())
+    this.setData({onLinePositionList})
     if(!onLinePositionList.isLastPage) {
       this[this.data.api](false).then(() => this.setData({onBottomStatus: 1}))
     }

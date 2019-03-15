@@ -351,6 +351,7 @@ Component({
             wx.setStorageSync('interviewChatLists', this.data.interviewInfos)
           } else {
             if(interviewInfos.data[0].positionStatus === 0) {
+              wx.setStorageSync('interviewChatLists', this.data.interviewInfos)
               wx.navigateTo({url: `${RECRUITER}position/jobList/jobList?type=confirm_chat&from=${this.data.currentPage}&recruiterId=${interviewInfos.data[0].recruiterUid}`})
             } else {
               confirmInterviewApi({id: interviewInfos.data[0].interviewId}).then(res => {

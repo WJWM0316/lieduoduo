@@ -10,11 +10,16 @@
     <refreshStatus></refreshStatus>
   </view> -->
 
-  <block wx:if="{{identity === 'RECRUITER' && (options.type === 'confirm_chat' || options.type === 'reject_chat')}}">
+  <block wx:if="{{identity === 'RECRUITER' && options.type === 'confirm_chat'}}">
     <view class="h1">以下是候选人多条申请记录，请选择处理</view>
     <view class="p">确认选择后，候选人其他申请记录将自动合并处理，不需要再单独处理；面试最终确认前，你可以随时与候选人沟通更改面试职位</view>
   </block>
   
+  <block wx:if="{{identity === 'RECRUITER' && options.type === 'reject_chat'}}">
+    <view class="h1">以下是候选人多条申请记录，请选择处理</view>
+    <view class="p">确认选择后，候选人其他申请记录将自动合并处理，不需要再单独处理；面试最终确认前，你可以随时与候选人沟通更改面试职位</view>
+  </block>
+
   <!-- 招聘官点击不合适 start-->
   <view class="radio-group">
     
