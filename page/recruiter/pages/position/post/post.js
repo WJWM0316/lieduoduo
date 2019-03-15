@@ -9,6 +9,10 @@ import {
   scanLoginApi
 } from '../../../../../api/pages/common.js'
 
+import {
+  applyInterviewApi
+} from '../../../../../api/pages/interview.js'
+
 import {realNameReg, emailReg, positionReg} from '../../../../../utils/fieldRegular.js'
 
 import {RECRUITER, COMMON} from '../../../../../config.js'
@@ -373,5 +377,16 @@ Page({
   },
   copy() {
     wx.setClipboardData({data: 'https://lieduoduo.com' })
+  },
+  /**
+   * @Author   小书包
+   * @DateTime 2019-03-15
+   * @detail   招聘官申请开撩
+   * @return   {[type]}   [description]
+   */
+  applyInterview() {
+    applyInterviewApi().then(res => {
+      wx.redirectTo({url: `${COMMON}arrangement/arrangement?id=${res.data.interviewId}`})
+    })
   }
 })
