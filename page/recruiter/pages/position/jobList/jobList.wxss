@@ -33,6 +33,7 @@
   width: 102rpx;
   position: relative;
   text-align: center;
+  height: 100%;
 }
 
 .job-list .li:after {
@@ -186,6 +187,10 @@
   line-height: 36rpx;
   text-align: center;
   box-sizing: border-box;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .myRadio.active {

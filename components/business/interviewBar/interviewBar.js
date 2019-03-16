@@ -274,7 +274,6 @@ Component({
               }
             })
           }
-          // wx.navigateTo({url: `${RECRUITER}position/jobList/jobList?type=recruiter_chat&from=${this.data.currentPage}&jobhunterUid=${this.data.infos.uid}&recruiterUid=${app.globalData.recruiterDetails.uid}`})
           break
         case 'job-hunting-waiting-interview':
           app.wxToast({title: '等待面试官安排面试'})

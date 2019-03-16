@@ -30,12 +30,9 @@
 
       <view class="li clear-bottom" wx:if="{{options.showNotPositionApply === '1' && identity === 'APPLICANT'}}">
         <view class="content unsuitable">暂不选择职位</view>
-        <view class="radio-box">
-          <view
-            class="myRadio {{item.active ? 'active' : ''}}"
-            bindtap="onClick"
-            data-name="{{item.positionName}}"
-            data-id="{{'person'}}"><i class="icon iconfont icon-wancheng" wx:if="{{item.active}}"></i>
+        <view class="radio-box" bindtap="onClick" data-name="{{item.positionName}}" data-id="{{'person'}}">
+          <view class="myRadio {{item.active ? 'active' : ''}}">
+            <i class="icon iconfont icon-wancheng" wx:if="{{item.active}}"></i>
           </view>
         </view>
       </view>
@@ -69,41 +66,46 @@
         </view>
         
         <!-- 招聘端确认约面或者决拒绝约面 start -->
-        <view class="radio-box" wx:if="{{(item.positionStatus === 4 || item.positionStatus === 4 || item.positionStatus === 0 || item.positionStatus === 3) && (options.type === 'confirm_chat' || options.type === 'reject_chat')}}">
-          <view
-            class="myRadio {{item.active ? 'active' : ''}}"
-            bindtap="onClick"
-            data-name="{{item.positionName}}"
-            data-index="{{index}}"
-            data-status="{{item.positionStatus}}"
-            data-position-id="{{item.positionId}}"
-            data-id="{{item.id || item.interviewId}}"><i class="icon iconfont icon-wancheng" wx:if="{{item.active}}"></i>
+        <view
+          class="radio-box"
+          bindtap="onClick"
+          data-name="{{item.positionName}}"
+          data-index="{{index}}"
+          data-status="{{item.positionStatus}}"
+          data-position-id="{{item.positionId}}"
+          data-id="{{item.id || item.interviewId}}"
+          wx:if="{{(item.positionStatus === 4 || item.positionStatus === 4 || item.positionStatus === 0 || item.positionStatus === 3) && (options.type === 'confirm_chat' || options.type === 'reject_chat')}}">
+          <view class="myRadio {{item.active ? 'active' : ''}}">
+            <i class="icon iconfont icon-wancheng" wx:if="{{item.active}}"></i>
           </view>
         </view>
         <!-- 招聘端确认约面或者决拒绝约面 start -->
 
-        <view class="radio-box" wx:else>
-          <view
-            class="myRadio {{item.active ? 'active' : ''}}"
-            bindtap="onClick"
-            data-name="{{item.positionName}}"
-            data-index="{{index}}"
-            data-status="{{item.status}}"
-            data-id="{{item.id || item.interviewId}}"><i class="icon iconfont icon-wancheng" wx:if="{{item.active}}"></i>
+        <view
+          class="radio-box"
+          bindtap="onClick"
+          data-name="{{item.positionName}}"
+          data-index="{{index}}"
+          data-status="{{item.status}}"
+          data-id="{{item.id || item.interviewId}}"
+          wx:else>
+          <view class="myRadio {{item.active ? 'active' : ''}}">
+            <i class="icon iconfont icon-wancheng" wx:if="{{item.active}}"></i>
           </view>
         </view>
 
       </block>
       <block wx:else>
         <view class="content chat-me">直接与我约面</view>
-        <view class="radio-box">
-          <view
-            class="myRadio {{item.active ? 'active' : ''}}"
-            bindtap="onClick"
-            data-index="{{index}}"
-            data-status="{{item.status}}"
-            data-name="{{item.positionName}}"
-            data-id="{{item.interviewId}}"><i class="icon iconfont icon-wancheng" wx:if="{{item.active}}"></i>
+        <view
+          class="radio-box"
+          bindtap="onClick"
+          data-index="{{index}}"
+          data-status="{{item.status}}"
+          data-name="{{item.positionName}}"
+          data-id="{{item.interviewId}}"
+          >
+          <view class="myRadio {{item.active ? 'active' : ''}}"><i class="icon iconfont icon-wancheng" wx:if="{{item.active}}"></i>
           </view>
         </view>
       </block>
@@ -115,12 +117,14 @@
       <view class="unsuitable">都不合适</view>
       <view class="unsuitable-tips">选择此项，以上申请记录将全部合并处理为不合适</view>
     </view>
-    <view class="radio-box">
-      <view
-        class="myRadio {{unsuitableChecked ? 'active' : ''}}"
-        bindtap="onClick"
-        data-name="{{item.positionName}}"
-        data-id="{{'unsuitable'}}"><i class="icon iconfont icon-wancheng" wx:if="{{unsuitableChecked}}"></i>
+    <view
+      class="radio-box"
+      bindtap="onClick"
+      data-name="{{item.positionName}}"
+      data-id="{{'unsuitable'}}"
+      >
+      <view class="myRadio {{unsuitableChecked ? 'active' : ''}}">
+        <i class="icon iconfont icon-wancheng" wx:if="{{unsuitableChecked}}"></i>
       </view>
     </view>
   </view>

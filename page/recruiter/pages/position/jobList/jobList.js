@@ -35,7 +35,6 @@ Page({
     },
     params: {},
     unsuitableChecked: false,
-    personChecked: false,
     nowTab: 'online',
     buttonClick: false,
     api: '',
@@ -214,12 +213,14 @@ Page({
     let key = ''
     let result = {}
     let buttonClick = this.data.buttonClick
+    data.positionName = job.name
+    data.positionId = job.id
 
     // 给不合适或者直接与我约面加按钮状态 并且选中的按钮只能有一个
     if(typeof job.id === 'string') {
       key = `${job.id}Checked`
       items.list.map(field => field.active = false)
-      this.setData({onLinePositionList: items, unsuitableChecked: false, personChecked: false, [key]: true})
+      this.setData({onLinePositionList: items, unsuitableChecked: false, [key]: true})
     } else {
 
       // 给列表判断选中的状态
@@ -230,11 +231,8 @@ Page({
           field.active = false
         }
       })
-      this.setData({onLinePositionList: items, unsuitableChecked: false, personChecked: false})
+      this.setData({onLinePositionList: items, unsuitableChecked: false})
     }
-
-    data.positionName = job.name
-    data.positionId = job.id
 
     switch(options.type) {
 
@@ -415,11 +413,7 @@ Page({
         } else if(params.status === 3 || params.status === 4) {
           app.wxToast({title: '该职位未开放，不可选择约面'})
         } else {
-          if(this.data.personChecked) {
-            this.confirmInterview({id: options.recruiterId})
-          } else {
-            this.confirmInterview(params)
-          }
+          this.confirmInterview(params)
         }
         break
       // 招聘官拒绝开撩 需要判断职位的状态
@@ -517,7 +511,10 @@ Page({
 
     this.setData({onLinePositionList})
     if(!onLinePositionList.isLastPage) {
-      this[this.data.api](false).then(() => this.setData({onBottomStatus: 1}))
+      this[this.data.api](false).then(() => {
+        this.setData({onBottomStatus: 1})
+        console.log(this.data.onLinePositionList)
+      })
     }
   }
 })
