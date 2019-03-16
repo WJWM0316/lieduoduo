@@ -17,6 +17,7 @@ Page({
     navH: app.globalData.navHeight,
     cdnImagePath: app.globalData.cdnImagePath,
     pageCount: 8,
+    options: {},
     positionList: {
       list: [],
       pageNum: 1,
@@ -29,6 +30,9 @@ Page({
       isLastPage: false,
       isRequire: false
     }
+  },
+  onLoad(options) {
+    console.log(options)
   },
   onShow() {
     const positionList = {
@@ -43,7 +47,7 @@ Page({
       isLastPage: false,
       isRequire: false
     }
-    this.setData({positionList, recruiterList}, () => this.getLists())
+    this.setData({positionList, recruiterList}, () => this.getLists(false))
   },
   /**
    * @Author   小书包
@@ -139,14 +143,20 @@ Page({
   },
   routeJump(e) {
     let params = e.currentTarget.dataset
-    // console.log(params);return;
     if(this.data.tab === 'positionList') {
       wx.navigateTo({url: `${COMMON}positionDetail/positionDetail?positionId=${params.positionid}`})
     } else {
-      wx.navigateTo({url: `${COMMON}recruiterDetail/recruiterDetail`})
+      wx.navigateTo({url: `${COMMON}recruiterDetail/recruiterDetail?uid=${params.uid}`})
     }
   },
   formSubmit(e) {
     app.postFormId(e.detail.formId)
+  },
+  jump() {
+    if(this.data.tab === 'positionList') {
+      wx.reLaunch({url: `${COMMON}careerChance/careerChance`})
+    } else {
+      wx.navigateTo({url: `${COMMON}rank/rank`})
+    }
   }
 })
