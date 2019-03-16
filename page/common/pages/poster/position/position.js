@@ -237,7 +237,7 @@ Page({
             wx.removeStorageSync('posterData')
           }
         })
-      }, 500)
+      }, 1000)
     })
   },
   /**
@@ -308,7 +308,6 @@ Page({
           }
         })
       })
-      
     })
     Promise.all([loadAvatar, loadCompany, loadQrCode]).then((result) => {
       wx.showLoading({

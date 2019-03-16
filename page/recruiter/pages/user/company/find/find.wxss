@@ -130,13 +130,13 @@
 	top: 50%;
 	transform: translateY(-50%);
 	background: white;
-	border-radius:18px;
+	border-radius:18rpx;
 	box-sizing: border-box;
 	padding: 60rpx 55rpx;
 	opacity: 0;
 	visibility: hidden;
 	transition: all ease .4s;
-	height: 754rpx;
+	height: 714rpx;
 	z-index: 10001;
 }
 
@@ -151,7 +151,7 @@
 	font-weight:500;
 	color:rgba(53,57,67,1);
 	line-height: 1;
-	margin-bottom: 88rpx;
+	margin-bottom: 60rpx;
 	text-align: center;
 }
 
@@ -178,10 +178,8 @@
 
 .certification-layout .ul {
 	overflow: hidden;
-	height: 350rpx;
-	overflow: hidden;
-	overflow-y: scroll;
-	margin-bottom: 88rpx;
+	height: 360rpx;
+	margin-bottom: 30rpx;
 }
 
 .certification-layout .circle {
@@ -201,7 +199,7 @@
 .certification-layout .img-box {
 	width:50rpx;
 	height:50rpx;
-	margin-right: 20rpx;
+	margin-right: 22rpx;
 }
 
 .certification-layout .text {
@@ -217,6 +215,10 @@
 	font-size:32rpx;
 	font-weight:400;
 	color:rgba(255,255,255,1);
+	position:absolute;
+	left:55rpx;
+	right:55rpx;
+	bottom:44rpx;
 }
 .bottomBox {
 	position: fixed;
@@ -231,7 +233,6 @@
 	height: 88rpx;
 	background:#F5F4F7;
 	border-radius:48rpx;
-	border: 1rpx solid #F5F4F7;
 	font-size:32rpx;
 	font-weight:400;
 	color:#CDCBCF;
@@ -257,4 +258,11 @@
 
 .search-company-page {
 	padding-bottom: 188rpx;
+}
+
+.icon-close {
+	color: #C3C9D4;
+	position: absolute;
+	top: 28rpx;
+	right: 28rpx;
 }

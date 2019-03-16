@@ -21,7 +21,7 @@
 		<!-- 求职者还没有发起开撩动作 招聘官主页 end-->
 
 		<!-- 求职者还没有发起开撩动作 职位详情 start-->
-		<block wx:if="{{type === 'position' && (interviewInfos.haveInterview === 0 || interviewInfos.interviewStatus === 51 || interviewInfos.interviewStatus === 54)}}">
+		<block wx:if="{{type === 'position' && (interviewInfos.haveInterview === 0 || interviewInfos.interviewStatus === 51 || interviewInfos.interviewStatus === 54 || interviewInfos.interviewStatus === 52)}}">
 			<view class="content">
 				<view class="first">
 					<view class="name">{{infos.recruiterInfo.name}}</view>
@@ -109,8 +109,8 @@
 				<view class="second">约你面试</view>
 			</view>
 			<view class="button-box">
-				<!-- <view class="reject" data-action="recruiter-reject" bindtap="todoAction">不合适</view> -->
-				<view class="accept" data-action="recruiter-accept" bindtap="todoAction">确认约面</view>
+				<view class="reject" data-action="recruiter-reject" bindtap="todoAction">不合适</view>
+				<view class="accept" data-action="recruiter-accept" bindtap="todoAction" data-status="{{'f'}}">确认约面</view>
 			</view>
 		</block>
 		<!-- 求职端已开启撩 招聘端可接受可拒绝 end-->
@@ -183,11 +183,25 @@
 
 <bindPhone hide="{{!showLoginBox}}"></bindPhone>
 
-<!-- <view class="overlay">
+<view class="overlay" wx:if="{{currentPage === 'resumeDetail' && !positionInfos.online  && show}}">
 	<view class="box">
-		<i class="icon iconfont icon-close"></i>
+		<i class="icon iconfont icon-close" bindtap="todoAction" data-action="close"></i>
+		<image src="{{cdnImagePath}}none_position.png"></image>
 		<view class="p1">邀请候选人面试</view>
 		<view class="p2">至少需要一个招聘中职位~</view>
-		<view class="button">发布职位</view>
+		<view
+			class="button"
+			wx:if="{{!positionInfos.online && (!positionInfos.offline || !positionInfos.close)}}"
+			bindtap="todoAction"
+			data-action="public">
+			发布职位
+		</view>
+		<view
+			class="button"
+			wx:if="{{!positionInfos.online && (positionInfos.offline || positionInfos.close)}}"
+			bindtap="todoAction"
+			data-action="openPosition">
+			去发布/开放职位
+		</view>
 	</view>
-</view> -->
+</view>

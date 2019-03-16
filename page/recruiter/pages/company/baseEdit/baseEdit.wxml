@@ -3,7 +3,7 @@
 	<view class="head">
 		<view class="msg">
 			<view class="item companyLogo">
-				<view class="txt red">公司封面</view>
+				<view class="txt red">公司Logo</view>
 				<view class="value">
 					<unloadFile bindresultEvent="getResult" unloadType="avatar" data-type="avatar">
 						<image class="logo" src="{{info.logoInfo.middleUrl}}" mode="aspectFit"></image>

@@ -341,3 +341,9 @@
   line-height:33rpx;
   margin-top: 12rpx;
 }
+
+.clock_show {
+  width: 220rpx;
+  height: 206rpx;
+  margin-top: 32rpx;
+}

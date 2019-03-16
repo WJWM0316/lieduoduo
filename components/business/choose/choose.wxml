@@ -11,7 +11,7 @@
     	<image class="img" src="{{cdnImagePath}}choseIcon2.png"></image>
     </button>
     <button class="role2" form-type="submit" bindtap='jump' data-identity="RECRUITER" open-type="getUserInfo" bindgetuserinfo="onGotUserInfo" lang="zh_CN">
-    	<view class="desc">我是招聘官<icon class="icon iconfont icon-disejiantou-you"></icon></view>
+    	<view class="desc">我是面试官<icon class="icon iconfont icon-disejiantou-you"></icon></view>
     	<image class="img" src="{{cdnImagePath}}choseIcon3.png"></image>
     </button>
   </form>

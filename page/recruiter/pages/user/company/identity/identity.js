@@ -55,8 +55,8 @@ Page({
    * @detail   获取认证详情
    * @return   {[type]}   [description]
    */
-  getCompanyIdentityInfos() {
-    getCompanyIdentityInfosApi().then(res => {
+  getCompanyIdentityInfos(hasLoading = true) {
+    getCompanyIdentityInfosApi({hasLoading}).then(res => {
       let infos = res.data
       let formData = {}
       let options = this.data.options
@@ -77,6 +77,8 @@ Page({
         formData.passport_reverse = infos.passportReverseInfo
         formData.validity_start = infos.validityStart
         formData.validity_end = infos.validityEnd
+        formData.passport_front.hasUpload = true
+        formData.passport_reverse.hasUpload = true
       }
       
       this.setData({formData: Object.assign(this.data.formData, formData), applyJoin, infos}, () => this.bindBtnStatus())
@@ -159,7 +161,9 @@ Page({
     let infos = e.detail[0]
     let idCardInfo = infos.idCardInfo
     let formData = this.data.formData
-    formData.passport_front = infos.file
+    formData.passport_front.loading = false
+    formData.passport_front.hasUpload = true
+    formData.passport_front = Object.assign(formData.passport_front, infos.file)
     formData.real_name = idCardInfo.name
     formData.identity_num = idCardInfo.num
     this.setData({formData}, () => this.bindBtnStatus())
@@ -177,7 +181,9 @@ Page({
     let validity_start = idCardInfo.startDateDesc.replace(/-/g, '.')
     let validity_end = idCardInfo.endDateDesc.replace(/-/g, '.')
     let formData = this.data.formData
-    formData.passport_reverse = infos.file
+    formData.passport_reverse.loading = false
+    formData.passport_reverse.hasUpload = true
+    formData.passport_reverse = Object.assign(formData.passport_reverse, infos.file)
     formData.validity_start = validity_start
     formData.validity_end = validity_end
     this.setData({formData}, () => this.bindBtnStatus())
@@ -250,11 +256,12 @@ Page({
    */
   identityCompany() {
     let formData = this.getParams()
+    let options = this.data.options
     identityCompanyApi(formData).then((res) => {
       if(this.data.options.from === 'identity') {
-        wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=identity&showBack=1`})
+        wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=identity&showBack=1&from=${options.from}`})
       } else {
-        wx.redirectTo({url: `${RECRUITER}user/company/status/status?showBack=1`})
+        wx.redirectTo({url: `${RECRUITER}user/company/status/status?showBack=1&from=${options.from}`})
       }
     })
   },
@@ -266,11 +273,12 @@ Page({
    */
   identityJoin() {
     let formData = this.getParams()
+    let options = this.data.options
     joinidentityApi(formData).then((res) => {
       if(this.data.options.from === 'identity') {
-        wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=identity&showBack=1`})
+        wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=identity&showBack=1&from=${options.from}`})
       } else {
-        wx.redirectTo({url: `${RECRUITER}user/company/status/status?showBack=1`})
+        wx.redirectTo({url: `${RECRUITER}user/company/status/status?showBack=1&from=${options.from}`})
       }
     })
   },
@@ -282,11 +290,12 @@ Page({
    */
   editIdentityCompany() {
     let formData = this.getParams()
+    let options = this.data.options
     editCompanyIdentityInfosApi(formData).then((res) => {
       if(this.data.options.from === 'identity') {
-        wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=identity&showBack=1`})
+        wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=identity&showBack=1&from=${options.from}`})
       } else {
-        wx.redirectTo({url: `${RECRUITER}user/company/status/status?showBack=1`})
+        wx.redirectTo({url: `${RECRUITER}user/company/status/status?showBack=1&from=${options.from}`})
       }
     })
   },
@@ -298,11 +307,12 @@ Page({
    */
   editIdentityJoin() {
     let formData = this.getParams()
+    let options = this.data.options
     editIdentityJoinApi(formData).then((res) => {
       if(this.data.options.from === 'identity') {
-        wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=identity&showBack=1`})
+        wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=identity&showBack=1&from=${options.from}`})
       } else {
-        wx.redirectTo({url: `${RECRUITER}user/company/status/status?showBack=1`})
+        wx.redirectTo({url: `${RECRUITER}user/company/status/status?showBack=1&from=${options.from}`})
       }
     })
   },

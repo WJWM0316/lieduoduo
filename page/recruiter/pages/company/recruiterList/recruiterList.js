@@ -96,8 +96,8 @@ Page({
 
     const result = recruitersList.list.find((field, index) => params.index === index)
   	app.wxConfirm({
-      title: '移除招聘官',
-      content: `即将从公司中移除${result.name}，该招聘官发布的职位将被关闭且无法继续进行招聘，确认移除吗?`,
+      title: '移除面试官',
+      content: `即将从公司中移除${result.name}，该面试官发布的职位将被关闭且无法继续进行招聘，确认移除吗?`,
       confirmText: '移除',
       confirmBack: () => {
         recruitersList.list.splice(params.index, 1)

@@ -10,11 +10,11 @@
 		</view>
 
 		<view class="li upload">
-			<view class="key">公司封面</view>
+			<view class="key">公司logo</view>
 			<view class="logo-box">
 				<view class="logo">
 					<unloadFile bindresultEvent="upload" unloadType="img" number="{{number}}">
-						<image wx:if="{{!formData.logo.smallUrl}}" src="{{cdnPath}}pic_dafult_product.png" class="placeholder-image" mode="aspectFill"></image>
+						<image wx:if="{{!formData.logo.smallUrl}}" src="{{cdnPath}}pic_dafult_company.png" class="placeholder-image" mode="aspectFill"></image>
 						<image src="{{formData.logo.smallUrl}}" wx:if="{{formData.logo.smallUrl}}" mode="aspectFill" class="upload-image"></image>
 					</unloadFile>
 				</view>

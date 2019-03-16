@@ -1,12 +1,12 @@
 <view class="recruiterList">
-	<navbar title="公司招聘官" background="#fff" color="#22292C"></navbar>
+	<navbar title="公司面试官" background="#fff" color="#22292C"></navbar>
 	<view hidden="{{!hasReFresh}}">
     <refreshStatus></refreshStatus>
   </view>
 
   <view class="todo-tab" bindtap="routeJump" wx:if="{{isCompanyAdmin}}">
-  	<i class="icon iconfont icon-bianji1 icon1"></i>
-  	招聘官加入申请
+  	<i class="icon iconfont icon-tongzhi icon1"></i>
+  	面试官加入申请
   	<i class="icon iconfont icon-xiangyou icon2"></i>
   </view>
 

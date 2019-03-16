@@ -23,15 +23,15 @@
 
   <view class="{{myBrowse.list.length ? '' : 'nodata'}}" hidden="{{pageList === 'myCollect'}}">
     <officerTab list="{{myBrowse.list}}" showSlideView="{{false}}" buttonType="delete" bindrefreshevent="refreshEvent"></officerTab>
-    <bottomStatus status="{{onBottomStatus}}" listData="{{myBrowse.list}}" desc="你还没有看过的职位和招聘官哟～" marginTop="{{30}}">
+    <bottomStatus status="{{onBottomStatus}}" listData="{{myBrowse.list}}" desc="你还没有看过的职位和面试官哟～" marginTop="{{30}}">
       <button class="jump clear-style" bindtap="jump">发现更多职业机会</button>
     </bottomStatus>
   </view>
   
   <view class="{{myCollect.list.length ? '' : 'nodata'}}" hidden="{{pageList === 'myBrowse'}}">
     <officerTab list="{{myCollect.list}}" showSlideView="{{false}}" buttonType="unsubscribe" bindrefreshevent="refreshEvent"></officerTab>
-    <bottomStatus status="{{onBottomStatus}}" listData="{{myCollect.list}}" desc="你还没有感兴趣的招聘官哟～" marginTop="{{30}}">
-      <button class="jump clear-style" bindtap="jump">发现更多招聘官</button>
+    <bottomStatus status="{{onBottomStatus}}" listData="{{myCollect.list}}" desc="你还没有感兴趣的面试官哟～" marginTop="{{30}}">
+      <button class="jump clear-style" bindtap="jump">发现更多面试官</button>
     </bottomStatus>
   </view>
 

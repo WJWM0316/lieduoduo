@@ -146,15 +146,15 @@ Page({
           storage.intro = ''
           storage.company_name = this.data.formData.company_name
           wx.setStorageSync('createdCompany', storage)
-          wx.navigateTo({url: `${RECRUITER}user/company/post/post`})
+          wx.navigateTo({url: `${RECRUITER}user/company/post/post?from=company`})
           return;
         } else {
-          wx.navigateTo({url: `${RECRUITER}user/company/post/post?action=edit`})
+          wx.navigateTo({url: `${RECRUITER}user/company/post/post?action=edit&from=company`})
         }
       } else {
         storage.company_name = this.data.formData.company_name
         wx.setStorageSync('createdCompany', Object.assign(storage, this.data.formData))
-        wx.navigateTo({url: `${RECRUITER}user/company/post/post`})
+        wx.navigateTo({url: `${RECRUITER}user/company/post/post?from=company`})
       }
     })
   },
@@ -174,7 +174,7 @@ Page({
       company_id: infos.id
     }
     applyCompanyApi(params).then(() => {
-      wx.reLaunch({url: `${RECRUITER}user/company/status/status`})
+      wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=join`})
       wx.removeStorageSync('createdCompany')
     })
   },
@@ -196,18 +196,25 @@ Page({
       company_id: infos.id
     }
     editApplyCompanyApi(params).then(() => {
-      wx.reLaunch({url: `${RECRUITER}user/company/status/status`})
+      wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=join`})
       wx.removeStorageSync('createdCompany')
     })
   },
   submit() {
     if(!this.data.canClick) return;
+    let company_name = this.data.formData.company_name
+    company_name = company_name.trim()
 
-    if(!companyNameReg.test(this.data.formData.company_name)) {
+    // if(!companyNameReg.test(this.data.formData.company_name)) {
+    //   app.wxToast({title: '公司名称需为2-50个字'})
+    //   return;
+    // }
+    
+    if(company_name.length < 2) {
       app.wxToast({title: '公司名称需为2-50个字'})
       return;
     }
-    
+
     justifyCompanyExistApi({name: this.data.formData.company_name}).then(res => {
       if(res.data.exist) {
         this.setData({showMaskBox: true, type: 'apply', infos: res.data})

@@ -273,11 +273,11 @@ export const getCompanyProductListsApi = (data, hasLoading) => {
 }
 
 // 获取身份信息
-export const getCompanyIdentityInfosApi = (data, hasLoading) => {
+export const getCompanyIdentityInfosApi = (data) => {
   return request({
     method: 'get',
     url: `/company/identity`,
-    hasLoading: true
+    hasLoading: data.hasLoading
   })
 }
 

@@ -38,7 +38,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 21,
+			"current": 63,
 			"list": [
 				{
 					"id": 0,
@@ -417,6 +417,19 @@
 					"name": "招聘官审核列表",
 					"pathName": "page/applicant/pages/jobs/like/like",
 					"query": "action=edit&type=apply"
+				},
+				{
+					"id": -1,
+					"name": "权益",
+					"pathName": "page/recruiter/pages/company/interest/interest",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 63,
+					"name": "招聘官选择职位",
+					"pathName": "page/recruiter/pages/position/jobList/jobList",
+					"query": "type=recruiter_chat&from=resumeDetail&jobhunterUid=249&recruiterUid=662"
 				}
 			]
 		}

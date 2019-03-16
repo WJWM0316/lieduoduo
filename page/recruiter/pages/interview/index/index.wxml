@@ -116,6 +116,7 @@
 		</form>
 		<bottomStatus status="{{receiveBottomStatus}}" listData="{{receiveData.list}}"></bottomStatus>
 	</view>
+	
 	<!--我的邀请-->
 	<view hidden="{{tabIndex !== 1}}" class="list-box" style="padding-top: {{fixedBarHeight}}px">
 		<view hidden="{{!hasReFresh}}">
@@ -164,6 +165,7 @@
 		</form>
 		<bottomStatus status="{{applyBottomStatus}}" listData="{{applyData.list}}"></bottomStatus>
 	</view>
+
 	<!--面试日程-->
 	<view hidden="{{tabIndex !== 2}}" class="list-box" style="padding-top: {{fixedBarHeight}}px">
 		<view hidden="{{!hasReFresh}}">

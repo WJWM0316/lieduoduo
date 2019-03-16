@@ -9,6 +9,10 @@ import {
   scanLoginApi
 } from '../../../../../api/pages/common.js'
 
+import {
+  applyInterviewApi
+} from '../../../../../api/pages/interview.js'
+
 import {realNameReg, emailReg, positionReg} from '../../../../../utils/fieldRegular.js'
 
 import {RECRUITER, COMMON} from '../../../../../config.js'
@@ -39,7 +43,8 @@ Page({
     query: {},
     pageTitle: '',
     canClick: false,
-    showScanBox: false
+    showScanBox: false,
+    options: {}
   },
   onLoad(options) {
     this.setData({pageTitle: options.positionId ? '编辑职位' : '发布职位', query: options})
@@ -130,7 +135,6 @@ Page({
         formData.parentType = infos.skillsLabel.length ? infos.skillsLabel[0].topPid : ''
         Object.keys(formData).map(field => this.setData({[field]: formData[field]}))
         this.bindButtonStatus()
-        console.log(this.data)
       })
   },
   /**
@@ -307,9 +311,17 @@ Page({
    * @return   {[type]}   [description]
    */
   createPositionApi(formData) {
-    createPositionApi(formData)
-      .then(res => {
-        wx.removeStorageSync('createPosition')
+    createPositionApi(formData).then(res => {
+      let options = this.data.options
+      let params = {}
+      const recruiterChatFirst = wx.getStorageSync('recruiter_chat_first')
+      wx.removeStorageSync('createPosition')
+
+      if(recruiterChatFirst) {
+        params.jobhunterUid = recruiterChatFirst.jobhunterUid
+        params.positionId = res.data.id
+        this.applyInterview(params)
+      } else {
         app.wxToast({
           title: '创建成功',
           icon: 'success',
@@ -317,7 +329,8 @@ Page({
             wx.navigateBack({delta: 1 })
           }
         })
-      })
+      }
+    })
   },
   /**
    * @Author   小书包
@@ -326,12 +339,11 @@ Page({
    * @return   {[type]}   [description]
    */
   editPositionApi(formData) {
-    editPositionApi(formData)
-      .then(res => {
-        wx.removeStorageSync('createPosition')
-        wx.reLaunch({url: `${RECRUITER}position/index/index`})
-        app.wxToast({title: '编辑成功'})
-      })
+    editPositionApi(formData).then(res => {
+      wx.removeStorageSync('createPosition')
+      wx.reLaunch({url: `${RECRUITER}position/index/index`})
+      app.wxToast({title: '编辑成功'})
+    })
   },
   /**
    * @Author   小书包
@@ -373,5 +385,17 @@ Page({
   },
   copy() {
     wx.setClipboardData({data: 'https://lieduoduo.com' })
+  },
+  /**
+   * @Author   小书包
+   * @DateTime 2019-03-15
+   * @detail   招聘官申请开撩
+   * @return   {[type]}   [description]
+   */
+  applyInterview(params) {
+    applyInterviewApi(params).then(res => {
+      wx.removeStorageSync('recruiter_chat_first')
+      wx.redirectTo({url: `${COMMON}arrangement/arrangement?id=${res.data.interviewId}`})
+    })
   }
 })
