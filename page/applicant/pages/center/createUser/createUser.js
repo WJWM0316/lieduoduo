@@ -38,7 +38,7 @@ Page({
       title = '姓名需为2-20个汉字或英文'
     } else if (!info.workTimeDesr) {
       title = '请选择开始工作时间'
-    }else if (!info.position && this.data.workTimeDesr !== '在校生') {
+    } else if (!info.position && this.data.workTimeDesr !== '在校生') {
       title = '请输入职位'
     } else if (info.position && !positionReg.test(info.position)) {
       title = '职位名称需为2-20个字'
@@ -52,15 +52,14 @@ Page({
       startWorkYear: info.startWorkYear,
       name: info.name,
       gender: info.gender,
-      position: info.position
+      apiVersion: 1
     }
     postfirstStepApi(data).then(res => {
       let createUser = {
         name: info.name,
         gender: info.gender,
         startWorkYear: info.startWorkYear,
-        workTimeDesr: info.workTimeDesr,
-        position: info.position
+        workTimeDesr: info.workTimeDesr
       }
       wx.setStorageSync('createUserFirst', createUser)
       if (info.workTimeDesr === '在校生') {
@@ -83,7 +82,7 @@ Page({
     let avatar = wx.getStorageSync('avatar')
     let createUser = wx.getStorageSync('createUserFirst')
     if (avatar && createUser) {
-      this.setData({avatar, name: createUser.name, position: createUser.position, gender: createUser.gender, workTimeDesr: createUser.workTimeDesr, startWorkYear: createUser.startWorkYear})
+      this.setData({avatar, name: createUser.name, gender: createUser.gender, workTimeDesr: createUser.workTimeDesr, startWorkYear: createUser.startWorkYear})
     } else if (avatar) {
       this.setData({avatar})
     }

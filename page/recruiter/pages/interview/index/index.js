@@ -144,6 +144,14 @@ Page({
   getResult(e) {
     if(e && e.detail && e.detail.timeStamp) {
       chooseTime = e.detail.timeStamp
+      let interviewData = {
+        list: [],
+        pageNum: 1,
+        count: 20,
+        isLastPage: false,
+        isRequire: false
+      }
+      this.setData({interviewData, interviewBottomStatus: 0})
       this.getScheduleList()
     }
     this.getFixedDomNodePosition()

@@ -4,9 +4,7 @@
     "page/applicant/pages/jobs/job/job",
     "page/applicant/pages/interview/interview/interview",
     "page/common/pages/cutInside/cutInside",
-    "page/common/pages/map/map",
     "page/applicant/pages/officerActive/more/more",
-    "page/common/pages/test/test",
     "page/applicant/pages/officerActive/recruitmentActive/recruitmentActive",
     "page/applicant/pages/center/mine/mine",
     "page/common/pages/bindPhone/bindPhone",
@@ -38,7 +36,6 @@
     "page/common/pages/poster/recruiter/recruiter",
     "page/applicant/pages/center/attachment/attachment",
     "page/applicant/pages/jobs/like/like",
-    "page/applicant/pages/test/test",
     "page/common/pages/poster/exPosition/exPosition"
   ],
   "window": {
