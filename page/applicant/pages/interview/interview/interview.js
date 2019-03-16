@@ -235,14 +235,20 @@ Page({
     })
   },
   init () {
-    if (app.globalData.isJobhunter) {
-      this.getApplyList()
-    }
+    this.getApplyList()
   },
   onShow () {
-    hasLogin = app.globalData.hasLogin
-    this.init()
-    this.getFixedDomNodePosition()
+    if (app.globalData.isJobhunter) {
+      hasLogin = app.globalData.hasLogin
+      this.init()
+      this.getFixedDomNodePosition()
+    } else {
+      app.getRoleInit = () => {
+        hasLogin = app.globalData.hasLogin
+        this.init()
+        this.getFixedDomNodePosition()
+      }
+    }
   },
   getFixedDomNodePosition() {
     getSelectorQuery('.fixed-dom').then(res => {

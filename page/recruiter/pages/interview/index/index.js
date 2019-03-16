@@ -177,7 +177,6 @@ Page({
   // 收到意向
   getInviteList(hasLoading = true) {
     let receiveData = this.data.receiveData
-    console.log(this.data.receiveData, 111111111)
     let status = this.data.receiveScreen[this.data.receiveIndex].value
     let positionId = this.data.positionList[this.data.positionIndex].id
     let receiveBottomStatus = 0
@@ -261,18 +260,23 @@ Page({
     this.getFixedDomNodePosition()
   },
   init () {
-    if (app.globalData.isRecruiter) {
-      getRecruiterPositionListApi({is_online: 1, count: 50, page: 1}).then(res => {
-        positionList = res.data
-        positionList.unshift({positionName: '所有职位', id: 0})
-        this.setData({positionList})
-        this.getInviteList()
-      })
-    }
+    getRecruiterPositionListApi({is_online: 1, count: 50, page: 1}).then(res => {
+      positionList = res.data
+      positionList.unshift({positionName: '所有职位', id: 0})
+      this.setData({positionList})
+      this.getInviteList()
+    })
   },
   onShow () {
-    this.init()
-    this.getFixedDomNodePosition()
+    if (app.globalData.isRecruiter) {
+      this.init()
+      this.getFixedDomNodePosition()
+    } else {
+      app.getRoleInit = () => {
+        this.init()
+        this.getFixedDomNodePosition()
+      }
+    }
   },
   getFixedDomNodePosition() {
     getSelectorQuery('.fixed-dom').then(res => this.setData({fixedBarHeight: res.height}))

@@ -64,7 +64,6 @@ App({
             that.loginedLoadData()
             that.globalData.hasLogin = true
             that.globalData.userInfo = res.data
-            console.log(that.globalData, 11)
             // 登陆回调
             if (that.loginInit) {
               that.loginInit()
