@@ -62,7 +62,7 @@ Page({
     if (wx.getStorageSync('choseType') === 'RECRUITER') {
       app.wxConfirm({
         title: '提示',
-        content: '检测到你是招聘官，是否切换招聘端',
+        content: '检测到你是面试官，是否切换面试官',
         confirmBack() {
           app.globalData.identity = 'RECRUITER'
           wx.reLaunch({

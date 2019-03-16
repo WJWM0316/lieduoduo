@@ -21,11 +21,11 @@ export const request = ({method = 'post', url, host, data = {}, needKey = true, 
 
   // 如果连接带参数scode, 则存到头部
   if (data.sCode) {
-    addHttpHead['act_code'] = data.sCode
-    addHttpHead['act_pid'] = data.id || data.uid
+    addHttpHead['Act-Code'] = data.sCode
+    addHttpHead['Act-Pid'] = data.id || data.uid
   } else {
-    delete addHttpHead['act_code']
-    delete addHttpHead['act_pid']
+    delete addHttpHead['Act-Code']
+    delete addHttpHead['Act-Pid']
   }
   
   // header 传递token, sessionToken
@@ -68,6 +68,7 @@ export const request = ({method = 'post', url, host, data = {}, needKey = true, 
           loadNum = 0
         }
         console.log(url, res)
+        console.log('addHttpHead----', addHttpHead)
         if (typeof res.data === 'string') { // 转换返回json
           res.data = JSON.parse(res.data)
         }
@@ -130,22 +131,27 @@ export const request = ({method = 'post', url, host, data = {}, needKey = true, 
 
                 if(msg.data.applyJoin) {
                   // 加入公司
-                  wx.reLaunch({url: `${RECRUITER}user/company/status/status`})
+                  wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=join`})
                 } else {
 
                   if(!msg.data.companyInfo.id) {
                     // 还没有填写公司信息
                     wx.reLaunch({url: `${RECRUITER}user/company/apply/apply`})
                   } else {
-                    // 接入ocr 首页会先验证身份证
-                    if(msg.data.status === 2 && msg.data.companyInfo.status !== 1) {
-                      wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=identity`})
-                      return
+                    
+                    // 创建公司 没填身份证 但是公司已经审核通过
+                    if(msg.data.companyInfo.status === 1 && !msg.data.id) {
+                      wx.reLaunch({url: `${RECRUITER}user/company/identity/identity?from=identity`})
+                      return;
                     }
-                    wx.reLaunch({url: `${RECRUITER}user/company/status/status`})
+                    // 创建公司 已填身份证 身份证没通过 公司已经审核通过
+                    if(msg.data.companyInfo.status === 1 && msg.data.id && msg.data.status === 2) {
+                      wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=identity`})
+                      return;
+                    }
+                    wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=company`})
                   }
                 }
-
               }
           }
         }

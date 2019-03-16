@@ -19,6 +19,7 @@ Page({
       }
     },
     options: {},
+    cdnImagePath: app.globalData.cdnImagePath,
     canClick: false
   },
   onLoad(options) {
@@ -67,9 +68,9 @@ Page({
       app.wxToast({title: '创建公司成功'})
 
       if(options.action && options.action === 'edit') {
-        wx.reLaunch({url: `${RECRUITER}user/company/status/status`})
+        wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=company`})
       } else {
-        wx.reLaunch({url: `${RECRUITER}user/company/identity/identity?realName=${storage.real_name}`})
+        wx.reLaunch({url: `${RECRUITER}user/company/identity/identity?realName=${storage.real_name}&from=company`})
       }
 
       wx.removeStorageSync('createdCompany')
@@ -90,7 +91,7 @@ Page({
         app.wxToast({
           title: '编辑公司成功',
           callback() {
-            wx.reLaunch({url: `${RECRUITER}user/company/status/status`})
+            wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=company`})
             wx.removeStorageSync('createdCompany')
           }
         })
@@ -98,7 +99,7 @@ Page({
         app.wxToast({
           title: '编辑公司成功',
           callback() {
-            wx.reLaunch({url: `${RECRUITER}user/company/identity/identity?realName=${storage.real_name}`})
+            wx.reLaunch({url: `${RECRUITER}user/company/identity/identity?realName=${storage.real_name}&from=company`})
             wx.removeStorageSync('createdCompany')
           }
         })

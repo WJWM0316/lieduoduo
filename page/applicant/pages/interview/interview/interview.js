@@ -13,8 +13,8 @@ import {getSelectorQuery} from "../../../../../utils/util.js"
 const app = getApp()
 
 let chooseTime = parseInt(new Date().getTime() / 1000)
-
-let initData = {
+let hasLogin = false //  是否登录
+const initData = {
   list: [],
   pageNum: 1,
   count: 20,
@@ -110,7 +110,7 @@ Page({
         break
       case 2:
         data = this.data.interviewData
-        let interviewData = initData
+        let interviewData = {...initData}
         chooseTime = ''
         this.setData({interviewData})
         this.selectComponent('#myCalendar').scrollLeft()
@@ -135,9 +135,16 @@ Page({
         obj.map((item, index) => {
           item.active = false
         })
-        let applyData = initData
+        let applyData = {
+          list: [],
+          pageNum: 1,
+          count: 20,
+          isLastPage: false,
+          isRequire: false,
+          total: 0
+        }
         obj[index].active = true
-        this.setData({[type]: obj, [typeIndex]: index})
+        this.setData({applyData, [type]: obj, [typeIndex]: index})
         this.getApplyList()
         break
       case 1:
@@ -147,22 +154,31 @@ Page({
         obj.map((item, index) => {
           item.active = false
         })
-        let receiveData = initData
+        let receiveData = {
+          list: [],
+          pageNum: 1,
+          count: 20,
+          isLastPage: false,
+          isRequire: false,
+          total: 0
+        }
         obj[index].active = true
-        this.setData({[type]: obj, [typeIndex]: index})
+        this.setData({receiveData, [type]: obj, [typeIndex]: index})
         this.getInviteList()
       break
     }
   },
   // 我的邀请
   getApplyList(hasLoading = true) {
+    if (!hasLogin) return
     let applyData = this.data.applyData
     let tab = this.data.applyScreen[this.data.applyIndex].value
     let applyBottomStatus = 0
     return getApplyListApi({count: applyData.count, page: applyData.pageNum, tab}, hasLoading).then(res => {
-      applyData.list = res.data
+      applyData.list.push(...res.data)
       applyData.isRequire = true
       applyData.total = res.meta.total
+      applyData.pageNum++
       if (!res.meta || !res.meta.nextPageUrl) {
         applyData.isLastPage = true
         applyBottomStatus = 2
@@ -172,13 +188,15 @@ Page({
   },
   // 收到意向
   getInviteList(hasLoading = true) {
+    if (!hasLogin) return
     let receiveData = this.data.receiveData
     let tab = this.data.receiveScreen[this.data.receiveIndex].value
     let receiveBottomStatus = 0
     return getInviteListApi({count: receiveData.count, page: receiveData.pageNum, tab}, hasLoading).then(res => {
-      receiveData.list = res.data
+      receiveData.list.push(...res.data)
       receiveData.isRequire = true
       receiveData.total = res.meta.total
+      receiveData.pageNum++
       if (!res.meta || !res.meta.nextPageUrl) {
         receiveData.isLastPage = true
         receiveBottomStatus = 2
@@ -188,6 +206,7 @@ Page({
   },
   // 面试日程
   getScheduleList(hasLoading = true) {
+    if (!hasLogin) return
     let interviewData = this.data.interviewData
     let interviewBottomStatus = 0
     return getScheduleListApi({count: interviewData.count, page: interviewData.pageNum, time: chooseTime}, hasLoading).then(res => {
@@ -196,9 +215,10 @@ Page({
         const time = field.arrangementInfo.appointment.split(' ')[1].slice(0, 5)
         field.createdAtTime = time
       })
-      interviewData.list = list
+      interviewData.list.push(...list)
       interviewData.isRequire = true
       interviewData.total = res.meta.total
+      interviewData.pageNum++
       if (!res.meta || !res.meta.nextPageUrl) {
         interviewData.isLastPage = true
         interviewBottomStatus = 2
@@ -215,6 +235,7 @@ Page({
     wx.setStorageSync('choseType', 'APPLICANT')
   },
   onShow () {
+    hasLogin = app.globalData.hasLogin
     this.init()
     this.getFixedDomNodePosition()
   },
@@ -249,9 +270,17 @@ Page({
     }
   },
   onPullDownRefresh () {
+    if (!hasLogin) return
     switch(this.data.tabIndex) {
       case 0:
-        let applyData = initData
+        let applyData = {
+          list: [],
+          pageNum: 1,
+          count: 20,
+          isLastPage: false,
+          isRequire: false,
+          total: 0
+        }
         this.setData({applyData, applyBottomStatus: 0, hasReFresh: true})
         this.getApplyList(false).then(res => {
           wx.stopPullDownRefresh()
@@ -261,7 +290,14 @@ Page({
         })
       break
       case 1:
-        let receiveData = initData
+        let receiveData = {
+          list: [],
+          pageNum: 1,
+          count: 20,
+          isLastPage: false,
+          isRequire: false,
+          total: 0
+        }
         this.setData({receiveData, receiveBottomStatus: 0, hasReFresh: true})
         this.getInviteList(false).then(res => {
           wx.stopPullDownRefresh()
@@ -271,7 +307,14 @@ Page({
         })
       break
       case 2:
-        let interviewData = initData
+        let interviewData = {
+          list: [],
+          pageNum: 1,
+          count: 20,
+          isLastPage: false,
+          isRequire: false,
+          total: 0
+        }
         this.setData({interviewData, interviewBottomStatus: 0, hasReFresh: true})
         this.getScheduleList(false).then(res => {
           wx.stopPullDownRefresh()

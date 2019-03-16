@@ -69,7 +69,7 @@ Page({
   getCompanyDetail() {
     getCompanyInfosApi({id: this.data.query.companyId}).then(res => {
       const companyInfos = res.data
-      companyInfos.intro = companyInfos.intro.replace(/\\n/g, '\n')
+      if(companyInfos.intro) companyInfos.intro = companyInfos.intro.replace(/\\n/g, '\n')
       this.setData({companyInfos})
     })
   }

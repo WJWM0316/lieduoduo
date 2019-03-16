@@ -6,7 +6,8 @@ Page({
 	data: {
 		describe: '',
     canClick: false,
-    randomCopy: {}
+    randomCopy: {},
+    show: false
 	},
 	onLoad(options) {
     const storage = wx.getStorageSync('createPosition')

@@ -1,10 +1,20 @@
 import { request } from '../require.js'
 
 // 职位列表
-export const getPositionListApi = (data, hasLoading) => {
+export const getPositionListApi = (data) => {
   return request({
     method: 'get',
     url: '/position/list',
+    data,
+    hasLoading: data.hasLoading
+  })
+}
+
+// 职位列表
+export const getfilterPositionListApi = (data, hasLoading) => {
+  return request({
+    method: 'get',
+    url: '/position/surface',
     data,
     hasLoading: hasLoading
   })

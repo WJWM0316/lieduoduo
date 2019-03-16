@@ -10,7 +10,8 @@ import {
 import {
   getPositionApi,
   openPositionApi,
-  closePositionApi
+  closePositionApi,
+  getPositionListNumApi
 } from '../../../api/pages/position.js'
 
 import {
@@ -54,7 +55,10 @@ Component({
     index: 0,
     jobWords: agreedTxtC(),
     recruiterWords: agreedTxtB(),
-    isShare: false
+    isShare: false,
+    cdnImagePath: app.globalData.cdnImagePath,
+    positionInfos: {},
+    show: false
   },
   attached() {
     identity = wx.getStorageSync('choseType')
@@ -78,7 +82,21 @@ Component({
           currentPage = ''
           break
       }
-      this.setData({currentPage, jobWords: agreedTxtC(), recruiterWords: agreedTxtB()})
+      this.setData({currentPage, jobWords: agreedTxtC(), recruiterWords: agreedTxtB(), show: false})
+    },
+    /**
+     * @Author   小书包
+     * @DateTime 2019-03-14
+     * @detail   获取招聘官的职位类型
+     * @return   {[type]}   [description]
+     */
+    getPositionListNum() {
+      return new Promise((resolve, reject) => {
+        getPositionListNumApi().then(res => {
+          this.setData({positionInfos: res.data})
+          resolve(res)
+        })
+      })
     },
     /**
      * @Author   小书包
@@ -101,8 +119,8 @@ Component({
      */
     showMergeBox(infos) {
       const content = infos.tipsData.positionId === 0
-        ? '招聘官已接受与你约面，但没有选择约面职位，其他职位申请将自动合并，如需修改约面职位，可直接与招聘官协商'
-        : `招聘官已选择你申请职位中的“${infos.tipsData.positionName}”，其他职位申请将自动合并，如需修改约面职位，可直接与招聘官协商。`
+        ? '面试官已接受与你约面，但没有选择约面职位，其他职位申请将自动合并，如需修改约面职位，可直接与面试官协商'
+        : `面试官已选择你申请职位中的“${infos.tipsData.positionName}”，其他职位申请将自动合并，如需修改约面职位，可直接与面试官协商。`
       app.wxConfirm({
         title: '',
         content,
@@ -153,8 +171,15 @@ Component({
           } else {
             // 走正常流程
             if(this.data.type === 'recruiter') {
-
-              wx.navigateTo({url: `${RECRUITER}position/jobList/jobList?type=job_hunting_chat&from=${this.data.currentPage}&showNotPositionApply=${interviewInfos.showNotPositionApply}&from=${this.data.currentPage}&recruiterUid=${this.data.infos.uid}`})
+              // 招聘官没有在线职位或者招聘官没发布过职位
+              if(!this.data.infos.positionNum) {
+                applyInterviewApi({recruiterUid: this.data.infos.uid}).then(res => {
+                  this.getInterviewStatus()
+                  app.wxToast({title: '面试申请已发送'})
+                })
+              } else {
+                wx.navigateTo({url: `${COMMON}chooseJob/chooseJob?type=job_hunting_chat&from=${this.data.currentPage}&showNotPositionApply=${interviewInfos.showNotPositionApply}&from=${this.data.currentPage}&recruiterUid=${this.data.infos.uid}`})
+              }
             } else {
               applyInterviewApi({recruiterUid: this.data.infos.recruiterInfo.uid, positionId: this.data.infos.id}).then(res => {
                 this.getInterviewStatus()
@@ -163,11 +188,12 @@ Component({
             }
           }
         } else {
+
           if(!isRecruiter) {
             this.getCompanyIdentityInfos()
           } else {
             // 走正常流程
-            wx.navigateTo({url: `${RECRUITER}position/jobList/jobList?type=recruiter_chat&from=${this.data.currentPage}&jobhunterUid=${this.data.infos.uid}&recruiterUid=${app.globalData.recruiterDetails.uid}`})
+            wx.navigateTo({url: `${COMMON}chooseJob/chooseJob?type=recruiter_chat&from=${this.data.currentPage}&jobhunterUid=${this.data.infos.uid}&recruiterUid=${app.globalData.recruiterDetails.uid}`})
           }
         }
       }
@@ -240,16 +266,23 @@ Component({
         case 'recruiter-chat':
           let type = this.data.type
           if ((identity !== 'RECRUITER' && type === 'position') || (identity === 'RECRUITER' && type === 'resume')) {
-            this.shareChat()
+            if(this.data.currentPage === 'resumeDetail') {
+              this.getPositionListNum().then(res => {
+                if(!res.data.online) {
+                  this.setData({show: true})
+                } else {
+                  this.shareChat()
+                }
+              })
+            }
           } else {
             app.promptSwitch({
               source: identity
             })
           }
-          
           break
         case 'job-hunting-waiting-interview':
-          app.wxToast({title: '等待招聘官安排面试'})
+          app.wxToast({title: '等待面试官安排面试'})
           break
         // 求职者等待招聘管确认
         case 'waiting-staff-confirm':
@@ -272,7 +305,7 @@ Component({
           } else {
             app.wxConfirm({
               title: '暂不考虑该职位',
-              content: '确定暂不考虑后，招聘官将终止这次约面流程',
+              content: '确定暂不考虑后，面试官将终止这次约面流程',
               showCancel: true,
               cancelText: '我再想想',
               confirmText: '确定',
@@ -290,7 +323,7 @@ Component({
         // 招聘官拒绝求职者
         case 'recruiter-reject':
           if(interviewInfos.data.length > 1) {
-            wx.navigateTo({url: `${RECRUITER}position/jobList/jobList?type=reject_chat&from=${this.data.currentPage}&jobhunterUid=${infos.uid}`})
+            wx.navigateTo({url: `${COMMON}chooseJob/chooseJob?type=reject_chat&from=${this.data.currentPage}&jobhunterUid=${infos.uid}`})
             wx.setStorageSync('interviewChatLists', this.data.interviewInfos)
           } else {
             app.wxConfirm({
@@ -306,19 +339,6 @@ Component({
               }
             })
           }
-          // console.log(interviewInfos);return;
-          // wx.navigateTo({url: `${RECRUITER}position/jobList/jobList?type=reject_chat&from=${this.data.currentPage}`})
-          // wx.setStorageSync('interviewChatLists', this.data.interviewInfos)
-          // if(interviewInfos.data.length > 1) {
-          //   wx.navigateTo({url: `${RECRUITER}position/jobList/jobList?type=reject_chat`})
-          //   wx.setStorageSync('interviewChatLists', this.data.interviewInfos)
-          // } else {
-          //   refuseInterviewApi({id: interviewInfos.data[0].interviewId})
-          //     .then(res => {
-          //       this.getInterviewStatus()
-          //       this.triggerEvent('resultevent', res)
-          //     })
-          // }
           break
         // 求职者查看面试详情
         case 'job-hunting-view-detail':
@@ -330,17 +350,19 @@ Component({
           break
         // B端开撩成功后跳转安排面试页面
         case 'recruiter-accept':
-          // wx.navigateTo({url: `${RECRUITER}position/jobList/jobList?type=confirm_chat&from=${this.data.currentPage}`})
-          // wx.setStorageSync('interviewChatLists', this.data.interviewInfos)
           // 求职者发起多条撩的记录
           if(interviewInfos.data.length > 1) {
-            wx.navigateTo({url: `${RECRUITER}position/jobList/jobList?type=confirm_chat&from=${this.data.currentPage}`})
+            wx.navigateTo({url: `${COMMON}chooseJob/chooseJob?type=confirm_chat&from=${this.data.currentPage}&recruiterId=${interviewInfos.data[0].recruiterUid}`})
             wx.setStorageSync('interviewChatLists', this.data.interviewInfos)
           } else {
-            confirmInterviewApi({id: interviewInfos.data[0].interviewId}).then(res => {
-              // this.triggerEvent('resultevent', res)
-              wx.navigateTo({url: `${COMMON}arrangement/arrangement?id=${interviewInfos.data[0].interviewId}`})
-            })
+            if(interviewInfos.data[0].positionStatus === 0) {
+              wx.setStorageSync('interviewChatLists', this.data.interviewInfos)
+              wx.navigateTo({url: `${COMMON}chooseJob/chooseJob?type=confirm_chat&from=${this.data.currentPage}&recruiterId=${interviewInfos.data[0].recruiterUid}`})
+            } else {
+              confirmInterviewApi({id: interviewInfos.data[0].interviewId}).then(res => {
+                wx.navigateTo({url: `${COMMON}arrangement/arrangement?id=${interviewInfos.data[0].interviewId}`})
+              })
+            }
           }
           break
         case 'recruiter-apply':
@@ -354,6 +376,16 @@ Component({
           break
         case 'viewRecruiter':
           if(this.data.type === 'position') wx.navigateTo({url: `${COMMON}recruiterDetail/recruiterDetail?uid=${this.data.infos.recruiterInfo.uid}`})
+          break
+        case 'close':
+          this.setData({show: !this.data.show})
+          break
+        case 'public':
+          wx.setStorageSync('recruiter_chat_first', {jobhunterUid: infos.uid })
+          wx.navigateTo({url: `${RECRUITER}position/post/post`})
+          break
+        case 'openPosition':
+          wx.navigateTo({url: `${COMMON}chooseJob/chooseJob?type=recruiter_chat&from=${this.data.currentPage}&jobhunterUid=${infos.uid}`})
           break
         default:
           break

@@ -104,7 +104,7 @@ Page({
     let info = this.data.info
     switch(e.currentTarget.dataset.type) {
       case 'jobList':
-        url = `${RECRUITER}position/jobList/jobList?recruiterUid=${info.recruiterInfo.uid}`
+        url = `${COMMON}chooseJob/chooseJob?recruiterUid=${info.recruiterInfo.uid}`
         break
       case 'addressList':
         url = `${RECRUITER}position/addressList/addressList?type=position&selected=1`
@@ -200,21 +200,33 @@ Page({
     this.setData({options, identity})
   },
   pageInit() {
-    return interviewDetailApi({interviewId: this.data.options.id}).then(res => {
-      let addressData = wx.getStorageSync('createPosition')
-      let positionData = wx.getStorageSync('interviewData')
-      if ((res.data.status === 12 || res.data.status === 21 || res.data.status === 32) && wx.getStorageSync('choseType') === 'RECRUITER') {
-        if (addressData) {
-          res.data.addressId = addressData.address_id
-          res.data.address = addressData.address
+    if (this.data.options.id) {
+      return interviewDetailApi({interviewId: this.data.options.id}).then(res => {
+        let addressData = wx.getStorageSync('createPosition')
+        let positionData = wx.getStorageSync('interviewData')
+        if ((res.data.status === 12 || res.data.status === 21 || res.data.status === 32) && wx.getStorageSync('choseType') === 'RECRUITER') {
+          if (addressData) {
+            res.data.addressId = addressData.address_id
+            res.data.address = addressData.address
+          }
+          if (positionData) {
+            res.data.positionName = positionData.positionName
+            res.data.positionId = positionData.positionId
+          }
         }
-        if (positionData) {
-          res.data.positionName = positionData.positionName
-          res.data.positionId = positionData.positionId
-        }
+        this.setData({info: res.data})
+      })
+    } else {
+      let recruiter_chat_infos = wx.getStorageSync('recruiter_chat_infos')
+      if (recruiter_chat_infos) {
+        let info = this.data.info
+        info.jobhunterInfo = recruiter_chat_infos.personInfos
+        info.positionName = recruiter_chat_infos.positionInfos.positionName
+        info.positionId = recruiter_chat_infos.positionInfos.positionId
+        info.addressId = recruiter_chat_infos.positionInfos.addressId
+        info.address = recruiter_chat_infos.positionInfos.address
       }
-      this.setData({info: res.data})
-    })
+    }
   },
   /**
    * 生命周期函数--监听页面初次渲染完成

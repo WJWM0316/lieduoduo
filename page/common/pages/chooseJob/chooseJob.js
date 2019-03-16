@@ -4,19 +4,19 @@ import {
   getRecruiterPositionListApi,
   getfilterPositionListApi,
   getPositionListNumApi
-} from "../../../../../api/pages/position.js"
+} from "../../../../api/pages/position.js"
 
 import {
   applyInterviewApi,
   confirmInterviewApi,
   refuseInterviewApi
-} from '../../../../../api/pages/interview.js'
+} from '../../../../api/pages/interview.js'
 
 import {
   getCompanyIdentityInfosApi
-} from '../../../../../api/pages/company.js'
+} from '../../../../api/pages/company.js'
 
-import {RECRUITER, COMMON} from '../../../../../config.js'
+import {RECRUITER, COMMON} from '../../../../config.js'
 
 let app = getApp()
 

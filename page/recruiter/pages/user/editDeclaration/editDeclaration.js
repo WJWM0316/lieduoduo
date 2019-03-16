@@ -67,7 +67,7 @@ Page({
     }
     if (!this.data.content.trim()) {
       app.wxToast({
-        title: `请填写招聘官宣言`
+        title: `请填写面试官宣言`
       })
       return
     }

@@ -135,7 +135,7 @@ Page({
     ctx.setFillStyle('#fff')
     ctx.setTextAlign('left')
 
-    ctx.fillText('像我这么Nice的招聘官', 280, curHeight + 240)
+    ctx.fillText('像我这么Nice的面试官', 280, curHeight + 240)
     ctx.fillText('已经不多见了！', 280, curHeight + 280)
     ctx.setFontSize(24)
     ctx.fillText(`长按识别，查看Ta的详情`, 280, curHeight + 330)

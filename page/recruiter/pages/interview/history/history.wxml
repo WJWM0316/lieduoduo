@@ -23,8 +23,8 @@
 							<view class="time {{item.status === 51 ? '' : 'color'}}">{{item.arrangementInfo.appointment}}</view>
 							<view class="user-name">{{item.jobhunterRealname}}</view>
 							<view class="infos1">
-								{{item.workExperienceDesc}} . {{item.educationDesc}}
-								<block wx:if="{{item.emolumentMax}}"> . {{item.emolument}}</block>
+								{{item.workExperienceDesc}} · {{item.educationDesc}}
+								<block wx:if="{{item.emolumentMax}}"> · {{item.emolument}}</block>
 							</view>
 							<view class="infos2">
 								<block>{{item.lastCompanyName ? item.lastCompanyName : '暂无工作经历'}}</block>
@@ -39,5 +39,5 @@
 			</button>
 		</form>
 	</view>
-	<bottomStatus status="{{applyBottomStatus}}" listData="{{interviewList.list}}"></bottomStatus>
+	<bottomStatus status="{{onBottomStatus}}" listData="{{interviewList.list}}" desc="暂时没有发现面试记录~"></bottomStatus>
 </view>

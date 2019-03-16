@@ -62,7 +62,6 @@
 					</view>
 				</button>
 			</form>
-			<!-- <commonList list="{{browseMySelf.list}}"></commonList> -->
 			<bottomStatus status="{{onBottomStatus}}" listData="{{browseMySelf.list}}" desc="还没有候选人看过你哟～ 试试分享你的职位，让更多人来围观吧！" marginTop="{{114}}">
 				<!-- <button class="jump" bindtap="jump">分享我的职位</button> -->
 			</bottomStatus>

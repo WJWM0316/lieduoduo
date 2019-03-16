@@ -117,10 +117,12 @@
 
 .ul .li {
 	width: 50%;
-	float: left;
 	overflow: hidden;
 	margin-bottom: 80rpx;
 	box-sizing: border-box;
+	display: inline-block;
+	text-align: left;
+	vertical-align: top;
 }
 
 .ul .li:nth-child(2n) {
@@ -167,7 +169,7 @@
 	font-weight:900;
 	color:rgba(40,40,40,1);
 	line-height:66rpx;
-	margin-bottom: 16rpx;
+	margin-bottom: 19rpx;
 }
 
 .contact {

@@ -1,4 +1,5 @@
 import {ellipsis, ellipsisText} from '../../../../../utils/canvas.js'
+import {getPositionQrcodeApi} from '../../../../../api/pages/qrcode.js'
 import {agreedTxtB} from '../../../../../utils/randomCopy.js'
 let app = getApp()
 let info = null
@@ -201,14 +202,17 @@ Page({
     })
     let loadQrCode = new Promise((resolve, reject) => {
       // 二维码
-      wx.downloadFile({
-        url: info.positionQrCode,
-        success(res) {
-          qrCodeUrl = loadResult(res, resolve)
-        },
-        fail(e) {
-          app.wxToast({title: '图片加载失败，请重新生成', callback() {wx.navigateBack({ delta: 1 })}})
-        }
+      getPositionQrcodeApi({positionId: info.id}).then(res => {
+        // 二维码
+        wx.downloadFile({
+          url: res.data.positionQrCodeUrl,
+          success(res) {
+            qrCodeUrl = loadResult(res, resolve)
+          },
+          fail(e) {
+            app.wxToast({title: '图片加载失败，请重新生成', callback() {wx.navigateBack({ delta: 1 })}})
+          }
+        })
       })
     })
     Promise.all([loadAvatar, loadQrCode]).then((result) => {

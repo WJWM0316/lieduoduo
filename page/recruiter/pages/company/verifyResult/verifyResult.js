@@ -77,30 +77,20 @@ Page({
       confirmText: '确定',
       confirmBack: () => {
         passApplyjoinApi({id: infos.id}).then(res => {
-          if(res.data.code === 402) {
+          if(res.code === 402) {
             app.wxConfirm({
               title: '温馨提示',
-              content: '该招聘官已加入其它公司 无需处理审核',
+              content: '该面试官已加入其它公司 无需处理审核',
               showCancel: false,
               confirmText: '知道了',
               confirmBack:() => {
                 failApplyjoinApi({id: infos.id}).then(res => {
-                  app.wxToast({
-                    title: '处理成功',
-                    callback() {
-                      that.getApplyjoinInfos(false)
-                    }}
-                  )
+                  that.getApplyjoinInfos(false).then(() => app.wxToast({title: '处理成功'}))
                 })
               }
             })
           } else {
-            app.wxToast({
-              title: '处理成功',
-              callback() {
-                that.getApplyjoinInfos(false)
-              }}
-            )
+            that.getApplyjoinInfos(false).then(() => app.wxToast({title: '处理成功'}))
           }
         })
       }

@@ -7,7 +7,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    identity: "招聘官"
+    identity: "面试官"
   },
 
   /**
@@ -17,7 +17,7 @@ Page({
     if (wx.getStorageSync('choseType') === 'RECRUITER') {
       this.setData({identity: "求职者"})
     } else {
-      this.setData({identity: "招聘官"})
+      this.setData({identity: "面试官"})
     }
   },
   upLogin() {

@@ -77,26 +77,7 @@ Page({
     const params = e.currentTarget.dataset
     // 不知道什么情款  有时候拿不到数据
     if(!Object.keys(params).length) return
-    switch(params.status) {
-      case 51:
-        wx.navigateTo({url: `${COMMON}arrangement/arrangement?id=${params.itemId}`})
-        break
-      case 12:
-        wx.navigateTo({url: `${COMMON}arrangement/arrangement?id=${params.itemId}`})
-        break
-      case 11:
-        wx.navigateTo({url: `${COMMON}arrangement/arrangement?id=${params.itemId}`})
-        break
-      case 21:
-        wx.navigateTo({url: `${COMMON}arrangement/arrangement?id=${params.itemId}`})
-        break
-      case 54:
-        wx.navigateTo({url: `${COMMON}arrangement/arrangement?id=${params.itemId}`})
-        break
-      default:
-        wx.navigateTo({url: `${COMMON}arrangement/arrangement?id=${params.itemId}`})
-        break
-    }
+    wx.navigateTo({url: `${COMMON}arrangement/arrangement?id=${params.itemId}`})
   },
   formSubmit(e) {
     app.postFormId(e.detail.formId)

@@ -1,4 +1,0 @@
-<view class="detail-position">
-	<navbar title="{{'招聘' + detail.positionName}}" background="#FFFFFF" color="#22292C"></navbar>
-	<button bindtap="edit" style="margin-top: 100rpx;">编辑该职位</button>
-</view>

@@ -32,10 +32,14 @@ Page({
     },
     hasReFresh: false,
     identityInfos: {},
-    telePhone: app.globalData.telePhone
+    telePhone: app.globalData.telePhone,
+    options: {}
   },
-  onLoad() {
+  onLoad(options) {
     wx.setStorageSync('choseType', 'RECRUITER')
+    if(options.positionStatus) {
+      this.setData({positionStatus: options.positionStatus})
+    }
   },
   onShow() {
     this.getCompanyIdentityInfos()
@@ -67,8 +71,8 @@ Page({
    * @detail   获取个人身份信息
    * @return   {[type]}   [description]
    */
-  getCompanyIdentityInfos() {
-    getCompanyIdentityInfosApi().then(res => this.setData({identityInfos: res.data}))
+  getCompanyIdentityInfos(hasLoading = true) {
+    getCompanyIdentityInfosApi({hasLoading}).then(res => this.setData({identityInfos: res.data}))
   },
   /**
    * @Author   小书包
@@ -113,8 +117,7 @@ Page({
         content: `检测到您尚未认证身份，请立即认证，完成发布职位`,
         confirmText: '去认证',
         confirmBack: () => {
-          const realName = identityInfos.companyInfo.realName ? identityInfos.companyInfo.realName : ''
-          wx.navigateTo({url: `${RECRUITER}user/company/identity/identity?type=identity&realName=${realName}`})
+          wx.navigateTo({url: `${RECRUITER}user/company/identity/identity?type=identity`})
         }
       })
       return;

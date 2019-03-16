@@ -20,6 +20,7 @@ Page({
   onLoad(options) {
     wx.setStorageSync('choseType', 'RECRUITER')
     this.setData({options})
+    console.log(options)
   },
   onShow() {
     this.getCompanyIdentityInfos()
@@ -28,10 +29,14 @@ Page({
   	let params = e.currentTarget.dataset
     let companyInfos = this.data.companyInfos
     let options = this.data.options
+    let identityInfos = this.data.identityInfos
     
   	switch(params.action) {
   		case 'identity':
-        wx.navigateTo({url: `${RECRUITER}user/company/identity/identity?from=identity`})
+        // 没有填写身份信息或者身份信息审核失败
+        if(identityInfos.status === 2 || !identityInfos.id) {
+          wx.navigateTo({url: `${RECRUITER}user/company/identity/identity?from=${options.from}`})
+        }
   			break
   		case 'modifyCompany':
   			wx.navigateTo({url: `${RECRUITER}user/company/apply/apply?action=edit`})
@@ -61,9 +66,9 @@ Page({
    * @detail   获取公司状态和个人身份状态
    * @return   {[type]}   [description]
    */
-  getCompanyIdentityInfos() {
+  getCompanyIdentityInfos(hasLoading = true) {
     return new Promise((resolve, reject) => {
-      getCompanyIdentityInfosApi().then(res => {
+      getCompanyIdentityInfosApi({hasLoading}).then(res => {
         let infos = res.data
         let companyInfos = infos.companyInfo
         let pageTitle = ''
@@ -75,7 +80,7 @@ Page({
           pageTitle = '公司认证'
         }
 
-        if(this.data.options.from === 'identity') {
+        if(options.from === 'identity' || (companyInfos.status === 1 && infos.status === 2)) {
           pageTitle = '身份认证'
         }
 
@@ -83,12 +88,37 @@ Page({
           resolve(res)
           wx.stopPullDownRefresh()
           
-          // 申请加入公司 通过则回到首页 守则停留在此页面 让招聘官手动点击跳转
-          if(companyInfos.status === 1) {
-            if(infos.applyJoin && infos.identityAuth === 1) {
+          // 加入公司
+          if(infos.applyJoin) {
+
+            // 这里的判断是 加入公司审核已经通过 但是还没有填写身份信息 在当前页面刷新 直接返回首页
+            if(companyInfos.status === 1 && options.from === 'join' && !infos.id) {
               app.getAllInfo().then(() => wx.reLaunch({url: `${RECRUITER}index/index`}))
-            } else {
-              app.getAllInfo()
+            }
+
+            // 这里的判断是从发布职位过来或者我的页面过来或者api判断过来 个人身份已经通过 则返回上一个页面或者首页
+            if(companyInfos.status === 1 && options.from === 'identity' && infos.identityAuth) {
+              if(getCurrentPages().length > 1) {
+                wx.navigateBack({delta: 1 })
+              } else {
+                wx.reLaunch({url: `${RECRUITER}index/index`})
+              }
+            }
+          } else {
+
+            // 公司已经认证
+            if(companyInfos.status === 1) {
+              // 个人身份已经认证
+              if(infos.identityAuth) {
+                app.getAllInfo().then(() => {
+                  wx.reLaunch({url: `${RECRUITER}index/index`})
+                })
+                return;
+              }
+              // 还没有填写个人信息
+              if(!infos.id) {
+                wx.reLaunch({url: `${RECRUITER}user/company/identity/identity?from=identity`})
+              }
             }
           }
         })
@@ -98,31 +128,6 @@ Page({
   // 下拉刷新
   onPullDownRefresh() {
     this.setData({hasReFresh: true})
-    this.getCompanyIdentityInfos().then(res => {
-      let infos = res.data
-      let companyInfos = infos.companyInfo
-      this.setData({hasReFresh: false})
-
-      // 公司验证已经通过
-      if(companyInfos.status === 1 && this.data.options.from !== 'identity') {
-
-        // 申请加入公司 通过则回到首页 守则停留在此页面 让招聘官手动点击跳转
-        if(infos.applyJoin) {
-          app.getAllInfo().then(() => {
-            wx.reLaunch({url: `${RECRUITER}index/index`})
-          })
-        } else {
-          app.getAllInfo()
-        }
-
-        return;
-      }
-
-      // 身份验证已经通过
-      if(infos.identityAuth === 1) {
-        app.getAllInfo().then(() => wx.reLaunch({url: `${RECRUITER}index/index`}))
-        return;
-      }
-    })
+    this.getCompanyIdentityInfos(false).then(res => this.setData({hasReFresh: false}))
   }
 })

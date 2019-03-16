@@ -14,9 +14,6 @@
   box-sizing: border-box;
   padding: 20rpx;
   display: flex;
-}
-
-.interview-bar-radius {
   border-radius:28rpx 28rpx 0rpx 0rpx;
 }
 
@@ -169,15 +166,17 @@
 }
 
 .overlay .box {
-	width: calc(100% - 100rpx);
 	background: white;
 	padding: 56rpx 50rpx 0 50rpx;
 	border-radius: 18rpx;
 	position: absolute;
 	top: 50%;
-	left: 50%;
 	box-sizing: border-box;
-	transform: translate(-50%, -50%);
+	transform: translateY(-50%);
+	left: 50rpx;
+	right: 50rpx;
+	height: 712rpx;
+	text-align: center;
 }
 
 .overlay .button {
@@ -190,7 +189,10 @@
 	color:rgba(255,255,255,1);
 	text-align: center;
 	line-height: 88rpx;
-	margin: 56rpx 0;
+	position: absolute;
+	left: 50rpx;
+	right: 50rpx;
+	bottom: 56rpx;
 }
 
 .overlay .p1 {
@@ -214,4 +216,10 @@
 	top: 31rpx;
 	right: 31rpx;
 	color: #CDCBCF;
+}
+
+.overlay image {
+	width: 440rpx;
+	height: 290rpx;
+	margin: 38rpx auto 32rpx auto;
 }

@@ -26,28 +26,40 @@
 		<view class="ul">
 			<view class="li">
 				<view class="key1">面试官人数上限</view>
-				<view class="key2"><text>{{infos.cRecruiterNum}}</text>人</view>
+				<view class="key2">
+					<block wx:if="{{infos.cRecruiterNum !== -1}}"><text>{{infos.cRecruiterNum}}</text>人</block>
+					<block wx:else><text class="chine">不限</text></block>
+				</view>
 				<view class="key3">已加入公司面试官{{infos.cRecruiterNumUsed}}人</view>
 			</view>
 			<view class="li">
 				<view class="key1">在线职位数上限</view>
-				<view class="key2"><text>{{infos.rOnlinePosition}}</text>人</view>
+				<view class="key2">
+					<block wx:if="{{infos.rOnlinePosition !== -1}}"><text>{{infos.rOnlinePosition}}</text>个</block>
+					<block wx:else><text class="chine">不限</text></block>
+				</view>
 				<view class="key3">在线职位{{infos.rOnlinePositionUsed}}个</view>
 			</view>
 			<view class="li">
 				<view class="key1">每日面试邀约数上限</view>
-				<view class="key2"><text>{{infos.rDayInviteInterview}}</text>人</view>
+				<view class="key2">
+					<block wx:if="{{infos.rDayInviteInterview !== -1}}"><text>{{infos.rDayInviteInterview}}</text>人</block>
+					<block wx:else><text class="chine">不限</text></block>
+				</view>
 				<view class="key3">已邀约{{infos.rDayInviteInterviewUsed}}人</view>
 			</view>
 			<view class="li">
 				<view class="key1">每日查看简历上限</view>
-				<view class="key2"><text class="chine">不限</text></view>
-				<view class="key3">已查看简历{{infos.rDayBrowseResumeUsed}}份</view>
+				<view class="key2">
+					<block wx:if="{{infos.rDayBrowseResume !== -1}}"><text>{{infos.rDayBrowseResume}}</text>份</block>
+					<block wx:else><text class="chine">不限</text></block>
+				</view>
+				<view class="key3">已查看简历{{infos.rDayBrowseResumeUsed}}份 </view>
 			</view>
 		</view>
 		<view class="contact">
 			<view class="tips">了解更多招聘权益，欢迎联系我们</view>
-			<view class="phone" bindtap="alert"><i class="icon iconfont icon-dianhua1"></i>400-065-5788</view>
+			<view class="phone" bindtap="call"><i class="icon iconfont icon-dianhua1"></i>400-065-5788</view>
 		</view>
 	</view>
 </view>
