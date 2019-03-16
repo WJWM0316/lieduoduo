@@ -13,15 +13,18 @@ Page({
    */
   onLoad: function (options) {
     let choseType = wx.getStorageSync('choseType')
-    if (choseType !== 'RECRUITER') {
-        wx.reLaunch({
-          url: `${APPLICANT}index/index`
-        })
-      } else {
+    switch(choseType) {
+      case 'RECRUITER':
         wx.reLaunch({
           url: `${RECRUITER}index/index`
         })
-      }
+        break
+      case 'APPLICANT':
+        wx.reLaunch({
+          url: `${APPLICANT}index/index`
+        })
+        break
+    }
   },
 
   /**

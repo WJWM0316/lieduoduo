@@ -1,2 +1,3 @@
 <!--page/common/pages/startPage/startPage.wxml-->
-<text>page/common/pages/startPage/startPage.wxml</text>
+<choose wx:if="{{!choseType}}"></choose>
+

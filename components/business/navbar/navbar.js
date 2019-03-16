@@ -76,11 +76,11 @@ Component({
     // 回到首页
     backHome() {
       if (identity === 'RECRUITER') {
-        wx.redirectTo({
+        wx.reLaunch({
           url: `${RECRUITER}index/index`
         })
       } else {
-        wx.switchTab({
+        wx.reLaunch({
           url: `${APPLICANT}index/index`
         })
       }

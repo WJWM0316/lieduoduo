@@ -105,7 +105,7 @@ App({
       this.globalData.resumeInfo = {}
       this.globalData.recruiterDetails = {}
       this.loginInit = false
-      wx.switchTab({url: `${APPLICANT}index/index`})
+      wx.reLaunch({url: `${COMMON}startPage/startPage`})
     })
   },
   // 获取最全的角色信息
