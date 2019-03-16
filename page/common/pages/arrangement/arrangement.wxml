@@ -161,6 +161,14 @@
         <image src="{{cdnImagePath}}clock_show.png" class="clock_show"></image>
       </view>
 
+
+      <view class="realDate inappropriate" wx:if="{{identity === 'APPLICANT' && info.status === 52}}">
+        <view class="txt1">面试已取消</view>
+        <view class="txt2">面试官标记为不合适，别灰心，还有大量机会等你发现</view>
+        <image class="pic" src="{{cdnImagePath}}emptyState.png"></image>
+        <view class="btn" bindtap="jump" data-type="careerChance">发现更多好机会</view>
+      </view>
+
     </view>
 
     <view class="btnBox" wx:if="{{identity === 'RECRUITER' && (info.status === 21 || info.status === 32)}}">
@@ -173,9 +181,9 @@
     <view class="btnBox" wx:if="{{identity === 'APPLICANT' && info.status === 31}}">
       <button class="btn" bindtap="sureDate">确定接受面试</button>
     </view>
-    <!-- <view class="btnBox" wx:if="{{identity === 'RECRUITER' && info.status === 41}}">
+    <view class="btnBox" wx:if="{{identity === 'RECRUITER' && info.status === 41}}">
       <button class="btn">转发安排给其他同事</button>
-    </view> -->
+    </view>
 
   </block>
 </view>

@@ -314,13 +314,36 @@
   margin: 58rpx auto 0;
   display: block;
 }
+
+.inappropriate {
+  padding: 70rpx 0 56rpx;
+}
+.inappropriate .pic {
+  width: 340rpx;
+  height: 240rpx;
+  display: block;
+  margin: 30rpx auto 28rpx;
+}
+.inappropriate .btn {
+  width:430rpx;
+  height:88rpx;
+  background:rgba(255,220,41,1);
+  box-shadow:0rpx 20rpx 18rpx 0rpx rgba(255,220,41,0.1);
+  border-radius:49rpx;
+  font-weight:500;
+  color:rgba(40,40,40,1);
+  line-height: 88rpx;
+  margin: 0 auto;
+  font-size: 30rpx;
+  text-align: center;
+}
 .recruiter-waiting {
   margin-top: 20rpx;
   padding: 30rpx;
   text-align: center;
   background: white;
   background:rgba(255,255,255,1);
-  box-shadow:0px -5rpx 40rpx 0rpx rgba(22,39,77,0.05);
+  box-shadow:0rpx -5rpx 40rpx 0rpx rgba(22,39,77,0.05);
   border-radius:10rpx;
 }
 

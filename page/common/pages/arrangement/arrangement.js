@@ -192,6 +192,16 @@ Page({
       this.pageInit()
     })
   },
+  jump(e) {
+    console.log(e.currentTarget.dataset.type)
+    switch(e.currentTarget.dataset.type) {
+      case 'careerChance':
+        wx.reLaunch({
+          url: `${COMMON}careerChance/careerChance`
+        })
+        break
+    }
+  },
   /**
    * 生命周期函数--监听页面加载
    */
