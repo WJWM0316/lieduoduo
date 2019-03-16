@@ -1,4 +1,4 @@
-<view class="interview-bar {{ !isOwerner ? 'interview-bar-radius' : ''}}" wx:if="{{ !isOwerner }}">
+<view class="interview-bar" wx:if="{{ !isOwerner }}">
 	
 	<block wx:if="{{type === 'recruiter' || type === 'position'}}">
 		<view class="img-box" bindtap="todoAction" data-action="viewRecruiter">

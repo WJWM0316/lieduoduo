@@ -18,7 +18,8 @@
     "page/common/pages/poster/exPosition/exPosition",
     "page/common/pages/cutInside/cutInside",
     "page/common/pages/rank/rank",
-    "page/common/pages/careerChance/careerChance"
+    "page/common/pages/careerChance/careerChance",
+    "page/common/pages/chooseJob/chooseJob"
   ],
   "window": {
     "navigationBarTextStyle": "black",

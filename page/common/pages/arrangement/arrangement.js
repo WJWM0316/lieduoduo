@@ -104,7 +104,7 @@ Page({
     let info = this.data.info
     switch(e.currentTarget.dataset.type) {
       case 'jobList':
-        url = `${RECRUITER}position/jobList/jobList?recruiterUid=${info.recruiterInfo.uid}`
+        url = `${COMMON}chooseJob/chooseJob?recruiterUid=${info.recruiterInfo.uid}`
         break
       case 'addressList':
         url = `${RECRUITER}position/addressList/addressList?type=position&selected=1`

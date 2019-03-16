@@ -14,9 +14,6 @@
   box-sizing: border-box;
   padding: 20rpx;
   display: flex;
-}
-
-.interview-bar-radius {
   border-radius:28rpx 28rpx 0rpx 0rpx;
 }
 

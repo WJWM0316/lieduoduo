@@ -178,7 +178,7 @@ Component({
                   app.wxToast({title: '面试申请已发送'})
                 })
               } else {
-                wx.navigateTo({url: `${RECRUITER}position/jobList/jobList?type=job_hunting_chat&from=${this.data.currentPage}&showNotPositionApply=${interviewInfos.showNotPositionApply}&from=${this.data.currentPage}&recruiterUid=${this.data.infos.uid}`})
+                wx.navigateTo({url: `${COMMON}chooseJob/chooseJob?type=job_hunting_chat&from=${this.data.currentPage}&showNotPositionApply=${interviewInfos.showNotPositionApply}&from=${this.data.currentPage}&recruiterUid=${this.data.infos.uid}`})
               }
             } else {
               applyInterviewApi({recruiterUid: this.data.infos.recruiterInfo.uid, positionId: this.data.infos.id}).then(res => {
@@ -193,7 +193,7 @@ Component({
             this.getCompanyIdentityInfos()
           } else {
             // 走正常流程
-            wx.navigateTo({url: `${RECRUITER}position/jobList/jobList?type=recruiter_chat&from=${this.data.currentPage}&jobhunterUid=${this.data.infos.uid}&recruiterUid=${app.globalData.recruiterDetails.uid}`})
+            wx.navigateTo({url: `${COMMON}chooseJob/chooseJob?type=recruiter_chat&from=${this.data.currentPage}&jobhunterUid=${this.data.infos.uid}&recruiterUid=${app.globalData.recruiterDetails.uid}`})
           }
         }
       }
@@ -323,7 +323,7 @@ Component({
         // 招聘官拒绝求职者
         case 'recruiter-reject':
           if(interviewInfos.data.length > 1) {
-            wx.navigateTo({url: `${RECRUITER}position/jobList/jobList?type=reject_chat&from=${this.data.currentPage}&jobhunterUid=${infos.uid}`})
+            wx.navigateTo({url: `${COMMON}chooseJob/chooseJob?type=reject_chat&from=${this.data.currentPage}&jobhunterUid=${infos.uid}`})
             wx.setStorageSync('interviewChatLists', this.data.interviewInfos)
           } else {
             app.wxConfirm({
@@ -352,12 +352,12 @@ Component({
         case 'recruiter-accept':
           // 求职者发起多条撩的记录
           if(interviewInfos.data.length > 1) {
-            wx.navigateTo({url: `${RECRUITER}position/jobList/jobList?type=confirm_chat&from=${this.data.currentPage}&recruiterId=${interviewInfos.data[0].recruiterUid}`})
+            wx.navigateTo({url: `${COMMON}chooseJob/chooseJob?type=confirm_chat&from=${this.data.currentPage}&recruiterId=${interviewInfos.data[0].recruiterUid}`})
             wx.setStorageSync('interviewChatLists', this.data.interviewInfos)
           } else {
             if(interviewInfos.data[0].positionStatus === 0) {
               wx.setStorageSync('interviewChatLists', this.data.interviewInfos)
-              wx.navigateTo({url: `${RECRUITER}position/jobList/jobList?type=confirm_chat&from=${this.data.currentPage}&recruiterId=${interviewInfos.data[0].recruiterUid}`})
+              wx.navigateTo({url: `${COMMON}chooseJob/chooseJob?type=confirm_chat&from=${this.data.currentPage}&recruiterId=${interviewInfos.data[0].recruiterUid}`})
             } else {
               confirmInterviewApi({id: interviewInfos.data[0].interviewId}).then(res => {
                 wx.navigateTo({url: `${COMMON}arrangement/arrangement?id=${interviewInfos.data[0].interviewId}`})
@@ -385,7 +385,7 @@ Component({
           wx.navigateTo({url: `${RECRUITER}position/post/post`})
           break
         case 'openPosition':
-          wx.navigateTo({url: `${RECRUITER}position/jobList/jobList?type=recruiter_chat&from=${this.data.currentPage}&jobhunterUid=${infos.uid}`})
+          wx.navigateTo({url: `${COMMON}chooseJob/chooseJob?type=recruiter_chat&from=${this.data.currentPage}&jobhunterUid=${infos.uid}`})
           break
         default:
           break
