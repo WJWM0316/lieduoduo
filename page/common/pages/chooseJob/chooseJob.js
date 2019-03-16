@@ -41,6 +41,7 @@ Page({
     identityInfos: {}
   },
   onLoad(options) {
+    
     let api = ''
     if(wx.getStorageSync('choseType') === 'RECRUITER') {
       api = this.data.nowTab === 'online' ? 'getonLinePositionListB' : 'getoffLinePositionListB'
@@ -511,10 +512,7 @@ Page({
 
     this.setData({onLinePositionList})
     if(!onLinePositionList.isLastPage) {
-      this[this.data.api](false).then(() => {
-        this.setData({onBottomStatus: 1})
-        console.log(this.data.onLinePositionList)
-      })
+      this[this.data.api](false).then(() => this.setData({onBottomStatus: 1}))
     }
   }
 })

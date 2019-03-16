@@ -370,6 +370,13 @@ Page({
           wx.navigateTo({url: `${COMMON}recruiterDetail/recruiterDetail?uid=${params.recruiteruid}`})
         }
         break
+      case 52:
+        if(Number(params.positionid)) {
+          wx.navigateTo({url: `${COMMON}positionDetail/positionDetail?positionId=${params.positionid}`})
+        } else {
+          wx.navigateTo({url: `${COMMON}recruiterDetail/recruiterDetail?uid=${params.recruiteruid}`})
+        }
+        break
       default:
         wx.navigateTo({url: `${COMMON}arrangement/arrangement?id=${params.itemId}`})
         break

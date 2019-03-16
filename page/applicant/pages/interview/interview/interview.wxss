@@ -11,7 +11,7 @@
   flex-grow: 1;
 	font-size:32rpx;
 	font-weight:400;
-	color: #652791;
+	/*color: #652791;*/
 	text-align: center;
 	position: relative;
 }

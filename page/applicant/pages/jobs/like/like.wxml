@@ -4,11 +4,12 @@
 		<view class="item {{tab === 'positionList' ? 'active' : ''}}" bindtap="onClickTab" data-tab="positionList">机会</view>
   	<view class="item {{tab === 'recruiterList' ? 'active' : ''}}" bindtap="onClickTab" data-tab="recruiterList">面试官</view>
 	</view>
+	
+	<view hidden="{{!hasReFresh}}">
+		<refreshStatus></refreshStatus>
+	</view>
 
 	<view class="ul" hidden="{{tab === 'recruiterList'}}">
-		<view hidden="{{!hasReFresh}}">
-			<refreshStatus></refreshStatus>
-		</view>
 		<form bindsubmit="formSubmit" report-submit='{{true}}'> 
 			<button
 				form-type="submit" 
@@ -47,35 +48,41 @@
 		</bottomStatus>
 	</view>
 
-	<!-- <view class="ul" hidden="{{tab === 'positionList'}}">
-		<view hidden="{{!hasReFresh}}">
-			<refreshStatus></refreshStatus>
-		</view>
-		<view wx:for="{{recruiterList.list}}" wx:key="{{index}}" class="item" wx:for-item="item">
-			<slide-view width="750" height="180" slide-width="300">
-				<view slot="left" class="content">
-					<view class="li">
-						<view class="img-box">
-							<image class="img" src="{{item.companyInfo.logoInfo.smallUrl}}" mode="aspectFit"></image>
+	<view class="ul" hidden="{{tab === 'positionList'}}">
+		<form bindsubmit="formSubmit" report-submit='{{true}}'> 
+			<button
+				form-type="submit" 
+				class="formIdBtn"
+				data-uid="{{item.uid}}"
+				bindtap="routeJump"
+				wx:for="{{recruiterList.list}}"
+				wx:for-item="item"
+				wx:key="{{index}}">
+				<view class="item3">
+					<view class="img-box">
+						<image class="avatar" src="{{item.avatar.smallUrl}}" mode="aspectFit"></image>
+						<image src="{{cdnImagePath}}sign1.png" mode="aspectFill" class="sign" wx:if="{{item.identityAuth}}"></image>
+					</view>
+					<view class="content">
+						<view class="row-one">
+							<view class="name">{{item.name}}</view>
+							<view class="mix">{{item.position}}</view>
 						</view>
-						<view class="content">
-							<view class="row-one">
-								<view class="name">{{item.recruiterInfo.name}}</view>
-								<view class="mix">{{item.workExperienceName}}·{{item.educationName}}·{{item.emolumentMin}}k-{{item.emolumentMax}}k</view>
+						<view class="row-two">
+							<view class="company">
+								<i class="icon iconfont icon-gongsi"></i>{{item.companyShortname}}
 							</view>
-							<view class="row-two">
-								{{item.companyInfo.companyShortname}} | {{item.positionName}}
-							</view>
+		          <view class="position" wx:if="{{item.positionNum}}">
+		          	<i class="icon iconfont icon-zhiwei"></i>
+		          	<text class="num">{{item.positionNum}}</text>个职位
+		          </view>
 						</view>
 					</view>
 				</view>
-				<view slot="right" class="button-box">
-					<view class="button" bindtap="deleteRecruiter" data-index="{{index}}">删除</view>
-				</view>
-			</slide-view>
-		</view>
+			</button>
+		</form>
 		<bottomStatus status="{{onBottomStatus}}" listData="{{recruiterList.list}}" desc="没有更多内容了~" marginTop="{{0}}" >
 			<button class="jump" bindtap="jump">发现更多面试官</button>
 		</bottomStatus>
-	</view> -->
+	</view>
 </view>

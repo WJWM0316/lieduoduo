@@ -1,12 +1,12 @@
 <view>
 	<navbar title="猎多多"  background="{{background}}" color="#fff" isFixed="{{isFixed}}"></navbar>
 
-	<view class="index-bannar" style="margin-top: -{{navH}}px;">
-		<image src="{{cdnImagePath}}bg_homepageh.png"></image>
-	</view>
-
 	<view hidden="{{!hasReFresh}}">
 		<refreshStatus></refreshStatus>
+	</view>
+	
+	<view class="index-bannar" style="margin-top: -{{navH}}px;">
+		<image src="{{cdnImagePath}}bg_homepageh.png"></image>
 	</view>
 	
 	<view class="index-list-box">

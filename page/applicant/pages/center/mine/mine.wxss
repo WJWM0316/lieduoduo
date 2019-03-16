@@ -190,7 +190,7 @@
 
 .mine .entry-list .text2 {
 	display: inline-block;
-	color: #353943;
+	color: #929292;
 	margin-right: 16rpx;
 }
 

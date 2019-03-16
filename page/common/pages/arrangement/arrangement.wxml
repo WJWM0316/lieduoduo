@@ -1,7 +1,7 @@
 <!-- 加载过滤器 -->
 <wxs src="../../../../utils/filters.wxs" module="filters" />
 <view class="arrangement">
-  <navbar title="面试详情" background="#652791" color="#fff"></navbar>
+  <navbar title="面试详情" background="#FFFFFF" color="#22292C"></navbar>
   <view hidden="{{!hasReFresh}}">
     <refreshStatus></refreshStatus>
   </view>
@@ -61,14 +61,14 @@
         </view>
         <view class="msgItem" wx:if="{{info.positionName}}" bindtap="jump" data-type="position">
           <view class="inner">
-            <i class="icon1 iconfont icon-zhiwei"></i>
+            <i class="icon1 iconfont icon-mianshizhiwei"></i>
             <view class="msg">{{info.positionName}}</view>
             <i class="icon iconfont icon-xiangyou"></i>
           </view>
         </view>
         <view class="msgItem jump" wx:if="{{info.address}}" bindtap="openMap">
           <view class="inner noborder">
-            <i class="icon1 iconfont icon-dizhi"></i>
+            <i class="icon1 iconfont icon-mianshidizhi"></i>
             <view class="msg noWrap">{{info.address}}</view>
             <i class="icon iconfont icon-xiangyou"></i>
           </view>

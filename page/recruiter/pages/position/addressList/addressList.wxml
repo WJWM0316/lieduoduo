@@ -1,5 +1,5 @@
 <view class="addressList">
-  <navbar title="{{options.type === 'position' ? '选择地址' : '公司地址'}}"></navbar>
+  <navbar title="{{options.type === 'position' ? '选择地址' : '公司地址'}}" background="#FFFFFF" color="#22292C"></navbar>
 
   <view hidden="{{!hasReFresh}}">
     <refreshStatus></refreshStatus>

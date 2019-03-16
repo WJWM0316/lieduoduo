@@ -129,7 +129,7 @@
   font-size:26rpx;
   font-weight:400;
   color:rgba(98,98,98,1);
-  line-height: 1.8;
+  line-height: 1.5;
   background: white;
   padding: 0rpx 40rpx 30rpx 40rpx;
   margin-bottom: 24rpx;
@@ -163,6 +163,8 @@
   font-size: 26rpx;
   margin-top: 16rpx;
   line-height: 1;
+  color: #5C565D;
+  font-weight:400;
 }
 
 .job-list .example {
