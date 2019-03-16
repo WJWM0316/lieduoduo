@@ -174,6 +174,7 @@ App({
                     success: res => {
                       // 可以将 res 发送给后台解码出 unionId
                       that.globalData.userInfo = res.userInfo
+                      that.globalData.hasLogin = true
                       // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
                       // 所以此处加入 callback 以防止这种情况
                       if (that.userInfoReadyCallback) {
@@ -241,6 +242,7 @@ App({
               wx.setStorageSync('token', res.data.token)
               wx.setStorageSync('sessionToken', res.data.sessionToken)
               that.globalData.hasLogin = true
+              that.globalData.userInfo = res.data
               that.loginedLoadData()
               console.log('用户已认证')
             } else {
@@ -284,6 +286,7 @@ App({
             wx.setStorageSync('token', res.data.token)
             this.loginedLoadData()
             this.globalData.hasLogin = true
+            this.globalData.userInfo = res.data
             var pages = getCurrentPages() //获取加载的页面
             let pageUrl = pages[0].route
             let params = ''
@@ -309,6 +312,7 @@ App({
         wx.setStorageSync('token', res.data.token)
         wx.setStorageSync('sessionToken', res.data.sessionToken)
         this.globalData.hasLogin = true
+        this.globalData.userInfo = res.data
         this.loginedLoadData()
         resolve(res)
       }).catch(e => {
