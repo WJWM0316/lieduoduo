@@ -85,7 +85,7 @@
           </view>
 
       <view class="position" wx:if="{{!isOwner}}">
-        <company roleType="company" cardData="{{info.companyInfo}}"></company>
+        <company roleType="detailCompany" cardData="{{info.companyInfo}}"></company>
         <view class="positionList" wx:if="{{positionList.total}}">
           <view class="positionItem" wx:for="{{positionList.list}}" wx:key="{{index}}" bindtap="jumpPage" data-id="{{item.id}}">
             <view class="positionHead"><text class="positionTitle">{{item.positionName}}</text><text class="money">{{item.emolumentMin}}~{{item.emolumentMax}}k</text></view>

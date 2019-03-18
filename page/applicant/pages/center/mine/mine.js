@@ -47,11 +47,11 @@ Page({
   online() {
     app.wxConfirm({
       title: '联系客服',
-      content: '欢迎添加猎多多了解更多内容 有疑问请添加客服微信：zhubin96',
+      content: '欢迎添加猎多多了解更多内容 有疑问请添加客服微信：zike107',
       confirmText: '复制',
       confirmBack() {
         wx.setClipboardData({
-          data: 'zhubin96',
+          data: 'zike107',
           success(res) {
             wx.getClipboardData({
               success(res) {

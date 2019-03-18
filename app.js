@@ -12,6 +12,10 @@ let that = null
 let formIdList = []
 App({
   onLaunch: function (e) {
+    if (e.path === 'page/common/pages/startPage/startPage') {
+      console.log('自然进入')
+    }
+    
     // 获取导航栏高度
     this.checkUpdateVersion()
     wx.getSystemInfo({
@@ -23,7 +27,7 @@ App({
           this.globalData.isIphoneX = true
         }
         if (res.system.indexOf('iOS') !== -1) {
-          this.globalData.isIphone = true
+          this.globalData.isIos = true
         }
       },
       fail: err => {
@@ -43,11 +47,10 @@ App({
     companyInfo: {}, // 公司信息
     resumeInfo: {}, // 个人简历信息
     recruiterDetails: {}, // 招聘官详情信息
-    pageCount: 20,
-    isIphoneX: false,
-    isIphone: false,
-    // 联系电话
-    telePhone: '400-065-5788',
+    pageCount: 20, // 分页数量
+    isIphoneX: false, // 是否是Iphonex 系列
+    isIos: false, // 是否是 ios
+    telePhone: '400-065-5788',  // 联系电话
     systemInfo: wx.getSystemInfoSync() // 系统信息
   },
   // 登录
@@ -168,7 +171,7 @@ App({
                       }
                       const e = {}
                       e.detail = res
-                      if (!that.globalData.isIphone) {
+                      if (!that.globalData.isIos) {
                         that.onGotUserInfo(e)
                       }
                       console.log('用户已授权')
@@ -539,9 +542,7 @@ App({
       }
     }
   },
-  /**
-     * 获取二维码参数对象
-     */
+  // 获取二维码参数对象
   getSceneParams (scene) {
     scene = decodeURIComponent(scene)
     scene = scene.indexOf('?') === 0 ? scene.substr(1) : scene
@@ -554,5 +555,21 @@ App({
       }
     })
     return obj
+  },
+  // 判断来源记录
+  getSource () {
+    let params = {}
+    let launch = wx.getLaunchOptionsSync()
+    let curPath = getCurrentPages()[getCurrentPages().length - 1]
+    console.log(launch, curPath)
+    if (launch.path === 'page/common/pages/startPage/startPage') {
+      params.sourceType = 'search'
+      params.sourcePath = launch.path
+    } else {
+      if (curPath.options.sourceType) {
+        params.sourceType = curPath.options.sourceType
+        params.sourcePath = curPath.route
+      }
+    }
   }
 })

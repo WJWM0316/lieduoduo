@@ -38,7 +38,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 63,
+			"current": 4,
 			"list": [
 				{
 					"id": 0,
@@ -66,9 +66,9 @@
 				},
 				{
 					"id": 4,
-					"name": "账号设置",
-					"pathName": "page/common/pages/settings/settings",
-					"query": ""
+					"name": "c首页",
+					"pathName": "page/applicant/pages/index/index",
+					"query": "c=11"
 				},
 				{
 					"id": 5,

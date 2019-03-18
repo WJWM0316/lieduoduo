@@ -28,6 +28,15 @@ export const request = ({method = 'post', url, host, data = {}, needKey = true, 
     delete addHttpHead['Act-Pid']
   }
   
+  // 渠道统计
+  if (data.sourceType) {
+    addHttpHead['Channel-Code'] = data.sourceType
+    addHttpHead['Channel-Url'] = data.sourcePath
+  } else {
+    delete addHttpHead['Channel-Code']
+    delete addHttpHead['Channel-Url']
+  } 
+
   // header 传递token, sessionToken
   if (wx.getStorageSync('sessionToken') && !wx.getStorageSync('token')) {
     addHttpHead['Authorization-Wechat'] = wx.getStorageSync('sessionToken')
@@ -67,8 +76,7 @@ export const request = ({method = 'post', url, host, data = {}, needKey = true, 
           wx.hideLoading()
           loadNum = 0
         }
-        console.log(url, res)
-        console.log('addHttpHead----', addHttpHead)
+        console.log(url, res, data)
         if (typeof res.data === 'string') { // 转换返回json
           res.data = JSON.parse(res.data)
         }

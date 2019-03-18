@@ -1,5 +1,5 @@
 <view class="my-class">
-  <view class="company {{isMain ? 'edit' : ''}}" wx:if="{{roleType === 'company'}}" bindtap="jumpCompany">
+  <view class="company {{isMain ? 'edit' : ''}} {{roleType === 'detailCompany' ? 'detail' : ''}}" wx:if="{{roleType === 'company' || roleType === 'detailCompany'}}" bindtap="jumpCompany">
     <image lazy-load class="img" src="{{cardData.avatar.middleUrl || cardData.logoInfo.middleUrl || cardData.logo.middleUrl}}" mode="aspectFit"></image>
     <view class="companyMsg" wx:if="{{!isMain}}">
       <view class="name">{{cardData.name}}</view>
