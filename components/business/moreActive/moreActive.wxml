@@ -9,7 +9,7 @@
     <view class="info">看过我、对我感兴趣的面试官</view>
   </view>
   <view class="right">
-    <image class="avatar" wx:for="{{avatarList}}" wx:key="{{index}}" src="{{item.smallUrl}}" wx:if="{{index <= 2}}"></image>
+    <image class="avatar" lazy-load wx:for="{{avatarList}}" wx:key="{{index}}" src="{{item.smallUrl}}" wx:if="{{index <= 2}}"></image>
     <image class="avatar" wx:if="{{avatarList.length > 3}}" src="{{cdnImagePath}}more.png"></image>
   </view>
 </view>    

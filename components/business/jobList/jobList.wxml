@@ -36,7 +36,7 @@
           <!-- hr信息 -->
           <view class="hr">
             <view class="hrImg">
-              <image mode="aspectFill" src="{{item.recruiterInfo.avatar.smallUrl}}"></image>
+              <image mode="aspectFill" src="{{item.recruiterInfo.avatar.smallUrl}}" lazy-load></image>
             </view>
             <view class="hrName">{{item.recruiterInfo.name}} · {{item.recruiterInfo.position}}</view>
           </view>

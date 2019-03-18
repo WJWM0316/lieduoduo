@@ -133,6 +133,9 @@ Page({
   },
   previewFile(e) {
     isPreview = true
+    wx.showLoading({
+      title: '文档加载中...'
+    })
     wx.downloadFile({
       url: e.currentTarget.dataset.file,
       success(res) {
@@ -140,6 +143,7 @@ Page({
         wx.openDocument({
           filePath,
           success(res) {
+            wx.hideLoading()
             console.log('打开文档成功')
           }
         })

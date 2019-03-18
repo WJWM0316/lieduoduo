@@ -19,7 +19,7 @@
   </view>
   <!-- 头像 -->
   <view class='headImgBox'>
-    <image class='headImg' src="{{item.avatar.smallUrl}}"></image>
+    <image class='headImg' lazy-load src="{{item.avatar.smallUrl}}"></image>
     <image src="{{cdnImagePath}}sign1.png" mode="aspectFill" class="sign" wx:if="{{item.certification}}"></image>
   </view>
 </view>

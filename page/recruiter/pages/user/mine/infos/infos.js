@@ -96,7 +96,7 @@ Page({
     }
   },
   formSubmit(e) {
-    app.postFormId(e)
+    app.postFormId(e.detail.formId)
   },
   preview(e) {
     wx.previewImage({

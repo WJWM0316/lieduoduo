@@ -17,7 +17,7 @@ import {getSelectorQuery}  from '../../../../utils/util.js'
 import { getPositionListNumApi } from '../../../../api/pages/position.js'
 
 const app = getApp()
-
+let fixedDomPosition = 0
 Page({
   data: {
     pageList: 'browseMySelf',
@@ -47,7 +47,6 @@ Page({
     hasReFresh: false,
     onBottomStatus: 0,
     isFixed: true,
-    fixedDomPosition: 0,
     fixedDom: false
   },
   onLoad() {
@@ -107,7 +106,7 @@ Page({
   },
   getDomNodePosition() {
     getSelectorQuery('.index-list-box').then(res => {
-      this.setData({fixedDomPosition: res.top - this.data.navH})
+      fixedDomPosition = res.top - this.data.navH
     })
   },
   /**
@@ -250,20 +249,19 @@ Page({
    */
   onPageScroll(e) {
     if(e.scrollTop > this.data.navH - 5) {
-      this.setData({isFixed: true, background: '#652791'})
+      if (!this.data.isFixed) this.setData({isFixed: true, background: '#652791'})
     } else {
-      this.setData({isFixed: false, background: 'transparent'})
+      if (this.data.isFixed) this.setData({isFixed: false, background: 'transparent'})
     }
 
-    if(e.scrollTop > this.data.fixedDomPosition) {
-      this.setData({fixedDom: true})
+    if(e.scrollTop > fixedDomPosition) {
+      if (!this.data.fixedDom) this.setData({fixedDom: true})
     } else {
-      this.setData({fixedDom: false})
+      if (this.data.fixedDom) this.setData({fixedDom: false})
     }
   },
   jump() {
     getPositionListNumApi().then(res => {
-      console.log(res.data)
     })
   },
   formSubmit(e) {

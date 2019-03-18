@@ -19,7 +19,7 @@
 				bindtap="routeJump"
 				>
 				<view class="img-box">
-					<image src="{{item.avatar.smallUrl}}"></image>
+					<image src="{{item.avatar.smallUrl}}" lazy-load></image>
 					<view class="is-certification" wx:if="{{item.certification}}"></view>
 				</view>
 				<view class="content">

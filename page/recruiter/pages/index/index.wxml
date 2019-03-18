@@ -29,7 +29,7 @@
 					wx:key="{{index}}">
 					<view class="item2">
 						<view class="row-one">
-							<view class="img-box"><image src="{{item.avatar.smallUrl}}"></image></view>
+							<view class="img-box"><image src="{{item.avatar.smallUrl}}" lazy-load></image></view>
 							<view class="content">
 								<view class="header">
 									<view class="name">{{item.name}}</view>
@@ -79,7 +79,7 @@
 					wx:key="{{index}}">
 					<view class="item2">
 						<view class="row-one">
-							<view class="img-box"><image src="{{item.avatar.smallUrl}}"></image></view>
+							<view class="img-box"><image src="{{item.avatar.smallUrl}}" lazy-load></image></view>
 							<view class="content">
 								<view class="header">
 									<view class="name">{{item.name}}</view>
@@ -117,7 +117,7 @@
 					wx:key="{{index}}">
 					<view class="item2">
 						<view class="row-one">
-							<view class="img-box"><image src="{{item.avatar.smallUrl}}"></image></view>
+							<view class="img-box"><image src="{{item.avatar.smallUrl}}" lazy-load></image></view>
 							<view class="content">
 								<view class="header">
 									<view class="name">{{item.name}}</view>

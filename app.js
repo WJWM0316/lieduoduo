@@ -62,7 +62,6 @@ App({
             wx.setStorageSync('token', res.data.token)
             that.loginedLoadData()
             that.globalData.hasLogin = true
-            console.log(that.globalData, 11)
             // 登陆回调
             if (that.loginInit) {
               that.loginInit()
@@ -80,14 +79,6 @@ App({
             })
             wx.setStorageSync('sessionToken', res.data.sessionToken)
           }
-          var pages = getCurrentPages() //获取加载的页面
-          let pageUrl = pages[0].route
-          if (pageUrl !== 'page/applicant/pages/index/index') {
-            if (!wx.getStorageSync('choseType')) {
-              wx.setStorageSync('choseType', 'APPLICANT')
-            }
-          }
-          
         })
       },
       fail: function (e) {

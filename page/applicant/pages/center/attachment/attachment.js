@@ -36,6 +36,10 @@ Page({
   },
   preview() {
     let that = this
+    wx.showLoading({
+      title: '文档加载中...',
+      mask: true
+    })
     wx.downloadFile({
       url: that.data.attachResume.url,
       success(res) {
@@ -43,6 +47,7 @@ Page({
         wx.openDocument({
           filePath,
           success(res) {
+            wx.hasLoading()
             console.log('打开文档成功')
           }
         })
