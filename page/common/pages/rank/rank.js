@@ -199,8 +199,8 @@ Page({
    */
   getRankCity(hasLoading = true) {
     return new Promise((resolve, reject) => {
-      const params = {count: this.data.pageCount, page: this.data.rankCity.pageNum, hasLoading, area_id: this.data.area_id}
-      getCityRankApi(params).then(res => {
+      const params = {count: this.data.pageCount, page: this.data.rankCity.pageNum, area_id: this.data.area_id}
+      getCityRankApi(params, hasLoading).then(res => {
         const rankCity = this.data.rankCity
         const onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
         let secondtItem = {}
@@ -227,8 +227,8 @@ Page({
    */
   getRankCate(hasLoading = true) {
     return new Promise((resolve, reject) => {
-      const params = {count: this.data.pageCount, page: this.data.rankCate.pageNum, hasLoading, cate_id: this.data.cate_id}
-      getOfficeRankApi(params).then(res => {
+      const params = {count: this.data.pageCount, page: this.data.rankCate.pageNum, cate_id: this.data.cate_id}
+      getOfficeRankApi(params, hasLoading).then(res => {
         const rankCate = this.data.rankCate
         const onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
         let secondtItem = {}
@@ -255,8 +255,8 @@ Page({
    */
   getRankAll(hasLoading = true) {
     return new Promise((resolve, reject) => {
-      const params = {count: this.data.pageCount, page: this.data.rankAll.pageNum, hasLoading}
-      getRankApi(params).then(res => {
+      const params = {count: this.data.pageCount, page: this.data.rankAll.pageNum, ...app.getSource()}
+      getRankApi(params, hasLoading).then(res => {
         const rankAll = this.data.rankAll
         const onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
         let secondtItem = {}

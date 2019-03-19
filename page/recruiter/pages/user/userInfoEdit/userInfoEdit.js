@@ -119,7 +119,8 @@ Page({
       position: info.position,
       email: info.email,
       wechat: info.wechat,
-      signature: info.signature
+      signature: info.signature, 
+      ...app.getSource()
     }
     saveRecruiterInfoApi(data).then(res => {
       app.wxToast({

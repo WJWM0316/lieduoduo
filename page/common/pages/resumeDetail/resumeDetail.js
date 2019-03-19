@@ -30,6 +30,9 @@ Page({
   onLoad: function (options) {
     if (options.scene) {
       options = app.getSceneParams(options.scene)
+      if (options.s) {
+        options.sourceType = options.s
+      }
     }
     identity = app.identification(options)
     this.setData({options})
@@ -77,7 +80,7 @@ Page({
   },
   getOthersInfo() {
     return new Promise((resolve, reject) => {
-      getOtherResumeApi({uid: this.data.options.uid, sCode: this.data.options.sCode}).then(res => {
+      getOtherResumeApi({uid: this.data.options.uid, sCode: this.data.options.sCode, ...app.getSource()}).then(res => {
         this.setData({info: res.data, isOwner: res.data.isOwner && identity === 'APPLICANT', realIsOwner: res.data.isOwner}, function() {
           if (this.data.isOwner) {
             app.globalData.resumeInfo = res.data

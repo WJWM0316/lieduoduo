@@ -35,6 +35,9 @@ Page({
       if (options.pid) {
         options.positionId = options.pid
       }
+      if (options.s) {
+        options.sourceType = options.s
+      }
     }
     identity = app.identification(options)
     this.setData({query: options})
@@ -74,7 +77,7 @@ Page({
         this.setData({isRecruiter: app.globalData.isRecruiter})
       }
     }
-    return getPositionApi({id: this.data.query.positionId, sCode: this.data.query.sCode})
+    return getPositionApi({id: this.data.query.positionId, sCode: this.data.query.sCode, ...app.getSource()})
       .then(res => {
         this.setData({
           detail: res.data, 

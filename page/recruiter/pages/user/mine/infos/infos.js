@@ -41,7 +41,7 @@ Page({
    * @return   {[type]}   [description]
    */
   getRecruiterOtherInfos() {
-    getRecruiterOtherInfosApi().then(res => {
+    getRecruiterOtherInfosApi({...app.getSource()}).then(res => {
       this.setData({pageInfos: res.data})
     })
   },

@@ -202,6 +202,7 @@ export const getAddressDetailApi = (data, hasLoading) => {
   return request({
     method: 'get',
     url: `/company/position/address/${data.id}`,
+    data,
     hasLoading: true
   })
 }
@@ -211,6 +212,7 @@ export const getPositionAddressDetailApi = (data, hasLoading) => {
   return request({
     method: 'get',
     url: `/company/position/address/${data.id}`,
+    data,
     hasLoading: true
   })
 }
@@ -220,6 +222,7 @@ export const getCompanyAddressDetailApi = (data, hasLoading) => {
   return request({
     method: 'get',
     url: `/company/address/${data.id}`,
+    data,
     hasLoading: true
   })
 }
@@ -239,6 +242,7 @@ export const getCompanyProductInfosApi = (data, hasLoading) => {
   return request({
     method: 'get',
     url: `/company/product/${data.id}`,
+    data,
     hasLoading: true
   })
 }
@@ -258,6 +262,7 @@ export const deleteCompanyProductInfosApi = (data, hasLoading) => {
   return request({
     method: 'delete',
     url: `/company/product/${data.id}`,
+    data,
     hasLoading: true
   })
 }
@@ -277,6 +282,7 @@ export const getCompanyIdentityInfosApi = (data) => {
   return request({
     method: 'get',
     url: `/company/identity`,
+    data,
     hasLoading: data.hasLoading
   })
 }
@@ -306,6 +312,7 @@ export const deleteCompanyIdentityInfosApi = (data, hasLoading) => {
   return request({
     method: 'delete',
     url: `/company/identity/${data.id}`,
+    data,
     hasLoading: true
   })
 }
@@ -374,6 +381,7 @@ export const justifyCompanyExistApi = (data, hasLoading) => {
   return request({
     method: 'get',
     url: `/company/exist/${data.name}`,
+    data,
     hasLoading: true
   })
 }
@@ -383,6 +391,7 @@ export const getCompanyPerfectApi = (data, hasLoading) => {
   return request({
     method: 'get',
     url: `/company/perfect/${data.id}`,
+    data,
     hasLoading: true
   })
 }
@@ -391,6 +400,7 @@ export const notifyadminApi = (data) => {
   return request({
     url: `/company/notifyadmin`,
     method: 'get',
+    data,
     hasLoading: false
   })
 }

@@ -209,7 +209,6 @@ Page({
   chooseParentTab(e) {
     let index = e.currentTarget.dataset.index
     let tabIndex = this.data.tabIndex
-    if (tabIndex === index) return
     let tabLists = this.data.tabLists
     tabLists.map((item, i) => {
       tabLists[i].active = false
@@ -254,11 +253,41 @@ Page({
   },
   init () {
     if (app.globalData.isRecruiter) {
+      let e = {}
+      switch(this.data.tabIndex) {
+        case 0:
+          e = {
+            currentTarget: {
+              dataset: {
+                index: 0
+              }
+            }
+          }
+          break
+        case 1:
+          e = {
+            currentTarget: {
+              dataset: {
+                index: 1
+              }
+            }
+          }
+          break
+        case 2:
+          e = {
+            currentTarget: {
+              dataset: {
+                index: 2
+              }
+            }
+          }
+          break
+      }
       getRecruiterPositionListApi({is_online: 1, count: 50, page: 1}).then(res => {
         positionList = res.data
         positionList.unshift({positionName: '所有职位', id: 0})
         this.setData({positionList})
-        this.getInviteList()
+        this.chooseParentTab(e)
       })
     }
   },

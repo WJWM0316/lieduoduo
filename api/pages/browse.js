@@ -66,6 +66,7 @@ export const deleteBrowseUserApi = (data, isLoading) => {
   return request({
     method: 'delete',
     url: `/browse/deleteBrowseUser/${data.uid}`,
+    data,
     isLoading: true
   })
 }

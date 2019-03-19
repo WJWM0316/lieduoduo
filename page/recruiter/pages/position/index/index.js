@@ -57,7 +57,7 @@ Page({
       isLastPage: false,
       isRequire: false
     }
-    getPositionListNumApi({recruiter: app.globalData.recruiterDetails.uid}).then(res => {
+    getPositionListNumApi({recruiter: app.globalData.recruiterDetails.uid, ...app.getSource()}).then(res => {
       this.setData({onLinePosition, offLinePosition, onLinePositionNum: res.data.online, offLinePositionNum: res.data.offline})
       this.getLists()
     })

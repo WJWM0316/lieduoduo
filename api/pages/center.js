@@ -1,17 +1,19 @@
 // 个人中心接口
 import { request } from '../require'
 // 个人中心首页接口
-export const getMyInfoApi = () => {
+export const getMyInfoApi = (data) => {
   return request({
     method: 'get',
-    url: '/jobhunter/myInfo'
+    url: '/jobhunter/myInfo',
+    data
   })
 }
 // 求职者个人基本信息
-export const getBaseInfoApi = () => {
+export const getBaseInfoApi = (data) => {
   return request({
     method: 'get',
-    url: '/jobhunter/baseInfo'
+    url: '/jobhunter/baseInfo',
+    data
   })
 }
 // 编辑求职者个人基本信息

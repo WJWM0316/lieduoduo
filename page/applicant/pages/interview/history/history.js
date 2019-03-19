@@ -47,8 +47,8 @@ Page({
   },
   getLists(hasLoading = true) {
     return new Promise((resolve, reject) => {
-      let params = {count: this.data.pageCount, page: this.data.interviewList.pageNum, hasLoading}
-      getInterviewHistoryApi(params).then(res => {
+      let params = {count: this.data.pageCount, page: this.data.interviewList.pageNum, ...app.getSource()}
+      getInterviewHistoryApi(params, hasLoading).then(res => {
         const interviewList = this.data.interviewList
         const onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
         interviewList.list = interviewList.list.concat(res.data)

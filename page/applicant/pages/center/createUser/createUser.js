@@ -52,7 +52,8 @@ Page({
       startWorkYear: info.startWorkYear,
       name: info.name,
       gender: info.gender,
-      position: info.position
+      position: info.position,
+      ...app.getSource()
     }
     postfirstStepApi(data).then(res => {
       let createUser = {

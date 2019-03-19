@@ -86,7 +86,7 @@ Page({
    */
  getInterestList (hasLoading = true) {
   return new Promise((resolve, reject) => {
-    getCollectMySelfApi({page: this.data.interestList.pageNum, count: this.data.pageCount, hasLoading})
+    getCollectMySelfApi({page: this.data.interestList.pageNum, count: this.data.pageCount, ...app.getSource()}, hasLoading)
     .then(res => {
       const interestList = this.data.interestList
       const onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
@@ -106,7 +106,7 @@ Page({
   */
  getWatchedList (hasLoading = true) {
   return new Promise((resolve, reject) => {
-    getBrowseMySelfApi({page: this.data.watchedList.pageNum, count: this.data.pageCount, hasLoading})
+    getBrowseMySelfApi({page: this.data.watchedList.pageNum, count: this.data.pageCount, ...app.getSource()}, hasLoading)
     .then(res => {
       const watchedList = this.data.watchedList
       const onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2

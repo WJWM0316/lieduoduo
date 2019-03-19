@@ -58,6 +58,7 @@ App({
     let that = this
     wx.login({
       success: function (res0) {
+        if (!wx.getStorageSync('choseType')) wx.setStorageSync('choseType', 'APPLICANT')
         wx.setStorageSync('code', res0.code)
         loginApi({code: res0.code}).then(res => {
           // 有token说明已经绑定过用户了
@@ -393,6 +394,7 @@ App({
     if (noImg) {
       imageUrl = ''
     }
+    path && path.indexOf('?') !== -1 ? path = `${path}&sourceType=sh` : path = `${path}?sourceType=sh`
     let shareObj = {
       title: title,        // 默认是小程序的名称(可以写slogan等)
       path: path,        // 默认是当前页面，必须是以‘/’开头的完整路径
@@ -414,12 +416,16 @@ App({
     // 来自页面内的按钮的转发
     if (options.from == 'button') {
       var eData = options.target.dataset
+      if (btnPath) {
+        btnPath.indexOf('?') !== -1 ? btnPath = `${btnPath}&sourceType=sh` : btnPath = `${btnPath}?sourceType=sh`
+      }
       shareObj = {
         title: btnTitle || shareObj.title,
         path: btnPath || shareObj.path,
         imageUrl: btnImageUrl || shareObj.imageUrl
       }
     }
+    console.log(shareObj, 1)
     return shareObj
   },
   // 切换身份
@@ -467,7 +473,12 @@ App({
       }
       return identity
     } else {
-      return wx.getStorageSync('choseType') || 'APPLICANT'
+      if (wx.getStorageSync('choseType')) {
+        return wx.getStorageSync('choseType')
+      } else {
+        wx.setStorageSync('choseType', 'APPLICANT')
+        return 'APPLICANT'
+      }
     }
   },
   // 提示切换身份
@@ -494,6 +505,10 @@ App({
             wx.setStorageSync('choseType', 'APPLICANT')
             this.getAllInfo().then(() => {
               wx.reLaunch({url: path})
+            }).catch(e => {
+              wx.navigateTo({
+                url: `${APPLICANT}center/createUser/createUser`
+              })
             })
           }
         },
@@ -562,14 +577,15 @@ App({
     let launch = wx.getLaunchOptionsSync()
     let curPath = getCurrentPages()[getCurrentPages().length - 1]
     console.log(launch, curPath)
-    if (launch.path === 'page/common/pages/startPage/startPage') {
-      params.sourceType = 'search'
+    if (launch.path === 'page/common/pages/startPage/startPage') { // 自然搜索使用
+      params.sourceType = 'sch'
       params.sourcePath = launch.path
     } else {
-      if (curPath.options.sourceType) {
+      if (curPath.options.sourceType) { // 链接带特殊参数
         params.sourceType = curPath.options.sourceType
         params.sourcePath = curPath.route
       }
     }
+    return params
   }
 })

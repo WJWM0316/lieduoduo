@@ -1,6 +1,7 @@
 import {interviewDetailApi, setInterviewDetailApi, sureInterviewApi} from "../../../../api/pages/interview.js"
 import {COMMON,APPLICANT,RECRUITER} from "../../../../config.js"
 import {mobileReg} from "../../../../utils/fieldRegular.js"
+import {shareInterviewr} from '../../../../utils/shareWord.js'
 let app = getApp()
 Page({
 
@@ -211,7 +212,7 @@ Page({
   },
   pageInit() {
     if (this.data.options.id) {
-      return interviewDetailApi({interviewId: this.data.options.id}).then(res => {
+      return interviewDetailApi({interviewId: this.data.options.id, ...app.getSource()}).then(res => {
         let addressData = wx.getStorageSync('createPosition')
         let positionData = wx.getStorageSync('interviewData')
         if ((res.data.status === 12 || res.data.status === 21 || res.data.status === 32) && wx.getStorageSync('choseType') === 'RECRUITER') {
@@ -248,6 +249,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
+    console.log(shareInterviewr, 1111111111)
     let positionData = wx.getStorageSync('interviewData')
     let addressData = wx.getStorageSync('createPosition')
     let info = this.data.info
@@ -303,7 +305,12 @@ Page({
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
-
+  onShareAppMessage: function (options) {
+    return app.wxShare({
+      options,
+      title: shareInterviewr,
+      noImg: true,
+      path: `${COMMON}arrangement/arrangement?${this.options.id}`
+    })
   }
 })

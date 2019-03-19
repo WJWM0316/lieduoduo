@@ -115,7 +115,7 @@ Page({
    */
   getPositionList(hasLoading = true) {
     return new Promise((resolve, reject) => {
-      let params = {count: this.data.pageCount, page: this.data.positionList.pageNum, hasLoading}
+      let params = {count: this.data.pageCount, page: this.data.positionList.pageNum, ...app.getSource()}
       if(this.data.city) {
         params = Object.assign(params, {city: this.data.city})
       }
@@ -128,7 +128,7 @@ Page({
       if(!this.data.city) {
         delete params.city
       }
-      getPositionListApi(params).then(res => {
+      getPositionListApi(params, hasLoading).then(res => {
         const positionList = this.data.positionList
         const onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
         positionList.list = positionList.list.concat(res.data)

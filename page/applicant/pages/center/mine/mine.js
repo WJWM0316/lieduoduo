@@ -107,7 +107,7 @@ Page({
   },
   onPullDownRefresh(hasLoading = true) {
     this.setData({hasReFresh: true})
-    getPersonalResumeApi().then(res => {
+    getPersonalResumeApi({...app.getSource()}).then(res => {
       app.globalData.resumeInfo = res.data
       wx.stopPullDownRefresh()
       this.setData({hasReFresh: false, myInfo: res.data})

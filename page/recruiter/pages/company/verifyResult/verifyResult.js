@@ -29,8 +29,8 @@ Page({
    */
   getApplyjoinInfos(hasLoading = true) {
     return new Promise((resolve, reject) => {
-      const params = {id: this.data.options.id, hasLoading}
-    	getApplyjoinInfosApi(params).then(res => {
+      const params = {id: this.data.options.id, ...app.getSource()}
+    	getApplyjoinInfosApi(params, hasLoading).then(res => {
     		this.setData({infos: res.data.applyInfo}, () => resolve(res))
     	})
     })

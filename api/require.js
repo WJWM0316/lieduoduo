@@ -1,11 +1,11 @@
 import {APPLICANTHOST, RECRUITERHOST, PUBAPIHOST, COMMON, RECRUITER, APPLICANT} from '../config.js'
 
 let loadNum = 0
-let addHttpHead = {}
 let BASEHOST = ''
 let toAuth = false
 let toBindPhone = false
 export const request = ({method = 'post', url, host, data = {}, needKey = true, hasLoading = true, loadingContent = '加载中...'}) => {
+  let addHttpHead = {}
   // baceHost 切换
   switch(host) {
     case 'PUBAPIHOST':
@@ -76,7 +76,8 @@ export const request = ({method = 'post', url, host, data = {}, needKey = true, 
           wx.hideLoading()
           loadNum = 0
         }
-        console.log(url, res, data)
+        console.log(url, res.data)
+        console.log(addHttpHead)
         if (typeof res.data === 'string') { // 转换返回json
           res.data = JSON.parse(res.data)
         }

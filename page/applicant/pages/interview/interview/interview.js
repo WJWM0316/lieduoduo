@@ -110,7 +110,14 @@ Page({
         break
       case 2:
         data = this.data.interviewData
-        let interviewData = {...initData}
+        let interviewData = {
+          list: [],
+          pageNum: 1,
+          count: 20,
+          isLastPage: false,
+          isRequire: false,
+          total: 0
+        }
         chooseTime = ''
         this.setData({interviewData})
         this.selectComponent('#myCalendar').scrollLeft()
@@ -174,7 +181,7 @@ Page({
     let applyData = this.data.applyData
     let tab = this.data.applyScreen[this.data.applyIndex].value
     let applyBottomStatus = 0
-    return getApplyListApi({count: applyData.count, page: applyData.pageNum, tab}, hasLoading).then(res => {
+    return getApplyListApi({count: applyData.count, page: applyData.pageNum, tab, ...app.getSource()}, hasLoading).then(res => {
       applyData.list.push(...res.data)
       applyData.isRequire = true
       applyData.total = res.meta.total
@@ -192,7 +199,7 @@ Page({
     let receiveData = this.data.receiveData
     let tab = this.data.receiveScreen[this.data.receiveIndex].value
     let receiveBottomStatus = 0
-    return getInviteListApi({count: receiveData.count, page: receiveData.pageNum, tab}, hasLoading).then(res => {
+    return getInviteListApi({count: receiveData.count, page: receiveData.pageNum, tab, ...app.getSource()}, hasLoading).then(res => {
       receiveData.list.push(...res.data)
       receiveData.isRequire = true
       receiveData.total = res.meta.total
@@ -209,7 +216,7 @@ Page({
     if (!hasLogin) return
     let interviewData = this.data.interviewData
     let interviewBottomStatus = 0
-    return getScheduleListApi({count: interviewData.count, page: interviewData.pageNum, time: chooseTime}, hasLoading).then(res => {
+    return getScheduleListApi({count: interviewData.count, page: interviewData.pageNum, time: chooseTime, ...app.getSource()}, hasLoading).then(res => {
       const list = res.data
       list.map(field => {
         const time = field.arrangementInfo.appointment.split(' ')[1].slice(0, 5)
@@ -228,7 +235,37 @@ Page({
   },
   init () {
     if (app.globalData.isJobhunter) {
-      this.getApplyList()
+      let e = {}
+      switch(this.data.tabIndex) {
+        case 0:
+          e = {
+            currentTarget: {
+              dataset: {
+                index: 0
+              }
+            }
+          }
+          break
+        case 1:
+          e = {
+            currentTarget: {
+              dataset: {
+                index: 1
+              }
+            }
+          }
+          break
+        case 2:
+          e = {
+            currentTarget: {
+              dataset: {
+                index: 2
+              }
+            }
+          }
+          break
+      }
+      this.chooseParentTab(e)
     }
   },
   onLoad () {

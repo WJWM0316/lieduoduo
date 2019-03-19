@@ -39,6 +39,9 @@ Page({
     recruiterCard = ''
     if (options.scene) {
       options = app.getSceneParams(options.scene)
+      if (options.s) {
+        options.sourceType = options.s
+      }
     }
     if (identity !== 'RECRUITER') {
       this.setData({isApplicant: true})
@@ -55,7 +58,7 @@ Page({
   },
   getOthersInfo() {
     return new Promise((resolve, reject) => {
-      getOthersRecruiterDetailApi({uid: this.data.options.uid, sCode: this.data.options.sCode}).then(res => {
+      getOthersRecruiterDetailApi({uid: this.data.options.uid, sCode: this.data.options.sCode, ...app.getSource()}).then(res => {
         let isOwner = res.data.isOwner && identity === 'RECRUITER' ? true : false
         this.setData({info: res.data, isOwner, realIsOwner: res.data.isOwner}, function() {
           if(this.selectComponent('#interviewBar')) this.selectComponent('#interviewBar').init()
@@ -71,8 +74,8 @@ Page({
   },
   getPositionLists(hasLoading = true) {
     return new Promise((resolve, reject) => {
-      const params = {recruiter: this.data.options.uid, count: this.data.pageCount, page: this.data.positionList.pageNum, hasLoading}
-      getPositionListApi(params).then(res => {
+      const params = {recruiter: this.data.options.uid, count: this.data.pageCount, page: this.data.positionList.pageNum}
+      getPositionListApi(params, hasLoading).then(res => {
         const positionList = this.data.positionList
         positionList.onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
         positionList.list = positionList.list.concat(res.data)
@@ -94,19 +97,26 @@ Page({
       onBottomStatus: false
     }
     this.setData({positionList})
-    if (app.globalData.isRecruiter) {
-      this.setData({isRecruiter: app.globalData.isRecruiter})
-    } else {
-      app.getRoleInit = () => {
-        this.setData({isRecruiter: app.globalData.isRecruiter})
-      }
-    }
-
+    
     if (app.loginInit) {
       this.getOthersInfo()
+      if (app.globalData.isRecruiter) {
+        this.setData({isRecruiter: app.globalData.isRecruiter})
+      } else {
+        app.getRoleInit = () => {
+          this.setData({isRecruiter: app.globalData.isRecruiter})
+        }
+      }
     } else {
       app.loginInit = () => {
         this.getOthersInfo()
+        if (app.globalData.isRecruiter) {
+          this.setData({isRecruiter: app.globalData.isRecruiter})
+        } else {
+          app.getRoleInit = () => {
+            this.setData({isRecruiter: app.globalData.isRecruiter})
+          }
+        }
       }
     }
   },

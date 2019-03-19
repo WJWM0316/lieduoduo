@@ -43,6 +43,7 @@ export const getOthersRecruiterDetailApi = (data) => {
   return request({
     url: `/recruiter/detail/uid/${data.uid}`,
     method: 'get',
+    data,
     hasLoading: true
   })
 }
@@ -138,6 +139,7 @@ export const getApplyjoinInfosApi = (data) => {
   return request({
     url: `/applyjoin/${data.id}`,
     method: 'get',
+    data,
     hasLoading: data.hasLoading
   })
 }
@@ -147,6 +149,7 @@ export const failApplyjoinApi = (data, hasLoading) => {
   return request({
     url: `/applyjoin/fail/${data.id}`,
     method: 'put',
+    data,
     hasLoading: hasLoading
   })
 }
@@ -156,6 +159,7 @@ export const passApplyjoinApi = (data, hasLoading) => {
   return request({
     url: `/applyjoin/pass/${data.id}`,
     method: 'put',
+    data,
     hasLoading: hasLoading
   })
 }
@@ -165,6 +169,7 @@ export const getRecruiterInterestApi = (data, hasLoading) => {
   return request({
     url: `/right/cur/recruiter`,
     method: 'get',
+    data,
     hasLoading: false
   })
 }
@@ -174,6 +179,7 @@ export const getRecruiterOtherInfosApi = (data) => {
   return request({
     url: `/recruiter/mine/extra`,
     method: 'get',
+    data,
     hasLoading: false
   })
 }

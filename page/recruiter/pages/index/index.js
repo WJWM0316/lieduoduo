@@ -96,9 +96,11 @@ Page({
     }
     this.setData({browseMySelf, collectUsers, collectMySelf})
     if (app.loginInit) {
+      console.log(1111111111111111)
       this.getLists()
     } else {
       app.loginInit = () => {
+        console.log(22222222222222222)
         this.getLists()
       }
     }
@@ -136,8 +138,8 @@ Page({
    */
   getBrowseMySelf(hasLoading = true) {
     return new Promise((resolve, reject) => {
-      const params = {count: this.data.pageCount, page: this.data.browseMySelf.pageNum, hasLoading}
-      getBrowseMySelfApi(params)
+      const params = {count: this.data.pageCount, page: this.data.browseMySelf.pageNum, ...app.getSource()}
+      getBrowseMySelfApi(params, hasLoading)
         .then(res => {
           const browseMySelf = this.data.browseMySelf
           const onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
@@ -157,8 +159,8 @@ Page({
    */
   getCollectMySelf(hasLoading = true) {
     return new Promise((resolve, reject) => {
-      const params = {count: this.data.pageCount, page: this.data.collectMySelf.pageNum, hasLoading}
-      getCollectMySelfApi(params)
+      const params = {count: this.data.pageCount, page: this.data.collectMySelf.pageNum, ...app.getSource()}
+      getCollectMySelfApi(params, hasLoading)
         .then(res => {
           const collectMySelf = this.data.collectMySelf
           const onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
@@ -178,8 +180,8 @@ Page({
    */
   getMyCollectUsers(hasLoading = true) {
     return new Promise((resolve, reject) => {
-      const params = {count: this.data.pageCount, page: this.data.collectUsers.pageNum, hasLoading}
-      getMyCollectUsersApi(params)
+      const params = {count: this.data.pageCount, page: this.data.collectUsers.pageNum, ...app.getSource()}
+      getMyCollectUsersApi(params, hasLoading)
         .then(res => {
           const collectUsers = this.data.collectUsers
           const onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2

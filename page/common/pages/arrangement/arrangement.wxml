@@ -182,7 +182,7 @@
       <button class="btn" bindtap="sureDate">确定接受面试</button>
     </view>
     <view class="btnBox" wx:if="{{identity === 'RECRUITER' && info.status === 41}}">
-      <button class="btn">转发安排给其他同事</button>
+      <button class="btn" open-type="share">转发安排给其他同事</button>
     </view>
 
   </block>

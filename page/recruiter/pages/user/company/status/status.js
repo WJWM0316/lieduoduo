@@ -68,7 +68,7 @@ Page({
    */
   getCompanyIdentityInfos(hasLoading = true) {
     return new Promise((resolve, reject) => {
-      getCompanyIdentityInfosApi({hasLoading}).then(res => {
+      getCompanyIdentityInfosApi({...app.getSource()}, hasLoading).then(res => {
         let infos = res.data
         let companyInfos = infos.companyInfo
         let pageTitle = ''

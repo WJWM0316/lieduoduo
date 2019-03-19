@@ -125,8 +125,8 @@ Page({
    */
   getMyBrowseList(hasLoading = true) {
     return new Promise((resolve, reject) => {
-      const params = {count: this.data.pageCount, page: this.data.myBrowse.pageNum, hasLoading}
-      geMyBrowseUsersApi(params).then(res => {
+      const params = {count: this.data.pageCount, page: this.data.myBrowse.pageNum, ...app.getSource()}
+      geMyBrowseUsersApi(params, hasLoading).then(res => {
         const myBrowse = this.data.myBrowse
         const onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
         myBrowse.list = myBrowse.list.concat(res.data)
@@ -145,8 +145,8 @@ Page({
    */
   getMyCollectList(hasLoading = true) {
     return new Promise((resolve, reject) => {
-      const params = {count: this.data.pageCount, page: this.data.myCollect.pageNum, hasLoading}
-      getMyCollectUsersApi(params).then(res => {
+      const params = {count: this.data.pageCount, page: this.data.myCollect.pageNum, ...app.getSource()}
+      getMyCollectUsersApi(params, hasLoading).then(res => {
         const myCollect = this.data.myCollect
         const onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
         myCollect.list = myCollect.list.concat(res.data)

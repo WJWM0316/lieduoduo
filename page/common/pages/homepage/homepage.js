@@ -60,7 +60,12 @@ Page({
   onLoad(options) {
     if (options.scene) {
       let parames = app.getSceneParams(options.scene)
-      options.companyId = parames.cid
+      if (parames.cid) {
+        options.companyId = parames.cid
+      }
+      if (options.s) {
+        options.sourceType = options.s
+      }
     }
     identity = app.identification(options)
     this.setData({query: options})
@@ -147,11 +152,11 @@ Page({
   getPositionList(hasLoading = true) {
     return new Promise((resolve, reject) => {
       const options = this.data.query
-      let params = {company_id: options.companyId, count: this.data.pageCount, page: this.data.positionList.pageNum, hasLoading}
+      let params = {company_id: options.companyId, count: this.data.pageCount, page: this.data.positionList.pageNum, ...app.getSource()}
       if(typeof this.data.labelId === 'number') {
         params = Object.assign(params, {type: this.data.labelId})
       }
-      getPositionListApi(params).then(res => {
+      getPositionListApi(params, hasLoading).then(res => {
         const positionList = this.data.positionList
         const onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
         positionList.list = positionList.list.concat(res.data)
