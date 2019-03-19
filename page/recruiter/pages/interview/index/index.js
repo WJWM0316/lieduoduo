@@ -144,6 +144,14 @@ Page({
   getResult(e) {
     if(e && e.detail && e.detail.timeStamp) {
       chooseTime = e.detail.timeStamp
+      let interviewData = {
+        list: [],
+        pageNum: 1,
+        count: 20,
+        isLastPage: false,
+        isRequire: false
+      }
+      this.setData({interviewData, interviewBottomStatus: 0})
       this.getScheduleList()
     }
     this.getFixedDomNodePosition()
@@ -169,7 +177,6 @@ Page({
   // 收到意向
   getInviteList(hasLoading = true) {
     let receiveData = this.data.receiveData
-    console.log(this.data.receiveData, 111111111)
     let status = this.data.receiveScreen[this.data.receiveIndex].value
     let positionId = this.data.positionList[this.data.positionIndex].id
     let receiveBottomStatus = 0
@@ -295,8 +302,15 @@ Page({
     wx.setStorageSync('choseType', 'RECRUITER')
   },
   onShow () {
-    this.init()
-    this.getFixedDomNodePosition()
+    if (app.globalData.isRecruiter) {
+      this.init()
+      this.getFixedDomNodePosition()
+    } else {
+      app.getRoleInit = () => {
+        this.init()
+        this.getFixedDomNodePosition()
+      }
+    }
   },
   getFixedDomNodePosition() {
     getSelectorQuery('.fixed-dom').then(res => this.setData({fixedBarHeight: res.height}))
