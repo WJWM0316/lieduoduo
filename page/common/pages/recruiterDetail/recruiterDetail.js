@@ -251,12 +251,22 @@ Page({
       onBottomStatus: false
     }
     this.setData({positionList})
-    this.getOthersInfo().then(res => {
-      this.setData({hasReFresh: false})
-      wx.stopPullDownRefresh()
-    }).catch(e => {
-      wx.stopPullDownRefresh()
-    })
+    if (!this.options.uid || parseInt(this.options.uid) === app.globalData.resumeInfo.uid) {
+      getRecruiterDetailApi().then(res => {
+        app.globalData.recruiterDetails = res.data
+        this.setData({info: app.globalData.recruiterDetails, hasReFresh: false})
+        wx.stopPullDownRefresh()
+      }).catch(e => {
+        wx.stopPullDownRefresh()
+      })
+    } else {
+      this.getOthersInfo().then(res => {
+        this.setData({hasReFresh: false})
+        wx.stopPullDownRefresh()
+      }).catch(e => {
+        wx.stopPullDownRefresh()
+      })
+    }
   },
   getCreatedImg(e) {
     recruiterCard = e.detail

@@ -9,6 +9,7 @@ Page({
     navHeight: app.globalData.navHeight,
     workTime: '',
     avatar: {},
+    position: '',
     gender: '1',
     workTimeDesr: '',
     userInfo: {},
@@ -38,6 +39,10 @@ Page({
       title = '姓名需为2-20个汉字或英文'
     } else if (!info.workTimeDesr) {
       title = '请选择开始工作时间'
+    } else if (!info.position && this.data.workTimeDesr !== '在校生') {
+      title = '请输入职位'
+    } else if (info.position && !positionReg.test(info.position)) {
+      title = '职位名称需为2-20个字'
     }
     if (title) {
       app.wxToast({'title': title})
