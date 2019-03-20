@@ -323,7 +323,10 @@ Page({
     }
   },
   onPullDownRefresh () {
-    if (!hasLogin) return
+    if (!hasLogin) {
+      wx.stopPullDownRefresh()
+      return
+    }
     switch(this.data.tabIndex) {
       case 0:
         let applyData = {
