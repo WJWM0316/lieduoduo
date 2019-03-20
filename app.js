@@ -12,10 +12,6 @@ let that = null
 let formIdList = []
 App({
   onLaunch: function (e) {
-    if (e.path === 'page/common/pages/startPage/startPage') {
-      console.log('自然进入')
-    }
-    
     // 获取导航栏高度
     this.checkUpdateVersion()
     wx.getSystemInfo({
@@ -60,7 +56,7 @@ App({
       success: function (res0) {
         if (!wx.getStorageSync('choseType')) wx.setStorageSync('choseType', 'APPLICANT')
         wx.setStorageSync('code', res0.code)
-        loginApi({code: res0.code}).then(res => {
+        loginApi({code: res0.code, ...that.getSource()}).then(res => {
           // 有token说明已经绑定过用户了
           if (res.data.token) {
             wx.setStorageSync('token', res.data.token)
@@ -75,13 +71,12 @@ App({
             console.log('用户已认证')
           } else {
             console.log('用户未绑定手机号', 'sessionToken', res.data.sessionToken)
-            that.checkLogin().then(() => {
-              // 登陆回调
-              if (that.loginInit) {
-                that.loginInit()
-              }
-              that.loginInit = function () {}
-            })
+            // 登陆回调
+            if (that.loginInit) {
+              that.loginInit()
+            }
+            that.loginInit = function () {}
+            that.checkLogin()
             wx.setStorageSync('sessionToken', res.data.sessionToken)
           }
         })
@@ -100,7 +95,6 @@ App({
       this.globalData.hasLogin = false
       this.globalData.resumeInfo = {}
       this.globalData.recruiterDetails = {}
-      this.loginInit = false
       wx.reLaunch({url: `${COMMON}startPage/startPage`})
     })
   },
@@ -190,7 +184,7 @@ App({
                 })
               } else {
                 wx.removeStorageSync('sessionToken')
-                if (pageUrl !== `${APPLICANT}index/index`) {
+                if (pageUrl !== `${COMMON}startPage/startPage`) {
                   wx.navigateTo({
                     url: `${COMMON}auth/auth`
                   })
@@ -430,7 +424,6 @@ App({
         imageUrl: btnImageUrl || shareObj.imageUrl
       }
     }
-    console.log(shareObj, 1)
     return shareObj
   },
   // 切换身份
@@ -581,8 +574,8 @@ App({
     let params = {}
     let launch = wx.getLaunchOptionsSync()
     let curPath = getCurrentPages()[getCurrentPages().length - 1]
-    console.log(launch, curPath)
-    if (launch.path === 'page/common/pages/startPage/startPage') { // 自然搜索使用
+
+    if (launch.path === 'page/common/pages/startPage/startPage' && launch.path === curPath.route) { // 自然搜索使用
       params.sourceType = 'sch'
       params.sourcePath = launch.path
     } else {
@@ -592,5 +585,38 @@ App({
       }
     }
     return params
+  },
+  // 预览简历
+  previewResume (e) {
+    if (e.currentTarget.dataset.file.attachType === 'doc') {
+      wx.showLoading({
+        title: '文档加载中...'
+      })
+      wx.downloadFile({
+        url: e.currentTarget.dataset.file.url,
+        success(res) {
+          const filePath = res.tempFilePath
+          wx.openDocument({
+            filePath,
+            success(res) {
+              wx.hideLoading()
+              console.log('打开文档成功')
+            }
+          })
+        },
+        fail(e) {
+          wx.hideLoading()
+          console.log(e)
+        }
+      })
+    } else {
+      wx.previewImage({
+        current: e.currentTarget.dataset.file.url, // 当前显示图片的http链接
+        urls: [e.currentTarget.dataset.file.url], // 需要预览的图片http链接列表
+        complete() {
+          resolve(e.currentTarget.dataset.file.url)
+        }
+      })
+    }
   }
 })

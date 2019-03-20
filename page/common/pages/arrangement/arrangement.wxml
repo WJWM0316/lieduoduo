@@ -1,6 +1,6 @@
 <!-- 加载过滤器 -->
 <wxs src="../../../../utils/filters.wxs" module="filters" />
-<view class="arrangement">
+<view class="arrangement" wx:if="{{info.interviewId}}">
   <navbar title="面试详情" background="#FFFFFF" color="#22292C"></navbar>
   <view hidden="{{!hasReFresh}}">
     <refreshStatus></refreshStatus>

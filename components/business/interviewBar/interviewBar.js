@@ -45,7 +45,9 @@ Component({
     }
   },
   data: {
-    interviewInfos: {},
+    interviewInfos: {
+      haveInterview: 0
+    },
     showLoginBox: false,
     identity: '', // 身份标识
     slogoIndex: 0,
@@ -66,7 +68,6 @@ Component({
   },
   methods: {
     init() {
-      this.getInterviewStatus()
       let currentPage = ''
       switch(this.data.type) {
         case 'position':
@@ -81,6 +82,9 @@ Component({
         default:
           currentPage = ''
           break
+      }
+      if (((currentPage === 'positionDetail' || currentPage === 'recruiterDetail') && identity === 'APPLICANT') || (currentPage === 'resumeDetail' && identity === 'RECRUITER')) {
+        this.getInterviewStatus()
       }
       this.setData({currentPage, jobWords: agreedTxtC(), recruiterWords: agreedTxtB(), show: false})
     },

@@ -14,11 +14,12 @@ export const checkSessionKeyApi = (data, hasLoading) => {
     hasLoading: false
   })
 }
-export const loginApi = data => {
+export const loginApi = (data, hasLoading) => {
   return request({
   	method: 'post',
     url: '/wechat/login/mini',
-    data
+    data,
+    hasLoading: false
   })
 }
 

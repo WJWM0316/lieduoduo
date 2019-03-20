@@ -40,6 +40,7 @@ Page({
     positionIndex: 0,
     cdnImagePath: app.globalData.cdnImagePath
   },
+
   onLoad(options) {
     identity = app.identification(options)
     const positionList = {
@@ -210,7 +211,7 @@ Page({
 　　return app.wxShare({
       options,
       title: shareChance,
-      path: `${APPLICANT}jobs/job/job`,
+      path: `${COMMON}careerChance/careerChance`,
       imageUrl: `${this.data.cdnImagePath}positionList.png`
     })
   }

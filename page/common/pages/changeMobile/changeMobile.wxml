@@ -16,7 +16,7 @@
     </view>
   </view>
   <view class="footer">
-	  <view class="tip">修改成功后，手机号将同步到你的在线简历</view>
+	  <view class="tip" wx:if="{{choseType === 'APPLICANT'}}">修改成功后，手机号将同步到你的在线简历</view>
 	  <button class="bindBtn" bindtap="bindPhone">确认修改手机号</button>
   </view>
 </view>

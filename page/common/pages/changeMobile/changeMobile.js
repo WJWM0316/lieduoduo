@@ -12,15 +12,17 @@ Page({
     mobile: '',
     phone: '',
     code: '',
-    second: 60
+    second: 60,
+    choseType: ''
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onShow: function (options) {
+    choseType = wx.getStorageSync('choseType')
     let mobile = app.globalData.resumeInfo.mobile || app.globalData.recruiterDetails.mobile
-    this.setData({mobile})
+    this.setData({mobile, choseType})
   },
   getPhone(e) {
     mobileNumber = e.detail.value

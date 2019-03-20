@@ -1,4 +1,4 @@
-// components/business/moreActive/moreActive.js
+import {RECRUITER, APPLICANT, COMMON} from '../../../config.js'
 const app = getApp()
 Component({
   /**
@@ -24,11 +24,11 @@ Component({
     toMore () {
       if (this.properties.type === 1) {
         wx.navigateTo({
-          url: "/page/applicant/pages/officerActive/more/more"
+          url: `${COMMON}rank/rank`
         })
       } else {
         wx.navigateTo({
-          url: "/page/applicant/pages/officerActive/recruitmentActive/recruitmentActive"
+          url: `${APPLICANT}officerActive/recruitmentActive/recruitmentActive`
         })
       }
     }

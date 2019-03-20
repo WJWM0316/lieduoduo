@@ -34,28 +34,9 @@ Page({
       }
     })
   },
-  preview() {
+  preview(e) {
     let that = this
-    wx.showLoading({
-      title: '文档加载中...',
-      mask: true
-    })
-    wx.downloadFile({
-      url: that.data.attachResume.url,
-      success(res) {
-        const filePath = res.tempFilePath
-        wx.openDocument({
-          filePath,
-          success(res) {
-            wx.hasLoading()
-            console.log('打开文档成功')
-          }
-        })
-      },
-      fail(e) {
-        console.log(e)
-      }
-    })
+    app.previewResume(e)
   },
   onPullDownRefresh(hasLoading = true) {
     this.setData({hasReFresh: true})

@@ -1,4 +1,4 @@
-<view class="recruiterDetail">
+<view class="recruiterDetail" wx:if="{{info.uid}}">
   <navbar title="{{info.companyInfo.companyShortname}}-{{info.position}}" background="#fff" color="#22292C" showHome="{{true}}"></navbar>
   <view hidden="{{!hasReFresh}}">
     <refreshStatus></refreshStatus>
@@ -25,64 +25,63 @@
       <view class="line"></view>
     </view>
     <view class="mainContent">
-        <view class="contentBox">
-
-      <view class="dataShow" wx:if="{{!isOwner}}">
-        <view class="dataBox">
-          <view class="data"><text class="num">{{info.viewedCount}}</text>人气</view>
-          <view class="data"><text class="num">{{info.influence}}</text>影响力<!-- <i class="icon iconfont icon-zhushi" bindtap="tips"></i> --></view>
-          <view class="data"><text class="num">{{info.ranking}}</text>排名</view>
+      <view class="contentBox">
+        <view class="dataShow" wx:if="{{!isOwner}}">
+          <view class="dataBox">
+            <view class="data"><text class="num">{{info.viewedCount}}</text>人气</view>
+            <view class="data"><text class="num">{{info.influence}}</text>影响力<!-- <i class="icon iconfont icon-zhushi" bindtap="tips"></i> --></view>
+            <view class="data"><text class="num">{{info.ranking}}</text>排名</view>
+          </view>
+          <view class="button-bg"  hidden="{{info.isCall}}">
+            <button hidden="{{info.isCall}}" class="callBtn clear-style" bindtap="callBtn">为Ta打Call，提高影响力</button>
+            <image src="{{cdnImagePath}}button_bg.png"></image>
+          </view>
+          <view class="button-bg" hidden="{{!info.isCall}}">
+            <button open-type="share" hidden="{{!info.isCall}}" class="callBtn isCalled clear-style" bindtap="shareBtn">帮Ta转发集Call</button>
+            <image src="{{cdnImagePath}}button_bg.png"></image>
+          </view>
+          <view class="more" bindtap="jump" wx:if="{{isApplicant}}">查看更多热门面试官<view class="icon iconfont icon-disejiantou-you"></view></view>
         </view>
-        <view class="button-bg"  hidden="{{info.isCall}}">
-          <button hidden="{{info.isCall}}" class="callBtn clear-style" bindtap="callBtn">为Ta打Call，提高影响力</button>
-          <image src="{{cdnImagePath}}button_bg.png"></image>
+        <view class="labelEdit {{info.personalizedLabels.length > 0 ? 'hasLabelEdit': ''}}" wx:if="{{isOwner}}">
+          <view class="title">
+            <view class="icon">
+              <view class="fan"></view>
+            </view>
+            <text class="txt">个人标签</text>
+            <block wx:if="{{info.personalizedLabels.length > 0}}"><!-- <i class="shareBtn iconfont icon-fenxiang"></i> --><i class="editBtn iconfont icon-bianji1" bindtap="editJump" data-type="labels"></i></block>
+          </view>
+          <view class="labelBox" wx:if="{{info.personalizedLabels.length > 0}}">
+            <text class="item" wx:for="{{info.personalizedLabels}}" wx:key="{{index}}">{{item.labelName || item.name}} <text wx:if="{{item.favorCount > 0}}">x{{item.favorCount}}</text></text>
+          </view>
+          <view wx:if="{{info.personalizedLabels.length === 0}}" class="addDeclaration" bindtap="editJump" data-type="labels">添加个人标签</view>
         </view>
-        <view class="button-bg" hidden="{{!info.isCall}}">
-          <button open-type="share" hidden="{{!info.isCall}}" class="callBtn isCalled clear-style" bindtap="shareBtn">帮Ta转发集Call</button>
-          <image src="{{cdnImagePath}}button_bg.png"></image>
+        <view class="profile" wx:if="{{(!isOwner && info.brief) || isOwner}}">
+          <view class="title">
+            <view class="icon">
+              <view class="fan"></view>
+            </view>
+            <text class="txt">个人简介</text>
+            <i wx:if="{{isOwner && info.brief}}" class="editBtn iconfont icon-bianji1" bindtap="editJump" data-type="profile"></i>
+          </view>
+          <view wx:if="{{!info.brief}}" class="addDeclaration" bindtap="editJump" data-type="profile">添加个人简介</view>
+          <shrinkText textData="{{info.brief}}"></shrinkText>
         </view>
-        <view class="more" bindtap="jump" wx:if="{{isApplicant}}">查看更多热门面试官<view class="icon iconfont icon-disejiantou-you"></view></view>
+        <view class="declaration {{isOwner ? 'recruiterMain' : ''}}" wx:if="{{(!isOwner && info.manifestos.length > 0) || isOwner}}">
+          <view class="title">
+            <view class="icon">
+              <view class="fan"></view>
+            </view>
+            <text class="txt">招聘宣言</text>
+          </view>
+          <view class="descList">
+            <view class="descItem" wx:for="{{info.manifestos}}" wx:key="{{index}}">
+              <view class="descTitle">{{item.topicTitle}}<i wx:if="{{isOwner}}" data-item="{{item}}" class="editBtn iconfont icon-bianji1" bindtap="editJump" data-type="declaration"></i></view>
+              <view><view class="descAnswer">{{item.content}}</view></view>
+            </view>
+          </view>
+          <view wx:if="{{isOwner}}" class="addDeclaration" bindtap="editJump" data-type="addDeclaration">添加招聘宣言</view>
+        </view>
       </view>
-      <view class="labelEdit {{info.personalizedLabels.length > 0 ? 'hasLabelEdit': ''}}" wx:if="{{isOwner}}">
-        <view class="title">
-          <view class="icon">
-            <view class="fan"></view>
-          </view>
-          <text class="txt">个人标签</text>
-          <block wx:if="{{info.personalizedLabels.length > 0}}"><!-- <i class="shareBtn iconfont icon-fenxiang"></i> --><i class="editBtn iconfont icon-bianji1" bindtap="editJump" data-type="labels"></i></block>
-        </view>
-        <view class="labelBox" wx:if="{{info.personalizedLabels.length > 0}}">
-          <text class="item" wx:for="{{info.personalizedLabels}}" wx:key="{{index}}">{{item.labelName || item.name}} <text wx:if="{{item.favorCount > 0}}">x{{item.favorCount}}</text></text>
-        </view>
-        <view wx:if="{{info.personalizedLabels.length === 0}}" class="addDeclaration" bindtap="editJump" data-type="labels">添加个人标签</view>
-      </view>
-      <view class="profile" wx:if="{{(!isOwner && info.brief) || isOwner}}">
-        <view class="title">
-          <view class="icon">
-            <view class="fan"></view>
-          </view>
-          <text class="txt">个人简介</text>
-          <i wx:if="{{isOwner && info.brief}}" class="editBtn iconfont icon-bianji1" bindtap="editJump" data-type="profile"></i>
-        </view>
-        <view wx:if="{{!info.brief}}" class="addDeclaration" bindtap="editJump" data-type="profile">添加个人简介</view>
-        <shrinkText textData="{{info.brief}}"></shrinkText>
-      </view>
-      <view class="declaration {{isOwner ? 'recruiterMain' : ''}}" wx:if="{{(!isOwner && info.manifestos.length > 0) || isOwner}}">
-        <view class="title">
-          <view class="icon">
-            <view class="fan"></view>
-          </view>
-          <text class="txt">招聘宣言</text>
-        </view>
-        <view class="descList">
-          <view class="descItem" wx:for="{{info.manifestos}}" wx:key="{{index}}">
-            <view class="descTitle">{{item.topicTitle}}<i wx:if="{{isOwner}}" data-item="{{item}}" class="editBtn iconfont icon-bianji1" bindtap="editJump" data-type="declaration"></i></view>
-            <view><view class="descAnswer">{{item.content}}</view></view>
-          </view>
-        </view>
-        <view wx:if="{{isOwner}}" class="addDeclaration" bindtap="editJump" data-type="addDeclaration">添加招聘宣言</view>
-      </view>
-          </view>
 
       <view class="position" wx:if="{{!isOwner}}">
         <company roleType="detailCompany" cardData="{{info.companyInfo}}"></company>

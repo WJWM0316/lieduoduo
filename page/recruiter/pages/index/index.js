@@ -96,15 +96,12 @@ Page({
     }
     this.setData({browseMySelf, collectUsers, collectMySelf})
     if (app.loginInit) {
-      console.log(1111111111111111)
-      this.getLists()
+      this.getLists().then(() => this.getDomNodePosition())
     } else {
       app.loginInit = () => {
-        console.log(22222222222222222)
-        this.getLists()
+        this.getLists().then(() => this.getDomNodePosition())
       }
     }
-    this.getDomNodePosition()
   },
   getDomNodePosition() {
     getSelectorQuery('.index-list-box').then(res => {

@@ -22,7 +22,7 @@
 		</view>
 	</view>
 	<view class="attach-box" wx:else>
-		<view class="item" bindtap="preview">
+		<view class="item" bindtap="preview" data-file="{{attachResume}}">
 			<view class="img-box">
 				<image class="img" mode="aspectFill" src="{{filter.fileFormat(attachResume.url)}}"></image>
 			</view>

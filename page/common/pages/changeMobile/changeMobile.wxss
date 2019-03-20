@@ -1,6 +1,7 @@
 .bindPhone {
   position: relative;
   background: #fff;
+  min-hieght: 100vh;
 }
 .head {
 	text-align: center;

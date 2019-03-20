@@ -49,17 +49,12 @@ Component({
     if (!this.data.isFixed) {
       positionStatus = 'relative'
     }
-    this.setData({
-      positionStatus
-    })
-  },
-  pageLifetimes: {
-    show() {
-      if (getCurrentPages().length > 1) {
-        this.setData({showBackBtn: true})
-      }
-      identity = wx.getStorageSync('choseType')
-    }
+    identity = wx.getStorageSync('choseType')
+    if (getCurrentPages().length > 1) {
+      this.setData({showBackBtn: true, positionStatus})
+    } else {
+      this.setData({positionStatus})
+    }    
   },
   /**
    * 组件的方法列表

@@ -15,7 +15,7 @@
 	},
 	"compileType": "miniprogram",
 	"libVersion": "2.5.2",
-	"appid": "wxde5ab3ef647fba86",
+	"appid": "wx225f017495e6e195",
 	"projectname": "lieduoduo%20%E6%B5%8B%E8%AF%95",
 	"debugOptions": {
 		"hidedInDevtools": []
@@ -38,398 +38,169 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 19,
+			"current": 3,
 			"list": [
 				{
 					"id": 0,
-					"name": "startPage测试页面",
+					"name": "【公包】启动页",
 					"pathName": "page/common/pages/startPage/startPage",
 					"query": ""
 				},
 				{
 					"id": 1,
-					"name": "职位机会",
-					"pathName": "page/common/pages/careerChance/careerChance",
+					"name": "【公包】职位详情",
+					"pathName": "page/common/pages/positionDetail/positionDetail",
 					"query": ""
 				},
 				{
 					"id": 2,
-					"name": "排行版",
-					"pathName": "page/common/pages/rank/rank",
+					"name": "【公包】招聘官主页",
+					"pathName": "page/common/pages/recruiterDetail/recruiterDetail",
 					"query": ""
 				},
 				{
 					"id": 3,
-					"name": "面试",
-					"pathName": "page/applicant/pages/interview/interview/interview",
+					"name": "【公包】简历详情",
+					"pathName": "page/common/pages/resumeDetail/resumeDetail",
 					"query": ""
 				},
 				{
 					"id": 4,
-					"name": "c首页",
-					"pathName": "page/applicant/pages/index/index",
-					"query": "c=11"
+					"name": "【公包】公司主页",
+					"pathName": "page/common/pages/homepage/homepage",
+					"query": ""
 				},
 				{
 					"id": 5,
-					"name": "职业机会",
-					"pathName": "page/applicant/pages/jobs/job/job",
-					"query": "code=1"
+					"name": "【公包】招聘官榜单",
+					"pathName": "page/common/pages/rank/rank",
+					"query": ""
 				},
 				{
 					"id": 6,
-					"name": "公司认证",
-					"pathName": "page/recruiter/pages/user/company/find/find",
-					"query": "type=edit"
+					"name": "【公包】职位机会",
+					"pathName": "page/common/pages/careerChance/careerChance",
+					"query": ""
 				},
 				{
 					"id": 7,
-					"name": "more",
-					"pathName": "page/applicant/pages/officerActive/recruitmentActive/recruitmentActive",
+					"name": "【C端】首页",
+					"pathName": "page/applicant/pages/index/index",
 					"query": ""
 				},
 				{
 					"id": 8,
-					"name": "简历",
+					"name": "【C端】面试",
+					"pathName": "page/applicant/pages/interview/interview/interview",
+					"query": ""
+				},
+				{
+					"id": 9,
+					"name": "【C端】我的",
 					"pathName": "page/applicant/pages/center/mine/mine",
 					"query": ""
 				},
 				{
 					"id": 10,
-					"name": "用户信息编辑",
+					"name": "【C端】创建第一步",
+					"pathName": "page/applicant/pages/center/createUser/createUser",
+					"query": ""
+				},
+				{
+					"id": 11,
+					"name": "【C端】个人信息编辑",
 					"pathName": "page/applicant/pages/center/userInfoEdit/userInfoEdit",
 					"query": ""
 				},
 				{
-					"id": 10,
-					"name": "招聘官主页",
-					"pathName": "page/common/pages/recruiterDetail/recruiterDetail",
-					"query": "uid=128"
-				},
-				{
-					"id": 11,
-					"name": "面试安排",
-					"pathName": "page/common/pages/arrangement/arrangement",
-					"query": "id=91"
-				},
-				{
-					"id": -1,
-					"name": "职位列表",
-					"pathName": "page/recruiter/pages/position/jobList/jobList",
+					"id": 12,
+					"name": "【B端】首页",
+					"pathName": "page/recruiter/pages/index/index",
 					"query": ""
 				},
 				{
-					"id": -1,
-					"name": "地址列表",
-					"pathName": "page/recruiter/pages/position/addressList/addressList",
+					"id": 13,
+					"name": "【B端】面试",
+					"pathName": "page/recruiter/pages/interview/index/index",
 					"query": ""
 				},
 				{
 					"id": 14,
-					"name": "招聘官认证状态",
-					"pathName": "page/recruiter/pages/user/company/status/status",
-					"query": "from=apply",
-					"scene": null
+					"name": "【B端】首页",
+					"pathName": "page/recruiter/pages/index/index",
+					"query": ""
 				},
 				{
-					"id": -1,
-					"name": "授权",
-					"pathName": "page/common/pages/auth/auth",
+					"id": 15,
+					"name": "【B端】职位管理",
+					"pathName": "page/recruiter/pages/position/index/index",
 					"query": ""
 				},
 				{
 					"id": 16,
-					"name": "公司主页",
-					"pathName": "page/common/pages/homepage/homepage",
-					"query": "companyId=41"
+					"name": "【B端】发布职位",
+					"pathName": "page/recruiter/pages/position/post/post",
+					"query": ""
 				},
 				{
-					"id": -1,
-					"name": "招聘管首页",
-					"pathName": "page/recruiter/pages/index/index",
+					"id": 17,
+					"name": "【B端】搜索公司",
+					"pathName": "page/recruiter/pages/user/company/find/find",
 					"query": ""
 				},
 				{
 					"id": 18,
-					"name": "招聘管-职位管理",
-					"pathName": "page/recruiter/pages/position/index/index",
-					"query": "companyId=5"
+					"name": "【B端】我的",
+					"pathName": "page/recruiter/pages/user/mine/infos/infos",
+					"query": ""
 				},
 				{
 					"id": 19,
-					"name": "招聘官主页",
-					"pathName": "page/common/pages/recruiterDetail/recruiterDetail",
-					"query": "uid=238&sCode=111&sourceType=sh"
+					"name": "【B端】我的",
+					"pathName": "page/recruiter/pages/user/mine/infos/infos",
+					"query": ""
 				},
 				{
-					"id": -1,
-					"name": "招聘端面试列表",
-					"pathName": "page/recruiter/pages/interview/index/index",
+					"id": 20,
+					"name": "【B端】创建公司",
+					"pathName": "page/recruiter/pages/user/company/post/post",
 					"query": ""
 				},
 				{
 					"id": 21,
-					"name": "招聘管-职位详情",
-					"pathName": "page/common/pages/positionDetail/positionDetail",
-					"query": "positionId=3458&sCode=222"
+					"name": "【B端】审核状态",
+					"pathName": "page/recruiter/pages/user/company/status/status",
+					"query": ""
 				},
 				{
-					"id": 21,
-					"name": "招聘官编辑",
+					"id": 22,
+					"name": "【B端】个人信息编辑",
 					"pathName": "page/recruiter/pages/user/userInfoEdit/userInfoEdit",
-					"query": "uid=5"
+					"query": ""
 				},
 				{
 					"id": 23,
-					"name": "招聘管-简历详情",
-					"pathName": "page/common/pages/resumeDetail/resumeDetail",
-					"query": "uid=191&sCode=1122"
+					"name": "【B端】公司信息编辑",
+					"pathName": "page/recruiter/pages/company/indexEdit/indexEdit",
+					"query": ""
 				},
 				{
 					"id": 24,
-					"name": "手机号登陆",
-					"pathName": "page/common/pages/bindPhone/bindPhone",
-					"query": "uid=92"
+					"name": "【B端】公司主页编辑",
+					"pathName": "page/recruiter/pages/company/homepageEdit/homepageEdit",
+					"query": ""
 				},
 				{
 					"id": 25,
-					"name": "更多编辑",
-					"pathName": "page/applicant/pages/center/resumeEditor/moreEdit/moreEdit",
-					"query": "id=6"
+					"name": "【B端】审核列表",
+					"pathName": "page/recruiter/pages/company/verify/verify",
+					"query": ""
 				},
 				{
 					"id": 26,
-					"name": "公司",
-					"pathName": "page/common/pages/homepage/homepage",
-					"query": "companyId=25"
-				},
-				{
-					"id": -1,
-					"name": "招聘管-我的页面",
-					"pathName": "page/recruiter/pages/user/mine/infos/infos",
-					"query": "companyId=5"
-				},
-				{
-					"id": 28,
-					"name": "公司地址列表",
-					"pathName": "page/recruiter/pages/position/address/address",
-					"query": "addressId=6"
-				},
-				{
-					"id": 29,
-					"name": "职位搜索",
-					"pathName": "page/common/pages/category/category",
-					"query": "from=company"
-				},
-				{
-					"id": -1,
-					"name": "团队亮点",
-					"pathName": "page/recruiter/pages/company/teamLabel/teamLabel",
-					"query": "from=company"
-				},
-				{
-					"id": 31,
-					"name": "公司主页编辑",
-					"pathName": "page/recruiter/pages/company/homepageEdit/homepageEdit",
-					"query": "companyId=35"
-				},
-				{
-					"id": 32,
-					"name": "ddd",
-					"pathName": "page/applicant/pages/center/workExperience/workExperience",
+					"name": "【B端】招聘官审核状态",
+					"pathName": "page/recruiter/pages/company/verifyResult/verifyResult",
 					"query": ""
-				},
-				{
-					"id": -1,
-					"name": "职位海报",
-					"pathName": "page/common/pages/poster/position/position",
-					"query": "uid=128"
-				},
-				{
-					"id": -1,
-					"name": "简历",
-					"pathName": "page/common/pages/poster/resume/resume",
-					"query": "uid=128"
-				},
-				{
-					"id": -1,
-					"name": "招聘",
-					"pathName": "page/common/pages/poster/recruiter/recruiter",
-					"query": "uid=128"
-				},
-				{
-					"id": 34,
-					"name": "招聘管-公司地址",
-					"pathName": "page/recruiter/pages/position/addressList/addressList",
-					"query": "type=position&selected=1"
-				},
-				{
-					"id": 37,
-					"name": "招聘管-选择职位",
-					"pathName": "page/recruiter/pages/position/search/search",
-					"query": "type=position&selected=1"
-				},
-				{
-					"id": -1,
-					"name": "公司招聘官",
-					"pathName": "page/recruiter/pages/company/recruiterList/recruiterList",
-					"query": "companyId=35"
-				},
-				{
-					"id": -1,
-					"name": "求职端-职位列表",
-					"pathName": "page/applicant/pages/jobs/job/job",
-					"query": "positionId=129&companyId=46"
-				},
-				{
-					"id": 40,
-					"name": "申请",
-					"pathName": "page/recruiter/pages/user/company/apply/apply",
-					"query": "companyId=41"
-				},
-				{
-					"id": -1,
-					"name": "地址",
-					"pathName": "page/recruiter/pages/position/address/address",
-					"query": ""
-				},
-				{
-					"id": 42,
-					"name": "附件上传",
-					"pathName": "page/applicant/pages/center/attachment/attachment",
-					"query": "action=edit&type=apply"
-				},
-				{
-					"id": -1,
-					"name": "我的公司",
-					"pathName": "page/recruiter/pages/company/indexEdit/indexEdit",
-					"query": "action=edit&type=apply"
-				},
-				{
-					"id": 44,
-					"name": "测",
-					"pathName": "page/applicant/pages/officerActive/more/more",
-					"query": "companyId=72"
-				},
-				{
-					"id": 45,
-					"name": "职位详情",
-					"pathName": "page/common/pages/positionDetail/positionDetail",
-					"query": "scene=positionId%3d193"
-				},
-				{
-					"id": 46,
-					"name": "招聘官动态",
-					"pathName": "page/applicant/pages/officerActive/more/more",
-					"query": "action=edit&type=apply"
-				},
-				{
-					"id": 47,
-					"name": "简历详情",
-					"pathName": "page/common/pages/resumeDetail/resumeDetail",
-					"query": "uid=237"
-				},
-				{
-					"id": -1,
-					"name": "招聘官发布地址",
-					"pathName": "page/recruiter/pages/position/address/address",
-					"query": "uid=237"
-				},
-				{
-					"id": -1,
-					"name": "招聘官-发布职位",
-					"pathName": "page/recruiter/pages/position/post/post",
-					"query": "action=edit&type=apply"
-				},
-				{
-					"id": 50,
-					"name": "招聘官列表",
-					"pathName": "page/recruiter/pages/company/recruiterList/recruiterList",
-					"query": "companyId=36",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "B端面试",
-					"pathName": "page/recruiter/pages/interview/index/index",
-					"query": "companyId=36",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "c端面试",
-					"pathName": "page/applicant/pages/interview/interview/interview",
-					"query": "companyId=36",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "c端职位广场",
-					"pathName": "page/applicant/pages/jobs/job/job",
-					"query": "companyId=36",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "测试",
-					"pathName": "page/applicant/pages/index/index",
-					"query": ""
-				},
-				{
-					"id": 55,
-					"name": "测试",
-					"pathName": "page/applicant/pages/index/index",
-					"query": ""
-				},
-				{
-					"id": 56,
-					"name": "我感兴趣",
-					"pathName": "page/applicant/pages/jobs/like/like",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": 57,
-					"name": "1111111",
-					"pathName": "page/recruiter/pages/interview/history/history",
-					"query": "companyId=844"
-				},
-				{
-					"id": -1,
-					"name": "招聘端面试",
-					"pathName": "page/recruiter/pages/interview/index/index",
-					"query": "companyId=844"
-				},
-				{
-					"id": 59,
-					"name": "b端全部面试",
-					"pathName": "page/recruiter/pages/interview/history/history",
-					"query": ""
-				},
-				{
-					"id": -1,
-					"name": "招聘官审核列表",
-					"pathName": "page/recruiter/pages/index/index",
-					"query": "action=edit&type=apply"
-				},
-				{
-					"id": 61,
-					"name": "招聘官审核列表",
-					"pathName": "page/applicant/pages/jobs/like/like",
-					"query": "action=edit&type=apply"
-				},
-				{
-					"id": -1,
-					"name": "权益",
-					"pathName": "page/recruiter/pages/company/interest/interest",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": 63,
-					"name": "招聘官选择职位",
-					"pathName": "page/recruiter/pages/position/jobList/jobList",
-					"query": "type=recruiter_chat&from=resumeDetail&jobhunterUid=249&recruiterUid=662"
 				}
 			]
 		}

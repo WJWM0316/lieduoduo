@@ -249,21 +249,29 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    console.log(shareInterviewr, 1111111111)
-    let positionData = wx.getStorageSync('interviewData')
-    let addressData = wx.getStorageSync('createPosition')
-    let info = this.data.info
-    if (positionData) {
-      info.positionName = positionData.positionName
-      info.positionId = positionData.positionId
+    let init = () => {
+      let positionData = wx.getStorageSync('interviewData')
+      let addressData = wx.getStorageSync('createPosition')
+      let info = this.data.info
+      if (positionData) {
+        info.positionName = positionData.positionName
+        info.positionId = positionData.positionId
+      }
+      if (addressData) {
+        info.address = addressData.address
+        info.addressId = addressData.address_id
+      }
+      this.setData({info})
+      if (!this.data.revised) {
+        this.pageInit()
+      }
     }
-    if (addressData) {
-      info.address = addressData.address
-      info.addressId = addressData.address_id
-    }
-    this.setData({info})
-    if (!this.data.revised) {
-      this.pageInit()
+    if (app.loginInit) {
+      init()
+    } else {
+      app.loginInit = () => {
+        init()
+      }
     }
   },
 
@@ -310,7 +318,7 @@ Page({
       options,
       title: shareInterviewr,
       noImg: true,
-      path: `${COMMON}arrangement/arrangement?${this.options.id}`
+      path: `${COMMON}arrangement/arrangement?id=${this.options.id}`
     })
   }
 })

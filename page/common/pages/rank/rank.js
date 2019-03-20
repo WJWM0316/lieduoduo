@@ -56,7 +56,7 @@ Page({
     cate_id: '',
     fixedHeight: ''
   },
-  onLoad() {
+  onLoad(options) {
     this.getFixedBoxHeight()
     identity = app.identification(options)
     if (app.loginInit) {
@@ -65,7 +65,7 @@ Page({
       app.loginInit = () => {
         this.getLists().then(() => this.getSubmenuLists())
       }
-    } 
+    }
   },
   /**
    * @Author   小书包
@@ -199,12 +199,16 @@ Page({
    */
   getRankCity(hasLoading = true) {
     return new Promise((resolve, reject) => {
-      const params = {count: this.data.pageCount, page: this.data.rankCity.pageNum, area_id: this.data.area_id}
+      const params = {count: this.data.pageCount, page: this.data.rankCity.pageNum, area_id: this.data.area_id, ...app.getSource()}
       getCityRankApi(params, hasLoading).then(res => {
         const rankCity = this.data.rankCity
         const onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
         let secondtItem = {}
-        rankCity.list = rankCity.list.concat(res.data)
+        if (identity !== 'RECRUITER') {
+          rankCity.list = rankCity.list.concat(res.data)
+        } else {
+          rankCity.list = rankCity.list.concat(res.data.data)
+        }
         rankCity.isLastPage = res.meta && res.meta.nextPageUrl ? false : true
         rankCity.pageNum = rankCity.pageNum + 1
         rankCity.isRequire = true
@@ -227,12 +231,16 @@ Page({
    */
   getRankCate(hasLoading = true) {
     return new Promise((resolve, reject) => {
-      const params = {count: this.data.pageCount, page: this.data.rankCate.pageNum, cate_id: this.data.cate_id}
+      const params = {count: this.data.pageCount, page: this.data.rankCate.pageNum, cate_id: this.data.cate_id, ...app.getSource()}
       getOfficeRankApi(params, hasLoading).then(res => {
         const rankCate = this.data.rankCate
         const onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
         let secondtItem = {}
-        rankCate.list = rankCate.list.concat(res.data)
+        if (identity !== 'RECRUITER') {
+          rankCate.list = rankCate.list.concat(res.data)
+        } else {
+          rankCate.list = rankCate.list.concat(res.data.data)
+        }
         rankCate.isLastPage = res.meta && res.meta.nextPageUrl ? false : true
         rankCate.pageNum = rankCate.pageNum + 1
         rankCate.isRequire = true
@@ -260,7 +268,11 @@ Page({
         const rankAll = this.data.rankAll
         const onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
         let secondtItem = {}
-        rankAll.list = rankAll.list.concat(res.data)
+        if (identity !== 'RECRUITER') {
+          rankAll.list = rankAll.list.concat(res.data)
+        } else {
+          rankAll.list = rankAll.list.concat(res.data.data)
+        }
         rankAll.isLastPage = res.meta && res.meta.nextPageUrl ? false : true
         rankAll.pageNum = rankAll.pageNum + 1
         rankAll.isRequire = true
@@ -289,18 +301,23 @@ Page({
       let secondtItem = {}
       let value = {list: [], pageNum: 1, isLastPage: false, isRequire: false}
       let onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
-      value.list = res.data
+      if (identity !== 'RECRUITER') {
+        value.list = res.data
+      } else {
+        value.list = res.data.data
+      }
       value.isLastPage = res.meta && res.meta.nextPageUrl ? false : true
       value.pageNum = 2
       value.isRequire = true
       if(value.list.length > 1) {
         secondtItem = value.list[1]
       }
-      if(value.list[0].influence > secondtItem.influence && value.list.length > 1) {
+      if((value.list[0].influence > secondtItem.influence) && value.list.length > 1) {
         value.list = value.list.filter(field => field.uid !== secondtItem.uid)
         value.list.unshift(secondtItem)
       }
-      this.setData({[key]: value, onBottomStatus, hasReFresh: false, commonList: value}, () => wx.stopPullDownRefresh())
+      this.setData({hasReFresh: false, [key]: value, onBottomStatus, commonList: value})
+      wx.stopPullDownRefresh()
     }).catch(e => {
       wx.stopPullDownRefresh()
     })
@@ -323,7 +340,7 @@ Page({
 　　return app.wxShare({
       options,
       title: shareRanking,
-      path: `${APPLICANT}officerActive/more/more`,
+      path: `${COMMON}rank/rank`,
       imageUrl: `${this.data.cdnImagePath}ranking.png`
     })
   }
