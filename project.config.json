@@ -15,7 +15,7 @@
 	},
 	"compileType": "miniprogram",
 	"libVersion": "2.5.2",
-	"appid": "wx225f017495e6e195",
+	"appid": "wxde5ab3ef647fba86",
 	"projectname": "lieduoduo%20%E6%B5%8B%E8%AF%95",
 	"debugOptions": {
 		"hidedInDevtools": []
@@ -38,7 +38,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 3,
+			"current": 2,
 			"list": [
 				{
 					"id": 0,
@@ -56,7 +56,7 @@
 					"id": 2,
 					"name": "【公包】招聘官主页",
 					"pathName": "page/common/pages/recruiterDetail/recruiterDetail",
-					"query": ""
+					"query": "scene=uid%3D20%26sCode%3Dvhegcl9l"
 				},
 				{
 					"id": 3,
