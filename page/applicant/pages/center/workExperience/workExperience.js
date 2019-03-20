@@ -62,6 +62,9 @@ Page({
       case 'companyName':
         info.companyName = e.detail.value
         break
+      case 'position':
+        info.position = e.detail.value
+        break
     }
     this.setData({info})
   },
@@ -78,13 +81,38 @@ Page({
   },
   submit() {
     let info = this.data.info
+    let title = ''
+    
     let data = {
       company: info.companyName,
       positionType: info.positionType.typeName,
       positionTypeId: info.positionType.type,
-      duty: info.duty,
+      position: info.position,
       startTime: info.starTime,
-      endTime: info.endTime
+      endTime: info.endTime,
+      duty: info.duty,
+      apiVersion: 1
+    }
+    if (!info.companyName || info.companyName.length < 2) {
+      title = '最近工作公司不能少于2个字'
+    } else  if (info.companyName.length > 50) {
+      title = '最近工作公司最多输入50字'
+    } else if (!info.positionType.type) {
+      title = '请选择职位类别'
+    } else if (!info.position || info.position.length < 2) {
+      title = '最近工作职位不能少于2个字'
+    } else  if (info.position.length > 50) {
+      title = '最近工作职位最多输入50字'
+    } else if (!info.starTime) {
+      title = '请选择开始时间'
+    } else if (!info.endTime && info.endTime !== 0) {
+      title = '请选择结束时间'
+    } else if (!info.duty) {
+      title = '请输入工作内容'
+    }
+    if (title) {
+      app.wxToast({'title': title})
+      return
     }
     postSecondStepApi(data).then(res => {
       wx.setStorageSync('createUserSecond', info)

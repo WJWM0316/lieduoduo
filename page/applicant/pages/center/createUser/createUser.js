@@ -22,9 +22,6 @@ Page({
       case 'name':
         this.setData({name: e.detail.value})
         break
-      case 'position':
-        this.setData({position: e.detail.value})
-        break
     }
   },
   submit () {

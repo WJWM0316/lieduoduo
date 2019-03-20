@@ -14,6 +14,7 @@ App({
   onLaunch: function (e) {
     // 获取导航栏高度
     this.checkUpdateVersion()
+    this.globalData.scenePath = e.path
     wx.getSystemInfo({
       success: res => {
         //导航高度
@@ -33,6 +34,7 @@ App({
     this.login()
   },
   globalData: {
+    scenePath: '',
     identity: "", // 身份标识
     isRecruiter: false, // 是否认证成为招聘官
     isJobhunter: false, // 是否注册成求职者
@@ -56,7 +58,7 @@ App({
       success: function (res0) {
         if (!wx.getStorageSync('choseType')) wx.setStorageSync('choseType', 'APPLICANT')
         wx.setStorageSync('code', res0.code)
-        loginApi({code: res0.code, ...that.getSource()}).then(res => {
+        loginApi({code: res0.code}).then(res => {
           // 有token说明已经绑定过用户了
           if (res.data.token) {
             wx.setStorageSync('token', res.data.token)
@@ -151,8 +153,7 @@ App({
           wx.setStorageSync('code', res0.code)
           wx.getSetting({
             success: res => {
-              var pages = getCurrentPages() //获取加载的页面
-              let pageUrl = `/${pages[0].route}`
+              let pageUrl = `/${that.globalData.scenePath}`
               if (res.authSetting['scope.userInfo']) {
                 // 已经授权，可以直接调用 getUserInfo 获取头像昵称，不会弹框
                 checkSessionKeyApi({session_token: wx.getStorageSync('sessionToken')}).then(res0 => {
@@ -176,7 +177,8 @@ App({
                     }
                   })
                 }).catch(e => {
-                  if (pageUrl !== `${APPLICANT}index/index`) {
+                  wx.removeStorageSync('sessionToken')
+                  if (pageUrl !== `${COMMON}startPage/startPage`) {
                     wx.navigateTo({
                       url: `${COMMON}auth/auth`
                     })
@@ -205,7 +207,8 @@ App({
         let loginNum = 0
         let data = {
           iv_key: e.detail.iv,
-          data: e.detail.encryptedData
+          data: e.detail.encryptedData,
+          ...that.getSource()
         }
         that.globalData.userInfo = e.detail.userInfo
         let wxLogin = function () {
@@ -574,11 +577,16 @@ App({
     let params = {}
     let launch = wx.getLaunchOptionsSync()
     let curPath = getCurrentPages()[getCurrentPages().length - 1]
-
     if (launch.path === 'page/common/pages/startPage/startPage' && launch.path === curPath.route) { // 自然搜索使用
       params.sourceType = 'sch'
       params.sourcePath = launch.path
     } else {
+      if (curPath.options.scene) {
+        curPath.options = this.getSceneParams(curPath.options.scene)
+        if (curPath.options.s) {
+          curPath.options.sourceType = curPath.options.s
+        }
+      }
       if (curPath.options.sourceType) { // 链接带特殊参数
         params.sourceType = curPath.options.sourceType
         params.sourcePath = curPath.route

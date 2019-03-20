@@ -13,8 +13,8 @@
   <view class="positionType commont" bindtap="jumpType">
     <input name="positionType" placeholder-class="holderStyle" placeholder="选择职位类型" value="{{info.positionType.typeName || ''}}" disabled />
   </view>
-  <view class="name">
-    <input name="position" placeholder-class="holderStyle" maxlength="20" bindinput="getValue" data-type="position" value="{{position}}" placeholder="请填写当前职位名称" />
+  <view class="name commont">
+    <input name="position" placeholder-class="holderStyle" maxlength="20" bindinput="getValue" data-type="position" value="{{info.position}}" placeholder="请填写当前职位名称" />
   </view>
   <view class="timeBox">
     <view class="startTime">
