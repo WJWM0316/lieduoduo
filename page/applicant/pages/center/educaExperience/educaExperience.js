@@ -3,6 +3,7 @@ import { postThirdStepApi } from '../../../../../api/pages/center'
 let degree = null,
     starTime = null,
     endTime = null,
+    query = {},
     app = getApp()
 Page({
 
@@ -18,7 +19,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    query = options
   },
 
   /**
@@ -94,8 +95,14 @@ Page({
           title: '创建成功',
           icon: 'success',
           callback() {
+            let path = ''
+            if (query.directChat) {
+              path = `${decodeURIComponent(query.directChat)}&directChat=true`
+            } else {
+              path = '/page/applicant/pages/center/mine/mine'
+            }
             wx.reLaunch({
-              url: '/page/applicant/pages/center/mine/mine'
+              url: path
             })
           }
         })

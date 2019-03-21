@@ -2,6 +2,7 @@
 import { postSecondStepApi, postfirstStepApi } from '../../../../../api/pages/center'
 import {APPLICANT,COMMON} from '../../../../../config.js'
 let app = getApp()
+let query = {}
 Page({
   /**
    * 页面的初始数据
@@ -22,7 +23,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    query = options
   },
 
   /**
@@ -100,9 +101,9 @@ Page({
     } else if (!info.positionType.type) {
       title = '请选择职位类别'
     } else if (!info.position || info.position.length < 2) {
-      title = '最近工作职位不能少于2个字'
+      title = '职位名称不能少于2个字'
     } else  if (info.position.length > 50) {
-      title = '最近工作职位最多输入50字'
+      title = '职位名称最多输入50字'
     } else if (!info.starTime) {
       title = '请选择开始时间'
     } else if (!info.endTime && info.endTime !== 0) {
@@ -116,8 +117,14 @@ Page({
     }
     postSecondStepApi(data).then(res => {
       wx.setStorageSync('createUserSecond', info)
+      let path = ''
+      if (query.directChat) {
+        path = `${APPLICANT}center/educaExperience/educaExperience?directChat=${query.directChat}`
+      } else {
+        path = `${APPLICANT}center/educaExperience/educaExperience`
+      }
       wx.navigateTo({
-        url: `${APPLICANT}center/educaExperience/educaExperience`
+        url: path
       })
     })
   }

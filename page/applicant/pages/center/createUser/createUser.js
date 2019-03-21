@@ -2,8 +2,10 @@
 import { postfirstStepApi } from '../../../../../api/pages/center'
 import {userNameReg, positionReg} from '../../../../../utils/fieldRegular.js'
 let app = getApp()
+let query = {}
 Page({
   data: {
+    showPop: false,
     cdnImagePath: app.globalData.cdnImagePath,
     name: '',
     navHeight: app.globalData.navHeight,
@@ -57,15 +59,15 @@ Page({
         workTimeDesr: info.workTimeDesr
       }
       wx.setStorageSync('createUserFirst', createUser)
-      if (info.workTimeDesr === '在校生') {
-        wx.navigateTo({ // 是学生，直接跳转完善简历第三步
-          url: '/page/applicant/pages/center/educaExperience/educaExperience'
-        })
+      let path = ''
+      if (query.directChat) {
+        path = `/page/applicant/pages/center/workExperience/workExperience?directChat=${query.directChat}`
       } else {
-        wx.navigateTo({ // 完善简历第二步
-          url: '/page/applicant/pages/center/workExperience/workExperience'
-        })
+        path = `/page/applicant/pages/center/workExperience/workExperience`
       }
+      wx.navigateTo({
+        url: path
+      })
     })
   },
   chooseGender (e) {
@@ -73,7 +75,11 @@ Page({
       gender: e.target.dataset.gender
     })
   },
-  onLoad() {
+  backEvent () {
+    this.setData({showPop: true})
+  },
+  onLoad(options) {
+    query = options
     wx.setStorageSync('choseType', 'APPLICANT')
   },
   onShow() {

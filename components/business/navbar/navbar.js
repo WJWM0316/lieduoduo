@@ -50,7 +50,8 @@ Component({
       positionStatus = 'relative'
     }
     identity = wx.getStorageSync('choseType')
-    if (getCurrentPages().length > 1) {
+    let route = getCurrentPages()
+    if (route.length > 1) {
       this.setData({showBackBtn: true, positionStatus})
     } else {
       this.setData({positionStatus})

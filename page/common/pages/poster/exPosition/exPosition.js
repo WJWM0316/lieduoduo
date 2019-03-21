@@ -169,7 +169,6 @@ Page({
   onLoad: function (options) {
     info = wx.getStorageSync('posterData')
     let that = this
-    
     const loadResult = (res, resolve) => {
       let timer = null
       timer = setTimeout(() => {
@@ -202,7 +201,7 @@ Page({
     })
     let loadQrCode = new Promise((resolve, reject) => {
       // 二维码
-      getPositionQrcodeApi({positionId: info.id}).then(res => {
+      getPositionQrcodeApi({positionId: info.id, channel: 'qrpe'}).then(res => {
         // 二维码
         wx.downloadFile({
           url: res.data.positionQrCodeUrl,

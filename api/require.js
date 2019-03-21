@@ -77,6 +77,7 @@ export const request = ({method = 'post', url, host, data = {}, needKey = true, 
           loadNum = 0
         }
         console.log(url, res.data)
+        console.log(addHttpHead)
         if (typeof res.data === 'string') { // 转换返回json
           res.data = JSON.parse(res.data)
         }

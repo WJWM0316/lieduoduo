@@ -52,11 +52,6 @@ Page({
   onLoad() {
     let choseType = wx.getStorageSync('choseType') || ''
     this.setData({choseType})
-    if (!choseType) {
-      wx.hideTabBar()
-    } else {
-      wx.showTabBar()
-    }
     if (choseType === 'APPLICANT') {
       app.wxConfirm({
         title: '提示',

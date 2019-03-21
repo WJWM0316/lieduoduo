@@ -266,7 +266,7 @@ Page({
 　　return app.wxShare({
       options,
       title: shareRecruiter(),
-      path: `${COMMON}recruiterDetail/recruiterDetail?uid=${this.data.options.uid}&sCode=${this.data.info.sCode}`,
+      path: `${COMMON}recruiterDetail/recruiterDetail?uid=${this.data.options.uid}&sCode=${this.data.info.sCode}&sourceType=shr`,
       imageUrl: recruiterCard
     })
   },

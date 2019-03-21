@@ -62,12 +62,6 @@ Page({
         }
       })
     }
-    if (!choseType) {
-      wx.hideTabBar()
-      wx.setStorageSync('choseType', 'APPLICANT')
-    } else {
-      wx.showTabBar()
-    }
     this.clearListsData()
     if (app.loginInit) {
       this.getLists().then(() => this.getDomNodePosition())
