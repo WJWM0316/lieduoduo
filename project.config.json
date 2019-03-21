@@ -50,7 +50,7 @@
 					"id": 1,
 					"name": "【公包】职位详情",
 					"pathName": "page/common/pages/positionDetail/positionDetail",
-					"query": "positionId=309&sourceType=shp"
+					"query": "scene=pid%3D3506%26sCode%3D222"
 				},
 				{
 					"id": 2,

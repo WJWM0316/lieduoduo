@@ -61,9 +61,17 @@ Page({
       wx.setStorageSync('createUserFirst', createUser)
       let path = ''
       if (query.directChat) {
-        path = `/page/applicant/pages/center/workExperience/workExperience?directChat=${query.directChat}`
+        if (info.workTimeDesr === '在校生') {
+          path =  `/page/applicant/pages/center/educaExperience/educaExperience?directChat=${query.directChat}`
+        } else {
+          path = `/page/applicant/pages/center/workExperience/workExperience?directChat=${query.directChat}`
+        }
       } else {
-        path = `/page/applicant/pages/center/workExperience/workExperience`
+        if (info.workTimeDesr === '在校生') {
+          path =  `/page/applicant/pages/center/educaExperience/educaExperience`
+        } else {
+          path = `/page/applicant/pages/center/workExperience/workExperience`
+        }
       }
       wx.navigateTo({
         url: path
@@ -84,14 +92,18 @@ Page({
   },
   onShow() {
     let avatar = wx.getStorageSync('avatar')
+    let gender = '1'
+    let createUser = wx.getStorageSync('createUserFirst')
     if (!avatar) {
       avatar = app.globalData.userInfo.avatarInfo
-    }
-    let createUser = wx.getStorageSync('createUserFirst')
-    if (avatar && createUser) {
-      this.setData({avatar, name: createUser.name, gender: createUser.gender, workTimeDesr: createUser.workTimeDesr, startWorkYear: createUser.startWorkYear})
-    } else if (avatar) {
       this.setData({avatar})
+    }
+    if (!createUser) {
+      gender = app.globalData.userInfo.avatarInfo.gender
+      this.setData({avatar})
+    }
+    if (createUser) {
+      this.setData({name: createUser.name, gender: createUser.gender, workTimeDesr: createUser.workTimeDesr, startWorkYear: createUser.startWorkYear})
     }
   }
 })

@@ -73,12 +73,13 @@ App({
             console.log('用户已认证')
           } else {
             console.log('用户未绑定手机号', 'sessionToken', res.data.sessionToken)
-            // 登陆回调
-            if (that.loginInit) {
-              that.loginInit()
-            }
-            that.loginInit = function () {}
-            that.checkLogin()
+            that.checkLogin().then(() => {
+              // 登陆回调
+              if (that.loginInit) {
+                that.loginInit()
+              }
+              that.loginInit = function () {}
+            })
             wx.setStorageSync('sessionToken', res.data.sessionToken)
           }
         })
@@ -112,7 +113,8 @@ App({
           }
           this.pageInit = function () {}
           resolve(res0.data)
-        }).catch(() => {
+        }).catch((e) => {
+          reject(e)
           if (this.pageInit) { // 页面初始化
             this.pageInit() //执行定义的回调函数
           }
@@ -127,7 +129,8 @@ App({
           }
           this.pageInit = function () {}
           resolve(res0.data)
-        }).catch(() => {
+        }).catch((e) => {
+          reject(e)
           if (this.pageInit) { // 页面初始化
             this.pageInit() //执行定义的回调函数
           }
@@ -178,7 +181,6 @@ App({
                     success: res => {
                       // 可以将 res 发送给后台解码出 unionId
                       that.globalData.userInfo = res.userInfo
-                      that.globalData.hasLogin = true
                       // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
                       // 所以此处加入 callback 以防止这种情况
                       if (that.userInfoReadyCallback) {
@@ -496,7 +498,7 @@ App({
     }
   },
   // 提示切换身份
-  promptSwitch({source, jumpPath, confirmBack, cancelBack}) {
+  promptSwitch({source, jumpPath, confirmBack, cancelBack, directId, directChat}) {
     let path = this.getCurrentPagePath()
     let content = ''
     if (source === 'RECRUITER') {
@@ -638,10 +640,21 @@ App({
     let pageUrl = pages[pages.length - 1].route
     let params = ''
     for (let i in pages[pages.length - 1].options) {
-      params = `${params}${i}=${pages[0].options[i]}&`
+      switch (i) {
+        case 'pid':
+          params = `${params}positionId=${pages[0].options[i]}&`
+          break
+        case 's':
+          params = `${params}sourceType=${pages[0].options[i]}&`
+          break
+        default:
+          params = `${params}${i}=${pages[0].options[i]}&`
+          break
+      } 
     }
     params = params.slice(0, params.length-1)
     let path = `/${pageUrl}?${params}`
+    console.log(path, 55555555555555555)
     return path
   }
 })
