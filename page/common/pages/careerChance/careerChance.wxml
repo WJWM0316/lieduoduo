@@ -5,30 +5,32 @@
     <refreshStatus></refreshStatus>
   </view>
   
-  <!--<view class="header">
-    <view class="left">
-      <view class="chooseArea">选择地区<i class="icon iconfont icon-zhishibiao"></i></view>
-      <view class="chooseArea">职位类型<i class="icon iconfont icon-zhishibiao"></i></view>
-    </view>
-    <view class="interested"><i class="icon iconfont icon-ganxingqu"></i>感兴趣</view>
-  </view>-->
 
   <view class="select-box" style="top: {{navH}}px">
-    <view class="item">
-      <picker range="{{cityList}}" range-key="name" bindchange="bindChange" data-type="city" value="{{cityIndex}}">
-        <view class="picker">{{cityList[cityIndex].name}}</view>
-        <i class="icon iconfont icon-zhishibiao"></i>
-      </picker>
+    <view class="select-tab">
+      <view class="item"><text class="txt">选择地区</text><i class="icon iconfont icon-zhishibiao"></i></view>
+      <view class="item"><text class="txt">选择类型</text><i class="icon iconfont icon-zhishibiao"></i></view>
+      <view class="item"><text class="txt">薪资范围</text><i class="icon iconfont icon-zhishibiao"></i></view>
     </view>
-    <view class="item">
-      <picker range="{{positionTypeList}}" range-key="name" bindchange="bindChange" data-type="type" value="{{typeIndex}}">
-        <view class="picker">{{positionTypeList[typeIndex].name}}</view>
-        <i class="icon iconfont icon-zhishibiao"></i>
-      </picker>
+    <view class="select-area" style="top: {{navH + 49}}px">
+      <block>
+        <text class="select-area-item" wx:for="{{cityList}}" wx:key="{{index}}">{{item.name}}</text>
+      </block>
     </view>
   </view>
 
-  <view class="list-box" style="padding-top: 112rpx">
+  
+      <!-- <picker range="{{cityList}}" range-key="name" bindchange="bindChange" data-type="city" value="{{cityIndex}}">
+        <view class="picker">{{cityList[cityIndex].name}}</view>
+        <i class="icon iconfont icon-zhishibiao"></i>
+      </picker>
+
+      <picker range="{{positionTypeList}}" range-key="name" bindchange="bindChange" data-type="type" value="{{typeIndex}}">
+        <view class="picker">{{positionTypeList[typeIndex].name}}</view>
+        <i class="icon iconfont icon-zhishibiao"></i>
+      </picker> -->
+
+  <view class="list-box" style="padding-top: 118rpx">
     <jobList personality="jobItem" list="{{positionList.list}}" list-type="interview" current-tab="all"></jobList>
     <bottomStatus status="{{onBottomStatus}}" listData="{{positionList.list}}"></bottomStatus>
   </view>

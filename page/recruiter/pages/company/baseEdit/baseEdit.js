@@ -38,6 +38,9 @@ Page({
     }
     this.setData({info})
   },
+  disabled() {
+    app.wxToast({title: '已认证不可修改'})
+  },
   saveInfo() {
     let info = this.data.info
     let data = {

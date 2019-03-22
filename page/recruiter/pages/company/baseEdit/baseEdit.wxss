@@ -20,6 +20,9 @@
 	position: relative;
 	overflow: hidden;
 }
+.head .msg .item.disabled {
+	padding: 47rpx 0 47rpx 22rpx;
+}
 .head .msg .item.companyLogo {
 	padding: 32rpx 30rpx 32rpx 22rpx;
 }
