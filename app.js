@@ -14,6 +14,7 @@ App({
   onLaunch: function (e) {
     // 获取导航栏高度
     this.checkUpdateVersion()
+    this.globalData.startRoute = e
     wx.getSystemInfo({
       success: res => {
         //导航高度
@@ -33,6 +34,7 @@ App({
     this.login()
   },
   globalData: {
+    startRoute: '',
     identity: "", // 身份标识
     isRecruiter: false, // 是否认证成为招聘官
     isJobhunter: false, // 是否注册成求职者
@@ -56,7 +58,7 @@ App({
       success: function (res0) {
         if (!wx.getStorageSync('choseType')) wx.setStorageSync('choseType', 'APPLICANT')
         wx.setStorageSync('code', res0.code)
-        loginApi({code: res0.code, ...that.getSource()}).then(res => {
+        loginApi({code: res0.code}).then(res => {
           // 有token说明已经绑定过用户了
           if (res.data.token) {
             wx.setStorageSync('token', res.data.token)
@@ -71,12 +73,13 @@ App({
             console.log('用户已认证')
           } else {
             console.log('用户未绑定手机号', 'sessionToken', res.data.sessionToken)
-            // 登陆回调
-            if (that.loginInit) {
-              that.loginInit()
-            }
-            that.loginInit = function () {}
-            that.checkLogin()
+            that.checkLogin().then(() => {
+              // 登陆回调
+              if (that.loginInit) {
+                that.loginInit()
+              }
+              that.loginInit = function () {}
+            })
             wx.setStorageSync('sessionToken', res.data.sessionToken)
           }
         })
@@ -108,7 +111,14 @@ App({
           if (this.pageInit) { // 页面初始化
             this.pageInit() //执行定义的回调函数
           }
+          this.pageInit = function () {}
           resolve(res0.data)
+        }).catch((e) => {
+          reject(e)
+          if (this.pageInit) { // 页面初始化
+            this.pageInit() //执行定义的回调函数
+          }
+          this.pageInit = function () {}
         })
       } else {
         getPersonalResumeApi().then(res0 => {
@@ -117,7 +127,14 @@ App({
           if (this.pageInit) { // 页面初始化
             this.pageInit() //执行定义的回调函数
           }
+          this.pageInit = function () {}
           resolve(res0.data)
+        }).catch((e) => {
+          reject(e)
+          if (this.pageInit) { // 页面初始化
+            this.pageInit() //执行定义的回调函数
+          }
+          this.pageInit = function () {}
         })
       }
     })
@@ -131,6 +148,11 @@ App({
       if (res0.data.isJobhunter) {
         this.globalData.isJobhunter = true
       }
+      if (this.getRoleInit) { // 登陆初始化
+        this.getRoleInit() //执行定义的回调函数
+      }
+      this.getRoleInit = function () {}
+    }).catch(() => {
       if (this.getRoleInit) { // 登陆初始化
         this.getRoleInit() //执行定义的回调函数
       }
@@ -151,8 +173,7 @@ App({
           wx.setStorageSync('code', res0.code)
           wx.getSetting({
             success: res => {
-              var pages = getCurrentPages() //获取加载的页面
-              let pageUrl = `/${pages[0].route}`
+              let pageUrl = `/${that.globalData.startRoute.path}`
               if (res.authSetting['scope.userInfo']) {
                 // 已经授权，可以直接调用 getUserInfo 获取头像昵称，不会弹框
                 checkSessionKeyApi({session_token: wx.getStorageSync('sessionToken')}).then(res0 => {
@@ -160,7 +181,6 @@ App({
                     success: res => {
                       // 可以将 res 发送给后台解码出 unionId
                       that.globalData.userInfo = res.userInfo
-                      that.globalData.hasLogin = true
                       // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
                       // 所以此处加入 callback 以防止这种情况
                       if (that.userInfoReadyCallback) {
@@ -176,7 +196,8 @@ App({
                     }
                   })
                 }).catch(e => {
-                  if (pageUrl !== `${APPLICANT}index/index`) {
+                  wx.removeStorageSync('sessionToken')
+                  if (pageUrl !== `${COMMON}startPage/startPage`) {
                     wx.navigateTo({
                       url: `${COMMON}auth/auth`
                     })
@@ -205,7 +226,8 @@ App({
         let loginNum = 0
         let data = {
           iv_key: e.detail.iv,
-          data: e.detail.encryptedData
+          data: e.detail.encryptedData,
+          ...that.getSource()
         }
         that.globalData.userInfo = e.detail.userInfo
         let wxLogin = function () {
@@ -393,7 +415,6 @@ App({
     if (noImg) {
       imageUrl = ''
     }
-    path && path.indexOf('?') !== -1 ? path = `${path}&sourceType=sh` : path = `${path}?sourceType=sh`
     let shareObj = {
       title: title,        // 默认是小程序的名称(可以写slogan等)
       path: path,        // 默认是当前页面，必须是以‘/’开头的完整路径
@@ -415,9 +436,6 @@ App({
     // 来自页面内的按钮的转发
     if (options.from == 'button') {
       var eData = options.target.dataset
-      if (btnPath) {
-        btnPath.indexOf('?') !== -1 ? btnPath = `${btnPath}&sourceType=sh` : btnPath = `${btnPath}?sourceType=sh`
-      }
       shareObj = {
         title: btnTitle || shareObj.title,
         path: btnPath || shareObj.path,
@@ -480,14 +498,8 @@ App({
     }
   },
   // 提示切换身份
-  promptSwitch({source, jumpPath, confirmBack, cancelBack}) {
-    var pages = getCurrentPages() //获取加载的页面
-    let pageUrl = pages[pages.length - 1].route
-    let params = ''
-    for (let i in pages[pages.length - 1].options) {
-      params = `${params}${i}=${pages[0].options[i]}&`
-    }
-    let path = `/${pageUrl}?${params}`
+  promptSwitch({source, jumpPath, confirmBack, cancelBack, directId, directChat}) {
+    let path = this.getCurrentPagePath()
     let content = ''
     if (source === 'RECRUITER') {
       jumpPath ? content = '检测到你是面试官，是否切换面试官' : content = '切换为求职者身份后可使用该功能'
@@ -505,7 +517,7 @@ App({
               wx.reLaunch({url: path})
             }).catch(e => {
               wx.navigateTo({
-                url: `${APPLICANT}center/createUser/createUser`
+                url: `${APPLICANT}center/createUser/createUser?directChat=${encodeURIComponent(path)}`
               })
             })
           }
@@ -572,14 +584,20 @@ App({
   // 判断来源记录
   getSource () {
     let params = {}
-    let launch = wx.getLaunchOptionsSync()
-    let curPath = getCurrentPages()[getCurrentPages().length - 1]
-
+    let launch = this.globalData.startRoute
+    let route = getCurrentPages()
+    let curPath = route[route.length - 1]
     if (launch.path === 'page/common/pages/startPage/startPage' && launch.path === curPath.route) { // 自然搜索使用
       params.sourceType = 'sch'
       params.sourcePath = launch.path
     } else {
-      if (curPath.options.sourceType) { // 链接带特殊参数
+      if (curPath.options && curPath.options.scene) {
+        curPath.options = this.getSceneParams(curPath.options.scene)
+        if (curPath.options.s) {
+          curPath.options.sourceType = curPath.options.s
+        }
+      }
+      if (curPath.options && curPath.options.sourceType) { // 链接带特殊参数
         params.sourceType = curPath.options.sourceType
         params.sourcePath = curPath.route
       }
@@ -612,11 +630,30 @@ App({
     } else {
       wx.previewImage({
         current: e.currentTarget.dataset.file.url, // 当前显示图片的http链接
-        urls: [e.currentTarget.dataset.file.url], // 需要预览的图片http链接列表
-        complete() {
-          resolve(e.currentTarget.dataset.file.url)
-        }
+        urls: [e.currentTarget.dataset.file.url] // 需要预览的图片http链接列表
       })
     }
+  },
+  // 获取当前页面完整链接
+  getCurrentPagePath () {
+    var pages = getCurrentPages() //获取加载的页面
+    let pageUrl = pages[pages.length - 1].route
+    let params = ''
+    for (let i in pages[pages.length - 1].options) {
+      switch (i) {
+        case 'pid':
+          params = `${params}positionId=${pages[0].options[i]}&`
+          break
+        case 's':
+          params = `${params}sourceType=${pages[0].options[i]}&`
+          break
+        default:
+          params = `${params}${i}=${pages[0].options[i]}&`
+          break
+      } 
+    }
+    params = params.slice(0, params.length-1)
+    let path = `/${pageUrl}?${params}`
+    return path
   }
 })

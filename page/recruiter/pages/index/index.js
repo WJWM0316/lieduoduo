@@ -62,13 +62,11 @@ Page({
         title: '提示',
         content: '检测到你是求职者，是否切换求职者',
         confirmBack() {
-          app.globalData.identity = 'APPLICANT'
           wx.reLaunch({
             url: `${APPLICANT}index/index`
           })
         },
         cancelBack() {
-          app.globalData.identity = 'RECRUITER'
           wx.setStorageSync('choseType', 'RECRUITER')
           app.getAllInfo()
         }

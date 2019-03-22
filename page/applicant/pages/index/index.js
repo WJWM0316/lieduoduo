@@ -48,13 +48,11 @@ Page({
         title: '提示',
         content: '检测到你是面试官，是否切换面试官',
         confirmBack() {
-          app.globalData.identity = 'RECRUITER'
           wx.reLaunch({
             url: `${RECRUITER}index/index`
           })
         },
         cancelBack: () => {
-          app.globalData.identity = 'APPLICANT'
           wx.setStorageSync('choseType', 'APPLICANT')
           app.getAllInfo()
           this.clearListsData()

@@ -1,6 +1,6 @@
 // components/functional/unloadFile/unloadFile.js
 import {unloadApi} from '../../../api/pages/common.js'
-import {APPLICANTHOST, RECRUITERHOST} from '../../../config.js'
+import {APPLICANTHOST, RECRUITERHOST, COMMON} from '../../../config.js'
 let fileNum = 0 // 选择文件的数量
 let result = [] // 返回父组件的结果
 Component({
@@ -68,7 +68,7 @@ Component({
 
       this.triggerEvent('beforeUpload')
 
-      if (getApp().globalData.identity === 'APPLICAN') {
+      if (wx.getStorageSync('choseType') === 'APPLICAN') {
         BASEHOST = APPLICANTHOST
       } else {
         BASEHOST = RECRUITERHOST
@@ -89,10 +89,28 @@ Component({
             // result = JSON.parse(res.data)
             result.push(JSON.parse(res.data).data[0])
           } else {
-            console.log(res, "上传失败")
-            this.triggerEvent('failUpload')
-            getApp().wxToast({title: JSON.parse(res.data).msg})
-            return;
+            if (res.statusCode === 401) {
+              // 需要用到token， 需要绑定手机号
+              if (JSON.parse(res.data).code === 4010) {
+                wx.removeStorageSync('token')
+                wx.navigateTo({
+                  url: `${COMMON}bindPhone/bindPhone`
+                })
+              }
+              // 需要用到微信token， 需要授权
+              if (JSON.parse(res.data).code === 0) {
+                wx.removeStorageSync('sessionToken')
+                wx.removeStorageSync('token')
+                wx.navigateTo({
+                  url: `${COMMON}auth/auth`
+                })
+              }
+            } else {
+              console.log(res, "上传失败")
+              this.triggerEvent('failUpload')
+              getApp().wxToast({title: JSON.parse(res.data).msg})
+            }
+            return
           }
           fileNum--
           if (fileNum === 0) {

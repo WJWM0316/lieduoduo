@@ -1,6 +1,6 @@
 import WeCropper from '../../../../components/functional/we-cropper/we-cropper.js'
 import {unloadApi} from '../../../../api/pages/common.js'
-import {APPLICANTHOST, RECRUITERHOST} from '../../../../config.js'
+import {APPLICANTHOST, RECRUITERHOST, COMMON} from '../../../../config.js'
 const device = wx.getSystemInfoSync()
 const width = device.windowWidth
 const height = device.windowHeight - 50
@@ -31,7 +31,7 @@ Page({
   },
   wxupLoad(file) {
     let BASEHOST = ''
-    if (getApp().globalData.identity === 'APPLICAN') {
+    if (wx.getStorageSync('choseType') === 'APPLICAN') {
       BASEHOST = APPLICANTHOST
     } else {
       BASEHOST = RECRUITERHOST
@@ -61,7 +61,27 @@ Page({
             delta: 1
           })
         } else {
-          console.log(res, "上传失败")
+          if (res.statusCode === 401) {
+            // 需要用到token， 需要绑定手机号
+            if (JSON.parse(res.data).code === 4010) {
+              wx.removeStorageSync('token')
+              wx.navigateTo({
+                url: `${COMMON}bindPhone/bindPhone`
+              })
+            }
+            // 需要用到微信token， 需要授权
+            if (JSON.parse(res.data).code === 0) {
+              wx.removeStorageSync('sessionToken')
+              wx.removeStorageSync('token')
+              wx.navigateTo({
+                url: `${COMMON}auth/auth`
+              })
+            }
+          } else {
+            console.log(res, "上传失败")
+            this.triggerEvent('failUpload')
+            getApp().wxToast({title: JSON.parse(res.data).msg})
+          }
         }
         wx.hideLoading()
       }
