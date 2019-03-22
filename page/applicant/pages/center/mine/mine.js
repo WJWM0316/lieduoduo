@@ -25,10 +25,12 @@ Page({
     let hasLogin = false
     let myInfo = {}
     let isJobhunter = 0
-    hasLogin = app.globalData.hasLogin
-    myInfo = app.globalData.resumeInfo
-    isJobhunter = app.globalData.isJobhunter
-    this.setData({myInfo, isJobhunter, hasLogin, resumeAttach: myInfo.resumeAttach || {}})
+    if (app.pageInit) {
+      hasLogin = app.globalData.hasLogin
+      myInfo = app.globalData.resumeInfo
+      isJobhunter = app.globalData.isJobhunter
+      this.setData({myInfo, isJobhunter, hasLogin, resumeAttach: myInfo.resumeAttach || {}})
+    }
     app.pageInit = () => {
       hasLogin = app.globalData.hasLogin
       myInfo = app.globalData.resumeInfo
@@ -109,8 +111,8 @@ Page({
     this.setData({hasReFresh: true})
     getPersonalResumeApi({...app.getSource()}).then(res => {
       app.globalData.resumeInfo = res.data
-      wx.stopPullDownRefresh()
       this.setData({hasReFresh: false, myInfo: res.data})
+      wx.stopPullDownRefresh()
     }).catch(e => {
       this.setData({hasReFresh: false})
       wx.stopPullDownRefresh()

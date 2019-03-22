@@ -20,7 +20,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onShow: function (options) {
-    choseType = wx.getStorageSync('choseType')
+    let choseType = wx.getStorageSync('choseType')
     let mobile = app.globalData.resumeInfo.mobile || app.globalData.recruiterDetails.mobile
     this.setData({mobile, choseType})
   },

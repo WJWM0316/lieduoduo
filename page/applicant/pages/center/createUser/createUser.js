@@ -2,14 +2,15 @@
 import { postfirstStepApi } from '../../../../../api/pages/center'
 import {userNameReg, positionReg} from '../../../../../utils/fieldRegular.js'
 let app = getApp()
+let query = {}
 Page({
   data: {
+    showPop: false,
     cdnImagePath: app.globalData.cdnImagePath,
     name: '',
     navHeight: app.globalData.navHeight,
     workTime: '',
     avatar: {},
-    position: '',
     gender: '1',
     workTimeDesr: '',
     userInfo: {},
@@ -22,9 +23,6 @@ Page({
     switch(e.currentTarget.dataset.type) {
       case 'name':
         this.setData({name: e.detail.value})
-        break
-      case 'position':
-        this.setData({position: e.detail.value})
         break
     }
   },
@@ -39,10 +37,6 @@ Page({
       title = '姓名需为2-20个汉字或英文'
     } else if (!info.workTimeDesr) {
       title = '请选择开始工作时间'
-    } else if (!info.position && this.data.workTimeDesr !== '在校生') {
-      title = '请输入职位'
-    } else if (info.position && !positionReg.test(info.position)) {
-      title = '职位名称需为2-20个字'
     }
     if (title) {
       app.wxToast({'title': title})
@@ -65,15 +59,23 @@ Page({
         workTimeDesr: info.workTimeDesr
       }
       wx.setStorageSync('createUserFirst', createUser)
-      if (info.workTimeDesr === '在校生') {
-        wx.navigateTo({ // 是学生，直接跳转完善简历第三步
-          url: '/page/applicant/pages/center/educaExperience/educaExperience'
-        })
+      let path = ''
+      if (query.directChat) {
+        if (info.workTimeDesr === '在校生') {
+          path =  `/page/applicant/pages/center/educaExperience/educaExperience?directChat=${query.directChat}`
+        } else {
+          path = `/page/applicant/pages/center/workExperience/workExperience?directChat=${query.directChat}`
+        }
       } else {
-        wx.navigateTo({ // 完善简历第二步
-          url: '/page/applicant/pages/center/workExperience/workExperience'
-        })
+        if (info.workTimeDesr === '在校生') {
+          path =  `/page/applicant/pages/center/educaExperience/educaExperience`
+        } else {
+          path = `/page/applicant/pages/center/workExperience/workExperience`
+        }
       }
+      wx.navigateTo({
+        url: path
+      })
     })
   },
   chooseGender (e) {
@@ -81,19 +83,27 @@ Page({
       gender: e.target.dataset.gender
     })
   },
-  onLoad() {
+  backEvent () {
+    this.setData({showPop: true})
+  },
+  onLoad(options) {
+    query = options
     wx.setStorageSync('choseType', 'APPLICANT')
   },
   onShow() {
     let avatar = wx.getStorageSync('avatar')
+    let gender = '1'
+    let createUser = wx.getStorageSync('createUserFirst')
     if (!avatar) {
       avatar = app.globalData.userInfo.avatarInfo
-    }
-    let createUser = wx.getStorageSync('createUserFirst')
-    if (avatar && createUser) {
-      this.setData({avatar, name: createUser.name, gender: createUser.gender, workTimeDesr: createUser.workTimeDesr, startWorkYear: createUser.startWorkYear})
-    } else if (avatar) {
       this.setData({avatar})
+    }
+    if (!createUser) {
+      gender = app.globalData.userInfo.avatarInfo.gender
+      this.setData({avatar})
+    }
+    if (createUser) {
+      this.setData({name: createUser.name, gender: createUser.gender, workTimeDesr: createUser.workTimeDesr, startWorkYear: createUser.startWorkYear})
     }
   }
 })

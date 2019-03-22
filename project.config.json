@@ -14,7 +14,7 @@
 		"uglifyFileName": false
 	},
 	"compileType": "miniprogram",
-	"libVersion": "2.5.2",
+	"libVersion": "1.9.91",
 	"appid": "wx225f017495e6e195",
 	"projectname": "lieduoduo%20%E6%B5%8B%E8%AF%95",
 	"debugOptions": {
@@ -50,19 +50,19 @@
 					"id": 1,
 					"name": "【公包】职位详情",
 					"pathName": "page/common/pages/positionDetail/positionDetail",
-					"query": "positionId=3509"
+					"query": "scene=pid%3D3509"
 				},
 				{
 					"id": 2,
 					"name": "【公包】招聘官主页",
 					"pathName": "page/common/pages/recruiterDetail/recruiterDetail",
-					"query": ""
+					"query": "uid=662&sourceType=shr"
 				},
 				{
 					"id": 3,
 					"name": "【公包】简历详情",
 					"pathName": "page/common/pages/resumeDetail/resumeDetail",
-					"query": ""
+					"query": "uid=1024"
 				},
 				{
 					"id": 4,

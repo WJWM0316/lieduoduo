@@ -112,6 +112,7 @@
     infos="{{info}}"
     bindresultevent="getPositionDetail"
     type="recruiter"
+    options="{{options}}"
     wx:if="{{info.vkey && !isOwner}}">
     </interviewBar>
 </view>

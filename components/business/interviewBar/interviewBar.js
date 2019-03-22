@@ -42,6 +42,10 @@ Component({
     positionId: {
       type: String,
       value: ''
+    },
+    options: {
+      type: Object,
+      value: {}
     }
   },
   data: {
@@ -113,6 +117,16 @@ Component({
         this.setData({interviewInfos: res.data, identity: wx.getStorageSync('choseType')})
         if(res.code === 204) this.setData({isOwerner: true})
         if(res.code === 230) this.showMergeBox(res.data)
+        if (!res.data.haveInterview && this.data.options && this.data.options.directChat) {
+          let e = {
+            currentTarget: {
+              dataset: {
+                action : 'job-hunting-chat'
+              }
+            }
+          }
+          this.todoAction(e)
+        }
       })
     },
     /**
@@ -171,7 +185,8 @@ Component({
         isJobhunter = app.globalData.isJobhunter
         if(identity === 'APPLICANT') {
           if(!isJobhunter) {
-            wx.navigateTo({url: `${APPLICANT}center/createUser/createUser`})
+            let path = app.getCurrentPagePath()
+            wx.navigateTo({url: `${APPLICANT}center/createUser/createUser?directChat=${encodeURIComponent(path)}`})
           } else {
             // 走正常流程
             if(this.data.type === 'recruiter') {

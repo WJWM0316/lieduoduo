@@ -251,22 +251,12 @@ Page({
       onBottomStatus: false
     }
     this.setData({positionList})
-    if (!this.options.uid || parseInt(this.options.uid) === app.globalData.resumeInfo.uid) {
-      getRecruiterDetailApi().then(res => {
-        app.globalData.recruiterDetails = res.data
-        this.setData({info: app.globalData.recruiterDetails, hasReFresh: false})
-        wx.stopPullDownRefresh()
-      }).catch(e => {
-        wx.stopPullDownRefresh()
-      })
-    } else {
-      this.getOthersInfo().then(res => {
-        this.setData({hasReFresh: false})
-        wx.stopPullDownRefresh()
-      }).catch(e => {
-        wx.stopPullDownRefresh()
-      })
-    }
+    this.getOthersInfo().then(res => {
+      this.setData({hasReFresh: false})
+      wx.stopPullDownRefresh()
+    }).catch(e => {
+      wx.stopPullDownRefresh()
+    })
   },
   getCreatedImg(e) {
     recruiterCard = e.detail
@@ -276,7 +266,7 @@ Page({
 　　return app.wxShare({
       options,
       title: shareRecruiter(),
-      path: `${COMMON}recruiterDetail/recruiterDetail?uid=${this.data.options.uid}&sCode=${this.data.info.sCode}`,
+      path: `${COMMON}recruiterDetail/recruiterDetail?uid=${this.data.options.uid}&sCode=${this.data.info.sCode}&sourceType=shr`,
       imageUrl: recruiterCard
     })
   },

@@ -1,5 +1,5 @@
 <!--完善简历第一步-->
-<navbar title=" " background="transparent" color="#fff"></navbar>
+<navbar title=" " background="transparent" color="#fff" customBack bindbackEvent="backEvent"></navbar>
 <view class="warp" style="margin-top: -{{navHeight}}px">
   <view class="header">
     <image class="headerBg" src="{{cdnImagePath}}pic_bg_new@3x.png"></image>
@@ -21,11 +21,9 @@
     <view class="time">
       <myPicker class="myPicker" setResult="{{workTimeDesr}}" isTriangle="{{true}}" pickerType="workTime" bindresultevent="getresult"></myPicker>
     </view>
-    <view class="name" hidden="{{workTimeDesr === '在校生'}}">
-      <input name="position" placeholder-class="holderStyle" maxlength="20" bindinput="getValue" data-type="position" value="{{position}}" placeholder="请填写当前职位名称" />
-    </view>
     <view class="btn-area">
       <button bindtap="submit"><i class="icon iconfont icon-xiayibu"></i></button>
     </view>
   </block>
 </view>
+<guidePop showPop="{{showPop}}"></guidePop>

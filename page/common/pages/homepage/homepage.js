@@ -348,7 +348,7 @@ Page({
 　　return app.wxShare({
       options,
       title: `${that.data.companyInfos.companyShortname}正在招聘，马上约面，极速入职！我在猎多多等你！`,
-      path: `${COMMON}homepage/homepage?companyId=${this.data.query.companyId}&sCode=${this.data.companyInfos.sCode}`,
+      path: `${COMMON}homepage/homepage?companyId=${this.data.query.companyId}&sCode=${this.data.companyInfos.sCode}&sourceType=shc`,
       imageUrl: `${that.data.cdnImagePath}shareC.png`
     })
   }

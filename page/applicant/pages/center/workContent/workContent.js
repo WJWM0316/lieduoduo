@@ -8,6 +8,7 @@ Page({
    */
   data: {
     nowInputNum: 0,
+    content: '',
     cdnImagePath: app.globalData.cdnImagePath,
     showCase: false // 是否展示例子
   },
@@ -23,7 +24,10 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    let content = wx.getStorageSync('workContent')
+    if (content) {
+      this.setData({content})
+    }
   },
   /* 切换例子 */
   nextExample () {

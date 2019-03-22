@@ -200,7 +200,7 @@ Page({
 　　return app.wxShare({
       options,
       title: sharePosition(),
-      path: `${COMMON}positionDetail/positionDetail?positionId=${that.data.query.positionId}&sCode=${this.data.detail.sCode}`,
+      path: `${COMMON}positionDetail/positionDetail?positionId=${that.data.query.positionId}&sCode=${this.data.detail.sCode}&sourceType=shp`,
       imageUrl: positionCard
     })
   }

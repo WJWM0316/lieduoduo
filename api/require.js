@@ -91,7 +91,7 @@ export const request = ({method = 'post', url, host, data = {}, needKey = true, 
             if (msg.code !== 701 && msg.code !== 801) {
               getApp().wxToast({title: msg.msg, duration: 2000})
             }
-            // reject(msg)
+            reject(msg)
           }
           switch (msg.httpStatus) {
             case 200:

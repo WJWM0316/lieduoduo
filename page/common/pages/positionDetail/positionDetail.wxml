@@ -94,5 +94,6 @@
 		infos="{{ detail }}"
 		bindresultevent="bindStatusChange"
 		type="position"
+		options="{{query}}"
 		wx:if="{{detail.vkey && !isOwner}}"></interviewBar>
 </view>
