@@ -190,6 +190,12 @@ Page({
     }
   },
   collect() {
+    if (identity !== 'APPLICANT') {
+      app.promptSwitch({
+        source: identity
+      })
+      return
+    }
     let data = {
       uid: this.data.options.uid
     }

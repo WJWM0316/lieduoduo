@@ -14,7 +14,7 @@
 		"uglifyFileName": false
 	},
 	"compileType": "miniprogram",
-	"libVersion": "1.9.91",
+	"libVersion": "2.6.2",
 	"appid": "wx225f017495e6e195",
 	"projectname": "lieduoduo%20%E6%B5%8B%E8%AF%95",
 	"debugOptions": {
@@ -50,7 +50,7 @@
 					"id": 1,
 					"name": "【公包】职位详情",
 					"pathName": "page/common/pages/positionDetail/positionDetail",
-					"query": "scene=pid%3D3509"
+					"query": "scene=pid%3D3509%26sCode%3D3333"
 				},
 				{
 					"id": 2,

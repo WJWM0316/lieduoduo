@@ -132,6 +132,12 @@ Page({
         wx.navigateTo({url: `${RECRUITER}position/post/post?positionId=${this.data.detail.id}`})
         break
       case 'collect':
+        if (identity !== 'APPLICANT') {
+          app.promptSwitch({
+            source: identity
+          })
+          return
+        }
         getMycollectPositionApi({id: this.data.detail.id})
           .then(res => {
             const detail = this.data.detail
@@ -140,6 +146,12 @@ Page({
           })
         break
       case 'uncollect':
+        if (identity !== 'APPLICANT') {
+          app.promptSwitch({
+            source: identity
+          })
+          return
+        }
         deleteMycollectPositionApi({id: this.data.detail.id})
           .then(res => {
             const detail = this.data.detail

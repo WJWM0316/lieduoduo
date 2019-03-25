@@ -232,13 +232,7 @@ App({
         that.globalData.userInfo = e.detail.userInfo
         let wxLogin = function () {
           // 请求接口获取服务器session_key
-          var pages = getCurrentPages() //获取加载的页面
-          let pageUrl = pages[0].route
-          let params = ''
-          for (let i in pages[0].options) {
-            params = `${params}${i}=${pages[0].options[i]}&`
-          }
-          pageUrl = `${pageUrl}?${params}`
+          let pageUrl = that.getCurrentPagePath(0)
           data.code = wx.getStorageSync('code')
           if (wx.getStorageSync('sessionToken')) {
             data.session_token = wx.getStorageSync('sessionToken')
@@ -261,7 +255,7 @@ App({
             resolve(res)
             if (!isNeedUrl) {
               wx.reLaunch({
-                url: `/${pageUrl}`
+                url: pageUrl
               })
             } else {
               wx.navigateBack({
@@ -295,15 +289,9 @@ App({
             this.loginedLoadData()
             this.globalData.hasLogin = true
             this.globalData.userInfo = res.data
-            var pages = getCurrentPages() //获取加载的页面
-            let pageUrl = pages[0].route
-            let params = ''
-            for (let i in pages[0].options) {
-              params = `${params}${i}=${pages[0].options[i]}&`
-            }
-            pageUrl = `${pageUrl}?${params}`
+            let pageUrl = this.getCurrentPagePath(0)
             wx.reLaunch({
-              url: `/${pageUrl}`
+              url: `${pageUrl}`
             })
             resolve(res)
           } 
@@ -311,7 +299,7 @@ App({
           this.checkLogin()
         })
       })
-    }  
+    }
   },
   // 手机登陆
   phoneLogin(data) {
@@ -635,26 +623,16 @@ App({
     }
   },
   // 获取当前页面完整链接
-  getCurrentPagePath () {
+  getCurrentPagePath (index) {
     var pages = getCurrentPages() //获取加载的页面
-    let pageUrl = pages[pages.length - 1].route
+    if (!index && index !== 0) index = pages.length - 1
+    let pageUrl = pages[index].route
     let params = ''
-    for (let i in pages[pages.length - 1].options) {
-      switch (i) {
-        case 'pid':
-          params = `${params}positionId=${pages[0].options[i]}&`
-          break
-        case 's':
-          params = `${params}sourceType=${pages[0].options[i]}&`
-          break
-        default:
-          params = `${params}${i}=${pages[0].options[i]}&`
-          break
-      } 
+    for (let i in pages[index].__displayReporter.query) {
+      params = `${params}${i}=${pages[index].__displayReporter.query[i]}&`
     }
     params = params.slice(0, params.length-1)
     let path = `/${pageUrl}?${params}`
-    console.log(path, 55555555555555555)
     return path
   }
 })
