@@ -132,6 +132,7 @@ Page({
         wx.navigateTo({url: `${RECRUITER}position/post/post?positionId=${this.data.detail.id}`})
         break
       case 'collect':
+        console.log(33333, app.getCurrentPagePath())
         if (identity !== 'APPLICANT') {
           app.promptSwitch({
             source: identity
@@ -142,7 +143,7 @@ Page({
           .then(res => {
             const detail = this.data.detail
             detail.isCollect = true
-            this.setData({detail}, () => app.wxToast({title: '收藏成功'}))
+            this.setData({detail}, () => app.wxToast({title: '收藏成功', icon: 'success'}))
           })
         break
       case 'uncollect':
@@ -156,7 +157,7 @@ Page({
           .then(res => {
             const detail = this.data.detail
             detail.isCollect = false
-            this.setData({detail}, () => app.wxToast({title: '取消收藏成功'}))
+            this.setData({detail}, () => app.wxToast({title: '取消收藏', icon: 'success'}))
           })
         break
       case 'about':

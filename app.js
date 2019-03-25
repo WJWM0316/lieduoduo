@@ -305,8 +305,8 @@ App({
   phoneLogin(data) {
     return new Promise((resolve, reject) => {
       bindPhoneApi(data).then(res => {
-        wx.setStorageSync('token', res.data.token)
-        wx.setStorageSync('sessionToken', res.data.sessionToken)
+        if (res.data.token) wx.setStorageSync('token', res.data.token)
+        if (res.data.sessionToken) wx.setStorageSync('sessionToken', res.data.sessionToken)
         this.globalData.hasLogin = true
         this.globalData.userInfo = res.data
         this.loginedLoadData()
@@ -576,7 +576,11 @@ App({
     let route = getCurrentPages()
     let curPath = route[route.length - 1]
     if (launch.path === 'page/common/pages/startPage/startPage' && launch.path === curPath.route) { // 自然搜索使用
-      params.sourceType = 'sch'
+      if (curPath.options.sourceType) {
+        params.sourceType = curPath.options.sourceType
+      } else {
+        params.sourceType = 'sch'
+      }
       params.sourcePath = launch.path
     } else {
       if (curPath.options && curPath.options.scene) {
