@@ -632,8 +632,8 @@ App({
     if (!index && index !== 0) index = pages.length - 1
     let pageUrl = pages[index].route
     let params = ''
-    for (let i in pages[index].__displayReporter.query) {
-      params = `${params}${i}=${pages[index].__displayReporter.query[i]}&`
+    for (let i in pages[index].options) {
+      params = `${params}${i}=${pages[index].options[i]}&`
     }
     params = params.slice(0, params.length-1)
     let path = `/${pageUrl}?${params}`

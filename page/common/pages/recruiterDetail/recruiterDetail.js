@@ -37,12 +37,8 @@ Page({
    */
   onLoad(options) {
     recruiterCard = ''
-    if (options.scene) {
-      options = app.getSceneParams(options.scene)
-      if (options.s) {
-        options.sourceType = options.s
-      }
-    }
+    if (options.scene) options = app.getSceneParams(options.scene)
+    if (options.s) options.sourceType = options.s
     if (identity !== 'RECRUITER') {
       this.setData({isApplicant: true})
     }

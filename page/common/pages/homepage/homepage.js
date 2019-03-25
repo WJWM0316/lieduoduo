@@ -58,15 +58,9 @@ Page({
     swiperIndex: 0
   },
   onLoad(options) {
-    if (options.scene) {
-      let parames = app.getSceneParams(options.scene)
-      if (parames.cid) {
-        options.companyId = parames.cid
-      }
-      if (options.s) {
-        options.sourceType = options.s
-      }
-    }
+    if (options.scene) options = app.getSceneParams(options.scene)
+    if (parames.cid) options.companyId = parames.cid
+    if (options.s) options.sourceType = options.s
     identity = app.identification(options)
     this.setData({query: options})
   },

@@ -30,15 +30,9 @@ Page({
   },
   onLoad(options) {
     positionCard = ''
-    if (options.scene) {
-      options = app.getSceneParams(options.scene)
-      if (options.pid) {
-        options.positionId = options.pid
-      }
-      if (options.s) {
-        options.sourceType = options.s
-      }
-    }
+    if (options.scene) options = app.getSceneParams(options.scene)
+    if (options.pid) options.positionId = options.pid
+    if (options.s) options.sourceType = options.s
     identity = app.identification(options)
     this.setData({query: options})
   },
