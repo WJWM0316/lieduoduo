@@ -137,17 +137,14 @@ export const request = ({method = 'post', url, host, data = {}, needKey = true, 
                 })
               }
               if (msg.code === 801) {
-
                 if(msg.data.applyJoin) {
                   // 加入公司
                   wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=join`})
                 } else {
-
                   if(!msg.data.companyInfo.id) {
                     // 还没有填写公司信息
                     wx.reLaunch({url: `${RECRUITER}user/company/apply/apply`})
                   } else {
-                    
                     // 创建公司 没填身份证 但是公司已经审核通过
                     if(msg.data.companyInfo.status === 1 && !msg.data.id) {
                       wx.reLaunch({url: `${RECRUITER}user/company/identity/identity?from=identity`})

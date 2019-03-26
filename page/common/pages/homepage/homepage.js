@@ -59,7 +59,7 @@ Page({
   },
   onLoad(options) {
     if (options.scene) options = app.getSceneParams(options.scene)
-    if (parames.cid) options.companyId = parames.cid
+    if (options.cid) options.companyId = parames.cid
     if (options.s) options.sourceType = options.s
     identity = app.identification(options)
     this.setData({query: options})

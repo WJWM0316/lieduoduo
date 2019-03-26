@@ -1,4 +1,5 @@
 import {RECRUITER, APPLICANT} from '../../../../config.js'
+const app = getApp()
 Page({
 
   /**
@@ -12,18 +13,27 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    let choseType = wx.getStorageSync('choseType')
-    switch(choseType) {
-      case 'RECRUITER':
-        wx.reLaunch({
-          url: `${RECRUITER}index/index`
-        })
-        break
-      case 'APPLICANT':
-        wx.reLaunch({
-          url: `${APPLICANT}index/index`
-        })
-        break
+    let init = () => {
+      let choseType = wx.getStorageSync('choseType')
+      switch(choseType) {
+        case 'RECRUITER':
+          wx.reLaunch({
+            url: `${RECRUITER}index/index`
+          })
+          break
+        case 'APPLICANT':
+          wx.reLaunch({
+            url: `${APPLICANT}index/index`
+          })
+          break
+      }
+    }
+    if (app.loginInit) {
+      init()
+    } else {
+      app.getRoleInit = () => {
+        init()
+      }
     }
   },
 

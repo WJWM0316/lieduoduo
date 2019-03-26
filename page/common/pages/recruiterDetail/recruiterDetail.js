@@ -229,6 +229,7 @@ Page({
     })
   },
   create() {
+    wx.setStorageSync('choseType', 'RECRUITER')
     wx.navigateTo({
       url: `${RECRUITER}user/company/apply/apply`
     })

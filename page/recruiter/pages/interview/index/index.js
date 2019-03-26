@@ -260,41 +260,52 @@ Page({
   },
   init () {
     if (app.globalData.isRecruiter) {
-      let e = {}
-      switch(this.data.tabIndex) {
-        case 0:
-          e = {
-            currentTarget: {
-              dataset: {
-                index: 0
-              }
-            }
-          }
-          break
-        case 1:
-          e = {
-            currentTarget: {
-              dataset: {
-                index: 1
-              }
-            }
-          }
-          break
-        case 2:
-          e = {
-            currentTarget: {
-              dataset: {
-                index: 2
-              }
-            }
-          }
-          break
-      }
       getRecruiterPositionListApi({is_online: 1, count: 50, page: 1}).then(res => {
         positionList = res.data
         positionList.unshift({positionName: '所有职位', id: 0})
-        this.setData({positionList})
-        this.chooseParentTab(e)
+        switch(this.data.tabIndex) {
+          case 0:
+            let receiveData = {
+              list: [],
+              pageNum: 1,
+              count: 20,
+              isLastPage: false,
+              isRequire: false,
+              total: 0
+            }
+            this.setData({positionList, receiveData})
+            this.getInviteList()
+            break
+          case 1:
+            let applyData = {
+              list: [],
+              pageNum: 1,
+              count: 20,
+              isLastPage: false,
+              isRequire: false,
+              total: 0
+            }
+            this.setData({positionList, applyData})
+            this.getApplyList()
+            break
+          case 2:
+            let interviewData = {
+              list: [],
+              pageNum: 1,
+              count: 20,
+              isLastPage: false,
+              isRequire: false,
+              total: 0
+            }
+            this.setData({positionList, interviewData})
+            this.selectComponent('#myCalendar').scrollLeft()
+            this.getScheduleList()
+            getScheduleNumberApi().then(res => {
+              let dateList = res.data
+              this.setData({dateList})
+            })
+        }
+        this.getFixedDomNodePosition()
       })
     }
   },
