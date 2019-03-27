@@ -79,7 +79,6 @@ App({
                 that.loginInit()
               }
               that.loginInit = function () {}
-              console.log(that.loginInit, 555555555)
             })
             wx.setStorageSync('sessionToken', res.data.sessionToken)
           }
