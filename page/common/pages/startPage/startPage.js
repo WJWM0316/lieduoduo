@@ -13,27 +13,18 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    let init = () => {
-      let choseType = wx.getStorageSync('choseType')
-      switch(choseType) {
-        case 'RECRUITER':
-          wx.reLaunch({
-            url: `${RECRUITER}index/index`
-          })
-          break
-        case 'APPLICANT':
-          wx.reLaunch({
-            url: `${APPLICANT}index/index`
-          })
-          break
-      }
-    }
-    if (app.loginInit) {
-      init()
-    } else {
-      app.getRoleInit = () => {
-        init()
-      }
+    let choseType = wx.getStorageSync('choseType')
+    switch(choseType) {
+      case 'RECRUITER':
+        wx.redirectTo({
+          url: `${RECRUITER}index/index`
+        })
+        break
+      case 'APPLICANT':
+        wx.redirectTo({
+          url: `${APPLICANT}index/index`
+        })
+        break
     }
   },
 

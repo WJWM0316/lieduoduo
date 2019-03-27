@@ -1,5 +1,5 @@
 // components/business/choose/choose.js
-import {RECRUITER, APPLICANT} from '../../../config.js'
+import {RECRUITER, APPLICANT, COMMON} from '../../../config.js'
 let identity = 'APPLICANT'
 const app = getApp()
 Component({

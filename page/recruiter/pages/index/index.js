@@ -89,13 +89,17 @@ Page({
       isLastPage: false,
       isRequire: false
     }
+    let that = this
     this.setData({browseMySelf, collectUsers, collectMySelf})
+    console.log(app.loginInit, 111)
     if (app.loginInit) {
-      this.getLists().then(() => this.getDomNodePosition())
+      console.log(app.loginInit, 222)
+      that.getLists().then(() => that.getDomNodePosition())
     } else {
       app.loginInit = () => {
-        this.getLists().then(() => this.getDomNodePosition())
+        that.getLists().then(() => that.getDomNodePosition())
       }
+      console.log(app.loginInit, 333)
     }
   },
   getDomNodePosition() {
@@ -112,6 +116,7 @@ Page({
   getLists() {
     switch(this.data.pageList) {
       case 'browseMySelf':
+        console.log(11111111222222222222222)
         return this.getBrowseMySelf()
         break;
       case 'collectMySelf':

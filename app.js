@@ -79,6 +79,7 @@ App({
                 that.loginInit()
               }
               that.loginInit = function () {}
+              console.log(that.loginInit, 555555555)
             })
             wx.setStorageSync('sessionToken', res.data.sessionToken)
           }
@@ -196,6 +197,7 @@ App({
                     }
                   })
                 }).catch(e => {
+                  resolve(res)
                   wx.removeStorageSync('sessionToken')
                   if (pageUrl !== `${COMMON}startPage/startPage`) {
                     wx.navigateTo({
@@ -204,6 +206,7 @@ App({
                   }
                 })
               } else {
+                resolve(res)
                 wx.removeStorageSync('sessionToken')
                 if (pageUrl !== `${COMMON}startPage/startPage`) {
                   wx.navigateTo({
