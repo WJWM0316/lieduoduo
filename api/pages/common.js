@@ -142,3 +142,14 @@ export const scanLoginApi = (data, hasLoading) => {
     hasLoading: false
   })
 }
+
+// 分享统计
+export const shareStatistics  = (data, hasLoading) => {
+  return request({
+    method: 'post',
+    url: `/share/share_event`,
+    data,
+    host: 'PUBAPIHOST',
+    hasLoading: false
+  })
+}

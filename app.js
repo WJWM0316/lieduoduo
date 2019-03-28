@@ -1,6 +1,6 @@
 //app.js
 import {loginApi, checkSessionKeyApi, bindPhoneApi, uploginApi} from 'api/pages/auth.js'
-import {formIdApi} from 'api/pages/common.js'
+import {formIdApi, shareStatistics} from 'api/pages/common.js'
 import {getPersonalResumeApi} from 'api/pages/center.js'
 import {getRecruiterDetailApi} from 'api/pages/recruiter.js'
 import {COMMON,RECRUITER,APPLICANT} from "config.js"
@@ -181,6 +181,7 @@ App({
                     success: res => {
                       // 可以将 res 发送给后台解码出 unionId
                       that.globalData.userInfo = res.userInfo
+                      wx.setStorageSync('wxUserInfo', that.globalData.userInfo)
                       // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
                       // 所以此处加入 callback 以防止这种情况
                       if (that.userInfoReadyCallback) {
@@ -232,6 +233,7 @@ App({
           ...that.getSource()
         }
         that.globalData.userInfo = e.detail.userInfo
+        wx.setStorageSync('wxUserInfo', that.globalData.userInfo)
         let wxLogin = function () {
           // 请求接口获取服务器session_key
           let pageUrl = that.getCurrentPagePath(0)
@@ -640,5 +642,9 @@ App({
     params = params.slice(0, params.length-1)
     let path = `/${pageUrl}?${params}`
     return path
+  },
+  shareStatistics ({id, type, channel}) {
+    shareStatistics({id, type, channel}).then(res => {
+    })
   }
 })

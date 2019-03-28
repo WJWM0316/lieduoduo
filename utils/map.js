@@ -1,7 +1,7 @@
 const QQMapWX = require('../vendor/lib/qqmap-wx-jssdk.min.js')
 
 const qqmapsdk = new QQMapWX({
-  key: 'P63BZ-4RM35-BIJIV-QOL7E-XNCZZ-WIF4L'
+  key: 'TMZBZ-S72K6-66ISB-ES3XG-CVJC6-HKFZG'
 })
 
 const app = getApp()

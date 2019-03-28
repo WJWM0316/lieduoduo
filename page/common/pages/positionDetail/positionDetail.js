@@ -8,7 +8,6 @@ import {
   getMycollectPositionApi,
   deleteMycollectPositionApi
 } from '../../../../api/pages/collect.js'
-
 import {getUserRoleApi} from "../../../../api/pages/user.js"
 
 import {RECRUITER, COMMON} from '../../../../config.js'
@@ -204,6 +203,11 @@ Page({
   },
   onShareAppMessage(options) {
     let that = this
+    app.shareStatistics({
+      id: that.data.query.positionId,
+      type: 'position',
+      channel: 'card'
+    })
 　　return app.wxShare({
       options,
       title: sharePosition(),

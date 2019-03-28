@@ -369,6 +369,11 @@ Page({
       wx.saveImageToPhotosAlbum({
         filePath: that.data.imgUrl,
         success: function (e) {
+          app.shareStatistics({
+            id: info.id,
+            type: 'position',
+            channel: 'qrpl'
+          })
           app.wxToast({
             title: '已保存至相册',
             icon: 'success'
