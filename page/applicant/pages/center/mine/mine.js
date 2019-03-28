@@ -123,7 +123,7 @@ Page({
 　　return app.wxShare({
       options,
       btnTitle: shareResume(),
-      btnPath: `${COMMON}resumeDetail/resumeDetail?uid=${this.data.myInfo.uid}&sCode=${this.data.info.sCode}&sourceType=shj`,
+      btnPath: `${COMMON}resumeDetail/resumeDetail?uid=${this.data.myInfo.uid}&sCode=${this.data.myInfo.sCode}&sourceType=shj`,
       btnImageUrl: `${that.data.cdnImagePath}shareC.png`
     })
   }
