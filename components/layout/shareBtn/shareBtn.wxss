@@ -1,18 +1,26 @@
 @import '../../../iconfont.wxss'
 .shareBtn {
-  width:64rpx;
-  height:146rpx;
+  width: 70rpx;
+  height:152rpx;
   background:#fff;
   border-radius:30rpx 0rpx 0rpx 30rpx;
-  border:3rpx solid rgba(40,40,40,1);
+  border:4rpx solid rgba(40,40,40,1);
   position:fixed;
-  top: 208rpx;
-  right: 0;
+  top: 23%;
+  right: 5rpx;
   z-index: 9;
-  padding: 0;
+  padding: 24rpx 16rpx 20rpx 20rpx;
   text-align: center;
   font-size: 28rpx;
-  color: #626262;
+  color: #652791;
+  box-sizing: border-box;
+  line-height:34rpx;
+}
+.shareBtnBg  {
+  top: 23.7%;
+  right: 0;
+  background: #FFDC29;
+  border-right: 0;
 }
 .shareBtn::after {
   display: block;
@@ -31,13 +39,82 @@
   background: rgba(0,0,0,0.5);
 }
 .choseBox {
-  width: 100%;
+  width:690rpx;
+  background:rgba(255,255,255,1);
+  border-radius:32rpx 0rpx 24rpx 24rpx;
+  border:4rpx solid rgba(0,0,0,1);
+  box-sizing: border-box;
   position: fixed;
-  bottom: 0;
-  left: 0;
+  padding: 12rpx 60rpx;
+  bottom: 72rpx;
+  left: 50%;
+  margin-left: -345rpx;
   z-index: 12;
+  overflow: hidden;
+}
+.choseBox .btnCon {
+  padding: 52rpx 0;
+  text-align: left;
+  border-bottom:2rpx solid rgba(232,233,235,1);
+  background: #fff url('https://lieduoduo-uploads-test.oss-cn-shenzhen.aliyuncs.com/front-assets/images/btn_share_wechat.png') no-repeat right center;
+  background-size: 76rpx 76rpx;
+}
+.choseBox .btn2 {
+  background-image: url('https://lieduoduo-uploads-test.oss-cn-shenzhen.aliyuncs.com/front-assets/images/btn_share_img.png');
+}
+.choseBox .btnCon.btn3 {
+  border-bottom: 0;
+  background-image: url('https://lieduoduo-uploads-test.oss-cn-shenzhen.aliyuncs.com/front-assets/images/btn_share_pic.png');
+}
+.choseBox .btnCon .title {
   line-height: 40rpx;
+  font-size:34rpx;
+  font-weight:500;
+  color:rgba(40,40,40,1);
+}
+.choseBox .btnCon .title .icon {
+  padding: 5rpx 15rpx;
+  font-size:22rpx;
+  font-weight:500;
+  color:rgba(255,126,74,1);
+  line-height:30rpx;
+  border-radius:20rpx 20rpx 20rpx 0rpx;
+  border:1rpx solid rgba(255,126,74,1);
+  vertical-align:4rpx;
+  margin-left: 14rpx;
+}
+.choseBox .btnCon .desc {
+  font-size:24rpx;
+  font-weight:300;
+  color:rgba(40,40,40,1);
+  line-height:24rpx;
+  margin-top: 12rpx;
 }
 .choseBox button {
   border-radius: 0;
+  background: none;
+  padding: 0;
+}
+button.close {
+  width:80rpx;
+  height:80rpx;
+  background:rgba(255,220,41,1);
+  border-radius:100rpx 100rpx 0rpx 0rpx;
+  border:4rpx solid rgba(0,0,0,1);
+  position: fixed;
+  background: #FFDC29;
+  overflow: hidden;
+  bottom: 610rpx;
+  right: 34rpx;
+  text-align: center;
+  z-index: 11;
+  box-sizing: border-box;
+  padding: 0;
+}
+button.close .icon {
+  font-size: 36rpx;
+  line-height: 36rpx;
+  color: #282828;
+  display: block;
+  margin-top: 15rpx;
 }
