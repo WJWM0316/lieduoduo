@@ -180,8 +180,6 @@ App({
                   wx.getUserInfo({
                     success: res => {
                       // 可以将 res 发送给后台解码出 unionId
-                      that.globalData.userInfo = res.userInfo
-                      wx.setStorageSync('wxUserInfo', that.globalData.userInfo)
                       // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
                       // 所以此处加入 callback 以防止这种情况
                       if (that.userInfoReadyCallback) {
@@ -232,8 +230,6 @@ App({
           data: e.detail.encryptedData,
           ...that.getSource()
         }
-        that.globalData.userInfo = e.detail.userInfo
-        wx.setStorageSync('wxUserInfo', that.globalData.userInfo)
         let wxLogin = function () {
           // 请求接口获取服务器session_key
           let pageUrl = that.getCurrentPagePath(0)
