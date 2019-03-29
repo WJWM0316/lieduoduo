@@ -67,6 +67,11 @@ App({
             sourceType: startRouteParams.sourceType,
             sourcePath: `/${that.globalData.startRoute.path}?${that.splicingParams(startRouteParams)}`
           }
+        } else {
+          params = {
+            sourceType: 'sch',
+            sourcePath: `/${that.globalData.startRoute.path}?${that.splicingParams(startRouteParams)}`
+          }
         }
         wx.setStorageSync('code', res0.code)
         loginApi({code: res0.code, ...params}).then(res => {
