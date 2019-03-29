@@ -23,6 +23,7 @@ export const request = ({method = 'post', url, host, data = {}, needKey = true, 
   if (data.sCode) {
     addHttpHead['Act-Code'] = data.sCode
     addHttpHead['Act-Pid'] = data.id || data.uid
+    delete data['sCode']
   } else {
     delete addHttpHead['Act-Code']
     delete addHttpHead['Act-Pid']
@@ -32,6 +33,8 @@ export const request = ({method = 'post', url, host, data = {}, needKey = true, 
   if (data.sourceType) {
     addHttpHead['Channel-Code'] = data.sourceType
     addHttpHead['Channel-Url'] = data.sourcePath
+    delete data['sourceType']
+    delete data['sourcePath']
   } else {
     delete addHttpHead['Channel-Code']
     delete addHttpHead['Channel-Url']

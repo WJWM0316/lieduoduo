@@ -102,6 +102,7 @@ Page({
       avatar = app.globalData.userInfo.avatarInfo
       this.setData({avatar})
     }
+    console.log(userInfo, 5555)
     if (!createUser && userInfo) {
       gender = app.globalData.userInfo.gender
       this.setData({gender: gender.toString()})

@@ -40,7 +40,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 6,
+			"current": 1,
 			"list": [
 				{
 					"id": 0,
@@ -52,14 +52,14 @@
 					"id": 1,
 					"name": "【公包】职位详情",
 					"pathName": "page/common/pages/positionDetail/positionDetail",
-					"query": "positionId=3509&sCode=11",
+					"query": "positionId=3509&sCode=11&sourceType=22",
 					"scene": 1001
 				},
 				{
 					"id": 2,
 					"name": "【公包】招聘官主页",
 					"pathName": "page/common/pages/recruiterDetail/recruiterDetail",
-					"query": "scene=uid%3D663%26s%3Dshr%26directChat%3Dtrue",
+					"query": "scene=uid%3D663%26s%3Dshr",
 					"scene": 1001
 				},
 				{
@@ -85,7 +85,7 @@
 					"id": 6,
 					"name": "【公包】职位机会",
 					"pathName": "page/common/pages/careerChance/careerChance",
-					"query": "nc=true",
+					"query": "nc=true&sourceType=222",
 					"scene": null
 				},
 				{
@@ -207,6 +207,13 @@
 					"name": "【B端】招聘官审核状态",
 					"pathName": "page/recruiter/pages/company/verifyResult/verifyResult",
 					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "【公包】职位机会",
+					"pathName": "page/common/pages/careerChance/careerChance",
+					"query": "nc=true&sourceType=222",
+					"scene": null
 				}
 			]
 		}
