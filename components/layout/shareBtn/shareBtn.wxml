@@ -4,7 +4,8 @@
 	<button form-type="submit" class="formIdBtn clear-style" ></button>
 	<block wx:if="{{posterType === 'position'}}">
 		<view class="shareBtn" bindtap="oper">
-		  <i class="shareIcon iconfont icon-fenxiang"></i>
+		  <view><i class="shareIcon iconfont icon-fenxiang"></i></view>
+		  <text>转发</text>
 		</view>
 		<view class="shareBox" bindtap="close" hidden="{{!showChoose}}">
 		</view>
