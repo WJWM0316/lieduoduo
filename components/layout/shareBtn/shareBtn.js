@@ -19,7 +19,6 @@ Component({
   data: {
     showChoose: false
   },
-
   /**
    * 组件的方法列表
    */

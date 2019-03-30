@@ -3,21 +3,41 @@
 <form bindsubmit="formSubmit" report-submit='{{true}}'>  
 	<button form-type="submit" class="formIdBtn clear-style" ></button>
 	<block wx:if="{{posterType === 'position'}}">
+		<view class="shareBtn shareBtnBg"></view>
 		<view class="shareBtn" bindtap="oper">
-		  <i class="shareIcon iconfont icon-fenxiang"></i>
+		  <view><i class="shareIcon iconfont icon-fenxiang"></i></view>
+		  <text>转发</text>
 		</view>
 		<view class="shareBox" bindtap="close" hidden="{{!showChoose}}">
 		</view>
-		<view class="choseBox" hidden="{{!showChoose}}">
-			<button form-type="submit" class="share clear-style" open-type="share" bindtap="close">转发给好友</button>
-			<button form-type="submit" class="poster clear-style" bindtap="jump" data-type="exPosition">生成精美海报</button>
-			<button form-type="submit" class="poster clear-style" bindtap="jump" data-type="position">生成职位长图</button>
-			<button form-type="submit" class="close clear-style" bindtap="close" >取消</button>
+
+		<view class="choseBox {{showChoose ? 'show' : ''}}">
+			<button form-type="submit" class="share clear-style" open-type="share" bindtap="close">
+				<view class="btnCon btn1">
+					<view class="title">分享好友或群聊<text class="icon">转化好</text></view>
+					<view class="desc">好友或群成员点开直接访问小程序</view>
+				</view>
+			</button>
+			<button form-type="submit" class="poster clear-style" bindtap="jump" data-type="exPosition">
+				<view class="btnCon btn2">
+					<view class="title">生成精美海报<text class="icon">抓眼球</text></view>
+					<view class="desc">提炼职位核心信息，发圈更抓人眼球</view>
+				</view>
+			</button>
+			<button form-type="submit" class="poster clear-style" bindtap="jump" data-type="position">
+				<view class="btnCon btn3">
+					<view class="title">生成职位长图<text class="icon">最详细</text></view>
+					<view class="desc">呈现所有职位信息，细节一目了然</view>
+				</view>
+			</button>
+			<button form-type="submit" class="close clear-style" bindtap="close"  hidden="{{!showChoose}}"><i class="icon iconfont icon-close"></i></button>
 		</view>
 	</block>
 	<block wx:else>
+		<view class="shareBtn shareBtnBg"></view>
 		<button open-type="share" class="shareBtn clear-style" form-type="submit">
-			<view class="shareIcon iconfont icon-fenxiang"></view>
+			<view><i class="shareIcon iconfont icon-fenxiang"></i></view>
+		  <text>转发</text>
 		</button>
 	</block>
 </form>
