@@ -47,10 +47,15 @@
   position: fixed;
   padding: 12rpx 60rpx;
   bottom: 72rpx;
+  left:  100%;
+  z-index: 12;
+  transition: all 0.3s;
+  opacity: 0;
+}
+.choseBox.show {
+  opacity: 1;
   left: 50%;
   margin-left: -345rpx;
-  z-index: 12;
-  overflow: hidden;
 }
 .choseBox .btnCon {
   padding: 52rpx 0;
@@ -97,13 +102,13 @@
 }
 button.close {
   width:80rpx;
-  height:80rpx;
+  height:60rpx;
   background:rgba(255,220,41,1);
   border-radius:100rpx 100rpx 0rpx 0rpx;
   border:4rpx solid rgba(0,0,0,1);
   position: absolute;
-  right: 0;
-  top: -30rpx;
+  right: -2rpx;
+  top: -58.5rpx;
   background: #FFDC29;
   overflow: hidden;
   text-align: center;

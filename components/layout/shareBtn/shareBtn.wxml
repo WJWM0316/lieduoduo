@@ -11,7 +11,7 @@
 		<view class="shareBox" bindtap="close" hidden="{{!showChoose}}">
 		</view>
 
-		<view class="choseBox" hidden="{{!showChoose}}">
+		<view class="choseBox {{showChoose ? 'show' : ''}}">
 			<button form-type="submit" class="share clear-style" open-type="share" bindtap="close">
 				<view class="btnCon btn1">
 					<view class="title">分享好友或群聊<text class="icon">转化好</text></view>
