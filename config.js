@@ -2,15 +2,24 @@
  * 小程序配置的文件
  */
 
-// 测试服接口
-// export const APPLICANTHOST = 'https://qiuzhi-api.lieduoduo.ziwork.com'
-// export const RECRUITERHOST = 'https://zhaopin-api.lieduoduo.ziwork.com'
-// export const PUBAPIHOST = 'https://pub-api.lieduoduo.ziwork.com'
+// 环境切换
+let environment = 0
+export let APPLICANTHOST = ''
+export let RECRUITERHOST = ''
+export let PUBAPIHOST = ''
+if (environment === 0) {
+	// 测试服接口
+	APPLICANTHOST = 'https://qiuzhi-api.lieduoduo.ziwork.com'
+	RECRUITERHOST = 'https://zhaopin-api.lieduoduo.ziwork.com'
+	PUBAPIHOST = 'https://pub-api.lieduoduo.ziwork.com'
+} else {
+	// 正式服环境
+	APPLICANTHOST = 'https://qiuzhi-api.lieduoduo.com'
+	RECRUITERHOST = 'https://zhaopin-api.lieduoduo.com'
+	PUBAPIHOST = 'https://pub-api.lieduoduo.com'
+}
 
-// 正式服环境
-export const APPLICANTHOST = 'https://qiuzhi-api.lieduoduo.com'
-export const RECRUITERHOST = 'https://zhaopin-api.lieduoduo.com'
-export const PUBAPIHOST = 'https://pub-api.lieduoduo.com'
+
 
 
 // 招聘端page

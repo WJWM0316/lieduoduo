@@ -41,7 +41,7 @@ App({
     hasLogin: false, // 判断是否登录
     userInfo: '', // 用户信息， 判断是否授权
     navHeight: 0,
-    cdnImagePath: 'https://lieduoduo-uploads-test.oss-cn-shenzhen.aliyuncs.com/front-assets/images/',
+    cdnImagePath: 'https://attach.lieduoduo.ziwork.com/front-assets/images/',
     companyInfo: {}, // 公司信息
     resumeInfo: {}, // 个人简历信息
     recruiterDetails: {}, // 招聘官详情信息
