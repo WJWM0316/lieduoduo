@@ -1,12 +1,13 @@
 @import '../../../iconfont.wxss'
+
 .avatarUpload {
   width: 100%;
   height: 100%;
   display: block;
 }
 .avatarImg {
-  width: 208rpx;
-  height: 208rpx;
+  width: 100%;
+  height: 100%;
   border-radius: 50%;
   background: #BCBCBC url('https://lieduoduo-uploads-test.oss-cn-shenzhen.aliyuncs.com/front-assets/images/pic_dafult_head.png');
   background-size: 100% 100%;

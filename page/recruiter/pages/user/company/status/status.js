@@ -20,10 +20,10 @@ Page({
   onLoad(options) {
     wx.setStorageSync('choseType', 'RECRUITER')
     this.setData({options})
-    console.log(options)
   },
   onShow() {
     this.getCompanyIdentityInfos()
+    console.log(12121)
   },
   todoAction(e) {
   	let params = e.currentTarget.dataset
@@ -86,7 +86,7 @@ Page({
 
         this.setData({identityInfos: infos, companyInfos, pageTitle}, () => {
           resolve(res)
-          wx.stopPullDownRefresh()
+          
           
           // 加入公司
           if(infos.applyJoin) {
@@ -98,7 +98,7 @@ Page({
 
             // 这里的判断是从发布职位过来或者我的页面过来或者api判断过来 个人身份已经通过 则返回上一个页面或者首页
             if(companyInfos.status === 1 && options.from === 'identity' && infos.identityAuth) {
-              if(getCurrentPages().length > 1) {
+              if(getCurrentPages() && getCurrentPages().length > 1) {
                 wx.navigateBack({delta: 1 })
               } else {
                 wx.reLaunch({url: `${RECRUITER}index/index`})
@@ -128,6 +128,11 @@ Page({
   // 下拉刷新
   onPullDownRefresh() {
     this.setData({hasReFresh: true})
-    this.getCompanyIdentityInfos(false).then(res => this.setData({hasReFresh: false}))
+    this.getCompanyIdentityInfos(false).then(res => {
+      this.setData({hasReFresh: false})
+      wx.stopPullDownRefresh()
+    }).catch(e => {
+      wx.stopPullDownRefresh()
+    })
   }
 })

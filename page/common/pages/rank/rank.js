@@ -11,7 +11,7 @@ import {
 
 import {shareRanking} from '../../../../utils/shareWord.js'
 
-import {APPLICANT} from '../../../../config.js'
+import {APPLICANT, COMMON} from '../../../../config.js'
 
 import {getSelectorQuery} from "../../../../utils/util.js"
 

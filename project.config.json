@@ -15,7 +15,7 @@
 	},
 	"compileType": "miniprogram",
 	"libVersion": "2.3.2",
-	"appid": "wx225f017495e6e195",
+	"appid": "wxde5ab3ef647fba86",
 	"projectname": "lieduoduo",
 	"debugOptions": {
 		"hidedInDevtools": []
@@ -40,7 +40,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 1,
+			"current": 6,
 			"list": [
 				{
 					"id": 0,
@@ -85,7 +85,7 @@
 					"id": 6,
 					"name": "【公包】职位机会",
 					"pathName": "page/common/pages/careerChance/careerChance",
-					"query": "nc=true&sourceType=222",
+					"query": "",
 					"scene": null
 				},
 				{
