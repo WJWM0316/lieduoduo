@@ -101,11 +101,11 @@ button.close {
   background:rgba(255,220,41,1);
   border-radius:100rpx 100rpx 0rpx 0rpx;
   border:4rpx solid rgba(0,0,0,1);
-  position: fixed;
+  position: absolute;
+  right: 0;
+  top: -30rpx;
   background: #FFDC29;
   overflow: hidden;
-  bottom: 610rpx;
-  right: 34rpx;
   text-align: center;
   z-index: 11;
   box-sizing: border-box;

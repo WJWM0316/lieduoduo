@@ -30,8 +30,8 @@
 					<view class="desc">呈现所有职位信息，细节一目了然</view>
 				</view>
 			</button>
+			<button form-type="submit" class="close clear-style" bindtap="close"  hidden="{{!showChoose}}"><i class="icon iconfont icon-close"></i></button>
 		</view>
-		<button form-type="submit" class="close clear-style" bindtap="close"  hidden="{{!showChoose}}"><i class="icon iconfont icon-close"></i></button>
 	</block>
 	<block wx:else>
 		<view class="shareBtn shareBtnBg"></view>
