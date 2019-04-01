@@ -2,7 +2,7 @@ import {COMMON} from '../../../config.js'
 const app = getApp()
 const animation = wx.createAnimation({
   duration: 200,
-  timingFunction: 'ease'
+  timingFunction: 'ease-in-out'
 })
 Component({
   /**

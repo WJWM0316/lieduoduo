@@ -556,6 +556,8 @@ App({
       }
     })
     if (obj.s) obj.sourceType = obj.s
+    if (obj.pid) obj.positionId = obj.pid
+    if (obj.cid) obj.companyId = obj.cid
     return obj
   },
   // 判断来源记录
@@ -583,6 +585,8 @@ App({
         params.sourcePath = `/${curPath.route}?${this.splicingParams(curPath.options)}`
       }
     }
+    // 跟踪转发人记录
+    if (curPath.options.sCode) params.sCode = curPath.options.sCode
     return params
   },
   // 预览简历

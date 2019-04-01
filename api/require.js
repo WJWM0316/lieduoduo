@@ -20,25 +20,27 @@ export const request = ({method = 'post', url, host, data = {}, needKey = true, 
   }
 
   // 如果连接带参数scode, 则存到头部
-  if (data.sCode) {
+  if (data.sCode && !data.isReload) {
     addHttpHead['Act-Code'] = data.sCode
     addHttpHead['Act-Pid'] = data.id || data.uid
-    delete data['sCode']
   } else {
     delete addHttpHead['Act-Code']
     delete addHttpHead['Act-Pid']
   }
   
   // 渠道统计
-  if (data.sourceType) {
+  if (data.sourceType && !data.isReload) {
     addHttpHead['Channel-Code'] = data.sourceType
     addHttpHead['Channel-Url'] = data.sourcePath
-    delete data['sourceType']
-    delete data['sourcePath']
   } else {
     delete addHttpHead['Channel-Code']
     delete addHttpHead['Channel-Url']
-  } 
+  }
+
+  delete data['sCode']
+  delete data['isReload']
+  delete data['sourceType']
+  delete data['sourcePath']
 
   // header 传递token, sessionToken
   if (wx.getStorageSync('sessionToken') && !wx.getStorageSync('token')) {
@@ -59,6 +61,10 @@ export const request = ({method = 'post', url, host, data = {}, needKey = true, 
   // 请求中间件
   const promise = new Promise((resolve, reject) => {
     // 开启菊花图
+    if (data.hasOwnProperty('hasLoading')) {
+      hasLoading = data.hasLoading
+      delete data.hasLoading
+    }
     if (hasLoading) {
       if (loadNum === 0) {
         wx.showLoading({

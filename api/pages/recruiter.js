@@ -5,8 +5,7 @@ export const getRecruiterAllmanifestoApi = (data) => {
   return request({
     url: '/recruiter/allmanifesto',
     method: 'get',
-    data,
-    hasLoading: true
+    data
   })
 }
 
@@ -15,8 +14,7 @@ export const getRecruiterMyInfoApi = (data) => {
   return request({
     url: '/recruiter/myInfo',
     method: 'get',
-    data,
-    hasLoading: true
+    data
   })
 }
 
@@ -25,8 +23,7 @@ export const saveRecruiterInfoApi = (data) => {
   return request({
     url: '/recruiter/baseInfo',
     method: 'post',
-    data,
-    hasLoading: true
+    data
   })
 }
 
@@ -35,16 +32,14 @@ export const getRecruiterDetailApi = (data) => {
   return request({
     url: `/recruiter/detail`,
     method: 'get',
-    data,
-    hasLoading: false
+    data
   })
 }
 export const getOthersRecruiterDetailApi = (data) => {
   return request({
     url: `/recruiter/detail/uid/${data.uid}`,
     method: 'get',
-    data,
-    hasLoading: true
+    data
   })
 }
 
@@ -53,8 +48,7 @@ export const giveMecallApi = (data) => {
   return request({
     url: `/recruiter/callRecruiter/${data.vkey}`,
     method: 'put',
-    data,
-    hasLoading: true
+    data
   })
 }
 
@@ -63,8 +57,7 @@ export const getBrowseMySelfListsApi = (data) => {
   return request({
     url: `/browse/browseMySelf`,
     method: 'get',
-    data,
-    hasLoading: true
+    data
   })
 }
 
@@ -73,8 +66,7 @@ export const setBriefApi = (data) => {
   return request({
     url: `/recruiter/brief`,
     method: 'post',
-    data,
-    hasLoading: true
+    data
   })
 }
 // 设置招聘官宣言
@@ -82,8 +74,7 @@ export const setManifestoApi = (data) => {
   return request({
     url: `/recruiter/manifesto`,
     method: 'post',
-    data,
-    hasLoading: true
+    data
   })
 }
 // 获取话题
@@ -100,8 +91,7 @@ export const removeTopicApi = (data) => {
   return request({
     url: `/recruiter/manifesto/${data.id}`,
     method: 'delete',
-    data,
-    hasLoading: true
+    data
   })
 }
 // 给招聘官的个人标签点赞
@@ -109,8 +99,7 @@ export const putLabelFavorApi = (data) => {
   return request({
     url: `/recruiter/labelFavor/${data.recruiterLabelId}`,
     method: 'put',
-    data,
-    hasLoading: true
+    data
   })
 }
 
@@ -119,8 +108,7 @@ export const removeLabelFavorApi = (data) => {
   return request({
     url: `/recruiter/labelFavor/${data.recruiterLabelId}`,
     method: 'delete',
-    data,
-    hasLoading: true
+    data
   })
 }
 

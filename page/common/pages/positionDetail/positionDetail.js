@@ -30,8 +30,6 @@ Page({
   onLoad(options) {
     positionCard = ''
     if (options.scene) options = app.getSceneParams(options.scene)
-    if (options.pid) options.positionId = options.pid
-    if (options.s) options.sourceType = options.s
     identity = app.identification(options)
     this.setData({query: options})
   },
@@ -61,7 +59,7 @@ Page({
    * @detail   获取职位详情
    * @return   {[type]}   [description]
    */
-  getPositionDetail() {
+  getPositionDetail(hasLoading = true, isReload = false) {
     let identity = wx.getStorageSync('choseType')
     if (app.globalData.isRecruiter) {
       this.setData({isRecruiter: app.globalData.isRecruiter})
@@ -70,7 +68,7 @@ Page({
         this.setData({isRecruiter: app.globalData.isRecruiter})
       }
     }
-    return getPositionApi({id: this.data.query.positionId, sCode: this.data.query.sCode, ...app.getSource()})
+    return getPositionApi({id: this.data.query.positionId, hasLoading, isReload, ...app.getSource()})
       .then(res => {
         this.setData({
           detail: res.data, 
@@ -125,7 +123,6 @@ Page({
         wx.navigateTo({url: `${RECRUITER}position/post/post?positionId=${this.data.detail.id}`})
         break
       case 'collect':
-        console.log(33333, app.getCurrentPagePath())
         if (identity !== 'APPLICANT') {
           app.promptSwitch({
             source: identity
@@ -189,9 +186,9 @@ Page({
     }
   },
 
-  onPullDownRefresh(hasLoading = true) {
+  onPullDownRefresh() {
     this.setData({hasReFresh: true})
-    this.getPositionDetail().then(res => {
+    this.getPositionDetail(false, true).then(res => {
       this.setData({hasReFresh: false})
       wx.stopPullDownRefresh()
     }).catch(e => {

@@ -23,7 +23,6 @@ import {getSelectorQuery} from "../../../../utils/util.js"
 import { agreedTxtC, agreedTxtB } from '../../../../utils/randomCopy.js'
 
 let app = getApp()
-let identity = ''
 Page({
 
   data: {
@@ -52,16 +51,13 @@ Page({
       isLastPage: false,
       isRequire: false
     },
-    pageCount: 4,
+    pageCount: 20,
     hasReFresh: false,
     onBottomStatus: 0,
     swiperIndex: 0
   },
   onLoad(options) {
     if (options.scene) options = app.getSceneParams(options.scene)
-    if (options.cid) options.companyId = parames.cid
-    if (options.s) options.sourceType = options.s
-    identity = app.identification(options)
     this.setData({query: options})
   },
   onShow() {
@@ -74,7 +70,6 @@ Page({
         this.getDomNodePosition()
       }
     }
-    
   },
   /**
    * @Author   小书包
@@ -194,9 +189,9 @@ Page({
    * @detail   获取公司详情
    * @return   {[type]}   [description]
    */
-  getCompanyDetail() {
+  getCompanyDetail(hasLoading = true, isReload = false) {
     return new Promise((resolve, reject) => {
-      getCompanyInfosApi({id: this.data.query.companyId, sCode: this.data.query.sCode}).then(res => {
+      getCompanyInfosApi({id: this.data.query.companyId, hasLoading, isReload, ...app.getSource()}).then(res => {
         const companyInfos = res.data
         const longitude = companyInfos.address.length ? companyInfos.address[0].lng : 0
         const latitude = companyInfos.address.length ? companyInfos.address[0].lat : 0
