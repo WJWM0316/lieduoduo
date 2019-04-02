@@ -1,6 +1,6 @@
 <!--components/business/auth/auth.wxml-->
 <view class="auth">
-  <view class="authPop">
-    <button open-type="getUserInfo" bindgetuserinfo="onGotUserInfo" lang="zh_CN">我是授权的</button>
-  </view>
+  <button open-type="getUserInfo" bindgetuserinfo="onGotUserInfo" lang="zh_CN">
+  	<image src="{{cdnImagePath}}auto1.png" class="pic"></image>
+  </button>
 </view>
