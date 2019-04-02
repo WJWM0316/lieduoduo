@@ -20,7 +20,8 @@ Page({
     imgW: 750,
     imgH: 0,
     openSet: true,
-    timerSecond: 30000
+    timerSecond: 30000,
+    guidePop: true
   },
   drawing (avatarUrl, companyUrl, qrCodeUrl) {
     const ctx = wx.createCanvasContext('canvas')
@@ -329,6 +330,8 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
+    let guidePop = wx.getStorageSync('guidePop') || false
+    this.setData({guidePop})
     let that = this
     wx.getSetting({
       success(res) {
@@ -342,6 +345,9 @@ Page({
     app.onGotUserInfo(e, true).then(res => {
       this.setData({userInfo: app.globalData.userInfo})
     })
+  },
+  hidePop (e) {
+    this.setData({guidePop: true})
   },
   saveImg () {
     let that = this
@@ -372,6 +378,7 @@ Page({
           app.shareStatistics({
             id: info.id,
             type: 'position',
+            sCode: info.sCode,
             channel: 'qrpl'
           })
           app.wxToast({

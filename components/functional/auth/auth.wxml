@@ -1,6 +1,6 @@
 <!--components/business/auth/auth.wxml-->
 <view class="auth">
   <button open-type="getUserInfo" bindgetuserinfo="onGotUserInfo" lang="zh_CN">
-  	<image src="{{cdnImagePath}}auto1.png" class="pic"></image>
+  	<image src="{{cdnImagePath}}auto1.png" class="pic"  mode="widthFix"></image>
   </button>
 </view>

@@ -75,6 +75,7 @@ export const getCompanyInfosApi = (data, hasLoading) => {
   return request({
     method: 'get',
     url: `/company/${data.id}`,
+    data,
     hasLoading: true
   })
 }

@@ -1,4 +1,8 @@
 const app = getApp()
+const animation = wx.createAnimation({
+  duration: 200,
+  timingFunction: 'ease-in-out'
+})
 Component({
   /**
    * 组件的属性列表
@@ -16,6 +20,7 @@ Component({
     choseIndex: 0,
     txtIndex: 0,
     guidePop: true,
+    animationData: {},
     info: {},
     list: []
   },
@@ -125,7 +130,6 @@ Component({
       }
     ]
     this.setData({list, guidePop})
-    if (!guidePop) wx.setStorageSync('guidePop', true)
   },
   /**
    * 组件的方法列表
@@ -169,15 +173,36 @@ Component({
     oper (e) {
       switch(e.currentTarget.dataset.type) {
         case 'open':
-          this.setData({opened: true})
+          this.setData({opened: true}, () => {
+            let timer = setTimeout(() => {
+              this.animation = animation
+              animation.bottom(36).step()
+              this.setData({
+                animationData: animation.export()
+              })
+              clearTimeout(timer)
+            }, 50)
+          })
           break
         case 'close':
-          this.setData({opened: false})
+          this.animation = animation
+          animation.bottom(-600).step()
+          this.setData({
+            animationData: animation.export()
+            }, () => {
+            let timer = setTimeout(() => {
+              this.setData({opened: false})
+              clearTimeout(timer)
+            }, 300)
+          })
           break
         case 'openTro':
           this.setData({openTro: true})
           break
         case 'closeTro':
+          let guidePop = wx.getStorageSync('guidePop')
+          if (!guidePop) wx.setStorageSync('guidePop', true)
+          this.triggerEvent('hidePop', true)
           this.setData({openTro: false})
           break
       }

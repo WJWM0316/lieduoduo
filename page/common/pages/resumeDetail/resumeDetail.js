@@ -169,7 +169,12 @@ Page({
     })
   },
   onShareAppMessage(options) {
-    let that = this
+    app.shareStatistics({
+      id: that.data.options.uid,
+      type: 'jobhunter',
+      sCode: that.data.info.sCode,
+      channel: 'card'
+    })
 　　return app.wxShare({
       options,
       title: shareResume(),

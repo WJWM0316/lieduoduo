@@ -636,8 +636,8 @@ App({
     let path = `/${pageUrl}?${this.splicingParams(pages[index].options)}`
     return path
   },
-  shareStatistics ({id, type, channel}) {
-    shareStatistics({id, type, channel}).then(res => {
+  shareStatistics ({id, type, channel, sCode}) {
+    shareStatistics({id, type, channel, sCode}).then(res => {
     })
   }
 })

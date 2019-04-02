@@ -141,7 +141,7 @@ Page({
   getPositionList(hasLoading = true) {
     return new Promise((resolve, reject) => {
       const options = this.data.query
-      let params = {company_id: options.companyId, count: this.data.pageCount, page: this.data.positionList.pageNum, ...app.getSource()}
+      let params = {company_id: options.companyId, count: this.data.pageCount, page: this.data.positionList.pageNum}
       if(typeof this.data.labelId === 'number') {
         params = Object.assign(params, {type: this.data.labelId})
       }
@@ -192,6 +192,7 @@ Page({
   getCompanyDetail(hasLoading = true, isReload = false) {
     return new Promise((resolve, reject) => {
       getCompanyInfosApi({id: this.data.query.companyId, hasLoading, isReload, ...app.getSource()}).then(res => {
+        console.log(11111111111111111, app.getSource(), isReload)
         const companyInfos = res.data
         const longitude = companyInfos.address.length ? companyInfos.address[0].lng : 0
         const latitude = companyInfos.address.length ? companyInfos.address[0].lat : 0
@@ -337,6 +338,7 @@ Page({
     app.shareStatistics({
       id: that.data.query.companyId,
       type: 'company',
+      sCode: that.data.companyInfos.sCode,
       channel: 'card'
     })
 　　return app.wxShare({

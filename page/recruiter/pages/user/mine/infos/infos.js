@@ -131,6 +131,12 @@ Page({
   },
   onShareAppMessage(options) {
     let that = this
+    app.shareStatistics({
+      id: that.data.recruiterInfo.uid,
+      type: 'recruiter',
+      sCode: that.data.recruiterInfo.sCode,
+      channel: 'card'
+    })
 　　return app.wxShare({
       options,
       title: shareRecruiter(),

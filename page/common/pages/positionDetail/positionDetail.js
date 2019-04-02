@@ -200,11 +200,13 @@ Page({
   },
   onShareAppMessage(options) {
     let that = this
-    app.shareStatistics({
-      id: that.data.query.positionId,
-      type: 'position',
-      channel: 'card'
-    })
+    // app.shareStatistics({
+    //   id: that.data.query.positionId,
+    //   type: 'position',
+    //   sCode: that.data.detail.sCode,
+    //   channel: 'card'
+    // })
+    console.log(121212121212, positionCard)
 　　return app.wxShare({
       options,
       title: sharePosition(),

@@ -451,7 +451,7 @@ Page({
    */
   onLoad: function (options) {
     let that = this
-    let info = app.globalData.resumeInfo
+    info = app.globalData.resumeInfo
     
     getPersonalResumeApi().then(res => {
       info = res.data
@@ -560,6 +560,12 @@ Page({
       wx.saveImageToPhotosAlbum({
         filePath: that.data.imgUrl,
         success: function (e) {
+          app.shareStatistics({
+            id: info.uid,
+            type: 'jobhunter',
+            sCode: info.sCode,
+            channel: 'qrpl'
+          })
           app.wxToast({
             title: '已保存至相册',
             icon: 'success'
