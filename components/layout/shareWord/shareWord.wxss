@@ -1,0 +1,204 @@
+@import '../../../iconfont.wxss'
+.wrap {
+	
+}
+.openBtn, .openBtnBg {
+	width:194rpx;
+	height:68rpx;
+	background:rgba(255,255,255,1);
+	border-radius:100rpx 0rpx 0rpx 100rpx;
+	border:4rpx solid rgba(40,40,40,1);
+	border-right: none;
+	font-weight:500;
+	font-size:26rpx;
+	color:rgba(40,40,40,1);
+	line-height:60rpx;
+	box-sizing: border-box;
+	position: fixed;
+	top: 12.59%;
+	right: 0;
+	z-index: 2;
+}
+.icon {
+	color: #000000;
+	font-size: 26rpx;
+	margin-left: 22rpx;
+}
+.openBtnBg {
+	z-index: 1;
+	top: 13.22%;
+	background:rgba(255,220,41,1);
+}
+
+.sharePop, .mainPop {
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	top: 0;
+	left: 0;
+  z-index: 3;
+}
+.shareBg {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	background:rgba(255,255,255,0.55);
+	filter:blur(5rpx);
+}
+.clickPop {
+	width: 591rpx;
+	height: 634rpx;
+	background: url('https://attach.lieduoduo.ziwork.com/front-assets/images/img_yd_zfy.png') no-repeat;
+	background-size: 100% 100%;
+	position: absolute;
+	top: 12%;
+	right: 0;
+}
+.mainPop {
+	z-index: 10;
+}
+.mainPopBg {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	background:rgba(0,0,0,0.5);
+}
+.mainPop .content {
+	width: 678rpx;
+	height: 872rpx;
+	background:rgba(255,255,255,1);
+	border-radius:24rpx 0rpx 24rpx 24rpx;
+	border:4rpx solid rgba(0,0,0,1);
+	padding: 30rpx 46rpx;
+	box-sizing: border-box;
+	font-size:28rpx;
+	font-weight: 400;
+	position: absolute;
+	top: 30%;
+	left: 50%;
+	margin-left: -335rpx;
+	z-index: 1;
+}
+.closeBtn {
+	width:80rpx;
+	height:70rpx;
+	background:rgba(255,220,41,1);
+	border-radius:100rpx 100rpx 0rpx 0rpx;
+	border:4rpx solid rgba(0,0,0,1);
+	position: absolute;
+	top:-78rpx;
+	right:-3rpx;
+}
+.closeBtn .icon {
+	font-size: 36rpx;
+	font-weight: bold;
+	margin: 18rpx auto;
+	text-align: center;
+	display: block;
+}
+.mainPop .content.contentBg {
+	background: #FFDC29;
+	top: 30.8%;
+}
+.typeBox {
+	font-size: 0;
+}
+.typeBox .type {
+	font-size: 28rpx;
+	width:132rpx;
+	height:60rpx;
+	line-height: 60rpx;
+	display: inline-block;
+	background:rgba(239,233,244,1);
+	border-radius:30rpx;
+	color: #652791;
+	border:2rpx solid rgba(40,40,40,1);
+	margin-bottom: 24rpx;
+	margin-right: 16rpx;
+	text-align: center;
+	box-sizing: border-box;
+	position: relative;
+}
+.typeBox .type.cur {
+	background: #652791;
+	color: #fff;
+}
+.typeBox .type.cur::after {
+	content: '';
+	width: 28rpx;
+	height: 19rpx;
+	display: block;
+	position: absolute;
+	left: 50%;
+	margin-left: -14rpx;
+	bottom: -18rpx;
+	background: url('https://attach.lieduoduo.ziwork.com/front-assets/images/choseCur.png') no-repeat;
+	background-size: 100% 100%;
+}
+.typeBox .type:nth-child(4n) {
+	margin-right: 0;
+}
+.word {
+	width: 100%;
+	height:480rpx;
+	background:rgba(255,254,252,1);
+	border-radius:24rpx;
+	border:2rpx solid rgba(0,0,0,1);
+	margin-top: -4rpx;
+	padding: 35rpx;
+	box-sizing: border-box;
+	overflow-y: auto;
+}
+.tip {
+	text-align: center;
+	font-size:24rpx;
+	font-weight:300;
+	color:#929292;
+	line-height:24rpx;
+	font-weight: 300;
+	margin: 20rpx 0 32rpx;
+	display: block;
+}
+.operBox {
+	overflow: hidden;
+} 
+.operBox .toggle {
+	float: left;
+}
+.toggle {
+	border-radius:100rpx;
+	border:2rpx solid rgba(0,0,0,1);
+	font-size: 0;
+}
+.toggle .icon {
+	width:102rpx;
+	height:80rpx;
+	line-height: 80rpx;
+	text-align: center;
+	display: inline-block;
+	margin: 0;
+}
+.toggle .icon.disabled {
+	color: #BCBCBC;
+}
+.toggle .icon:first-child {
+	border-right: 1rpx solid #000;
+}
+.operBox .copyBtn {
+	float: right;
+	width:330rpx;
+	height:80rpx;
+	background:rgba(255,220,41,1);
+	border-radius:44rpx;
+	border:2rpx solid rgba(40,40,40,1);
+	font-size:32rpx;
+	font-weight:500;
+	color:rgba(40,40,40,1);
+	line-height:80rpx;
+	text-align: center;
+}
+
