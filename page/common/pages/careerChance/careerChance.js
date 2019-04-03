@@ -24,20 +24,34 @@ Page({
     fixedBarHeight: 0,
     hasReFresh: false,
     onBottomStatus: 0,
+    tabList: [
+      {
+        name: '选择地区',
+        type: 'city'
+      },
+      {
+        name: '选择类型',
+        type: 'positionType'
+      },
+      {
+        name: '薪资范围',
+        type: 'salary'
+      }
+    ],
     positionList: {
       list: [],
       pageNum: 1,
       isLastPage: false,
       isRequire: false
     },
+    tabType: 'closeTab',
     city: 0,
     cityIndex: 0,
     type: 0,
     typeIndex: 0,
     cityList: [],
     positionTypeList: [],
-    applyIndex: 0,
-    positionIndex: 0,
+    requireOAuth: false,
     cdnImagePath: app.globalData.cdnImagePath
   },
 
@@ -90,6 +104,15 @@ Page({
       this.setData({cityList})
     })
   },
+  choseTab (e) {
+    let closeTab = e.currentTarget.dataset.type
+    if (this.data.tabType === closeTab) {
+      this.setData({tabType: 'closeTab'})
+    } else {
+      this.setData({tabType: closeTab})
+    }
+    console.log(this.data.tabType, 22222)
+  },
   /**
    * @Author   小书包
    * @DateTime 2019-01-23
@@ -132,13 +155,18 @@ Page({
       getPositionListApi(params, hasLoading).then(res => {
         const positionList = this.data.positionList
         const onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
+        let requireOAuth = res.meta.requireOAuth || false
         positionList.list = positionList.list.concat(res.data)
         positionList.isLastPage = res.meta && res.meta.nextPageUrl ? false : true
         positionList.pageNum = positionList.pageNum + 1
         positionList.isRequire = true
-        this.setData({positionList, onBottomStatus}, () => resolve(res))
+        this.setData({positionList, requireOAuth, onBottomStatus}, () => resolve(res))
       })
     })
+  },
+  authSuccess () {
+    let requireOAuth = false
+    this.setData({requireOAuth})
   },
   /**
    * @Author   小书包

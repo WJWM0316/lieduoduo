@@ -25,6 +25,7 @@ Page({
     companyInfos: {},
     recruiterInfo: {},
     hasReFresh: false,
+    requireOAuth: false,
     cdnPath: app.globalData.cdnImagePath
   },
   onLoad(options) {
@@ -70,7 +71,9 @@ Page({
     }
     return getPositionApi({id: this.data.query.positionId, hasLoading, isReload, ...app.getSource()})
       .then(res => {
+        let requireOAuth = res.meta && res.meta.requireOAuth ? res.meta.requireOAuth : false
         this.setData({
+          requireOAuth: requireOAuth,
           detail: res.data, 
           companyInfos: res.data.companyInfo, 
           recruiterInfo: res.data.recruiterInfo, 
@@ -79,7 +82,10 @@ Page({
         if(this.selectComponent('#interviewBar')) this.selectComponent('#interviewBar').init()
     })
   },
-
+  authSuccess () {
+    let requireOAuth = false
+    this.setData({requireOAuth})
+  },
 
   /**
    * @Author   小书包
@@ -200,13 +206,12 @@ Page({
   },
   onShareAppMessage(options) {
     let that = this
-    // app.shareStatistics({
-    //   id: that.data.query.positionId,
-    //   type: 'position',
-    //   sCode: that.data.detail.sCode,
-    //   channel: 'card'
-    // })
-    console.log(121212121212, positionCard)
+    app.shareStatistics({
+      id: that.data.query.positionId,
+      type: 'position',
+      sCode: that.data.detail.sCode,
+      channel: 'card'
+    })
 　　return app.wxShare({
       options,
       title: sharePosition(),

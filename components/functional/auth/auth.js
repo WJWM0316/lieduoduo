@@ -13,7 +13,8 @@ Component({
    * 组件的初始数据
    */
   data: {
-    cdnImagePath: app.globalData.cdnImagePath
+    cdnImagePath: app.globalData.cdnImagePath,
+    confirmPop: false
   },
 
   /**
@@ -29,7 +30,12 @@ Component({
   }, 
   methods: {
     onGotUserInfo(e) {
-      getApp().onGotUserInfo(e)
+      getApp().onGotUserInfo(e, 'closePop').then(res => {
+        this.triggerEvent('authSuccess', true)
+      }).catch(err => {
+        console.log(err)
+        this.setData({confirmPop: true})
+      })
     }
   }
 })

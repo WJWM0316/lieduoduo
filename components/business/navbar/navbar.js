@@ -55,7 +55,7 @@ Component({
       this.setData({showBackBtn: true, positionStatus})
     } else {
       this.setData({positionStatus})
-    }    
+    }
   },
   /**
    * 组件的方法列表

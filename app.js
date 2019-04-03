@@ -207,7 +207,7 @@ App({
     })
   },
   // 授权button 回调
-  onGotUserInfo(e, isNeedUrl) {
+  onGotUserInfo(e, operType) {
     let that = this
     return new Promise((resolve, reject) => {
       if (e.detail.errMsg === 'getUserInfo:ok') {
@@ -241,14 +241,18 @@ App({
               wx.setStorageSync('sessionToken', res.data.sessionToken)
             }
             resolve(res)
-            if (!isNeedUrl) {
+            if (!operType) {
               wx.reLaunch({
                 url: pageUrl
               })
             } else {
-              wx.navigateBack({
-                delta: 1
-              })
+              if (operType === 'closePop') {
+                console.log('授权成功关闭弹窗')
+              } else {
+                wx.navigateBack({
+                  delta: 1
+                })
+              }              
             }
           }).catch(e => {
             wx.login({
@@ -260,6 +264,9 @@ App({
           })
         }
         wxLogin()
+      } else {
+        console.log('用户拒绝授权', e.detail.errMsg)
+        reject(e.detail.errMsg)
       }
     })
   },
@@ -631,7 +638,6 @@ App({
   // 获取当前页面完整链接
   getCurrentPagePath (index) {
     var pages = getCurrentPages() //获取加载的页面
-    let pageUrl = pages[pages.length - 1].route
     if (!index && index !== 0) index = pages.length - 1
     let pageUrl = pages[index].route
     let path = `/${pageUrl}?${this.splicingParams(pages[index].options)}`

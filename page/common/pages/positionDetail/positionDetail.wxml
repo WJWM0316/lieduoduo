@@ -98,4 +98,5 @@
 		wx:if="{{detail.vkey && !isOwner}}"></interviewBar>
 
 	<view></view>
+	<auth wx:if="{{requireOAuth}}" bindauthSuccess="authSuccess"></auth>
 </view>

@@ -6,16 +6,18 @@
   </view>
   
 
-  <view class="select-box" style="top: {{navH}}px">
+  <view class="select-box" style="top: {{navH}}px;">
     <view class="select-tab">
-      <view class="item"><text class="txt">选择地区</text><i class="icon iconfont icon-zhishibiao"></i></view>
-      <view class="item"><text class="txt">选择类型</text><i class="icon iconfont icon-zhishibiao"></i></view>
-      <view class="item"><text class="txt">薪资范围</text><i class="icon iconfont icon-zhishibiao"></i></view>
+      <view class="item {{tabType === item.type ? 'cur' : ''}}" bindtap="choseTab" data-type="{{item.type}}" wx:for="{{tabList}}" wx:key="{{index}}"><text class="txt">{{item.name}}</text><i class="icon iconfont icon-zhishibiao"></i></view>
     </view>
-    <view class="select-area" style="top: {{navH + 49}}px">
-      <block>
-        <text class="select-area-item" wx:for="{{cityList}}" wx:key="{{index}}">{{item.name}}</text>
-      </block>
+    <view hidden="{{tabType === 'closeTab'}}">
+      <view class="select-bg" style="height: calc(100vh - {{navH + 49}}px)"></view>
+      <view class="select-area" hidden="{{tabType !== 'city'}}">
+        <text class="select-area-item {{cityIndex === index ? 'cur' : ''}}" wx:for="{{cityList}}" wx:key="{{index}}">{{item.name}}</text>
+      </view>
+      <view class="select-area" hidden="{{tabType !== 'positionType'}}">
+        <text class="select-area-item {{typeIndex === index ? 'cur' : ''}}" wx:for="{{positionTypeList}}" wx:key="{{index}}">{{item.name}}</text>
+      </view>
     </view>
   </view>
 
@@ -35,4 +37,5 @@
     <bottomStatus status="{{onBottomStatus}}" listData="{{positionList.list}}"></bottomStatus>
   </view>
   <tabBar></tabBar>
+  <auth wx:if="{{requireOAuth}}" bindauthSuccess="authSuccess"></auth>
 </view>
