@@ -1,4 +1,5 @@
 import {RECRUITER, APPLICANT} from '../../../../config.js'
+const app = getApp()
 Page({
 
   /**
@@ -15,12 +16,12 @@ Page({
     let choseType = wx.getStorageSync('choseType')
     switch(choseType) {
       case 'RECRUITER':
-        wx.reLaunch({
+        wx.redirectTo({
           url: `${RECRUITER}index/index`
         })
         break
       case 'APPLICANT':
-        wx.reLaunch({
+        wx.redirectTo({
           url: `${APPLICANT}index/index`
         })
         break

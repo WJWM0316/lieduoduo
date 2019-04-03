@@ -91,7 +91,7 @@ Page({
       title = '姓名需为2-20个中文字符'
     }
     if (!positionReg.test(info.position)) {
-      title = '担任职务需为2-50个字'
+      title = '担任职务需为2-20个字'
     }
     if (!emailReg.test(info.email)) {
       title = '邮箱格式不正确'

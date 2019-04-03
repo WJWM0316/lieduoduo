@@ -1,6 +1,6 @@
 //app.js
 import {loginApi, checkSessionKeyApi, bindPhoneApi, uploginApi} from 'api/pages/auth.js'
-import {formIdApi} from 'api/pages/common.js'
+import {formIdApi, shareStatistics} from 'api/pages/common.js'
 import {getPersonalResumeApi} from 'api/pages/center.js'
 import {getRecruiterDetailApi} from 'api/pages/recruiter.js'
 import {COMMON,RECRUITER,APPLICANT} from "config.js"
@@ -41,7 +41,7 @@ App({
     hasLogin: false, // 判断是否登录
     userInfo: '', // 用户信息， 判断是否授权
     navHeight: 0,
-    cdnImagePath: 'https://lieduoduo-uploads-test.oss-cn-shenzhen.aliyuncs.com/front-assets/images/',
+    cdnImagePath: 'https://attach.lieduoduo.ziwork.com/front-assets/images/',
     companyInfo: {}, // 公司信息
     resumeInfo: {}, // 个人简历信息
     recruiterDetails: {}, // 招聘官详情信息
@@ -57,31 +57,40 @@ App({
     wx.login({
       success: function (res0) {
         if (!wx.getStorageSync('choseType')) wx.setStorageSync('choseType', 'APPLICANT')
+        let params = {}
+        let startRouteParams = that.globalData.startRoute.query
+        if (startRouteParams.scene) {
+          startRouteParams = that.getSceneParams(startRouteParams.scene)
+        }
+        if (startRouteParams.sourceType) {
+          params = {
+            sourceType: startRouteParams.sourceType,
+            sourcePath: `/${that.globalData.startRoute.path}?${that.splicingParams(startRouteParams)}`
+          }
+        } else {
+          params = {
+            sourceType: 'sch',
+            sourcePath: `/${that.globalData.startRoute.path}?${that.splicingParams(startRouteParams)}`
+          }
+        }
         wx.setStorageSync('code', res0.code)
-        loginApi({code: res0.code}).then(res => {
+        loginApi({code: res0.code, ...params}).then(res => {
           // 有token说明已经绑定过用户了
           if (res.data.token) {
             wx.setStorageSync('token', res.data.token)
             that.loginedLoadData()
             that.globalData.hasLogin = true
             that.globalData.userInfo = res.data
-            // 登陆回调
-            if (that.loginInit) {
-              that.loginInit()
-            }
-            that.loginInit = function () {}
             console.log('用户已认证')
           } else {
             console.log('用户未绑定手机号', 'sessionToken', res.data.sessionToken)
-            that.checkLogin().then(() => {
-              // 登陆回调
-              if (that.loginInit) {
-                that.loginInit()
-              }
-              that.loginInit = function () {}
-            })
             wx.setStorageSync('sessionToken', res.data.sessionToken)
           }
+          // 登陆回调
+          if (that.loginInit) {
+            that.loginInit()
+          }
+          that.loginInit = function () {}
         })
       },
       fail: function (e) {
@@ -168,50 +177,30 @@ App({
   checkLogin () {
     let that = this
     return new Promise((resolve, reject) => {
-      wx.login({
-        success: function (res0) {
-          wx.setStorageSync('code', res0.code)
-          wx.getSetting({
-            success: res => {
-              let pageUrl = `/${that.globalData.startRoute.path}`
-              if (res.authSetting['scope.userInfo']) {
-                // 已经授权，可以直接调用 getUserInfo 获取头像昵称，不会弹框
-                checkSessionKeyApi({session_token: wx.getStorageSync('sessionToken')}).then(res0 => {
-                  wx.getUserInfo({
-                    success: res => {
-                      // 可以将 res 发送给后台解码出 unionId
-                      that.globalData.userInfo = res.userInfo
-                      // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
-                      // 所以此处加入 callback 以防止这种情况
-                      if (that.userInfoReadyCallback) {
-                        that.userInfoReadyCallback(res)
-                      }
-                      const e = {}
-                      e.detail = res
-                      if (!that.globalData.isIos) {
-                        that.onGotUserInfo(e)
-                      }
-                      console.log('用户已授权')
-                      resolve(res)
-                    }
-                  })
-                }).catch(e => {
-                  wx.removeStorageSync('sessionToken')
-                  if (pageUrl !== `${COMMON}startPage/startPage`) {
-                    wx.navigateTo({
-                      url: `${COMMON}auth/auth`
-                    })
-                  }
-                })
-              } else {
-                wx.removeStorageSync('sessionToken')
-                if (pageUrl !== `${COMMON}startPage/startPage`) {
-                  wx.navigateTo({
-                    url: `${COMMON}auth/auth`
-                  })
-                }
-              }
+      checkSessionKeyApi({session_token: wx.getStorageSync('sessionToken')}).then(res0 => {
+        wx.getUserInfo({
+          success: res => {
+            // 可以将 res 发送给后台解码出 unionId
+            // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
+            // 所以此处加入 callback 以防止这种情况
+            if (that.userInfoReadyCallback) {
+              that.userInfoReadyCallback(res)
             }
+            const e = {}
+            e.detail = res
+            if (!that.globalData.isIos) {
+              that.onGotUserInfo(e)
+            }
+            console.log('用户已授权')
+            resolve(res)
+          }
+        })
+      }).catch(e => {
+        resolve(res)
+        wx.removeStorageSync('sessionToken')
+        if (pageUrl !== `${COMMON}startPage/startPage`) {
+          wx.navigateTo({
+            url: `${COMMON}auth/auth`
           })
         }
       })
@@ -229,16 +218,9 @@ App({
           data: e.detail.encryptedData,
           ...that.getSource()
         }
-        that.globalData.userInfo = e.detail.userInfo
         let wxLogin = function () {
           // 请求接口获取服务器session_key
-          var pages = getCurrentPages() //获取加载的页面
-          let pageUrl = pages[0].route
-          let params = ''
-          for (let i in pages[0].options) {
-            params = `${params}${i}=${pages[0].options[i]}&`
-          }
-          pageUrl = `${pageUrl}?${params}`
+          let pageUrl = that.getCurrentPagePath(0)
           data.code = wx.getStorageSync('code')
           if (wx.getStorageSync('sessionToken')) {
             data.session_token = wx.getStorageSync('sessionToken')
@@ -261,7 +243,7 @@ App({
             resolve(res)
             if (!isNeedUrl) {
               wx.reLaunch({
-                url: `/${pageUrl}`
+                url: pageUrl
               })
             } else {
               wx.navigateBack({
@@ -295,15 +277,9 @@ App({
             this.loginedLoadData()
             this.globalData.hasLogin = true
             this.globalData.userInfo = res.data
-            var pages = getCurrentPages() //获取加载的页面
-            let pageUrl = pages[0].route
-            let params = ''
-            for (let i in pages[0].options) {
-              params = `${params}${i}=${pages[0].options[i]}&`
-            }
-            pageUrl = `${pageUrl}?${params}`
+            let pageUrl = this.getCurrentPagePath(0)
             wx.reLaunch({
-              url: `/${pageUrl}`
+              url: `${pageUrl}`
             })
             resolve(res)
           } 
@@ -311,14 +287,14 @@ App({
           this.checkLogin()
         })
       })
-    }  
+    }
   },
   // 手机登陆
   phoneLogin(data) {
     return new Promise((resolve, reject) => {
       bindPhoneApi(data).then(res => {
-        wx.setStorageSync('token', res.data.token)
-        wx.setStorageSync('sessionToken', res.data.sessionToken)
+        if (res.data.token) wx.setStorageSync('token', res.data.token)
+        if (res.data.sessionToken) wx.setStorageSync('sessionToken', res.data.sessionToken)
         this.globalData.hasLogin = true
         this.globalData.userInfo = res.data
         this.loginedLoadData()
@@ -579,6 +555,9 @@ App({
         obj[param[0]] = param[1]
       }
     })
+    if (obj.s) obj.sourceType = obj.s
+    if (obj.pid) obj.positionId = obj.pid
+    if (obj.cid) obj.companyId = obj.cid
     return obj
   },
   // 判断来源记录
@@ -588,8 +567,12 @@ App({
     let route = getCurrentPages()
     let curPath = route[route.length - 1]
     if (launch.path === 'page/common/pages/startPage/startPage' && launch.path === curPath.route) { // 自然搜索使用
-      params.sourceType = 'sch'
-      params.sourcePath = launch.path
+      if (curPath.options.sourceType) {
+        params.sourceType = curPath.options.sourceType
+      } else {
+        params.sourceType = 'sch'
+      }
+      params.sourcePath = `/${launch.path}?${this.splicingParams(curPath.options)}`
     } else {
       if (curPath.options && curPath.options.scene) {
         curPath.options = this.getSceneParams(curPath.options.scene)
@@ -599,9 +582,11 @@ App({
       }
       if (curPath.options && curPath.options.sourceType) { // 链接带特殊参数
         params.sourceType = curPath.options.sourceType
-        params.sourcePath = curPath.route
+        params.sourcePath = `/${curPath.route}?${this.splicingParams(curPath.options)}`
       }
     }
+    // 跟踪转发人记录
+    if (curPath.options.sCode) params.sCode = curPath.options.sCode
     return params
   },
   // 预览简历
@@ -634,26 +619,26 @@ App({
       })
     }
   },
+  // 拼接参数成字符串
+  splicingParams (params) {
+    let string = ''
+    for (let i in params) {
+      string = `${string}${i}=${params[i]}&`
+    }
+    string = string.slice(0, string.length-1)
+    return string
+  },
   // 获取当前页面完整链接
-  getCurrentPagePath () {
+  getCurrentPagePath (index) {
     var pages = getCurrentPages() //获取加载的页面
     let pageUrl = pages[pages.length - 1].route
-    let params = ''
-    for (let i in pages[pages.length - 1].options) {
-      switch (i) {
-        case 'pid':
-          params = `${params}positionId=${pages[0].options[i]}&`
-          break
-        case 's':
-          params = `${params}sourceType=${pages[0].options[i]}&`
-          break
-        default:
-          params = `${params}${i}=${pages[0].options[i]}&`
-          break
-      } 
-    }
-    params = params.slice(0, params.length-1)
-    let path = `/${pageUrl}?${params}`
+    if (!index && index !== 0) index = pages.length - 1
+    let pageUrl = pages[index].route
+    let path = `/${pageUrl}?${this.splicingParams(pages[index].options)}`
     return path
+  },
+  shareStatistics ({id, type, channel, sCode}) {
+    shareStatistics({id, type, channel, sCode}).then(res => {
+    })
   }
 })

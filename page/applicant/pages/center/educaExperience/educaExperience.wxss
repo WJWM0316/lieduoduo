@@ -36,7 +36,7 @@
   background-color: #E8E9EB;
   text-align: center;
   margin: 0 auto;
-  margin-top: 56rpx;
+  margin-top: 30rpx;
   font-size: 32rpx;
 }
 .commont input{
@@ -54,7 +54,7 @@
 }
 .timeBox{
   color: #626262;
-  margin-top: 32rpx;
+  margin-top: 30rpx;
   text-align: center;
 }
 .startTime,
@@ -78,15 +78,20 @@
   background:rgba(247,249,252,1);
   border-radius: 50rpx;
   margin: 0 auto;
-  margin-top: 32rpx;
+  margin-top: 30rpx;
   text-align: center;
   line-height: 80rpx;
   font-size: 32rpx;
   font-weight: 500;
   border:1rpx solid rgba(232,233,235,1);
 }
+.btn-area {
+  width: 100%;
+  position: fixed;
+  left: 0;
+  bottom: 56rpx;
+}
 .btn-area button{
-  margin-top: 128rpx;
   width: 128rpx;
   height: 128rpx;
   border-radius: 50%;

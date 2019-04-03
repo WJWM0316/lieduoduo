@@ -20,7 +20,7 @@ export const request = ({method = 'post', url, host, data = {}, needKey = true, 
   }
 
   // 如果连接带参数scode, 则存到头部
-  if (data.sCode) {
+  if (data.sCode && !data.isReload) {
     addHttpHead['Act-Code'] = data.sCode
     addHttpHead['Act-Pid'] = data.id || data.uid
   } else {
@@ -29,13 +29,18 @@ export const request = ({method = 'post', url, host, data = {}, needKey = true, 
   }
   
   // 渠道统计
-  if (data.sourceType) {
+  if (data.sourceType && !data.isReload) {
     addHttpHead['Channel-Code'] = data.sourceType
     addHttpHead['Channel-Url'] = data.sourcePath
   } else {
     delete addHttpHead['Channel-Code']
     delete addHttpHead['Channel-Url']
-  } 
+  }
+
+  delete data['sCode']
+  delete data['isReload']
+  delete data['sourceType']
+  delete data['sourcePath']
 
   // header 传递token, sessionToken
   if (wx.getStorageSync('sessionToken') && !wx.getStorageSync('token')) {
@@ -56,6 +61,10 @@ export const request = ({method = 'post', url, host, data = {}, needKey = true, 
   // 请求中间件
   const promise = new Promise((resolve, reject) => {
     // 开启菊花图
+    if (data.hasOwnProperty('hasLoading')) {
+      hasLoading = data.hasLoading
+      delete data.hasLoading
+    }
     if (hasLoading) {
       if (loadNum === 0) {
         wx.showLoading({
@@ -137,17 +146,14 @@ export const request = ({method = 'post', url, host, data = {}, needKey = true, 
                 })
               }
               if (msg.code === 801) {
-
                 if(msg.data.applyJoin) {
                   // 加入公司
                   wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=join`})
                 } else {
-
                   if(!msg.data.companyInfo.id) {
                     // 还没有填写公司信息
                     wx.reLaunch({url: `${RECRUITER}user/company/apply/apply`})
                   } else {
-                    
                     // 创建公司 没填身份证 但是公司已经审核通过
                     if(msg.data.companyInfo.status === 1 && !msg.data.id) {
                       wx.reLaunch({url: `${RECRUITER}user/company/identity/identity?from=identity`})

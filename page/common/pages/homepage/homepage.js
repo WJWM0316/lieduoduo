@@ -23,7 +23,6 @@ import {getSelectorQuery} from "../../../../utils/util.js"
 import { agreedTxtC, agreedTxtB } from '../../../../utils/randomCopy.js'
 
 let app = getApp()
-let identity = ''
 Page({
 
   data: {
@@ -52,22 +51,13 @@ Page({
       isLastPage: false,
       isRequire: false
     },
-    pageCount: 4,
+    pageCount: 20,
     hasReFresh: false,
     onBottomStatus: 0,
     swiperIndex: 0
   },
   onLoad(options) {
-    if (options.scene) {
-      let parames = app.getSceneParams(options.scene)
-      if (parames.cid) {
-        options.companyId = parames.cid
-      }
-      if (options.s) {
-        options.sourceType = options.s
-      }
-    }
-    identity = app.identification(options)
+    if (options.scene) options = app.getSceneParams(options.scene)
     this.setData({query: options})
   },
   onShow() {
@@ -80,7 +70,6 @@ Page({
         this.getDomNodePosition()
       }
     }
-    
   },
   /**
    * @Author   小书包
@@ -152,7 +141,7 @@ Page({
   getPositionList(hasLoading = true) {
     return new Promise((resolve, reject) => {
       const options = this.data.query
-      let params = {company_id: options.companyId, count: this.data.pageCount, page: this.data.positionList.pageNum, ...app.getSource()}
+      let params = {company_id: options.companyId, count: this.data.pageCount, page: this.data.positionList.pageNum}
       if(typeof this.data.labelId === 'number') {
         params = Object.assign(params, {type: this.data.labelId})
       }
@@ -200,9 +189,10 @@ Page({
    * @detail   获取公司详情
    * @return   {[type]}   [description]
    */
-  getCompanyDetail() {
+  getCompanyDetail(hasLoading = true, isReload = false) {
     return new Promise((resolve, reject) => {
-      getCompanyInfosApi({id: this.data.query.companyId, sCode: this.data.query.sCode}).then(res => {
+      getCompanyInfosApi({id: this.data.query.companyId, hasLoading, isReload, ...app.getSource()}).then(res => {
+        console.log(11111111111111111, app.getSource(), isReload)
         const companyInfos = res.data
         const longitude = companyInfos.address.length ? companyInfos.address[0].lng : 0
         const latitude = companyInfos.address.length ? companyInfos.address[0].lat : 0
@@ -345,6 +335,12 @@ Page({
   },
   onShareAppMessage(options) {
     let that = this
+    app.shareStatistics({
+      id: that.data.query.companyId,
+      type: 'company',
+      sCode: that.data.companyInfos.sCode,
+      channel: 'card'
+    })
 　　return app.wxShare({
       options,
       title: `${that.data.companyInfos.companyShortname}正在招聘，马上约面，极速入职！我在猎多多等你！`,

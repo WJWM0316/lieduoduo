@@ -120,10 +120,16 @@ Page({
   },
   onShareAppMessage(options) {
     let that = this
+    app.shareStatistics({
+      id: that.data.myInfo.uid,
+      type: 'jobhunter',
+      sCode: that.data.myInfo.sCode,
+      channel: 'card'
+    })
 　　return app.wxShare({
       options,
       btnTitle: shareResume(),
-      btnPath: `${COMMON}resumeDetail/resumeDetail?uid=${this.data.myInfo.uid}`,
+      btnPath: `${COMMON}resumeDetail/resumeDetail?uid=${this.data.myInfo.uid}&sCode=${this.data.myInfo.sCode}&sourceType=shj`,
       btnImageUrl: `${that.data.cdnImagePath}shareC.png`
     })
   }

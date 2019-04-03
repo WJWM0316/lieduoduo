@@ -1,6 +1,6 @@
 {
   "pages": [
-    "page/common/pages/startPage/startPage",  
+    "page/common/pages/startPage/startPage",
     "page/common/pages/changeMobile/changeMobile",
     "page/common/pages/bindPhone/bindPhone",
     "page/common/pages/auth/auth",
@@ -114,5 +114,6 @@
     "bottomStatus": "components/layout/bottomStatus/bottomStatus",
     "refreshStatus": "components/layout/refreshStatus/refreshStatus"
   },
-  "debug": false
+  "debug": false,
+  "sitemapLocation": "sitemap.json"
 }

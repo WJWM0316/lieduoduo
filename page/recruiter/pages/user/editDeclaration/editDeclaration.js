@@ -17,7 +17,7 @@ Page({
     })
   },
   backEvent() {
-    if (this.data.content.length > 0) {
+    if (this.data.content && this.data.content.length > 0) {
       app.wxConfirm({
         title: '放弃发布',
         content: '你编辑的招聘宣言尚未保存，确定放弃编辑吗？',
@@ -71,7 +71,7 @@ Page({
       })
       return
     }
-    if (this.data.content.length > this.data.limitNum) {
+    if (this.data.content && this.data.content.length > this.data.limitNum) {
       app.wxToast({
         title: `招聘宣言不能少于${this.data.limitNum}个字`
       })

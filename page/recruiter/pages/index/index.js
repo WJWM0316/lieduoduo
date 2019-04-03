@@ -87,12 +87,13 @@ Page({
       isLastPage: false,
       isRequire: false
     }
+    let that = this
     this.setData({browseMySelf, collectUsers, collectMySelf})
     if (app.loginInit) {
-      this.getLists().then(() => this.getDomNodePosition())
+      that.getLists().then(() => that.getDomNodePosition())
     } else {
       app.loginInit = () => {
-        this.getLists().then(() => this.getDomNodePosition())
+        that.getLists().then(() => that.getDomNodePosition())
       }
     }
   },

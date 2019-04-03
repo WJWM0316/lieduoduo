@@ -45,7 +45,7 @@ export const createPositionApi = (data, hasLoading) => {
     method: 'post',
     url: '/position',
     data,
-    hasLoading: true
+    hasLoading: hasLoading
   })
 }
 
@@ -55,7 +55,7 @@ export const getPositionApi = (data, hasLoading) => {
     method: 'get',
     url: `/position/${data.id}`,
     data,
-    hasLoading: true
+    hasLoading: hasLoading
   })
 }
 
@@ -65,7 +65,7 @@ export const editPositionApi = (data, hasLoading) => {
     method: 'put',
     url: `/position/${data.id}`,
     data,
-    hasLoading: true
+    hasLoading: hasLoading
   })
 }
 
@@ -75,7 +75,7 @@ export const deletePositionApi = (data, hasLoading) => {
     method: 'put',
     url: `/position/${data.id}`,
     data,
-    hasLoading: true
+    hasLoading: hasLoading
   })
 }
 
@@ -85,7 +85,7 @@ export const getPositionExperienceApi = (data, hasLoading) => {
     method: 'get',
     url: '/position/experience',
     data,
-    hasLoading: true
+    hasLoading: hasLoading
   })
 }
 
@@ -95,7 +95,7 @@ export const closePositionApi = (data, hasLoading) => {
     method: 'put',
     url: `/position/close/${data.id}`,
     data,
-    hasLoading: true
+    hasLoading: hasLoading
   })
 }
 
@@ -105,7 +105,7 @@ export const openPositionApi = (data, hasLoading) => {
     method: 'put',
     url: `/position/open/${data.id}`,
     data,
-    hasLoading: true
+    hasLoading: hasLoading
   })
 }
 
@@ -115,6 +115,6 @@ export const getPositionNameListApi = (data, hasLoading) => {
     method: 'get',
     url: `/search/position`,
     data,
-    hasLoading: true
+    hasLoading: hasLoading
   })
 }

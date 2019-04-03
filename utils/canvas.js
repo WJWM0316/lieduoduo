@@ -81,11 +81,11 @@ export const lineFeed = (ctx, text, width, x, y, bgUrl, bgW = 750, bgH = 90) => 
 			let descString = ''
 			let nextDescString = ''
 			let nextDescWidth = 0
-			if (ctx.measureText(item).width > width) {
+			if (ctx.measureText(item).width > width + 35) {
 		    let iIndex = 0 // 最后一行的第一个字的索引
-		    for (let i = 0; i < item.length; i++) {
+		    for (let i = 0; i < item.length - 1; i++) {
 		      descString = descString + item[i]
-		      nextDescString = descString + item[i]
+		      nextDescString = descString + item[i+1]
 		      nextDescWidth = ctx.measureText(nextDescString).width
 		      if (nextDescWidth > width + 35) {
 		      	if (bgUrl) ctx.drawImage(bgUrl, 0, curHeight, bgW, bgH)

@@ -20,7 +20,6 @@ Page({
     realIsOwner: false,
     hasReFresh: false,
     options: {},
-    identity: '',
     showLimit: 3,
     cdnImagePath: app.globalData.cdnImagePath
   },
@@ -28,12 +27,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    if (options.scene) {
-      options = app.getSceneParams(options.scene)
-      if (options.s) {
-        options.sourceType = options.s
-      }
-    }
+    if (options.scene) options = app.getSceneParams(options.scene)
     identity = app.identification(options)
     this.setData({options})
   },
@@ -78,9 +72,9 @@ Page({
       urls: [this.data.info.avatar.url] // 需要预览的图片http链接列表
     })
   },
-  getOthersInfo() {
+  getOthersInfo(hasLoading = true, isReload = false) {
     return new Promise((resolve, reject) => {
-      getOtherResumeApi({uid: this.data.options.uid, sCode: this.data.options.sCode, ...app.getSource()}).then(res => {
+      getOtherResumeApi({uid: this.data.options.uid, hasLoading, isReload, ...app.getSource()}).then(res => {
         this.setData({info: res.data, isOwner: res.data.isOwner && identity === 'APPLICANT', realIsOwner: res.data.isOwner}, function() {
           if (this.data.isOwner) {
             app.globalData.resumeInfo = res.data
@@ -167,7 +161,7 @@ Page({
   },
   onPullDownRefresh(hasLoading = true) {
     this.setData({hasReFresh: true})
-    this.getOthersInfo().then(res => {
+    this.getOthersInfo(false, true).then(res => {
       this.setData({hasReFresh: false})
       wx.stopPullDownRefresh()
     }).catch(e => {
@@ -176,6 +170,12 @@ Page({
   },
   onShareAppMessage(options) {
     let that = this
+    app.shareStatistics({
+      id: that.data.options.uid,
+      type: 'jobhunter',
+      sCode: that.data.info.sCode,
+      channel: 'card'
+    })
 　　return app.wxShare({
       options,
       title: shareResume(),

@@ -81,9 +81,7 @@ Page({
       && formData.industry_id
       && formData.financing
       && formData.employees
-      && formData.intro
-      && formData.logo.smallUrl
-      
+      && formData.intro      
     this.setData({ canClick })
   },
   /**

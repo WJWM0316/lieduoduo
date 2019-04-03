@@ -8,7 +8,6 @@ import {
   getMycollectPositionApi,
   deleteMycollectPositionApi
 } from '../../../../api/pages/collect.js'
-
 import {getUserRoleApi} from "../../../../api/pages/user.js"
 
 import {RECRUITER, COMMON} from '../../../../config.js'
@@ -30,15 +29,7 @@ Page({
   },
   onLoad(options) {
     positionCard = ''
-    if (options.scene) {
-      options = app.getSceneParams(options.scene)
-      if (options.pid) {
-        options.positionId = options.pid
-      }
-      if (options.s) {
-        options.sourceType = options.s
-      }
-    }
+    if (options.scene) options = app.getSceneParams(options.scene)
     identity = app.identification(options)
     this.setData({query: options})
   },
@@ -68,7 +59,7 @@ Page({
    * @detail   获取职位详情
    * @return   {[type]}   [description]
    */
-  getPositionDetail() {
+  getPositionDetail(hasLoading = true, isReload = false) {
     let identity = wx.getStorageSync('choseType')
     if (app.globalData.isRecruiter) {
       this.setData({isRecruiter: app.globalData.isRecruiter})
@@ -77,7 +68,7 @@ Page({
         this.setData({isRecruiter: app.globalData.isRecruiter})
       }
     }
-    return getPositionApi({id: this.data.query.positionId, sCode: this.data.query.sCode, ...app.getSource()})
+    return getPositionApi({id: this.data.query.positionId, hasLoading, isReload, ...app.getSource()})
       .then(res => {
         this.setData({
           detail: res.data, 
@@ -132,19 +123,31 @@ Page({
         wx.navigateTo({url: `${RECRUITER}position/post/post?positionId=${this.data.detail.id}`})
         break
       case 'collect':
+        if (identity !== 'APPLICANT') {
+          app.promptSwitch({
+            source: identity
+          })
+          return
+        }
         getMycollectPositionApi({id: this.data.detail.id})
           .then(res => {
             const detail = this.data.detail
             detail.isCollect = true
-            this.setData({detail}, () => app.wxToast({title: '收藏成功'}))
+            this.setData({detail}, () => app.wxToast({title: '收藏成功', icon: 'success'}))
           })
         break
       case 'uncollect':
+        if (identity !== 'APPLICANT') {
+          app.promptSwitch({
+            source: identity
+          })
+          return
+        }
         deleteMycollectPositionApi({id: this.data.detail.id})
           .then(res => {
             const detail = this.data.detail
             detail.isCollect = false
-            this.setData({detail}, () => app.wxToast({title: '取消收藏成功'}))
+            this.setData({detail}, () => app.wxToast({title: '取消收藏', icon: 'success'}))
           })
         break
       case 'about':
@@ -183,9 +186,9 @@ Page({
     }
   },
 
-  onPullDownRefresh(hasLoading = true) {
+  onPullDownRefresh() {
     this.setData({hasReFresh: true})
-    this.getPositionDetail().then(res => {
+    this.getPositionDetail(false, true).then(res => {
       this.setData({hasReFresh: false})
       wx.stopPullDownRefresh()
     }).catch(e => {
@@ -197,6 +200,13 @@ Page({
   },
   onShareAppMessage(options) {
     let that = this
+    // app.shareStatistics({
+    //   id: that.data.query.positionId,
+    //   type: 'position',
+    //   sCode: that.data.detail.sCode,
+    //   channel: 'card'
+    // })
+    console.log(121212121212, positionCard)
 　　return app.wxShare({
       options,
       title: sharePosition(),

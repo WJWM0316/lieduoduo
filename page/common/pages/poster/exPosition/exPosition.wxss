@@ -17,6 +17,9 @@
 	display: block;
 	border-radius: 16rpx;
 }
+.showImg.filter {
+	filter: blur(5px);
+}
 .save {
 	padding: 16rpx 85rpx 8rpx;
 	position: fixed;

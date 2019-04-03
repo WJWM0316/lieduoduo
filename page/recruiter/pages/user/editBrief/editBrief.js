@@ -17,7 +17,7 @@ Page({
     })
   },
   backEvent() {
-    if (this.data.content.length > 0) {
+    if (this.data.content && this.data.content.length > 0) {
       app.wxConfirm({
         title: '放弃发布',
         content: '你编辑的个人简介尚未保存，确定放弃编辑吗？',

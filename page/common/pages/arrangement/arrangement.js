@@ -106,15 +106,22 @@ Page({
     switch(e.currentTarget.dataset.type) {
       case 'jobList':
         url = `${COMMON}chooseJob/chooseJob?recruiterUid=${info.recruiterInfo.uid}`
+        wx.navigateTo({url})
         break
       case 'addressList':
         url = `${RECRUITER}position/addressList/addressList?type=position&selected=1`
+        wx.navigateTo({url})
         break
       case 'position':
         url = `${COMMON}positionDetail/positionDetail?positionId=${info.positionId}`
+        wx.navigateTo({url})
+        break
+      case 'careerChance':
+        wx.reLaunch({
+          url: `${COMMON}careerChance/careerChance`
+        })
         break
     }
-    wx.navigateTo({url})
   },
   radioChange(e) {
     let appointmentId = e.detail.value
@@ -192,16 +199,6 @@ Page({
       })
       this.pageInit()
     })
-  },
-  jump(e) {
-    console.log(e.currentTarget.dataset.type)
-    switch(e.currentTarget.dataset.type) {
-      case 'careerChance':
-        wx.reLaunch({
-          url: `${COMMON}careerChance/careerChance`
-        })
-        break
-    }
   },
   /**
    * 生命周期函数--监听页面加载

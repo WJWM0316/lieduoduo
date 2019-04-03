@@ -92,15 +92,20 @@ Page({
   },
   onShow() {
     let avatar = wx.getStorageSync('avatar')
-    let gender = '1'
+    let userInfo = app.globalData.userInfo
+    let gender = ''
     let createUser = wx.getStorageSync('createUserFirst')
-    if (!avatar) {
+    if (avatar) {
+      this.setData({avatar})
+    }
+    if (!avatar && userInfo) {
       avatar = app.globalData.userInfo.avatarInfo
       this.setData({avatar})
     }
-    if (!createUser) {
-      gender = app.globalData.userInfo.avatarInfo.gender
-      this.setData({avatar})
+    console.log(userInfo, 5555)
+    if (!createUser && userInfo) {
+      gender = app.globalData.userInfo.gender
+      this.setData({gender: gender.toString()})
     }
     if (createUser) {
       this.setData({name: createUser.name, gender: createUser.gender, workTimeDesr: createUser.workTimeDesr, startWorkYear: createUser.startWorkYear})

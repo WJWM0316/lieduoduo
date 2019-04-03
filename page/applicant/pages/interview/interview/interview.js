@@ -243,37 +243,48 @@ Page({
   },
   init () {
     if (app.globalData.isJobhunter) {
-      let e = {}
       switch(this.data.tabIndex) {
         case 0:
-          e = {
-            currentTarget: {
-              dataset: {
-                index: 0
-              }
-            }
+          let applyData = {
+            list: [],
+            pageNum: 1,
+            count: 20,
+            isLastPage: false,
+            isRequire: false,
+            total: 0
           }
+          this.setData({applyData})
+          this.getApplyList()
           break
         case 1:
-          e = {
-            currentTarget: {
-              dataset: {
-                index: 1
-              }
-            }
+          let receiveData = {
+            list: [],
+            pageNum: 1,
+            count: 20,
+            isLastPage: false,
+            isRequire: false,
+            total: 0
           }
+          this.setData({receiveData})
+          this.getInviteList()
           break
         case 2:
-          e = {
-            currentTarget: {
-              dataset: {
-                index: 2
-              }
-            }
+          let interviewData = {
+            list: [],
+            pageNum: 1,
+            count: 20,
+            isLastPage: false,
+            isRequire: false,
+            total: 0
           }
-          break
+          this.setData({interviewData})
+          this.selectComponent('#myCalendar').scrollLeft()
+          this.getScheduleList()
+          getScheduleNumberApi().then(res => {
+            let dateList = res.data
+            this.setData({dateList})
+          })
       }
-      this.chooseParentTab(e)
     }
   },
   onLoad () {

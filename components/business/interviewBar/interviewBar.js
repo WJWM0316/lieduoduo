@@ -21,7 +21,7 @@ import {
 import {RECRUITER, COMMON, APPLICANT} from '../../../config.js'
 
 import { agreedTxtC, agreedTxtB } from '../../../utils/randomCopy.js'
-
+let automatic = false
 const app = getApp()
 let identity = ''
 Component({
@@ -68,6 +68,9 @@ Component({
   },
   attached() {
     identity = wx.getStorageSync('choseType')
+    if (this.data.options && this.data.options.directChat) {
+      automatic = true
+    }
     this.setData({identity})
   },
   methods: {
@@ -117,7 +120,7 @@ Component({
         this.setData({interviewInfos: res.data, identity: wx.getStorageSync('choseType')})
         if(res.code === 204) this.setData({isOwerner: true})
         if(res.code === 230) this.showMergeBox(res.data)
-        if (!res.data.haveInterview && this.data.options && this.data.options.directChat) {
+        if (!res.data.haveInterview && this.data.options && this.data.options.directChat && automatic) {
           let e = {
             currentTarget: {
               dataset: {
@@ -126,6 +129,7 @@ Component({
             }
           }
           this.todoAction(e)
+          automatic = false
         }
       })
     },

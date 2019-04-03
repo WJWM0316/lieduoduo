@@ -97,7 +97,7 @@ export const getInterviewStatusApi = (data, hasLoading) => {
     method: 'get',
     url: '/interview/getInterviewStatus',
     data,
-    hasLoading
+    hasLoading: false
   })
 }
 
