@@ -2,7 +2,7 @@
 
 .navbar {
   width: 100%;
-  overflow: hidden;
+  /*overflow: hidden;*/
   top: 0;
   left: 0;
   z-index: 10;
@@ -71,4 +71,18 @@
   white-space: nowrap;
   font-weight: 700;
   font-weight: 34rpx;
+}
+
+.showScanIcon {
+  color: white;
+  font-size: 35rpx;
+  margin-left: 15rpx;
+}
+
+.showScanIconTips {
+  width:425rpx;
+  height:84rpx;
+  position: absolute;
+  left: -15rpx;
+  top: 77rpx;
 }

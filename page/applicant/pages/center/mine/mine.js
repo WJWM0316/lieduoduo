@@ -126,5 +126,14 @@ Page({
       btnPath: `${COMMON}resumeDetail/resumeDetail?uid=${this.data.myInfo.uid}`,
       btnImageUrl: `${that.data.cdnImagePath}shareC.png`
     })
+  },
+  toggleIdentity() {
+    app.wxConfirm({
+      title: '身份切换',
+      content: `是否切换为面试官身份`,
+      confirmBack() {
+        app.toggleIdentity()
+      }
+    })
   }
 })

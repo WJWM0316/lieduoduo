@@ -37,25 +37,38 @@ Component({
     isFixed: {
       type: Boolean,
       value: true
+    },
+    showScanIcon: {
+      type: Boolean,
+      value: false
     }
   },
   data: {
     showBackBtn: false,
     navH: app.globalData.navHeight,
-    positionStatus: 'fixed'
+    positionStatus: 'fixed',
+    cdnImagePath: app.globalData.cdnImagePath,
+    firstClick: true,
+    showScanBox: false
   },
   attached() {
     let positionStatus = this.data.positionStatus
+    let firstClick = wx.getStorageSync('firstClick')
+
     if (!this.data.isFixed) {
       positionStatus = 'relative'
     }
+    
     identity = wx.getStorageSync('choseType')
     let route = getCurrentPages()
     if (route.length > 1) {
       this.setData({showBackBtn: true, positionStatus})
     } else {
       this.setData({positionStatus})
-    }    
+    }
+    if(firstClick) {
+      this.setData({firstClick: false})
+    }
   },
   /**
    * 组件的方法列表
@@ -83,6 +96,12 @@ Component({
     },
     formSubmit(e) {
       app.postFormId(e.detail.formId)
+    },
+    closeTips() {
+      this.setData({firstClick: false}, () => wx.setStorageSync('firstClick', 1))
+    },
+    showScan() {
+      this.setData({showScanBox: true})
     }
   }
 })

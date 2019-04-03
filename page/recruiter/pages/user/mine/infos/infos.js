@@ -159,5 +159,14 @@ Page({
       wx.navigateTo({url: `${RECRUITER}user/company/status/status?from=identity`})
       return
     }
+  },
+  toggleIdentity() {
+    app.wxConfirm({
+      title: '身份切换',
+      content: `是否切换为求职者身份`,
+      confirmBack() {
+        app.toggleIdentity()
+      }
+    })
   }
 })
