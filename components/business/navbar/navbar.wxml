@@ -3,7 +3,10 @@
     <view class="navbar-title" style="color: {{color}}"> 
 	    <view class="page-title">{{ title }}</view>
 		    <view class="return-back">
-		    	<view class="formIdBox">  
+		    	<view class="formIdBox">
+		    		<i class="icon iconfont icon-saoma showScanIcon" wx:if="{{showScanIcon && identity === 'APPLICANT' && hasLogin && isJobhunter}}" bindtap="showScan"></i>
+		    		<i class="icon iconfont icon-saoma showScanIcon" wx:if="{{showScanIcon && identity === 'RECRUITER'}}" bindtap="showScan"></i>
+		    		<image class="showScanIconTips" mode="aspectFill" src="{{cdnImagePath}}scanCodeTips.png" wx:if="{{showScanIcon && firstClick && hasLogin}}" bindtap="closeTips"></image>
 			    	<button class="backLast formIdBtn iconfont icon-daohanglan-fanhui" wx:if="{{showBack && showBackBtn}}"  bindtap="navBack" style="color: {{color}}"></button>
 		    		<button class="formIdBtn"><i class="line" wx:if="{{showBack && showBackBtn && showHome}}"></i></button>
 		    		<button class="backHome formIdBtn iconfont icon-fanhuishouye"  wx:if="{{showHome}}" bindtap="backHome" style="color: {{color}}"></button>
@@ -12,3 +15,4 @@
 	  </view>
   </view>
 </view>
+<scanCodeTips showScanBox="{{showScanBox}}"></scanCodeTips>

@@ -1,5 +1,5 @@
 <view class='mine'>
-  <navbar title="我的" background="transparent" title="我的" color="#fff"></navbar>
+  <navbar title="我的" background="transparent" title="我的" color="#fff" showScanIcon="{{true}}"></navbar>
   <view hidden="{{!hasReFresh}}">
     <refreshStatus></refreshStatus>
   </view>
@@ -83,17 +83,27 @@
           <i class="icon iconfont icon-xiangyou"></i>
         </view>
   		</view>
+
   		<view class="li" bindtap="jump" data-type="settings">
   			<view>
           <i class="icon iconfont icon-shezhi"></i>
-  			  <view class="text">账号设置</view>
+  			  <view class="text">设置</view>
         </view>
   			<view class='arrow-box'>
           <i class="icon iconfont icon-xiangyou"></i>
         </view>
   		</view>
   	</view>
-
+    <view class="toggleIdentity" bindtap="toggleIdentity">
+      <view class="key">
+        <i class="icon iconfont icon-qiehuanshenfen"></i>
+        <view class="text">切换身份</view>
+      </view>
+      <view class='arrow-box'>
+        <view class="text2">当前为求职者</view>
+        <i class="icon iconfont icon-xiangyou"></i>
+      </view>
+    </view>
 	<!-- <view class="copy-right">
 		<view class="li">使用帮助</view>
 		<view class="li">用户协议</view>

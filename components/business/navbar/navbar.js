@@ -37,15 +37,28 @@ Component({
     isFixed: {
       type: Boolean,
       value: true
+    },
+    showScanIcon: {
+      type: Boolean,
+      value: false
     }
   },
   data: {
     showBackBtn: false,
     navH: app.globalData.navHeight,
-    positionStatus: 'fixed'
+    positionStatus: 'fixed',
+    cdnImagePath: app.globalData.cdnImagePath,
+    firstClick: true,
+    showScanBox: false,
+    identity: '',
+    hasLogin: false,
+    isJobhunter: 0
   },
   attached() {
     let positionStatus = this.data.positionStatus
+    let firstClick = wx.getStorageSync('firstClick')
+    let hasLogin = false
+    let isJobhunter = 0
     if (!this.data.isFixed) {
       positionStatus = 'relative'
     }
@@ -55,6 +68,28 @@ Component({
       this.setData({showBackBtn: true, positionStatus})
     } else {
       this.setData({positionStatus})
+    }
+
+    if(firstClick) {
+      this.setData({firstClick: false})
+    }
+    
+    if (app.pageInit) {
+      hasLogin = app.globalData.hasLogin
+      isJobhunter = app.globalData.isJobhunter
+      identity = wx.getStorageSync('choseType')
+      this.setData({isJobhunter, hasLogin, identity})
+      console.log(app, 'a')
+      console.log(this.data)
+    } else {
+      app.pageInit = () => {
+        hasLogin = app.globalData.hasLogin
+        isJobhunter = app.globalData.isJobhunter
+        identity = wx.getStorageSync('choseType')
+        console.log(app, 'b')
+        console.log(this.data)
+        this.setData({hasLogin, isJobhunter, identity})
+      }
     }
   },
   /**
@@ -83,6 +118,12 @@ Component({
     },
     formSubmit(e) {
       app.postFormId(e.detail.formId)
+    },
+    closeTips() {
+      this.setData({firstClick: false}, () => wx.setStorageSync('firstClick', 1))
+    },
+    showScan() {
+      this.setData({showScanBox: true})
     }
   }
 })

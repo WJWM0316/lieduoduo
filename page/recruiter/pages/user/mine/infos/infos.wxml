@@ -1,5 +1,5 @@
 <view class="center">
-<navbar title="" background="{{navbarBg}}" title="我的" color="#fff"></navbar>
+<navbar background="{{navbarBg}}" title="我的" color="#fff" showScanIcon="{{true}}"></navbar>
 <view class="top-banner">
 	<image class="bgImg" mode="aspectFill" src="{{cdnPath}}recruiter_mine_bg.png"></image>
 </view>
@@ -103,11 +103,18 @@
 
 		<view class="li" bindtap="routeJump" data-route="settings">
 			<i class="icon iconfont icon-shezhi label-icon"></i>
-			<view class="text">账号设置</view>
+			<view class="text">设置</view>
 			<i class="icon iconfont icon-xiangyou"></i>
-		</view>
-
+		</view>		
 	</view>
+
+	<view class="toggleIdentity" bindtap="toggleIdentity">
+		<i class="icon iconfont icon-qiehuanshenfen label-icon"></i>
+		<view class="text">切换身份</view>
+		<view class="text2 color-default">当前为面试官</view>
+		<i class="icon iconfont icon-xiangyou"></i>
+	</view>
+		
 	<!-- <view class="copy-right">
 		<view class="li">使用帮助</view>
 		<view class="li">用户协议</view>

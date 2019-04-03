@@ -238,3 +238,11 @@
 .icon-qianyige:before {
   content: "\e619";
 }
+
+.icon-saoma:before {
+  content: "\e6eb";
+}
+
+.icon-qiehuanshenfen:before {
+  content: "\e6ed";
+}
