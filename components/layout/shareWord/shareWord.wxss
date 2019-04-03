@@ -108,6 +108,7 @@
 	position: absolute;
 	top:-76rpx;
 	right:-4rpx;
+  border-bottom: 0;
 }
 .closeBtn .icon {
 	font-size: 36rpx;
@@ -197,6 +198,7 @@
 	text-align: center;
 	display: inline-block;
 	margin: 0;
+  font-size: 26rpx;
 }
 .toggle .icon.disabled {
 	color: #BCBCBC;

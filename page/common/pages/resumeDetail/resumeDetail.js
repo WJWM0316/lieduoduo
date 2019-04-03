@@ -169,6 +169,7 @@ Page({
     })
   },
   onShareAppMessage(options) {
+    let that = this
     app.shareStatistics({
       id: that.data.options.uid,
       type: 'jobhunter',
