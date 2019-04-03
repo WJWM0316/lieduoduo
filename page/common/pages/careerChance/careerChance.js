@@ -111,7 +111,20 @@ Page({
     } else {
       this.setData({tabType: closeTab})
     }
-    console.log(this.data.tabType, 22222)
+  },
+  toggle (e) {
+    let id = e.currentTarget.dataset.id
+    let index = e.currentTarget.dataset.index
+    console.log(index, 11122)
+    switch (this.data.tabType) {
+      case 'city':
+        this.setData({city: id, cityIndex: index, tabType: 'closeTab'})
+        break
+      case 'positionType':
+        this.setData({type: id, typeIndex: index, tabType: 'closeTab'})
+        break
+    }
+    this.reloadPositionLists()
   },
   /**
    * @Author   小书包
@@ -218,22 +231,22 @@ Page({
    * @detail   类型改变重新拉数据
    * @return   {[type]}     [description]
    */
-  bindChange(e) {
-    const params = e.currentTarget.dataset
-    const list = params.type === 'city' ? this.data.cityList : this.data.positionTypeList
-    const result = list.find((field, index) => index === Number(e.detail.value))
-    const type = params.type
-    const otherParamsIndex = params.type === 'city' ? 'cityIndex' : 'typeIndex'
-    const otherParamValue = result[params.type === 'city' ? 'areaId' : 'labelId']
-    const positionList = this.data.positionList
-    positionList.pageNum = 1
+  // bindChange(e) {
+  //   const params = e.currentTarget.dataset
+  //   const list = params.type === 'city' ? this.data.cityList : this.data.positionTypeList
+  //   const result = list.find((field, index) => index === Number(e.detail.value))
+  //   const type = params.type
+  //   const otherParamsIndex = params.type === 'city' ? 'cityIndex' : 'typeIndex'
+  //   const otherParamValue = result[params.type === 'city' ? 'areaId' : 'labelId']
+  //   const positionList = this.data.positionList
+  //   positionList.pageNum = 1
 
-    if(typeof otherParamValue === 'number') {
-      this.setData({[type]: otherParamValue, [otherParamsIndex]: Number(e.detail.value)}, () => this.reloadPositionLists())
-    } else {
-      this.setData({[type]: 0, [otherParamsIndex]: 0, positionList}, () => this.reloadPositionLists())
-    }
-  },
+  //   if(typeof otherParamValue === 'number') {
+  //     this.setData({[type]: otherParamValue, [otherParamsIndex]: Number(e.detail.value)}, () => this.reloadPositionLists())
+  //   } else {
+  //     this.setData({[type]: 0, [otherParamsIndex]: 0, positionList}, () => 
+  //   }
+  // },
   onShareAppMessage(options) {
     let that = this
 　　return app.wxShare({

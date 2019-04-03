@@ -13,10 +13,10 @@
     <view hidden="{{tabType === 'closeTab'}}">
       <view class="select-bg" style="height: calc(100vh - {{navH + 49}}px)"></view>
       <view class="select-area" hidden="{{tabType !== 'city'}}">
-        <text class="select-area-item {{cityIndex === index ? 'cur' : ''}}" wx:for="{{cityList}}" wx:key="{{index}}">{{item.name}}</text>
+        <text class="select-area-item {{cityIndex === index ? 'cur' : ''}}" bindtap="toggle" data-index="{{index}}" data-id="{{item.areaId}}" wx:for="{{cityList}}" wx:key="{{index}}">{{item.name}}</text>
       </view>
       <view class="select-area" hidden="{{tabType !== 'positionType'}}">
-        <text class="select-area-item {{typeIndex === index ? 'cur' : ''}}" wx:for="{{positionTypeList}}" wx:key="{{index}}">{{item.name}}</text>
+        <text class="select-area-item {{typeIndex === index ? 'cur' : ''}}" bindtap="toggle" data-index="{{index}}" data-id="{{item.labelId}}" wx:for="{{positionTypeList}}" wx:key="{{index}}">{{item.name}}</text>
       </view>
     </view>
   </view>
