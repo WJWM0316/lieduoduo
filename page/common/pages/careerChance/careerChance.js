@@ -3,7 +3,7 @@ import {RECRUITER, APPLICANT, COMMON} from '../../../../config.js'
 
 import {getSelectorQuery}  from '../../../../utils/util.js'
 
-import { getPositionListApi } from '../../../../api/pages/position.js'
+import { getPositionListApi, getPositionRecordApi } from '../../../../api/pages/position.js'
 
 import {
   getCityLabelApi
@@ -32,11 +32,12 @@ Page({
       {
         name: '选择类型',
         type: 'positionType'
-      },
-      {
-        name: '薪资范围',
-        type: 'salary'
       }
+      // ,
+      // {
+      //   name: '薪资范围',
+      //   type: 'salary'
+      // }
     ],
     positionList: {
       list: [],
@@ -56,6 +57,7 @@ Page({
   },
 
   onLoad(options) {
+    
     identity = app.identification(options)
     const positionList = {
       list: [],
@@ -65,14 +67,14 @@ Page({
     }
     this.setData({positionList})
     if (app.loginInit) {
-      this.getPositionList()
-      this.getCityLabel()
-      this.getLabelPosition()
+      Promise.all([this.getCityLabel(), this.getLabelPosition()]).then(res => {
+        this.getPositionRecord()
+      })
     } else {
       app.loginInit = () => {
-        this.getPositionList()
-        this.getCityLabel()
-        this.getLabelPosition()
+        Promise.all([this.getCityLabel(), this.getLabelPosition()]).then(res => {
+          this.getPositionRecord()
+        })
       }
     }
     if (wx.getStorageSync('choseType') === 'RECRUITER') {
@@ -98,15 +100,15 @@ Page({
    * @return   {[type]}   [description]
    */
   getCityLabel() {
-    getCityLabelApi().then(res => {
+    return getCityLabelApi().then(res => {
       const cityList = res.data
-      cityList.unshift({areaId: 'all', name: '全部地区'})
+      cityList.unshift({areaId: '', name: '全部地区'})
       this.setData({cityList})
     })
   },
   choseTab (e) {
     let closeTab = e.currentTarget.dataset.type
-    if (this.data.tabType === closeTab) {
+    if (this.data.tabType === closeTab || closeTab === 'closeTab') {
       this.setData({tabType: 'closeTab'})
     } else {
       this.setData({tabType: closeTab})
@@ -115,16 +117,16 @@ Page({
   toggle (e) {
     let id = e.currentTarget.dataset.id
     let index = e.currentTarget.dataset.index
-    console.log(index, 11122)
     switch (this.data.tabType) {
       case 'city':
         this.setData({city: id, cityIndex: index, tabType: 'closeTab'})
+        this.reloadPositionLists()
         break
       case 'positionType':
         this.setData({type: id, typeIndex: index, tabType: 'closeTab'})
+        this.reloadPositionLists()
         break
     }
-    this.reloadPositionLists()
   },
   /**
    * @Author   小书包
@@ -133,15 +135,44 @@ Page({
    * @return   {[type]}   [description]
    */
   getLabelPosition() {
-    getLabelPositionApi().then(res => {
+    return getLabelPositionApi().then(res => {
       const positionTypeList = res.data
       positionTypeList.map(field => field.active = false)
       positionTypeList.unshift({
-        labelId: 'all',
+        labelId: '',
         name: '全部类型',
         type: 'self_label_position'
       })
       this.setData({positionTypeList})
+    })
+  },
+  getPositionRecord() {
+    getPositionRecordApi().then(res => {
+      let city = this.data.city
+      let type = this.data.type
+      let cityIndex = this.data.cityIndex
+      let typeIndex = this.data.typeIndex
+      if (res.data.city) {
+        city = Number(res.data.city)
+        this.data.cityList.map((item, index) => {
+          if (item.areaId === city) {
+            cityIndex = index
+          }
+        })
+      }
+      if (res.data.type) {
+        type = Number(res.data.type)
+        console.log(res.data.type, type, this.data.positionTypeList)
+        this.data.positionTypeList.map((item, index) => {
+          console.log(item.labelId, type)
+          if (item.labelId === type) {
+            typeIndex = index
+          }
+        })
+      }
+      this.setData({city, type, cityIndex, typeIndex}, () => {
+        this.getPositionList()
+      })  
     })
   },
   /**
@@ -177,7 +208,7 @@ Page({
       })
     })
   },
-  authSuccess () {
+  authSuccess() {
     let requireOAuth = false
     this.setData({requireOAuth})
   },

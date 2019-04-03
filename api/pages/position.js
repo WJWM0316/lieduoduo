@@ -118,3 +118,13 @@ export const getPositionNameListApi = (data, hasLoading) => {
     hasLoading: hasLoading
   })
 }
+
+// 获取职业机会搜索记录
+export const getPositionRecordApi = (data, hasLoading) => {
+  return request({
+    method: 'get',
+    url: `/position/search`,
+    data,
+    hasLoading: false
+  })
+}
