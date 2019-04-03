@@ -71,24 +71,18 @@ Component({
     }
 
     if(firstClick) {
-      this.setData({firstClick: false})
+      this.setData({firstClick: false, identity})
     }
     
-    if (app.pageInit) {
+    if(app.pageInit) {
       hasLogin = app.globalData.hasLogin
       isJobhunter = app.globalData.isJobhunter
-      identity = wx.getStorageSync('choseType')
-      this.setData({isJobhunter, hasLogin, identity})
-      console.log(app, 'a')
-      console.log(this.data)
+      this.setData({isJobhunter, hasLogin})
     } else {
       app.pageInit = () => {
         hasLogin = app.globalData.hasLogin
         isJobhunter = app.globalData.isJobhunter
-        identity = wx.getStorageSync('choseType')
-        console.log(app, 'b')
-        console.log(this.data)
-        this.setData({hasLogin, isJobhunter, identity})
+        this.setData({hasLogin, isJobhunter})
       }
     }
   },
