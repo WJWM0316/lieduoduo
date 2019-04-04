@@ -4,9 +4,9 @@
 		<text class="txt mobile">绑定手机号</text>
 		<i class="icon iconfont icon-xiangyou"></i>
 	</view>
-	<view class="toggle" bindtap="toggleIdentity">
+<!-- 	<view class="toggle" bindtap="toggleIdentity">
 		<text class="txt">切换为“{{identity}}”身份</text>
 		<i class="icon iconfont icon-xiangyou"></i>
-	</view>
+	</view> -->
 	<view class="upLogin" bindtap="upLogin">退出登录</view>
 </view>
