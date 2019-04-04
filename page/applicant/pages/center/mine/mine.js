@@ -30,12 +30,13 @@ Page({
       myInfo = app.globalData.resumeInfo
       isJobhunter = app.globalData.isJobhunter
       this.setData({myInfo, isJobhunter, hasLogin, resumeAttach: myInfo.resumeAttach || {}})
-    }
-    app.pageInit = () => {
-      hasLogin = app.globalData.hasLogin
-      myInfo = app.globalData.resumeInfo
-      isJobhunter = app.globalData.isJobhunter
-      this.setData({myInfo, hasLogin, isJobhunter})
+    } else {
+      app.pageInit = () => {
+        hasLogin = app.globalData.hasLogin
+        myInfo = app.globalData.resumeInfo
+        isJobhunter = app.globalData.isJobhunter
+        this.setData({myInfo, hasLogin, isJobhunter})
+      }
     }
   },
   call() {
