@@ -3,7 +3,7 @@ import {RECRUITER, APPLICANT, COMMON} from '../../../../config.js'
 
 import {getSelectorQuery}  from '../../../../utils/util.js'
 
-import { getPositionListApi, getPositionRecordApi } from '../../../../api/pages/position.js'
+import { getPositionListApi, getPositionRecordApi, getEmolumentApi } from '../../../../api/pages/position.js'
 
 import {
   getCityLabelApi
@@ -32,12 +32,11 @@ Page({
       {
         name: '选择类型',
         type: 'positionType'
+      },
+      {
+        name: '薪资范围',
+        type: 'salary'
       }
-      // ,
-      // {
-      //   name: '薪资范围',
-      //   type: 'salary'
-      // }
     ],
     positionList: {
       list: [],
@@ -50,14 +49,16 @@ Page({
     cityIndex: 0,
     type: 0,
     typeIndex: 0,
+    emolument: 0,
+    emolumentIndex: 0,
     cityList: [],
     positionTypeList: [],
+    emolumentList: [],
     requireOAuth: false,
     cdnImagePath: app.globalData.cdnImagePath
   },
 
   onLoad(options) {
-    
     identity = app.identification(options)
     const positionList = {
       list: [],
@@ -67,12 +68,12 @@ Page({
     }
     this.setData({positionList})
     if (app.loginInit) {
-      Promise.all([this.getCityLabel(), this.getLabelPosition()]).then(res => {
+      Promise.all([this.getCityLabel(), this.getLabelPosition(), this.getEmolument()]).then(res => {
         this.getPositionRecord()
       })
     } else {
       app.loginInit = () => {
-        Promise.all([this.getCityLabel(), this.getLabelPosition()]).then(res => {
+        Promise.all([this.getCityLabel(), this.getLabelPosition(), this.getEmolument()]).then(res => {
           this.getPositionRecord()
         })
       }
@@ -126,6 +127,10 @@ Page({
         this.setData({type: id, typeIndex: index, tabType: 'closeTab'})
         this.reloadPositionLists()
         break
+      case 'salary':
+        this.setData({emolument: id, emolumentIndex: index, tabType: 'closeTab'})
+        this.reloadPositionLists()
+        break
     }
   },
   /**
@@ -150,8 +155,10 @@ Page({
     getPositionRecordApi().then(res => {
       let city = this.data.city
       let type = this.data.type
+      let emolument = this.data.emolument
       let cityIndex = this.data.cityIndex
       let typeIndex = this.data.typeIndex
+      let emolumentIndex = this.data.emolumentIndex
       if (res.data.city) {
         city = Number(res.data.city)
         this.data.cityList.map((item, index) => {
@@ -165,6 +172,14 @@ Page({
         this.data.positionTypeList.map((item, index) => {
           if (item.labelId === type) {
             typeIndex = index
+          }
+        })
+      }
+      if (res.data.emolumentId) {
+        type = Number(res.data.emolumentId)
+        this.data.emolumentList.map((item, index) => {
+          if (item.id === emolument) {
+            emolumentIndex = index
           }
         })
       }
@@ -188,11 +203,17 @@ Page({
       if(this.data.type) {
         params = Object.assign(params, {type: this.data.type})
       }
+      if (this.data.emolument) {
+        params = Object.assign(params, {emolument_id: this.data.emolument})
+      }
       if(!this.data.type) {
         delete params.type
       }
       if(!this.data.city) {
         delete params.city
+      }
+      if(!this.data.emolument) {
+        delete params.emolument_id
       }
       getPositionListApi(params, hasLoading).then(res => {
         const positionList = this.data.positionList
@@ -204,6 +225,11 @@ Page({
         positionList.isRequire = true
         this.setData({positionList, requireOAuth, onBottomStatus}, () => resolve(res))
       })
+    })
+  },
+  getEmolument () {
+    getEmolumentApi().then(res => {
+      this.setData({emolumentList: res.data})
     })
   },
   authSuccess() {

@@ -97,7 +97,7 @@ Page({
         break
       case "scanCode":
         if(this.data.isJobhunter) {
-          wx.navigateTo({url: `${APPLICANT}center/attachment/attachment` })
+          wx.navigateTo({url: `${APPLICANT}center/attachment/attachment`})
         }
         break
       default:

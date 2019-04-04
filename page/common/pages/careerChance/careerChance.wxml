@@ -18,6 +18,9 @@
       <view class="select-area" hidden="{{tabType !== 'positionType'}}">
         <text class="select-area-item {{typeIndex === index ? 'cur' : ''}}" bindtap="toggle" data-index="{{index}}" data-id="{{item.labelId}}" wx:for="{{positionTypeList}}" wx:key="{{index}}">{{item.name}}</text>
       </view>
+      <view class="select-area" hidden="{{tabType !== 'salary'}}">
+        <text class="select-area-item {{emolumentIndex === index ? 'cur' : ''}}" bindtap="toggle" data-index="{{index}}" data-id="{{item.id}}" wx:for="{{emolumentList}}" wx:key="{{index}}">{{item.text}}</text>
+      </view>
     </view>
   </view>
 

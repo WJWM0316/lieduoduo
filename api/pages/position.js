@@ -128,3 +128,13 @@ export const getPositionRecordApi = (data, hasLoading) => {
     hasLoading: false
   })
 }
+
+// 获取职业机会薪资范畴
+export const getEmolumentApi = (data, hasLoading) => {
+  return request({
+    method: 'get',
+    url: `/position/emolument`,
+    data,
+    hasLoading: false
+  })
+}
