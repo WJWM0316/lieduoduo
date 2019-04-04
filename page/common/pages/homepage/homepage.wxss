@@ -252,6 +252,20 @@
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
+  position: relative;
+}
+
+.homepage-team-box .li .row-three::before {
+  width: 0;
+  height: 0;
+  position: absolute;
+  top: -20rpx;
+  left: 30rpx;
+  border-width: 10rpx;
+  border-style: solid;
+  border-color: transparent transparent #F8F8F8 transparent;
+  display: block;
+  content: '';
 }
 
 .homepage-team-box .li::after {

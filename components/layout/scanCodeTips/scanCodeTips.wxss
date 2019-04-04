@@ -23,9 +23,10 @@
 
 .close-button {
 	position: absolute;
-	right: 30rpx;
-	top: 30rpx;
+	right: 0;
+	top: 0;
 	color: #CDCBCF;
+	padding: 25rpx;
 }
 .over-layout .label {
 	width:140rpx;
