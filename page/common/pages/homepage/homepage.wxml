@@ -154,7 +154,7 @@
 	</view>
 
 	<view class="job-list" hidden="{{tab === 'about'}}">
-		<jobList personality="jobItem" list="{{positionList.list}}" list-type="interview" current-tab="all"></jobList>
+		<jobList list="{{positionList.list}}" showBoxShadow="{{false}}"></jobList>
 	</view>
 
 </view>
