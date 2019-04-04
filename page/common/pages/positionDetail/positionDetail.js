@@ -16,7 +16,7 @@ import {sharePosition} from '../../../../utils/shareWord.js'
 
 let positionCard = ''
 const app = getApp()
-let identity = ''
+let identity= ''
 Page({
   data: {
     detail: {},
