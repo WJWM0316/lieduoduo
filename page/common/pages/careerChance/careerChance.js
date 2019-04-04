@@ -52,7 +52,7 @@ Page({
     cityIndex: 0,
     type: 0,
     typeIndex: 0,
-    emolument: 0,
+    emolument: 1,
     emolumentIndex: 0,
     cityList: [],
     positionTypeList: [],
@@ -125,19 +125,34 @@ Page({
     let tabList = this.data.tabList
     switch (this.data.tabType) {
       case 'city':
-        index === 0 ? name = '全部地区' : tabList[0].active = true
+        if (index === 0) {
+          name = '全部地区'
+          tabList[0].active = false
+        } else {
+          tabList[0].active = true
+        }
         tabList[0].name = name
         this.setData({tabList, city: id, cityIndex: index, tabType: 'closeTab'})
         this.reloadPositionLists()
         break
       case 'positionType':
-        index === 0 ? name = '职位类型' : tabList[1].active = true
+        if (index === 0) {
+          name = '职位类型'
+          tabList[1].active = false
+        } else {
+          tabList[1].active = true
+        }
         tabList[1].name = name
         this.setData({tabList, type: id, typeIndex: index, tabType: 'closeTab'})
         this.reloadPositionLists()
         break
       case 'salary':
-        index === 0 ? name = '薪资范围' : tabList[2].active = true
+        if (index === 0) {
+          name = '薪资范围'
+          tabList[2].active = false
+        } else {
+          tabList[2].active = true
+        }
         tabList[2].name = name
         this.setData({tabList, emolument: id, emolumentIndex: index, tabType: 'closeTab'})
         this.reloadPositionLists()
