@@ -35,7 +35,7 @@
           </button>
         </view>
       </view>
-      <button class="share-resume" form-type="submit" wx:if='{{!myInfo.uid && hasLogin}}' bindtap='completeResume'>立即完善简历 <i class="icon iconfont icon-xiangyou"></i></button>
+      <button class="share-resume" form-type="submit" wx:if='{{!isJobhunter && hasLogin}}' bindtap='completeResume'>立即完善简历 <i class="icon iconfont icon-xiangyou"></i></button>
       <button class="share-resume" form-type="submit" wx:if='{{!hasLogin}}' bindtap='login'>立即登录 <i class="icon iconfont icon-xiangyou"></i></button>
   		<block wx:if="{{myInfo.uid}}">
         <button open-type="share" form-type="submit" class="share-resume clear-style">发简历</button>

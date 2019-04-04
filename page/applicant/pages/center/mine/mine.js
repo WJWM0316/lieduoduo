@@ -27,25 +27,19 @@ Page({
     let myInfo = {}
     let isJobhunter = 0
     let showScanIcon = this.data.showScanIcon
-
     if(app.pageInit) {
       hasLogin = app.globalData.hasLogin
       myInfo = app.globalData.resumeInfo
       isJobhunter = app.globalData.isJobhunter
       showScanIcon = hasLogin && isJobhunter ? true : false
-      console.log(app.globalData, 'a')
-      console.log(app.globalData.resumeInfo, 'a')
-      console.log(this.data, 'a')
       this.setData({myInfo, isJobhunter, hasLogin, showScanIcon, resumeAttach: myInfo.resumeAttach || {}})
-
-    } else {
-      app.pageInit = () => {
-        hasLogin = app.globalData.hasLogin
-        myInfo = app.globalData.resumeInfo
-        isJobhunter = app.globalData.isJobhunter
-        showScanIcon = hasLogin && isJobhunter ? true : false
-        this.setData({myInfo, hasLogin, isJobhunter, showScanIcon})
-      }
+    }
+    app.pageInit = () => {
+      hasLogin = app.globalData.hasLogin
+      myInfo = app.globalData.resumeInfo
+      isJobhunter = app.globalData.isJobhunter
+      showScanIcon = hasLogin && isJobhunter ? true : false
+      this.setData({myInfo, isJobhunter, hasLogin, showScanIcon, resumeAttach: myInfo.resumeAttach || {}})
     }
   },
   call() {

@@ -176,14 +176,14 @@ Page({
         })
       }
       if (res.data.emolumentId) {
-        type = Number(res.data.emolumentId)
+        emolument = Number(res.data.emolumentId)
         this.data.emolumentList.map((item, index) => {
           if (item.id === emolument) {
             emolumentIndex = index
           }
         })
       }
-      this.setData({city, type, cityIndex, typeIndex}, () => {
+      this.setData({city, type, cityIndex, typeIndex, emolument, emolumentIndex}, () => {
         this.getPositionList()
       })  
     })

@@ -162,17 +162,19 @@ App({
       if (this.getRoleInit) { // 登陆初始化
         this.getRoleInit() //执行定义的回调函数
       }
+      this.getAllInfo()
       this.getRoleInit = function () {}
     }).catch(() => {
       if (this.getRoleInit) { // 登陆初始化
         this.getRoleInit() //执行定义的回调函数
       }
+      this.getAllInfo()
       this.getRoleInit = function () {}
     })
   },
   // 登陆成功后下载一下数据
   loginedLoadData() {
-    this.getAllInfo()
+    
     this.getRoleInfo()
   },
   // 检查微信授权
