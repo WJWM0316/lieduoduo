@@ -62,7 +62,7 @@
   width:690rpx;
   background:rgba(255,255,255,1);
   border-radius:24rpx 0rpx 24rpx 24rpx;
-  border:4rpx solid rgba(0,0,0,1);
+  border:2px solid rgba(0,0,0,1);
   box-sizing: border-box;
   padding: 12rpx 60rpx;
   position: relative;
@@ -125,14 +125,14 @@
   padding: 0;
 }
 button.close {
-  width:88rpx;
-  height:68rpx;
+  width:44px;
+  height:34px;
   background:rgba(255,220,41,1);
   border-radius:100rpx 100rpx 0rpx 0rpx;
-  border:4rpx solid rgba(0,0,0,1);
+  border:2px solid rgba(0,0,0,1);
   position: absolute;
-  right: -3rpx;
-  top: -68rpx;
+  right: -2px;
+  top: -34px;
   background: #FFDC29;
   overflow: hidden;
   text-align: center;
@@ -146,5 +146,4 @@ button.close .icon {
   color: #282828;
   display: block;
   margin-top: 15rpx;
-  font-weight: 700;
 }

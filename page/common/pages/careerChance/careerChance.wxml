@@ -13,13 +13,13 @@
     <view hidden="{{tabType === 'closeTab'}}">
       <view class="select-bg" bindtap="choseTab" data-type="closeTab" style="height: calc(100vh - {{navH + 49}}px)"></view>
       <view class="select-area" hidden="{{tabType !== 'city'}}">
-        <text class="select-area-item {{cityIndex === index ? 'cur' : ''}}" bindtap="toggle" data-index="{{index}}" data-id="{{item.areaId}}" wx:for="{{cityList}}" wx:key="{{index}}">{{item.name}}</text>
+        <text class="select-area-item {{cityIndex === index ? 'cur' : ''}}" bindtap="toggle" data-index="{{index}}" data-name="{{item.name}}" data-id="{{item.areaId}}" wx:for="{{cityList}}" wx:key="{{index}}">{{item.name}}</text>
       </view>
       <view class="select-area" hidden="{{tabType !== 'positionType'}}">
-        <text class="select-area-item {{typeIndex === index ? 'cur' : ''}}" bindtap="toggle" data-index="{{index}}" data-id="{{item.labelId}}" wx:for="{{positionTypeList}}" wx:key="{{index}}">{{item.name}}</text>
+        <text class="select-area-item {{typeIndex === index ? 'cur' : ''}}" bindtap="toggle" data-index="{{index}}" data-name="{{item.name}}" data-id="{{item.labelId}}" wx:for="{{positionTypeList}}" wx:key="{{index}}">{{item.name}}</text>
       </view>
       <view class="select-area" hidden="{{tabType !== 'salary'}}">
-        <text class="select-area-item {{emolumentIndex === index ? 'cur' : ''}}" bindtap="toggle" data-index="{{index}}" data-id="{{item.id}}" wx:for="{{emolumentList}}" wx:key="{{index}}">{{item.text}}</text>
+        <text class="select-area-item {{emolumentIndex === index ? 'cur' : ''}}" bindtap="toggle" data-index="{{index}}" data-name="{{item.text}}" data-id="{{item.id}}" wx:for="{{emolumentList}}" wx:key="{{index}}">{{item.text}}</text>
       </view>
     </view>
   </view>

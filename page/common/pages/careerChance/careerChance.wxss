@@ -60,7 +60,7 @@
   box-sizing: border-box;
   padding: 35rpx 40rpx;
   background: #fff;
-  box-shadow:0rpx 18rpx 20rpx 0rpx rgba(101,39,145,0.04);
+  box-shadow:0rpx 0 20rpx 0px rgba(101,39,145,0.04);
   position: relative;
   left: 0;
   z-index: 1;
@@ -81,6 +81,11 @@
   transform: rotate(180deg);
 }
 .select-box .item .txt {
+  max-width: 154rpx;
+  display: inline-block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   margin-right: 4rpx;
 }
 .select-box .picker {
@@ -101,7 +106,8 @@
   overflow-y: auto;
 }
 .select-area-item {
-  padding: 0 48rpx;
+  min-width: 150rpx;
+  padding: 0 34rpx;
   line-height: 58rpx;
   border-radius:29rpx;
   border:1rpx solid #CDCBCF;
@@ -110,6 +116,8 @@
   color: #626262;
   font-size:26rpx;
   font-weight:300;
+  text-align: center;
+  box-sizing: border-box;
 }
 .select-area-item.cur {
   color: #652791;

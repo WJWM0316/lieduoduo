@@ -6,7 +6,7 @@ Component({
   properties: {
     status: {
       type: Number,
-      value: 0  // 0 不存在 1 正在加载  2 没有更多数据
+      value: 0 // 0 不存在 1 正在加载  2 没有更多数据
     },
     listData: {
       type: Array,

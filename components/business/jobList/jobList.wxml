@@ -1,8 +1,7 @@
 <!--工作机会列表-->
 <view class="ul">
-  <view wx:for="{{ list }}" wx:key="{{item.id}}">
     <form bindsubmit="formSubmit" report-submit='{{true}}'  data-item="{{item}}" bindtap="routeJump">  
-      <button form-type="submit" class="formIdBtn" > 
+      <button wx:for="{{ list }}" wx:key="{{item.id}}" form-type="submit" class="formIdBtn" > 
         <view class="li personality">
           <!-- 职位名称 -->
           <view class="name">
@@ -47,5 +46,4 @@
         </view>
     </button>  
     </form>
-  </view>
 </view>

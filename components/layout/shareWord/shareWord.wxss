@@ -89,7 +89,7 @@
 	height: 100%;
 	background:rgba(255,255,255,1);
 	border-radius:24rpx 0rpx 24rpx 24rpx;
-	border:4rpx solid rgba(0,0,0,1);
+	border:2px solid rgba(0,0,0,1);
 	padding: 30rpx 46rpx;
 	box-sizing: border-box;
 	font-size:28rpx;
@@ -100,22 +100,22 @@
 	z-index: 1;
 }
 .closeBtn {
-	width:88rpx;
-	height:68rpx;
+	width:44px;
+	height:34px;
 	background:rgba(255,220,41,1);
 	border-radius:100rpx 100rpx 0rpx 0rpx;
-	border:4rpx solid rgba(0,0,0,1);
+	border:2px solid rgba(0,0,0,1);
 	position: absolute;
-	top:-76rpx;
-	right:-4rpx;
-  border-bottom: 0;
+	top:-34px;
+	right:-2px;
+  box-sizing:border-box;
 }
 .closeBtn .icon {
 	font-size: 36rpx;
 	font-weight: bold;
-	margin: 18rpx auto;
-	text-align: center;
-	display: block;
+  display: block;
+  margin: 8px auto;
+  text-align: center;
 }
 .mainPop .content.contentBg {
 	background: #FFDC29;

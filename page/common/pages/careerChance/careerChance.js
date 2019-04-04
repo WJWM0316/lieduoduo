@@ -103,7 +103,7 @@ Page({
   getCityLabel() {
     return getCityLabelApi().then(res => {
       const cityList = res.data
-      cityList.unshift({areaId: '', name: '全部地区'})
+      cityList.unshift({areaId: '', name: '全部'})
       this.setData({cityList})
     })
   },
@@ -118,17 +118,25 @@ Page({
   toggle (e) {
     let id = e.currentTarget.dataset.id
     let index = e.currentTarget.dataset.index
+    let name = e.currentTarget.dataset.name
+    let tabList = this.data.tabList
     switch (this.data.tabType) {
       case 'city':
-        this.setData({city: id, cityIndex: index, tabType: 'closeTab'})
+        if (index === 0) name = '全部地区'
+        tabList[0].name = name
+        this.setData({tabList, city: id, cityIndex: index, tabType: 'closeTab'})
         this.reloadPositionLists()
         break
       case 'positionType':
-        this.setData({type: id, typeIndex: index, tabType: 'closeTab'})
+        if (index === 0) name = '职位类型'
+        tabList[1].name = name
+        this.setData({tabList, type: id, typeIndex: index, tabType: 'closeTab'})
         this.reloadPositionLists()
         break
       case 'salary':
-        this.setData({emolument: id, emolumentIndex: index, tabType: 'closeTab'})
+        if (index === 0) name = '薪资范围'
+        tabList[2].name = name
+        this.setData({tabList, emolument: id, emolumentIndex: index, tabType: 'closeTab'})
         this.reloadPositionLists()
         break
     }
@@ -145,7 +153,7 @@ Page({
       positionTypeList.map(field => field.active = false)
       positionTypeList.unshift({
         labelId: '',
-        name: '全部类型',
+        name: '全部',
         type: 'self_label_position'
       })
       this.setData({positionTypeList})
@@ -159,11 +167,13 @@ Page({
       let cityIndex = this.data.cityIndex
       let typeIndex = this.data.typeIndex
       let emolumentIndex = this.data.emolumentIndex
+      let tabList = this.data.tabList
       if (res.data.city) {
         city = Number(res.data.city)
         this.data.cityList.map((item, index) => {
           if (item.areaId === city) {
             cityIndex = index
+            tabList[0].name = item.name
           }
         })
       }
@@ -172,6 +182,7 @@ Page({
         this.data.positionTypeList.map((item, index) => {
           if (item.labelId === type) {
             typeIndex = index
+            tabList[1].name = item.name
           }
         })
       }
@@ -180,10 +191,11 @@ Page({
         this.data.emolumentList.map((item, index) => {
           if (item.id === emolument) {
             emolumentIndex = index
+            tabList[2].name = item.text
           }
         })
       }
-      this.setData({city, type, cityIndex, typeIndex, emolument, emolumentIndex}, () => {
+      this.setData({tabList, city, type, cityIndex, typeIndex, emolument, emolumentIndex}, () => {
         this.getPositionList()
       })  
     })
@@ -216,14 +228,15 @@ Page({
         delete params.emolument_id
       }
       getPositionListApi(params, hasLoading).then(res => {
-        const positionList = this.data.positionList
-        const onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
+        let positionList = this.data.positionList
+        let onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
         let requireOAuth = res.meta.requireOAuth || false
         positionList.list = positionList.list.concat(res.data)
         positionList.isLastPage = res.meta && res.meta.nextPageUrl ? false : true
         positionList.pageNum = positionList.pageNum + 1
-        positionList.isRequire = true
+        positionList.isRequire = true       
         this.setData({positionList, requireOAuth, onBottomStatus}, () => resolve(res))
+        console.log(this.data.onBottomStatus, this.data.positionList, 22222222222222222222222)
       })
     })
   },
@@ -244,16 +257,8 @@ Page({
    */
   reloadPositionLists(hasLoading = true) {
     const positionList = {list: [], pageNum: 1, isLastPage: false, isRequire: false}
-    this.setData({positionList, hasReFresh: true})
-    return this.getPositionList().then(res => {
-      const positionList = {list: [], pageNum: 1, isLastPage: false, isRequire: false}
-      const onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
-      positionList.list = res.data
-      positionList.isLastPage = res.meta && res.meta.nextPageUrl ? false : true
-      positionList.pageNum = 2
-      positionList.isRequire = true
-      this.setData({positionList, onBottomStatus, hasReFresh: false}, () => wx.stopPullDownRefresh())
-    })
+    this.setData({positionList})
+    return this.getPositionList()
   },
   /**
    * @Author   小书包
@@ -262,6 +267,8 @@ Page({
    * @return   {[type]}              [description]
    */
   onPullDownRefresh() {
+    const positionList = {list: [], pageNum: 1, isLastPage: false, isRequire: false}
+    this.setData({positionList, hasReFresh: true})
     this.reloadPositionLists().then(res => {
       wx.stopPullDownRefresh()
     }).catch(e => {
@@ -276,32 +283,11 @@ Page({
    */
   onReachBottom() {
     const positionList = this.data.positionList
+    this.setData({onBottomStatus: 1})
     if (!positionList.isLastPage) {
-      this.getPositionList(false).then(() => this.setData({onBottomStatus: 1}))
+      this.getPositionList(false)
     }
   },
-  /**
-   * @Author   小书包
-   * @DateTime 2019-01-24
-   * @detail   类型改变重新拉数据
-   * @return   {[type]}     [description]
-   */
-  // bindChange(e) {
-  //   const params = e.currentTarget.dataset
-  //   const list = params.type === 'city' ? this.data.cityList : this.data.positionTypeList
-  //   const result = list.find((field, index) => index === Number(e.detail.value))
-  //   const type = params.type
-  //   const otherParamsIndex = params.type === 'city' ? 'cityIndex' : 'typeIndex'
-  //   const otherParamValue = result[params.type === 'city' ? 'areaId' : 'labelId']
-  //   const positionList = this.data.positionList
-  //   positionList.pageNum = 1
-
-  //   if(typeof otherParamValue === 'number') {
-  //     this.setData({[type]: otherParamValue, [otherParamsIndex]: Number(e.detail.value)}, () => this.reloadPositionLists())
-  //   } else {
-  //     this.setData({[type]: 0, [otherParamsIndex]: 0, positionList}, () => 
-  //   }
-  // },
   onShareAppMessage(options) {
     let that = this
 　　return app.wxShare({
