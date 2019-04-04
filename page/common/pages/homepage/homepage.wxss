@@ -234,7 +234,7 @@
   font-size:24rpx;
   font-weight:300;
   color:rgba(40,40,40,1);
-  margin: 8rpx 0 22rpx 0;
+  margin: 8rpx 0 12rpx 0;
   overflow: hidden;
   text-overflow: ellipsis;
   overflow: hidden;
@@ -251,9 +251,9 @@
   padding: 0 18rpx;
   height: 44rpx;
   line-height: 44rpx;
-  text-overflow: ellipsis;
+/*  text-overflow: ellipsis;
   overflow: hidden;
-  white-space: nowrap;
+  white-space: nowrap;*/
   position: relative;
 }
 
@@ -261,11 +261,12 @@
   width: 0;
   height: 0;
   position: absolute;
-  top: -20rpx;
+  top: -16rpx;
   left: 30rpx;
   border-width: 10rpx;
   border-style: solid;
   border-color: transparent transparent #F8F8F8 transparent;
+  /*border-color: transparent transparent red transparent;*/
   display: block;
   content: '';
 }
