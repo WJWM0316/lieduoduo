@@ -17,7 +17,7 @@
 		<shareBtn></shareBtn>
 	</view>
 	
-	<view class="ul-tab-bar {{isFixed ? 'fixed-bar' : ''}}">
+	<view class="ul-tab-bar {{isFixed ? 'fixed-bar' : ''}}" style="top: {{navH}}px">
 		<view class="li {{tab === 'about' ? 'active' : ''}}" bindtap="onTabClick" data-tab="about">关于我们</view>
 		<view class="li {{tab === 'recruitment' ? 'active' : ''}}" bindtap="onTabClick" data-tab="recruitment">在招职位({{companyInfos.positionNum}})</view>
 	</view>
@@ -74,7 +74,7 @@
 					bindchange="swiperChange"
 					wx:if="{{companyInfos.albumInfo.length}}"
 					autoplay="{{autoplay}}">
-					<swiper-item class="swiper-item" wx:for="{{companyInfos.albumInfo}}" wx:key="{{index}}" wx:for-item="item">
+					<swiper-item class="swiper-item {{swiperIndex == index ? 'div-active' : ''}}" wx:for="{{companyInfos.albumInfo}}" wx:key="{{index}}" wx:for-item="item">
 						<image mode="aspectFill" class="slide-image {{swiperIndex == index ? 'active' : ''}}" src="{{item.url}}" bindtap="previewImage" />
 					</swiper-item>
 				</swiper>
