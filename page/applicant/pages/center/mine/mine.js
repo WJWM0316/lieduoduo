@@ -27,22 +27,23 @@ Page({
     let myInfo = {}
     let isJobhunter = 0
     let showScanIcon = this.data.showScanIcon
-    if (app.pageInit) {
+
+    if(app.pageInit) {
       hasLogin = app.globalData.hasLogin
       myInfo = app.globalData.resumeInfo
       isJobhunter = app.globalData.isJobhunter
-      if(hasLogin && isJobhunter) {
-        showScanIcon = true
-      }
+      showScanIcon = hasLogin && isJobhunter ? true : false
+      console.log(app.globalData, 'a')
+      console.log(app.globalData.resumeInfo, 'a')
+      console.log(this.data, 'a')
       this.setData({myInfo, isJobhunter, hasLogin, showScanIcon, resumeAttach: myInfo.resumeAttach || {}})
+
     } else {
       app.pageInit = () => {
         hasLogin = app.globalData.hasLogin
         myInfo = app.globalData.resumeInfo
         isJobhunter = app.globalData.isJobhunter
-        if(hasLogin && isJobhunter) {
-          showScanIcon = true
-        }
+        showScanIcon = hasLogin && isJobhunter ? true : false
         this.setData({myInfo, hasLogin, isJobhunter, showScanIcon})
       }
     }
@@ -117,10 +118,18 @@ Page({
     })
   },
   onPullDownRefresh(hasLoading = true) {
+    let hasLogin = false
+    let myInfo = {}
+    let isJobhunter = 0
+    let showScanIcon = this.data.showScanIcon
+
     this.setData({hasReFresh: true})
     getPersonalResumeApi({...app.getSource()}).then(res => {
+      hasLogin = app.globalData.hasLogin
+      isJobhunter = app.globalData.isJobhunter
+      showScanIcon = hasLogin && isJobhunter ? true : false
       app.globalData.resumeInfo = res.data
-      this.setData({hasReFresh: false, myInfo: res.data})
+      this.setData({hasReFresh: false, myInfo: res.data, showScanIcon})
       wx.stopPullDownRefresh()
     }).catch(e => {
       this.setData({hasReFresh: false})

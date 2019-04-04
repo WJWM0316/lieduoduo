@@ -49,10 +49,7 @@ Component({
     positionStatus: 'fixed',
     cdnImagePath: app.globalData.cdnImagePath,
     firstClick: true,
-    showScanBox: false,
-    identity: '',
-    hasLogin: false,
-    isJobhunter: 0
+    showScanBox: false
   },
   // pageLifetimes: {
   //   show() {
@@ -62,13 +59,12 @@ Component({
   attached() {
     let positionStatus = this.data.positionStatus
     let firstClick = wx.getStorageSync('firstClick')
-    let hasLogin = false
-    let isJobhunter = 0
+    let route = getCurrentPages()
+
     if (!this.data.isFixed) {
       positionStatus = 'relative'
     }
-    identity = wx.getStorageSync('choseType')
-    let route = getCurrentPages()
+
     if (route.length > 1) {
       this.setData({showBackBtn: true, positionStatus})
     } else {
@@ -76,19 +72,7 @@ Component({
     }
 
     if(firstClick) {
-      this.setData({firstClick: false, identity})
-    }
-    
-    if(app.pageInit) {
-      hasLogin = app.globalData.hasLogin
-      isJobhunter = app.globalData.isJobhunter
-      this.setData({isJobhunter, hasLogin})
-    } else {
-      app.pageInit = () => {
-        hasLogin = app.globalData.hasLogin
-        isJobhunter = app.globalData.isJobhunter
-        this.setData({hasLogin, isJobhunter})
-      }
+      this.setData({firstClick: false})
     }
   },
   /**
