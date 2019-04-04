@@ -125,23 +125,20 @@ Page({
     let tabList = this.data.tabList
     switch (this.data.tabType) {
       case 'city':
-        if (index === 0) name = '全部地区'
+        index === 0 ? name = '全部地区' : tabList[0].active = true
         tabList[0].name = name
-        tabList[0].active = true
         this.setData({tabList, city: id, cityIndex: index, tabType: 'closeTab'})
         this.reloadPositionLists()
         break
       case 'positionType':
-        if (index === 0) name = '职位类型'
+        index === 0 ? name = '职位类型' : tabList[1].active = true
         tabList[1].name = name
-        tabList[1].active = true
         this.setData({tabList, type: id, typeIndex: index, tabType: 'closeTab'})
         this.reloadPositionLists()
         break
       case 'salary':
-        if (index === 0) name = '薪资范围'
+        index === 0 ? name = '薪资范围' : tabList[2].active = true
         tabList[2].name = name
-        tabList[2].active = true
         this.setData({tabList, emolument: id, emolumentIndex: index, tabType: 'closeTab'})
         this.reloadPositionLists()
         break
@@ -179,10 +176,10 @@ Page({
         this.data.cityList.map((item, index) => {
           if (item.areaId === city) {
             cityIndex = index
-            tabList[0].active = true
             if (index === 0) {
               tabList[0].name = '全部地区'
             } else {
+              tabList[0].active = true
               tabList[0].name = item.name
             }
           }
@@ -193,10 +190,10 @@ Page({
         this.data.positionTypeList.map((item, index) => {
           if (item.labelId === type) {
             typeIndex = index
-            tabList[1].active = true
             if (index === 0) {
               tabList[1].name = '职位类型'
             } else {
+              tabList[1].active = true
               tabList[1].name = item.name
             }
           }
@@ -207,10 +204,10 @@ Page({
         this.data.emolumentList.map((item, index) => {
           if (item.id === emolument) {
             emolumentIndex = index
-            tabList[2].active = true
             if (index === 0) {
               tabList[2].name = '薪资范围'
             } else {
+              tabList[2].active = true
               tabList[2].name = item.name
             }
           }

@@ -73,8 +73,8 @@ Page({
       let x=0, y=0
       switch(index) {
         case 0: 
-          x = 276
-          y = 64
+          x = 270
+          y = 204
           break
         case 1:
           x = 520
@@ -93,12 +93,12 @@ Page({
           y = 64
           break
         case 5:
-          x = 212
-          y = 265
+          x = 276
+          y = 64
           break
         case 6:
-          x = 270
-          y = 204
+          x = 212
+          y = 265
           break
         case 7:
           x = 538

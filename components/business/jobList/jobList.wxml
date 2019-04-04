@@ -11,15 +11,9 @@
           
           <!-- 标签 -->
           <view class="labelList">
-            <view class="label">
-              {{item.city}}{{item.district}}
-            </view>
-            <view class="label">
-              {{item.workExperienceName}}
-            </view>
-            <view class="label">
-              {{item.educationName}}
-            </view>
+            <view class="label">{{item.city}}{{item.district}}</view>
+            <view class="label">{{item.workExperienceName}}</view>
+            <view class="label">{{item.educationName}}</view>
           </view>
           <!-- 公司情况 -->
           <view class="company">

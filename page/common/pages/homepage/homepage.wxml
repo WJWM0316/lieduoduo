@@ -17,7 +17,7 @@
 		<shareBtn></shareBtn>
 	</view>
 	
-	<view class="ul-tab-bar {{isFixed ? 'fixed-bar' : ''}}" style="top: {{navH}}px">
+	<view class="ul-tab-bar {{isFixed ? 'fixed-bar' : ''}}">
 		<view class="li {{tab === 'about' ? 'active' : ''}}" bindtap="onTabClick" data-tab="about">关于我们</view>
 		<view class="li {{tab === 'recruitment' ? 'active' : ''}}" bindtap="onTabClick" data-tab="recruitment">在招职位({{companyInfos.positionNum}})</view>
 	</view>

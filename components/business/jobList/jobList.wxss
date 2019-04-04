@@ -85,6 +85,7 @@
   height: 66rpx;
   display: flex;
   padding-top: 13rpx;
+  box-sizing: border-box;
 }
 .hr .logo {
   width: 66rpx;
