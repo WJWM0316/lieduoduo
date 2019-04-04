@@ -54,6 +54,11 @@ Component({
     hasLogin: false,
     isJobhunter: 0
   },
+  pageLifetimes: {
+    show() {
+      console.log(this.data, 'show')
+    }
+  },
   attached() {
     let positionStatus = this.data.positionStatus
     let firstClick = wx.getStorageSync('firstClick')
@@ -73,7 +78,8 @@ Component({
     if(firstClick) {
       this.setData({firstClick: false, identity})
     }
-    console.log(this.data, 11111111111)
+    
+    console.log(this.data, 'attached')
     if(app.pageInit) {
       hasLogin = app.globalData.hasLogin
       isJobhunter = app.globalData.isJobhunter
@@ -85,6 +91,18 @@ Component({
         this.setData({hasLogin, isJobhunter})
       }
     }
+  },
+  created() {
+    console.log(this.data, 'created')
+  },
+  ready() {
+    console.log(this.data, 'ready')
+  },
+  moved() {
+    console.log(this.data, 'moved')
+  },
+  detached() {
+    console.log(this.data, 'detached')
   },
   /**
    * 组件的方法列表
