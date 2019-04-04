@@ -107,6 +107,8 @@ App({
       this.globalData.hasLogin = false
       this.globalData.resumeInfo = {}
       this.globalData.recruiterDetails = {}
+      this.globalData.isRecruiter = false
+      this.globalData.isJobhunter = false
       wx.reLaunch({url: `${COMMON}startPage/startPage`})
     })
   },
