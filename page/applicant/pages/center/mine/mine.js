@@ -17,7 +17,8 @@ Page({
     navH: app.globalData.navHeight,
     isJobhunter: 0,
     telePhone: app.globalData.telePhone,
-    showScanIcon: false
+    showScanIcon: false,
+    navbarBg: 'transparent'
   },
   /**
    * 生命周期函数--监听页面加载
@@ -153,5 +154,13 @@ Page({
         app.toggleIdentity()
       }
     })
+  },
+  onPageScroll(e) {
+    let isFixed = e.scrollTop > this.data.navH
+    if(e.scrollTop > this.data.navH - 5) {
+      if (this.data.navbarBg === 'transparent') this.setData({navbarBg: '#652791'})
+    } else {
+      if (this.data.navbarBg !== 'transparent') this.setData({navbarBg: 'transparent'})
+    }
   }
 })
