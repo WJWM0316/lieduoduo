@@ -80,6 +80,9 @@
 .select-tab .item.cur .icon {
   transform: rotate(180deg);
 }
+.select-tab .item.actived {
+  color: #652791;
+}
 .select-box .item .txt {
   max-width: 154rpx;
   display: inline-block;
@@ -105,13 +108,14 @@
   max-height: 658rpx;
   overflow-y: auto;
 }
+
 .select-area-item {
   min-width: 150rpx;
   padding: 0 34rpx;
   line-height: 58rpx;
-  border-radius:29rpx;
+  border-radius:50rpx;
   border:1rpx solid #CDCBCF;
-  margin: 0 26rpx 24rpx 0;
+  margin: 0 22rpx 24rpx 0;
   display: inline-block;
   color: #626262;
   font-size:26rpx;
@@ -121,6 +125,8 @@
 }
 .select-area-item.cur {
   color: #652791;
-  font-weight:500;
   border-color: #652791;
+}
+.select-area.city .select-area-item:nth-child(4), .select-area.salary .select-area-item:nth-child(4) {
+  margin-right: 0;
 }

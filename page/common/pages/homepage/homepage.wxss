@@ -556,10 +556,6 @@
   float: right;
 }
 
-.job-list {
-  margin-top: -30rpx;
-}
-
 .job-list .ul{
   background: transparent !important;
 }

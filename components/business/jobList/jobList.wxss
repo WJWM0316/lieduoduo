@@ -84,7 +84,7 @@
 .hr .conLeft {
   height: 66rpx;
   display: flex;
-  align-items: center;
+  padding-top: 13rpx;
 }
 .hr .logo {
   width: 66rpx;
@@ -99,7 +99,7 @@
   font-weight: 400;
   color: #626262;
   align-items: center;
-  max-width: 550rpx;
+  max-width: 400rpx;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;

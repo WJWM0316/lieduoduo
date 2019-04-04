@@ -111,10 +111,9 @@
   box-sizing:border-box;
 }
 .closeBtn .icon {
-	font-size: 36rpx;
-	font-weight: bold;
+	font-size: 24rpx;
   display: block;
-  margin: 8px auto;
+  margin: 10px auto;
   text-align: center;
 }
 .mainPop .content.contentBg {
@@ -128,7 +127,7 @@
 	font-size: 28rpx;
 	width:132rpx;
 	height:60rpx;
-	line-height: 60rpx;
+	line-height: 56rpx;
 	display: inline-block;
 	background:rgba(239,233,244,1);
 	border-radius:30rpx;
@@ -216,6 +215,6 @@
 	font-size:32rpx;
 	font-weight:500;
 	color:rgba(40,40,40,1);
-	line-height:80rpx;
+	line-height:76rpx;
 	text-align: center;
 }

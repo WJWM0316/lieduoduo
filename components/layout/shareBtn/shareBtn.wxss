@@ -141,9 +141,9 @@ button.close {
   padding: 0;
 }
 button.close .icon {
-  font-size: 36rpx;
-  line-height: 36rpx;
+  font-size: 24rpx;
+  line-height: 24rpx;
   color: #282828;
   display: block;
-  margin-top: 15rpx;
+  margin: 12px 0;
 }
