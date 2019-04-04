@@ -23,18 +23,6 @@
       </view>
     </view>
   </view>
-
-  
-      <!-- <picker range="{{cityList}}" range-key="name" bindchange="bindChange" data-type="city" value="{{cityIndex}}">
-        <view class="picker">{{cityList[cityIndex].name}}</view>
-        <i class="icon iconfont icon-zhishibiao"></i>
-      </picker>
-
-      <picker range="{{positionTypeList}}" range-key="name" bindchange="bindChange" data-type="type" value="{{typeIndex}}">
-        <view class="picker">{{positionTypeList[typeIndex].name}}</view>
-        <i class="icon iconfont icon-zhishibiao"></i>
-      </picker> -->
-
   <view class="list-box" style="padding-top: 118rpx">
     <jobList personality="jobItem" list="{{positionList.list}}" list-type="interview" current-tab="all"></jobList>
     <bottomStatus status="{{onBottomStatus}}" listData="{{positionList.list}}"></bottomStatus>

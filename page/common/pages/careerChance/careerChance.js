@@ -207,37 +207,34 @@ Page({
    * @return   {[type]}   [description]
    */
   getPositionList(hasLoading = true) {
-    return new Promise((resolve, reject) => {
-      let params = {count: this.data.pageCount, page: this.data.positionList.pageNum, ...app.getSource()}
-      if(this.data.city) {
-        params = Object.assign(params, {city: this.data.city})
-      }
-      if(this.data.type) {
-        params = Object.assign(params, {type: this.data.type})
-      }
-      if (this.data.emolument) {
-        params = Object.assign(params, {emolument_id: this.data.emolument})
-      }
-      if(!this.data.type) {
-        delete params.type
-      }
-      if(!this.data.city) {
-        delete params.city
-      }
-      if(!this.data.emolument) {
-        delete params.emolument_id
-      }
-      getPositionListApi(params, hasLoading).then(res => {
-        let positionList = this.data.positionList
-        let onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
-        let requireOAuth = res.meta.requireOAuth || false
-        positionList.list = positionList.list.concat(res.data)
-        positionList.isLastPage = res.meta && res.meta.nextPageUrl ? false : true
-        positionList.pageNum = positionList.pageNum + 1
-        positionList.isRequire = true       
-        this.setData({positionList, requireOAuth, onBottomStatus}, () => resolve(res))
-        console.log(this.data.onBottomStatus, this.data.positionList, 22222222222222222222222)
-      })
+    let params = {count: this.data.pageCount, page: this.data.positionList.pageNum, ...app.getSource()}
+    if(this.data.city) {
+      params = Object.assign(params, {city: this.data.city})
+    }
+    if(this.data.type) {
+      params = Object.assign(params, {type: this.data.type})
+    }
+    if (this.data.emolument) {
+      params = Object.assign(params, {emolument_id: this.data.emolument})
+    }
+    if(!this.data.type) {
+      delete params.type
+    }
+    if(!this.data.city) {
+      delete params.city
+    }
+    if(!this.data.emolument) {
+      delete params.emolument_id
+    }
+    return getPositionListApi(params, hasLoading).then(res => {
+      let positionList = this.data.positionList
+      let onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
+      let requireOAuth = res.meta.requireOAuth || false
+      positionList.list = positionList.list.concat(res.data)
+      positionList.isLastPage = res.meta && res.meta.nextPageUrl ? false : true
+      positionList.pageNum = positionList.pageNum + 1
+      positionList.isRequire = true       
+      this.setData({positionList, requireOAuth, onBottomStatus})
     })
   },
   getEmolument () {
@@ -269,9 +266,11 @@ Page({
   onPullDownRefresh() {
     const positionList = {list: [], pageNum: 1, isLastPage: false, isRequire: false}
     this.setData({positionList, hasReFresh: true})
-    this.reloadPositionLists().then(res => {
+    this.getPositionList().then(res => {
+      this.setData({positionList, hasReFresh: false})
       wx.stopPullDownRefresh()
     }).catch(e => {
+      this.setData({positionList, hasReFresh: false})
       wx.stopPullDownRefresh()
     })
   },
@@ -283,8 +282,8 @@ Page({
    */
   onReachBottom() {
     const positionList = this.data.positionList
-    this.setData({onBottomStatus: 1})
     if (!positionList.isLastPage) {
+      this.setData({onBottomStatus: 1})
       this.getPositionList(false)
     }
   },
