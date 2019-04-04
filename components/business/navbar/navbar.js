@@ -73,7 +73,7 @@ Component({
     if(firstClick) {
       this.setData({firstClick: false, identity})
     }
-    
+    console.log(this.data, 11111111111)
     if(app.pageInit) {
       hasLogin = app.globalData.hasLogin
       isJobhunter = app.globalData.isJobhunter

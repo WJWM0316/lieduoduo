@@ -162,9 +162,7 @@ Page({
       }
       if (res.data.type) {
         type = Number(res.data.type)
-        console.log(res.data.type, type, this.data.positionTypeList)
         this.data.positionTypeList.map((item, index) => {
-          console.log(item.labelId, type)
           if (item.labelId === type) {
             typeIndex = index
           }
