@@ -5,8 +5,8 @@
 		    <view class="return-back">
 		    	<view class="formIdBox">
 		    		<block wx:if="{{showScanIcon}}">
-			    		<i class="icon iconfont icon-saoma showScanIcon" wx:if="{{hasLogin && (isJobhunter || identity === 'RECRUITER')}}" bindtap="showScan"></i>
-			    		<image class="showScanIconTips" mode="aspectFill" src="{{cdnImagePath}}scanCodeTips.png" wx:if="{{firstClick && hasLogin}}" bindtap="closeTips"></image>
+			    		<i class="icon iconfont icon-saoma showScanIcon" bindtap="showScan"></i>
+			    		<image class="showScanIconTips" mode="aspectFill" src="{{cdnImagePath}}scanCodeTips.png" wx:if="{{firstClick}}" bindtap="closeTips"></image>
 			    	</block>
 			    	<button class="backLast formIdBtn iconfont icon-daohanglan-fanhui" wx:if="{{showBack && showBackBtn}}"  bindtap="navBack" style="color: {{color}}"></button>
 		    		<button class="formIdBtn"><i class="line" wx:if="{{showBack && showBackBtn && showHome}}"></i></button>

@@ -1,5 +1,5 @@
 <view class="center">
-<navbar background="{{navbarBg}}" title="我的" color="#fff" showScanIcon="{{true}}"></navbar>
+<navbar background="{{navbarBg}}" title="我的" color="#fff" showScanIcon="{{showScanIcon}}"></navbar>
 <view class="top-banner">
 	<image class="bgImg" mode="aspectFill" src="{{cdnPath}}recruiter_mine_bg.png"></image>
 </view>

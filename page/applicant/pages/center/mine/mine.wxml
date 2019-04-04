@@ -1,5 +1,5 @@
 <view class='mine'>
-  <navbar title="我的" background="transparent" title="我的" color="#fff" showScanIcon="{{true}}"></navbar>
+  <navbar title="我的" background="transparent" title="我的" color="#fff" showScanIcon="{{showScanIcon}}"></navbar>
   <view hidden="{{!hasReFresh}}">
     <refreshStatus></refreshStatus>
   </view>

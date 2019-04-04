@@ -16,7 +16,8 @@ Page({
     resumeAttach: {},
     navH: app.globalData.navHeight,
     isJobhunter: 0,
-    telePhone: app.globalData.telePhone
+    telePhone: app.globalData.telePhone,
+    showScanIcon: false
   },
   /**
    * 生命周期函数--监听页面加载
@@ -25,17 +26,26 @@ Page({
     let hasLogin = false
     let myInfo = {}
     let isJobhunter = 0
+    let showScanIcon = this.data.showScanIcon
     if (app.pageInit) {
       hasLogin = app.globalData.hasLogin
       myInfo = app.globalData.resumeInfo
       isJobhunter = app.globalData.isJobhunter
-      this.setData({myInfo, isJobhunter, hasLogin, resumeAttach: myInfo.resumeAttach || {}})
+      if(hasLogin && isJobhunter) {
+        showScanIcon = true
+      }
+      console.log(app, 'a')
+      this.setData({myInfo, isJobhunter, hasLogin, showScanIcon, resumeAttach: myInfo.resumeAttach || {}})
     } else {
       app.pageInit = () => {
         hasLogin = app.globalData.hasLogin
         myInfo = app.globalData.resumeInfo
         isJobhunter = app.globalData.isJobhunter
-        this.setData({myInfo, hasLogin, isJobhunter})
+        if(hasLogin && isJobhunter) {
+          showScanIcon = true
+        }
+        console.log(app, 'b')
+        this.setData({myInfo, hasLogin, isJobhunter, showScanIcon})
       }
     }
   },

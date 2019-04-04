@@ -19,7 +19,8 @@ Page({
     hasReFresh: false,
     pageInfos: {},
     navbarBg: 'transparent',
-    telePhone: app.globalData.telePhone
+    telePhone: app.globalData.telePhone,
+    showScanIcon: false
   },
   onLoad() {
     wx.setStorageSync('choseType', 'RECRUITER')
