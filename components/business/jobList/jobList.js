@@ -6,6 +6,10 @@ Component({
     list:{
       type: Array,
       default: []
+    },
+    showBoxShadow: {
+      type: Boolean,
+      value: true
     }
   },
 

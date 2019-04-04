@@ -12,8 +12,10 @@
   background-color: #FFF;
   border-radius: 10rpx;
   margin-bottom: 20rpx;
-    box-shadow:0rpx 0rpx 40rpx 0rpx rgba(22,39,77,0.1);
 
+}
+.box-shadow{
+  box-shadow:0rpx 0rpx 40rpx 0rpx rgba(22,39,77,0.1);
 }
 .li .name{
   display: flex;
