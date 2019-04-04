@@ -34,7 +34,6 @@ Page({
       if(hasLogin && isJobhunter) {
         showScanIcon = true
       }
-      console.log(app, 'a')
       this.setData({myInfo, isJobhunter, hasLogin, showScanIcon, resumeAttach: myInfo.resumeAttach || {}})
     } else {
       app.pageInit = () => {
@@ -44,7 +43,6 @@ Page({
         if(hasLogin && isJobhunter) {
           showScanIcon = true
         }
-        console.log(app, 'b')
         this.setData({myInfo, hasLogin, isJobhunter, showScanIcon})
       }
     }

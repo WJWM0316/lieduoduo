@@ -20,7 +20,7 @@ Page({
     pageInfos: {},
     navbarBg: 'transparent',
     telePhone: app.globalData.telePhone,
-    showScanIcon: false
+    showScanIcon: true
   },
   onLoad() {
     wx.setStorageSync('choseType', 'RECRUITER')
