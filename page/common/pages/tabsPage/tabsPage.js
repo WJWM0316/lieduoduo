@@ -153,6 +153,7 @@ Page({
     })
   }, 
   getresult(e) {
+    if (!e.detail.propsResult) return
     let skills = []
     choseFirstId = e.detail.propsResult.labelId
     if (allSkills.length > 0) {

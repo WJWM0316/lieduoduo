@@ -578,7 +578,7 @@ App({
     let route = getCurrentPages()
     let curPath = route[route.length - 1]
     if (launch.path === 'page/common/pages/startPage/startPage' && launch.path === curPath.route) { // 自然搜索使用
-      if (curPath.options.sourceType) {
+      if (curPath.options && curPath.options.sourceType) {
         params.sourceType = curPath.options.sourceType
       } else {
         params.sourceType = 'sch'
@@ -597,7 +597,7 @@ App({
       }
     }
     // 跟踪转发人记录
-    if (curPath.options.sCode) params.sCode = curPath.options.sCode
+    if (curPath.options && curPath.options.sCode) params.sCode = curPath.options.sCode
     return params
   },
   // 预览简历

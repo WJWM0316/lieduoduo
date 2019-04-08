@@ -87,7 +87,8 @@ Component({
           if (res.statusCode === 200) {
             console.log(res, "上传成功")
             // result = JSON.parse(res.data)
-            result.push(JSON.parse(res.data).data[0])
+            let data = typeof res.data === "string" ? JSON.parse(res.data) : res.data
+            result.push(data.data[0])
           } else {
             if (res.statusCode === 401) {
               // 需要用到token， 需要绑定手机号
@@ -108,7 +109,8 @@ Component({
             } else {
               console.log(res, "上传失败")
               this.triggerEvent('failUpload')
-              getApp().wxToast({title: JSON.parse(res.data).msg})
+              let data = typeof res.data === "string" ? JSON.parse(res.data) : res.data
+              getApp().wxToast({title: data.msg})
             }
             return
           }
