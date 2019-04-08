@@ -3,7 +3,6 @@
 	"backgroundTextStyle": "light",
   "usingComponents": {
     "tab-bar": "../../../../../components/business/tabBar/tabBar",
-    "navbar": "../../../../../components/business/navbar/navbar",
-    "commonList": "../../../../../components/business/commonList/commonList"
+    "navbar": "../../../../../components/business/navbar/navbar"
   }
 }

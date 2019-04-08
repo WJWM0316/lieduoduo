@@ -22,12 +22,12 @@
 			<i class="icon iconfont icon-xiangyou"></i>
 		</view>
 
-		<view class="li link">
+		<view class="li link {{formData.company_shortname ? 'clear-bottom' : ''}}">
 			<view class="key">公司简称</view>
 			<input type="text" class="companyShortName {{formData.company_shortname ? 'color' : ''}}" placeholder="示例：猎多多" placeholder-class="defaultColor" value="{{formData.company_shortname}}" bindinput="bindInput" maxlength="10"></input>
 		</view>
 
-		<view class="exemple" wx:if="{{company_shortname}}">注： 公司简称能让候选人记住你的公司，可以是品牌名/产品名/关键字等，创建后不可修改</view>
+		<view class="exemple" wx:if="{{formData.company_shortname}}">注： 公司简称能让候选人记住你的公司，可以是品牌名/产品名/关键字等，创建后不可修改</view>
 
 		<view class="li">
 			<i class="icon iconfont icon-xiangyou"></i>

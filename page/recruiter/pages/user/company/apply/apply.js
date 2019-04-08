@@ -14,17 +14,19 @@ Page({
       real_name: '',
       user_email: '',
       user_position: '',
+      company_name: ''
     },
     canClick: false,
     options: {},
     cdnImagePath: app.globalData.cdnImagePath,
     navH: app.globalData.navHeight,
+    telePhone: app.globalData.telePhone,
     height: 0
   },
   onLoad(options) {
 
     let storage = wx.getStorageSync('createdCompany')
-    let params = ['real_name', 'user_email', 'user_position']
+    let params = ['real_name', 'user_email', 'user_position', 'company_name']
     let formData = this.data.formData
     params.map(field => formData[field] = storage[field])
 
@@ -56,7 +58,7 @@ Page({
    */
   getCompanyIdentityInfos(hasLoading = true) {
     let storage = wx.getStorageSync('createdCompany')
-    let params = ['real_name', 'user_email', 'user_position']
+    let params = ['real_name', 'user_email', 'user_position', 'company_name']
     let formData = this.data.formData
 
     // 是否已经填写过当前页面的信息
@@ -124,6 +126,7 @@ Page({
   submit() {
     let formData = this.data.formData
     let storage = wx.getStorageSync('createdCompany')
+    let options = this.data.options
     if(!this.data.canClick) return;
 
     // 验证用户名
@@ -141,9 +144,7 @@ Page({
       !positionReg.test(formData.user_position) ? reject('担任职务需为2-50个字') : resolve()
     })
 
-    Promise.all([checkRealName, checkUserEmail, checkUserPosition]).then(res => {
-      let options = this.data.options
-      
+    Promise.all([checkRealName, checkUserEmail, checkUserPosition]).then(res => {      
       if(options.action && options.action === 'edit') {
         wx.navigateTo({url: `${RECRUITER}user/company/find/find?action=edit`})
       } else {
@@ -153,10 +154,54 @@ Page({
     })
     .catch(err => app.wxToast({title: err}))
   },
+  /**
+   * @Author   小书包
+   * @DateTime 2019-04-08
+   * @detail   切换身份
+   * @return   {[type]}   [description]
+   */
   toggle() {
     app.toggleIdentity()
   },
+  /**
+   * @Author   小书包
+   * @DateTime 2019-04-08
+   * @detail   更改手机
+   * @return   {[type]}   [description]
+   */
   changePhone() {
-    app.uplogin()
+    app.wxConfirm({
+      title: '换个账号',
+      content: '退出后不会删除任何历史数据，下次登录依然可以使用本账号',
+      confirmBack() {
+        app.uplogin()
+      },
+      cancelBack: () => {}
+    })
+  },
+  /**
+   * @Author   小书包
+   * @DateTime 2019-04-08
+   * @detail   拨打电话
+   * @return   {[type]}   [description]
+   */
+  callPhone() {
+    wx.makePhoneCall({phoneNumber: app.globalData.telePhone})
+  },
+  /**
+   * @Author   小书包
+   * @DateTime 2019-04-08
+   * @detail   获取公司名称
+   * @return   {[type]}   [description]
+   */
+  getCompanyName() {
+    let storage = wx.getStorageSync('createdCompany')
+    let options = this.data.options
+    wx.setStorageSync('createdCompany', Object.assign(storage, this.data.formData))
+    if(options.action && options.action === 'edit') {
+      wx.navigateTo({url: `${RECRUITER}user/company/find/find?action=edit`})
+    } else {
+      wx.navigateTo({url: `${RECRUITER}user/company/find/find`})
+    }
   }
 })

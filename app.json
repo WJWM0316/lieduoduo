@@ -94,7 +94,9 @@
         "pages/company/postImages/postImages",
         "pages/company/verify/verify",
         "pages/company/verifyResult/verifyResult",
-        "pages/company/interest/interest"
+        "pages/company/interest/interest",
+        "pages/user/company/createdCompanyInfos/createdCompanyInfos",
+        "pages/user/company/identityMethods/identityMethods"
       ]
     }
   ],

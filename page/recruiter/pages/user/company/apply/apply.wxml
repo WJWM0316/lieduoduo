@@ -4,32 +4,49 @@
 		<image class="bgImg" src="{{cdnImagePath}}bg_authentication@3x.png" mode="aspectFill"></image>
 	</view>
 	<view class="form" style="margin-top: {{height - navH}}px">
+
 	  <view class="input-li">
 	    <view class="key">真实姓名</view>
 	    <view class="value">
 	    	<input placeholder-style="color:#BCBCBC" placeholder="申请人的真实姓名" bindinput="bindInput" data-field="real_name" value="{{formData.real_name}}" maxlength="20"/>
 	    </view>
 	  </view>
+		
+		<view class="input-li" bindtap="getCompanyName">
+	    <view class="key">公司全称</view>
+	    <view class="value {{formData.company_name ? 'active' : 'default'}}">
+	    	<view class="text">{{formData.company_name ? formData.company_name : '请输入公司全称'}}</view>
+	    </view>
+	  </view>
+
 	  <view class="input-li">
 	    <view class="key">担任职务</view>
 	    <view class="value">
 	    	<input placeholder-style="color:#BCBCBC" placeholder="在公司担任的职务" bindinput="bindInput" data-field="user_position" value="{{formData.user_position}}" />
 	    </view>
 	  </view>
+
 	  <view class="input-li clear-bottom">
-	    <view class="key">邮箱地址</view>
+	    <view class="key">接收简历邮箱</view>
 	    <view class="value">
 	    	<input placeholder-style="color:#BCBCBC" placeholder="企业常用的邮箱地址" bindinput="bindInput" data-field="user_email" value="{{formData.user_email}}" />
 	    </view>
 	  </view>
-	  <view class="footer">
-	    <view bindtap="submit" class="button-submit {{canClick ? 'button-enable' : ''}}">下一步</view>
-	    <view class="enter">
-  		<text class="toggle" bindtap="toggle">前往求职端</text>
-	  		 |
-	  		<text class="changePhone" bindtap="changePhone">更换手机登录</text>
-	  	</view>
+
+	  <view class="tips">
+	  	<view class="span">如需咨询服务，请拨打</view>
+	  	<view class="strong" bindtap="callPhone"> {{telePhone}}</view>
 	  </view>
 	</view>
+
+	<view class="footer">
+    <view bindtap="submit" class="button-submit {{canClick ? 'button-enable' : ''}}">下一步</view>
+    <view class="enter">
+			<text class="toggle" bindtap="toggle">前往求职端</text>
+  		 |
+  		<text class="changePhone" bindtap="changePhone">换个账号</text>
+  	</view>
+  </view>
+
 	<!-- <changeIdentity></changeIdentity> -->
 </view>
