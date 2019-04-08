@@ -139,7 +139,6 @@ Page({
       cWidth = 98
       cX = 88
       cY = curHeight + 34 + ((98 - cHeight) / 2)
-      console.log(cX, cY, cWidth, cHeight, 333333333)
     } else if (cWidth < cHeight) {
       cWidth = 98 * cWidth / cHeight
       cHeight = 98
