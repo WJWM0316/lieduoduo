@@ -476,7 +476,8 @@ App({
       }
       return identity
     } else {
-      if (wx.getStorageSync('choseType')) {
+      let choseType = wx.getStorageSync('choseType')
+      if (choseType) {
         return wx.getStorageSync('choseType')
       } else {
         wx.setStorageSync('choseType', 'APPLICANT')

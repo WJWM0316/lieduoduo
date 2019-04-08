@@ -292,11 +292,14 @@
   position: absolute;
   font-size: 30rpx;
   color: #8452A7;
-  top: 50%;
-  transform: translateY(-50%);
+  /* top: 50%;
+  transform: translateY(-50%); */
 }
 .title .iconfont.editBtn {
-  right: 0rpx;
+  right: -33rpx;
+  top: -44rpx;
+  padding-top: 44rpx;
+  padding-right: 33rpx; 
 }
 .title .iconfont.shareBtn {
   right: 93rpx;

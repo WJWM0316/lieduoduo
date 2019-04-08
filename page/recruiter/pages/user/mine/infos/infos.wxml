@@ -17,7 +17,7 @@
 					<button form-type="submit" class="edit clear-style" bindtap="jumpUpdateInfos"><i class="icon iconfont icon-bianji"></i> 编辑资料</button>
 				</view>
 				<view class="img-box">
-					<image class="img-box" src="{{recruiterInfo.avatar.middleUrl}}" bindtap="preview"></image>
+					<image class="img-box" src="{{recruiterInfo.avatar.smallUrl}}" bindtap="preview"></image>
 					<image src="{{cdnPath}}sign1.png" mode="aspectFill" class="sign" wx:if="{{recruiterInfo.identityAuth}}"></image>
 				</view>
 			</view>

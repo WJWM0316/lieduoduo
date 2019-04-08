@@ -11,9 +11,9 @@
 		    	<!-- <view class="icon-box">+</view> -->
 		    	<image src="{{cdnImagePath}}add_circle.png" mode="aspectFill" class="icon-box"></image>
 				  <view class="upload-tips">上传营业执照</view>
-				  <image src="{{formData.business_license.middleUrl}}" mode="aspectFill" class="image"></image>
-				  <view class="mask" wx:if="{{formData.business_license.middleUrl}}"></view>
-				  <view class="replace-image" wx:if="{{formData.business_license.middleUrl}}"><i class="icon iconfont icon-zhongxinshangchuan"></i>重新上传</view>
+				  <image src="{{formData.business_license.smallUrl}}" mode="aspectFill" class="image"></image>
+				  <view class="mask" wx:if="{{formData.business_license.smallUrl}}"></view>
+				  <view class="replace-image" wx:if="{{formData.business_license.smallUrl}}"><i class="icon iconfont icon-zhongxinshangchuan"></i>重新上传</view>
 				</unloadFile>
 			</view>
 	  </view>
@@ -26,9 +26,9 @@
 				  <!-- <view class="icon-box">+</view> -->
 				  <image src="{{cdnImagePath}}add_circle.png" mode="aspectFill" class="icon-box"></image>
 				  <view class="upload-tips">上传图片</view>
-				  <image src="{{formData.on_job.middleUrl}}" mode="aspectFill" class="image"></image>
-				  <view class="mask" wx:if="{{formData.on_job.middleUrl}}"></view>
-				  <view class="replace-image" wx:if="{{formData.on_job.middleUrl}}"><i class="icon iconfont icon-zhongxinshangchuan"></i>重新上传</view>
+				  <image src="{{formData.on_job.smallUrl}}" mode="aspectFill" class="image"></image>
+				  <view class="mask" wx:if="{{formData.on_job.smallUrl}}"></view>
+				  <view class="replace-image" wx:if="{{formData.on_job.smallUrl}}"><i class="icon iconfont icon-zhongxinshangchuan"></i>重新上传</view>
 				</unloadFile>
 			</view>
 	  </view>

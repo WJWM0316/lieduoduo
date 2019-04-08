@@ -1,6 +1,5 @@
 import {APPLICANT,RECRUITER} from "../../../config.js"
 const app = getApp()
-let identity = ''
 Component({
   options: {
     addGlobalClass: true,
@@ -89,6 +88,7 @@ Component({
     },
     // 回到首页
     backHome() {
+      let identity = wx.getStorageSync('choseType')
       if (identity === 'RECRUITER') {
         wx.reLaunch({
           url: `${RECRUITER}index/index`

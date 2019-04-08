@@ -4,7 +4,7 @@
   <view class="item avatar">
     <view class="txt">头像</view>
     <view class="edit">
-      <avatarCut class="avatarCut" src="{{info.avatar.middleUrl}}"></avatarCut>
+      <avatarCut class="avatarCut" src="{{info.avatar.smallUrl}}"></avatarCut>
     </view>
   </view>
   <view class="item">

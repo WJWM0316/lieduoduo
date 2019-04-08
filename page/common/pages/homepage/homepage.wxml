@@ -92,7 +92,7 @@
 				<view class="li" wx:for="{{companyInfos.product}}" wx:key="{{index}}" wx:for-item="item">
 					<view class="base">
 						<view class="img-box">
-							<image mode="aspectFill" src="{{item.logoInfo.middleUrl}}" />
+							<image mode="aspectFill" src="{{item.logoInfo.smallUrl}}" />
 						</view>
 						<view class="content">
 							<view class="row-one">

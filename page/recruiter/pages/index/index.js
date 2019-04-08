@@ -42,7 +42,7 @@ Page({
       isLastPage: false,
       isRequire: false
     },
-    pageCount: 20,
+    pageCount: 10,
     background: 'transparent',
     hasReFresh: false,
     onBottomStatus: 0,

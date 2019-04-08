@@ -17,6 +17,9 @@ import {shareChance} from '../../../../utils/shareWord.js'
 
 const app = getApp()
 let identity = ''
+let city = 0,
+    type = 0,
+    emolument = 1
 Page({
   data: {
     pageCount: 20,
@@ -48,11 +51,8 @@ Page({
       isRequire: false
     },
     tabType: 'closeTab',
-    city: 0,
     cityIndex: 0,
-    type: 0,
     typeIndex: 0,
-    emolument: 1,
     emolumentIndex: 0,
     cityList: [],
     positionTypeList: [],
@@ -132,7 +132,8 @@ Page({
           tabList[0].active = true
         }
         tabList[0].name = name
-        this.setData({tabList, city: id, cityIndex: index, tabType: 'closeTab'})
+        city = id
+        this.setData({tabList, cityIndex: index, tabType: 'closeTab'})
         this.reloadPositionLists()
         break
       case 'positionType':
@@ -142,8 +143,9 @@ Page({
         } else {
           tabList[1].active = true
         }
+        type = id
         tabList[1].name = name
-        this.setData({tabList, type: id, typeIndex: index, tabType: 'closeTab'})
+        this.setData({tabList, typeIndex: index, tabType: 'closeTab'})
         this.reloadPositionLists()
         break
       case 'salary':
@@ -153,8 +155,9 @@ Page({
         } else {
           tabList[2].active = true
         }
+        emolument = id
         tabList[2].name = name
-        this.setData({tabList, emolument: id, emolumentIndex: index, tabType: 'closeTab'})
+        this.setData({tabList, emolumentIndex: index, tabType: 'closeTab'})
         this.reloadPositionLists()
         break
     }
@@ -179,9 +182,6 @@ Page({
   },
   getPositionRecord() {
     getPositionRecordApi().then(res => {
-      let city = this.data.city
-      let type = this.data.type
-      let emolument = this.data.emolument
       let cityIndex = this.data.cityIndex
       let typeIndex = this.data.typeIndex
       let emolumentIndex = this.data.emolumentIndex
@@ -228,7 +228,7 @@ Page({
           }
         })
       }
-      this.setData({tabList, city, type, cityIndex, typeIndex, emolument, emolumentIndex}, () => {
+      this.setData({tabList, cityIndex, typeIndex, emolumentIndex}, () => {
         this.getPositionList()
       })  
     })
@@ -241,22 +241,22 @@ Page({
    */
   getPositionList(hasLoading = true) {
     let params = {count: this.data.pageCount, page: this.data.positionList.pageNum, ...app.getSource()}
-    if(this.data.city) {
-      params = Object.assign(params, {city: this.data.city})
+    if(city) {
+      params = Object.assign(params, {city: city})
     }
-    if(this.data.type) {
-      params = Object.assign(params, {type: this.data.type})
+    if(type) {
+      params = Object.assign(params, {type: type})
     }
-    if (this.data.emolument) {
-      params = Object.assign(params, {emolument_id: this.data.emolument})
+    if (emolument) {
+      params = Object.assign(params, {emolument_id: emolument})
     }
-    if(!this.data.type) {
-      delete params.type
-    }
-    if(!this.data.city) {
+    if(!city) {
       delete params.city
     }
-    if(!this.data.emolument) {
+    if(!type) {
+      delete params.type
+    }
+    if(!emolument) {
       delete params.emolument_id
     }
     return getPositionListApi(params, hasLoading).then(res => {

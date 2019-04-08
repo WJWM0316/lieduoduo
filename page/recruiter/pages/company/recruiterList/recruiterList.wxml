@@ -17,7 +17,7 @@
 					<view slot="left" class="content">
 						<view class="li">
 							<view class="img-box">
-						    <image class="img" mode="aspectFill" src="{{item.avatar.middleUrl}}"></image>
+						    <image class="img" mode="aspectFill" src="{{item.avatar.smallUrl}}"></image>
 						    <image src="{{cdnImagePath}}sign1.png" mode="aspectFill" class="vip" wx:if="{{item.identityAuth}}"></image>
 					    </view>
 					    <view class="recruiterMsg">
@@ -38,7 +38,7 @@
 		<block wx:else>
 			<view class="li" wx:for="{{recruitersList.list}}" wx:key="{{index}}" wx-for-item="{{item}}" data-uid="{{item.uid}}"  bindtap="jump">
 				<view class="img-box">
-			    <image class="img" mode="aspectFill" src="{{item.avatar.middleUrl}}"></image>
+			    <image class="img" mode="aspectFill" src="{{item.avatar.smallUrl}}"></image>
 			    <image src="{{cdnImagePath}}sign1.png" mode="aspectFill" class="vip" wx:if="{{item.identityAuth}}"></image>
 		    </view>
 		    <view class="recruiterMsg">

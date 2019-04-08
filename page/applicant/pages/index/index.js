@@ -9,7 +9,7 @@ import { geMyBrowseUsersApi, getAvartListApi } from '../../../../api/pages/activ
 import { getMyCollectUsersApi } from '../../../../api/pages/browse.js'
 
 const app = getApp()
-
+let fixedDomPosition = 0
 Page({
   data: {
     pageList: 'myBrowse',
@@ -31,12 +31,11 @@ Page({
     },
     moreRecruiter: [],
     recruiterDynamic: [],
-    pageCount: 20,
+    pageCount: 10,
     hasReFresh: false,
     onBottomStatus: 0,
     isFixed: true,
     background: 'transparent',
-    fixedDomPosition: 0,
     fixedDom: false
   },
   onShow() {
@@ -73,7 +72,7 @@ Page({
   },
   getDomNodePosition() {
     getSelectorQuery('.ul-tab-bar').then(res => {
-      this.setData({fixedDomPosition: res.top - this.data.navH})
+      fixedDomPosition = res.top - this.data.navH
     })
   },
   clearListsData() {
@@ -241,7 +240,7 @@ Page({
       if (this.data.isFixed) this.setData({isFixed: false, background: 'transparent'})
     }
 
-    if(e.scrollTop > this.data.fixedDomPosition) {
+    if(e.scrollTop > fixedDomPosition) {
       if (!this.data.fixedDom) this.setData({fixedDom: true})
     } else {
       if (this.data.fixedDom) this.setData({fixedDom: false})

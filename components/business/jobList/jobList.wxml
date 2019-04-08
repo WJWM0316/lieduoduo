@@ -35,7 +35,7 @@
               </view>
               <view class="hrName">{{item.recruiterInfo.name}} · {{item.recruiterInfo.position}}</view>
             </view>
-            <image class="conRight logo" mode="aspectFill" src="{{item.companyInfo.logoInfo.smallUrl}}" lazy-load></image>
+            <image class="conRight logo" mode="aspectFit" src="{{item.companyInfo.logoInfo.smallUrl}}" lazy-load></image>
           </view>
         </view>
     </button>  
