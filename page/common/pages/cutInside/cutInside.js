@@ -56,7 +56,8 @@ Page({
       }, 
       complete: (res) => {
         if (res.statusCode === 200) {
-          wx.setStorageSync('avatar', JSON.parse(res.data).data[0])
+          let data = typeof res.data === "string" ? JSON.parse(res.data) : res.data
+          wx.setStorageSync('avatar', data.data[0])
           wx.navigateBack({
             delta: 1
           })
@@ -80,7 +81,8 @@ Page({
           } else {
             console.log(res, "上传失败")
             this.triggerEvent('failUpload')
-            getApp().wxToast({title: JSON.parse(res.data).msg})
+            let data = typeof res.data === "string" ? JSON.parse(res.data) : res.data
+            getApp().wxToast({title: data.msg})
           }
         }
         wx.hideLoading()

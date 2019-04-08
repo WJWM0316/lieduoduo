@@ -7,13 +7,13 @@ import {
 } from '../../../../../api/pages/company.js'
 
 const app = getApp()
-
+let identityInfos = {},
+    offLinePositionNum = 0
 Page({
   data: {
     navH: app.globalData.navHeight,
     positionStatus: '1',
     onLinePositionNum: 0,
-    offLinePositionNum: 0,
     onBottomStatus: 0,
     offBottomStatus: 0,
     onLinePosition: {
@@ -31,7 +31,7 @@ Page({
       isRequire: false
     },
     hasReFresh: false,
-    identityInfos: {},
+    
     telePhone: app.globalData.telePhone,
     options: {}
   },
@@ -58,7 +58,8 @@ Page({
       isRequire: false
     }
     getPositionListNumApi({recruiter: app.globalData.recruiterDetails.uid, ...app.getSource()}).then(res => {
-      this.setData({onLinePosition, offLinePosition, onLinePositionNum: res.data.online, offLinePositionNum: res.data.offline})
+      offLinePositionNum = res.data.offline
+      this.setData({onLinePosition, offLinePosition, onLinePositionNum: res.data.online})
       this.getLists()
     })
   },
@@ -72,7 +73,7 @@ Page({
    * @return   {[type]}   [description]
    */
   getCompanyIdentityInfos(hasLoading = true) {
-    getCompanyIdentityInfosApi({hasLoading}).then(res => this.setData({identityInfos: res.data}))
+    getCompanyIdentityInfosApi({hasLoading}).then(res => identityInfos = res.data)
   },
   /**
    * @Author   小书包
@@ -81,8 +82,6 @@ Page({
    * @return   {[type]}   [description]
    */
   publicPosition() {
-    const identityInfos = this.data.identityInfos
-
     // 跟后端协商  =1 则可以发布
     if(identityInfos.identityAuth) {
       wx.navigateTo({url: `${RECRUITER}position/post/post`})

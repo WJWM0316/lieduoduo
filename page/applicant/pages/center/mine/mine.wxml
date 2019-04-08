@@ -22,7 +22,7 @@
           <view class="realname">未登录</view>
           <text class="degree-name directions">登录可后使用完整功能 \n 快去登录吧~</text>
         </view>
-  			<image class="img-box" src="{{myInfo.avatar.url}}"></image>
+  			<image class="img-box" src="{{myInfo.avatar.smallUrl}}"></image>
   		</view>
 
       <view class='edit-box' wx:if='{{myInfo.uid}}'>

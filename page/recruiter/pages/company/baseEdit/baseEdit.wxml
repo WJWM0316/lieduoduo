@@ -6,7 +6,7 @@
 				<view class="txt red">公司Logo</view>
 				<view class="value">
 					<unloadFile bindresultEvent="getResult" unloadType="avatar" data-type="avatar">
-						<image class="logo" src="{{info.logoInfo.middleUrl}}" mode="aspectFit"></image>
+						<image class="logo" src="{{info.logoInfo.smallUrl}}" mode="aspectFit"></image>
 					</unloadFile>     
 				</view>
 				<i class="icon iconfont icon-xiangyou"></i>

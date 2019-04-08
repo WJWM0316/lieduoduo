@@ -4,6 +4,8 @@ let allSkills = []
 let choseFirstId = ''
 let choseFirstIndex = 0
 let app = getApp()
+let jobChoseNum = 0, // 职业标签选择的数量
+    lifeChoseNum = 0 // 生活标签选择的数量
 Page({
 
   /**
@@ -12,8 +14,6 @@ Page({
   data: {
     title: '选择职业标签',
     choseFirstName: '',
-    jobChoseNum: 0, // 职业标签选择的数量
-    lifeChoseNum: 0, // 生活标签选择的数量
     pageType: 'job',
     num: 10, // 自定义字数
     customLabel: '', // 自定义标签
@@ -153,6 +153,7 @@ Page({
     })
   }, 
   getresult(e) {
+    if (!e.detail.propsResult) return
     let skills = []
     choseFirstId = e.detail.propsResult.labelId
     if (allSkills.length > 0) {
@@ -171,15 +172,12 @@ Page({
     let skills = []
     let labelType = ''
     let type = ''
-    let typeNum = ''
     if (this.data.pageType === 'life') {
       list = this.data.choseLifeList
       type = 'choseLifeList'
-      typeNum = 'lifeChoseNum'
     } else {
       list = this.data.choseJobList
       type = 'choseJobList'
-      typeNum = 'jobChoseNum'
     }
     switch (e.target.dataset.labeltype) {
       case 'skills':
@@ -286,7 +284,7 @@ Page({
         labelList[choseData.index].checked = true
       }
     }
-    this.setData({[typeNum]: list.length, [type]: list, [labelType]: labelList})
+    this.setData({[type]: list, [labelType]: labelList})
   },
   addLabel() {
     if (this.data.customLabel === '') return
@@ -295,17 +293,14 @@ Page({
     }
     let list = []
     let type = ''
-    let typeNum = ''
     let addLabelApi = null
     if (this.data.pageType === 'life') {
       list = this.data.choseLifeList
       type = 'choseLifeList'
-      typeNum = 'lifeChoseNum'
       addLabelApi = addLifeLabelApi
     } else {
       list = this.data.choseJobList
       type = 'choseJobList'
-      typeNum = 'jobChoseNum'
       addLabelApi = addJobLabelApi
     }
     let isReturn = false
@@ -333,7 +328,6 @@ Page({
         num: 6,
         customLabel: '',
         [type]: list,
-        [typeNum]: list.length,
         hidePop: true
       })
     }).catch((e) => {

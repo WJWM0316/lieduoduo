@@ -60,10 +60,12 @@
 }
 .editBtn {
   position: absolute;
-  top: 45rpx;
-  right: 33rpx;
+  top: 0;
+  right: 0;
   font-size: 30rpx;
   color: #652791;
+  padding-right: 33rpx;
+  padding-top: 45rpx;
 }
 .companyMsg .detail, .applicantMsg .detail, .recruiterMsg .detail {
   margin-top: 14rpx;

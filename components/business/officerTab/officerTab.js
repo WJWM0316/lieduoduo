@@ -37,6 +37,9 @@ Component({
      * @detail   删除记录
      * @return   {[type]}     [description]
      */
+    imgLoad (e) {
+      console.log(e.currentTarget.dataset.src)
+    },
     delete(e) {
       const params = e.currentTarget.dataset
       app.wxConfirm({

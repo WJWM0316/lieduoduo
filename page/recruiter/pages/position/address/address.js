@@ -45,7 +45,7 @@ Page({
    * @return   {[type]}   [description]
    */
   selectAddress() {
-
+    let that = this
     // 获取权限
     const getPermission = () => {
       wx.getSetting({
@@ -61,7 +61,7 @@ Page({
                     if(res1.authSetting['scope.userLocation'] === true) {
                       app.wxToast({title: '授权成功'})
                       //授权成功之后，再调用chooseLocation选择地方
-                      wx.chooseLocation({success: res => this.reverseGeocoder(res)})
+                      wx.chooseLocation({success: res => that.reverseGeocoder(res)})
                     } else {
                       app.wxToast({title: '授权失败'})
                     }
@@ -78,7 +78,7 @@ Page({
     }
 
     wx.chooseLocation({
-      success: res => this.reverseGeocoder(res),
+      success: res => that.reverseGeocoder(res),
       fail: res => {
         getPermission()
       }

@@ -7,7 +7,7 @@
     <text class="subtitle">真实可靠的职场形象总能碰到机遇</text>
     <view class="avatarBox">
       <view class="photoIcon"><i class="icon iconfont icon-xiangji"></i></view>
-      <avatarCut class="avatar" avatar="avatar" src="{{avatar.url}}"></avatarCut>
+      <avatarCut class="avatar" avatar="avatar" src="{{avatar.smallUrl}}"></avatarCut>
     </view>
   </view>
   <block>
