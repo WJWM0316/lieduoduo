@@ -18,16 +18,30 @@ Page({
     info: {}
   },
   getResult(e) {
+    let hasFilter = false
     let date = e.detail.propsResult
+    let info = this.data.info
     let curDate = new Date().getTime() / 1000
+    let dataset = e.currentTarget.dataset
+    
     if (curDate > date) {
       getApp().wxToast({
         title: '面试时间必须晚于当前时间'
       })
+      hasFilter = true
+      // 条件不符不给编辑
+      if (dataset.type === 'edit') {
+        let appointmentTime = info.arrangementInfo.appointmentList[dataset.index].appointmentTime
+        if (appointmentTime) info.arrangementInfo.appointmentList[dataset.index].appointmentTime = appointmentTime
+        this.setData({info}, () => {
+          info.arrangementInfo.appointmentList.map((item, n) => {
+            this.selectComponent(`#myPicker${n}`).init()
+          })
+        })
+      }
       return
     }
-    let info = this.data.info
-    let hasFilter = false
+    
     if (!info.arrangementInfo) {
       info.arrangementInfo = {
         appointmentList: []
@@ -43,12 +57,37 @@ Page({
           title: '面试时间重复'
         })
         hasFilter = true
+        // 条件不符不给编辑
+        if (dataset.type === 'edit') {
+        let appointmentTime = info.arrangementInfo.appointmentList[dataset.index].appointmentTime
+        if (appointmentTime) info.arrangementInfo.appointmentList[dataset.index].appointmentTime = appointmentTime
+        this.setData({info}, () => {
+          info.arrangementInfo.appointmentList.map((item, n) => {
+            this.selectComponent(`#myPicker${n}`).init()
+          })
+        })
+      }
         return
       }
     })
     if (hasFilter) return
-    info.arrangementInfo.appointmentList.push({appointmentTime:date})
+    
+    if (dataset.type === 'edit') {
+      info.arrangementInfo.appointmentList[dataset.index].appointmentTime = date
+    } else {
+      info.arrangementInfo.appointmentList.push({appointmentTime:date})
+    }
     this.setData({info})
+  },
+  removeDate(e) {
+    let index = e.currentTarget.dataset.index
+    let info = this.data.info
+    info.arrangementInfo.appointmentList.splice(index, 1)
+    this.setData({info}, () => {
+      info.arrangementInfo.appointmentList.map((item, n) => {
+        this.selectComponent(`#myPicker${n}`).init()
+      })
+    })
   },
   changeVal(e) {
     let info = this.data.info
@@ -126,12 +165,6 @@ Page({
   radioChange(e) {
     let appointmentId = e.detail.value
     this.setData({appointmentId})
-  },
-  removeDate(e) {
-    let index = e.currentTarget.dataset.index
-    let info = this.data.info
-    info.arrangementInfo.appointmentList.splice(index, 1)
-    this.setData({info})
   },
   send() {
     let info = this.data.info

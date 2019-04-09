@@ -3,11 +3,20 @@
 	width: 100%;
   height: 100%;
 }
+.picker {
+	position: relative;
+}
 .showTxt, .picker {
   width: 100%;
   height: 100%;
   color:#282828;
   font-weight: 500;
+  display: block;
+}
+.showTxt {
+	position: absolute;
+	top: 0;
+	left: 0;
 }
 .triangle {
 	font-size: 13rpx;

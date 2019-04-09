@@ -37,7 +37,7 @@
 				</view>
 				<i class="icon iconfont icon-xiangyou"></i>
 			</view>
-			<view class="item website">
+			<view class="item website disabled">
 				<view class="txt">公司官网</view>
 				<view class="value"><input type="text" bindblur="changeVal" value="{{info.website}}" data-type="website" placeholder-class="holderStyle" placeholder="请输入公司官网"/></view>
 			</view>

@@ -89,6 +89,7 @@ Component({
     },
     // 回到首页
     backHome() {
+      identity = wx.getStorageSync('choseType')
       if (identity === 'RECRUITER') {
         wx.reLaunch({
           url: `${RECRUITER}index/index`
