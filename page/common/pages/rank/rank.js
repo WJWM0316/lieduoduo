@@ -126,7 +126,7 @@ Page({
         if(value.list.length > 1) {
           secondtItem = value.list[1]
         }
-        if(value.list[0].influence > secondtItem.influence && value.list.length > 1) {
+        if(value.list[0].influence >= secondtItem.influence && value.list.length > 1) {
           value.list = value.list.filter(field => field.uid !== secondtItem.uid)
           value.list.unshift(secondtItem)
         }
@@ -215,7 +215,7 @@ Page({
         if(rankCity.list.length > 1) {
           secondtItem = rankCity.list[1]
         }
-        if(rankCity.list[0].influence > secondtItem.influence && rankCity.list.length > 1) {
+        if(rankCity.list[0].influence >= secondtItem.influence && rankCity.list.length > 1) {
           rankCity.list = rankCity.list.filter(field => field.uid !== secondtItem.uid)
           rankCity.list.unshift(secondtItem)
         }
@@ -247,7 +247,7 @@ Page({
         if(rankCate.list.length > 1) {
           secondtItem = rankCate.list[1]
         }
-        if(rankCate.list[0].influence > secondtItem.influence && rankCate.list.length > 1) {
+        if(rankCate.list[0].influence >= secondtItem.influence && rankCate.list.length > 1) {
           rankCate.list = rankCate.list.filter(field => field.uid !== secondtItem.uid)
           rankCate.list.unshift(secondtItem)
         }
@@ -279,7 +279,7 @@ Page({
         if(rankAll.list.length > 1) {
           secondtItem = rankAll.list[1]
         }
-        if(rankAll.list[0].influence > secondtItem.influence && rankAll.list.length > 1) {
+        if(rankAll.list[0].influence >= secondtItem.influence && rankAll.list.length > 1) {
           rankAll.list = rankAll.list.filter(field => field.uid !== secondtItem.uid)
           rankAll.list.unshift(secondtItem)
         }
@@ -312,7 +312,7 @@ Page({
       if(value.list.length > 1) {
         secondtItem = value.list[1]
       }
-      if((value.list[0].influence > secondtItem.influence) && value.list.length > 1) {
+      if((value.list[0].influence >= secondtItem.influence) && value.list.length > 1) {
         value.list = value.list.filter(field => field.uid !== secondtItem.uid)
         value.list.unshift(secondtItem)
       }
