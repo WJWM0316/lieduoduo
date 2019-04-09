@@ -12,7 +12,7 @@ const app = getApp()
 Page({
   data: {
     email: '',
-    step: 1,
+    step: 2,
     code: '',
     codeLength: 6,
     isFocus: true,
@@ -20,10 +20,10 @@ Page({
     canClick: false,
     options: {},
     showTips: false,
-    error: false,
+    classErrorName: '',
     telePhone: app.globalData.telePhone,
     isEmail: false,
-    time: 5,
+    time: 60,
     timer: null,
     canResend: true
   },
@@ -59,7 +59,7 @@ Page({
     let isEmail = this.data.isEmail
     let email = e.detail.value
     isEmail = emailReg.test(email)
-    this.setData({email, isEmail})
+    this.setData({email, isEmail, error: false})
   },
   /**
    * @Author   小书包
@@ -83,7 +83,6 @@ Page({
    * @return   {[type]}   [description]
    */
   reEmail() {
-    console.log(this.data)
     // let params = {email: this.data.code, company_id: this.data.ontions.id}
     let params = {email: this.data.email, company_id: 88}
     // 已经进入倒计时
@@ -96,33 +95,12 @@ Page({
         time--
         if(time < 1) {
           clearInterval(timer)
-          this.setData({canResend: true, time: 5})
+          this.setData({canResend: true, time: 60})
         } else {
           this.setData({time})
         }
       }, 1000)
     })
-  },
-  /**
-   * @Author   小书包
-   * @DateTime 2019-01-08
-   * @detail   输入框有的焦点
-   * @return   {[type]}     [description]
-   */
-  onFocus(e) {
-    let code = e.detail.value
-    this.setData({code: code}, () => {
-      this.bindBtnStatus()
-      if(code.length > 5) this.verifyEmail()
-    })
-  },
-  /**
-   * @Author   小书包
-   * @DateTime 2019-01-08
-   * @detail   点击输入框
-   */
-  onTap(e) {
-    this.setData({ isFocus: true })
   },
   /**
    * @Author   小书包
@@ -135,6 +113,9 @@ Page({
     let params = {email: this.data.email, company_id: 88, code: this.data.code}
     verifyEmailApi(params).then(res => {
       wx.redirectTo({url: `${RECRUITER}user/company/status/status?from=identity`})
+    })
+    .catch(() => {
+      this.setData({code: '', error: true, isFocus: true, classErrorName: 'error'})
     })
   },
   /**
@@ -163,5 +144,19 @@ Page({
    */
   callPhone() {
     wx.makePhoneCall({phoneNumber: app.globalData.telePhone})
+  },
+  /**
+   * @Author   小书包
+   * @DateTime 2019-04-09
+   * @detail   detail
+   * @return   {[type]}     [description]
+   */
+  getResult(e) {
+    let code = e.detail
+    this.setData({code: code}, () => {
+      this.bindBtnStatus()
+      this.setData({error: false, classErrorName: ''})
+      if(code.length > 5) this.verifyEmail()
+    })
   }
 })
