@@ -4,7 +4,13 @@
 		<view class="h1">公司邮箱验证</view>
 		<view class="p">公司邮箱，用于验证面试官个人与公司所属关系的真实性</view>
 	  <view class="input-li clear-bottom">
-	    <input class="value" placeholder="输入公司邮箱" bindinput="bindInput" value="{{email}}" />
+	  	<block wx:if="{{options.from === 'company'}}">
+	  		<input class="value" placeholder="输入公司邮箱" bindinput="bindInput" value="{{email}}" />
+	  	</block>
+	  	<block wx:else>
+	  		<input class="prefix" placeholder="输入公司邮箱前缀" bindinput="bindInput" value="{{email}}" />
+	  		<view class="suffix">{{suffix}}</view>
+	  	</block>
 	  </view>
 	  <view class="example">示例：Hr@tiger.com</view>
 	  <view class="btn-area">
@@ -22,18 +28,16 @@
 
 		<view class="codeError" wx:if="{{error}}">验证码输入错误请重新发送</view>
 
-	  <view class='content'>
-	    <block wx:for="{{codeLength}}" wx:key="item">
-	      <input class="iptbox {{code.length >= index + 1 ? 'active' : ''}}" value="{{code.length >= index + 1 ? code[index] : ''}}" disabled password='{{ispassword}}' catchtap="onTap"></input>
-	    </block>
+	  <view class="write-box">
+	  	<sixInputBox bindresultEvent="getResult" classErrorName="{{classErrorName}}"></sixInputBox>
 	  </view>
 
-	  <input name="password" password="{{true}}" class='ipt' maxlength="{{codeLength}}" focus="{{isFocus}}" bindinput="onFocus"></input>
 	  <view class="example1">
 	  	<text bindtap="reEmail" wx:if="{{canResend}}">重新发送</text>
 	  	<text bindtap="reEmail" wx:if="{{!canResend}}" class="gray">{{time}}s 后可重新发送</text>
 	  	<view class="question" bindtap="tapShow"> <i class="icon iconfont icon-zhushi"></i> 遇到问题</view>
 	  </view>
+
 	  <view class="btn-area">
 	  	<view class="p4" bindtap="changeIndentifyMethods">
 				<text>选择其他认证方式</text>

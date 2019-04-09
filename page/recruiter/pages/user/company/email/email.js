@@ -18,14 +18,17 @@ Page({
     isFocus: true,
     ispassword: false,
     canClick: false,
-    options: {},
+    options: {
+      from: 'join'
+    },
     showTips: false,
-    error: false,
+    classErrorName: '',
     telePhone: app.globalData.telePhone,
     isEmail: false,
-    time: 5,
+    time: 60,
     timer: null,
-    canResend: true
+    canResend: true,
+    suffix: '@thetigre.com.cn'
   },
   onLoad(ontions) {
     this.setData({ontions})
@@ -41,13 +44,22 @@ Page({
    * @return   {[type]}   [description]
    */
   bindBtnStatus() {
-    let canClick = false
-    if(emailReg.test(this.data.code)) {
+    let canClick = this.data.canClick
+    let email = this.data.email
+    let options = this.data.options
+    let isEmail = this.data.isEmail
+    if(options.from === 'join') {
+      email = this.data.email + this.data.suffix
+    }
+
+    if(emailReg.test(email)) {
       canClick = true
+      isEmail = true
     } else {
       canClick = false
+      isEmail = false
     }
-    this.setData({ canClick })
+    this.setData({ canClick, isEmail })
   },
   /**
    * @Author   小书包
@@ -57,9 +69,10 @@ Page({
    */
   bindInput(e) {
     let isEmail = this.data.isEmail
+    let options = this.data.options
     let email = e.detail.value
     isEmail = emailReg.test(email)
-    this.setData({email, isEmail})
+    this.setData({email, isEmail, error: false}, () => this.bindBtnStatus())
   },
   /**
    * @Author   小书包
@@ -83,7 +96,6 @@ Page({
    * @return   {[type]}   [description]
    */
   reEmail() {
-    console.log(this.data)
     // let params = {email: this.data.code, company_id: this.data.ontions.id}
     let params = {email: this.data.email, company_id: 88}
     // 已经进入倒计时
@@ -96,33 +108,12 @@ Page({
         time--
         if(time < 1) {
           clearInterval(timer)
-          this.setData({canResend: true, time: 5})
+          this.setData({canResend: true, time: 60})
         } else {
           this.setData({time})
         }
       }, 1000)
     })
-  },
-  /**
-   * @Author   小书包
-   * @DateTime 2019-01-08
-   * @detail   输入框有的焦点
-   * @return   {[type]}     [description]
-   */
-  onFocus(e) {
-    let code = e.detail.value
-    this.setData({code: code}, () => {
-      this.bindBtnStatus()
-      if(code.length > 5) this.verifyEmail()
-    })
-  },
-  /**
-   * @Author   小书包
-   * @DateTime 2019-01-08
-   * @detail   点击输入框
-   */
-  onTap(e) {
-    this.setData({ isFocus: true })
   },
   /**
    * @Author   小书包
@@ -135,6 +126,9 @@ Page({
     let params = {email: this.data.email, company_id: 88, code: this.data.code}
     verifyEmailApi(params).then(res => {
       wx.redirectTo({url: `${RECRUITER}user/company/status/status?from=identity`})
+    })
+    .catch(() => {
+      this.setData({code: '', error: true, isFocus: true, classErrorName: 'error'})
     })
   },
   /**
@@ -163,5 +157,19 @@ Page({
    */
   callPhone() {
     wx.makePhoneCall({phoneNumber: app.globalData.telePhone})
+  },
+  /**
+   * @Author   小书包
+   * @DateTime 2019-04-09
+   * @detail   detail
+   * @return   {[type]}     [description]
+   */
+  getResult(e) {
+    let code = e.detail
+    this.setData({code: code}, () => {
+      this.bindBtnStatus()
+      this.setData({error: false, classErrorName: ''})
+      if(code.length > 5) this.verifyEmail()
+    })
   }
 })
