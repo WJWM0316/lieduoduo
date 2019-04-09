@@ -18,9 +18,7 @@ Page({
     isFocus: true,
     ispassword: false,
     canClick: false,
-    options: {
-      from: 'join'
-    },
+    options: {},
     showTips: false,
     classErrorName: '',
     telePhone: app.globalData.telePhone,
