@@ -63,6 +63,32 @@
 	color: #282828;
 }
 
+.prefix {
+	height:122rpx;
+	background:rgba(255,255,255,1);
+	line-height: 122rpx;
+	font-size:32rpx;
+	font-weight:500;
+	box-sizing: border-box;
+	padding-left: 40rpx;
+	color: #282828;
+	float: left;
+	display: inline-block;
+}
+
+.suffix {
+	height:122rpx;
+	background:rgba(255,255,255,1);
+	line-height: 122rpx;
+	font-size:32rpx;
+	font-weight:500;
+	box-sizing: border-box;
+	padding-right: 40rpx;
+	color: #282828;
+	float: right;
+	display: inline-block;
+}
+
 .input-li {
 	height:122rpx;
 	background:rgba(255,255,255,1);

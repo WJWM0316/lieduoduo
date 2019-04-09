@@ -12,20 +12,23 @@ const app = getApp()
 Page({
   data: {
     email: '',
-    step: 2,
+    step: 1,
     code: '',
     codeLength: 6,
     isFocus: true,
     ispassword: false,
     canClick: false,
-    options: {},
+    options: {
+      from: 'join'
+    },
     showTips: false,
     classErrorName: '',
     telePhone: app.globalData.telePhone,
     isEmail: false,
     time: 60,
     timer: null,
-    canResend: true
+    canResend: true,
+    suffix: '@thetigre.com.cn'
   },
   onLoad(ontions) {
     this.setData({ontions})
@@ -41,13 +44,22 @@ Page({
    * @return   {[type]}   [description]
    */
   bindBtnStatus() {
-    let canClick = false
-    if(emailReg.test(this.data.code)) {
+    let canClick = this.data.canClick
+    let email = this.data.email
+    let options = this.data.options
+    let isEmail = this.data.isEmail
+    if(options.from === 'join') {
+      email = this.data.email + this.data.suffix
+    }
+
+    if(emailReg.test(email)) {
       canClick = true
+      isEmail = true
     } else {
       canClick = false
+      isEmail = false
     }
-    this.setData({ canClick })
+    this.setData({ canClick, isEmail })
   },
   /**
    * @Author   小书包
@@ -57,9 +69,10 @@ Page({
    */
   bindInput(e) {
     let isEmail = this.data.isEmail
+    let options = this.data.options
     let email = e.detail.value
     isEmail = emailReg.test(email)
-    this.setData({email, isEmail, error: false})
+    this.setData({email, isEmail, error: false}, () => this.bindBtnStatus())
   },
   /**
    * @Author   小书包

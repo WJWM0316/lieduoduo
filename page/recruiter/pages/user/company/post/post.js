@@ -15,7 +15,6 @@ const app = getApp()
 
 Page({
   data: {
-    step: 3,
     formData: {
       company_name: '',
       industry_id: 0,
@@ -76,7 +75,8 @@ Page({
    */
   bindBtnStatus() {
     const formData = this.data.formData
-    const canClick =
+    let canClick = this.data.canClick
+    canClick =
       !!formData.company_shortname
       && formData.industry_id
       && formData.financing

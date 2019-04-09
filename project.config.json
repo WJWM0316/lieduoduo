@@ -41,7 +41,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 33,
+			"current": 34,
 			"list": [
 				{
 					"id": 0,
@@ -259,6 +259,13 @@
 					"name": "【B端】认证 邮箱认证",
 					"pathName": "page/recruiter/pages/user/company/email/email",
 					"query": "",
+					"scene": null
+				},
+				{
+					"id": 34,
+					"name": "【B端】认证 认证状态",
+					"pathName": "page/recruiter/pages/user/company/status/status",
+					"query": "from=company",
 					"scene": null
 				}
 			]
