@@ -3,7 +3,7 @@
     <view slot="left" class="content">
       <view class="officerTab" bindtap="routeJump" data-companyId="{{item.id}}" data-uid="{{item.uid}}">
         <view class="headerImg">
-          <image src="{{item.avatar.smallUrl}}" bindload="imgLoad" data-src="{{item.avatar.smallUrl}}" lazy-load></image>
+          <image src="{{item.avatar.smallUrl}}" lazy-load></image>
           <i class="certification-icon">V</i>
         </view>
         <view class="info">
@@ -24,7 +24,7 @@
   </view>
   <view class="officerTab2" bindtap="routeJump" data-companyId="{{item.id}}" data-uid="{{item.uid}}" wx:for="{{ list }}" wx:key="{{index}}" wx:if="{{!showSlideView}}">
     <view class="headerImg">
-      <image src="{{item.avatar.smallUrl}}"  bindload="imgLoad" data-src="{{item.avatar.smallUrl}}" class="avatar" lazy-load></image>
+      <image src="{{item.avatar.smallUrl}}" class="avatar" lazy-load></image>
       <image src="{{cdnImagePath}}sign1.png" mode="aspectFill" class="certification-icon"></image>
       <!-- <i class="certification-icon">V</i> -->
     </view>

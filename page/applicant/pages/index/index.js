@@ -96,13 +96,13 @@ Page({
    * @detail   获取列表数据
    * @return   {[type]}   [description]
    */
-  getLists() {
+  getLists(hasLoading) {
     switch(this.data.pageList) {
       case 'myBrowse':
-        return this.getMyBrowseList()
+        return this.getMyBrowseList(hasLoading)
         break;
       case 'myCollect':
-        return this.getMyCollectList()
+        return this.getMyCollectList(hasLoading)
         break;
       default:
         break;
@@ -200,7 +200,7 @@ Page({
     const key = this.data.pageList
     const value = {list: [], pageNum: 1, isLastPage: false, isRequire: false}
     this.setData({[key]: value, hasReFresh: true})
-    this.getLists().then(res => {
+    this.getLists(hasLoading).then(res => {
       const value = {list: [], pageNum: 1, isLastPage: false, isRequire: false}
       const onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
       value.list = res.data

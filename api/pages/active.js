@@ -51,11 +51,12 @@ export const getCityRankApi = (data) => {
   })
 }
 /* 浏览过的用户或招聘官信息 */
-export const geMyBrowseUsersApi = (data) => {
+export const geMyBrowseUsersApi = (data, hasLoading) => {
   return request({
     method: 'get',
     url: '/browse/myBrowseUsers',
-    data
+    data,
+    hasLoading
   })
 }
 

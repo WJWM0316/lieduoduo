@@ -1,72 +1,61 @@
 import { request } from '../require.js'
 
 // 浏览过的招聘官列表
-export const getMyBrowseUsersListApi = (data) => {
+export const getMyBrowseUsersListApi = (data, hasLoading) => {
   return request({
     url: '/browse/myBrowseUsers',
     method: 'get',
     data,
-    hasLoading: true
+    hasLoading
   })
 }
 
 // 浏览过的职位列表
-export const getMyBrowsePositionApi = (data) => {
+export const getMyBrowsePositionApi = (data, hasLoading) => {
   return request({
     url: '/browse/myBrowsePosition',
     method: 'get',
     data,
-    hasLoading: true
+    hasLoading
   })
 }
 
 // 浏览过我的招聘官
-export const getBrowseMySelfApi = (data) => {
+export const getBrowseMySelfApi = (data, hasLoading) => {
   return request({
     url: '/browse/browseMySelf',
     method: 'get',
     data,
-    hasLoading: true
+    hasLoading
   })
 }
 
-//// 我的收藏（求职端）
-//export const getMyCollectUsersApi = (data) => {
-//return request({
-//  url: '/collect/myCollectUsers',
-//  method: 'get',
-//  data,
-//  hasLoading: true
-//})
-//}
-
-
 // 收藏我的(招聘端)
-export const getCollectMySelfApi = (data, isLoading) => {
+export const getCollectMySelfApi = (data, hasLoading) => {
   return request({
     method: 'get',
     url: `/collect/getCollectMySelf`,
     data,
-    isLoading: true
+    hasLoading
   })
 }
 
 // 我的收藏的(招聘端)
-export const getMyCollectUsersApi = (data, isLoading) => {
+export const getMyCollectUsersApi = (data, hasLoading) => {
   return request({
     method: 'get',
     url: `/collect/myCollectUsers`,
     data,
-    isLoading: true
+    hasLoading
   })
 }
 
 // 删除查看用户
-export const deleteBrowseUserApi = (data, isLoading) => {
+export const deleteBrowseUserApi = (data, hasLoading) => {
   return request({
     method: 'delete',
     url: `/browse/deleteBrowseUser/${data.uid}`,
     data,
-    isLoading: true
+    hasLoading
   })
 }
