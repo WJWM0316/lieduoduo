@@ -18,16 +18,18 @@ Page({
     info: {}
   },
   getResult(e) {
+    let hasFilter = false
     let date = e.detail.propsResult
+    let info = this.data.info
     let curDate = new Date().getTime() / 1000
     if (curDate > date) {
       getApp().wxToast({
         title: '面试时间必须晚于当前时间'
       })
+      hasFilter = true
       return
     }
-    let info = this.data.info
-    let hasFilter = false
+    
     if (!info.arrangementInfo) {
       info.arrangementInfo = {
         appointmentList: []
@@ -47,8 +49,23 @@ Page({
       }
     })
     if (hasFilter) return
-    info.arrangementInfo.appointmentList.push({appointmentTime:date})
+    let dataset = e.currentTarget.dataset
+    if (dataset.type === 'edit') {
+      info.arrangementInfo.appointmentList[dataset.index].appointmentTime = date
+    } else {
+      info.arrangementInfo.appointmentList.push({appointmentTime:date})
+    }
     this.setData({info})
+  },
+  removeDate(e) {
+    let index = e.currentTarget.dataset.index
+    let info = this.data.info
+    info.arrangementInfo.appointmentList.splice(index, 1)
+    this.setData({info}, () => {
+      info.arrangementInfo.appointmentList.map((item, n) => {
+        this.selectComponent(`#myPicker${n}`).init()
+      })
+    })
   },
   changeVal(e) {
     let info = this.data.info
@@ -126,12 +143,6 @@ Page({
   radioChange(e) {
     let appointmentId = e.detail.value
     this.setData({appointmentId})
-  },
-  removeDate(e) {
-    let index = e.currentTarget.dataset.index
-    let info = this.data.info
-    info.arrangementInfo.appointmentList.splice(index, 1)
-    this.setData({info})
   },
   send() {
     let info = this.data.info
