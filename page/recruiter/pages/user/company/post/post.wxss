@@ -59,8 +59,14 @@
 	font-size:28rpx;
 	font-weight:300;
 	color:rgba(53,57,67,1);
-	width: 120rpx;
+	width: 140rpx;
 	float: left;
+}
+
+.company-post .entry-list .key text{
+	color: #ED5C5C;
+	font-size: 28rpx;
+	margin-right: 10rpx;
 }
 
 .company-post .entry-list .value {
@@ -73,16 +79,16 @@
 	white-space: nowrap;
 	height: 122rpx;
 	line-height: 122rpx;
-	width: calc(100% - 120rpx);
+	width: calc(100% - 140rpx);
 	float: left;
 	text-align: right;
 	box-sizing: border-box;
 	position: relative;
 }
 
-.company-post .entry-list .wid {
+/*.company-post .entry-list .wid {
 	width: calc(100% - 160rpx);
-}
+}*/
 
 .company-post .entry-list .icon-xiangyou {
   color: #CED7DC;
@@ -141,7 +147,7 @@
 }
 
 .company-post .entry-list .logo-box {
-	width: calc(100% - 120rpx);
+	width: calc(100% - 140rpx);
 	float: left;
 	text-align: right;
 }

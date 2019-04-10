@@ -89,6 +89,7 @@
 	text-align: center;
 	line-height: 78rpx;
 	color: #652791;
+	font-size: 36rpx;
 }
 
 .createdCompanyInfos .ul .content{
@@ -119,7 +120,7 @@
 .footer .p2 .iconfont{
 	display: inline-block;
 	vertical-align: text-bottom;
-	font-size: 28rpx;
+	font-size: 30rpx;
 }
 
 .footer .enter {

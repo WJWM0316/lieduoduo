@@ -12,7 +12,7 @@ const app = getApp()
 Page({
   data: {
     email: '',
-    step: 1,
+    step: 2,
     code: '',
     codeLength: 6,
     isFocus: true,

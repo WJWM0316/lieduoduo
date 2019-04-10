@@ -29,7 +29,7 @@ Page({
         wx.navigateTo({url: `${RECRUITER}user/company/email/email`})
         break
       case 'license':
-        wx.navigateTo({url: `${RECRUITER}user/company/post/post`})
+        wx.navigateTo({url: `${RECRUITER}user/company/upload/upload`})
         break
       case 'call':
         wx.makePhoneCall({phoneNumber: app.globalData.telePhone})

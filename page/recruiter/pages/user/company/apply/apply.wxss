@@ -54,7 +54,7 @@
 
 .input-li .key {
 	font-size:28rpx;
-	font-weight:300;
+	font-weight:400;
 	color:#353943;
 	width: 180rpx;
 	float: left;
@@ -110,7 +110,7 @@
 }
 .enter {
 	width: 100%;
-	margin: 50rpx auto;
+	margin: 33rpx auto 52rpx auto;
 	text-align: center;
 	font-size:28rpx;
 	font-weight:500;

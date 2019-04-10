@@ -10,7 +10,7 @@
 		"minified": true,
 		"newFeature": true,
 		"nodeModules": true,
-		"autoAudits": false,
+		"autoAudits": true,
 		"uglifyFileName": false,
 		"checkInvalidKey": true
 	},
@@ -41,7 +41,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 34,
+			"current": 35,
 			"list": [
 				{
 					"id": 0,
@@ -265,6 +265,13 @@
 					"id": 34,
 					"name": "【B端】认证 认证状态",
 					"pathName": "page/recruiter/pages/user/company/status/status",
+					"query": "from=company",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "【B端】认证 第六步",
+					"pathName": "page/recruiter/pages/user/company/upload/upload",
 					"query": "from=company",
 					"scene": null
 				}

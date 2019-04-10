@@ -54,6 +54,17 @@ Page({
         wx.navigateTo({url: `${RECRUITER}user/company/apply/apply?action=edit`})
         break
       case 'notice':
+        // app.wxConfirm({
+        //   title: '温馨提示',
+        //   content: '该面试官已加入其它公司 无需处理审核',
+        //   showCancel: false,
+        //   confirmText: '知道了',
+        //   confirmBack:() => {
+        //     failApplyjoinApi({id: infos.id}).then(res => {
+        //       that.getApplyjoinInfos(false).then(() => app.wxToast({title: '处理成功'}))
+        //     })
+        //   }
+        // })
         notifyadminApi().then(() => app.wxToast({title: '通知成功'}))
         break
   		default:

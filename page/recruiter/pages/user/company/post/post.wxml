@@ -5,7 +5,7 @@
 	<view bindsubmit="submit" class="entry-list">
 
 		<view class="li">
-			<view class="key">公司全称</view>
+			<view class="key"><text>*</text>公司全称</view>
 			<view class="value">{{formData.company_name}}</view>
 		</view>
 
@@ -23,7 +23,7 @@
 		</view>
 
 		<view class="li link {{formData.company_shortname ? 'clear-bottom' : ''}}">
-			<view class="key">公司简称</view>
+			<view class="key"><text>*</text>公司简称</view>
 			<input type="text" class="companyShortName {{formData.company_shortname ? 'color' : ''}}" placeholder="示例：猎多多" placeholder-class="defaultColor" value="{{formData.company_shortname}}" bindinput="bindInput" maxlength="10"></input>
 		</view>
 
@@ -31,7 +31,7 @@
 
 		<view class="li">
 			<i class="icon iconfont icon-xiangyou"></i>
-			<view class="key">所属行业</view>
+			<view class="key"><text>*</text>所属行业</view>
 			<view class="value self {{formData.industry_id ? 'color' : ''}}">{{formData.industry_id_name}}</view>
 			<view class="picker-box">
 				<picker
@@ -48,7 +48,7 @@
 		</view>
 
 		<view class="li">
-			<view class="key">融资阶段</view>
+			<view class="key"><text>*</text>融资阶段</view>
 			<i class="icon iconfont icon-xiangyou"></i>
 		  <view class="value wid">
 		  	<myPicker pickerType="financing" setResult="{{formData.financingName}}" rangeKey="text" bindresultevent="getFinancing" data-type="financing"></myPicker>
@@ -57,7 +57,7 @@
 
 		<view class="li">
 			<i class="icon iconfont icon-xiangyou"></i>
-			<view class="key">人员规模</view>
+			<view class="key"><text>*</text>人员规模</view>
 		  <view class="value wid">
 		  	<myPicker pickerType="staffMembers" setResult="{{formData.employeesName}}" rangeKey="text" bindresultevent="getStaffMembers" data-type="staffMembers"></myPicker>
 		  </view>

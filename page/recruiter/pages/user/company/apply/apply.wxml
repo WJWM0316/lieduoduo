@@ -14,13 +14,13 @@
 		
 		<view class="input-li" bindtap="getCompanyName">
 	    <view class="key">公司全称</view>
-	    <view class="value {{formData.company_name ? 'active' : 'default'}}">
-	    	<view class="text">{{formData.company_name ? formData.company_name : '请输入公司全称'}}</view>
+	    <view class="value">
+	    	<view class="text {{formData.company_name ? 'active' : 'default'}}">{{formData.company_name ? formData.company_name : '请输入公司全称'}}</view>
 	    </view>
 	  </view>
 
 	  <view class="input-li">
-	    <view class="key">担任职务</view>
+	    <view class="key">我的职务</view>
 	    <view class="value">
 	    	<input placeholder-style="color:#BCBCBC" placeholder="在公司担任的职务" bindinput="bindInput" data-field="user_position" value="{{formData.user_position}}" />
 	    </view>

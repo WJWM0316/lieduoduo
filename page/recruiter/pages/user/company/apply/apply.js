@@ -1,10 +1,16 @@
-import { getCompanyIdentityInfosApi } from '../../../../../../api/pages/company.js'
-
 import {realNameReg, emailReg, positionReg} from '../../../../../../utils/fieldRegular.js'
 
 import {RECRUITER, COMMON, APPLICANT} from '../../../../../../config.js'
 
 import {getSelectorQuery} from "../../../../../../utils/util.js"
+
+import {
+  applyCompanyApi,
+  getCompanyNameListApi,
+  justifyCompanyExistApi,
+  editApplyCompanyApi,
+  getCompanyIdentityInfosApi
+} from '../../../../../../api/pages/company.js'
 
 let app = getApp()
 
@@ -31,11 +37,12 @@ Page({
     params.map(field => formData[field] = storage[field])
 
     this.setData({formData, options}, () => {
+      console.log(this.data.formData, 'outer')
       this.bindBtnStatus()
       this.getBannerHeight()
     })
 
-    this.getCompanyIdentityInfos()
+    // this.getCompanyIdentityInfos()
   },
   backEvent() {
     wx.removeStorageSync('createdCompany')
@@ -57,12 +64,13 @@ Page({
    * @return   {[type]}   [description]
    */
   getCompanyIdentityInfos(hasLoading = true) {
+    console.log(this.data.formData, 'inter')
     let storage = wx.getStorageSync('createdCompany')
     let params = ['real_name', 'user_email', 'user_position', 'company_name']
     let formData = this.data.formData
 
     // 是否已经填写过当前页面的信息
-    if(storage.real_name || storage.user_email || storage.user_position) {
+    if(storage.real_name || storage.user_email || storage.user_position || storage.company_name) {
       params.map(field => formData[field] = storage[field])
       this.setData({formData}, () => this.bindBtnStatus())
       return
@@ -127,6 +135,7 @@ Page({
     let formData = this.data.formData
     let storage = wx.getStorageSync('createdCompany')
     let options = this.data.options
+    let action = ''
     if(!this.data.canClick) return;
 
     // 验证用户名
@@ -144,13 +153,16 @@ Page({
       !positionReg.test(formData.user_position) ? reject('担任职务需为2-50个字') : resolve()
     })
 
-    Promise.all([checkRealName, checkUserEmail, checkUserPosition]).then(res => {      
-      if(options.action && options.action === 'edit') {
-        wx.navigateTo({url: `${RECRUITER}user/company/find/find?action=edit`})
-      } else {
-        wx.navigateTo({url: `${RECRUITER}user/company/find/find`})
-      }
+    Promise.all([checkRealName, checkUserEmail, checkUserPosition]).then(res => {
       wx.setStorageSync('createdCompany', Object.assign(storage, this.data.formData))
+      // 信息重新编辑
+      if(options.action && options.action === 'edit') {
+        action = options.from && options.from === 'join' ? 'editJoinCompany' : 'editCreateCompany'
+        this[action]()
+      } else {
+        action = options.from && options.from === 'join' ? 'joinCompany' : 'createCompany'
+        this[action]()
+      }
     })
     .catch(err => app.wxToast({title: err}))
   },
@@ -195,7 +207,7 @@ Page({
    * @return   {[type]}   [description]
    */
   getCompanyName() {
-    let storage = wx.getStorageSync('createdCompany')
+    let storage = wx.getStorageSync('createdCompany') || {}
     let options = this.data.options
     wx.setStorageSync('createdCompany', Object.assign(storage, this.data.formData))
     if(options.action && options.action === 'edit') {
@@ -203,5 +215,93 @@ Page({
     } else {
       wx.navigateTo({url: `${RECRUITER}user/company/find/find`})
     }
-  }
+  },
+  /**
+   * @Author   小书包
+   * @DateTime 2019-01-11
+   * @detail   申请加入公司
+   * @return   {[type]}   [description]
+   */
+  joinCompany() {
+    let storage = wx.getStorageSync('createdCompany')
+    let infos = this.data.infos
+    let params = {
+      real_name: storage.real_name,
+      user_email: storage.user_email,
+      user_position: storage.user_position,
+      company_name: storage.company_name,
+      company_id: storage.company_id
+    }
+    params = Object.assign(params, this.data.formData)
+    applyCompanyApi(params).then(() => {
+      wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=join`})
+      wx.removeStorageSync('createdCompany')
+    })
+  },
+  /**
+   * @Author   小书包
+   * @DateTime 2019-01-11
+   * @detail   编辑申请加入公司
+   * @return   {[type]}   [description]
+   */
+  editJoinCompany() {
+    let storage = wx.getStorageSync('createdCompany')
+    let id = storage.applyId
+    let infos = this.data.infos
+    let params = {
+      id,
+      real_name: storage.real_name,
+      user_email: storage.user_email,
+      user_position: storage.user_position,
+      company_id: infos.id
+    }
+    editApplyCompanyApi(params).then(() => {
+      wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=join`})
+      wx.removeStorageSync('createdCompany')
+    })
+  },
+  /**
+   * @Author   小书包
+   * @DateTime 2019-01-11
+   * @detail   申请加入公司
+   * @return   {[type]}   [description]
+   */
+  createCompany() {
+    let storage = wx.getStorageSync('createdCompany')
+    let infos = this.data.infos
+    let params = {
+      real_name: storage.real_name,
+      user_email: storage.user_email,
+      user_position: storage.user_position,
+      company_name: storage.company_name,
+      company_id: storage.company_id
+    }
+    params = Object.assign(params, this.data.formData)
+    applyCompanyApi(params).then(() => {
+      wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=join`})
+      wx.removeStorageSync('createdCompany')
+    })
+  },
+  /**
+   * @Author   小书包
+   * @DateTime 2019-01-11
+   * @detail   编辑申请加入公司
+   * @return   {[type]}   [description]
+   */
+  editCreateCompany() {
+    let storage = wx.getStorageSync('createdCompany')
+    let id = storage.applyId
+    let infos = this.data.infos
+    let params = {
+      id,
+      real_name: storage.real_name,
+      user_email: storage.user_email,
+      user_position: storage.user_position,
+      company_id: infos.id
+    }
+    editApplyCompanyApi(params).then(() => {
+      wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=join`})
+      wx.removeStorageSync('createdCompany')
+    })
+  },
 })

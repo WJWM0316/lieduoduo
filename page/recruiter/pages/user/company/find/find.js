@@ -201,9 +201,12 @@ Page({
     })
   },
   submit() {
-    if(!this.data.canClick) return;
     let company_name = this.data.formData.company_name
+    let storage = wx.getStorageSync('createdCompany')
+    let from = ''
+    if(!this.data.canClick) return;
     company_name = company_name.trim()
+    storage.company_name = company_name
 
     // if(!companyNameReg.test(this.data.formData.company_name)) {
     //   app.wxToast({title: '公司名称需为2-50个字'})
@@ -216,11 +219,11 @@ Page({
     }
 
     justifyCompanyExistApi({name: this.data.formData.company_name}).then(res => {
-      if(res.data.exist) {
-        this.setData({showMaskBox: true, type: 'apply', infos: res.data})
-      } else {
-        this.setData({showMaskBox: true, type: 'create'})
-      }
+      storage.company_id = res.data.id
+      from = res.data.exist ? 'join' : 'company'
+      console.log(storage, 'ffffffff')
+      wx.setStorageSync('createdCompany', storage)
+      wx.navigateTo({url: `${RECRUITER}user/company/apply/apply?from=${from}`})
     })
   }
 })
