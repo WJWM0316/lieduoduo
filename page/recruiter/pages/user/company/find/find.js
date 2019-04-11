@@ -204,6 +204,7 @@ Page({
     let company_name = this.data.formData.company_name
     let storage = wx.getStorageSync('createdCompany')
     let from = ''
+    let url = ''
     if(!this.data.canClick) return;
     company_name = company_name.trim()
     storage.company_name = company_name
@@ -221,9 +222,13 @@ Page({
     justifyCompanyExistApi({name: this.data.formData.company_name}).then(res => {
       storage.company_id = res.data.id
       from = res.data.exist ? 'join' : 'company'
-      console.log(storage, 'ffffffff')
+      if(options.action && options.action === 'edit') {
+        url = `${RECRUITER}user/company/apply/apply?from=${from}&action=edit`
+      } else {
+        url = `${RECRUITER}user/company/apply/apply?from=${from}`
+      }
       wx.setStorageSync('createdCompany', storage)
-      wx.navigateTo({url: `${RECRUITER}user/company/apply/apply?from=${from}`})
+      wx.navigateTo({url})
     })
   }
 })
