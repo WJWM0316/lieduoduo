@@ -200,6 +200,9 @@
 .select-tab .item.actived {
   color: #652791;
 }
+.select-tab .item.actived .iconfont {
+  color: #652791;
+}
 .select-box .item .txt {
   max-width: 154rpx;
   display: inline-block;
