@@ -90,6 +90,15 @@ export const perfectCompanyApi = (data, hasLoading) => {
   })
 }
 
+// 完善创建公司信息 上传营业执照
+export const perfectCompanyByLicenseApi = (data, hasLoading) => {
+  return request({
+    method: 'put',
+    url: `/company/business_license/${data.id}`,
+    data,
+    hasLoading: true
+  })
+}
 
 // 获取公司信息
 export const getCompanyInfosApi = (data, hasLoading) => {

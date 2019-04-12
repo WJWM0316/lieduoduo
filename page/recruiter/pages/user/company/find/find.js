@@ -101,105 +101,6 @@ Page({
   close() {
     this.setData({showMaskBox: false})
   },
-  /**
-   * @Author   小书包
-   * @DateTime 2019-01-08
-   * @detail   关闭弹窗
-   * @return   {[type]}   [description]
-   */
-  closeMask() {
-    let storage = wx.getStorageSync('createdCompany') || {}
-    let options = this.data.options
-    let infos = this.data.infos
-
-    // 加入公司流程
-    if(infos.exist) {
-      if(options.action && options.action === 'edit') {
-        // 创建公司过程中过来 从新选择一个公司加入
-        if(infos.exist) {
-          if(storage.company_name !== this.data.formData.company_name) {
-            this.applyCompany()
-          } else {
-            this.editApplyCompany()
-          }
-        }
-      } else {
-        this.applyCompany()
-      }
-      return
-    }
-    
-    // 创建公司流程
-    this.setData({showMaskBox: false}, () => {
-      if(options.action && options.action === 'edit') {
-        // 加入公司过程中过来 从新创建一个公司 应该是新建流程
-        if(!infos.exist && storage.company_name !== this.data.formData.company_name) {
-          storage.company_shortname = ''
-          storage.logo = {}
-          storage.business_license = {}
-          storage.on_job = {}
-          storage.industry_id = 0
-          storage.industry_id_name = '请选择行业范围'
-          storage.financing = 0
-          storage.employees = 0
-          storage.company_shortname = ''
-          storage.intro = ''
-          storage.company_name = this.data.formData.company_name
-          wx.setStorageSync('createdCompany', storage)
-          wx.navigateTo({url: `${RECRUITER}user/company/post/post?from=company`})
-          return;
-        } else {
-          wx.navigateTo({url: `${RECRUITER}user/company/post/post?action=edit&from=company`})
-        }
-      } else {
-        storage.company_name = this.data.formData.company_name
-        wx.setStorageSync('createdCompany', Object.assign(storage, this.data.formData))
-        wx.navigateTo({url: `${RECRUITER}user/company/post/post?from=company`})
-      }
-    })
-  },
-  /**
-   * @Author   小书包
-   * @DateTime 2019-01-11
-   * @detail   申请加入公司
-   * @return   {[type]}   [description]
-   */
-  applyCompany() {
-    let storage = wx.getStorageSync('createdCompany')
-    let infos = this.data.infos
-    let params = {
-      real_name: storage.real_name,
-      user_email: storage.user_email,
-      user_position: storage.user_position,
-      company_id: infos.id
-    }
-    applyCompanyApi(params).then(() => {
-      wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=join`})
-      wx.removeStorageSync('createdCompany')
-    })
-  },
-  /**
-   * @Author   小书包
-   * @DateTime 2019-01-11
-   * @detail   编辑申请加入公司
-   * @return   {[type]}   [description]
-   */
-  editApplyCompany() {
-    let storage = wx.getStorageSync('createdCompany')
-    let id = storage.applyId
-    let infos = this.data.infos
-    let params = {
-      id,
-      real_name: storage.real_name,
-      user_email: storage.user_email,
-      user_position: storage.user_position,
-      company_id: infos.id
-    }
-    editApplyCompanyApi(params).then(() => {
-      wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=join`})
-      wx.removeStorageSync('createdCompany')
-    })
-  },
   submit() {
     let company_name = this.data.formData.company_name
     let storage = wx.getStorageSync('createdCompany')
@@ -221,9 +122,16 @@ Page({
     }
 
     justifyCompanyExistApi({name: this.data.formData.company_name}).then(res => {
-      storage.company_id = res.data.id
+
+      // 当前操作属于编辑
       if(options.action && options.action === 'edit') {
-        url = res.data.exist ? `${RECRUITER}user/company/apply/apply?from=join&action=edit` : `${RECRUITER}user/company/apply/apply?action=edit`
+        if(res.data.exist) {
+          // 加入流程
+          storage.applyId = res.data.id
+          url = `${RECRUITER}user/company/apply/apply?from=join&action=edit`
+        } else {
+          url = `${RECRUITER}user/company/apply/apply?action=edit`
+        }
       } else {
         url = `${RECRUITER}user/company/apply/apply`
       }

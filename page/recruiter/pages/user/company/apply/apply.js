@@ -29,10 +29,14 @@ Page({
     cdnImagePath: app.globalData.cdnImagePath,
     navH: app.globalData.navHeight,
     telePhone: app.globalData.telePhone,
-    height: 0
+    height: 0,
+    applyJoin: false
   },
   onLoad(options) {
     this.setData({options})
+  },
+  onShow() {
+    this.getBannerHeight()
     this.getCompanyIdentityInfos()
   },
   backEvent() {
@@ -57,17 +61,19 @@ Page({
   getCompanyIdentityInfos(hasLoading = true) {
     let storage = wx.getStorageSync('createdCompany') || {}
     let options = this.data.options
+    let applyJoin = this.data.applyJoin
     getCompanyIdentityInfosApi({hasLoading}).then(res => {
-      let infos = res.data.companyInfo
+      let companyInfo = res.data.companyInfo
+      applyJoin = res.data.applyJoin
       let formData = {
-        real_name: storage.real_name || infos.realName,
-        user_email: storage.user_email || infos.userEmail,
-        user_position: storage.user_position || infos.userPosition,
-        company_name: storage.company_name || infos.companyName
+        real_name: storage.real_name || companyInfo.realName,
+        user_email: storage.user_email || companyInfo.userEmail,
+        user_position: storage.user_position || companyInfo.userPosition,
+        company_name: storage.company_name || companyInfo.companyName
       }
       // 重新编辑 加公司id
-      if(options.action && options.action === 'edit') formData = Object.assign(formData, {id: infos.id})
-      this.setData({formData, canClick: true})
+      if(options.action && options.action === 'edit') formData = Object.assign(formData, {id: companyInfo.id})
+      this.setData({formData, canClick: true, applyJoin})
       wx.setStorageSync('createdCompany', Object.assign(formData, this.data.formData))
     })
   },
@@ -79,7 +85,7 @@ Page({
    */
   bindBtnStatus() {
     let formData = this.data.formData
-    let bindKeys = ['real_name', 'user_position', 'user_email']
+    let bindKeys = ['real_name', 'user_position', 'user_email', 'company_name']
     let canClick = bindKeys.every(field => this.data.formData[field])
     this.setData({ canClick })
   },
@@ -106,6 +112,8 @@ Page({
     let storage = wx.getStorageSync('createdCompany')
     let options = this.data.options
     let action = ''
+    let applyJoin = this.data.applyJoin
+
     if(!this.data.canClick) return;
 
     // 验证用户名
@@ -124,10 +132,20 @@ Page({
     })
 
     Promise.all([checkRealName, checkUserEmail, checkUserPosition]).then(res => {
-      wx.setStorageSync('createdCompany', Object.assign(storage, this.data.formData))
       // 信息重新编辑
       if(options.action && options.action === 'edit') {
-        action = options.from && options.from === 'join' ? 'editJoinCompany' : 'editCreateCompany'
+
+        // 重新修改页面来源
+        if(options.from && options.from === 'join') {
+          if(applyJoin) {
+            action = 'editJoinCompany'
+          } else {
+            action = 'joinCompany'
+          }
+        } else {
+          action = 'editCreateCompany'
+        }
+  
         this[action]()
       } else {
         action = options.from && options.from === 'join' ? 'joinCompany' : 'createCompany'
@@ -249,7 +267,8 @@ Page({
       company_name: storage.company_name
     }
     params = Object.assign(params, this.data.formData)
-    createCompanyApi(params).then(() => {
+    createCompanyApi(params).then(res => {
+      console.log(res)
       wx.reLaunch({url: `${RECRUITER}user/company/createdCompanyInfos/createdCompanyInfos?from=company`})
       wx.removeStorageSync('createdCompany')
     })

@@ -53,6 +53,8 @@ Page({
       case 'applyModify':
         wx.navigateTo({url: `${RECRUITER}user/company/apply/apply?action=edit`})
         break
+      case 'call':
+        wx.makePhoneCall({phoneNumber: app.globalData.telePhone})
       case 'notice':
         // app.wxConfirm({
         //   title: '温馨提示',

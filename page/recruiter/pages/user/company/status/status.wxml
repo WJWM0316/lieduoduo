@@ -145,9 +145,15 @@
 				<view class="key">人员规模</view>
 				<view class="value">{{companyInfos.employeesInfo}}</view>
 			</view>
-			<view class="li">
-				<view class="key">认证资料</view>
-				<view class="value">{{companyInfos.businessLicense ? '已上传' : '未上传'}}</view>
+			<!-- 
+				验证方式：
+				0： 旧流程
+				1： 邮箱验证
+				2： 营业执照加相关证明 
+			-->
+			<view class="li" wx:if="{{companyInfos.verificationMethod}}">
+				<view class="key">认证方式</view>
+				<view class="value">{{companyInfos.verificationMethod === 1 ? '邮箱验证' : '营业执照加相关证明'}}</view>
 			</view>
 		</view>
 	</view>
@@ -235,15 +241,17 @@
 		<view class="box" bindtap="todoAction" data-action="identity">
 			<view class="p1">认证个人身份</view>
 			<view class="p2">提前认证身份，公司过审后即可马上发布职位</view>
+			<view class="has active" wx:if="{{!identityInfos.haveIdentity}}">去认证</view>
 			<block wx:if="{{identityInfos.haveIdentity}}">
 				<view class="has" wx:if="{{identityInfos.status === 1}}">已认证</view>
 				<view class="has" wx:if="{{identityInfos.status === 0}}">审核中</view>
-				<view class="has red" wx:if="{{identityInfos.status === 2}}">认证失败</view>
-				<i class="icon iconfont icon-xiangyou"></i>
+				<view class="has red" wx:if="{{identityInfos.status === 2}}">未通过</view>
 			</block>
-			<block wx:else>
-				
-			</block>
+			<!-- 
+				1.还没有填写身份信息 
+				2.个人身份认证失败 
+			-->
+			<i class="icon iconfont icon-xiangyou" wx:if="{{!identityInfos.haveIdentity || identityInfos.status === 2}}"></i>
 		</view>
 	</view>
 	
@@ -252,7 +260,7 @@
 			<view class="h6">快速通道权益</view>
 			<view class="h7">助您创建公司更快捷，欢迎体验~</view>
 		</view>
-		<view class="button" data-route="call" bindtap="routeJump">联系体验</view>
+		<view class="button" data-action="call" bindtap="todoAction">联系体验</view>
 		<image class="bgImg" src="{{cdnImagePath}}verify_bg.png" mode="aspectFill"></image>
 	</view>
 

@@ -342,15 +342,19 @@
 .has {
 	position: absolute;
 	top: 50%;
-	right: 70rpx;
+	right: 60rpx;
 	transform: translateY(-50%);
 	color: #BCBCBC;
-	font-size:28rpx;
-	font-weight:300;
+	font-size:26rpx;
+	font-weight:500;
 }
 
 .red {
 	color: #ed5c5c;
+}
+
+.active {
+	color: #652791;
 }
 
 .quickly-entry {
