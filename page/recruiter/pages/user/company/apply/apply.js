@@ -213,20 +213,23 @@ Page({
    * @detail   申请加入公司
    * @return   {[type]}   [description]
    */
-  joinCompany() {
-    let storage = wx.getStorageSync('createdCompany')
-    let infos = this.data.infos
+  joinCompany(infos) {
+    let formData = Object.assign(wx.getStorageSync('createdCompany'), this.data.formData)
     let params = {
-      real_name: storage.real_name,
-      user_email: storage.user_email,
-      user_position: storage.user_position,
-      company_name: storage.company_name,
-      company_id: storage.company_id
+      real_name: formData.real_name,
+      user_email: formData.user_email,
+      user_position: formData.user_position,
+      company_name: formData.company_name,
+      company_id: infos.companyId
     }
     params = Object.assign(params, this.data.formData)
     applyCompanyApi(params).then(() => {
-      wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=join`})
       wx.removeStorageSync('createdCompany')
+      if(infos.emailStatus) {
+        wx.reLaunch({url: `${RECRUITER}user/company/identityMethods/identityMethods?from=join`})
+      } else {
+        wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=join`})
+      }
     })
   },
   /**
@@ -268,7 +271,6 @@ Page({
     }
     params = Object.assign(params, this.data.formData)
     createCompanyApi(params).then(res => {
-      console.log(res)
       wx.reLaunch({url: `${RECRUITER}user/company/createdCompanyInfos/createdCompanyInfos?from=company`})
       wx.removeStorageSync('createdCompany')
     })
@@ -293,5 +295,7 @@ Page({
       wx.reLaunch({url: `${RECRUITER}user/company/createdCompanyInfos/createdCompanyInfos?from=company&action=edit`})
       wx.removeStorageSync('createdCompany')
     })
+    // 创建公司后 走加入公司逻辑
+    .catch(err => this.joinCompany(err.data))
   },
 })

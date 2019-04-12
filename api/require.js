@@ -100,7 +100,7 @@ export const request = ({method = 'post', url, host, data = {}, needKey = true, 
           if (msg.httpStatus === 200) {
             resolve(msg)
           } else {
-            if (msg.code !== 701 && msg.code !== 801) {
+            if (msg.code !== 701 && msg.code !== 801 && !url.includes('/company/edit_first_step/')) {
               getApp().wxToast({title: msg.msg, duration: 2000})
             }
             reject(msg)

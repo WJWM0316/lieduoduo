@@ -98,45 +98,21 @@ Page({
     formData.company_name = params.name
     this.setData({canClick: true, formData, nameList: []})
   },
-  close() {
-    this.setData({showMaskBox: false})
-  },
   submit() {
     let company_name = this.data.formData.company_name
     let storage = wx.getStorageSync('createdCompany')
-    let options = this.data.options
-    let from = ''
-    let url = ''
     if(!this.data.canClick) return;
     company_name = company_name.trim()
     storage.company_name = company_name
-
     // if(!companyNameReg.test(this.data.formData.company_name)) {
     //   app.wxToast({title: '公司名称需为2-50个字'})
     //   return;
     // }
-    
     if(company_name.length < 2) {
       app.wxToast({title: '公司名称需为2-50个字'})
       return;
     }
-
-    justifyCompanyExistApi({name: this.data.formData.company_name}).then(res => {
-
-      // 当前操作属于编辑
-      if(options.action && options.action === 'edit') {
-        if(res.data.exist) {
-          // 加入流程
-          storage.applyId = res.data.id
-          url = `${RECRUITER}user/company/apply/apply?from=join&action=edit`
-        } else {
-          url = `${RECRUITER}user/company/apply/apply?action=edit`
-        }
-      } else {
-        url = `${RECRUITER}user/company/apply/apply`
-      }
-      wx.setStorageSync('createdCompany', storage)
-      wx.navigateTo({url})
-    })
+    wx.setStorageSync('createdCompany', storage)
+    wx.navigateBack({delta: 1 })
   }
 })
