@@ -2,12 +2,10 @@
 	"enablePullDownRefresh": true,
 	"backgroundTextStyle": "light",
   "usingComponents": {
-  	"navbar": "../../../../components/business/navbar/navbar",
+    "jobList": "../../../../components/business/jobList/jobList",
     "tabBar": "../../../../components/business/tabBar/tabBar",
-    "choose": "../../../../components/business/choose/choose",
+    "myPicker": "../../../../components/functional/myPicker/myPicker",
     "auth": "../../../../components/functional/auth/auth",
-    "bindPhone": "../../../../components/functional/bindPhone/bindPhone",
-    "moreActive": "../../../../components/business/moreActive/moreActive",
-    "officerTab": "../../../../components/business/officerTab/officerTab"
+    "navbar": "../../../../components/business/navbar/navbar"
   }
 }

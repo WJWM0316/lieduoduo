@@ -27,7 +27,6 @@ Page({
       intro: ''
     },
     companyLabelField: [],
-    canClick: false,
     options: {},
     cdnPath: app.globalData.cdnImagePath
   },
@@ -66,23 +65,7 @@ Page({
     } else {
       formData.company_name = storage.company_name
     }
-    this.setData({ formData }, () => this.bindBtnStatus())
-  },
-  /**
-   * @Author   小书包
-   * @DateTime 2018-12-20
-   * @detail   绑定按钮的状态
-   * @return   {[type]}   [description]
-   */
-  bindBtnStatus() {
-    const formData = this.data.formData
-    const canClick =
-      !!formData.company_shortname
-      && formData.industry_id
-      && formData.financing
-      && formData.employees
-      && formData.intro      
-    this.setData({ canClick })
+    this.setData({ formData })
   },
   /**
    * @Author   小书包
@@ -91,16 +74,29 @@ Page({
    * @return   {[type]}   [description]
    */
   submit() {
-    if(!this.data.canClick) return;
+    let title = ''
+    if (!this.data.formData['company_shortname']) {
+      title = '请填写公司简称'
+    } else if (!this.data.formData['industry_id']) {
+      title = '请选择公司所属行业'
+    } else if (!this.data.formData['financing']) {
+      title = '请选择公司融资阶段'
+    } else if (!this.data.formData['employees']) {
+      title = '请选择公司人员规模'
+    } else if (!this.data.formData['intro']) {
+      title = '请填写公司介绍'
+    }
+    if (title) {
+      app.wxToast({title})
+      return
+    }
     const storage = wx.getStorageSync('createdCompany')
     const options = this.data.options
-    
     if(options.action && options.action === 'edit') {
       wx.navigateTo({url: `${RECRUITER}user/company/upload/upload?action=edit`})
     } else {
       wx.navigateTo({url: `${RECRUITER}user/company/upload/upload`})
     }
-
     wx.setStorageSync('createdCompany', Object.assign(storage, this.data.formData))
   },
   /**
@@ -115,12 +111,12 @@ Page({
     const formData = this.data.formData
     formData.industry_id = companyLabelField[index].labelId
     formData.industry_id_name = companyLabelField[index].name
-    this.setData({formData}, () => this.bindBtnStatus())
+    this.setData({formData})
   },
   bindInput(e) {
     const formData = this.data.formData
     formData.company_shortname = e.detail.value
-    this.setData({formData}, () => this.bindBtnStatus())
+    this.setData({formData})
     console.log(this.data)
   },
   /**
@@ -133,7 +129,7 @@ Page({
     const formData = this.data.formData
     formData.employees = res.detail.propsResult
     formData.employeesName = res.detail.propsDesc
-    this.setData({formData}, () => this.bindBtnStatus())
+    this.setData({formData})
   },
   /**
    * @Author   小书包
@@ -145,7 +141,7 @@ Page({
     const formData = this.data.formData
     formData.financing = res.detail.propsResult
     formData.financingName = res.detail.propsDesc
-    this.setData({formData}, () => this.bindBtnStatus())
+    this.setData({formData})
   },
   /**
    * @Author   小书包
@@ -156,7 +152,7 @@ Page({
   upload(e) {
     const formData = this.data.formData
     formData.logo = e.detail[0]
-    this.setData({formData}, () => this.bindBtnStatus())
+    this.setData({formData})
     console.log(this.data)
   },
 

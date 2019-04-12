@@ -1,4 +1,6 @@
-
+.company-post {
+  padding-bottom: 120rpx;
+}
 .company-post .entry-list {
 	box-sizing: border-box;
 	width: 100%;

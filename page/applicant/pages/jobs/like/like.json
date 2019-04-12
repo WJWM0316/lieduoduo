@@ -3,6 +3,7 @@
 	"backgroundTextStyle": "light",
   "usingComponents": {
     "navbar": "../../../../components/business/navbar/navbar",
+    "jobList": "../../../../components/business/jobList/jobList",
     "slide-view": "miniprogram-slide-view"
   }
 }

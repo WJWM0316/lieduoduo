@@ -4,7 +4,7 @@
 		"ignore": []
 	},
 	"setting": {
-		"urlCheck": true,
+		"urlCheck": false,
 		"es6": true,
 		"postcss": true,
 		"minified": true,
@@ -41,7 +41,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 1,
+			"current": 10,
 			"list": [
 				{
 					"id": 0,
@@ -98,10 +98,32 @@
 					"scene": null
 				},
 				{
-					"id": 7,
+					"id": 8,
 					"name": "【C端】首页",
 					"pathName": "page/applicant/pages/index/index",
-					"query": ""
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 8,
+					"name": "【C端】动态",
+					"pathName": "page/applicant/pages/dynamics/dynamics",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 10,
+					"name": "【C端】动态列表",
+					"pathName": "page/applicant/pages/dynamicsList/dynamicsList",
+					"query": "type=myCollect",
+					"scene": null
+				},
+				{
+					"id": 8,
+					"name": "【C端】发现机会",
+					"pathName": "page/applicant/pages/careerChance/careerChance",
+					"query": "",
+					"scene": null
 				},
 				{
 					"id": 8,

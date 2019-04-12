@@ -19,7 +19,8 @@
     "page/common/pages/category/category",
     "page/common/pages/tabsPage/tabsPage",
     "page/common/pages/cutInside/cutInside",
-    "page/common/pages/chooseJob/chooseJob"
+    "page/common/pages/chooseJob/chooseJob",
+    "page/common/pages/webView/webView"
   ],
   "window": {
     "navigationBarTextStyle": "black",
@@ -33,6 +34,8 @@
       "root": "page/applicant/",
       "pages": [
         "pages/index/index",
+        "pages/dynamics/dynamics",
+        "pages/dynamicsList/dynamicsList",
         "pages/jobs/job/job",
         "pages/interview/interview/interview",
         "pages/officerActive/more/more",

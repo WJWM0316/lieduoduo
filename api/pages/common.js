@@ -153,3 +153,13 @@ export const shareStatistics  = (data, hasLoading) => {
     hasLoading: false
   })
 }
+
+// 获取广告位banner
+export const getAdBannerApi  = (data, hasLoading) => {
+  return request({
+    method: 'get',
+    url: `/banner`,
+    data,
+    hasLoading
+  })
+}

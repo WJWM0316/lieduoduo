@@ -16,7 +16,9 @@ import {APPLICANT, COMMON} from '../../../../config.js'
 import {getSelectorQuery} from "../../../../utils/util.js"
 
 const app = getApp()
-let identity = ''
+let identity = '',
+    cityIndex = 0,
+    cateIndex = 0
 Page({
   data: {
     tab: 'rankAll',
@@ -57,6 +59,8 @@ Page({
     fixedHeight: ''
   },
   onLoad(options) {
+    cityIndex = 0
+    cateIndex = 0
     this.getFixedBoxHeight()
     identity = app.identification(options)
     if (app.loginInit) {
@@ -92,7 +96,9 @@ Page({
   onTabClick(e) {
     const key = e.target.dataset.tab
     const value = this.data[key]
-    this.setData({tab: key, commonList: value}, () => {
+    let nowIndex = 0
+    e.target.dataset.tab === 'rankCity' ? nowIndex = cityIndex : nowIndex = cateIndex
+    this.setData({nowIndex, tab: key, commonList: value}, () => {
       if(!value.isRequire) {
         this.getLists()
       }
@@ -111,6 +117,7 @@ Page({
     const value = this.data[key]
     value.pageNum = 1
     const params = e.currentTarget.dataset
+    this.data.tab === 'rankCity' ? cityIndex = params.nowindex : cateIndex = params.nowindex
     this.setData({nowIndex: params.nowindex, [tab]: params.id, [key]: value}, () => {
       let secondtItem = {}
       const key = this.data.tab

@@ -49,18 +49,18 @@ Component({
     ],
     applicantList: [
       {
-        title: '首页',
+        title: '发现机会',
         iconPath: `${cdnImagePath}tab_home_nor@3x.png`,
         selectedIconPath: `${cdnImagePath}tab_home_sel@3x.png`,
         active: true,
         path: `${APPLICANT}index/index`
       },
       {
-        title: '职位机会',
-        iconPath: `${cdnImagePath}tab_job_nor@3x.png`,
-        selectedIconPath: `${cdnImagePath}tab_job_sel@3x.png`,
+        title: '动态',
+        iconPath: `${cdnImagePath}tab_dynamics.png`,
+        selectedIconPath: `${cdnImagePath}tab_dynamics_active.png`,
         active: false,
-        path: `${COMMON}careerChance/careerChance`
+        path: `${APPLICANT}dynamics/dynamics`
       },
       {
         title: '面试',

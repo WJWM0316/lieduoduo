@@ -86,7 +86,6 @@ export const request = ({method = 'post', url, host, data = {}, needKey = true, 
           loadNum = 0
         }
         console.log(url, res.data)
-        console.log(addHttpHead)
         if (typeof res.data === 'string') { // 转换返回json
           res.data = JSON.parse(res.data)
         }
@@ -98,7 +97,7 @@ export const request = ({method = 'post', url, host, data = {}, needKey = true, 
             resolve(msg)
           } else {
             if (msg.code !== 701 && msg.code !== 801) {
-              getApp().wxToast({title: msg.msg, duration: 2000})
+              getApp().wxToast({title: msg.msg})
             }
             reject(msg)
           }

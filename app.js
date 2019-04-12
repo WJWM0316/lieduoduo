@@ -83,6 +83,9 @@ App({
             that.globalData.userInfo = res.data
             console.log('用户已认证')
           } else {
+            if (res.data.userInfo) {
+              that.globalData.userInfo = res.data.userInfo
+            }
             console.log('用户未绑定手机号', 'sessionToken', res.data.sessionToken)
             wx.setStorageSync('sessionToken', res.data.sessionToken)
           }

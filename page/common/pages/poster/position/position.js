@@ -360,7 +360,7 @@ Page({
               svae()
             },
             fail (res) {
-              if (res.errMsg === 'authorize:fail auth deny') {
+              if (res.errMsg.indexOf('fail') !== -1) {
                 that.setData({openSet: false})
               } 
             }
@@ -374,15 +374,17 @@ Page({
       wx.saveImageToPhotosAlbum({
         filePath: that.data.imgUrl,
         success: function (e) {
-          app.shareStatistics({
-            id: info.id,
-            type: 'position',
-            sCode: info.sCode,
-            channel: 'qrpl'
-          })
           app.wxToast({
             title: '已保存至相册',
-            icon: 'success'
+            icon: 'success',
+            callback () {
+              app.shareStatistics({
+                id: info.id,
+                type: 'position',
+                sCode: info.sCode,
+                channel: 'qrpe'
+              })
+            }
           })
         },
         fail: function (e) {

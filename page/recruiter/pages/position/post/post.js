@@ -58,7 +58,9 @@ Page({
       app.wxConfirm({
         title: '放弃修改',
         content: '你编辑的职位尚未保存，确定放弃编辑吗？',
-        confirmBack() {
+        cancelText: '放弃',
+        confirmText: '继续编辑',
+        cancelBack() {
           wx.removeStorageSync('createPosition')
           wx.navigateBack({delta: 1})
         },
@@ -67,8 +69,9 @@ Page({
       app.wxConfirm({
         title: '温馨提示',
         content: '离开当前页面，已填写的数据将会丢失，确认放弃发布吗？',
-        cancelText: '继续编辑',
-        confirmBack() {
+        cancelText: '放弃',
+        confirmText: '继续编辑',
+        cancelBack() {
           wx.removeStorageSync('createPosition')
           wx.navigateBack({delta: 1})
         }
