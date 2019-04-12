@@ -12,7 +12,7 @@ const app = getApp()
 Page({
   data: {
     email: '',
-    step: 2,
+    step: 1,
     code: '',
     codeLength: 6,
     isFocus: true,
@@ -28,8 +28,9 @@ Page({
     canResend: true,
     suffix: '@thetigre.com.cn'
   },
-  onLoad(ontions) {
-    this.setData({ontions})
+  onLoad(options) {
+    this.setData({options})
+    console.log(this.data)
   },
   onHide() {
     let timer = this.data.timer
@@ -79,8 +80,9 @@ Page({
    * @return   {[type]}   [description]
    */
   sendEmail() {
-    // let params = {email: this.data.code, company_id: this.data.ontions.id}
-    let params = {email: this.data.email, company_id: 88}
+    // let storage = wx.getStorageSync('createdCompany')
+    let options = this.data.options
+    let params = {email: this.data.email, company_id: options.companyId}
     if(this.data.step === 2) {
       sendEmailApi(params).then(res => this.setData({canResend: false }))
     } else {
@@ -94,8 +96,9 @@ Page({
    * @return   {[type]}   [description]
    */
   reEmail() {
-    // let params = {email: this.data.code, company_id: this.data.ontions.id}
-    let params = {email: this.data.email, company_id: 88}
+    // let storage = wx.getStorageSync('createdCompany')
+    let options = this.data.options
+    let params = {email: this.data.code, company_id: options.companyId}
     // 已经进入倒计时
     if(!this.data.canResend) return;
     this.setData({canResend: false })
@@ -120,10 +123,11 @@ Page({
    * @return   {[type]}     [description]
    */
   verifyEmail() {
-    // let params = {email: this.data.email, company_id: this.data.ontions.id, code: this.data.code}
-    let params = {email: this.data.email, company_id: 88, code: this.data.code}
+    // let storage = wx.getStorageSync('createdCompany')
+    let options = this.data.options
+    let params = {email: this.data.email, company_id: options.companyId, code: this.data.code}
     verifyEmailApi(params).then(res => {
-      wx.redirectTo({url: `${RECRUITER}user/company/status/status?from=identity`})
+      wx.redirectTo({url: `${RECRUITER}user/company/status/status?from=company`})
     })
     .catch(() => {
       this.setData({code: '', error: true, isFocus: true, classErrorName: 'error'})

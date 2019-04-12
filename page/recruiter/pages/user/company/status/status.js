@@ -80,35 +80,39 @@ Page({
   getCompanyIdentityInfos(hasLoading = true) {
     return new Promise((resolve, reject) => {
       getCompanyIdentityInfosApi({...app.getSource()}, hasLoading).then(res => {
-        let infos = res.data
-        let companyInfos = infos.companyInfo
+        // 公司信息
+        let companyInfos = res.data.companyInfo
         let pageTitle = ''
         let options = this.data.options
+        // 个人身份信息
+        let identityInfos = res.data.identityInfo
+        // 是否加入
+        let applyJoin = res.data.applyJoin
 
-        if(infos.applyJoin) {
+        if(applyJoin) {
           pageTitle = '申请加入公司'
         } else {
           pageTitle = '公司认证'
         }
 
-        if(options.from === 'identity' || (companyInfos.status === 1 && infos.status === 2)) {
+        if(options.from === 'identity' || (companyInfos.status === 1 && identityInfo.status === 2)) {
           pageTitle = '身份认证'
         }
 
-        this.setData({identityInfos: infos, companyInfos, pageTitle}, () => {
+        this.setData({identityInfos, companyInfos, pageTitle}, () => {
           resolve(res)
           
           
           // 加入公司
-          if(infos.applyJoin) {
+          if(applyJoin) {
 
             // 这里的判断是 加入公司审核已经通过 但是还没有填写身份信息 在当前页面刷新 直接返回首页
-            if(companyInfos.status === 1 && options.from === 'join' && !infos.id) {
+            if(companyInfos.status === 1 && options.from === 'join' && !identityInfo.id) {
               app.getAllInfo().then(() => wx.reLaunch({url: `${RECRUITER}index/index`}))
             }
 
             // 这里的判断是从发布职位过来或者我的页面过来或者api判断过来 个人身份已经通过 则返回上一个页面或者首页
-            if(companyInfos.status === 1 && options.from === 'identity' && infos.identityAuth) {
+            if(companyInfos.status === 1 && options.from === 'identity' && identityInfo.identityAuth) {
               if(getCurrentPages() && getCurrentPages().length > 1) {
                 wx.navigateBack({delta: 1 })
               } else {
@@ -120,14 +124,14 @@ Page({
             // 公司已经认证
             if(companyInfos.status === 1) {
               // 个人身份已经认证
-              if(infos.identityAuth) {
+              if(identityInfo.identityAuth) {
                 app.getAllInfo().then(() => {
                   wx.reLaunch({url: `${RECRUITER}index/index`})
                 })
                 return;
               }
               // 还没有填写个人信息
-              if(!infos.id) {
+              if(!identityInfo.id) {
                 wx.reLaunch({url: `${RECRUITER}user/company/identity/identity?from=identity`})
               }
             }

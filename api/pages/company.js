@@ -64,11 +64,32 @@ export const joinidentityApi = (data, hasLoading) => {
 export const createCompanyApi = (data, hasLoading) => {
   return request({
     method: 'post',
-    url: '/company',
+    url: '/company/first_step',
     data,
     hasLoading: true
   })
 }
+
+// 用户编辑公司第一步
+export const editCompanyFirstStepApi = (data, hasLoading) => {
+  return request({
+    method: 'put',
+    url: `/company/edit_first_step/${data.id}`,
+    data,
+    hasLoading: true
+  })
+}
+
+// 完善创建公司信息
+export const perfectCompanyApi = (data, hasLoading) => {
+  return request({
+    method: 'put',
+    url: `/company/self_help_verification/${data.id}`,
+    data,
+    hasLoading: true
+  })
+}
+
 
 // 获取公司信息
 export const getCompanyInfosApi = (data, hasLoading) => {
@@ -282,7 +303,7 @@ export const getCompanyProductListsApi = (data, hasLoading) => {
 export const getCompanyIdentityInfosApi = (data) => {
   return request({
     method: 'get',
-    url: `/company/identity`,
+    url: `/company/identity_new`,
     data,
     hasLoading: data.hasLoading
   })
@@ -342,7 +363,7 @@ export const getRecruitersListApi = (data, hasLoading) => {
 export const sendEmailApi = (data, hasLoading) => {
   return request({
     method: 'post',
-    url: `/company/mail`,
+    url: `/company/new_mail`,
     data,
     hasLoading: true
   })
@@ -352,7 +373,7 @@ export const sendEmailApi = (data, hasLoading) => {
 export const verifyEmailApi = (data, hasLoading) => {
   return request({
     method: 'post',
-    url: `/company/verify`,
+    url: `/company/new_verify`,
     data,
     hasLoading: true
   })

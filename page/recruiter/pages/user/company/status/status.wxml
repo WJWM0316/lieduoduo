@@ -32,7 +32,7 @@
 
 		<block wx:if="{{companyInfos.status === 0}}">
 			<view class="h1">公司认证审核中</view>
-			<view class="p">该申请将在24小时内审核，审核通过后即可开始招聘</view>
+			<view class="p">该申请将在1个工作日内审核，通过后即可开始招聘</view>
 		</block>
 
 		<block wx:elif="{{companyInfos.status === 2}}">
@@ -80,7 +80,7 @@
 
 		<block wx:if="{{identityInfos.status === 0}}">
 			<view class="h1">实名认证审核中</view>
-			<view class="p">该申请将在24小时内审核，审核通过后即可开始招聘</view>
+			<view class="p">该申请将在1个工作日内审核，通过后即可开始招聘</view>
 		</block>
 
 		<block wx:elif="{{identityInfos.status === 2}}">
@@ -152,7 +152,7 @@
 		</view>
 	</view>
 
-	<view class="section" wx:if="{{options.from === 'company' || options.from === 'identity'}}">
+<!-- 	<view class="section" wx:if="{{options.from === 'company' || options.from === 'identity'}}">
 		<view class="title">
 			<view class="label">您的身份信息</view>
 			<view class="jump" bindtap="todoAction" data-action="identity" wx:if="{{!identityInfos.id || identityInfos.status === 2}}">申请信息有误？去更改</view>
@@ -179,7 +179,7 @@
 				<view class="value">{{identityInfos.createdAt}}</view>
 			</view>
 		</view>
-	</view>
+	</view> -->
 
 	<view class="section" wx:if="{{options.from === 'join'}}">
 		<view class="title">
@@ -231,18 +231,30 @@
 		</view>
 	</block> -->
 
-	<block wx:if="{{options.from === 'join'}}">
-		<view class="div">
-			<view class="box" bindtap="todoAction" data-action="identity">
-				<i class="icon iconfont icon-renzheng label-icon"></i>
-				认证个人身份
+	<view class="div">
+		<view class="box" bindtap="todoAction" data-action="identity">
+			<view class="p1">认证个人身份</view>
+			<view class="p2">提前认证身份，公司过审后即可马上发布职位</view>
+			<block wx:if="{{identityInfos.haveIdentity}}">
 				<view class="has" wx:if="{{identityInfos.status === 1}}">已认证</view>
 				<view class="has" wx:if="{{identityInfos.status === 0}}">审核中</view>
 				<view class="has red" wx:if="{{identityInfos.status === 2}}">认证失败</view>
 				<i class="icon iconfont icon-xiangyou"></i>
-			</view>
+			</block>
+			<block wx:else>
+				
+			</block>
 		</view>
-	</block>
+	</view>
 	
+	<view class="quickly-entry">
+		<view class="content">
+			<view class="h6">快速通道权益</view>
+			<view class="h7">助您创建公司更快捷，欢迎体验~</view>
+		</view>
+		<view class="button" data-route="call" bindtap="routeJump">联系体验</view>
+		<image class="bgImg" src="{{cdnImagePath}}verify_bg.png" mode="aspectFill"></image>
+	</view>
+
 	<changeIdentity></changeIdentity>
 </view>

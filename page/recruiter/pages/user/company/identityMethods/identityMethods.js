@@ -5,7 +5,11 @@ import {RECRUITER} from '../../../../../../config.js'
 Page({
   data: {
     cdnImagePath: app.globalData.cdnImagePath,
-  	telePhone: app.globalData.telePhone
+  	telePhone: app.globalData.telePhone,
+    options: {}
+  },
+  onLoad(options) {
+    this.setData({options})
   },
   /**
    * @Author   小书包
@@ -24,12 +28,13 @@ Page({
    */
   routeJump(e) {
     let route = e.currentTarget.dataset.route
+    let options = this.data.options
     switch(route) {
       case 'email':
-        wx.navigateTo({url: `${RECRUITER}user/company/email/email`})
+        wx.navigateTo({url: `${RECRUITER}user/company/email/email?companyId=${options.companyId}`})
         break
       case 'license':
-        wx.navigateTo({url: `${RECRUITER}user/company/upload/upload`})
+        wx.navigateTo({url: `${RECRUITER}user/company/upload/upload?companyId=${options.companyId}`})
         break
       case 'call':
         wx.makePhoneCall({phoneNumber: app.globalData.telePhone})

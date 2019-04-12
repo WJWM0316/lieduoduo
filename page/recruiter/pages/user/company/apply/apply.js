@@ -6,10 +6,12 @@ import {getSelectorQuery} from "../../../../../../utils/util.js"
 
 import {
   applyCompanyApi,
+  createCompanyApi,
   getCompanyNameListApi,
   justifyCompanyExistApi,
   editApplyCompanyApi,
-  getCompanyIdentityInfosApi
+  getCompanyIdentityInfosApi,
+  editCompanyFirstStepApi
 } from '../../../../../../api/pages/company.js'
 
 let app = getApp()
@@ -30,19 +32,8 @@ Page({
     height: 0
   },
   onLoad(options) {
-
-    let storage = wx.getStorageSync('createdCompany')
-    let params = ['real_name', 'user_email', 'user_position', 'company_name']
-    let formData = this.data.formData
-    params.map(field => formData[field] = storage[field])
-
-    this.setData({formData, options}, () => {
-      console.log(this.data.formData, 'outer')
-      this.bindBtnStatus()
-      this.getBannerHeight()
-    })
-
-    // this.getCompanyIdentityInfos()
+    this.setData({options})
+    this.getCompanyIdentityInfos()
   },
   backEvent() {
     wx.removeStorageSync('createdCompany')
@@ -64,39 +55,18 @@ Page({
    * @return   {[type]}   [description]
    */
   getCompanyIdentityInfos(hasLoading = true) {
-    console.log(this.data.formData, 'inter')
-    let storage = wx.getStorageSync('createdCompany')
-    let params = ['real_name', 'user_email', 'user_position', 'company_name']
-    let formData = this.data.formData
-
-    // 是否已经填写过当前页面的信息
-    if(storage.real_name || storage.user_email || storage.user_position || storage.company_name) {
-      params.map(field => formData[field] = storage[field])
-      this.setData({formData}, () => this.bindBtnStatus())
-      return
-    }
-
+    let storage = wx.getStorageSync('createdCompany') || {}
+    let options = this.data.options
     getCompanyIdentityInfosApi({hasLoading}).then(res => {
       let infos = res.data.companyInfo
       let formData = {
-        real_name: infos.realName || '',
-        user_email: infos.userEmail || '',
-        user_position: infos.userPosition || '',
-        company_name: infos.companyName || '',
-        company_shortname: infos.companyShortname || '',
-        industry_id: infos.industryId || '',
-        industry_id_name: infos.industry || '',
-        financing: infos.financing || '',
-        financingName: infos.financingInfo || '',
-        employees: infos.employees,
-        employeesName: infos.employeesInfo || '',
-        business_license: infos.businessLicenseInfo || {},
-        on_job: infos.onJobInfo || {},
-        id: infos.id || '',
-        logo: infos.logoInfo || {}
+        real_name: storage.real_name || infos.realName,
+        user_email: storage.user_email || infos.userEmail,
+        user_position: storage.user_position || infos.userPosition,
+        company_name: storage.company_name || infos.companyName
       }
-      if(infos.intro) formData.intro = infos.intro
-      if(infos.applyId) formData.applyId = infos.applyId
+      // 重新编辑 加公司id
+      if(options.action && options.action === 'edit') formData = Object.assign(formData, {id: infos.id})
       this.setData({formData, canClick: true})
       wx.setStorageSync('createdCompany', Object.assign(formData, this.data.formData))
     })
@@ -164,7 +134,10 @@ Page({
         this[action]()
       }
     })
-    .catch(err => app.wxToast({title: err}))
+    .catch(err => {
+      console.log(err)
+      // app.wxToast({title: err})
+    })
   },
   /**
    * @Author   小书包
@@ -273,12 +246,11 @@ Page({
       real_name: storage.real_name,
       user_email: storage.user_email,
       user_position: storage.user_position,
-      company_name: storage.company_name,
-      company_id: storage.company_id
+      company_name: storage.company_name
     }
     params = Object.assign(params, this.data.formData)
-    applyCompanyApi(params).then(() => {
-      wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=join`})
+    createCompanyApi(params).then(() => {
+      wx.reLaunch({url: `${RECRUITER}user/company/createdCompanyInfos/createdCompanyInfos?from=company`})
       wx.removeStorageSync('createdCompany')
     })
   },
@@ -289,18 +261,17 @@ Page({
    * @return   {[type]}   [description]
    */
   editCreateCompany() {
-    let storage = wx.getStorageSync('createdCompany')
-    let id = storage.applyId
-    let infos = this.data.infos
+    // 防止用户重新编辑
+    let formData = Object.assign(wx.getStorageSync('createdCompany') || {}, this.data.formData)
     let params = {
-      id,
-      real_name: storage.real_name,
-      user_email: storage.user_email,
-      user_position: storage.user_position,
-      company_id: infos.id
+      id: formData.id,
+      real_name: formData.real_name,
+      user_email: formData.user_email,
+      user_position: formData.user_position,
+      company_name: formData.company_name
     }
-    editApplyCompanyApi(params).then(() => {
-      wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=join`})
+    editCompanyFirstStepApi(params).then(() => {
+      wx.reLaunch({url: `${RECRUITER}user/company/createdCompanyInfos/createdCompanyInfos?from=company&action=edit`})
       wx.removeStorageSync('createdCompany')
     })
   },
