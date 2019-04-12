@@ -50,8 +50,8 @@ Component({
     applicantList: [
       {
         title: '发现机会',
-        iconPath: `${cdnImagePath}tab_home_nor@3x.png`,
-        selectedIconPath: `${cdnImagePath}tab_home_sel@3x.png`,
+        iconPath: `${cdnImagePath}tab_job_nor@3x.png`,
+        selectedIconPath: `${cdnImagePath}tab_job_sel@3x.png`,
         active: true,
         path: `${APPLICANT}index/index`
       },

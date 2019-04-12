@@ -128,6 +128,13 @@ Page({
     }
     wx.navigateTo({url})
   },
+  jump(e) {
+    if(e.currentTarget.dataset.type === 'positionList') {
+      wx.reLaunch({url: `${APPLICANT}index/index`})
+    } else {
+      wx.navigateTo({url: `${COMMON}rank/rank`})
+    }
+  },
   /**
    * @Author   小书包
    * @DateTime 2019-01-21

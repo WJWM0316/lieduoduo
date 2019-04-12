@@ -5,7 +5,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    title: '',
+    pageUrl: ''
   },
 
   /**
@@ -13,12 +14,14 @@ Page({
    */
   onLoad: function (options) {
     let pageUrl = ''
+    let title = ''
     switch (options.type) {
       case 'recruitmentDay':
         pageUrl = 'http://m.lieduoduo.ziwork.com/available'
+        title = '猎多多招聘节'
         break
     }
-    this.setData({pageUrl})
+    this.setData({pageUrl, title})
   },
 
   /**

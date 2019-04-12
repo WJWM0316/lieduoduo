@@ -77,7 +77,7 @@
   height: 98rpx;
 }
 .jobList {
-  margin-top: 30rpx;
+  padding-top: 30rpx;
 }
 .jump {
   width: 430rpx;

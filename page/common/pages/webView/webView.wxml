@@ -1,2 +1,4 @@
-<!--page/common/pages/webView/webView.wxml-->
-<text>page/common/pages/webView/webView.wxml</text>
+<view class="webView">
+	<navbar title="{{title}}" background="#fff" color="#22292C"></navbar>
+	<web-view src="{{pageUrl}}"></web-view>
+</view>

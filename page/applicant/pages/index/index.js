@@ -26,7 +26,8 @@ Page({
     fixedBarHeight: 0,
     hasReFresh: false,
     onBottomStatus: 0,
-    title: '',
+    isBangs: app.globalData.isBangs,
+    pixelRatio: app.globalData.systemInfo.pixelRatio,
     tabList: [
       {
         name: '选择地区',

@@ -159,7 +159,7 @@ Page({
   },
   jump() {
     if(this.data.tab === 'positionList') {
-      wx.reLaunch({url: `${COMMON}careerChance/careerChance`})
+      wx.reLaunch({url: `${APPLICANT}index/index`})
     } else {
       wx.navigateTo({url: `${COMMON}rank/rank`})
     }
