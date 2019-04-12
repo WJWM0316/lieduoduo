@@ -12,7 +12,7 @@
         bindchange="autoplay"
         >
         <swiper-item wx:for="{{bannerList}}" wx:key="{{index}}">
-          <image class="banner" src="{{item.attachInfo.url}}" bindtap="jumpBanner" data-url="{{item.targetUrl}}"></image>
+          <image class="banner" src="{{item.bigImgUrl}}" bindtap="jumpBanner" data-url="{{item.targetUrl}}"></image>
         </swiper-item>
       </swiper>
       <view class="swiper-dots">
