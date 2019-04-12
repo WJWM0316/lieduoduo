@@ -16,4 +16,4 @@
 	  </view>
   </view>
 </view>
-<scanCodeTips showScanBox="{{showScanBox}}"></scanCodeTips>
+<scanCodeTips showScanBox="{{showScanBox}}" wx:if="{{showScanBox}}"></scanCodeTips>
