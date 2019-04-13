@@ -19,11 +19,11 @@
 			</view>
 		</view>
 		
-		<view class="li" data-route="email" bindtap="routeJump" wx:if="{{options.from === 'join'}}">
+		<view class="li" data-route="contact" bindtap="routeJump" wx:if="{{options.from === 'join'}}">
 			<view class="icon-box"><i class="icon iconfont icon-youxiangrenzheng"></i></view>
 			<view class="content">
-				<view class="h3">公司邮箱认证</view>
-				<view class="h4">适合有统一公司邮箱的面试官使用</view>
+				<view class="h3">管理员认证</view>
+				<view class="h4">通过申请加入，联系管理员进行认证</view>
 			</view>
 			<view class="arrow-box">
 				<text>去认证</text>

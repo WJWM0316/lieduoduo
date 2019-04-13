@@ -30,6 +30,25 @@ export const getCompanyFinancingApi = (data, hasLoading) => {
   })
 }
 
+// 判断是否有申请记录
+export const hasApplayRecordApi = (data, hasLoading) => {
+  return request({
+    method: 'get',
+    url: '/company/applyInfo',
+    hasLoading: false
+  })
+}
+
+// 更新申请加入方式
+export const upJoinTypeApi = (data, hasLoading) => {
+  return request({
+    method: 'post',
+    url: '/company/upJoinType',
+    data,
+    hasLoading: true
+  })
+}
+
 // 获取员工数据列表
 export const getCompanyEmployeesApi = (data, hasLoading) => {
   return request({
@@ -312,7 +331,7 @@ export const getCompanyProductListsApi = (data, hasLoading) => {
 export const getCompanyIdentityInfosApi = (data) => {
   return request({
     method: 'get',
-    url: `/company/identity_new`,
+    url: `/company/identity`,
     data,
     hasLoading: data.hasLoading
   })

@@ -61,7 +61,7 @@ Page({
       let formData = {}
       let options = this.data.options
       let applyJoin = res.data.applyJoin
-      let identityInfo = res.data.identityInfo
+      let identityInfo = res.data
       let companyInfo = res.data.companyInfo
 
       if(applyJoin) {

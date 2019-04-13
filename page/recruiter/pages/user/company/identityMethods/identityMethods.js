@@ -39,6 +39,9 @@ Page({
       case 'call':
         wx.makePhoneCall({phoneNumber: app.globalData.telePhone})
         break
+      case 'contact':
+        wx.makePhoneCall({phoneNumber: app.globalData.telePhone})
+        break
       default:
         break
     }

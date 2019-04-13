@@ -15,6 +15,7 @@ Page({
     pageTitle: '',
     options: {},
     hasReFresh: false,
+    applyJoin: false,
     cdnImagePath: app.globalData.cdnImagePath
   },
   onLoad(options) {
@@ -34,8 +35,10 @@ Page({
   	switch(params.action) {
   		case 'identity':
         // 没有填写身份信息或者身份信息审核失败
-        if(identityInfos.status === 2 || !identityInfos.id) {
+        if(!identityInfos.haveIdentity) {
           wx.navigateTo({url: `${RECRUITER}user/company/identity/identity?from=${options.from}`})
+        } else {
+          wx.navigateTo({url: `${RECRUITER}user/company/status/status?from=identity`})
         }
   			break
   		case 'modifyCompany':
@@ -52,6 +55,9 @@ Page({
         break
       case 'applyModify':
         wx.navigateTo({url: `${RECRUITER}user/company/apply/apply?action=edit`})
+        break
+      case 'recruitment':
+        wx.reLaunch({url: `${RECRUITER}/index/index`})
         break
       case 'call':
         wx.makePhoneCall({phoneNumber: app.globalData.telePhone})
@@ -87,9 +93,13 @@ Page({
         let pageTitle = ''
         let options = this.data.options
         // 个人身份信息
-        let identityInfos = res.data.identityInfo
+        let identityInfos = res.data
         // 是否加入
         let applyJoin = res.data.applyJoin
+        // 是否返回上一页
+        let isReturnBack = false
+        // 是否已经填写个人信息
+        let hasOwerInfos = false
 
         if(applyJoin) {
           pageTitle = '申请加入公司'
@@ -97,46 +107,29 @@ Page({
           pageTitle = '公司认证'
         }
 
-        if(options.from === 'identity' || (companyInfos.status === 1 && identityInfo.status === 2)) {
+        if(options.from === 'identity' || (companyInfos.status === 1 && identityInfos.status === 2)) {
           pageTitle = '身份认证'
         }
 
-        this.setData({identityInfos, companyInfos, pageTitle}, () => {
-          resolve(res)
+        this.setData({identityInfos, companyInfos, pageTitle, applyJoin}, () => {
           
+          resolve(res)
           
           // 加入公司
           if(applyJoin) {
 
-            // 这里的判断是 加入公司审核已经通过 但是还没有填写身份信息 在当前页面刷新 直接返回首页
-            if(companyInfos.status === 1 && options.from === 'join' && !identityInfo.id) {
-              app.getAllInfo().then(() => wx.reLaunch({url: `${RECRUITER}index/index`}))
-            }
-
             // 这里的判断是从发布职位过来或者我的页面过来或者api判断过来 个人身份已经通过 则返回上一个页面或者首页
-            if(companyInfos.status === 1 && options.from === 'identity' && identityInfo.identityAuth) {
-              if(getCurrentPages() && getCurrentPages().length > 1) {
-                wx.navigateBack({delta: 1 })
-              } else {
-                wx.reLaunch({url: `${RECRUITER}index/index`})
-              }
-            }
-          } else {
+            isReturnBack = 
+              companyInfos.status === 1 
+              && options.from === 'identity'
+              && identityInfos.identityAuth
+              && getCurrentPages()
+              && getCurrentPages().length > 1
 
-            // 公司已经认证
-            if(companyInfos.status === 1) {
-              // 个人身份已经认证
-              if(identityInfo.identityAuth) {
-                app.getAllInfo().then(() => {
-                  wx.reLaunch({url: `${RECRUITER}index/index`})
-                })
-                return;
-              }
-              // 还没有填写个人信息
-              if(!identityInfo.id) {
-                wx.reLaunch({url: `${RECRUITER}user/company/identity/identity?from=identity`})
-              }
-            }
+            if(isReturnBack) wx.navigateBack({delta: 1 })
+          } else {
+            hasOwerInfos = !identityInfos.haveIdentity && companyInfos.status === 1
+            if(hasOwerInfos) wx.reLaunch({url: `${RECRUITER}user/company/identity/identity?from=identity`})
           }
         })
       })
@@ -151,5 +144,14 @@ Page({
     }).catch(e => {
       wx.stopPullDownRefresh()
     })
+  },
+  /**
+   * @Author   小书包
+   * @DateTime 2019-04-08
+   * @detail   切换身份
+   * @return   {[type]}   [description]
+   */
+  toggle() {
+    app.toggleIdentity()
   }
 })
