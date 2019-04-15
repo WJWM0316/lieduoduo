@@ -1,2 +1,9 @@
-<!--page/applicant/pages/createUser/createUser.wxml-->
-<text>page/applicant/pages/createUser/createUser.wxml</text>
+<view class="createUser">
+	<navbar title=""  background="#4F286E" color="#fff"></navbar>
+	<view style="margin-top:-{{nav}}px" class="start {{step === 0 ? 'entry' : ''}}" >
+		<view class="content {{step === 0 ? 'active' : ''}}" animation="{{animationData}}">
+			<image class="title" src="{{cdnImagePath}}pic_weclomefont_.png" mode="widthFix"></image>
+			<image class="icon" src="{{cdnImagePath}}pic_ai.png"  mode="widthFix"></image>
+		</view>
+	</view>
+</view>

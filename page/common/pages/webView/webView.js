@@ -19,7 +19,6 @@ Page({
     let sessionToken = wx.getStorageSync('sessionToken')
     switch (options.type) {
       case 'recruitmentDay':
-      
         pageUrl = `https://m.lieduoduo.ziwork.com/available?sessionToken=${sessionToken}`//`https://m.lieduoduo.ziwork.com/available?sessionToken=${sessionToken}`//
         title = '猎多多招聘节'
         break
