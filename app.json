@@ -20,8 +20,7 @@
     "page/common/pages/tabsPage/tabsPage",
     "page/common/pages/cutInside/cutInside",
     "page/common/pages/chooseJob/chooseJob",
-    "page/common/pages/webView/webView",
-    "page/applicant/pages/createUser/createUser"
+    "page/common/pages/webView/webView"
   ],
   "window": {
     "navigationBarTextStyle": "black",
@@ -41,6 +40,7 @@
         "pages/interview/interview/interview",
         "pages/officerActive/more/more",
         "pages/officerActive/recruitmentActive/recruitmentActive",
+        "pages/createUser/createUser",
         "pages/center/mine/mine",
         "pages/center/createUser/createUser",
         "pages/center/workExperience/workExperience",
