@@ -147,6 +147,13 @@
 				},
 				{
 					"id": 10,
+					"name": "【C端】创建用户",
+					"pathName": "page/applicant/pages/createUser/createUser",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 10,
 					"name": "【C端】创建第一步",
 					"pathName": "page/applicant/pages/center/createUser/createUser",
 					"query": ""

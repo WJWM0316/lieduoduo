@@ -193,6 +193,7 @@ Page({
         this.reloadPositionLists()
         break
     }
+    if (this.data.tabFixed) this.setData({tabFixed: false})
   },
   /**
    * @Author   小书包

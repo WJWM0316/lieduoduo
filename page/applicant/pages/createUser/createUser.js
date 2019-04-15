@@ -1,37 +1,20 @@
-const app = getApp()
+// page/applicant/pages/createUser/createUser.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    title: '',
-    pageUrl: '',
-    navH: app.globalData.navHeight
+
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    let pageUrl = ''
-    let title = ''
-    let sessionToken = wx.getStorageSync('sessionToken')
-    switch (options.type) {
-      case 'recruitmentDay':
-      
-        pageUrl = `http://192.168.5.159/available?sessionToken=${sessionToken}`//`https://m.lieduoduo.ziwork.com/available?sessionToken=${sessionToken}`//
-        title = '猎多多招聘节'
-        break
-    }
-    this.setData({pageUrl, title})
+
   },
-  getMessage (e) {
-    console.log(e, 'h5返回的信息')
-  },
-  webLoad (e) {
-    console.log(e, 11111111111111111)
-  },
+
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

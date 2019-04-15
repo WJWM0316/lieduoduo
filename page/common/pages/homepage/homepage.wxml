@@ -156,5 +156,5 @@
 	<view class="job-list" hidden="{{tab === 'about'}}">
 		<jobList list="{{positionList.list}}" showBoxShadow="{{false}}"></jobList>
 	</view>
-
+	<auth wx:if="{{requireOAuth}}" bindauthSuccess="authSuccess"></auth>
 </view>

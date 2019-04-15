@@ -1,4 +1,3 @@
 <view class="webView">
-	<navbar title="{{title}}" background="#fff" color="#22292C"></navbar>
-	<web-view src="{{pageUrl}}"></web-view>
+	<web-view src="{{pageUrl}}" bindmessage="getMessage" bindload="webLoad"></web-view>
 </view>

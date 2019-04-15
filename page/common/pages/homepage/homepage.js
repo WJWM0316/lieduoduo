@@ -40,6 +40,7 @@ Page({
     labelId: null,
     domHeight: 0,
     isFixed: false,
+    requireOAuth: false,
     map: {
       longitude: 0,
       latitude: 0,
@@ -192,7 +193,7 @@ Page({
   getCompanyDetail(hasLoading = true, isReload = false) {
     return new Promise((resolve, reject) => {
       getCompanyInfosApi({id: this.data.query.companyId, hasLoading, isReload, ...app.getSource()}).then(res => {
-        console.log(11111111111111111, app.getSource(), isReload)
+        let requireOAuth = res.meta && res.meta.requireOAuth ? res.meta.requireOAuth : false
         const companyInfos = res.data
         const longitude = companyInfos.address.length ? companyInfos.address[0].lng : 0
         const latitude = companyInfos.address.length ? companyInfos.address[0].lat : 0
@@ -216,7 +217,7 @@ Page({
             anchorY: '-60rpx'
           }
         })
-        this.setData({companyInfos, map }, () => resolve(res))
+        this.setData({companyInfos, map, requireOAuth}, () => resolve(res))
       })
     })
   },
