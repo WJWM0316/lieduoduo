@@ -46,7 +46,7 @@
 	color:rgba(101,39,145,1);
 	line-height: 1;
 	text-align: center;
-	margin-bottom: 16rpx;
+	margin-bottom: 20rpx;
 }
 
 .header .p{

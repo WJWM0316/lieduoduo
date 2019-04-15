@@ -192,7 +192,7 @@
 		</view>
 	</view>
 
-	<view class="section" wx:if="{{options.from === 'identity'}}">
+	<view class="section" wx:if="{{options.from === 'identity' && identityInfos.status !== 1}}">
 		<view class="title">
 			<view class="label">认证信息</view>
 			<view class="jump" bindtap="todoAction" data-action="identity" wx:if="{{!identityInfos.id || identityInfos.status === 2}}">申请信息有误？去更改</view>
@@ -206,7 +206,7 @@
 				<view class="key">身份证号</view>
 				<view class="value">{{filters.encryptId(identityInfos.identityNum, 1, 1)}}</view>
 			</view>
-			<view class="li" wx:if="{{applyJoin}}">
+			<view class="li" wx:if="{{!applyJoin}}">
 				<view class="key">证件照片</view>
 				<view class="value">{{identityInfos.identityNum ? '已上传' : '未上传'}}</view>
 			</view>
@@ -279,4 +279,5 @@
 	<view class="go" bindtap="toggle" wx:if="{{identityInfos.status !== 1 || companyInfos.status !== 1}}"><text>前往求职端</text></view>
 
 	<view class="button4" wx:if="{{options.from !== 'identity' && identityInfos.status === 1 && companyInfos.status === 1}}" bindtap="todoAction" data-action="recruitment">开始招聘</view>
+	<view class="button4" wx:if="{{options.from === 'identity' && identityInfos.status === 1}}" bindtap="todoAction" data-action="recruitment">确定</view>
 </view>

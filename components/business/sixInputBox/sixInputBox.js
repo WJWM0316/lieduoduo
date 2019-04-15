@@ -22,6 +22,13 @@ Component({
       observer (newVal, oldVal) {}
     },
 
+    // 是否获取焦点
+    isFocus: {
+      type: Boolean,
+      value: true,
+      observer (newVal, oldVal) {}
+    },
+
     //输入框聚焦状态
     get_focus: {
       type: Boolean,
@@ -40,12 +47,6 @@ Component({
       value: "",
       observer (newVal, oldVal) {}
     },
-    //输入框聚焦样式 
-    focus_class: {
-      type: Boolean,
-      value: false,
-      observer (newVal, oldVal) {}
-    },
     //输入框格子数
     value_num: {
       type: Array,
@@ -59,17 +60,12 @@ Component({
 
     // 获得焦点时
     get_focus() {
-      this.setData({focus_class: true })
-    },
-
-    // 失去焦点时
-    blur() {
-      this.setData({focus_class: false })
+      this.setData({isFocus: true })
     },
 
     // 点击聚焦
     set_focus() {
-      this.setData({get_focus: true })
+      this.setData({isFocus: true })
     },
 
     // 获取输入框的值

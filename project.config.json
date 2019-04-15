@@ -41,7 +41,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 33,
+			"current": 36,
 			"list": [
 				{
 					"id": 0,
@@ -274,6 +274,12 @@
 					"pathName": "page/recruiter/pages/user/company/upload/upload",
 					"query": "from=company",
 					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "认证 第八步",
+					"pathName": "page/recruiter/pages/user/company/status/status",
+					"query": "from=identity"
 				}
 			]
 		}

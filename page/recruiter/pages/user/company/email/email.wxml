@@ -4,13 +4,13 @@
 		<view class="h1">公司邮箱验证</view>
 		<view class="p">公司邮箱，用于验证面试官个人与公司所属关系的真实性</view>
 	  <view class="input-li clear-bottom">
-	  	<block>
+	  	<block wx:if="{{options.from === 'company'}}">
 	  		<input class="value" placeholder="输入公司邮箱" bindinput="bindInput" value="{{email}}" />
 	  	</block>
-<!-- 	  	<block wx:else>
+	  	<block wx:else>
 	  		<input class="prefix" placeholder="输入公司邮箱前缀" bindinput="bindInput" value="{{email}}" />
-	  		<view class="suffix">{{suffix}}</view>
-	  	</block> -->
+	  		<view class="suffix">{{options.suffix}}</view>
+	  	</block>
 	  </view>
 	  <view class="example">示例：Hr@tiger.com</view>
 	  <view class="btn-area">
@@ -24,12 +24,13 @@
 	<view class="form" wx:else>
 
 		<view class="h1">请输入邮箱验证码</view>
-		<view class="p">我们向 <text>{{email}}</text> 发送了{{codeLength}}位数的验证码，请查收并填入下方</view>
+		<view class="p" wx:if="{{options.from === 'company'}}">我们向 <text>{{email}}</text> 发送了{{codeLength}}位数的验证码，请查收并填入下方</view>
+		<view class="p" wx:else>我们向 <text>{{email}}{{options.suffix}}</text> 发送了{{codeLength}}位数的验证码，请查收并填入下方</view>
 
 		<view class="codeError" wx:if="{{error}}">验证码输入错误请重新发送</view>
 
 	  <view class="write-box">
-	  	<sixInputBox bindresultEvent="getResult" classErrorName="{{classErrorName}}"></sixInputBox>
+	  	<sixInputBox bindresultEvent="getResult" classErrorName="{{classErrorName}}" isFocus="{{isFocus}}"></sixInputBox>
 	  </view>
 
 	  <view class="example1">

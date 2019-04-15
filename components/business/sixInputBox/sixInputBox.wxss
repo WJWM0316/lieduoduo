@@ -32,10 +32,18 @@
 /* 输入框 */
 
 .input_container {
-  height: 0;
-  width: 0;
+  height: 100%;
+  width: 200%;
   min-height: 0;
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  left: 0;
+  transform: translateX(-100%);
+}
+
+.content {
+  height: 100rpx;
+  overflow: hidden;
   position: relative;
-  text-indent: -999em;
-  left: -100%;
 }

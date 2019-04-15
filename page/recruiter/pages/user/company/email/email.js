@@ -1,6 +1,8 @@
 import {
   sendEmailApi,
-  verifyEmailApi
+  verifyEmailApi,
+  sendEnterpriseEmailApi,
+  verifyEnterpriseEmailApi
 } from '../../../../../../api/pages/company.js'
 
 import {emailReg} from '../../../../../../utils/fieldRegular.js'
@@ -15,7 +17,7 @@ Page({
     step: 1,
     code: '',
     codeLength: 6,
-    isFocus: true,
+    isFocus: false,
     ispassword: false,
     canClick: false,
     options: {},
@@ -25,8 +27,7 @@ Page({
     isEmail: false,
     time: 60,
     timer: null,
-    canResend: true,
-    suffix: '@thetigre.com.cn'
+    canResend: true
   },
   onLoad(options) {
     this.setData({options})
@@ -48,7 +49,7 @@ Page({
     let options = this.data.options
     let isEmail = this.data.isEmail
     if(options.from === 'join') {
-      email = this.data.email + this.data.suffix
+      email = this.data.email + this.data.options.suffix
     }
 
     if(emailReg.test(email)) {
@@ -80,13 +81,70 @@ Page({
    * @return   {[type]}   [description]
    */
   sendEmail() {
+    let options = this.data.options
+    if(options.from === 'join') {
+      this.sendEmailByJoin()
+    } else {
+      this.sendEmailByCreate()
+    }
+  },
+  /**
+   * @Author   小书包
+   * @DateTime 2018-12-22
+   * @detail   发送验证码
+   * @return   {[type]}   [description]
+   */
+  sendEmailByCreate() {
+    let options = this.data.options
+    let applyJoin = options.from === 'join' ? true : false
+    let params = {email: this.data.email, company_id: options.companyId}
+    if(!params.email.includes('@')) {
+      params = Object.assign(params, {email: `${params.email}${options.suffix}`})
+    }
+    if(this.data.step === 2) {
+      sendEmailApi(params).then(res => this.setData({canResend: false }, this.killTime()))
+    } else {
+      sendEmailApi(params).then(res => this.setData({step: 2, isFocus: true}, this.killTime()))
+    }
+  },
+  /**
+   * @Author   小书包
+   * @DateTime 2019-04-15
+   * @detail   倒计时
+   * @return   {[type]}   [description]
+   */
+  killTime() {
+    let timer = this.data.timer
+    let time = this.data.time
+    timer = setInterval(() => {
+      time--
+      console.log(this.data)
+      if(time < 1) {
+        clearInterval(timer)
+        this.setData({canResend: true, time: 60})
+      } else {
+        this.setData({time, canResend: false})
+      }
+    }, 1000)
+  },
+  /**
+   * @Author   小书包
+   * @DateTime 2018-12-22
+   * @detail   发送验证码
+   * @return   {[type]}   [description]
+   */
+  sendEmailByJoin() {
     // let storage = wx.getStorageSync('createdCompany')
     let options = this.data.options
+    let applyJoin = options.from === 'join' ? true : false
     let params = {email: this.data.email, company_id: options.companyId}
+    if(!params.email.includes('@')) {
+      params = Object.assign(params, {email: `${params.email}${options.suffix}`})
+    }
     if(this.data.step === 2) {
-      sendEmailApi(params).then(res => this.setData({canResend: false }))
+      sendEnterpriseEmailApi(params).then(res => this.setData({canResend: false }, this.killTime()))
     } else {
-      sendEmailApi(params).then(res => this.setData({step: 2}))
+      sendEnterpriseEmailApi(params).then(res => this.setData({step: 2, isFocus: true}, this.killTime()))
     }
   },
   /**
@@ -96,25 +154,43 @@ Page({
    * @return   {[type]}   [description]
    */
   reEmail() {
-    // let storage = wx.getStorageSync('createdCompany')
     let options = this.data.options
-    let params = {email: this.data.code, company_id: options.companyId}
+    if(options.from === 'join') {
+      this.reEmailByJoin()
+    } else {
+      this.reEmailByCreate()
+    }
+  },
+  /**
+   * @Author   小书包
+   * @DateTime 2018-12-22
+   * @detail   重新发送验证码
+   * @return   {[type]}   [description]
+   */
+  reEmailByCreate() {
+    let options = this.data.options
+    let params = {email: this.data.email, company_id: options.companyId}
     // 已经进入倒计时
     if(!this.data.canResend) return;
-    this.setData({canResend: false })
-    sendEmailApi(params).then(res => {
-      let timer = this.data.timer
-      let time = this.data.time
-      timer = setInterval(() => {
-        time--
-        if(time < 1) {
-          clearInterval(timer)
-          this.setData({canResend: true, time: 60})
-        } else {
-          this.setData({time})
-        }
-      }, 1000)
-    })
+    this.setData({canResend: false , isFocus: true})
+    sendEmailApi(params).then(res => this.killTime())
+  },
+  /**
+   * @Author   小书包
+   * @DateTime 2018-12-22
+   * @detail   重新发送验证码
+   * @return   {[type]}   [description]
+   */
+  reEmailByJoin() {
+    let options = this.data.options
+    let params = {email: this.data.email, company_id: options.companyId}
+    if(!params.email.includes('@')) {
+      params = Object.assign(params, {email: `${params.email}${options.suffix}`})
+    }
+    // 已经进入倒计时
+    if(!this.data.canResend) return;
+    this.setData({canResend: false , isFocus: true})
+    sendEnterpriseEmailApi(params).then(res => this.killTime())
   },
   /**
    * @Author   小书包
@@ -123,11 +199,44 @@ Page({
    * @return   {[type]}     [description]
    */
   verifyEmail() {
-    // let storage = wx.getStorageSync('createdCompany')
+    let options = this.data.options
+    if(options.from === 'join') {
+      this.verifyEmailByJoin()
+    } else {
+      this.verifyEmailByCreate()
+    }
+  },
+  /**
+   * @Author   小书包
+   * @DateTime 2019-01-08
+   * @detail   验证邮箱
+   * @return   {[type]}     [description]
+   */
+  verifyEmailByCreate() {
     let options = this.data.options
     let params = {email: this.data.email, company_id: options.companyId, code: this.data.code}
     verifyEmailApi(params).then(res => {
       wx.redirectTo({url: `${RECRUITER}user/company/status/status?from=company`})
+    })
+    .catch(() => {
+      this.setData({code: '', error: true, isFocus: true, classErrorName: 'error'})
+    })
+  },
+  /**
+   * @Author   小书包
+   * @DateTime 2019-01-08
+   * @detail   验证邮箱
+   * @return   {[type]}     [description]
+   */
+  verifyEmailByJoin() {
+    // let storage = wx.getStorageSync('createdCompany')
+    let options = this.data.options
+    let params = {email: this.data.email, company_id: options.companyId, code: this.data.code}
+    if(!params.email.includes('@')) {
+      params = Object.assign(params, {email: `${params.email}${options.suffix}`})
+    }
+    verifyEnterpriseEmailApi(params).then(res => {
+      wx.redirectTo({url: `${RECRUITER}user/company/status/status?from=join`})
     })
     .catch(() => {
       this.setData({code: '', error: true, isFocus: true, classErrorName: 'error'})

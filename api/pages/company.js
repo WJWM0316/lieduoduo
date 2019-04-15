@@ -397,6 +397,26 @@ export const sendEmailApi = (data, hasLoading) => {
   })
 }
 
+// 发送企业邮箱验证码
+export const sendEnterpriseEmailApi = (data, hasLoading) => {
+  return request({
+    method: 'post',
+    url: `/company/companyMail`,
+    data,
+    hasLoading: true
+  })
+}
+
+// 验证企业邮箱验证码
+export const verifyEnterpriseEmailApi = (data, hasLoading) => {
+  return request({
+    method: 'post',
+    url: `/company/verify`,
+    data,
+    hasLoading: true
+  })
+}
+
 // 验证企业邮箱验证码
 export const verifyEmailApi = (data, hasLoading) => {
   return request({

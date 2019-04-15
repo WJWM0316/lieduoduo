@@ -4,6 +4,11 @@ let loadNum = 0
 let BASEHOST = ''
 let toAuth = false
 let toBindPhone = false
+let noToastUrlArray = [
+  '/company/edit_first_step/',
+  '/company/notifyadmin'
+]
+
 let recruiterJump = (msg) => {
 
   let companyInfo = msg.data.companyInfo
@@ -134,7 +139,7 @@ export const request = ({method = 'post', url, host, data = {}, needKey = true, 
           if (msg.httpStatus === 200) {
             resolve(msg)
           } else {
-            if (msg.code !== 701 && msg.code !== 801 && !url.includes('/company/edit_first_step/')) {
+            if (msg.code !== 701 && msg.code !== 801 && noToastUrlArray.every(now => url.includes(now))) {
               getApp().wxToast({title: msg.msg, duration: 2000})
             }
             reject(msg)

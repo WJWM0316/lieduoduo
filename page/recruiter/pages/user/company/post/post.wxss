@@ -204,3 +204,7 @@
 	box-sizing: border-box;
 	padding: 30rpx 100rpx;
 }
+
+.company-post .entry-list .wid {
+	width: calc(100% - 180rpx);
+}

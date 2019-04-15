@@ -32,7 +32,7 @@
 		<view class="li">
 			<i class="icon iconfont icon-xiangyou"></i>
 			<view class="key"><text>*</text>所属行业</view>
-			<view class="value self {{formData.industry_id ? 'color' : ''}}">{{formData.industry_id_name}}</view>
+			<view class="value self {{formData.industry_id ? 'color' : ''}}">{{ formData.industry_id ? formData.industry_id_name : '请选择'}}</view>
 			<view class="picker-box">
 				<picker
 					range="{{ companyLabelField }}" 
