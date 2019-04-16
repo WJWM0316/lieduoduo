@@ -254,7 +254,15 @@ Page({
         params = Object.assign(params, {company_id: res.data.id})
         // 被拒绝并且是新公司
         if(formData.id !== res.data.id) {
-          this.joinCompany({companyId: res.data.id})
+          // 查看当前公司是否有申请记录
+          hasApplayRecordApi({company_id: res.data.id}).then(res => {
+            // 当前公司已经申请过
+            if(res.data.id) {
+              this.editJoinCompany()
+            } else {
+              this.joinCompany({companyId: res.data.id})
+            }
+          })
         } else {
           editApplyCompanyApi(params).then(res => {
             wx.removeStorageSync('createdCompany')
