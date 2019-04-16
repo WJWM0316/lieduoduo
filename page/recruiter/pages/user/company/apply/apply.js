@@ -66,7 +66,7 @@ Page({
     let applyJoin = this.data.applyJoin
     getCompanyIdentityInfosApi({hasLoading}).then(res => {
       let companyInfo = res.data.companyInfo
-      let status = companyInfo.status
+      let status = 0
       applyJoin = res.data.applyJoin
       let formData = {
         real_name: storage.real_name || companyInfo.realName,
@@ -75,7 +75,7 @@ Page({
         company_name: storage.company_name || companyInfo.companyName
       }
       // 重新编辑 加公司id
-      if(options.action && options.action === 'edit') formData = Object.assign(formData, {id: companyInfo.id})
+      if(options.action && options.action === 'edit') formData = Object.assign(formData, {id: companyInfo.id, status: companyInfo.status})
       if(applyJoin) formData = Object.assign(formData, {applyId: companyInfo.applyId})
       this.setData({formData, canClick: true, applyJoin, status})
       wx.setStorageSync('createdCompany', Object.assign(formData, this.data.formData))

@@ -1,5 +1,5 @@
 .button-submit {
-	margin: 270rpx 100rpx 0;
+	margin: 0 100rpx;
 	height:88rpx;
 	background:#F5F4F7;
 	border-radius:48rpx;
@@ -110,7 +110,7 @@
 }
 .enter {
 	width: 100%;
-	margin: 33rpx auto 52rpx auto;
+	margin-top: 33rpx;
 	text-align: center;
 	font-size:28rpx;
 	font-weight:500;
@@ -122,7 +122,7 @@
 	position: fixed;
 	left: 0;
 	right: 0;
-	bottom: 0;
+	bottom: 50rpx;
 	background: #FBFBFF;
 }
 
