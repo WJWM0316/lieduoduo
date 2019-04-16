@@ -1,6 +1,8 @@
 <view class="createdCompanyInfos">
-	<navbar title="公司认证" background="#fff" color="#22292C"></navbar>
-
+	<navbar title="公司认证" background="#fff" color="#22292C" customBack bindbackEvent="backEvent"></navbar>
+	<view hidden="{{!hasReFresh}}">
+	  <refreshStatus></refreshStatus>
+	</view>
 	<view class="header">
 		<view class="icon-box">
 			<i class="icon iconfont icon-tijiaoshenqing"></i>

@@ -267,7 +267,11 @@
 			<i class="icon iconfont icon-xiangyou" wx:if="{{!identityInfos.haveIdentity || identityInfos.status === 2}}"></i>
 		</view>
 	</view>
-	
+	<view class="tip2" wx:if="{{options.from === 'identity' && identityInfos.status !== 1}}">
+		<view class="span">了解更多认证须知，欢迎联系我们</view>
+		<view class="strong" bindtap="callPhone">{{telePhone}}</view>
+	</view>
+
 	<view class="quickly-entry" wx:if="{{options.from !== 'identity'}}">
 		<view class="content">
 			<view class="h6">快速通道权益</view>
@@ -276,7 +280,7 @@
 		<view class="button" data-action="call" bindtap="todoAction">联系体验</view>
 		<image class="bgImg" src="{{cdnImagePath}}verify_bg.png" mode="aspectFill"></image>
 	</view>
-	<view class="go" bindtap="toggle" wx:if="{{identityInfos.status !== 1 || companyInfos.status !== 1}}"><text>前往求职端</text></view>
+	<view class="go" bindtap="toggle" wx:if="{{identityInfos.status !== 1 || companyInfos.status !== 1 || identityInfos.status !== 1}}"><text>前往求职端</text></view>
 
 	<view class="button4" wx:if="{{options.from !== 'identity' && identityInfos.status === 1 && companyInfos.status === 1}}" bindtap="todoAction" data-action="recruitment">开始招聘</view>
 	<view class="button4" wx:if="{{options.from === 'identity' && identityInfos.status === 1}}" bindtap="todoAction" data-action="recruitment">确定</view>

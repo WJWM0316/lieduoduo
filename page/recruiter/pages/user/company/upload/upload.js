@@ -2,7 +2,8 @@ import {
   createCompanyApi,
   editCompanyInfosApi,
   perfectCompanyByLicenseApi,
-  getCompanyIdentityInfosApi
+  getCompanyIdentityInfosApi,
+  perfectCompanyApi
 } from '../../../../../../api/pages/company.js'
 
 import {RECRUITER} from '../../../../../../config.js'
@@ -17,35 +18,27 @@ Page({
       },
       on_job: {
         smallUrl: ''
-      },
-      id: null
+      }
     },
     options: {},
     cdnImagePath: app.globalData.cdnImagePath,
     canClick: false
   },
   onLoad(options) {
-    this.getCompanyIdentityInfos()
-  },
-  /**
-   * @Author   小书包
-   * @DateTime 2019-01-12
-   * @detail   获取编辑详情
-   * @return   {[type]}   [description]
-   */
-  getCompanyIdentityInfos(hasLoading = true) {
     let storage = wx.getStorageSync('createdCompany') || {}
-    getCompanyIdentityInfosApi({hasLoading}).then(res => {
-      let companyInfo = res.data.companyInfo
-      let formData = {
-        business_license: storage.business_license || companyInfo.businessLicenseInfo,
-        on_job: storage.on_job || companyInfo.onJobInfo,
-        company_name: storage.company_name || companyInfo.companyName,
-        id: companyInfo.id
-      }
-      this.setData({formData, canClick: true})
-      wx.setStorageSync('createdCompany', Object.assign(formData, this.data.formData))
-    })
+    let formData = {
+      business_license: storage.business_license,
+      on_job: storage.on_job
+    }
+    this.setData({formData, canClick: true})
+  },
+  backEvent() {
+    let storage = wx.getStorageSync('createdCompany') || {}
+    let formData = this.data.formData
+    storage.business_license = formData.business_license
+    storage.on_job = formData.on_job
+    wx.setStorageSync('createdCompany', storage)
+    wx.navigateBack({delta: 1})
   },
   /**
    * @Author   小书包
@@ -72,19 +65,22 @@ Page({
   },
   submit() {
     if(!this.data.canClick) return;
-    let storage = wx.getStorageSync('createdCompany')
-    let options = this.data.options
-    let params = {}
-
-    params.business_license = this.data.formData.business_license.id
-    params.on_job = this.data.formData.on_job.id
-    params.id = this.data.formData.id
-    params.company_name = this.data.formData.company_name
-
-    perfectCompanyByLicenseApi(params).then(res => {
-      app.wxToast({title: '完善公司成功'})
+    let storage = wx.getStorageSync('createdCompany') || {}
+    let params = {
+      company_name: storage.company_name,
+      industry_id: storage.industry_id,
+      financing: storage.financing,
+      employees: storage.employees,
+      company_shortname: storage.company_shortname,
+      logo: storage.logo.id,
+      intro: storage.intro,
+      business_license: this.data.formData.business_license.id,
+      on_job: this.data.formData.on_job.id,
+      id: storage.id
+    }
+    perfectCompanyApi(params).then(res => {
       wx.removeStorageSync('createdCompany')
-      wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=company`})
+      wx.navigateTo({url: `${RECRUITER}user/company/status/status?from=company`})
     })
   }
 })

@@ -16,7 +16,8 @@ Page({
     options: {},
     hasReFresh: false,
     applyJoin: false,
-    cdnImagePath: app.globalData.cdnImagePath
+    cdnImagePath: app.globalData.cdnImagePath,
+    telePhone: app.globalData.telePhone
   },
   onLoad(options) {
     wx.setStorageSync('choseType', 'RECRUITER')
@@ -37,11 +38,20 @@ Page({
         if(!identityInfos.haveIdentity) {
           wx.navigateTo({url: `${RECRUITER}user/company/identity/identity?from=${options.from}`})
         } else {
-          wx.navigateTo({url: `${RECRUITER}user/company/status/status?from=identity`})
+          if(identityInfos.status === 2) {
+            wx.navigateTo({url: `${RECRUITER}user/company/identity/identity?from=${options.from}`})
+          } else {
+            wx.navigateTo({url: `${RECRUITER}user/company/status/status?from=identity`})
+          }
         }
   			break
   		case 'modifyCompany':
-  			wx.navigateTo({url: `${RECRUITER}user/company/apply/apply?action=edit`})
+        // 审核失败后  应该重新加一条数据
+        if(companyInfos.status === 2) {
+          wx.reLaunch({url: `${RECRUITER}user/company/apply/apply`})
+        } else {
+          wx.reLaunch({url: `${RECRUITER}user/company/apply/apply?action=edit`})
+        }
   			break
       case 'email':
         wx.navigateTo({url: `${RECRUITER}user/company/email/email?id=${app.globalData.recruiterDetails.companyInfo.id}`})
@@ -64,6 +74,7 @@ Page({
         break
       case 'call':
         wx.makePhoneCall({phoneNumber: app.globalData.telePhone})
+        break
       case 'notice':
         notifyadminApi()
         .then(() => {
@@ -142,6 +153,22 @@ Page({
    * @return   {[type]}   [description]
    */
   toggle() {
-    app.toggleIdentity()
-  }
+    app.wxConfirm({
+      title: '切换身份',
+      content: '是否继续前往求职端？',
+      confirmBack() {
+        app.toggleIdentity()
+      },
+      cancelBack: () => {}
+    })
+  },
+  /**
+   * @Author   小书包
+   * @DateTime 2019-04-08
+   * @detail   拨打电话
+   * @return   {[type]}   [description]
+   */
+  callPhone() {
+    wx.makePhoneCall({phoneNumber: app.globalData.telePhone})
+  },
 })

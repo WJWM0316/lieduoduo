@@ -8,7 +8,7 @@
 	  <view class="input-li">
 	    <view class="key">真实姓名</view>
 	    <view class="value">
-	    	<input placeholder-style="color:#BCBCBC" placeholder="申请人的真实姓名" bindinput="bindInput" data-field="real_name" value="{{formData.real_name}}" maxlength="20"/>
+	    	<input placeholder-style="color:#BCBCBC" placeholder="请输入真实姓名" bindinput="bindInput" data-field="real_name" value="{{formData.real_name}}" maxlength="20"/>
 	    </view>
 	  </view>
 		
@@ -22,14 +22,14 @@
 	  <view class="input-li">
 	    <view class="key">我的职务</view>
 	    <view class="value">
-	    	<input placeholder-style="color:#BCBCBC" placeholder="在公司担任的职务" bindinput="bindInput" data-field="user_position" value="{{formData.user_position}}" />
+	    	<input placeholder-style="color:#BCBCBC" placeholder="请输入担任的职务" bindinput="bindInput" data-field="user_position" value="{{formData.user_position}}" maxlength="50" />
 	    </view>
 	  </view>
 
 	  <view class="input-li clear-bottom">
 	    <view class="key">接收简历邮箱</view>
 	    <view class="value">
-	    	<input placeholder-style="color:#BCBCBC" placeholder="企业常用的邮箱地址" bindinput="bindInput" data-field="user_email" value="{{formData.user_email}}" />
+	    	<input placeholder-style="color:#BCBCBC" placeholder="请输入公司邮箱地址" bindinput="bindInput" data-field="user_email" value="{{formData.user_email}}" />
 	    </view>
 	  </view>
 
@@ -40,7 +40,7 @@
 	</view>
 
 	<view class="footer">
-    <view bindtap="submit" class="button-submit {{canClick ? 'button-enable' : ''}}">下一步</view>
+    <view bindtap="submit" class="button-submit button-enable">下一步</view>
     <view class="enter">
 			<text class="toggle" bindtap="toggle">前往求职端</text>
   		 |

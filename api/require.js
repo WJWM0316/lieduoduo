@@ -6,7 +6,8 @@ let toAuth = false
 let toBindPhone = false
 let noToastUrlArray = [
   '/company/edit_first_step/',
-  '/company/notifyadmin'
+  '/company/notifyadmin',
+  '/company/edit_first_step'
 ]
 
 let recruiterJump = (msg) => {
@@ -30,16 +31,10 @@ let recruiterJump = (msg) => {
         wx.reLaunch({url: `${RECRUITER}user/company/createdCompanyInfos/createdCompanyInfos`})
       } else {
         // 创建公司 没填身份证 但是公司已经审核通过
-        if(companyInfo.status === 1 && !identityInfo.id) {
-          wx.reLaunch({url: `${RECRUITER}user/company/identity/identity?from=identity`})
+        if(companyInfo.status === 1) {
+          wx.reLaunch({url: `${RECRUITER}index/index`})
           return;
         }
-        // 创建公司 已填身份证 身份证没通过 公司已经审核通过
-        if(companyInfo.status === 1 && identityInfo.id && identityInfo.status === 2) {
-          wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=identity`})
-          return;
-        }
-        
         wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=company`})
       }
     }
@@ -134,12 +129,13 @@ export const request = ({method = 'post', url, host, data = {}, needKey = true, 
         }
         if (res) {
           let msg = res.data
+          let showToast = true
           //有字符串的情况下 转数字
           msg.httpStatus = parseInt(msg.httpStatus)
           if (msg.httpStatus === 200) {
             resolve(msg)
           } else {
-            if (msg.code !== 701 && msg.code !== 801 && noToastUrlArray.every(now => url.includes(now))) {
+            if (msg.code !== 701 && msg.code !== 801 && !noToastUrlArray.some(now => url.includes(now))) {
               getApp().wxToast({title: msg.msg, duration: 2000})
             }
             reject(msg)

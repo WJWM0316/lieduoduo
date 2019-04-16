@@ -2,7 +2,8 @@ import {
   sendEmailApi,
   verifyEmailApi,
   sendEnterpriseEmailApi,
-  verifyEnterpriseEmailApi
+  verifyEnterpriseEmailApi,
+  perfectCompanyApi
 } from '../../../../../../api/pages/company.js'
 
 import {emailReg} from '../../../../../../utils/fieldRegular.js'
@@ -31,7 +32,6 @@ Page({
   },
   onLoad(options) {
     this.setData({options})
-    console.log(this.data)
   },
   onHide() {
     let timer = this.data.timer
@@ -215,8 +215,24 @@ Page({
   verifyEmailByCreate() {
     let options = this.data.options
     let params = {email: this.data.email, company_id: options.companyId, code: this.data.code}
-    verifyEmailApi(params).then(res => {
-      wx.redirectTo({url: `${RECRUITER}user/company/status/status?from=company`})
+    verifyEmailApi(params).then(() => {
+      let storage = wx.getStorageSync('createdCompany')
+      perfectCompanyApi({
+        company_name: storage.company_name,
+        industry_id: storage.industry_id,
+        financing: storage.financing,
+        employees: storage.employees,
+        company_shortname: storage.company_shortname,
+        logo: storage.logo.id,
+        intro: storage.intro,
+        id: storage.id
+      }).then(() => {
+        clearInterval(this.data.timer)
+        wx.removeStorageSync('createdCompany')
+        wx.navigateTo({url: `${RECRUITER}user/company/status/status?from=company`})
+      })
+      .catch(() => {
+      })
     })
     .catch(() => {
       this.setData({code: '', error: true, isFocus: true, classErrorName: 'error'})

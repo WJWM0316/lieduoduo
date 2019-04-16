@@ -1,4 +1,4 @@
-import {realNameReg, emailReg, positionReg} from '../../../../../../utils/fieldRegular.js'
+import {realNameReg, emailReg, positionReg, companyNameReg} from '../../../../../../utils/fieldRegular.js'
 
 import {RECRUITER, COMMON, APPLICANT} from '../../../../../../config.js'
 
@@ -37,7 +37,6 @@ Page({
     this.setData({options})
   },
   onShow() {
-    let options = this.data.options
     this.getBannerHeight()
     this.getCompanyIdentityInfos()
   },
@@ -64,21 +63,33 @@ Page({
     let storage = wx.getStorageSync('createdCompany') || {}
     let options = this.data.options
     let applyJoin = this.data.applyJoin
+    let formData = {}
     getCompanyIdentityInfosApi({hasLoading}).then(res => {
       let companyInfo = res.data.companyInfo
       let status = 0
       applyJoin = res.data.applyJoin
-      let formData = {
-        real_name: storage.real_name || companyInfo.realName,
-        user_email: storage.user_email || companyInfo.userEmail,
-        user_position: storage.user_position || companyInfo.userPosition,
-        company_name: storage.company_name || companyInfo.companyName
+      // 重新创建一条记录
+      if(companyInfo.status === 2) {
+        formData = {
+          real_name: storage.real_name,
+          user_email: storage.user_email,
+          user_position: storage.user_position,
+          company_name: storage.company_name
+        }
+        this.setData({formData})
+      } else {
+        formData = {
+          real_name: storage.real_name || companyInfo.realName,
+          user_email: storage.user_email || companyInfo.userEmail,
+          user_position: storage.user_position || companyInfo.userPosition,
+          company_name: storage.company_name || companyInfo.companyName
+        }
+        // 重新编辑 加公司id
+        if(options.action && options.action === 'edit') formData = Object.assign(formData, {id: companyInfo.id, status: companyInfo.status})
+        if(applyJoin) formData = Object.assign(formData, {applyId: companyInfo.applyId})
+        this.setData({formData, canClick: true, applyJoin, status})
+        wx.setStorageSync('createdCompany', Object.assign(formData, this.data.formData))
       }
-      // 重新编辑 加公司id
-      if(options.action && options.action === 'edit') formData = Object.assign(formData, {id: companyInfo.id, status: companyInfo.status})
-      if(applyJoin) formData = Object.assign(formData, {applyId: companyInfo.applyId})
-      this.setData({formData, canClick: true, applyJoin, status})
-      wx.setStorageSync('createdCompany', Object.assign(formData, this.data.formData))
     })
   },
   /**
@@ -103,7 +114,7 @@ Page({
     let field = e.currentTarget.dataset.field
     let formData = this.data.formData
     formData[field] = e.detail.value
-    this.setData({formData: Object.assign(this.data.formData, formData)}, () => this.bindBtnStatus())
+    this.setData({formData: Object.assign(this.data.formData, formData)})
   },
   /**
    * @Author   小书包
@@ -114,15 +125,17 @@ Page({
   submit() {
     let formData = this.data.formData
     let options = this.data.options
-    let action = ''
     let applyJoin = this.data.applyJoin
     let storage = wx.getStorageSync('createdCompany') || {} 
 
-    if(!this.data.canClick) return;
-
-    // 验证用户名
+    // 验证姓名
     let checkRealName = new Promise((resolve, reject) => {
       !realNameReg.test(formData.real_name) ? reject('姓名需为2-20个中文字符') : resolve()
+    })
+
+    // 验证公司名称
+    let checkCompanyName = new Promise((resolve, reject) => {
+      !companyNameReg.test(formData.company_name) ? reject('请输入有效的公司名称') : resolve()
     })
 
     // 验证邮箱
@@ -137,21 +150,25 @@ Page({
 
     Promise.all([
       checkRealName,
+      checkCompanyName,
       checkUserEmail,
       checkUserPosition
     ])
     .then(res => {
       if(options.action && options.action === 'edit') {
         // 对于已有的数据 直接编辑 编辑加入或者创建的信息
-        action = applyJoin ? 'editJoinCompany' : 'editCreateCompany'
-        this[action]()
+        if(applyJoin) {
+          this.editJoinCompany()
+        } else {
+          this.editCreateCompany()
+        }
       } else {
         this.createCompany()
       }
     })
     .catch(err => {
       console.log(err)
-      // app.wxToast({title: err})
+      app.wxToast({title: err})
     })
   },
   /**
@@ -161,7 +178,14 @@ Page({
    * @return   {[type]}   [description]
    */
   toggle() {
-    app.toggleIdentity()
+    app.wxConfirm({
+      title: '切换身份',
+      content: '是否继续前往求职端？',
+      confirmBack() {
+        app.toggleIdentity()
+      },
+      cancelBack: () => {}
+    })
   },
   /**
    * @Author   小书包
@@ -206,16 +230,16 @@ Page({
    * @detail   申请加入公司
    * @return   {[type]}   [description]
    */
-  joinCompany(infos) {
+  joinCompany() {
     let formData = Object.assign(wx.getStorageSync('createdCompany'), this.data.formData)
     let params = {
       real_name: formData.real_name,
       user_email: formData.user_email,
       user_position: formData.user_position,
       company_name: formData.company_name,
-      company_id: infos.companyId
+      company_id: formData.id
     }
-    hasApplayRecordApi({company_id: infos.companyId}).then(res => {
+    hasApplayRecordApi({company_id: formData.id}).then(res => {
       // 当前公司已经申请过
       if(res.data.id) {
         this.editJoinCompany()
@@ -223,9 +247,9 @@ Page({
         applyCompanyApi(params).then(res => {
           wx.removeStorageSync('createdCompany')
           if(res.data.emailStatus) {
-            wx.reLaunch({url: `${RECRUITER}user/company/identityMethods/identityMethods?from=join&suffix=${res.data.suffix}&companyId=${res.data.companyId}`})
+            wx.navigateTo({url: `${RECRUITER}user/company/identityMethods/identityMethods?from=join&suffix=${res.data.suffix}&companyId=${res.data.companyId}`})
           } else {
-            wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=join`})
+            wx.navigateTo({url: `${RECRUITER}user/company/status/status?from=join`})
           }
         })
       }
@@ -260,16 +284,17 @@ Page({
             if(res.data.id) {
               this.editJoinCompany()
             } else {
-              this.joinCompany({companyId: res.data.id})
+              formData.id = res.data.id
+              this.setData({formData}, () => this.joinCompany())
             }
           })
         } else {
           editApplyCompanyApi(params).then(res => {
             wx.removeStorageSync('createdCompany')
             if(res.data.emailStatus) {
-              wx.reLaunch({url: `${RECRUITER}user/company/identityMethods/identityMethods?from=join&suffix=${res.data.suffix}&companyId=${res.data.companyId}`})
+              wx.navigateTo({url: `${RECRUITER}user/company/identityMethods/identityMethods?from=join&suffix=${res.data.suffix}&companyId=${res.data.companyId}`})
             } else {
-              wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=join`})
+              wx.navigateTo({url: `${RECRUITER}user/company/status/status?from=join`})
             }
           })
         }
@@ -293,12 +318,13 @@ Page({
       company_name: formData.company_name
     }
     createCompanyApi(params).then(res => {
-      wx.reLaunch({url: `${RECRUITER}user/company/createdCompanyInfos/createdCompanyInfos?from=company`})
+      wx.navigateTo({url: `${RECRUITER}user/company/createdCompanyInfos/createdCompanyInfos?from=company`})
       wx.removeStorageSync('createdCompany')
     })
     // 公司存在 直接走加入流程
     .catch(err => {
-      if(err.code === 990) this.joinCompany({companyId: err.data.id})
+      formData.id = err.data.companyId
+      if(err.code === 990) this.setData({formData}, () => this.joinCompany())
     })
   },
   /**
@@ -318,19 +344,20 @@ Page({
       company_name: formData.company_name
     }
     editCompanyFirstStepApi(params).then(() => {
-      wx.reLaunch({url: `${RECRUITER}user/company/createdCompanyInfos/createdCompanyInfos?from=company&action=edit`})
+      wx.navigateTo({url: `${RECRUITER}user/company/createdCompanyInfos/createdCompanyInfos?from=company&action=edit`})
       wx.removeStorageSync('createdCompany')
     })
     // 创建公司后 重新编辑走加入公司逻辑  如果之前有一条加入记录 取之前的加入记录id
     .catch(err => {
-      hasApplayRecordApi().then(res => {
+      hasApplayRecordApi({company_id: err.data.companyId}).then(res => {
         let formData = this.data.formData
         if(res.data.id) {
           formData.applyId = res.data.id
           formData.id = res.data.companyId
           this.setData({formData}, () => this.editJoinCompany())
         } else {
-          if(err.code === 990) this.joinCompany({companyId: err.data.id})
+          formData.id = err.data.companyId
+          if(err.code === 990) this.setData({formData}, () => this.joinCompany())
         }
       })
     })

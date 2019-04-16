@@ -35,6 +35,7 @@ export const hasApplayRecordApi = (data, hasLoading) => {
   return request({
     method: 'get',
     url: '/company/applyInfo',
+    data,
     hasLoading: false
   })
 }

@@ -1,5 +1,5 @@
 <view class="company-upload">
-	<navbar title="完善公司信息" background="#FFFFFF" color="#22292C" showBackBtn="{{true}}"></navbar>
+	<navbar title="完善公司信息" background="#FFFFFF" color="#22292C" customBack bindbackEvent="backEvent"></navbar>
 	<view class="warning">根据人力资源相关法律规定，用人单位开展招聘业务，需提供相关公司认证资质资料，请确保提交真实有效信息。</view>
 	<view>
 
