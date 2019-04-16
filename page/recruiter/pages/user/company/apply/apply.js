@@ -198,11 +198,7 @@ Page({
     let storage = wx.getStorageSync('createdCompany') || {}
     let options = this.data.options
     wx.setStorageSync('createdCompany', Object.assign(storage, this.data.formData))
-    if(options.action && options.action === 'edit') {
-      wx.navigateTo({url: `${RECRUITER}user/company/find/find?action=edit`})
-    } else {
-      wx.navigateTo({url: `${RECRUITER}user/company/find/find`})
-    }
+    wx.navigateTo({url: `${RECRUITER}user/company/find/find`})
   },
   /**
    * @Author   小书包
