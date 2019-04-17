@@ -93,6 +93,7 @@
 
 .moreActive .right{
   overflow: hidden;
+  font-size: 0;
 }
 
 .moreActive .right .avatar{

@@ -27,6 +27,10 @@ Component({
     isTriangle: {
       type: Boolean,
       value: false
+    },
+    styleObj: {
+      type: String,
+      value: ''
     }
   },
   /**

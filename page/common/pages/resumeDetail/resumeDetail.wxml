@@ -108,12 +108,12 @@
       <view class="link" wx:if="{{item.link}}">链接：<text bindtap="copy" data-copyData="{{item.link}}">{{item.link}}</text>
       </view>
     </view>
-    <text class="add" data-editName="project" bindtap="edit" wx:if="{{isOwner && info.projects.length < 11}}" data-id="">添加项目经历</text>
+    <text class="add" data-editName="project" bindtap="edit" wx:if="{{isOwner && info.projects.length < 10}}" data-id="">添加项目经历</text>
   </view>
   <!-- 教育经历 -->
   <view class="projectExp commentBox" wx:if="{{(!isOwner && info.educations.length > 0) || isOwner}}">
     <view class="intentTitle"><view class="commontIcon"><view class="box"></view></view> 教育经历</view>
-    <view class="expTab" wx:if="{{info.educations.length < 11}}" wx:for="{{info.educations}}" wx:key="{{index}}">
+    <view class="expTab" wx:for="{{info.educations}}" wx:key="{{index}}">
       <view class="expTitle">
         <text class="expName {{isOwner ? 'ellipsis':''}}">{{item.school}}</text>
         <text class="expTime" wx:if="{{item.endTime}}">{{filters.dateFormat(item.startTime, 'YYYY.MM')}}-{{filters.dateFormat(item.endTime, 'YYYY.MM')}}</text>
@@ -124,7 +124,7 @@
       <!-- 教育经历 -->
       <shrinkText class="expContent" wx:if="{{item.experience}}" textData="{{item.experience}}" line="{{isOwner ? 1 : 0}}"></shrinkText>
     </view>
-    <text class="add" data-editName="education" bindtap="edit" wx:if="{{isOwner && info.educations.length < 11}}" data-id="">添加教育经历</text>
+    <text class="add" data-editName="education" bindtap="edit" wx:if="{{isOwner && info.educations.length < 10}}" data-id="">添加教育经历</text>
   </view>
   <!-- 更多 -->
   <view class="more commentBox" wx:if="{{(!isOwner && info.moreIntroduce.introduce || info.moreIntroduce.imgs.length > 0) || isOwner}}">

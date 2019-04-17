@@ -135,7 +135,7 @@ Page({
         formData.lng = infos.lng
         formData.lat = infos.lat
         formData.address_id = infos.addressId
-        formData.parentType = infos.skillsLabel.length ? infos.skillsLabel[0].topPid : ''
+        formData.parentType = infos.topPid
         Object.keys(formData).map(field => this.setData({[field]: formData[field]}))
         this.bindButtonStatus()
       })
@@ -268,11 +268,6 @@ Page({
       !this.data.address_id ? reject('请选择地址') : resolve()
     })
 
-    // 验证技能是否已经选择
-    const positionSkills = new Promise((resolve, reject) => {
-      !this.data.skills.length ? reject('请选择技能要求') : resolve()
-    })
-
     // 验证薪资是否已经选择
     const positionEmolument = new Promise((resolve, reject) => {
       !this.data.emolument_min ? reject('请选择薪资范围') : resolve()
@@ -297,7 +292,6 @@ Page({
       positionName, 
       positionType, 
       positionAddress,
-      positionSkills,
       positionEmolument,
       positionExperience,
       positionEducation,
@@ -359,7 +353,6 @@ Page({
     const canClick = infos.position_name
       && infos.type
       && infos.address_id
-      && infos.skills.length
       && infos.emolument_min
       && infos.work_experience
       && infos.education

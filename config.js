@@ -7,7 +7,7 @@ let environment = 0
 export let APPLICANTHOST = ''
 export let RECRUITERHOST = ''
 export let PUBAPIHOST = ''
-if (environment === 0) {
+if (environment === 1) {
 	// 测试服接口
 	APPLICANTHOST = 'https://qiuzhi-api.lieduoduo.ziwork.com'
 	RECRUITERHOST = 'https://zhaopin-api.lieduoduo.ziwork.com'

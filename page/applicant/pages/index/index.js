@@ -23,11 +23,13 @@ Page({
   data: {
     pageCount: 20,
     navH: app.globalData.navHeight,
+    showNav: false,
     fixedBarHeight: 0,
     hasReFresh: false,
     onBottomStatus: 0,
     isBangs: app.globalData.isBangs,
     pixelRatio: app.globalData.systemInfo.pixelRatio,
+    bannerH: 200,
     tabList: [
       {
         name: '选择地区',
@@ -53,7 +55,6 @@ Page({
     },
     bannerIndex: 0,
     bannerList: [],
-    tabFixed: false,
     moreRecruiter: [],
     tabType: 'closeTab',
     city: 0,
@@ -66,11 +67,17 @@ Page({
     positionTypeList: [],
     emolumentList: [],
     requireOAuth: false,
-    background: 'transparent',
     cdnImagePath: app.globalData.cdnImagePath
   },
 
   onLoad(options) {
+    let bannerH = this.data.bannerH
+    if (!this.data.isBangs) {
+      bannerH = app.globalData.systemInfo.screenWidth/(750/420)
+    } else {
+      bannerH = app.globalData.systemInfo.screenWidth/(750/468)
+    }
+    this.setData({bannerH})
     identity = app.identification(options)
     const positionList = {
       list: [],
@@ -126,11 +133,10 @@ Page({
   },
   jumpBanner (e) {
     let url = e.currentTarget.dataset.url
-    if (url.indexOf('http') === -1) {
-      wx.navigateTo({
-        url: `/${url}`
-      })
-    }
+    console.log(url, 11222)
+    wx.navigateTo({
+      url: `/${url}`
+    })
   },
   /**
    * @Author   小书包
@@ -333,14 +339,11 @@ Page({
   },
   onPageScroll(e) {
     if (e.scrollTop > 0) {
-      if (this.data.background !== '#652791') this.setData({background: '#652791', title: '猎多多'})
       if (e.scrollTop > 210 + this.data.navH) {
         if (!this.data.tabFixed) this.setData({tabFixed: true})
       } else {
         if (this.data.tabFixed) this.setData({tabFixed: false})
       }
-    } else {
-      this.setData({background: 'transparent', title: ''})
     }
   },
   /**

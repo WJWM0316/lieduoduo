@@ -3,29 +3,337 @@
 	width: 100%;
 	height: 100vh;
 	background: #4F286E url('https://attach.lieduoduo.ziwork.com/front-assets/images/pic_bg.jpg') no-repeat bottom center;
-	background-size: 100% 100%;
+	background-size: 100% auto;
+	position: relative;
 }
-
-.start {
+.wrap {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+  box-sizing: border-box;
+}
+.inner {
+	width: 100%;
+	height: 100%;
+	box-sizing: border-box;
+	position: relative;
+}
+.entry, .first, .second {
 	width: 100%;
 	height: 100%;
 	position: relative;
 }
-.content {
+.entry .animation.title {
 	position: absolute;
-	top: 50%;
+	top: 309rpx;
 	left: 50%;
-	transform:translate3d(-100vh, 50%, 0);
+	transform:translateX(-50%);
+	opacity: 0;
+	transition: all 0.8s linear;
 }
-
-
-.start .title {
+.transition.entry .animation.title {
+	width:568rpx;
+	height:164rpx;
+	line-height: 164rpx;
+	text-align: center;
+	background: url('https://attach.lieduoduo.ziwork.com/front-assets/images/pic_talk.png') no-repeat;
+	background-size: 100% 100%;
+	font-size:30rpx;
+	font-weight:400;
+	color:#fff;
+	text-shadow:0rpx 0rpx 10rpx rgba(130,31,214,1);
+}
+.entry .animation.title .pic {
 	width: 504rpx;
-	margin: 0 auto;
+	display: block;	
+}
+.entry .animation.icon {
+	position: absolute;
+	top: 507rpx;
+	left: 50%;
+	transform:translateX(-50%);
+	opacity: 0;
+	transition: all 0.8s linear 0.1s;
+}
+.transition.entry .animation.icon {
+	top: 435rpx;
+	transform:translateX(0) rotate(-30deg);
+	left: 420rpx;
+}
+.entry .animation.icon .pic {
+	width: 222rpx;
 	display: block;
 }
-.start .icon {
-	width: 222rpx;
-	margin: 42rpx auto 0;
+
+.entry.active .animation.title {
+	top: 269rpx;
+	opacity: 1;
+}
+.entry.active .animation.icon {
+	top: 467rpx;
+	opacity: 1;
+}
+.transition.entry.active .animation.icon {
+	top: 395rpx;
+}
+.first .animation.title, .second .animation.title {
+	height: 76rpx;
+	line-height: 76rpx;
+	background: url('https://attach.lieduoduo.ziwork.com/front-assets/images/pic_title.png') no-repeat;
+	background-size: 100% 100%;
+	padding: 0 100rpx 0 30rpx;
+	font-size:26rpx;
+	font-weight: 300;
+	color: #fff;
+	position: absolute;
+	top: 45rpx;
+	left: 50%;
+	transform:translateX(-50%);
+	white-space:nowrap;
+	opacity: 0;
+	transition: all 0.5s linear;
+}
+.active .animation.title {
+	top: 15rpx;
+	opacity: 1;
+}
+.form {
+	width: 480rpx;
+	transition: all 0.5s linear 0.2s;
+	position: absolute;
+	top: 230rpx;
+	left: 50%;
+	opacity: 0;
+	margin-left: -240rpx;
+}
+.second .animation.form {
+	width: 570rpx;
+	margin-left: -285rpx;
+	height: 706rpx;
+	transition: all 0.5s linear 0.2s;
+	top: 231rpx;
+}
+.active .animation.form {
+	top: 190rpx;
+	opacity: 1;
+}
+.active.second .animation.form {
+	top: 201rpx;
+	opacity: 1;
+}
+.form .head {
+	width: 100%;
+	height: 104rpx;
+	background:rgba(239,233,244,0.2);
+	border-bottom:1rpx solid rgba(255,255,255,1);
+	background:rgba(255,255,255,0.1);
+	font-size:46rpx;
+	font-weight:500;
+	line-height: 104rpx;
+	text-align: center;
+	color: #fff;
+}
+.demo {
+	width: 100%;
+	height: 706rpx;
+}
+.demo-item {
+	border:1rpx solid rgba(255,255,255,1);
+	border-radius:20rpx;
+	box-sizing: border-box;
+}
+.animation.form .content {
+	width: 100%;
+	height: 600rpx;
+	padding: 40rpx 44rpx;
+	box-sizing: border-box;
+}
+
+.avatarBox {
+	width: 184rpx;
+	height: 184rpx;
+	margin: 0 auto;
+	position: relative;
+}
+
+.gender{
+  width: 260rpx;
+  height: 80rpx;
+  border-radius:100rpx;
+  overflow: hidden;
+  margin: 54rpx auto 32rpx;
+}
+.gender view{
+  text-align: center;
+  display: inline-block;
+  width: 50%;
+  height: 100%;
+  line-height: 80rpx;
+  font-size:32rpx;
+  font-weight: 300;
+  color: #FFFFFF;
+  background-color: #40195C;
+}
+.gender .active{
+	background-color: #F7F9FC;
+  color: #652791;
+}
+.name, .time, .box {
+  width: 480rpx;
+  height: 88rpx;
+  line-height: 88rpx;
+  margin: 0 auto 24rpx;
+  background: #40195C;
+  border-radius: 50rpx;
+  text-align: center;
+  font-size: 28rpx;
+  font-weight: 300;
+}
+.second .box {
+	margin-bottom: 20rpx;
+}
+.name input, .box input {
+  box-sizing: border-box;
+  padding: 0 20rpx;
+  width: 100%;
+  height: 100%;
+  color: #EFE9F4;
+  background:none;
+}
+.myPicker{
+	width: 100%;
+  height: 100%;
+  display: block;
+}
+.animation.btn {
+	transition: all 0.5s linear 0.2s;
+	opacity: 0;
+	margin: 205rpx auto 0;
+}
+.active .animation.btn {
+	opacity: 1;
+	margin: 175rpx auto 0;
+}
+.second .animation.btn {
+	margin: 48rpx auto 0;
+}
+.active.second .animation.btn {
+	margin: 78rpx auto 0;
+}
+.timeBox{
+  color: #626262;
+  margin-bottom: 20rpx;
+  text-align: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #fff;
+}
+.startTime, .endTime{
+  width: 200rpx;
+  height: 88rpx;
+  background:#40195C;
+  border-radius: 50rpx;
+  display: inline-block;
+  border-radius: 50rpx;
+  text-align: center;
+  line-height: 88rpx;
+  font-size: 28rpx;
+}
+.btn-area {
+	width:325rpx;
+	height:102rpx;
+	line-height: 102rpx;
+	box-sizing: border-box;
+	background:#FFDC29;
+	border-radius:56rpx;
+	border:2rpx solid #fff;
+	position: relative;
+	margin: 0 auto;
+	font-size:30rpx;
+	font-weight:bold;
+	text-align: center;
+	color: #652791;
+	overflow: visible;
+	z-index: 2;
+}
+.btn-area-bg {
+	width: 308rpx;
+	height: 79rpx;
 	display: block;
+	border:2rpx solid #fff;
+	border-radius:56rpx;
+	box-sizing: border-box;
+	margin: -65rpx auto 0;
+	transform: translateX(22rpx);
+	position: relative;
+	z-index: 1;
+}
+.number {
+	text-align: center;
+	width: 100%;
+	height: 45rpx;
+	position: absolute;
+	left: 0;
+	top: -70rpx;
+	font-size: 0;
+}
+.number .num {
+	width: 45rpx;
+	height: 45rpx;
+	line-height: 45rpx;
+	text-align: center;
+	border: 1rpx solid #fff;
+	border-radius: 50%;
+	font-size: 24rpx;
+	font-weight: 300;
+	color: #fff;
+	display: inline-block;
+	margin: 0 20rpx;
+	box-sizing: border-box;
+}
+.number .num.cur {
+	background: #FFDC29;
+	color: #652791;
+	border: none;
+	border: 1rpx solid #FFDC29;
+}
+.prev, .next {
+	font-size:50rpx;
+	color:#fff;
+	position:absolute;
+	top:50%;
+	margin-top:-40rpx;
+	padding: 30rpx;
+}
+.prev {
+	left: -100rpx;
+}
+.next {
+	right: -100rpx;
+}
+.add {
+	width: 100%;
+	text-align: center;
+	line-height: 48rpx;
+	font-size: 24rpx;
+	color: #fff;
+	padding: 26rpx 0 0;
+}
+.add .addIcon {
+	width: 30rpx;
+	height: 30rpx;
+	text-align: center;
+	line-height: 30rpx;
+	border-radius: 50%;
+	font-size: 14rpx;
+	background: #fff;
+	color: #40195C;
+	display: inline-block;
+	vertical-align: 5rpx;
+	margin-right: 10rpx;
+  box-sizing: border-box;
+  padding-left: 0 3rpx;
 }

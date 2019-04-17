@@ -8,6 +8,7 @@
     range-key="{{rangeKey}}"
     bindchange="change"
     bindcolumnchange="changeColumn"
+    style="{{styleObj}}"
     wx-if="{{list && list.length > 0}}"
   >
     <slot wx:if="{{needSlot}}"></slot>

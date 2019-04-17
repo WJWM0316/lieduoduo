@@ -17,9 +17,10 @@ Page({
     let pageUrl = ''
     let title = ''
     let sessionToken = wx.getStorageSync('sessionToken')
+    let token = wx.getStorageSync('token')
     switch (options.type) {
       case 'recruitmentDay':
-        pageUrl = `https://m.lieduoduo.ziwork.com/available?sessionToken=${sessionToken}`//`https://m.lieduoduo.ziwork.com/available?sessionToken=${sessionToken}`//
+        pageUrl = `https://m.lieduoduo.com/available?sessionToken=${sessionToken}&token=${token}` //`https://m.lieduoduo.ziwork.com/available?sessionToken=${sessionToken}`//
         title = '猎多多招聘节'
         break
     }
@@ -29,7 +30,6 @@ Page({
     console.log(e, 'h5返回的信息')
   },
   webLoad (e) {
-    console.log(e, 11111111111111111)
   },
   /**
    * 生命周期函数--监听页面初次渲染完成

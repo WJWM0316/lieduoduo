@@ -1,21 +1,23 @@
 <view class="applicant-job">
-	<navbar title="{{title}}" background="{{background}}" color="#fff"></navbar>
+	<navbar title="猎多多" background="#652791" color="#fff" wx:if="{{tabFixed}}"></navbar>
 	<view hidden="{{!hasReFresh}}">
     <refreshStatus></refreshStatus>
   </view>
-  <view class="head" style="margin-top: -{{navH}}px;">
+  <view class="head" style="{{tabFixed ? 'margin-top:' + -navH + 'px' : ''}}">
     <view class="bannerBox" wx:if="{{bannerList.length > 0}}">
       <swiper
         class="swiper"
         autoplay
         circular
         bindchange="autoplay"
+        style="height: {{bannerH}}px"
         >
-        <swiper-item wx:for="{{bannerList}}" wx:key="{{index}}">
-          <image class="banner" src="{{item.bigImgUrl}}" bindtap="jumpBanner" data-url="{{item.targetUrl}}"></image>
+        <swiper-item wx:for="{{bannerList}}" wx:key="{{index}}" bindtap="jumpBanner" data-url="{{item.targetUrl || item.otherUrl}}">
+          <image class="banner" wx:if="{{isBangs}}" src="{{item.bigImgUrl}}" mode="widthFix"></image>
+          <image class="banner" wx:else src="{{item.smallImgUrl}}" mode="widthFix"></image>
         </swiper-item>
       </swiper>
-      <view class="swiper-dots">
+      <view class="swiper-dots" wx:if="{{bannerList.length > 1}}">
         <view wx:for="{{bannerList}}" wx:key="{{index}}" class="swiper-dots-item {{bannerIndex === index ? 'active' : ''}}"></view>
       </view>
     </view>

@@ -16,7 +16,7 @@
 	},
 	"compileType": "miniprogram",
 	"libVersion": "2.3.2",
-	"appid": "wx225f017495e6e195",
+	"appid": "wxde5ab3ef647fba86",
 	"projectname": "lieduoduo",
 	"debugOptions": {
 		"hidedInDevtools": []
@@ -41,7 +41,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 10,
+			"current": 18,
 			"list": [
 				{
 					"id": 0,
@@ -165,10 +165,11 @@
 					"query": ""
 				},
 				{
-					"id": 12,
+					"id": 18,
 					"name": "【B端】首页",
 					"pathName": "page/recruiter/pages/index/index",
-					"query": ""
+					"query": "sourceType=22",
+					"scene": null
 				},
 				{
 					"id": 13,
