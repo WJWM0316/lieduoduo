@@ -266,9 +266,9 @@ Page({
     })
 
     // 验证技能是否已经选择
-    const positionSkills = new Promise((resolve, reject) => {
-      !this.data.skills.length ? reject('请选择技能要求') : resolve()
-    })
+    // const positionSkills = new Promise((resolve, reject) => {
+    //   !this.data.skills.length ? reject('请选择技能要求') : resolve()
+    // })
 
     // 验证薪资是否已经选择
     const positionEmolument = new Promise((resolve, reject) => {
@@ -294,7 +294,7 @@ Page({
       positionName, 
       positionType, 
       positionAddress,
-      positionSkills,
+      // positionSkills,
       positionEmolument,
       positionExperience,
       positionEducation,
@@ -356,7 +356,7 @@ Page({
     const canClick = infos.position_name
       && infos.type
       && infos.address_id
-      && infos.skills.length
+      // && infos.skills.length
       && infos.emolument_min
       && infos.work_experience
       && infos.education

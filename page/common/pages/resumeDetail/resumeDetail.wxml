@@ -124,7 +124,7 @@
       <!-- 教育经历 -->
       <shrinkText class="expContent" wx:if="{{item.experience}}" textData="{{item.experience}}" line="{{isOwner ? 1 : 0}}"></shrinkText>
     </view>
-    <text class="add" data-editName="education" bindtap="edit" wx:if="{{isOwner && info.educations.length < 11}}" data-id="">添加教育经历</text>
+    <text class="add" data-editName="education" bindtap="edit" wx:if="{{isOwner && info.educations.length < 11}}" data-id="0">添加教育经历</text>
   </view>
   <!-- 更多 -->
   <view class="more commentBox" wx:if="{{(!isOwner && info.moreIntroduce.introduce || info.moreIntroduce.imgs.length > 0) || isOwner}}">

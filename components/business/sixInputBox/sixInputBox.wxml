@@ -7,5 +7,5 @@
     </view>
   </view>
   <!-- 输入框（隐藏） -->
-  <input value="{{input_value}}" focus="{{isFocus}}" maxlength="6" type="number" class='input_container' placeholder="" bindinput="get_value" bindfocus="get_focus" />
+  <input value="{{input_value}}" focus="{{isFocus}}" maxlength="6" type="number" class='input_container' placeholder="" bindinput="get_value" bindfocus="get_focus" adjust-position="{{true}}" />
 </view>

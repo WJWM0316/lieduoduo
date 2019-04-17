@@ -177,6 +177,7 @@
 	right: 50rpx;
 	height: 712rpx;
 	text-align: center;
+	transition: all ease .2s;
 }
 
 .overlay .button {

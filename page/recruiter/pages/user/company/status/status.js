@@ -13,11 +13,14 @@ Page({
     identityInfos: {},
     companyInfos: {},
     pageTitle: '',
-    options: {},
+    options: {
+      showBack: true
+    },
     hasReFresh: false,
     applyJoin: false,
     cdnImagePath: app.globalData.cdnImagePath,
-    telePhone: app.globalData.telePhone
+    telePhone: app.globalData.telePhone,
+    showHome: false
   },
   onLoad(options) {
     this.setData({options})
@@ -66,10 +69,8 @@ Page({
         wx.navigateTo({url: `${RECRUITER}user/company/apply/apply?action=edit`})
         break
       case 'recruitment':
-        if(getCurrentPages() && getCurrentPages().length > 1) {
-          wx.navigateBack({delta: 1 })
-        } else {
-          wx.reLaunch({url: `${RECRUITER}index/index`}) 
+        if(companyInfos.status === 1) {
+          wx.reLaunch({url: `${RECRUITER}index/index`})
         }
         break
       case 'call':
@@ -117,6 +118,8 @@ Page({
         let isReturnBack = false
         // 是否已经填写个人信息
         let hasOwerInfos = false
+        // 是否返回上一页
+        let showHome = this.data.showHome
 
         if(applyJoin) {
           pageTitle = '申请加入公司'
@@ -124,15 +127,19 @@ Page({
           pageTitle = '公司认证'
         }
 
-        if(options.from === 'identity' || (companyInfos.status === 1 && identityInfos.status === 2)) {
-          pageTitle = '身份认证'
+        if(companyInfos.status === 1) {
+          options.showBack = false
         }
 
-        this.setData({identityInfos, companyInfos, pageTitle, applyJoin}, () => resolve(res))
-        // if(!applyJoin) {
-        //   hasOwerInfos = !identityInfos.haveIdentity && companyInfos.status === 1
-        //   if(hasOwerInfos) wx.reLaunch({url: `${RECRUITER}user/company/identity/identity?from=identity`})
-        // }
+        if(options.from === 'identity' || (companyInfos.status === 1 && identityInfos.status === 2)) {
+          pageTitle = '身份认证'
+          options.showBack = true
+        }
+
+        if(identityInfos.status === 1) {
+          showHome = true
+        }
+        this.setData({identityInfos, companyInfos, pageTitle, applyJoin, options, showHome}, () => resolve(res))
       })
     })
   },

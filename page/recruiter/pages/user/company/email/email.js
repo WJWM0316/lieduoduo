@@ -231,8 +231,6 @@ Page({
         wx.removeStorageSync('createdCompany')
         wx.navigateTo({url: `${RECRUITER}user/company/status/status?from=company`})
       })
-      .catch(() => {
-      })
     })
     .catch(() => {
       this.setData({code: '', error: true, isFocus: true, classErrorName: 'error'})
@@ -245,7 +243,6 @@ Page({
    * @return   {[type]}     [description]
    */
   verifyEmailByJoin() {
-    // let storage = wx.getStorageSync('createdCompany')
     let options = this.data.options
     let params = {email: this.data.email, company_id: options.companyId, code: this.data.code}
     if(!params.email.includes('@')) {
@@ -274,6 +271,7 @@ Page({
    * @return   {[type]}   [description]
    */
   changeIndentifyMethods() {
+    let options = this.data.options
     let applyJoin = options.from === 'join' ? true : false
     let from = applyJoin ? 'join' : 'company'
     wx.redirectTo({url: `${RECRUITER}user/company/identityMethods/identityMethods?from=${from}`})

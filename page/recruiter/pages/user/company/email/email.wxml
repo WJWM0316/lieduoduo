@@ -5,7 +5,7 @@
 		<view class="p">公司邮箱，用于验证面试官个人与公司所属关系的真实性</view>
 	  <view class="input-li clear-bottom">
 	  	<block wx:if="{{options.from === 'company'}}">
-	  		<input class="value" placeholder="输入公司邮箱" bindinput="bindInput" value="{{email}}" cursor-spacing="20" />
+	  		<input class="value" placeholder="输入公司邮箱" bindinput="bindInput" value="{{email}}" adjust-position="{{true}}" />
 	  	</block>
 	  	<block wx:else>
 	  		<input class="prefix" placeholder="输入公司邮箱前缀" bindinput="bindInput" value="{{email}}" />

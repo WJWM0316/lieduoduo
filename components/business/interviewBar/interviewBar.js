@@ -93,8 +93,61 @@ Component({
       if (((currentPage === 'positionDetail' || currentPage === 'recruiterDetail') && identity === 'APPLICANT') || (currentPage === 'resumeDetail' && identity === 'RECRUITER')) {
         this.getInterviewStatus()
       }
+      if(wx.getStorageSync('choseType') !== 'APPLICANT') {
+        this.getCompanyIdentityInfos()
+      }
       this.setData({currentPage, jobWords: agreedTxtC(), recruiterWords: agreedTxtB(), show: false})
     },
+    /**
+   * @Author   小书包
+   * @DateTime 2019-01-29
+   * @detail   发布职位
+   * @return   {[type]}   [description]
+   */
+  publicPosition() {
+    let identityInfos = this.data.identityInfos
+    // 跟后端协商  =1 则可以发布
+    if(identityInfos.identityAuth) {
+      wx.navigateTo({url: `${RECRUITER}position/post/post`})
+      return;
+    }
+
+    if(identityInfos.status === 1) {
+      wx.navigateTo({url: `${RECRUITER}position/post/post`})
+    }
+
+    // 已经填写身份证 但是管理员还没有处理或者身份证信息不符合规范
+    if(identityInfos.status === 0 || identityInfos.status === 2) {
+      this.setData({show: false})
+      app.wxConfirm({
+        title: '',
+        content: `您当前认证身份信息已提交申请，猎多多将尽快审核处理，请耐心的等待，感谢您的配合~`,
+        cancelText: '联系客服',
+        confirmText: '我知道了',
+        confirmBack: () => {
+          wx.navigateTo({url: `${RECRUITER}user/company/status/status?from=identity`})
+        },
+        cancelBack: () => {
+          wx.makePhoneCall({phoneNumber: this.data.telePhone})
+        }
+      })
+      return;
+    }
+
+    // 没有填身份证 则没有验证
+    if(!identityInfos.identityNum) {
+      this.setData({show: false})
+      app.wxConfirm({
+        title: '',
+        content: `检测到您尚未认证身份，请立即认证，完成发布职位`,
+        confirmText: '去认证',
+        confirmBack: () => {
+          wx.navigateTo({url: `${RECRUITER}user/company/identity/identity?from=identity`})
+        }
+      })
+      return;
+    }
+  },
     /**
      * @Author   小书包
      * @DateTime 2019-03-14
@@ -245,8 +298,10 @@ Component({
      * @return   {[type]}   [description]
      */
     getCompanyIdentityInfos() {
-      getCompanyIdentityInfosApi().then(res => {
-        const companyInfo = res.data.companyInfo
+      getCompanyIdentityInfosApi({hasLoading: false}).then(res => {
+        let companyInfo = res.data.companyInfo
+        let identityInfos = res.data
+        this.setData({identityInfos})
         if(companyInfo.status !== 1) {
           wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=company`})
         }
@@ -405,7 +460,7 @@ Component({
           break
         case 'public':
           wx.setStorageSync('recruiter_chat_first', {jobhunterUid: infos.uid })
-          wx.navigateTo({url: `${RECRUITER}position/post/post`})
+          this.publicPosition()
           break
         case 'openPosition':
           wx.navigateTo({url: `${COMMON}chooseJob/chooseJob?type=recruiter_chat&from=${this.data.currentPage}&jobhunterUid=${infos.uid}`})
