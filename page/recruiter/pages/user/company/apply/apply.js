@@ -232,6 +232,7 @@ Page({
    */
   joinCompany() {
     let formData = Object.assign(wx.getStorageSync('createdCompany'), this.data.formData)
+    console.log(formData)
     let params = {
       real_name: formData.real_name,
       user_email: formData.user_email,
@@ -272,19 +273,26 @@ Page({
       company_id: formData.id
     }
     // 判断公司是否存在
-    justifyCompanyExistApi({name: formData.company_name}).then(res => {
-      if(res.data.exist) {
+    justifyCompanyExistApi({name: formData.company_name}).then(res0 => {
+      if(res0.data.exist) {
         // 有可能编辑时  加入另一家公司
-        params = Object.assign(params, {company_id: res.data.id})
+        params = Object.assign(params, {company_id: res0.data.id})
         // 被拒绝并且是新公司
-        if(formData.id !== res.data.id) {
+        if(formData.id !== res0.data.id) {
           // 查看当前公司是否有申请记录
-          hasApplayRecordApi({company_id: res.data.id}).then(res => {
+          hasApplayRecordApi({company_id: res0.data.id}).then(res1 => {
             // 当前公司已经申请过
-            if(res.data.id) {
-              this.editJoinCompany()
+            if(res1.data.id) {
+              editApplyCompanyApi(params).then(res => {
+                wx.removeStorageSync('createdCompany')
+                if(res.data.emailStatus) {
+                  wx.navigateTo({url: `${RECRUITER}user/company/identityMethods/identityMethods?from=join&suffix=${res.data.suffix}&companyId=${res.data.companyId}`})
+                } else {
+                  wx.navigateTo({url: `${RECRUITER}user/company/status/status?from=join`})
+                }
+              })
             } else {
-              formData.id = res.data.id
+              formData.id = res0.data.id
               this.setData({formData}, () => this.joinCompany())
             }
           })

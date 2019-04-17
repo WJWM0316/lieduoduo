@@ -25,21 +25,15 @@ let recruiterJump = (msg) => {
     if(!companyInfo.id) {
       wx.reLaunch({url: `${RECRUITER}user/company/apply/apply`})
     } else {
-
-      // 公司审核 已经通过
       if(companyInfo.status === 1) {
         wx.reLaunch({url: `${RECRUITER}index/index`})
-        return;
-      }
-
-      // 创建公司第一步
-      if(!companyInfo.step) {
-        wx.reLaunch({url: `${RECRUITER}user/company/createdCompanyInfos/createdCompanyInfos`})
       } else {
-        // 创建公司 没填身份证 但是公司已经审核通过
-        wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=company`})
+        if(!companyInfo.step) {
+          wx.reLaunch({url: `${RECRUITER}user/company/createdCompanyInfos/createdCompanyInfos`})
+        } else {
+          wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=company`})
+        }
       }
-
     }
   }
 }

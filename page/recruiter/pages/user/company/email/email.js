@@ -48,9 +48,8 @@ Page({
     let email = this.data.email
     let options = this.data.options
     let isEmail = this.data.isEmail
-    if(options.from === 'join') {
-      email = this.data.email + this.data.options.suffix
-    }
+    let applyJoin = options.from === 'join' ? true : false
+    if(applyJoin) email = this.data.email + this.data.options.suffix
 
     if(emailReg.test(email)) {
       canClick = true
@@ -118,7 +117,6 @@ Page({
     let time = this.data.time
     timer = setInterval(() => {
       time--
-      console.log(this.data)
       if(time < 1) {
         clearInterval(timer)
         this.setData({canResend: true, time: 60})
@@ -138,6 +136,7 @@ Page({
     let options = this.data.options
     let applyJoin = options.from === 'join' ? true : false
     let params = {email: this.data.email, company_id: options.companyId}
+    if(!this.data.email) return
     if(!params.email.includes('@')) {
       params = Object.assign(params, {email: `${params.email}${options.suffix}`})
     }
@@ -200,7 +199,8 @@ Page({
    */
   verifyEmail() {
     let options = this.data.options
-    if(options.from === 'join') {
+    let applyJoin = options.from === 'join' ? true : false
+    if(applyJoin) {
       this.verifyEmailByJoin()
     } else {
       this.verifyEmailByCreate()
