@@ -274,7 +274,9 @@ Page({
    * @return   {[type]}   [description]
    */
   changeIndentifyMethods() {
-    wx.redirectTo({url: `${RECRUITER}user/company/identityMethods/identityMethods`})
+    let applyJoin = options.from === 'join' ? true : false
+    let from = applyJoin ? 'join' : 'company'
+    wx.redirectTo({url: `${RECRUITER}user/company/identityMethods/identityMethods?from=${from}`})
   },
   /**
    * @Author   小书包

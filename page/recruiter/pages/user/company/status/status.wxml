@@ -153,7 +153,7 @@
 	</view>
 	<!-- 申请加入 end -->
 
-	<view class="section" wx:if="{{options.from === 'company'}}">
+	<view class="section" wx:if="{{options.from === 'company' && companyInfos.status !== 1}}">
 		<view class="title">
 			<view class="label">您的公司信息</view>
 			<view class="jump" bindtap="todoAction" data-action="modifyCompany">申请信息有误？去更改</view>
@@ -213,7 +213,7 @@
 		</view>
 	</view>
 
-	<view class="section" wx:if="{{options.from === 'join'}}">
+	<view class="section" wx:if="{{options.from === 'join' && companyInfos.status !== 1}}">
 		<view class="title">
 			<view class="label">您的申请</view>
 			<view class="jump" bindtap="todoAction" data-action="applyModify">申请信息有误？去更改</view>
@@ -232,7 +232,7 @@
 				<view class="value">{{companyInfos.userPosition}}</view>
 			</view>
 			<view class="li">
-				<view class="key">邮箱地址</view>
+				<view class="key">接收简历邮箱</view>
 				<view class="value">{{companyInfos.userEmail}}</view>
 			</view>
 			<view class="li item">
@@ -250,7 +250,7 @@
 		</view>
 	</view>
 
-	<view class="div" wx:if="{{options.from !== 'identity'}}">
+	<view class="div" wx:if="{{options.from !== 'identity' && companyInfos.status !== 1}}">
 		<view class="box" bindtap="todoAction" data-action="identity">
 			<view class="p1">认证个人身份</view>
 			<view class="p2">提前认证身份，公司过审后即可马上发布职位</view>
@@ -267,12 +267,12 @@
 			<i class="icon iconfont icon-xiangyou" wx:if="{{!identityInfos.haveIdentity || identityInfos.status === 2}}"></i>
 		</view>
 	</view>
-	<view class="tip2" wx:if="{{options.from === 'identity' && identityInfos.status !== 1}}">
+	<view class="tip2" wx:if="{{options.from === 'identity' && identityInfos.status !== 1 && companyInfos.status !== 1}}">
 		<view class="span">了解更多认证须知，欢迎联系我们</view>
 		<view class="strong" bindtap="callPhone">{{telePhone}}</view>
 	</view>
 
-	<view class="quickly-entry" wx:if="{{options.from !== 'identity'}}">
+	<view class="quickly-entry" wx:if="{{options.from !== 'identity' && companyInfos.status !== 1}}">
 		<view class="content">
 			<view class="h6">快速通道权益</view>
 			<view class="h7">助您创建公司更快捷，欢迎体验~</view>
@@ -280,8 +280,8 @@
 		<view class="button" data-action="call" bindtap="todoAction">联系体验</view>
 		<image class="bgImg" src="{{cdnImagePath}}verify_bg.png" mode="aspectFill"></image>
 	</view>
-	<view class="go" bindtap="toggle" wx:if="{{identityInfos.status !== 1 || companyInfos.status !== 1 || identityInfos.status !== 1}}"><text>前往求职端</text></view>
+	<view class="go" bindtap="toggle" wx:if="{{companyInfos.status !== 1 && (!identityInfos.haveIdentity || identityInfos.status !== 1)}}"><text>前往求职端</text></view>
 
-	<view class="button4" wx:if="{{options.from !== 'identity' && identityInfos.status === 1 && companyInfos.status === 1}}" bindtap="todoAction" data-action="recruitment">开始招聘</view>
+	<view class="button4" wx:if="{{options.from !== 'identity' && companyInfos.status === 1}}" bindtap="todoAction" data-action="recruitment">开始招聘</view>
 	<view class="button4" wx:if="{{options.from === 'identity' && identityInfos.status === 1}}" bindtap="todoAction" data-action="recruitment">确定</view>
 </view>

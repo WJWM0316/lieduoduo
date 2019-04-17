@@ -20,8 +20,8 @@ Page({
     telePhone: app.globalData.telePhone
   },
   onLoad(options) {
-    wx.setStorageSync('choseType', 'RECRUITER')
     this.setData({options})
+    console.log(options)
   },
   onShow() {
     this.getCompanyIdentityInfos()
@@ -129,10 +129,10 @@ Page({
         }
 
         this.setData({identityInfos, companyInfos, pageTitle, applyJoin}, () => resolve(res))
-        if(!applyJoin) {
-          hasOwerInfos = !identityInfos.haveIdentity && companyInfos.status === 1
-          if(hasOwerInfos) wx.reLaunch({url: `${RECRUITER}user/company/identity/identity?from=identity`})
-        }
+        // if(!applyJoin) {
+        //   hasOwerInfos = !identityInfos.haveIdentity && companyInfos.status === 1
+        //   if(hasOwerInfos) wx.reLaunch({url: `${RECRUITER}user/company/identity/identity?from=identity`})
+        // }
       })
     })
   },

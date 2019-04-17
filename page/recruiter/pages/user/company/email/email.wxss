@@ -153,7 +153,7 @@
 	padding: 0 100rpx;
 	background: #FBFBFF;
 	box-sizing: border-box;
-	position: fixed;
+	position: absolute;
 	left: 0;
 	bottom: 48rpx;
 	text-align: center;
@@ -354,4 +354,9 @@
 .btn-area .p4 .icon-xiangyou{
 	display: inline-block;
 	vertical-align: text-bottom;
+}
+
+.company-email {
+	height: 100vh;
+	position: relative;
 }
