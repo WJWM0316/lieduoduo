@@ -16,7 +16,7 @@
 	},
 	"compileType": "miniprogram",
 	"libVersion": "2.3.2",
-	"appid": "wxde5ab3ef647fba86",
+	"appid": "wx225f017495e6e195",
 	"projectname": "lieduoduo",
 	"debugOptions": {
 		"hidedInDevtools": []
@@ -41,7 +41,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 18,
+			"current": 9,
 			"list": [
 				{
 					"id": 0,
@@ -92,16 +92,23 @@
 				},
 				{
 					"id": 7,
+					"name": "【公包】保存海报",
+					"pathName": "page/common/pages/poster/saveImg/saveImg",
+					"query": "url=https%3A%2F%2Fattach.lieduoduo.ziwork.com%2Ffront-assets%2Fimages%2FzpjShare.jpg",
+					"scene": null
+				},
+				{
+					"id": 7,
 					"name": "【公包】职位海报",
 					"pathName": "page/common/pages/poster/position/position",
 					"query": "positionId=3509&sCode=12222&sourceType=22",
 					"scene": null
 				},
 				{
-					"id": 7,
+					"id": 9,
 					"name": "【公包】webView",
 					"pathName": "page/common/pages/webView/webView",
-					"query": "type=recruitmentDay",
+					"query": "type=recruitmentDay&c=zpj3",
 					"scene": null
 				},
 				{

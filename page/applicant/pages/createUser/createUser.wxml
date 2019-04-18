@@ -20,12 +20,12 @@
 			      <input name="name" placeholder-class="holderStyle" bindinput="getValue" data-type="name" maxlength="20" placeholder="请输入姓名"  value="{{name}}"/>
 			    </view>
 			    <view class="time">
-			      <myPicker class="myPicker" setResult="{{birthdayDesr}}" pickerType="birthday" bindresultevent="getresult" styleObj="color: #EFE9F4;font-weight: 300"></myPicker>
+			      <myPicker class="myPicker" setResult="{{birthDesr}}" pickerType="birthday" data-type="birth" bindresultevent="getresult" styleObj="color: #EFE9F4;font-weight: 300"></myPicker>
 			    </view>
 			    <view class="time">
-			      <myPicker class="myPicker" setResult="{{workTimeDesr}}" pickerType="workTime" bindresultevent="getresult" styleObj="color: #EFE9F4;font-weight: 300"></myPicker>
+			      <myPicker class="myPicker" setResult="{{workTimeDesr}}" pickerType="workTime" data-type="workTime" bindresultevent="getresult" styleObj="color: #EFE9F4;font-weight: 300"></myPicker>
 			    </view>
-			    <view class="animation btn">
+			    <view class="animation btn" bindtap="continue">
 						<view class="btn-area">继续</view>
 				    <view class="btn-area-bg"></view>
 					</view>
@@ -39,8 +39,9 @@
 				<view class="animation title"><text>录入你的工作档案，快速启动飞船吧~</text></view>
 				<view class="animation form">
 					<view class="number">
-						<text class="num {{workCurrent === index ? 'cur' : ''}}" wx:for="{{workDate}}" wx:key="{{index}}">0{{index + 1}}</text>
+						<text class="num {{workCurrent === index ? 'cur' : ''}}" wx:for="{{workDate}}" wx:key="{{index}}" bindtap="toggle" data-type="index" data-index="{{index}}">0{{index + 1}}</text>
 					</view>
+					<text class="close iconfont icon-cha-cu" bindtap="remove" data-type="work" wx:if="{{workDate.length > 1}}"></text>
 					<swiper class="demo" circular current="{{workCurrent}}" bindchange="toggle" data-type="change">
 						<swiper-item class="demo-item" wx:for="{{workDate}}" wx:key="{{index}}">
 							<view class="head">工作经历档案0{{index + 1}}</view>
@@ -70,7 +71,7 @@
 					</swiper>
 					<i class="prev iconfont icon-qianyige" bindtap="toggle" data-type="prev"></i>
 					<i class="next iconfont icon-houyige" bindtap="toggle" data-type="next"></i>
-					<view class="add">
+					<view class="add" bindtap="addItem" data-type="work">
 						<i class="addIcon iconfont icon-jiahao"></i>添加工作经历
 					</view>
 			    <view class="animation btn">

@@ -6,6 +6,7 @@
     "tabBar": "../../../../components/business/tabBar/tabBar",
     "myPicker": "../../../../components/functional/myPicker/myPicker",
     "auth": "../../../../components/functional/auth/auth",
-    "navbar": "../../../../components/business/navbar/navbar"
+    "navbar": "../../../../components/business/navbar/navbar",
+    "adPop": "../../../../components/business/adPop/adPop"
   }
 }

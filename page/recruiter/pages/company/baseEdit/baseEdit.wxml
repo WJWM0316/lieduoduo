@@ -16,7 +16,7 @@
 				<view class="value">{{info.companyName}}</view>
 			</view>
 			<view class="item disabled" bindtap="disabled">
-				<view class="txt">公司全称</view>
+				<view class="txt">公司简称</view>
 				<view class="value">{{info.companyShortname}}</view>
 			</view>
 			<view class="item disabled" bindtap="disabled">

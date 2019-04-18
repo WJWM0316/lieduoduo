@@ -16,6 +16,7 @@
     "page/common/pages/poster/resume/resume",
     "page/common/pages/poster/recruiter/recruiter",
     "page/common/pages/poster/exPosition/exPosition",
+    "page/common/pages/poster/saveImg/saveImg",
     "page/common/pages/category/category",
     "page/common/pages/tabsPage/tabsPage",
     "page/common/pages/cutInside/cutInside",

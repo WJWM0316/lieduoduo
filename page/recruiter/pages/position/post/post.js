@@ -263,6 +263,10 @@ Page({
       !this.data.type ? reject('请选择职位类别') : resolve()
     })
 
+    const positionSkills = new Promise((resolve, reject) => {
+      !this.data.skills.length ? reject('请选择技能要求') : resolve()
+    })
+
     // 验证地址是否已经选择
     const positionAddress = new Promise((resolve, reject) => {
       !this.data.address_id ? reject('请选择地址') : resolve()
@@ -293,6 +297,7 @@ Page({
       positionType, 
       positionAddress,
       positionEmolument,
+      positionSkills,
       positionExperience,
       positionEducation,
       positionDescribe
@@ -354,6 +359,7 @@ Page({
       && infos.type
       && infos.address_id
       && infos.emolument_min
+      && infos.skills.length
       && infos.work_experience
       && infos.education
       && infos.describe

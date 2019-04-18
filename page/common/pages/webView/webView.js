@@ -1,12 +1,15 @@
+import {WEBVIEW} from '../../../../config.js'
 const app = getApp()
+let wxShare = {}
+let options = {}
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    title: '',
     pageUrl: '',
+    cdnImagePath: app.globalData.cdnImagePath,
     navH: app.globalData.navHeight
   },
 
@@ -14,17 +17,36 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    let pageUrl = ''
-    let title = ''
-    let sessionToken = wx.getStorageSync('sessionToken')
-    let token = wx.getStorageSync('token')
-    switch (options.type) {
-      case 'recruitmentDay':
-        pageUrl = `https://m.lieduoduo.com/available?sessionToken=${sessionToken}&token=${token}` //`https://m.lieduoduo.ziwork.com/available?sessionToken=${sessionToken}`//
-        title = '猎多多招聘节'
-        break
+    options = options
+    if (options.scene) options = app.getSceneParams(options.scene)
+    let init = () => {
+      let pageUrl = ''
+      let sessionToken = wx.getStorageSync('sessionToken')
+      let token = wx.getStorageSync('token')
+      switch (options.type) {
+        case 'recruitmentDay':
+          pageUrl = `${WEBVIEW}available?sessionToken=${sessionToken}&token=${token}`
+          wxShare = {
+            title: '一大波高薪大厂机会来袭，社交招聘节来看看吗？',
+            path: '/page/common/pages/webView/webView?type=recruitmentDay',
+            imageUrl: `${this.data.cdnImagePath}zpjShareBg.jpg`
+          }
+          break
+      }
+      this.setData({pageUrl})
+      app.readyStatistics({
+        page: 'recruit_festival',
+        channel: options.c || ''
+      })
     }
-    this.setData({pageUrl, title})
+    if (app.loginInit) {
+      init()
+    } else {
+      app.loginInit = () => {
+        init()
+      }
+    }
+    
   },
   getMessage (e) {
     console.log(e, 'h5返回的信息')
@@ -76,7 +98,10 @@ Page({
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
-
+  onShareAppMessage: function (options) {
+    return app.wxShare({
+      options,
+      ...wxShare
+    })
   }
 })

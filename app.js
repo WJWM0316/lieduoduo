@@ -1,6 +1,6 @@
 //app.js
 import {loginApi, checkSessionKeyApi, bindPhoneApi, uploginApi} from 'api/pages/auth.js'
-import {formIdApi, shareStatistics} from 'api/pages/common.js'
+import {formIdApi, shareStatistics, readyStatistics} from 'api/pages/common.js'
 import {getPersonalResumeApi} from 'api/pages/center.js'
 import {getRecruiterDetailApi} from 'api/pages/recruiter.js'
 import {COMMON,RECRUITER,APPLICANT} from "config.js"
@@ -181,7 +181,6 @@ App({
   },
   // 登陆成功后下载一下数据
   loginedLoadData() {
-    
     this.getRoleInfo()
   },
   // 检查微信授权
@@ -654,8 +653,14 @@ App({
     let path = `/${pageUrl}?${this.splicingParams(pages[index].options)}`
     return path
   },
+  // 操作统计
   shareStatistics ({id, type, channel, sCode}) {
     shareStatistics({id, type, channel, sCode}).then(res => {
+    })
+  },
+  // 浏览统计
+  readyStatistics ({id=0, page, channel, sCode}) {
+    readyStatistics({id, page, channel, sCode}).then(res => {
     })
   }
 })

@@ -154,6 +154,17 @@ export const shareStatistics  = (data, hasLoading) => {
   })
 }
 
+// 浏览统计
+export const readyStatistics  = (data, hasLoading) => {
+  return request({
+    method: 'post',
+    url: `/share/check_in_event`,
+    data,
+    host: 'PUBAPIHOST',
+    hasLoading: false
+  })
+}
+
 // 获取广告位banner
 export const getAdBannerApi  = (data, hasLoading) => {
   return request({

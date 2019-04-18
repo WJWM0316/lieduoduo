@@ -206,3 +206,27 @@ export const editIntroduceApi = (data) => {
     hasLoading: false
   })
 }
+
+// 获取步数
+export const getStepApi = (data) => {
+  return request({
+    method: 'get',
+    url: `/jobhunter/resume/four/step`,
+    data
+  })
+}
+// 创建第一步
+export const getCreatFirstStepApi = (data) => {
+  return request({
+    method: 'get',
+    url: `/jobhunter/resume/four/firstStep`,
+    data
+  })
+}
+export const postCreatFirstStepApi = (data) => {
+  return request({
+    method: 'post',
+    url: `/jobhunter/resume/four/firstStep`,
+    data
+  })
+}

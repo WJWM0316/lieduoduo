@@ -61,4 +61,5 @@
   </view>
   <tabBar></tabBar>
   <auth wx:if="{{requireOAuth}}" bindauthSuccess="authSuccess"></auth>
+  <adPop></adPop>
 </view>
