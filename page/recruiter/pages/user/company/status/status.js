@@ -24,7 +24,6 @@ Page({
   },
   onLoad(options) {
     this.setData({options})
-    console.log(options)
   },
   onShow() {
     this.getCompanyIdentityInfos()
@@ -34,6 +33,8 @@ Page({
     let companyInfos = this.data.companyInfos
     let options = this.data.options
     let identityInfos = this.data.identityInfos
+    let applyJoin = this.data.applyJoin
+    let from = applyJoin ? 'join' : 'company'
     
   	switch(params.action) {
   		case 'identity':
@@ -69,8 +70,16 @@ Page({
         wx.navigateTo({url: `${RECRUITER}user/company/apply/apply?action=edit`})
         break
       case 'recruitment':
+        console.log(options)
+        
         if(companyInfos.status === 1) {
           wx.reLaunch({url: `${RECRUITER}index/index`})
+          return;
+        }
+
+        if(options.from === 'identity' && companyInfos.status !== 1) {
+          wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=${from}`})
+          return;
         }
         break
       case 'call':
@@ -136,9 +145,10 @@ Page({
           options.showBack = true
         }
 
-        if(identityInfos.status === 1) {
+        if(identityInfos.status === 1 && companyInfos.status === 1) {
           showHome = true
         }
+
         this.setData({identityInfos, companyInfos, pageTitle, applyJoin, options, showHome}, () => resolve(res))
       })
     })

@@ -80,7 +80,7 @@ Page({
     }
     perfectCompanyApi(params).then(res => {
       wx.removeStorageSync('createdCompany')
-      wx.navigateTo({url: `${RECRUITER}user/company/status/status?from=company`})
+      wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=company`})
     })
   }
 })

@@ -250,7 +250,7 @@ Page({
           if(res.data.emailStatus) {
             wx.navigateTo({url: `${RECRUITER}user/company/identityMethods/identityMethods?from=join&suffix=${res.data.suffix}&companyId=${res.data.companyId}`})
           } else {
-            wx.navigateTo({url: `${RECRUITER}user/company/status/status?from=join`})
+            wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=join`})
           }
         })
       }
@@ -288,7 +288,7 @@ Page({
                 if(res.data.emailStatus) {
                   wx.navigateTo({url: `${RECRUITER}user/company/identityMethods/identityMethods?from=join&suffix=${res.data.suffix}&companyId=${res.data.companyId}`})
                 } else {
-                  wx.navigateTo({url: `${RECRUITER}user/company/status/status?from=join`})
+                  wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=join`})
                 }
               })
             } else {
@@ -302,7 +302,7 @@ Page({
             if(res.data.emailStatus) {
               wx.navigateTo({url: `${RECRUITER}user/company/identityMethods/identityMethods?from=join&suffix=${res.data.suffix}&companyId=${res.data.companyId}`})
             } else {
-              wx.navigateTo({url: `${RECRUITER}user/company/status/status?from=join`})
+              wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=join`})
             }
           })
         }

@@ -1,7 +1,7 @@
 <!-- 加载过滤器 -->
 <wxs src="../../../../../../utils/filters.wxs" module="filters" />
 
-<navbar title="{{pageTitle}}" background="#FFFFFF" color="#22292C" showBack="{{options.showBack}}" showHome="{{showHome}}"></navbar>
+<navbar title="{{pageTitle}}" background="#FFFFFF" color="#22292C" showHome="{{showHome}}"></navbar>
 
 <view class="company-identity-status">
 	
@@ -281,10 +281,21 @@
 		<image class="bgImg" src="{{cdnImagePath}}verify_bg.png" mode="aspectFill"></image>
 	</view>
 
-	<view class="go" bindtap="toggle" wx:if="{{!identityInfos.haveIdentity || identityInfos.status !== 1 || companyInfos.status !== 1}}">
+	<view
+		class="go"
+		bindtap="toggle"
+		wx:if="{{companyInfos.status !== 1 && (options.from === 'company' || options.from === 'join')}}">
+		<text>前往求职端</text>
+	</view>
+	
+	<view
+		class="go"
+		bindtap="toggle"
+		wx:if="{{identityInfos.status !== 1 && options.from === 'identity'}}">
 		<text>前往求职端</text>
 	</view>
 
 	<view class="button4" wx:if="{{options.from !== 'identity' && companyInfos.status === 1}}" bindtap="todoAction" data-action="recruitment">开始招聘</view>
 	<view class="button4" wx:if="{{options.from === 'identity' && identityInfos.status === 1}}" bindtap="todoAction" data-action="recruitment">确定</view>
 </view>
+

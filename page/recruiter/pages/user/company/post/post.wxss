@@ -7,13 +7,12 @@
 }
 
 .company-post .warning {
-	height:80rpx;
 	background:rgba(255,252,240,1);
-	line-height: 80rpx;
-	font-size:28rpx;
+	font-size:26rpx;
 	font-weight:300;
-	color:rgba(255,127,77,1);
-	padding: 0 40rpx;
+	color:#FF7F4D;
+	padding: 22rpx 40rpx;
+	line-height: 36rpx;
 }
 
 .company-post .entry-list .li {

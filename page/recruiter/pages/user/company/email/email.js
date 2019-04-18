@@ -94,12 +94,12 @@ Page({
    * @return   {[type]}   [description]
    */
   sendEmailByCreate() {
+    let email = this.data.email
     let options = this.data.options
     let applyJoin = options.from === 'join' ? true : false
     let params = {email: this.data.email, company_id: options.companyId}
-    if(!params.email.includes('@')) {
-      params = Object.assign(params, {email: `${params.email}${options.suffix}`})
-    }
+    // 邮箱不正确
+    if(!this.data.canClick) return
     if(this.data.step === 2) {
       sendEmailApi(params).then(res => this.setData({canResend: false }, this.killTime()))
     } else {
@@ -229,7 +229,7 @@ Page({
       }).then(() => {
         clearInterval(this.data.timer)
         wx.removeStorageSync('createdCompany')
-        wx.navigateTo({url: `${RECRUITER}user/company/status/status?from=company`})
+        wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=company`})
       })
     })
     .catch(() => {
@@ -249,7 +249,7 @@ Page({
       params = Object.assign(params, {email: `${params.email}${options.suffix}`})
     }
     verifyEnterpriseEmailApi(params).then(res => {
-      wx.redirectTo({url: `${RECRUITER}user/company/status/status?from=join`})
+      wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=join`})
     })
     .catch(() => {
       this.setData({code: '', error: true, isFocus: true, classErrorName: 'error'})
@@ -274,7 +274,7 @@ Page({
     let options = this.data.options
     let applyJoin = options.from === 'join' ? true : false
     let from = applyJoin ? 'join' : 'company'
-    wx.redirectTo({url: `${RECRUITER}user/company/identityMethods/identityMethods?from=${from}`})
+    wx.reLaunch({url: `${RECRUITER}user/company/identityMethods/identityMethods?from=${from}`})
   },
   /**
    * @Author   小书包

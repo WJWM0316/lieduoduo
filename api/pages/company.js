@@ -412,7 +412,7 @@ export const sendEnterpriseEmailApi = (data, hasLoading) => {
 export const verifyEnterpriseEmailApi = (data, hasLoading) => {
   return request({
     method: 'post',
-    url: `/company/verify`,
+    url: `/company/verifyCompanyMail`,
     data,
     hasLoading: true
   })
