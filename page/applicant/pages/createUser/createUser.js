@@ -1,6 +1,6 @@
 import wxAnimation from '../../../../utils/animation.js'
 import {getSelectorQuery} from '../../../../utils/util.js'
-import {getStepApi, getCreatFirstStepApi, postCreatFirstStepApi, getCreatSecondStepApi} from '../../../../api/pages/center.js'
+import {getStepApi, getCreatFirstStepApi, postCreatFirstStepApi, getCreatSecondStepApi, postCreatSecondStepApi} from '../../../../api/pages/center.js'
 import {COMMON, APPLICANT} from '../../../../config.js'
 const app = getApp()
 let timer = null,
@@ -15,7 +15,7 @@ Page({
     isBangs: app.globalData.isBangs,
     cdnImagePath: app.globalData.cdnImagePath,
     animationData: {},
-    step: 0, // 创建步数
+    step: -1, // 创建步数
     active: null,
     avatar: {},
     gender: 1,
@@ -25,16 +25,18 @@ Page({
     startWorkYearDesc: '',
     startWork: 0,
     workCurrent: 0,
+    workErr: 0,
     workDate: [
       {
-        companyName: '',
+        company: '',
+        positionTypeId: 0,
         positionType: '',
-        positionName: '',
-        starTime: 0,
-        starTimeDesc: '',
+        position: '',
+        startTime: 0,
+        startTimeDesc: '',
         endTime: 0,
         endTimeDesc: '',
-        workContent: ''
+        duty: ''
       }
     ]
   },
@@ -43,7 +45,13 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.getStep()
+    if (app.loginInit) {
+      this.getStep()
+    } else {
+      app.loginInit = () => {
+        this.getStep()
+      }
+    }
   },
   progress (step) {
     this.setData({step}, () => {
@@ -93,51 +101,97 @@ Page({
         list = this.data.workDate
         break
     }
+    if (this.data.workDate.length >= 3) {
+      app.wxToast({title: '最多只能添加三份档案'})
+      return
+    }
     list.push({})
     this.setData({[listKey]: list, [type]: list.length - 1})
   },
   remove (e) {
-    let getData = e.currentTarget.dataset
-    let type = ''
-    let listKey = ''
-    let list = []
-    let current = 0
+    let getData = e.currentTarget.dataset,
+        type = '',
+        listKey = '',
+        list = [],
+        current = 0,
+        errType = '',
+        err = 0,
+        that = this
     switch (getData.type) {
       case 'work':
         listKey = 'workDate'
         type = 'workCurrent'
+        errType = 'workErr'
         current = this.data.workCurrent
         list = this.data.workDate
         break
     }
-    list.splice(current, 1)
-    if (current !== 0 && current === list.length - 1) {
-      current --
-      this.setData({[type]: current, [listKey]: list})
-    } else {
-      this.setData({[listKey]: list})
-    }
+    app.wxConfirm({
+      title: '提示',
+      content: `删除后无法恢复，确认是否要删除0${current + 1}档案？`,
+      confirmBack() {
+        if (that.data[errType] === current + 1) {
+          err = 0
+        } else {
+          err = that.data[errType]
+        }
+        if (current !== 0 && current <= list.length - 1) {
+          list.splice(current, 1)
+          current --
+          that.setData({[type]: current, [listKey]: list, [errType]: err})
+        } else {
+          list.splice(current, 1)
+          that.setData({[listKey]: list, [errType]: err})
+        }
+      }
+    })
   },
   continue () {
-    this.postFirstFun('post').then(res => {
+    this.submitFun().then(res => {
       let step = this.data.step
       step++
       this.progress(step)
     })
-    
+  },
+  submitFun () {
+    switch (this.data.step) {
+      case 1:
+        return this.postFirstFun()
+        break
+      case 3:
+        let workDate = this.data.workDate
+        let workErr = this.data.workErr
+        let workCurrent = this.data.workCurrent
+        for (let i = 0; i <= workDate.length - 1; i++) {
+          if (!workDate[i].company || !workDate[i].positionTypeId || !workDate[i].position || !workDate[i].startTime || (!workDate[i].endTime && workDate[i].endTime !== 0) || !workDate[i].duty) {
+            workErr = i + 1
+            this.setData({workErr, workCurrent: i})
+            break
+          } else {
+            if (workErr) this.setData({workErr: 0})
+          }
+        }
+        if (workErr) {
+          return new Promise((resolve, reject) => {reject(`第${workErr}个工作经历档案信息不完整, 无法提交`)})
+        }
+        return this.postSecondFun()
+    }
   },
   postFirstFun (type) {
-    if (type === 'post') {
-      let data = this.data
-      let params = {
-        avatar: data.avatar.id,
-        gender: data.gender,
-        name: data.name,
-        birth: data.birth,
-        startWorkYear: data.startWorkYear
-      }
-      return postCreatFirstStepApi(params)
+    let data = this.data
+    let params = {
+      avatar: data.avatar.id,
+      gender: data.gender,
+      name: data.name,
+      birth: data.birth,
+      startWorkYear: data.startWorkYear
     }
+    return postCreatFirstStepApi(params)
+  },
+  postSecondFun (type) {
+    let data = this.data
+    let params = this.data.workDate
+    return postCreatSecondStepApi({careers: params})
   },
   getStepData (step) {
     switch (step) {
@@ -160,10 +214,10 @@ Page({
   },
   getStep () {
     getStepApi().then(res => {
-      let step = res.data.isFinished
-      // this.getStepData(step)
-      if (step > 0) this.setData({step: step + 1}, () => {
-        this.progress(step + 1)
+      let step = res.data.step
+      if (step === 1) step = -1
+      if (step > 0) this.setData({step: step + 2}, () => {
+        this.progress(this.data.step)
       })
     })
   },
@@ -184,6 +238,20 @@ Page({
       case 'birth':
         this.setData({birthDesr: e.detail.propsDesc, birth: e.detail.propsResult})
         break
+      case 'startTime':
+        var index = this.data.workCurrent,
+            workDate = this.data.workDate
+        workDate[index].startTime = e.detail.propsResult
+        workDate[index].startTimeDesc = e.detail.propsDesc
+        this.setData({workDate})
+        break
+      case 'endTime':
+        var index = this.data.workCurrent,
+            workDate = this.data.workDate
+        workDate[index].endTime = e.detail.propsResult
+        workDate[index].endTimeDesc = e.detail.propsDesc
+        this.setData({workDate})
+        break
     }
     
   },
@@ -202,10 +270,15 @@ Page({
         break
       case 'companyName':
         key = 'workDate'
-        let workDate = this.data.workDate
-        workDate[this.data.workCurrent].companyName = value
+        var workDate = this.data.workDate
+        workDate[this.data.workCurrent].company = value
         value = workDate
         break
+      case 'positionName':
+        key = 'position'
+        var workDate = this.data.workDate
+        workDate[this.data.workCurrent].position = value
+        value = workDate
     }
     timer = setTimeout(() => {
       this.setData({[key]: value})
@@ -218,6 +291,14 @@ Page({
     switch (type) {
       case 'companyName':
         url = `${APPLICANT}searchCompany/searchCompany`
+        wx.setStorageSync('createdCompany', e.currentTarget.dataset.value)
+        break
+      case 'positionType':
+        url = `${COMMON}category/category`
+        break
+      case 'workContent':
+        url = `${APPLICANT}center/workContent/workContent`
+        wx.setStorageSync('workContent', e.currentTarget.dataset.value)
         break
     }
     wx.navigateTo({url})
@@ -227,8 +308,38 @@ Page({
    */
   onShow: function () {
     let avatar = wx.getStorageSync('avatar')
+    let positionType = wx.getStorageSync('createPosition')
+    let companyName = wx.getStorageSync('companyName')
+    let workContent = wx.getStorageSync('workContent')
     if (avatar) {
-      this.setData({avatar})
+      this.setData({avatar}, () => {
+        wx.removeStorageSync('avatar')
+      })
+    }
+    if (companyName) {
+      let workDate = this.data.workDate
+      let index = this.data.workCurrent
+      workDate[index].company = companyName
+      this.setData({workDate}, () => {
+        wx.removeStorageSync('companyName')
+      })
+    }
+    if (positionType) {
+      let workDate = this.data.workDate
+      let index = this.data.workCurrent
+      workDate[index].positionTypeId = positionType.type
+      workDate[index].positionType = positionType.typeName
+      this.setData({workDate}, () => {
+        wx.removeStorageSync('createPosition')
+      })
+    }
+    if (workContent) {
+      let workDate = this.data.workDate
+      let index = this.data.workCurrent
+      workDate[index].duty = workContent
+      this.setData({workDate}, () => {
+        wx.removeStorageSync('workContent')
+      })
     }
   },
 

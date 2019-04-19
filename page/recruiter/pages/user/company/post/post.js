@@ -153,7 +153,6 @@ Page({
     const formData = this.data.formData
     formData.logo = e.detail[0]
     this.setData({formData})
-    console.log(this.data)
   },
 
   routeJump() {

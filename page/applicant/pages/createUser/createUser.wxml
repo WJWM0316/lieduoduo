@@ -36,10 +36,13 @@
 				<view class="animation icon"><image class="pic" src="{{cdnImagePath}}pic_ai.png"  mode="widthFix"></image></view>
 			</view>
 			<view hidden="{{step !== 3}}" class="second {{active === 3 ? 'active' : ''}}" >
-				<view class="animation title"><text>录入你的工作档案，快速启动飞船吧~</text></view>
+				<view class="animation title">
+					<text class="err" wx:if="{{workErr}}">你的0{{workErr}}号档案未完成噢，请完成后继续</text>
+					<text wx:else>录入你的工作档案，快速启动飞船吧~</text>
+				</view>
 				<view class="animation form">
 					<view class="number">
-						<text class="num {{workCurrent === index ? 'cur' : ''}}" wx:for="{{workDate}}" wx:key="{{index}}" bindtap="toggle" data-type="index" data-index="{{index}}">0{{index + 1}}</text>
+						<text class="num {{workCurrent === index ? 'cur' : ''}} {{workErr - 1 === index ? 'err' : ''}}" wx:for="{{workDate}}" wx:key="{{index}}" bindtap="toggle" data-type="index" data-index="{{index}}">0{{index + 1}}</text>
 					</view>
 					<text class="close iconfont icon-cha-cu" bindtap="remove" data-type="work" wx:if="{{workDate.length > 1}}"></text>
 					<swiper class="demo" circular current="{{workCurrent}}" bindchange="toggle" data-type="change">
@@ -47,24 +50,24 @@
 							<view class="head">工作经历档案0{{index + 1}}</view>
 							<view class="content">
 						    <view class="box">
-							    <input bindtap="jump" data-type="companyName" disabled name="company" placeholder-class="holderStyle" bindinput="getValue" data-type="companyName" placeholder="填写公司名称" value="{{info.companyName}}"/>
-							  </view>
-							  <view class="box" bindtap="jumpType">
-							    <input name="positionType" placeholder-class="holderStyle" placeholder="选择职位类型" value="{{info.positionType.typeName || ''}}" disabled />
+							    <input bindtap="jump" data-type="companyName" data-value="{{item.company}}" disabled name="company" placeholder-class="holderStyle" bindinput="getValue" data-type="companyName" placeholder="请填写公司名称" value="{{item.company}}"/>
 							  </view>
 							  <view class="box">
-							    <input name="position" placeholder-class="holderStyle" maxlength="20" bindinput="getValue" data-type="position" value="{{info.position}}" placeholder="请填写当前职位名称" />
+							    <input bindtap="jump" data-type="positionType" name="positionType" placeholder-class="holderStyle" placeholder="请选择职位类型" value="{{item.positionType}}" disabled />
+							  </view>
+							  <view class="box">
+							    <input name="position" placeholder-class="holderStyle" maxlength="20" bindinput="getValue" data-type="positionName" value="{{item.position}}" placeholder="请填写当前职位名称" />
 							  </view>
 							  <view class="timeBox">
 							    <view class="startTime">
-							      <myPicker class="myPicker" setResult="{{info.startTimeDesc}}" styleObj="color: #EFE9F4;font-weight: 300" data-type="starTime" pickerType="startTime" bindresultevent="getresult"></myPicker>
+							      <myPicker class="myPicker" setResult="{{item.startTimeDesc}}" styleObj="color: #EFE9F4;font-weight: 300" data-type="startTime" pickerType="startTime" bindresultevent="getresult"></myPicker>
 							    </view> ~ 
 							    <view class="endTime">
-							      <myPicker class="myPicker" setResult="{{info.endTimeDesc}}" styleObj="color: #EFE9F4;font-weight: 300"  data-type="endTime" pickerType="endTime" bindresultevent="getresult"></myPicker>
+							      <myPicker class="myPicker" setResult="{{item.endTimeDesc}}" styleObj="color: #EFE9F4;font-weight: 300"  data-type="endTime" pickerType="endTime" bindresultevent="getresult"></myPicker>
 							    </view>
 							  </view>
-							  <view class="box" bindtap="eidt">
-							    <input name="duty" placeholder-class="holderStyle" type="text" placeholder="工作内容" value="{{info.duty}}" disabled/>
+							  <view class="box">
+							    <input bindtap="jump" data-type="workContent" data-value="{{item.duty}}" name="duty" placeholder-class="holderStyle" type="text" placeholder="请填写工作内容" value="{{item.duty}}" disabled/>
 							  </view>
 						  </view>
 						</swiper-item>
@@ -74,7 +77,56 @@
 					<view class="add" bindtap="addItem" data-type="work">
 						<i class="addIcon iconfont icon-jiahao"></i>添加工作经历
 					</view>
-			    <view class="animation btn">
+			    <view class="animation btn" bindtap="continue">
+						<view class="btn-area">继续</view>
+				    <view class="btn-area-bg"></view>
+					</view>
+				</view>
+			</view>
+			<view hidden="{{step !== 4}}" class="entry transition {{active === 4 ? 'active' : ''}}" >
+				<view class="animation title">档案录入成功，飞船正在启动中..</view>
+				<view class="animation icon"><image class="pic" src="{{cdnImagePath}}pic_ai.png"  mode="widthFix"></image></view>
+			</view>
+			<view hidden="{{step !== 5}}" class="second third {{active === 5 ? 'active' : ''}}" >
+				<view class="animation title">
+					<text class="err" wx:if="{{workErr}}">你的0{{workErr}}号档案未完成噢，请完成后继续</text>
+					<text wx:else>不好，飞船没能量了! 录入教育经历补充</text>
+				</view>
+				<view class="animation form">
+					<view class="number">
+						<text class="num {{workCurrent === index ? 'cur' : ''}} {{workErr - 1 === index ? 'err' : ''}}" wx:for="{{workDate}}" wx:key="{{index}}" bindtap="toggle" data-type="index" data-index="{{index}}">0{{index + 1}}</text>
+					</view>
+					<text class="close iconfont icon-cha-cu" bindtap="remove" data-type="work" wx:if="{{workDate.length > 1}}"></text>
+					<swiper class="demo" circular current="{{workCurrent}}" bindchange="toggle" data-type="change">
+						<swiper-item class="demo-item" wx:for="{{workDate}}" wx:key="{{index}}">
+							<view class="head">教育经历档案0{{index + 1}}</view>
+							<view class="content">
+						    <view class="box">
+							    <input placeholder-class="holderStyle" bindinput="getValue" data-type="school" placeholder="请填写学校名称" value="{{item.school}}"/>
+							  </view>
+							  <view class="box">
+							    <input data-type="major" name="positionType" placeholder-class="holderStyle" placeholder="请填写专业名称" value="{{item.major}}"/>
+							  </view>
+							  <view class="box">
+							    <myPicker class="myPicker" data-type="education" placeholder-class="holderStyle" pickerType="education" bindresultevent="getresult" rangeKey="text"></myPicker>
+							  </view>
+							  <view class="timeBox">
+							    <view class="startTime">
+							      <myPicker class="myPicker" setResult="{{item.startTimeDesc}}" styleObj="color: #EFE9F4;font-weight: 300" data-type="edStartTime" pickerType="startTime" bindresultevent="getresult"></myPicker>
+							    </view> ~ 
+							    <view class="endTime">
+							      <myPicker class="myPicker" setResult="{{item.endTimeDesc}}" styleObj="color: #EFE9F4;font-weight: 300"  data-type="edEndTime" pickerType="endTime" bindresultevent="getresult"></myPicker>
+							    </view>
+							  </view>
+						  </view>
+						</swiper-item>
+					</swiper>
+					<i class="prev iconfont icon-qianyige" bindtap="toggle" data-type="prev"></i>
+					<i class="next iconfont icon-houyige" bindtap="toggle" data-type="next"></i>
+					<view class="add" bindtap="addItem" data-type="work">
+						<i class="addIcon iconfont icon-jiahao"></i>添加教育经历
+					</view>
+			    <view class="animation btn" bindtap="continue">
 						<view class="btn-area">继续</view>
 				    <view class="btn-area-bg"></view>
 					</view>

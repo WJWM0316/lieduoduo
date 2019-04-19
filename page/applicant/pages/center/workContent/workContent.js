@@ -26,7 +26,9 @@ Page({
   onShow: function () {
     let content = wx.getStorageSync('workContent')
     if (content) {
-      this.setData({content})
+      this.setData({content}, () => {
+        wx.removeStorageSync('workContent')
+      })
     }
   },
   /* 切换例子 */

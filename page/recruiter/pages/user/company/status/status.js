@@ -23,7 +23,6 @@ Page({
   },
   onShow() {
     this.getCompanyIdentityInfos()
-    console.log(12121)
   },
   todoAction(e) {
   	let params = e.currentTarget.dataset
