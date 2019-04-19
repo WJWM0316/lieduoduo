@@ -59,6 +59,10 @@ Page({
       this.setData({formData})
     })
   },
+  onHide() {
+    const storage = wx.getStorageSync('createdCompany') || {}
+    wx.setStorageSync('createdCompany', Object.assign(storage, this.data.formData))
+  },
   /**
    * @Author   小书包
    * @DateTime 2019-04-16
@@ -178,7 +182,7 @@ Page({
    * @return   {[type]}       [description]
    */
   upload(e) {
-    const formData = this.data.formData
+    let formData = this.data.formData
     formData.logo = e.detail[0]
     this.setData({formData})
   },
@@ -189,8 +193,12 @@ Page({
    * @return   {[type]}   [description]
    */
   routeJump() {
-    const storage = wx.getStorageSync('createdCompany') || {}
+    let storage = wx.getStorageSync('createdCompany') || {}
     wx.setStorageSync('createdCompany', Object.assign(storage, this.data.formData))
     wx.navigateTo({url: `${RECRUITER}company/introducingEdit/introducingEdit`})
+  },
+  savaBeforeUpload() {
+    const storage = wx.getStorageSync('createdCompany') || {}
+    wx.setStorageSync('createdCompany', Object.assign(storage, this.data.formData))
   }
 })
