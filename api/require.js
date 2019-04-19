@@ -28,7 +28,7 @@ let recruiterJump = (msg) => {
       if(companyInfo.status === 1) {
         wx.reLaunch({url: `${RECRUITER}index/index`})
       } else {
-        if(!companyInfo.step) {
+        if(!companyInfo.step && companyInfo.status !== 2) {
           wx.reLaunch({url: `${RECRUITER}user/company/createdCompanyInfos/createdCompanyInfos`})
         } else {
           wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=company`})

@@ -33,9 +33,9 @@
 			<i class="icon iconfont icon-zizhurenzheng"></i>
 		</view>
 		<view class="enter">
-			<text class="toggle" bindtap="toggle">前往求职端</text>
+			<view class="toggle text2" bindtap="toggle">前往求职端</view>
   		 |
-  		<text class="changePhone" bindtap="changePhone">换个账号</text>
+  		<view class="changePhone text2" bindtap="changePhone">换个账号</view>
   	</view>
 	</view>
 </view>

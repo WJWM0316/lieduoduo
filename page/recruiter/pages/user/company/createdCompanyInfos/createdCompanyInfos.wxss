@@ -124,11 +124,16 @@
 }
 
 .footer .enter {
-	width: 100%;
+	width: 100vw;
 	margin-top: 45rpx;
 	text-align: center;
-	font-size:28rpx;
-	font-weight:500;
-	color:#BCBCBC;
 	line-height:28rpx;
+	color:#BCBCBC;
+	display: inline-block !important;
+}
+
+.footer .enter .text2{
+	display: inline;
+	font-size:28rpx !important;
+	font-weight:500;
 }

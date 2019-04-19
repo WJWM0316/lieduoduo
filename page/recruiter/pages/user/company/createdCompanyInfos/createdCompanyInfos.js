@@ -14,7 +14,6 @@ Page({
   },
   onLoad(options) {
     this.setData({options})
-    this.getCompanyIdentityInfos()
   },
   backEvent() {
     wx.navigateTo({url: `${RECRUITER}user/company/apply/apply?action=edit`})
@@ -74,9 +73,12 @@ Page({
 
         let from = applyJoin ? 'join' : 'company'
         resolve(res)
-
-        if(companyInfos.step === 1) {
-          wx.redirectTo({url: `${RECRUITER}user/company/status/status?from=${from}`})
+        if(companyInfos.step) {
+          wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=${from}`})
+        } else {
+          if(companyInfos.status === 2) {
+            wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=${from}`})
+          }
         }
       })
     })

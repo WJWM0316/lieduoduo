@@ -60,7 +60,7 @@
 	margin-bottom: 0rpx;
 }
 
-.over-layout text {
+.over-layout .text {
 	color: #652791;
 }
 

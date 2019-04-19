@@ -3,7 +3,8 @@
 	background:rgba(255,255,255,1);
 	overflow: hidden;
 	text-align: center;
-	padding: 56rpx 30rpx 48rpx 30rpx;
+	padding: 56rpx 40rpx 48rpx 40rpx;
+	box-shadow:0rpx 1rpx 0rpx 0rpx rgba(232,233,235,1);
 }
 
 .header .default-status {
@@ -61,7 +62,18 @@
 	font-weight:400;
 	color:rgba(40,40,40,1);
 	text-align: center;
-	margin-bottom: 56rpx;
+	margin-bottom: 32rpx;
+	border-bottom: 1rpx solid #E8E9EB;
+	padding-bottom: 32rpx;
+}
+
+.header .p10{
+	font-size:26rpx;
+	font-weight:400;
+	color:rgba(40,40,40,1);
+	text-align: center;
+	margin-bottom: 32rpx;
+	padding-bottom: 32rpx;
 }
 
 .header .p3{
@@ -443,6 +455,7 @@
 	line-height:28rpx;
 	text-align: center;
 	margin-top: 122rpx;
+	margin-bottom: 48rpx;
 }
 
 .button4 {

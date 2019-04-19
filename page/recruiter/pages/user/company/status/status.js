@@ -42,7 +42,7 @@ Page({
         if(!identityInfos.haveIdentity) {
           wx.navigateTo({url: `${RECRUITER}user/company/identity/identity?from=${options.from}`})
         } else {
-          if(identityInfos.status === 2) {
+          if((identityInfos.status === 2 || identityInfos.status === 0) && options.from === 'identity') {
             wx.navigateTo({url: `${RECRUITER}user/company/identity/identity?from=${options.from}`})
           } else {
             wx.navigateTo({url: `${RECRUITER}user/company/status/status?from=identity`})
@@ -188,4 +188,15 @@ Page({
   callPhone() {
     wx.makePhoneCall({phoneNumber: app.globalData.telePhone})
   },
+  backEvent() {
+    wx.navigateBack({delta: 1})
+    // let options = this.data.options
+    // let applyJoin = this.data.applyJoin
+    // let from = applyJoin ? 'join' : 'company'
+    // if(options.reBack == 2) {
+    //   wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=${from}`})
+    // } else {
+    //   wx.navigateBack({delta: 1})
+    // }
+  }
 })
