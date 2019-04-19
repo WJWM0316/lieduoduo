@@ -308,9 +308,9 @@ Page({
    * @return   {[type]}   [description]
    */
   previewImage(e) {
-    const albumInfo = this.data.companyInfos.albumInfo.map(field => field.url)
-    const params = e.currentTarget.dataset
-    wx.previewImage({current: params.index, urls: albumInfo})
+    let albumInfo = this.data.companyInfos.albumInfo.map(field => field.url)
+    let current = albumInfo.find((value, now, arr) => now === this.data.swiperIndex)
+    wx.previewImage({current, urls: albumInfo})
   },
   /**
    * @Author   小书包
