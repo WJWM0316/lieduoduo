@@ -13,17 +13,17 @@
 			      <avatarCut class="avatar" avatar="avatar" src="{{avatar.url}}"></avatarCut>
 			    </view>
 			    <view class="gender" bindtap="chooseGender">
-			      <view class="{{gender === '1'? 'active' : ''}}" data-gender="1">男</view>
-			      <view class="{{gender === '2'? 'active' : ''}}" data-gender="2">女</view>
+			      <view class="{{gender === 1 ? 'active' : ''}}" data-gender="{{1}}">男</view>
+			      <view class="{{gender === 2 ? 'active' : ''}}" data-gender="{{2}}">女</view>
 			    </view>
 			    <view class="name">
 			      <input name="name" placeholder-class="holderStyle" bindinput="getValue" data-type="name" maxlength="20" placeholder="请输入姓名"  value="{{name}}"/>
 			    </view>
 			    <view class="time">
-			      <myPicker class="myPicker" setResult="{{birthDesr}}" pickerType="birthday" data-type="birth" bindresultevent="getresult" styleObj="color: #EFE9F4;font-weight: 300"></myPicker>
+			      <myPicker class="myPicker" setResult="{{birthDesc}}" pickerType="birthday" data-type="birth" bindresultevent="getresult" styleObj="color: #EFE9F4;font-weight: 300"></myPicker>
 			    </view>
 			    <view class="time">
-			      <myPicker class="myPicker" setResult="{{workTimeDesr}}" pickerType="workTime" data-type="workTime" bindresultevent="getresult" styleObj="color: #EFE9F4;font-weight: 300"></myPicker>
+			      <myPicker class="myPicker" setResult="{{startWorkYearDesc}}" pickerType="workTime" data-type="workTime" bindresultevent="getresult" styleObj="color: #EFE9F4;font-weight: 300"></myPicker>
 			    </view>
 			    <view class="animation btn" bindtap="continue">
 						<view class="btn-area">继续</view>
@@ -47,7 +47,7 @@
 							<view class="head">工作经历档案0{{index + 1}}</view>
 							<view class="content">
 						    <view class="box">
-							    <input name="company" placeholder-class="holderStyle" bindinput="getValue" data-type="companyName" placeholder="填写公司名称" value="{{info.companyName}}"/>
+							    <input bindtap="jump" data-type="companyName" disabled name="company" placeholder-class="holderStyle" bindinput="getValue" data-type="companyName" placeholder="填写公司名称" value="{{info.companyName}}"/>
 							  </view>
 							  <view class="box" bindtap="jumpType">
 							    <input name="positionType" placeholder-class="holderStyle" placeholder="选择职位类型" value="{{info.positionType.typeName || ''}}" disabled />

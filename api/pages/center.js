@@ -230,3 +230,18 @@ export const postCreatFirstStepApi = (data) => {
     data
   })
 }
+// 创建第一步
+export const getCreatSecondStepApi = (data) => {
+  return request({
+    method: 'get',
+    url: `/jobhunter/resume/four/secondStep`,
+    data
+  })
+}
+export const postCreatSecondStepApi = (data) => {
+  return request({
+    method: 'post',
+    url: `/jobhunter/resume/four/secondStep`,
+    data
+  })
+}

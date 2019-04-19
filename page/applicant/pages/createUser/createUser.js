@@ -1,6 +1,7 @@
 import wxAnimation from '../../../../utils/animation.js'
 import {getSelectorQuery} from '../../../../utils/util.js'
-import {getStepApi, getCreatFirstStepApi, postCreatFirstStepApi} from '../../../../api/pages/center.js'
+import {getStepApi, getCreatFirstStepApi, postCreatFirstStepApi, getCreatSecondStepApi} from '../../../../api/pages/center.js'
+import {COMMON, APPLICANT} from '../../../../config.js'
 const app = getApp()
 let timer = null,
     duration = 800 // 过场动画时间
@@ -17,15 +18,24 @@ Page({
     step: 0, // 创建步数
     active: null,
     avatar: {},
-    gender: '1',
+    gender: 1,
     name: '',
     birthDesr: '',
     birth: 0,
-    workTimeDesr: '',
-    workTime: 0,
+    startWorkYearDesc: '',
+    startWork: 0,
     workCurrent: 0,
     workDate: [
-      {}
+      {
+        companyName: '',
+        positionType: '',
+        positionName: '',
+        starTime: 0,
+        starTimeDesc: '',
+        endTime: 0,
+        endTimeDesc: '',
+        workContent: ''
+      }
     ]
   },
 
@@ -124,7 +134,7 @@ Page({
         gender: data.gender,
         name: data.name,
         birth: data.birth,
-        startWorkYear: data.workTime
+        startWorkYear: data.startWorkYear
       }
       return postCreatFirstStepApi(params)
     }
@@ -132,20 +142,29 @@ Page({
   getStepData (step) {
     switch (step) {
       case 1:
-        getCreatFirstStepApi().then(res => {
-          
+        return getCreatFirstStepApi().then(res => {
+          let avatar = res.data.avatar
+          let birth = res.data.birth
+          let birthDesc = res.data.birthDesc
+          let gender = res.data.gender
+          let name = res.data.name
+          let startWorkYearDesc = res.data.startWorkYearDesc
+          let startWorkYear = res.data.startWorkYear
+          this.setData({name, gender, birth, birthDesc, startWorkYear, startWorkYearDesc})
         })
         break
+      case 2:
+        return getCreatSecondStepApi().then(res => {
+        })
     }
-    
   },
   getStep () {
     getStepApi().then(res => {
       let step = res.data.isFinished
-      this.getStepData(step)
-      if (step > 0) {
-        this.setData({step: step - 1})
-      }
+      // this.getStepData(step)
+      if (step > 0) this.setData({step: step + 1}, () => {
+        this.progress(step + 1)
+      })
     })
   },
   /**
@@ -160,7 +179,7 @@ Page({
     let detail = e.detail
     switch (getData.type) {
       case 'workTime':
-        this.setData({workTimeDesr: e.detail.propsDesc, workTime: e.detail.propsResult})
+        this.setData({startWorkYearDesc: e.detail.propsDesc, startWorkYear: e.detail.propsResult})
         break
       case 'birth':
         this.setData({birthDesr: e.detail.propsDesc, birth: e.detail.propsResult})
@@ -181,11 +200,27 @@ Page({
       case 'name':
         key = 'name'
         break
+      case 'companyName':
+        key = 'workDate'
+        let workDate = this.data.workDate
+        workDate[this.data.workCurrent].companyName = value
+        value = workDate
+        break
     }
     timer = setTimeout(() => {
       this.setData({[key]: value})
       clearTimeout(timer)
     }, 300)
+  },
+  jump (e) {
+    let type = e.currentTarget.dataset.type
+    let url = ''
+    switch (type) {
+      case 'companyName':
+        url = `${APPLICANT}searchCompany/searchCompany`
+        break
+    }
+    wx.navigateTo({url})
   },
   /**
    * 生命周期函数--监听页面显示

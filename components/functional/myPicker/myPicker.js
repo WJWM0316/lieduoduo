@@ -14,7 +14,10 @@ Component({
       value: ''
     },
     setResult: {
-      type: String
+      type: String,
+      observer: function(newVal, oldVal) {
+        this.init()
+      }
     },
     rangeKey: {
       type: String,

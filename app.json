@@ -42,6 +42,7 @@
         "pages/officerActive/more/more",
         "pages/officerActive/recruitmentActive/recruitmentActive",
         "pages/createUser/createUser",
+        "pages/searchCompany/searchCompany",
         "pages/center/mine/mine",
         "pages/center/createUser/createUser",
         "pages/center/workExperience/workExperience",
