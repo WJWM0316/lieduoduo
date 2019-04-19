@@ -73,12 +73,8 @@ Page({
 
         let from = applyJoin ? 'join' : 'company'
         resolve(res)
-        if(companyInfos.step) {
+        if(companyInfos.status !== 3) {
           wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=${from}`})
-        } else {
-          if(companyInfos.status === 2) {
-            wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=${from}`})
-          }
         }
       })
     })
