@@ -75,11 +75,7 @@ Page({
         let from = applyJoin ? 'join' : 'company'
         resolve(res)
 
-        if(companyInfos.status === 1) {
-          wx.reLaunch({url: `${RECRUITER}index/index`})
-          return;
-        }
-        if(companyInfos.status === 2) {
+        if(companyInfos.step === 1) {
           wx.redirectTo({url: `${RECRUITER}user/company/status/status?from=${from}`})
         }
       })
