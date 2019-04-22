@@ -1,12 +1,16 @@
 import wxAnimation from '../../../../utils/animation.js'
 import {getSelectorQuery} from '../../../../utils/util.js'
-import {getStepApi, getCreatFirstStepApi, postCreatFirstStepApi, getCreatSecondStepApi, postCreatSecondStepApi} from '../../../../api/pages/center.js'
+import {getStepApi, getCreatFirstStepApi, postCreatFirstStepApi, getCreatSecondStepApi, postCreatSecondStepApi, postCreatThirdStepApi, postCreatFourthStepApi} from '../../../../api/pages/center.js'
 import {COMMON, APPLICANT} from '../../../../config.js'
+import {userNameReg, positionReg, schoolNameReg, majorNameReg} from '../../../../utils/fieldRegular.js'
 const app = getApp()
 let timer = null,
-    duration = 800 // 过场动画时间
+    duration = 800, // 过场动画时间
+    edNum = 1, // 教育经历份数， 默认一份
+    shipNum = 0, // 实习经历份数
+    lableArr = [], // 领域标签
+    curTime = new Date().getTime() / 1000
 Page({
-
   /**
    * 页面的初始数据
    */
@@ -25,8 +29,10 @@ Page({
     startWorkYearDesc: '',
     startWork: 0,
     workCurrent: 0,
+    edCurrent: 0,
     workErr: 0,
-    workDate: [
+    edErr: 0,
+    workData: [
       {
         company: '',
         positionTypeId: 0,
@@ -38,7 +44,36 @@ Page({
         endTimeDesc: '',
         duty: ''
       }
-    ]
+    ],
+    edData: [
+      {
+        company: '',
+        positionTypeId: 0,
+        positionType: '',
+        position: '',
+        startTime: 0,
+        startTimeDesc: '',
+        endTime: 0,
+        endTimeDesc: '',
+        duty: '',
+        school: '',
+        major: '',
+        degree: 0,
+        degreeDesc: '',
+        type: 'education'
+      }
+    ],
+    intention: {
+      cityNum: 0,
+      cityName: '',
+      positionId: 0,
+      positionType: '',
+      salaryCeil: 0,
+      salaryFloor: 0,
+      salary: '',
+      fieldIds: '',
+      fiels: ''
+    }
   },
 
   /**
@@ -56,36 +91,55 @@ Page({
   progress (step) {
     this.setData({step}, () => {
       this.setData({active: step})
-      if (step !== 0 && step%2 !== 0) return
-      timer = setTimeout(() => {
-        step++
-        if (step > 7) {
-          clearTimeout(timer)   
-        } else {
-          this.progress(step)
-        }
-      }, duration)
+      if (step < 8) {
+        if (step !== 0 && step%2 !== 0) return
+        timer = setTimeout(() => {
+          step++
+          if (step > 7) {
+            clearTimeout(timer)   
+          } else {
+            this.progress(step)
+          }
+        }, duration)
+      } else {
+        timer = setTimeout(() => {
+          wx.navigateBack({
+            delta: 1
+          })
+        }, 3000)
+      }
     })
   },
   toggle (e) {
-    let workCurrent = this.data.workCurrent
     let getData = e.currentTarget.dataset
+    let type = '',
+        typeValue = null,
+        lastItem = null // 最后一个item的下标
+    if (this.data.step === 3) { // 工作经历toggle
+      type = 'workCurrent'
+      typeValue = this.data.workCurrent
+      lastItem = this.data.workData.length - 1
+    } else { // 教育经历toggle
+      type = 'edCurrent' 
+      typeValue = this.data.edCurrent
+      lastItem = this.data.edData.length - 1
+    }
     switch (getData.type) {
       case 'next':
-        workCurrent++
-        if (workCurrent > this.data.workDate.length - 1) workCurrent = 0
+        typeValue++
+        if (typeValue > lastItem) typeValue = 0
         break
       case 'prev':
-        workCurrent--
-        if (workCurrent < 0) workCurrent = this.data.workDate.length - 1
+        typeValue--
+        if (typeValue < 0) typeValue = lastItem
         break
       case 'change':
-        workCurrent = e.detail.current
+        typeValue = e.detail.current
         break
       case 'index':
-        workCurrent = getData.index
+        typeValue = getData.index
     }
-    this.setData({workCurrent})
+    this.setData({[type]: typeValue})
   },
   addItem (e) {
     let getData = e.currentTarget.dataset
@@ -93,19 +147,46 @@ Page({
     let listKey = ''
     let list = []
     let current = 0
+    let pushItem = {}
     switch (getData.type) {
       case 'work':
-        listKey = 'workDate'
+        if (this.data.workData.length >= 3) {
+          app.wxToast({title: '最多只能添加三份档案'})
+          return
+        }
+        listKey = 'workData'
         type = 'workCurrent'
         current = this.data.workCurrent
-        list = this.data.workDate
+        list = this.data.workData
+        break
+      case 'education':
+        if (edNum >= 2) {
+          app.wxToast({title: '最多只能添加两份教育经历'})
+          return
+        }
+        edNum++
+        listKey = 'edData'
+        type = 'edCurrent'
+        current = this.data.edCurrent
+        list = this.data.edData
+        pushItem = {type: 'education'}
+        break
+      case 'internship':
+        if (shipNum >= 2) {
+          app.wxToast({title: '最多只能添加两份实习经历'})
+          return
+        }
+        shipNum++
+        listKey = 'edData'
+        type = 'edCurrent'
+        current = this.data.edCurrent
+        list = this.data.edData
+        pushItem = {type: 'internship'}
         break
     }
-    if (this.data.workDate.length >= 3) {
-      app.wxToast({title: '最多只能添加三份档案'})
-      return
-    }
-    list.push({})
+    
+    list.push({...pushItem})
+    console.log(type, list)
     this.setData({[listKey]: list, [type]: list.length - 1})
   },
   remove (e) {
@@ -119,11 +200,23 @@ Page({
         that = this
     switch (getData.type) {
       case 'work':
-        listKey = 'workDate'
+        listKey = 'workData'
         type = 'workCurrent'
         errType = 'workErr'
         current = this.data.workCurrent
-        list = this.data.workDate
+        list = this.data.workData
+        break
+      case 'education':
+        listKey = 'edData'
+        type = 'edCurrent'
+        errType = 'edErr'
+        current = this.data.edCurrent
+        list = this.data.edData
+        if (list[current].type === 'education') { // 删除教育经历
+          edNum--
+        } else {
+          shipNum--
+        }
         break
     }
     app.wxConfirm({
@@ -159,25 +252,16 @@ Page({
         return this.postFirstFun()
         break
       case 3:
-        let workDate = this.data.workDate
-        let workErr = this.data.workErr
-        let workCurrent = this.data.workCurrent
-        for (let i = 0; i <= workDate.length - 1; i++) {
-          if (!workDate[i].company || !workDate[i].positionTypeId || !workDate[i].position || !workDate[i].startTime || (!workDate[i].endTime && workDate[i].endTime !== 0) || !workDate[i].duty) {
-            workErr = i + 1
-            this.setData({workErr, workCurrent: i})
-            break
-          } else {
-            if (workErr) this.setData({workErr: 0})
-          }
-        }
-        if (workErr) {
-          return new Promise((resolve, reject) => {reject(`第${workErr}个工作经历档案信息不完整, 无法提交`)})
-        }
         return this.postSecondFun()
+        break
+      case 5:
+        return this.postThirdFun()
+      case 7: 
+        return this.postFourthFun()
+        break
     }
   },
-  postFirstFun (type) {
+  postFirstFun () {
     let data = this.data
     let params = {
       avatar: data.avatar.id,
@@ -186,12 +270,173 @@ Page({
       birth: data.birth,
       startWorkYear: data.startWorkYear
     }
-    return postCreatFirstStepApi(params)
+    let title = ''
+    if (!params.avatar) {
+      title = '请上传头像'
+    } else if (!params.gender) {
+      title = '请选择性别'
+    } else if (!params.name) {
+      title = '请输入姓名'
+    } else if (!userNameReg.test(params.name)) {
+      title = '姓名需为2-20个汉字或英文'
+    } else if (!params.birth) {
+      title = '请选择出身年月'
+    } else if (!params.startWorkYear && params.startWorkYear !== 0) {
+      title = '请选择参加工作时间'
+    }
+    if (title) {
+      app.wxToast({title})
+      return new Promise((resolve, reject) => {reject(title)})
+    }
+    return postCreatFirstStepApi(params).then(res => {
+      if (params.startWorkYear === 0) {
+        let step = this.data.step
+        this.setData({step: step + 2})
+      }
+    })
   },
-  postSecondFun (type) {
-    let data = this.data
-    let params = this.data.workDate
+  postSecondFun () {
+    let data = this.data,
+        params = this.data.workData,
+        title = '',
+        workErr = this.data.workErr,
+        workCurrent = this.data.workCurrent
+    for (var i = 0; i < params.length; i++) {
+      if (!params[i].company || !params[i].positionTypeId || !params[i].position || !params[i].startTime || (!params[i].endTime && params[i].endTime !== 0) || !params[i].duty) {
+        workErr = i + 1
+        break
+      } else {
+        if (workErr) {
+          this.setData({workErr: 0})
+          workErr = 0
+        }
+      }
+      if (!positionReg.test(params[i].position)) {
+        title = '职位名称需为2-20个字符'
+        workErr = i + 1
+        workCurrent = i
+        break
+      } else if ((params[i].endTime !== 0 && params[i].startTime > params[i].endTime) || (params[i].endTime === 0 && params[i].startTime > curTime)) {
+        title = '开始时间不能晚于结束时间'
+        workErr = i + 1
+        workCurrent = i
+        break
+      } else {
+        if (workErr) {
+          this.setData({workErr: 0})
+          workErr = 0
+        }
+      } 
+    }
+    if (workErr) {
+      this.setData({workErr, workCurrent}, () => {
+        if (title) app.wxToast({title})
+      })
+      return new Promise((resolve, reject) => {reject(`第${workErr}个工作经历档案信息不完整, 无法提交`)})
+    }
     return postCreatSecondStepApi({careers: params})
+  },
+  postThirdFun () {
+    let params = this.data.edData,
+        educations = [],
+        title = '',
+        internships = [],
+        edErr = this.data.edErr,
+        edCurrent = this.data.edCurrent
+    for (var i = 0; i < params.length; i++) {
+      if (params[i].type === 'education') {
+        if (params[i].type === 'education') {
+          if (!params[i].school || !params[i].major || !params[i].startTime || (!params[i].endTime && params[i].endTime !== 0) || !params[i].degree) {
+            edErr = i + 1
+            edCurrent = i
+            break
+          } else {
+            if (edErr) {
+              edErr = 0
+              this.setData({edErr: 0})
+            }
+          }
+        }
+        if (!schoolNameReg.test(params[i].school)) {
+          title = '学校名称需为2-20个字符'
+          edErr = i + 1
+          edCurrent = i
+          break
+        } else if (!majorNameReg.test(params[i].major)) {
+          title = '专业名称需为2-20个字符'
+          edErr = i + 1
+          edCurrent = i
+        } else if ((params[i].endTime !== 0 && params[i].startTime > params[i].endTime) || (params[i].endTime === 0 && params[i].startTime > curTime)) {
+          title = '开始时间不能晚于结束时间'
+          edErr = i + 1
+          edCurrent = i
+          break
+        } else {
+          if (edErr) {
+            this.setData({edErr: 0})
+            edErr = 0
+          }
+        } 
+      } else {
+        if (!params[i].company || !params[i].positionTypeId || !params[i].position || !params[i].startTime || (!params[i].endTime && params[i].endTime !== 0) || !params[i].duty) {
+          edErr = i + 1
+          break
+        } else {
+          if (edErr) {
+            this.setData({edErr: 0})
+            edErr = 0
+          }
+        }
+        if (!positionReg.test(params[i].position)) {
+          title = '职位名称需为2-20个字符'
+          edErr = i + 1
+          edCurrent = i
+          break
+        } else if ((params[i].endTime !== 0 && params[i].startTime > params[i].endTime) || (params[i].endTime === 0 && params[i].startTime > curTime)) {
+          title = '开始时间不能晚于结束时间'
+          edErr = i + 1
+          edCurrent = i
+          break
+        } else {
+          if (edErr) {
+            this.setData({edErr: 0})
+            edErr = 0
+          }
+        } 
+      }
+    }
+    if (edErr) {
+      this.setData({edErr, edCurrent}, () => {
+        if (title) app.wxToast({title})
+      })
+      return new Promise((resolve, reject) => {reject(`第${edErr}个工作经历档案信息不完整, 无法提交`)})
+    }
+    this.data.edData.forEach((item) => {
+      if (item.type === 'education') {
+        educations.push(item)
+      } else {
+        internships.push(item)
+      }
+    })
+    return postCreatThirdStepApi({educations, internships})
+  },
+  postFourthFun () {
+    let params = this.data.intention
+    let title = ''
+    if (!params.cityNum ) {
+      title = '请选择期望城市'
+    } else if (!params.positionId ) {
+      title = '请选择期望职位'
+    } else if (!params.salaryCeil) {
+      title = '请选择期望薪资'
+    } else if (!params.fieldIds ) {
+      title = '请选择期望领域'
+    }
+    if (title) {
+      app.wxToast({title})
+      return new Promise((resolve, reject) => {reject(title)})
+    }
+    return postCreatFourthStepApi(params)
   },
   getStepData (step) {
     switch (step) {
@@ -215,9 +460,24 @@ Page({
   getStep () {
     getStepApi().then(res => {
       let step = res.data.step
-      if (step === 1) step = -1
-      if (step > 0) this.setData({step: step + 2}, () => {
-        this.progress(this.data.step)
+      switch (step) {
+        case 1:
+          step = 0
+          break
+        case 2:
+          step = 3
+          break
+        case 3:
+          step = 5
+          break
+        case 4:
+          step = 7
+          break
+        case 9:
+          step = 7
+      }
+      this.setData({step}, () => {
+        this.progress(step)
       })
     })
   },
@@ -239,25 +499,58 @@ Page({
         this.setData({birthDesr: e.detail.propsDesc, birth: e.detail.propsResult})
         break
       case 'startTime':
-        var index = this.data.workCurrent,
-            workDate = this.data.workDate
-        workDate[index].startTime = e.detail.propsResult
-        workDate[index].startTimeDesc = e.detail.propsDesc
-        this.setData({workDate})
+        var index = 0,
+            list = [],
+            key = ''
+        if (this.data.step === 3) {
+          index = this.data.workCurrent
+          key = 'workData'
+          list = this.data.workData
+        } else {
+          index = this.data.edCurrent
+          key = 'edData'
+          list = this.data.edData
+        }
+        list[index].startTime = e.detail.propsResult
+        list[index].startTimeDesc = e.detail.propsDesc
+        this.setData({[key]: list})
         break
       case 'endTime':
-        var index = this.data.workCurrent,
-            workDate = this.data.workDate
-        workDate[index].endTime = e.detail.propsResult
-        workDate[index].endTimeDesc = e.detail.propsDesc
-        this.setData({workDate})
+        var index = 0,
+            list = [],
+            key = ''
+        if (this.data.step === 3) {
+          index = this.data.workCurrent
+          key = 'workData'
+          list = this.data.workData
+        } else {
+          index = this.data.edCurrent
+          key = 'edData'
+          list = this.data.edData
+        }
+        list[index].endTime = e.detail.propsResult
+        list[index].endTimeDesc = e.detail.propsDesc
+        this.setData({[key]: list})
+        break
+      case 'education':
+        var index = this.data.edCurrent,
+            edData = this.data.edData
+        edData[index].degree = e.detail.propsResult
+        edData[index].degreeDesc = e.detail.propsDesc
+        this.setData({edData})
+        break
+      case 'salary':
+        let intention = this.data.intention
+        intention.salaryFloor = parseInt(e.detail.propsResult[0])
+        intention.salaryCeil = parseInt(e.detail.propsResult[1])
+        intention.salary = e.detail.propsDesc
+        this.setData({intention})
         break
     }
-    
   },
   chooseGender (e) {
-    let getData = e.currentTarget.dataset
-    this.setData({gender: getData.gender})
+    let gender = e.currentTarget.dataset.gender
+    this.setData({gender})
   },
   getValue (e) {
     clearTimeout(timer)
@@ -268,17 +561,31 @@ Page({
       case 'name':
         key = 'name'
         break
-      case 'companyName':
-        key = 'workDate'
-        var workDate = this.data.workDate
-        workDate[this.data.workCurrent].company = value
-        value = workDate
-        break
       case 'positionName':
-        key = 'position'
-        var workDate = this.data.workDate
-        workDate[this.data.workCurrent].position = value
-        value = workDate
+        if (this.data.step === 3) {
+          key = 'workData'
+          var workData = this.data.workData
+          workData[this.data.workCurrent].position = value
+          value = workData
+        } else {
+          key = 'edData'
+          var edData = this.data.edData
+          edData[this.data.edCurrent].position = value
+          value = edData
+        }
+        break
+      case 'schoolName':
+        key = 'edData'
+        var edData = this.data.edData
+        edData[this.data.edCurrent].school = value
+        value = edData
+        break
+      case 'major':
+        key = 'edData'
+        var edData = this.data.edData
+        edData[this.data.edCurrent].major = value
+        value = edData
+        break
     }
     timer = setTimeout(() => {
       this.setData({[key]: value})
@@ -295,10 +602,19 @@ Page({
         break
       case 'positionType':
         url = `${COMMON}category/category`
+        wx.setStorageSync('positionType', e.currentTarget.dataset.id)
         break
       case 'workContent':
         url = `${APPLICANT}center/workContent/workContent`
         wx.setStorageSync('workContent', e.currentTarget.dataset.value)
+        break
+      case 'fiels':
+        url = `${APPLICANT}center/resumeEditor/skills/skills?target=2`
+        wx.setStorageSync('skillsLabel', lableArr)
+        break
+      case 'city':
+        url = `${COMMON}selectCity/selectCity`
+        wx.setStorageSync('selectCity', e.currentTarget.dataset.id)
         break
     }
     wx.navigateTo({url})
@@ -311,34 +627,83 @@ Page({
     let positionType = wx.getStorageSync('createPosition')
     let companyName = wx.getStorageSync('companyName')
     let workContent = wx.getStorageSync('workContent')
+    let skillsLabel = wx.getStorageSync('skillsLabel')
+    let selectCity = wx.getStorageSync('selectCity')
+    let userInfo = app.globalData.userInfo
+    let listType = '',
+        listValue = [],
+        index = null
+    if (this.data.step === 3) { // 工作经历
+      listType = 'workData'
+      listValue = this.data.workData
+      index = this.data.workCurrent
+    } else if (this.data.step === 5) { // 教育经历
+      listType = 'edData'
+      listValue = this.data.edData
+      index = this.data.edCurrent
+    } else { // 求职意向
+      listType = 'intention'
+      listValue = this.data.intention
+    }
     if (avatar) {
       this.setData({avatar}, () => {
         wx.removeStorageSync('avatar')
       })
     }
+    if (!avatar && userInfo) {
+      avatar = userInfo.avatarInfo
+      let gender = userInfo.gender
+      this.setData({avatar, gender})
+    }
     if (companyName) {
-      let workDate = this.data.workDate
-      let index = this.data.workCurrent
-      workDate[index].company = companyName
-      this.setData({workDate}, () => {
+      listValue[index].company = companyName
+      this.setData({[listType]: listValue}, () => {
         wx.removeStorageSync('companyName')
       })
     }
     if (positionType) {
-      let workDate = this.data.workDate
-      let index = this.data.workCurrent
-      workDate[index].positionTypeId = positionType.type
-      workDate[index].positionType = positionType.typeName
-      this.setData({workDate}, () => {
+      if (index || index === 0) {
+        listValue[index].positionTypeId = positionType.type
+        listValue[index].positionType = positionType.typeName
+      } else {
+        listValue.positionType = positionType.typeName
+        listValue.positionId = positionType.type
+      }
+      this.setData({[listType]: listValue}, () => {
         wx.removeStorageSync('createPosition')
       })
     }
     if (workContent) {
-      let workDate = this.data.workDate
-      let index = this.data.workCurrent
-      workDate[index].duty = workContent
-      this.setData({workDate}, () => {
+      listValue[index].duty = workContent
+      this.setData({[listType]: listValue}, () => {
         wx.removeStorageSync('workContent')
+      })
+    }
+    if (skillsLabel) {
+      let fieldIds = [],
+          fiels = []
+      lableArr = skillsLabel
+      lableArr.forEach((item) => {
+        fieldIds.push(item.labelId)
+        fiels.push(item.name)
+      })
+      listType = 'intention'
+      listValue = this.data.intention
+      listValue.fieldIds = fieldIds.join(',')
+      listValue.fiels = fiels.join(',')
+      this.setData({[listType]: listValue}, () => {
+        wx.removeStorageSync('skillsLabel')
+      })
+    } else {
+      lableArr = []
+    }
+    if (selectCity) {
+      listType = 'intention'
+      listValue = this.data.intention
+      listValue.cityNum = selectCity.areaId
+      listValue.cityName = selectCity.title || selectCity.name
+      this.setData({[listType]: listValue}, () => {
+        wx.removeStorageSync('selectCity')
       })
     }
   },

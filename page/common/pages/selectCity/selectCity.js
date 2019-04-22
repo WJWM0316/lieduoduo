@@ -1,16 +1,15 @@
 import {
-  getLabelPositionApi,
-  getLabelLIstsApi,
+  getAreaListApi,
   getHotLabelLIstsApi
 } from '../../../../api/pages/label.js'
-
+import {getCityLabelApi} from '../../../../api/pages/common.js'
 import {RECRUITER} from '../../../../config.js'
 
 const app = getApp()
 
 Page({
   data: {
-    positionTypeList: [],
+    cityList: [],
     hotArea: [],
     query: '',
     statusBarHeight: app.globalData.navHeight,
@@ -25,24 +24,24 @@ Page({
   },
   getLists() {
     const options = this.data.query
-    getHotLabelLIstsApi().then(res => {
+    getCityLabelApi().then(res => {
       let hotArea = res.data
-      let positionType = wx.getStorageSync('positionType')
-      if (positionType) {
+      let selectCity = wx.getStorageSync('selectCity')
+      if (selectCity) {
         hotArea.forEach(field => {
-          if (field.labelId === positionType) {
+          if (field.areaId === selectCity) {
             field.active = true
           }
         })
       }
       this.setData({hotArea}, () => {
-        wx.removeStorageSync('positionType')
+        wx.removeStorageSync('selectCity')
       })
     })
-    getLabelPositionApi()
+    getAreaListApi()
       .then(res => {
-        const positionTypeList = res.data
-        this.setData({positionTypeList: res.data})
+        const cityList = res.data
+        this.setData({cityList: res.data})
       })
   },
   onClick(e) {
@@ -64,11 +63,17 @@ Page({
   onClick1(e) {
     // 只有一级标签
     const params = e.currentTarget.dataset
-    const positionTypeList = this.data.positionTypeList
-    positionTypeList.map((field, index) => field.active = index === params.index ? true : false)
-    positionTypeList[params.index].children.map((field, index) => field.active = index === this.data.index1 ? true : false)
-    positionTypeList[params.index].children[this.data.index1].children[this.data.index2].active = true
-    this.setData({index1: params.index, positionTypeList, showMask: true})
+    const cityList = this.data.cityList
+    cityList.map((field, index) => field.active = index === params.index ? true : false)
+    cityList[params.index].children.map((field, index) => field.active = index === this.data.index1 ? true : false)
+    // cityList[params.index].children[this.data.index1].children[this.data.index2].active = true
+    this.setData({index1: params.index, cityList, showMask: true})
+    let selectCityName = cityList[params.index].title
+    if (selectCityName === '北京市' || selectCityName === '天津市' || selectCityName === '上海市' || selectCityName === '重庆市') {
+      const selectCity = cityList[params.index]
+      wx.setStorageSync('selectCity', selectCity)
+      wx.navigateBack({delta: 1})
+    }
   },
   /**
    * @Author   小书包
@@ -78,9 +83,12 @@ Page({
    */
   onClick2(e) {
     const params = e.currentTarget.dataset
-    const positionTypeList = this.data.positionTypeList
-    positionTypeList[this.data.index1].children.map((field, index) => field.active = index === params.index ? true : false)
-    this.setData({index2: params.index, positionTypeList, showMask: true})
+    const cityList = this.data.cityList
+    cityList[this.data.index1].children.map((field, index) => field.active = index === params.index ? true : false)
+    this.setData({index2: params.index, cityList, showMask: true})
+    const selectCity = cityList[this.data.index1].children[this.data.index2]
+    wx.setStorageSync('selectCity', selectCity)
+    wx.navigateBack({delta: 1})
   },
   /**
    * @Author   小书包
@@ -90,22 +98,22 @@ Page({
    */
   onClick3(e) {
     const params = e.currentTarget.dataset
-    const result = this.data.positionTypeList[this.data.index1].children[this.data.index2].children[params.index]
+    const result = this.data.cityList[this.data.index1].children[this.data.index2].children[params.index]
     this.setData({showMask: false})
     const storage = wx.getStorageSync('createPosition') || {}
     storage.type = result.labelId
     storage.typeName = result.name
-    if(this.data.positionTypeList[this.data.index1].labelId !== storage.parentType) storage.skills = []
-    storage.parentType = this.data.positionTypeList[this.data.index1].labelId
+    if(this.data.cityList[this.data.index1].labelId !== storage.parentType) storage.skills = []
+    storage.parentType = this.data.cityList[this.data.index1].labelId
     wx.setStorageSync('createPosition', storage)
     wx.navigateBack({delta: 1})
   },
   tapHot (e) {
     const params = e.currentTarget.dataset
     const storage = {}
-    storage.type = params.item.labelId
-    storage.typeName = params.item.name
-    wx.setStorageSync('createPosition', storage)
+    storage.areaId = params.item.areaId
+    storage.name = params.item.name
+    wx.setStorageSync('selectCity', storage)
     wx.navigateBack({delta: 1})
   },
   /**
@@ -142,13 +150,13 @@ Page({
     }
     getLabelLIstsApi({name})
       .then(res => {
-        const positionTypeList = res.data
+        const cityList = res.data
         const regExp = new RegExp(name, 'g')
-        positionTypeList.map(field => {
+        cityList.map(field => {
           field.html = field.name.replace(regExp, `<span style="color: #652791;">${name}</span>`)
           field.html = `<div>${field.html}</div>`
         })
-        this.setData({positionTypeList, searing: true})
+        this.setData({cityList, searing: true})
       })
   },
   closeMask(e) {

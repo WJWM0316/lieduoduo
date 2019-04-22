@@ -230,7 +230,7 @@ export const postCreatFirstStepApi = (data) => {
     data
   })
 }
-// 创建第一步
+// 创建第二步
 export const getCreatSecondStepApi = (data) => {
   return request({
     method: 'get',
@@ -242,6 +242,36 @@ export const postCreatSecondStepApi = (data) => {
   return request({
     method: 'post',
     url: `/jobhunter/resume/four/secondStep`,
+    data
+  })
+}
+// 创建第三步
+export const getCreatThirdStepApi = (data) => {
+  return request({
+    method: 'get',
+    url: `/jobhunter/resume/four/thirdStep`,
+    data
+  })
+}
+export const postCreatThirdStepApi = (data) => {
+  return request({
+    method: 'post',
+    url: `/jobhunter/resume/four/thirdStep`,
+    data
+  })
+}
+// 创建第四步
+export const getCreatFourthStepApi = (data) => {
+  return request({
+    method: 'get',
+    url: `/jobhunter/resume/four/fourthStep`,
+    data
+  })
+}
+export const postCreatFourthStepApi = (data) => {
+  return request({
+    method: 'post',
+    url: `/jobhunter/resume/four/fourthStep`,
     data
   })
 }

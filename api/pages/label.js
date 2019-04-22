@@ -97,3 +97,13 @@ export const getLabelLIstsApi = (data, hasLoading) => {
     hasLoading: true
   })
 }
+
+// 获取热门职位列表
+export const getHotLabelLIstsApi = (data, hasLoading) => {
+  return request({
+    method: 'get',
+    url: '/label/position/hot',
+    data,
+    hasLoading: true
+  })
+}

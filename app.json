@@ -18,6 +18,7 @@
     "page/common/pages/poster/exPosition/exPosition",
     "page/common/pages/poster/saveImg/saveImg",
     "page/common/pages/category/category",
+    "page/common/pages/selectCity/selectCity",
     "page/common/pages/tabsPage/tabsPage",
     "page/common/pages/cutInside/cutInside",
     "page/common/pages/chooseJob/chooseJob",

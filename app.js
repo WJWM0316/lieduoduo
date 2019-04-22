@@ -510,7 +510,7 @@ App({
               wx.reLaunch({url: path})
             }).catch(e => {
               wx.navigateTo({
-                url: `${APPLICANT}center/createUser/createUser?directChat=${encodeURIComponent(path)}`
+                url: `${APPLICANT}createUser/createUser?directChat=${encodeURIComponent(path)}`
               })
             })
           }

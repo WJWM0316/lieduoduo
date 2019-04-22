@@ -103,7 +103,7 @@ Page({
   /* 去完善简历 */
   completeResume () {
     wx.navigateTo({
-      url: `${APPLICANT}center/createUser/createUser`
+      url: `${APPLICANT}createUser/createUser`
     })
   },
   /* 编辑简历 */
