@@ -1,8 +1,17 @@
 import wxAnimation from '../../../../utils/animation.js'
 import {getSelectorQuery} from '../../../../utils/util.js'
-import {getStepApi, getCreatFirstStepApi, postCreatFirstStepApi, getCreatSecondStepApi, postCreatSecondStepApi, postCreatThirdStepApi, postCreatFourthStepApi} from '../../../../api/pages/center.js'
+import {getStepApi, 
+        getCreatFirstStepApi, 
+        postCreatFirstStepApi, 
+        getCreatSecondStepApi, 
+        postCreatSecondStepApi,
+        getCreatThirdStepApi,
+        postCreatThirdStepApi,
+        getCreatFourthStepApi,
+        postCreatFourthStepApi} from '../../../../api/pages/center.js'
 import {COMMON, APPLICANT} from '../../../../config.js'
 import {userNameReg, positionReg, schoolNameReg, majorNameReg} from '../../../../utils/fieldRegular.js'
+import * as watch from '../../../../utils/watch.js'
 const app = getApp()
 let timer = null,
     duration = 800, // 过场动画时间
@@ -19,6 +28,7 @@ Page({
     isBangs: app.globalData.isBangs,
     cdnImagePath: app.globalData.cdnImagePath,
     animationData: {},
+    showPop: false,
     step: -1, // 创建步数
     active: null,
     avatar: {},
@@ -86,6 +96,27 @@ Page({
       app.loginInit = () => {
         this.getStep()
       }
+    }
+    watch.setWatcher(this)
+  },
+  watch: {    
+    step: function(newVal, oldVal) {
+      console.log(newVal, oldVal, 1111111111111111)
+      switch (newVal) {
+        case 1:
+          newVal = 1
+          break
+        case 3:
+          newVal = 2
+          break
+        case 5:
+          newVal = 3
+          break
+        case 7:
+          newVal = 4
+          break
+      }
+      this.getStepData(newVal)
     }
   },
   progress (step) {
@@ -451,9 +482,15 @@ Page({
           let startWorkYear = res.data.startWorkYear
           this.setData({name, gender, birth, birthDesc, startWorkYear, startWorkYearDesc})
         })
-        break
       case 2:
         return getCreatSecondStepApi().then(res => {
+          let workData = this.data.workData
+          console.log(res)
+        })
+      case 3:
+        return getCreatThirdStepApi().then(res => {
+          let edData = this.data.edData
+          console.log(res)
         })
     }
   },
@@ -618,6 +655,18 @@ Page({
         break
     }
     wx.navigateTo({url})
+  },
+  backEvent () {
+    let step = this.data.step
+    if (step === 0 || step === 1) {
+      this.setData({showPop: true})
+    } else {
+      step -= 2
+      this.setData({step}, () => {
+        this.progress(step)
+        this.getStepData(step)
+      })
+    }
   },
   /**
    * 生命周期函数--监听页面显示

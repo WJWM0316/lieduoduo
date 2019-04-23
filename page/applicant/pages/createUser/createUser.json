@@ -2,6 +2,7 @@
   "usingComponents": {
   	"navbar": "../../../../components/business/navbar/navbar",
   	"avatarCut": "../../../../components/functional/avatarCut/avatarCut",
-  	"myPicker": "../../../../components/functional/myPicker/myPicker"
+  	"myPicker": "../../../../components/functional/myPicker/myPicker",
+  	"guidePop": "../../../../components/layout/guidePop/guidePop"
   }
 }

@@ -208,70 +208,79 @@ export const editIntroduceApi = (data) => {
 }
 
 // 获取步数
-export const getStepApi = (data) => {
+export const getStepApi = (data, hasLoading) => {
   return request({
     method: 'get',
     url: `/jobhunter/resume/four/step`,
-    data
+    data,
+    hasLoading: false
   })
 }
 // 创建第一步
-export const getCreatFirstStepApi = (data) => {
+export const getCreatFirstStepApi = (data, hasLoading) => {
   return request({
     method: 'get',
     url: `/jobhunter/resume/four/firstStep`,
-    data
+    data,
+    hasLoading: false
   })
 }
-export const postCreatFirstStepApi = (data) => {
+export const postCreatFirstStepApi = (data, hasLoading) => {
   return request({
     method: 'post',
     url: `/jobhunter/resume/four/firstStep`,
-    data
+    data,
+    hasLoading: false
   })
 }
 // 创建第二步
-export const getCreatSecondStepApi = (data) => {
+export const getCreatSecondStepApi = (data, hasLoading) => {
   return request({
     method: 'get',
     url: `/jobhunter/resume/four/secondStep`,
-    data
+    data,
+    hasLoading: false
   })
 }
-export const postCreatSecondStepApi = (data) => {
+export const postCreatSecondStepApi = (data, hasLoading) => {
   return request({
     method: 'post',
     url: `/jobhunter/resume/four/secondStep`,
-    data
+    data,
+    hasLoading: false
   })
 }
 // 创建第三步
-export const getCreatThirdStepApi = (data) => {
+export const getCreatThirdStepApi = (data, hasLoading) => {
   return request({
     method: 'get',
     url: `/jobhunter/resume/four/thirdStep`,
-    data
+    data,
+    hasLoading: false
   })
 }
-export const postCreatThirdStepApi = (data) => {
+export const postCreatThirdStepApi = (data, hasLoading) => {
   return request({
     method: 'post',
     url: `/jobhunter/resume/four/thirdStep`,
-    data
+    data,
+    hasLoading: false
   })
 }
 // 创建第四步
-export const getCreatFourthStepApi = (data) => {
+export const getCreatFourthStepApi = (data, hasLoading) => {
   return request({
     method: 'get',
     url: `/jobhunter/resume/four/fourthStep`,
-    data
+    data,
+    hasLoading: false
   })
 }
-export const postCreatFourthStepApi = (data) => {
+export const postCreatFourthStepApi = (data, hasLoading) => {
   return request({
     method: 'post',
     url: `/jobhunter/resume/four/fourthStep`,
-    data
+    data,
+    hasLoading: false
   })
 }

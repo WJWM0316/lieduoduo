@@ -1,5 +1,5 @@
 <view class="createUser">
-	<navbar title=""  background="#4F286E" color="#fff"></navbar>
+	<navbar title=""  background="#4F286E" color="#fff" customBack bindbackEvent="backEvent"></navbar>
 	<view class="wrap" style="padding-top:{{nav}}px;">
 		<view class="inner" style="padding-top:{{!isBangs ? 15 : 71}}rpx">
 			<view hidden="{{step !== 0}}" class="entry start {{active === 0 ? 'active' : ''}}" >
@@ -204,4 +204,5 @@
 			</view>
 		</view>
 	</view>
+	<guidePop showPop="{{showPop}}"></guidePop>
 </view>
