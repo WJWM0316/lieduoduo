@@ -112,10 +112,7 @@ Page({
       //   wx.navigateTo({url: `${RECRUITER}user/company/identityMethods/identityMethods?companyId=${res.data.companyId}`})
       // })
     })
-    .catch(err => {
-      console.log(err)
-      app.wxToast({title: err})
-    })
+    .catch(err => app.wxToast({title: err}))
   },
   /**
    * @Author   小书包
