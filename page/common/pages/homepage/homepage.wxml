@@ -73,6 +73,7 @@
 					current="{{swiperIndex}}"
 					bindchange="swiperChange"
 					wx:if="{{companyInfos.albumInfo.length}}"
+					data-index="{{ swiperIndex }}"
 					autoplay="{{autoplay}}">
 					<swiper-item class="swiper-item {{swiperIndex == index ? 'div-active' : ''}}" wx:for="{{companyInfos.albumInfo}}" wx:key="{{index}}" wx:for-item="item">
 						<image mode="aspectFill" class="slide-image {{swiperIndex == index ? 'active' : ''}}" src="{{item.url}}" bindtap="previewImage" />
@@ -156,5 +157,5 @@
 	<view class="job-list" hidden="{{tab === 'about'}}">
 		<jobList list="{{positionList.list}}" showBoxShadow="{{false}}"></jobList>
 	</view>
-
+	<auth wx:if="{{requireOAuth}}" bindauthSuccess="authSuccess"></auth>
 </view>

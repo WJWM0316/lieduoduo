@@ -13,6 +13,7 @@
   font-size: 28rpx;
   color: #353943;
   border-bottom: 1px solid #E8E9EB;
+  line-height: 122rpx;
 }
 .commont .result{
   display: flex;
@@ -24,8 +25,6 @@
 }
 .commont text{
   color: #282828;
-  line-height: 122rpx;
-  margin-right: 10rpx;
 }
 .textArea{
   width: 100%;
@@ -61,6 +60,9 @@
   color: red;
   line-height: 122rpx;
   margin-right: 10rpx;
+}
+.myPicker {
+  height: 100%;
 }
 .saveBox {
   width: 100%;

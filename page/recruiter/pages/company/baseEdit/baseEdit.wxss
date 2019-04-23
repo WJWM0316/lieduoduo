@@ -11,8 +11,7 @@
 }
 .head .msg .item {
 	font-size:28rpx;
-	font-weight:500;
-	color:rgba(40,40,40,1);
+	color:#282828;
 	line-height:28rpx;
 	padding: 47rpx 30rpx 47rpx 22rpx;
 	border-bottom: 1rpx solid #E8E9EB;
@@ -21,13 +20,10 @@
 	overflow: hidden;
 }
 .head .msg .item.disabled {
-	padding: 47rpx 0 47rpx 22rpx;
+	padding: 47rpx 0 47rpx 0;
 }
 .head .msg .item.companyLogo {
 	padding: 32rpx 30rpx 32rpx 22rpx;
-}
-.head .msg .item.website {
-	padding: 26rpx 40rpx 26rpx 22rpx;
 }
 .website input {
 	height: 40rpx;

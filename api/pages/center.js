@@ -206,3 +206,81 @@ export const editIntroduceApi = (data) => {
     hasLoading: false
   })
 }
+
+// 获取步数
+export const getStepApi = (data, hasLoading) => {
+  return request({
+    method: 'get',
+    url: `/jobhunter/resume/four/step`,
+    data,
+    hasLoading: false
+  })
+}
+// 创建第一步
+export const getCreatFirstStepApi = (data, hasLoading) => {
+  return request({
+    method: 'get',
+    url: `/jobhunter/resume/four/firstStep`,
+    data,
+    hasLoading: false
+  })
+}
+export const postCreatFirstStepApi = (data, hasLoading) => {
+  return request({
+    method: 'post',
+    url: `/jobhunter/resume/four/firstStep`,
+    data,
+    hasLoading: false
+  })
+}
+// 创建第二步
+export const getCreatSecondStepApi = (data, hasLoading) => {
+  return request({
+    method: 'get',
+    url: `/jobhunter/resume/four/secondStep`,
+    data,
+    hasLoading: false
+  })
+}
+export const postCreatSecondStepApi = (data, hasLoading) => {
+  return request({
+    method: 'post',
+    url: `/jobhunter/resume/four/secondStep`,
+    data,
+    hasLoading: false
+  })
+}
+// 创建第三步
+export const getCreatThirdStepApi = (data, hasLoading) => {
+  return request({
+    method: 'get',
+    url: `/jobhunter/resume/four/thirdStep`,
+    data,
+    hasLoading: false
+  })
+}
+export const postCreatThirdStepApi = (data, hasLoading) => {
+  return request({
+    method: 'post',
+    url: `/jobhunter/resume/four/thirdStep`,
+    data,
+    hasLoading: false
+  })
+}
+// 创建第四步
+export const getCreatFourthStepApi = (data, hasLoading) => {
+  return request({
+    method: 'get',
+    url: `/jobhunter/resume/four/fourthStep`,
+    data,
+    hasLoading: false
+  })
+}
+export const postCreatFourthStepApi = (data, hasLoading) => {
+  return request({
+    method: 'post',
+    url: `/jobhunter/resume/four/fourthStep`,
+    data,
+    hasLoading: false
+  })
+}

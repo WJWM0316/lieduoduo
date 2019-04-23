@@ -28,7 +28,6 @@ Page({
       intro: ''
     },
     companyLabelField: [],
-    canClick: false,
     options: {},
     isFocus: false,
     cdnPath: app.globalData.cdnImagePath
@@ -70,14 +69,6 @@ Page({
    */
   setFocusByFocus() {
     this.setData({isFocus: true})
-  },
-  /**
-   * @Author   小书包
-   * @DateTime 2019-04-16
-   * @detail   detail
-   */
-  setFocusByBlur() {
-    this.setData({isFocus: false})
   },
   /**
    * @Author   小书包

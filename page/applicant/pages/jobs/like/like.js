@@ -12,23 +12,24 @@ const app = getApp()
 Page({
   data: {
     hasReFresh: false,
-    onBottomStatus: 0,
     tab: 'positionList',
     navH: app.globalData.navHeight,
     cdnImagePath: app.globalData.cdnImagePath,
-    pageCount: 8,
+    pageCount: 20,
     options: {},
     positionList: {
       list: [],
       pageNum: 1,
       isLastPage: false,
-      isRequire: false
+      isRequire: false,
+      onBottomStatus: 0
     },
     recruiterList: {
       list: [],
       pageNum: 1,
       isLastPage: false,
-      isRequire: false
+      isRequire: false,
+      onBottomStatus: 0
     }
   },
   onLoad(options) {
@@ -70,12 +71,12 @@ Page({
       let params = {count: this.data.pageCount, page: this.data.positionList.pageNum, hasLoading}
       getMyCollectPositionsApi(params).then(res => {
         const positionList = this.data.positionList
-        const onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
+        positionList.onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
         positionList.list = positionList.list.concat(res.data)
         positionList.isLastPage = res.meta && res.meta.nextPageUrl ? false : true
         positionList.pageNum = positionList.pageNum + 1
         positionList.isRequire = true
-        this.setData({positionList, onBottomStatus}, () => resolve(res))
+        this.setData({positionList}, () => resolve(res))
       })
     })
   },
@@ -90,12 +91,12 @@ Page({
       let params = {count: this.data.pageCount, page: this.data.recruiterList.pageNum, hasLoading}
       getMyCollectUsersApi(params).then(res => {
         const recruiterList = this.data.recruiterList
-        const onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
+        recruiterList.onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
         recruiterList.list = recruiterList.list.concat(res.data)
         recruiterList.isLastPage = res.meta && res.meta.nextPageUrl ? false : true
         recruiterList.pageNum = recruiterList.pageNum + 1
         recruiterList.isRequire = true
-        this.setData({recruiterList, onBottomStatus}, () => resolve(res))
+        this.setData({recruiterList}, () => resolve(res))
       })
     })
   },
@@ -113,17 +114,13 @@ Page({
    */
   onPullDownRefresh(hasLoading = true) {
     const key = this.data.tab
-    const value = {list: [], pageNum: 1, isLastPage: false, isRequire: false}
+    const value = {list: [], pageNum: 1, isLastPage: false, isRequire: false, onBottomStatus: 0}
     this.setData({[key]: value, hasReFresh: true})
     this.getLists().then(res => {
-      const value = {list: [], pageNum: 1, isLastPage: false, isRequire: false}
-      const onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
-      value.list = res.data
-      value.isLastPage = res.meta && res.meta.nextPageUrl ? false : true
-      value.pageNum = 2
-      value.isRequire = true
-      this.setData({[key]: value, onBottomStatus, hasReFresh: false}, () => wx.stopPullDownRefresh())
+      this.setData({hasReFresh: false})
+      wx.stopPullDownRefresh()
     }).catch(e => {
+      this.setData({hasReFresh: false})
       wx.stopPullDownRefresh()
     })
   },
@@ -137,7 +134,15 @@ Page({
     const key = this.data.tab
     const value = this.data[key]
     if (!value.isLastPage) {
-      this.setData({onBottomStatus: 1})
+      if(this.data.tab === 'positionList') {
+        let positionList = this.data.positionList
+        positionList.onBottomStatus = 1
+        this.setData({positionList})
+      } else {
+        let recruiterList = this.data.recruiterList
+        recruiterList.onBottomStatus = 1
+        this.setData({recruiterList})
+      }
       this.getLists(false)
     }
   },
@@ -154,7 +159,7 @@ Page({
   },
   jump() {
     if(this.data.tab === 'positionList') {
-      wx.reLaunch({url: `${COMMON}careerChance/careerChance`})
+      wx.reLaunch({url: `${APPLICANT}index/index`})
     } else {
       wx.navigateTo({url: `${COMMON}rank/rank`})
     }

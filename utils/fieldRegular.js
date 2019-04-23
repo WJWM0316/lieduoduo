@@ -11,7 +11,7 @@ export const idCardReg = /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/
 export const emailReg = /^([a-zA-Z0-9]+[_|\_|\.|\-]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[-_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,8}$/
 
 // 用户名
-export const userNameReg = /^.{2,20}$/
+export const userNameReg = /^[\u0391-\uFFE5A-Za-z]{2,20}$/
 
 // 真实姓名
 export const realNameReg = /^[\u4E00-\u9FA5]{2,20}$/
@@ -32,7 +32,7 @@ export const abbreviationReg = /^.{1,10}$/
 export const allspaceReg = /^(?!(\s+$))/ 
 
 // 工作内容
-export const workContentReg = /^.{1,1000}$/
+export const workContentReg = /^.{10,1000}$/
 
 
 // 链接
@@ -43,6 +43,12 @@ export const productNameReg = /^.{1,20}$/
 
 // 公司名称 
 export const companyNameReg = /^[\u0391-\uFFE5A-Za-z]{2,50}$/
+
+// 学校名称 
+export const schoolNameReg = /^[\u0391-\uFFE5A-Za-z]{2,50}$/
+
+// 专业名称 
+export const majorNameReg = /^[\u0391-\uFFE5A-Za-z]{2,50}$/
 
 // 公司简介
 export const companyIntroReg = /^[\u0391-\uFFE5A-Za-z]{20,5000}$/

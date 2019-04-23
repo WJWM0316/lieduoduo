@@ -1,4 +1,4 @@
-// page/applicant/pages/center/workContent/workContent.js
+import {workContentReg} from '../../../../../utils/fieldRegular.js'
 const app = getApp()
 let workContent = null
 Page({
@@ -26,12 +26,13 @@ Page({
   onShow: function () {
     let content = wx.getStorageSync('workContent')
     if (content) {
-      this.setData({content})
+      this.setData({content}, () => {
+        wx.removeStorageSync('workContent')
+      })
     }
   },
   /* 切换例子 */
   nextExample () {
-    console.log(1111)
   },
   /* 展示或关闭例子 */
   showPopups () {
@@ -48,13 +49,13 @@ Page({
   },
   send () {
     if (workContent) {
+      if (!workContentReg.test(workContent)) {
+        app.wxToast({title: '工作内容需为10-1000个字符'})
+        return
+      }
       wx.setStorageSync('workContent', workContent)
     } else {
-      wx.showToast({
-        title: '工作内容不能为空',
-        icon: 'none',
-        duration: 1000
-      })
+      app.wxToast({title:'工作内容不能为空'})
       return
     }
     wx.navigateBack({

@@ -1,6 +1,7 @@
 import {
   getLabelPositionApi,
-  getLabelLIstsApi
+  getLabelLIstsApi,
+  getHotLabelLIstsApi
 } from '../../../../api/pages/label.js'
 
 import {RECRUITER} from '../../../../config.js'
@@ -10,6 +11,7 @@ const app = getApp()
 Page({
   data: {
     positionTypeList: [],
+    hotArea: [],
     query: '',
     statusBarHeight: app.globalData.navHeight,
     index1: 0,
@@ -23,10 +25,24 @@ Page({
   },
   getLists() {
     const options = this.data.query
+    getHotLabelLIstsApi().then(res => {
+      let hotArea = res.data
+      let positionType = wx.getStorageSync('positionType')
+      if (positionType) {
+        hotArea.forEach(field => {
+          if (field.labelId === positionType) {
+            field.active = true
+          }
+        })
+      }
+      this.setData({hotArea}, () => {
+        wx.removeStorageSync('positionType')
+      })
+    })
     getLabelPositionApi()
       .then(res => {
         const positionTypeList = res.data
-        this.setData({positionTypeList: res.data, query: options})
+        this.setData({positionTypeList: res.data})
       })
   },
   onClick(e) {
@@ -83,6 +99,14 @@ Page({
     storage.typeName = result.name
     if(this.data.positionTypeList[this.data.index1].labelId !== storage.parentType) storage.skills = []
     storage.parentType = this.data.positionTypeList[this.data.index1].labelId
+    wx.setStorageSync('createPosition', storage)
+    wx.navigateBack({delta: 1})
+  },
+  tapHot (e) {
+    const params = e.currentTarget.dataset
+    const storage = {}
+    storage.type = params.item.labelId
+    storage.typeName = params.item.name
     wx.setStorageSync('createPosition', storage)
     wx.navigateBack({delta: 1})
   },

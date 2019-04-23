@@ -12,7 +12,7 @@
       <text class="company">{{item.companyShortname}}</text>
       <view class='influence'>
         <i class="icon iconfont icon-yingxiangli"></i>
-        <text class='txt'>影响力</text>
+        <text class='txt'>人气</text>
         <text class='value'>{{item.influence}}</text>
       </view>
     </view>

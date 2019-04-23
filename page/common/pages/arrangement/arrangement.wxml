@@ -78,13 +78,13 @@
       <view class="date" wx:if="{{identity === 'RECRUITER' && (info.status === 21 || info.status === 31 || info.status === 32)}}">
         <view class="title"><icon class="icon"></icon>约面时间</view>
         <block wx:if="{{info.status === 21}}">
-          <view class="dateItem" wx:for="{{info.arrangementInfo.appointmentList}}" wx:key="{{index}}">
+          <view class="dateItem" wx:for="{{info.arrangementInfo.appointmentList}}" wx:key="{{index}}" wx:if="{{item.appointmentTime}}">
             <view class="inner">
               <view class="removeIcon" bindtap="removeDate" data-index="{{index}}">
                 <view class="icon1"></view>
               </view>
-              <view class="dateDetail">{{filters.dateFormat(item.appointmentTime, 'YYYY-MM-DD hh:mm')}}</view>
-              <!-- <icon class="icon iconfont icon-xiangyou"></icon> -->
+              <view class="dateDetail edit"><myPicker id="myPicker{{index}}" pickerType="dateTime" class="myPicker" data-time="{{item.appointmentTime}}" data-type="edit" data-index="{{index}}" setResult="{{filters.dateFormat(item.appointmentTime, 'YYYY-MM-DD hh:mm')}}" bindresultevent="getResult">
+              </myPicker></view>
             </view>
           </view>
         </block>
@@ -94,8 +94,8 @@
               <view class="removeIcon" bindtap="removeDate" data-index="{{index}}">
                 <view class="icon1"></view>
               </view>
-              <view class="dateDetail">{{filters.dateFormat(item.appointmentTime, 'YYYY-MM-DD hh:mm')}}</view>
-              <!-- <icon class="icon iconfont icon-xiangyou"></icon> -->
+              <view class="dateDetail edit"><myPicker id="myPicker{{index}}" pickerType="dateTime" class="myPicker" data-time="{{item.appointmentTime}}" data-type="edit" data-index="{{index}}" setResult="{{filters.dateFormat(item.appointmentTime, 'YYYY-MM-DD hh:mm')}}" bindresultevent="getResult">
+              </myPicker></view>
             </view>
           </view>
         </block>
@@ -105,7 +105,7 @@
             <view class="dateDetail">{{filters.dateFormat(item.appointmentTime, 'YYYY-MM-DD hh:mm')}}</view>
           </view>
         </view>
-        <view class="dateItem" hidden="{{                                                                                                             info.arrangementInfo.appointmentList.length >= 3 || info.status === 31}}">
+        <view class="dateItem" wx:if="{{                                                                                                             (!info.arrangementInfo.appointmentList || info.arrangementInfo.appointmentList.length < 3) && info.status !== 31}}">
           <view class="inner noborder">
             <view class="txt">最多可添加3个时间供候选人选择</view>
             <view class="msg"><myPicker pickerType="dateTime" class="myPicker" needSlot="{{true}}" bindresultevent="getResult"><text class="add">+</text>添加时间</myPicker></view>

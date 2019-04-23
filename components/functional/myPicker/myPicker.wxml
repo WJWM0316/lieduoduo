@@ -8,13 +8,14 @@
     range-key="{{rangeKey}}"
     bindchange="change"
     bindcolumnchange="changeColumn"
+    style="{{styleObj}}"
     wx-if="{{list && list.length > 0}}"
   >
     <slot wx:if="{{needSlot}}"></slot>
     <block wx:else>
       <block wx:if="{{result}}">
         <block wx:if="{{pickerType === 'dateTime'}}">
-          <view class="showTxt">{{list[0][result[0]]}}-{{list[1][result[1]]}}-{{list[2][result[2]]}} {{list[3][result[3]]}}:{{list[4][result[4]]}}</view>
+          <text>{{list[0][result[0]]}}-{{list[1][result[1]]}}-{{list[2][result[2]]}} {{list[3][result[3]]}}:{{list[4][result[4]]}}</text>
         </block>
         <block wx:else>
           <block wx:if="{{mode === 'multiSelector'}}">
@@ -33,8 +34,8 @@
           </block>
 
           <block wx:if="{{mode === 'selector'}}">
-            <view  class="showTxt" wx:if="{{rangeKey}}">{{list[result][rangeKey]}}<i class="iconfont icon-sanjiaoshaixuan triangle" wx:if="{{pickerType === 'occupation' && isTriangle}}"></i></view>
-            <view  class="showTxt" wx:else>{{list[result]}}</view>
+            <text wx:if="{{rangeKey}}">{{list[result][rangeKey]}}<i class="iconfont icon-sanjiaoshaixuan triangle" wx:if="{{pickerType === 'occupation' && isTriangle}}"></i></text>
+            <text wx:else>{{list[result]}}</text>
           </block>
         </block>
       </block>

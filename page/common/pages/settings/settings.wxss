@@ -22,7 +22,6 @@
 }
 .mobile {
 	display: block;
-	/*border-bottom: 1rpx solid #E8E9EB;*/
 }
 .icon {
 	position: absolute;

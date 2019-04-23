@@ -16,7 +16,9 @@ import {APPLICANT, COMMON} from '../../../../config.js'
 import {getSelectorQuery} from "../../../../utils/util.js"
 
 const app = getApp()
-let identity = ''
+let identity = '',
+    cityIndex = 0,
+    cateIndex = 0
 Page({
   data: {
     tab: 'rankAll',
@@ -57,6 +59,8 @@ Page({
     fixedHeight: ''
   },
   onLoad(options) {
+    cityIndex = 0
+    cateIndex = 0
     this.getFixedBoxHeight()
     identity = app.identification(options)
     if (app.loginInit) {
@@ -92,7 +96,9 @@ Page({
   onTabClick(e) {
     const key = e.target.dataset.tab
     const value = this.data[key]
-    this.setData({tab: key, commonList: value}, () => {
+    let nowIndex = 0
+    e.target.dataset.tab === 'rankCity' ? nowIndex = cityIndex : nowIndex = cateIndex
+    this.setData({nowIndex, tab: key, commonList: value}, () => {
       if(!value.isRequire) {
         this.getLists()
       }
@@ -111,6 +117,7 @@ Page({
     const value = this.data[key]
     value.pageNum = 1
     const params = e.currentTarget.dataset
+    this.data.tab === 'rankCity' ? cityIndex = params.nowindex : cateIndex = params.nowindex
     this.setData({nowIndex: params.nowindex, [tab]: params.id, [key]: value}, () => {
       let secondtItem = {}
       const key = this.data.tab
@@ -126,7 +133,7 @@ Page({
         if(value.list.length > 1) {
           secondtItem = value.list[1]
         }
-        if(value.list[0].influence > secondtItem.influence && value.list.length > 1) {
+        if(value.list[0].influence >= secondtItem.influence && value.list.length > 1) {
           value.list = value.list.filter(field => field.uid !== secondtItem.uid)
           value.list.unshift(secondtItem)
         }
@@ -215,7 +222,7 @@ Page({
         if(rankCity.list.length > 1) {
           secondtItem = rankCity.list[1]
         }
-        if(rankCity.list[0].influence > secondtItem.influence && rankCity.list.length > 1) {
+        if(rankCity.list[0].influence >= secondtItem.influence && rankCity.list.length > 1) {
           rankCity.list = rankCity.list.filter(field => field.uid !== secondtItem.uid)
           rankCity.list.unshift(secondtItem)
         }
@@ -247,7 +254,7 @@ Page({
         if(rankCate.list.length > 1) {
           secondtItem = rankCate.list[1]
         }
-        if(rankCate.list[0].influence > secondtItem.influence && rankCate.list.length > 1) {
+        if(rankCate.list[0].influence >= secondtItem.influence && rankCate.list.length > 1) {
           rankCate.list = rankCate.list.filter(field => field.uid !== secondtItem.uid)
           rankCate.list.unshift(secondtItem)
         }
@@ -279,7 +286,7 @@ Page({
         if(rankAll.list.length > 1) {
           secondtItem = rankAll.list[1]
         }
-        if(rankAll.list[0].influence > secondtItem.influence && rankAll.list.length > 1) {
+        if(rankAll.list[0].influence >= secondtItem.influence && rankAll.list.length > 1) {
           rankAll.list = rankAll.list.filter(field => field.uid !== secondtItem.uid)
           rankAll.list.unshift(secondtItem)
         }
@@ -312,7 +319,7 @@ Page({
       if(value.list.length > 1) {
         secondtItem = value.list[1]
       }
-      if((value.list[0].influence > secondtItem.influence) && value.list.length > 1) {
+      if((value.list[0].influence >= secondtItem.influence) && value.list.length > 1) {
         value.list = value.list.filter(field => field.uid !== secondtItem.uid)
         value.list.unshift(secondtItem)
       }

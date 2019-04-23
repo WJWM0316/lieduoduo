@@ -121,7 +121,6 @@ export const request = ({method = 'post', url, host, data = {}, needKey = true, 
           loadNum = 0
         }
         console.log(url, res.data)
-        console.log(addHttpHead)
         if (typeof res.data === 'string') { // 转换返回json
           res.data = JSON.parse(res.data)
         }
@@ -178,7 +177,7 @@ export const request = ({method = 'post', url, host, data = {}, needKey = true, 
             case 400:
               if (msg.code === 701 && url !== '/jobhunter/cur/resume') {
                 wx.navigateTo({
-                  url: `${APPLICANT}center/createUser/createUser`
+                  url: `${APPLICANT}createUser/createUser`
                 })
               }
               if (msg.code === 801) {

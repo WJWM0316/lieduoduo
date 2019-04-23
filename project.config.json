@@ -4,7 +4,7 @@
 		"ignore": []
 	},
 	"setting": {
-		"urlCheck": true,
+		"urlCheck": false,
 		"es6": true,
 		"postcss": true,
 		"minified": true,
@@ -53,7 +53,7 @@
 					"id": 1,
 					"name": "【公包】职位详情",
 					"pathName": "page/common/pages/positionDetail/positionDetail",
-					"query": "positionId=637&sCode=11&sourceType=22&sCode=12222",
+					"query": "positionId=2933&sCode=11&sourceType=22&sCode=12222",
 					"scene": 1001
 				},
 				{
@@ -92,16 +92,52 @@
 				},
 				{
 					"id": 7,
+					"name": "【公包】保存海报",
+					"pathName": "page/common/pages/poster/saveImg/saveImg",
+					"query": "url=https%3A%2F%2Fattach.lieduoduo.ziwork.com%2Ffront-assets%2Fimages%2FzpjShare.jpg",
+					"scene": null
+				},
+				{
+					"id": 7,
 					"name": "【公包】职位海报",
 					"pathName": "page/common/pages/poster/position/position",
 					"query": "positionId=3509&sCode=12222&sourceType=22",
 					"scene": null
 				},
 				{
-					"id": 7,
+					"id": 9,
+					"name": "【公包】webView",
+					"pathName": "page/common/pages/webView/webView",
+					"query": "type=recruitmentDay&c=zpj3",
+					"scene": null
+				},
+				{
+					"id": 8,
 					"name": "【C端】首页",
 					"pathName": "page/applicant/pages/index/index",
-					"query": ""
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 8,
+					"name": "【C端】动态",
+					"pathName": "page/applicant/pages/dynamics/dynamics",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 10,
+					"name": "【C端】动态列表",
+					"pathName": "page/applicant/pages/dynamicsList/dynamicsList",
+					"query": "type=myCollect",
+					"scene": null
+				},
+				{
+					"id": 8,
+					"name": "【C端】发现机会",
+					"pathName": "page/applicant/pages/careerChance/careerChance",
+					"query": "",
+					"scene": null
 				},
 				{
 					"id": 8,
@@ -118,6 +154,13 @@
 				},
 				{
 					"id": 10,
+					"name": "【C端】创建用户",
+					"pathName": "page/applicant/pages/createUser/createUser",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 10,
 					"name": "【C端】创建第一步",
 					"pathName": "page/applicant/pages/center/createUser/createUser",
 					"query": ""
@@ -129,10 +172,11 @@
 					"query": ""
 				},
 				{
-					"id": 12,
+					"id": 18,
 					"name": "【B端】首页",
 					"pathName": "page/recruiter/pages/index/index",
-					"query": ""
+					"query": "sourceType=22",
+					"scene": null
 				},
 				{
 					"id": 13,

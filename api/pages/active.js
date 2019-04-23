@@ -59,7 +59,14 @@ export const geMyBrowseUsersApi = (data, hasLoading) => {
     hasLoading
   })
 }
-
+/* 浏览过我的招聘官 */
+export const geBrowseMySelfApi = (data) => {
+  return request({
+    method: 'get',
+    url: '/browse/browseMySelf',
+    data
+  })
+}
 /* 求职端首页发现出展示的头像列表 */
 export const getAvartListApi = (data) => {
   return request({
@@ -68,4 +75,5 @@ export const getAvartListApi = (data) => {
     data
   })
 }
+
 
