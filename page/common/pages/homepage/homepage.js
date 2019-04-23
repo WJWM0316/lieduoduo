@@ -59,6 +59,7 @@ Page({
   },
   onLoad(options) {
     if (options.scene) options = app.getSceneParams(options.scene)
+    console.log(options, 1111111111)
     this.setData({query: options})
   },
   onShow() {
@@ -252,7 +253,6 @@ Page({
    * @return   {[type]}     [description]
    */
   swiperChange(e) {
-    console.log(1)
     this.setData({swiperIndex: e.detail.current})
   },
   /**

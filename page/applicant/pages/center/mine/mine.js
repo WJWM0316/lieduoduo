@@ -28,6 +28,7 @@ Page({
     let myInfo = {}
     let isJobhunter = 0
     let showScanIcon = this.data.showScanIcon
+
     if(app.pageInit) {
       hasLogin = app.globalData.hasLogin
       myInfo = app.globalData.resumeInfo

@@ -185,6 +185,7 @@ export const othersPositionTxtB= (res) => {
 export const othersworkConTxtC= (res) => {
 	let txtList = [
 		{
+			icon: `${cdnImagePath}nvpic.png`,
 			name: 'UI设计师/秘书',
 			txt: `1、负责公司内产品如APP、WAP、网页的UI设计；
 						2、负责UI的测试和验收；
@@ -192,6 +193,7 @@ export const othersworkConTxtC= (res) => {
 						4、制定APP、WAP界面的实现标准。输出设计规范及标准。`
 		},
 		{
+			icon: `${cdnImagePath}nanpic.png`,
 			name: '运营经理',
 			txt: `1、负责产品的整体拉新、促活工作的策划和管理；
 						2、负责市场各类推广媒介、宣传品策划、设计和管理；
@@ -199,6 +201,7 @@ export const othersworkConTxtC= (res) => {
 						4、负责整体内容的策划、更新和管理。`
 		},
 		{
+			icon: `${cdnImagePath}nanpic.png`,
 			name: '前端工程师',
 			txt: `1. 根据项目规划，负责项目子模块研发工作；
 						2. 独立负责处理和解决线上产品出现的一般问题；
@@ -206,6 +209,7 @@ export const othersworkConTxtC= (res) => {
 						4. 项目的开发和上线工作。`
 		},
 		{
+			icon: `${cdnImagePath}nanpic.png`,
 			name: '产品经理',
 			txt: `1、负责产品的设计/规划，开发计划的跟进，产品上线并对整体用户体验负责；
 						2、挖掘市场需求，根据市场反馈，设计并落地商业化策略产品；
@@ -214,6 +218,7 @@ export const othersworkConTxtC= (res) => {
 						5、持续优化线上策略，完善数据建设，推动策略和数据的迭代。`
 		},
 		{
+			icon: `${cdnImagePath}nvpic.png`,
 			name: '人事专员',
 			txt: `1、配合公司经营目标的需要，负责相关岗位的招聘管理工作；
 						2、负责员工关系管理，建立健全员工的人事档案，办理员工入职、转正、异动、离职等手续；
