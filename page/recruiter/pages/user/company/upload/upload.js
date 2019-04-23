@@ -82,5 +82,16 @@ Page({
       wx.removeStorageSync('createdCompany')
       wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=company`})
     })
+    .catch(msg => {
+      if(msg.code === 808) {
+        app.wxToast({
+          title: msg.msg,
+          callback() {
+            wx.removeStorageSync('createdCompany')
+            wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=company`})
+          }
+        })
+      }
+    })
   }
 })

@@ -282,14 +282,14 @@
 	</view>
 
 	<view
-		class="go"
+		class="go identity222"
 		bindtap="toggle"
 		wx:if="{{companyInfos.status !== 1 && (options.from === 'company' || options.from === 'join')}}">
 		<text>前往求职端</text>
 	</view>
 	
 	<view
-		class="go"
+		class="go {{ identityInfos.status === 0 || identityInfos.status === 2 ? 'identity111' : ''}}"
 		bindtap="toggle"
 		wx:if="{{identityInfos.status !== 1 && options.from === 'identity'}}">
 		<text>前往求职端</text>

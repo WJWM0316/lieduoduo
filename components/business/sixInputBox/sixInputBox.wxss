@@ -1,7 +1,7 @@
 /* 支付密码框 */
 
 .pay_number {
-  margin: 0 auto;
+  margin: 0 16rpx;
   display: flex;
   flex-direction: row;
   height: 100rpx;

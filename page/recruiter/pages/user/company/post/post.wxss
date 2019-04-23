@@ -207,3 +207,7 @@
 .company-post .entry-list .wid {
 	width: calc(100% - 180rpx);
 }
+
+.company-post {
+	padding-bottom: 172rpx;
+}

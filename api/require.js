@@ -7,7 +7,8 @@ let toBindPhone = false
 let noToastUrlArray = [
   '/company/edit_first_step/',
   '/company/notifyadmin',
-  '/company/edit_first_step'
+  '/company/edit_first_step',
+  '/company/self_help_verification'
 ]
 
 let recruiterJump = (msg) => {

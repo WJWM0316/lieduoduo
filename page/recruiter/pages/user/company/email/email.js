@@ -101,9 +101,37 @@ Page({
     // 邮箱不正确
     if(!this.data.canClick) return
     if(this.data.step === 2) {
-      sendEmailApi(params).then(res => this.setData({canResend: false }, this.killTime()))
+      sendEmailApi(params)
+      .then(res => {
+        this.setData({canResend: false }, this.killTime())
+      })
+      .catch(msg => {
+        if(msg.code === 808) {
+          app.wxToast({
+            title: msg.msg,
+            callback() {
+              wx.removeStorageSync('createdCompany')
+              wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=company`})
+            }
+          })
+        }
+      })
     } else {
-      sendEmailApi(params).then(res => this.setData({step: 2, isFocus: true}, this.killTime()))
+      sendEmailApi(params)
+      .then(res => {
+        this.setData({step: 2, isFocus: true}, this.killTime())
+      })
+      .catch(msg => {
+        if(msg.code === 808) {
+          app.wxToast({
+            title: msg.msg,
+            callback() {
+              wx.removeStorageSync('createdCompany')
+              wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=company`})
+            }
+          })
+        }
+      })
     }
   },
   /**
@@ -231,9 +259,29 @@ Page({
         wx.removeStorageSync('createdCompany')
         wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=company`})
       })
+      .catch(msg => {
+        if(msg.code === 808) {
+          app.wxToast({
+            title: msg.msg,
+            callback() {
+              wx.removeStorageSync('createdCompany')
+              wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=company`})
+            }
+          })
+        }
+      })
     })
-    .catch(() => {
+    .catch(msg => {
       this.setData({code: '', error: true, isFocus: true, classErrorName: 'error'})
+      if(msg.code === 808) {
+        app.wxToast({
+          title: msg.msg,
+          callback() {
+            wx.removeStorageSync('createdCompany')
+            wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=company`})
+          }
+        })
+      }
     })
   },
   /**
