@@ -33,7 +33,7 @@
 	font-size:36rpx;
 	font-weight:bold;
 	color:rgba(40,40,40,1);
-	padding: 0 40rpx 16rpx 40rpx;
+	padding: 56rpx 40rpx 16rpx 40rpx;
 	line-height: 1;
 	background: white;
 }

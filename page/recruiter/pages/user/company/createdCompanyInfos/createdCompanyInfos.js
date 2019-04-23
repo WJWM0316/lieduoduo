@@ -57,7 +57,7 @@ Page({
    * @return   {[type]}   [description]
    */
   changeIndentifyMethods() {
-    wx.reLaunch({url: `${RECRUITER}user/company/post/post`})
+    wx.navigateTo({url: `${RECRUITER}user/company/post/post`})
   },
   /**
    * @Author   小书包

@@ -80,6 +80,7 @@
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
+	color: #282828;
 }
 
 .input-li .text.default {
