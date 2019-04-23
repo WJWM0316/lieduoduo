@@ -119,8 +119,8 @@
 
 .footer .p2 .iconfont{
 	display: inline-block;
-	vertical-align: text-bottom;
-	font-size: 30rpx;
+	font-size: 28rpx;
+	margin-top: -1rpx;
 }
 
 .footer .enter {
@@ -135,5 +135,4 @@
 .footer .enter .text2{
 	display: inline;
 	font-size:28rpx !important;
-	font-weight:500;
 }

@@ -114,7 +114,6 @@
 	margin-top: 33rpx;
 	text-align: center;
 	font-size:28rpx;
-	font-weight:500;
 	color:#BCBCBC;
 	line-height:28rpx;
 }
