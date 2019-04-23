@@ -30,7 +30,7 @@ Page({
       business_license: storage.business_license,
       on_job: storage.on_job
     }
-    this.setData({formData, canClick: true})
+    this.setData({formData}, () => this.bindBtnStatus())
   },
   backEvent() {
     let storage = wx.getStorageSync('createdCompany') || {}
@@ -60,7 +60,7 @@ Page({
    */
   bindBtnStatus() {
     const formData = this.data.formData
-    const canClick = (formData.business_license && formData.business_license.smallUrl) && (formData.on_job && formData.on_job.smallUrl) ? true : false
+    const canClick = formData.business_license.smallUrl && formData.on_job.smallUrl ? true : false
     this.setData({canClick})
   },
   submit() {
