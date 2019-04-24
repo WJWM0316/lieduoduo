@@ -26,7 +26,7 @@
 
 .return-back {
   position: absolute;
-  left: 30rpx;
+  left: 0;
   color: #22292C;
   top: 50%;
   transform: translateY(-50%);
@@ -42,7 +42,6 @@
   width:2rpx;
   height:36rpx;
   border-left:2rpx solid rgba(151,151,151,1);
-  margin:0 22rpx;
   vertical-align:middle;
   display:inline-block;
 
@@ -85,4 +84,11 @@
   position: absolute;
   left: -15rpx;
   top: 77rpx;
+}
+
+.btn {
+  padding:0 22rpx 0 30rpx
+}
+.btn.btn1 {
+  padding:0 22rpx 0 22rpx
 }

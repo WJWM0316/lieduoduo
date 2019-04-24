@@ -10,7 +10,6 @@
 	font-weight:400;
 	position: relative;
 	padding-left: 40rpx;
-	position: relative;
 }
 
 .category-list .li:after {
@@ -19,7 +18,7 @@
 	left: 40rpx;
 	right: 0;
 	bottom: 0;
-	height: 1px;
+	height: 1rpx;
 	background: #E8E9EB;
 }
 
@@ -64,7 +63,7 @@
 	padding: 20rpx 40rpx;
 	position: fixed;
 	background: white;
-	border: 1px solid #E8E9EB;
+	border: 1rpx solid #E8E9EB;
 	width: 100%;
 	box-sizing: border-box;
 }
@@ -89,13 +88,15 @@
 	padding: 28rpx 47rpx 4rpx;
 	font-size: 0;
 	background: #fff;
+  box-sizing: border-box;
 }
 .hotArea .hotArea-item {
-	padding: 16rpx 30rpx;
+	padding: 0 30rpx;
+  height: 58rpx;
 	font-size:26rpx;
 	font-weight:300;
 	color: #626262;
-	line-height:26rpx;
+	line-height:58rpx;
 	border:1rpx solid rgba(205,203,207,1);
 	box-sizing: border-box;
 	border-radius:29rpx;

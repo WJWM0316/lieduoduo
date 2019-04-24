@@ -1,4 +1,6 @@
 import {workContentReg} from '../../../../../utils/fieldRegular.js'
+import {othersworkConTxtC} from '../../../../../utils/randomCopy.js'
+
 const app = getApp()
 let workContent = null
 Page({
@@ -10,6 +12,7 @@ Page({
     nowInputNum: 0,
     content: '',
     cdnImagePath: app.globalData.cdnImagePath,
+    randomCopy: {},
     showCase: false // 是否展示例子
   },
 
@@ -17,7 +20,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    this.setData({randomCopy: othersworkConTxtC()})
   },
 
   /**
@@ -25,14 +28,21 @@ Page({
    */
   onShow: function () {
     let content = wx.getStorageSync('workContent')
+    let nowInputNum = this.data.nowInputNum
+    workContent = ''
     if (content) {
-      this.setData({content}, () => {
+      workContent = content
+      this.setData({content, nowInputNum: content.length}, () => {
         wx.removeStorageSync('workContent')
       })
     }
   },
   /* 切换例子 */
-  nextExample () {
+  next () {
+    this.setData({randomCopy: othersworkConTxtC()})
+  },
+  copyText() {
+    wx.setClipboardData({data: this.data.randomCopy.txt })
   },
   /* 展示或关闭例子 */
   showPopups () {
@@ -44,13 +54,13 @@ Page({
   WriteContent (e) {
     workContent = e.detail.value
    this.setData({
-     nowInputNum: e.detail.value.length
+    nowInputNum: e.detail.value.length
    })
   },
   send () {
     if (workContent) {
-      if (!workContentReg.test(workContent)) {
-        app.wxToast({title: '工作内容需为10-1000个字符'})
+      if (this.data.nowInputNum < 10) {
+        app.wxToast({title: '工作内容最少需要10个字以上'})
         return
       }
       wx.setStorageSync('workContent', workContent)

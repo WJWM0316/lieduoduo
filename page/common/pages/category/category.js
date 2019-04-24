@@ -25,20 +25,22 @@ Page({
   },
   getLists() {
     const options = this.data.query
-    getHotLabelLIstsApi().then(res => {
-      let hotArea = res.data
-      let positionType = wx.getStorageSync('positionType')
-      if (positionType) {
-        hotArea.forEach(field => {
-          if (field.labelId === positionType) {
-            field.active = true
-          }
+    if (options.hot) {
+      getHotLabelLIstsApi().then(res => {
+        let hotArea = res.data
+        let positionType = wx.getStorageSync('positionType')
+        if (positionType) {
+          hotArea.forEach(field => {
+            if (field.labelId === positionType) {
+              field.active = true
+            }
+          })
+        }
+        this.setData({hotArea}, () => {
+          wx.removeStorageSync('positionType')
         })
-      }
-      this.setData({hotArea}, () => {
-        wx.removeStorageSync('positionType')
       })
-    })
+    }
     getLabelPositionApi()
       .then(res => {
         const positionTypeList = res.data

@@ -14,11 +14,12 @@ import {userNameReg, positionReg, schoolNameReg, majorNameReg} from '../../../..
 import * as watch from '../../../../utils/watch.js'
 const app = getApp()
 let timer = null,
-    duration = 800, // 过场动画时间
+    duration = 1300, // 过场动画时间
     edNum = 1, // 教育经历份数， 默认一份
     shipNum = 0, // 实习经历份数
     lableArr = [], // 领域标签
-    curTime = new Date().getTime() / 1000
+    curTime = new Date().getTime() / 1000,
+    directChat = ''
 Page({
   /**
    * 页面的初始数据
@@ -28,6 +29,7 @@ Page({
     isBangs: app.globalData.isBangs,
     cdnImagePath: app.globalData.cdnImagePath,
     animationData: {},
+    isStudent: false, // 是否在校生
     showPop: false,
     step: -1, // 创建步数
     active: null,
@@ -75,9 +77,9 @@ Page({
     ],
     intention: {
       cityNum: 0,
-      cityName: '',
+      city: '',
       positionId: 0,
-      positionType: '',
+      position: '',
       salaryCeil: 0,
       salaryFloor: 0,
       salary: '',
@@ -97,26 +99,33 @@ Page({
         this.getStep()
       }
     }
+    if (options.directChat) {
+      directChat = options.directChat
+    }
     watch.setWatcher(this)
   },
   watch: {    
     step: function(newVal, oldVal) {
-      console.log(newVal, oldVal, 1111111111111111)
-      switch (newVal) {
-        case 1:
-          newVal = 1
-          break
-        case 3:
-          newVal = 2
-          break
-        case 5:
-          newVal = 3
-          break
-        case 7:
-          newVal = 4
-          break
+      if (newVal !== oldVal) {
+        switch (newVal) {
+          case 1:
+            newVal = 1
+            this.getStepData(newVal)
+            break
+          case 3:
+            newVal = 2
+            this.getStepData(newVal)
+            break
+          case 5:
+            newVal = 3
+            this.getStepData(newVal)
+            break
+          case 7:
+            newVal = 4
+            this.getStepData(newVal)
+            break
+        }
       }
-      this.getStepData(newVal)
     }
   },
   progress (step) {
@@ -133,11 +142,21 @@ Page({
           }
         }, duration)
       } else {
-        timer = setTimeout(() => {
-          wx.navigateBack({
-            delta: 1
-          })
-        }, 3000)
+        app.getAllInfo().then(res => {
+          timer = setTimeout(() => {
+            if (!directChat) {
+              wx.navigateBack({
+                delta: 1
+              })
+            } else {
+              let path = `${decodeURIComponent(directChat)}&directChat=true`
+              console.log(path, 1111111111111111)
+              wx.redirectTo({
+                url: path
+              })
+            }
+          }, 1000)
+        })
       }
     })
   },
@@ -182,7 +201,7 @@ Page({
     switch (getData.type) {
       case 'work':
         if (this.data.workData.length >= 3) {
-          app.wxToast({title: '最多只能添加三份档案'})
+          app.wxToast({title: '最多可添加3份工作经历哦'})
           return
         }
         listKey = 'workData'
@@ -200,7 +219,7 @@ Page({
         type = 'edCurrent'
         current = this.data.edCurrent
         list = this.data.edData
-        pushItem = {type: 'education'}
+        pushItem = {type: 'education', degreeDesc: '本科', degree: 25}
         break
       case 'internship':
         if (shipNum >= 2) {
@@ -215,9 +234,7 @@ Page({
         pushItem = {type: 'internship'}
         break
     }
-    
     list.push({...pushItem})
-    console.log(type, list)
     this.setData({[listKey]: list, [type]: list.length - 1})
   },
   remove (e) {
@@ -228,6 +245,7 @@ Page({
         current = 0,
         errType = '',
         err = 0,
+        isConfirm = true,
         that = this
     switch (getData.type) {
       case 'work':
@@ -236,6 +254,9 @@ Page({
         errType = 'workErr'
         current = this.data.workCurrent
         list = this.data.workData
+        if (!list[current].company && !list[current].duty && !list[current].endTime && !list[current].startTime && !list[current].positionTypeId) {
+          isConfirm = false
+        }
         break
       case 'education':
         listKey = 'edData'
@@ -244,31 +265,48 @@ Page({
         current = this.data.edCurrent
         list = this.data.edData
         if (list[current].type === 'education') { // 删除教育经历
-          edNum--
+          if (edNum === 1) {
+            app.wxToast({title: '至少保留一份教育经历'})
+            return
+          }
         } else {
-          shipNum--
+          if (!list[current].company && !list[current].duty && !list[current].endTime && !list[current].startTime && !list[current].positionTypeId) {
+            isConfirm = false
+          }
         }
         break
     }
-    app.wxConfirm({
-      title: '提示',
-      content: `删除后无法恢复，确认是否要删除0${current + 1}档案？`,
-      confirmBack() {
-        if (that.data[errType] === current + 1) {
-          err = 0
-        } else {
-          err = that.data[errType]
-        }
-        if (current !== 0 && current <= list.length - 1) {
-          list.splice(current, 1)
-          current --
-          that.setData({[type]: current, [listKey]: list, [errType]: err})
-        } else {
-          list.splice(current, 1)
-          that.setData({[listKey]: list, [errType]: err})
-        }
+    let oper = () => {
+      if (that.data[errType] === current + 1) {
+        err = 0
+      } else {
+        err = that.data[errType]
       }
-    })
+      if (list[current].type === 'education') {
+        edNum--
+      } else {
+        shipNum--
+      }
+      if (current !== 0 && current <= list.length - 1) {
+        list.splice(current, 1)
+        current --
+        that.setData({[type]: current, [listKey]: list, [errType]: err})
+      } else {
+        list.splice(current, 1)
+        that.setData({[listKey]: list, [errType]: err})
+      }
+    }
+    if (isConfirm) {
+      app.wxConfirm({
+        title: '删除档案',
+        content: `删除后无法恢复，确认是否要删除0${current + 1}档案？`,
+        confirmBack() {
+          oper()
+        }
+      }) 
+    } else {
+      oper()
+    }
   },
   continue () {
     this.submitFun().then(res => {
@@ -322,7 +360,10 @@ Page({
     return postCreatFirstStepApi(params).then(res => {
       if (params.startWorkYear === 0) {
         let step = this.data.step
-        this.setData({step: step + 2})
+        let isStudent = true
+        this.setData({step: step + 2, isStudent})
+      } else {
+        if (this.data.isStudent) this.setData({isStudent: false})
       }
     })
   },
@@ -330,34 +371,32 @@ Page({
     let data = this.data,
         params = this.data.workData,
         title = '',
-        workErr = this.data.workErr,
-        workCurrent = this.data.workCurrent
+        workErr = 0,
+        workCurrent = 0
     for (var i = 0; i < params.length; i++) {
       if (!params[i].company || !params[i].positionTypeId || !params[i].position || !params[i].startTime || (!params[i].endTime && params[i].endTime !== 0) || !params[i].duty) {
+        title = ''
         workErr = i + 1
+        workCurrent = i
         break
       } else {
-        if (workErr) {
-          this.setData({workErr: 0})
-          workErr = 0
-        }
+        if (!positionReg.test(params[i].position)) {
+          title = '职位名称需为2-20个字符'
+          workErr = i + 1
+          workCurrent = i
+          break
+        } else if ((params[i].endTime !== 0 && params[i].startTime > params[i].endTime) || (params[i].endTime === 0 && params[i].startTime > curTime)) {
+          title = '开始时间不能晚于结束时间'
+          workErr = i + 1
+          workCurrent = i
+          break
+        } else {
+          if (workErr) {
+            this.setData({workErr: 0})
+            workErr = 0
+          }
+        } 
       }
-      if (!positionReg.test(params[i].position)) {
-        title = '职位名称需为2-20个字符'
-        workErr = i + 1
-        workCurrent = i
-        break
-      } else if ((params[i].endTime !== 0 && params[i].startTime > params[i].endTime) || (params[i].endTime === 0 && params[i].startTime > curTime)) {
-        title = '开始时间不能晚于结束时间'
-        workErr = i + 1
-        workCurrent = i
-        break
-      } else {
-        if (workErr) {
-          this.setData({workErr: 0})
-          workErr = 0
-        }
-      } 
     }
     if (workErr) {
       this.setData({workErr, workCurrent}, () => {
@@ -365,75 +404,62 @@ Page({
       })
       return new Promise((resolve, reject) => {reject(`第${workErr}个工作经历档案信息不完整, 无法提交`)})
     }
-    return postCreatSecondStepApi({careers: params})
+    return postCreatSecondStepApi({careers: params}).then(res => {
+      this.setData({workErr: 0})
+    })
   },
   postThirdFun () {
     let params = this.data.edData,
         educations = [],
         title = '',
         internships = [],
-        edErr = this.data.edErr,
-        edCurrent = this.data.edCurrent
+        edErr = 0,
+        edCurrent = 0
     for (var i = 0; i < params.length; i++) {
       if (params[i].type === 'education') {
         if (params[i].type === 'education') {
           if (!params[i].school || !params[i].major || !params[i].startTime || (!params[i].endTime && params[i].endTime !== 0) || !params[i].degree) {
+            title = ''
             edErr = i + 1
             edCurrent = i
             break
           } else {
-            if (edErr) {
-              edErr = 0
-              this.setData({edErr: 0})
+            if (!schoolNameReg.test(params[i].school)) {
+              title = '学校名称需为2-50个字符'
+              edErr = i + 1
+              edCurrent = i
+              break
+            } else if (!majorNameReg.test(params[i].major)) {
+              title = '专业名称需为2-50个字符'
+              edErr = i + 1
+              edCurrent = i
+            } else if ((params[i].endTime !== 0 && params[i].startTime > params[i].endTime) || (params[i].endTime === 0 && params[i].startTime > curTime)) {
+              title = '开始时间不能晚于结束时间'
+              edErr = i + 1
+              edCurrent = i
+              break
             }
           }
         }
-        if (!schoolNameReg.test(params[i].school)) {
-          title = '学校名称需为2-20个字符'
-          edErr = i + 1
-          edCurrent = i
-          break
-        } else if (!majorNameReg.test(params[i].major)) {
-          title = '专业名称需为2-20个字符'
-          edErr = i + 1
-          edCurrent = i
-        } else if ((params[i].endTime !== 0 && params[i].startTime > params[i].endTime) || (params[i].endTime === 0 && params[i].startTime > curTime)) {
-          title = '开始时间不能晚于结束时间'
-          edErr = i + 1
-          edCurrent = i
-          break
-        } else {
-          if (edErr) {
-            this.setData({edErr: 0})
-            edErr = 0
-          }
-        } 
       } else {
         if (!params[i].company || !params[i].positionTypeId || !params[i].position || !params[i].startTime || (!params[i].endTime && params[i].endTime !== 0) || !params[i].duty) {
+          title = ''
           edErr = i + 1
+          edCurrent = i
           break
         } else {
-          if (edErr) {
-            this.setData({edErr: 0})
-            edErr = 0
+            if (!positionReg.test(params[i].position)) {
+            title = '职位名称需为2-20个字符'
+            edErr = i + 1
+            edCurrent = i
+            break
+          } else if ((params[i].endTime !== 0 && params[i].startTime > params[i].endTime) || (params[i].endTime === 0 && params[i].startTime > curTime)) {
+            title = '开始时间不能晚于结束时间'
+            edErr = i + 1
+            edCurrent = i
+            break
           }
         }
-        if (!positionReg.test(params[i].position)) {
-          title = '职位名称需为2-20个字符'
-          edErr = i + 1
-          edCurrent = i
-          break
-        } else if ((params[i].endTime !== 0 && params[i].startTime > params[i].endTime) || (params[i].endTime === 0 && params[i].startTime > curTime)) {
-          title = '开始时间不能晚于结束时间'
-          edErr = i + 1
-          edCurrent = i
-          break
-        } else {
-          if (edErr) {
-            this.setData({edErr: 0})
-            edErr = 0
-          }
-        } 
       }
     }
     if (edErr) {
@@ -449,7 +475,9 @@ Page({
         internships.push(item)
       }
     })
-    return postCreatThirdStepApi({educations, internships})
+    return postCreatThirdStepApi({educations, internships}).then(res => {
+      this.setData({edErr: 0})
+    })
   },
   postFourthFun () {
     let params = this.data.intention
@@ -480,17 +508,45 @@ Page({
           let name = res.data.name
           let startWorkYearDesc = res.data.startWorkYearDesc
           let startWorkYear = res.data.startWorkYear
-          this.setData({name, gender, birth, birthDesc, startWorkYear, startWorkYearDesc})
+          let isStudent = this.data.isStudent
+          if (startWorkYear === 0) {
+            isStudent = true
+          } else {
+            isStudent = false
+          }
+          this.setData({avatar, name, gender, birth, birthDesc, startWorkYear, startWorkYearDesc, isStudent})
         })
+        break
       case 2:
         return getCreatSecondStepApi().then(res => {
-          let workData = this.data.workData
-          console.log(res)
+          let workData = res.data
+          if (workData.length === 0) workData = [{}]
+          this.setData({workData, workCurrent: 0})
         })
+        break
       case 3:
         return getCreatThirdStepApi().then(res => {
-          let edData = this.data.edData
-          console.log(res)
+          let edData = []
+          res.data.educations.forEach((item) => {
+            item.type = 'education'
+            if (!item.degreeDesc) {
+              item.degreeDesc = '本科'
+              item.degree = 25
+            }
+          })
+          edData = edData.concat(res.data.educations).concat(res.data.internships)
+          if (edData.length === 0) edData = [{type: 'education', degreeDesc: '本科', degree: 25}]
+          edNum = res.data.educations.length || 1
+          shipNum = res.data.internships.length
+          this.setData({edData, edCurrent: 0})
+        })
+        break
+      case 4: 
+        return getCreatFourthStepApi().then(res => {
+          let intention = this.data.intention
+          intention.positionId = res.data.positionId
+          intention.position = res.data.position
+          this.setData({intention})
         })
     }
   },
@@ -506,12 +562,15 @@ Page({
           break
         case 3:
           step = 5
+          this.getStepData(1)
           break
         case 4:
           step = 7
+          this.getStepData(1)
           break
         case 9:
-          step = 7
+          step = 2
+          break  
       }
       this.setData({step}, () => {
         this.progress(step)
@@ -638,7 +697,7 @@ Page({
         wx.setStorageSync('createdCompany', e.currentTarget.dataset.value)
         break
       case 'positionType':
-        url = `${COMMON}category/category`
+        url = `${COMMON}category/category?hot=true`
         wx.setStorageSync('positionType', e.currentTarget.dataset.id)
         break
       case 'workContent':
@@ -661,10 +720,13 @@ Page({
     if (step === 0 || step === 1) {
       this.setData({showPop: true})
     } else {
-      step -= 2
-      this.setData({step}, () => {
+      if (step === 4 || step === 5 && this.data.isStudent) { // 处在第三步返回的时候要看看是不是在校生
+        step -= 4
+      } else {
+        step -= 2
+      }
+      this.setData({step, edErr: 0, workErr: 0}, () => {
         this.progress(step)
-        this.getStepData(step)
       })
     }
   },
@@ -714,8 +776,9 @@ Page({
       if (index || index === 0) {
         listValue[index].positionTypeId = positionType.type
         listValue[index].positionType = positionType.typeName
+        if (!listValue[index].position) listValue[index].position = positionType.typeName
       } else {
-        listValue.positionType = positionType.typeName
+        listValue.position = positionType.typeName
         listValue.positionId = positionType.type
       }
       this.setData({[listType]: listValue}, () => {
@@ -750,7 +813,7 @@ Page({
       listType = 'intention'
       listValue = this.data.intention
       listValue.cityNum = selectCity.areaId
-      listValue.cityName = selectCity.title || selectCity.name
+      listValue.city = selectCity.title || selectCity.name
       this.setData({[listType]: listValue}, () => {
         wx.removeStorageSync('selectCity')
       })
@@ -782,13 +845,6 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
 
   }
 })

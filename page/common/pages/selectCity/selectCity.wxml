@@ -1,5 +1,5 @@
 <view>
-	<navbar title="选择城市"></navbar>
+	<navbar title="选择城市" background="#fff" color="#22292C"></navbar>
 	<!-- <view style="height: 120rpx;"></view>
 	<view class="search-box" style="top: {{statusBarHeight}}px">
 		<view class="mask"></view>

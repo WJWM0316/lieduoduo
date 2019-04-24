@@ -31,8 +31,8 @@
 }
 
 .icon {
-  width: 53rpx;
-  height: 53rpx;
+  width: 54rpx;
+  height: 54rpx;
   background:rgba(255,220,41,1);
   border:4rpx solid rgba(255,255,255,1);
   font-size: 26rpx;
@@ -41,6 +41,6 @@
   right: 0;
   bottom: 0;
   text-align: center;
-  line-height: 56rpx;
+  line-height: 54rpx;
   border-radius: 50%;
 }
