@@ -71,7 +71,7 @@ Page({
       }
     })
     if (hasFilter) return
-    let dataset = e.currentTarget.dataset
+    
     if (dataset.type === 'edit') {
       info.arrangementInfo.appointmentList[dataset.index].appointmentTime = date
     } else {

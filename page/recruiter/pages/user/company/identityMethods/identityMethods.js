@@ -31,7 +31,6 @@ Page({
    * @return   {[type]}   [description]
    */
   routeJump(e) {
-    let storage = wx.getStorageSync('createdCompany') || {}
     let route = e.currentTarget.dataset.route
     let options = this.data.options
     let applyJoin = options.from === 'join' ? true : false
@@ -39,20 +38,20 @@ Page({
     switch(route) {
       case 'email':
         if(applyJoin) {
-          url = `${RECRUITER}user/company/email/email?companyId=${storage.newCompanyId}&suffix=${storage.newCompanySuffix}&from=join`
+          url = `${RECRUITER}user/company/email/email?companyId=${options.companyId}&suffix=${options.suffix}&from=join`
         } else {
-          url = `${RECRUITER}user/company/email/email?companyId=${storage.newCompanyId}&from=company`
+          url = `${RECRUITER}user/company/email/email?companyId=${options.companyId}&from=company`
         }
         wx.navigateTo({url})
         break
       case 'license':
-        wx.navigateTo({url: `${RECRUITER}user/company/upload/upload?companyId=${storage.newCompanyId}`})
+        wx.navigateTo({url: `${RECRUITER}user/company/upload/upload?companyId=${options.companyId}`})
         break
       case 'call':
         wx.makePhoneCall({phoneNumber: app.globalData.telePhone})
         break
       case 'notice':
-        upJoinTypeApi({company_id: storage.newCompanyId, join_type: 1}).then(() => wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=join`}))
+        upJoinTypeApi({company_id: options.companyId, join_type: 1}).then(() => wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=join`}))
         break
       default:
         break

@@ -100,7 +100,6 @@ Component({
       }
       switch (this.data.pickerType) {
         case 'birthday':
-          for (let i = curYear - 18; i > curYear; i--) {
           year = []
           curYear = new Date().getFullYear()
           for (let i = curYear - 15; i > curYear - 65; i--) {

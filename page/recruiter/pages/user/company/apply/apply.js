@@ -248,10 +248,7 @@ Page({
         applyCompanyApi(params).then(res => {
           wx.removeStorageSync('createdCompany')
           if(res.data.emailStatus) {
-            storage.newCompanyId = res.data.companyId
-            storage.newCompanySuffix = res.data.suffix
-            wx.setStorageSync('createdCompany', storage)
-            wx.navigateTo({url: `${RECRUITER}user/company/identityMethods/identityMethods?from=join`})
+            wx.navigateTo({url: `${RECRUITER}user/company/identityMethods/identityMethods?from=join&suffix=${res.data.suffix}&companyId=${res.data.companyId}`})
           } else {
             wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=join`})
           }
@@ -290,9 +287,7 @@ Page({
               editApplyCompanyApi(params).then(res => {
                 wx.removeStorageSync('createdCompany')
                 if(res.data.emailStatus) {
-                  storage.newCompanyId = res.data.companyId
-                  storage.newCompanySuffix = res.data.suffix
-                  wx.navigateTo({url: `${RECRUITER}user/company/identityMethods/identityMethods?from=join`})
+                  wx.navigateTo({url: `${RECRUITER}user/company/identityMethods/identityMethods?from=join&suffix=${res.data.suffix}&companyId=${res.data.companyId}`})
                 } else {
                   wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=join`})
                 }
@@ -306,9 +301,7 @@ Page({
           editApplyCompanyApi(params).then(res => {
             wx.removeStorageSync('createdCompany')
             if(res.data.emailStatus) {
-              storage.newCompanyId = res.data.companyId
-              storage.newCompanySuffix = res.data.suffix
-              wx.navigateTo({url: `${RECRUITER}user/company/identityMethods/identityMethods?from=join`})
+              wx.navigateTo({url: `${RECRUITER}user/company/identityMethods/identityMethods?from=join&suffix=${res.data.suffix}&companyId=${res.data.companyId}`})
             } else {
               wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=join`})
             }

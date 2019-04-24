@@ -322,7 +322,7 @@ Page({
     let options = this.data.options
     let applyJoin = options.from === 'join' ? true : false
     let from = applyJoin ? 'join' : 'company'
-    wx.reLaunch({url: `${RECRUITER}user/company/identityMethods/identityMethods?from=${from}`})
+    wx.redirectTo({url: `${RECRUITER}user/company/identityMethods/identityMethods?from=${from}&companyId=${options.companyId}&suffix=${options.suffix}`})
   },
   /**
    * @Author   小书包
