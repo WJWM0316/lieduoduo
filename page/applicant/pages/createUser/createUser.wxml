@@ -20,10 +20,10 @@
 			      <input name="name" placeholder-class="holderStyle" bindinput="getValue" data-type="name" maxlength="20" placeholder="输入你的真实姓名"  value="{{name}}"/>
 			    </view>
 			    <view class="time">
-			      <myPicker class="myPicker" setResult="{{birthDesc}}" pickerType="birthday" data-type="birth" bindresultevent="getresult" styleObj="color: #EFE9F4;font-weight: 300"></myPicker>
+			      <myPicker needWatch class="myPicker" setResult="{{birthDesc}}" pickerType="birthday" data-type="birth" bindresultevent="getresult" styleObj="color: #EFE9F4;font-weight: 300"></myPicker>
 			    </view>
 			    <view class="time">
-			      <myPicker class="myPicker" setResult="{{startWorkYearDesc}}" pickerType="workTime" data-type="workTime" bindresultevent="getresult" styleObj="color: #EFE9F4;font-weight: 300"></myPicker>
+			      <myPicker needWatch class="myPicker" setResult="{{startWorkYearDesc}}" pickerType="workTime" data-type="workTime" bindresultevent="getresult" styleObj="color: #EFE9F4;font-weight: 300"></myPicker>
 			    </view>
 			    <view class="animation btn" bindtap="continue">
 						<view class="btn-area">继续</view>
@@ -60,10 +60,10 @@
 							  </view>
 							  <view class="timeBox">
 							    <view class="startTime">
-							      <myPicker class="myPicker" setResult="{{item.startTimeDesc}}" styleObj="color: #EFE9F4;font-weight: 300" data-type="startTime" pickerType="startTime" bindresultevent="getresult"></myPicker>
+							      <myPicker needWatch class="myPicker" setResult="{{item.startTimeDesc}}" styleObj="color: #EFE9F4;font-weight: 300" data-type="startTime" pickerType="startTime" bindresultevent="getresult"></myPicker>
 							    </view> ~ 
 							    <view class="endTime">
-							      <myPicker class="myPicker" setResult="{{item.endTimeDesc}}" styleObj="color: #EFE9F4;font-weight: 300"  data-type="endTime" pickerType="endTime" bindresultevent="getresult"></myPicker>
+							      <myPicker needWatch class="myPicker" setResult="{{item.endTimeDesc}}" styleObj="color: #EFE9F4;font-weight: 300"  data-type="endTime" pickerType="endTime" bindresultevent="getresult"></myPicker>
 							    </view>
 							  </view>
 							  <view class="box">
@@ -111,14 +111,14 @@
 								    <input data-type="major" placeholder-class="holderStyle" bindinput="getValue" maxlength="50" placeholder="填写专业名称" value="{{item.major}}"/>
 								  </view>
 								  <view class="box">
-								    <myPicker class="myPicker" setResult="{{item.degreeDesc}}" data-type="education" placeholder-class="holderStyle" pickerType="education" bindresultevent="getresult" rangeKey="text" styleObj="color: #EFE9F4;font-weight: 300"></myPicker>
+								    <myPicker needWatch class="myPicker" setResult="{{item.degreeDesc}}" data-type="education" placeholder-class="holderStyle" pickerType="education" bindresultevent="getresult" rangeKey="text" styleObj="color: #EFE9F4;font-weight: 300"></myPicker>
 								  </view>
 								  <view class="timeBox">
 								    <view class="startTime">
-								      <myPicker class="myPicker" setResult="{{item.startTimeDesc}}" styleObj="color: #EFE9F4;font-weight: 300" data-type="startTime" pickerType="startTime" bindresultevent="getresult"></myPicker>
+								      <myPicker needWatch class="myPicker" setResult="{{item.startTimeDesc}}" styleObj="color: #EFE9F4;font-weight: 300" data-type="startTime" pickerType="startTime" bindresultevent="getresult"></myPicker>
 								    </view> ~ 
 								    <view class="endTime">
-								      <myPicker class="myPicker" setResult="{{item.endTimeDesc}}" styleObj="color: #EFE9F4;font-weight: 300" data-type="endTime" pickerType="endTime" bindresultevent="getresult"></myPicker>
+								      <myPicker needWatch class="myPicker" setResult="{{item.endTimeDesc}}" styleObj="color: #EFE9F4;font-weight: 300" data-type="endTime" pickerType="endTime" bindresultevent="getresult"></myPicker>
 								    </view>
 								  </view>
 							  </view>
@@ -137,10 +137,10 @@
 								  </view>
 								  <view class="timeBox">
 								    <view class="startTime">
-								      <myPicker class="myPicker" setResult="{{item.startTimeDesc}}" styleObj="color: #EFE9F4;font-weight: 300" data-type="startTime" pickerType="startTime" bindresultevent="getresult"></myPicker>
+								      <myPicker needWatch class="myPicker" setResult="{{item.startTimeDesc}}" styleObj="color: #EFE9F4;font-weight: 300" data-type="startTime" pickerType="startTime" bindresultevent="getresult"></myPicker>
 								    </view> ~ 
 								    <view class="endTime">
-								      <myPicker class="myPicker" setResult="{{item.endTimeDesc}}" styleObj="color: #EFE9F4;font-weight: 300"  data-type="endTime" pickerType="endTime" bindresultevent="getresult"></myPicker>
+								      <myPicker needWatch class="myPicker" setResult="{{item.endTimeDesc}}" styleObj="color: #EFE9F4;font-weight: 300"  data-type="endTime" pickerType="endTime" bindresultevent="getresult"></myPicker>
 								    </view>
 								  </view>
 								  <view class="box">
@@ -188,7 +188,7 @@
 							    <input bindtap="jump" data-id="{{intention.positionId}}" data-type="positionType" placeholder-class="holderStyle" placeholder="选择期望职位" value="{{intention.position}}" disabled/>
 							  </view>
 							  <view class="box">
-							    <myPicker class="myPicker" setResult="{{intention.salary}}" styleObj="color: #EFE9F4;font-weight: 300" data-type="salary" pickerType="salaryRangeC" bindresultevent="getresult"></myPicker>
+							    <myPicker needWatch class="myPicker" setResult="{{intention.salary}}" styleObj="color: #EFE9F4;font-weight: 300" data-type="salary" pickerType="salaryRangeC" bindresultevent="getresult"></myPicker>
 							  </view>
 							  <view class="box">
 							    <input bindtap="jump" data-type="fiels" placeholder-class="holderStyle" placeholder="选择期望领域" value="{{intention.fiels}}" disabled/>

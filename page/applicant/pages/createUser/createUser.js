@@ -362,6 +362,8 @@ Page({
         let step = this.data.step
         let isStudent = true
         this.setData({step: step + 2, isStudent})
+      } else {
+        if (this.data.isStudent) this.setData({isStudent: false})
       }
     })
   },

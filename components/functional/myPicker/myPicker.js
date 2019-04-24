@@ -13,10 +13,16 @@ Component({
       type: String,
       value: ''
     },
+    needWatch: {
+      type: Boolean,
+      value: false
+    },
     setResult: {
       type: String,
       observer: function(newVal, oldVal) {
-        this.init()
+        if (this.data.needWatch) {
+          this.init()
+        }
       }
     },
     rangeKey: {
