@@ -1,6 +1,8 @@
 <view class="createdCompanyInfos">
-	<navbar title="公司认证" background="#fff" color="#22292C"></navbar>
-
+	<navbar title="公司认证" background="#fff" color="#22292C" customBack bindbackEvent="backEvent"></navbar>
+	<view hidden="{{!hasReFresh}}">
+	  <refreshStatus></refreshStatus>
+	</view>
 	<view class="header">
 		<view class="icon-box">
 			<i class="icon iconfont icon-tijiaoshenqing"></i>
@@ -31,9 +33,9 @@
 			<i class="icon iconfont icon-zizhurenzheng"></i>
 		</view>
 		<view class="enter">
-			<text class="toggle" bindtap="toggle">前往求职端</text>
+			<view class="toggle text2" bindtap="toggle">前往求职端</view>
   		 |
-  		<text class="changePhone" bindtap="changePhone">换个账号</text>
+  		<view class="changePhone text2" bindtap="changePhone">换个账号</view>
   	</view>
 	</view>
 </view>

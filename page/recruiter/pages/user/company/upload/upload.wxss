@@ -3,13 +3,12 @@
 }
 
 .company-upload .warning {
-	height:80rpx;
 	background:rgba(255,252,240,1);
-	line-height: 80rpx;
-	font-size:28rpx;
+	font-size:26rpx;
 	font-weight:300;
-	color:rgba(255,127,77,1);
-	padding: 0 40rpx;
+	color:#FF7F4D;
+	padding: 22rpx 40rpx;
+	line-height: 36rpx;
 }
 
 .company-upload .upload-li {
@@ -76,10 +75,22 @@
 	z-index: 3;
 }
 
-.company-upload .icon-box {
-	width:92rpx;
-	height:92rpx;
-	margin: 124rpx auto 10rpx auto;
+.company-upload .icon-box1 {
+	width:244rpx;
+	height: 154rpx;
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+}
+
+.company-upload .icon-box2 {
+	width:244rpx;
+	height: 164rpx;
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
 }
 
 .button-submit {

@@ -40,7 +40,8 @@ Page({
       type: 'idCard',
       side: 0
     },
-    infos: {}
+    companyInfo: {},
+    identityInfo: {}
   },
   onLoad(options) {
     this.setData({options})
@@ -57,31 +58,25 @@ Page({
    */
   getCompanyIdentityInfos(hasLoading = true) {
     getCompanyIdentityInfosApi({hasLoading}).then(res => {
-      let infos = res.data
       let formData = {}
       let options = this.data.options
-      let data = this.data
-      let applyJoin = false
+      let applyJoin = res.data.applyJoin
+      let identityInfo = res.data
+      let companyInfo = res.data.companyInfo
 
-      if(infos.applyJoin) {
+      if(applyJoin) {
         // 身份姓名 > 加入公司填写的姓名
-        formData.real_name = infos.realName || infos.companyInfo.realName || ''
-        formData.identity_num = infos.identityNum || ''
-        applyJoin = true
+        formData.real_name = identityInfo.realName || companyInfo.realName || ''
+        formData.identity_num = identityInfo.identityNum || ''
       } else {
         // 身份姓名 > 加入公司填写的姓名
-        applyJoin = false
-        formData.real_name = infos.realName || infos.companyInfo.realName || ''
-        formData.identity_num = infos.identityNum || ''
-        formData.passport_front = infos.passportFrontInfo
-        formData.passport_reverse = infos.passportReverseInfo
-        formData.validity_start = infos.validityStart
-        formData.validity_end = infos.validityEnd
+        formData.real_name = identityInfo.realName || companyInfo.realName || ''
+        formData.identity_num = identityInfo.identityNum || ''
+        formData.passport_front = identityInfo.passportFrontInfo
         formData.passport_front.hasUpload = true
-        formData.passport_reverse.hasUpload = true
       }
       
-      this.setData({formData: Object.assign(this.data.formData, formData), applyJoin, infos}, () => this.bindBtnStatus())
+      this.setData({formData: Object.assign(this.data.formData, formData), applyJoin, identityInfo, companyInfo}, () => this.bindBtnStatus())
     })
   },
   /**
@@ -100,9 +95,9 @@ Page({
       bindKeys = ['real_name', 'identity_num']
       canClick = bindKeys.every(field => this.data.formData[field])
     } else {
-      bindKeys = ['real_name', 'identity_num', 'validity_start', 'validity_end']
+      bindKeys = ['real_name', 'identity_num']
       canClick = bindKeys.every(field => this.data.formData[field])
-      hasUpload = this.data.formData.passport_front.url && this.data.formData.passport_reverse.url
+      hasUpload = this.data.formData.passport_front.url
       canClick = canClick && hasUpload
     }
 
@@ -122,36 +117,6 @@ Page({
   },
   /**
    * @Author   小书包
-   * @DateTime 2018-12-20
-   * @detail   日期选择
-   * @return   {[type]}     [description]
-   */
-  getEndDate(e) {
-    let formData = this.data.formData
-    let startTime = formData.validity_start
-
-    let beforeTime = startTime.replace(/\./g, '/')
-    let lastTime = e.detail.value.replace(/-/g, '/')
-
-    let timestamp1 = Date.parse(beforeTime)
-    let timestamp2 = Date.parse(lastTime)
-
-    let validity_end = e.detail.value.replace(/-/g, '.')
-
-    if(!startTime) {
-      app.wxToast({title: '请选择开始时间'})
-      return
-    }
-    // 结束时间必须大于开始时间
-    if(timestamp2 - timestamp1 > 0) {
-      formData.validity_end = validity_end
-      this.setData({ formData }, () => this.bindBtnStatus())
-    } else {
-      app.wxToast({title: '结束时间必须大于开始时间'})
-    }
-  },
-  /**
-   * @Author   小书包
    * @DateTime 2018-12-21
    * @detail   图片上传
    * @return   {[type]}     [description]
@@ -168,30 +133,13 @@ Page({
     formData.identity_num = idCardInfo.num
     this.setData({formData}, () => this.bindBtnStatus())
   },
-  /**
-   * @Author   小书包
-   * @DateTime 2018-12-21
-   * @detail   图片上传
-   * @return   {[type]}     [description]
-   */
-  upload_back(e) {
-    if(!e.detail.length) return
-    let infos = e.detail[0]
-    let idCardInfo = infos.idCardInfo
-    let validity_start = idCardInfo.startDateDesc.replace(/-/g, '.')
-    let validity_end = idCardInfo.endDateDesc.replace(/-/g, '.')
-    let formData = this.data.formData
-    formData.passport_reverse.loading = false
-    formData.passport_reverse.hasUpload = true
-    formData.passport_reverse = Object.assign(formData.passport_reverse, infos.file)
-    formData.validity_start = validity_start
-    formData.validity_end = validity_end
-    this.setData({formData}, () => this.bindBtnStatus())
-  },
   submit() {
     if(!this.data.canClick) return;
 
     let formData = this.data.formData
+    let companyInfo = this.data.companyInfo
+    let identityInfo = this.data.identityInfo
+    let applyJoin = this.data.applyJoin
 
     // 验证姓名
     let checkRealName = new Promise((resolve, reject) => {
@@ -208,14 +156,14 @@ Page({
       let action = ''
       let infos = this.data.infos
 
-      if(infos.applyJoin) {
-        if(infos.haveIdentity) {
+      if(applyJoin) {
+        if(identityInfo.haveIdentity) {
           action = 'editIdentityJoin'
         } else {
           action = 'identityJoin'
         }
       } else {
-        if(infos.haveIdentity) {
+        if(identityInfo.haveIdentity) {
           action = 'editIdentityCompany'
         } else {
           action = 'identityCompany'
@@ -259,9 +207,10 @@ Page({
     let options = this.data.options
     identityCompanyApi(formData).then((res) => {
       if(this.data.options.from === 'identity') {
-        wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=identity&showBack=1`})
+        wx.navigateBack({delta: 1})
+        // wx.redirectTo({url: `${RECRUITER}user/company/status/status?from=identity`})
       } else {
-        wx.redirectTo({url: `${RECRUITER}user/company/status/status?showBack=1&from=${options.from}`})
+        wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=${options.from}`})
       }
     })
   },
@@ -276,9 +225,10 @@ Page({
     let options = this.data.options
     joinidentityApi(formData).then((res) => {
       if(this.data.options.from === 'identity') {
-        wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=identity&showBack=1`})
+        wx.navigateBack({delta: 1})
+        // wx.navigateTo({url: `${RECRUITER}user/company/status/status?from=identity&reBack=2`})
       } else {
-        wx.redirectTo({url: `${RECRUITER}user/company/status/status?showBack=1&from=${options.from}`})
+        wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=${options.from}`})
       }
     })
   },
@@ -293,9 +243,10 @@ Page({
     let options = this.data.options
     editCompanyIdentityInfosApi(formData).then((res) => {
       if(this.data.options.from === 'identity') {
-        wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=identity&showBack=1`})
+        wx.navigateBack({delta: 1})
+        // wx.navigateTo({url: `${RECRUITER}user/company/status/status?from=identity&reBack=2`})
       } else {
-        wx.redirectTo({url: `${RECRUITER}user/company/status/status?showBack=1&from=${options.from}`})
+        wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=${options.from}`})
       }
     })
   },
@@ -310,9 +261,10 @@ Page({
     let options = this.data.options
     editIdentityJoinApi(formData).then((res) => {
       if(this.data.options.from === 'identity') {
-        wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=identity&showBack=1`})
+        wx.navigateBack({delta: 1})
+        // wx.navigateTo({url: `${RECRUITER}user/company/status/status?from=identity&reBack=2`})
       } else {
-        wx.redirectTo({url: `${RECRUITER}user/company/status/status?showBack=1&from=${options.from}`})
+        wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=${options.from}`})
       }
     })
   },

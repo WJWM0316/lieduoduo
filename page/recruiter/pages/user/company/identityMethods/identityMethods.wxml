@@ -6,6 +6,7 @@
 	</view>
 
 	<view class="ul">
+
 		<view class="li" data-route="email" bindtap="routeJump">
 			<view class="icon-box"><i class="icon iconfont icon-youxiangrenzheng"></i></view>
 			<view class="content">
@@ -17,7 +18,20 @@
 				<i class="icon iconfont icon-xiangyou"></i>
 			</view>
 		</view>
-		<view class="li" data-route="license" bindtap="routeJump">
+		
+		<view class="li" data-route="notice" bindtap="routeJump" wx:if="{{options.from === 'join'}}">
+			<view class="icon-box"><i class="icon iconfont icon-youxiangrenzheng"></i></view>
+			<view class="content">
+				<view class="h3">管理员认证</view>
+				<view class="h4">通过申请加入，联系管理员进行认证</view>
+			</view>
+			<view class="arrow-box">
+				<text>去认证</text>
+				<i class="icon iconfont icon-xiangyou"></i>
+			</view>
+		</view>
+
+		<view class="li" data-route="license" bindtap="routeJump" wx:else>
 			<view class="icon-box"><i class="icon iconfont icon-tijiaoshenqing"></i></view>
 			<view class="content">
 				<view class="h3">营业执照加相关证明认证</view>
@@ -29,10 +43,11 @@
 				<i class="icon iconfont icon-xiangyou"></i>
 			</view>
 		</view>
+
 	</view>
 
-	<view class="quickly-entry">
-		<view class="content">
+	<view class="quickly-entry" wx:if="{{options.from !== 'join'}}">
+		<view>
 			<view class="h6">快速通道权益</view>
 			<view class="h7">助您创建公司更快捷，欢迎体验~</view>
 		</view>

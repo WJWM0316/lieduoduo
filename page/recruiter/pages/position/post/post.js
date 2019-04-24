@@ -58,7 +58,9 @@ Page({
       app.wxConfirm({
         title: '放弃修改',
         content: '你编辑的职位尚未保存，确定放弃编辑吗？',
-        confirmBack() {
+        cancelText: '放弃',
+        confirmText: '继续编辑',
+        cancelBack() {
           wx.removeStorageSync('createPosition')
           wx.navigateBack({delta: 1})
         },
@@ -67,8 +69,9 @@ Page({
       app.wxConfirm({
         title: '温馨提示',
         content: '离开当前页面，已填写的数据将会丢失，确认放弃发布吗？',
-        cancelText: '继续编辑',
-        confirmBack() {
+        cancelText: '放弃',
+        confirmText: '继续编辑',
+        cancelBack() {
           wx.removeStorageSync('createPosition')
           wx.navigateBack({delta: 1})
         }
@@ -132,7 +135,7 @@ Page({
         formData.lng = infos.lng
         formData.lat = infos.lat
         formData.address_id = infos.addressId
-        formData.parentType = infos.skillsLabel.length ? infos.skillsLabel[0].topPid : ''
+        formData.parentType = infos.topPid
         Object.keys(formData).map(field => this.setData({[field]: formData[field]}))
         this.bindButtonStatus()
       })
@@ -260,15 +263,19 @@ Page({
       !this.data.type ? reject('请选择职位类别') : resolve()
     })
 
+    const positionSkills = new Promise((resolve, reject) => {
+      !this.data.skills.length ? reject('请选择技能要求') : resolve()
+    })
+
     // 验证地址是否已经选择
     const positionAddress = new Promise((resolve, reject) => {
       !this.data.address_id ? reject('请选择地址') : resolve()
     })
 
     // 验证技能是否已经选择
-    const positionSkills = new Promise((resolve, reject) => {
-      !this.data.skills.length ? reject('请选择技能要求') : resolve()
-    })
+    // const positionSkills = new Promise((resolve, reject) => {
+    //   !this.data.skills.length ? reject('请选择技能要求') : resolve()
+    // })
 
     // 验证薪资是否已经选择
     const positionEmolument = new Promise((resolve, reject) => {
@@ -294,8 +301,9 @@ Page({
       positionName, 
       positionType, 
       positionAddress,
-      positionSkills,
+      // positionSkills,
       positionEmolument,
+      positionSkills,
       positionExperience,
       positionEducation,
       positionDescribe
@@ -356,8 +364,9 @@ Page({
     const canClick = infos.position_name
       && infos.type
       && infos.address_id
-      && infos.skills.length
+      // && infos.skills.length
       && infos.emolument_min
+      && infos.skills.length
       && infos.work_experience
       && infos.education
       && infos.describe

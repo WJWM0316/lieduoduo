@@ -30,6 +30,26 @@ export const getCompanyFinancingApi = (data, hasLoading) => {
   })
 }
 
+// 判断是否有申请记录
+export const hasApplayRecordApi = (data, hasLoading) => {
+  return request({
+    method: 'get',
+    url: '/company/applyInfo',
+    data,
+    hasLoading: false
+  })
+}
+
+// 更新申请加入方式
+export const upJoinTypeApi = (data, hasLoading) => {
+  return request({
+    method: 'post',
+    url: '/company/upJoinType',
+    data,
+    hasLoading: true
+  })
+}
+
 // 获取员工数据列表
 export const getCompanyEmployeesApi = (data, hasLoading) => {
   return request({
@@ -64,7 +84,37 @@ export const joinidentityApi = (data, hasLoading) => {
 export const createCompanyApi = (data, hasLoading) => {
   return request({
     method: 'post',
-    url: '/company',
+    url: '/company/first_step',
+    data,
+    hasLoading: true
+  })
+}
+
+// 用户编辑公司第一步
+export const editCompanyFirstStepApi = (data, hasLoading) => {
+  return request({
+    method: 'put',
+    url: `/company/edit_first_step/${data.id}`,
+    data,
+    hasLoading: true
+  })
+}
+
+// 完善创建公司信息
+export const perfectCompanyApi = (data, hasLoading) => {
+  return request({
+    method: 'put',
+    url: `/company/self_help_verification/${data.id}`,
+    data,
+    hasLoading: true
+  })
+}
+
+// 完善创建公司信息 上传营业执照
+export const perfectCompanyByLicenseApi = (data, hasLoading) => {
+  return request({
+    method: 'put',
+    url: `/company/business_license/${data.id}`,
     data,
     hasLoading: true
   })
@@ -342,7 +392,27 @@ export const getRecruitersListApi = (data, hasLoading) => {
 export const sendEmailApi = (data, hasLoading) => {
   return request({
     method: 'post',
-    url: `/company/mail`,
+    url: `/company/new_mail`,
+    data,
+    hasLoading: true
+  })
+}
+
+// 发送企业邮箱验证码
+export const sendEnterpriseEmailApi = (data, hasLoading) => {
+  return request({
+    method: 'post',
+    url: `/company/companyMail`,
+    data,
+    hasLoading: true
+  })
+}
+
+// 验证企业邮箱验证码
+export const verifyEnterpriseEmailApi = (data, hasLoading) => {
+  return request({
+    method: 'post',
+    url: `/company/verifyCompanyMail`,
     data,
     hasLoading: true
   })
@@ -352,7 +422,7 @@ export const sendEmailApi = (data, hasLoading) => {
 export const verifyEmailApi = (data, hasLoading) => {
   return request({
     method: 'post',
-    url: `/company/verify`,
+    url: `/company/new_verify`,
     data,
     hasLoading: true
   })

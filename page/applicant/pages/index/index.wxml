@@ -1,40 +1,65 @@
-<view>
-  <navbar title="猎多多"  background="{{background}}" color="#fff" isFixed="{{isFixed}}"></navbar>
-
-  <view hidden="{{!hasReFresh}}">
+<view class="applicant-job">
+	<navbar title="猎多多" background="#652791" color="#fff" wx:if="{{tabFixed}}"></navbar>
+	<view hidden="{{!hasReFresh}}">
     <refreshStatus></refreshStatus>
   </view>
-  
-  <view class="index-bannar" style="margin-top: -{{navH}}px;">
-    <image src="{{cdnImagePath}}bg_homepageh.png"></image>
-  </view>
-
-  <view class='more'>
-    <moreActive type="1" avatarList="{{moreRecruiter}}"></moreActive>
-    <moreActive type="2" avatarList="{{recruiterDynamic}}" redDotActiveList="{{false}}"></moreActive>
-  </view>
-  
-  <view class="default {{fixedDom ? 'fixed' : ''}}" style="top: {{navH}}px">
-    <view class="ul-tab-bar">
-      <view class="li {{pageList === 'myBrowse' ? 'active' : ''}}" bindtap="onTabClick" data-key="myBrowse">我看过的</view>
-      <view class="li {{pageList === 'myCollect' ? 'active' : ''}}" bindtap="onTabClick" data-key="myCollect">我感兴趣的</view>
+  <view class="head" style="{{tabFixed ? 'margin-top:' + -navH + 'px' : ''}}">
+    <view class="bannerBox" wx:if="{{bannerList.length > 0}}">
+      <swiper
+        class="swiper"
+        autoplay
+        circular
+        bindchange="autoplay"
+        style="height: {{bannerH}}px"
+        >
+        <swiper-item wx:for="{{bannerList}}" wx:key="{{index}}" bindtap="jumpBanner" data-url="{{item.targetUrl || item.otherUrl}}">
+          <image class="banner" wx:if="{{isBangs}}" src="{{item.bigImgUrl}}" mode="widthFix"></image>
+          <image class="banner" wx:else src="{{item.smallImgUrl}}" mode="widthFix"></image>
+        </swiper-item>
+      </swiper>
+      <view class="swiper-dots" wx:if="{{bannerList.length > 1}}">
+        <view wx:for="{{bannerList}}" wx:key="{{index}}" class="swiper-dots-item {{bannerIndex === index ? 'active' : ''}}"></view>
+      </view>
+    </view>
+    <block  wx:else>
+      <image class="banner" wx:if="{{!isBangs}}" src="{{cdnImagePath}}bg_homepageh.png?a=3" mode="widthFix"></image>
+      <image class="banner" wx:else src="{{cdnImagePath}}bg_homepageh_3.png" mode="widthFix"></image>
+    </block>
+    <view class='more'>
+      <view class="moreActive" bindtap='toMore'>
+        <view class="left">
+          <view class="title">发现更多面试官</view>
+          <view class="info">Ta们都在积极抢人，欢迎围观</view>
+        </view>
+        <view class="right">
+          <image class="avatar" lazy-load wx:for="{{moreRecruiter}}" wx:key="{{index}}" src="{{item.smallUrl}}" wx:if="{{index <= 2}}"></image>
+          <image class="avatar" wx:if="{{moreRecruiter.length > 3}}" src="{{cdnImagePath}}more.png"></image>
+        </view>
+      </view>    
+    </view>
+    <view class="select-box {{tabFixed ? 'fixed' : ''}}" style="{{tabFixed ? 'top:' + navH + 'px' : ''}}">
+      <view class="select-tab">
+        <view class="item {{tabType === item.type ? 'cur' : ''}} {{item.active ? 'actived' : ''}}" bindtap="choseTab" data-type="{{item.type}}" wx:for="{{tabList}}" wx:key="{{index}}"><text class="txt">{{item.name}}</text><i class="icon iconfont icon-zhishibiao"></i></view>
+      </view>
+      <view class="select-pop" hidden="{{tabType === 'closeTab'}}">
+        <view class="select-bg" bindtap="choseTab" data-type="closeTab" style="height: calc(100vh - {{navH + 49}}px)"></view>
+        <view class="select-area city" hidden="{{tabType !== 'city'}}">
+          <text class="select-area-item {{cityIndex === index ? 'cur' : ''}}" bindtap="toggle" data-index="{{index}}" data-name="{{item.name}}" data-id="{{item.areaId}}" wx:for="{{cityList}}" wx:key="{{index}}">{{item.name}}</text>
+        </view>
+        <view class="select-area" hidden="{{tabType !== 'positionType'}}">
+          <text class="select-area-item {{typeIndex === index ? 'cur' : ''}}" bindtap="toggle" data-index="{{index}}" data-name="{{item.name}}" data-id="{{item.labelId}}" wx:for="{{positionTypeList}}" wx:key="{{index}}">{{item.name}}</text>
+        </view>
+        <view class="select-area salary" hidden="{{tabType !== 'salary'}}">
+          <text class="select-area-item {{emolumentIndex === index ? 'cur' : ''}}" bindtap="toggle" data-index="{{index}}" data-name="{{item.text}}" data-id="{{item.id}}" wx:for="{{emolumentList}}" wx:key="{{index}}">{{item.text}}</text>
+        </view>
+      </view>
     </view>
   </view>
-
-  <view class="{{myBrowse.list.length ? '' : 'nodata'}}" hidden="{{pageList === 'myCollect'}}">
-    <officerTab list="{{myBrowse.list}}" showSlideView="{{false}}" buttonType="delete" bindrefreshevent="refreshEvent"></officerTab>
-    <bottomStatus status="{{onBottomStatus}}" listData="{{myBrowse.list}}" desc="你还没有看过的职位和面试官哟～" marginTop="{{30}}">
-      <button class="jump clear-style" bindtap="jump">发现更多职业机会</button>
-    </bottomStatus>
+  <view class="list-box">
+    <jobList personality="jobItem" list="{{positionList.list}}" list-type="interview" current-tab="all"></jobList>
+    <bottomStatus status="{{onBottomStatus}}" listData="{{positionList.list}}"></bottomStatus>
   </view>
-  
-  <view class="{{myCollect.list.length ? '' : 'nodata'}}" hidden="{{pageList === 'myBrowse'}}">
-    <officerTab list="{{myCollect.list}}" showSlideView="{{false}}" buttonType="unsubscribe" bindrefreshevent="refreshEvent"></officerTab>
-    <bottomStatus status="{{onBottomStatus}}" listData="{{myCollect.list}}" desc="你还没有感兴趣的面试官哟～" marginTop="{{30}}">
-      <button class="jump clear-style" bindtap="jump">发现更多面试官</button>
-    </bottomStatus>
-  </view>
-
-  <bindPhone wx:if="{{needLogin}}"></bindPhone>
   <tabBar></tabBar>
+  <auth wx:if="{{requireOAuth}}" bindauthSuccess="authSuccess"></auth>
+  <adPop></adPop>
 </view>

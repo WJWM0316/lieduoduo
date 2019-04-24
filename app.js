@@ -1,6 +1,6 @@
 //app.js
 import {loginApi, checkSessionKeyApi, bindPhoneApi, uploginApi} from 'api/pages/auth.js'
-import {formIdApi, shareStatistics} from 'api/pages/common.js'
+import {formIdApi, shareStatistics, readyStatistics} from 'api/pages/common.js'
 import {getPersonalResumeApi} from 'api/pages/center.js'
 import {getRecruiterDetailApi} from 'api/pages/recruiter.js'
 import {COMMON,RECRUITER,APPLICANT} from "config.js"
@@ -19,12 +19,15 @@ App({
       success: res => {
         //导航高度
         console.log(res, '系统信息')
-        this.globalData.navHeight = res.statusBarHeight + 46
+        this.globalData.navHeight = res.statusBarHeight + 44
         if (res.model.indexOf('iPhone X') !== -1) {
           this.globalData.isIphoneX = true
         }
         if (res.system.indexOf('iOS') !== -1) {
           this.globalData.isIos = true
+        }
+        if (this.globalData.navHeight > 74) {
+          this.globalData.isBangs = true
         }
       },
       fail: err => {
@@ -48,6 +51,7 @@ App({
     pageCount: 20, // 分页数量
     isIphoneX: false, // 是否是Iphonex 系列
     isIos: false, // 是否是 ios
+    isBangs: false, // 是否是刘海屏，水滴屏
     telePhone: '400-065-5788',  // 联系电话
     systemInfo: wx.getSystemInfoSync() // 系统信息
   },
@@ -83,6 +87,9 @@ App({
             that.globalData.userInfo = res.data
             console.log('用户已认证')
           } else {
+            if (res.data.userInfo) {
+              that.globalData.userInfo = res.data.userInfo
+            }
             console.log('用户未绑定手机号', 'sessionToken', res.data.sessionToken)
             wx.setStorageSync('sessionToken', res.data.sessionToken)
           }
@@ -174,7 +181,6 @@ App({
   },
   // 登陆成功后下载一下数据
   loginedLoadData() {
-    
     this.getRoleInfo()
   },
   // 检查微信授权
@@ -505,7 +511,7 @@ App({
               wx.reLaunch({url: path})
             }).catch(e => {
               wx.navigateTo({
-                url: `${APPLICANT}center/createUser/createUser?directChat=${encodeURIComponent(path)}`
+                url: `${APPLICANT}createUser/createUser?directChat=${encodeURIComponent(path)}`
               })
             })
           }
@@ -648,8 +654,14 @@ App({
     let path = `/${pageUrl}?${this.splicingParams(pages[index].options)}`
     return path
   },
+  // 操作统计
   shareStatistics ({id, type, channel, sCode}) {
     shareStatistics({id, type, channel, sCode}).then(res => {
+    })
+  },
+  // 浏览统计
+  readyStatistics ({id=0, page, channel, sCode}) {
+    readyStatistics({id, page, channel, sCode}).then(res => {
     })
   }
 })

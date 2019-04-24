@@ -17,6 +17,7 @@
 	position: absolute;
 	top: 0;
 	left: 0;
+  white-space: nowrap;
 }
 .triangle {
 	font-size: 13rpx;
@@ -31,5 +32,5 @@
 }
 .placeholder {
 	color: #BCBCBC;
-	font-weight: 500;
+	font-weight: 300;
 }

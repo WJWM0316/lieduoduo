@@ -28,6 +28,7 @@ Page({
     let myInfo = {}
     let isJobhunter = 0
     let showScanIcon = this.data.showScanIcon
+
     if(app.pageInit) {
       hasLogin = app.globalData.hasLogin
       myInfo = app.globalData.resumeInfo
@@ -103,7 +104,7 @@ Page({
   /* 去完善简历 */
   completeResume () {
     wx.navigateTo({
-      url: `${APPLICANT}center/createUser/createUser`
+      url: `${APPLICANT}createUser/createUser`
     })
   },
   /* 编辑简历 */

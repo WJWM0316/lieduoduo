@@ -29,10 +29,11 @@
 	justify-content: center;
   align-items: center;
   overflow: hidden;
-  padding: 38rpx 40rpx;
+  padding: 0 40rpx;
   margin-top: 20rpx;
   background: white;
   position: relative;
+  height: 200rpx;
 }
 
 .identityMethods .icon-box {
@@ -97,21 +98,18 @@
 	margin-right: 10rpx;
 }
 
-.identityMethods .quickly-entry {
+.quickly-entry {
 	background:rgba(255,255,255,1);
 	box-shadow:0rpx 0rpx 30rpx 0rpx rgba(22,39,77,0.05);
 	border-radius:10rpx;
 	overflow: hidden;
 	margin: 20rpx 30rpx;
-	display: flex;
-	justify-content: center;
-  align-items: center;
   box-sizing: border-box;
   padding: 55rpx 30rpx;
   position: relative;
 }
 
-.identityMethods .quickly-entry .bgImg {
+.quickly-entry .bgImg {
 	position: absolute;
 	left: 0;
 	top: 0;
@@ -119,7 +117,7 @@
 	height: 100%;
 	z-index: 0;
 }
-.identityMethods .quickly-entry .button {
+.quickly-entry .button {
 	width:160rpx;
 	height:64rpx;
 	line-height: 64rpx;
@@ -132,9 +130,13 @@
 	color:rgba(40,40,40,1);
 	position: relative;
 	z-index: 2;
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	right: 30rpx;
 }
 
-.identityMethods .quickly-entry .h6 {
+.quickly-entry .h6 {
 	height:32rpx;
 	font-size:36rpx;
 	font-weight:500;
@@ -143,7 +145,7 @@
 	margin-bottom: 14rpx;
 }
 
-.identityMethods .quickly-entry .h7 {
+.quickly-entry .h7 {
 	height:28rpx;
 	font-size:28rpx;
 	font-weight:400;

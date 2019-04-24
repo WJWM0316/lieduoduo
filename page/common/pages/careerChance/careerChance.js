@@ -223,7 +223,7 @@ Page({
               tabList[2].name = '薪资范围'
             } else {
               tabList[2].active = true
-              tabList[2].name = item.name
+              tabList[2].name = item.text
             }
           }
         })

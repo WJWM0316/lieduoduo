@@ -213,7 +213,6 @@
   position: relative;
 }
 .dateItem .inner.sure {
-  height: 36rpx;
   display: flex;
   justify-content: space-between;
   align-items: center;

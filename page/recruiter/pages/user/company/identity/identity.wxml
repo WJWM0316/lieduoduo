@@ -2,8 +2,7 @@
 	<navbar title="填写身份信息" background="#FFFFFF" color="#22292C"></navbar>
 
 	<view class="warning">
-		<i class="icon iconfont icon-tixing"></i>
-		{{!applyJoin ? '上传身份证图片，系统将自动识别图片信息进行认证' : '填写本人真实信息，才能通过身份审核'}}
+		根据人力资源相关法律规定，用人单位开展招聘业务，需提供相关公司认证资质资料，请确保提交真实有效信息。
 	</view>
 
 	<view>
@@ -36,7 +35,7 @@
 			  </view>
 			</block>
 
-		  <view class="upload-li">
+<!-- 		  <view class="upload-li">
 		  	<view class="text">
 		  		<view class="h1">上传身份证反面</view>
 		  		<view class="p">反面身份证，国徽信息均在照片内清晰可识别身份信息</view>
@@ -66,7 +65,8 @@
 				    </view>
 				  </view>
 			  </view>
-			</block>
+			</block> -->
+			
 		</block>
 		<block wx:else>
 			<view class="input-li">

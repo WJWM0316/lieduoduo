@@ -1,10 +1,10 @@
 /* 支付密码框 */
 
 .pay_number {
-  margin: 0 auto;
+  margin: 0 16rpx;
   display: flex;
   flex-direction: row;
-  height: 88rpx;
+  height: 100rpx;
 }
 
 /* 单个格式样式 */
@@ -32,10 +32,18 @@
 /* 输入框 */
 
 .input_container {
-  height: 0;
-  width: 0;
+  height: 100%;
+  width: 200%;
   min-height: 0;
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  left: 0;
+  transform: translateX(-100%);
+}
+
+.content {
+  height: 100rpx;
+  overflow: hidden;
   position: relative;
-  text-indent: -999em;
-  left: -100%;
 }

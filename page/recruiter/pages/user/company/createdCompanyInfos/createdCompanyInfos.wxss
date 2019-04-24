@@ -29,6 +29,7 @@
 
 .createdCompanyInfos .header .iconfont {
 	font-size: 68rpx;
+	color: #8250a7;
 }
 
 
@@ -89,6 +90,11 @@
 	text-align: center;
 	line-height: 78rpx;
 	color: #652791;
+	font-size: 36rpx;
+}
+
+.createdCompanyInfos .li .icon-box .iconfont{
+	font-size: 36rpx;
 }
 
 .createdCompanyInfos .ul .content{
@@ -118,16 +124,22 @@
 
 .footer .p2 .iconfont{
 	display: inline-block;
-	vertical-align: text-bottom;
 	font-size: 28rpx;
+	margin-top: -1rpx;
+	color: #8250a7;
 }
 
 .footer .enter {
-	width: 100%;
-	margin-top: 45rpx;
+	width: 100vw;
+	margin-top: 50rpx;
 	text-align: center;
-	font-size:28rpx;
-	font-weight:500;
-	color:#BCBCBC;
 	line-height:28rpx;
+	color:#BCBCBC;
+	display: inline-block !important;
+	font-size: 28rpx;
+}
+
+.footer .enter .text2 {
+	display: inline;
+	font-size:28rpx !important;
 }

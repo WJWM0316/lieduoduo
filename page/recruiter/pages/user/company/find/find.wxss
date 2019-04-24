@@ -46,15 +46,18 @@
 	line-height: 90rpx;
 	background: white;
 	padding: 0 40rpx;
+	position: relative;
+	display: block;
+	overflow: hidden;
 }
 
-.search-company-page .input-li:after {
+.search-company-page .example:before {
 	content: '';
 	display: block;
 	position: absolute;
 	left: 40rpx;
-	right: 40px;
-	bottom: 0;
+	right: 40rpx;
+	top: 0;
 	height: 1px;
 	background: #E8E9EB;
 }

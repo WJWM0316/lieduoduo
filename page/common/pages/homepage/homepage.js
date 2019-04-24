@@ -40,6 +40,7 @@ Page({
     labelId: null,
     domHeight: 0,
     isFixed: false,
+    requireOAuth: false,
     map: {
       longitude: 0,
       latitude: 0,
@@ -58,6 +59,7 @@ Page({
   },
   onLoad(options) {
     if (options.scene) options = app.getSceneParams(options.scene)
+    console.log(options, 1111111111)
     this.setData({query: options})
   },
   onShow() {
@@ -192,7 +194,7 @@ Page({
   getCompanyDetail(hasLoading = true, isReload = false) {
     return new Promise((resolve, reject) => {
       getCompanyInfosApi({id: this.data.query.companyId, hasLoading, isReload, ...app.getSource()}).then(res => {
-        console.log(11111111111111111, app.getSource(), isReload)
+        let requireOAuth = res.meta && res.meta.requireOAuth ? res.meta.requireOAuth : false
         const companyInfos = res.data
         const longitude = companyInfos.address.length ? companyInfos.address[0].lng : 0
         const latitude = companyInfos.address.length ? companyInfos.address[0].lat : 0
@@ -216,7 +218,7 @@ Page({
             anchorY: '-60rpx'
           }
         })
-        this.setData({companyInfos, map }, () => resolve(res))
+        this.setData({companyInfos, map, requireOAuth}, () => resolve(res))
       })
     })
   },
@@ -251,7 +253,6 @@ Page({
    * @return   {[type]}     [description]
    */
   swiperChange(e) {
-    console.log(1)
     this.setData({swiperIndex: e.detail.current})
   },
   /**
@@ -307,9 +308,9 @@ Page({
    * @return   {[type]}   [description]
    */
   previewImage(e) {
-    const albumInfo = this.data.companyInfos.albumInfo.map(field => field.url)
-    const params = e.currentTarget.dataset
-    wx.previewImage({current: params.index, urls: albumInfo})
+    let albumInfo = this.data.companyInfos.albumInfo.map(field => field.url)
+    let current = albumInfo.find((value, now, arr) => now === this.data.swiperIndex)
+    wx.previewImage({current, urls: albumInfo})
   },
   /**
    * @Author   小书包

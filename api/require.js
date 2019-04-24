@@ -4,6 +4,41 @@ let loadNum = 0
 let BASEHOST = ''
 let toAuth = false
 let toBindPhone = false
+let noToastUrlArray = [
+  '/company/edit_first_step/',
+  '/company/notifyadmin',
+  '/company/edit_first_step',
+  '/company/self_help_verification'
+]
+
+let recruiterJump = (msg) => {
+
+  let companyInfo = msg.data.companyInfo
+  let identityInfo = msg.data
+  let applyJoin = msg.data.applyJoin
+
+  if(applyJoin) {
+    // 加入公司
+    wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=join`})
+  } else {
+
+    // 还没有创建公司信息
+    if(!companyInfo.id) {
+      wx.reLaunch({url: `${RECRUITER}user/company/apply/apply`})
+    } else {
+      if(companyInfo.status === 1) {
+        wx.reLaunch({url: `${RECRUITER}index/index`})
+      } else {
+        if(companyInfo.status === 3) {
+          wx.reLaunch({url: `${RECRUITER}user/company/createdCompanyInfos/createdCompanyInfos`})
+        } else {
+          wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=company`})
+        }
+      }
+    }
+  }
+}
+
 export const request = ({method = 'post', url, host, data = {}, needKey = true, hasLoading = true, loadingContent = '加载中...'}) => {
   let addHttpHead = {}
   // baceHost 切换
@@ -86,18 +121,18 @@ export const request = ({method = 'post', url, host, data = {}, needKey = true, 
           loadNum = 0
         }
         console.log(url, res.data)
-        console.log(addHttpHead)
         if (typeof res.data === 'string') { // 转换返回json
           res.data = JSON.parse(res.data)
         }
         if (res) {
           let msg = res.data
+          let showToast = true
           //有字符串的情况下 转数字
           msg.httpStatus = parseInt(msg.httpStatus)
           if (msg.httpStatus === 200) {
             resolve(msg)
           } else {
-            if (msg.code !== 701 && msg.code !== 801) {
+            if (msg.code !== 701 && msg.code !== 801 && !noToastUrlArray.some(now => url.includes(now))) {
               getApp().wxToast({title: msg.msg, duration: 2000})
             }
             reject(msg)
@@ -142,31 +177,11 @@ export const request = ({method = 'post', url, host, data = {}, needKey = true, 
             case 400:
               if (msg.code === 701 && url !== '/jobhunter/cur/resume') {
                 wx.navigateTo({
-                  url: `${APPLICANT}center/createUser/createUser`
+                  url: `${APPLICANT}createUser/createUser`
                 })
               }
               if (msg.code === 801) {
-                if(msg.data.applyJoin) {
-                  // 加入公司
-                  wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=join`})
-                } else {
-                  if(!msg.data.companyInfo.id) {
-                    // 还没有填写公司信息
-                    wx.reLaunch({url: `${RECRUITER}user/company/apply/apply`})
-                  } else {
-                    // 创建公司 没填身份证 但是公司已经审核通过
-                    if(msg.data.companyInfo.status === 1 && !msg.data.id) {
-                      wx.reLaunch({url: `${RECRUITER}user/company/identity/identity?from=identity`})
-                      return;
-                    }
-                    // 创建公司 已填身份证 身份证没通过 公司已经审核通过
-                    if(msg.data.companyInfo.status === 1 && msg.data.id && msg.data.status === 2) {
-                      wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=identity`})
-                      return;
-                    }
-                    wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=company`})
-                  }
-                }
+                recruiterJump(msg)
               }
           }
         }

@@ -2,10 +2,18 @@ let app = getApp()
 
 import {RECRUITER} from '../../../../../../config.js'
 
+import {
+  upJoinTypeApi
+} from '../../../../../../api/pages/company.js'
+
 Page({
   data: {
     cdnImagePath: app.globalData.cdnImagePath,
-  	telePhone: app.globalData.telePhone
+  	telePhone: app.globalData.telePhone,
+    options: {}
+  },
+  onLoad(options) {
+    this.setData({options})
   },
   /**
    * @Author   小书包
@@ -24,15 +32,26 @@ Page({
    */
   routeJump(e) {
     let route = e.currentTarget.dataset.route
+    let options = this.data.options
+    let applyJoin = options.from === 'join' ? true : false
+    let url = ''
     switch(route) {
       case 'email':
-        wx.navigateTo({url: `${RECRUITER}user/company/email/email`})
+        if(applyJoin) {
+          url = `${RECRUITER}user/company/email/email?companyId=${options.companyId}&suffix=${options.suffix}&from=join`
+        } else {
+          url = `${RECRUITER}user/company/email/email?companyId=${options.companyId}&from=company`
+        }
+        wx.navigateTo({url})
         break
       case 'license':
-        wx.navigateTo({url: `${RECRUITER}user/company/post/post`})
+        wx.navigateTo({url: `${RECRUITER}user/company/upload/upload?companyId=${options.companyId}`})
         break
       case 'call':
         wx.makePhoneCall({phoneNumber: app.globalData.telePhone})
+        break
+      case 'notice':
+        upJoinTypeApi({company_id: options.companyId, join_type: 1}).then(() => wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=join`}))
         break
       default:
         break

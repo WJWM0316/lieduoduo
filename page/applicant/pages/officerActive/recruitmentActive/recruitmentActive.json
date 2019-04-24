@@ -3,7 +3,6 @@
   "backgroundTextStyle": "light",
   "usingComponents": {
     "navbar": "../../../../components/business/navbar/navbar",
-    "commonList": "../../../../components/business/commonList/commonList",
     "officerTab": "../../../../components/business/officerTab/officerTab"
   }
 }

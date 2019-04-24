@@ -4,52 +4,20 @@
 		<view class="item {{tab === 'positionList' ? 'active' : ''}}" bindtap="onClickTab" data-tab="positionList">机会</view>
   	<view class="item {{tab === 'recruiterList' ? 'active' : ''}}" bindtap="onClickTab" data-tab="recruiterList">面试官</view>
 	</view>
-	
+	<view class="block"></view>
 	<view hidden="{{!hasReFresh}}">
 		<refreshStatus></refreshStatus>
 	</view>
 
-	<view class="ul" hidden="{{tab === 'recruiterList'}}">
-		<form bindsubmit="formSubmit" report-submit='{{true}}'> 
-			<button
-				form-type="submit" 
-				class="formIdBtn"
-				data-positionId="{{item.id}}"
-				bindtap="routeJump"
-				wx:for="{{positionList.list}}"
-				wx:for-item="item"
-				wx:key="{{index}}">
-				<view class="item4">
-					<view class="row-one">
-						<view class="position">{{item.positionName}}</view>
-						<view class="salary">12K~20K</view>
-					</view>
-					<view class="row-two">
-						<view class="address">{{item.city}}{{item.district}}</view>
-						<view class="experience">{{item.workExperienceName}}</view>
-						<view class="degress">{{item.educationName}}</view>
-					</view>
-					<view class="row-three">{{item.companyInfo.companyShortname}} | {{item.companyInfo.financingInfo}}</view>
-					<view class="row-four">
-						<view class="img-box">
-							<image src="{{item.recruiterInfo.avatar.smallUrl}}" mode="aspectFill" class="avatar"></image>
-							<image src="{{cdnImagePath}}sign1.png" mode="aspectFill" class="sign"></image>
-						</view>
-						<view class="name-position">{{item.recruiterInfo.name}} · {{item.recruiterInfo.position}}</view>
-						<view class="logo-box">
-							<image src="{{item.companyInfo.logoInfo.smallUrl}}" mode="aspectFill" class="logo"></image>
-						</view>
-					</view>
-				</view>
-			</button>
-		</form>
-		<bottomStatus status="{{onBottomStatus}}" listData="{{positionList.list}}" desc="没有更多内容了~" marginTop="{{0}}" >
-			<button class="jump" bindtap="jump">发现更多职业机会</button>
+	<view class="jobList" hidden="{{tab === 'recruiterList'}}">
+		<jobList personality="jobItem" wx:if="{{positionList.list.length > 0}}" list="{{positionList.list}}" list-type="interview" current-tab="all"></jobList>
+		<bottomStatus status="{{positionList.onBottomStatus}}" desc="空空如也，赶快去发现更多职业机会吧～" listData="{{positionList.list}}" marginTop="{{30}}">
+			<button class="jump clear-style" bindtap="jump" data-type="positionList">发现更多职业机会</button>
 		</bottomStatus>
 	</view>
 
 	<view class="ul" hidden="{{tab === 'positionList'}}">
-		<form bindsubmit="formSubmit" report-submit='{{true}}'> 
+		<form bindsubmit="formSubmit" report-submit='{{true}}'  wx:if="{{recruiterList.list.length > 0}}" > 
 			<button
 				form-type="submit" 
 				class="formIdBtn"
@@ -60,7 +28,7 @@
 				wx:key="{{index}}">
 				<view class="item3">
 					<view class="img-box">
-						<image class="avatar" src="{{item.avatar.smallUrl}}" mode="aspectFit"></image>
+						<image class="avatar" src="{{item.avatar.smallUrl}}" mode="aspectFill"></image>
 						<image src="{{cdnImagePath}}sign1.png" mode="aspectFill" class="sign" wx:if="{{item.identityAuth}}"></image>
 					</view>
 					<view class="content">
@@ -81,8 +49,8 @@
 				</view>
 			</button>
 		</form>
-		<bottomStatus status="{{onBottomStatus}}" listData="{{recruiterList.list}}" desc="没有更多内容了~" marginTop="{{0}}" >
-			<button class="jump" bindtap="jump">发现更多面试官</button>
+		<bottomStatus status="{{recruiterList.onBottomStatus}}" listData="{{recruiterList.list}}" desc="你还没有感兴趣的面试官哟~" marginTop="{{30}}" >
+			<button class="jump" bindtap="jump" data-type="rank">发现更多面试官</button>
 		</bottomStatus>
 	</view>
 </view>

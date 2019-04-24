@@ -1,21 +1,21 @@
 <view class="company-post">
 	<navbar title="完善公司信息" background="#FFFFFF" color="#22292C" showBackBtn="{{true}}"></navbar>
-	<view class="warning"><i class="icon iconfont icon-tixing"></i>请确保上传的公司信息真实有效，有助审核通过</view>
+	<view class="warning">根据人力资源相关法律规定，用人单位开展招聘业务，需提供相关公司认证资质资料，请确保提交真实有效信息。</view>
 
 	<view bindsubmit="submit" class="entry-list">
 
 		<view class="li">
-			<view class="key">公司全称</view>
+			<view class="key"><text>*</text>公司全称</view>
 			<view class="value">{{formData.company_name}}</view>
 		</view>
 
 		<view class="li upload">
 			<view class="key">公司logo</view>
 			<view class="logo-box">
-				<view class="logo">
+				<view class="logo" bindtap="savaBeforeUpload">
 					<unloadFile bindresultEvent="upload" unloadType="img" number="{{number}}">
-						<image wx:if="{{!formData.logo.smallUrl}}" src="{{cdnPath}}pic_dafult_company.png" class="placeholder-image" mode="aspectFill"></image>
-						<image src="{{formData.logo.smallUrl}}" wx:if="{{formData.logo.smallUrl}}" mode="aspectFill" class="upload-image"></image>
+						<image wx:if="{{!formData.logo.smallUrl}}" src="{{cdnPath}}pic_dafult_company.png" class="placeholder-image" mode="aspectFit"></image>
+						<image src="{{formData.logo.smallUrl}}" wx:if="{{formData.logo.smallUrl}}" mode="aspectFit" class="upload-image"></image>
 					</unloadFile>
 				</view>
 			</view>
@@ -23,16 +23,16 @@
 		</view>
 
 		<view class="li link {{formData.company_shortname ? 'clear-bottom' : ''}}">
-			<view class="key">公司简称</view>
-			<input type="text" class="companyShortName {{formData.company_shortname ? 'color' : ''}}" placeholder="示例：猎多多" placeholder-class="defaultColor" value="{{formData.company_shortname}}" bindinput="bindInput" maxlength="10"></input>
+			<view class="key"><text>*</text>公司简称</view>
+			<input type="text" class="companyShortName {{formData.company_shortname ? 'color' : ''}}" placeholder="示例：猎多多" placeholder-class="defaultColor" value="{{formData.company_shortname}}" bindinput="bindInput" maxlength="10" bindfocus="setFocusByFocus" bindblur="setFocusByBlur"></input>
 		</view>
 
-		<view class="exemple" wx:if="{{formData.company_shortname}}">注： 公司简称能让候选人记住你的公司，可以是品牌名/产品名/关键字等，创建后不可修改</view>
+		<view class="exemple" wx:if="{{formData.company_shortname || isFocus}}">注： 公司简称能让候选人记住你的公司，可以是品牌名/产品名/关键字等，创建后不可修改</view>
 
 		<view class="li">
 			<i class="icon iconfont icon-xiangyou"></i>
-			<view class="key">所属行业</view>
-			<view class="value self {{formData.industry_id ? 'color' : ''}}">{{formData.industry_id_name}}</view>
+			<view class="key"><text>*</text>所属行业</view>
+			<view class="value self {{formData.industry_id ? 'color' : ''}}">{{ formData.industry_id ? formData.industry_id_name : '请选择'}}</view>
 			<view class="picker-box">
 				<picker
 					range="{{ companyLabelField }}" 
@@ -48,7 +48,7 @@
 		</view>
 
 		<view class="li">
-			<view class="key">融资阶段</view>
+			<view class="key"><text>*</text>融资阶段</view>
 			<i class="icon iconfont icon-xiangyou"></i>
 		  <view class="value wid">
 		  	<myPicker pickerType="financing" setResult="{{formData.financingName}}" rangeKey="text" bindresultevent="getFinancing" data-type="financing"></myPicker>
@@ -57,7 +57,7 @@
 
 		<view class="li">
 			<i class="icon iconfont icon-xiangyou"></i>
-			<view class="key">人员规模</view>
+			<view class="key"><text>*</text>人员规模</view>
 		  <view class="value wid">
 		  	<myPicker pickerType="staffMembers" setResult="{{formData.employeesName}}" rangeKey="text" bindresultevent="getStaffMembers" data-type="staffMembers"></myPicker>
 		  </view>
@@ -70,7 +70,7 @@
 		</view>
 
 	  <view class="btn-area">
-	    <view bindtap="submit" class="button-submit {{canClick ? 'button-enable' : ''}}">下一步</view>
+	    <view bindtap="submit" class="button-submit button-enable">下一步</view>
 	  </view>
 
 	</view>

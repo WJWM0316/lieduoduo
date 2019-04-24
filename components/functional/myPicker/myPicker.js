@@ -13,8 +13,17 @@ Component({
       type: String,
       value: ''
     },
+    needWatch: {
+      type: Boolean,
+      value: false
+    },
     setResult: {
-      type: String
+      type: String,
+      observer: function(newVal, oldVal) {
+        if (this.data.needWatch) {
+          this.init()
+        }
+      }
     },
     rangeKey: {
       type: String,
@@ -27,9 +36,12 @@ Component({
     isTriangle: {
       type: Boolean,
       value: false
+    },
+    styleObj: {
+      type: String,
+      value: ''
     }
   },
-
   /**
    * 组件的初始数据
    */
@@ -89,12 +101,15 @@ Component({
       switch (this.data.pickerType) {
         case 'birthday':
           for (let i = curYear - 18; i > curYear; i--) {
+          year = []
+          curYear = new Date().getFullYear()
+          for (let i = curYear - 15; i > curYear - 65; i--) {
             year.push(`${i}`)
           }
           list.push(year)
           list.push(this.data.month)
           result = setResult()
-          this.setData({list, year, result, mode: 'multiSelector', placeholder: '请选择出生年月'})
+          this.setData({list, year, result, mode: 'multiSelector', placeholder: '选择你的出生年月'})
           break
         case 'startTime':
           list.push(year)
@@ -124,7 +139,7 @@ Component({
           } else {
             list.push([firstOption])
           }
-          this.setData({list, year, result, mode: 'multiSelector', firstOption, placeholder: '请选择参加工作时间'})
+          this.setData({list, year, result, mode: 'multiSelector', firstOption, placeholder: '选择参加工作时间'})
           break
         case 'dateTime':
           if (!this.data.setResult) {
@@ -154,7 +169,7 @@ Component({
                 return
               }
             })
-            this.setData({list, result, mode: 'selector', placeholder: '请选择学历'})
+            this.setData({list, result, mode: 'selector', placeholder: '选择学历'})
           })
           break
         case 'sex':
