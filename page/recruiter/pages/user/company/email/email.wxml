@@ -55,7 +55,7 @@
 
 <view class="over-layout" wx:if="{{showTips}}">
 	<view class="box">
-		<view class="h1">验证码遇到问题</view>
+		<view class="h9">验证码遇到问题</view>
 		<view class="p2">可能存在收不到验证码的原因:</view>
 		<view class="p3">1、检查是否填错邮箱； </view>
 		<view class="p3">2、检查邮箱是否服务到期；</view>

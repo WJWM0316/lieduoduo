@@ -25,7 +25,7 @@
 
 .banner image {
 	width: 100vw;
-	height: 495rpx;
+	height: 410rpx;
 	display: block;
 }
 
