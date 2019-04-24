@@ -150,7 +150,6 @@ Page({
               })
             } else {
               let path = `${decodeURIComponent(directChat)}&directChat=true`
-              console.log(path, 1111111111111111)
               wx.redirectTo({
                 url: path
               })
@@ -569,7 +568,7 @@ Page({
           this.getStepData(1)
           break
         case 9:
-          step = 2
+          step = 1
           break  
       }
       this.setData({step}, () => {

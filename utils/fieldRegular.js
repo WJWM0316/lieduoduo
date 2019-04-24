@@ -11,7 +11,7 @@ export const idCardReg = /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/
 export const emailReg = /^([a-zA-Z0-9]+[_|\_|\.|\-]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[-_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,8}$/
 
 // 用户名
-export const userNameReg = /^[\u4E00-\u9FA5-Za-z\s]{2,20}$/
+export const userNameReg = /^[\u4E00-\u9FA5-\s-Za-z]{2,20}$/
 
 // 真实姓名
 export const realNameReg = /^[\u4E00-\u9FA5\s]{2,20}$/
@@ -42,13 +42,13 @@ export const urlReg = /^((https?|ftp|news):\/\/)?([a-z]([a-z0-9\-]*[\.。])+([a-
 export const productNameReg = /^.{1,20}$/
 
 // 公司名称 
-export const companyNameReg = /^[\u4E00-\u9FA5-Za-z\s]{2,50}$/
+export const companyNameReg = /^[\u4E00-\u9FA5-\s-Za-z]{2,50}$/
 
 // 学校名称 
-export const schoolNameReg = /^[\u4E00-\u9FA5-Za-z\s]{2,50}$/
+export const schoolNameReg = /^[\u4E00-\u9FA5-\s-Za-z]{2,50}$/
 
 // 专业名称 
-export const majorNameReg = /^[\u4E00-\u9FA5-Za-z\s]{2,50}$/
+export const majorNameReg = /^[\u4E00-\u9FA5-\s-Za-z]{2,50}$/
 
 // 公司简介
-export const companyIntroReg = /^[\u4E00-\u9FA5-Za-z\s]{20,5000}$/
+export const companyIntroReg = /^[\u4E00-\u9FA5-\s-Za-z]{20,5000}$/

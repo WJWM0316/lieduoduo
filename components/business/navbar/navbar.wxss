@@ -82,7 +82,7 @@
   width:425rpx;
   height:84rpx;
   position: absolute;
-  left: -15rpx;
+  left: 15rpx;
   top: 77rpx;
 }
 

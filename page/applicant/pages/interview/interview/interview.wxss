@@ -78,6 +78,7 @@
 	display: flex;
 	align-items: center;
 	box-sizing: border-box;
+  justify-content: space-between;
 }
 
 .tab-tab-list .item {
@@ -92,7 +93,7 @@
 	border-radius: 27rpx;
 	white-space: nowrap;
 	position: relative;
-	padding: 0 21rpx;
+	padding: 0 20rpx;
 }
 .common-lits-ul {
 	margin-top: 18rpx;
