@@ -7,7 +7,6 @@ import {COMMON,RECRUITER,APPLICANT} from "config.js"
 import {getUserRoleApi} from "api/pages/user.js"
 import {quickLoginApi} from 'api/pages/auth.js'
 import {shareC, shareB} from 'utils/shareWord.js'
-let app = getApp()
 let that = null
 let formIdList = []
 App({
@@ -58,51 +57,54 @@ App({
   // 登录
   login() {
     let that = this
-    wx.login({
-      success: function (res0) {
-        if (!wx.getStorageSync('choseType')) wx.setStorageSync('choseType', 'APPLICANT')
-        let params = {}
-        let startRouteParams = that.globalData.startRoute.query
-        if (startRouteParams.scene) {
-          startRouteParams = that.getSceneParams(startRouteParams.scene)
-        }
-        if (startRouteParams.sourceType) {
-          params = {
-            sourceType: startRouteParams.sourceType,
-            sourcePath: `/${that.globalData.startRoute.path}?${that.splicingParams(startRouteParams)}`
+    return new Promise((resolve, reject) => {
+      wx.login({
+        success: function (res0) {
+          if (!wx.getStorageSync('choseType')) wx.setStorageSync('choseType', 'APPLICANT')
+          let params = {}
+          let startRouteParams = that.globalData.startRoute.query
+          if (startRouteParams.scene) {
+            startRouteParams = that.getSceneParams(startRouteParams.scene)
           }
-        } else {
-          params = {
-            sourceType: 'sch',
-            sourcePath: `/${that.globalData.startRoute.path}?${that.splicingParams(startRouteParams)}`
-          }
-        }
-        wx.setStorageSync('code', res0.code)
-        loginApi({code: res0.code, ...params}).then(res => {
-          // 有token说明已经绑定过用户了
-          if (res.data.token) {
-            wx.setStorageSync('token', res.data.token)
-            that.loginedLoadData()
-            that.globalData.hasLogin = true
-            that.globalData.userInfo = res.data
-            console.log('用户已认证')
-          } else {
-            if (res.data.userInfo) {
-              that.globalData.userInfo = res.data.userInfo
+          if (startRouteParams.sourceType) {
+            params = {
+              sourceType: startRouteParams.sourceType,
+              sourcePath: `/${that.globalData.startRoute.path}?${that.splicingParams(startRouteParams)}`
             }
-            console.log('用户未绑定手机号', 'sessionToken', res.data.sessionToken)
-            wx.setStorageSync('sessionToken', res.data.sessionToken)
+          } else {
+            params = {
+              sourceType: 'sch',
+              sourcePath: `/${that.globalData.startRoute.path}?${that.splicingParams(startRouteParams)}`
+            }
           }
-          // 登陆回调
-          if (that.loginInit) {
-            that.loginInit()
-          }
-          that.loginInit = function () {}
-        })
-      },
-      fail: function (e) {
-        console.log('登录失败', e)
-      }
+          wx.setStorageSync('code', res0.code)
+          loginApi({code: res0.code, ...params}).then(res => {
+            resolve(res)
+            // 有token说明已经绑定过用户了
+            if (res.data.token) {
+              wx.setStorageSync('token', res.data.token)
+              that.loginedLoadData()
+              that.globalData.hasLogin = true
+              that.globalData.userInfo = res.data
+              console.log('用户已认证')
+            } else {
+              if (res.data.userInfo) {
+                that.globalData.userInfo = res.data.userInfo
+              }
+              console.log('用户未绑定手机号', 'sessionToken', res.data.sessionToken)
+              wx.setStorageSync('sessionToken', res.data.sessionToken)
+            }
+            // 登陆回调
+            if (that.loginInit) {
+              that.loginInit()
+            }
+            that.loginInit = function () {}
+          })
+        },
+        fail: function (e) {
+          console.log('登录失败', e)
+        }
+      })
     })
   },
   // 退出登录
