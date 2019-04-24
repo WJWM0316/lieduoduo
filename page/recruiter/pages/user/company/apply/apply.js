@@ -232,7 +232,7 @@ Page({
    */
   joinCompany() {
     let formData = Object.assign(wx.getStorageSync('createdCompany'), this.data.formData)
-    console.log(formData)
+    let storage = wx.getStorageSync('createdCompany') || {}
     let params = {
       real_name: formData.real_name,
       user_email: formData.user_email,
@@ -248,7 +248,10 @@ Page({
         applyCompanyApi(params).then(res => {
           wx.removeStorageSync('createdCompany')
           if(res.data.emailStatus) {
-            wx.navigateTo({url: `${RECRUITER}user/company/identityMethods/identityMethods?from=join&suffix=${res.data.suffix}&companyId=${res.data.companyId}`})
+            storage.newCompanyId = res.data.companyId
+            storage.newCompanySuffix = res.data.suffix
+            wx.setStorageSync('createdCompany', storage)
+            wx.navigateTo({url: `${RECRUITER}user/company/identityMethods/identityMethods?from=join`})
           } else {
             wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=join`})
           }
@@ -264,6 +267,7 @@ Page({
    */
   editJoinCompany() {
     let formData = Object.assign(wx.getStorageSync('createdCompany'), this.data.formData)
+    let storage = wx.getStorageSync('createdCompany') || {}
     let params = {
       id: formData.applyId,
       real_name: formData.real_name,
@@ -286,7 +290,9 @@ Page({
               editApplyCompanyApi(params).then(res => {
                 wx.removeStorageSync('createdCompany')
                 if(res.data.emailStatus) {
-                  wx.navigateTo({url: `${RECRUITER}user/company/identityMethods/identityMethods?from=join&suffix=${res.data.suffix}&companyId=${res.data.companyId}`})
+                  storage.newCompanyId = res.data.companyId
+                  storage.newCompanySuffix = res.data.suffix
+                  wx.navigateTo({url: `${RECRUITER}user/company/identityMethods/identityMethods?from=join`})
                 } else {
                   wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=join`})
                 }
@@ -300,7 +306,9 @@ Page({
           editApplyCompanyApi(params).then(res => {
             wx.removeStorageSync('createdCompany')
             if(res.data.emailStatus) {
-              wx.navigateTo({url: `${RECRUITER}user/company/identityMethods/identityMethods?from=join&suffix=${res.data.suffix}&companyId=${res.data.companyId}`})
+              storage.newCompanyId = res.data.companyId
+              storage.newCompanySuffix = res.data.suffix
+              wx.navigateTo({url: `${RECRUITER}user/company/identityMethods/identityMethods?from=join`})
             } else {
               wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=join`})
             }

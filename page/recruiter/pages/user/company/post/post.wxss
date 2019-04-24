@@ -42,7 +42,7 @@
 	left: 40rpx;
 	right: 40rpx;
 	bottom: 0;
-	height: 1px;
+	height: 1rpx;
 	background: #E8E9EB;
 }
 
