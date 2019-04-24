@@ -1,3 +1,4 @@
+import {getAdApi} from '../../../api/pages/common.js'
 const app = getApp()
 Component({
   /**
@@ -25,6 +26,9 @@ Component({
         wx.removeStorageSync('overdueTime')
       }
     }
+    getAdApi().then(res => {
+      console.log(res, 11111222)
+    })
   },
   /**
    * 组件的方法列表

@@ -165,12 +165,23 @@ export const readyStatistics  = (data, hasLoading) => {
   })
 }
 
-// 获取广告位banner
+// 获取banner
 export const getAdBannerApi  = (data, hasLoading) => {
   return request({
     method: 'get',
     url: `/banner`,
     data,
+    hasLoading
+  })
+}
+
+// 获取广告位
+export const getAdApi  = (data, hasLoading) => {
+  return request({
+    method: 'get',
+    url: `/get/advertisement/lists`,
+    data,
+    host: 'PUBAPIHOST',
     hasLoading
   })
 }

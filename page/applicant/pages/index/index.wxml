@@ -61,5 +61,6 @@
   </view>
   <tabBar></tabBar>
   <auth wx:if="{{requireOAuth}}" bindauthSuccess="authSuccess"></auth>
+  <bindPhone hide="{{!showLoginBox}}"></bindPhone>
   <adPop></adPop>
 </view>
