@@ -2,7 +2,7 @@
 .createUser {
 	width: 100%;
 	height: 100vh;
-	background: #4F286E url('https://attach.lieduoduo.ziwork.com/front-assets/images/pic_bg.jpg') no-repeat bottom center;
+	background: #50286e url('https://attach.lieduoduo.ziwork.com/front-assets/images/pic_bg.jpg') no-repeat bottom center;
 	background-size: 100% auto;
 	position: relative;
 }
