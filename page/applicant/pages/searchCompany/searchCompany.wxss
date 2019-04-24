@@ -1,4 +1,6 @@
-
+.search-company-page {
+  padding-bottom: 148rpx;
+}
 .search-company-page .page-header {
 	padding: 55rpx 40rpx 40rpx 40rpx;
 	background: white;
@@ -48,17 +50,6 @@
 	padding: 0 40rpx;
 }
 
-.search-company-page .input-li:after {
-	content: '';
-	display: block;
-	position: absolute;
-	left: 40rpx;
-	right: 40px;
-	bottom: 0;
-	height: 1px;
-	background: #E8E9EB;
-}
-
 .search-company-page input {
 	height:100%;
 	width: 100%;
@@ -95,7 +86,7 @@
 	left: 40rpx;
 	right: 40rpx;
 	bottom: 0;
-	height: 1px;
+	height: 1rpx;
 	background: #E8E9EB;
 }
 

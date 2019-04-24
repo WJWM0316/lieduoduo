@@ -31,7 +31,7 @@
 	left: 50%;
 	transform:translateX(-50%);
 	opacity: 0;
-	transition: all 0.8s linear;
+	transition: all 0.8s ease-in-out;
 }
 .transition.entry .animation.title {
 	width:568rpx;
@@ -55,11 +55,11 @@
 	left: 50%;
 	transform:translateX(-50%);
 	opacity: 0;
-	transition: all 0.5s linear 0.1s;
+	transition: all 0.5s ease-in-out 0.1s;
 }
 .transition.entry .animation.icon {
 	top: 435rpx;
-	transform:translateX(0) rotate(-30deg);
+	transform:translateX(0) rotate(-25deg);
 	left: 420rpx;
 }
 .entry .animation.icon .pic {
@@ -79,11 +79,10 @@
 	top: 395rpx;
 }
 .end.entry .animation.icon{
-	top: 0;
 	top: 265rpx;
 	left: 50%;
-	transform: translateX(-50%);
-	transition: all 2s linear;
+	transform: translateX(-200%) translateY(200%);
+	transition: all 2s ease-out;
 	opacity: 1;
 }
 .end.entry .animation.icon .pic {
@@ -92,13 +91,13 @@
 .end.entry.active .animation.icon  {
 	top: 0;
 	left: 100%;
-	transform: translate3d(100%, -100%, 0) scale(0.1);
-	opacity: 0;
+	transform: translate3d(-80%, 80%, 0) scale(0.3);
+	opacity: 0.5;
 }
 .fourth .icon {
 	font-size: 30rpx;
 	color: #fff;
-	animation: play 0.7s linear infinite;
+	animation: play 0.7s ease-in-out infinite;
 	position: absolute;
 	top: -70rpx;
 	left: 50%;
@@ -124,7 +123,7 @@
 	transform:translateX(-50%);
 	white-space:nowrap;
 	opacity: 0;
-	transition: all 0.5s linear;
+	transition: all 0.5s ease-in-out;
 }
 .title .err {
 	color: #FF7F4C;
@@ -135,7 +134,7 @@
 }
 .form {
 	width: 480rpx;
-	transition: all 0.5s linear 0.2s;
+	transition: all 0.5s ease-in-out 0.2s;
 	position: absolute;
 	top: 230rpx;
 	left: 50%;
@@ -146,7 +145,7 @@
 	width: 576rpx;
 	margin-left: -288rpx;
 	height: 706rpx;
-	transition: all 0.5s linear 0.2s;
+	transition: all 0.5s ease-in-out 0.2s;
 	top: 231rpx;
 }
 .active .animation.form {
@@ -176,14 +175,20 @@
 	height: 44rpx;
 	text-align: center;
 	line-height: 44rpx;
-	color: #652791;
-	font-size: 20rpx;
 	position: absolute;
 	top: -20rpx;
 	right: -20rpx;
   background: #fff;
   border-radius: 50%;
   z-index: 2;
+}
+.close .iconfont {
+	font-size: 18rpx;
+	color: #652791;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate3d(-50%, -50%, 0);
 }
 .demo {
 	width: 100%;
@@ -213,14 +218,13 @@
 }
 
 .gender{
-  width: 260rpx;
+  width: 296rpx;
   height: 80rpx;
   border-radius:100rpx;
   overflow: hidden;
   margin: 54rpx auto 32rpx;
 }
-.gender view{
-  text-align: center;
+.gender .sex{
   display: inline-block;
   width: 50%;
   height: 100%;
@@ -229,6 +233,13 @@
   font-weight: 300;
   color: #FFFFFF;
   background-color: #40195C;
+  box-sizing: border-box;
+}
+.gender .sex:first-child {
+	padding-left: 66rpx;
+}
+.gender .sex:last-child {
+	padding-left: 52rpx;
 }
 .gender .active{
 	background-color: #F7F9FC;
@@ -263,7 +274,7 @@
   display: block;
 }
 .animation.btn {
-	transition: all 0.5s linear 0.2s;
+	transition: all 0.5s ease-in-out 0.2s;
 	opacity: 0;
 	margin: 205rpx auto 0;
 	position: relative;
@@ -363,13 +374,13 @@
 .number .num.cur {
 	background: #FFDC29;
 	color: #652791;
-	border: none;
 	font-weight: 700;
+  border: 2rpx solid #FFDC29;
 }
 .number .num.err::after {
 	position: absolute;
 	content: '';
-	top: -15rpx;
+	top: -22rpx;
 	left: 50%;
 	transform: translateX(-50%);
 	width: 0; 

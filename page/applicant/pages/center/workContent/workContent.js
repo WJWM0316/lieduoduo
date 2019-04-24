@@ -54,12 +54,12 @@ Page({
   WriteContent (e) {
     workContent = e.detail.value
    this.setData({
-     nowInputNum: e.detail.value.length
+    nowInputNum: e.detail.value.length
    })
   },
   send () {
     if (workContent) {
-      if (!workContentReg.test(workContent)) {
+      if (this.data.nowInputNum < 10) {
         app.wxToast({title: '工作内容最少需要10个字以上'})
         return
       }

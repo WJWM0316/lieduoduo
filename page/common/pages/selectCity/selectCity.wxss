@@ -10,7 +10,6 @@
 	font-weight:400;
 	position: relative;
 	padding-left: 40rpx;
-	position: relative;
 }
 
 .category-list .li:after {
@@ -19,7 +18,7 @@
 	left: 40rpx;
 	right: 0;
 	bottom: 0;
-	height: 1px;
+	height: 1rpx;
 	background: #E8E9EB;
 }
 
@@ -89,6 +88,7 @@
 	padding: 28rpx 47rpx 4rpx;
 	font-size: 0;
 	background: #fff;
+  box-sizing: border-box;
 }
 .hotArea .hotArea-item {
 	padding: 0 30rpx;

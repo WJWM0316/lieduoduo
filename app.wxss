@@ -20,7 +20,7 @@ button::after{
 
 .holderStyle{
   color: #BCBCBC;
-  font-weight: 300;
+	font-weight: 300;
 }
 /*
 @font-face {

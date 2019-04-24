@@ -1,11 +1,12 @@
 
 .position-skills {
 	padding-bottom: 148rpx;
+  background: #fff;
 }
 .position-skills .li {
-	padding:0 38rpx;
+	padding:0 34rpx;
 	height:58rpx;
-	line-height:58rpx;
+	line-height:56rpx;
 	text-align:center;
 	box-sizing:border-box;
 	display:inline-block;
@@ -41,7 +42,7 @@
 
 .position-skills .checked-item-ul {
 	margin: 0 40rpx 40rpx 40rpx;
-	border-bottom: 1px solid #CED7DC;
+	border-bottom: 1rpx solid #CED7DC;
 	padding-bottom: 20rpx;
 }
 

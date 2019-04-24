@@ -14,7 +14,7 @@ import {userNameReg, positionReg, schoolNameReg, majorNameReg} from '../../../..
 import * as watch from '../../../../utils/watch.js'
 const app = getApp()
 let timer = null,
-    duration = 1600, // 过场动画时间
+    duration = 1300, // 过场动画时间
     edNum = 1, // 教育经历份数， 默认一份
     shipNum = 0, // 实习经历份数
     lableArr = [], // 领域标签
@@ -540,7 +540,12 @@ Page({
         })
         break
       case 4: 
-        return getCreatFourthStepApi()
+        return getCreatFourthStepApi().then(res => {
+          let intention = this.data.intention
+          intention.positionId = res.data.positionId
+          intention.position = res.data.position
+          this.setData({intention})
+        })
     }
   },
   getStep () {
@@ -690,7 +695,7 @@ Page({
         wx.setStorageSync('createdCompany', e.currentTarget.dataset.value)
         break
       case 'positionType':
-        url = `${COMMON}category/category`
+        url = `${COMMON}category/category?hot=true`
         wx.setStorageSync('positionType', e.currentTarget.dataset.id)
         break
       case 'workContent':

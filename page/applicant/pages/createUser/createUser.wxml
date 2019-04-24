@@ -13,8 +13,8 @@
 			      <avatarCut class="avatar" avatar="avatar" src="{{avatar.url}}"></avatarCut>
 			    </view>
 			    <view class="gender">
-			      <view class="{{gender === 1 ? 'active' : ''}}" bindtap="chooseGender" data-gender="{{1}}">男</view>
-			      <view class="{{gender === 2 ? 'active' : ''}}" bindtap="chooseGender" data-gender="{{2}}">女</view>
+			      <view class="sex {{gender === 1 ? 'active' : ''}}" bindtap="chooseGender" data-gender="{{1}}">男</view>
+			      <view class="sex {{gender === 2 ? 'active' : ''}}" bindtap="chooseGender" data-gender="{{2}}">女</view>
 			    </view>
 			    <view class="name">
 			      <input name="name" placeholder-class="holderStyle" bindinput="getValue" data-type="name" maxlength="20" placeholder="输入你的真实姓名"  value="{{name}}"/>
@@ -44,7 +44,7 @@
 					<view class="number">
 						<text class="num {{workCurrent === index ? 'cur' : ''}} {{workErr - 1 === index ? 'err' : ''}}" wx:for="{{workData}}" wx:key="{{index}}" bindtap="toggle" data-type="index" data-index="{{index}}">0{{index + 1}}</text>
 					</view>
-					<text class="close iconfont icon-cha-cu" bindtap="remove" data-type="work" wx:if="{{workData.length > 1}}"></text>
+					<view class="close" bindtap="remove" data-type="work" wx:if="{{workData.length > 1}}"><i class="iconfont icon-cha-cu"></i></view>
 					<swiper class="demo" circular current="{{workCurrent}}" bindchange="toggle" data-type="change" skip-hidden-item-layout duration="300" easing-function="easeInOutCubic">
 						<swiper-item class="demo-item" wx:for="{{workData}}" wx:key="{{index}}">
 							<view class="head">工作经历档案0{{index + 1}}</view>
@@ -98,7 +98,7 @@
 					<view class="number">
 						<text class="num {{edCurrent === index ? 'cur' : ''}} {{edErr - 1 === index ? 'err' : ''}}" wx:for="{{edData}}" wx:key="{{index}}" bindtap="toggle" data-type="index" data-index="{{index}}">0{{index + 1}}</text>
 					</view>
-					<text class="close iconfont icon-cha-cu" bindtap="remove" data-type="education" wx:if="{{edData.length > 1}}"></text>
+					<view class="close" bindtap="remove" data-type="education" wx:if="{{edData.length > 1}}"><i class="iconfont icon-cha-cu"></i></view>
 					<swiper class="demo" circular current="{{edCurrent}}" bindchange="toggle" data-type="change" duration="300" easing-function="easeInOutCubic">
 						<swiper-item class="demo-item" wx:for="{{edData}}" wx:key="{{index}}">
 							<block wx:if="{{item.type === 'education'}}">

@@ -96,6 +96,8 @@
   font-size: 32rpx;
   font-weight: 400;
   border-radius: 48rpx;
-  margin: 0 auto;
-  margin-top: 322rpx;
+  position: fixed;
+  left: 50%;
+  margin-left: -275rpx;
+  bottom: 30rpx;
 }

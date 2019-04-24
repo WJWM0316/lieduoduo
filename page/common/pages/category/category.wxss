@@ -18,7 +18,7 @@
 	left: 40rpx;
 	right: 0;
 	bottom: 0;
-	height: 1px;
+	height: 1rpx;
 	background: #E8E9EB;
 }
 
@@ -63,7 +63,7 @@
 	padding: 20rpx 40rpx;
 	position: fixed;
 	background: white;
-	border: 1px solid #E8E9EB;
+	border: 1rpx solid #E8E9EB;
 	width: 100%;
 	box-sizing: border-box;
 }
