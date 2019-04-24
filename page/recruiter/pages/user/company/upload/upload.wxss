@@ -75,10 +75,22 @@
 	z-index: 3;
 }
 
-.company-upload .icon-box {
-	width:92rpx;
-	height:92rpx;
-	margin: 124rpx auto 10rpx auto;
+.company-upload .icon-box1 {
+	width:244rpx;
+	height: 154rpx;
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+}
+
+.company-upload .icon-box2 {
+	width:244rpx;
+	height: 164rpx;
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
 }
 
 .button-submit {

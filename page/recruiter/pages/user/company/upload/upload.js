@@ -8,7 +8,7 @@ import {
 
 import {RECRUITER} from '../../../../../../config.js'
 
-const app = getApp()
+let app = getApp()
 
 Page({
   data: {
@@ -47,8 +47,8 @@ Page({
    * @return   {[type]}     [description]
    */
   upload(e) {
-    const key = e.currentTarget.dataset.type
-    const formData = this.data.formData
+    let key = e.currentTarget.dataset.type
+    let formData = this.data.formData
     formData[key] = e.detail[0]
     this.setData({formData}, () => this.bindBtnStatus())
   },
@@ -59,8 +59,8 @@ Page({
    * @return   {[type]}   [description]
    */
   bindBtnStatus() {
-    const formData = this.data.formData
-    const canClick = formData.business_license.smallUrl && formData.on_job.smallUrl ? true : false
+    let formData = this.data.formData
+    let canClick = formData.business_license.smallUrl && formData.on_job.smallUrl ? true : false
     this.setData({canClick})
   },
   submit() {
