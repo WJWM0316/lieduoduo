@@ -56,7 +56,7 @@
 	left: 40rpx;
 	right: 20px;
 	bottom: 0;
-	height: 1px;
+	height: 1rpx;
 	background: #E8E9EB;
 }
 
