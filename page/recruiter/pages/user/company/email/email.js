@@ -319,10 +319,11 @@ Page({
    * @return   {[type]}   [description]
    */
   changeIndentifyMethods() {
-    let options = this.data.options
-    let applyJoin = options.from === 'join' ? true : false
-    let from = applyJoin ? 'join' : 'company'
-    wx.redirectTo({url: `${RECRUITER}user/company/identityMethods/identityMethods?from=${from}&companyId=${options.companyId}&suffix=${options.suffix}`})
+    // let options = this.data.options
+    // let applyJoin = options.from === 'join' ? true : false
+    // let from = applyJoin ? 'join' : 'company'
+    wx.navigateBack({delta: 1})
+    // wx.redirectTo({url: `${RECRUITER}user/company/identityMethods/identityMethods?from=${from}&companyId=${options.companyId}&suffix=${options.suffix}`})
   },
   /**
    * @Author   小书包
