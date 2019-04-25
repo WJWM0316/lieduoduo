@@ -113,9 +113,10 @@ Page({
                 url: `${RECRUITER}user/company/apply/apply`
               })
             } else {
-              wx.navigateBack({
-                delta: 1
-              })
+              // wx.reLaunch({url: `${RECRUITER}index/index` })
+              // wx.navigateBack({
+              //   delta: 1
+              // })
             }
           }
         }
