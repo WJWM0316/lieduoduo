@@ -20,7 +20,7 @@
 		</view>
 		
 		<view class="li" data-route="notice" bindtap="routeJump" wx:if="{{options.from === 'join'}}">
-			<view class="icon-box"><i class="icon iconfont icon-youxiangrenzheng"></i></view>
+			<view class="icon-box"><i class="icon iconfont icon-guanliyuanrenzheng"></i></view>
 			<view class="content">
 				<view class="h3">管理员认证</view>
 				<view class="h4">通过申请加入，联系管理员进行认证</view>
