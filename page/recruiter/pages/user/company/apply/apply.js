@@ -271,7 +271,7 @@ Page({
     let params = {
       id: formData.applyId,
       real_name: formData.real_name,
-      user_email: formData.user_email.trim()(),
+      user_email: formData.user_email.trim(),
       user_position: formData.user_position,
       company_name: formData.company_name,
       company_id: formData.id
