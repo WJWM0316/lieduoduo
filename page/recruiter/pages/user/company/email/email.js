@@ -70,6 +70,7 @@ Page({
     let isEmail = this.data.isEmail
     let options = this.data.options
     let email = e.detail.value
+    email = email.replace(/\s+/g,'')
     isEmail = emailReg.test(email)
     this.setData({email, isEmail, error: false}, () => this.bindBtnStatus())
   },
@@ -97,7 +98,7 @@ Page({
     let email = this.data.email
     let options = this.data.options
     let applyJoin = options.from === 'join' ? true : false
-    let params = {email: this.data.email, company_id: options.companyId}
+    let params = {email: email.trim(), company_id: options.companyId}
     // 邮箱不正确
     if(!this.data.canClick) return
     if(this.data.step === 2) {
@@ -164,9 +165,12 @@ Page({
     let options = this.data.options
     let applyJoin = options.from === 'join' ? true : false
     let params = {email: this.data.email, company_id: options.companyId}
+    let email = ''
     if(!this.data.email) return
     if(!params.email.includes('@')) {
-      params = Object.assign(params, {email: `${params.email}${options.suffix}`})
+      email = `${params.email}${options.suffix}`
+      email = email.trim()
+      params = Object.assign(params, {email})
     }
     if(this.data.step === 2) {
       sendEnterpriseEmailApi(params).then(res => this.setData({canResend: false }, this.killTime()))
@@ -196,7 +200,9 @@ Page({
    */
   reEmailByCreate() {
     let options = this.data.options
-    let params = {email: this.data.email, company_id: options.companyId}
+    let email = this.data.email
+    email = email.trim()
+    let params = {email, company_id: options.companyId}
     // 已经进入倒计时
     if(!this.data.canResend) return;
     this.setData({canResend: false , isFocus: true})
@@ -211,8 +217,11 @@ Page({
   reEmailByJoin() {
     let options = this.data.options
     let params = {email: this.data.email, company_id: options.companyId}
+    let email = ''
     if(!params.email.includes('@')) {
-      params = Object.assign(params, {email: `${params.email}${options.suffix}`})
+      email = `${params.email}${options.suffix}`
+      email = email.trim()
+      params = Object.assign(params, {email})
     }
     // 已经进入倒计时
     if(!this.data.canResend) return;
@@ -242,7 +251,9 @@ Page({
    */
   verifyEmailByCreate() {
     let options = this.data.options
-    let params = {email: this.data.email, company_id: options.companyId, code: this.data.code}
+    let email = this.data.email
+    email = email.trim()
+    let params = {email, company_id: options.companyId, code: this.data.code}
     verifyEmailApi(params).then(() => {
       let storage = wx.getStorageSync('createdCompany')
       perfectCompanyApi({
@@ -292,9 +303,12 @@ Page({
    */
   verifyEmailByJoin() {
     let options = this.data.options
-    let params = {email: this.data.email, company_id: options.companyId, code: this.data.code}
+    let email = this.data.email
+    let params = {email, company_id: options.companyId, code: this.data.code}
     if(!params.email.includes('@')) {
-      params = Object.assign(params, {email: `${params.email}${options.suffix}`})
+      email = `${params.email}${options.suffix}`
+      email = email.trim()
+      params = Object.assign(params, {email})
     }
     verifyEnterpriseEmailApi(params).then(res => {
       wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=join`})
