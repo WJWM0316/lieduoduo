@@ -12,27 +12,24 @@ let noToastUrlArray = [
 ]
 
 let recruiterJump = (msg) => {
-
   let companyInfo = msg.data.companyInfo
   let identityInfo = msg.data
   let applyJoin = msg.data.applyJoin
-
   if(applyJoin) {
     // 加入公司
-    wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=join`})
+    wx.redirectTo({url: `${RECRUITER}user/company/status/status?from=join`})
   } else {
-
     // 还没有创建公司信息
     if(!companyInfo.id) {
-      wx.reLaunch({url: `${RECRUITER}user/company/apply/apply`})
+      wx.redirectTo({url: `${RECRUITER}user/company/apply/apply`})
     } else {
       if(companyInfo.status === 1) {
         wx.reLaunch({url: `${RECRUITER}index/index`})
       } else {
         if(companyInfo.status === 3) {
-          wx.reLaunch({url: `${RECRUITER}user/company/createdCompanyInfos/createdCompanyInfos`})
+          wx.redirectTo({url: `${RECRUITER}user/company/createdCompanyInfos/createdCompanyInfos`})
         } else {
-          wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=company`})
+          wx.redirectTo({url: `${RECRUITER}user/company/status/status?from=company`})
         }
       }
     }
