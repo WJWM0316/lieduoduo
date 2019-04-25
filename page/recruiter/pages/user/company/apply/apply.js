@@ -38,7 +38,7 @@ Page({
   },
   onShow() {
     this.getBannerHeight()
-    this.getCompanyIdentityInfos()
+    this.getCompanyIdentityInfos(false)
   },
   backEvent() {
     wx.removeStorageSync('createdCompany')
@@ -113,7 +113,10 @@ Page({
   bindInput(e) {
     let field = e.currentTarget.dataset.field
     let formData = this.data.formData
-    formData[field] = e.detail.value
+    let value = e.detail.value
+    if(field === 'user_email') value = value.replace(/\s+/g,'')
+    formData[field] = value
+    console.log(field)
     this.setData({formData: Object.assign(this.data.formData, formData)})
   },
   /**
@@ -235,7 +238,7 @@ Page({
     let storage = wx.getStorageSync('createdCompany') || {}
     let params = {
       real_name: formData.real_name,
-      user_email: formData.user_email,
+      user_email: formData.user_email.trim(),
       user_position: formData.user_position,
       company_name: formData.company_name,
       company_id: formData.id
@@ -268,7 +271,7 @@ Page({
     let params = {
       id: formData.applyId,
       real_name: formData.real_name,
-      user_email: formData.user_email,
+      user_email: formData.user_email.trim()(),
       user_position: formData.user_position,
       company_name: formData.company_name,
       company_id: formData.id
@@ -322,7 +325,7 @@ Page({
     let formData = Object.assign(wx.getStorageSync('createdCompany'), this.data.formData)
     let params = {
       real_name: formData.real_name,
-      user_email: formData.user_email,
+      user_email: formData.user_email.trim(),
       user_position: formData.user_position,
       company_name: formData.company_name
     }
@@ -348,7 +351,7 @@ Page({
     let params = {
       id: formData.id,
       real_name: formData.real_name,
-      user_email: formData.user_email,
+      user_email: formData.user_email.trim(),
       user_position: formData.user_position,
       company_name: formData.company_name
     }
