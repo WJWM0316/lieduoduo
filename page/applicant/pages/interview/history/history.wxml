@@ -1,5 +1,21 @@
 <view class="history">
 	<navbar title="全部面试" background="#FFFFFF" color="#22292C" showBackBtn="{{true}}"></navbar>
+	<view class="down-show {{showDropDown ? 'down-show-active' : ''}}">
+		<view class="key" bindtap="onTap">面试时间 <i class="icon iconfont icon-zhishibiao"></i></view>
+	</view>
+	<view class="child-box" wx:if="{{showDropDown}}">
+		<view class="p1">最长可查询30天的面试记录</view>
+		<view class="h2">选择日期范围</view>
+		<view class="box4">
+			<view class="item {{item.active ? 'active' : ''}}" wx:for="{{dateList}}" wx:key="{{item.id}}">{{item.text}}</view>
+		</view>
+		<view class="h3">自定义时间范围</view>
+		<view class="select-range">
+			<view class="start">2019-03-20 <i class="icon iconfont icon-zhishibiao"></i></view>
+			<view class="separator">到</view>
+			<view class="end">2019-03-20 <i class="icon iconfont icon-zhishibiao"></i></view>
+		</view>
+	</view>
 	<view hidden="{{!hasReFresh}}">
 		<refreshStatus></refreshStatus>
 	</view>

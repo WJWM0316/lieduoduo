@@ -51,11 +51,14 @@
 		<!-- 收到邀请 end -->
 		
 		<!-- 面试日程 start-->
-		<myCalendar wx:if="{{tabIndex === 2}}" id="myCalendar" calendarType="roll" setDateList="{{dateList}}" switchable bindresultEvent="getResult"></myCalendar>
+<!-- 		<myCalendar wx:if="{{tabIndex === 2}}" id="myCalendar" calendarType="roll" setDateList="{{dateList}}" switchable bindresultEvent="getResult"></myCalendar> -->
 		<!-- 面试日程 end-->
 		<view class="interview-page-title" wx:if="{{tabIndex === 2}}">
-			<view class="total">面试安排（{{interviewData.total}}）</view>
+			<view class="total">最近面试（{{interviewData.total}}）</view>
 			<view class="history" bindtap="jumpInterviewPage"><i class="icon iconfont icon-lishijilu"></i> 全部面试</view>
+		</view>
+		<view class="scroll-box"  wx:if="{{tabIndex === 2}}">
+			<view wx:for="{{[1,2,3,4,5,6,7,8,9,10]}}" wx:key="{{index}}" class="item">昨天</view>
 		</view>
 	</view>
 

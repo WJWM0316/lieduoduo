@@ -13,15 +13,42 @@ Page({
     tab: 'positionList',
     navH: app.globalData.navHeight,
     pageCount: 20,
+    showDropDown: false,
     interviewList: {
       list: [],
       pageNum: 1,
       isLastPage: false,
       isRequire: false
-    }
+    },
+    dateList: [
+      {
+        id: 1,
+        text: '全部',
+        active: false
+      },
+      {
+        id: 7,
+        text: '近7天',
+        active: false
+      },
+      {
+        id: 15,
+        text: '近15天',
+        active: false
+      },
+      {
+        id: 30,
+        text: '近30天',
+        active: false
+      }
+    ]
   },
   onLoad() {
     wx.setStorageSync('choseType', 'APPLICANT')
+  },
+  onTap() {
+    console.log(11111111)
+    this.setData({showDropDown: !this.data.showDropDown})
   },
   onShow() {
     const interviewList = {

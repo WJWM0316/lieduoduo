@@ -41,7 +41,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 36,
+			"current": 43,
 			"list": [
 				{
 					"id": 0,
@@ -324,6 +324,13 @@
 					"name": "认证 第八步",
 					"pathName": "page/recruiter/pages/user/company/status/status",
 					"query": "from=identity"
+				},
+				{
+					"id": -1,
+					"name": "【C端】全部面试",
+					"pathName": "page/applicant/pages/interview/history/history",
+					"query": "positionId=2933&sCode=11&sourceType=22&sCode=12222",
+					"scene": null
 				}
 			]
 		}

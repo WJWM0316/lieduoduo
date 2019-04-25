@@ -128,7 +128,7 @@ Page({
         }
         chooseTime = ''
         this.setData({interviewData})
-        this.selectComponent('#myCalendar').scrollLeft()
+        // this.selectComponent('#myCalendar').scrollLeft()
         this.getScheduleList()
         getScheduleNumberApi().then(res => {
           let dateList = res.data
@@ -278,7 +278,7 @@ Page({
             total: 0
           }
           this.setData({interviewData})
-          this.selectComponent('#myCalendar').scrollLeft()
+          // this.selectComponent('#myCalendar').scrollLeft()
           this.getScheduleList()
           getScheduleNumberApi().then(res => {
             let dateList = res.data
