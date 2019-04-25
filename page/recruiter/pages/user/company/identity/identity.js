@@ -277,7 +277,9 @@ Page({
   bindInput(e) {
     let field = e.currentTarget.dataset.field
     let formData = this.data.formData
-    formData[field] = e.detail.value
+    let value = e.detail.value
+    value = value.replace(/\s+/g,'')
+    formData[field] = value
     this.setData({formData}, () => this.bindBtnStatus())
   },
   beforeUpload(e) {

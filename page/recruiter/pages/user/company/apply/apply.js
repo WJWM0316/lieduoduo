@@ -114,9 +114,8 @@ Page({
     let field = e.currentTarget.dataset.field
     let formData = this.data.formData
     let value = e.detail.value
-    if(field === 'user_email') value = value.replace(/\s+/g,'')
+    if(field === 'user_email' || field === 'real_name') value = value.replace(/\s+/g,'')
     formData[field] = value
-    console.log(field)
     this.setData({formData: Object.assign(this.data.formData, formData)})
   },
   /**
@@ -330,7 +329,7 @@ Page({
       company_name: formData.company_name
     }
     createCompanyApi(params).then(res => {
-      wx.navigateTo({url: `${RECRUITER}user/company/createdCompanyInfos/createdCompanyInfos?from=company`})
+      wx.reLaunch({url: `${RECRUITER}user/company/createdCompanyInfos/createdCompanyInfos?from=company`})
       wx.removeStorageSync('createdCompany')
     })
     // 公司存在 直接走加入流程
@@ -356,7 +355,7 @@ Page({
       company_name: formData.company_name
     }
     editCompanyFirstStepApi(params).then(() => {
-      wx.navigateTo({url: `${RECRUITER}user/company/createdCompanyInfos/createdCompanyInfos?from=company&action=edit`})
+      wx.reLaunch({url: `${RECRUITER}user/company/createdCompanyInfos/createdCompanyInfos?from=company&action=edit`})
       wx.removeStorageSync('createdCompany')
     })
     // 创建公司后 重新编辑走加入公司逻辑  如果之前有一条加入记录 取之前的加入记录id
