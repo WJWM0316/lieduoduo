@@ -18,7 +18,13 @@ Page({
       date: '',
       active: false
     },
-    date: '',
+    endTime: {
+      date: '',
+      active: false
+    },
+    dateRange: {
+      value: ''
+    },
     interviewList: {
       list: [],
       pageNum: 1,
@@ -29,7 +35,7 @@ Page({
       {
         id: 1,
         text: '全部',
-        active: false
+        active: true
       },
       {
         id: 7,
@@ -48,18 +54,27 @@ Page({
       }
     ]
   },
-  onLoad() {
-    wx.setStorageSync('choseType', 'APPLICANT')
-  },
   onTap() {
     this.setData({showDropDown: !this.data.showDropDown})
   },
+  changeSearch(e) {
+    let dateList = this.data.dateList
+    let params = e.currentTarget.dataset
+    dateList.map(field => {
+      if(field.id === params.id && !field.active) {
+        field.active = true
+      } else {
+        field.active = false
+      }
+    })
+    this.setData({dateList})
+  },
   bindDateChange(e) {
-    let date = e.detail.value
-    let startTime = this.data.startTime
-    startTime.date = date
-    startTime.active = true
-    this.setData({ startTime })
+    let field = e.currentTarget.dataset.type
+    let value = this.data[field]
+    value.date = e.detail.value
+    value.active = true
+    this.setData({[field]: value})
   },
   onShow() {
     const interviewList = {

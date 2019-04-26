@@ -277,6 +277,7 @@
   display: inline-block;
   margin-right: 20rpx;
   color:#929292;
+  position: relative;
 }
 
 .child-box .select-range .separator{
