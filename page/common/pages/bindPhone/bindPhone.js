@@ -113,10 +113,13 @@ Page({
                 url: `${RECRUITER}user/company/apply/apply`
               })
             } else {
-              // wx.reLaunch({url: `${RECRUITER}index/index` })
-              // wx.navigateBack({
-              //   delta: 1
-              // })
+              if (app.loginInit) {
+                if(app.globalData.isRecruiter) wx.reLaunch({url: `${RECRUITER}index/index` })
+              } else {
+                app.loginInit = () => {
+                  if(app.globalData.isRecruiter) wx.reLaunch({url: `${RECRUITER}index/index` })
+                }
+              }
             }
           }
         }
