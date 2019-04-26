@@ -14,14 +14,14 @@
 			</view>
 			<picker-view
 				indicator-class="picker-active"
-		    value="{{value}}"
+		    value="{{item.result}}"
 		    bindchange="bindChange"
 		    bindpickstart="bindpickstart"
 		    bindpickend="bindpickend"
 		    class='picker-view'
 		  >
 				<picker-view-column wx:for="{{pickerData[activeIndex]}}" wx:for-index="firstIndex" wx:key="{{firstIndex}}" wx:for-item="firstLelve" class='picker-view-column' data-level="{{firstLelve}}">
-		      <view class="picker-view-column-item" wx:for="{{firstLelve}}" wx:for-item="secondLelve" wx:key="{{secondIndex}}" wx:for-index="secondIndex">{{secondLelve.title}}</view>
+		      <view class="picker-view-column-item" wx:for="{{firstLelve}}" wx:for-item="secondLelve" wx:key="{{secondIndex}}" wx:for-index="secondIndex">{{secondLelve.title || secondLelve}}</view>
 		    </picker-view-column>
 			</picker-view>
 		</view>

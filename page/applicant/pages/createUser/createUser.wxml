@@ -243,6 +243,6 @@
 			</block>
 		</view>
 	</view>
-	<customPicker pickerType="{{pickerType}}" openPicker="{{openPicker}}" activeIndex="{{activeIndex}}" bindresultevent="pickerResult"></customPicker>
+	<customPicker wx:if="{{startCreatePicker}}" pickerType="{{pickerType}}" openPicker="{{openPicker}}" activeIndex="{{activeIndex}}" bindresultevent="pickerResult"></customPicker>
 	<guidePop showPop="{{showPop}}"></guidePop>
 </view>

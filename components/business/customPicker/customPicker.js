@@ -1,6 +1,8 @@
 import {getAreaListApi} from '../../../api/pages/label.js'
-let lock = false
-let pickerResult = {}
+let lock = false,
+    pickerResult = {},
+    curYear = new Date().getFullYear(),
+    month = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12']
 Component({
   /**
    * 组件的属性列表
@@ -29,32 +31,75 @@ Component({
   attached () {
     let pickerType = this.data.pickerType,
         pickerData = this.data.pickerData,
-        curYear = new Date().getFullYear(),
-        month = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12']
+        year = []
+    for (let i = 0; i < 65; i++) {
+      year.push(`${curYear}`)
+      curYear--
+    } 
     pickerType.forEach((item, index) => {
       switch (item.type) {
         case 'region':
           this.getRegionData().then(res => {
-            let list = res.data
-            pickerData[index] = [list, list[0].children]
-            // if (pickerResult['region'].value) {
-
-            // }
-            pickerResult['region'] = {
-              pidIndex: 0,
-              index: 0,
-              key: list[0].children[0].title,
-              value: list[0].children[0].areaId
+            var result = []
+            var list = res.data
+            if (item.value) {
+              for (var i = 0; i < list.length; i++) {
+                if (list[i].areaId === item.pid) {
+                  for (var j = 0; j < list[i].children.length; j++) {
+                    if (list[i].children[j].title === item.value) {
+                      result = [i, j]
+                      break
+                    }
+                  }
+                }
+              }
+            } else {
+              result = [0, 0]
+              item.value = '北京市'
             }
-            this.setData({pickerData})
+            pickerData[index] = [list, list[result[0]].children]
+            item.result = result
+            this.setData({pickerData, pickerType})
           })
           break
         case 'birthday':
-          let year = []
+          var birthYear = [],
+              result = []
           for (let i = curYear - 15; i > curYear - 65; i--) {
-            year.push(`${i}`)
+            birthYear.push(`${i}`)
           }
-          pickerData[index] = [year, month]
+          pickerData[index] = [birthYear, month]
+          if (item.value) {
+            result[0] = birthYear.indexOf(`${item.value.slice(0, 4)}`)
+            result[1] = month.indexOf(item.value.slice(5, 8))
+          } else {
+            result = [0, 0]
+          }
+          item.result = result
+          this.setData({pickerData, pickerType}, () => {
+          })
+          break
+        case 'workTime':
+          var result = [],
+              workTimeYear = []
+          workTimeYear = workTimeYear.concat(year)
+          workTimeYear.unshift('在校生')
+          
+          if (item.value) {
+            result[0] = workTimeYear.indexOf(`${item.value.slice(0, 4)}`)
+            result[1] = month.indexOf(item.value.slice(5, 8))
+          } else {
+            result = [0, 0]
+          }
+          if (result[0] === 0) {
+            pickerData[index] = [workTimeYear, ['在校生']]
+          } else {
+            pickerData[index] = [workTimeYear, month]
+          }
+          item.result = result
+          this.setData({pickerData, pickerType}, () => {
+          })
+          break
       }
     })
   },
@@ -66,12 +111,12 @@ Component({
       return getAreaListApi()
     },
     bindChange (e) {
-      let value = e.detail.value
-      let pickerType = this.data.pickerType
+      let value = e.detail.value,
+          pickerType = this.data.pickerType,
+          pickerData = this.data.pickerData
       switch (pickerType[this.data.activeIndex].type) {
         case 'region':
-          let pickerData = this.data.pickerData,
-              children = pickerData[this.data.activeIndex][0][value[0]].children
+          var children = pickerData[this.data.activeIndex][0][value[0]].children
           if (!pickerResult['region'] || pickerResult['region'].index !== value[0]) {
             pickerData[this.data.activeIndex][1] = children
             this.setData({pickerData})
@@ -85,11 +130,37 @@ Component({
           pickerType.forEach((item, index) => {
             if (item.type === 'region') {
               item.value = pickerData[this.data.activeIndex][0][value[0]].children[value[1]].title
+              item.result = value
               return
             }
           })
           this.setData({pickerType})
           break
+        case 'birthday':
+          var children = []
+          if (!pickerResult['birthday'] || pickerResult['birthday'].index !== value[0]) {
+            children = ['在校生']
+            pickerData[this.data.activeIndex][1] = children
+            this.setData({pickerData})
+          } else {
+            if (children !== ['在校生']) {
+              pickerData[this.data.activeIndex][1] = children
+              this.setData({pickerData})
+            }
+          }
+          pickerResult['birthday'] = {
+            pidIndex: value[0],
+            index: value[1],
+            key: `${pickerData[this.data.activeIndex][0]}-${children[value[1]]}`,
+            value: 0
+          }
+          pickerType.forEach((item, index) => {
+            if (item.type === 'region') {
+              item.value = pickerData[this.data.activeIndex][0][value[0]].children[value[1]].title
+              item.result = value
+              return
+            }
+          })
       }
       
     },

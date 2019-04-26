@@ -88,6 +88,7 @@ Page({
       fieldIds: '',
       fiels: ''
     },
+    startCreatePicker: false, 
     lastCompany: '',
     lastPosition: '',
     cityNum: '', //城市id
@@ -646,6 +647,7 @@ Page({
             pickerType = this.data.pickerType
         if (card.city) {
           pickerType[0].value = card.city
+          pickerType[0].pid = card.provinceNum
         }
         if (card.birthDesc) {
           pickerType[1].value = card.birthDesc
@@ -653,7 +655,7 @@ Page({
         if (card.startWorkYearDesc) {
           pickerType[2].value = card.startWorkYearDesc
         }
-        this.setData({step, avatar, name, birthDesc, birth, startWorkYearDesc, startWork, lastCompany, lastPosition, cityNum, city}, () => {
+        this.setData({step, avatar, name, birthDesc, birth, startWorkYearDesc, startWork, lastCompany, lastPosition, cityNum, city, pickerType, startCreatePicker: true}, () => {
           this.progress(step)
         })
       } else {
