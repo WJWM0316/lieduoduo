@@ -1,10 +1,10 @@
 <view class="history">
 	<navbar title="全部面试" background="#FFFFFF" color="#22292C" showBackBtn="{{true}}"></navbar>
 	<view class="fixed-box">
-		<view class="down-show {{showDropDown ? 'down-show-active' : ''}}">
+		<view class="down-show {{showDropDown ? 'down-show-active' : ''}}" style="top: {{navH}}px">
 			<view class="key" bindtap="onTap">面试时间 <i class="icon iconfont icon-zhishibiao"></i></view>
 		</view>
-		<view class="child-box" wx:if="{{showDropDown}}">
+		<view class="child-box" wx:if="{{showDropDown}}" style="padding-top: 98rpx; ">
 			<view class="p1">最长可查询30天的面试记录</view>
 			<view class="h2">选择日期范围</view>
 			<view class="box4">
