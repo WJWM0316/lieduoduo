@@ -257,7 +257,12 @@ Page({
         })
         .catch(err => {
           if(err.code === 307) {
-            wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=join`})
+            app.wxToast({
+              title: err.msg,
+              callback() {
+                wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=join`})
+              }
+            })
           } 
         })
       }
@@ -299,6 +304,16 @@ Page({
                   wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=join`})
                 }
               })
+              .catch(err => {
+                if(err.code === 307) {
+                  app.wxToast({
+                    title: err.msg,
+                    callback() {
+                      wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=join`})
+                    }
+                  })
+                } 
+              })
             } else {
               formData.id = res0.data.id
               this.setData({formData}, () => this.joinCompany())
@@ -312,6 +327,16 @@ Page({
             } else {
               wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=join`})
             }
+          })
+          .catch(err => {
+            if(err.code === 307) {
+              app.wxToast({
+                title: err.msg,
+                callback() {
+                  wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=join`})
+                }
+              })
+            } 
           })
         }
       } else {
@@ -339,6 +364,15 @@ Page({
     })
     // 公司存在 直接走加入流程
     .catch(err => {
+      if(err.code === 307) {
+        app.wxToast({
+          title: err.msg,
+          callback() {
+            wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=company`})
+          }
+        })
+        return
+      }
       formData.id = err.data.companyId
       if(err.code === 990) this.setData({formData}, () => this.joinCompany())
     })
@@ -365,6 +399,15 @@ Page({
     })
     // 创建公司后 重新编辑走加入公司逻辑  如果之前有一条加入记录 取之前的加入记录id
     .catch(err => {
+      if(err.code === 307) {
+        app.wxToast({
+          title: err.msg,
+          callback() {
+            wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=company`})
+          }
+        })
+        return
+      }
       hasApplayRecordApi().then(res => {
         let formData = this.data.formData
         if(res.data.id) {

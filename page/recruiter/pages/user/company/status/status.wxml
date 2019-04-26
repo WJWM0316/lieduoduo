@@ -243,7 +243,7 @@
 					<text class="realname">{{companyInfos.adminInfo.name}} </text>
 					<text class="degress"> {{companyInfos.adminInfo.position}}</text>
 				</view>
-				<view class="button-box" data-action="notice" bindtap="todoAction">
+				<view class="button-box" data-action="notice" bindtap="todoAction" wx:if="{{companyInfos.status === 0}}">
 					<i class="icon iconfont icon-tongzhi notice"></i>通知管理员
 				</view>
 			</view>
