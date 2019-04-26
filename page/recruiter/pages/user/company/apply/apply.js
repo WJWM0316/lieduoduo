@@ -255,6 +255,11 @@ Page({
             wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=join`})
           }
         })
+        .catch(err => {
+          if(err.code === 307) {
+            wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=join`})
+          } 
+        })
       }
     })
   },
