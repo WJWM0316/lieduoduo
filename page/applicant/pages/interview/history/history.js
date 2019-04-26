@@ -29,7 +29,8 @@ Page({
       list: [],
       pageNum: 1,
       isLastPage: false,
-      isRequire: false
+      isRequire: false,
+      total: 0
     },
     dateList: [
       {
