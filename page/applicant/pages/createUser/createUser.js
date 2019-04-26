@@ -8,7 +8,8 @@ import {getStepApi,
         getCreatThirdStepApi,
         postCreatThirdStepApi,
         getCreatFourthStepApi,
-        postCreatFourthStepApi} from '../../../../api/pages/center.js'
+        postCreatFourthStepApi,
+        postMicroApi} from '../../../../api/pages/center.js'
 import {COMMON, APPLICANT} from '../../../../config.js'
 import {userNameReg, positionReg, schoolNameReg, majorNameReg} from '../../../../utils/fieldRegular.js'
 import * as watch from '../../../../utils/watch.js'
@@ -37,7 +38,7 @@ Page({
     avatar: {},
     gender: 1,
     name: '',
-    birthDesr: '',
+    birthDesc: '',
     birth: 0,
     startWorkYearDesc: '',
     startWork: 0,
@@ -45,11 +46,6 @@ Page({
     edCurrent: 0,
     workErr: 0,
     edErr: 0,
-    pickerType: [
-      {type: 'region', title: '所在城市', value: '', placeholder: '请选择'},
-      {type: 'birthday', title: '出生年月', value: '', placeholder: '请选择'},
-      {type: 'workTime', title: '工作时间', value: '', placeholder: '请选择'}
-    ],
     workData: [
       {
         company: '',
@@ -91,7 +87,18 @@ Page({
       salary: '',
       fieldIds: '',
       fiels: ''
-    }
+    },
+    lastCompany: '',
+    lastPosition: '',
+    cityNum: '', //城市id
+    city: '',
+    openPicker: false,
+    activeIndex: 0,
+    pickerType: [
+      {type: 'region', title: '所在城市', value: '', placeholder: '请选择'},
+      {type: 'birthday', title: '出生年月', value: '', placeholder: '请选择'},
+      {type: 'workTime', title: '工作时间', value: '', placeholder: '请选择'}
+    ],
   },
 
   /**
@@ -335,6 +342,19 @@ Page({
         break
     }
   },
+  createMicro () {
+    this.postMicroFun().then(res => {
+      app.wxToast({
+        title: '创建成功',
+        icon: 'success',
+        callback () {
+          wx.navigateBack({
+            delta: 1
+          })
+        }
+      })
+    })
+  },
   postFirstFun () {
     let data = this.data
     let params = {
@@ -502,6 +522,40 @@ Page({
     }
     return postCreatFourthStepApi(params)
   },
+  postMicroFun () {
+    let data = this.data
+    let params = {
+      avatar: data.avatar.id,
+      gender: data.gender,
+      name: data.name,
+      birth: data.birth,
+      cityNum: data.cityNum,
+      startWorkYear: data.startWorkYear,
+      lastCompany: data.lastCompany,
+      lastPosition: data.lastPosition
+    }
+    let title = ''
+    if (!params.avatar) {
+      title = '请上传头像'
+    } else if (!params.gender) {
+      title = '请选择性别'
+    } else if (!params.name) {
+      title = '请输入姓名'
+    } else if (!userNameReg.test(params.name)) {
+      title = '姓名需为2-20个汉字或英文'
+    } else if (!params.cityNum) {
+      title = '请选择所在地'
+    } else if (!params.birth) {
+      title = '请选择出身年月'
+    } else if (!params.startWorkYear && params.startWorkYear !== 0) {
+      title = '请选择参加工作时间'
+    }
+    if (title) {
+      app.wxToast({title})
+      return new Promise((resolve, reject) => {reject(title)})
+    }
+    return postMicroApi(params)
+  },
   getStepData (step) {
     switch (step) {
       case 1:
@@ -577,9 +631,37 @@ Page({
           step = 0
           break  
       }
-      this.setData({step}, () => {
-        this.progress(step)
-      })
+      if (res.data.isCardFinished) {
+        let card = res.data.card,
+            avatar = card.avatar,
+            name = card.name,
+            birthDesc = card.birthDesc,
+            birth = card.birth,
+            startWorkYearDesc = card.startWorkYearDesc,
+            startWork = card.startWorkYear,
+            lastCompany = card.lastCompany,
+            lastPosition = card.lastPosition,
+            cityNum = card.cityNum,
+            city = card.city,
+            pickerType = this.data.pickerType
+        if (card.city) {
+          pickerType[0].value = card.city
+        }
+        if (card.birthDesc) {
+          pickerType[1].value = card.birthDesc
+        }
+        if (card.startWorkYearDesc) {
+          pickerType[2].value = card.startWorkYearDesc
+        }
+        this.setData({step, avatar, name, birthDesc, birth, startWorkYearDesc, startWork, lastCompany, lastPosition, cityNum, city}, () => {
+          this.progress(step)
+        })
+      } else {
+        this.setData({step}, () => {
+          this.progress(step)
+        })
+      }
+      
     })
   },
   /**
@@ -687,11 +769,24 @@ Page({
         edData[this.data.edCurrent].major = value
         value = edData
         break
+      case 'lastPosition':
+        key = 'lastPosition'
+        break
     }
     timer = setTimeout(() => {
       this.setData({[key]: value})
       clearTimeout(timer)
     }, 300)
+  },
+  openPicker (e) {
+    let index = e.currentTarget.dataset.index
+    this.setData({openPicker: true, activeIndex: index})
+  },
+  pickerResult (e) {
+    let getData = e.detail
+    if (getData['region']) {
+      this.setData({city: getData['region'].key, cityNum: getData['region'].value})
+    }
   },
   jump (e) {
     let type = e.currentTarget.dataset.type
@@ -775,10 +870,16 @@ Page({
       this.setData({avatar, gender})
     }
     if (companyName) {
-      listValue[index].company = companyName
-      this.setData({[listType]: listValue}, () => {
-        wx.removeStorageSync('companyName')
-      })
+      if (!this.data.isMicro) {
+        listValue[index].company = companyName
+        this.setData({[listType]: listValue}, () => {
+          wx.removeStorageSync('companyName')
+        })
+      } else {
+        this.setData({lastCompany: companyName}, () => {
+          wx.removeStorageSync('companyName')
+        })
+      }
     }
     if (positionType) {
       if (index || index === 0) {

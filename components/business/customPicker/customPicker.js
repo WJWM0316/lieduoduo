@@ -27,18 +27,34 @@ Component({
     pickerData: []
   },
   attached () {
-    let pickerType = this.data.pickerType
-    let pickerData = this.data.pickerData
+    let pickerType = this.data.pickerType,
+        pickerData = this.data.pickerData,
+        curYear = new Date().getFullYear(),
+        month = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12']
     pickerType.forEach((item, index) => {
       switch (item.type) {
         case 'region':
           this.getRegionData().then(res => {
             let list = res.data
             pickerData[index] = [list, list[0].children]
+            // if (pickerResult['region'].value) {
+
+            // }
+            pickerResult['region'] = {
+              pidIndex: 0,
+              index: 0,
+              key: list[0].children[0].title,
+              value: list[0].children[0].areaId
+            }
             this.setData({pickerData})
-            pickerResult['region'] = [0, 0]
           })
           break
+        case 'birthday':
+          let year = []
+          for (let i = curYear - 15; i > curYear - 65; i--) {
+            year.push(`${i}`)
+          }
+          pickerData[index] = [year, month]
       }
     })
   },
@@ -51,14 +67,28 @@ Component({
     },
     bindChange (e) {
       let value = e.detail.value
-      switch (this.data.pickerType[this.data.activeIndex].type) {
+      let pickerType = this.data.pickerType
+      switch (pickerType[this.data.activeIndex].type) {
         case 'region':
-          let pickerData = this.data.pickerData
-          if (pickerResult['region'][0] !== value[0]) {
-            pickerData[this.data.activeIndex][1] = pickerData[this.data.activeIndex][0][value[0]].children
+          let pickerData = this.data.pickerData,
+              children = pickerData[this.data.activeIndex][0][value[0]].children
+          if (!pickerResult['region'] || pickerResult['region'].index !== value[0]) {
+            pickerData[this.data.activeIndex][1] = children
             this.setData({pickerData})
           }
-          pickerResult['region'] = value
+          pickerResult['region'] = {
+            pidIndex: value[0],
+            index: value[1],
+            key: children[value[1]].title,
+            value: children[value[1]].areaId
+          }
+          pickerType.forEach((item, index) => {
+            if (item.type === 'region') {
+              item.value = pickerData[this.data.activeIndex][0][value[0]].children[value[1]].title
+              return
+            }
+          })
+          this.setData({pickerType})
           break
       }
       

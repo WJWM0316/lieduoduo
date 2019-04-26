@@ -284,3 +284,12 @@ export const postCreatFourthStepApi = (data, hasLoading) => {
     hasLoading: false
   })
 }
+export const postMicroApi = (data, hasLoading) => {
+  return request({
+    method: 'put',
+    url: `/jobhunter/card`,
+    data,
+    hasLoading: hasLoading
+  })
+}
+
