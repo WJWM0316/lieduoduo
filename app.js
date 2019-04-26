@@ -131,6 +131,7 @@ App({
           }
           this.pageInit = function () {}
           resolve(res0.data)
+          wx.reLaunch({url: `${RECRUITER}index/index` })
         }).catch((e) => {
           reject(e)
           if (this.pageInit) { // 页面初始化

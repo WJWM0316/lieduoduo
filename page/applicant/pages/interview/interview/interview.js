@@ -3,7 +3,7 @@ import {
   getInviteListApi,
   getScheduleListApi,
   getRedDotListApi,
-  getScheduleNumberApi
+  getNewScheduleNumberApi
 } from '../../../../../api/pages/interview.js'
 
 import {RECRUITER, COMMON, APPLICANT} from '../../../../../config.js'
@@ -130,7 +130,7 @@ Page({
         this.setData({interviewData})
         // this.selectComponent('#myCalendar').scrollLeft()
         this.getScheduleList()
-        getScheduleNumberApi().then(res => {
+        getNewScheduleNumberApi().then(res => {
           let dateList = res.data
           this.setData({dateList})
         })
@@ -280,7 +280,7 @@ Page({
           this.setData({interviewData})
           // this.selectComponent('#myCalendar').scrollLeft()
           this.getScheduleList()
-          getScheduleNumberApi().then(res => {
+          getNewScheduleNumberApi().then(res => {
             let dateList = res.data
             this.setData({dateList})
           })

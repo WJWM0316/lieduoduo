@@ -159,3 +159,23 @@ export const getInterviewHistoryApi = (data, hasLoading) => {
     hasLoading
   })
 }
+
+// 获取日历面试数量（新）
+export const getNewScheduleNumberApi = (data, hasLoading) => {
+  return request({
+    method: 'get',
+    url: `/interview/newScheduleNumber`,
+    data,
+    hasLoading
+  })
+}
+
+// 面试历史（新）
+export const getNewHistoryApi = (data, hasLoading) => {
+  return request({
+    method: 'get',
+    url: `/interview/newHistory`,
+    data,
+    hasLoading
+  })
+}
