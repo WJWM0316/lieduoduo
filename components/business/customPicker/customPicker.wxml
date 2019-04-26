@@ -1,0 +1,29 @@
+<view class="customPicker" hidden="{{!openPicker}}">
+	<view class="bg" bindtap="closePicker"></view>
+	<view class="pickerContent">
+		<view class="tab">
+			<view class="tabItem {{activeIndex === index ? 'active' : ''}}" wx:for="{{pickerType}}" wx:key="{{index}}">
+				<view class="tabItem-title">{{item.title}}</view>
+				<view class="tabItem-value {{!item.value ? 'placeholder' : ''}}">{{item.value || item.placeholder}}</view>
+			</view>
+		</view>
+		<view class="picker" wx:for="{{pickerType}}" wx:key="{{index}}" wx:for-item="item" wx:for-index="index" hidden="{{activeIndex !== index}}">
+			<view class="picker-title">
+				选择{{item.title}}
+				<view class="sureBtn" bindtap="closePicker">确定</view>
+			</view>
+			<picker-view
+				indicator-class="picker-active"
+		    value="{{value}}"
+		    bindchange="bindChange"
+		    bindpickstart="bindpickstart"
+		    bindpickend="bindpickend"
+		    class='picker-view'
+		  >
+				<picker-view-column wx:for="{{pickerData[activeIndex]}}" wx:for-index="firstIndex" wx:key="{{firstIndex}}" wx:for-item="firstLelve" class='picker-view-column' data-level="{{firstLelve}}">
+		      <view class="picker-view-column-item" wx:for="{{firstLelve}}" wx:for-item="secondLelve" wx:key="{{secondIndex}}" wx:for-index="secondIndex">{{secondLelve.title}}</view>
+		    </picker-view-column>
+			</picker-view>
+		</view>
+	</view>
+</view>

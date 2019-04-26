@@ -17,14 +17,21 @@
 				    	<input class="userName" name="name" placeholder-class="holderStyle" bindinput="getValue" data-type="name" maxlength="20" placeholder="输入你的真实姓名"  value="{{name}}"/>
 				    	<view class="sexBox">
 				    		<view class="sex-item" bindtap="chooseGender" data-gender="{{1}}"><i class="icon {{gender === 1 ? 'active' : ''}}"></i>男</view>
-				    		<view class="sex-item" bindtap="chooseGender" data-gender="{{1}}"><i class="icon {{gender === 2 ? 'active' : ''}}"></i>女</view>
+				    		<view class="sex-item" bindtap="chooseGender" data-gender="{{2}}"><i class="icon {{gender === 2 ? 'active' : ''}}"></i>女</view>
 				    	</view>
 				    </view>
 				    <view class="name">
-				    	<myPicker needWatch class="myPicker" setResult="{{startWorkYearDesc}}" pickerType="region" data-type="workTime" bindresultevent="getresult" styleObj="color: #EFE9F4;font-weight: 300"></myPicker>
+				    	<myPicker needWatch class="myPicker" placeholderTxt="所在城市" setResult="{{startWorkYearDesc}}" rangeKey="title" pickerType="region" data-type="region" bindresultevent="getresult" styleObj="color: #EFE9F4;font-weight: 300"></myPicker>
 				    	<myPicker needWatch class="myPicker" setResult="{{birthDesc}}" pickerType="birthday" data-type="birth" bindresultevent="getresult" styleObj="color: #EFE9F4;font-weight: 300"></myPicker>
 				    	<myPicker needWatch class="myPicker" setResult="{{startWorkYearDesc}}" pickerType="workTime" data-type="workTime" bindresultevent="getresult" styleObj="color: #EFE9F4;font-weight: 300"></myPicker>
 				    </view>
+				    <view class="box">
+					    <input bindtap="jump" data-type="companyName" data-value="{{item.company}}"  maxlength="50" disabled name="company" placeholder-class="holderStyle" bindinput="getValue"placeholder="最近任职公司" value="{{item.company}}"/>
+					  </view>
+					  <view class="box">
+					    <input data-type="positionName" placeholder-class="holderStyle" placeholder="职位名称" value="{{item.positionType}}"/>
+					  </view>
+					  <view class="toggleAccount" bindtap="jump" data-type="toggleAccount">切换登录账号<i class="icon iconfont icon-zizhurenzheng"></i></view>
 				    <view class="animation btn" bindtap="continue">
 							<view class="btn-area">继续</view>
 					    <view class="btn-area-bg"></view>
@@ -236,5 +243,6 @@
 			</block>
 		</view>
 	</view>
+	<customPicker pickerType="{{pickerType}}" openPicker="{{true}}" bindresultevent="getResult"></customPicker>
 	<guidePop showPop="{{showPop}}"></guidePop>
 </view>

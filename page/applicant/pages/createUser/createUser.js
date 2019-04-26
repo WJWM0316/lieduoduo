@@ -45,6 +45,11 @@ Page({
     edCurrent: 0,
     workErr: 0,
     edErr: 0,
+    pickerType: [
+      {type: 'region', title: '所在城市', value: '', placeholder: '请选择'},
+      {type: 'birthday', title: '出生年月', value: '', placeholder: '请选择'},
+      {type: 'workTime', title: '工作时间', value: '', placeholder: '请选择'}
+    ],
     workData: [
       {
         company: '',
@@ -711,6 +716,9 @@ Page({
       case 'city':
         url = `${COMMON}selectCity/selectCity`
         wx.setStorageSync('selectCity', e.currentTarget.dataset.id)
+        break
+      case 'toggleAccount':
+        url = `${COMMON}changeMobile/changeMobile`
         break
     }
     wx.navigateTo({url})

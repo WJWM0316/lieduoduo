@@ -216,7 +216,9 @@
 	margin: 0 auto;
 	position: relative;
 }
-
+.micro .avatarBox {
+	margin: 0 auto 57rpx;
+}
 .gender{
   width: 296rpx;
   height: 80rpx;
@@ -267,6 +269,7 @@
   height: 100%;
   color: #EFE9F4;
   background:none;
+  font-size: 28rpx;
 }
 .myPicker{
 	width: 100%;
@@ -470,7 +473,7 @@
 	font-weight:400;
 	color:#fff;
 	line-height:88rpx;
-	margin: 0 20rpx;
+	padding: 0 20rpx;
 }
 .sexBox .sex-item .icon {
 	width:24rpx;
@@ -480,4 +483,39 @@
 	border-radius: 50%;
   vertical-align: -4rpx;
   margin-right:12rpx;
+  position: relative;
+}
+.sexBox .sex-item .icon.active::after {
+  width: 12rpx;
+  height: 12rpx;
+  content: '';
+  display: block;
+  top: 50%;
+  left: 50%;
+  transform: translate3d(50%, 50%, 0);
+  background: #fff;
+  border-radius: 50%;
+}
+.toggleAccount {
+	margin-top: 106rpx;
+	text-align: center;
+	font-size:28rpx;
+	color:#fff;
+	padding-top: 40rpx;
+	line-height:28rpx;
+}
+.toggleAccount .icon {
+	font-size: 24rpx;
+	margin-left: 10rpx;
+}
+.micro .animation.btn {
+	margin-top: 56rpx;
+}
+.micro .myPicker {
+	max-width: 167rpx;
+	padding: 0 20rpx;
+	box-sizing: border-box;
+	overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap
 }
