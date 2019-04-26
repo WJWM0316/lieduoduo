@@ -127,7 +127,10 @@ Page({
               wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=company`})
             }
           })
+          return
         }
+
+        app.wxToast({ title: msg.msg })
       })
     } else {
       sendEmailApi(params)
@@ -135,6 +138,7 @@ Page({
         this.setData({step: 2, isFocus: true}, this.killTime())
       })
       .catch(msg => {
+
         if(msg.code === 307) {
           app.wxToast({
             title: msg.msg,
@@ -142,7 +146,9 @@ Page({
               wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=company`})
             }
           })
+          return
         }
+
         if(msg.code === 808) {
           app.wxToast({
             title: msg.msg,
@@ -151,7 +157,10 @@ Page({
               wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=company`})
             }
           })
+          return
         }
+
+        app.wxToast({ title: msg.msg })
       })
     }
   },
@@ -248,6 +257,7 @@ Page({
     this.setData({canResend: false , isFocus: true})
     sendEmailApi(params).then(res => this.killTime())
     .catch(err => {
+
       if(err.code === 307) {
         app.wxToast({
           title: err.msg,
@@ -255,7 +265,10 @@ Page({
             wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=company`})
           }
         })
-      } 
+        return
+      }
+
+      app.wxToast({ title: err.msg })
     })
   },
   /**
@@ -334,6 +347,7 @@ Page({
         wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=company`})
       })
       .catch(msg => {
+
         if(msg.code === 307) {
           msg.wxToast({
             title: msg.msg,
@@ -342,7 +356,8 @@ Page({
             }
           })
           return
-        } 
+        }
+
         if(msg.code === 808) {
           app.wxToast({
             title: msg.msg,
@@ -351,11 +366,15 @@ Page({
               wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=company`})
             }
           })
+          return
         }
+
+        app.wxToast({ title: msg.msg })
       })
     })
     .catch(msg => {
       this.setData({code: '', error: true, isFocus: true, classErrorName: 'error'})
+
       if(msg.code === 307) {
         app.wxToast({
           title: msg.msg,
@@ -365,6 +384,7 @@ Page({
         })
         return
       }
+
       if(msg.code === 808) {
         app.wxToast({
           title: msg.msg,
@@ -374,6 +394,8 @@ Page({
           }
         })
       }
+
+      app.wxToast({ title: msg.msg })
     })
   },
   /**
