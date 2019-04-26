@@ -261,6 +261,16 @@
   display: inline-block;
   margin-right: 20rpx;
   color:#929292;
+  position: relative;
+}
+
+.child-box .select-range .picker{
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  opacity: 0;
 }
 
 .child-box .select-range .end{

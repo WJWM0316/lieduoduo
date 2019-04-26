@@ -14,6 +14,11 @@ Page({
     navH: app.globalData.navHeight,
     pageCount: 20,
     showDropDown: false,
+    startTime: {
+      date: '',
+      active: false
+    },
+    date: '',
     interviewList: {
       list: [],
       pageNum: 1,
@@ -47,8 +52,14 @@ Page({
     wx.setStorageSync('choseType', 'APPLICANT')
   },
   onTap() {
-    console.log(11111111)
     this.setData({showDropDown: !this.data.showDropDown})
+  },
+  bindDateChange(e) {
+    let date = e.detail.value
+    let startTime = this.data.startTime
+    startTime.date = date
+    startTime.active = true
+    this.setData({ startTime })
   },
   onShow() {
     const interviewList = {
