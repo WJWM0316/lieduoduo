@@ -76,7 +76,7 @@ Page({
           user_position: storage.user_position,
           company_name: storage.company_name
         }
-        this.setData({formData})
+        this.setData({formData, applyJoin})
       } else {
         formData = {
           real_name: storage.real_name || companyInfo.realName,
@@ -90,6 +90,7 @@ Page({
         this.setData({formData, canClick: true, applyJoin, status})
         wx.setStorageSync('createdCompany', Object.assign(formData, this.data.formData))
       }
+      console.log(this.data)
     })
   },
   /**
