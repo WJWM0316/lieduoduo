@@ -57,17 +57,25 @@ Page({
   onTap() {
     this.setData({showDropDown: !this.data.showDropDown})
   },
+  /**
+   * @Author   小书包
+   * @DateTime 2019-04-26
+   * @detail   时间范围搜索
+   * @return   {[type]}     [description]
+   */
   changeSearch(e) {
     let dateList = this.data.dateList
     let params = e.currentTarget.dataset
-    dateList.map(field => {
-      if(field.id === params.id && !field.active) {
-        field.active = true
-      } else {
-        field.active = false
-      }
+    dateList.map(field => field.active = field.id === params.id ? true : false)
+    this.setData({dateList}, () => {
+      let startTime = this.data.startTime
+      let endTime = this.data.endTime
+      startTime.date = ''
+      startTime.active = false
+      endTime.date = ''
+      endTime.active = false
+      this.setData({startTime, endTime})
     })
-    this.setData({dateList})
   },
   bindDateChange(e) {
     let field = e.currentTarget.dataset.type
