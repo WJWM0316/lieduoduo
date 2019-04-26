@@ -242,7 +242,7 @@ Page({
       company_name: formData.company_name,
       company_id: formData.id
     }
-    hasApplayRecordApi({company_id: formData.id}).then(res => {
+    hasApplayRecordApi().then(res => {
       // 当前公司已经申请过
       if(res.data.id) {
         this.editJoinCompany()
@@ -283,7 +283,7 @@ Page({
         // 被拒绝并且是新公司
         if(formData.id !== res0.data.id) {
           // 查看当前公司是否有申请记录
-          hasApplayRecordApi({company_id: res0.data.id}).then(res1 => {
+          hasApplayRecordApi().then(res1 => {
             // 当前公司已经申请过
             if(res1.data.id) {
               editApplyCompanyApi(params).then(res => {
@@ -360,7 +360,7 @@ Page({
     })
     // 创建公司后 重新编辑走加入公司逻辑  如果之前有一条加入记录 取之前的加入记录id
     .catch(err => {
-      hasApplayRecordApi({company_id: err.data.companyId}).then(res => {
+      hasApplayRecordApi().then(res => {
         let formData = this.data.formData
         if(res.data.id) {
           formData.applyId = res.data.id
