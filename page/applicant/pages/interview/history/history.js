@@ -82,7 +82,15 @@ Page({
     let value = this.data[field]
     value.date = e.detail.value
     value.active = true
-    this.setData({[field]: value})
+    this.setData({[field]: value}, () => {
+      let startTime = this.data.startTime
+      let endTime = this.data.endTime
+      let dateList = this.data.dateList
+      if(startTime.active && endTime.active) {
+        dateList.map(field => field.active = false)
+        this.setData({dateList})
+      }
+    })
   },
   onShow() {
     let interviewList = {
