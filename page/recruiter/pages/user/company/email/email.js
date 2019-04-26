@@ -107,6 +107,18 @@ Page({
         this.setData({canResend: false }, this.killTime())
       })
       .catch(msg => {
+
+        // 已经时招聘官
+        if(msg.code === 307) {
+          app.wxToast({
+            title: msg.msg,
+            callback() {
+              wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=company`})
+            }
+          })
+          return
+        }
+
         if(msg.code === 808) {
           app.wxToast({
             title: msg.msg,
@@ -123,6 +135,14 @@ Page({
         this.setData({step: 2, isFocus: true}, this.killTime())
       })
       .catch(msg => {
+        if(msg.code === 307) {
+          app.wxToast({
+            title: msg.msg,
+            callback() {
+              wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=company`})
+            }
+          })
+        }
         if(msg.code === 808) {
           app.wxToast({
             title: msg.msg,
@@ -174,8 +194,28 @@ Page({
     }
     if(this.data.step === 2) {
       sendEnterpriseEmailApi(params).then(res => this.setData({canResend: false }, this.killTime()))
+      .catch(err => {
+        if(err.code === 307) {
+          app.wxToast({
+            title: err.msg,
+            callback() {
+              wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=join`})
+            }
+          })
+        } 
+      })
     } else {
       sendEnterpriseEmailApi(params).then(res => this.setData({step: 2, isFocus: true}, this.killTime()))
+      .catch(err => {
+        if(err.code === 307) {
+          app.wxToast({
+            title: err.msg,
+            callback() {
+              wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=join`})
+            }
+          })
+        } 
+      })
     }
   },
   /**
@@ -207,6 +247,16 @@ Page({
     if(!this.data.canResend) return;
     this.setData({canResend: false , isFocus: true})
     sendEmailApi(params).then(res => this.killTime())
+    .catch(err => {
+      if(err.code === 307) {
+        app.wxToast({
+          title: err.msg,
+          callback() {
+            wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=company`})
+          }
+        })
+      } 
+    })
   },
   /**
    * @Author   小书包
@@ -226,7 +276,20 @@ Page({
     // 已经进入倒计时
     if(!this.data.canResend) return;
     this.setData({canResend: false , isFocus: true})
-    sendEnterpriseEmailApi(params).then(res => this.killTime())
+    sendEnterpriseEmailApi(params)
+    .then(res => {
+      this.killTime()
+    })
+    .catch(err => {
+      if(err.code === 307) {
+        app.wxToast({
+          title: err.msg,
+          callback() {
+            wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=join`})
+          }
+        })
+      } 
+    })
   },
   /**
    * @Author   小书包
@@ -271,6 +334,15 @@ Page({
         wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=company`})
       })
       .catch(msg => {
+        if(msg.code === 307) {
+          msg.wxToast({
+            title: msg.msg,
+            callback() {
+              wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=company`})
+            }
+          })
+          return
+        } 
         if(msg.code === 808) {
           app.wxToast({
             title: msg.msg,
@@ -284,6 +356,15 @@ Page({
     })
     .catch(msg => {
       this.setData({code: '', error: true, isFocus: true, classErrorName: 'error'})
+      if(msg.code === 307) {
+        app.wxToast({
+          title: msg.msg,
+          callback() {
+            wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=company`})
+          }
+        })
+        return
+      }
       if(msg.code === 808) {
         app.wxToast({
           title: msg.msg,
@@ -313,8 +394,16 @@ Page({
     verifyEnterpriseEmailApi(params).then(res => {
       wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=join`})
     })
-    .catch(() => {
+    .catch(err => {
       this.setData({code: '', error: true, isFocus: true, classErrorName: 'error'})
+      if(err.code === 307) {
+        app.wxToast({
+          title: err.msg,
+          callback() {
+            wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=join`})
+          }
+        })
+      } 
     })
   },
   /**
@@ -333,11 +422,7 @@ Page({
    * @return   {[type]}   [description]
    */
   changeIndentifyMethods() {
-    // let options = this.data.options
-    // let applyJoin = options.from === 'join' ? true : false
-    // let from = applyJoin ? 'join' : 'company'
     wx.navigateBack({delta: 1})
-    // wx.redirectTo({url: `${RECRUITER}user/company/identityMethods/identityMethods?from=${from}&companyId=${options.companyId}&suffix=${options.suffix}`})
   },
   /**
    * @Author   小书包

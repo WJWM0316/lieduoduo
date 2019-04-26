@@ -4,7 +4,7 @@ import {
 
 import {RECRUITER, APPLICANT, COMMON} from '../../../../../config.js'
 
-const app = getApp()
+let app = getApp()
 
 Page({
   data: {
@@ -24,7 +24,7 @@ Page({
     wx.setStorageSync('choseType', 'APPLICANT')
   },
   onShow() {
-    const interviewList = {
+    let interviewList = {
       list: [],
       pageNum: 1,
       isLastPage: false,
@@ -33,11 +33,11 @@ Page({
     this.setData({interviewList}, () => this.getLists())
   },
   onPullDownRefresh() {
-    const interviewList = {list: [], pageNum: 1, isLastPage: false, isRequire: false}
+    let interviewList = {list: [], pageNum: 1, isLastPage: false, isRequire: false}
     this.setData({interviewList, hasReFresh: true})
     return this.getLists(false).then(res => {
-      const interviewList = {list: [], pageNum: 1, isLastPage: false, isRequire: false}
-      const onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
+      let interviewList = {list: [], pageNum: 1, isLastPage: false, isRequire: false}
+      let onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
       interviewList.list = res.data
       interviewList.isLastPage = res.meta && res.meta.nextPageUrl ? false : true
       interviewList.pageNum = 2
@@ -49,8 +49,8 @@ Page({
     return new Promise((resolve, reject) => {
       let params = {count: this.data.pageCount, page: this.data.interviewList.pageNum, ...app.getSource()}
       getInterviewHistoryApi(params, hasLoading).then(res => {
-        const interviewList = this.data.interviewList
-        const onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
+        let interviewList = this.data.interviewList
+        let onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
         interviewList.list = interviewList.list.concat(res.data)
         interviewList.isLastPage = res.meta && res.meta.nextPageUrl ? false : true
         interviewList.pageNum = interviewList.pageNum + 1
@@ -63,7 +63,7 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom() {
-    const interviewList = this.data.interviewList
+    let interviewList = this.data.interviewList
     if (!interviewList.isLastPage) {
       this.getLists(false).then(() => this.setData({onBottomStatus: 1}))
     }
@@ -74,7 +74,7 @@ Page({
    * @detail   detail
    */
   routeJump(e) {
-    const params = e.currentTarget.dataset
+    let params = e.currentTarget.dataset
     // 不知道什么情款  有时候拿不到数据
     if(!Object.keys(params).length) return
     wx.navigateTo({url: `${COMMON}arrangement/arrangement?id=${params.itemId}`})

@@ -74,7 +74,7 @@
 	<view class="btn-area">
     <view class="button-submit {{canClick ? 'button-enable' : ''}}" bindtap="submit">发布</view>
   </view>
-  <view class="over-layout" wx:if="{{showScanBox}}">
+<!--   <view class="over-layout" wx:if="{{showScanBox}}">
   	<view class="box">
   		<i class="icon iconfont icon-close close-button" bindtap="showTips"></i>
   		<view class="h1">登录PC端发布职位</view>
@@ -90,5 +90,6 @@
 			</view>
 			<view class="scan-button" bindtap="scanCode">立即扫码</view>
   	</view>
-  </view>
+  </view> -->
 </view>
+<scanCodeTips showScanBox="{{showScanBox}}"></scanCodeTips>
