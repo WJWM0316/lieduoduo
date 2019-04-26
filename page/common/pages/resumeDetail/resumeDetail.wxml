@@ -39,7 +39,7 @@
       <view class="status" wx:if="{{info.jobStatusDesc}}">{{info.jobStatusDesc}}</view>
     </view>
     <block wx:if="{{info.signature}}">
-      <image class="line" src="{{cdnImagePath}}line.png"></image>
+      <image class="fgLine" src="{{cdnImagePath}}line.png"></image>
       <view class="personalTip">
         <view class="text">{{info.signature || '你还未填写个性签名，说说你的想法吧~'}}</view>
         <view class="tipBox">
