@@ -1,4 +1,4 @@
-import {getAdApi} from '../../../api/pages/common.js'
+import {getAdApi, touchVkeyApi} from '../../../api/pages/common.js'
 const app = getApp()
 Component({
   /**
@@ -13,21 +13,14 @@ Component({
    */
   data: {
     showPop: false,
-    cdnImagePath: app.globalData.cdnImagePath
+    adData: {}
   },
   attached () {
-    let curTime = new Date().getTime()
-    let overdueTime = wx.getStorageSync('overdueTime')
-    if (!overdueTime) {
-      this.setData({showPop: true})
-    } else {
-      if (overdueTime < curTime) { // 已过期
-        this.setData({showPop: true})
-        wx.removeStorageSync('overdueTime')
-      }
-    }
     getAdApi().then(res => {
-      console.log(res, 11111222)
+      if (res.data.length > 0) {
+        let adData = res.data[0]
+        this.setData({adData, showPop: true})
+      }
     })
   },
   /**
@@ -36,18 +29,14 @@ Component({
   methods: {
     jump () {
       wx.navigateTo({
-        url: `/page/common/pages/webView/webView?type=recruitmentDay`
+        url: `/${this.data.adData.path}`
       })
       this.close()
     },
     close () {
-      this.setData({showPop: false})
-      let overdueTime = wx.getStorageSync('overdueTime')
-      if (!overdueTime) {
-        let curTime = new Date().getTime()
-        let overdueTime= curTime + 24 * 3600 * 1000
-        wx.setStorageSync('overdueTime', overdueTime)
-      }
+      touchVkeyApi({vkey: this.data.adData.vkey}).then(res => {
+        this.setData({showPop: false})
+      })
     }
   }
 })

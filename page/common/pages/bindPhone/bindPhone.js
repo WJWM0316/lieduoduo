@@ -41,6 +41,11 @@ Page({
       }
     })
   },
+  toJump () {
+    wx.navigateTo({
+      url: `${COMMON}webView/webView?type=userAgreement`
+    })
+  },
   getPhone(e) {
     mobileNumber = e.detail.value
     clearTimeout(timer)
@@ -103,21 +108,9 @@ Page({
         title: '登录成功',
         icon: 'success',
         callback() {
-          if (wx.getStorageSync('choseType') === 'APPLICANT') {
-            wx.navigateBack({
-              delta: 1
-            })
-          } else {
-            if (!res.data.token) {
-              wx.reLaunch({
-                url: `${RECRUITER}user/company/apply/apply`
-              })
-            } else {
-              wx.navigateBack({
-                delta: 1
-              })
-            }
-          }
+          wx.navigateBack({
+            delta: 1
+          })
         }
       })
     })

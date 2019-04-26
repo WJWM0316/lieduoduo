@@ -185,3 +185,14 @@ export const getAdApi  = (data, hasLoading) => {
     hasLoading
   })
 }
+
+// 点击按钮记录
+export const touchVkeyApi  = (data, hasLoading) => {
+  return request({
+    method: 'get',
+    url: `/touch/${data.vkey}`,
+    data,
+    host: 'PUBAPIHOST',
+    hasLoading: false
+  })
+}

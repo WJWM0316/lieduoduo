@@ -8,16 +8,14 @@
   <form bindsubmit="formSubmit" report-submit='{{true}}'>
     <view class="floating-box">
   		<view class="header">
-  			<view class="content" wx:if='{{myInfo.uid}}'>
-  				<view class="realname">{{myInfo.name}}</view>
-  				<view class="degree-name" wx:if="{{myInfo.lastCompanyName}}">{{myInfo.lastCompanyName}} | {{myInfo.lastPosition}}</view>
-          <view class="experience">{{myInfo.workAgeDesc}}<text wx:if="{{myInfo.workAgeDesc !== '在校生'}}">经验</text> | {{myInfo.age ? myInfo.age + '岁 | ' : ''}} {{myInfo.degreeDesc}}</view>
-  			</view> 
+        <view class="content" wx:if='{{myInfo.uid}}'>
+          <view class="realname">{{myInfo.name}}</view>
+          <view class="degree-name" wx:if="{{myInfo.lastCompanyName}}">{{myInfo.lastCompanyName}} | {{myInfo.lastPosition}}</view>
+        </view> 
         <view class="content" wx:if='{{!myInfo.uid && hasLogin}}'>
   				<view class="realname">简历未完善</view>
   				<text class="degree-name directions">你与offer之间还差一份简历 \n 快去完善吧~</text>
   			</view>
-
         <view class="content" wx:if='{{!hasLogin}}'>
           <view class="realname">未登录</view>
           <text class="degree-name directions">登录可后使用完整功能 \n 快去登录吧~</text>
@@ -25,21 +23,16 @@
   			<image class="img-box" src="{{myInfo.avatar.smallUrl}}"></image>
   		</view>
 
-      <view class='edit-box' wx:if='{{myInfo.uid}}'>
-        <view class='left-text'>{{myInfo.jobStatusDesc || "待完善"}}</view>
-        <view class='right-edit'>
-          <text class='progress-rate'>完善度 {{myInfo.resumeCompletePercentageDesc}}</text>
-          <button class='edit-btn clear-style' form-type="submit" bindtap='toEdit'>
-            <i class="icon iconfont icon-bianji"></i>
-            <text class='edit-resume'>编辑简历</text>
-          </button>
-        </view>
+      <view class="experience" wx:if='{{myInfo.uid}}'>
+        <view class="item"><i class="icon iconfont icon-zhiwei"></i>{{myInfo.workAgeDesc}}<text wx:if="{{myInfo.workAgeDesc !== '在校生'}}">经验</text></view>
+        <view class="item"><i class="icon iconfont icon-nianling"></i>{{myInfo.age ? myInfo.age + '岁 ' : ''}}</view>
+        <view class="item"><i class="icon iconfont icon-xueli"></i>{{myInfo.degreeDesc}}</view>
       </view>
       <button class="share-resume" form-type="submit" wx:if='{{!isJobhunter && hasLogin}}' bindtap='completeResume'>立即完善简历 <i class="icon iconfont icon-xiangyou"></i></button>
       <button class="share-resume" form-type="submit" wx:if='{{!hasLogin}}' bindtap='login'>立即登录 <i class="icon iconfont icon-xiangyou"></i></button>
   		<block wx:if="{{myInfo.uid}}">
-        <button open-type="share" form-type="submit" class="share-resume clear-style">发简历</button>
-        <button class="save-resume-pic clear-style" form-type="submit" bindtap="jump" data-type="poster">保存简历到相册</button>
+        <button form-type="submit" class="share-resume clear-style" bindtap='toEdit'>在线简历 ({{myInfo.resumeCompletePercentageDesc}})</button>
+        <button class="save-resume-pic clear-style" form-type="submit" bindtap="share">转发我的简历</button>
       </block>
   	</view>
 
@@ -112,4 +105,5 @@
   </form>
 </view>
 <tabBar></tabBar>
+<shareBtn id="share" posterType="applicant" shareBtn="{{false}}"></shareBtn>
 <bindPhone hide="{{hideBind}}"></bindPhone>

@@ -29,6 +29,7 @@ Page({
     isBangs: app.globalData.isBangs,
     cdnImagePath: app.globalData.cdnImagePath,
     animationData: {},
+    isMicro: false, 
     isStudent: false, // 是否在校生
     showPop: false,
     step: -1, // 创建步数
@@ -102,6 +103,9 @@ Page({
     if (options.directChat) {
       directChat = options.directChat
     }
+    if (options.micro) {
+      this.setData({isMicro: true})
+    }
     watch.setWatcher(this)
   },
   watch: {    
@@ -110,21 +114,18 @@ Page({
         switch (newVal) {
           case 1:
             newVal = 1
-            this.getStepData(newVal)
             break
           case 3:
             newVal = 2
-            this.getStepData(newVal)
             break
           case 5:
             newVal = 3
-            this.getStepData(newVal)
             break
           case 7:
             newVal = 4
-            this.getStepData(newVal)
             break
         }
+        this.getStepData(newVal)
       }
     }
   },
@@ -150,7 +151,6 @@ Page({
               })
             } else {
               let path = `${decodeURIComponent(directChat)}&directChat=true`
-              console.log(path, 1111111111111111)
               wx.redirectTo({
                 url: path
               })
@@ -569,7 +569,7 @@ Page({
           this.getStepData(1)
           break
         case 9:
-          step = 2
+          step = 0
           break  
       }
       this.setData({step}, () => {

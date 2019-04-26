@@ -110,15 +110,17 @@ Page({
   /* 编辑简历 */
   toEdit () {
     wx.navigateTo({
-      url: `${COMMON}resumeDetail/resumeDetail?uid=${this.data.myInfo.uid}`,
+      url: `${COMMON}resumeDetail/resumeDetail?uid=${this.data.myInfo.uid}&preview=true`,
     })
+  },
+  share () {
+    this.selectComponent('#share').oper()
   },
   onPullDownRefresh(hasLoading = true) {
     let hasLogin = false
     let myInfo = {}
     let isJobhunter = 0
     let showScanIcon = this.data.showScanIcon
-
     this.setData({hasReFresh: true})
     getPersonalResumeApi({...app.getSource()}).then(res => {
       hasLogin = app.globalData.hasLogin
