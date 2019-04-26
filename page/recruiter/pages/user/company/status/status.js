@@ -67,11 +67,13 @@ Page({
         wx.navigateTo({url: `${COMMON}recruiterDetail/recruiterDetail?uid=${app.globalData.recruiterDetails.uid}`})
         break
       case 'applyModify':
-        wx.navigateTo({url: `${RECRUITER}user/company/apply/apply?action=edit`})
+        if(companyInfos.status === 2) {
+          wx.reLaunch({url: `${RECRUITER}user/company/apply/apply`})
+        } else {
+          wx.reLaunch({url: `${RECRUITER}user/company/apply/apply?action=edit`})
+        }
         break
-      case 'recruitment':
-        console.log(options)
-        
+      case 'recruitment':        
         if(companyInfos.status === 1) {
           wx.reLaunch({url: `${RECRUITER}index/index`})
           return;
