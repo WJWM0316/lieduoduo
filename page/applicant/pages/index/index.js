@@ -27,6 +27,7 @@ Page({
     fixedBarHeight: 0,
     hasReFresh: false,
     onBottomStatus: 0,
+    hideLoginBox: true,
     isBangs: app.globalData.isBangs,
     pixelRatio: app.globalData.systemInfo.pixelRatio,
     bannerH: 200,
@@ -85,20 +86,20 @@ Page({
       isLastPage: false,
       isRequire: false
     }
-    this.setData({positionList})
-    if (app.loginInit) {
+    let init = () => {
+      if (!app.globalData.hasLogin) this.setData({hideLoginBox: false})
       this.getAdBannerList()
       this.getAvartList()
       Promise.all([this.getCityLabel(), this.getLabelPosition(), this.getEmolument()]).then(res => {
         this.getPositionRecord()
       })
+    }
+    this.setData({positionList})
+    if (app.loginInit) {
+      init()
     } else {
       app.loginInit = () => {
-        this.getAdBannerList()
-        this.getAvartList()
-        Promise.all([this.getCityLabel(), this.getLabelPosition(), this.getEmolument()]).then(res => {
-          this.getPositionRecord()
-        })
+        init()
       }
     }
     if (wx.getStorageSync('choseType') === 'RECRUITER') {

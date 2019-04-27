@@ -1,8 +1,9 @@
 import {getAreaListApi} from '../../../api/pages/label.js'
 let lock = false,
-    pickerResult = {},
-    curYear = new Date().getFullYear(),
-    month = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12']
+    pickerResult = {}, // 返回去的数据
+    year = []
+const curYear = new Date().getFullYear()
+const month = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12']
 Component({
   /**
    * 组件的属性列表
@@ -12,13 +13,17 @@ Component({
       type: Boolean,
       value: false
     },
-    pickerType: {
+    pickerType: { // 组件内部数据展示
       type: Object,
       value: []
     },
     activeIndex: {
       type: Number,
-      value: 0
+      value: 0,
+      observer: function(newVal, oldVal) {
+        if (newVal < 0) return
+        this.init()
+      }
     }
   },
 
@@ -26,17 +31,23 @@ Component({
    * 组件的初始数据
    */
   data: {
-    pickerData: []
+    pickerData: [] // picker数据
   },
   attached () {
-    let pickerType = this.data.pickerType,
-        pickerData = this.data.pickerData,
-        year = []
     for (let i = 0; i < 65; i++) {
-      year.push(`${curYear}`)
-      curYear--
-    } 
-    pickerType.forEach((item, index) => {
+      year.push(curYear - i)
+    }
+  },
+  /**
+   * 组件的方法列表
+   */
+  methods: {
+    init () {
+      if (this.data.pickerType[this.data.activeIndex].created) return
+      let item = this.data.pickerType[this.data.activeIndex],
+          index = this.data.activeIndex,
+          pickerType = this.data.pickerType,
+          pickerData = this.data.pickerData
       switch (item.type) {
         case 'region':
           this.getRegionData().then(res => {
@@ -59,13 +70,23 @@ Component({
             }
             pickerData[index] = [list, list[result[0]].children]
             item.result = result
-            this.setData({pickerData, pickerType})
+            item.created = true
+            this.setData({pickerData, pickerType}, () => {
+              if (this.data.activeIndex !== index) return 
+              pickerResult['region'] = {
+                pidIndex: result[0],
+                index: result[1],
+                key: list[result[0]].children[result[1]].title,
+                value: list[result[0]].children[result[1]].areaId
+              }
+            })
           })
           break
         case 'birthday':
           var birthYear = [],
-              result = []
-          for (let i = curYear - 15; i > curYear - 65; i--) {
+              result = [],
+              getCurYear = new Date().getFullYear()
+          for (let i = getCurYear - 15; i > getCurYear - 65; i--) {
             birthYear.push(`${i}`)
           }
           pickerData[index] = [birthYear, month]
@@ -74,39 +95,57 @@ Component({
             result[1] = month.indexOf(item.value.slice(5, 8))
           } else {
             result = [0, 0]
+            item.value = `${birthYear[result[0]]}-${month[result[1]]}`
           }
           item.result = result
+          item.created = true
           this.setData({pickerData, pickerType}, () => {
+            if (this.data.activeIndex !== index) return 
+            pickerResult['birthday'] = {
+              pidIndex: result[0],
+              index: result[1],
+              key: `${birthYear[result[0]]}-${month[result[1]]}`,
+              value: new Date(`${birthYear[result[0]]}-${month[result[1]]}`).getTime() / 1000
+            }
           })
           break
         case 'workTime':
           var result = [],
-              workTimeYear = []
+              workTimeYear = [],
+              key = '',
+              timeStamp = 0
           workTimeYear = workTimeYear.concat(year)
           workTimeYear.unshift('在校生')
-          
           if (item.value) {
             result[0] = workTimeYear.indexOf(`${item.value.slice(0, 4)}`)
             result[1] = month.indexOf(item.value.slice(5, 8))
           } else {
             result = [0, 0]
+            item.value = '在校生'
           }
           if (result[0] === 0) {
             pickerData[index] = [workTimeYear, ['在校生']]
+            key = '在校生'
+            timeStamp = 0
           } else {
             pickerData[index] = [workTimeYear, month]
+            key = `${birthYear[result[0]]}-${pickerData[index][1][result[1]]}`
+            timeStamp = new Date(`${birthYear[result[0]]}-${pickerData[index][1][result[1]]}`).getTime() / 1000
           }
           item.result = result
+          item.created = true
           this.setData({pickerData, pickerType}, () => {
+            if (this.data.activeIndex !== index) return 
+            pickerResult['workTime'] = {
+              pidIndex: result[0],
+              index: result[1],
+              key: key,
+              value: timeStamp
+            }
           })
           break
       }
-    })
-  },
-  /**
-   * 组件的方法列表
-   */
-  methods: {
+    },
     getRegionData () {
       return getAreaListApi()
     },
@@ -117,10 +156,9 @@ Component({
       switch (pickerType[this.data.activeIndex].type) {
         case 'region':
           var children = pickerData[this.data.activeIndex][0][value[0]].children
-          if (!pickerResult['region'] || pickerResult['region'].index !== value[0]) {
-            pickerData[this.data.activeIndex][1] = children
-            this.setData({pickerData})
-          }
+          pickerData[this.data.activeIndex][1] = children
+          this.setData({pickerData})
+          if (value[1] > children.length - 1) value[1] = 0 // 防止第二项数据不够报错，所以定位到第一个
           pickerResult['region'] = {
             pidIndex: value[0],
             index: value[1],
@@ -129,40 +167,63 @@ Component({
           }
           pickerType.forEach((item, index) => {
             if (item.type === 'region') {
-              item.value = pickerData[this.data.activeIndex][0][value[0]].children[value[1]].title
+              item.value = children[value[1]].title
               item.result = value
               return
             }
           })
-          this.setData({pickerType})
           break
         case 'birthday':
-          var children = []
-          if (!pickerResult['birthday'] || pickerResult['birthday'].index !== value[0]) {
-            children = ['在校生']
-            pickerData[this.data.activeIndex][1] = children
-            this.setData({pickerData})
-          } else {
-            if (children !== ['在校生']) {
-              pickerData[this.data.activeIndex][1] = children
-              this.setData({pickerData})
-            }
-          }
+          var timeStamp = 0,
+              children = month
           pickerResult['birthday'] = {
             pidIndex: value[0],
             index: value[1],
-            key: `${pickerData[this.data.activeIndex][0]}-${children[value[1]]}`,
-            value: 0
+            key: `${pickerData[this.data.activeIndex][0][value[0]]}-${children[value[1]]}`,
+            value: new Date(`${pickerData[this.data.activeIndex][0][value[0]]}-${children[value[1]]}`).getTime() / 1000
           }
           pickerType.forEach((item, index) => {
-            if (item.type === 'region') {
-              item.value = pickerData[this.data.activeIndex][0][value[0]].children[value[1]].title
+            if (item.type === 'birthday') {
+              item.value = `${pickerData[this.data.activeIndex][0][value[0]]}-${children[value[1]]}`
+              item.result = value
+              return
+            }
+          })
+          break
+        case 'workTime':
+          var children = [],
+              timeStamp = 0,
+              key = ''
+          if (value[0] === 0) {
+            children = ['在校生']
+            pickerData[this.data.activeIndex][1] = children
+            timeStamp = 0
+            key = '在校生'
+            this.setData({pickerData})
+          } else {
+            if (children = ['在校生']) {
+              children = month
+              pickerData[this.data.activeIndex][1] = month
+              this.setData({pickerData})
+            }
+            key = `${pickerData[this.data.activeIndex][0][value[0]]}-${children[value[1]]}`
+            timeStamp = new Date(`${pickerData[this.data.activeIndex][0][value[0]]}-${children[value[1]]}`).getTime() / 1000
+          }
+          pickerResult['workTime'] = {
+            pidIndex: value[0],
+            index: value[1],
+            key: key,
+            value: timeStamp
+          }
+          pickerType.forEach((item, index) => {
+            if (item.type === 'workTime') {
+              item.value = key
               item.result = value
               return
             }
           })
       }
-      
+      this.setData({pickerType})
     },
     bindpickstart () {
       if (!lock) lock = true
@@ -170,12 +231,25 @@ Component({
     bindpickend (e) {
       if (lock) lock = false
     },
-    closePicker () {
+    toggle (e) {
+      let activeIndex = e.currentTarget.dataset.index
+      this.setData({activeIndex})
+    },
+    closePicker (e) {
       if (lock) return
-      this.setData({
-        openPicker: false
-      })
-      this.triggerEvent('resultevent', pickerResult)
+      if (e.currentTarget.dataset.type === 'button' && this.data.activeIndex < this.data.pickerType.length - 1) {
+        this.setData({activeIndex: this.data.activeIndex + 1}, () => {
+          pickerResult['pickerType'] = this.data.pickerType
+          this.triggerEvent('pickerResult', pickerResult)
+        })
+      } else {
+        this.setData({
+          openPicker: false
+        }, () => {
+          pickerResult['pickerType'] = this.data.pickerType
+          this.triggerEvent('pickerResult', pickerResult)
+        })
+      }
     }
   }
 })

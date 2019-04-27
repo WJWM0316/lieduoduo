@@ -11,19 +11,19 @@
 					<view class="animation title"><text>宇航员，请验证身份，进入求职飞船吧</text></view>
 					<view class="animation form">
 						<view class="avatarBox">
-				      <avatarCut class="avatar" avatar="avatar" src="{{avatar.url}}"></avatarCut>
+				      <avatarCut class="avatar" avatar="avatar" src="{{avatar.url}}" icon="{{true}}"></avatarCut>
 				    </view>
 				    <view class="name">
 				    	<input class="userName" name="name" placeholder-class="holderStyle" bindinput="getValue" data-type="name" maxlength="20" placeholder="输入你的真实姓名"  value="{{name}}"/>
 				    	<view class="sexBox">
-				    		<view class="sex-item" bindtap="chooseGender" data-gender="{{1}}"><i class="icon {{gender === 1 ? 'active' : ''}}"></i>男</view>
-				    		<view class="sex-item" bindtap="chooseGender" data-gender="{{2}}"><i class="icon {{gender === 2 ? 'active' : ''}}"></i>女</view>
+				    		<view class="sex-item {{gender === 1 ? 'active' : ''}}" bindtap="chooseGender" data-gender="{{1}}"><i class="icon"></i>男</view>
+				    		<view class="sex-item {{gender === 2 ? 'active' : ''}}" bindtap="chooseGender" data-gender="{{2}}"><i class="icon"></i>女</view>
 				    	</view>
 				    </view>
 				    <view class="name {{city || birthDesc || startWorkYearDesc ? 'selected' : ''}}">
-				    	<view class="myPicker" bindtap="openPicker" data-index="{{0}}"><view class="title">所在城市</view><view class="value {{!city ? 'placeholder' : ''}}">{{city || '请选择'}}</view></view>
-				    	<view class="myPicker" bindtap="openPicker" data-index="{{1}}"><view class="title">出身年月</view><view class="value {{!birthDesc ? 'placeholder' : ''}}">{{birthDesc || '请选择'}}</view></view>
-				    	<view class="myPicker" bindtap="openPicker" data-index="{{2}}"><view class="title">工作时间</view><view class="value {{!startWorkYearDesc ? 'placeholder' : ''}}">{{startWorkYearDesc || '请选择'}}</view></view>
+				    	<view class="myPicker" bindtap="openPicker" data-index="{{0}}"><view class="title">所在城市</view><view hidden="{{!city && !birthDesc && !startWorkYearDesc}}" class="value {{!city ? 'placeholder' : ''}}">{{city || '请选择'}}</view></view>
+				    	<view class="myPicker" bindtap="openPicker" data-index="{{1}}"><view class="title">出身年月</view><view hidden="{{!city && !birthDesc && !startWorkYearDesc}}" class="value {{!birthDesc ? 'placeholder' : ''}}">{{birthDesc || '请选择'}}</view></view>
+				    	<view class="myPicker" bindtap="openPicker" data-index="{{2}}"><view class="title">工作时间</view><view hidden="{{!city && !birthDesc && !startWorkYearDesc}}" class="value {{!startWorkYearDesc ? 'placeholder' : ''}}">{{startWorkYearDesc || '请选择'}}</view></view>
 				    </view>
 				    <view class="box">
 					    <input bindtap="jump" data-type="companyName" data-value="{{item.company}}"  maxlength="50" disabled name="company" placeholder-class="holderStyle" bindinput="getValue"placeholder="最近任职公司" value="{{lastCompany}}"/>
@@ -31,11 +31,21 @@
 					  <view class="box">
 					    <input data-type="lastPosition" placeholder-class="holderStyle" bindinput="getValue" placeholder="职位名称" value="{{lastPosition}}"/>
 					  </view>
-					  <view class="toggleAccount" bindtap="jump" data-type="toggleAccount">切换登录账号<i class="icon iconfont icon-zizhurenzheng"></i></view>
-				    <view class="animation btn" bindtap="createMicro">
-							<view class="btn-area">完成</view>
-					    <view class="btn-area-bg"></view>
-						</view>
+					  <view class="toggleAccount" bindtap="upLogin">切换登录账号<i class="icon iconfont icon-zizhurenzheng"></i></view>
+
+					  <block wx:if="{{!userInfo}}">
+					  	<button class="animation btn" open-type="getUserInfo" bindgetuserinfo="onGotUserInfo" lang="zh_CN">
+								<view class="btn-area">完成</view>
+						    <view class="btn-area-bg"></view>
+							</button>
+					  </block>
+					  <block wx:else>
+					  	<view class="animation btn" bindtap="createMicro">
+					  		<view class="btn-area">完成</view>
+						    <view class="btn-area-bg"></view>
+					  	</view>
+					  </block>
+
 					</view>
 				</view>
 			</block>
@@ -44,7 +54,7 @@
 					<view class="animation title"><text>宇航员，请验证身份，进入求职飞船吧</text></view>
 					<view class="animation form">
 						<view class="avatarBox">
-				      <avatarCut class="avatar" avatar="avatar" src="{{avatar.url}}"></avatarCut>
+				      <avatarCut class="avatar" avatar="avatar" src="{{avatar.url}}" icon="{{true}}"></avatarCut>
 				    </view>
 				    <view class="gender">
 				      <view class="sex {{gender === 1 ? 'active' : ''}}" bindtap="chooseGender" data-gender="{{1}}">男</view>
@@ -243,6 +253,6 @@
 			</block>
 		</view>
 	</view>
-	<customPicker wx:if="{{startCreatePicker}}" pickerType="{{pickerType}}" openPicker="{{openPicker}}" activeIndex="{{activeIndex}}" bindresultevent="pickerResult"></customPicker>
+	<customPicker pickerType="{{pickerType}}" openPicker="{{openPicker}}" activeIndex="{{activeIndex}}" bindpickerResult="pickerResult"></customPicker>
 	<guidePop showPop="{{showPop}}"></guidePop>
 </view>

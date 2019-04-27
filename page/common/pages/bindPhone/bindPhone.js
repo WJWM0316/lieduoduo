@@ -103,17 +103,7 @@ Page({
       mobile: this.data.phone,
       code: this.data.code
     }
-    app.phoneLogin(data).then(res => {
-      app.wxToast({
-        title: '登录成功',
-        icon: 'success',
-        callback() {
-          wx.navigateBack({
-            delta: 1
-          })
-        }
-      })
-    })
+    app.phoneLogin(data)
   },
   getPhoneNumber(e) {
     app.quickLogin(e)

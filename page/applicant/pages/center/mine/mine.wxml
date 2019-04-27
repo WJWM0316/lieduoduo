@@ -10,7 +10,7 @@
   		<view class="header">
         <view class="content" wx:if='{{myInfo.uid}}'>
           <view class="realname">{{myInfo.name}}</view>
-          <view class="degree-name" wx:if="{{myInfo.lastCompanyName}}">{{myInfo.lastCompanyName}} | {{myInfo.lastPosition}}</view>
+          <view class="degree-name" wx:if="{{myInfo.lastCompanyName || myInfo.lastCompany}}">{{myInfo.lastCompanyName || myInfo.lastCompany}} | {{myInfo.lastPosition || myInfo.lastPosition}}</view>
         </view> 
         <view class="content" wx:if='{{!myInfo.uid && hasLogin}}'>
   				<view class="realname">简历未完善</view>
@@ -24,18 +24,17 @@
   		</view>
 
       <view class="experience" wx:if='{{myInfo.uid}}'>
-        <view class="item"><i class="icon iconfont icon-zhiwei"></i>{{myInfo.workAgeDesc}}<text wx:if="{{myInfo.workAgeDesc !== '在校生'}}">经验</text></view>
+        <view class="item"><i class="icon iconfont icon-zhiwei"></i>{{myInfo.workAgeDesc || myInfo.workAgeDesc}}<text wx:if="{{myInfo.workAgeDesc !== '在校生'}}">经验</text></view>
         <view class="item"><i class="icon iconfont icon-nianling"></i>{{myInfo.age ? myInfo.age + '岁 ' : ''}}</view>
-        <view class="item"><i class="icon iconfont icon-xueli"></i>{{myInfo.degreeDesc}}</view>
+        <view class="item" wx:if="{{myInfo.degreeDesc}}"><i class="icon iconfont icon-xueli"></i>{{myInfo.degreeDesc}}</view>
       </view>
-      <button class="share-resume" form-type="submit" wx:if='{{!isJobhunter && hasLogin}}' bindtap='completeResume'>立即完善简历 <i class="icon iconfont icon-xiangyou"></i></button>
       <button class="share-resume" form-type="submit" wx:if='{{!hasLogin}}' bindtap='login'>立即登录 <i class="icon iconfont icon-xiangyou"></i></button>
-  		<block wx:if="{{myInfo.uid}}">
+  		<block wx:if="{{isJobhunter}}">
         <button form-type="submit" class="share-resume clear-style" bindtap='toEdit'>在线简历 ({{myInfo.resumeCompletePercentageDesc}})</button>
         <button class="save-resume-pic clear-style" form-type="submit" bindtap="share">转发我的简历</button>
       </block>
   	</view>
-
+    <view class="createBox" wx:if='{{isMicroCard && !isJobhunter}}'>你与offer之间还差一份简历~<view class="btn" bindtap="completeResume">去创建<i class="icon iconfont icon-disejiantou-you"></i></view></view>
     <!-- bottom -->
     <view class="entry-list">
   		<view class="li" bindtap="jump" data-type="scanCode" wx:if='{{hasLogin && isJobhunter}}'>

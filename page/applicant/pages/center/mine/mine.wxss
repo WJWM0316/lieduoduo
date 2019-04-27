@@ -278,3 +278,33 @@
 .toggleIdentity .key{
   float: left;
 }
+
+.createBox {
+  width:690rpx;
+  height:98rpx;
+  background:#EFE9F4;
+  border-radius:0rpx 0rpx 10rpx 10rpx;
+  padding: 17rpx 40rpx;
+  box-sizing: border-box;
+  font-size:28rpx;
+  font-weight:300;
+  color:#652791;
+  line-height:64rpx;
+  margin: 0 auto 0;
+  position: relative;
+}
+.createBox .btn {
+  width:190rpx;
+  height:64rpx;
+  background:#652791;
+  border-radius:32rpx;
+  float: right;
+  font-size:28rpx;
+  color:#fff;
+  line-height:64rpx;
+  text-align: center;
+}
+.createBox .btn .icon {
+  font-size: 24rpx;
+  margin-left: 10rpx;
+}

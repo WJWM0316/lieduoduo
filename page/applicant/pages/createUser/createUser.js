@@ -30,6 +30,8 @@ Page({
     isBangs: app.globalData.isBangs,
     cdnImagePath: app.globalData.cdnImagePath,
     animationData: {},
+    userInfo: app.globalData.userInfo,
+    enterStep: 0, // 创建了微名片后进入创建流程
     isMicro: false, 
     isStudent: false, // 是否在校生
     showPop: false,
@@ -41,7 +43,7 @@ Page({
     birthDesc: '',
     birth: 0,
     startWorkYearDesc: '',
-    startWork: 0,
+    startWorkYear: 0,
     workCurrent: 0,
     edCurrent: 0,
     workErr: 0,
@@ -88,13 +90,12 @@ Page({
       fieldIds: '',
       fiels: ''
     },
-    startCreatePicker: false, 
     lastCompany: '',
     lastPosition: '',
     cityNum: '', //城市id
     city: '',
     openPicker: false,
-    activeIndex: 0,
+    activeIndex: -1,
     pickerType: [
       {type: 'region', title: '所在城市', value: '', placeholder: '请选择'},
       {type: 'birthday', title: '出生年月', value: '', placeholder: '请选择'},
@@ -113,6 +114,11 @@ Page({
         this.getStep()
       }
     }
+    wx.login({
+      success: function (res0) {
+        wx.setStorageSync('code', res0.code)
+      }
+    })
     if (options.directChat) {
       directChat = options.directChat
     }
@@ -639,11 +645,12 @@ Page({
             birthDesc = card.birthDesc,
             birth = card.birth,
             startWorkYearDesc = card.startWorkYearDesc,
-            startWork = card.startWorkYear,
+            startWorkYear = card.startWorkYear,
             lastCompany = card.lastCompany,
             lastPosition = card.lastPosition,
             cityNum = card.cityNum,
             city = card.city,
+            enterStep = res.data.step,
             pickerType = this.data.pickerType
         if (card.city) {
           pickerType[0].value = card.city
@@ -655,7 +662,7 @@ Page({
         if (card.startWorkYearDesc) {
           pickerType[2].value = card.startWorkYearDesc
         }
-        this.setData({step, avatar, name, birthDesc, birth, startWorkYearDesc, startWork, lastCompany, lastPosition, cityNum, city, pickerType, startCreatePicker: true}, () => {
+        this.setData({step, enterStep, avatar, name, birthDesc, birth, startWorkYearDesc, startWorkYear, lastCompany, lastPosition, cityNum, city, pickerType}, () => {
           this.progress(step)
         })
       } else {
@@ -789,6 +796,12 @@ Page({
     if (getData['region']) {
       this.setData({city: getData['region'].key, cityNum: getData['region'].value})
     }
+    if (getData['birthday']) {
+      this.setData({birthDesc: getData['birthday'].key, birth: getData['birthday'].value})
+    }
+    if (getData['workTime']) {
+      this.setData({startWorkYearDesc: getData['workTime'].key, startWorkYear: getData['workTime'].value})
+    }
   },
   jump (e) {
     let type = e.currentTarget.dataset.type
@@ -814,9 +827,6 @@ Page({
         url = `${COMMON}selectCity/selectCity`
         wx.setStorageSync('selectCity', e.currentTarget.dataset.id)
         break
-      case 'toggleAccount':
-        url = `${COMMON}changeMobile/changeMobile`
-        break
     }
     wx.navigateTo({url})
   },
@@ -825,6 +835,21 @@ Page({
     if (step === 0 || step === 1) {
       this.setData({showPop: true})
     } else {
+      if (this.data.enterStep) {
+        let completeStep = 0
+        switch (this.data.enterStep) {
+          case 2:
+            completeStep = 3
+            break
+          case 3:
+            completeStep = 5
+            break
+        }
+        if (completeStep === step) {
+          this.setData({showPop: true})
+          return
+        }
+      }
       if (step === 4 || step === 5 && this.data.isStudent) { // 处在第三步返回的时候要看看是不是在校生
         step -= 4
       } else {
@@ -834,6 +859,17 @@ Page({
         this.progress(step)
       })
     }
+  },
+  onGotUserInfo (e) {
+    let that = this
+    app.onGotUserInfo(e, 'craeteOver').then(res => {
+        that.createMicro()
+      }).catch(err => {
+        that.createMicro()
+      })
+  },
+  upLogin () {
+    app.uplogin()
   },
   /**
    * 生命周期函数--监听页面显示

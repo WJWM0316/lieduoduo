@@ -1,5 +1,14 @@
 // 个人中心接口
 import { request } from '../require'
+
+// 获取当前用户微名片
+export const getMicroCardApi = (data) => {
+  return request({
+    method: 'get',
+    url: '/jobhunter/cur/card',
+    data
+  })
+}
 // 个人中心首页接口
 export const getMyInfoApi = (data) => {
   return request({
