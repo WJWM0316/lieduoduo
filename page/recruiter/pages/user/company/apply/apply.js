@@ -76,7 +76,7 @@ Page({
           user_position: storage.user_position,
           company_name: storage.company_name
         }
-        this.setData({formData})
+        this.setData({formData, applyJoin})
       } else {
         formData = {
           real_name: storage.real_name || companyInfo.realName,
@@ -364,6 +364,7 @@ Page({
     })
     // 公司存在 直接走加入流程
     .catch(err => {
+
       if(err.code === 307) {
         app.wxToast({
           title: err.msg,
@@ -373,8 +374,14 @@ Page({
         })
         return
       }
-      formData.id = err.data.companyId
-      if(err.code === 990) this.setData({formData}, () => this.joinCompany())
+
+      if(err.code === 990) {
+        formData.id = err.data.companyId
+        this.setData({formData}, () => this.joinCompany())
+        return
+      }
+
+      app.wxToast({ title: err.msg })
     })
   },
   /**
@@ -399,6 +406,7 @@ Page({
     })
     // 创建公司后 重新编辑走加入公司逻辑  如果之前有一条加入记录 取之前的加入记录id
     .catch(err => {
+
       if(err.code === 307) {
         app.wxToast({
           title: err.msg,
@@ -408,6 +416,7 @@ Page({
         })
         return
       }
+
       hasApplayRecordApi().then(res => {
         let formData = this.data.formData
         if(res.data.id) {
@@ -415,10 +424,15 @@ Page({
           formData.id = res.data.companyId
           this.setData({formData}, () => this.editJoinCompany())
         } else {
-          formData.id = err.data.companyId
-          if(err.code === 990) this.setData({formData}, () => this.joinCompany())
+          if(err.code === 990) {
+            formData.id = err.data.companyId
+            this.setData({formData}, () => this.joinCompany())
+            return
+          }
+          app.wxToast({ title: err.msg })
         }
       })
+
     })
   },
 })

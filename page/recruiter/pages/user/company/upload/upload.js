@@ -83,6 +83,7 @@ Page({
       wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=company`})
     })
     .catch(err => {
+
       if(err.code === 307) {
         app.wxToast({
           title: err.msg,
@@ -91,7 +92,8 @@ Page({
           }
         })
         return
-      } 
+      }
+
       if(err.code === 808) {
         app.wxToast({
           title: err.msg,
@@ -100,7 +102,11 @@ Page({
             wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=company`})
           }
         })
+        return
       }
+
+      app.wxToast({ title: err.msg })
+      
     })
   }
 })

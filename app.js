@@ -453,16 +453,17 @@ App({
         })
       } else {
         wx.setStorageSync('choseType', 'RECRUITER')
-        this.getAllInfo()
-        if (!this.globalData.isRecruiter) {
-          wx.reLaunch({
-            url: `${RECRUITER}user/company/apply/apply`
-          })
-        } else {
-          wx.reLaunch({
-            url: `${RECRUITER}index/index`
-          })
-        }
+        this.getAllInfo().then(() => {
+          if (!this.globalData.isRecruiter) {
+            wx.reLaunch({
+              url: `${RECRUITER}user/company/apply/apply`
+            })
+          } else {
+            wx.reLaunch({
+              url: `${RECRUITER}index/index`
+            })
+          }
+        })
       }  
     }
   },
