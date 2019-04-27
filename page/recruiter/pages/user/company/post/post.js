@@ -70,6 +70,9 @@ Page({
   setFocusByFocus() {
     this.setData({isFocus: true})
   },
+  setFocusByBlur() {
+    this.setData({isFocus: false})
+  },
   /**
    * @Author   小书包
    * @DateTime 2018-12-25
@@ -81,7 +84,7 @@ Page({
 
     // 验证公司简称
     let checkCompanyShortName = new Promise((resolve, reject) => {
-      !formData.company_shortname ? reject('请输入公司简称') : resolve()
+      !formData.company_shortname.trim() ? reject('请输入公司简称') : resolve()
     })
 
     // 验证行业选项
@@ -106,7 +109,8 @@ Page({
       checkEmployees
     ])
     .then(res => {
-      wx.setStorageSync('createdCompany', this.data.formData)
+      formData.company_shortname = formData.company_shortname.trim()
+      wx.setStorageSync('createdCompany', formData)
       wx.navigateTo({url: `${RECRUITER}user/company/identityMethods/identityMethods?companyId=${formData.id}`})
       // perfectCompanyApi(params).then(res => {
       //   wx.navigateTo({url: `${RECRUITER}user/company/identityMethods/identityMethods?companyId=${res.data.companyId}`})
