@@ -13,7 +13,7 @@ import {realNameReg, emailReg, positionReg} from '../../../../../../utils/fieldR
 
 import {RECRUITER} from '../../../../../../config.js'
 
-const app = getApp()
+let app = getApp()
 
 Page({
   data: {
@@ -59,7 +59,7 @@ Page({
     })
   },
   onHide() {
-    const storage = wx.getStorageSync('createdCompany') || {}
+    let storage = wx.getStorageSync('createdCompany') || {}
     wx.setStorageSync('createdCompany', Object.assign(storage, this.data.formData))
   },
   /**
@@ -125,9 +125,9 @@ Page({
    * @return   {[type]}     [description]
    */
   bindChange(e) {
-    const index = parseInt(e.detail.value)
-    const companyLabelField = this.data.companyLabelField
-    const formData = this.data.formData
+    let index = parseInt(e.detail.value)
+    let companyLabelField = this.data.companyLabelField
+    let formData = this.data.formData
     formData.industry_id = companyLabelField[index].labelId
     formData.industry_id_name = companyLabelField[index].name
     this.setData({formData})
@@ -139,8 +139,10 @@ Page({
    * @return   {[type]}     [description]
    */
   bindInput(e) {
-    const formData = this.data.formData
-    formData.company_shortname = e.detail.value
+    let formData = this.data.formData
+    let value = e.detail.value
+    if(value.charAt(0) === ' ') value = value.trim()
+    formData.company_shortname = value
     this.setData({formData})
   },
   /**
@@ -150,7 +152,7 @@ Page({
    * @return   {[type]}   [description]
    */
   getStaffMembers(res) {
-    const formData = this.data.formData
+    let formData = this.data.formData
     formData.employees = res.detail.propsResult
     formData.employeesName = res.detail.propsDesc
     this.setData({formData})
@@ -162,7 +164,7 @@ Page({
    * @return   {[type]}   [description]
    */
   getFinancing(res) {
-    const formData = this.data.formData
+    let formData = this.data.formData
     formData.financing = res.detail.propsResult
     formData.financingName = res.detail.propsDesc
     this.setData({formData})
@@ -190,7 +192,7 @@ Page({
     wx.navigateTo({url: `${RECRUITER}company/introducingEdit/introducingEdit`})
   },
   savaBeforeUpload() {
-    const storage = wx.getStorageSync('createdCompany') || {}
+    let storage = wx.getStorageSync('createdCompany') || {}
     wx.setStorageSync('createdCompany', Object.assign(storage, this.data.formData))
   }
 })
