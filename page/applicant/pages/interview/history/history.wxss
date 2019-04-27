@@ -1,5 +1,8 @@
 .ul {
-  margin: 52rpx 30rpx;
+  margin: 0 30rpx;
+  padding-top: 118rpx;
+  position: relative;
+  z-index: 0;
 }
 
 .ul .li {
@@ -13,9 +16,11 @@
 .ul .li .row-one {
   display: flex;
   align-items: center;
-  padding: 22rpx 0 54rpx 0;
+  padding: 32rpx 0 24rpx 0;
   position: relative;
-  margin: 0 28rpx 0 28rpx;
+  margin: 0 28rpx 29rpx 28rpx;
+  border-bottom: 1rpx solid #E8E9EB;
+  min-height: 120rpx;
 }
 
 .ul .li .img-box {
@@ -24,7 +29,7 @@
   box-shadow:0rpx -5rpx 40rpx 0rpx rgba(22,39,77,0.05);
   border-radius:50%;
   position: absolute;
-  top: -20rpx;
+  top: 32rpx;
   left: 0;
   border: 4rpx solid white;
   box-sizing: border-box;
@@ -38,6 +43,7 @@
 
 .ul .li .content {
   margin-left: 144rpx;
+  margin-top: 21rpx;
   flex: 1;
 }
 
@@ -150,7 +156,7 @@
   text-align: left;
   line-height: normal;
   overflow: unset;
-  margin-bottom: 44rpx;
+  margin-bottom: 20rpx;
 }
 
 .fixed-box .down-show {
@@ -163,9 +169,8 @@
   color:rgba(92,86,93,1);
   display: flex;
   align-items: center;
-  position: relative;
-  z-index: 3;
   position: fixed;
+  z-index: 3;
   left: 0;
   right: 0;
 }
@@ -200,9 +205,11 @@
   background:rgba(255,255,255,1);
   box-shadow:0rpx 11rpx 30rpx 0rpx rgba(0,0,0,0.04);
   border-radius:0rpx 0rpx 10rpx 10rpx;
-  padding: 0 40rpx;
+  padding: 98rpx 40rpx 0 40rpx;
   z-index: 2;
-  position: relative;
+  position: fixed;
+  left: 0;
+  right: 0;
 }
 
 .fixed-box .child-box .p1{
@@ -259,7 +266,7 @@
   font-size:28rpx;
   font-weight:500;
   line-height:40rpx;
-  margin: 26rpx 0;
+  padding: 26rpx 0 48rpx 0;
 }
 
 .fixed-box .child-box .select-range .start{
@@ -310,9 +317,7 @@
   z-index: 1;
 }
 
-.fixed-box {
-  padding-top: 98rpx;
-}
+.fixed-box {}
 
 .fixed-box .ul10 {
   padding: 64rpx 0 53rpx 0;

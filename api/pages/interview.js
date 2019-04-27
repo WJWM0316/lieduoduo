@@ -179,3 +179,14 @@ export const getNewHistoryApi = (data, hasLoading) => {
     hasLoading
   })
 }
+
+
+// 获取当前招聘官职位类型列表
+export const getPositionTypeListApi = (data, hasLoading) => {
+  return request({
+    method: 'get',
+    url: `/position/typelist`,
+    data,
+    hasLoading: false
+  })
+}

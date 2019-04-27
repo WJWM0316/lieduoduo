@@ -41,7 +41,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 43,
+			"current": 44,
 			"list": [
 				{
 					"id": 0,
@@ -329,6 +329,13 @@
 					"id": -1,
 					"name": "【C端】全部面试",
 					"pathName": "page/applicant/pages/interview/history/history",
+					"query": "positionId=2933&sCode=11&sourceType=22&sCode=12222",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "【B端】全部面试",
+					"pathName": "page/recruiter/pages/interview/history/history",
 					"query": "positionId=2933&sCode=11&sourceType=22&sCode=12222",
 					"scene": null
 				}

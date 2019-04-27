@@ -1,6 +1,6 @@
 import {RECRUITER, COMMON, APPLICANT} from '../../../../../config.js'
 
-import { getInviteListApi, getApplyListApi, getScheduleListApi, getScheduleNumberApi} from '../../../../../api/pages/interview.js'
+import { getInviteListApi, getApplyListApi, getScheduleListApi, getScheduleNumberApi, getNewScheduleNumberApi} from '../../../../../api/pages/interview.js'
 
 import {getRecruiterPositionListApi} from '../../../../../api/pages/position.js'
 
@@ -142,18 +142,18 @@ Page({
     }
   },
   getResult(e) {
-    if(e && e.detail && e.detail.timeStamp) {
-      chooseTime = e.detail.timeStamp
-      let interviewData = {
-        list: [],
-        pageNum: 1,
-        count: 20,
-        isLastPage: false,
-        isRequire: false
-      }
-      this.setData({interviewData, interviewBottomStatus: 0})
-      this.getScheduleList()
+    let time = e.currentTarget.dataset.time
+    console.log(time)
+    chooseTime = e.currentTarget.dataset.time
+    let interviewData = {
+      list: [],
+      pageNum: 1,
+      count: 20,
+      isLastPage: false,
+      isRequire: false
     }
+    this.setData({interviewData, interviewBottomStatus: 0})
+    this.getScheduleList()
     this.getFixedDomNodePosition()
   },
   // 我的邀请
@@ -249,9 +249,9 @@ Page({
           total: 0
         }
         this.setData({interviewData})
-        this.selectComponent('#myCalendar').scrollLeft()
+        // this.selectComponent('#myCalendar').scrollLeft()
         this.getScheduleList()
-        getScheduleNumberApi().then(res => {
+        getNewScheduleNumberApi().then(res => {
           let dateList = res.data
           this.setData({dateList})
         })
@@ -298,9 +298,9 @@ Page({
               total: 0
             }
             this.setData({positionList, interviewData})
-            this.selectComponent('#myCalendar').scrollLeft()
+            // this.selectComponent('#myCalendar').scrollLeft()
             this.getScheduleList()
-            getScheduleNumberApi().then(res => {
+            getNewScheduleNumberApi().then(res => {
               let dateList = res.data
               this.setData({dateList})
             })

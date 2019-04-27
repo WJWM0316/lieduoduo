@@ -187,15 +187,16 @@
 .interview-page-title {
   overflow: hidden;
   line-height: 1.1;
-  margin: 40rpx 30rpx;
-  background: #FBFBFF;
+  padding: 0 30rpx;
+  background: #fff;
+  height: 107rpx;
+  line-height: 107rpx;
 }
 
 .interview-page-title .total {
   font-size:32rpx;
   font-weight:600;
   color:rgba(53,64,72,1);
-  line-height:32rpx;
   float: left;
 }
 
@@ -227,9 +228,9 @@
 
 .item3 .row-one {
   display: flex;
-  padding: 40rpx 0;
-  border-bottom: 1px dotted #BACED8;
-  margin: 0 28rpx;
+  padding: 32rpx 0;
+  border-bottom: 1rpx dotted #BACED8;
+  margin: 0 30rpx;
   align-items: center;
 }
 
@@ -320,7 +321,7 @@
   text-align: center;
   border-radius:26rpx;
   position: absolute;
-  top: 20rpx;
+  top: 32rpx;
   right: 24rpx;
   font-size:32rpx;
   font-weight:bold;
@@ -354,7 +355,7 @@
 .item2 .row-one {
   display: flex;
   padding: 30rpx 0 20rpx 0;
-  border-bottom: 1px dotted #BACED8;
+  border-bottom: 1rpx dotted #BACED8;
   margin: 0 28rpx;
   align-items: center;
 }
@@ -463,4 +464,62 @@
   top: 24rpx;
   right: 24rpx;
   border-radius: 50%;
+}
+
+.scroll-box {
+  box-sizing: border-box;
+  white-space: nowrap;
+  overflow: hidden;
+  overflow-x: scroll;
+  display: flex;
+  align-items: center;
+  height: 106rpx;
+  background: white;
+  position: relative;
+  margin-bottom: 20rpx;
+}
+
+.scroll-box:after {
+  padding-right:22rpx;
+  content: '';
+  display: block;
+  height: 58rpx;
+}
+
+.scroll-box:before {
+  padding-left:40rpx;
+  content: '';
+  display: block;
+  height: 58rpx;
+}
+
+.scroll-box .item{
+  height:58rpx;
+  border-radius:29rpx;
+  border:1rpx solid rgba(205,203,207,1);
+  line-height: 58rpx;
+  text-align: center;
+  margin-right: 18rpx;
+  font-size:26rpx;
+  color:rgba(92,86,93,1);
+  padding: 0 24rpx;
+  position: relative;
+  box-sizing: border-box;
+}
+
+.scroll-box .active{
+  border-color: #652791;
+  color: #652791;
+}
+
+.scroll-box .red:before{
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 14rpx;
+  height: 14rpx;
+  border-radius: 50%;
+  background: red;
+  display: block;
+  content: '';
 }

@@ -1,5 +1,75 @@
 <view class="history">
-	<navbar title="全部面试" background="#FFFFFF" color="#22292C" showBackBtn="{{true}}"></navbar>
+	<navbar title="全部面试({{interviewList.total}})" background="#FFFFFF" color="#22292C" showBackBtn="{{true}}"></navbar>
+	<view class="fixed-box">
+		<view class="mask" wx:if="{{timeModel.show || positionModel.show}}" bindtap="closeModal"></view>
+		<view class="down-show" style="top: {{navH}}px">
+			<view
+				class="key {{timeModel.show ? 'down-show-active' : ''}}"
+				bindtap="onTapTime"
+				data-type="timeModel">面试时间 <i class="icon iconfont icon-zhishibiao"></i></view>
+			<view
+				class="key {{positionModel.show ? 'down-show-active' : ''}}"
+				bindtap="onTapPosition"
+				data-type="positionModel">职位类型 <i class="icon iconfont icon-zhishibiao"></i></view>
+		</view>
+		<view class="child-box" wx:if="{{timeModel.show || positionModel.show}}" style="top: {{navH}}px">
+			<view class="time" wx:if="{{timeModel.show}}">
+				<view class="p1">最长可查询30天的面试记录</view>
+				<view class="h2">选择日期范围</view>
+				<view class="box4">
+					<view
+						class="item {{item.active ? 'active' : ''}}"
+						wx:for="{{dateList}}"
+						wx:key="{{item.id}}"
+						data-id="{{item.id}}"
+						bindtap="changeSearch">{{item.text}}</view>
+				</view>
+				<view class="h3">自定义时间范围</view>
+				<view class="select-range">
+					<view class="start {{startTime.date ? 'active' : ''}}">
+						{{startTime.date ? startTime.date : '请选择时间'}} <i class="icon iconfont icon-zhishibiao"></i>
+						<picker
+					    mode="date"
+					    value="{{startTime.date}}"
+					    class="picker"
+					    bindchange="bindStartDateChange">
+					    <view class="picker">
+					      当前选择: {{startTime.date}}
+					    </view>
+					  </picker>
+					</view>
+					<view class="separator">到</view>
+					<view class="end {{endTime.date ? 'active' : ''}}">
+						{{endTime.date ? endTime.date : '请选择时间'}} <i class="icon iconfont icon-zhishibiao"></i>
+						<picker
+					    mode="date"
+					    value="{{endTime.date}}"
+					    class="picker"
+					    bindchange="bindEndDateChange">
+					    <view class="picker">
+					      当前选择: {{endTime.date}}
+					    </view>
+					  </picker>
+					</view>
+				</view>
+			</view>
+			<view class="position" wx:if="{{positionModel.show}}">
+				<view class="ul10">
+					<view
+						class="item10 {{item.active ? 'active' : ''}}"
+						wx:for-item="item"
+						wx:for="{{typeList}}"
+						data-id="{{item.id}}"
+						bindtap="selectType"
+						wx:key="{{index}}">{{item.name}}</view>
+				</view>
+				<view class="button-box">
+					<view class="button-reset" bindtap="resetSelectType">重置</view>
+					<view class="button-sure" bindtap="confirmChoose">确定</view>
+				</view>
+			</view>
+		</view>
+	</view>
 	<view hidden="{{!hasReFresh}}">
 		<refreshStatus></refreshStatus>
 	</view>
