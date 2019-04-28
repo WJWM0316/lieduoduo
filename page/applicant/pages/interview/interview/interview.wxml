@@ -51,16 +51,19 @@
 		<!-- 收到邀请 end -->
 		
 		<!-- 面试日程 start-->
-		<myCalendar wx:if="{{tabIndex === 2}}" id="myCalendar" calendarType="roll" setDateList="{{dateList}}" switchable bindresultEvent="getResult"></myCalendar>
+<!-- 		<myCalendar wx:if="{{tabIndex === 2}}" id="myCalendar" calendarType="roll" setDateList="{{dateList}}" switchable bindresultEvent="getResult"></myCalendar> -->
 		<!-- 面试日程 end-->
 		<view class="interview-page-title" wx:if="{{tabIndex === 2}}">
-			<view class="total">面试安排（{{interviewData.total}}）</view>
+			<view class="total">最近面试（{{interviewData.total}}）</view>
 			<view class="history" bindtap="jumpInterviewPage"><i class="icon iconfont icon-lishijilu"></i> 全部面试</view>
+		</view>
+		<view class="scroll-box"  wx:if="{{dateList.length && tabIndex === 2}}">
+			<view wx:for="{{dateList}}" wx:key="{{index}}" class="item" wx:for-item="item" data-time="{{item.time}}" bindtap="getResult">{{item.date}}</view>
 		</view>
 	</view>
 
   <!--申请记录-->
-	<view hidden="{{tabIndex !== 0}}" class="list-box" style="padding-top: {{fixedBarHeight}}px">
+	<view hidden="{{tabIndex !== 0}}" class="list-box" style="padding-top: 186rpx">
 		<view hidden="{{!hasReFresh}}">
 			<refreshStatus></refreshStatus>
 		</view>
@@ -104,7 +107,7 @@
 	</view>
 
 	<!--收到邀请-->
-	<view hidden="{{tabIndex !== 1}}" class="list-box" style="padding-top: {{fixedBarHeight}}px">
+	<view hidden="{{tabIndex !== 1}}" class="list-box" style="padding-top: 186rpx">
 		<view hidden="{{!hasReFresh}}">
 			<refreshStatus></refreshStatus>
 		</view>

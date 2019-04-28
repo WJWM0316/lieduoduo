@@ -1,6 +1,6 @@
 import {RECRUITER, COMMON, APPLICANT} from '../../../../../config.js'
 
-import { getInviteListApi, getApplyListApi, getScheduleListApi, getScheduleNumberApi} from '../../../../../api/pages/interview.js'
+import { getInviteListApi, getApplyListApi, getScheduleListApi, getScheduleNumberApi, getNewScheduleNumberApi} from '../../../../../api/pages/interview.js'
 
 import {getRecruiterPositionListApi} from '../../../../../api/pages/position.js'
 
@@ -84,7 +84,6 @@ Page({
   bindChange(e) {
     let type = ''
     let value = 0
-    console.log(e.currentTarget.dataset.type)
     switch(e.currentTarget.dataset.type) {
       case 'applyStatus':
         type = 'applyIndex'
@@ -142,19 +141,19 @@ Page({
     }
   },
   getResult(e) {
-    if(e && e.detail && e.detail.timeStamp) {
-      chooseTime = e.detail.timeStamp
-      let interviewData = {
-        list: [],
-        pageNum: 1,
-        count: 20,
-        isLastPage: false,
-        isRequire: false
-      }
-      this.setData({interviewData, interviewBottomStatus: 0})
-      this.getScheduleList()
+    let time = e.currentTarget.dataset.time
+    console.log(time)
+    chooseTime = e.currentTarget.dataset.time
+    let interviewData = {
+      list: [],
+      pageNum: 1,
+      count: 20,
+      isLastPage: false,
+      isRequire: false,
+      total: 0
     }
-    this.getFixedDomNodePosition()
+    this.setData({interviewData, interviewBottomStatus: 0})
+    this.getScheduleList()
   },
   // 我的邀请
   getApplyList(hasLoading = true) {
@@ -248,15 +247,22 @@ Page({
           isRequire: false,
           total: 0
         }
-        this.setData({interviewData})
-        this.selectComponent('#myCalendar').scrollLeft()
-        this.getScheduleList()
-        getScheduleNumberApi().then(res => {
-          let dateList = res.data
-          this.setData({dateList})
-        })
+        this.setData({interviewData}, () => this.getNewScheduleNumber())
     }
-    this.getFixedDomNodePosition()
+  },
+  /**
+   * @Author   小书包
+   * @DateTime 2019-04-28
+   * @detail   获取面试日程的列表
+   * @return   {[type]}   [description]
+   */
+  getNewScheduleNumber() {
+    getNewScheduleNumberApi().then(res => {
+      let dateList = res.data
+      if(!dateList.length) return
+      chooseTime = dateList[0].time
+      this.setData({dateList}, () => this.getScheduleList())
+    })
   },
   init () {
     if (app.globalData.isRecruiter) {
@@ -297,15 +303,8 @@ Page({
               isRequire: false,
               total: 0
             }
-            this.setData({positionList, interviewData})
-            this.selectComponent('#myCalendar').scrollLeft()
-            this.getScheduleList()
-            getScheduleNumberApi().then(res => {
-              let dateList = res.data
-              this.setData({dateList})
-            })
+            this.setData({positionList, interviewData}, () => this.getNewScheduleNumber())
         }
-        this.getFixedDomNodePosition()
       })
     }
   },
@@ -315,16 +314,11 @@ Page({
   onShow () {
     if (app.globalData.isRecruiter) {
       this.init()
-      this.getFixedDomNodePosition()
     } else {
       app.getRoleInit = () => {
         this.init()
-        this.getFixedDomNodePosition()
       }
     }
-  },
-  getFixedDomNodePosition() {
-    getSelectorQuery('.fixed-dom').then(res => this.setData({fixedBarHeight: res.height}))
   },
   onReachBottom(e) {
     switch(this.data.tabIndex) {
