@@ -484,6 +484,13 @@
   height: 106rpx;
   background: white;
   position: relative;
+  white-space: nowrap;
+  width: 100%;
+}
+
+.scroll-box::-webkit-scrollbar{
+  width: 0;
+  display: none;
 }
 
 .scroll-box:after {
@@ -511,6 +518,7 @@
 	color:rgba(92,86,93,1);
 	padding: 0 43rpx;
 	position: relative;
+	display: inline-block;
 }
 
 .scroll-box .active{

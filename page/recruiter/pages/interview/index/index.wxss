@@ -475,6 +475,13 @@
   background: white;
   position: relative;
   margin-bottom: 20rpx;
+  white-space: nowrap;
+  width: 100%;
+}
+
+.scroll-box::-webkit-scrollbar{
+  width: 0;
+  display: none;
 }
 
 .scroll-box:after {
@@ -503,6 +510,7 @@
   padding: 0 24rpx;
   position: relative;
   box-sizing: border-box;
+  display: inline-block;
 }
 
 .scroll-box .active{
