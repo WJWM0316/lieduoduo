@@ -20,7 +20,7 @@
         <block wx:else>
           <block wx:if="{{mode === 'multiSelector'}}">
             <block wx:if="{{pickerType === 'region'}}">
-              <text>{{list[1][result[1]].title}}</text>
+              <text class="showTxt">{{list[1][result[1]].title}}</text>
             </block>
             <block wx:else>
               <text wx:if="{{list[1][result[1]] !== firstOption}}">{{list[0][result[0]]}}</text>
@@ -34,8 +34,8 @@
           </block>
 
           <block wx:if="{{mode === 'selector'}}">
-            <text wx:if="{{rangeKey}}">{{list[result][rangeKey]}}<i class="iconfont icon-sanjiaoshaixuan triangle" wx:if="{{pickerType === 'occupation' && isTriangle}}"></i></text>
-            <text wx:else>{{list[result]}}</text>
+            <text wx:if="{{rangeKey}}" class="showTxt">{{list[result][rangeKey]}}<i class="iconfont icon-sanjiaoshaixuan triangle" wx:if="{{pickerType === 'occupation' && isTriangle}}"></i></text>
+            <text wx:else class="showTxt">{{list[result]}}</text>
           </block>
         </block>
       </block>

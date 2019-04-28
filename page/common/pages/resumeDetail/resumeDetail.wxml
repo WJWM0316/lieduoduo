@@ -8,7 +8,7 @@
 
 <view class="resumeDetail {{isOwner? '' : 'addpadding'}}" wx:if="{{info}}">
   
-  <shareBtn wx:if="{{!isOwner}}"></shareBtn>
+  <shareBtn wx:if="{{!isOwner}}" posterType="{{options.preview ? 'applicant' : ''}}"></shareBtn>
 
   <view class="previewFile" wx:if="{{info.resumeAttach && !isOwner}}" bindtap="previewFile" data-file="{{info.resumeAttach}}">
     <view class="fileName"><image class="fileIcon" src="{{cdnImagePath}}jianliIcon.png"></image><text>该候选人已上传附件简历</text></view>
@@ -148,12 +148,15 @@
 </view>
 <!-- 底部开撩 -->
 <view class="bottomBox">
-  <view>
+  <view wx:if="{{!options.preview}}">
     <interviewBar
       id="interviewBar"
       infos="{{info}}"
       type="resume"
       bindresultevent="init"
       wx:if="{{info.vkey && !isOwner}}"></interviewBar>
+  </view>
+  <view wx:if="{{options.preview && !isOwner}}" class="editBot">
+    <button class="editBotBtn" bindtap="editSelf">编辑简历</button>
   </view>
 </view>

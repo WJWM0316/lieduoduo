@@ -79,10 +79,36 @@
 }
 .wxBtn {
   position:absolute;
-  bottom:49rpx;
+  bottom:144rpx;
   left:0;
   width:100%;
   text-align:center;
+}
+.btnInner {
+  display: flex;
+  height: 56rpx;
+  line-height: 56rpx;
+  font-size:28rpx;
+  color:rgba(92,86,93,1);
+}
+.wxBtn .icon {
+  width: 56rpx;
+  height: 56rpx;
+  border-radius: 50%;
+  background:rgba(0,194,95,0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 16rpx;
+}
+.icon1 {
+  font-size: 30rpx;
+  margin-left: 4rpx;
+  color: #CDCBCF;
+}
+.wxBtn .icon .iconfont {
+  font-size: 32rpx;
+  color: #00C25F;
 }
 .wxLogin {
   font-size: 28rpx;
@@ -94,11 +120,6 @@
   background: none;
 }
 .wxLogin::after{border:none}
-.icon {
-  display: inline-block;
-  font-size: 28rpx;
-  margin-left: 8rpx;
-}
 .bindBtn {
   width: 550rpx;
   height: 88rpx;
@@ -110,7 +131,7 @@
   color: #fff;
   line-height: 88rpx;
   position: absolute;
-  bottom: 126rpx;
+  bottom: 240rpx;
   left: 50%;
   margin-left: -275rpx;
 }
@@ -119,4 +140,19 @@
   background: #F5F4F7;
   color: #CDCBCF;
   box-shadow: none;
+}
+.userAgreement {
+  width: 100%;
+  text-align: center;
+  font-size:24rpx;
+  font-weight:300;
+  color:#5C565D;
+  line-height:24rpx;
+  padding-top: 40rpx;
+  position: fixed;
+  bottom: 48rpx;
+  left: 0;
+}
+.userAgreement .btn {
+  color: #652791;
 }

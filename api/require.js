@@ -1,5 +1,5 @@
 import {APPLICANTHOST, RECRUITERHOST, PUBAPIHOST, COMMON, RECRUITER, APPLICANT} from '../config.js'
-
+const app = getApp()
 let loadNum = 0
 let BASEHOST = ''
 let toAuth = false
@@ -10,7 +10,6 @@ let noToastUrlArray = [
   '/company/edit_first_step',
   '/company/self_help_verification'
 ]
-
 let recruiterJump = (msg) => {
   let companyInfo = msg.data.companyInfo
   let identityInfo = msg.data
@@ -130,7 +129,7 @@ export const request = ({method = 'post', url, host, data = {}, needKey = true, 
             resolve(msg)
           } else {
             if (msg.code !== 701 && msg.code !== 801 && !noToastUrlArray.some(now => url.includes(now))) {
-              getApp().wxToast({title: msg.msg, duration: 2000})
+              getApp().wxToast({title: msg.msg})
             }
             reject(msg)
           }
@@ -161,14 +160,11 @@ export const request = ({method = 'post', url, host, data = {}, needKey = true, 
                 }, 3000)
                 wx.removeStorageSync('sessionToken')
                 wx.removeStorageSync('token')
-                if (url !== '/wechat/login/mini') {
-                  wx.navigateTo({
-                    url: `${COMMON}auth/auth`,
-                    complete() {
-                      wx.removeStorageSync('toAuth')
-                    }
+                getApp().login().then(res => {
+                  wx.reLaunch({
+                    url: getApp().getCurrentPagePath()
                   })
-                }
+                })
               }
               break
             case 400:

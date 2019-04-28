@@ -165,12 +165,34 @@ export const readyStatistics  = (data, hasLoading) => {
   })
 }
 
-// 获取广告位banner
+// 获取banner
 export const getAdBannerApi  = (data, hasLoading) => {
   return request({
     method: 'get',
     url: `/banner`,
     data,
     hasLoading
+  })
+}
+
+// 获取广告位
+export const getAdApi  = (data, hasLoading) => {
+  return request({
+    method: 'get',
+    url: `/get/advertisement/lists`,
+    data,
+    host: 'PUBAPIHOST',
+    hasLoading
+  })
+}
+
+// 点击按钮记录
+export const touchVkeyApi  = (data, hasLoading) => {
+  return request({
+    method: 'get',
+    url: `/touch/${data.vkey}`,
+    data,
+    host: 'PUBAPIHOST',
+    hasLoading: false
   })
 }

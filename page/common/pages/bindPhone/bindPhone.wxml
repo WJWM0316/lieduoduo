@@ -22,6 +22,11 @@
   </view>
   <button class="bindBtn {{!canClick ? 'noClick' : ''}}" catchtap="bindPhone">登录</button>
   <view class="wxBtn">
-    <button class="wxLogin" open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber">微信账号快捷登录<view class="icon iconfont icon-disejiantou-you"></view></button>
+    <button class="wxLogin" open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber">
+      <view class="btnInner">
+        <view class="icon"><i class="iconfont icon-weixin"></i></view>微信快捷登录<i class="icon1 iconfont icon-xiangyou"></i>
+      </view>
+    </button>
   </view>
+  <view class="userAgreement" bindtap="toJump">登录猎多多代表你已同意<text class="btn">《猎多多用户协议》</text></view>
 </view>

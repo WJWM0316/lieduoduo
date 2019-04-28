@@ -1,5 +1,5 @@
 import {COMMON,APPLICANT,RECRUITER} from '../../../../../config.js'
-import { getPersonalResumeApi } from '../../../../../api/pages/center.js'
+import { getPersonalResumeApi, getMyInfoApi } from '../../../../../api/pages/center.js'
 import {shareResume} from '../../../../../utils/shareWord.js'
 let app = getApp()
 Page({
@@ -12,6 +12,7 @@ Page({
     hasLogin: false,
     hideBind: true,
     hasReFresh: false,
+    isMicroCard: false,
     cdnImagePath: app.globalData.cdnImagePath,
     resumeAttach: {},
     navH: app.globalData.navHeight,
@@ -28,20 +29,32 @@ Page({
     let myInfo = {}
     let isJobhunter = 0
     let showScanIcon = this.data.showScanIcon
-
-    if(app.pageInit) {
+    let init = () => {
       hasLogin = app.globalData.hasLogin
       myInfo = app.globalData.resumeInfo
       isJobhunter = app.globalData.isJobhunter
       showScanIcon = hasLogin && isJobhunter ? true : false
       this.setData({myInfo, isJobhunter, hasLogin, showScanIcon, resumeAttach: myInfo.resumeAttach || {}})
     }
-    app.pageInit = () => {
-      hasLogin = app.globalData.hasLogin
-      myInfo = app.globalData.resumeInfo
-      isJobhunter = app.globalData.isJobhunter
-      showScanIcon = hasLogin && isJobhunter ? true : false
-      this.setData({myInfo, isJobhunter, hasLogin, showScanIcon, resumeAttach: myInfo.resumeAttach || {}})
+    if (app.getRoleInit) {
+      this.getMyInfo()
+    } else {
+      app.getRoleInit = () => {
+        this.getMyInfo()
+      }
+    }
+    if(app.pageInit) {
+      init()
+    } app.pageInit = () => {
+      init()
+    }
+  },
+  getMyInfo () {
+    if (app.globalData.isMicroCard && !app.globalData.isJobhunter) {
+      getMyInfoApi().then(res => {
+        let myInfo = res.data
+        this.setData({myInfo, isMicroCard: true})
+      })
     }
   },
   call() {
@@ -110,15 +123,17 @@ Page({
   /* 编辑简历 */
   toEdit () {
     wx.navigateTo({
-      url: `${COMMON}resumeDetail/resumeDetail?uid=${this.data.myInfo.uid}`,
+      url: `${COMMON}resumeDetail/resumeDetail?uid=${this.data.myInfo.uid}&preview=true`,
     })
+  },
+  share () {
+    this.selectComponent('#share').oper()
   },
   onPullDownRefresh(hasLoading = true) {
     let hasLogin = false
     let myInfo = {}
     let isJobhunter = 0
     let showScanIcon = this.data.showScanIcon
-
     this.setData({hasReFresh: true})
     getPersonalResumeApi({...app.getSource()}).then(res => {
       hasLogin = app.globalData.hasLogin

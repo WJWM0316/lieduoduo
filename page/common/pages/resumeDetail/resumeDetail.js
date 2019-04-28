@@ -75,7 +75,7 @@ Page({
   getOthersInfo(hasLoading = true, isReload = false) {
     return new Promise((resolve, reject) => {
       getOtherResumeApi({uid: this.data.options.uid, hasLoading, isReload, ...app.getSource()}).then(res => {
-        this.setData({info: res.data, isOwner: res.data.isOwner && identity === 'APPLICANT', realIsOwner: res.data.isOwner}, function() {
+        this.setData({info: res.data, isOwner: res.data.isOwner && identity === 'APPLICANT' && !this.data.options.preview, realIsOwner: res.data.isOwner}, function() {
           if (this.data.isOwner) {
             app.globalData.resumeInfo = res.data
           }
@@ -116,6 +116,9 @@ Page({
     wx.navigateTo({
       url: url
     })
+  },
+  editSelf () {
+    this.setData({isOwner: true})
   },
   copy(e) {
     wx.setClipboardData({

@@ -9,6 +9,10 @@ Component({
     hide: {
       type: Boolean,
       value: true
+    },
+    hasClose: {
+      type: Boolean,
+      value: true
     }
   },
 

@@ -14,6 +14,10 @@ Component({
     needBg: {
       type: Boolean,
       value: false
+    },
+    icon: {
+      type: Boolean,
+      value: false
     }
   },
 

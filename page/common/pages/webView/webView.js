@@ -17,6 +17,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    wxShare = {}
     options = options
     if (options.scene) options = app.getSceneParams(options.scene)
     let init = () => {
@@ -31,13 +32,16 @@ Page({
             path: '/page/common/pages/webView/webView?type=recruitmentDay',
             imageUrl: `${this.data.cdnImagePath}zpjShareBg.jpg`
           }
+          app.readyStatistics({
+            page: 'recruit_festival',
+            channel: options.c || ''
+          })
+          break
+        case 'userAgreement':
+          pageUrl = `${WEBVIEW}userAgreement`
           break
       }
       this.setData({pageUrl})
-      app.readyStatistics({
-        page: 'recruit_festival',
-        channel: options.c || ''
-      })
     }
     if (app.loginInit) {
       init()
@@ -46,7 +50,6 @@ Page({
         init()
       }
     }
-    
   },
   getMessage (e) {
     console.log(e, 'h5返回的信息')

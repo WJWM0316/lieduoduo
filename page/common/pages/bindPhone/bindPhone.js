@@ -41,6 +41,11 @@ Page({
       }
     })
   },
+  toJump () {
+    wx.navigateTo({
+      url: `${COMMON}webView/webView?type=userAgreement`
+    })
+  },
   getPhone(e) {
     mobileNumber = e.detail.value
     clearTimeout(timer)
@@ -125,6 +130,7 @@ Page({
         }
       })
     })
+    app.phoneLogin(data)
   },
   getPhoneNumber(e) {
     app.quickLogin(e)
