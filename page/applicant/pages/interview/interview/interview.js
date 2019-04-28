@@ -10,16 +10,17 @@ import {RECRUITER, COMMON, APPLICANT} from '../../../../../config.js'
 
 import {getSelectorQuery} from "../../../../../utils/util.js"
 
-const app = getApp()
+let app = getApp()
 
 let chooseTime = parseInt(new Date().getTime() / 1000)
 let hasLogin = false //  是否登录
-const initData = {
+let initData = {
   list: [],
   pageNum: 1,
   count: 20,
   isLastPage: false,
-  isRequire: false
+  isRequire: false,
+  total: 0
 }
 
 Page({
@@ -93,14 +94,17 @@ Page({
     this.getFixedDomNodePosition()
   },
   chooseParentTab(e) {
-    const index = e.currentTarget.dataset.index
-    const tabLists = this.data.tabLists
+    let hasLogin = app.globalData.hasLogin
+    let index = e.currentTarget.dataset.index
+    let tabLists = this.data.tabLists
     let tabIndex = index
     tabLists.map((field, i) => {
       field.active = false
     })
     tabLists[tabIndex].active = true
     this.setData({tabLists, tabIndex})
+    if(!hasLogin) return
+
     this.getFixedDomNodePosition()
     let data = {}
     switch(index) {
@@ -233,9 +237,9 @@ Page({
     let interviewData = this.data.interviewData
     let interviewBottomStatus = 0
     return getScheduleListApi({count: interviewData.count, page: interviewData.pageNum, time: chooseTime, ...app.getSource()}, hasLoading).then(res => {
-      const list = res.data
+      let list = res.data
       list.map(field => {
-        const time = field.arrangementInfo.appointment.split(' ')[1].slice(0, 5)
+        let time = field.arrangementInfo.appointment.split(' ')[1].slice(0, 5)
         field.createdAtTime = time
       })
       interviewData.list.push(...list)
@@ -400,7 +404,7 @@ Page({
    * @detail   detail
    */
   routeJump(e) {
-    const params = e.currentTarget.dataset
+    let params = e.currentTarget.dataset
     // 不知道什么情款  有时候拿不到数据
     if(!Object.keys(params).length) return
     switch(params.status) {

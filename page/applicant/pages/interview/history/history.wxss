@@ -43,7 +43,6 @@
 
 .ul .li .content {
   margin-left: 144rpx;
-  margin-top: 21rpx;
   flex: 1;
 }
 
