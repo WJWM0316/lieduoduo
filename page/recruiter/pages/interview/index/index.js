@@ -141,9 +141,8 @@ Page({
     }
   },
   getResult(e) {
-    let time = e.currentTarget.dataset.time
-    console.log(time)
-    chooseTime = e.currentTarget.dataset.time
+    let i = e.currentTarget.dataset.index
+    let dateList = this.data.dateList
     let interviewData = {
       list: [],
       pageNum: 1,
@@ -152,8 +151,9 @@ Page({
       isRequire: false,
       total: 0
     }
-    this.setData({interviewData, interviewBottomStatus: 0})
-    this.getScheduleList()
+    dateList.map((field, index) => field.active = index === i ? true : false)
+    chooseTime = e.currentTarget.dataset.time
+    this.setData({interviewData, interviewBottomStatus: 0, dateList}, () => this.getScheduleList())
   },
   // 我的邀请
   getApplyList(hasLoading = true) {
@@ -261,6 +261,7 @@ Page({
       let dateList = res.data
       if(!dateList.length) return
       chooseTime = dateList[0].time
+      dateList.map((field, index) => field.active = index === 0 ? true : false)
       this.setData({dateList}, () => this.getScheduleList())
     })
   },

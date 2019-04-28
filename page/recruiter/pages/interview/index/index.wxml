@@ -66,7 +66,14 @@
 			<view class="history" bindtap="jumpInterviewPage"><i class="icon iconfont icon-lishijilu"></i> 全部面试</view>
 		</view>
 		<view class="scroll-box" wx:if="{{dateList.length && tabIndex === 2}}">
-			<view wx:for="{{dateList}}" wx:key="{{index}}" class="item" wx:for-item="item" data-time="{{item.time}}" bindtap="getResult">{{item.date}}</view>
+			<view
+				wx:for="{{dateList}}"
+				wx:key="{{index}}"
+				class="item {{item.active ? 'active' : ''}}"
+				wx:for-item="item"
+				data-time="{{item.time}}"
+				data-index="{{index}}"
+				bindtap="getResult">{{item.date}}</view>
 		</view>
 		<!-- 面试日程 end-->
 	</view>

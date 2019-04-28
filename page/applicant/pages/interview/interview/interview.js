@@ -79,18 +79,19 @@ Page({
   },
   /* 面试日程 */
   getResult(e) {
-    if(e && e.detail && e.detail.timeStamp) {
-      chooseTime = e.detail.timeStamp
-      let interviewData = {
-        list: [],
-        pageNum: 1,
-        count: 20,
-        isLastPage: false,
-        isRequire: false
-      }
-      this.setData({interviewData, interviewBottomStatus: 0})
-      this.getScheduleList()
+    let i = e.currentTarget.dataset.index
+    let dateList = this.data.dateList
+    let interviewData = {
+      list: [],
+      pageNum: 1,
+      count: 20,
+      isLastPage: false,
+      isRequire: false,
+      total: 0
     }
+    dateList.map((field, index) => field.active = index === i ? true : false)
+    chooseTime = e.currentTarget.dataset.time
+    this.setData({interviewData, interviewBottomStatus: 0, dateList}, () => this.getScheduleList())
   },
   chooseParentTab(e) {
     let index = e.currentTarget.dataset.index
@@ -143,6 +144,7 @@ Page({
       let dateList = res.data
       if(!dateList.length) return
       chooseTime = dateList[0].time
+      dateList.map((field, index) => field.active = index === 0 ? true : false)
       this.setData({dateList}, () => this.getScheduleList())
     })
   },
