@@ -170,6 +170,7 @@ Page({
     // 当前操作时选择开始时间
     // 要判断跟结束时间的间隔
     if(startTime.active && this.timeStampToDay(startTime, endTime)) {
+      app.wxToast({title: '时间范围不能超过30天'})
       return
     }
 

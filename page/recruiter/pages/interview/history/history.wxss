@@ -190,13 +190,13 @@
 }
 
 .fixed-box .child-box .p1{
-  height:26rpx;
-  font-size:26rpx;
+  height:24rpx;
+  font-size:24rpx;
   font-weight:300;
-  color:rgba(92,86,93,1);
-  line-height:26rpx;
-  padding-top: 64rpx;
-  padding-bottom: 56rpx;
+  color:rgba(146,146,146,1);
+  line-height:24rpx;
+  display: inline-block;
+  margin-left: 10rpx;
 }
 
 .fixed-box .child-box .h2{
@@ -205,6 +205,7 @@
   font-weight:500;
   color:rgba(40,40,40,1);
   line-height:26rpx;
+  margin-top: 64rpx;
 }
 
 .fixed-box .child-box .box4{

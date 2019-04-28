@@ -14,7 +14,6 @@
 		</view>
 		<view class="child-box" wx:if="{{timeModel.show || positionModel.show}}" style="top: {{navH}}px">
 			<view class="time" wx:if="{{timeModel.show}}">
-				<view class="p1">最长可查询30天的面试记录</view>
 				<view class="h2">选择日期范围</view>
 				<view class="box4">
 					<view
@@ -24,7 +23,7 @@
 						data-id="{{item.id}}"
 						bindtap="changeSearch">{{item.text}}</view>
 				</view>
-				<view class="h3">自定义时间范围</view>
+				<view class="h3">自定义时间范围<view class="p1">(最长可查询30天的面试记录)</view></view>
 				<view class="select-range">
 					<view class="start {{startTime.date ? 'active' : ''}}">
 						{{startTime.date ? startTime.date : '请选择时间'}} <i class="icon iconfont icon-zhishibiao"></i>
