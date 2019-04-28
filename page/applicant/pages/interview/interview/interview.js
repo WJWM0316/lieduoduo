@@ -93,7 +93,6 @@ Page({
     }
   },
   chooseParentTab(e) {
-    let hasLogin = app.globalData.hasLogin
     let index = e.currentTarget.dataset.index
     let tabLists = this.data.tabLists
     let tabIndex = index
@@ -294,7 +293,17 @@ Page({
   onLoad () {
     wx.setStorageSync('choseType', 'APPLICANT')
   },
+  initDefault() {
+    let applyData = initData
+    let receiveData = initData
+    let interviewData = initData
+    let applyBottomStatus = 2
+    let receiveBottomStatus = 2
+    let interviewBottomStatus = 2
+    this.setData({applyData, receiveData, interviewData, applyBottomStatus, receiveBottomStatus, interviewBottomStatus})
+  },
   onShow () {
+    this.initDefault()
     if (app.globalData.isJobhunter) {
       hasLogin = app.globalData.hasLogin
       this.init()
