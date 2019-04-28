@@ -174,11 +174,14 @@
   background:rgba(255,255,255,1);
   box-shadow:0rpx 11rpx 30rpx 0rpx rgba(0,0,0,0.04);
   border-radius:0rpx 0rpx 10rpx 10rpx;
-  padding: 98rpx 40rpx 0 40rpx;
+  padding: 0 40rpx 0 40rpx;
   z-index: 2;
   position: fixed;
   left: 0;
   right: 0;
+  max-height: 660rpx;
+  margin-top: 98rpx;
+  overflow: hidden;
 }
 
 .fixed-box .child-box .p1{
@@ -289,7 +292,12 @@
 .fixed-box {}
 
 .fixed-box .ul10 {
-  padding: 64rpx 0 53rpx 0;
+  padding-bottom: 188rpx;
+  max-height: 638rpx;
+  overflow: hidden;
+  overflow-y: scroll;
+  box-sizing: border-box;
+  margin-top: 64rpx;
 }
 
 .fixed-box .ul10 .item10{
@@ -316,7 +324,14 @@
 
 .fixed-box .button-box {
   display: flex;
-  padding-bottom: 40rpx;
+  height: 168rpx;
+  position: absolute;
+  left: 40rpx;
+  bottom: 0;
+  right: 40rpx;
+  background: white;
+  justify-content: center;
+  align-items: center;
 }
 
 .fixed-box .button-reset {
