@@ -164,14 +164,16 @@
 	background:rgba(255,255,255,1);
 	box-shadow:0rpx -5rpx 40rpx 0rpx rgba(22,39,77,0.05);
 	border-radius:10rpx;
-	margin: 44rpx 30rpx;
+	margin: 0 30rpx;
 	position: relative;
 }
 
 .item3 .row-one {
 	display: flex;
-	padding: 22rpx 0 54rpx 0;
-	margin: 0 28rpx;
+	padding: 22rpx 0 24rpx 0;
+	margin: 0 30rpx 30rpx 30rpx;
+	align-items: center;
+	border-bottom: 1rpx solid #E8E9EB;
 }
 
 .item3 .header .zhiwei{
@@ -201,7 +203,6 @@
 	height:120rpx;
 	border-radius: 50%;
 	overflow: hidden;
-	margin-top: -42rpx;
 	border:4rpx solid rgba(255,255,255,1);
 	box-sizing: border-box;
 }
@@ -307,7 +308,7 @@
 	text-align: center;
 	border-radius:26rpx;
 	position: absolute;
-	top: 20rpx;
+	top: 32rpx;
 	right: 24rpx;
 	font-size:32rpx;
 	font-weight:bold;
@@ -527,4 +528,12 @@
 	background: red;
 	display: block;
 	content: '';
+}
+
+.list-box2 {
+	padding-top: 225rpx;
+}
+
+.height10 {
+	padding-top: 311rpx;
 }

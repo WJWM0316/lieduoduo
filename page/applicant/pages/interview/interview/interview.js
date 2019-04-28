@@ -91,7 +91,6 @@ Page({
       this.setData({interviewData, interviewBottomStatus: 0})
       this.getScheduleList()
     }
-    this.getFixedDomNodePosition()
   },
   chooseParentTab(e) {
     let hasLogin = app.globalData.hasLogin
@@ -105,7 +104,6 @@ Page({
     this.setData({tabLists, tabIndex})
     if(!hasLogin) return
 
-    this.getFixedDomNodePosition()
     let data = {}
     switch(index) {
       case 0:
@@ -300,19 +298,12 @@ Page({
     if (app.globalData.isJobhunter) {
       hasLogin = app.globalData.hasLogin
       this.init()
-      this.getFixedDomNodePosition()
     } else {
       app.getRoleInit = () => {
         hasLogin = app.globalData.hasLogin
         this.init()
-        this.getFixedDomNodePosition()
       }
     }
-  },
-  getFixedDomNodePosition() {
-    getSelectorQuery('.fixed-dom').then(res => {
-      this.setData({fixedBarHeight: res.height})
-    })
   },
   onReachBottom(e) {
     switch(this.data.tabIndex) {

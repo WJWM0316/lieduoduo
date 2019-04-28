@@ -226,9 +226,10 @@
 .item3 .row-one {
   display: flex;
   padding: 32rpx 0;
-  border-bottom: 1rpx dotted #BACED8;
+  border-bottom: 1rpx solid #E8E9EB;
   margin: 0 30rpx;
   align-items: center;
+  height: 120rpx;
 }
 
 .item3 .row-one .img-box {
@@ -338,7 +339,7 @@
   background: none;
   text-align: left;
   line-height: normal;
-  margin-bottom: 24rpx;
+  margin-bottom: 20rpx;
   box-shadow:0rpx -5rpx 40rpx 0rpx rgba(22,39,77,0.05);
 }
 
@@ -519,4 +520,12 @@
   background: red;
   display: block;
   content: '';
+}
+
+.list-box2 {
+  padding-top: 225rpx;
+}
+
+.height10 {
+  padding-top: 331rpx;
 }

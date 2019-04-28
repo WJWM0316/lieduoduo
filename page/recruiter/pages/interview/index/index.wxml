@@ -170,7 +170,7 @@
 	</view>
 
 	<!--面试日程-->
-	<view hidden="{{tabIndex !== 2}}" class="list-box" style="padding-top: 331rpx">
+	<view hidden="{{tabIndex !== 2}}" class="list-box list-box2 {{dateList.length ? 'height10' : ''}}">
 		<view hidden="{{!hasReFresh}}">
 			<refreshStatus></refreshStatus>
 		</view>

@@ -151,7 +151,7 @@
 	</view>
 
 	<!--面试日程-->
-	<view hidden="{{tabIndex !== 2}}" class="list-box" style="padding-top: {{fixedBarHeight}}px">
+	<view hidden="{{tabIndex !== 2}}" class="list-box list-box2 {{dateList.length ? 'height10' : ''}}">
 		<view hidden="{{!hasReFresh}}">
 			<refreshStatus></refreshStatus>
 		</view>
@@ -184,7 +184,7 @@
 							<i class="icon iconfont icon-mianshizhiwei"></i>
 							面试职位：{{item.positionId ? item.positionName : '未选择面试职位'}}
 						</view>
-						<view class="row-three">
+						<view class="row-three" wx:if="{{item.address}}">
 							<i class="icon iconfont icon-mianshidizhi"></i>{{item.address}}</view>
 					</button>
 				</view>
