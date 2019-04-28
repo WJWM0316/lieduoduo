@@ -1,5 +1,5 @@
 import {
-  getInterviewHistoryApi,
+  getNewHistoryApi,
   getPositionTypeListApi
 } from '../../../../../api/pages/interview.js'
 
@@ -347,7 +347,7 @@ Page({
         params = Object.assign(params, {start, end})
       }
 
-      getInterviewHistoryApi(params).then(res => {
+      getNewHistoryApi(params).then(res => {
         let interviewList = this.data.interviewList
         let onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
         interviewList.list = interviewList.list.concat(res.data)

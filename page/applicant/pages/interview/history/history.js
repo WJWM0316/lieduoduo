@@ -1,5 +1,5 @@
 import {
-  getInterviewHistoryApi
+  getNewHistoryApi
 } from '../../../../../api/pages/interview.js'
 
 import {RECRUITER, APPLICANT, COMMON} from '../../../../../config.js'
@@ -234,7 +234,7 @@ Page({
         params = Object.assign(params, {start, end})
       }
 
-      getInterviewHistoryApi(params, hasLoading).then(res => {
+      getNewHistoryApi(params, hasLoading).then(res => {
         let interviewList = this.data.interviewList
         let onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
         interviewList.list = interviewList.list.concat(res.data)
@@ -242,7 +242,6 @@ Page({
         interviewList.pageNum = interviewList.pageNum + 1
         interviewList.isRequire = true
         interviewList.total = res.meta.total
-        console.log(this.data)
         this.setData({interviewList, onBottomStatus}, () => resolve(res))
       })
     })

@@ -325,6 +325,7 @@
 .fixed-box .ul10 .active{
   color: #652791;
   border-color: #652791;
+  font-weight: unset;
 }
 
 .fixed-box .button-box {
