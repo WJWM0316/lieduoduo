@@ -376,22 +376,6 @@ Page({
   showTips() {
     this.setData({showScanBox: !this.data.showScanBox})
   },
-  /**
-   * @Author   小书包
-   * @DateTime 2019-01-28
-   * @detail   扫码上传
-   * @return   {[type]}   [description]
-   */
-  scanCode() {
-    wx.scanCode({
-      onlyFromCamera: true,
-      success: res => {
-        const uuid = res.result.split('&')[0].slice(5)
-        const params = {uuid, isBusiness: 1}
-        scanQrcodeApi({uuid}).then(res => scanLoginApi(params))
-      }
-    })
-  },
   copy() {
     wx.setClipboardData({data: 'https://lieduoduo.com' })
   },

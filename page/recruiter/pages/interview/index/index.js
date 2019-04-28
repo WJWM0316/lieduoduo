@@ -259,6 +259,7 @@ Page({
   getNewScheduleNumber() {
     getNewScheduleNumberApi().then(res => {
       let dateList = res.data
+      if(!dateList.length) return
       chooseTime = dateList[0].time
       this.setData({dateList}, () => this.getScheduleList())
     })

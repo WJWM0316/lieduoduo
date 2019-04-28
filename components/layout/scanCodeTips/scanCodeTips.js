@@ -36,7 +36,7 @@ Component({
             params = Object.assign(params, {isBusiness: 0})
           }
           
-          scanQrcodeApi({uuid}).then(res => scanLoginApi(params))
+          scanQrcodeApi({uuid}).then(res => scanLoginApi(params).then(() => this.setData({showScanBox: false})))
         }
       })
     },

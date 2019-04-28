@@ -127,15 +127,23 @@ Page({
           total: 0
         }
         chooseTime = ''
-        this.setData({interviewData})
-        // this.selectComponent('#myCalendar').scrollLeft()
-        this.getScheduleList()
-        getNewScheduleNumberApi().then(res => {
-          let dateList = res.data
-          this.setData({dateList})
-        })
+        this.setData({interviewData}, () => this.getNewScheduleNumber())
         break
     }
+  },
+  /**
+   * @Author   小书包
+   * @DateTime 2019-04-28
+   * @detail   获取满是日程列表
+   * @return   {[type]}   [description]
+   */
+  getNewScheduleNumber() {
+    getNewScheduleNumberApi().then(res => {
+      let dateList = res.data
+      if(!dateList.length) return
+      chooseTime = dateList[0].time
+      this.setData({dateList}, () => this.getScheduleList())
+    })
   },
   chooseItem(e) {
     let index = e.currentTarget.dataset.index
@@ -277,13 +285,7 @@ Page({
             isRequire: false,
             total: 0
           }
-          this.setData({interviewData})
-          // this.selectComponent('#myCalendar').scrollLeft()
-          this.getScheduleList()
-          getNewScheduleNumberApi().then(res => {
-            let dateList = res.data
-            this.setData({dateList})
-          })
+          this.setData({interviewData}, () => this.getNewScheduleNumber())
       }
     }
   },
