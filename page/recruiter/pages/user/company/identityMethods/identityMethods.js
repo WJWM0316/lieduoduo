@@ -51,7 +51,18 @@ Page({
         wx.makePhoneCall({phoneNumber: app.globalData.telePhone})
         break
       case 'notice':
-        upJoinTypeApi({company_id: options.companyId, join_type: 1}).then(() => wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=join`}))
+        upJoinTypeApi({company_id: options.companyId, join_type: 1})
+        .then(() => wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=join`}))
+        .catch(err => {
+          if(err.code === 307) {
+            app.wxToast({
+              title: err.msg,
+              callback() {
+                wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=join`})
+              }
+            })
+          } 
+        })
         break
       default:
         break

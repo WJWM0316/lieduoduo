@@ -6,7 +6,7 @@ import {
   editIdentityJoinApi
 } from '../../../../../../api/pages/company.js'
 
-import {realNameReg, idCardReg} from '../../../../../../utils/fieldRegular.js'
+import {realNameRegB, idCardReg} from '../../../../../../utils/fieldRegular.js'
 
 import {RECRUITER} from '../../../../../../config.js'
 
@@ -143,7 +143,7 @@ Page({
 
     // 验证姓名
     let checkRealName = new Promise((resolve, reject) => {
-      !realNameReg.test(formData.real_name) ? reject('姓名需为2-20个中文字符') : resolve()
+      !realNameRegB.test(formData.real_name) ? reject('姓名需为2-20个中文字符') : resolve()
     })
     
     // 验证身份证
@@ -277,7 +277,9 @@ Page({
   bindInput(e) {
     let field = e.currentTarget.dataset.field
     let formData = this.data.formData
-    formData[field] = e.detail.value
+    let value = e.detail.value
+    value = value.replace(/\s+/g,'')
+    formData[field] = value
     this.setData({formData}, () => this.bindBtnStatus())
   },
   beforeUpload(e) {

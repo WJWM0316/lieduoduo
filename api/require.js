@@ -16,11 +16,11 @@ let recruiterJump = (msg) => {
   let applyJoin = msg.data.applyJoin
   if(applyJoin) {
     // 加入公司
-    wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=join`})
+    wx.redirectTo({url: `${RECRUITER}user/company/status/status?from=join`})
   } else {
     // 还没有创建公司信息
     if(!companyInfo.id) {
-      wx.reLaunch({url: `${RECRUITER}user/company/apply/apply`})
+      wx.redirectTo({url: `${RECRUITER}user/company/apply/apply`})
     } else {
       if(companyInfo.status === 1) {
         wx.reLaunch({url: `${RECRUITER}index/index`})

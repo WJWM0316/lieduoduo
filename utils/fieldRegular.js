@@ -16,6 +16,9 @@ export const userNameReg = /^[\u0391-\uFFE5A-Za-z\s]{2,20}$/
 // 真实姓名
 export const realNameReg = /^[\u4E00-\u9FA5\s]{2,20}$/
 
+// B端真实姓名
+export const realNameRegB = /^[\u4E00-\u9FA5]{2,20}$/
+
 // 密码
 export const passwordReg = /^[0-9A-Za-z_\-\@\#\$\%\^&\*\'\/\<\>]{6,20}$/
 

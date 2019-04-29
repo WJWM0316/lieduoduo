@@ -8,13 +8,24 @@
 	margin-top: 24rpx;
 }
 
-.company-post .warning {
+/*.company-post .warning {
 	background:rgba(255,252,240,1);
 	font-size:26rpx;
 	font-weight:300;
 	color:#FF7F4D;
 	padding: 22rpx 40rpx;
 	line-height: 36rpx;
+	
+}*/
+
+.company-post .warning {
+	height:80rpx;
+	background:rgba(255,252,240,1);
+	line-height: 80rpx;
+	font-size:28rpx;
+	font-weight:300;
+	color:rgba(255,127,77,1);
+	padding: 0 40rpx;
 }
 
 .company-post .entry-list .li {
@@ -22,7 +33,7 @@
 	line-height: 122rpx;
 	overflow: hidden;
 	font-size:28rpx;
-	font-weight:400;
+	/*font-weight:400;*/
 	position: relative;
 	padding: 0 40rpx;
 }
@@ -42,7 +53,7 @@
 	left: 40rpx;
 	right: 40rpx;
 	bottom: 0;
-	height: 1px;
+	height: 1rpx;
 	background: #E8E9EB;
 }
 

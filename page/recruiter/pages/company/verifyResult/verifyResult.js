@@ -58,6 +58,11 @@ Page({
             }}
           )
         })
+        .catch(err => {
+          if(err.code === 307) {
+            this.getApplyjoinInfos(false)
+          } 
+        })
       }
     })
   },
@@ -92,6 +97,11 @@ Page({
           } else {
             that.getApplyjoinInfos(false).then(() => app.wxToast({title: '处理成功'}))
           }
+        })
+        .catch(err => {
+          if(err.code === 307) {
+            this.getApplyjoinInfos(false)
+          } 
         })
       }
     })

@@ -25,7 +25,7 @@
 
 .banner image {
 	width: 100vw;
-	height: 495rpx;
+	height: 410rpx;
 	display: block;
 }
 
@@ -110,7 +110,7 @@
 	padding-right: 25rpx;
 }
 .enter {
-	width: 100%;
+	width: calc(100vw);
 	margin-top: 33rpx;
 	text-align: center;
 	font-size:28rpx;

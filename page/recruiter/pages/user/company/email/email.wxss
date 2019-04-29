@@ -188,11 +188,14 @@
 .question {
 	display: inline;
 	float: right;
+	position: relative;
 }
 
 .question i{
-	display: inline-block;
-	vertical-align: text-bottom;
+	position: absolute;
+	left: -40rpx;
+	top: 50%;
+	transform: translateY(-50%);
 }
 
 .over-layout {
@@ -259,10 +262,10 @@
 	color: #652791;
 }
 
-.over-layout .h1 {
+.over-layout .h9 {
 	height:36rpx;
 	font-size:36rpx;
-	font-weight:500;
+	font-weight:700;
 	color:rgba(53,57,67,1);
 	line-height:1;
 	text-align: center;

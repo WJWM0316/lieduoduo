@@ -70,6 +70,7 @@ Page({
     let isEmail = this.data.isEmail
     let options = this.data.options
     let email = e.detail.value
+    email = email.replace(/\s+/g,'')
     isEmail = emailReg.test(email)
     this.setData({email, isEmail, error: false}, () => this.bindBtnStatus())
   },
@@ -97,7 +98,7 @@ Page({
     let email = this.data.email
     let options = this.data.options
     let applyJoin = options.from === 'join' ? true : false
-    let params = {email: this.data.email, company_id: options.companyId}
+    let params = {email: email.trim(), company_id: options.companyId}
     // 邮箱不正确
     if(!this.data.canClick) return
     if(this.data.step === 2) {
@@ -106,6 +107,18 @@ Page({
         this.setData({canResend: false }, this.killTime())
       })
       .catch(msg => {
+
+        // 已经时招聘官
+        if(msg.code === 307) {
+          app.wxToast({
+            title: msg.msg,
+            callback() {
+              wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=company`})
+            }
+          })
+          return
+        }
+
         if(msg.code === 808) {
           app.wxToast({
             title: msg.msg,
@@ -114,7 +127,10 @@ Page({
               wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=company`})
             }
           })
+          return
         }
+
+        app.wxToast({ title: msg.msg })
       })
     } else {
       sendEmailApi(params)
@@ -122,6 +138,17 @@ Page({
         this.setData({step: 2, isFocus: true}, this.killTime())
       })
       .catch(msg => {
+
+        if(msg.code === 307) {
+          app.wxToast({
+            title: msg.msg,
+            callback() {
+              wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=company`})
+            }
+          })
+          return
+        }
+
         if(msg.code === 808) {
           app.wxToast({
             title: msg.msg,
@@ -130,7 +157,10 @@ Page({
               wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=company`})
             }
           })
+          return
         }
+
+        app.wxToast({ title: msg.msg })
       })
     }
   },
@@ -164,14 +194,37 @@ Page({
     let options = this.data.options
     let applyJoin = options.from === 'join' ? true : false
     let params = {email: this.data.email, company_id: options.companyId}
+    let email = ''
     if(!this.data.email) return
     if(!params.email.includes('@')) {
-      params = Object.assign(params, {email: `${params.email}${options.suffix}`})
+      email = `${params.email}${options.suffix}`
+      email = email.trim()
+      params = Object.assign(params, {email})
     }
     if(this.data.step === 2) {
       sendEnterpriseEmailApi(params).then(res => this.setData({canResend: false }, this.killTime()))
+      .catch(err => {
+        if(err.code === 307) {
+          app.wxToast({
+            title: err.msg,
+            callback() {
+              wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=join`})
+            }
+          })
+        } 
+      })
     } else {
       sendEnterpriseEmailApi(params).then(res => this.setData({step: 2, isFocus: true}, this.killTime()))
+      .catch(err => {
+        if(err.code === 307) {
+          app.wxToast({
+            title: err.msg,
+            callback() {
+              wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=join`})
+            }
+          })
+        } 
+      })
     }
   },
   /**
@@ -196,11 +249,27 @@ Page({
    */
   reEmailByCreate() {
     let options = this.data.options
-    let params = {email: this.data.email, company_id: options.companyId}
+    let email = this.data.email
+    email = email.trim()
+    let params = {email, company_id: options.companyId}
     // 已经进入倒计时
     if(!this.data.canResend) return;
     this.setData({canResend: false , isFocus: true})
     sendEmailApi(params).then(res => this.killTime())
+    .catch(err => {
+
+      if(err.code === 307) {
+        app.wxToast({
+          title: err.msg,
+          callback() {
+            wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=company`})
+          }
+        })
+        return
+      }
+
+      app.wxToast({ title: err.msg })
+    })
   },
   /**
    * @Author   小书包
@@ -211,13 +280,29 @@ Page({
   reEmailByJoin() {
     let options = this.data.options
     let params = {email: this.data.email, company_id: options.companyId}
+    let email = ''
     if(!params.email.includes('@')) {
-      params = Object.assign(params, {email: `${params.email}${options.suffix}`})
+      email = `${params.email}${options.suffix}`
+      email = email.trim()
+      params = Object.assign(params, {email})
     }
     // 已经进入倒计时
     if(!this.data.canResend) return;
     this.setData({canResend: false , isFocus: true})
-    sendEnterpriseEmailApi(params).then(res => this.killTime())
+    sendEnterpriseEmailApi(params)
+    .then(res => {
+      this.killTime()
+    })
+    .catch(err => {
+      if(err.code === 307) {
+        app.wxToast({
+          title: err.msg,
+          callback() {
+            wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=join`})
+          }
+        })
+      } 
+    })
   },
   /**
    * @Author   小书包
@@ -242,7 +327,9 @@ Page({
    */
   verifyEmailByCreate() {
     let options = this.data.options
-    let params = {email: this.data.email, company_id: options.companyId, code: this.data.code}
+    let email = this.data.email
+    email = email.trim()
+    let params = {email, company_id: options.companyId, code: this.data.code}
     verifyEmailApi(params).then(() => {
       let storage = wx.getStorageSync('createdCompany')
       perfectCompanyApi({
@@ -260,6 +347,17 @@ Page({
         wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=company`})
       })
       .catch(msg => {
+
+        if(msg.code === 307) {
+          msg.wxToast({
+            title: msg.msg,
+            callback() {
+              wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=company`})
+            }
+          })
+          return
+        }
+
         if(msg.code === 808) {
           app.wxToast({
             title: msg.msg,
@@ -268,11 +366,25 @@ Page({
               wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=company`})
             }
           })
+          return
         }
+
+        app.wxToast({ title: msg.msg })
       })
     })
     .catch(msg => {
       this.setData({code: '', error: true, isFocus: true, classErrorName: 'error'})
+
+      if(msg.code === 307) {
+        app.wxToast({
+          title: msg.msg,
+          callback() {
+            wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=company`})
+          }
+        })
+        return
+      }
+
       if(msg.code === 808) {
         app.wxToast({
           title: msg.msg,
@@ -282,6 +394,8 @@ Page({
           }
         })
       }
+
+      app.wxToast({ title: msg.msg })
     })
   },
   /**
@@ -292,15 +406,26 @@ Page({
    */
   verifyEmailByJoin() {
     let options = this.data.options
-    let params = {email: this.data.email, company_id: options.companyId, code: this.data.code}
+    let email = this.data.email
+    let params = {email, company_id: options.companyId, code: this.data.code}
     if(!params.email.includes('@')) {
-      params = Object.assign(params, {email: `${params.email}${options.suffix}`})
+      email = `${params.email}${options.suffix}`
+      email = email.trim()
+      params = Object.assign(params, {email})
     }
     verifyEnterpriseEmailApi(params).then(res => {
       wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=join`})
     })
-    .catch(() => {
+    .catch(err => {
       this.setData({code: '', error: true, isFocus: true, classErrorName: 'error'})
+      if(err.code === 307) {
+        app.wxToast({
+          title: err.msg,
+          callback() {
+            wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=join`})
+          }
+        })
+      } 
     })
   },
   /**
@@ -319,10 +444,7 @@ Page({
    * @return   {[type]}   [description]
    */
   changeIndentifyMethods() {
-    let options = this.data.options
-    let applyJoin = options.from === 'join' ? true : false
-    let from = applyJoin ? 'join' : 'company'
-    wx.reLaunch({url: `${RECRUITER}user/company/identityMethods/identityMethods?from=${from}`})
+    wx.navigateBack({delta: 1})
   },
   /**
    * @Author   小书包
