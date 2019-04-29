@@ -8,7 +8,7 @@
   background:rgba(255,255,255,1);
   border-radius:10rpx;
   position: relative;
-  padding: 32rpx 30rpx;
+  padding: 32rpx 30rpx 34rpx 30rpx;
 }
 
 .ul .li .row-one {
@@ -78,8 +78,7 @@
 
 .ul .li .header .degree{
   font-size:28rpx;
-  font-weight:400;
-  color:rgba(40,40,40,1);
+  color:#282828;
   position: relative;
   display: inline;
   padding-left: 30rpx;
@@ -98,7 +97,7 @@
   max-width:490rpx;
   height:28rpx;
   font-size:26rpx;
-  font-weight:400;
+  font-weight:300;
   color:rgba(98,98,98,1);
   line-height:28rpx;
   margin-top: 14rpx;
@@ -118,7 +117,7 @@
   color: #652791;
 }
 .ul .li .icon {
-  color: #BACED8;
+  color: #CDCBCF;
   font-size: 32rpx;
   position: absolute;
   top: 50%;
@@ -133,22 +132,20 @@
   max-width:calc(100% - 56rpx);
   line-height: 28rpx;
   font-size:26rpx;
-  font-weight:400;
-  color:#626262;
+  color:#5C565D;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
   position: relative;
   padding-left: 45rpx;
-  margin-bottom: 30rpx;
+  margin-bottom: 26rpx;
 }
 
 .ul .li .row-three {
   max-width:calc(100% - 56rpx);
   line-height: 28rpx;
   font-size:26rpx;
-  font-weight:400;
-  color:#626262;
+  color:#5C565D;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
