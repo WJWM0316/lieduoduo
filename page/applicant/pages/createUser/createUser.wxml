@@ -255,6 +255,6 @@
 			</view>
 		</view>
 	</view>
-	<customPicker pickerType="{{pickerType}}" openPicker="{{openPicker}}" activeIndex="{{activeIndex}}" bindpickerResult="pickerResult"></customPicker>
+	<customPicker wx:if="{{isMicro}}" pickerType="{{pickerType}}" openPicker="{{openPicker}}" activeIndex="{{activeIndex}}" bindpickerResult="pickerResult"></customPicker>
 	<guidePop showPop="{{showPop}}"></guidePop>
 </view>

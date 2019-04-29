@@ -34,6 +34,7 @@ Component({
     pickerData: [] // picker数据
   },
   attached () {
+    pickerResult = {}
     for (let i = 0; i < 65; i++) {
       year.push(curYear - i)
     }
