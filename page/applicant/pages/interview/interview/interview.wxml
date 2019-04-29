@@ -58,7 +58,14 @@
 			<view class="history" bindtap="jumpInterviewPage"><i class="icon iconfont icon-lishijilu"></i> 全部面试</view>
 		</view>
 		<view class="scroll-box"  wx:if="{{dateList.length && tabIndex === 2}}">
-			<view wx:for="{{dateList}}" wx:key="{{index}}" class="item" wx:for-item="item" data-time="{{item.time}}" bindtap="getResult">{{item.date}}</view>
+			<view
+				wx:for="{{dateList}}"
+				wx:key="{{index}}"
+				class="item {{item.active ? 'active' : ''}}"
+				wx:for-item="item"
+				data-time="{{item.time}}"
+				data-index="{{index}}"
+				bindtap="getResult">{{item.date}}</view>
 		</view>
 	</view>
 
@@ -151,7 +158,7 @@
 	</view>
 
 	<!--面试日程-->
-	<view hidden="{{tabIndex !== 2}}" class="list-box" style="padding-top: {{fixedBarHeight}}px">
+	<view hidden="{{tabIndex !== 2}}" class="list-box list-box2 {{dateList.length ? 'height10' : ''}}">
 		<view hidden="{{!hasReFresh}}">
 			<refreshStatus></refreshStatus>
 		</view>
@@ -184,7 +191,7 @@
 							<i class="icon iconfont icon-mianshizhiwei"></i>
 							面试职位：{{item.positionId ? item.positionName : '未选择面试职位'}}
 						</view>
-						<view class="row-three">
+						<view class="row-three" wx:if="{{item.address}}">
 							<i class="icon iconfont icon-mianshidizhi"></i>{{item.address}}</view>
 					</button>
 				</view>

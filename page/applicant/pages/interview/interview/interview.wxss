@@ -145,6 +145,14 @@
   font-weight:400;
   color:#652791;
   float: right;
+  position: relative;
+}
+
+.interview-page-title .history .icon{
+  position: absolute;
+  left: -40rpx;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 .list{
@@ -164,14 +172,16 @@
 	background:rgba(255,255,255,1);
 	box-shadow:0rpx -5rpx 40rpx 0rpx rgba(22,39,77,0.05);
 	border-radius:10rpx;
-	margin: 44rpx 30rpx;
+	margin: 0 30rpx;
 	position: relative;
 }
 
 .item3 .row-one {
 	display: flex;
-	padding: 22rpx 0 54rpx 0;
-	margin: 0 28rpx;
+	padding: 22rpx 0 24rpx 0;
+	margin: 0 30rpx 30rpx 30rpx;
+	align-items: center;
+	border-bottom: 1rpx solid #E8E9EB;
 }
 
 .item3 .header .zhiwei{
@@ -201,7 +211,6 @@
 	height:120rpx;
 	border-radius: 50%;
 	overflow: hidden;
-	margin-top: -42rpx;
 	border:4rpx solid rgba(255,255,255,1);
 	box-sizing: border-box;
 }
@@ -307,7 +316,7 @@
 	text-align: center;
 	border-radius:26rpx;
 	position: absolute;
-	top: 20rpx;
+	top: 32rpx;
 	right: 24rpx;
 	font-size:32rpx;
 	font-weight:bold;
@@ -476,27 +485,34 @@
 .scroll-box {
   box-sizing: border-box;
   white-space: nowrap;
-  overflow: hidden;
-  overflow-x: scroll;
-  display: flex;
-  align-items: center;
-  height: 106rpx;
+  overflow-y: hidden;
+  overflow-x: auto;
   background: white;
   position: relative;
+  width: 100%;
+  height: 106rpx;
+  padding: 24rpx 0;
+}
+
+.scroll-box::-webkit-scrollbar{
+  width: 0;
+  display: none;
 }
 
 .scroll-box:after {
 	padding-right:22rpx;
 	content: '';
-	display: block;
+	display: inline-block;
 	height: 58rpx;
+	vertical-align: middle;
 }
 
 .scroll-box:before {
 	padding-left:40rpx;
 	content: '';
-	display: block;
+	display: inline-block;
 	height: 58rpx;
+	vertical-align: middle;
 }
 
 .scroll-box .item{
@@ -510,6 +526,10 @@
 	color:rgba(92,86,93,1);
 	padding: 0 43rpx;
 	position: relative;
+	box-sizing: border-box;
+	display: inline-block;
+	vertical-align: middle;
+	/*transform:translateY(-100%);*/
 }
 
 .scroll-box .active{
@@ -527,4 +547,12 @@
 	background: red;
 	display: block;
 	content: '';
+}
+
+.list-box2 {
+	padding-top: 225rpx;
+}
+
+.height10 {
+	padding-top: 311rpx;
 }
