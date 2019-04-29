@@ -4,11 +4,11 @@
 		<view class="mask" wx:if="{{timeModel.show || positionModel.show}}" bindtap="closeModal"></view>
 		<view class="down-show" style="top: {{navH}}px">
 			<view
-				class="key {{timeModel.show ? 'down-show-active' : ''}}"
+				class="key {{timeSelected ? 'down-show-active' : ''}}"
 				bindtap="onTapTime"
 				data-type="timeModel">面试时间 <i class="icon iconfont icon-zhishibiao"></i></view>
 			<view
-				class="key {{positionModel.show ? 'down-show-active' : ''}}"
+				class="key {{positionSelected ? 'down-show-active' : ''}}"
 				bindtap="onTapPosition"
 				data-type="positionModel">职位类型 <i class="icon iconfont icon-zhishibiao"></i></view>
 		</view>

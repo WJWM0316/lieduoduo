@@ -14,6 +14,8 @@ Page({
     tab: 'positionList',
     navH: app.globalData.navHeight,
     pageCount: 20,
+    timeSelected: false,
+    positionSelected: false,
     interviewList: {
       list: [],
       pageNum: 1,
@@ -206,14 +208,12 @@ Page({
     let endTime = this.data.endTime
     let interviewList = this.data.interviewList
 
-    // 时间间隔不能超过20天
-    let limitTime = 30 * 24 * 60 * 60 * 1000
     startTime.date = date
     startTime.active = true
 
-    // 当前操作时选择开始时间
-    // 要判断跟结束时间的间隔
-    if(endTime.active && this.timeStampToDay(startTime, endTime)) {
+    // 开始时间不能大于结束时间
+    if(endTime.active && new Date(date).getTime() > new Date(endTime.date).getTime()) {
+      app.wxToast({title: '开始时间不能大于结束时间'})
       return
     }
 
@@ -253,8 +253,6 @@ Page({
     let endTime = this.data.endTime
     let interviewList = this.data.interviewList
 
-    // 时间间隔不能超过20天
-    let limitTime = 30 * 24 * 60 * 60 * 1000
     endTime.date = e.detail.value
     endTime.active = true
 
@@ -346,6 +344,19 @@ Page({
         start = new Date(startTime.date).getTime() / 1000
         end = new Date(endTime.date).getTime() / 1000
         params = Object.assign(params, {start, end})
+      }
+
+      if(positionModel.value && positionModel.value !== 'all') {
+        this.setData({positionSelected: true})
+      } else {
+        this.setData({positionSelected: false})
+      }
+
+      console.log(this.data)
+      if((activeItem && activeItem.active && activeItem.id !== 1) || (startTime.active && endTime.active)) {
+        this.setData({timeSelected: true})
+      } else {
+        this.setData({timeSelected: false})
       }
 
       getNewHistoryApi(params).then(res => {

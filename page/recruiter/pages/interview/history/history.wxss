@@ -179,14 +179,11 @@
   background:rgba(255,255,255,1);
   box-shadow:0rpx 11rpx 30rpx 0rpx rgba(0,0,0,0.04);
   border-radius:0rpx 0rpx 10rpx 10rpx;
-  padding: 0 40rpx 0 40rpx;
+  padding: 98rpx 40rpx 0 40rpx;
   z-index: 2;
   position: fixed;
   left: 0;
   right: 0;
-  max-height: 660rpx;
-  margin-top: 98rpx;
-  overflow: hidden;
 }
 
 .fixed-box .child-box .p1{
@@ -200,11 +197,11 @@
 }
 
 .fixed-box .child-box .h2{
-  height:26rpx;
-  font-size:26rpx;
-  font-weight:500;
+  height:28rpx;
+  font-size:28rpx;
+  font-weight:700;
   color:rgba(40,40,40,1);
-  line-height:26rpx;
+  line-height:28rpx;
   margin-top: 64rpx;
 }
 
@@ -231,12 +228,12 @@
 }
 
 .fixed-box .child-box .h3{
-  height:26rpx;
-  font-size:26rpx;
-  font-weight:500;
+  height:28rpx;
+  font-size:28rpx;
+  font-weight:700;
   color:rgba(40,40,40,1);
-  line-height:26rpx;
-  padding-top: 50rpx;
+  line-height:28rpx;
+  padding-top: 64rpx;
 }
 
 .fixed-box .child-box .select-range{
@@ -244,7 +241,7 @@
   font-size:28rpx;
   font-weight:500;
   line-height:40rpx;
-  padding: 26rpx 0 48rpx 0;
+  padding: 32rpx 0 88rpx 0;
 }
 
 .fixed-box .child-box .select-range .start{
@@ -298,12 +295,7 @@
 .fixed-box {}
 
 .fixed-box .ul10 {
-  padding-bottom: 188rpx;
-  max-height: 638rpx;
-  overflow: hidden;
-  overflow-y: scroll;
-  box-sizing: border-box;
-  margin-top: 64rpx;
+  padding: 64rpx 0 53rpx 0;
 }
 
 .fixed-box .ul10 .item10{
@@ -326,19 +318,12 @@
 .fixed-box .ul10 .active{
   color: #652791;
   border-color: #652791;
-  font-weight: unset;
+  border-width: 1px;
 }
 
 .fixed-box .button-box {
   display: flex;
-  height: 168rpx;
-  position: absolute;
-  left: 40rpx;
-  bottom: 0;
-  right: 40rpx;
-  background: white;
-  justify-content: center;
-  align-items: center;
+  padding-bottom: 40rpx;
 }
 
 .fixed-box .button-reset {

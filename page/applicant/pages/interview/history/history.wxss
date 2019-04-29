@@ -222,11 +222,11 @@
 }
 
 .fixed-box .child-box .h2{
-  height:26rpx;
-  font-size:26rpx;
-  font-weight:500;
+  height:28rpx;
+  font-size:28rpx;
+  font-weight:700;
   color:rgba(40,40,40,1);
-  line-height:26rpx;
+  line-height:28rpx;
   margin-top: 64rpx;
 }
 
@@ -253,12 +253,12 @@
 }
 
 .fixed-box .child-box .h3{
-  height:26rpx;
-  font-size:26rpx;
-  font-weight:500;
+  height:28rpx;
+  font-size:28rpx;
+  font-weight:700;
   color:rgba(40,40,40,1);
-  line-height:26rpx;
-  padding-top: 50rpx;
+  line-height:28rpx;
+  padding-top: 64rpx;
 }
 
 .fixed-box .child-box .select-range{
@@ -266,7 +266,7 @@
   font-size:28rpx;
   font-weight:500;
   line-height:40rpx;
-  padding: 26rpx 0 48rpx 0;
+  padding: 32rpx 0 88rpx 0;
 }
 
 .fixed-box .child-box .select-range .start{
