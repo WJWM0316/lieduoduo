@@ -312,7 +312,17 @@ Page({
   onLoad() {
     wx.setStorageSync('choseType', 'RECRUITER')
   },
+  initDefault() {
+    let applyData = initData
+    let receiveData = initData
+    let interviewData = initData
+    let applyBottomStatus = 2
+    let receiveBottomStatus = 2
+    let interviewBottomStatus = 2
+    this.setData({applyData, receiveData, interviewData, applyBottomStatus, receiveBottomStatus, interviewBottomStatus})
+  },
   onShow () {
+    this.initDefault()
     if (app.globalData.isRecruiter) {
       this.init()
     } else {
