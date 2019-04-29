@@ -106,9 +106,9 @@
   float: right;
 }
 
-/*.ul .li .time.color {
+.ul .li .time.color {
   color: #652791;
-}*/
+}
 
 
 .ul .li .icon-mianshizhiwei {
@@ -221,12 +221,12 @@
   line-height: 58rpx;
   font-size:26rpx;
   color:#626262;
+  box-sizing: border-box;
 }
 
 .fixed-box .child-box .box4 .active{
   color:rgba(101,39,145,1);
   border-color: rgba(101,39,145,1);
-  border-width: 1px;
 }
 
 .fixed-box .child-box .h3{
@@ -249,13 +249,15 @@
   font-weight:500;
   line-height:40rpx;
   padding: 32rpx 0 88rpx 0;
+  text-align: left;
 }
 
 .fixed-box .child-box .select-range .start{
-  display: inline-block;
+  display: inline;
   margin-right: 20rpx;
   color:#929292;
   position: relative;
+  margin-left: -8rpx;
 }
 
 .fixed-box .child-box .select-range .picker{
@@ -268,14 +270,14 @@
 }
 
 .fixed-box .child-box .select-range .end{
-  display: inline-block;
+  display: inline;
   margin-right: 20rpx;
   color:#929292;
   position: relative;
 }
 
 .fixed-box .child-box .select-range .separator{
-  display: inline-block;
+  display: inline;
   margin-right: 20rpx;
   color: #5C565D;
 }
@@ -328,7 +330,6 @@
 .fixed-box .ul10 .active{
   color: #652791;
   border-color: #652791;
-  border-width: 1px;
   font-weight: unset;
 }
 

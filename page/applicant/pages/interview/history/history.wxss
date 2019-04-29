@@ -279,13 +279,15 @@
   line-height:40rpx;
   padding: 32rpx 0 88rpx 0;
   text-align: left;
+  position: relative;
 }
 
 .fixed-box .child-box .select-range .start{
-  display: inline-block;
+  display: inline;
   margin-right: 20rpx;
   color:#929292;
   position: relative;
+  margin-left: -8rpx;
 }
 
 .fixed-box .child-box .select-range .picker{
@@ -298,14 +300,14 @@
 }
 
 .fixed-box .child-box .select-range .end{
-  display: inline-block;
+  display: inline;
   margin-right: 20rpx;
   color:#929292;
   position: relative;
 }
 
 .fixed-box .child-box .select-range .separator{
-  display: inline-block;
+  display: inline;
   margin-right: 20rpx;
   color: #5C565D;
 }
