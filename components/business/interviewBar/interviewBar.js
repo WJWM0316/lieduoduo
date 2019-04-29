@@ -93,9 +93,9 @@ Component({
       if (((currentPage === 'positionDetail' || currentPage === 'recruiterDetail') && identity === 'APPLICANT') || (currentPage === 'resumeDetail' && identity === 'RECRUITER')) {
         this.getInterviewStatus()
       }
-      if(wx.getStorageSync('choseType') !== 'APPLICANT') {
-        this.getCompanyIdentityInfos()
-      }
+      // if(wx.getStorageSync('choseType') !== 'APPLICANT') {
+      //   this.getCompanyIdentityInfos()
+      // }
       this.setData({currentPage, jobWords: agreedTxtC(), recruiterWords: agreedTxtB(), show: false})
     },
     /**
@@ -264,7 +264,7 @@ Component({
             }
           }
         } else {
-
+          
           if(!isRecruiter) {
             this.getCompanyIdentityInfos()
           } else {
@@ -301,9 +301,27 @@ Component({
       getCompanyIdentityInfosApi({hasLoading: false}).then(res => {
         let companyInfo = res.data.companyInfo
         let identityInfos = res.data
+        let applyJoin = msg.data.applyJoin
         this.setData({identityInfos})
-        if(companyInfo.status !== 1) {
-          wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=company`})
+        
+        if(applyJoin) {
+          // 加入公司
+          wx.redirectTo({url: `${RECRUITER}user/company/status/status?from=join`})
+        } else {
+          // 还没有创建公司信息
+          if(!companyInfo.id) {
+            wx.redirectTo({url: `${RECRUITER}user/company/apply/apply`})
+          } else {
+            if(companyInfo.status === 1) {
+              wx.reLaunch({url: `${RECRUITER}index/index`})
+            } else {
+              if(companyInfo.status === 3) {
+                wx.reLaunch({url: `${RECRUITER}user/company/createdCompanyInfos/createdCompanyInfos`})
+              } else {
+                wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=company`})
+              }
+            }
+          }
         }
       })
     },

@@ -165,6 +165,11 @@ Page({
     endTime.date = e.detail.value
     endTime.active = true
 
+    if(startTime.active && new Date(date).getTime() < new Date(startTime.date).getTime()) {
+      app.wxToast({title: '结束时间不能早于开始时间'})
+      return
+    }
+
     if(startTime.active && this.timeStampToDay(startTime, endTime)) {
       app.wxToast({title: '时间范围不能超过30天'})
       return

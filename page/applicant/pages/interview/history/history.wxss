@@ -1,26 +1,26 @@
 .ul {
-  margin: 0 30rpx;
-  padding-top: 118rpx;
+  padding: 118rpx 30rpx 0 30rpx;
   position: relative;
   z-index: 0;
 }
 
 .ul .li {
   background:rgba(255,255,255,1);
-  box-shadow:0rpx -5rpx 40rpx 0rpx rgba(22,39,77,0.05);
   border-radius:10rpx;
   position: relative;
-  padding-bottom: 5rpx;
+  padding: 32rpx 30rpx;
 }
 
 .ul .li .row-one {
   display: flex;
   align-items: center;
-  padding: 32rpx 0 24rpx 0;
   position: relative;
-  margin: 0 28rpx 29rpx 28rpx;
   border-bottom: 1rpx solid #E8E9EB;
-  min-height: 120rpx;
+  justify-content: center;
+  align-items: center;
+  height: 120rpx;
+  margin-bottom: 30rpx;
+  padding-bottom: 24rpx;
 }
 
 .ul .li .img-box {
@@ -29,7 +29,7 @@
   box-shadow:0rpx -5rpx 40rpx 0rpx rgba(22,39,77,0.05);
   border-radius:50%;
   position: absolute;
-  top: 32rpx;
+  top: 0;
   left: 0;
   border: 4rpx solid white;
   box-sizing: border-box;
@@ -96,11 +96,11 @@
 
 .ul .li .infos2 {
   max-width:490rpx;
-  height:26rpx;
+  height:28rpx;
   font-size:26rpx;
   font-weight:400;
   color:rgba(98,98,98,1);
-  line-height:26rpx;
+  line-height:28rpx;
   margin-top: 14rpx;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -119,43 +119,51 @@
 }
 .ul .li .icon {
   color: #BACED8;
-  margin-right: 16rpx;
   font-size: 32rpx;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 0;
 }
 
+.ul .li .icon-mianshidizhi {
+  font-size: 30rpx;
+}
 .ul .li .row-two {
   max-width:calc(100% - 56rpx);
-  line-height: 1;
+  line-height: 28rpx;
   font-size:26rpx;
   font-weight:400;
   color:#626262;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  margin: 0 28rpx;
-  padding-bottom: 25rpx;
+  position: relative;
+  padding-left: 45rpx;
+  margin-bottom: 30rpx;
 }
 
 .ul .li .row-three {
   max-width:calc(100% - 56rpx);
-  line-height: 1;
+  line-height: 28rpx;
   font-size:26rpx;
   font-weight:400;
   color:#626262;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  margin: 0 28rpx;
-  padding-bottom: 30rpx;
+  padding-left: 45rpx;
+  position: relative;
 }
 
-.formIdBtn {
+.history .formIdBtn {
   padding: 0;
   background: none;
   text-align: left;
   line-height: normal;
   overflow: unset;
   margin-bottom: 20rpx;
+  box-shadow:0rpx -5rpx 40rpx 0rpx rgba(22,39,77,0.05);
 }
 
 .fixed-box .down-show {
@@ -176,6 +184,7 @@
 
 .fixed-box .down-show-active {
   color: #652791;
+  font-weight: 700;
 }
 
 .fixed-box .down-show .key {
@@ -194,9 +203,10 @@
   height: 32rpx;
   margin-top: -16rpx;
   transition: all;
+  color: #929292;
 }
 
-.fixed-box .down-show-active .iconfont{
+.fixed-box .down-show .rotate180{
   transform: rotate(180deg);
 }
 
@@ -204,7 +214,7 @@
   background:rgba(255,255,255,1);
   box-shadow:0rpx 11rpx 30rpx 0rpx rgba(0,0,0,0.04);
   border-radius:0rpx 0rpx 10rpx 10rpx;
-  padding: 98rpx 40rpx 0 40rpx;
+  padding-top: 98rpx;
   z-index: 2;
   position: fixed;
   left: 0;
@@ -218,7 +228,6 @@
   color:rgba(146,146,146,1);
   line-height:24rpx;
   display: inline-block;
-  margin-left: 10rpx;
 }
 
 .fixed-box .child-box .h2{
@@ -250,6 +259,7 @@
 .fixed-box .child-box .box4 .active{
   color:rgba(101,39,145,1);
   border-color: rgba(101,39,145,1);
+  border-width: 1px;
 }
 
 .fixed-box .child-box .h3{
@@ -261,12 +271,17 @@
   padding-top: 64rpx;
 }
 
+.fixed-box .child-box .time{
+  padding: 0 40rpx;
+}
+
 .fixed-box .child-box .select-range{
   height:40rpx;
   font-size:28rpx;
   font-weight:500;
   line-height:40rpx;
   padding: 32rpx 0 88rpx 0;
+  text-align: left;
 }
 
 .fixed-box .child-box .select-range .start{

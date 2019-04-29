@@ -72,7 +72,7 @@ Page({
    * @return   {[type]}   [description]
    */
   getPositionTypeList() {
-    getPositionTypeListApi({status: 1, level: 3}).then(res => {
+    getPositionTypeListApi({level: 3}).then(res => {
       let typeList = res.data
       typeList.map(field => field.active = false)
       let appendHeadder = [
@@ -177,6 +177,7 @@ Page({
     positionModel.show = false
     interviewList.pageNum = 1
     interviewList.list = []
+    positionModel.value = ''
     this.setData({typeList, positionModel, interviewList}, () => this.getLists())
   },
   /**
@@ -255,6 +256,11 @@ Page({
 
     endTime.date = e.detail.value
     endTime.active = true
+
+    if(startTime.active && new Date(date).getTime() < new Date(startTime.date).getTime()) {
+      app.wxToast({title: '结束时间不能早于开始时间'})
+      return
+    }
 
     // 当前操作时选择开始时间
     // 要判断跟结束时间的间隔

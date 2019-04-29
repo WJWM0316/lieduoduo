@@ -185,7 +185,7 @@ export const getNewHistoryApi = (data, hasLoading) => {
 export const getPositionTypeListApi = (data, hasLoading) => {
   return request({
     method: 'get',
-    url: `/position/typelist`,
+    url: `/position/interviewTypeList`,
     data,
     hasLoading: false
   })
