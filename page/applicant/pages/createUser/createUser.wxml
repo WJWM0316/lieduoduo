@@ -38,7 +38,7 @@
 								</button>
 						  </block>
 						  <block wx:else>
-						  	<view class="animation btn" bindtap="createMicro">
+						  	<view class="animation btn" bindtap="createMicro" id="microBtn">
 						  		<view class="btn-area">完成</view>
 							    <view class="btn-area-bg"></view>
 						  	</view>

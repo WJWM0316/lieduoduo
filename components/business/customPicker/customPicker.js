@@ -74,6 +74,7 @@ Component({
               pickerResult['region'] = {
                 pidIndex: result[0],
                 index: result[1],
+                pid: list[result[0]].children[result[1]].pid,
                 key: list[result[0]].children[result[1]].title,
                 value: list[result[0]].children[result[1]].areaId
               }
@@ -177,6 +178,7 @@ Component({
             if (item.type === 'region') {
               item.value = children[value[1]].title
               item.result = value
+              item.pid = children[value[1]].pid
               return
             }
           })
@@ -209,6 +211,7 @@ Component({
             key = '暂无经历'
             this.setData({pickerData})
           } else {
+            if (value[1] < 0) value[1] = 0
             if (children = ['暂无经历']) {
               children = month
               pickerData[this.data.activeIndex][1] = month

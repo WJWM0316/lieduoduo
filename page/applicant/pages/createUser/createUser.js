@@ -391,6 +391,7 @@ Page({
       return
     }
     postMicroApi(params).then(res => {
+      app.globalData.isMicroCard = true
       app.wxToast({
         title: '创建成功',
         icon: 'success',
