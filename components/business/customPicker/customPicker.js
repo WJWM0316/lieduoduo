@@ -113,7 +113,7 @@ Component({
               key = '',
               timeStamp = 0
           workTimeYear = workTimeYear.concat(year)
-          workTimeYear.unshift('在校生')
+          workTimeYear.unshift('暂无经历')
           if (item.value) {
             result[0] = workTimeYear.indexOf(`${item.value.slice(0, 4)}`)
             result[1] = month.indexOf(item.value.slice(5, 8))
@@ -121,8 +121,8 @@ Component({
             result = [0, 0]
           }
           if (result[0] === 0) {
-            pickerData[index] = [workTimeYear, ['在校生']]
-            key = '在校生'
+            pickerData[index] = [workTimeYear, ['暂无经历']]
+            key = '暂无经历'
             timeStamp = 0
           } else {
             pickerData[index] = [workTimeYear, month]
@@ -203,13 +203,13 @@ Component({
               timeStamp = 0,
               key = ''
           if (value[0] === 0) {
-            children = ['在校生']
+            children = ['暂无经历']
             pickerData[this.data.activeIndex][1] = children
             timeStamp = 0
-            key = '在校生'
+            key = '暂无经历'
             this.setData({pickerData})
           } else {
-            if (children = ['在校生']) {
+            if (children = ['暂无经历']) {
               children = month
               pickerData[this.data.activeIndex][1] = month
               this.setData({pickerData})

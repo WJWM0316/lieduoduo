@@ -24,7 +24,7 @@
   		</view>
 
       <view class="experience" wx:if='{{myInfo.uid}}'>
-        <view class="item"><i class="icon iconfont icon-zhiwei"></i>{{myInfo.workAgeDesc || myInfo.workAgeDesc}}<text wx:if="{{myInfo.workAgeDesc !== '在校生'}}">经验</text></view>
+        <view class="item"><i class="icon iconfont icon-zhiwei"></i>{{myInfo.workAgeDesc || myInfo.workAgeDesc}}<text wx:if="{{myInfo.workAgeDesc !== '暂无经历'}}">经验</text></view>
         <view class="item"><i class="icon iconfont icon-nianling"></i>{{myInfo.age ? myInfo.age + '岁 ' : ''}}</view>
         <view class="item" wx:if="{{myInfo.degreeDesc}}"><i class="icon iconfont icon-xueli"></i>{{myInfo.degreeDesc}}</view>
       </view>

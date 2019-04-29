@@ -91,7 +91,7 @@ Component({
       }
       const setResult = () => {
         result = []
-        if (this.data.setResult === '至今' || this.data.setResult === '在校生') {
+        if (this.data.setResult === '至今' || this.data.setResult === '暂无经历') {
           result = [0, 0]
         } else {
           result[0] = year.indexOf(this.data.setResult.slice(0, 4))
@@ -133,7 +133,7 @@ Component({
           this.setData({list, year, result, mode: 'multiSelector', firstOption, placeholder: this.data.placeholderTxt || '结束时间'})
           break
         case 'workTime':
-          firstOption = '在校生'
+          firstOption = '暂无经历'
           year.unshift(firstOption)
           list.push(year)
           result = setResult()

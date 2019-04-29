@@ -264,6 +264,7 @@
   text-align: center;
   font-size: 28rpx;
   font-weight: 300;
+  box-sizing: border-box;
 }
 .second .box {
 	margin-bottom: 20rpx;
@@ -484,7 +485,7 @@
 	font-weight:400;
 	color:#BCBCBC;
 	line-height:88rpx;
-	padding: 0 20rpx;
+	padding: 0 10rpx;
 }
 .sexBox .sex-item .icon {
 	width:24rpx;
@@ -536,6 +537,7 @@
 	font-weight:300;
 	line-height:88rpx;
   color:#BCBCBC;
+  white-space:nowrap;
 }
 .micro .selected .title {
 	font-size: 22rpx;
