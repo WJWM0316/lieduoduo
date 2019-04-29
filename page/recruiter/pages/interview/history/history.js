@@ -1,5 +1,5 @@
 import {
-  getInterviewHistoryApi,
+  getNewHistoryApi,
   getPositionTypeListApi
 } from '../../../../../api/pages/interview.js'
 
@@ -14,6 +14,8 @@ Page({
     tab: 'positionList',
     navH: app.globalData.navHeight,
     pageCount: 20,
+    timeSelected: false,
+    positionSelected: false,
     interviewList: {
       list: [],
       pageNum: 1,
@@ -70,7 +72,7 @@ Page({
    * @return   {[type]}   [description]
    */
   getPositionTypeList() {
-    getPositionTypeListApi({status: 1, level: 3}).then(res => {
+    getPositionTypeListApi({level: 3}).then(res => {
       let typeList = res.data
       typeList.map(field => field.active = false)
       let appendHeadder = [
@@ -175,6 +177,7 @@ Page({
     positionModel.show = false
     interviewList.pageNum = 1
     interviewList.list = []
+    positionModel.value = ''
     this.setData({typeList, positionModel, interviewList}, () => this.getLists())
   },
   /**
@@ -206,14 +209,12 @@ Page({
     let endTime = this.data.endTime
     let interviewList = this.data.interviewList
 
-    // 时间间隔不能超过20天
-    let limitTime = 30 * 24 * 60 * 60 * 1000
     startTime.date = date
     startTime.active = true
 
-    // 当前操作时选择开始时间
-    // 要判断跟结束时间的间隔
-    if(endTime.active && this.timeStampToDay(startTime, endTime)) {
+    // 开始时间不能大于结束时间
+    if(endTime.active && new Date(date).getTime() > new Date(endTime.date).getTime()) {
+      app.wxToast({title: '开始时间不能大于结束时间'})
       return
     }
 
@@ -253,14 +254,18 @@ Page({
     let endTime = this.data.endTime
     let interviewList = this.data.interviewList
 
-    // 时间间隔不能超过20天
-    let limitTime = 30 * 24 * 60 * 60 * 1000
     endTime.date = e.detail.value
     endTime.active = true
+
+    if(startTime.active && new Date(date).getTime() < new Date(startTime.date).getTime()) {
+      app.wxToast({title: '结束时间不能早于开始时间'})
+      return
+    }
 
     // 当前操作时选择开始时间
     // 要判断跟结束时间的间隔
     if(startTime.active && this.timeStampToDay(startTime, endTime)) {
+      app.wxToast({title: '时间范围不能超过30天'})
       return
     }
 
@@ -347,7 +352,20 @@ Page({
         params = Object.assign(params, {start, end})
       }
 
-      getInterviewHistoryApi(params).then(res => {
+      if(positionModel.value && positionModel.value !== 'all') {
+        this.setData({positionSelected: true})
+      } else {
+        this.setData({positionSelected: false})
+      }
+
+      console.log(this.data)
+      if((activeItem && activeItem.active && activeItem.id !== 1) || (startTime.active && endTime.active)) {
+        this.setData({timeSelected: true})
+      } else {
+        this.setData({timeSelected: false})
+      }
+
+      getNewHistoryApi(params).then(res => {
         let interviewList = this.data.interviewList
         let onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
         interviewList.list = interviewList.list.concat(res.data)

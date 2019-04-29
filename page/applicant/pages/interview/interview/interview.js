@@ -10,16 +10,17 @@ import {RECRUITER, COMMON, APPLICANT} from '../../../../../config.js'
 
 import {getSelectorQuery} from "../../../../../utils/util.js"
 
-const app = getApp()
+let app = getApp()
 
 let chooseTime = parseInt(new Date().getTime() / 1000)
 let hasLogin = false //  是否登录
-const initData = {
+let initData = {
   list: [],
   pageNum: 1,
   count: 20,
   isLastPage: false,
-  isRequire: false
+  isRequire: false,
+  total: 0
 }
 
 Page({
@@ -78,30 +79,31 @@ Page({
   },
   /* 面试日程 */
   getResult(e) {
-    if(e && e.detail && e.detail.timeStamp) {
-      chooseTime = e.detail.timeStamp
-      let interviewData = {
-        list: [],
-        pageNum: 1,
-        count: 20,
-        isLastPage: false,
-        isRequire: false
-      }
-      this.setData({interviewData, interviewBottomStatus: 0})
-      this.getScheduleList()
+    let i = e.currentTarget.dataset.index
+    let dateList = this.data.dateList
+    let interviewData = {
+      list: [],
+      pageNum: 1,
+      count: 20,
+      isLastPage: false,
+      isRequire: false,
+      total: 0
     }
-    this.getFixedDomNodePosition()
+    dateList.map((field, index) => field.active = index === i ? true : false)
+    chooseTime = e.currentTarget.dataset.time
+    this.setData({interviewData, interviewBottomStatus: 0, dateList}, () => this.getScheduleList())
   },
   chooseParentTab(e) {
-    const index = e.currentTarget.dataset.index
-    const tabLists = this.data.tabLists
+    let index = e.currentTarget.dataset.index
+    let tabLists = this.data.tabLists
     let tabIndex = index
     tabLists.map((field, i) => {
       field.active = false
     })
     tabLists[tabIndex].active = true
     this.setData({tabLists, tabIndex})
-    this.getFixedDomNodePosition()
+    if(!hasLogin) return
+
     let data = {}
     switch(index) {
       case 0:
@@ -142,6 +144,7 @@ Page({
       let dateList = res.data
       if(!dateList.length) return
       chooseTime = dateList[0].time
+      dateList.map((field, index) => field.active = index === 0 ? true : false)
       this.setData({dateList}, () => this.getScheduleList())
     })
   },
@@ -233,9 +236,9 @@ Page({
     let interviewData = this.data.interviewData
     let interviewBottomStatus = 0
     return getScheduleListApi({count: interviewData.count, page: interviewData.pageNum, time: chooseTime, ...app.getSource()}, hasLoading).then(res => {
-      const list = res.data
+      let list = res.data
       list.map(field => {
-        const time = field.arrangementInfo.appointment.split(' ')[1].slice(0, 5)
+        let time = field.arrangementInfo.appointment.split(' ')[1].slice(0, 5)
         field.createdAtTime = time
       })
       interviewData.list.push(...list)
@@ -292,23 +295,26 @@ Page({
   onLoad () {
     wx.setStorageSync('choseType', 'APPLICANT')
   },
+  initDefault() {
+    let applyData = initData
+    let receiveData = initData
+    let interviewData = initData
+    let applyBottomStatus = 2
+    let receiveBottomStatus = 2
+    let interviewBottomStatus = 2
+    this.setData({applyData, receiveData, interviewData, applyBottomStatus, receiveBottomStatus, interviewBottomStatus})
+  },
   onShow () {
+    this.initDefault()
     if (app.globalData.isJobhunter) {
       hasLogin = app.globalData.hasLogin
       this.init()
-      this.getFixedDomNodePosition()
     } else {
       app.getRoleInit = () => {
         hasLogin = app.globalData.hasLogin
         this.init()
-        this.getFixedDomNodePosition()
       }
     }
-  },
-  getFixedDomNodePosition() {
-    getSelectorQuery('.fixed-dom').then(res => {
-      this.setData({fixedBarHeight: res.height})
-    })
   },
   onReachBottom(e) {
     switch(this.data.tabIndex) {
@@ -400,7 +406,7 @@ Page({
    * @detail   detail
    */
   routeJump(e) {
-    const params = e.currentTarget.dataset
+    let params = e.currentTarget.dataset
     // 不知道什么情款  有时候拿不到数据
     if(!Object.keys(params).length) return
     switch(params.status) {
