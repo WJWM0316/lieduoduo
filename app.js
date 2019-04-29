@@ -84,24 +84,11 @@ App({
             if (res.data.token) {
               wx.setStorageSync('token', res.data.token)
               that.globalData.hasLogin = true
-              if (res.data.userInfo) that.globalData.userInfo = res.data.userInfo
-              that.getRoleInfo().then(res0 => {
-                if (!that.globalData.isMicroCard && wx.getStorageSync('choseType') !== 'RECRUITER') {
-                  that.wxToast({
-                    title: '正在前往求职飞船',
-                    icon: 'loading',
-                    callback () {
-                      wx.navigateTo({
-                        url: `${APPLICANT}createUser/createUser?micro=true`
-                      })
-                    }
-                  })
-                }
-              })
+              if (res.data.userWechatInfo.nickname) that.globalData.userInfo = res.data.userInfo
+              that.getRoleInfo()
               console.log('用户已认证')
-
             } else {
-              if (res.data.userInfo) that.globalData.userInfo = res.data.userInfo
+              if (res.data.userInfo.nickname) that.globalData.userInfo = res.data.userInfo
               console.log('用户未绑定手机号', 'sessionToken', res.data.sessionToken)
               wx.setStorageSync('sessionToken', res.data.sessionToken)
             }
@@ -122,9 +109,7 @@ App({
   // 退出登录
   uplogin() {
     uploginApi().then(res => {
-      let sessionToken = wx.getStorageSync('sessionToken')
-      wx.clearStorageSync()
-      wx.setStorageSync('sessionToken', sessionToken)
+      wx.removeStorageSync('token')
       this.globalData.hasLogin = false
       this.globalData.resumeInfo = {}
       this.globalData.recruiterDetails = {}
@@ -173,27 +158,30 @@ App({
   },
   // 获取角色身份
   getRoleInfo() {
-    return getUserRoleApi().then(res0 => {
-      if (res0.data.isRecruiter) {
-        this.globalData.isRecruiter = true
-      }
-      if (res0.data.isJobhunter) {
-        this.globalData.isJobhunter = true
-      }
-      if (res0.data.hasCard) {
-        this.globalData.isMicroCard = true
-      }
-      if (this.getRoleInit) { // 登陆初始化
-        this.getRoleInit() //执行定义的回调函数
-      }
-      this.getAllInfo()
-      this.getRoleInit = function () {}
-    }).catch(() => {
-      if (this.getRoleInit) { // 登陆初始化
-        this.getRoleInit() //执行定义的回调函数
-      }
-      this.getAllInfo()
-      this.getRoleInit = function () {}
+    return new Promise((resolve, reject) => {
+      getUserRoleApi().then(res0 => {
+        if (res0.data.isRecruiter) {
+          this.globalData.isRecruiter = true
+        } else {
+          this.globalData.isRecruiter = false
+        }
+        if (res0.data.isJobhunter) {
+          this.globalData.isJobhunter = true
+        } else {
+          this.globalData.isJobhunter = false
+        }
+        if (res0.data.hasCard) {
+          this.globalData.isMicroCard = true
+        } else {
+          this.globalData.isMicroCard = false
+        }
+        if (this.getRoleInit) { // 登陆初始化
+          this.getRoleInit() //执行定义的回调函数
+        }
+        this.getRoleInit = function () {}
+        this.getAllInfo()
+        resolve(res0)
+      })
     })
   },
   // 检查微信授权
@@ -219,8 +207,7 @@ App({
           }
         })
       }).catch(e => {
-        resolve(res)
-        wx.removeStorageSync('sessionToken')
+        resolve(e)
         if (pageUrl !== `${COMMON}startPage/startPage`) {
           wx.navigateTo({
             url: `${COMMON}auth/auth`
@@ -256,13 +243,7 @@ App({
               wx.setStorageSync('sessionToken', res.data.sessionToken)
               that.globalData.hasLogin = true
               if (res.data.userWechatInfo && res.data.userWechatInfo.nickname) that.globalData.userInfo = res.data.userWechatInfo
-              that.getRoleInfo().then(res => {
-                if (!that.globalData.isMicroCard && wx.getStorageSync('choseType') !== 'RECRUITER') {
-                  wx.redirectTo({
-                    url: `${APPLICANT}createUser/createUser?micro=true`
-                  })
-                }
-              })
+              that.getRoleInfo()
               console.log('用户已认证')
             } else {
               console.log('用户未绑定手机号')
@@ -300,7 +281,7 @@ App({
     })
   },
   // 微信快速登陆
-  quickLogin(e) {
+  quickLogin(e, operType) {
     if (e.detail.errMsg === 'getPhoneNumber:ok') {
       let data = {
         iv_key: e.detail.iv,
@@ -313,24 +294,32 @@ App({
             this.globalData.hasLogin = true
             this.globalData.userInfo = res.data
             let pageUrl = this.getCurrentPagePath(0)
-            this.getRoleInfo().then(res => {
-              if (!this.globalData.isMicroCard && wx.getStorageSync('choseType') !== 'RECRUITER') {
-                wx.redirectTo({
-                  url: `${APPLICANT}createUser/createUser?micro=true`
-                })
-              } else {
-                app.wxToast({
-                  title: '登录成功',
-                  icon: 'success',
-                  callback() {
+            this.getRoleInfo().then(res0 => {
+              this.wxToast({
+                title: '登录成功',
+                icon: 'success',
+                callback() {
+                  if (!res0.data.hasCard && operType === 'cIndex' &&  wx.getStorageSync('choseType') !== 'RECRUITER') {
                     wx.reLaunch({
-                      url: `${pageUrl}`
+                      url: `${APPLICANT}createUser/createUser?micro=true`
                     })
+                  } else {
+                    if (operType === 'cIndex') {
+                      wx.reLaunch({
+                        url: `${APPLICANT}index/index`
+                      })
+                    } else if (operType === 'curPath') {
+                      wx.reLaunch({
+                        url: `${pageUrl}`
+                      })
+                    } else {
+                      wx.navigateBack({
+                        delta: 1
+                      })
+                    }
                   }
-                })
-              }
-              resolve(res)
-            }).catch(e => {
+                }
+              })
               resolve(res)
             })
           } 
@@ -341,33 +330,37 @@ App({
     }
   },
   // 手机登陆
-  phoneLogin(data) {
+  phoneLogin(data, operType) {
     return new Promise((resolve, reject) => {
       bindPhoneApi(data).then(res => {
         if (res.data.token) wx.setStorageSync('token', res.data.token)
         if (res.data.sessionToken) wx.setStorageSync('sessionToken', res.data.sessionToken)
         this.globalData.hasLogin = true
         this.globalData.userInfo = res.data
-        this.getRoleInfo().then(res => {
-          if (!this.globalData.isMicroCard && wx.getStorageSync('choseType') !== 'RECRUITER') {
-            wx.redirectTo({
-              url: `${APPLICANT}createUser/createUser?micro=true`
-            })
-          } else {
-            app.wxToast({
-              title: '登录成功',
-              icon: 'success',
-              callback() {
-                wx.navigateBack({
-                  delta: 1
+        this.getRoleInfo().then((res0) => {
+          this.wxToast({
+            title: '登录成功',
+            icon: 'success',
+            callback() {
+              if (!res0.data.hasCard && operType === 'cIndex' && wx.getStorageSync('choseType') !== 'RECRUITER') {
+                wx.reLaunch({
+                  url: `${APPLICANT}createUser/createUser?micro=true`
                 })
+              } else {
+                if (operType === 'cIndex') {
+                  wx.reLaunch({
+                    url: `${APPLICANT}index/index`
+                  })
+                } else {
+                  wx.navigateBack({
+                    delta: 1
+                  })
+                }
               }
-            })
-          }
-          resolve(res)
-        }).catch(e => {
-          resolve(res)
+            }
+          })
         })
+        resolve(res)
       }).catch(e => {
         if (e.code !== 604) {
           this.checkLogin()

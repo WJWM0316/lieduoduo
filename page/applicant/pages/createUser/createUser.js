@@ -30,7 +30,7 @@ Page({
     isBangs: app.globalData.isBangs,
     cdnImagePath: app.globalData.cdnImagePath,
     animationData: {},
-    userInfo: app.globalData.userInfo,
+    userInfo: {},
     enterStep: 0, // 创建了微名片后进入创建流程
     isMicro: false, 
     isStudent: false, // 是否在校生
@@ -163,6 +163,7 @@ Page({
         }, duration)
       } else {
         app.getAllInfo().then(res => {
+          app.globalData.isMicroCard = true
           timer = setTimeout(() => {
             if (!directChat) {
               wx.navigateBack({
@@ -350,13 +351,52 @@ Page({
     }
   },
   createMicro () {
-    this.postMicroFun().then(res => {
+    let data = this.data
+    let params = {
+      avatar: data.avatar.id,
+      gender: data.gender,
+      name: data.name,
+      birth: data.birth,
+      cityNum: data.cityNum,
+      startWorkYear: data.startWorkYear,
+      lastCompany: data.lastCompany,
+      lastPosition: data.lastPosition
+    }
+    let title = ''
+    if (!params.avatar) {
+      title = '请上传头像'
+    } else if (!params.gender) {
+      title = '请选择性别'
+    } else if (!params.name) {
+      title = '请输入姓名'
+    } else if (!userNameReg.test(params.name)) {
+      title = '姓名需为2-20个汉字或英文'
+    } else if (!params.cityNum) {
+      title = '请选择所在地'
+    } else if (!params.birth) {
+      title = '请选择出生年月'
+    } else if (!params.startWorkYear && params.startWorkYear !== 0) {
+      title = '请选择参加工作时间'
+    } else if (params.startWorkYear) {
+      if (!params.lastCompany) {
+        title = '请输入最近在职公司名称'
+      } else if (!params.lastPosition) {
+        title = '请输入职位名称'
+      } else if (!positionReg.test(params.lastPosition)) {
+        title = '职位名称需为2-20个字符'
+      }
+    }
+    if (title) {
+      app.wxToast({title})
+      return
+    }
+    postMicroApi(params).then(res => {
       app.wxToast({
         title: '创建成功',
         icon: 'success',
         callback () {
-          wx.navigateBack({
-            delta: 1
+          wx.reLaunch({
+            url: `${APPLICANT}index/index`
           })
         }
       })
@@ -393,6 +433,7 @@ Page({
       if (params.startWorkYear === 0) {
         let step = this.data.step
         let isStudent = true
+        app.globalData.isMicroCard = true
         this.setData({step: step + 2, isStudent})
       } else {
         if (this.data.isStudent) this.setData({isStudent: false})
@@ -437,6 +478,7 @@ Page({
       return new Promise((resolve, reject) => {reject(`第${workErr}个工作经历档案信息不完整, 无法提交`)})
     }
     return postCreatSecondStepApi({careers: params}).then(res => {
+      app.globalData.isMicroCard = true
       this.setData({workErr: 0})
     })
   },
@@ -529,40 +571,6 @@ Page({
     }
     return postCreatFourthStepApi(params)
   },
-  postMicroFun () {
-    let data = this.data
-    let params = {
-      avatar: data.avatar.id,
-      gender: data.gender,
-      name: data.name,
-      birth: data.birth,
-      cityNum: data.cityNum,
-      startWorkYear: data.startWorkYear,
-      lastCompany: data.lastCompany,
-      lastPosition: data.lastPosition
-    }
-    let title = ''
-    if (!params.avatar) {
-      title = '请上传头像'
-    } else if (!params.gender) {
-      title = '请选择性别'
-    } else if (!params.name) {
-      title = '请输入姓名'
-    } else if (!userNameReg.test(params.name)) {
-      title = '姓名需为2-20个汉字或英文'
-    } else if (!params.cityNum) {
-      title = '请选择所在地'
-    } else if (!params.birth) {
-      title = '请选择出身年月'
-    } else if (!params.startWorkYear && params.startWorkYear !== 0) {
-      title = '请选择参加工作时间'
-    }
-    if (title) {
-      app.wxToast({title})
-      return new Promise((resolve, reject) => {reject(title)})
-    }
-    return postMicroApi(params)
-  },
   getStepData (step) {
     switch (step) {
       case 1:
@@ -600,8 +608,8 @@ Page({
               item.degree = 25
             }
           })
+          if (res.data.educations.length === 0) res.data.educations = [{type: 'education', degreeDesc: '本科', degree: 25}]
           edData = edData.concat(res.data.educations).concat(res.data.internships)
-          if (edData.length === 0) edData = [{type: 'education', degreeDesc: '本科', degree: 25}]
           edNum = res.data.educations.length || 1
           shipNum = res.data.internships.length
           this.setData({edData, edCurrent: 0})
@@ -638,39 +646,45 @@ Page({
           step = 0
           break  
       }
-      if (res.data.isCardFinished) {
-        let card = res.data.card,
-            avatar = card.avatar,
-            name = card.name,
-            birthDesc = card.birthDesc,
-            birth = card.birth,
-            startWorkYearDesc = card.startWorkYearDesc,
-            startWorkYear = card.startWorkYear,
-            lastCompany = card.lastCompany,
-            lastPosition = card.lastPosition,
-            cityNum = card.cityNum,
-            city = card.city,
-            enterStep = res.data.step,
-            pickerType = this.data.pickerType
-        if (card.city) {
-          pickerType[0].value = card.city
-          pickerType[0].pid = card.provinceNum
+      if (this.data.isMicro) {
+        if (res.data.isCardFinished) {
+          let card = res.data.card,
+              avatar = card.avatar,
+              name = card.name,
+              birthDesc = card.birthDesc,
+              birth = card.birth,
+              startWorkYearDesc = card.startWorkYearDesc,
+              startWorkYear = card.startWorkYear,
+              lastCompany = card.lastCompany,
+              lastPosition = card.lastPosition,
+              cityNum = card.cityNum,
+              city = card.city,
+              enterStep = res.data.step,
+              pickerType = this.data.pickerType
+          if (card.city) {
+            pickerType[0].value = card.city
+            pickerType[0].pid = card.provinceNum
+          }
+          if (card.birthDesc) {
+            pickerType[1].value = card.birthDesc
+          }
+          if (card.startWorkYearDesc) {
+            pickerType[2].value = card.startWorkYearDesc
+          }
+          this.setData({step, enterStep, avatar, name, birthDesc, birth, startWorkYearDesc, startWorkYear, lastCompany, lastPosition, cityNum, city, pickerType}, () => {
+            this.progress(step)
+          })
+        } else {
+          step = 0
+          this.setData({step}, () => {
+            this.progress(step)
+          })
         }
-        if (card.birthDesc) {
-          pickerType[1].value = card.birthDesc
-        }
-        if (card.startWorkYearDesc) {
-          pickerType[2].value = card.startWorkYearDesc
-        }
-        this.setData({step, enterStep, avatar, name, birthDesc, birth, startWorkYearDesc, startWorkYear, lastCompany, lastPosition, cityNum, city, pickerType}, () => {
-          this.progress(step)
-        })
       } else {
         this.setData({step}, () => {
           this.progress(step)
         })
       }
-      
     })
   },
   /**
@@ -827,8 +841,20 @@ Page({
         url = `${COMMON}selectCity/selectCity`
         wx.setStorageSync('selectCity', e.currentTarget.dataset.id)
         break
+      case 'changeAccount':
+        url = `${COMMON}bindPhone/bindPhone?backType=cIndex`
+        break
     }
     wx.navigateTo({url})
+  },
+  toggleIdentity () {
+    app.wxConfirm({
+      title: '身份切换',
+      content: `是否切换为面试官身份`,
+      confirmBack() {
+        app.toggleIdentity()
+      }
+    })
   },
   backEvent () {
     let step = this.data.step
@@ -868,9 +894,6 @@ Page({
         that.createMicro()
       })
   },
-  upLogin () {
-    app.uplogin()
-  },
   /**
    * 生命周期函数--监听页面显示
    */
@@ -902,10 +925,11 @@ Page({
         wx.removeStorageSync('avatar')
       })
     }
-    if (!avatar && userInfo) {
+    if (!avatar && userInfo && !this.data.avatar) {
       avatar = userInfo.avatarInfo
       let gender = userInfo.gender
-      this.setData({avatar, gender})
+      console.log(avatar, 333333333333333333333)
+      this.setData({avatar, gender, userInfo})
     }
     if (companyName) {
       if (!this.data.isMicro) {

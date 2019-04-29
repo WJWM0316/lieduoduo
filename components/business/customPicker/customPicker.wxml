@@ -21,7 +21,11 @@
 		    class='picker-view'
 		  >
 				<picker-view-column wx:for="{{pickerData[activeIndex]}}" wx:for-index="firstIndex" wx:key="{{firstIndex}}" wx:for-item="firstLelve" class='picker-view-column' data-level="{{firstLelve}}">
-		      <view class="picker-view-column-item" wx:for="{{firstLelve}}" wx:for-item="secondLelve" wx:key="{{secondIndex}}" wx:for-index="secondIndex">{{secondLelve.title || secondLelve}}</view>
+		      <view class="picker-view-column-item" wx:for="{{firstLelve}}" wx:for-item="secondLelve" wx:key="{{secondIndex}}" wx:for-index="secondIndex">
+		      	<text>{{secondLelve.title || secondLelve}}</text>
+		      	<text wx:if="{{(item.unit === 'all' || (item.unit === 'first' && secondIndex !== 0)) && firstIndex === 0}}">年</text>
+		      	<text wx:if="{{(item.unit === 'all' || (item.unit === 'first' && item.result[0] !== 0)) && firstIndex === 1}}">月</text>
+		      </view>
 		    </picker-view-column>
 			</picker-view>
 		</view>

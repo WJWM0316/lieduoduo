@@ -18,7 +18,8 @@ import {
 import {shareChance} from '../../../../utils/shareWord.js'
 
 const app = getApp()
-let identity = ''
+let identity = '',
+    hasOnload = false // 用来判断是否执行了onload，就不走onShow的校验
 Page({
   data: {
     pageCount: 20,
@@ -72,6 +73,7 @@ Page({
   },
 
   onLoad(options) {
+    hasOnload = false
     let bannerH = this.data.bannerH
     if (!this.data.isBangs) {
       bannerH = app.globalData.systemInfo.screenWidth/(750/420)
@@ -87,11 +89,12 @@ Page({
       isRequire: false
     }
     let init = () => {
-      if (!app.globalData.hasLogin) this.setData({hideLoginBox: false})
       this.getAdBannerList()
       this.getAvartList()
-      Promise.all([this.getCityLabel(), this.getLabelPosition(), this.getEmolument()]).then(res => {
+      Promise.all([this.getCityLabel(), this.getLabelPosition(), this.getEmolument()]).then(() => {
         this.getPositionRecord()
+        hasOnload = true
+        this.initPage()
       })
     }
     this.setData({positionList})
@@ -101,6 +104,11 @@ Page({
       app.loginInit = () => {
         init()
       }
+    }
+  },
+  onShow () {
+    if (hasOnload) {
+      this.initPage()
     }
     if (wx.getStorageSync('choseType') === 'RECRUITER') {
       app.wxConfirm({
@@ -118,6 +126,29 @@ Page({
       })
     }
   },
+  initPage () {
+    let jumpCreate = () => {
+      if (!app.globalData.isMicroCard && wx.getStorageSync('choseType') !== 'RECRUITER') {
+        app.wxToast({
+          title: '前往求职飞船',
+          icon: 'loading',
+          callback () {
+            wx.reLaunch({
+              url: `${APPLICANT}createUser/createUser?micro=true`
+            })
+          }
+        })
+      }
+    }
+    if (!app.globalData.hasLogin) {
+      this.setData({hideLoginBox: false})
+    } else {
+      let timer = setTimeout(() => {
+        jumpCreate()
+        clearTimeout(timer)
+      }, 500)
+    }
+  }, 
   getAvartList() {
     getAvartListApi().then(res => {
       const moreRecruiter = res.data.moreRecruiter
@@ -134,7 +165,6 @@ Page({
   },
   jumpBanner (e) {
     let url = e.currentTarget.dataset.url
-    console.log(url, 11222)
     wx.navigateTo({
       url: `/${url}`
     })
@@ -221,7 +251,7 @@ Page({
     })
   },
   getPositionRecord() {
-    getPositionRecordApi().then(res => {
+    return getPositionRecordApi().then(res => {
       let city = this.data.city
       let type = this.data.type
       let emolument = this.data.emolument

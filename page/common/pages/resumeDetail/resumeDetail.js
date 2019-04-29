@@ -118,7 +118,9 @@ Page({
     })
   },
   editSelf () {
-    this.setData({isOwner: true})
+    let options = this.data.options
+    options.preview = false
+    this.setData({isOwner: true, options})
   },
   copy(e) {
     wx.setClipboardData({

@@ -43,7 +43,6 @@ Component({
    */
   methods: {
     init () {
-      if (this.data.pickerType[this.data.activeIndex].created) return
       let item = this.data.pickerType[this.data.activeIndex],
           index = this.data.activeIndex,
           pickerType = this.data.pickerType,
@@ -66,7 +65,6 @@ Component({
               }
             } else {
               result = [0, 0]
-              item.value = '北京市'
             }
             pickerData[index] = [list, list[result[0]].children]
             item.result = result
@@ -95,10 +93,10 @@ Component({
             result[1] = month.indexOf(item.value.slice(5, 8))
           } else {
             result = [0, 0]
-            item.value = `${birthYear[result[0]]}-${month[result[1]]}`
           }
           item.result = result
           item.created = true
+          item.unit = 'all'
           this.setData({pickerData, pickerType}, () => {
             if (this.data.activeIndex !== index) return 
             pickerResult['birthday'] = {
@@ -121,7 +119,6 @@ Component({
             result[1] = month.indexOf(item.value.slice(5, 8))
           } else {
             result = [0, 0]
-            item.value = '在校生'
           }
           if (result[0] === 0) {
             pickerData[index] = [workTimeYear, ['在校生']]
@@ -134,6 +131,7 @@ Component({
           }
           item.result = result
           item.created = true
+          item.unit = 'first'
           this.setData({pickerData, pickerType}, () => {
             if (this.data.activeIndex !== index) return 
             pickerResult['workTime'] = {
@@ -147,7 +145,17 @@ Component({
       }
     },
     getRegionData () {
-      return getAreaListApi()
+      let getAreaData = wx.getStorageSync('areaData')
+      if (getAreaData) {
+        return new Promise((resolve, reject) => {
+          resolve(getAreaData)
+        })
+      } else {
+        return getAreaListApi().then(res => {
+          wx.setStorageSync('areaData', res)
+          return res
+        })
+      }
     },
     bindChange (e) {
       let value = e.detail.value,
@@ -237,17 +245,41 @@ Component({
     },
     closePicker (e) {
       if (lock) return
-      if (e.currentTarget.dataset.type === 'button' && this.data.activeIndex < this.data.pickerType.length - 1) {
-        this.setData({activeIndex: this.data.activeIndex + 1}, () => {
+      if (e.currentTarget.dataset.type === 'button') {
+        let pickerType = this.data.pickerType,
+            index = this.data.activeIndex
+        switch (pickerType[index].type) {
+          case 'region':
+            pickerType[index].value = pickerResult['region'].key
+            break
+          case 'birthday':
+            pickerType[index].value = pickerResult['birthday'].key
+            break
+          case 'workTime':
+            pickerType[index].value = pickerResult['workTime'].key
+            break
+        }
+        this.setData({pickerType}, () => {
           pickerResult['pickerType'] = this.data.pickerType
           this.triggerEvent('pickerResult', pickerResult)
+          let lastOne = () => {
+            index++
+            if (index > this.data.pickerType.length - 1) index = 0
+            if (!pickerType[index].value) {
+              this.setData({activeIndex: index})
+            } else {
+              if (index === this.data.activeIndex) {
+                this.setData({openPicker: false})
+              } else {
+                lastOne()
+              }
+            }
+          }
+          lastOne()
         })
       } else {
         this.setData({
           openPicker: false
-        }, () => {
-          pickerResult['pickerType'] = this.data.pickerType
-          this.triggerEvent('pickerResult', pickerResult)
         })
       }
     }

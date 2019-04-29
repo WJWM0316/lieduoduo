@@ -110,6 +110,11 @@ Page({
           wx.navigateTo({url: `${APPLICANT}center/attachment/attachment`})
         }
         break
+      case 'interest':
+        wx.navigateTo({
+          url: `${APPLICANT}jobs/like/like`
+        })
+        break
       default:
         break
     }

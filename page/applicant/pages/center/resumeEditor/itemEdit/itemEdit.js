@@ -4,7 +4,6 @@ import { urlReg } from '../../../../../../utils/fieldRegular.js'
 let target = null
 let title = null
 let nowItemId = null // 当前编辑的意向数据id
-let toToday = false
 const app = getApp()
 Page({
 
@@ -51,9 +50,6 @@ Page({
       this.data.startTime = e.detail.propsResult
     } else {
       this.data.endTime = e.detail.propsResult
-      if (!this.data.endTime) {
-        toToday = true
-      }
     }
   },
   writeContent (e) {
@@ -84,7 +80,7 @@ Page({
       title = '担任角色需为2-50个字'
     } else if (!param.startTime) {
       title = '请选择开始时间'
-    } else if (!param.endTime && !toToday) {
+    } else if (!param.endTime && param.endTime !== 0) {
       title = '请选择结束时间'
     } else if (param.endTime && param.startTime > param.endTime) {
       title = '开始时间不得晚于结束时间'

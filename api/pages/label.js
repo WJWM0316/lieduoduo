@@ -24,7 +24,7 @@ export const getAreaListApi = (data, hasLoading) => {
     method: 'get',
     url: '/area',
     data,
-    hasLoading: true
+    hasLoading: false
   })
 }
 

@@ -47,7 +47,7 @@
           <i class="icon iconfont icon-xiangyou"></i>
         </view>
   		</view>
-  		<!-- <view class="li">
+  		<view class="li" bindtap="jump" data-type="interest">
   			<view>
           <i class="icon iconfont icon-ganxingqu"></i>
           <view class="text">感兴趣的</view>
@@ -55,8 +55,8 @@
   			<view class='arrow-box'>
           <i class="icon iconfont icon-xiangyou"></i>
         </view>
-  		</view> -->
-  		<view class="li" bindtap="online">
+  		</view>
+<!--   		<view class="li" bindtap="online">
   			<view>
           <i class="icon iconfont icon-kefu"></i>
           <view class="text">联系客服</view>
@@ -64,7 +64,7 @@
   			<view class='arrow-box'>
           <i class="icon iconfont icon-xiangyou"></i>
         </view>
-  		</view>
+  		</view> -->
   		<view class="li" bindtap="call">
   			<view>
           <i class="icon iconfont icon-dianhua"></i>

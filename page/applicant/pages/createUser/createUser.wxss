@@ -141,6 +141,9 @@
 	opacity: 0;
 	margin-left: -240rpx;
 }
+.micro .form {
+  top: 164rpx;
+}
 .second .animation.form {
 	width: 576rpx;
 	margin-left: -288rpx;
@@ -151,6 +154,9 @@
 .active .animation.form {
 	top: 190rpx;
 	opacity: 1;
+}
+.micro.active .animation.form {
+  top: 134rpx;
 }
 .active.second .animation.form {
 	top: 201rpx;
@@ -439,6 +445,7 @@
 
 .micro .name {
 	display: flex;
+  padding:0 14rpx;
 }
 .micro .name .userName {
 	width: 168rpx;
@@ -455,7 +462,7 @@
 	top: 50%;
 	margin-top: -20rpx;
 	right: 0;
-
+	opacity: 0.6;
 }
 .micro .myPicker, .userName, .sexBox {
 	flex: 1;
@@ -463,6 +470,9 @@
 }
 .micro .myPicker:last-child::after {
 	display: none;
+}
+.micro input {
+	color: #fff;
 }
 .sexBox {
 	text-align: center;
@@ -500,20 +510,9 @@
   background: #fff;
   border-radius: 50%;
 }
-.toggleAccount {
+
+.micro.active .animation.btn {
 	margin-top: 106rpx;
-	text-align: center;
-	font-size:28rpx;
-	color:#fff;
-	padding-top: 40rpx;
-	line-height:28rpx;
-}
-.toggleAccount .icon {
-	font-size: 24rpx;
-	margin-left: 10rpx;
-}
-.micro .animation.btn {
-	margin-top: 56rpx;
 }
 .micro .myPicker {
 	max-width: 167rpx;
@@ -554,4 +553,17 @@
 }
 .micro .selected .value.placeholder {
 	color:#EFE9F4;
+}
+.micro .botBox {
+	width: 326rpx;
+	margin: 70rpx auto 0;
+	display: flex;
+	justify-content: space-between;
+}
+.toggleAccount, .toggleIdentity {
+	font-size:26rpx;
+	color:#fff;
+	line-height:26rpx;
+	font-weight: 300;
+	opacity: 0.6;
 }

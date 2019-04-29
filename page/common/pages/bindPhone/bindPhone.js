@@ -1,5 +1,5 @@
 import {COMMON,RECRUITER} from '../../../../config.js'
-import {sendCodeApi, bindPhoneApi, checkSessionKeyApi} from "../../../../api/pages/auth.js"
+import {sendCodeApi, checkSessionKeyApi} from "../../../../api/pages/auth.js"
 import {quickLoginApi} from '../../../../api/pages/auth.js'
 
 let mobileNumber = 0
@@ -7,6 +7,7 @@ let second = 60
 let app = getApp()
 let timer = null
 let timerInt = null
+let backType = 'backPrev'
 Page({
 
   /**
@@ -24,6 +25,8 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    backType = 'backPrev'
+    if (options.backType) backType = options.backType
     wx.getSetting({
       success: res => {
         if (res.authSetting['scope.userInfo']) {
@@ -103,10 +106,10 @@ Page({
       mobile: this.data.phone,
       code: this.data.code
     }
-    app.phoneLogin(data)
+    app.phoneLogin(data, backType)
   },
   getPhoneNumber(e) {
-    app.quickLogin(e)
+    app.quickLogin(e, backType)
   },
   /**
    * 生命周期函数--监听页面初次渲染完成

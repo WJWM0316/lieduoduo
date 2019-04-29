@@ -88,6 +88,11 @@ export const request = ({method = 'post', url, host, data = {}, needKey = true, 
   } else {
     delete addHttpHead['Authorization']
   }
+  if (wx.getStorageSync('sessionToken')) {
+    if (url === '/bind/register' || url === '/bind/quick_login') {
+      addHttpHead['Authorization-Wechat'] = wx.getStorageSync('sessionToken')
+    }
+  }
 
   // 请求中间件
   const promise = new Promise((resolve, reject) => {
