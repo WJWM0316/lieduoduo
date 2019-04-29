@@ -218,6 +218,11 @@ Page({
       return
     }
 
+    if(endTime.active && this.timeStampToDay(startTime, endTime)) {
+      app.wxToast({title: '时间范围不能超过30天'})
+      return
+    }
+    
     this.setData({ startTime }, () => {
       let endTime = this.data.endTime
       let dateList = this.data.dateList
