@@ -100,9 +100,8 @@ Page({
       {type: 'region', title: '所在城市', value: '', placeholder: '请选择'},
       {type: 'birthday', title: '出生年月', value: '', placeholder: '请选择'},
       {type: 'workTime', title: '工作时间', value: '', placeholder: '请选择'}
-    ],
+    ]
   },
-
   /**
    * 生命周期函数--监听页面加载
    */
@@ -619,8 +618,7 @@ Page({
       case 4: 
         return getCreatFourthStepApi().then(res => {
           let intention = this.data.intention
-          intention.positionId = res.data.positionId
-          intention.position = res.data.position
+          intention = res.data
           this.setData({intention})
         })
     }

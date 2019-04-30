@@ -21,15 +21,15 @@
 					    	</view>
 					    </view>
 					    <view class="name {{city || birthDesc || startWorkYearDesc ? 'selected' : ''}}">
-					    	<view class="myPicker" bindtap="openPicker" data-index="{{0}}"><view class="title">所在城市</view><view hidden="{{!city && !birthDesc && !startWorkYearDesc}}" class="value {{!city ? 'placeholder' : ''}}">{{city || '请选择'}}</view></view>
+					    	<view class="myPicker" bindtap="openPicker" data-index="{{0}}"><view class="title">工作城市</view><view hidden="{{!city && !birthDesc && !startWorkYearDesc}}" class="value {{!city ? 'placeholder' : ''}}">{{city || '请选择'}}</view></view>
 					    	<view class="myPicker" bindtap="openPicker" data-index="{{1}}"><view class="title">出生年月</view><view hidden="{{!city && !birthDesc && !startWorkYearDesc}}" class="value {{!birthDesc ? 'placeholder' : ''}}">{{birthDesc || '请选择'}}</view></view>
 					    	<view class="myPicker" bindtap="openPicker" data-index="{{2}}"><view class="title">工作时间</view><view hidden="{{!city && !birthDesc && !startWorkYearDesc}}" class="value {{!startWorkYearDesc ? 'placeholder' : ''}}">{{startWorkYearDesc || '请选择'}}</view></view>
 					    </view>
 					    <view class="box">
-						    <input bindtap="jump" data-type="companyName" data-value="{{lastCompany}}"  maxlength="50" disabled name="company" placeholder-class="holderStyle" bindinput="getValue"placeholder="最近任职公司" value="{{lastCompany}}"/>
+						    <input bindtap="jump" data-type="companyName" data-value="{{lastCompany}}"  maxlength="50" disabled name="company" placeholder-class="holderStyle" bindinput="getValue"placeholder="{{startWorkYear === 0 ? '最近任职公司（选填）' : '最近任职公司'}}" value="{{lastCompany}}"/>
 						  </view>
 						  <view class="box">
-						    <input data-type="lastPosition" placeholder-class="holderStyle" bindinput="getValue" placeholder="职位名称" value="{{lastPosition}}"/>
+						    <input data-type="lastPosition" placeholder-class="holderStyle" bindinput="getValue" placeholder="{{startWorkYear === 0 ? '职位名称（选填）' : '职位名称'}}" value="{{lastPosition}}"/>
 						  </view>
 						  <block wx:if="{{!userInfo}}">
 						  	<button class="animation btn" open-type="getUserInfo" bindgetuserinfo="onGotUserInfo" lang="zh_CN">

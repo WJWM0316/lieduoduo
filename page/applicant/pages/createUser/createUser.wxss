@@ -489,7 +489,7 @@
 	font-weight:400;
 	color:#BCBCBC;
 	line-height:88rpx;
-	padding: 0 10rpx;
+	padding: 0 20rpx;
 }
 .sexBox .sex-item .icon {
 	width:24rpx;
