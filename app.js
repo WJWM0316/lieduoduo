@@ -208,7 +208,7 @@ App({
         })
       }).catch(e => {
         resolve(e)
-        if (pageUrl !== `${COMMON}startPage/startPage`) {
+        if (this.getCurrentPagePath().indexOf(`${COMMON}startPage/startPage`) !== -1) {
           wx.navigateTo({
             url: `${COMMON}auth/auth`
           })
@@ -313,9 +313,21 @@ App({
                         url: `${pageUrl}`
                       })
                     } else {
-                      wx.navigateBack({
-                        delta: 1
-                      })
+                      if (getCurrentPages().length > 1) {
+                         wx.navigateBack({
+                          delta: 1
+                        })
+                      } else {
+                        if (wx.getStorageSync('choseType') !== 'RECRUITER') {
+                          wx.reLaunch({
+                            url: `${APPLICANT}index/index`
+                          })
+                        } else {
+                          wx.reLaunch({
+                            url: `${RECRUITER}index/index`
+                          })
+                        }
+                      }
                     }
                   }
                 }
@@ -352,9 +364,21 @@ App({
                     url: `${APPLICANT}index/index`
                   })
                 } else {
-                  wx.navigateBack({
-                    delta: 1
-                  })
+                  if (getCurrentPages().length > 1) {
+                     wx.navigateBack({
+                      delta: 1
+                    })
+                  } else {
+                      if (wx.getStorageSync('choseType') !== 'RECRUITER') {
+                        wx.reLaunch({
+                          url: `${APPLICANT}index/index`
+                        })
+                      } else {
+                        wx.reLaunch({
+                          url: `${RECRUITER}index/index`
+                        })
+                      }
+                  }
                 }
               }
             }
@@ -362,6 +386,7 @@ App({
         })
         resolve(res)
       }).catch(e => {
+        reject(e)
         if (e.code !== 604) {
           this.checkLogin()
         }

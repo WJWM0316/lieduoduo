@@ -1,5 +1,5 @@
 import {COMMON,RECRUITER} from '../../../../config.js'
-import {sendCodeApi, checkSessionKeyApi} from "../../../../api/pages/auth.js"
+import {sendCodeApi, checkSessionKeyApi, changeNewCaptchaApi} from "../../../../api/pages/auth.js"
 import {quickLoginApi} from '../../../../api/pages/auth.js'
 
 let mobileNumber = 0
@@ -8,6 +8,8 @@ let app = getApp()
 let timer = null
 let timerInt = null
 let backType = 'backPrev'
+let captchaKey = ''
+let captchaValue = ''
 Page({
 
   /**
@@ -16,6 +18,7 @@ Page({
   data: {
     phone: '',
     code: '',
+    imgUrl: '',
     cdnImagePath: app.globalData.cdnImagePath,
     second: 60,
     canClick: false
@@ -25,6 +28,8 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    captchaKey = ''
+    captchaValue = ''
     backType = 'backPrev'
     if (options.backType) backType = options.backType
     wx.getSetting({
@@ -69,6 +74,14 @@ Page({
       clearTimeout(timer)
     }, 100)
   },
+  getImgCode(e) {
+    clearTimeout(timer)
+    timer = setTimeout(() => {
+      captchaValue = e.detail.value
+      this.setData({canClick: this.data.code && this.data.phone && captchaValue ? true : false})
+      clearTimeout(timer)
+    }, 100)
+  },
   setTime (second) {
     timerInt = setInterval(() => {
       second--
@@ -104,9 +117,31 @@ Page({
     if (!this.data.canClick) return
     let data = {
       mobile: this.data.phone,
-      code: this.data.code
+      code: this.data.code,
+      captchaKey,
+      captchaValue
     }
-    app.phoneLogin(data, backType)
+    app.phoneLogin(data, backType).catch(res => {
+      if (res.code === 419) {
+        captchaKey = res.data.key
+        let imgUrl = res.data.img
+        this.setData({imgUrl})
+      } else if (res.code === 440){
+        captchaKey = ''
+        captchaValue = ''
+        clearTimeout(timer)
+        timer = setTimeout(() => {
+          this.changeNewCaptcha()
+        }, 1500)
+      }
+    })
+  },
+  changeNewCaptcha () {
+    changeNewCaptchaApi().then(res0 => {
+      captchaKey = res0.data.key
+      let imgUrl = res0.data.img
+      this.setData({imgUrl})
+    })
   },
   getPhoneNumber(e) {
     app.quickLogin(e, backType)
@@ -133,20 +168,6 @@ Page({
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
+    clearInterval(timerInt)
   }
 })

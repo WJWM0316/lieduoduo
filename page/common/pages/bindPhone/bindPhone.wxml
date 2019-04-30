@@ -19,6 +19,12 @@
       <view bindtap="sendCode" class="sendBtn" hidden="{{second < 60}}">获取验证码</view>
       <view class="sendBtn wait" hidden="{{second === 60}}">{{second}}s</view>
     </view>
+    <view class="code imgCode" wx:if="{{imgUrl}}">
+      <view class="inputBox">
+        <input class="codeInput" placeholder="请输入图片验证码" bindinput="getImgCode" placeholder-style="color: #A59CB6"></input>
+      </view>
+      <image class="codePic" src="{{imgUrl}}" bindtap="changeNewCaptcha"></image>
+    </view>
   </view>
   <button class="bindBtn {{!canClick ? 'noClick' : ''}}" catchtap="bindPhone">登录</button>
   <view class="wxBtn">

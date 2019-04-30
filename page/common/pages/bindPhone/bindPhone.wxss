@@ -107,8 +107,8 @@
   color: #CDCBCF;
 }
 .wxBtn .icon .iconfont {
-  font-size: 32rpx;
-  color: #00C25F;
+  font-size: 26rpx;
+  color:rgba(0,194,95,0.7);
 }
 .wxLogin {
   font-size: 28rpx;
@@ -155,4 +155,15 @@
 }
 .userAgreement .btn {
   color: #652791;
+}
+
+.codePic {
+  width:162rpx;
+  height:64rpx;
+  border-radius:32rpx;
+  border:1rpx solid rgba(232,233,235,1);
+  position: absolute;
+  top: 50%;
+  margin-top: -32rpx;
+  right: 22rpx;
 }

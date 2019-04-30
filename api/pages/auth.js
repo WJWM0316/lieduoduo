@@ -69,3 +69,11 @@ export const changePhoneApi = data => {
     data
   })
 }
+export const changeNewCaptchaApi = data => {
+  return request({
+    method: 'get',
+    url: '/bind/new_captcha',
+    data
+  })
+}
+

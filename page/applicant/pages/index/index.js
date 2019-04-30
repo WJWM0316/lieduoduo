@@ -34,12 +34,12 @@ Page({
     bannerH: 200,
     tabList: [
       {
-        name: '选择地区',
+        name: '工作城市',
         type: 'city',
         active: false
       },
       {
-        name: '选择类型',
+        name: '职位类型',
         type: 'positionType',
         active: false
       },
@@ -198,34 +198,34 @@ Page({
     switch (this.data.tabType) {
       case 'city':
         if (index === 0) {
-          name = '全部地区'
+          tabList[0].name = '工作城市'
           tabList[0].active = false
         } else {
           tabList[0].active = true
+          tabList[0].name = name
         }
-        tabList[0].name = name
         this.setData({tabList, city: id, cityIndex: index, tabType: 'closeTab'})
         this.reloadPositionLists()
         break
       case 'positionType':
         if (index === 0) {
-          name = '职位类型'
+          tabList[1].name = '职位类型'
           tabList[1].active = false
         } else {
           tabList[1].active = true
+          tabList[1].name = name
         }
-        tabList[1].name = name
         this.setData({tabList, type: id, typeIndex: index, tabType: 'closeTab'})
         this.reloadPositionLists()
         break
       case 'salary':
         if (index === 0) {
-          name = '薪资范围'
+          tabList[2].name = '薪资范围'
           tabList[2].active = false
         } else {
           tabList[2].active = true
+          tabList[2].name = name
         }
-        tabList[2].name = name
         this.setData({tabList, emolument: id, emolumentIndex: index, tabType: 'closeTab'})
         this.reloadPositionLists()
         break
@@ -265,7 +265,7 @@ Page({
           if (item.areaId === city) {
             cityIndex = index
             if (index === 0) {
-              tabList[0].name = '全部地区'
+              tabList[0].name = '工作城市'
             } else {
               tabList[0].active = true
               tabList[0].name = item.name
