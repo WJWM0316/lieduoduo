@@ -387,7 +387,7 @@ App({
         resolve(res)
       }).catch(e => {
         reject(e)
-        if (e.code !== 604) {
+        if (e.code === 401) {
           this.checkLogin()
         }
       })

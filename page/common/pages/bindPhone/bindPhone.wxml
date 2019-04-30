@@ -23,7 +23,7 @@
       <view class="inputBox">
         <input class="codeInput" placeholder="请输入图片验证码" bindinput="getImgCode" placeholder-style="color: #A59CB6"></input>
       </view>
-      <image class="codePic" src="{{imgUrl}}" bindtap="changeNewCaptcha"></image>
+      <image class="codePic" src="{{imgUrl}}" bindtap="changeNewCaptcha" mode="widthFix"></image>
     </view>
   </view>
   <button class="bindBtn {{!canClick ? 'noClick' : ''}}" catchtap="bindPhone">登录</button>

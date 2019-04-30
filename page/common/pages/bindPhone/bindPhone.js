@@ -77,7 +77,7 @@ Page({
   getImgCode(e) {
     clearTimeout(timer)
     timer = setTimeout(() => {
-      captchaValue = e.detail.value
+      captchaValue = e.detail.value.trim()
       this.setData({canClick: this.data.code && this.data.phone && captchaValue ? true : false})
       clearTimeout(timer)
     }, 100)
