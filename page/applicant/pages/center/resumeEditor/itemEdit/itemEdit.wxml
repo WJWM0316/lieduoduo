@@ -1,5 +1,5 @@
 <!--简历项目编辑页-->
-<navbar title="项目经历"></navbar>
+<navbar title="项目经历" background="#FFFFFF" color="#22292C"></navbar>
 <view class="warp">
   <view class="commont">
     <view class="title"><text>*</text>项目名称</view>

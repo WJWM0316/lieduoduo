@@ -1,5 +1,5 @@
 <!--简历意向编辑页-->
-<navbar title="求职意向"></navbar>
+<navbar title="求职意向" background="#FFFFFF" color="#22292C"></navbar>
 <view class="warp">
   <view class="commont">
     <view class="title"><text class="star">*</text>期望城市</view>

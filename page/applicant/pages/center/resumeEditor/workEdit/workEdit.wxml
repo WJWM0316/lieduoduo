@@ -1,5 +1,5 @@
 <!--简历工作编辑页-->
-<navbar title="工作经历"></navbar>
+<navbar title="工作经历" background="#FFFFFF" color="#22292C"></navbar>
 <view class="warp">
   <view class="commont">
     <view class="title"><text>*</text>公司名称</view>

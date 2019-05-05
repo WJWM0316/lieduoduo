@@ -507,3 +507,6 @@
   color:#fff;
   line-height:88rpx;
 }
+.modeShrinkText {
+  color: #282828 !important;
+}

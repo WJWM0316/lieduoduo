@@ -1,5 +1,5 @@
 <view class="userInfoEdit">
-  <navBar title="编辑个人信息"></navBar>
+  <navBar title="编辑个人信息" background="#FFFFFF" color="#22292C"></navBar>
   <view class="title">基本信息</view>
   <view class="item avatar">
     <view class="txt">头像</view>
