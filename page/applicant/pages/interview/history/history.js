@@ -210,6 +210,10 @@ Page({
     }
   },
   onPullDownRefresh() {
+    if (!this.data.hasLogin || !this.data.isJobhunter) {
+      wx.stopPullDownRefresh()
+      return
+    }
     let interviewList = {list: [], pageNum: 1, isLastPage: false, isRequire: false, total: 0}
     this.setData({interviewList, hasReFresh: true})
     return this.getLists(false).then(res => {
@@ -221,10 +225,13 @@ Page({
       interviewList.isRequire = true
       interviewList.total = res.meta.total
       this.setData({interviewList, onBottomStatus, hasReFresh: false}, () => wx.stopPullDownRefresh())
+    }).catch(e => {
+      this.setData({hasReFresh: false})
+      wx.stopPullDownRefresh()
     })
   },
   getLists(hasLoading = true) {
-
+    if (!this.data.hasLogin || !this.data.isJobhunter) return
     return new Promise((resolve, reject) => {
       let params = {}
       let startTime = this.data.startTime

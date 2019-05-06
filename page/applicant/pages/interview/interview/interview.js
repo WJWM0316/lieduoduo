@@ -103,7 +103,7 @@ Page({
     })
     tabLists[tabIndex].active = true
     this.setData({tabLists, tabIndex})
-    if(!this.data.hasLogin) return
+    if(!this.data.hasLogin || !this.data.isJobhunter) return
     let data = {}
     switch(index) {
       case 0:
@@ -196,7 +196,7 @@ Page({
   },
   // 我的邀请
   getApplyList(hasLoading = true) {
-    if (!this.data.hasLogin) return
+    if (!this.data.hasLogin || !this.data.isJobhunter) return
     let applyData = this.data.applyData
     let tab = this.data.applyScreen[this.data.applyIndex].value
     let applyBottomStatus = 0
@@ -214,7 +214,7 @@ Page({
   },
   // 收到意向
   getInviteList(hasLoading = true) {
-    if (!this.data.hasLogin) return
+    if (!this.data.hasLogin || !this.data.isJobhunter) return
     let receiveData = this.data.receiveData
     let tab = this.data.receiveScreen[this.data.receiveIndex].value
     let receiveBottomStatus = 0
@@ -232,7 +232,7 @@ Page({
   },
   // 面试日程
   getScheduleList(hasLoading = true) {
-    if (!this.data.hasLogin) return
+    if (!this.data.hasLogin || !this.data.isJobhunter) return
     let interviewData = this.data.interviewData
     let interviewBottomStatus = 0
     return getScheduleListApi({count: interviewData.count, page: interviewData.pageNum, time: chooseTime, ...app.getSource()}, hasLoading).then(res => {
@@ -342,7 +342,7 @@ Page({
     }
   },
   onPullDownRefresh () {
-    if (!this.data.hasLogin) {
+    if (!this.data.hasLogin || !this.data.isJobhunter) {
       wx.stopPullDownRefresh()
       return
     }
@@ -362,6 +362,7 @@ Page({
           this.setData({hasReFresh: false})
         }).catch(e => {
           wx.stopPullDownRefresh()
+          this.setData({hasReFresh: false})
         })
       break
       case 1:
@@ -379,6 +380,7 @@ Page({
           this.setData({hasReFresh: false})
         }).catch(e => {
           wx.stopPullDownRefresh()
+          this.setData({hasReFresh: false})
         })
       break
       case 2:
@@ -396,6 +398,7 @@ Page({
           this.setData({hasReFresh: false})
         }).catch(e => {
           wx.stopPullDownRefresh()
+          this.setData({hasReFresh: false})
         })
       break
     }
