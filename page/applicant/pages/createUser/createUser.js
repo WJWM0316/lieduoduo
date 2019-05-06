@@ -106,6 +106,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    directChat = ''
     if (app.loginInit) {
       this.getStep()
     } else {
@@ -167,25 +168,27 @@ Page({
             if (!directChat) {
               wx.navigateBack({
                 delta: 1,
-                complete () {
-                  app.wxConfirm({
-                    title: '创建成功',
-                    content: '你的简历竞争力只超过28%的求职者，建议你现在完善简历',
-                    cancelText: '暂不完善',
-                    confirmText: '马上完善',
-                    confirmBack () {
-                      wx.navigateTo({
-                        url: `${COMMON}resumeDetail/resumeDetail?uid=${app.globalData.resumeInfo.uid}&preview=true`
-                      })
-                    }
-                  })
+                success () {
+                  timer = setTimeout(() => {
+                    app.wxConfirm({
+                      title: '创建成功',
+                      content: '你的简历竞争力只超过28%的求职者，建议你现在完善简历',
+                      cancelText: '暂不完善',
+                      confirmText: '马上完善',
+                      confirmBack () {
+                        wx.navigateTo({
+                          url: `${COMMON}resumeDetail/resumeDetail?uid=${app.globalData.resumeInfo.uid}&preview=true`
+                        })
+                      }
+                    })
+                  }, 500)
                 }
               })
             } else {
               let path = `${decodeURIComponent(directChat)}&directChat=true`
               wx.redirectTo({
                 url: path,
-                complete () {
+                success () {
                   app.wxConfirm({
                     title: '开撩成功',
                     content: '你的简历竞争力只超过28%的求职者，建议你现在完善简历',
@@ -200,6 +203,7 @@ Page({
                 }
               })
             }
+            clearTimeout(timer)
           }, 1000)
         })
       }

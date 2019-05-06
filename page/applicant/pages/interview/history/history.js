@@ -9,7 +9,7 @@ let app = getApp()
 Page({
   data: {
     hasReFresh: false,
-    onBottomStatus: 0,
+    onBottomStatus: 2,
     tab: 'positionList',
     navH: app.globalData.navHeight,
     isJobhunter: app.globalData.isJobhunter,
