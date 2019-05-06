@@ -105,7 +105,8 @@
 				</button>
 			</form>
 		</view>
-		<bottomStatus status="{{onBottomStatus}}" listData="{{interviewList.list}}" desc="暂时没有发现面试记录~">
+    <bottomStatus  marginTop="{{260}}" status="{{onBottomStatus}}" listData="{{interviewList.list}}" desc="{{hasLogin ? (isJobhunter ? '没有面试记录~' : '你与offer之间就差一份简历~') : '大量名企高薪职位等你开撩'}}">
+			<button class="jump clear-style" form-type="submit" bindtap="jump" data-type="{{hasLogin ? (isJobhunter ? 'positionList' : 'create') : 'login'}}">{{hasLogin ? (isJobhunter ? '发现更多职业机会' : '立即创建简历') : '马上登录'}}</button>
 		</bottomStatus>
 	</view>
 </view>

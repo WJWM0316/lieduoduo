@@ -8,6 +8,7 @@ Page({
   data: {
     list: [],
     pageNum: 1,
+    isJobhunter: app.globalData.isJobhunter,
     isLastPage: false,
     pageCount: 20,
     hasReFresh: false,
@@ -66,11 +67,18 @@ Page({
       })
     })
   },
-  jump () {
+  jump (e) {
+    let type = e.currentTarget.dataset.type
     if (this.data.options.type === 'myBrowse') {
-      wx.reLaunch({
-        url: `${APPLICANT}index/index`
-      })
+      if (type === 'index') {
+        wx.navigateTo({
+          url: `${APPLICANT}index/index`
+        })
+      } else {
+        wx.navigateTo({
+          url: `${APPLICANT}createUser/createUser`
+        })
+      }
     } else {
       wx.navigateTo({
         url: `${COMMON}rank/rank`

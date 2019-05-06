@@ -109,8 +109,9 @@
 				</view>
 			</button>
 		</form>
-		<!-- <commonList personality="list" type="receive" list="{{applyData.list}}" list-type="default" showItemStatus="{{true}}"></commonList> -->
-		<bottomStatus status="{{applyBottomStatus}}" listData="{{applyData.list}}"></bottomStatus>
+		<bottomStatus status="{{applyBottomStatus}}" listData="{{applyData.list}}" desc="{{hasLogin ? (isJobhunter ? '你还没有面试申请记录哟~' : '你与offer之间就差一份简历~') : '大量名企高薪职位等你开撩'}}">
+			<button class="jump clear-style" form-type="submit" bindtap="jump" data-type="{{hasLogin ? (isJobhunter ? 'positionList' : 'create') : 'login'}}">{{hasLogin ? (isJobhunter ? '发现更多职业机会' : '立即创建简历') : '马上登录'}}</button>
+		</bottomStatus>
 	</view>
 
 	<!--收到邀请-->
@@ -153,8 +154,9 @@
 				</view>
 			</button>
 		</form>
-		<!-- <commonList personality="list" type="apply" list="{{receiveData.list}}" list-type="default" showItemStatus="{{true}}"></commonList> -->
-		<bottomStatus status="{{receiveBottomStatus}}" listData="{{receiveData.list}}"></bottomStatus>
+		<bottomStatus status="{{receiveBottomStatus}}" listData="{{receiveData.list}}" desc="{{hasLogin ? (isJobhunter ? '你还没有面试邀请记录哟~' : '你与offer之间就差一份简历~') : '大量名企高薪职位等你开撩'}}">
+			<button class="jump clear-style" form-type="submit" bindtap="jump" data-type="{{hasLogin ? (isJobhunter ? 'positionList' : 'create') : 'login'}}">{{hasLogin ? (isJobhunter ? '发现更多职业机会' : '立即创建简历') : '马上登录'}}</button>
+		</bottomStatus>
 	</view>
 
 	<!--面试日程-->
@@ -197,8 +199,9 @@
 				</view>
 			</button>
 		</form>
-		<!-- <commonList personality="list" type="dateList" list="{{interviewData.list}}" list-type="interview}}"></commonList> -->
-		<bottomStatus status="{{interviewBottomStatus}}" listData="{{interviewData.list}}"></bottomStatus>
+		<bottomStatus status="{{interviewBottomStatus}}" listData="{{interviewData.list}}" desc="{{hasLogin ? (isJobhunter ? '你还没有面试记录哟~' : '你与offer之间就差一份简历~') : '大量名企高薪职位等你开撩'}}">
+			<button class="jump clear-style" form-type="submit" bindtap="jump" data-type="{{hasLogin ? (isJobhunter ? 'positionList' : 'create') : 'login'}}">{{hasLogin ? (isJobhunter ? '发现更多职业机会' : '立即创建简历') : '马上登录'}}</button>
+		</bottomStatus>
 	</view>
 	<tabBar></tabBar>
 </view>

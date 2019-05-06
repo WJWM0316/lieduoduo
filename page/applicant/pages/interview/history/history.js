@@ -12,6 +12,8 @@ Page({
     onBottomStatus: 0,
     tab: 'positionList',
     navH: app.globalData.navHeight,
+    isJobhunter: app.globalData.isJobhunter,
+    hasLogin: app.globalData.hasLogin,
     pageCount: 20,
     timeSelected: false,
     timeModel: {
@@ -199,7 +201,13 @@ Page({
       isRequire: false,
       total: 0
     }
-    this.setData({interviewList}, () => this.getLists())
+    if (app.getRoleInit) {
+      this.setData({hasLogin: app.globalData.hasLogin, isJobhunter: app.globalData.isJobhunter, interviewList}, () => this.getLists())
+    } else {
+      app.getRoleInit = () => {
+        this.setData({hasLogin: app.globalData.hasLogin, isJobhunter: app.globalData.isJobhunter, interviewList}, () => this.getLists())
+      }
+    }
   },
   onPullDownRefresh() {
     let interviewList = {list: [], pageNum: 1, isLastPage: false, isRequire: false, total: 0}
@@ -281,5 +289,20 @@ Page({
   },
   formSubmit(e) {
     app.postFormId(e.detail.formId)
+  },
+  jump (e) {
+    let url = ''
+    switch (e.currentTarget.dataset.type) {
+      case 'login':
+        url = `${COMMON}bindPhone/bindPhone`
+        break
+      case 'positionList':
+        url = `${APPLICANT}index/index`
+        break
+      case 'create':
+        url = `${APPLICANT}createUser/createUser`
+        break
+    }
+    wx.navigateTo({url})
   }
 })

@@ -13,7 +13,6 @@ import {getSelectorQuery} from "../../../../../utils/util.js"
 let app = getApp()
 
 let chooseTime = parseInt(new Date().getTime() / 1000)
-let hasLogin = false //  是否登录
 let initData = {
   list: [],
   pageNum: 1,
@@ -27,6 +26,8 @@ Page({
   data: {
     cdnImagePath: app.globalData.cdnImagePath,
     navH: app.globalData.navHeight,
+    hasLogin: app.globalData.hasLogin,
+    isJobhunter: app.globalData.isJobhunter,
     fixedBarHeight: 0,
     dateList: [],
     hasReFresh: false,
@@ -102,8 +103,7 @@ Page({
     })
     tabLists[tabIndex].active = true
     this.setData({tabLists, tabIndex})
-    if(!hasLogin) return
-
+    if(!this.data.hasLogin) return
     let data = {}
     switch(index) {
       case 0:
@@ -196,7 +196,7 @@ Page({
   },
   // 我的邀请
   getApplyList(hasLoading = true) {
-    if (!hasLogin) return
+    if (!this.data.hasLogin) return
     let applyData = this.data.applyData
     let tab = this.data.applyScreen[this.data.applyIndex].value
     let applyBottomStatus = 0
@@ -214,7 +214,7 @@ Page({
   },
   // 收到意向
   getInviteList(hasLoading = true) {
-    if (!hasLogin) return
+    if (!this.data.hasLogin) return
     let receiveData = this.data.receiveData
     let tab = this.data.receiveScreen[this.data.receiveIndex].value
     let receiveBottomStatus = 0
@@ -232,7 +232,7 @@ Page({
   },
   // 面试日程
   getScheduleList(hasLoading = true) {
-    if (!hasLogin) return
+    if (!this.data.hasLogin) return
     let interviewData = this.data.interviewData
     let interviewBottomStatus = 0
     return getScheduleListApi({count: interviewData.count, page: interviewData.pageNum, time: chooseTime, ...app.getSource()}, hasLoading).then(res => {
@@ -306,12 +306,12 @@ Page({
   },
   onShow () {
     this.initDefault()
-    if (app.globalData.isJobhunter) {
-      hasLogin = app.globalData.hasLogin
+    if (app.getRoleInit) {
+      this.setData({hasLogin: app.globalData.hasLogin, isJobhunter: app.globalData.isJobhunter})
       this.init()
     } else {
       app.getRoleInit = () => {
-        hasLogin = app.globalData.hasLogin
+        this.setData({hasLogin: app.globalData.hasLogin, isJobhunter: app.globalData.isJobhunter})
         this.init()
       }
     }
@@ -342,7 +342,7 @@ Page({
     }
   },
   onPullDownRefresh () {
-    if (!hasLogin) {
+    if (!this.data.hasLogin) {
       wx.stopPullDownRefresh()
       return
     }
@@ -456,6 +456,21 @@ Page({
         wx.navigateTo({url: `${COMMON}arrangement/arrangement?id=${params.itemId}`})
         break
     }
+  },
+  jump (e) {
+    let url = ''
+    switch (e.currentTarget.dataset.type) {
+      case 'login':
+        url = `${COMMON}bindPhone/bindPhone`
+        break
+      case 'positionList':
+        url = `${APPLICANT}index/index`
+        break
+      case 'create':
+        url = `${APPLICANT}createUser/createUser`
+        break
+    }
+    wx.navigateTo({url})
   },
   formSubmit(e) {
     app.postFormId(e.detail.formId)

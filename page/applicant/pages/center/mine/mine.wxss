@@ -79,6 +79,7 @@
   width: 343rpx;
   color: #929292;
   display: block;
+  line-height: 36rpx;
 }
 
 .mine .floating-box .edit-box{
@@ -307,4 +308,17 @@
 .createBox .btn .icon {
   font-size: 24rpx;
   margin-left: 10rpx;
+}
+
+.createBtn {
+  line-height: 90rpx;
+  background:rgba(101,39,145,1);
+  box-shadow:0rpx 20rpx 18rpx 0rpx rgba(101,39,145,0.2);
+  border-radius: 45rpx;
+  margin: 116rpx auto 0;
+  font-size: 32rpx;
+  color: rgba(255, 255, 255, 1);
+  text-align: center;
+  box-sizing: border-box;
+  overflow: hidden;
 }
