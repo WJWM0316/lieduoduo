@@ -566,9 +566,9 @@ Page({
             callback () {
               app.shareStatistics({
                 id: info.id,
-                type: 'position',
+                type: 'resume',
                 sCode: info.sCode,
-                channel: 'qrpe'
+                channel: 'qrpl'
               })
             }
           })
