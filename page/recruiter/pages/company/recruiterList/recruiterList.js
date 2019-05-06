@@ -24,8 +24,7 @@ Page({
     cdnImagePath: app.globalData.cdnImagePath
   },
   onLoad(options) {
-    let isCompanyAdmin = app.globalData.recruiterDetails.isCompanyAdmin || 0
-    this.setData({options, isCompanyAdmin})
+    this.setData({options})
   },
   onShow() {
     let recruitersList = {
@@ -34,7 +33,13 @@ Page({
       isLastPage: false,
       isRequire: false
     }
-    this.setData({recruitersList}, () => this.getLists())
+    if (app.pageInit) {
+      this.setData({recruitersList}, () => this.getLists())
+    } else {
+      app.pageInit = () => {
+        this.setData({recruitersList}, () => this.getLists())
+      }
+    }
   },
   /**
    * @Author   小书包
@@ -51,11 +56,12 @@ Page({
         const onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
         const list = res.data
         list.map(field => field.randomTxt = agreedTxtB())
+        let isCompanyAdmin = list.filter(item => item.isCompanyAdmin)[0].uid === app.globalData.recruiterDetails.uid
         recruitersList.list = recruitersList.list.concat(list)
         recruitersList.isLastPage = res.meta && res.meta.nextPageUrl ? false : true
         recruitersList.pageNum = recruitersList.pageNum + 1
         recruitersList.isRequire = true
-        this.setData({recruitersList, onBottomStatus}, () => resolve(res))
+        this.setData({recruitersList, isCompanyAdmin, onBottomStatus}, () => resolve(res))
       })
     })
   },
