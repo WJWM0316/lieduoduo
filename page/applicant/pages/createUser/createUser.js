@@ -166,12 +166,38 @@ Page({
           timer = setTimeout(() => {
             if (!directChat) {
               wx.navigateBack({
-                delta: 1
+                delta: 1,
+                complete () {
+                  app.wxConfirm({
+                    title: '创建成功',
+                    content: '你的简历竞争力只超过28%的求职者，建议你现在完善简历',
+                    cancelText: '暂不完善',
+                    confirmText: '马上完善',
+                    confirmBack () {
+                      wx.navigateTo({
+                        url: `${COMMON}resumeDetail/resumeDetail?uid=${app.globalData.resumeInfo.uid}&preview=true`
+                      })
+                    }
+                  })
+                }
               })
             } else {
               let path = `${decodeURIComponent(directChat)}&directChat=true`
               wx.redirectTo({
-                url: path
+                url: path,
+                complete () {
+                  app.wxConfirm({
+                    title: '开撩成功',
+                    content: '你的简历竞争力只超过28%的求职者，建议你现在完善简历',
+                    cancelText: '暂不完善',
+                    confirmText: '马上完善',
+                    confirmBack () {
+                      wx.navigateTo({
+                        url: `${COMMON}resumeDetail/resumeDetail?uid=${app.globalData.resumeInfo.uid}&preview=true`
+                      })
+                    }
+                  })
+                }
               })
             }
           }, 1000)
