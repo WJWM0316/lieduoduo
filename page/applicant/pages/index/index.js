@@ -74,6 +74,7 @@ Page({
   },
 
   onLoad(options) {
+    console.log(options, 1111111111111111111)
     hasOnload = false
     let bannerH = this.data.bannerH
     if (!this.data.isBangs) {
@@ -106,7 +107,7 @@ Page({
       }
     }
   },
-  onShow () {
+  onShow (options) {
     if (hasOnload) {
       this.initPage()
     }
