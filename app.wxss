@@ -1,28 +1,21 @@
 /**app.wxss**/
 @import 'iconfont.wxss'
 .container {
-} 
-
-page {
-	background:#FBFBFF;
-}
-view {
 	-webkit-overflow-scrolling: touch
-}
-::-webkit-scrollbar {
-	width: 0;
-	height: 0;
-	color: transparent;
-}
-
-button::after{
-	display: none;
-	border: none;
 }
 
 .holderStyle{
   color: #BCBCBC;
 	font-weight: 300;
+}
+
+.clear-style {
+	padding: 0;
+	background: none;
+	border: 0;
+}
+.clear-style::after {
+	display: none;
 }
 /*
 @font-face {

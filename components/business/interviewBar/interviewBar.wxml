@@ -1,9 +1,11 @@
+<form bindsubmit="formSubmit" report-submit='{{true}}'>  
+
 <view class="interview-bar" wx:if="{{ !isOwerner }}">
 	
 	<block wx:if="{{type === 'recruiter' || type === 'position'}}">
-		<view class="img-box" bindtap="todoAction" data-action="viewRecruiter">
+		<button class="clear-style img-box" bindtap="todoAction" data-action="viewRecruiter" form-type="submit">
 			<image mode="aspectFill" src="{{infos.avatar.smallUrl || infos.recruiterInfo.avatar.smallUrl}}"></image>
-		</view>
+		</button>
 
 		<!-- 求职者还没有发起开撩动作 招聘官主页 start-->
 		<block wx:if="{{type === 'recruiter' && !interviewInfos.haveInterview}}">
@@ -15,7 +17,7 @@
 				<view class="second">{{recruiterWords}}</view>
 			</view>
 			<view class="button-box button-box-color1">
-				<view bindtap="todoAction" data-action="job-hunting-chat">开撩约面</view>
+				<button class="clear-style" form-type="submit" bindtap="todoAction" data-action="job-hunting-chat">开撩约面</button>
 			</view>
 		</block>
 		<!-- 求职者还没有发起开撩动作 招聘官主页 end-->
@@ -30,7 +32,7 @@
 				<view class="second">{{recruiterWords}}</view>
 			</view>
 			<view class="button-box button-box-color1">
-				<view bindtap="todoAction" data-action="job-hunting-chat">开撩约面</view>
+				<button class="clear-style" form-type="submit" bindtap="todoAction" data-action="job-hunting-chat">开撩约面</button>
 			</view>
 		</block>
 		<!-- 求职者还没有发起开撩动作 职位详情 end-->
@@ -205,3 +207,4 @@
 		</view>
 	</view>
 </view>
+</form>
