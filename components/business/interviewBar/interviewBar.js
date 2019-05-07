@@ -486,6 +486,9 @@ Component({
         default:
           break
       }
+    },
+    formSubmit(e) {
+      app.postFormId(e.detail.formId)
     }
   }
 })

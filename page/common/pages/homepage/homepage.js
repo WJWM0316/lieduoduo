@@ -59,7 +59,6 @@ Page({
   },
   onLoad(options) {
     if (options.scene) options = app.getSceneParams(options.scene)
-    console.log(options, 1111111111)
     this.setData({query: options})
   },
   onShow() {

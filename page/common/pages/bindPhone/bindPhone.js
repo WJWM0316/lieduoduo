@@ -146,6 +146,9 @@ Page({
   getPhoneNumber(e) {
     app.quickLogin(e, backType)
   },
+  formSubmit(e) {
+    app.postFormId(e.detail.formId)
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

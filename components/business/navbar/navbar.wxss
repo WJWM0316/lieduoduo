@@ -57,6 +57,7 @@
   background: none;
   display:inline-block;
   line-height: 92rpx;
+  overflow: visible;
 }
 .formIdBtn:after {
   display: none;

@@ -25,6 +25,7 @@ Page({
     pageCount: 20,
     navH: app.globalData.navHeight,
     showNav: false,
+    options: {},
     fixedBarHeight: 0,
     hasReFresh: false,
     onBottomStatus: 0,
@@ -74,13 +75,13 @@ Page({
 
   onLoad(options) {
     hasOnload = false
-    let bannerH = this.data.bannerH
+    let bannerH = this.data.bannerH,
+        requireOAuth = this.data.requireOAuth
     if (!this.data.isBangs) {
       bannerH = app.globalData.systemInfo.screenWidth/(750/420)
     } else {
       bannerH = app.globalData.systemInfo.screenWidth/(750/468)
     }
-    this.setData({bannerH})
     identity = app.identification(options)
     const positionList = {
       list: [],
@@ -89,6 +90,8 @@ Page({
       isRequire: false
     }
     let init = () => {
+    this.setData({positionList, bannerH, options})
+    if (app.loginInit) {
       this.getAdBannerList()
       this.getAvartList()
       Promise.all([this.getCityLabel(), this.getLabelPosition(), this.getEmolument()]).then(() => {
@@ -336,6 +339,7 @@ Page({
       let positionList = this.data.positionList
       let onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
       let requireOAuth = res.meta.requireOAuth || false
+      if (this.data.options.needAuth && !app.globalData.userInfo) requireOAuth = true
       positionList.list = positionList.list.concat(res.data)
       positionList.isLastPage = res.meta && res.meta.nextPageUrl ? false : true
       positionList.pageNum = positionList.pageNum + 1
