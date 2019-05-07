@@ -306,7 +306,7 @@ Page({
       let positionList = this.data.positionList
       let onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
       let requireOAuth = res.meta.requireOAuth || false
-      if (this.data.options.needAuth) requireOAuth = true
+      if (this.data.options.needAuth && !app.globalData.userInfo) requireOAuth = true
       positionList.list = positionList.list.concat(res.data)
       positionList.isLastPage = res.meta && res.meta.nextPageUrl ? false : true
       positionList.pageNum = positionList.pageNum + 1
