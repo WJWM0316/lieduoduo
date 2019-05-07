@@ -48,6 +48,7 @@ Page({
     edCurrent: 0,
     workErr: 0,
     edErr: 0,
+    options: {},
     workData: [
       {
         company: '',
@@ -124,6 +125,7 @@ Page({
     if (options.micro) {
       this.setData({isMicro: true})
     }
+    this.setData({options})
     watch.setWatcher(this)
   },
   watch: {    
@@ -409,7 +411,8 @@ Page({
       gender: data.gender,
       name: data.name,
       birth: data.birth,
-      startWorkYear: data.startWorkYear
+      startWorkYear: data.startWorkYear,
+      from: data.options.from
     }
     let title = ''
     if (!params.avatar) {
@@ -477,7 +480,7 @@ Page({
       })
       return new Promise((resolve, reject) => {reject(`第${workErr}个工作经历档案信息不完整, 无法提交`)})
     }
-    return postCreatSecondStepApi({careers: params}).then(res => {
+    return postCreatSecondStepApi({careers: params, from: this.data.options.from || 0}).then(res => {
       app.globalData.isMicroCard = true
       this.setData({workErr: 0})
     })
@@ -549,7 +552,7 @@ Page({
         internships.push(item)
       }
     })
-    return postCreatThirdStepApi({educations, internships}).then(res => {
+    return postCreatThirdStepApi({educations, internships, from: this.data.options.from || 0}).then(res => {
       this.setData({edErr: 0})
     })
   },
@@ -569,6 +572,7 @@ Page({
       app.wxToast({title})
       return new Promise((resolve, reject) => {reject(title)})
     }
+    params.from = this.data.options.from || 0
     return postCreatFourthStepApi(params)
   },
   getStepData (step) {
