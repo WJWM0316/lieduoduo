@@ -134,7 +134,6 @@ Page({
   },
   jumpBanner (e) {
     let url = e.currentTarget.dataset.url
-    console.log(url, 11222)
     wx.navigateTo({
       url: `/${url}`
     })
