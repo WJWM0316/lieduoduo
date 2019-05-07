@@ -72,7 +72,6 @@ Page({
     requireOAuth: false,
     cdnImagePath: app.globalData.cdnImagePath
   },
-
   onLoad(options) {
     hasOnload = false
     let bannerH = this.data.bannerH,
@@ -90,17 +89,18 @@ Page({
       isRequire: false
     }
     let init = () => {
-    this.setData({positionList, bannerH, options})
-    if (app.loginInit) {
-      this.getAdBannerList()
-      this.getAvartList()
-      Promise.all([this.getCityLabel(), this.getLabelPosition(), this.getEmolument()]).then(() => {
-        this.getPositionRecord()
-        hasOnload = true
-        this.initPage()
-      })
+      this.setData({positionList, bannerH, options})
+      if (app.loginInit) {
+        this.getAdBannerList()
+        this.getAvartList()
+        Promise.all([this.getCityLabel(), this.getLabelPosition(), this.getEmolument()]).then(() => {
+          this.getPositionRecord()
+          hasOnload = true
+          this.initPage()
+        })
+      }
+      this.setData({positionList})
     }
-    this.setData({positionList})
     if (app.loginInit) {
       init()
     } else {
