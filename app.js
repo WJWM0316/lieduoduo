@@ -38,9 +38,9 @@ App({
   globalData: {
     startRoute: '',
     identity: "", // 身份标识
-    isMicroCard: false, // 是否创建微名片
-    isRecruiter: false, // 是否认证成为招聘官
-    isJobhunter: false, // 是否注册成求职者
+    isMicroCard: 0, // 是否创建微名片
+    isRecruiter: 0, // 是否认证成为招聘官
+    isJobhunter: 0, // 是否注册成求职者
     hasLogin: false, // 判断是否登录
     userInfo: '', // 用户信息， 判断是否授权
     navHeight: 0,

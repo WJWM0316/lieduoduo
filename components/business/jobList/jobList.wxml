@@ -38,6 +38,12 @@
             <image class="conRight logo" mode="aspectFit" src="{{item.companyInfo.logoInfo.smallUrl}}" lazy-load></image>
           </view>
         </view>
+
+        <view class="li craete {{showBoxShadow ? 'box-shadow' : ''}}" wx:if="{{listType === 'index' && index === 5}}">
+          <view class="title">名企高薪等你来撩</view>
+          <view class="desc">花几分钟写一份简历，获得更多优质机会</view>
+          <view class="btn">立即创建简历<i class="icon iconfont icon-disejiantou-you"></i></view>
+        </view>
     </button>  
     </form>
 </view>

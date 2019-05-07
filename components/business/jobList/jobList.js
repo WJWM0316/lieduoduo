@@ -10,6 +10,10 @@ Component({
     showBoxShadow: {
       type: Boolean,
       value: true
+    },
+    listType: {
+      type: String,
+      value: ''
     }
   },
 

@@ -70,7 +70,9 @@ Page({
     emolumentList: [],
     requireOAuth: false,
     cdnImagePath: app.globalData.cdnImagePath,
-    options: {}
+    options: {},
+    hasLogin: app.globalData.hasLogin,
+    isJobhunter: app.globalData.isJobhunter
   },
   onLoad(options) {
     hasOnload = false
@@ -94,6 +96,7 @@ Page({
       this.getAvartList()
       Promise.all([this.getCityLabel(), this.getLabelPosition(), this.getEmolument()]).then(() => {
         this.getPositionRecord()
+        this.setData({hasLogin: app.globalData.hasLogin, isJobhunter: app.globalData.isJobhunter})
         hasOnload = true
         this.initPage()
       })

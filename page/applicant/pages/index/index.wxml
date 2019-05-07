@@ -56,7 +56,7 @@
     </view>
   </view>
   <view class="list-box">
-    <jobList personality="jobItem" list="{{positionList.list}}" list-type="interview" current-tab="all"></jobList>
+    <jobList listType="index" personality="jobItem" list="{{positionList.list}}" list-type="interview" current-tab="all"></jobList>
     <bottomStatus status="{{onBottomStatus}}" listData="{{positionList.list}}"></bottomStatus>
   </view>
   <tabBar></tabBar>
