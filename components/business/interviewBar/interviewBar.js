@@ -243,7 +243,7 @@ Component({
         if(identity === 'APPLICANT') {
           if(!isJobhunter) {
             let path = app.getCurrentPagePath()
-            wx.navigateTo({url: `${APPLICANT}createUser/createUser?directChat=${encodeURIComponent(path)}`})
+            wx.navigateTo({url: `${APPLICANT}createUser/createUser?directChat=${encodeURIComponent(path)}&from=2`})
           } else {
             // 走正常流程
             if(this.data.type === 'recruiter') {

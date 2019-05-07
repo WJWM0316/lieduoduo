@@ -76,7 +76,6 @@ Page({
     hasOnload = false
     let bannerH = this.data.bannerH,
         requireOAuth = this.data.requireOAuth
-    console.log(options, 1111111111111111111)
     if (!this.data.isBangs) {
       bannerH = app.globalData.systemInfo.screenWidth/(750/420)
     } else {
@@ -352,7 +351,16 @@ Page({
   },
   getAdBannerList () {
     getAdBannerApi().then(res => {
-      this.setData({bannerList: res.data})
+      let list = res.data
+      // 没有创建简历的 新增一个banner位
+      if (!app.globalData.isJobhunter) {
+        list.push({
+          bigImgUrl: "https://attach.lieduoduo.ziwork.com/img/2019/0418/11/5cb7f38e2899c.jpg",
+          smallImgUrl:"https://attach.lieduoduo.ziwork.com/img/2019/0418/11/5cb7f38a5619f.jpg",
+          targetUrl:`page/applicant/pages/createUser/createUser?from=3`,
+        })
+      }
+      this.setData({bannerList: list})
     })
   },
   getEmolument () {

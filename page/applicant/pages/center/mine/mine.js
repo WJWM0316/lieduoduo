@@ -126,7 +126,7 @@ Page({
   /* 去完善简历 */
   completeResume () {
     wx.navigateTo({
-      url: `${APPLICANT}createUser/createUser`
+      url: `${APPLICANT}createUser/createUser?from=1`
     })
   },
   /* 编辑简历 */
