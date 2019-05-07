@@ -69,7 +69,8 @@ Page({
     positionTypeList: [],
     emolumentList: [],
     requireOAuth: false,
-    cdnImagePath: app.globalData.cdnImagePath
+    cdnImagePath: app.globalData.cdnImagePath,
+    options: {}
   },
 
   onLoad(options) {
@@ -80,7 +81,6 @@ Page({
     } else {
       bannerH = app.globalData.systemInfo.screenWidth/(750/468)
     }
-    this.setData({bannerH})
     identity = app.identification(options)
     const positionList = {
       list: [],
@@ -88,6 +88,7 @@ Page({
       isLastPage: false,
       isRequire: false
     }
+    this.setData({positionList, bannerH, options})
     let init = () => {
       this.getAdBannerList()
       this.getAvartList()
@@ -97,7 +98,6 @@ Page({
         this.initPage()
       })
     }
-    this.setData({positionList})
     if (app.loginInit) {
       init()
     } else {
@@ -336,6 +336,7 @@ Page({
       let positionList = this.data.positionList
       let onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
       let requireOAuth = res.meta.requireOAuth || false
+      if (this.data.options.needAuth && !app.globalData.userInfo) requireOAuth = true
       positionList.list = positionList.list.concat(res.data)
       positionList.isLastPage = res.meta && res.meta.nextPageUrl ? false : true
       positionList.pageNum = positionList.pageNum + 1

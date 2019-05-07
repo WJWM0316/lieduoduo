@@ -565,10 +565,10 @@ Page({
             icon: 'success',
             callback () {
               app.shareStatistics({
-                id: info.id,
-                type: 'position',
+                id: info.uid,
+                type: 'resume',
                 sCode: info.sCode,
-                channel: 'qrpe'
+                channel: 'qrpl'
               })
             }
           })

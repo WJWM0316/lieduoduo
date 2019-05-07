@@ -177,7 +177,7 @@ Page({
     let that = this
     app.shareStatistics({
       id: that.data.options.uid,
-      type: 'jobhunter',
+      type: 'resume',
       sCode: that.data.info.sCode,
       channel: 'card'
     })
