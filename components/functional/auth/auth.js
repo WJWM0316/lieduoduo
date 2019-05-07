@@ -36,9 +36,6 @@ Component({
         console.log(err)
         this.setData({confirmPop: true})
       })
-    },
-    formSubmit(e) {
-      app.postFormId(e.detail.formId)
     }
   }
 })

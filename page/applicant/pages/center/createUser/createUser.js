@@ -61,13 +61,13 @@ Page({
       wx.setStorageSync('createUserFirst', createUser)
       let path = ''
       if (query.directChat) {
-        if (info.workTimeDesr === '在校生') {
+        if (info.workTimeDesr === '暂无经历') {
           path =  `/page/applicant/pages/center/educaExperience/educaExperience?directChat=${query.directChat}`
         } else {
           path = `/page/applicant/pages/center/workExperience/workExperience?directChat=${query.directChat}`
         }
       } else {
-        if (info.workTimeDesr === '在校生') {
+        if (info.workTimeDesr === '暂无经历') {
           path =  `/page/applicant/pages/center/educaExperience/educaExperience`
         } else {
           path = `/page/applicant/pages/center/workExperience/workExperience`

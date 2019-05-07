@@ -281,9 +281,9 @@ Page({
             callback () {
               app.shareStatistics({
                 id: info.id,
-                type: 'recruiter',
+                type: 'position',
                 sCode: info.sCode,
-                channel: 'qrpl'
+                channel: 'qrpe'
               })
             }
           })

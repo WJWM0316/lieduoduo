@@ -1,4 +1,3 @@
-<form bindsubmit="formSubmit" report-submit='{{true}}'>
 <view class="job-detail">
 	<navbar title="{{detail.positionName}}" background="#FFFFFF" color="#22292C" showHome="{{true}}"></navbar>
 	<view hidden="{{!hasReFresh}}">
@@ -46,7 +45,7 @@
 		<view class="title">
 			<view class="icon"> <view class="fan"></view> </view> 关于我们
 		</view>
-		<button class="clear-style tab-company-homepage" form-type="submit" data-type="about" bindtap="todoAction">
+		<view class="tab-company-homepage" data-type="about" bindtap="todoAction">
 			<view class="left">
 				<view class="img-box"><image mode="aspectFill" src="{{detail.companyInfo.logoInfo.smallUrl}}" mode="aspectFit"></image></view>
 			</view>
@@ -57,7 +56,7 @@
 			<view class="right">
 				<i class="icon iconfont icon-xiangyou"></i>
 			</view>
-		</button>
+		</view>
 		<view class="tab-company-address" data-type="map" bindtap="todoAction" wx:if="{{detail.address}}">
 			<i class="icon iconfont icon-dizhi"></i>
 			<view>{{detail.address}}</view>
@@ -68,15 +67,14 @@
 		</view>
 	</view>
 	<view class="make-homepage" wx:if="{{ !isRecruiter }}"><view bindtap="todoAction" data-type="make">我也要制作招聘主页<i class="icon iconfont icon-disejiantou-you"></i></view></view>
-	<button
+	<view
 		wx:if="{{!isOwner}}"
-		class="collect clear-style"
+		class="collect"
 		data-type="{{detail.isCollect ? 'uncollect' : 'collect'}}"
-		bindtap="todoAction"
-		form-type="submit">
+		bindtap="todoAction">
 			<i class="icon iconfont icon-ganxingqu" wx:if="{{!detail.isCollect}}"></i>
 			<i class="icon iconfont icon-biaojiweiganxingqu" wx:else></i>
-	</button>
+	</view>
 	
 	<block wx:if="{{isRecruiter && isOwner}}">
 		<view class="switch-tips" bindtap="todoAction" data-type="close" wx:if="{{detail.isOnline === 1}}">
@@ -102,4 +100,3 @@
 	<view></view>
 	<auth wx:if="{{requireOAuth}}" bindauthSuccess="authSuccess"></auth>
 </view>
-</form>

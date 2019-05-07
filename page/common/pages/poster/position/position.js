@@ -382,7 +382,7 @@ Page({
                 id: info.id,
                 type: 'position',
                 sCode: info.sCode,
-                channel: 'qrpl'
+                channel: 'qrpe'
               })
             }
           })

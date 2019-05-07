@@ -1,5 +1,5 @@
 <!--简历更多编辑页-->
-<navbar title="更多介绍" isFixed="{{false}}"></navbar>
+<navbar title="更多介绍" isFixed="{{false}}" background="#FFFFFF" color="#22292C"></navbar>
 <view class="warp">
   <!--自我描述-->
   <view class="textArea">
@@ -15,6 +15,6 @@
     </unloadFile> 
   </view>
 </view>
-<view class="btn">
+<view class="botBtn">
   <view class="save" bindtap="save">保存</view>
 </view>

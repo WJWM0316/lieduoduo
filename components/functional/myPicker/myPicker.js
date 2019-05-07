@@ -40,6 +40,10 @@ Component({
     styleObj: {
       type: String,
       value: ''
+    },
+    placeholderTxt: {
+      type: String,
+      value: ''
     }
   },
   /**
@@ -87,7 +91,7 @@ Component({
       }
       const setResult = () => {
         result = []
-        if (this.data.setResult === '至今' || this.data.setResult === '在校生') {
+        if (this.data.setResult === '至今' || this.data.setResult === '暂无经历') {
           result = [0, 0]
         } else {
           result[0] = year.indexOf(this.data.setResult.slice(0, 4))
@@ -108,13 +112,13 @@ Component({
           list.push(year)
           list.push(this.data.month)
           result = setResult()
-          this.setData({list, year, result, mode: 'multiSelector', placeholder: '选择你的出生年月'})
+          this.setData({list, year, result, mode: 'multiSelector', placeholder: this.data.placeholderTxt || '选择你的出生年月'})
           break
         case 'startTime':
           list.push(year)
           list.push(this.data.month)
           result = setResult()
-          this.setData({list, year, result, mode: 'multiSelector', placeholder: '开始时间'})
+          this.setData({list, year, result, mode: 'multiSelector', placeholder: this.data.placeholderTxt || '开始时间'})
           break
         case 'endTime':
           firstOption = '至今'
@@ -126,10 +130,10 @@ Component({
           } else {
             list.push([firstOption])
           }
-          this.setData({list, year, result, mode: 'multiSelector', firstOption, placeholder: '结束时间'})
+          this.setData({list, year, result, mode: 'multiSelector', firstOption, placeholder: this.data.placeholderTxt || '结束时间'})
           break
         case 'workTime':
-          firstOption = '在校生'
+          firstOption = '暂无经历'
           year.unshift(firstOption)
           list.push(year)
           result = setResult()
@@ -138,7 +142,7 @@ Component({
           } else {
             list.push([firstOption])
           }
-          this.setData({list, year, result, mode: 'multiSelector', firstOption, placeholder: '选择参加工作时间'})
+          this.setData({list, year, result, mode: 'multiSelector', firstOption, placeholder: this.data.placeholderTxt || '选择参加工作时间'})
           break
         case 'dateTime':
           if (!this.data.setResult) {
@@ -156,7 +160,7 @@ Component({
           result[4] = this.data.minutes.indexOf(this.data.setResult.slice(14, 16))
           if (result[2] === -1) result = 0 // 开启palceholder
           list.push(year, this.data.month, days, this.data.hours, this.data.minutes)
-          this.setData({list, year, days, result, mode: 'multiSelector', placeholder: '请选择面试时间'})
+          this.setData({list, year, days, result, mode: 'multiSelector', placeholder: this.data.placeholderTxt || '请选择面试时间'})
           break
         case 'education':
           getDegreeApi().then(res => {
@@ -168,14 +172,14 @@ Component({
                 return
               }
             })
-            this.setData({list, result, mode: 'selector', placeholder: '选择学历'})
+            this.setData({list, result, mode: 'selector', placeholder: this.data.placeholderTxt || '选择学历'})
           })
           break
         case 'sex':
           list = this.data.sex
           result = `${list.indexOf(this.data.setResult)}`
           if (result === `-1`) { result = 0 }
-          this.setData({list, result, mode: 'selector', placeholder: '请选择性别'})
+          this.setData({list, result, mode: 'selector', placeholder: this.data.placeholderTxt || '请选择性别'})
           break
         case 'jobStatus':
           getJobstatusApi().then(res => {
@@ -187,7 +191,7 @@ Component({
                 return
               }
             })
-            this.setData({list, result, mode: 'selector', placeholder: '请选择求职状态'})
+            this.setData({list, result, mode: 'selector', placeholder: this.data.placeholderTxt || '请选择求职状态'})
           })
           break
         case 'experience':
@@ -200,7 +204,7 @@ Component({
                 return
               }
             })
-            this.setData({list, result, mode: 'selector', placeholder: '请选择经验要求'})
+            this.setData({list, result, mode: 'selector', placeholder: this.data.placeholderTxt || '请选择经验要求'})
           })
           break
         case 'staffMembers':
@@ -213,7 +217,7 @@ Component({
                 return
               }
             })
-            this.setData({list, result, mode: 'selector', placeholder: '请选择人员规模'})
+            this.setData({list, result, mode: 'selector', placeholder: this.data.placeholderTxt || '请选择人员规模'})
           })
           break
         case 'financing':
@@ -226,7 +230,7 @@ Component({
                 return
               }
             })
-            this.setData({list, result, mode: 'selector', placeholder: '请选择融资情况'})
+            this.setData({list, result, mode: 'selector', placeholder: this.data.placeholderTxt || '请选择融资情况'})
           })
           
           break
@@ -245,7 +249,7 @@ Component({
           result[1] = endNum.indexOf(this.data.setResult.split('~')[1])
           if (result[1] === -1) result = 0
           list = [startNum, endNum]
-          this.setData({list, result, mode: 'multiSelector', placeholder: '请选择期望薪资'})
+          this.setData({list, result, mode: 'multiSelector', placeholder: this.data.placeholderTxt || '请选择期望薪资'})
           break
         case 'salaryRangeB':
           let startNumB = []
@@ -270,7 +274,7 @@ Component({
           result[1] = endNumB.indexOf(this.data.setResult.split('~')[1])
           if (result[1] === -1) result = 0
           list = [startNumB, endNumB]
-          this.setData({list, result, mode: 'multiSelector', placeholder: '请选择期望薪资'})
+          this.setData({list, result, mode: 'multiSelector', placeholder: this.data.placeholderTxt || '请选择期望薪资'})
           break
         case 'occupation':
           getJobLabelApi({type: 'skills'}).then(res => {
@@ -283,7 +287,7 @@ Component({
               }
             })
             this.triggerEvent('resultevent', {propsResult})
-            this.setData({list, result, mode: 'selector', placeholder: '请选择职业'})
+            this.setData({list, result, mode: 'selector', placeholder: this.data.placeholderTxt || '请选择职业'})
           })
           break
         case 'region':
@@ -307,7 +311,7 @@ Component({
             } else {
               list = [provice, provice[0].children]
             }
-            this.setData({list, result, provice, mode: 'multiSelector', placeholder: '请选择城市'})
+            this.setData({list, result, provice, mode: 'multiSelector', placeholder: this.data.placeholderTxt || '请选择城市'})
           })
       }
     },

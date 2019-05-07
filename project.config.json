@@ -15,7 +15,7 @@
 		"checkInvalidKey": true
 	},
 	"compileType": "miniprogram",
-	"libVersion": "2.6.6",
+	"libVersion": "2.3.2",
 	"appid": "wx225f017495e6e195",
 	"projectname": "lieduoduo",
 	"debugOptions": {
@@ -41,7 +41,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 10,
+			"current": 16,
 			"list": [
 				{
 					"id": 0,
@@ -53,7 +53,7 @@
 					"id": 1,
 					"name": "【公包】职位详情",
 					"pathName": "page/common/pages/positionDetail/positionDetail",
-					"query": "positionId=2933&sCode=11&sourceType=22&sCode=12222",
+					"query": "positionId=3521&sCode=11&sourceType=22&sCode=12222",
 					"scene": 1001
 				},
 				{
@@ -112,10 +112,10 @@
 					"scene": null
 				},
 				{
-					"id": 10,
+					"id": 8,
 					"name": "【C端】首页",
 					"pathName": "page/applicant/pages/index/index",
-					"query": "needAuth=true",
+					"query": "",
 					"scene": null
 				},
 				{
@@ -153,10 +153,10 @@
 					"scene": null
 				},
 				{
-					"id": 10,
+					"id": 16,
 					"name": "【C端】创建用户",
 					"pathName": "page/applicant/pages/createUser/createUser",
-					"query": "",
+					"query": "micro=true",
 					"scene": null
 				},
 				{
@@ -324,6 +324,20 @@
 					"name": "认证 第八步",
 					"pathName": "page/recruiter/pages/user/company/status/status",
 					"query": "from=identity"
+				},
+				{
+					"id": -1,
+					"name": "【C端】全部面试",
+					"pathName": "page/applicant/pages/interview/history/history",
+					"query": "positionId=2933&sCode=11&sourceType=22&sCode=12222",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "【B端】全部面试",
+					"pathName": "page/recruiter/pages/interview/history/history",
+					"query": "positionId=2933&sCode=11&sourceType=22&sCode=12222",
+					"scene": null
 				}
 			]
 		}

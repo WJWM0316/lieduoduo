@@ -57,8 +57,8 @@ Component({
       },
       {
         title: '动态',
-        iconPath: `${cdnImagePath}tab_dynamics.png`,
-        selectedIconPath: `${cdnImagePath}tab_dynamics_active.png`,
+        iconPath: `${cdnImagePath}tab_dynamics.png?a=1`,
+        selectedIconPath: `${cdnImagePath}tab_dynamics_active.png?a=1`,
         active: false,
         path: `${APPLICANT}dynamics/dynamics`
       },

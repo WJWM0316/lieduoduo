@@ -9,6 +9,10 @@ Component({
     hide: {
       type: Boolean,
       value: true
+    },
+    hasClose: {
+      type: Boolean,
+      value: true
     }
   },
 
@@ -30,16 +34,26 @@ Component({
       })
     },
     getPhoneNumber(e) {
-      app.quickLogin(e)
+      let url = ''
+      let curPath = app.getCurrentPagePath()
+      if (curPath.indexOf('/page/applicant/pages/index/index') !== -1) {
+        app.quickLogin(e, 'cIndex')
+      } else {
+        app.quickLogin(e, 'curPath')
+      }
     },
     phoneLogin() {
       this.close()
+      let url = ''
+      let curPath = app.getCurrentPagePath()
+      if (curPath.indexOf('/page/applicant/pages/index/index') !== -1) {
+        url = `${COMMON}bindPhone/bindPhone?backType=cIndex`
+      } else {
+        url = `${COMMON}bindPhone/bindPhone`
+      }
       wx.navigateTo({
-        url: `${COMMON}bindPhone/bindPhone`
+        url: url
       })
-    },
-    formSubmit(e) {
-      app.postFormId(e.detail.formId)
-    }
+    } 
   }
 })

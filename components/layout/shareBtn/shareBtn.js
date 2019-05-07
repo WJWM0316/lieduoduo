@@ -14,6 +14,10 @@ Component({
     },
     posterType: {
       type: String
+    },
+    shareBtn: {
+      type: Boolean,
+      value: true
     }
   },
 
@@ -23,6 +27,8 @@ Component({
   data: {
     showChoose: false,
     animationData: {}
+  },
+  attached () {
   },
   /**
    * 组件的方法列表
@@ -64,6 +70,11 @@ Component({
               url: `${COMMON}poster/exPosition/exPosition`
             })
           }
+          break
+        case 'applicant':
+          wx.navigateTo({
+            url: `${COMMON}poster/resume/resume`
+          })
           break
       }
       wx.setStorageSync('posterData', this.data.posterData)

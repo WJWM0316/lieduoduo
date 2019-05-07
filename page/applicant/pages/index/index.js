@@ -18,27 +18,28 @@ import {
 import {shareChance} from '../../../../utils/shareWord.js'
 
 const app = getApp()
-let identity = ''
+let identity = '',
+    hasOnload = false // 用来判断是否执行了onload，就不走onShow的校验
 Page({
   data: {
     pageCount: 20,
     navH: app.globalData.navHeight,
     showNav: false,
-    options: {},
     fixedBarHeight: 0,
     hasReFresh: false,
     onBottomStatus: 0,
+    hideLoginBox: true,
     isBangs: app.globalData.isBangs,
     pixelRatio: app.globalData.systemInfo.pixelRatio,
     bannerH: 200,
     tabList: [
       {
-        name: '选择地区',
+        name: '工作城市',
         type: 'city',
         active: false
       },
       {
-        name: '选择类型',
+        name: '职位类型',
         type: 'positionType',
         active: false
       },
@@ -72,13 +73,14 @@ Page({
   },
 
   onLoad(options) {
-    let bannerH = this.data.bannerH,
-        requireOAuth = this.data.requireOAuth
+    hasOnload = false
+    let bannerH = this.data.bannerH
     if (!this.data.isBangs) {
       bannerH = app.globalData.systemInfo.screenWidth/(750/420)
     } else {
       bannerH = app.globalData.systemInfo.screenWidth/(750/468)
     }
+    this.setData({bannerH})
     identity = app.identification(options)
     const positionList = {
       list: [],
@@ -86,21 +88,27 @@ Page({
       isLastPage: false,
       isRequire: false
     }
-    this.setData({positionList, bannerH, options})
-    if (app.loginInit) {
+    let init = () => {
       this.getAdBannerList()
       this.getAvartList()
-      Promise.all([this.getCityLabel(), this.getLabelPosition(), this.getEmolument()]).then(res => {
+      Promise.all([this.getCityLabel(), this.getLabelPosition(), this.getEmolument()]).then(() => {
         this.getPositionRecord()
+        hasOnload = true
+        this.initPage()
       })
+    }
+    this.setData({positionList})
+    if (app.loginInit) {
+      init()
     } else {
       app.loginInit = () => {
-        this.getAdBannerList()
-        this.getAvartList()
-        Promise.all([this.getCityLabel(), this.getLabelPosition(), this.getEmolument()]).then(res => {
-          this.getPositionRecord()
-        })
+        init()
       }
+    }
+  },
+  onShow () {
+    if (hasOnload) {
+      this.initPage()
     }
     if (wx.getStorageSync('choseType') === 'RECRUITER') {
       app.wxConfirm({
@@ -118,6 +126,29 @@ Page({
       })
     }
   },
+  initPage () {
+    let jumpCreate = () => {
+      if (!app.globalData.isMicroCard && wx.getStorageSync('choseType') !== 'RECRUITER') {
+        app.wxToast({
+          title: '前往求职飞船',
+          icon: 'loading',
+          callback () {
+            wx.reLaunch({
+              url: `${APPLICANT}createUser/createUser?micro=true`
+            })
+          }
+        })
+      }
+    }
+    if (!app.globalData.hasLogin) {
+      this.setData({hideLoginBox: false})
+    } else {
+      let timer = setTimeout(() => {
+        jumpCreate()
+        clearTimeout(timer)
+      }, 500)
+    }
+  }, 
   getAvartList() {
     getAvartListApi().then(res => {
       const moreRecruiter = res.data.moreRecruiter
@@ -167,34 +198,34 @@ Page({
     switch (this.data.tabType) {
       case 'city':
         if (index === 0) {
-          name = '全部地区'
+          tabList[0].name = '工作城市'
           tabList[0].active = false
         } else {
           tabList[0].active = true
+          tabList[0].name = name
         }
-        tabList[0].name = name
         this.setData({tabList, city: id, cityIndex: index, tabType: 'closeTab'})
         this.reloadPositionLists()
         break
       case 'positionType':
         if (index === 0) {
-          name = '职位类型'
+          tabList[1].name = '职位类型'
           tabList[1].active = false
         } else {
           tabList[1].active = true
+          tabList[1].name = name
         }
-        tabList[1].name = name
         this.setData({tabList, type: id, typeIndex: index, tabType: 'closeTab'})
         this.reloadPositionLists()
         break
       case 'salary':
         if (index === 0) {
-          name = '薪资范围'
+          tabList[2].name = '薪资范围'
           tabList[2].active = false
         } else {
           tabList[2].active = true
+          tabList[2].name = name
         }
-        tabList[2].name = name
         this.setData({tabList, emolument: id, emolumentIndex: index, tabType: 'closeTab'})
         this.reloadPositionLists()
         break
@@ -220,7 +251,7 @@ Page({
     })
   },
   getPositionRecord() {
-    getPositionRecordApi().then(res => {
+    return getPositionRecordApi().then(res => {
       let city = this.data.city
       let type = this.data.type
       let emolument = this.data.emolument
@@ -234,7 +265,7 @@ Page({
           if (item.areaId === city) {
             cityIndex = index
             if (index === 0) {
-              tabList[0].name = '全部地区'
+              tabList[0].name = '工作城市'
             } else {
               tabList[0].active = true
               tabList[0].name = item.name
@@ -305,7 +336,6 @@ Page({
       let positionList = this.data.positionList
       let onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
       let requireOAuth = res.meta.requireOAuth || false
-      if (this.data.options.needAuth && !app.globalData.userInfo) requireOAuth = true
       positionList.list = positionList.list.concat(res.data)
       positionList.isLastPage = res.meta && res.meta.nextPageUrl ? false : true
       positionList.pageNum = positionList.pageNum + 1

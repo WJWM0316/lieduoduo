@@ -154,7 +154,7 @@ export const notonsiderInterviewApi = (data, hasLoading) => {
 export const getInterviewHistoryApi = (data, hasLoading) => {
   return request({
     method: 'get',
-    url: `/interview/history`,
+    url: `/interview/newHistory`,
     data,
     hasLoading
   })

@@ -1,5 +1,5 @@
 <view>
-  <navbar title="{{title}}"></navbar>
+  <navbar title="{{title}}" background="#FFFFFF" color="#22292C"></navbar>
   <!--<form bindsubmit="submit" class="search-box">
     <view class="user-input">
       <input placeholder="搜索" auto-focus bindinput="bindInput" />

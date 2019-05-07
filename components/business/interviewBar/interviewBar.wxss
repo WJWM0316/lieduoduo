@@ -1,4 +1,4 @@
-@import '../../../app.wxss'
+@import '../../../iconfont.wxss'
 
 .interview-bar {
   height:138rpx;
@@ -37,20 +37,15 @@
 	border-radius:40rpx;
 	margin: 10rpx 0;
 	text-align: center;
+	line-height: 80rpx;
 	font-size:28rpx;
 	font-weight:500;
 	flex: 1;
-  line-height: 80rpx;
 	margin-left: 30rpx;
 	overflow: hidden;
 	display: flex;
 }
-.clear-style {
-  color: #fff;
-  font-size:28rpx;
-  font-weight:500;
-  line-height: 80rpx;
-}
+
 .interview-bar .button-box view {
 	flex: 1;
 }

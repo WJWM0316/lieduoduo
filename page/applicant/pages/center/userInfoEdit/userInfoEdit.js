@@ -95,7 +95,7 @@ Page({
       title = '姓名需为2-20个汉字或英文'
     } else if (!info.birth) {
       title = '请选择出生年月'
-    } else if (!info.startWorkYear && info.startWorkYearDesc !== '在校生') {
+    } else if (!info.startWorkYear && info.startWorkYear !== 0) {
       title = '请选择参加工作时间'
     } else if (!info.jobStatus) {
       title = '请选择求职状态'
