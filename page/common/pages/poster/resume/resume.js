@@ -565,7 +565,7 @@ Page({
             icon: 'success',
             callback () {
               app.shareStatistics({
-                id: info.id,
+                id: info.uid,
                 type: 'resume',
                 sCode: info.sCode,
                 channel: 'qrpl'

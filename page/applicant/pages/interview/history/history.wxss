@@ -383,7 +383,6 @@
   border-radius:49px;
   flex: 1;
 }
-
 .jump {
   width: 430rpx;
   height: 98rpx;
@@ -396,3 +395,4 @@
   color:rgba(40,40,40,1);
   line-height: 98rpx;
 }
+

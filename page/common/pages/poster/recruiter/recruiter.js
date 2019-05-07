@@ -280,7 +280,7 @@ Page({
             icon: 'success',
             callback () {
               app.shareStatistics({
-                id: info.id,
+                id: info.uid,
                 type: 'recruiter',
                 sCode: info.sCode,
                 channel: 'qrpl'

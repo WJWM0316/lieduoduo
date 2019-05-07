@@ -25,7 +25,6 @@ Page({
     pageCount: 20,
     navH: app.globalData.navHeight,
     showNav: false,
-    options: {},
     fixedBarHeight: 0,
     hasReFresh: false,
     onBottomStatus: 0,
@@ -70,12 +69,14 @@ Page({
     positionTypeList: [],
     emolumentList: [],
     requireOAuth: false,
-    cdnImagePath: app.globalData.cdnImagePath
+    cdnImagePath: app.globalData.cdnImagePath,
+    options: {}
   },
   onLoad(options) {
     hasOnload = false
     let bannerH = this.data.bannerH,
         requireOAuth = this.data.requireOAuth
+    console.log(options, 1111111111111111111)
     if (!this.data.isBangs) {
       bannerH = app.globalData.systemInfo.screenWidth/(750/420)
     } else {
@@ -88,18 +89,15 @@ Page({
       isLastPage: false,
       isRequire: false
     }
+    this.setData({positionList, bannerH, options})
     let init = () => {
-      this.setData({positionList, bannerH, options})
-      if (app.loginInit) {
-        this.getAdBannerList()
-        this.getAvartList()
-        Promise.all([this.getCityLabel(), this.getLabelPosition(), this.getEmolument()]).then(() => {
-          this.getPositionRecord()
-          hasOnload = true
-          this.initPage()
-        })
-      }
-      this.setData({positionList})
+      this.getAdBannerList()
+      this.getAvartList()
+      Promise.all([this.getCityLabel(), this.getLabelPosition(), this.getEmolument()]).then(() => {
+        this.getPositionRecord()
+        hasOnload = true
+        this.initPage()
+      })
     }
     if (app.loginInit) {
       init()
@@ -110,6 +108,11 @@ Page({
     }
   },
   onShow () {
+    if (hasOnload) {
+      this.initPage()
+    }
+  },
+  onShow (options) {
     if (hasOnload) {
       this.initPage()
     }

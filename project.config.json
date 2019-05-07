@@ -15,7 +15,7 @@
 		"checkInvalidKey": true
 	},
 	"compileType": "miniprogram",
-	"libVersion": "2.6.6",
+	"libVersion": "2.3.2",
 	"appid": "wx225f017495e6e195",
 	"projectname": "lieduoduo",
 	"debugOptions": {
@@ -112,10 +112,10 @@
 					"scene": null
 				},
 				{
-					"id": 10,
+					"id": 8,
 					"name": "【C端】首页",
 					"pathName": "page/applicant/pages/index/index",
-					"query": "needAuth=true",
+					"query": "",
 					"scene": null
 				},
 				{

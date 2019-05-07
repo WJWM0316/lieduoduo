@@ -204,9 +204,6 @@ Page({
   getCreatedImg(e) {
     positionCard = e.detail
   },
-  formSubmit(e) {
-    app.postFormId(e.detail.formId)
-  },
   onShareAppMessage(options) {
     let that = this
     app.shareStatistics({

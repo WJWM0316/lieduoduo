@@ -556,7 +556,6 @@
 .height10 {
 	padding-top: 311rpx;
 }
-
 .jump {
   width: 430rpx;
   height: 98rpx;

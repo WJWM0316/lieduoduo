@@ -309,7 +309,6 @@
   font-size: 24rpx;
   margin-left: 10rpx;
 }
-
 .createBtn {
   line-height: 90rpx;
   background:rgba(101,39,145,1);

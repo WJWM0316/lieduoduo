@@ -146,8 +146,15 @@ Page({
   getPhoneNumber(e) {
     app.quickLogin(e, backType)
   },
-  formSubmit(e) {
-    app.postFormId(e.detail.formId)
+  changeNewCaptcha () {
+    changeNewCaptchaApi().then(res0 => {
+      captchaKey = res0.data.key
+      let imgUrl = res0.data.img
+      this.setData({imgUrl})
+    })
+  },
+  getPhoneNumber(e) {
+    app.quickLogin(e, backType)
   },
   /**
    * 生命周期函数--监听页面初次渲染完成
