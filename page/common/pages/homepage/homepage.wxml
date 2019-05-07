@@ -1,3 +1,4 @@
+<form bindsubmit="formSubmit" report-submit='{{true}}'>
 <view class="homepage">
 	<navbar title="{{companyInfos.companyShortname}}" background="#fff" color="#22292C" showHome="{{true}}"></navbar>
 
@@ -18,8 +19,8 @@
 	</view>
 	
 	<view class="ul-tab-bar {{isFixed ? 'fixed-bar' : ''}}" style="top: {{navH}}px">
-		<view class="li {{tab === 'about' ? 'active' : ''}}" bindtap="onTabClick" data-tab="about">关于我们</view>
-		<view class="li {{tab === 'recruitment' ? 'active' : ''}}" bindtap="onTabClick" data-tab="recruitment">在招职位({{companyInfos.positionNum}})</view>
+		<button form-type="submit" class="clear-style li {{tab === 'about' ? 'active' : ''}}" bindtap="onTabClick" data-tab="about">关于我们</button>
+		<button form-type="submit" class="clear-style li {{tab === 'recruitment' ? 'active' : ''}}" bindtap="onTabClick" data-tab="recruitment">在招职位({{companyInfos.positionNum}})</button>
 	</view>
 <!-- 	
 	<view class="child-box" hidden="{{tab === 'about'}}">
@@ -90,7 +91,7 @@
 				<view class="icon"> <view class="fan"></view> </view> 产品介绍
 			</view>
 			<view class="ul">
-				<view class="li" wx:for="{{companyInfos.product}}" wx:key="{{index}}" wx:for-item="item">
+				<button form-type="submit" class="clear-style li" wx:for="{{companyInfos.product}}" wx:key="{{index}}" wx:for-item="item">
 					<view class="base">
 						<view class="img-box">
 							<image mode="aspectFill" src="{{item.logoInfo.smallUrl}}" />
@@ -103,7 +104,7 @@
 						</view>
 					</view>
 					<view class="row-two"># {{item.lightspot}}</view>
-				</view>
+				</button>
 			</view>
 		</view>
 		
@@ -159,3 +160,4 @@
 	</view>
 	<auth wx:if="{{requireOAuth}}" bindauthSuccess="authSuccess"></auth>
 </view>
+</form>

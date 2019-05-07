@@ -1,13 +1,12 @@
 <!--components/layout/shareBtn/shareBtn.wxml-->
 
 <form bindsubmit="formSubmit" report-submit='{{true}}'>  
-	<button form-type="submit" class="formIdBtn clear-style" ></button>
 	<block wx:if="{{posterType === 'position'}}">
 		<view class="shareBtn shareBtnBg"></view>
-		<view class="shareBtn" bindtap="oper">
+		<button form-type="submit" class="formIdBtn clear-style shareBtn" bindtap="oper">
 		  <view><i class="shareIcon iconfont icon-fenxiang"></i></view>
 		  <text>转发</text>
-		</view>
+		</button>
 		<view class="shareBox" hidden="{{!showChoose}}">
 			<view class="shareBg" bindtap="close">
 			</view>
@@ -40,10 +39,10 @@
 	<block wx:elif="{{posterType === 'applicant'}}">
 		<block wx:if="{{shareBtn}}">
 			<view class="shareBtn shareBtnBg"></view>
-			<view class="shareBtn" bindtap="oper">
+			<button form-type="submit" class="formIdBtn clear-style shareBtn" bindtap="oper">
 			  <view><i class="shareIcon iconfont icon-fenxiang"></i></view>
 			  <text>转发</text>
-			</view>
+			</button>
 		</block>
 		<view class="shareBox" hidden="{{!showChoose}}">
 			<view class="shareBg" bindtap="close">

@@ -232,6 +232,9 @@ Page({
       url: `${RECRUITER}user/company/apply/apply`
     })
   },
+  formSubmit(e) {
+    app.postFormId(e.detail.formId)
+  },
   // onPageScroll(e) { // 获取滚动条当前位置
   //   console.log(e)
   //   if (e.scrollTop >= positionTop) {
@@ -290,6 +293,5 @@ Page({
     }
   },
   tips() {
-    console.log(11111)
   }
 })

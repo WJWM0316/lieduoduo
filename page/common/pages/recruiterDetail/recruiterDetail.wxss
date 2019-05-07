@@ -411,6 +411,7 @@
 .positionItem {
   padding: 30rpx 0 40rpx 0;
   border-top: 1rpx dashed #CED7DC;
+  text-align: left;
 }
 .positionList .positionItem:last-child {
   padding-bottom: 0;

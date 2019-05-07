@@ -1,5 +1,4 @@
 @import '../../../iconfont.wxss'
-
 .interview-bar {
   height:138rpx;
   background:rgba(255,255,255,1);
@@ -45,7 +44,15 @@
 	overflow: hidden;
 	display: flex;
 }
-
+.interview-bar .clear-style {
+  padding: 0;
+  background: none;
+  border: none;
+  line-height: 80rpx;
+	font-size:28rpx;
+	font-weight:500;
+  color: #fff;
+}
 .interview-bar .button-box view {
 	flex: 1;
 }

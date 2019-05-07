@@ -191,7 +191,9 @@ Page({
         break
     }
   },
-
+  formSubmit(e) {
+    app.postFormId(e.detail.formId)
+  },
   onPullDownRefresh() {
     this.setData({hasReFresh: true})
     this.getPositionDetail(false, true).then(res => {

@@ -164,6 +164,9 @@ Page({
       })
     }
   },
+  formSubmit(e) {
+    app.postFormId(e.detail.formId)
+  },
   onPullDownRefresh(hasLoading = true) {
     this.setData({hasReFresh: true})
     this.getOthersInfo(false, true).then(res => {
