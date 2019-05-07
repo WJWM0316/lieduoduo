@@ -37,9 +37,6 @@ Component({
       wx.navigateTo({
         url: `${COMMON}bindPhone/bindPhone`
       })
-    },
-    formSubmit(e) {
-      app.postFormId(e.detail.formId)
-    }
+    } 
   }
 })
