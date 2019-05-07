@@ -54,6 +54,9 @@ Component({
       wx.navigateTo({
         url: url
       })
-    } 
+    },
+    formSubmit(e) {
+      getApp().postFormId(e.detail.formId)
+    }
   }
 })

@@ -24,6 +24,15 @@ button::after{
   color: #BCBCBC;
 	font-weight: 300;
 }
+.clear-style {
+	background: none;
+	border: 0;
+	padding: 0;
+}
+.clear-style::after{
+	display: none;
+	border: none;
+}
 /*
 @font-face {
   font-family: designFont;
