@@ -14,7 +14,7 @@
 	<view class="ul" wx:if="{{!attachResume.vkey}}">
 		<view class="li">
 			<view class="label">第1步</view>
-			<view class="value">电脑浏览器打开网址“www.lieduoduo.com”</view>
+			<view class="value">电脑浏览器打开网址“sao.lieduoduo.com”</view>
 		</view>
 		<view class="li">
 			<view class="label">第2步</view>
