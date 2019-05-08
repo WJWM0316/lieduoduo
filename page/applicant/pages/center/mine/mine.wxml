@@ -10,7 +10,11 @@
   		<view class="header">
         <view class="content" wx:if='{{myInfo.uid}}'>
           <view class="realname">{{myInfo.name}}</view>
-          <view class="degree-name" wx:if="{{myInfo.lastCompanyName || myInfo.lastCompany}}">{{myInfo.lastCompanyName || myInfo.lastCompany}} | {{myInfo.lastPosition || myInfo.lastPosition}}</view>
+          <view class="degree-name" wx:if="{{myInfo.lastCompanyName || myInfo.lastCompany}}">
+            <block wx:if="{{myInfo.lastCompanyName}}">{{myInfo.lastCompanyName || myInfo.lastCompany}}</block>
+            <block wx:if="{{myInfo.lastCompanyName && myInfo.lastPosition}}}"> | </block>
+            <block wx:if="{{myInfo.lastPosition}}">{{myInfo.lastPosition}}</block>
+          </view>
         </view> 
         <view class="content" wx:if='{{!myInfo.uid && hasLogin}}'>
   				<view class="realname">简历未完善</view>
