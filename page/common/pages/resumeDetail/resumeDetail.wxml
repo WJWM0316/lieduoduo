@@ -27,15 +27,15 @@
       </view>
       <view class="info">
         <view class="name"><text>{{info.name}}</text><i class="icon iconfont icon-bianji1 edit" data-editName="info" data-id="{{item.id}}" bindtap="edit" wx:if="{{isOwner}}"></i></view>
-        <view wx:if="{{info.lastCompanyName}}">
-          <text>{{info.lastCompanyName}}</text> | <text>{{info.lastPosition}}</text>
+        <view class="companyName" wx:if="{{info.lastCompanyName || info.lastPosition}}">
+          <text>{{info.lastCompanyName}}</text><block wx:if="{{info.lastCompanyName && info.lastPosition}}"> | </block><text>{{info.lastPosition}}</text>
         </view>
       </view>
     </view>
     <view class="experience">
-      <view class="time"><i class="icon iconfont icon-zhiwei"></i>{{info.workAgeDesc}}</view>
+      <view class="time" wx:if="{{info.workAgeDesc}}"><i class="icon iconfont icon-zhiwei"></i>{{info.workAgeDesc}}</view>
       <view class="age" wx:if="{{info.age}}"><i class="icon iconfont icon-nianling"></i>{{info.age}}岁</view>
-      <view class="education"> <i class="icon iconfont icon-xueli"></i>{{info.degreeDesc}}</view>
+      <view class="education" wx:if="{{info.degreeDesc}}"> <i class="icon iconfont icon-xueli"></i>{{info.degreeDesc}}</view>
       <view class="status" wx:if="{{info.jobStatusDesc}}">{{info.jobStatusDesc}}</view>
     </view>
     <block wx:if="{{info.signature}}">
@@ -73,12 +73,14 @@
     <view class="listCareers">
       <view class="expTab" wx:for="{{info.careers}}" wx:key="{{index}}" wx:if="{{isOwner || (!isOwner && index < showLimit)}}">
         <view class="expTitle">
-          <text class="expName {{isOwner ? 'ellipsis':''}}">{{item.company}}</text>
-          <text class="expTime" wx:if="{{item.endTime}}">{{filters.dateFormat(item.startTime, 'YYYY.MM')}}-{{filters.dateFormat(item.endTime, 'YYYY.MM')}}</text>
-          <text class="expTime" wx:else>{{filters.dateFormat(item.startTime, 'YYYY.MM')}}-至今</text>
+          <text wx:if="{{item.company}}" class="expName {{isOwner ? 'ellipsis':''}}">{{item.company}}</text>
+          <block wx:if="{{item.startTime}}">
+            <text class="expTime" wx:if="{{item.endTime}}">{{filters.dateFormat(item.startTime, 'YYYY.MM')}}-{{filters.dateFormat(item.endTime, 'YYYY.MM')}}</text>
+            <text class="expTime" wx:else>{{filters.dateFormat(item.startTime, 'YYYY.MM')}}-至今</text>
+          </block>
           <i class="icon iconfont icon-bianji1 edit" data-editName="work" data-id="{{item.id}}" bindtap="edit" wx:if="{{isOwner}}"></i>
         </view>
-        <view class="expInfo">{{item.position}}</view>
+        <view class="expInfo" wx:if="{{item.position}}">{{item.position}}</view>
         <!-- 工作内容 -->
         <shrinkText class="expContent" wx:if="{{item.duty}}" textData="{{item.duty}}" line="{{isOwner ? 1 : 0}}"></shrinkText>
         <!-- 工作标签 -->

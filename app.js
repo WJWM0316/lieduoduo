@@ -84,11 +84,11 @@ App({
             if (res.data.token) {
               wx.setStorageSync('token', res.data.token)
               that.globalData.hasLogin = true
-              if (res.data.userWechatInfo.nickname) that.globalData.userInfo = res.data.userInfo
+              if (res.data.userWechatInfo && res.data.userWechatInfo.nickname) that.globalData.userInfo = res.data.userWechatInfo
               that.getRoleInfo()
               console.log('用户已认证')
             } else {
-              if (res.data.userInfo.nickname) that.globalData.userInfo = res.data.userInfo
+              if (res.data.userInfo && res.data.userInfo.nickname) that.globalData.userInfo = res.data.userInfo
               console.log('用户未绑定手机号', 'sessionToken', res.data.sessionToken)
               wx.setStorageSync('sessionToken', res.data.sessionToken)
             }

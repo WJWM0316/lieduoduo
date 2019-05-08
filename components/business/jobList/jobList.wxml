@@ -11,7 +11,7 @@
           
           <!-- 标签 -->
           <view class="labelList">
-            <view class="label">{{item.city}}{{item.district}}</view>
+            <view class="label" wx:if="{{item.city || item.district}}">{{item.city}}{{item.district}}</view>
             <view class="label">{{item.workExperienceName}}</view>
             <view class="label">{{item.educationName}}</view>
           </view>
@@ -33,7 +33,7 @@
               <view class="hrImg">
                 <image mode="aspectFill" src="{{item.recruiterInfo.avatar.smallUrl}}" lazy-load></image>
               </view>
-              <view class="hrName">{{item.recruiterInfo.name}} · {{item.recruiterInfo.position}}</view>
+              <view class="hrName">{{item.recruiterInfo.name}} <block wx:if="{{item.recruiterInfo.position}}">· {{item.recruiterInfo.position}}</block></view>
             </view>
             <image class="conRight logo" mode="aspectFit" src="{{item.companyInfo.logoInfo.smallUrl}}" lazy-load></image>
           </view>

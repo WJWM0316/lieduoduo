@@ -81,6 +81,9 @@ Page({
     } else {
       bannerH = app.globalData.systemInfo.screenWidth/(750/468)
     }
+    if (options.needAuth && wx.getStorageSync('choseType') === 'RECRUITER') { // 是否从不服来赞过来的B身份 强制C端身份
+      wx.setStorageSync('choseType', 'APPLICANT')
+    }
     identity = app.identification(options)
     const positionList = {
       list: [],
@@ -336,7 +339,9 @@ Page({
       let positionList = this.data.positionList
       let onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
       let requireOAuth = res.meta.requireOAuth || false
-      if (this.data.options.needAuth && !app.globalData.userInfo) requireOAuth = true
+      if (this.data.options.needAuth && !app.globalData.userInfo) {
+        requireOAuth = true
+      }
       positionList.list = positionList.list.concat(res.data)
       positionList.isLastPage = res.meta && res.meta.nextPageUrl ? false : true
       positionList.pageNum = positionList.pageNum + 1
