@@ -2,7 +2,7 @@
 <view class="ul">
     <form bindsubmit="formSubmit" report-submit='{{true}}'>  
       <button wx:for="{{ list }}" wx:key="{{item.id}}" data-item="{{item}}" bindtap="routeJump" form-type="submit" class="formIdBtn" > 
-        <view class="li personality {{showBoxShadow ? 'box-shadow' : ''}}">
+        <view class="li personality {{showBoxShadow ? 'box-shadow' : ''}} {{listType === 'index' ? 'index' : ''}}">
           <!-- 职位名称 -->
           <view class="name">
             <view class="title">{{item.positionName}}</view>

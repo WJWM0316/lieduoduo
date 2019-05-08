@@ -12,10 +12,13 @@
   background-color: #FFF;
   border-radius: 10rpx;
   margin-bottom: 20rpx;
-
 }
 .box-shadow{
   box-shadow:0rpx 0rpx 40rpx 0rpx rgba(22,39,77,0.1);
+}
+.li.index {
+  box-shadow:0rpx 0rpx 30rpx 0rpx rgba(22,39,77,0.1);
+  border-radius:16rpx;
 }
 .li .name{
   display: flex;
@@ -120,8 +123,8 @@
 }
 .craete {
   padding: 42rpx 40rpx 38rpx;
-  background: url('https://attach.lieduoduo.ziwork.com/front-assets/images/createBg1.png') no-repeat 396rpx 22rpx;
-  background-size: 262rpx 192rpx;
+  background: #fff url('https://attach.lieduoduo.ziwork.com/front-assets/images/createBg1.png') no-repeat 396rpx 22rpx;
+  background-size: 262rpx auto;
 }
 .craete .title {
   font-size:36rpx;

@@ -55,12 +55,12 @@
       </view>
     </view>
   </view>
-  <view class="addIntention" wx:if="{{myInfo.expects && myInfo.expects.length === 0}}">
+  <view class="addIntention" wx:if="{{!myInfo.expects || (myInfo.expects && myInfo.expects.length === 0)}}">
     <text>把你的筛选条件添加到求职意向</text>
     <button class="addBtn">立即添加<i class="icon iconfont icon-disejiantou-you"></i></button>
   </view>
   <view class="list-box">
-    <jobList listType="index" personality="jobItem" list="{{positionList.list}}" list-type="interview" current-tab="all"></jobList>
+    <jobList listType="{{!isJobhunter ? 'index' : ''}}" personality="jobItem" list="{{positionList.list}}" list-type="interview" current-tab="all"></jobList>
     <bottomStatus status="{{onBottomStatus}}" listData="{{positionList.list}}"></bottomStatus>
   </view>
   <tabBar></tabBar>
