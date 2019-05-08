@@ -71,6 +71,7 @@ Page({
     requireOAuth: false,
     cdnImagePath: app.globalData.cdnImagePath,
     options: {},
+    myInfo: app.globalData.resumeInfo,
     hasLogin: app.globalData.hasLogin,
     isJobhunter: app.globalData.isJobhunter
   },
@@ -96,7 +97,7 @@ Page({
       this.getAvartList()
       Promise.all([this.getCityLabel(), this.getLabelPosition(), this.getEmolument()]).then(() => {
         this.getPositionRecord()
-        this.setData({hasLogin: app.globalData.hasLogin, isJobhunter: app.globalData.isJobhunter})
+        this.setData({hasLogin: app.globalData.hasLogin, isJobhunter: app.globalData.isJobhunter, myInfo: app.globalData.resumeInfo})
         hasOnload = true
         this.initPage()
       })

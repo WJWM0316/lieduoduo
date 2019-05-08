@@ -31,7 +31,6 @@
   text-overflow: ellipsis;
   white-space: nowrap;
   font-size:32rpx;
-  font-family:PingFangSC-Medium;
   font-weight:500;
   color:rgba(40,40,40,1);
   line-height:32rpx;
@@ -121,4 +120,36 @@
 }
 .craete {
   padding: 42rpx 40rpx 38rpx;
+  background: url('https://attach.lieduoduo.ziwork.com/front-assets/images/createBg1.png') no-repeat 396rpx 22rpx;
+  background-size: 262rpx 192rpx;
+}
+.craete .title {
+  font-size:36rpx;
+  color:#652791;
+  line-height:36rpx;
+}
+.craete .desc {
+  font-size:24rpx;
+  font-weight:300;
+  color:#666666;
+  line-height:24rpx;
+  margin-top: 12rpx;
+}
+.craete .btn {
+  width:260rpx;
+  height:60rpx;
+  background:#FFDC29;
+  border-radius:30rpx;
+  font-size:28rpx;
+  color:#652791;
+  line-height:60rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 24rpx;
+}
+.craete .btn .icon {
+  font-size: 28rpx;
+  margin-left: 12rpx;
+  display: block;
 }
