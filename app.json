@@ -103,7 +103,8 @@
         "pages/company/verifyResult/verifyResult",
         "pages/company/interest/interest",
         "pages/user/company/createdCompanyInfos/createdCompanyInfos",
-        "pages/user/company/identityMethods/identityMethods"
+        "pages/user/company/identityMethods/identityMethods",
+        "pages/interested/interested"
       ]
     }
   ],

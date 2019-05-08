@@ -37,6 +37,7 @@ Page({
     applyBottomStatus: 0,
     receiveBottomStatus: 0,
     interviewBottomStatus: 0,
+    options: {},
     applyScreen: [
       {key: '所有状态', value: 0},
       {key: '我邀请的', value: 12},
@@ -266,6 +267,7 @@ Page({
     })
   },
   init () {
+    let options = this.data.options
     if (app.globalData.isRecruiter) {
       getRecruiterPositionListApi({is_online: 1, count: 50, page: 1}).then(res => {
         positionList = res.data
@@ -309,8 +311,9 @@ Page({
       })
     }
   },
-  onLoad() {
+  onLoad(options) {
     wx.setStorageSync('choseType', 'RECRUITER')
+    this.setData({options})
   },
   initDefault() {
     let applyData = initData

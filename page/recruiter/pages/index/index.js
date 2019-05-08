@@ -16,7 +16,7 @@ import {getSelectorQuery}  from '../../../../utils/util.js'
 
 import { getPositionListNumApi } from '../../../../api/pages/position.js'
 
-const app = getApp()
+let app = getApp()
 let fixedDomPosition = 0
 Page({
   data: {
@@ -69,19 +69,19 @@ Page({
     }
   },
   onShow() {
-    const browseMySelf = {
+    let browseMySelf = {
       list: [],
       pageNum: 1,
       isLastPage: false,
       isRequire: false
     }
-    const collectMySelf = {
+    let collectMySelf = {
       list: [],
       pageNum: 1,
       isLastPage: false,
       isRequire: false
     }
-    const collectUsers = {
+    let collectUsers = {
       list: [],
       pageNum: 1,
       isLastPage: false,
@@ -129,11 +129,11 @@ Page({
    */
   getBrowseMySelf(hasLoading = true) {
     return new Promise((resolve, reject) => {
-      const params = {count: this.data.pageCount, page: this.data.browseMySelf.pageNum, ...app.getSource()}
+      let params = {count: this.data.pageCount, page: this.data.browseMySelf.pageNum, ...app.getSource()}
       getBrowseMySelfApi(params, hasLoading)
         .then(res => {
-          const browseMySelf = this.data.browseMySelf
-          const onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
+          let browseMySelf = this.data.browseMySelf
+          let onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
           browseMySelf.list = browseMySelf.list.concat(res.data)
           browseMySelf.isLastPage = res.meta && res.meta.nextPageUrl ? false : true
           browseMySelf.pageNum = browseMySelf.pageNum + 1
@@ -150,11 +150,11 @@ Page({
    */
   getCollectMySelf(hasLoading = true) {
     return new Promise((resolve, reject) => {
-      const params = {count: this.data.pageCount, page: this.data.collectMySelf.pageNum, ...app.getSource()}
+      let params = {count: this.data.pageCount, page: this.data.collectMySelf.pageNum, ...app.getSource()}
       getCollectMySelfApi(params, hasLoading)
         .then(res => {
-          const collectMySelf = this.data.collectMySelf
-          const onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
+          let collectMySelf = this.data.collectMySelf
+          let onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
           collectMySelf.list = collectMySelf.list.concat(res.data)
           collectMySelf.isLastPage = res.meta.nextPageUrl ? false : true
           collectMySelf.pageNum = collectMySelf.pageNum + 1
@@ -171,11 +171,11 @@ Page({
    */
   getMyCollectUsers(hasLoading = true) {
     return new Promise((resolve, reject) => {
-      const params = {count: this.data.pageCount, page: this.data.collectUsers.pageNum, ...app.getSource()}
+      let params = {count: this.data.pageCount, page: this.data.collectUsers.pageNum, ...app.getSource()}
       getMyCollectUsersApi(params, hasLoading)
         .then(res => {
-          const collectUsers = this.data.collectUsers
-          const onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
+          let collectUsers = this.data.collectUsers
+          let onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
           collectUsers.list = collectUsers.list.concat(res.data)
           collectUsers.isLastPage = res.meta && res.meta.nextPageUrl ? false : true
           collectUsers.pageNum = collectUsers.pageNum + 1
@@ -187,7 +187,7 @@ Page({
   ontabClick(e) {
     let pageList = e.currentTarget.dataset.key
     this.setData({pageList}, () => {
-      const key = this.data.pageList
+      let key = this.data.pageList
       if(!this.data[key].isRequire) this.getLists()
     })
   },
@@ -198,13 +198,13 @@ Page({
    * @return   {[type]}              [description]
    */
   onPullDownRefresh(hasLoading = true) {
-    const key = this.data.pageList
-    const value = {list: [], pageNum: 1, isLastPage: false, isRequire: false}
+    let key = this.data.pageList
+    let value = {list: [], pageNum: 1, isLastPage: false, isRequire: false}
     this.setData({[key]: value, hasReFresh: true})
     this.getLists()
         .then(res => {
-          const value = {list: [], pageNum: 1, isLastPage: false, isRequire: false}
-          const onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
+          let value = {list: [], pageNum: 1, isLastPage: false, isRequire: false}
+          let onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
           value.list = res.data
           value.isLastPage = res.meta && res.meta.nextPageUrl ? false : true
           value.pageNum = 2
@@ -224,7 +224,7 @@ Page({
    * @return   {[type]}   [description]
    */
   onReachBottom() {
-    const key = this.data.pageList
+    let key = this.data.pageList
     if (!this.data[key].isLastPage) {
       this.setData({onBottomStatus: 1})
       this.getLists(false)
@@ -260,11 +260,39 @@ Page({
   formSubmit(e) {
     app.postFormId(e.detail.formId)
   },
-  routeJump(e) {
-    const params = e.currentTarget.dataset
+  /**
+   * @Author   小书包
+   * @DateTime 查看求职者简历
+   * @return   {[type]}     [description]
+   */
+  viewResumeDetail(e) {
+    let params = e.currentTarget.dataset
     // 可能会存在空对象
     if(!Object.keys(params).length) return;
     // console.log(params)
-    wx.navigateTo({url: `/page/common/pages/resumeDetail/resumeDetail?uid=${params.jobhunteruid}`})
+    wx.navigateTo({url: `${COMMON}resumeDetail/resumeDetail?uid=${params.jobhunteruid}`})
+  },
+  routeJump(e) {
+    let params = e.currentTarget.dataset
+    switch(params.route) {
+      case 'interested':
+        wx.navigateTo({url: `${RECRUITER}interested/interested`})
+        break
+      case 'interview':
+        wx.navigateTo({url: `${RECRUITER}interview/index/index`})
+        break
+      case 'position':
+        wx.navigateTo({url: `${RECRUITER}position/index/index`})
+        break
+      case 'rank':
+        wx.navigateTo({url: `${COMMON}rank/rank`})
+        break
+      case 'recruiter':
+        wx.navigateTo({url: `${COMMON}recruiterDetail/recruiterDetail`})
+        break
+      default:
+        break
+    }
+    console.log(params)
   }
 })
