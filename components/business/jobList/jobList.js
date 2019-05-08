@@ -34,6 +34,11 @@ Component({
         url: `/page/common/pages/positionDetail/positionDetail?positionId=${item.id}&companyId=${item.companyId}`
       })
     },
+    toCreate () {
+      wx.navigateTo({
+        url: `/page/applicant/pages/createUser/createUser?from=4`
+      })
+    },
     formSubmit(e) {
       getApp().postFormId(e.detail.formId)
     }

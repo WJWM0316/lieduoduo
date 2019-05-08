@@ -41,6 +41,7 @@ App({
     isMicroCard: 0, // 是否创建微名片
     isRecruiter: 0, // 是否认证成为招聘官
     isJobhunter: 0, // 是否注册成求职者
+    hasExpect: 1, // 有求职意向
     hasLogin: false, // 判断是否登录
     userInfo: '', // 用户信息， 判断是否授权
     navHeight: 0,
@@ -148,6 +149,11 @@ App({
           resolve(res0.data)
         }).catch((e) => {
           reject(e)
+          if (e.data.hasExpect) {
+            this.globalData.hasExpect = 1
+          } else {
+            this.globalData.hasExpect = 0
+          }
           if (this.pageInit) { // 页面初始化
             this.pageInit() //执行定义的回调函数
           }

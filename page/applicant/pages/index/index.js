@@ -71,9 +71,9 @@ Page({
     requireOAuth: false,
     cdnImagePath: app.globalData.cdnImagePath,
     options: {},
-    myInfo: app.globalData.resumeInfo,
     hasLogin: app.globalData.hasLogin,
-    isJobhunter: app.globalData.isJobhunter
+    isJobhunter: app.globalData.isJobhunter,
+    hasExpect: app.globalData.hasExpect
   },
   onLoad(options) {
     hasOnload = false
@@ -97,7 +97,7 @@ Page({
       this.getAvartList()
       Promise.all([this.getCityLabel(), this.getLabelPosition(), this.getEmolument()]).then(() => {
         this.getPositionRecord()
-        this.setData({hasLogin: app.globalData.hasLogin, isJobhunter: app.globalData.isJobhunter, myInfo: app.globalData.resumeInfo})
+        this.setData({hasLogin: app.globalData.hasLogin, isJobhunter: app.globalData.isJobhunter, hasExpect: app.globalData.hasExpect})
         hasOnload = true
         this.initPage()
       })
@@ -109,6 +109,9 @@ Page({
         init()
       }
     }
+  },
+  onUnload () {
+    console.log(this.data, 1111111111111111)
   },
   onShow () {
     if (hasOnload) {
@@ -375,6 +378,58 @@ Page({
   authSuccess() {
     let requireOAuth = false
     this.setData({requireOAuth})
+  },
+  addIntention () {
+    let data = this.data,
+        salaryFloor = 0,
+        salaryCeil = 0
+    switch (data.emolument) {
+      case 1:
+        salaryFloor = 0
+        salaryCeil = 0
+        break
+      case 2:
+        salaryFloor = 1
+        salaryCeil = 2
+        break
+      case 3:
+        salaryFloor = 3
+        salaryCeil = 6
+        break
+      case 4:
+        salaryFloor = 5
+        salaryCeil = 10
+        break
+      case 5:
+        salaryFloor = 10
+        salaryCeil = 20
+        break
+      case 6:
+        salaryFloor = 15
+        salaryCeil = 30
+        break
+      case 7:
+        salaryFloor = 20
+        salaryCeil = 40
+        break
+      case 8:
+        salaryFloor = 50
+        salaryCeil = 100
+        break
+    }
+    let lntention = {
+      city: data.city,
+      cityName: data.cityList[data.cityIndex].name,
+      provinceName: data.cityList[data.cityIndex].provinceName,
+      positionType: data.type,
+      positionName: data.positionTypeList[data.typeIndex].name,
+      salaryFloor: salaryFloor,
+      salaryCeil: salaryCeil
+    }
+    wx.setStorageSync('addIntention', lntention)
+    wx.navigateTo({
+      url: `/page/applicant/pages/center/resumeEditor/aimsEdit/aimsEdit`
+    })
   },
   /**
    * @Author   小书包

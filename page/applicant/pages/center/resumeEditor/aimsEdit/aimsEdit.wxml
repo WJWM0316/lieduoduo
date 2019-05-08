@@ -17,7 +17,10 @@
     <view class="title"><text class="star">*</text>期望领域</view>
     <view class="result">
       <text class="resultBox">
-        <text class="label" wx:for="{{info.fields}}" wx:key="{{index}}">{{item.field || item.name}}</text>
+        <block wx:if="{{info.fields && info.fields.length > 0}}" >
+          <text class="label" wx:for="{{info.fields}}" wx:key="{{index}}">{{item.field || item.name}}</text>
+        </block>
+        <text class="holderStyle" wx:else>请选择</text>
       </text>
       <i class="icon iconfont icon-xiangyou"></i>
     </view>
