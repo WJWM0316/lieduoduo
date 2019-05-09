@@ -34,9 +34,16 @@ Page({
     }
   },
   onLoad(options) {
-    console.log(options)
   },
   onShow() {
+    let isJobhunter = this.data.isJobhunter
+    if (app.getRoleInit) {
+      isJobhunter = app.globalData.isJobhunter
+    } else {
+      app.getRoleInit = () => {
+        isJobhunter = app.globalData.isJobhunter
+      }
+    }
     const positionList = {
       list: [],
       pageNum: 1,
@@ -49,7 +56,7 @@ Page({
       isLastPage: false,
       isRequire: false
     }
-    this.setData({positionList, recruiterList}, () => this.getLists(false))
+    this.setData({positionList, recruiterList, isJobhunter}, () => this.getLists(false))
   },
   /**
    * @Author   小书包

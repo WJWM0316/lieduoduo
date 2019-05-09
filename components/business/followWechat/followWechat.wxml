@@ -1,0 +1,8 @@
+<view class="followWechat">
+	<view class="left">
+		<image class="icon" src="{{cdnImagePath}}followWechat.png"></image>
+		<text class="txt">关注公众号，不错过任何面试动态</text>
+	</view>
+	<button class="btn">去关注</button>
+</view>
+<view class="extraBlock"></view>

@@ -152,7 +152,7 @@ App({
           if (e.data.hasExpect) {
             this.globalData.hasExpect = 1
           } else {
-            this.globalData.hasExpect = 0
+            this.globalData.hasExpect = 0 
           }
           if (this.pageInit) { // 页面初始化
             this.pageInit() //执行定义的回调函数

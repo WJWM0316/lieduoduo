@@ -28,6 +28,15 @@ Page({
     }
   },
   getLists(hasLoading) {
+    let isJobhunter = this.data.isJobhunter
+    if (app.getRoleInit) {
+      isJobhunter = app.globalData.isJobhunter
+    } else {
+      app.getRoleInit = () => {
+        isJobhunter = app.globalData.isJobhunter
+      }
+    }
+    this.setData({isJobhunter})
     switch(this.data.options.type) {
       case 'myBrowse':
         return this.getMyBrowseList(hasLoading)

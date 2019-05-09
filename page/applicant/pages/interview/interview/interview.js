@@ -214,7 +214,7 @@ Page({
   },
   // 收到意向
   getInviteList(hasLoading = true) {
-    if (!this.data.hasLogin || !this.data.isJobhunter) return
+    if (!this.data.hasLogin) return
     let receiveData = this.data.receiveData
     let tab = this.data.receiveScreen[this.data.receiveIndex].value
     let receiveBottomStatus = 0
@@ -232,7 +232,7 @@ Page({
   },
   // 面试日程
   getScheduleList(hasLoading = true) {
-    if (!this.data.hasLogin || !this.data.isJobhunter) return
+    if (!this.data.hasLogin) return
     let interviewData = this.data.interviewData
     let interviewBottomStatus = 0
     return getScheduleListApi({count: interviewData.count, page: interviewData.pageNum, time: chooseTime, ...app.getSource()}, hasLoading).then(res => {
@@ -342,12 +342,16 @@ Page({
     }
   },
   onPullDownRefresh () {
-    if (!this.data.hasLogin || !this.data.isJobhunter) {
+    if (!this.data.hasLogin) {
       wx.stopPullDownRefresh()
       return
     }
     switch(this.data.tabIndex) {
       case 0:
+        if (!this.data.isJobhunter) {
+          wx.stopPullDownRefresh()
+          return
+        }
         let applyData = {
           list: [],
           pageNum: 1,

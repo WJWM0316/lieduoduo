@@ -1,0 +1,43 @@
+.followWechat {
+	width: 100%;
+	height: 100rpx;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	position: fixed;
+	left: 0;
+	bottom: 100rpx;
+	font-size:26rpx;
+	font-weight:300;
+	color:#282828;
+	line-height:1;
+	background:#FBFBFF;
+	line-height: 100rpx;
+	padding: 0 36rpx 0 40rpx;
+	box-sizing: border-box;
+}
+.followWechat .left {
+	display: flex;
+	align-items: center;
+}
+.followWechat .icon {
+	width:72rpx;
+	height:69rpx;
+	margin-right: 14rpx;
+}
+.followWechat .btn {
+	width:148rpx;
+	height:60rpx;
+	background:#FFDC29;
+	border-radius:39rpx;
+	font-size:26rpx;
+	font-weight:400;
+	color:#282828;
+	line-height:60rpx;
+	text-align: center;
+	padding: 0;
+	margin: 0;
+}
+.extraBlock {
+	height: 100rpx;
+}

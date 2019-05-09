@@ -177,7 +177,7 @@ Page({
                       confirmText: '马上完善',
                       confirmBack () {
                         wx.navigateTo({
-                          url: `${COMMON}resumeDetail/resumeDetail?uid=${app.globalData.resumeInfo.uid}&preview=true`
+                          url: `${COMMON}resumeDetail/resumeDetail?uid=${app.globalData.resumeInfo.uid}`
                         })
                       }
                     })
@@ -196,7 +196,7 @@ Page({
                     confirmText: '马上完善',
                     confirmBack () {
                       wx.navigateTo({
-                        url: `${COMMON}resumeDetail/resumeDetail?uid=${app.globalData.resumeInfo.uid}&preview=true`
+                        url: `${COMMON}resumeDetail/resumeDetail?uid=${app.globalData.resumeInfo.uid}`
                       })
                     }
                   })

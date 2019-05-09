@@ -3,23 +3,18 @@
 .container {
 } 
 
-page {
+/*page {
 	background:#FBFBFF;
 }
 view {
 	-webkit-overflow-scrolling: touch
-}
-::-webkit-scrollbar {
-	width: 0;
-	height: 0;
-	color: transparent;
-}
+}*/
 
-button::after{
+/*button::after{
 	display: none;
 	border: none;
 }
-
+*/
 .holderStyle{
   color: #BCBCBC;
 	font-weight: 300;
@@ -28,6 +23,7 @@ button::after{
 	background: none;
 	border: 0;
 	padding: 0;
+	text-align: left;
 }
 .clear-style::after{
 	display: none;

@@ -1,20 +1,9 @@
-
 import {RECRUITER, APPLICANT, COMMON} from '../../../../config.js'
-
 import {getSelectorQuery}  from '../../../../utils/util.js'
 import { getAvartListApi } from '../../../../api/pages/active.js'
-
-import { getPositionListApi, getPositionRecordApi, getEmolumentApi } from '../../../../api/pages/position.js'
-
-import {
-  getCityLabelApi,
-  getAdBannerApi
-} from '../../../../api/pages/common'
-
-import {
-  getLabelPositionApi
-} from '../../../../api/pages/label.js'
-
+import { getPositionListApi, getPositionRecordApi } from '../../../../api/pages/position.js'
+import {getFilterDataApi} from '../../../../api/pages/aggregate.js'
+import {getAdBannerApi} from '../../../../api/pages/common'
 import {shareChance} from '../../../../utils/shareWord.js'
 
 const app = getApp()
@@ -95,8 +84,8 @@ Page({
     let init = () => {
       this.getAdBannerList()
       this.getAvartList()
-      Promise.all([this.getCityLabel(), this.getLabelPosition(), this.getEmolument()]).then(() => {
-        this.getPositionRecord()
+      this.getFilterData().then(() => {
+        this.getRecord()
         this.setData({hasLogin: app.globalData.hasLogin, isJobhunter: app.globalData.isJobhunter, hasExpect: app.globalData.hasExpect})
         hasOnload = true
         this.initPage()
@@ -181,17 +170,21 @@ Page({
       url: `/${url}`
     })
   },
-  /**
-   * @Author   小书包
-   * @DateTime 2019-01-24
-   * @detail   获取热门城市
-   * @return   {[type]}   [description]
-   */
-  getCityLabel() {
-    return getCityLabelApi().then(res => {
-      const cityList = res.data
+  getFilterData () {
+    return getFilterDataApi().then(res => {
+      console.log(res, 1111111111111)
+
+      let cityList = res.data.area,
+          positionTypeList = res.data.label,
+          emolumentList = res.data.emolument
       cityList.unshift({areaId: '', name: '全部'})
-      this.setData({cityList})
+      positionTypeList.map(field => field.active = false)
+      positionTypeList.unshift({
+        labelId: '',
+        name: '全部',
+        type: 'self_label_position'
+      })
+      this.setData({cityList, positionTypeList, emolumentList})
     })
   },
   choseTab (e) {
@@ -244,25 +237,7 @@ Page({
     }
     if (this.data.tabFixed) this.setData({tabFixed: false})
   },
-  /**
-   * @Author   小书包
-   * @DateTime 2019-01-23
-   * @detail   获取技能标签
-   * @return   {[type]}   [description]
-   */
-  getLabelPosition() {
-    return getLabelPositionApi().then(res => {
-      const positionTypeList = res.data
-      positionTypeList.map(field => field.active = false)
-      positionTypeList.unshift({
-        labelId: '',
-        name: '全部',
-        type: 'self_label_position'
-      })
-      this.setData({positionTypeList})
-    })
-  },
-  getPositionRecord() {
+  getRecord() {
     return getPositionRecordApi().then(res => {
       let city = this.data.city
       let type = this.data.type
@@ -318,12 +293,6 @@ Page({
       })  
     })
   },
-  /**
-   * @Author   小书包
-   * @DateTime 2019-01-21
-   * @detail   获取职位列表
-   * @return   {[type]}   [description]
-   */
   getPositionList(hasLoading = true) {
     let params = {count: this.data.pageCount, page: this.data.positionList.pageNum, ...app.getSource()}
     if(this.data.city) {
@@ -368,11 +337,6 @@ Page({
         })
       }
       this.setData({bannerList: list})
-    })
-  },
-  getEmolument () {
-    getEmolumentApi().then(res => {
-      this.setData({emolumentList: res.data})
     })
   },
   authSuccess() {
