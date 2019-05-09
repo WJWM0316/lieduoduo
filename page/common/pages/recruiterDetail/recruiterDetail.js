@@ -296,5 +296,8 @@ Page({
   },
   edit() {
     if(this.data.isOwner) this.setData({showEdit: true})
+  },
+  share() {
+    this.selectComponent('#shareBtn').oper()
   }
 })

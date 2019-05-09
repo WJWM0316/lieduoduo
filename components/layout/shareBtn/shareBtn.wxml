@@ -37,7 +37,7 @@
 			</view>
 		</view>
 	</block>
-	<block wx:elif="{{posterType === 'applicant'}}">
+	<block wx:elif="{{posterType === 'applicant' || posterType === 'recruiter'}}">
 		<block wx:if="{{shareBtn}}">
 			<view class="shareBtn shareBtnBg"></view>
 			<view class="shareBtn" bindtap="oper">

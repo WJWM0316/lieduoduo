@@ -47,7 +47,8 @@ Page({
     hasReFresh: false,
     onBottomStatus: 0,
     isFixed: true,
-    fixedDom: false
+    fixedDom: false,
+    detail: {}
   },
   onLoad() {
     let choseType = wx.getStorageSync('choseType') || ''
@@ -90,10 +91,12 @@ Page({
     let that = this
     this.setData({browseMySelf, collectUsers, collectMySelf})
     if (app.loginInit) {
-      that.getLists().then(() => that.getDomNodePosition())
+      console.log(app.globalData)
+      that.setData({detail: app.globalData.recruiterDetails}, () => that.getLists().then(() => that.getDomNodePosition()))
     } else {
       app.loginInit = () => {
-        that.getLists().then(() => that.getDomNodePosition())
+        console.log(app.globalData)
+        that.setData({detail: app.globalData.recruiterDetails}, () => that.getLists().then(() => that.getDomNodePosition()))
       }
     }
   },

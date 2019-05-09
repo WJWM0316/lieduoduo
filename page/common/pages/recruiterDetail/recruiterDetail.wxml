@@ -124,7 +124,8 @@
     wx:if="{{info.vkey && !isOwner}}">
     </interviewBar>
   <view class="foot-bar" wx:if="{{isOwner && !showEdit}}">
+    <shareBtn posterType="recruiter" id="shareBtn" shareBtn="{{false}}"></shareBtn>
     <view class="button button-edit" bindtap="edit">编辑主页</view>
-    <view class="button button-share">分享我的主页</view>
+    <view class="button button-share" bindtap="share">分享我的主页</view>
   </view>
 </view>

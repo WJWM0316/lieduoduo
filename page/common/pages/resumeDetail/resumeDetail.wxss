@@ -1,6 +1,6 @@
 
 .resumeDetail{
-  background: #F5F4F7;
+  /*background: #F5F4F7;*/
   width: 100%;
   padding: 25rpx 30rpx;
   box-sizing: border-box;
@@ -509,4 +509,87 @@
 }
 .modeShrinkText {
   color: #282828 !important;
+}
+
+.resume-from {
+  height:68rpx;
+  background:rgba(255,255,255,1);
+  border-radius:0rpx 0rpx 28rpx 28rpx;
+  font-size:28rpx;
+  color:rgba(92,86,93,1);
+  line-height:68rpx;
+  text-align: center;
+/*  background: red;
+  position: fixed;
+  left: 0;
+  right: 0;*/
+}
+
+.resume-from .text4{
+  display: inline-block;
+  position: relative;
+}
+
+.resume-from .icon-left{
+  width: 20rpx;
+  height: 12rpx;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: -35rpx;
+}
+
+.resume-from .icon-right{
+  width: 20rpx;
+  height: 12rpx;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: -30rpx;
+}
+
+.resume-from .icon1:before {
+  width: 0;
+  height: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-width: 10rpx;
+  border-style: solid;
+  border-color: #652791 transparent transparent transparent;
+  display: block;
+  content: '';
+  z-index: 2;
+}
+
+.resume-from .icon1:after {
+  width: 0;
+  height: 0;
+  position: absolute;
+  top: 3rpx;
+  left: 5rpx;
+  border-width: 10rpx;
+  border-style: solid;
+  border-color: #FFDC29 transparent transparent transparent;
+  display: block;
+  content: '';
+  z-index: 1;
+}
+
+
+.resume-from .position {
+  display: inline;
+  position: relative;
+}
+
+.resume-from .position:after {
+  height:5rpx;
+  background:rgba(255,220,41,1);
+  border-radius:2rpx;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 2rpx;
+  content: '';
+  display: block;
 }

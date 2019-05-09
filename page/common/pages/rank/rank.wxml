@@ -23,6 +23,7 @@
           {{item.name}}
       </view>
     </view>
+    <view class="rules" bindtap="toggleShowRules" wx:if="{{identity === 'RECRUITER'}}">规则</view>
   </view>
   <!-- 前3名 -->
   <view class="topicBox" style="margin-top: {{fixedHeight}}px">
@@ -53,4 +54,35 @@
   <!-- 第三名之后的数据 -->
   <rankingTab wx:for="{{commonList.list}}" wx:key="{{index}}" item="{{item}}" index="{{index}}" wx:if="{{index >= 3}}"></rankingTab>
   <bottomStatus status="{{onBottomStatus}}" listData="{{commonList.list}}"></bottomStatus>
+
+  <view class="foot-bar" wx:if="{{identity === 'RECRUITER'}}">
+    <view class="img-box"><image mode="aspectFill" src="{{detail.avatar.smallUrl}}" class="image"></image></view>
+    <view class="content">
+      <view class="row-one">我的排名：<text class="{{1 > 0 ? 'strong' : ''}}">{{1 > 0 ? 10 : '暂未上榜'}}</text></view>
+      <view class="row-two">
+        <view class="item10">影响力 <view class="strong">{{0}}</view></view>
+        <view class="item10">人气 <view class="strong">{{0}}</view></view>
+      </view>
+    </view>
+  </view>
+
+  <view class="rule-box" wx:if="{{showRules && identity === 'RECRUITER'}}">
+    <view class="content">
+      <view class="header">排行榜说明<i class="icon iconfont icon-close" bindtap="toggleShowRules"></i></view>
+      <view class="ul">
+        <view class="li">
+          <view class="key"><text class="text">人气</text></view>
+          <view class="value">人气值由招聘官的主页和职位被候选人浏览、开撩约面、标记感兴趣等数据综合计算得出，代表了招聘官整体的人气热度。人气值越大，排名越靠前。</view>
+        </view>
+        <view class="li">
+          <view class="key"><text class="text">影响力</text></view>
+          <view class="value">人气值由招聘官的主页和职位被候选人浏览、开撩约面、标记感兴趣等数据综合计算得出，代表了招聘官整体的人气热度。人气值越大，排名越靠前。</view>
+        </view>
+        <view class="li">
+          <view class="key"><text class="text">总榜</text></view>
+          <view class="value">人气值由招聘官的主页和职位被候选人浏览、开撩约面、标记感兴趣等数据综合计算得出，代表了招聘官整体的人气热度。人气值越大，排名越靠前。</view>
+        </view>
+      </view>
+    </view>
+  </view>
 </view>

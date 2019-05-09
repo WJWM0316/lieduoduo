@@ -41,7 +41,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 45,
+			"current": 46,
 			"list": [
 				{
 					"id": 0,
@@ -343,6 +343,13 @@
 					"id": 45,
 					"name": "【B端】我感兴趣的",
 					"pathName": "page/recruiter/pages/interested/interested",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "【B端】排行榜",
+					"pathName": "page/common/pages/rank/rank",
 					"query": "",
 					"scene": null
 				}

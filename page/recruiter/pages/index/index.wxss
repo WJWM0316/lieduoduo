@@ -1,10 +1,10 @@
 .index-bannar image {
   width: 100%;
-  height: 430rpx;
+  height: 400rpx;
   vertical-align: text-top;
   border-top: 20rpx solid #652791;
   display: block;
-  position: fixed;
+  position: absolute;
   top: 0;
   z-index: -2;
 }
@@ -17,6 +17,8 @@
   height: 100rpx;
   overflow: hidden;
   border-radius: 16rpx 16rpx 0 0;
+  position: relative;
+  z-index: 2;
 }
 
 .fixed {
@@ -30,7 +32,6 @@
 .ul-tab-bar {
   display: flex;
   line-height: 80rpx;
-  background:rgba(255,255,255,1);
   border-bottom: 1rpx solid rgba(186,206,216,1);
   position: relative;
 }
@@ -44,6 +45,7 @@
   background: white;
   content: '';
   display: block;
+  z-index: -1;
 }
 
 .ul-tab-bar .li {
@@ -121,7 +123,7 @@
 }
 
 .list-box {
-  margin-top: -18rpx;
+  margin-top: -15rpx;
 }
 
 .nodata {
@@ -305,11 +307,56 @@ left, linear-gradient(-135deg, transparent 15rpx, #FFDC29 0) top right, linear-g
 }
 
 .item2 .public {
-  height:236rpx;
   background:rgba(0,0,0,.01);
   border-radius:16rpx;
+  padding: 38rpx 0;
 }
 
+.item2 .public .row1{
+  height:36rpx;
+  font-size:36rpx;
+  font-weight:700;
+  color:rgba(101,39,145,1);
+  line-height:36rpx;
+  padding-top: 4rpx;
+}
+
+.item2 .public .row2{
+  height:24rpx;
+  font-size:24rpx;
+  font-weight:300;
+  color:rgba(102,102,102,1);
+  line-height:24rpx;
+  padding-top: 12rpx;
+}
+
+.item2 .public .row3{
+  width:228rpx;
+  height:60rpx;
+  background:rgba(255,220,41,1);
+  border-radius:30rpx;
+  font-size:28rpx;
+  font-weight:700;
+  color:rgba(101,39,145,1);
+  text-align: center;
+  line-height: 60rpx;
+  margin-top: 24rpx;
+  padding: 0 28rpx;
+}
+
+.item2 .public .icon-disejiantou-you{
+  padding-left: 10rpx;
+  font-size: 24rpx;
+}
+
+.item2 .public .image{
+  width: 262rpx;
+  height: 192rpx;
+  position: absolute;
+  right: 32rpx;
+  top: 50%;
+  transform: translateY(-50%);
+}
 .floating-box {
   margin: -0 30rpx;
   position: relative;
@@ -490,6 +537,12 @@ left, linear-gradient(-135deg, transparent 15rpx, #FFDC29 0) top right, linear-g
   top: 50%;
   transform: translateY(-50%);
   background: white;
+  border-radius: 50%;
+}
+
+.welcome .img-box .image{
+  width: 100%;
+  height: 100%;
   border-radius: 50%;
 }
 

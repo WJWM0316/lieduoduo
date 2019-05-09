@@ -56,18 +56,22 @@ Page({
     onBottomStatus: 0,
     area_id: '',
     cate_id: '',
-    fixedHeight: ''
+    fixedHeight: '',
+    showRules: false,
+    identity: '',
+    detail: {}
   },
   onLoad(options) {
     cityIndex = 0
     cateIndex = 0
     this.getFixedBoxHeight()
     identity = app.identification(options)
+    this.setData({identity})
     if (app.loginInit) {
-      this.getLists().then(() => this.getSubmenuLists())
+      this.setData({detail: app.globalData.recruiterDetails}, () => this.getLists().then(() => this.getSubmenuLists()))
     } else {
       app.loginInit = () => {
-        this.getLists().then(() => this.getSubmenuLists())
+        this.setData({detail: app.globalData.recruiterDetails}, () => this.getLists().then(() => this.getSubmenuLists()))
       }
     }
   },
@@ -350,5 +354,8 @@ Page({
       path: `${COMMON}rank/rank`,
       imageUrl: `${this.data.cdnImagePath}ranking.png`
     })
+  },
+  toggleShowRules() {
+    this.setData({showRules: !this.data.showRules})
   }
 })

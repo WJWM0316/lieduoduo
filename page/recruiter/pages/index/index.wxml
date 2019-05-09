@@ -6,13 +6,13 @@
 	</view>
 	
 	<view class="index-bannar">
-		<image src="{{cdnImagePath}}bg_homepageh.png"></image>
+		<image src="{{cdnImagePath}}recruiter_mine_bg.png"></image>
 	</view>
 	
 	<view class="welcome">
-		<view class="admin">早上好，陈玉贤</view>
+		<view class="admin">早上好，{{detail.name}}</view>
 		<view class="capsule" bindtap="routeJump" data-route="recruiter">
-			<view class="img-box"></view>
+			<view class="img-box"><image mode="aspectFill" src="{{detail.avatar.smallUrl}}" class="image"></image></view>
 			<i class="icon iconfont icon-youyi"></i>
 		</view>
 	</view>
@@ -116,8 +116,13 @@
 							</view>
 						</block>
 						<!-- 无发布职位和分享按钮 end -->
-						<block wx:if="{{1 > 100}}">
-							<view class="public"></view>
+						<block wx:if="{{1 > 10}}">
+							<view class="public">
+								<view class="row1">Get更多优质简历</view>
+								<view class="row2">根据职位为你匹配优质候选人</view>
+								<view class="row3">发布/开放职位<i class="icon iconfont icon-disejiantou-you"></i></view>
+								<image src="{{cdnImagePath}}image0001.png" class="image"></image>
+							</view>
 						</block>
 					</view>
 				</button>
