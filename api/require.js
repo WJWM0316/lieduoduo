@@ -173,6 +173,11 @@ export const request = ({method = 'post', url, host, data = {}, needKey = true, 
               }
               break
             case 400:
+              if (msg.code === 703) {
+                wx.reLaunch({
+                  url: `${APPLICANT}createUser/createUser?micro=true`
+                })
+              }
               if (msg.code === 801) {
                 recruiterJump(msg)
               }
