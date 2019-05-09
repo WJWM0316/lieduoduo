@@ -3,9 +3,10 @@
   <view hidden="{{!hasReFresh}}">
     <refreshStatus></refreshStatus>
   </view>
-    <view class="header" wx:if="{{!isOwner}}">
+
+    <view class="header" wx:if="{{!isOwner || !showEdit}}">
       <image class="bgImg" src="{{cdnImagePath}}bg_detail.png" mode="aspectFill"></image>
-      <shareBtn></shareBtn>
+      <shareBtn wx:if="{{!isOwner}}"></shareBtn>
       <div class="content">
         <view class="avatar" bindtap="readAvatar">
           <image src="{{info.avatar.smallUrl}}" mode="aspectFill" class="avatar"></image>
@@ -20,13 +21,16 @@
         <view class="sign" wx:if="{{info.signature}}">{{info.signature}}</view>
       </view>
     </view>
-    <view class="head" wx:if="{{isOwner}}">
+
+    <view class="head" wx:if="{{isOwner && showEdit}}">
       <roleInfoCard my-class="roleInfoCard" roleType="recruiter" cardData="{{info}}" isMain="{{true}}"></roleInfoCard>
       <view class="line"></view>
     </view>
+
     <view class="mainContent">
       <view class="contentBox">
-        <view class="dataShow" wx:if="{{!isOwner}}">
+
+        <view class="dataShow" wx:if="{{!isOwner || !showEdit}}">
           <view class="dataBox">
             <view class="data"><text class="num">{{info.viewedCount}}</text>人气</view>
             <view class="data"><text class="num">{{info.influence}}</text>影响力<!-- <i class="icon iconfont icon-zhushi" bindtap="tips"></i> --></view>
@@ -42,7 +46,8 @@
           </view>
           <view class="more" bindtap="jump" wx:if="{{isApplicant}}">查看更多热门面试官<view class="icon iconfont icon-disejiantou-you"></view></view>
         </view>
-        <view class="labelEdit {{info.personalizedLabels.length > 0 ? 'hasLabelEdit': ''}}" wx:if="{{isOwner}}">
+
+        <view class="labelEdit {{info.personalizedLabels.length > 0 ? 'hasLabelEdit': ''}}" wx:if="{{isOwner && showEdit}}">
           <view class="title">
             <view class="icon">
               <view class="fan"></view>
@@ -55,7 +60,8 @@
           </view>
           <view wx:if="{{info.personalizedLabels.length === 0}}" class="addDeclaration" bindtap="editJump" data-type="labels">添加个人标签</view>
         </view>
-        <view class="profile" wx:if="{{(!isOwner && info.brief) || isOwner}}">
+
+        <view class="profile" wx:if="{{(!isOwner && info.brief) || (isOwner && showEdit)}}">
           <view class="title">
             <view class="icon">
               <view class="fan"></view>
@@ -66,7 +72,8 @@
           <view wx:if="{{!info.brief}}" class="addDeclaration" bindtap="editJump" data-type="profile">添加个人简介</view>
           <shrinkText textData="{{info.brief}}"></shrinkText>
         </view>
-        <view class="declaration {{isOwner ? 'recruiterMain' : ''}}" wx:if="{{(!isOwner && info.manifestos.length > 0) || isOwner}}">
+
+        <view class="declaration {{isOwner ? 'recruiterMain' : ''}}" wx:if="{{(!isOwner && info.manifestos.length > 0) || (isOwner && showEdit)}}">
           <view class="title">
             <view class="icon">
               <view class="fan"></view>
@@ -81,9 +88,10 @@
           </view>
           <view wx:if="{{isOwner}}" class="addDeclaration" bindtap="editJump" data-type="addDeclaration">添加招聘宣言</view>
         </view>
+
       </view>
 
-      <view class="position" wx:if="{{!isOwner}}">
+      <view class="position" wx:if="{{!isOwner || !showEdit}}">
         <company roleType="detailCompany" cardData="{{info.companyInfo}}"></company>
         <view class="positionList" wx:if="{{positionList.total}}">
           <view class="positionItem" wx:for="{{positionList.list}}" wx:key="{{index}}" bindtap="jumpPage" data-id="{{item.id}}">
@@ -115,4 +123,8 @@
     options="{{options}}"
     wx:if="{{info.vkey && !isOwner}}">
     </interviewBar>
+  <view class="foot-bar" wx:if="{{isOwner && !showEdit}}">
+    <view class="button button-edit" bindtap="edit">编辑主页</view>
+    <view class="button button-share">分享我的主页</view>
+  </view>
 </view>

@@ -549,3 +549,37 @@
   margin-left: 8rpx;
   vertical-align: middle;
 }
+
+.foot-bar {
+  background:rgba(255,255,255,1);
+  box-shadow:0rpx -6rpx 20rpx 0rpx rgba(34,56,101,0.08);
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  display: flex;
+  padding: 20rpx 46rpx;
+}
+
+.foot-bar .button{
+  height:88rpx;
+  border-radius:44rpx;
+  font-size:32rpx;
+  line-height: 88rpx;
+  text-align: center;
+}
+
+.foot-bar .button-share{
+  background:rgba(101,39,145,1);
+  box-shadow:0rpx 4rpx 12rpx 0rpx rgba(101,39,145,0.38);
+  flex: 1;
+  color: white;
+}
+
+.foot-bar .button-edit{
+  width:260rpx;
+  height:88rpx;
+  background:rgba(239,233,244,1);
+  margin-right: 30rpx;
+  color: #652791;
+}

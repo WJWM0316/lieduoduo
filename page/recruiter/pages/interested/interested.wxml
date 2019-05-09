@@ -1,5 +1,10 @@
 <view>
 	<navbar title="我感兴趣的"  background="white" color="#22292C" showHome="{{true}}"></navbar>
+
+	<view hidden="{{!hasReFresh}}">
+		<refreshStatus></refreshStatus>
+	</view>
+
 	<view class="list-box">
 		<form bindsubmit="formSubmit" report-submit='{{true}}'> 
 			<button
@@ -32,7 +37,9 @@
 				</view>
 			</button>
 		</form>
-		<bottomStatus status="{{onBottomStatus}}" listData="{{collectUsers.list}}" desc="还没有感兴趣的候选人哟~" marginTop="{{114}}">
+		<bottomStatus status="{{onBottomStatus}}" listData="{{collectUsers.list}}" desc=" 立即分享，一大波候选人等着开撩你！" marginTop="{{140}}">
+			<button class="jump share-position" bindtap="dotoAction" data-action="position">分享职位</button>
+			<button class="jump share-homepage" bindtap="dotoAction" data-action="recruiter">分享我的主页</button>
 		</bottomStatus>
 	</view>
 </view>

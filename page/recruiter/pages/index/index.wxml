@@ -32,27 +32,27 @@
 			</view>
 		</view>
 		<view class="row-two" bindtap="routeJump" data-route="rank">
-			<view class="shadow"></view>
 			<view class="content">
 				<view class="row-three">招聘官排行榜</view>
-				<view class="row-four">你当前的人气值：319</view>
+				<view class="row-four">你当前的人气：319 排名：61</view>
 			</view>
 			<view class="imglist">
-				<view class="imgitem"></view>
-				<view class="imgitem"></view>
-				<view class="imgitem"></view>
-				<view class="imgitem"></view>
+				<image class="imgitem" src="{{cdnImagePath}}more.png"></image>
+				<image class="imgitem" src="{{cdnImagePath}}more.png"></image>
+				<image class="imgitem" src="{{cdnImagePath}}more.png"></image>
+				<image class="imgitem" src="{{cdnImagePath}}more.png"></image>
 			</view>
 		</view>
+		<view class="shadow"></view>
 	</view>
 	<view class="shoper-banner"></view>
 
 	<view class="index-list-box">
 		<view class="default">
 			<view class="ul-tab-bar">
-				<view class="li {{pageList === 'browseMySelf' ? 'active' : ''}}" bindtap="ontabClick" data-key="browseMySelf">看过我的<view></view></view>
-				<view class="li {{pageList === 'collectMySelf' ? 'active' : ''}}" bindtap="ontabClick" data-key="collectMySelf">对我感兴趣<view></view></view>
-				<!-- <view class="li {{pageList === 'collectUsers' ? 'active' : ''}}" bindtap="ontabClick" data-key="collectUsers">我感兴趣的</view> -->
+				<view class="li {{pageList === 'browseMySelf' ? 'active' : ''}}" bindtap="ontabClick" data-key="browseMySelf">发现<view></view></view>
+				<view class="li {{pageList === 'collectMySelf' ? 'active' : ''}}" bindtap="ontabClick" data-key="collectMySelf">看过我的<view></view></view>
+			<!-- 	<view class="li {{pageList === 'collectUsers' ? 'active' : ''}}" bindtap="ontabClick" data-key="collectUsers">我感兴趣的</view> -->
 			</view>
 		</view>
 		<view class="list-box {{browseMySelf.list.length ? '' : 'nodata'}}" hidden="{{pageList === 'collectMySelf' || pageList === 'collectUsers'}}">
@@ -66,37 +66,59 @@
 					data-jobhunterUid="{{item.uid}}"
 					wx:key="{{index}}">
 					<view class="item2">
-						<view class="row-one">
-							<view class="img-box"><image src="{{item.avatar.smallUrl}}" lazy-load></image></view>
-							<view class="content">
-								<view class="header">
-									<view class="name">{{item.name}}</view>
-									<view class="zhiwei">
-										<block>{{item.workAgeDesc}}</block>
-										<block> . {{item.degreeDesc}}</block>
-										<block wx:if="{{item.salary}}"> . {{item.salary}}</block>
+						<!-- 无发布职位和分享按钮 start -->
+						<block wx:if="{{1>0}}">
+							<view class="row-one">
+								<view class="img-box"><image src="{{item.avatar.smallUrl}}" lazy-load></image></view>
+								<view class="content">
+									<view class="header">
+										<view class="name">{{item.name}}</view>
+										<view class="zhiwei">
+											<block>{{item.workAgeDesc}}</block>
+											<block> . {{item.degreeDesc}}</block>
+											<block wx:if="{{item.salary}}"> . {{item.salary}}</block>
+										</view>
+									</view>
+									<view class="degress" wx:if="{{item.lastCompanyName || item.lastPosition}}">
+										<block wx:if="{{item.lastCompanyName}}">{{item.lastCompanyName}}</block>
+										<block wx:if="{{item.lastPosition}}"> | {{item.lastPosition}}</block>
 									</view>
 								</view>
-								<view class="degress" wx:if="{{item.lastCompanyName || item.lastPosition}}">
-									<block wx:if="{{item.lastCompanyName}}">{{item.lastCompanyName}}</block>
-									<block wx:if="{{item.lastPosition}}"> | {{item.lastPosition}}</block>
-								</view>
 							</view>
-						</view>
-						<!-- <view class="reddot"></view> -->
-						<view class="row-two">
-							<view class="infos">
-								<view class="day">{{item.viewAt}}</view>
-								<view class="action">
-									<block wx:if="{{item.positionName}}">查看了你的职位</block>
-									<block wx:if="{{!item.positionName}}">查看了你的</block>
-								</view>
-								<view class="position">
-									<block wx:if="{{item.positionName}}">{{item.positionName}}</block>
-									<block wx:if="{{!item.positionName}}">个人主页</block>
-								</view>
+							<!-- <view class="reddot"></view> -->
+							<view class="row-two">
+								<!-- 正常列表数据 start -->
+								<block wx:if="{{1 > 100}}">
+									<view class="day">{{item.viewAt}}</view>
+									<view class="action">
+										她
+										<i class="icon iconfont icon-biaojiweiganxingqu"></i>
+										你的
+									</view>
+									<view class="position">
+										<block wx:if="{{item.positionName}}">{{item.positionName}}</block>
+										<block wx:if="{{!item.positionName}}">个人主页</block>
+									</view>
+								</block>
+								<!-- 正常列表数据 end -->
+
+								<!-- 系统或者官方推荐 start -->
+								<block wx:if="{{1 > 0}}">
+									<view class="featured-icon">猎头推荐</view>
+									<view class="text">
+										根据你的
+										<view class="position">架构工程师</view>
+										为你推荐
+									</view>
+								</block>
+								<!-- 系统或者官方推荐 end -->
+
 							</view>
-						</view>
+						</block>
+						<!-- 无发布职位和分享按钮 end -->
+						<block wx:if="{{1 > 100}}">
+							<view class="public"></view>
+						</block>
 					</view>
 				</button>
 			</form>
@@ -177,6 +199,7 @@
 			<bottomStatus status="{{onBottomStatus}}" listData="{{collectUsers.list}}" desc="还没有感兴趣的候选人哟~" marginTop="{{114}}">
 			</bottomStatus>
 		</view>
+
 	</view>
 
   <tabBar tabType="1"></tabBar>
