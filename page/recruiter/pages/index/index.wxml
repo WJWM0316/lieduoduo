@@ -48,14 +48,14 @@
 	<view class="shoper-banner"></view>
 
 	<view class="index-list-box">
-		<view class="default" wx:if="{{!fixedDom}}">
+		<view class="default" hidden="{{fixedDom}}">
 			<view class="ul-tab-bar">
 				<view class="li {{pageList === 'browseMySelf' ? 'active' : ''}}" bindtap="ontabClick" data-key="browseMySelf">发现<view></view></view>
 				<view class="li {{pageList === 'collectMySelf' ? 'active' : ''}}" bindtap="ontabClick" data-key="collectMySelf">看过我的<view></view></view>
 			<!-- 	<view class="li {{pageList === 'collectUsers' ? 'active' : ''}}" bindtap="ontabClick" data-key="collectUsers">我感兴趣的</view> -->
 			</view>
 		</view>
-		<view class="default fixed" wx:if="{{fixedDom}}" style="top: {{navH}}px">
+		<view class="default fixed" hidden="{{!fixedDom}}" style="top: {{navH}}px">
 			<view class="ul-tab-bar">
 				<view class="li {{pageList === 'browseMySelf' ? 'active' : ''}}" bindtap="ontabClick" data-key="browseMySelf">发现<view></view></view>
 				<view class="li {{pageList === 'collectMySelf' ? 'active' : ''}}" bindtap="ontabClick" data-key="collectMySelf">看过我的<view></view></view>
