@@ -25,8 +25,9 @@
   position: fixed;
   left: 0;
   right: 0;
-  padding-top: 24rpx;
+  padding-top: 20rpx;
   z-index: 22;
+  background: #FBFBFF;
 }
 
 .ul-tab-bar {
@@ -132,8 +133,7 @@
   border-radius:0rpx 0rpx 10rpx 10rpx;
   display: inline-block;
   vertical-align: middle;
-  width: calc(100% - 60rpx);
-  margin-left: 30rpx;
+  width: 100%;
   padding: 0;
   padding-bottom: 185rpx !important;
   overflow: hidden;

@@ -18,6 +18,7 @@ import { getPositionListNumApi } from '../../../../api/pages/position.js'
 
 let app = getApp()
 let fixedDomPosition = 0
+
 Page({
   data: {
     pageList: 'browseMySelf',
@@ -91,19 +92,15 @@ Page({
     let that = this
     this.setData({browseMySelf, collectUsers, collectMySelf})
     if (app.loginInit) {
-      console.log(app.globalData)
       that.setData({detail: app.globalData.recruiterDetails}, () => that.getLists().then(() => that.getDomNodePosition()))
     } else {
       app.loginInit = () => {
-        console.log(app.globalData)
         that.setData({detail: app.globalData.recruiterDetails}, () => that.getLists().then(() => that.getDomNodePosition()))
       }
     }
   },
   getDomNodePosition() {
-    getSelectorQuery('.index-list-box').then(res => {
-      fixedDomPosition = res.top - this.data.navH
-    })
+    getSelectorQuery('.index-list-box').then(res => fixedDomPosition = res.top - this.data.navH)
   },
   /**
    * @Author   小书包
@@ -244,7 +241,7 @@ Page({
    * @return   {[type]}     [description]
    */
   onPageScroll(e) {
-    if(e.scrollTop > this.data.navH - 5) {
+    if(e.scrollTop > 0) {
       if (!this.data.isFixed) this.setData({isFixed: true, background: '#652791'})
     } else {
       if (this.data.isFixed) this.setData({isFixed: false, background: 'transparent'})
@@ -282,10 +279,10 @@ Page({
         wx.navigateTo({url: `${RECRUITER}interested/interested`})
         break
       case 'interview':
-        wx.navigateTo({url: `${RECRUITER}interview/index/index`})
+        wx.reLaunch({url: `${RECRUITER}interview/index/index?tabIndex=2`})
         break
       case 'position':
-        wx.navigateTo({url: `${RECRUITER}position/index/index`})
+        wx.reLaunch({url: `${RECRUITER}position/index/index`})
         break
       case 'rank':
         wx.navigateTo({url: `${COMMON}rank/rank`})
@@ -296,6 +293,5 @@ Page({
       default:
         break
     }
-    console.log(params)
   }
 })

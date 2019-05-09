@@ -313,7 +313,17 @@ Page({
   },
   onLoad(options) {
     wx.setStorageSync('choseType', 'RECRUITER')
-    this.setData({options})
+    let tabIndex = this.data.tabIndex
+    let tabLists = this.data.tabLists
+
+    if(Reflect.has(options, 'tabIndex')) {
+      tabIndex = parseInt(options.tabIndex)
+      tabLists.map((item, i) => tabLists[i].active = false)
+      tabLists[tabIndex].active = true
+      tabLists[tabIndex].showRedDot = false
+    }
+    
+    this.setData({options, tabIndex, tabLists})
   },
   initDefault() {
     let applyData = initData
