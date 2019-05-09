@@ -10,6 +10,15 @@ export const getPositionListApi = (data, hasLoading) => {
   })
 }
 
+export const findMorePsListApi = (data, hasLoading) => {
+  return request({
+    method: 'get',
+    url: `/position/opportunity/more/${data.positionId}`,
+    data,
+    hasLoading: false
+  })
+}
+
 // 职位列表
 export const getfilterPositionListApi = (data, hasLoading) => {
   return request({

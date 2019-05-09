@@ -88,7 +88,13 @@ Page({
         this.getRecord()
         this.setData({hasLogin: app.globalData.hasLogin, isJobhunter: app.globalData.isJobhunter, hasExpect: app.globalData.hasExpect})
         hasOnload = true
-        this.initPage()
+        if (app.getRoleInit) {
+          this.initPage()
+        } else {
+          app.getRoleInit = () => {
+            this.initPage()
+          }
+        }
       })
     }
     if (app.loginInit) {
@@ -101,11 +107,6 @@ Page({
   },
   onUnload () {
     console.log(this.data, 1111111111111111)
-  },
-  onShow () {
-    if (hasOnload) {
-      this.initPage()
-    }
   },
   onShow (options) {
     if (hasOnload) {
@@ -172,8 +173,6 @@ Page({
   },
   getFilterData () {
     return getFilterDataApi().then(res => {
-      console.log(res, 1111111111111)
-
       let cityList = res.data.area,
           positionTypeList = res.data.label,
           emolumentList = res.data.emolument
@@ -261,7 +260,7 @@ Page({
         })
       }
       if (res.data.type) {
-        type = Number(res.data.type)
+        type = Number(this.data.options.positionTypeId) || Number(res.data.type)
         this.data.positionTypeList.map((item, index) => {
           if (item.labelId === type) {
             typeIndex = index

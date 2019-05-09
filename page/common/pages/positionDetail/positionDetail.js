@@ -1,7 +1,8 @@
 import {
   getPositionApi,
   openPositionApi,
-  closePositionApi
+  closePositionApi,
+  findMorePsListApi
 } from '../../../../api/pages/position.js'
 
 import {
@@ -10,7 +11,7 @@ import {
 } from '../../../../api/pages/collect.js'
 import {getUserRoleApi} from "../../../../api/pages/user.js"
 
-import {RECRUITER, COMMON} from '../../../../config.js'
+import {RECRUITER, APPLICANT, COMMON} from '../../../../config.js'
 
 import {sharePosition} from '../../../../utils/shareWord.js'
 
@@ -24,6 +25,7 @@ Page({
     isRecruiter: false,
     companyInfos: {},
     recruiterInfo: {},
+    findMore: {},
     hasReFresh: false,
     requireOAuth: false,
     cdnPath: app.globalData.cdnImagePath
@@ -32,6 +34,7 @@ Page({
     positionCard = ''
     if (options.scene) options = app.getSceneParams(options.scene)
     identity = app.identification(options)
+    this.findMorePsList(options)
     this.setData({query: options})
   },
   onShow() {
@@ -53,6 +56,11 @@ Page({
     const detail = e.detail
     detail.isOnline = detail.isOnline === 2 ? 1 : 2
     this.setData({detail})
+  },
+  findMorePsList (options) {
+    findMorePsListApi({positionId: options.positionId}).then(res => {
+      this.setData({findMore: res.data})
+    })
   },
   /**
    * @Author   小书包
@@ -187,6 +195,9 @@ Page({
           }
         })
         break
+        case 'findMore':
+          wx.navigateTo({url: `${APPLICANT}index/index?positionTypeId=${this.data.findMore.matchType}`})
+          break
       default:
         break
     }

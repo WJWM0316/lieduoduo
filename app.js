@@ -42,8 +42,10 @@ App({
     isRecruiter: 0, // 是否认证成为招聘官
     isJobhunter: 0, // 是否注册成求职者
     hasExpect: 1, // 有求职意向
-    hasLogin: false, // 判断是否登录
-    userInfo: '', // 用户信息， 判断是否授权
+    hasLogin: 1, // 判断是否登录
+    userInfo: { // 用户信息， 判断是否授权
+      officialId: 1
+    },
     navHeight: 0,
     cdnImagePath: 'https://attach.lieduoduo.ziwork.com/front-assets/images/',
     companyInfo: {}, // 公司信息
@@ -84,12 +86,13 @@ App({
             // 有token说明已经绑定过用户了
             if (res.data.token) {
               wx.setStorageSync('token', res.data.token)
-              that.globalData.hasLogin = true
-              if (res.data.userWechatInfo.nickname) that.globalData.userInfo = res.data.userInfo
+              that.globalData.hasLogin = 1
+              if (res.data.userWechatInfo.nickname) that.globalData.userInfo = res.data.userWechatInfo
               that.getRoleInfo()
               console.log('用户已认证')
             } else {
               if (res.data.userInfo.nickname) that.globalData.userInfo = res.data.userInfo
+              that.globalData.hasLogin = 0
               console.log('用户未绑定手机号', 'sessionToken', res.data.sessionToken)
               wx.setStorageSync('sessionToken', res.data.sessionToken)
             }
@@ -111,7 +114,7 @@ App({
   uplogin() {
     uploginApi().then(res => {
       wx.removeStorageSync('token')
-      this.globalData.hasLogin = false
+      this.globalData.hasLogin = 0
       this.globalData.resumeInfo = {}
       this.globalData.recruiterDetails = {}
       this.globalData.isRecruiter = false
@@ -247,12 +250,13 @@ App({
             if (res.data.token) {
               wx.setStorageSync('token', res.data.token)
               wx.setStorageSync('sessionToken', res.data.sessionToken)
-              that.globalData.hasLogin = true
+              that.globalData.hasLogin = 1
               if (res.data.userWechatInfo && res.data.userWechatInfo.nickname) that.globalData.userInfo = res.data.userWechatInfo
               that.getRoleInfo()
               console.log('用户已认证')
             } else {
               console.log('用户未绑定手机号')
+              that.globalData.hasLogin = 0
               if (res.data.userInfo && res.data.userInfo.nickname) that.globalData.userInfo = res.data.userInfo
               wx.setStorageSync('sessionToken', res.data.sessionToken)
             }
@@ -297,7 +301,7 @@ App({
         quickLoginApi(data).then(res => {
           if (res.data.token) {
             wx.setStorageSync('token', res.data.token)
-            this.globalData.hasLogin = true
+            this.globalData.hasLogin = 1
             this.globalData.userInfo = res.data
             let pageUrl = this.getCurrentPagePath(0)
             this.getRoleInfo().then(res0 => {
@@ -340,7 +344,9 @@ App({
               })
               resolve(res)
             })
-          } 
+          } else {
+            this.globalData.hasLogin = 0
+          }
         }).catch(e => {
           this.checkLogin()
         })
@@ -353,7 +359,7 @@ App({
       bindPhoneApi(data).then(res => {
         if (res.data.token) wx.setStorageSync('token', res.data.token)
         if (res.data.sessionToken) wx.setStorageSync('sessionToken', res.data.sessionToken)
-        this.globalData.hasLogin = true
+        this.globalData.hasLogin = 1
         this.globalData.userInfo = res.data
         this.getRoleInfo().then((res0) => {
           this.wxToast({
@@ -393,6 +399,7 @@ App({
         resolve(res)
       }).catch(e => {
         reject(e)
+        this.globalData.hasLogin = 0
         if (e.code === 401) {
           this.checkLogin()
         }

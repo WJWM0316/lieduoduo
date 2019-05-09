@@ -67,6 +67,16 @@
 				<text class="rich-text">{{companyInfos.intro}}</text>
 			</view>
 		</view>
+		<view class="findMore" bindtap="todoAction" data-type="findMore">
+			<view class="left">
+				<view class="title">发现更多职业机会</view>
+				<view class="msg">更多 <text class='name'>{{detail.typeName}}</text> 机会等你开撩</view>
+			</view>
+			<view class="right">
+				<image class="img" wx:for="{{findMore.companyLogos}}" wx:key="{{index}}" src="{{item.smallUrl}}"></image>
+				<image class="img" wx:if="{{findMore.companyLogos && findMore.companyLogos.length === 3}}" src="{{cdnPath}}more.png"></image>
+			</view>
+		</view>
 		<view class="make-homepage" wx:if="{{ !isRecruiter }}"><view bindtap="todoAction" data-type="make">我也要制作招聘主页<i class="icon iconfont icon-disejiantou-you"></i></view></view>
 		<button
 			wx:if="{{!isOwner}}"
@@ -98,8 +108,6 @@
 			type="position"
 			options="{{query}}"
 			wx:if="{{detail.vkey && !isOwner}}"></interviewBar>
-
-		<view></view>
 		<auth wx:if="{{requireOAuth}}" bindauthSuccess="authSuccess"></auth>
 	</view>
 </form>

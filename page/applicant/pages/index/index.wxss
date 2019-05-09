@@ -1,4 +1,6 @@
-
+.applicant-job {
+  background: #FBFBFF;
+}
 .head {
   background: #fff;
   box-shadow:0rpx 0rpx 20rpx 0rpx rgba(50,14,59,0.08);
