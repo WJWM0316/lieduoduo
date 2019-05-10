@@ -49,7 +49,8 @@ Page({
     onBottomStatus: 0,
     isFixed: true,
     fixedDom: false,
-    detail: {}
+    detail: {},
+    welcomeWord: ''
   },
   onLoad() {
     let choseType = wx.getStorageSync('choseType') || ''
@@ -90,7 +91,7 @@ Page({
       isRequire: false
     }
     let that = this
-    this.setData({browseMySelf, collectUsers, collectMySelf})
+    this.setData({browseMySelf, collectUsers, collectMySelf}, () => this.getWelcomeWord())
     if (app.loginInit) {
       that.setData({detail: app.globalData.recruiterDetails}, () => that.getLists().then(() => that.getDomNodePosition()))
     } else {
@@ -242,9 +243,9 @@ Page({
    */
   onPageScroll(e) {
     if(e.scrollTop > 0) {
-      if (!this.data.isFixed) this.setData({isFixed: true, background: '#652791'})
+      this.setData({isFixed: true, background: '#652791'})
     } else {
-      if (this.data.isFixed) this.setData({isFixed: false, background: 'transparent'})
+      this.setData({isFixed: false, background: 'transparent'})
     }
 
     if(e.scrollTop > fixedDomPosition) {
@@ -273,8 +274,9 @@ Page({
     wx.navigateTo({url: `${COMMON}resumeDetail/resumeDetail?uid=${params.jobhunteruid}`})
   },
   routeJump(e) {
-    let params = e.currentTarget.dataset
-    switch(params.route) {
+    let route = e.currentTarget.dataset.route
+    let uid = app.globalData.recruiterDetails.uid
+    switch(route) {
       case 'interested':
         wx.navigateTo({url: `${RECRUITER}interested/interested`})
         break
@@ -288,10 +290,28 @@ Page({
         wx.navigateTo({url: `${COMMON}rank/rank`})
         break
       case 'recruiter':
-        wx.navigateTo({url: `${COMMON}recruiterDetail/recruiterDetail`})
+        wx.navigateTo({url: `${COMMON}recruiterDetail/recruiterDetail?uid=${uid}`})
         break
       default:
         break
+    }
+  },
+  /**
+   * @Author   小书包
+   * @DateTime 2019-05-10
+   * @detail   根据时间显示不同的问候
+   * @return   {[type]}   [description]
+   */
+  getWelcomeWord() {
+    let d = new Date()
+    if(d.getHours() >= 6 &&d.getHours() < 12) {
+      this.setData({welcomeWord: '早上好'})
+    } else if(d.getHours() >= 12 && d.getHours() < 14) {
+      this.setData({welcomeWord: '中午好'})
+    } else if(d.getHours() >= 14 && d.getHours() < 18) {
+      this.setData({welcomeWord: '下午好'})
+    } else {
+      this.setData({welcomeWord: '晚上好'})
     }
   }
 })
