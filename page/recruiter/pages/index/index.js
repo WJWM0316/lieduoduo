@@ -52,6 +52,7 @@ Page({
   onLoad() {
     let choseType = wx.getStorageSync('choseType') || ''
     this.setData({choseType})
+    let that = this
     if (choseType === 'APPLICANT') {
       app.wxConfirm({
         title: '提示',

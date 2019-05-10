@@ -344,7 +344,9 @@
   overflow: unset;
   margin: 24rpx 0;
 }
-
+.formIdBtn::after {
+  display: none;
+}
 .item2 {
 	height:246rpx;
 	background:rgba(255,255,255,1);

@@ -86,7 +86,6 @@ Page({
       this.getAvartList()
       this.getFilterData().then(() => {
         this.getRecord()
-        this.setData({hasLogin: app.globalData.hasLogin, isJobhunter: app.globalData.isJobhunter, hasExpect: app.globalData.hasExpect})
         hasOnload = true
         if (app.getRoleInit) {
           this.initPage()
@@ -129,6 +128,7 @@ Page({
     }
   },
   initPage () {
+    this.setData({hasLogin: app.globalData.hasLogin, isJobhunter: app.globalData.isJobhunter, hasExpect: app.globalData.hasExpect})
     let jumpCreate = () => {
       if (!app.globalData.isMicroCard && wx.getStorageSync('choseType') !== 'RECRUITER') {
         app.wxToast({
@@ -290,6 +290,8 @@ Page({
       this.setData({tabList, city, type, cityIndex, typeIndex, emolument, emolumentIndex}, () => {
         this.getPositionList()
       })  
+    }).catch(e => {
+      this.getPositionList()
     })
   },
   getPositionList(hasLoading = true) {

@@ -169,28 +169,8 @@ Page({
               wx.navigateBack({
                 delta: 1,
                 success () {
-                  timer = setTimeout(() => {
-                    app.wxConfirm({
-                      title: '创建成功',
-                      content: '你的简历竞争力只超过28%的求职者，建议你现在完善简历',
-                      cancelText: '暂不完善',
-                      confirmText: '马上完善',
-                      confirmBack () {
-                        wx.navigateTo({
-                          url: `${COMMON}resumeDetail/resumeDetail?uid=${app.globalData.resumeInfo.uid}`
-                        })
-                      }
-                    })
-                  }, 500)
-                }
-              })
-            } else {
-              let path = `${decodeURIComponent(directChat)}&directChat=true`
-              wx.redirectTo({
-                url: path,
-                success () {
                   app.wxConfirm({
-                    title: '开撩成功',
+                    title: '创建成功',
                     content: '你的简历竞争力只超过28%的求职者，建议你现在完善简历',
                     cancelText: '暂不完善',
                     confirmText: '马上完善',
@@ -201,6 +181,11 @@ Page({
                     }
                   })
                 }
+              })
+            } else {
+              let path = `${decodeURIComponent(directChat)}&directChat=true`
+              wx.redirectTo({
+                url: path
               })
             }
             clearTimeout(timer)
@@ -588,11 +573,11 @@ Page({
     let title = ''
     if (!params.cityNum ) {
       title = '请选择期望城市'
-    } else if (!params.positionId ) {
+    } else if (!params.positionId) {
       title = '请选择期望职位'
     } else if (!params.salaryCeil) {
       title = '请选择期望薪资'
-    } else if (!params.fieldIds ) {
+    } else if (!params.fieldIds) {
       title = '请选择期望领域'
     }
     if (title) {
@@ -649,6 +634,13 @@ Page({
         return getCreatFourthStepApi().then(res => {
           let intention = this.data.intention
           intention = res.data
+          intention.salary = `${intention.salaryFloor}k~${intention.salaryCeil}k`
+          let fiels = []
+          intention.fields.forEach((item) => {
+            fiels.push(item.field)
+          })
+          intention.fiels = fiels.join(',')
+          intention.fieldIds = intention.fieldIds.join(',')
           this.setData({intention})
         })
     }
@@ -672,7 +664,7 @@ Page({
           this.getStepData(1)
           break
         case 9:
-          step = 0
+          step = 5
           break  
       }
       if (this.data.isMicro) {
@@ -957,7 +949,6 @@ Page({
     if (!avatar && userInfo && !this.data.avatar) {
       avatar = userInfo.avatarInfo
       let gender = userInfo.gender
-      console.log(avatar, 333333333333333333333)
       this.setData({avatar, gender, userInfo})
     }
     if (companyName) {

@@ -67,7 +67,7 @@
 				<text class="rich-text">{{companyInfos.intro}}</text>
 			</view>
 		</view>
-		<view class="findMore" bindtap="todoAction" data-type="findMore">
+		<view class="findMore" bindtap="todoAction" data-type="findMore" wx:if="{{!findMore.companyLogos}}">
 			<view class="left">
 				<view class="title">发现更多职业机会</view>
 				<view class="msg">更多 <text class='name'>{{detail.typeName}}</text> 机会等你开撩</view>

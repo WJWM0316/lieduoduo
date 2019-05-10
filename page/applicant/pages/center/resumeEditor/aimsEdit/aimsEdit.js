@@ -57,8 +57,10 @@ Page({
       wx.setStorageSync('skillsLabel', info.fields)
     }
     if (addIntention) {
-      info.position = addIntention.positionName
-      info.positionId = addIntention.positionType
+      if (!info.positionId) {
+        info.position = addIntention.positionName
+        info.positionId = addIntention.positionType
+      }
       info.salaryFloor = addIntention.salaryFloor
       info.salaryCeil = addIntention.salaryCeil
       info.province = addIntention.provinceName
@@ -136,6 +138,7 @@ Page({
           title: '发布成功',
           icon: 'success',
           callback() {
+            app.globalData.hasExpect = 1
             wx.navigateBack({delta: 1}) 
           }
         })

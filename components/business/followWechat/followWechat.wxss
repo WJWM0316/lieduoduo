@@ -43,6 +43,9 @@
 	padding: 0;
 	margin: 0;
 }
+.followWechat .btn::after {
+	display: none;
+}
 .extraBlock {
 	height: 100rpx;
 }

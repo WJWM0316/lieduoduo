@@ -229,6 +229,7 @@
 	line-height: 1;
 	margin-left: 124rpx;
 	position: relative;
+  text-align: left;
 }
 
 .tab-company-homepage .company-name {

@@ -14,9 +14,9 @@
 				</view>
 				<view class="second">{{recruiterWords}}</view>
 			</view>
-			<view class="button-box button-box-color1">
-				<button form-type="submit" class="clear-style" bindtap="todoAction" data-action="job-hunting-chat">开撩约面</button>
-			</view>
+			<button form-type="submit" class="clear-style button-box button-box-color1" bindtap="todoAction" data-action="job-hunting-chat">
+				开撩约面
+			</button>
 		</block>
 		<!-- 求职者还没有发起开撩动作 招聘官主页 end-->
 
@@ -29,9 +29,9 @@
 				</view>
 				<view class="second">{{recruiterWords}}</view>
 			</view>
-			<view class="button-box button-box-color1">
-				<button form-type="submit" class="clear-style" bindtap="todoAction" data-action="job-hunting-chat">开撩约面</button>
-			</view>
+			<button form-type="submit"  class="clear-style button-box button-box-color1" bindtap="todoAction" data-action="job-hunting-chat">
+				开撩约面
+			</button>
 		</block>
 		<!-- 求职者还没有发起开撩动作 职位详情 end-->
 
@@ -121,9 +121,9 @@
 				<view class="first"><view class="name">{{infos.name || infos.recruiterInfo.name}}</view></view>
 				<view class="second">{{jobWords}}</view>
 			</view>
-			<view class="button-box">
-				<button form-type="submit" class="clear-style accept" data-action="recruiter-chat" bindtap="todoAction">开撩约面</button>
-			</view>
+			<button form-type="submit" class="clear-style button-box accept" data-action="recruiter-chat" bindtap="todoAction">
+				开撩约面
+			</button>
 		</block>
 		<!-- 招聘端主动发起开料 end-->
 

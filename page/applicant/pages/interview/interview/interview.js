@@ -103,7 +103,6 @@ Page({
     })
     tabLists[tabIndex].active = true
     this.setData({tabLists, tabIndex})
-    if(!this.data.hasLogin || !this.data.isJobhunter) return
     let data = {}
     switch(index) {
       case 0:

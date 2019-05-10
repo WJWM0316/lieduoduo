@@ -55,7 +55,7 @@
       </view>
     </view>
   </view>
-  <view class="addIntention" bindtap="addIntention" wx:if="{{!hasExpect}}">
+  <view class="addIntention" bindtap="addIntention" wx:if="{{!hasExpect && (cityIndex || typeIndex || emolumentIndex)}}">
     <text>把你的筛选条件添加到求职意向</text>
     <button class="addBtn">立即添加<i class="icon iconfont icon-disejiantou-you"></i></button>
   </view>

@@ -1,18 +1,28 @@
 @import '../../../iconfont.wxss'
-.company {
+.roleInfoCard .clear-style {
+  background: none;
+  border: 0;
+  padding: 0;
+}
+.roleInfoCard .clear-style::after{
+  display: none;
+  border: none;
+}
+.roleInfoCard .company {
   position: relative;
   padding-left: 164rpx;
   padding-right: 50rpx;
   background: #fff;
   height:140rpx;
+  text-align: left;
 }
-.company.detail {
+.roleInfoCard .company.detail {
   height: 108rpx;
 }
-.company.edit {
+.roleInfoCard .company.edit {
   padding-right: 0;
 }
-.company .img {
+.roleInfoCard .company .img {
   width: 140rpx;
   height: 140rpx;
   position: absolute;
@@ -21,24 +31,24 @@
   box-shadow:0rpx 8rpx 20rpx 0rpx rgba(45,45,45,0.06);
   border-radius:18rpx;
 }
-.company.detail .img {
+.roleInfoCard .company.detail .img {
   width: 108rpx;
   height: 108rpx;
   border-radius:24rpx;
 }
-.company .companyMsg, .applicant .applicantMsg, .recruiter .recruiterMsg {
+.roleInfoCard .company .companyMsg, .roleInfoCard .applicant .applicantMsg, .roleInfoCard .recruiter .recruiterMsg {
   display: flex;
   flex-direction: column;
   justify-content: center;
   height: 140rpx;
 }
-.company.detail .companyMsg {
+.roleInfoCard .company.detail .companyMsg {
   height: 108rpx;
 }
-.applicant .applicantMsg, .recruiter .recruiterMsg {
+.roleInfoCard .applicant .applicantMsg, .roleInfoCard .recruiter .recruiterMsg {
   height: 120rpx;
 }
-.companyMsg .name, .applicantMsg .name, .recruiterMsg .name {
+.roleInfoCard .companyMsg .name, .roleInfoCard .applicantMsg .name, .roleInfoCard .recruiterMsg .name {
   font-size: 36rpx;
   font-weight: 500;
   color: #282828;
@@ -47,18 +57,18 @@
   text-overflow:ellipsis;
   white-space: nowrap;
 }
-.applicantMsg .name .msg {
+.roleInfoCard .applicantMsg .name .msg {
   font-size: 26rpx;
   font-weight: 300;
   color: #929292;
   margin-left: 30rpx;
 }
-.recruiterMsg .name .msg {
+.roleInfoCard .recruiterMsg .name .msg {
   font-size: 28rpx;
   font-weight: 400;
   color: #282828;
 }
-.editBtn {
+.roleInfoCard .editBtn {
   position: absolute;
   top: 0;
   right: 0;
@@ -67,7 +77,7 @@
   padding-right: 33rpx;
   padding-top: 45rpx;
 }
-.companyMsg .detail, .applicantMsg .detail, .recruiterMsg .detail {
+.roleInfoCard .companyMsg .detail, .roleInfoCard .applicantMsg .detail, .roleInfoCard .recruiterMsg .detail {
   margin-top: 14rpx;
   font-size: 24rpx;
   font-weight: 300;
@@ -77,7 +87,7 @@
   text-overflow:ellipsis;
   white-space: nowrap;
 }
-.company .icon {
+.roleInfoCard .company .icon {
   font-size: 32rpx;
   position: absolute;
   right: -10rpx;
@@ -85,7 +95,7 @@
   transform: translateY(-50%);
   color: #D3CFD6;
 }
-.editIcon {
+.roleInfoCard .editIcon {
   position: absolute;
   font-size: 30rpx;
   color: #652791;
@@ -95,35 +105,35 @@
   top:15rpx;
   right: 0;
 }
-.applicant, .recruiter{
+.roleInfoCard .applicant, .recruiter{
   position: relative;
   padding-top: 30rpx;
   padding-left: 172rpx;
   padding-right: 28rpx;
   background: #fff;
 }
-.recruiter {
+.roleInfoCard .recruiter {
   padding-top: 22rpx;
   padding-bottom: 22rpx;
   padding-right: 176rpx;
 }
-.recruiter.recruiterMain {
+.roleInfoCard .recruiter.recruiterMain {
   padding-right: 58rpx;
 }
-.recruiter.recruiterList {
+.roleInfoCard .recruiter.recruiterList {
   padding-top: 30rpx;
   padding-bottom: 30rpx;
   padding-right: 50rpx;
   margin-top: 24rpx;
 }
-.line {
+.roleInfoCard .line {
   width: 610rpx;
   height: 10rpx;
   border-radius: 10rpx;
   display: block;
   margin: 0 auto;
 }
-.lineTip {
+.roleInfoCard .lineTip {
   width: 610rpx;
   font-size: 28rpx;
   font-weight: 300;
@@ -132,11 +142,11 @@
   padding: 32rpx 0 40rpx;
   margin: 0 auto;
 }
-.noSign {
+.roleInfoCard .noSign {
   color: #BCBCBC;
   font-weight: 300;
 }
-.applicant .img, .recruiter .img {
+.roleInfoCard .applicant .img, .recruiter .img {
   width: 120rpx;
   height: 120rpx;
   display: block;
@@ -145,7 +155,7 @@
   top: 22rpx;
   left: 28rpx;
 }
-.vip {
+.roleInfoCard .vip {
   width: 36rpx;
   height: 36rpx;
   background: #FFDC29;
@@ -161,7 +171,7 @@
   left: 110rpx;
   border-radius: 50%;
 }
-.recruiter .status {
+.roleInfoCard .recruiter .status {
   font-size: 26rpx;
   font-weight: 300;
   color: #929292;
@@ -170,38 +180,29 @@
   right: 28rpx;
   transform: translateY(-50%);
 }
-.contact {
+.roleInfoCard .contact {
   padding: 0 28rpx;
   line-height: 72rpx;
   display: flex;
   margin-top: 22rpx;
 }
-.mobile, .wechat {
+.roleInfoCard .mobile, .wechat {
   flex: 1;
   font-size: 28rpx;
   font-weight: 400;
   color: #626262;
   border-top: 1rpx dashed #BACED8;
 }
-.mobile .txt, .wechat .txt {
+.roleInfoCard .mobile .txt, .roleInfoCard .wechat .txt {
   font-weight: 700;
   color: #652791;
 }
 
-.waiting{
+.roleInfoCard .waiting{
   font-size: 28rpx;
   font-weight: 400;
   color: #626262;
   border-top: 1rpx dashed #BACED8;
   text-align: center;
   width: 100%;
-}
-.clear-style {
-  background: none;
-  border: 0;
-  padding: 0;
-}
-.clear-style::after{
-  display: none;
-  border: none;
 }
