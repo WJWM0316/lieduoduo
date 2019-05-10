@@ -5,7 +5,7 @@
 		<refreshStatus></refreshStatus>
 	</view>
 
-	<view class="list-box">
+	<view class="list-box {{!collectUsers.list.length ? 'nodata' : ''}}" style="top: {{navH}}px">
 		<form bindsubmit="formSubmit" report-submit='{{true}}'> 
 			<button
 				form-type="submit"

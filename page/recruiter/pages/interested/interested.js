@@ -28,6 +28,7 @@ Page({
       isRequire: false
     },
     pageCount: 10,
+    navH: app.globalData.navHeight,
     background: 'transparent',
     hasReFresh: false,
     onBottomStatus: 0
