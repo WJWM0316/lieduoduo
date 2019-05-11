@@ -449,7 +449,7 @@
 }
 .expTab .link{
   line-height: 48rpx;
-  white-space: nowrap;
+  word-break: break-all;
   margin-top: 20rpx;
   font-size: 28rpx;
   font-weight: 300;

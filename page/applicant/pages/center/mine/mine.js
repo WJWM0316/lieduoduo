@@ -115,6 +115,10 @@ Page({
           url: `${APPLICANT}jobs/like/like`
         })
         break
+      case 'toCreate':
+        wx.navigateTo({
+          url: `${APPLICANT}createUser/createUser`
+        })
       default:
         break
     }

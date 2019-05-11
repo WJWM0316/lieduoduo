@@ -9,9 +9,11 @@ let app = getApp()
 Page({
   data: {
     hasReFresh: false,
-    onBottomStatus: 0,
+    onBottomStatus: 2,
     tab: 'positionList',
     navH: app.globalData.navHeight,
+    isJobhunter: app.globalData.isJobhunter,
+    hasLogin: app.globalData.hasLogin,
     pageCount: 20,
     timeSelected: false,
     timeModel: {
@@ -199,9 +201,19 @@ Page({
       isRequire: false,
       total: 0
     }
-    this.setData({interviewList}, () => this.getLists())
+    if (app.getRoleInit) {
+      this.setData({hasLogin: app.globalData.hasLogin, isJobhunter: app.globalData.isJobhunter, interviewList}, () => this.getLists())
+    } else {
+      app.getRoleInit = () => {
+        this.setData({hasLogin: app.globalData.hasLogin, isJobhunter: app.globalData.isJobhunter, interviewList}, () => this.getLists())
+      }
+    }
   },
   onPullDownRefresh() {
+    if (!this.data.hasLogin || !this.data.isJobhunter) {
+      wx.stopPullDownRefresh()
+      return
+    }
     let interviewList = {list: [], pageNum: 1, isLastPage: false, isRequire: false, total: 0}
     this.setData({interviewList, hasReFresh: true})
     return this.getLists(false).then(res => {
@@ -213,10 +225,13 @@ Page({
       interviewList.isRequire = true
       interviewList.total = res.meta.total
       this.setData({interviewList, onBottomStatus, hasReFresh: false}, () => wx.stopPullDownRefresh())
+    }).catch(e => {
+      this.setData({hasReFresh: false})
+      wx.stopPullDownRefresh()
     })
   },
   getLists(hasLoading = true) {
-
+    if (!this.data.hasLogin || !this.data.isJobhunter) return
     return new Promise((resolve, reject) => {
       let params = {}
       let startTime = this.data.startTime
@@ -281,5 +296,20 @@ Page({
   },
   formSubmit(e) {
     app.postFormId(e.detail.formId)
+  },
+  jump (e) {
+    let url = ''
+    switch (e.currentTarget.dataset.type) {
+      case 'login':
+        url = `${COMMON}bindPhone/bindPhone`
+        break
+      case 'positionList':
+        url = `${APPLICANT}index/index`
+        break
+      case 'create':
+        url = `${APPLICANT}createUser/createUser`
+        break
+    }
+    wx.navigateTo({url})
   }
 })

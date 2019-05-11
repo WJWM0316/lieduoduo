@@ -1,5 +1,6 @@
-<view class="my-class">
-  <view class="company {{isMain ? 'edit' : ''}} {{roleType === 'detailCompany' ? 'detail' : ''}}" wx:if="{{roleType === 'company' || roleType === 'detailCompany'}}" bindtap="jumpCompany">
+<form bindsubmit="formSubmit" report-submit='{{true}}'>
+<view class="my-class roleInfoCard">
+  <button form-type="submit" class="clear-style company {{isMain ? 'edit' : ''}} {{roleType === 'detailCompany' ? 'detail' : ''}}" wx:if="{{roleType === 'company' || roleType === 'detailCompany'}}" bindtap="jumpCompany">
     <image lazy-load class="img" src="{{cardData.avatar.smallUrl || cardData.logoInfo.smallUrl || cardData.logo.smallUrl}}" mode="aspectFit"></image>
     <view class="companyMsg" wx:if="{{!isMain}}">
       <view class="name">{{cardData.name}}</view>
@@ -11,16 +12,16 @@
     </view>
     <i bindtap="jumpEditBase" class="editIcon iconfont icon-bianji1" wx:if="{{isMain && isCompanyAdmin}}"></i>
     <i class="icon iconfont icon-xiangyou" wx:if="{{!isMain}}"></i>
-  </view>
+  </button>
 
   <block  wx:if="{{roleType === 'applicant'}}">
-    <view class="applicant" bindtap="jumpApplicant">
+    <button form-type="submit" class="clear-style applicant" bindtap="jumpApplicant">
       <image lazy-load class="img" src="{{cardData.avatar.smallUrl}}" mode="aspectFill"></image>
       <view class="applicantMsg">
         <view class="name">{{cardData.jobhunterRealname || cardData.realname}}<text class="msg"><text wx:if="{{cardData.workAge}}">{{cardData.workAge}}年</text><text wx:else>暂无经历</text> · {{cardData.degreeDesc}}<text wx:if="{{cardData.salaryFloor}}"> · {{cardData.salaryFloor}}-{{cardData.salaryCeil}}k</text></text></view>
         <view class="detail" wx:if="{{cardData.lastCompanyName}}">{{cardData.lastCompanyName}} | {{cardData.positionName || cardData.lastPosition}}</view>
       </view>
-    </view>
+    </button>
     <view class="contact">
       <view class="mobile" bindtap="makePhoneCall" wx:if="{{cardData.mobile || cardData.jobhunterMobile}}">手机：<text class="txt">{{cardData.mobile || cardData.jobhunterMobile}}</text></view>
       <view class="wechat" bindtap="setClipboardData" wx:if="{{cardData.wechat || cardData.jobhunterWechat}}">微信：<text class="txt">{{cardData.wechat || cardData.jobhunterWechat}}</text></view>
@@ -28,7 +29,7 @@
     </view>
   </block>
 
-  <view class="recruiter {{isMain? 'recruiterMain':''}}" wx:if="{{roleType === 'recruiter'}}" bindtap="jumpRecruiter">
+  <button form-type="submit" class="clear-style recruiter {{isMain? 'recruiterMain':''}}" wx:if="{{roleType === 'recruiter'}}" bindtap="jumpRecruiter">
     <image lazy-load class="img" src="{{cardData.avatar.smallUrl}}" mode="aspectFill"></image>
     <view class="vip">V</view>
     <view class="recruiterMsg">
@@ -38,19 +39,20 @@
     <i class="editBtn iconfont icon-bianji1" wx:if="{{isMain}}" bindtap="jumpEdit"></i>
     <view class="status" wx:if="{{!isMain}}">邀你面试</view>
     <view></view>
-  </view>
+  </button>
   <image lazy-load wx:if="{{roleType === 'recruiter' && isMain}}" class="line" src="{{cdnImagePath}}line.png"></image>
   <view wx:if="{{roleType === 'recruiter' && isMain}}" class="lineTip">
     <text wx:if="{{cardData.signature}}">{{cardData.signature}}</text>
     <text wx:else class="noSign">你还未填写个性签名，说说你的想法吧~</text>
   </view>
   
-  <view class="recruiter {{roleType === 'recruiterList'? 'recruiterList':''}}" wx:if="{{roleType === 'recruiterList'}}" bindtap="jumpRecruiter">
+  <button form-type="submit" class="clear-style recruiter {{roleType === 'recruiterList'? 'recruiterList':''}}" wx:if="{{roleType === 'recruiterList'}}" bindtap="jumpRecruiter">
     <image lazy-load class="img" src="{{cardData.avatar.smallUrl}}" mode="aspectFill"></image>
     <view class="vip">V</view>
     <view class="recruiterMsg">
       <view class="name">{{cardData.name}}</view>
       <view class="detail">{{cardData.position}}</view>
     </view>
-  </view>
+  </button>
 </view>
+</form>

@@ -133,7 +133,7 @@ export const request = ({method = 'post', url, host, data = {}, needKey = true, 
           if (msg.httpStatus === 200) {
             resolve(msg)
           } else {
-            if (msg.code !== 701 && msg.code !== 801 && !noToastUrlArray.some(now => url.includes(now))) {
+            if (msg.code !== 401 && msg.code !== 701 && msg.code !== 801 && !noToastUrlArray.some(now => url.includes(now))) {
               getApp().wxToast({title: msg.msg})
             }
             reject(msg)
@@ -173,9 +173,9 @@ export const request = ({method = 'post', url, host, data = {}, needKey = true, 
               }
               break
             case 400:
-              if (msg.code === 701 && url !== '/jobhunter/cur/resume') {
-                wx.navigateTo({
-                  url: `${APPLICANT}createUser/createUser`
+              if (msg.code === 703) {
+                wx.reLaunch({
+                  url: `${APPLICANT}createUser/createUser?micro=true`
                 })
               }
               if (msg.code === 801) {

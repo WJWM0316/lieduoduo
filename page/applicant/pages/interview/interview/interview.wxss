@@ -344,7 +344,9 @@
   overflow: unset;
   margin: 24rpx 0;
 }
-
+.formIdBtn::after {
+  display: none;
+}
 .item2 {
 	height:246rpx;
 	background:rgba(255,255,255,1);
@@ -555,4 +557,16 @@
 
 .height10 {
 	padding-top: 311rpx;
+}
+.jump {
+  width: 430rpx;
+  height: 98rpx;
+  background:rgba(255,220,41,1);
+  box-shadow:0rpx 4rpx 20rpx 0rpx rgba(232,201,40,0.47);
+  border-radius:49rpx;
+  margin: 44rpx auto 0;
+  font-size:30rpx;
+  font-weight:400;
+  color:rgba(40,40,40,1);
+  line-height: 98rpx;
 }

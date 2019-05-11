@@ -62,7 +62,7 @@
 	text-align: right;
 	width: calc(100% - 130rpx);
 	float: left;
-	line-height: 1;
+	line-height: 36rpx;
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;

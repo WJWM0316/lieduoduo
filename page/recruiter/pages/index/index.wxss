@@ -143,7 +143,9 @@
   overflow: unset;
   margin-bottom: 24rpx;
 }
-
+.formIdBtn::after {
+  display: none;
+}
 .item2 {
   background:rgba(255,255,255,1);
   box-shadow:0rpx -5rpx 40rpx 0rpx rgba(22,39,77,0.05);

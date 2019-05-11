@@ -1,9 +1,9 @@
+<form bindsubmit="formSubmit" report-submit='{{true}}'>
 <view class="interview-bar" wx:if="{{ !isOwerner }}">
-	
 	<block wx:if="{{type === 'recruiter' || type === 'position'}}">
-		<view class="img-box" bindtap="todoAction" data-action="viewRecruiter">
+		<button form-type="submit" class="clear-style img-box" bindtap="todoAction" data-action="viewRecruiter">
 			<image mode="aspectFill" src="{{infos.avatar.smallUrl || infos.recruiterInfo.avatar.smallUrl}}"></image>
-		</view>
+		</button>
 
 		<!-- 求职者还没有发起开撩动作 招聘官主页 start-->
 		<block wx:if="{{type === 'recruiter' && !interviewInfos.haveInterview}}">
@@ -14,9 +14,9 @@
 				</view>
 				<view class="second">{{recruiterWords}}</view>
 			</view>
-			<view class="button-box button-box-color1">
-				<view bindtap="todoAction" data-action="job-hunting-chat">开撩约面</view>
-			</view>
+			<button form-type="submit" class="clear-style button-box button-box-color1" bindtap="todoAction" data-action="job-hunting-chat">
+				开撩约面
+			</button>
 		</block>
 		<!-- 求职者还没有发起开撩动作 招聘官主页 end-->
 
@@ -29,9 +29,9 @@
 				</view>
 				<view class="second">{{recruiterWords}}</view>
 			</view>
-			<view class="button-box button-box-color1">
-				<view bindtap="todoAction" data-action="job-hunting-chat">开撩约面</view>
-			</view>
+			<button form-type="submit"  class="clear-style button-box button-box-color1" bindtap="todoAction" data-action="job-hunting-chat">
+				开撩约面
+			</button>
 		</block>
 		<!-- 求职者还没有发起开撩动作 职位详情 end-->
 
@@ -121,9 +121,9 @@
 				<view class="first"><view class="name">{{infos.name || infos.recruiterInfo.name}}</view></view>
 				<view class="second">{{jobWords}}</view>
 			</view>
-			<view class="button-box">
-				<view class="accept" data-action="recruiter-chat" bindtap="todoAction">开撩约面</view>
-			</view>
+			<button form-type="submit" class="clear-style button-box accept" data-action="recruiter-chat" bindtap="todoAction">
+				开撩约面
+			</button>
 		</block>
 		<!-- 招聘端主动发起开料 end-->
 
@@ -205,3 +205,4 @@
 		</view>
 	</view>
 </view>
+</form>

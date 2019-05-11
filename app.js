@@ -8,7 +8,8 @@ import {getUserRoleApi} from "api/pages/user.js"
 import {quickLoginApi} from 'api/pages/auth.js'
 import {shareC, shareB} from 'utils/shareWord.js'
 let that = null
-let formIdList = []
+let formIdList = [],
+    sendNum = 0 // formId 发送次数
 App({
   onLaunch: function (e) {
     // 获取导航栏高度
@@ -35,14 +36,27 @@ App({
     })
     this.login()
   },
+  onHide: function (e) {
+    // 切换后台 发送全部formId
+    if (formIdList.length > 0) {
+      formIdApi({form_id: formIdList}).then(res => {
+        sendNum = 0
+        formIdList = []
+      })
+    }
+  },
+  onError: function (e) {
+    console.log('onError检测', e)
+  },
   globalData: {
     startRoute: '',
     identity: "", // 身份标识
-    isMicroCard: false, // 是否创建微名片
-    isRecruiter: false, // 是否认证成为招聘官
-    isJobhunter: false, // 是否注册成求职者
-    hasLogin: false, // 判断是否登录
-    userInfo: '', // 用户信息， 判断是否授权
+    isMicroCard: 0, // 是否创建微名片
+    isRecruiter: 0, // 是否认证成为招聘官
+    isJobhunter: 0, // 是否注册成求职者
+    hasExpect: 1, // 有求职意向
+    hasLogin: 1, // 判断是否登录
+    userInfo: {}, // 用户信息， 判断是否授权,
     navHeight: 0,
     cdnImagePath: 'https://attach.lieduoduo.ziwork.com/front-assets/images/',
     companyInfo: {}, // 公司信息
@@ -83,12 +97,13 @@ App({
             // 有token说明已经绑定过用户了
             if (res.data.token) {
               wx.setStorageSync('token', res.data.token)
-              that.globalData.hasLogin = true
-              if (res.data.userWechatInfo && res.data.userWechatInfo.nickname) that.globalData.userInfo = res.data.userWechatInfo
+              that.globalData.hasLogin = 1
+              if (res.data.userWechatInfo.nickname) that.globalData.userInfo = res.data.userWechatInfo
               that.getRoleInfo()
               console.log('用户已认证')
             } else {
-              if (res.data.userInfo && res.data.userInfo.nickname) that.globalData.userInfo = res.data.userInfo
+              if (res.data.userInfo.nickname) that.globalData.userInfo = res.data.userInfo
+              that.globalData.hasLogin = 0
               console.log('用户未绑定手机号', 'sessionToken', res.data.sessionToken)
               wx.setStorageSync('sessionToken', res.data.sessionToken)
             }
@@ -110,7 +125,7 @@ App({
   uplogin() {
     uploginApi().then(res => {
       wx.removeStorageSync('token')
-      this.globalData.hasLogin = false
+      this.globalData.hasLogin = 0
       this.globalData.resumeInfo = {}
       this.globalData.recruiterDetails = {}
       this.globalData.isRecruiter = false
@@ -141,6 +156,7 @@ App({
         getPersonalResumeApi().then(res0 => {
           this.globalData.resumeInfo = res0.data
           this.globalData.isJobhunter = 1
+          this.globalData.hasExpect = 1
           if (this.pageInit) { // 页面初始化
             this.pageInit() //执行定义的回调函数
           }
@@ -148,6 +164,9 @@ App({
           resolve(res0.data)
         }).catch((e) => {
           reject(e)
+          if (e.data.hasExpect === 0) {
+            this.globalData.hasExpect = 0
+          }
           if (this.pageInit) { // 页面初始化
             this.pageInit() //执行定义的回调函数
           }
@@ -241,12 +260,13 @@ App({
             if (res.data.token) {
               wx.setStorageSync('token', res.data.token)
               wx.setStorageSync('sessionToken', res.data.sessionToken)
-              that.globalData.hasLogin = true
+              that.globalData.hasLogin = 1
               if (res.data.userWechatInfo && res.data.userWechatInfo.nickname) that.globalData.userInfo = res.data.userWechatInfo
               that.getRoleInfo()
               console.log('用户已认证')
             } else {
               console.log('用户未绑定手机号')
+              that.globalData.hasLogin = 0
               if (res.data.userInfo && res.data.userInfo.nickname) that.globalData.userInfo = res.data.userInfo
               wx.setStorageSync('sessionToken', res.data.sessionToken)
             }
@@ -291,7 +311,7 @@ App({
         quickLoginApi(data).then(res => {
           if (res.data.token) {
             wx.setStorageSync('token', res.data.token)
-            this.globalData.hasLogin = true
+            this.globalData.hasLogin = 1
             this.globalData.userInfo = res.data
             let pageUrl = this.getCurrentPagePath(0)
             this.getRoleInfo().then(res0 => {
@@ -334,7 +354,9 @@ App({
               })
               resolve(res)
             })
-          } 
+          } else {
+            this.globalData.hasLogin = 0
+          }
         }).catch(e => {
           this.checkLogin()
         })
@@ -347,7 +369,7 @@ App({
       bindPhoneApi(data).then(res => {
         if (res.data.token) wx.setStorageSync('token', res.data.token)
         if (res.data.sessionToken) wx.setStorageSync('sessionToken', res.data.sessionToken)
-        this.globalData.hasLogin = true
+        this.globalData.hasLogin = 1
         this.globalData.userInfo = res.data
         this.getRoleInfo().then((res0) => {
           this.wxToast({
@@ -387,6 +409,7 @@ App({
         resolve(res)
       }).catch(e => {
         reject(e)
+        this.globalData.hasLogin = 0
         if (e.code === 401) {
           this.checkLogin()
         }
@@ -624,12 +647,25 @@ App({
   postFormId(id) {
     console.log(`=======================收集到这个formId了 ${id}=========================`)
     formIdList.push(id)
-    if (formIdList.length >= 3) {
-      if (wx.getStorageSync('sessionToken') || wx.getStorageSync('token')) {
-        formIdApi({form_id: formIdList}).then(res => {
-          formIdList = []
-        })
-      }
+    if (formIdList.length >= 50) formIdList = formIdList.slice(50, 100)
+    if (sendNum === 0) {
+      if (formIdList.length === 0) return
+    } else if (sendNum === 1) {
+      if (formIdList.length < 2) return
+    } else if (sendNum === 2) {
+      if (formIdList.length < 2) return
+    } else if (sendNum === 3) {
+      if (formIdList.length < 4) return
+    } else if (sendNum === 4) {
+      if (formIdList.length < 9) return
+    } else {
+      return
+    }
+    if (wx.getStorageSync('sessionToken') || wx.getStorageSync('token')) {
+      formIdApi({form_id: formIdList}).then(res => {
+        sendNum++
+        formIdList = []
+      })
     }
   },
   // 获取二维码参数对象

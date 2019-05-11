@@ -17,6 +17,7 @@ Page({
     pageList: 'myBrowse',
     cdnImagePath: app.globalData.cdnImagePath,
     navH: app.globalData.navHeight,
+    isJobhunter: app.globalData.isJobhunter,
     myBrowse: {
       list: [],
       pageNum: 1,
@@ -38,14 +39,17 @@ Page({
     isFixed: true,
     background: 'transparent',
     fixedDomPosition: 0,
-    fixedDom: false
+    fixedDom: false,
+    isIphoneX: app.globalData.isIphoneX
   },
   onShow() {
     this.clearListsData()
-    if (app.loginInit) {
+    if (app.getRoleInit) {
+      this.setData({isJobhunter: app.globalData.isJobhunter})
       this.getLists().then(() => this.getDomNodePosition())
     } else {
-      app.loginInit = () => {
+      app.getRoleInit = () => {
+        this.setData({isJobhunter: app.globalData.isJobhunter})
         this.getLists().then(() => this.getDomNodePosition())
       }
     }
@@ -125,15 +129,24 @@ Page({
       case 'myCollect':
         url = `${APPLICANT}jobs/like/like`
         break
+      case 'create':
+        url = `${APPLICANT}createUser/createUser`
+        break
     }
     wx.navigateTo({url})
   },
   jump(e) {
-    if(e.currentTarget.dataset.type === 'positionList') {
+    let type = e.currentTarget.dataset.type
+    if(type === 'positionList') {
       wx.reLaunch({url: `${APPLICANT}index/index`})
-    } else {
+    } else if (type === 'rank') {
       wx.navigateTo({url: `${COMMON}rank/rank`})
+    } else if (type === 'create') {
+      wx.navigateTo({url: `${APPLICANT}createUser/createUser`})
     }
+  },
+  formSubmit(e) {
+    app.postFormId(e.detail.formId)
   },
   /**
    * @Author   小书包

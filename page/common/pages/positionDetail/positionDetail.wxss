@@ -2,6 +2,7 @@
 	padding-bottom: 160rpx;
 	width: 100%;
 	overflow: hidden;
+	background: #F5F4F7;
 }
 .title {
   font-size:28rpx;
@@ -184,15 +185,15 @@
 	display: block;
 	overflow: hidden;
 	box-sizing: border-box;
-	padding: 40rpx;
+	padding: 40rpx 40rpx 0;
 	margin: 0 30rpx;
 	background: white;
 }
 
 .about-company .detail {
-	padding-top: 50rpx;
+	padding: 50rpx 0;
 	font-size: 28rpx;
-	border-top:1px dashed rgba(206,215,220,1);
+	border-top:1rpx dashed rgba(206,215,220,1);
 }
 
 .tab-company-homepage {
@@ -229,6 +230,7 @@
 	line-height: 1;
 	margin-left: 124rpx;
 	position: relative;
+  text-align: left;
 }
 
 .tab-company-homepage .company-name {
@@ -435,4 +437,62 @@
 	font-weight:500;
 	color:rgba(255,255,255,1);
 	width: 354rpx
+}
+
+.findMore {
+	height: 160rpx;
+	overflow: hidden;
+	padding: 42rpx 36rpx 42rpx 40rpx;
+	box-sizing: border-box;
+	background:#fff;
+	box-shadow:0rpx 4rpx 20rpx 0rpx rgba(101,39,145,0.1);
+	border-radius:10rpx;
+	margin:20rpx 30rpx;
+	position: relative;
+}
+.findMore::after {
+	content: '';
+	width:3rpx;
+	height:80rpx;
+	background:rgba(132,82,167,1);
+	position: absolute;
+	top: 50%;
+	margin-top: -40rpx;
+	left: 0;
+}
+.findMore .left {
+	width: 352rpx;
+	float: left;
+}
+.findMore .left .title {
+	font-size:34rpx;
+	font-weight:700;
+	color:#282828;
+	line-height:40rpx;
+}
+.findMore .left .msg {
+	font-size:24rpx;
+	font-weight:300;
+	color:#626262;
+	line-height:30rpx;
+	margin-top: 6rpx;
+}
+.findMore .left .msg .name {
+	max-width: 144rpx;
+	overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+	color: #8452A7;
+  display: inline-block;
+}
+.findMore .right {
+	float: right;
+	padding: 6rpx 0;
+}
+.findMore .right .img {
+	width: 64rpx;
+	height: 64rpx;
+	border-radius: 50%;
+	margin-left: -10rpx;
+	display: inline-block;
 }

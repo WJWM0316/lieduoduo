@@ -10,6 +10,10 @@ Component({
     showBoxShadow: {
       type: Boolean,
       value: true
+    },
+    listType: {
+      type: String,
+      value: ''
     }
   },
 
@@ -28,6 +32,11 @@ Component({
       let item = e.currentTarget.dataset.item
       wx.navigateTo({
         url: `/page/common/pages/positionDetail/positionDetail?positionId=${item.id}&companyId=${item.companyId}`
+      })
+    },
+    toCreate () {
+      wx.navigateTo({
+        url: `/page/applicant/pages/createUser/createUser?from=4`
       })
     },
     formSubmit(e) {

@@ -18,15 +18,15 @@
         </view> 
         <view class="content" wx:if='{{!myInfo.uid && hasLogin}}'>
   				<view class="realname">简历未完善</view>
-  				<text class="degree-name directions">你与offer之间还差一份简历 \n 快去完善吧~</text>
+  				<text class="degree-name directions">你与offer之间还差一份简历\n快去完善吧~</text>
   			</view>
         <view class="content" wx:if='{{!hasLogin}}'>
           <view class="realname">未登录</view>
-          <text class="degree-name directions">登录可后使用完整功能 \n 快去登录吧~</text>
+          <text class="degree-name directions">登录可后使用完整功能\n快去登录吧~</text>
         </view>
   			<image class="img-box" src="{{myInfo.avatar.smallUrl}}"></image>
   		</view>
-
+      <button class="createBtn clear-style" form-type="submit" bindtap="jump" data-type="toCreate" wx:if="{{!isMicroCard && !isJobhunter}}">创建简历</button>
       <view class="experience" wx:if='{{myInfo.uid}}'>
         <view class="item" wx:if="{{myInfo.workAgeDesc}}"><i class="icon iconfont icon-zhiwei"></i>{{myInfo.workAgeDesc}}<text wx:if="{{myInfo.workAgeDesc !== '暂无经历'}}">经验</text></view>
         <view class="item" wx:if="{{myInfo.age}}"><i class="icon iconfont icon-nianling"></i>{{myInfo.age ? myInfo.age + '岁 ' : ''}}</view>

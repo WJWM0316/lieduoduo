@@ -17,6 +17,7 @@ Page({
     cdnImagePath: app.globalData.cdnImagePath,
     pageCount: 20,
     options: {},
+    isJobhunter: app.globalData.isJobhunter,
     positionList: {
       list: [],
       pageNum: 1,
@@ -33,9 +34,16 @@ Page({
     }
   },
   onLoad(options) {
-    console.log(options)
   },
   onShow() {
+    let isJobhunter = this.data.isJobhunter
+    if (app.getRoleInit) {
+      isJobhunter = app.globalData.isJobhunter
+    } else {
+      app.getRoleInit = () => {
+        isJobhunter = app.globalData.isJobhunter
+      }
+    }
     const positionList = {
       list: [],
       pageNum: 1,
@@ -48,7 +56,7 @@ Page({
       isLastPage: false,
       isRequire: false
     }
-    this.setData({positionList, recruiterList}, () => this.getLists(false))
+    this.setData({positionList, recruiterList, isJobhunter}, () => this.getLists(false))
   },
   /**
    * @Author   小书包
@@ -157,10 +165,13 @@ Page({
   formSubmit(e) {
     app.postFormId(e.detail.formId)
   },
-  jump() {
-    if(this.data.tab === 'positionList') {
+  jump(e) {
+    let type = e.currentTarget.dataset.type
+    if(type === 'positionList') {
       wx.reLaunch({url: `${APPLICANT}index/index`})
-    } else {
+    } else if (type === 'create') {
+      wx.navigateTo({url: `${APPLICANT}createUser/createUser`})
+    } else if (type === 'rank') {
       wx.navigateTo({url: `${COMMON}rank/rank`})
     }
   }

@@ -1,102 +1,113 @@
-<view class="job-detail">
-	<navbar title="{{detail.positionName}}" background="#FFFFFF" color="#22292C" showHome="{{true}}"></navbar>
-	<view hidden="{{!hasReFresh}}">
-    <refreshStatus></refreshStatus>
-  </view>
-	<view class="page-top">
-		<image class="bgImg" src="{{cdnPath}}job-detail.png" mode="aspectFill"></image>
-		<shareBtn posterType="position" id="shareBtn" posterData="{{detail}}"></shareBtn>
-		<view class="company-infos">
-			<view class="header">
-				<view class="text">
-					<view class="position-name">{{detail.positionName}}</view>
-					<view class="position-salary">{{detail.emolumentMin}}k-{{detail.emolumentMax}}k</view>
+<form bindsubmit="formSubmit" report-submit='{{true}}'>
+	<view class="job-detail">
+		<navbar title="{{detail.positionName}}" background="#FFFFFF" color="#22292C" showHome="{{true}}"></navbar>
+		<view hidden="{{!hasReFresh}}">
+	    <refreshStatus></refreshStatus>
+	  </view>
+		<view class="page-top">
+			<image class="bgImg" src="{{cdnPath}}job-detail.png" mode="aspectFill"></image>
+			<shareBtn posterType="position" id="shareBtn" posterData="{{detail}}"></shareBtn>
+			<view class="company-infos">
+				<view class="header">
+					<view class="text">
+						<view class="position-name">{{detail.positionName}}</view>
+						<view class="position-salary">{{detail.emolumentMin}}k-{{detail.emolumentMax}}k</view>
+					</view>
+					<view class="img-box">
+						<image mode="aspectFit" src="{{detail.companyInfo.logoInfo.smallUrl}}"></image>
+					</view>
 				</view>
-				<view class="img-box">
-					<image mode="aspectFit" src="{{detail.companyInfo.logoInfo.smallUrl}}"></image>
+				<view class="infos">
+					<view wx:if="{{detail.city}}"><i class="icon iconfont icon-dizhi"></i>{{detail.city}}</view>
+					<view><i class="icon iconfont icon-zhiwei"></i>{{detail.workExperienceName}}</view>
+					<view><i class="icon iconfont icon-xueli"></i>{{detail.educationName}}</view>
 				</view>
-			</view>
-			<view class="infos">
-				<view wx:if="{{detail.city}}"><i class="icon iconfont icon-dizhi"></i>{{detail.city}}</view>
-				<view><i class="icon iconfont icon-zhiwei"></i>{{detail.workExperienceName}}</view>
-				<view><i class="icon iconfont icon-xueli"></i>{{detail.educationName}}</view>
-			</view>
-			<view class="welfare-ul" wx:if="{{detail.lightspotInfo.length}}">
-				<view class="li" wx:for="{{detail.lightspotInfo}}" wx:key="{{index}}" wx:for-item="item">{{item}}</view>
+				<view class="welfare-ul" wx:if="{{detail.lightspotInfo.length}}">
+					<view class="li" wx:for="{{detail.lightspotInfo}}" wx:key="{{index}}" wx:for-item="item">{{item}}</view>
+				</view>
 			</view>
 		</view>
-	</view>
 
-	<view class="job-describe">
-		<view class="title">
-			<view class="icon"> <view class="fan"></view> </view> 职位描述
-		</view>
-		<view class="tags-ul">
-			<view
-			class="li"
-			wx:for="{{detail.skillsLabel}}"
-			wx:for-item="item"
-			wx:key="{{item.id}}"># {{item.name}}</view>
-		</view>
-		<text class="rich-text">{{ detail.describe }}</text>
-	</view>
-	
-	<view class="about-company">
-		<view class="title">
-			<view class="icon"> <view class="fan"></view> </view> 关于我们
-		</view>
-		<view class="tab-company-homepage" data-type="about" bindtap="todoAction">
-			<view class="left">
-				<view class="img-box"><image mode="aspectFill" src="{{detail.companyInfo.logoInfo.smallUrl}}" mode="aspectFit"></image></view>
+		<view class="job-describe">
+			<view class="title">
+				<view class="icon"> <view class="fan"></view> </view> 职位描述
 			</view>
-			<view class="content">
-				<view class="company-name">{{detail.companyInfo.companyShortname}}</view>
-				<view class="infos">{{detail.companyInfo.industry}} · {{detail.companyInfo.financingInfo}} · {{detail.companyInfo.employeesInfo}}</view>
+			<view class="tags-ul">
+				<view
+				class="li"
+				wx:for="{{detail.skillsLabel}}"
+				wx:for-item="item"
+				wx:key="{{item.id}}"># {{item.name}}</view>
 			</view>
-			<view class="right">
+			<text class="rich-text">{{ detail.describe }}</text>
+		</view>
+		
+		<view class="about-company">
+			<view class="title">
+				<view class="icon"> <view class="fan"></view> </view> 关于我们
+			</view>
+			<button class="clear-style tab-company-homepage" form-type="submit" data-type="about" bindtap="todoAction">
+				<view class="left">
+					<view class="img-box"><image mode="aspectFill" src="{{detail.companyInfo.logoInfo.smallUrl}}" mode="aspectFit"></image></view>
+				</view>
+				<view class="content">
+					<view class="company-name">{{detail.companyInfo.companyShortname}}</view>
+					<view class="infos">{{detail.companyInfo.industry}} · {{detail.companyInfo.financingInfo}} · {{detail.companyInfo.employeesInfo}}</view>
+				</view>
+				<view class="right">
+					<i class="icon iconfont icon-xiangyou"></i>
+				</view>
+			</button>
+			<view class="tab-company-address" data-type="map" bindtap="todoAction" wx:if="{{detail.address}}">
+				<i class="icon iconfont icon-dizhi"></i>
+				<view>{{detail.address}}</view>
 				<i class="icon iconfont icon-xiangyou"></i>
 			</view>
+			<view class="detail" wx:if="{{companyInfos.intro}}">
+				<text class="rich-text">{{companyInfos.intro}}</text>
+			</view>
 		</view>
-		<view class="tab-company-address" data-type="map" bindtap="todoAction" wx:if="{{detail.address}}">
-			<i class="icon iconfont icon-dizhi"></i>
-			<view>{{detail.address}}</view>
-			<i class="icon iconfont icon-xiangyou"></i>
+		<view class="findMore" bindtap="todoAction" data-type="findMore" wx:if="{{findMore.companyLogos && findMore.companyLogos.length > 0}}">
+			<view class="left">
+				<view class="title">发现更多职业机会</view>
+				<view class="msg">更多 <text class='name'>{{detail.typeName}}</text> 机会等你开撩</view>
+			</view>
+			<view class="right">
+				<image class="img" wx:for="{{findMore.companyLogos}}" wx:if="{{index < 3}}" mode="aspectFit" wx:key="{{index}}" src="{{item.smallUrl}}"></image>
+				<image class="img" wx:if="{{findMore.companyLogos && findMore.companyLogos.length > 3}}" src="{{cdnPath}}more.png"></image>
+			</view>
 		</view>
-		<view class="detail" wx:if="{{companyInfos.intro}}">
-			<text class="rich-text">{{companyInfos.intro}}</text>
-		</view>
+		<view class="make-homepage" wx:if="{{ !isRecruiter }}"><view bindtap="todoAction" data-type="make">我也要制作招聘主页<i class="icon iconfont icon-disejiantou-you"></i></view></view>
+		<button
+			wx:if="{{!isOwner}}"
+			class="clear-style collect"
+			data-type="{{detail.isCollect ? 'uncollect' : 'collect'}}"
+			form-type="submit"
+			bindtap="todoAction">
+				<i class="icon iconfont icon-ganxingqu" wx:if="{{!detail.isCollect}}"></i>
+				<i class="icon iconfont icon-biaojiweiganxingqu" wx:else></i>
+		</button>
+		
+		<block wx:if="{{isRecruiter && isOwner}}">
+			<view class="switch-tips" bindtap="todoAction" data-type="close" wx:if="{{detail.isOnline === 1}}">
+				<view class="h1">关闭职位</view>
+				<view class="h2">关闭职位后将不再产生招聘效果</view>
+				<i class="icon iconfont icon-disejiantou-you"></i>
+			</view>
+			<view class="footer">
+				<view class="edit" bindtap="todoAction" data-type="edit">编辑职位</view>
+				<view class="share" bindtap="todoAction" data-type="open" wx:if="{{detail.status !== 3 && detail.status !== 4 && detail.isOnline === 2}}">开放职位</view>
+				<view class="share" bindtap="todoAction" data-type="share" wx:if="{{detail.isOnline === 1}}">分享职位</view>
+			</view>
+		</block>
+		<block wx:if="{{detail.id}}"><canvasCard cardData="{{detail}}" type="position" bindgetCreatedImg="getCreatedImg"></canvasCard></block>
+		<interviewBar
+			id="interviewBar"
+			infos="{{ detail }}"
+			bindresultevent="bindStatusChange"
+			type="position"
+			options="{{query}}"
+			wx:if="{{detail.vkey && !isOwner}}"></interviewBar>
+		<auth wx:if="{{requireOAuth}}" bindauthSuccess="authSuccess"></auth>
 	</view>
-	<view class="make-homepage" wx:if="{{ !isRecruiter }}"><view bindtap="todoAction" data-type="make">我也要制作招聘主页<i class="icon iconfont icon-disejiantou-you"></i></view></view>
-	<view
-		wx:if="{{!isOwner}}"
-		class="collect"
-		data-type="{{detail.isCollect ? 'uncollect' : 'collect'}}"
-		bindtap="todoAction">
-			<i class="icon iconfont icon-ganxingqu" wx:if="{{!detail.isCollect}}"></i>
-			<i class="icon iconfont icon-biaojiweiganxingqu" wx:else></i>
-	</view>
-	
-	<block wx:if="{{isRecruiter && isOwner}}">
-		<view class="switch-tips" bindtap="todoAction" data-type="close" wx:if="{{detail.isOnline === 1}}">
-			<view class="h1">关闭职位</view>
-			<view class="h2">关闭职位后将不再产生招聘效果</view>
-			<i class="icon iconfont icon-disejiantou-you"></i>
-		</view>
-		<view class="footer">
-			<view class="edit" bindtap="todoAction" data-type="edit">编辑职位</view>
-			<view class="share" bindtap="todoAction" data-type="open" wx:if="{{detail.status !== 3 && detail.status !== 4 && detail.isOnline === 2}}">开放职位</view>
-			<view class="share" bindtap="todoAction" data-type="share" wx:if="{{detail.isOnline === 1}}">分享职位</view>
-		</view>
-	</block>
-	<block wx:if="{{detail.id}}"><canvasCard cardData="{{detail}}" type="position" bindgetCreatedImg="getCreatedImg"></canvasCard></block>
-	<interviewBar
-		id="interviewBar"
-		infos="{{ detail }}"
-		bindresultevent="bindStatusChange"
-		type="position"
-		options="{{query}}"
-		wx:if="{{detail.vkey && !isOwner}}"></interviewBar>
-
-	<view></view>
-	<auth wx:if="{{requireOAuth}}" bindauthSuccess="authSuccess"></auth>
-</view>
+</form>

@@ -29,6 +29,9 @@ Component({
     })
   }, 
   methods: {
+    formSubmit(e) {
+      app.postFormId(e.detail.formId)
+    },
     onGotUserInfo(e) {
       getApp().onGotUserInfo(e, 'closePop').then(res => {
         this.triggerEvent('authSuccess', true)

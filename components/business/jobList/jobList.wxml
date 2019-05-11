@@ -2,7 +2,7 @@
 <view class="ul">
     <form bindsubmit="formSubmit" report-submit='{{true}}'>  
       <button wx:for="{{ list }}" wx:key="{{item.id}}" data-item="{{item}}" bindtap="routeJump" form-type="submit" class="formIdBtn" > 
-        <view class="li personality {{showBoxShadow ? 'box-shadow' : ''}}">
+        <view class="li personality {{showBoxShadow ? 'box-shadow' : ''}} {{listType === 'index' ? 'index' : ''}}">
           <!-- 职位名称 -->
           <view class="name">
             <view class="title">{{item.positionName}}</view>
@@ -37,6 +37,12 @@
             </view>
             <image class="conRight logo" mode="aspectFit" src="{{item.companyInfo.logoInfo.smallUrl}}" lazy-load></image>
           </view>
+        </view>
+
+        <view class="li craete {{showBoxShadow ? 'box-shadow' : ''}}" wx:if="{{listType === 'index' && list.length > 6 && index === 5}}" catchtap="toCreate">
+          <view class="title">名企高薪等你来撩</view>
+          <view class="desc">花几分钟写一份简历，获得更多优质机会</view>
+          <view class="btn">立即创建简历<i class="icon iconfont icon-disejiantou-you"></i></view>
         </view>
     </button>  
     </form>

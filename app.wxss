@@ -2,28 +2,33 @@
 @import 'iconfont.wxss'
 .container {
 } 
-
-page {
-	background:#FBFBFF;
-}
-view {
-	-webkit-overflow-scrolling: touch
-}
-::-webkit-scrollbar {
-	width: 0;
-	height: 0;
-	color: transparent;
-}
-
-button::after{
-	display: none;
-	border: none;
-}
-
 .holderStyle{
   color: #BCBCBC;
 	font-weight: 300;
 }
+.clear-style {
+	background: none;
+	border: 0;
+	padding: 0;
+}
+.clear-style::after{
+	display: none;
+	border: none;
+}
+page {
+	background:#FBFBFF;
+}
+text {
+	word-break:break-all;
+}
+view {
+	-webkit-overflow-scrolling: touch;
+}
+button::after{
+	border: none;
+}
+
+
 /*
 @font-face {
   font-family: designFont;

@@ -1,23 +1,13 @@
-
 import {RECRUITER, APPLICANT, COMMON} from '../../../../config.js'
-
 import {getSelectorQuery}  from '../../../../utils/util.js'
 import { getAvartListApi } from '../../../../api/pages/active.js'
-
-import { getPositionListApi, getPositionRecordApi, getEmolumentApi } from '../../../../api/pages/position.js'
-
-import {
-  getCityLabelApi,
-  getAdBannerApi
-} from '../../../../api/pages/common'
-
-import {
-  getLabelPositionApi
-} from '../../../../api/pages/label.js'
-
+import { getPositionListApi, getPositionRecordApi } from '../../../../api/pages/position.js'
+import {getFilterDataApi} from '../../../../api/pages/aggregate.js'
+import {getAdBannerApi} from '../../../../api/pages/common'
 import {shareChance} from '../../../../utils/shareWord.js'
 
 const app = getApp()
+let timer = null
 let identity = '',
     hasOnload = false // 用来判断是否执行了onload，就不走onShow的校验
 Page({
@@ -70,12 +60,15 @@ Page({
     emolumentList: [],
     requireOAuth: false,
     cdnImagePath: app.globalData.cdnImagePath,
-    options: {}
+    options: {},
+    hasLogin: app.globalData.hasLogin,
+    isJobhunter: app.globalData.isJobhunter,
+    hasExpect: app.globalData.hasExpect
   },
-
   onLoad(options) {
     hasOnload = false
-    let bannerH = this.data.bannerH
+    let bannerH = this.data.bannerH,
+        requireOAuth = this.data.requireOAuth
     if (!this.data.isBangs) {
       bannerH = app.globalData.systemInfo.screenWidth/(750/420)
     } else {
@@ -95,10 +88,16 @@ Page({
     let init = () => {
       this.getAdBannerList()
       this.getAvartList()
-      Promise.all([this.getCityLabel(), this.getLabelPosition(), this.getEmolument()]).then(() => {
-        this.getPositionRecord()
+      this.getFilterData().then(() => {
+        this.getRecord()
         hasOnload = true
-        this.initPage()
+        if (app.getRoleInit) {
+          this.initPage()
+        } else {
+          app.getRoleInit = () => {
+            this.initPage()
+          }
+        }
       })
     }
     if (app.loginInit) {
@@ -109,9 +108,33 @@ Page({
       }
     }
   },
+  onUnload () {
+  },
   onShow (options) {
     if (hasOnload) {
       this.initPage()
+    }
+    let init = () => {
+      this.setData({hasLogin: app.globalData.hasLogin, isJobhunter: app.globalData.isJobhunter})
+      let bannerList = this.data.bannerList
+      if (app.globalData.isJobhunter && bannerList[bannerList.length - 1].targetUrl === 'page/applicant/pages/createUser/createUser?from=3') {
+        bannerList.splice(bannerList.length - 1, 1)
+        this.setData({bannerList, cityIndex: 0})
+      }
+      if (app.pageInit) {
+        this.setData({hasExpect: app.globalData.hasExpect})
+      } else {
+        app.pageInit = () => {
+          this.setData({hasExpect: app.globalData.hasExpect})
+        }
+      }
+    }
+    if (app.getRoleInit) {
+      init()
+    } else {
+      app.getRoleInit = () => {
+        init()
+      }
     }
     if (wx.getStorageSync('choseType') === 'RECRUITER') {
       app.wxConfirm({
@@ -172,17 +195,19 @@ Page({
       url: `/${url}`
     })
   },
-  /**
-   * @Author   小书包
-   * @DateTime 2019-01-24
-   * @detail   获取热门城市
-   * @return   {[type]}   [description]
-   */
-  getCityLabel() {
-    return getCityLabelApi().then(res => {
-      const cityList = res.data
+  getFilterData () {
+    return getFilterDataApi().then(res => {
+      let cityList = res.data.area,
+          positionTypeList = res.data.label,
+          emolumentList = res.data.emolument
       cityList.unshift({areaId: '', name: '全部'})
-      this.setData({cityList})
+      positionTypeList.map(field => field.active = false)
+      positionTypeList.unshift({
+        labelId: '',
+        name: '全部',
+        type: 'self_label_position'
+      })
+      this.setData({cityList, positionTypeList, emolumentList})
     })
   },
   choseTab (e) {
@@ -198,6 +223,12 @@ Page({
     let index = e.currentTarget.dataset.index
     let name = e.currentTarget.dataset.name
     let tabList = this.data.tabList
+    if (this.data.options.positionTypeId) {
+      let options = this.data.options
+      delete options.positionTypeId
+      delete options.typeName
+      this.setData({options})
+    }
     switch (this.data.tabType) {
       case 'city':
         if (index === 0) {
@@ -235,28 +266,11 @@ Page({
     }
     if (this.data.tabFixed) this.setData({tabFixed: false})
   },
-  /**
-   * @Author   小书包
-   * @DateTime 2019-01-23
-   * @detail   获取技能标签
-   * @return   {[type]}   [description]
-   */
-  getLabelPosition() {
-    return getLabelPositionApi().then(res => {
-      const positionTypeList = res.data
-      positionTypeList.map(field => field.active = false)
-      positionTypeList.unshift({
-        labelId: '',
-        name: '全部',
-        type: 'self_label_position'
-      })
-      this.setData({positionTypeList})
-    })
-  },
-  getPositionRecord() {
+  getRecord() {
     return getPositionRecordApi().then(res => {
       let city = this.data.city
-      let type = this.data.type
+      let type = Number(this.data.options.positionTypeId) || res.data.type || 0
+      let typeName = this.data.options.typeName || res.data.typeName || ''
       let emolument = this.data.emolument
       let cityIndex = this.data.cityIndex
       let typeIndex = this.data.typeIndex
@@ -276,19 +290,28 @@ Page({
           }
         })
       }
-      if (res.data.type) {
-        type = Number(res.data.type)
-        this.data.positionTypeList.map((item, index) => {
-          if (item.labelId === type) {
-            typeIndex = index
-            if (index === 0) {
-              tabList[1].name = '职位类型'
-            } else {
-              tabList[1].active = true
-              tabList[1].name = item.name
+      if (type) {
+        let positionTypeList = this.data.positionTypeList
+        let curType = positionTypeList.filter((item) => { return item.labelId === type})
+        if (curType.length === 0) {
+          tabList[1].active = true
+          tabList[1].name = typeName
+          positionTypeList.push({labelId: type, name: typeName})
+          typeIndex = positionTypeList.length - 1
+          this.setData({positionTypeList})
+        } else {
+          positionTypeList.map((item, index) => {
+            if (item.labelId === type) {
+              typeIndex = index
+              if (index === 0) {
+                tabList[1].name = '职位类型'
+              } else {
+                tabList[1].active = true
+                tabList[1].name = item.name
+              }
             }
-          }
-        })
+          })
+        }
       }
       if (res.data.emolumentId) {
         emolument = Number(res.data.emolumentId)
@@ -304,19 +327,25 @@ Page({
           }
         })
       }
+      if (this.data.options.positionTypeId) {
+        city = 0
+        cityIndex = 0
+        tabList[0].name = '工作城市'
+        tabList[0].active = false
+        emolument = 1
+        emolumentIndex = 0
+        tabList[2].active = false
+        tabList[2].name = '薪资范围'
+      }
       this.setData({tabList, city, type, cityIndex, typeIndex, emolument, emolumentIndex}, () => {
         this.getPositionList()
       })  
+    }).catch(e => {
+      this.getPositionList()
     })
   },
-  /**
-   * @Author   小书包
-   * @DateTime 2019-01-21
-   * @detail   获取职位列表
-   * @return   {[type]}   [description]
-   */
   getPositionList(hasLoading = true) {
-    let params = {count: this.data.pageCount, page: this.data.positionList.pageNum, ...app.getSource()}
+    let params = {count: this.data.pageCount, page: this.data.positionList.pageNum, is_record: 1, ...app.getSource()}
     if(this.data.city) {
       params = Object.assign(params, {city: this.data.city})
     }
@@ -335,6 +364,11 @@ Page({
     if(!this.data.emolument) {
       delete params.emolument_id
     }
+    if (this.data.options.positionTypeId) {
+      params.is_record = 0
+      delete params.city
+      delete params.emolument_id
+    }
     return getPositionListApi(params, hasLoading).then(res => {
       let positionList = this.data.positionList
       let onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
@@ -351,17 +385,74 @@ Page({
   },
   getAdBannerList () {
     getAdBannerApi().then(res => {
-      this.setData({bannerList: res.data})
-    })
-  },
-  getEmolument () {
-    getEmolumentApi().then(res => {
-      this.setData({emolumentList: res.data})
+      let list = res.data
+      // 没有创建简历的 新增一个banner位
+      if (!app.globalData.isJobhunter) {
+        list.push({
+          bigImgUrl: "https://attach.lieduoduo.ziwork.com/front-assets/images/banner_resumeX.png",
+          smallImgUrl:"https://attach.lieduoduo.ziwork.com/front-assets/images/banner_resume.png",
+          targetUrl:`page/applicant/pages/createUser/createUser?from=3`,
+          type: 'create'
+        })
+      }
+      this.setData({bannerList: list})
     })
   },
   authSuccess() {
     let requireOAuth = false
     this.setData({requireOAuth})
+  },
+  addIntention () {
+    let data = this.data,
+        salaryFloor = 0,
+        salaryCeil = 0
+    switch (data.emolument) {
+      case 1:
+        salaryFloor = 0
+        salaryCeil = 0
+        break
+      case 2:
+        salaryFloor = 1
+        salaryCeil = 2
+        break
+      case 3:
+        salaryFloor = 3
+        salaryCeil = 6
+        break
+      case 4:
+        salaryFloor = 5
+        salaryCeil = 10
+        break
+      case 5:
+        salaryFloor = 10
+        salaryCeil = 20
+        break
+      case 6:
+        salaryFloor = 15
+        salaryCeil = 30
+        break
+      case 7:
+        salaryFloor = 20
+        salaryCeil = 40
+        break
+      case 8:
+        salaryFloor = 50
+        salaryCeil = 100
+        break
+    }
+    let lntention = {
+      city: data.city,
+      cityName: data.cityList[data.cityIndex].name,
+      provinceName: data.cityList[data.cityIndex].provinceName,
+      positionType: data.type,
+      positionName: data.positionTypeList[data.typeIndex].name,
+      salaryFloor: salaryFloor,
+      salaryCeil: salaryCeil
+    }
+    wx.setStorageSync('addIntention', lntention)
+    wx.navigateTo({
+      url: `/page/applicant/pages/center/resumeEditor/aimsEdit/aimsEdit`
+    })
   },
   /**
    * @Author   小书包
@@ -375,11 +466,21 @@ Page({
     return this.getPositionList()
   },
   onPageScroll(e) {
-    if (e.scrollTop > 0) {
-      if (e.scrollTop > 210 + this.data.navH) {
-        if (!this.data.tabFixed) this.setData({tabFixed: true})
-      } else {
-        if (this.data.tabFixed) this.setData({tabFixed: false})
+    if (e.scrollTop > this.data.bannerH + 37 + 55) {
+      if (!this.data.tabFixed) {
+        clearTimeout(timer)
+        timer = setTimeout(() => {
+          this.setData({tabFixed: true})
+          clearTimeout(timer)
+        }, 10) 
+      }
+    } else {
+      if (this.data.tabFixed) {
+        clearTimeout(timer)
+        timer = setTimeout(() => {
+          this.setData({tabFixed: false})
+          clearTimeout(timer)
+        }, 10) 
       }
     }
   },

@@ -43,23 +43,34 @@ Page({
     let result = wx.getStorageSync('skillsLabel')
     let info = this.data.info
     let position = wx.getStorageSync('createPosition')
+    let addIntention = wx.getStorageSync('addIntention')
     if (result) {
       info.fields = result
+      wx.removeStorageSync('skillsLabel')
     }
     if (position) {
       info.position = position.typeName
       info.positionId = position.type
+      wx.removeStorageSync('createPosition')
     }
     if (info.fields) {
       wx.setStorageSync('skillsLabel', info.fields)
     }
+    if (addIntention) {
+      if (addIntention.positionType && addIntention.positionType !== 0) {
+        info.position = addIntention.positionName
+        info.positionId = addIntention.positionType
+      }
+      info.salaryFloor = addIntention.salaryFloor
+      info.salaryCeil = addIntention.salaryCeil
+      info.province = addIntention.provinceName
+      info.city = addIntention.cityName
+      info.cityNum = addIntention.city
+      wx.removeStorageSync('addIntention')
+    }
     this.setData({info})
   },
   onUnload: function () {
-    if (!this.data.options.id) {
-      wx.removeStorageSync('createPosition')
-      wx.removeStorageSync('skillsLabel')
-    }
   },
   /* 去选择页面(0、选择城市，1、选择职位，2、选择领域) */
   choose (e) {
@@ -121,13 +132,13 @@ Page({
     }
     if (!this.data.options.id) {
       addExpectApi(param).then(res => {
+        if (!app.globalData.resumeInfo.expects) app.globalData.resumeInfo.expects = []
         app.globalData.resumeInfo.expects.push(res.data)
-        wx.removeStorageSync('createPosition')
-        wx.removeStorageSync('skillsLabel')
         app.wxToast({
           title: '发布成功',
           icon: 'success',
           callback() {
+            app.globalData.hasExpect = 1
             wx.navigateBack({delta: 1}) 
           }
         })
@@ -135,8 +146,6 @@ Page({
     } else {
       editExpectApi(param).then(res => {
         app.globalData.resumeInfo.expects[this.data.info] = info
-        wx.removeStorageSync('createPosition')
-        wx.removeStorageSync('skillsLabel')
         app.wxToast({
           title: '保存成功',
           icon: 'success',
@@ -174,6 +183,5 @@ Page({
     })
   },
   onUnload() {
-    wx.removeStorageSync('skillsLabel')
   }
 })

@@ -44,7 +44,7 @@
   align-items: center;
   background: white;
   border-radius:10rpx;
-  box-shadow:0rpx 8rpx 20rpx 0rpx rgba(34,56,101,0.08);
+  box-shadow:0rpx 0rpx 30rpx 0rpx rgba(22,39,77,0.1);
 }
 
 .officerTab2 {
@@ -53,7 +53,7 @@
   height: 180rpx;
   background: white;
   border-radius:10rpx;
-  box-shadow:0rpx 8rpx 40rpx 0rpx rgba(34,56,101,0.08);
+  box-shadow:0rpx 0rpx 30rpx 0rpx rgba(22,39,77,0.1);
   margin-bottom: 20rpx;
   position: relative;
   box-sizing: border-box;

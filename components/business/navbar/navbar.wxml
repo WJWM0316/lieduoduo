@@ -1,3 +1,4 @@
+<form bindsubmit="formSubmit" report-submit='{{true}}'>
 <view style="height:{{navH}}px;">
   <view class="navbar" style="height:{{navH}}px;background: {{background}};position: {{positionStatus}}">
     <view class="navbar-title" style="color: {{color}}"> 
@@ -8,7 +9,7 @@
 			    		<i class="btn icon iconfont icon-saoma showScanIcon" bindtap="showScan"></i>
 			    		<image class="showScanIconTips" mode="aspectFill" src="{{cdnImagePath}}scanCodeTips.png" wx:if="{{firstClick}}" bindtap="closeTips"></image>
 			    	</block>
-			    	<button class="btn backLast formIdBtn iconfont icon-daohanglan-fanhui" wx:if="{{showBack && showBackBtn}}"  bindtap="navBack" style="color: {{color}}"></button>
+			    	<button form-type="submit" class="btn backLast formIdBtn iconfont icon-daohanglan-fanhui" wx:if="{{showBack && showBackBtn}}"  bindtap="navBack" style="color: {{color}}"></button>
 		    		<button class="formIdBtn"><i class="line" wx:if="{{showBack && showBackBtn && showHome}}"></i></button>
 		    		<button class="btn backHome formIdBtn iconfont icon-fanhuishouye {{showBack && showBackBtn ? 'btn1' : ''}}"  wx:if="{{showHome}}" bindtap="backHome" style="color: {{color}}"></button>
   				</view>
@@ -16,4 +17,5 @@
 	  </view>
   </view>
 </view>
+</form>
 <scanCodeTips showScanBox="{{showScanBox}}" wx:if="{{showScanBox}}"></scanCodeTips>

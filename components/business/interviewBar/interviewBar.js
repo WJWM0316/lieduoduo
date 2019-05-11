@@ -240,6 +240,20 @@ Component({
       const chat = () => {
         isRecruiter = app.globalData.isRecruiter
         isJobhunter = app.globalData.isJobhunter
+        let successPop = () => {
+          if (isJobhunter.resumeCompletePercentage > 0.75) return
+          app.wxConfirm({
+            title: '开撩成功',
+            content: '你的简历竞争力只超过28%的求职者，建议你现在完善简历',
+            cancelText: '暂不完善',
+            confirmText: '马上完善',
+            confirmBack () {
+              wx.navigateTo({
+                url: `${COMMON}resumeDetail/resumeDetail?uid=${app.globalData.resumeInfo.uid}`
+              })
+            }
+          })
+        }
         if(identity === 'APPLICANT') {
           if(!isJobhunter) {
             let path = app.getCurrentPagePath()
@@ -251,7 +265,7 @@ Component({
               if(!this.data.infos.positionNum) {
                 applyInterviewApi({recruiterUid: this.data.infos.uid}).then(res => {
                   this.getInterviewStatus()
-                  app.wxToast({title: '面试申请已发送'})
+                  successPop()
                 })
               } else {
                 wx.navigateTo({url: `${COMMON}chooseJob/chooseJob?type=job_hunting_chat&from=${this.data.currentPage}&showNotPositionApply=${interviewInfos.showNotPositionApply}&from=${this.data.currentPage}&recruiterUid=${this.data.infos.uid}`})
@@ -259,7 +273,7 @@ Component({
             } else {
               applyInterviewApi({recruiterUid: this.data.infos.recruiterInfo.uid, positionId: this.data.infos.id}).then(res => {
                 this.getInterviewStatus()
-                app.wxToast({title: '面试申请已发送'})
+                successPop()
               })
             }
           }
@@ -512,6 +526,9 @@ Component({
         default:
           break
       }
+    },
+    formSubmit(e) {
+      app.postFormId(e.detail.formId)
     }
   }
 })

@@ -112,10 +112,10 @@
 					"scene": null
 				},
 				{
-					"id": 8,
+					"id": 10,
 					"name": "【C端】首页",
 					"pathName": "page/applicant/pages/index/index",
-					"query": "",
+					"query": "positionTypeId=140000",
 					"scene": null
 				},
 				{
