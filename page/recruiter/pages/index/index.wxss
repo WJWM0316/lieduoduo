@@ -257,7 +257,7 @@
   height: 40rpx;
   background: #FFDC29;
   background: linear-gradient(135deg, transparent 0, #FFDC29 0) top 
-left, linear-gradient(-135deg, transparent 15rpx, #FFDC29 0) top right, linear-gradient(-45deg, transparent 15rpx, #FFDC29 0) bottom right, linear-gradient(45deg, transparent 0, #FFDC29 0) bottom left;
+left, linear-gradient(-135deg, transparent 16rpx, #FFDC29 0) top right, linear-gradient(-45deg, transparent 16rpx, #FFDC29 0) bottom right, linear-gradient(45deg, transparent 0, #FFDC29 0) bottom left;
   background-size: 50% 50%;
   background-repeat: no-repeat;
   font-size:20rpx;
@@ -498,7 +498,7 @@ left, linear-gradient(-135deg, transparent 15rpx, #FFDC29 0) top right, linear-g
 
 .welcome {
   height: 56rpx;
-  margin: 22rpx 30rpx 26rpx 30rpx;
+  margin: 22rpx 36rpx 26rpx 60rpx;
   position: relative;
 }
 
@@ -556,7 +556,7 @@ left, linear-gradient(-135deg, transparent 15rpx, #FFDC29 0) top right, linear-g
 
 .shoper-banner {
   height:168rpx;
-  margin: 30rpx;
+  margin: 20rpx 30rpx 30rpx 30rpx;
   background: rgba(0,0,0,.01);
   border-radius: 16rpx;
   position: relative;

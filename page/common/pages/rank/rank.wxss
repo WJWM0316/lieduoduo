@@ -306,7 +306,6 @@
   left: 0;
   overflow: hidden;
   box-sizing: border-box;
-  padding: 0 60rpx;
 }
 
 .rule-box .header{
@@ -319,6 +318,7 @@
   text-align: center;
   position: relative;
   margin-bottom: 25rpx;
+  padding: 0 60rpx;
 }
 
 .rule-box .header .icon-close{
@@ -327,7 +327,8 @@
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  right: -25rpx;
+  right: 10rpx;
+  padding: 0 25rpx;
 }
 
 .rule-box .value{
@@ -386,8 +387,13 @@
   height: calc(892rpx - 108rpx - 25rpx);
   overflow: hidden;
   overflow-y: scroll;
+  padding: 0 60rpx;
 }
 
 .rule-box .ul .li{
   margin-bottom: 56rpx;
+}
+
+.hidden {
+  overflow-y: hidden;
 }

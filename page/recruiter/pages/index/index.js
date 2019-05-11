@@ -52,7 +52,11 @@ Page({
     fixedDom: false,
     detail: {},
     welcomeWord: '',
-    indexShowCount: {}
+    indexShowCount: {
+      a: 0,
+      recentInterview: 0,
+      onlinePosition: 0
+    }
   },
   onLoad() {
     getIndexShowCountApi().then(res => {
