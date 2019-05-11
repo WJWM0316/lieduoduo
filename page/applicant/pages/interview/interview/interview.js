@@ -70,9 +70,9 @@ Page({
     applyBottomStatus: 0,
     receiveBottomStatus: 0,
     interviewBottomStatus: 0,
-    applyData: initData,
-    receiveData: initData,
-    interviewData: initData
+    applyData: {...initData},
+    receiveData: {...initData},
+    interviewData: {...initData}
   },
   // 查看面试历史
   jumpInterviewPage(e) {
@@ -263,7 +263,9 @@ Page({
             isRequire: false,
             total: 0
           }
+
           this.setData({applyData})
+          console.log(this.data.applyData, 22222222222)
           this.getApplyList()
           break
         case 1:
@@ -295,6 +297,14 @@ Page({
     wx.setStorageSync('choseType', 'APPLICANT')
   },
   initDefault() {
+     initData = {
+      list: [],
+      pageNum: 1,
+      count: 20,
+      isLastPage: false,
+      isRequire: false,
+      total: 0
+    }
     let applyData = initData
     let receiveData = initData
     let interviewData = initData
@@ -345,20 +355,21 @@ Page({
       wx.stopPullDownRefresh()
       return
     }
+    initData = {
+      list: [],
+      pageNum: 1,
+      count: 20,
+      isLastPage: false,
+      isRequire: false,
+      total: 0
+    }
     switch(this.data.tabIndex) {
       case 0:
         if (!this.data.isJobhunter) {
           wx.stopPullDownRefresh()
           return
         }
-        let applyData = {
-          list: [],
-          pageNum: 1,
-          count: 20,
-          isLastPage: false,
-          isRequire: false,
-          total: 0
-        }
+        let applyData =initData
         this.setData({applyData, applyBottomStatus: 0, hasReFresh: true})
         this.getApplyList(false).then(res => {
           wx.stopPullDownRefresh()
@@ -369,14 +380,7 @@ Page({
         })
       break
       case 1:
-        let receiveData = {
-          list: [],
-          pageNum: 1,
-          count: 20,
-          isLastPage: false,
-          isRequire: false,
-          total: 0
-        }
+        let receiveData = initData
         this.setData({receiveData, receiveBottomStatus: 0, hasReFresh: true})
         this.getInviteList(false).then(res => {
           wx.stopPullDownRefresh()
@@ -387,14 +391,7 @@ Page({
         })
       break
       case 2:
-        let interviewData = {
-          list: [],
-          pageNum: 1,
-          count: 20,
-          isLastPage: false,
-          isRequire: false,
-          total: 0
-        }
+        let interviewData = initData
         this.setData({interviewData, interviewBottomStatus: 0, hasReFresh: true})
         this.getScheduleList(false).then(res => {
           wx.stopPullDownRefresh()

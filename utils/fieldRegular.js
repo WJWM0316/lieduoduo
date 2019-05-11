@@ -39,7 +39,7 @@ export const workContentReg = /^.{10,1000}$/
 
 
 // 链接
-export const urlReg = /^((https?|ftp|news):\/\/)?([a-z]([a-z0-9\-]*[\.。])+([a-z]{2}|aero|arpa|biz|com|coop|edu|gov|info|int|jobs|mil|museum|name|nato|net|org|pro|travel)|(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]))(\/[a-z0-9_\-\.~]+)*(\/([a-z0-9_\-\.]*)(\?[a-z0-9+_\-\.%=&]*)?)?(#[a-z][a-z0-9_]*)?$/ // 链接网址验证
+export const urlReg = /^((https?|ftp|news):\/\/)?([a-z]([a-z0-9\-]*[\.。]))?([0-9A-Za-z_\-\@\#\$\%\^&\*\'\/\<\>]{3,1000})$/ // 链接网址验证
 
 // 工作内容
 export const productNameReg = /^.{1,20}$/
@@ -50,7 +50,7 @@ export const companyNameReg = /^[\u0391-\uFFE5A-Za-z\s]{2,50}$/
 // 学校名称 
 export const schoolNameReg = /^[\u0391-\uFFE5A-Za-z\s]{2,50}$/
 
-// 专业名称 
+// 专业名称  
 export const majorNameReg = /^[\u0391-\uFFE5A-Za-z\s]{2,50}$/
 
 // 公司简介

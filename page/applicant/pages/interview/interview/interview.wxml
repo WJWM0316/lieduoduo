@@ -70,7 +70,7 @@
 	</view>
 
   <!--申请记录-->
-	<view hidden="{{tabIndex !== 0}}" class="list-box" style="padding-top: 186rpx">
+	<view hidden="{{tabIndex !== 0}}" class="list-box type1" style="padding-top: 186rpx">
 		<view hidden="{{!hasReFresh}}">
 			<refreshStatus></refreshStatus>
 		</view>
@@ -115,7 +115,7 @@
 	</view>
 
 	<!--收到邀请-->
-	<view hidden="{{tabIndex !== 1}}" class="list-box" style="padding-top: 186rpx">
+	<view hidden="{{tabIndex !== 1}}" class="list-box type2" style="padding-top: 186rpx">
 		<view hidden="{{!hasReFresh}}">
 			<refreshStatus></refreshStatus>
 		</view>

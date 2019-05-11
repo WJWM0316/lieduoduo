@@ -448,6 +448,17 @@
 	box-shadow:0rpx 4rpx 20rpx 0rpx rgba(101,39,145,0.1);
 	border-radius:10rpx;
 	margin:20rpx 30rpx;
+	position: relative;
+}
+.findMore::after {
+	content: '';
+	width:3rpx;
+	height:80rpx;
+	background:rgba(132,82,167,1);
+	position: absolute;
+	top: 50%;
+	margin-top: -40rpx;
+	left: 0;
 }
 .findMore .left {
 	width: 352rpx;
@@ -473,7 +484,6 @@
   white-space:nowrap;
 	color: #8452A7;
   display: inline-block;
-  vertical-align:-5rpx;
 }
 .findMore .right {
 	float: right;

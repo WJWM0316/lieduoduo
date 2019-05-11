@@ -113,6 +113,11 @@ Page({
     }
     let init = () => {
       this.setData({hasLogin: app.globalData.hasLogin, isJobhunter: app.globalData.isJobhunter})
+      let bannerList = this.data.bannerList
+      if (app.globalData.isJobhunter && bannerList[bannerList.length - 1].targetUrl === 'page/applicant/pages/createUser/createUser?from=3') {
+        bannerList.splice(bannerList.length - 1, 1)
+        this.setData({bannerList, cityIndex: 0})
+      }
       if (app.pageInit) {
         this.setData({hasExpect: app.globalData.hasExpect})
       } else {
@@ -327,7 +332,7 @@ Page({
         emolument = 1
         emolumentIndex = 0
         tabList[2].active = false
-        tabList[0].name = '薪资范围'
+        tabList[2].name = '薪资范围'
       }
       this.setData({tabList, city, type, cityIndex, typeIndex, emolument, emolumentIndex}, () => {
         this.getPositionList()
@@ -382,6 +387,7 @@ Page({
           bigImgUrl: "https://attach.lieduoduo.ziwork.com/front-assets/images/banner_resumeX.png",
           smallImgUrl:"https://attach.lieduoduo.ziwork.com/front-assets/images/banner_resume.png",
           targetUrl:`page/applicant/pages/createUser/createUser?from=3`,
+          type: 'create'
         })
       }
       this.setData({bannerList: list})

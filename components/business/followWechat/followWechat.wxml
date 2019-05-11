@@ -14,6 +14,7 @@
 				<i class="close icon iconfont icon-close"  bindtap="close" data-type="showPop"></i>
 				<swiper class="swiper"
 					indicator-dots
+					indicator-color = 'rgba(0, 0, 0, .1)'
 					indicator-active-color = '#FFDC29'
 					autoplay
 					circular

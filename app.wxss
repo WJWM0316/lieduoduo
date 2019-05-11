@@ -18,6 +18,9 @@
 page {
 	background:#FBFBFF;
 }
+text {
+	word-break:break-all;
+}
 view {
 	-webkit-overflow-scrolling: touch;
 }

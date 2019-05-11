@@ -73,7 +73,7 @@
 				<view class="msg">更多 <text class='name'>{{detail.typeName}}</text> 机会等你开撩</view>
 			</view>
 			<view class="right">
-				<image class="img" wx:for="{{findMore.companyLogos}}" wx:key="{{index}}" src="{{item.smallUrl}}"></image>
+				<image class="img" wx:for="{{findMore.companyLogos}}" wx:if="{{index < 3}}" mode="aspectFit" wx:key="{{index}}" src="{{item.smallUrl}}"></image>
 				<image class="img" wx:if="{{findMore.companyLogos && findMore.companyLogos.length > 3}}" src="{{cdnPath}}more.png"></image>
 			</view>
 		</view>
