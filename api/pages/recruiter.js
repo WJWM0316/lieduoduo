@@ -171,3 +171,12 @@ export const getRecruiterOtherInfosApi = (data) => {
     hasLoading: false
   })
 }
+
+// 获取首页我感兴趣的，最近面试，在招职位
+export const getIndexShowCountApi = (data) => {
+  return request({
+    url: `/indexShowCount`,
+    method: 'get',
+    hasLoading: false
+  })
+}

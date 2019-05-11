@@ -7,7 +7,8 @@ import {
 } from '../../../../api/pages/browse.js'
 
 import {
-  getBrowseMySelfListsApi
+  getBrowseMySelfListsApi,
+  getIndexShowCountApi
 } from '../../../../api/pages/recruiter.js'
 
 import {RECRUITER, COMMON, APPLICANT} from '../../../../config.js'
@@ -50,9 +51,13 @@ Page({
     isFixed: true,
     fixedDom: false,
     detail: {},
-    welcomeWord: ''
+    welcomeWord: '',
+    indexShowCount: {}
   },
   onLoad() {
+    getIndexShowCountApi().then(res => {
+      this.setData({indexShowCount: res.data})
+    })
     let choseType = wx.getStorageSync('choseType') || ''
     this.setData({choseType})
     if (choseType === 'APPLICANT') {

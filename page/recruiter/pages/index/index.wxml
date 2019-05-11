@@ -23,11 +23,11 @@
 				<view class="text">我感兴趣的<i class="icon iconfont icon-disejiantou-you"></i></view>
 			</view>
 			<view class="item" bindtap="routeJump" data-route="interview">
-				<view class="number">0</view>
+				<view class="number">{{indexShowCount.recentInterview}}</view>
 				<view class="text">最近面试<i class="icon iconfont icon-disejiantou-you"></i></view>
 			</view>
 			<view class="item" bindtap="routeJump" data-route="position">
-				<view class="number">0</view>
+				<view class="number">{{indexShowCount.onlinePosition}}</view>
 				<view class="text">在招职位<i class="icon iconfont icon-disejiantou-you"></i></view>
 			</view>
 		</view>
