@@ -117,7 +117,7 @@ Page({
     let init = () => {
       this.setData({hasLogin: app.globalData.hasLogin, isJobhunter: app.globalData.isJobhunter})
       let bannerList = this.data.bannerList
-      if (app.globalData.isJobhunter && bannerList[bannerList.length - 1].targetUrl === 'page/applicant/pages/createUser/createUser?from=3') {
+      if (app.globalData.isJobhunter && bannerList.length > 0 && bannerList[bannerList.length - 1].smallImgUrl === 'https://attach.lieduoduo.ziwork.com/front-assets/images/banner_resume.png') {
         bannerList.splice(bannerList.length - 1, 1)
         this.setData({bannerList, cityIndex: 0})
       }
@@ -269,13 +269,14 @@ Page({
   getRecord() {
     return getPositionRecordApi().then(res => {
       let city = this.data.city
-      let type = Number(this.data.options.positionTypeId) || res.data.type || 0
+      let type = Number(this.data.options.positionTypeId) || Number(res.data.type) || 0
       let typeName = this.data.options.typeName || res.data.typeName || ''
       let emolument = this.data.emolument
       let cityIndex = this.data.cityIndex
       let typeIndex = this.data.typeIndex
       let emolumentIndex = this.data.emolumentIndex
       let tabList = this.data.tabList
+      let positionTypeList = this.data.positionTypeList
       if (res.data.city) {
         city = Number(res.data.city)
         this.data.cityList.map((item, index) => {
@@ -291,7 +292,6 @@ Page({
         })
       }
       if (type) {
-        let positionTypeList = this.data.positionTypeList
         let curType = positionTypeList.filter((item) => { return item.labelId === type})
         if (curType.length === 0) {
           tabList[1].active = true
@@ -300,7 +300,7 @@ Page({
           typeIndex = positionTypeList.length - 1
           this.setData({positionTypeList})
         } else {
-          positionTypeList.map((item, index) => {
+          positionTypeList.forEach((item, index) => {
             if (item.labelId === type) {
               typeIndex = index
               if (index === 0) {

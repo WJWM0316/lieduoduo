@@ -115,7 +115,7 @@
 					"id": 10,
 					"name": "【C端】首页",
 					"pathName": "page/applicant/pages/index/index",
-					"query": "positionTypeId=140000",
+					"query": "?micro=true",
 					"scene": null
 				},
 				{
