@@ -7,6 +7,7 @@ import {getAdBannerApi} from '../../../../api/pages/common'
 import {shareChance} from '../../../../utils/shareWord.js'
 
 const app = getApp()
+let timer = null
 let identity = '',
     hasOnload = false // 用来判断是否执行了onload，就不走onShow的校验
 Page({
@@ -105,11 +106,27 @@ Page({
     }
   },
   onUnload () {
-    console.log(this.data, 1111111111111111)
   },
   onShow (options) {
     if (hasOnload) {
       this.initPage()
+    }
+    let init = () => {
+      this.setData({hasLogin: app.globalData.hasLogin, isJobhunter: app.globalData.isJobhunter})
+      if (app.pageInit) {
+        this.setData({hasExpect: app.globalData.hasExpect})
+      } else {
+        app.pageInit = () => {
+          this.setData({hasExpect: app.globalData.hasExpect})
+        }
+      }
+    }
+    if (app.getRoleInit) {
+      init()
+    } else {
+      app.getRoleInit = () => {
+        init()
+      }
     }
     if (wx.getStorageSync('choseType') === 'RECRUITER') {
       app.wxConfirm({
@@ -128,7 +145,6 @@ Page({
     }
   },
   initPage () {
-    this.setData({hasLogin: app.globalData.hasLogin, isJobhunter: app.globalData.isJobhunter, hasExpect: app.globalData.hasExpect})
     let jumpCreate = () => {
       if (!app.globalData.isMicroCard && wx.getStorageSync('choseType') !== 'RECRUITER') {
         app.wxToast({
@@ -199,6 +215,12 @@ Page({
     let index = e.currentTarget.dataset.index
     let name = e.currentTarget.dataset.name
     let tabList = this.data.tabList
+    if (this.data.options.positionTypeId) {
+      let options = this.data.options
+      delete options.positionTypeId
+      delete options.typeName
+      this.setData({options})
+    }
     switch (this.data.tabType) {
       case 'city':
         if (index === 0) {
@@ -239,7 +261,8 @@ Page({
   getRecord() {
     return getPositionRecordApi().then(res => {
       let city = this.data.city
-      let type = this.data.type
+      let type = Number(this.data.options.positionTypeId) || res.data.type || 0
+      let typeName = this.data.options.typeName || res.data.typeName || ''
       let emolument = this.data.emolument
       let cityIndex = this.data.cityIndex
       let typeIndex = this.data.typeIndex
@@ -259,19 +282,28 @@ Page({
           }
         })
       }
-      if (res.data.type) {
-        type = Number(this.data.options.positionTypeId) || Number(res.data.type)
-        this.data.positionTypeList.map((item, index) => {
-          if (item.labelId === type) {
-            typeIndex = index
-            if (index === 0) {
-              tabList[1].name = '职位类型'
-            } else {
-              tabList[1].active = true
-              tabList[1].name = item.name
+      if (type) {
+        let positionTypeList = this.data.positionTypeList
+        let curType = positionTypeList.filter((item) => { return item.labelId === type})
+        if (curType.length === 0) {
+          tabList[1].active = true
+          tabList[1].name = typeName
+          positionTypeList.push({labelId: type, name: typeName})
+          typeIndex = positionTypeList.length - 1
+          this.setData({positionTypeList})
+        } else {
+          positionTypeList.map((item, index) => {
+            if (item.labelId === type) {
+              typeIndex = index
+              if (index === 0) {
+                tabList[1].name = '职位类型'
+              } else {
+                tabList[1].active = true
+                tabList[1].name = item.name
+              }
             }
-          }
-        })
+          })
+        }
       }
       if (res.data.emolumentId) {
         emolument = Number(res.data.emolumentId)
@@ -287,6 +319,16 @@ Page({
           }
         })
       }
+      if (this.data.options.positionTypeId) {
+        city = 0
+        cityIndex = 0
+        tabList[0].name = '工作城市'
+        tabList[0].active = false
+        emolument = 1
+        emolumentIndex = 0
+        tabList[2].active = false
+        tabList[0].name = '薪资范围'
+      }
       this.setData({tabList, city, type, cityIndex, typeIndex, emolument, emolumentIndex}, () => {
         this.getPositionList()
       })  
@@ -295,7 +337,7 @@ Page({
     })
   },
   getPositionList(hasLoading = true) {
-    let params = {count: this.data.pageCount, page: this.data.positionList.pageNum, ...app.getSource()}
+    let params = {count: this.data.pageCount, page: this.data.positionList.pageNum, is_record: 1, ...app.getSource()}
     if(this.data.city) {
       params = Object.assign(params, {city: this.data.city})
     }
@@ -312,6 +354,11 @@ Page({
       delete params.city
     }
     if(!this.data.emolument) {
+      delete params.emolument_id
+    }
+    if (this.data.options.positionTypeId) {
+      params.is_record = 0
+      delete params.city
       delete params.emolument_id
     }
     return getPositionListApi(params, hasLoading).then(res => {
@@ -332,8 +379,8 @@ Page({
       // 没有创建简历的 新增一个banner位
       if (!app.globalData.isJobhunter) {
         list.push({
-          bigImgUrl: "https://attach.lieduoduo.ziwork.com/img/2019/0418/11/5cb7f38e2899c.jpg",
-          smallImgUrl:"https://attach.lieduoduo.ziwork.com/img/2019/0418/11/5cb7f38a5619f.jpg",
+          bigImgUrl: "https://attach.lieduoduo.ziwork.com/front-assets/images/banner_resumeX.png",
+          smallImgUrl:"https://attach.lieduoduo.ziwork.com/front-assets/images/banner_resume.png",
           targetUrl:`page/applicant/pages/createUser/createUser?from=3`,
         })
       }
@@ -408,11 +455,21 @@ Page({
     return this.getPositionList()
   },
   onPageScroll(e) {
-    if (e.scrollTop > 0) {
-      if (e.scrollTop > 210 + this.data.navH) {
-        if (!this.data.tabFixed) this.setData({tabFixed: true})
-      } else {
-        if (this.data.tabFixed) this.setData({tabFixed: false})
+    if (e.scrollTop > this.data.bannerH + 37 + 55) {
+      if (!this.data.tabFixed) {
+        clearTimeout(timer)
+        timer = setTimeout(() => {
+          this.setData({tabFixed: true})
+          clearTimeout(timer)
+        }, 10) 
+      }
+    } else {
+      if (this.data.tabFixed) {
+        clearTimeout(timer)
+        timer = setTimeout(() => {
+          this.setData({tabFixed: false})
+          clearTimeout(timer)
+        }, 10) 
       }
     }
   },

@@ -39,7 +39,8 @@ Page({
     isFixed: true,
     background: 'transparent',
     fixedDomPosition: 0,
-    fixedDom: false
+    fixedDom: false,
+    isIphoneX: app.globalData.isIphoneX
   },
   onShow() {
     this.clearListsData()

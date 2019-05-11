@@ -166,7 +166,7 @@ export const getNewScheduleNumberApi = (data, hasLoading) => {
     method: 'get',
     url: `/interview/newScheduleNumber`,
     data,
-    hasLoading
+    hasLoading: false
   })
 }
 

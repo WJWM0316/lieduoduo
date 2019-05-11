@@ -15,18 +15,16 @@
 	display: none;
 	border: none;
 }
-/*page {
+page {
 	background:#FBFBFF;
 }
 view {
-	-webkit-overflow-scrolling: touch
-}*/
-
-/*button::after{
-	display: none;
+	-webkit-overflow-scrolling: touch;
+}
+button::after{
 	border: none;
 }
-*/
+
 
 /*
 @font-face {

@@ -8,7 +8,8 @@ import {getUserRoleApi} from "api/pages/user.js"
 import {quickLoginApi} from 'api/pages/auth.js'
 import {shareC, shareB} from 'utils/shareWord.js'
 let that = null
-let formIdList = []
+let formIdList = [],
+    sendNum = 0 // formId 发送次数
 App({
   onLaunch: function (e) {
     // 获取导航栏高度
@@ -35,6 +36,18 @@ App({
     })
     this.login()
   },
+  onHide: function (e) {
+    // 切换后台 发送全部formId
+    if (formIdList.length > 0) {
+      formIdApi({form_id: formIdList}).then(res => {
+        sendNum = 0
+        formIdList = []
+      })
+    }
+  },
+  onError: function (e) {
+    console.log('onError检测', e)
+  },
   globalData: {
     startRoute: '',
     identity: "", // 身份标识
@@ -43,9 +56,7 @@ App({
     isJobhunter: 0, // 是否注册成求职者
     hasExpect: 1, // 有求职意向
     hasLogin: 1, // 判断是否登录
-    userInfo: { // 用户信息， 判断是否授权
-      officialId: 1
-    },
+    userInfo: {}, // 用户信息， 判断是否授权,
     navHeight: 0,
     cdnImagePath: 'https://attach.lieduoduo.ziwork.com/front-assets/images/',
     companyInfo: {}, // 公司信息
@@ -145,6 +156,7 @@ App({
         getPersonalResumeApi().then(res0 => {
           this.globalData.resumeInfo = res0.data
           this.globalData.isJobhunter = 1
+          this.globalData.hasExpect = 1
           if (this.pageInit) { // 页面初始化
             this.pageInit() //执行定义的回调函数
           }
@@ -152,10 +164,8 @@ App({
           resolve(res0.data)
         }).catch((e) => {
           reject(e)
-          if (e.data.hasExpect) {
-            this.globalData.hasExpect = 1
-          } else {
-            this.globalData.hasExpect = 0 
+          if (e.data.hasExpect === 0) {
+            this.globalData.hasExpect = 0
           }
           if (this.pageInit) { // 页面初始化
             this.pageInit() //执行定义的回调函数
@@ -637,12 +647,25 @@ App({
   postFormId(id) {
     console.log(`=======================收集到这个formId了 ${id}=========================`)
     formIdList.push(id)
-    if (formIdList.length >= 3) {
-      if (wx.getStorageSync('sessionToken') || wx.getStorageSync('token')) {
-        formIdApi({form_id: formIdList}).then(res => {
-          formIdList = []
-        })
-      }
+    if (formIdList.length >= 50) formIdList = formIdList.slice(50, 100)
+    if (sendNum === 0) {
+      if (formIdList.length === 0) return
+    } else if (sendNum === 1) {
+      if (formIdList.length < 2) return
+    } else if (sendNum === 2) {
+      if (formIdList.length < 2) return
+    } else if (sendNum === 3) {
+      if (formIdList.length < 4) return
+    } else if (sendNum === 4) {
+      if (formIdList.length < 9) return
+    } else {
+      return
+    }
+    if (wx.getStorageSync('sessionToken') || wx.getStorageSync('token')) {
+      formIdApi({form_id: formIdList}).then(res => {
+        sendNum++
+        formIdList = []
+      })
     }
   },
   // 获取二维码参数对象

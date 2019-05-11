@@ -2,6 +2,7 @@
 	padding-bottom: 160rpx;
 	width: 100%;
 	overflow: hidden;
+	background: #F5F4F7;
 }
 .title {
   font-size:28rpx;
@@ -466,7 +467,7 @@
 	margin-top: 6rpx;
 }
 .findMore .left .msg .name {
-	width: 144rpx;
+	max-width: 144rpx;
 	overflow:hidden;
   text-overflow:ellipsis;
   white-space:nowrap;

@@ -2,7 +2,7 @@
 <!-- 加载过滤器 -->
 <wxs src="../../../../utils/filters.wxs" module="filters" />
 
-<navbar title="简历详情" background="#FFFFFF" color="#22292C" showHome="{{true}}"></navbar>
+<navbar title="{{isOwner ? '简历完善度' + info.resumeCompletePercentageDesc : '简历详情'}}" background="#FFFFFF" color="#22292C" showHome="{{true}}"></navbar>
 <form bindsubmit="formSubmit" report-submit='{{true}}'>
 <view hidden="{{!hasReFresh}}">
   <refreshStatus></refreshStatus>

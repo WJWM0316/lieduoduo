@@ -196,7 +196,11 @@ Page({
         })
         break
         case 'findMore':
-          wx.navigateTo({url: `${APPLICANT}index/index?positionTypeId=${this.data.findMore.matchType}`})
+          if (this.data.findMore.matchType) {
+            wx.navigateTo({url: `${APPLICANT}index/index?positionTypeId=${this.data.findMore.matchType}`})
+          } else {
+            wx.navigateTo({url: `${APPLICANT}index/index?positionTypeId=${this.data.detail.type}&typeName=${this.data.detail.typeName}`})
+          }
           break
       default:
         break

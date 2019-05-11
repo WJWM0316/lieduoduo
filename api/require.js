@@ -133,7 +133,7 @@ export const request = ({method = 'post', url, host, data = {}, needKey = true, 
           if (msg.httpStatus === 200) {
             resolve(msg)
           } else {
-            if (msg.code !== 701 && msg.code !== 801 && !noToastUrlArray.some(now => url.includes(now))) {
+            if (msg.code !== 401 && msg.code !== 701 && msg.code !== 801 && !noToastUrlArray.some(now => url.includes(now))) {
               getApp().wxToast({title: msg.msg})
             }
             reject(msg)

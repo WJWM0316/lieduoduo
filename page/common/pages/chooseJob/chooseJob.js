@@ -301,17 +301,20 @@ Page({
             delta: 1,
             success() {
               if (app.globalData.isJobhunter.resumeCompletePercentage > 0.75) return
-              app.wxConfirm({
-                title: '开撩成功',
-                content: '你的简历竞争力只超过28%的求职者，建议你现在完善简历',
-                cancelText: '暂不完善',
-                confirmText: '马上完善',
-                confirmBack () {
-                  wx.navigateTo({
-                    url: `${COMMON}resumeDetail/resumeDetail?uid=${app.globalData.resumeInfo.uid}`
-                  })
-                }
-              })
+              let timer = setTimeout(() => {
+                app.wxConfirm({
+                  title: '开撩成功',
+                  content: '你的简历竞争力只超过28%的求职者，建议你现在完善简历',
+                  cancelText: '暂不完善',
+                  confirmText: '马上完善',
+                  confirmBack () {
+                    wx.navigateTo({
+                      url: `${COMMON}resumeDetail/resumeDetail?uid=${app.globalData.resumeInfo.uid}`
+                    })
+                  }
+                })
+                clearTimeout(timer)
+              }, 1000)
             }
           })
         }

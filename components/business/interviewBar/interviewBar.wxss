@@ -15,7 +15,14 @@
   display: flex;
   border-radius:28rpx 28rpx 0rpx 0rpx;
 }
-
+.interview-bar .clear-style {
+  padding: 0;
+  background: none;
+  border: none;
+}
+.interview-bar .clear-style::after {
+  display: none;
+}
 .interview-bar .img-box{
   width:100rpx;
 	height:100rpx;
@@ -45,29 +52,23 @@
   align-items: center;
   justify-content: center;
 }
-.interview-bar .clear-style {
-  padding: 0;
-  background: none;
-  border: none;
-  line-height: 80rpx;
-	font-size:28rpx;
-	font-weight:500;
-  color: #fff;
-}
 .interview-bar .button-box view {
 	flex: 1;
 }
 
-.interview-bar .button-box.accept {
+.interview-bar .accept {
 	background: #652791;
 	color: white;
 }
 
-.interview-bar .button-box .reject {
+.interview-bar .reject {
 	background: #EFE9F4;
 	color: #652791;
 }
-
+.interview-bar .accept, .interview-bar .reject {
+  height: 80rpx;
+  line-height: 80rpx;
+}
 
 .interview-bar .button-box-color1 {
 	background:rgba(101,39,145,1);

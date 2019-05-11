@@ -1,4 +1,4 @@
-import wxAnimation from '../../../../utils/animation.js'
+
 import {getSelectorQuery} from '../../../../utils/util.js'
 import {getStepApi, 
         getCreatFirstStepApi, 
@@ -169,17 +169,20 @@ Page({
               wx.navigateBack({
                 delta: 1,
                 success () {
-                  app.wxConfirm({
-                    title: '创建成功',
-                    content: '你的简历竞争力只超过28%的求职者，建议你现在完善简历',
-                    cancelText: '暂不完善',
-                    confirmText: '马上完善',
-                    confirmBack () {
-                      wx.navigateTo({
-                        url: `${COMMON}resumeDetail/resumeDetail?uid=${app.globalData.resumeInfo.uid}`
-                      })
-                    }
-                  })
+                  let timer = setTimeout(() => {
+                    app.wxConfirm({
+                      title: '创建成功',
+                      content: '你的简历竞争力只超过28%的求职者，建议你现在完善简历',
+                      cancelText: '暂不完善',
+                      confirmText: '马上完善',
+                      confirmBack () {
+                        wx.navigateTo({
+                          url: `${COMMON}resumeDetail/resumeDetail?uid=${app.globalData.resumeInfo.uid}`
+                        })
+                      }
+                    })
+                    clearTimeout(timer)
+                  }, 1000)
                 }
               })
             } else {

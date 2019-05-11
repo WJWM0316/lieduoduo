@@ -13,8 +13,11 @@ Component({
   data: {
     cdnImagePath: app.globalData.cdnImagePath,
     isIphoneX: app.globalData.isIphoneX,
-    userInfo: app.globalData.userInfo,
+    userInfo: {
+      officialId: 1
+    },
     showPop: false,
+    authPop: false,
   },
 
   attached () {
@@ -27,15 +30,31 @@ Component({
     }
   },
   methods: {
-    close () {
-      this.setData({showPop: false})
-      let userInfo = app.globalData.userInfo
-      userInfo.officialId = true
-      app.globalData.userInfo = userInfo
-      this.setData({userInfo})
+    close (e) {
+      if (e.currentTarget.dataset.type !== 'authPop') {
+        let userInfo = app.globalData.userInfo
+        userInfo.officialId = true
+        app.globalData.userInfo = userInfo
+        this.setData({userInfo, showPop: false})
+      } else {
+        this.setData({authPop: false})
+      }
     },
     show () {
-      this.setData({showPop: true})
+      if (app.globalData.userInfo.nickname) {
+        this.setData({showPop: true})
+      } else {
+        this.setData({authPop: true})
+      }
     },
+    onGotUserInfo (e) {
+      app.onGotUserInfo(e, 'closePop').then(res => {
+        this.setData({authPop: false})
+        app.wxToast({
+          title: '关联成功',
+          icon: 'success'
+        })
+      })
+    }
   }
 })

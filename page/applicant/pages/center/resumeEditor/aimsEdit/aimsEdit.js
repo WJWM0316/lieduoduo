@@ -57,7 +57,7 @@ Page({
       wx.setStorageSync('skillsLabel', info.fields)
     }
     if (addIntention) {
-      if (!info.positionId) {
+      if (addIntention.positionType && addIntention.positionType !== 0) {
         info.position = addIntention.positionName
         info.positionId = addIntention.positionType
       }
