@@ -2,8 +2,6 @@ import {APPLICANTHOST, RECRUITERHOST, PUBAPIHOST, COMMON, RECRUITER, APPLICANT} 
 const app = getApp()
 let loadNum = 0
 let BASEHOST = ''
-let toAuth = false
-let toBindPhone = false
 let noToastUrlArray = [
   '/company/edit_first_step/',
   '/company/notifyadmin',
@@ -133,7 +131,7 @@ export const request = ({method = 'post', url, host, data = {}, needKey = true, 
           if (msg.httpStatus === 200) {
             resolve(msg)
           } else {
-            if (msg.code !== 401 && msg.code !== 701 && msg.code !== 801 && !noToastUrlArray.some(now => url.includes(now))) {
+            if (msg.httpStatus !== 401 && msg.code !== 701 && msg.code !== 801 && !noToastUrlArray.some(now => url.includes(now))) {
               getApp().wxToast({title: msg.msg})
             }
             reject(msg)
@@ -144,12 +142,6 @@ export const request = ({method = 'post', url, host, data = {}, needKey = true, 
             case 401:
               // 需要用到token， 需要绑定手机号
               if (msg.code === 4010) {
-                if (toBindPhone) return
-                toBindPhone = true
-                let timer = setTimeout(() => {
-                  toBindPhone = false
-                  clearTimeout(timer)
-                }, 3000)
                 wx.removeStorageSync('token')
                 wx.navigateTo({
                   url: `${COMMON}bindPhone/bindPhone`
@@ -157,12 +149,6 @@ export const request = ({method = 'post', url, host, data = {}, needKey = true, 
               }
               // 需要用到微信token， 需要授权
               if (msg.code === 0) {
-                if (toAuth) return
-                toAuth = true
-                let timer = setTimeout(() => {
-                  toAuth = false
-                  clearTimeout(timer)
-                }, 3000)
                 wx.removeStorageSync('sessionToken')
                 wx.removeStorageSync('token')
                 getApp().login().then(res => {

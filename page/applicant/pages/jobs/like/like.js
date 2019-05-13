@@ -34,6 +34,9 @@ Page({
     }
   },
   onLoad(options) {
+    if (options.tab ==='2') {
+      this.setData({tab: 'recruiterList'})
+    }
   },
   onShow() {
     let isJobhunter = this.data.isJobhunter

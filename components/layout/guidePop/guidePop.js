@@ -27,9 +27,15 @@ Component({
       this.setData({showPop: false})
     },
     back() {
-      wx.navigateBack({
-        delta: 1
-      })
+      if (getCurrentPages().length > 1) {
+        wx.navigateBack({
+          delta: 1
+        })
+      } else {
+        wx.reLaunch({
+          url: '/page/applicant/pages/index/index'
+        })
+      }
     }
   }
 })

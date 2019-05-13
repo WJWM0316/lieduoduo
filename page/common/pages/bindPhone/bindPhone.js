@@ -32,22 +32,8 @@ Page({
     captchaValue = ''
     backType = 'backPrev'
     if (options.backType) backType = options.backType
-    wx.getSetting({
-      success: res => {
-        if (res.authSetting['scope.userInfo']) {
-          checkSessionKeyApi({session_token: wx.getStorageSync('sessionToken')}).catch(e => {
-            wx.navigateTo({
-              url: `${COMMON}auth/auth`
-            })
-          })
-        }
-      },
-      fail: e => {
-        wx.navigateTo({
-          url: `${COMMON}auth/auth`
-        })
-      }
-    })
+    // let session_token = wx.getStorageSync('sessionToken')
+    // checkSessionKeyApi({session_token})
   },
   toJump () {
     wx.navigateTo({

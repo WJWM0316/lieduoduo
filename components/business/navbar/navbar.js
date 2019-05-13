@@ -40,6 +40,10 @@ Component({
     showScanIcon: {
       type: Boolean,
       value: false
+    },
+    mustBack: {
+      type: Boolean,
+      value: false
     }
   },
   data: {

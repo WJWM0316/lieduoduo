@@ -97,6 +97,7 @@ Page({
     city: '',
     openPicker: false,
     activeIndex: -1,
+    mustBack: true,
     pickerType: [
       {type: 'region', title: '所在城市', value: '', placeholder: '请选择'},
       {type: 'birthday', title: '出生年月', value: '', placeholder: '请选择'},
@@ -124,7 +125,7 @@ Page({
       directChat = options.directChat
     }
     if (options.micro) {
-      this.setData({isMicro: true})
+      this.setData({isMicro: true, mustBack: false})
     }
     this.setData({options})
     watch.setWatcher(this)
@@ -168,28 +169,37 @@ Page({
           app.globalData.isMicroCard = true
           timer = setTimeout(() => {
             if (!directChat) {
-              wx.navigateBack({
-                delta: 1,
-                success () {
-                  let timer = setTimeout(() => {
-                    app.wxConfirm({
-                      title: '创建成功',
-                      content: '你的简历竞争力只超过28%的求职者，建议你现在完善简历',
-                      cancelText: '暂不完善',
-                      confirmText: '马上完善',
-                      confirmBack () {
-                        wx.navigateTo({
-                          url: `${COMMON}resumeDetail/resumeDetail?uid=${app.globalData.resumeInfo.uid}`
-                        })
-                      }
-                    })
-                    clearTimeout(timer)
-                  }, 1000)
-                }
-              })
+              let success = () => {
+                let timer = setTimeout(() => {
+                  app.wxConfirm({
+                    title: '创建成功',
+                    content: '你的简历竞争力只超过28%的求职者，建议你现在完善简历',
+                    cancelText: '暂不完善',
+                    confirmText: '马上完善',
+                    confirmBack () {
+                      wx.navigateTo({
+                        url: `${COMMON}resumeDetail/resumeDetail?uid=${app.globalData.resumeInfo.uid}`
+                      })
+                    }
+                  })
+                  clearTimeout(timer)
+                }, 1000)
+              }
+              if (getCurrentPages().length > 1) {
+                wx.navigateBack({
+                  delta: 1,
+                  success () {
+                    success()
+                  }
+                })
+              } else {
+                wx.reLaunch({
+                  url: `${APPLICANT}index/index`
+                })
+              }
             } else {
               let path = `${decodeURIComponent(directChat)}&directChat=true`
-              wx.redirectTo({
+              wx.reLaunch({
                 url: path
               })
             }
@@ -1016,6 +1026,9 @@ Page({
         wx.removeStorageSync('selectCity')
       })
     }
+  },
+  formSubmit(e) {
+    getApp().postFormId(e.detail.formId)
   },
 
   /**

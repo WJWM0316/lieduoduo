@@ -60,10 +60,11 @@ Page({
     emolumentList: [],
     requireOAuth: false,
     cdnImagePath: app.globalData.cdnImagePath,
+    userInfo: {},
     options: {},
-    hasLogin: app.globalData.hasLogin,
-    isJobhunter: app.globalData.isJobhunter,
-    hasExpect: app.globalData.hasExpect
+    hasLogin: 0,
+    isJobhunter: 0,
+    hasExpect: 1
   },
   onLoad(options) {
     hasOnload = false
@@ -115,11 +116,11 @@ Page({
       this.initPage()
     }
     let init = () => {
-      this.setData({hasLogin: app.globalData.hasLogin, isJobhunter: app.globalData.isJobhunter})
+      this.setData({hasLogin: app.globalData.hasLogin, userInfo: app.globalData.userInfo, isJobhunter: app.globalData.isJobhunter})
       let bannerList = this.data.bannerList
       if (app.globalData.isJobhunter && bannerList.length > 0 && bannerList[bannerList.length - 1].smallImgUrl === 'https://attach.lieduoduo.ziwork.com/front-assets/images/banner_resume.png') {
         bannerList.splice(bannerList.length - 1, 1)
-        this.setData({bannerList, cityIndex: 0})
+        this.setData({bannerList, bannerIndex: 0})
       }
       if (app.pageInit) {
         this.setData({hasExpect: app.globalData.hasExpect})

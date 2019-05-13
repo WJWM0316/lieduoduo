@@ -124,7 +124,7 @@ Page({
   },
   jump() {
     wx.navigateTo({
-      url: `${APPLICANT}officerActive/more/more`
+      url: `${COMMON}rank/rank`
     })
   },
   editJump(e) {

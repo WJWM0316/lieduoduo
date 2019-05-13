@@ -4,7 +4,10 @@ Component({
    * 组件的属性列表
    */
   properties: {
-
+    userInfo: {
+      type: Object,
+      value: app.globalData.userInfo
+    }
   },
 
   /**
@@ -13,26 +16,16 @@ Component({
   data: {
     cdnImagePath: app.globalData.cdnImagePath,
     isIphoneX: app.globalData.isIphoneX,
-    userInfo: {
-      officialId: 1
-    },
     showPop: false,
     authPop: false,
   },
 
   attached () {
-    if (app.loginInit) {
-      this.setData({userInfo: app.globalData.userInfo})
-    } else {
-      app.loginInit = () => {
-        this.setData({userInfo: app.globalData.userInfo})
-      }
-    }
   },
   methods: {
     close (e) {
       if (e.currentTarget.dataset.type !== 'authPop') {
-        let userInfo = app.globalData.userInfo
+        let userInfo = this.data.userInfo
         userInfo.officialId = true
         app.globalData.userInfo = userInfo
         this.setData({userInfo, showPop: false})
@@ -48,11 +41,15 @@ Component({
       }
     },
     onGotUserInfo (e) {
+      let that = this
       app.onGotUserInfo(e, 'closePop').then(res => {
-        this.setData({authPop: false})
+        that.setData({authPop: false})
         app.wxToast({
           title: '关联成功',
-          icon: 'success'
+          icon: 'success',
+          callback () {
+            that.setData({showPop: true})
+          }
         })
       })
     }

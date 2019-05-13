@@ -41,7 +41,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 16,
+			"current": 42,
 			"list": [
 				{
 					"id": 0,
@@ -320,10 +320,11 @@
 					"scene": null
 				},
 				{
-					"id": -1,
+					"id": 42,
 					"name": "认证 第八步",
-					"pathName": "page/recruiter/pages/user/company/status/status",
-					"query": "from=identity"
+					"pathName": "page/applicant/pages/jobs/like/like",
+					"query": "tab=2",
+					"scene": null
 				},
 				{
 					"id": -1,

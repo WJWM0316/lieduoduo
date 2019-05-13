@@ -9,6 +9,7 @@
         class="swiper"
         autoplay
         circular
+        current="{{bannerIndex}}"
         bindchange="autoplay"
         style="height: {{bannerH}}px"
         >
@@ -67,5 +68,5 @@
   <auth wx:if="{{requireOAuth}}" bindauthSuccess="authSuccess"></auth>
   <bindPhone hide="{{hideLoginBox}}" hasClose="{{false}}"></bindPhone>
   <adPop></adPop>
-  <followWechat></followWechat>
+  <followWechat userInfo="{{userInfo}}"></followWechat>
 </view>

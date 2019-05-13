@@ -252,30 +252,28 @@ Page({
     })
   },
   init () {
-    if (app.globalData.isJobhunter) {
-      initData = {
-        list: [],
-        pageNum: 1,
-        count: 20,
-        isLastPage: false,
-        isRequire: false,
-        total: 0
-      }
-      switch(this.data.tabIndex) {
-        case 0:
-          let applyData = initData
-          this.setData({applyData})
-          this.getApplyList()
-          break
-        case 1:
-          let receiveData = initData
-          this.setData({receiveData})
-          this.getInviteList()
-          break
-        case 2:
-          let interviewData = initData
-          this.setData({interviewData}, () => this.getNewScheduleNumber())
-      }
+    initData = {
+      list: [],
+      pageNum: 1,
+      count: 20,
+      isLastPage: false,
+      isRequire: false,
+      total: 0
+    }
+    switch(this.data.tabIndex) {
+      case 0:
+        let applyData = initData
+        this.setData({applyData})
+        this.getApplyList()
+        break
+      case 1:
+        let receiveData = initData
+        this.setData({receiveData})
+        this.getInviteList()
+        break
+      case 2:
+        let interviewData = initData
+        this.setData({interviewData}, () => this.getNewScheduleNumber())
     }
   },
   onLoad () {

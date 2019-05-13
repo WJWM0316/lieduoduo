@@ -9,7 +9,7 @@ Page({
    */
   data: {
     myInfo: {},
-    hasLogin: false,
+    hasLogin: 1,
     hideBind: true,
     hasReFresh: false,
     isMicroCard: false,

@@ -34,6 +34,9 @@ App({
         console.log(err)
       }
     })
+    this.loginInit = null
+    this.pageInit = null
+    this.getRoleInit = null
     this.login()
   },
   onHide: function (e) {
@@ -55,7 +58,7 @@ App({
     isRecruiter: 0, // 是否认证成为招聘官
     isJobhunter: 0, // 是否注册成求职者
     hasExpect: 1, // 有求职意向
-    hasLogin: 1, // 判断是否登录
+    hasLogin: 0, // 判断是否登录
     userInfo: {}, // 用户信息， 判断是否授权,
     navHeight: 0,
     cdnImagePath: 'https://attach.lieduoduo.ziwork.com/front-assets/images/',
@@ -135,42 +138,39 @@ App({
   },
   // 获取最全的角色信息
   getAllInfo() {
+    let pageInit = () => {
+      if (this.pageInit) { // 页面初始化
+        this.pageInit() //执行定义的回调函数
+      } else {
+        this.pageInit = function () {}
+      }
+    }
     return new Promise((resolve, reject) => {
       if (wx.getStorageSync('choseType') === 'RECRUITER') {
         getRecruiterDetailApi().then(res0 => {
           this.globalData.recruiterDetails = res0.data
           this.globalData.isRecruiter = 1
-          if (this.pageInit) { // 页面初始化
-            this.pageInit() //执行定义的回调函数
-          }
-          this.pageInit = function () {}
+          pageInit()
           resolve(res0.data)
         }).catch((e) => {
           reject(e)
-          if (this.pageInit) { // 页面初始化
-            this.pageInit() //执行定义的回调函数
-          }
-          this.pageInit = function () {}
+          pageInit()
         })
       } else {
         getPersonalResumeApi().then(res0 => {
           this.globalData.resumeInfo = res0.data
           this.globalData.isJobhunter = 1
           this.globalData.hasExpect = 1
-          if (this.pageInit) { // 页面初始化
-            this.pageInit() //执行定义的回调函数
-          }
-          this.pageInit = function () {}
+          pageInit()
           resolve(res0.data)
         }).catch((e) => {
           reject(e)
           if (e.data.hasExpect === 0) {
             this.globalData.hasExpect = 0
+          } else {
+            this.globalData.hasExpect = 1
           }
-          if (this.pageInit) { // 页面初始化
-            this.pageInit() //执行定义的回调函数
-          }
-          this.pageInit = function () {}
+          pageInit()
         })
       }
     })
@@ -196,8 +196,9 @@ App({
         }
         if (this.getRoleInit) { // 登陆初始化
           this.getRoleInit() //执行定义的回调函数
+        } else {
+          this.getRoleInit = function () {}
         }
-        this.getRoleInit = function () {}
         this.getAllInfo()
         resolve(res0)
       })

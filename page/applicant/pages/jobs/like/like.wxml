@@ -25,6 +25,7 @@
 				bindtap="routeJump"
 				wx:for="{{recruiterList.list}}"
 				wx:for-item="item"
+				wx:if="{{item.vkey}}"
 				wx:key="{{index}}">
 				<view class="item3">
 					<view class="img-box">

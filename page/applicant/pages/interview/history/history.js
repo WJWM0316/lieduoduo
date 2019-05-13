@@ -210,7 +210,7 @@ Page({
     }
   },
   onPullDownRefresh() {
-    if (!this.data.hasLogin || !this.data.isJobhunter) {
+    if (!this.data.hasLogin) {
       wx.stopPullDownRefresh()
       return
     }
@@ -231,7 +231,7 @@ Page({
     })
   },
   getLists(hasLoading = true) {
-    if (!this.data.hasLogin || !this.data.isJobhunter) return
+    if (!this.data.hasLogin) return
     return new Promise((resolve, reject) => {
       let params = {}
       let startTime = this.data.startTime
