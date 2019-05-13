@@ -17,12 +17,17 @@ import {getSelectorQuery}  from '../../../../utils/util.js'
 
 import { getPositionListNumApi } from '../../../../api/pages/position.js'
 
+
+import {
+  getAdBannerApi
+} from '../../../../api/pages/common'
+
 let app = getApp()
 let fixedDomPosition = 0
 
 Page({
   data: {
-    pageList: 'browseMySelf',
+    pageList: 'collectMySelf',
     cdnImagePath: app.globalData.cdnImagePath,
     navH: app.globalData.navHeight,
     choseType: '',
@@ -30,15 +35,10 @@ Page({
       list: [],
       pageNum: 1,
       isLastPage: false,
-      isRequire: false
+      isRequire: false,
+      total: 0
     },
     collectMySelf: {
-      list: [],
-      pageNum: 1,
-      isLastPage: false,
-      isRequire: false
-    },
-    collectUsers: {
       list: [],
       pageNum: 1,
       isLastPage: false,
@@ -53,25 +53,21 @@ Page({
     detail: {},
     welcomeWord: '',
     indexShowCount: {
-      a: 0,
+      jobHunterInterestedToR: 0,
       recentInterview: 0,
       onlinePosition: 0
-    }
+    },
+    banner: {}
   },
   onLoad() {
-    getIndexShowCountApi().then(res => {
-      this.setData({indexShowCount: res.data})
-    })
     let choseType = wx.getStorageSync('choseType') || ''
-    this.setData({choseType})
+    this.setData({choseType}, () => this.getMixdata())
     if (choseType === 'APPLICANT') {
       app.wxConfirm({
         title: '提示',
         content: '检测到你是求职者，是否切换求职者',
         confirmBack() {
-          wx.reLaunch({
-            url: `${APPLICANT}index/index`
-          })
+          wx.reLaunch({url: `${APPLICANT}index/index` })
         },
         cancelBack() {
           wx.setStorageSync('choseType', 'RECRUITER')
@@ -85,7 +81,8 @@ Page({
       list: [],
       pageNum: 1,
       isLastPage: false,
-      isRequire: false
+      isRequire: false,
+      total: 0
     }
     let collectMySelf = {
       list: [],
@@ -93,21 +90,18 @@ Page({
       isLastPage: false,
       isRequire: false
     }
-    let collectUsers = {
-      list: [],
-      pageNum: 1,
-      isLastPage: false,
-      isRequire: false
-    }
-    let that = this
-    this.setData({browseMySelf, collectUsers, collectMySelf}, () => this.getWelcomeWord())
+    this.setData({browseMySelf, collectMySelf}, () => this.getWelcomeWord())
     if (app.loginInit) {
-      that.setData({detail: app.globalData.recruiterDetails}, () => that.getLists().then(() => that.getDomNodePosition()))
+      this.setData({detail: app.globalData.recruiterDetails}, () => this.getLists().then(() => this.getDomNodePosition()))
     } else {
       app.loginInit = () => {
-        that.setData({detail: app.globalData.recruiterDetails}, () => that.getLists().then(() => that.getDomNodePosition()))
+        this.setData({detail: app.globalData.recruiterDetails}, () => this.getLists().then(() => this.getDomNodePosition()))
       }
     }
+  },
+  getMixdata() {
+    getIndexShowCountApi().then(res => this.setData({indexShowCount: res.data}))
+    getAdBannerApi({location: 'recruiter_index'}).then(res => this.setData({banner: res.data[0]}))
   },
   getDomNodePosition() {
     getSelectorQuery('.index-list-box').then(res => fixedDomPosition = res.top - this.data.navH)
@@ -119,16 +113,10 @@ Page({
    * @return   {[type]}   [description]
    */
   getLists() {
-    switch(this.data.pageList) {
-      case 'browseMySelf':
-        return this.getBrowseMySelf()
-        break;
-      case 'collectMySelf':
-        return this.getCollectMySelf()
-        break;
-      case 'collectUsers':
-        return this.getMyCollectUsers()
-        break;
+    if(this.data.pageList !== 'collectMySelf') {
+      return this.getBrowseMySelf()
+    } else {
+      return this.getCollectMySelf()
     }
   },
   /**
@@ -140,16 +128,16 @@ Page({
   getBrowseMySelf(hasLoading = true) {
     return new Promise((resolve, reject) => {
       let params = {count: this.data.pageCount, page: this.data.browseMySelf.pageNum, ...app.getSource()}
-      getBrowseMySelfApi(params, hasLoading)
-        .then(res => {
-          let browseMySelf = this.data.browseMySelf
-          let onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
-          browseMySelf.list = browseMySelf.list.concat(res.data)
-          browseMySelf.isLastPage = res.meta && res.meta.nextPageUrl ? false : true
-          browseMySelf.pageNum = browseMySelf.pageNum + 1
-          browseMySelf.isRequire = true
-          this.setData({browseMySelf, onBottomStatus}, () => resolve(res))
-        })
+      getBrowseMySelfApi(params, hasLoading).then(res => {
+        let browseMySelf = this.data.browseMySelf
+        let onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
+        browseMySelf.list = browseMySelf.list.concat(res.data)
+        browseMySelf.isLastPage = res.meta && res.meta.nextPageUrl ? false : true
+        browseMySelf.pageNum = browseMySelf.pageNum + 1
+        browseMySelf.isRequire = true
+        browseMySelf.total = res.meta.total
+        this.setData({browseMySelf, onBottomStatus}, () => resolve(res))
+      })
     })
   },
   /**
@@ -161,42 +149,26 @@ Page({
   getCollectMySelf(hasLoading = true) {
     return new Promise((resolve, reject) => {
       let params = {count: this.data.pageCount, page: this.data.collectMySelf.pageNum, ...app.getSource()}
-      getCollectMySelfApi(params, hasLoading)
-        .then(res => {
-          let collectMySelf = this.data.collectMySelf
-          let onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
-          collectMySelf.list = collectMySelf.list.concat(res.data)
-          collectMySelf.isLastPage = res.meta.nextPageUrl ? false : true
-          collectMySelf.pageNum = collectMySelf.pageNum + 1
-          collectMySelf.isRequire = true
-          this.setData({collectMySelf, onBottomStatus}, () => resolve(res))
-        })
+      getCollectMySelfApi(params, hasLoading).then(res => {
+        let collectMySelf = this.data.collectMySelf
+        let onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
+        collectMySelf.list = collectMySelf.list.concat(res.data)
+        collectMySelf.isLastPage = res.meta.nextPageUrl ? false : true
+        collectMySelf.pageNum = collectMySelf.pageNum + 1
+        collectMySelf.isRequire = true
+        this.setData({collectMySelf, onBottomStatus}, () => resolve(res))
+      })
     })
   },
   /**
    * @Author   小书包
-   * @DateTime 2019-01-21
-   * @detail   我感兴趣的列表
-   * @return   {[type]}   [description]
+   * @DateTime 2019-05-13
+   * @detail   tqb切换
+   * @return   {[type]}     [description]
    */
-  getMyCollectUsers(hasLoading = true) {
-    return new Promise((resolve, reject) => {
-      let params = {count: this.data.pageCount, page: this.data.collectUsers.pageNum, ...app.getSource()}
-      getMyCollectUsersApi(params, hasLoading)
-        .then(res => {
-          let collectUsers = this.data.collectUsers
-          let onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
-          collectUsers.list = collectUsers.list.concat(res.data)
-          collectUsers.isLastPage = res.meta && res.meta.nextPageUrl ? false : true
-          collectUsers.pageNum = collectUsers.pageNum + 1
-          collectUsers.isRequire = true
-          this.setData({collectUsers, onBottomStatus}, () => resolve(res))
-        })
-    })
-  },
   ontabClick(e) {
     let pageList = e.currentTarget.dataset.key
-    this.setData({pageList}, () => {
+    this.setData({ pageList }, () => {
       let key = this.data.pageList
       if(!this.data[key].isRequire) this.getLists()
     })
@@ -211,21 +183,19 @@ Page({
     let key = this.data.pageList
     let value = {list: [], pageNum: 1, isLastPage: false, isRequire: false}
     this.setData({[key]: value, hasReFresh: true})
-    this.getLists()
-        .then(res => {
-          let value = {list: [], pageNum: 1, isLastPage: false, isRequire: false}
-          let onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
-          value.list = res.data
-          value.isLastPage = res.meta && res.meta.nextPageUrl ? false : true
-          value.pageNum = 2
-          value.isRequire = true
-          this.setData({[key]: value, onBottomStatus}, () => {
-            wx.stopPullDownRefresh()
-            this.setData({hasReFresh: false})
-          })
-        }).catch(e => {
-          wx.stopPullDownRefresh()
-        })
+    this.getLists().then(res => {
+      let value = {list: [], pageNum: 1, isLastPage: false, isRequire: false}
+      let onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
+      value.list = res.data
+      value.isLastPage = res.meta && res.meta.nextPageUrl ? false : true
+      value.pageNum = 2
+      value.isRequire = true
+      value.total = res.meta.total
+      this.setData({[key]: value, onBottomStatus}, () => {
+        wx.stopPullDownRefresh()
+        this.setData({hasReFresh: false})
+      })
+    })
   },
   /**
    * @Author   小书包
@@ -263,10 +233,7 @@ Page({
       if (this.data.fixedDom) this.setData({fixedDom: false})
     }
   },
-  jump() {
-    getPositionListNumApi().then(res => {
-    })
-  },
+  jump() {},
   formSubmit(e) {
     app.postFormId(e.detail.formId)
   },
@@ -277,9 +244,7 @@ Page({
    */
   viewResumeDetail(e) {
     let params = e.currentTarget.dataset
-    // 可能会存在空对象
     if(!Object.keys(params).length) return;
-    // console.log(params)
     wx.navigateTo({url: `${COMMON}resumeDetail/resumeDetail?uid=${params.jobhunteruid}`})
   },
   routeJump(e) {

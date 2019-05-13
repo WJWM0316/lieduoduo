@@ -16,10 +16,11 @@
 			<i class="icon iconfont icon-youyi"></i>
 		</view>
 	</view>
+
 	<view class="floating-box">
 		<view class="row-one">
 			<view class="item" bindtap="routeJump" data-route="interested">
-				<view class="number">0</view>
+				<view class="number">{{indexShowCount.jobHunterInterestedToR}}</view>
 				<view class="text">我感兴趣的<i class="icon iconfont icon-disejiantou-you"></i></view>
 			</view>
 			<view class="item" bindtap="routeJump" data-route="interview">
@@ -47,31 +48,32 @@
 	</view>
 
 	<view class="shoper-banner">
-		<image class="images" src="{{cdnImagePath}}image0002.jpg"></image>
+		<image src="{{banner.bigImgUrl}}" class="images"></image>
 	</view>
 
 	<view class="index-list-box">
+
 		<view class="default" hidden="{{fixedDom}}">
 			<view class="ul-tab-bar">
-				<view class="li {{pageList === 'browseMySelf' ? 'active' : ''}}" bindtap="ontabClick" data-key="browseMySelf">发现<view></view></view>
-				<view class="li {{pageList === 'collectMySelf' ? 'active' : ''}}" bindtap="ontabClick" data-key="collectMySelf">看过我的<view></view></view>
-			<!-- 	<view class="li {{pageList === 'collectUsers' ? 'active' : ''}}" bindtap="ontabClick" data-key="collectUsers">我感兴趣的</view> -->
+				<view class="li {{pageList === 'collectMySelf' ? 'active' : ''}}" bindtap="ontabClick" data-key="collectMySelf">发现<view></view></view>
+				<view class="li {{pageList === 'browseMySelf' ? 'active' : ''}}" bindtap="ontabClick" data-key="browseMySelf">看过我的<view class="total">{{browseMySelf.total}}</view></view>
 			</view>
 		</view>
+
 		<view class="default fixed" hidden="{{!fixedDom}}" style="top: {{navH + 10}}px">
 			<view class="ul-tab-bar">
-				<view class="li {{pageList === 'browseMySelf' ? 'active' : ''}}" bindtap="ontabClick" data-key="browseMySelf">发现<view></view></view>
-				<view class="li {{pageList === 'collectMySelf' ? 'active' : ''}}" bindtap="ontabClick" data-key="collectMySelf">看过我的<view></view></view>
-			<!-- 	<view class="li {{pageList === 'collectUsers' ? 'active' : ''}}" bindtap="ontabClick" data-key="collectUsers">我感兴趣的</view> -->
+				<view class="li {{pageList === 'collectMySelf' ? 'active' : ''}}" bindtap="ontabClick" data-key="collectMySelf">发现<view></view></view>
+				<view class="li {{pageList === 'browseMySelf' ? 'active' : ''}}" bindtap="ontabClick" data-key="browseMySelf">看过我的<view></view></view>
 			</view>
 		</view>
-		<view class="list-box {{browseMySelf.list.length ? '' : 'nodata'}}" hidden="{{pageList === 'collectMySelf' || pageList === 'collectUsers'}}">
+
+		<view class="list-box a {{collectMySelf.list.length ? '' : 'nodata'}}" hidden="{{pageList === 'browseMySelf'}}">
 			<form bindsubmit="formSubmit" report-submit='{{true}}'> 
 				<button
 					form-type="submit"
 					bindtap="viewResumeDetail"
 					class="formIdBtn"
-					wx:for="{{browseMySelf.list}}"
+					wx:for="{{collectMySelf.list}}"
 					wx:for-item="item"
 					data-jobhunterUid="{{item.uid}}"
 					wx:key="{{index}}">
@@ -98,10 +100,10 @@
 							<!-- <view class="reddot"></view> -->
 							<view class="row-two">
 								<!-- 正常列表数据 start -->
-								<block wx:if="{{1 > 100}}">
+								<block wx:if="{{!item.isRecommend}}">
 									<view class="day">{{item.viewAt}}</view>
 									<view class="action">
-										她
+										{{item.gender === 2 ? '她' : '他'}}
 										<i class="icon iconfont icon-biaojiweiganxingqu"></i>
 										你的
 									</view>
@@ -113,7 +115,7 @@
 								<!-- 正常列表数据 end -->
 
 								<!-- 系统或者官方推荐 start -->
-								<block wx:if="{{1 > 0}}">
+								<block wx:else>
 									<view class="featured-icon">猎头推荐</view>
 									<view class="text">
 										根据你的
@@ -137,57 +139,19 @@
 					</view>
 				</button>
 			</form>
-			<bottomStatus status="{{onBottomStatus}}" listData="{{browseMySelf.list}}" desc="立即分享，一大波候选人等着开撩你！" marginTop="{{40}}">
-				<button class="jump share-position" bindtap="routeJump" data-route="position">分享职位</button>
-				<button class="jump share-homepage" bindtap="routeJump" data-route="recruiter">分享我的主页</button>
-			</bottomStatus>
-		</view>
-
-		<view class="list-box {{collectMySelf.list.length ? '' : 'nodata'}}" hidden="{{pageList === 'browseMySelf' || pageList === 'collectUsers'}}">
-			<form bindsubmit="formSubmit" report-submit='{{true}}'> 
-				<button
-					form-type="submit"
-					bindtap="viewResumeDetail"
-					class="formIdBtn"
-					wx:for="{{collectMySelf.list}}"
-					wx:for-item="item"
-					data-jobhunterUid="{{item.uid}}"
-					wx:key="{{index}}">
-					<view class="item2">
-						<view class="row-one">
-							<view class="img-box"><image src="{{item.avatar.smallUrl}}" lazy-load></image></view>
-							<view class="content">
-								<view class="header">
-									<view class="name">{{item.name}}</view>
-									<view class="zhiwei">
-										<block>{{item.workAgeDesc}}</block>
-										<block> . {{item.degreeDesc}}</block>
-										<block wx:if="{{item.salary}}"> . {{item.salary}}</block>
-									</view>
-								</view>
-								<view class="degress" wx:if="{{item.lastCompanyName || item.lastPosition}}">
-									<block wx:if="{{item.lastCompanyName}}">{{item.lastCompanyName}}</block>
-									<block wx:if="{{item.lastPosition}}"> | {{item.lastPosition}}</block>
-								</view>
-							</view>
-						</view>
-						<!-- <view class="reddot"></view> -->
-					</view>
-				</button>
-			</form>
 			<bottomStatus status="{{onBottomStatus}}" listData="{{collectMySelf.list}}" desc="立即分享，一大波候选人等着开撩你！" marginTop="{{40}}">
 				<button class="jump share-position" bindtap="routeJump" data-route="position">分享职位</button>
 				<button class="jump share-homepage" bindtap="routeJump" data-route="recruiter">分享我的主页</button>
 			</bottomStatus>
 		</view>
 
-		<view class="list-box {{collectUsers.list.length ? '' : 'nodata'}}" hidden="{{pageList === 'collectMySelf' || pageList === 'browseMySelf'}}">
+		<view class="list-box b {{browseMySelf.list.length ? '' : 'nodata'}}" hidden="{{pageList === 'collectMySelf'}}">
 			<form bindsubmit="formSubmit" report-submit='{{true}}'> 
 				<button
 					form-type="submit"
 					bindtap="viewResumeDetail"
 					class="formIdBtn"
-					wx:for="{{collectUsers.list}}"
+					wx:for="{{browseMySelf.list}}"
 					wx:for-item="item"
 					data-jobhunterUid="{{item.uid}}"
 					wx:key="{{index}}">
@@ -213,7 +177,7 @@
 					</view>
 				</button>
 			</form>
-			<bottomStatus status="{{onBottomStatus}}" listData="{{collectUsers.list}}" desc="还没有感兴趣的候选人哟~" marginTop="{{40}}">
+			<bottomStatus status="{{onBottomStatus}}" listData="{{browseMySelf.list}}" desc="立即分享，一大波候选人等着开撩你！" marginTop="{{40}}">
 				<button class="jump share-position" bindtap="routeJump" data-route="position">分享职位</button>
 				<button class="jump share-homepage" bindtap="routeJump" data-route="recruiter">分享我的主页</button>
 			</bottomStatus>
