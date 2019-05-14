@@ -38,8 +38,9 @@ export const allspaceReg = /^(?!(\s+$))/
 export const workContentReg = /^.{10,1000}$/
 
 
-// 链接
-export const urlReg = /^((https?|ftp|news):\/\/)?([a-z]([a-z0-9\-]*[\.。]))?([0-9A-Za-z_\-\@\#\$\%\^&\*\'\/\<\>]{3,1000})$/ // 链接网址验证
+// 链接  
+export const urlReg = /^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&%'\*\+,;=.]+$/
+
 
 // 工作内容
 export const productNameReg = /^.{1,20}$/

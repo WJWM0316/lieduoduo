@@ -471,11 +471,17 @@
 	line-height:40rpx;
 }
 .findMore .left .msg {
-	font-size:24rpx;
+	font-size: 0;
+	margin-top: 6rpx;
+  display: flex;
+  align-items: center;
+}
+.findMore .left .msg .desc, .findMore .left .msg .name {
+  font-size:24rpx;
 	font-weight:300;
 	color:#626262;
 	line-height:30rpx;
-	margin-top: 6rpx;
+  display: inline-block;
 }
 .findMore .left .msg .name {
 	max-width: 144rpx;
@@ -483,7 +489,6 @@
   text-overflow:ellipsis;
   white-space:nowrap;
 	color: #8452A7;
-  display: inline-block;
 }
 .findMore .right {
 	float: right;
