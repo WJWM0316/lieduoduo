@@ -41,7 +41,7 @@ export const getJobstatusApi = (data, hasLoading) => {
   })
 }
 
-//获取经验数据列表
+//获取工作经验数据列表
 export const getExperienceApi = (data, hasLoading) => {
   return request({
     method: 'get',

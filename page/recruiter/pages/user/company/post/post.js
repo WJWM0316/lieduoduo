@@ -1,6 +1,4 @@
 import {
-  getCompanyFinancingApi,
-  getCompanyEmployeesApi,
   getCompanyIdentityInfosApi,
   perfectCompanyApi
 } from '../../../../../../api/pages/company.js'

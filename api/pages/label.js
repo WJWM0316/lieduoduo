@@ -9,6 +9,7 @@ export const getLabelPositionApi = (data, hasLoading) => {
   })
 }
 
+// 技能标签
 export const getLabelProfessionalSkillsApi = (data, hasLoading) => {
   return request({
     method: 'get',
@@ -33,26 +34,6 @@ export const getFieldListApi = (data, hasLoading) => {
   return request({
     method: 'get',
     url: '/label/field',
-    data,
-    hasLoading: true
-  })
-}
-
-// 职业类别
-export const getPositionTypeApi = (data, hasLoading) => {
-  return request({
-    method: 'get',
-    url: '/label/positionType',
-    data,
-    hasLoading: true
-  })
-}
-
-// 技能标签
-export const getProfessionalSkillsApi = (data, hasLoading) => {
-  return request({
-    method: 'get',
-    url: '/label/professionalSkills',
     data,
     hasLoading: true
   })

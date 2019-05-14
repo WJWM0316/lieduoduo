@@ -20,16 +20,6 @@ export const editApplyCompanyApi = (data, hasLoading) => {
   })
 }
 
-// 获取融资数据列表
-export const getCompanyFinancingApi = (data, hasLoading) => {
-  return request({
-    method: 'get',
-    url: '/company/financing',
-    data,
-    hasLoading: true
-  })
-}
-
 // 判断是否有申请记录
 export const hasApplayRecordApi = (data, hasLoading) => {
   return request({
@@ -45,16 +35,6 @@ export const upJoinTypeApi = (data, hasLoading) => {
   return request({
     method: 'post',
     url: '/company/upJoinType',
-    data,
-    hasLoading: true
-  })
-}
-
-// 获取员工数据列表
-export const getCompanyEmployeesApi = (data, hasLoading) => {
-  return request({
-    method: 'get',
-    url: '/company/employees',
     data,
     hasLoading: true
   })
