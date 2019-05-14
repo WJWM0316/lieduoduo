@@ -76,10 +76,11 @@
 					wx:for="{{collectMySelf.list}}"
 					wx:for-item="item"
 					data-jobhunterUid="{{item.uid}}"
+					data-type="{{item.myType}}"
 					wx:key="{{index}}">
 					<view class="item2">
 						<!-- 无发布职位和分享按钮 start -->
-						<block wx:if="{{1>0}}">
+						<block wx:if="{{!item.myType}}">
 							<view class="row-one">
 								<view class="img-box"><image src="{{item.avatar.smallUrl}}" lazy-load></image></view>
 								<view class="content">
@@ -119,7 +120,7 @@
 									<view class="featured-icon">猎头推荐</view>
 									<view class="text">
 										根据你的
-										<view class="position">架构工程师</view>
+										<view class="position">{{item.lastPosition}}</view>
 										为你推荐
 									</view>
 								</block>
@@ -128,11 +129,17 @@
 							</view>
 						</block>
 						<!-- 无发布职位和分享按钮 end -->
-						<block wx:if="{{1 > 10}}">
+						<block wx:else>
 							<view class="public">
 								<view class="row1">Get更多优质简历</view>
-								<view class="row2">根据职位为你匹配优质候选人</view>
-								<view class="row3">发布/开放职位<i class="icon iconfont icon-disejiantou-you"></i></view>
+								<block wx:if="{{item.myType === 1}}">
+									<view class="row2">根据职位为你匹配优质候选人</view>
+									<view class="row3">发布/开放职位<i class="icon iconfont icon-disejiantou-you"></i></view>
+								</block>
+								<block wx:if="{{item.myType === 2}}">
+									<view class="row2">努力就有回报，主动出击去转发吧~</view>
+									<view class="row3">去转发主页<i class="icon iconfont icon-disejiantou-you"></i></view>
+								</block>
 								<image src="{{cdnImagePath}}image0001.png" class="image"></image>
 							</view>
 						</block>

@@ -1,7 +1,8 @@
 import {
   getPositionApi,
   openPositionApi,
-  closePositionApi
+  closePositionApi,
+  getPositionListNumApi
 } from '../../../../api/pages/position.js'
 
 import {
@@ -15,7 +16,7 @@ import {RECRUITER, COMMON} from '../../../../config.js'
 import {sharePosition} from '../../../../utils/shareWord.js'
 
 let positionCard = ''
-const app = getApp()
+let app = getApp()
 let identity= ''
 Page({
   data: {
@@ -50,7 +51,7 @@ Page({
    * @return   {[type]}   [description]
    */
   bindStatusChange(e) {
-    const detail = e.detail
+    let detail = e.detail
     detail.isOnline = detail.isOnline === 2 ? 1 : 2
     this.setData({detail})
   },
@@ -94,17 +95,16 @@ Page({
    * @return   {[type]}     [description]
    */
   todoAction(e) {
-    const type = e.currentTarget.dataset.type
-    const that = this
+    let type = e.currentTarget.dataset.type
+    let that = this
     switch(type) {
       case 'open':
-        openPositionApi({id: this.data.detail.id})
-          .then(res => {
-            const detail = this.data.detail
-            detail.status = 0
-            that.setData({detail}, () => app.wxToast({title: '职位已开放', icon: 'success'}))
-            that.getPositionDetail()
-          })
+        openPositionApi({id: this.data.detail.id}).then(res => {
+          let detail = this.data.detail
+          detail.status = 0
+          that.setData({detail}, () => app.wxToast({title: '职位已开放', icon: 'success'}))
+          that.getPositionDetail()
+        })
         break
       case 'close':
         app.wxConfirm({
@@ -113,12 +113,21 @@ Page({
           confirmText: '关闭职位',
           cancelText: '考虑一下',
           confirmBack() {
-            closePositionApi({id: that.data.detail.id})
-              .then(res => {
-                const detail = that.data.detail
-                that.setData({detail}, () => app.wxToast({title: '职位已关闭', icon: 'success'}))
-                that.getPositionDetail()
+            closePositionApi({id: that.data.detail.id}).then(res => {
+              getPositionListNumApi().then(res => {
+                let recruiterDetails = app.globalData.recruiterDetails
+                if(!res.data.online) recruiterDetails.positionNum = 0
+                if(res.data.online) recruiterDetails.positionNum = res.data.online
+                app.globalData.recruiterDetails = recruiterDetails
+                app.wxToast({
+                  title: '职位已关闭',
+                  icon: 'success',
+                  callback() {
+                    that.getPositionDetail()
+                  }
+                })
               })
+            })
           }
         })
         break
@@ -135,12 +144,11 @@ Page({
           })
           return
         }
-        getMycollectPositionApi({id: this.data.detail.id})
-          .then(res => {
-            const detail = this.data.detail
-            detail.isCollect = true
-            this.setData({detail}, () => app.wxToast({title: '收藏成功', icon: 'success'}))
-          })
+        getMycollectPositionApi({id: this.data.detail.id}).then(res => {
+          let detail = this.data.detail
+          detail.isCollect = true
+          this.setData({detail}, () => app.wxToast({title: '收藏成功', icon: 'success'}))
+        })
         break
       case 'uncollect':
         if (identity !== 'APPLICANT') {
@@ -149,12 +157,11 @@ Page({
           })
           return
         }
-        deleteMycollectPositionApi({id: this.data.detail.id})
-          .then(res => {
-            const detail = this.data.detail
-            detail.isCollect = false
-            this.setData({detail}, () => app.wxToast({title: '取消收藏', icon: 'success'}))
-          })
+        deleteMycollectPositionApi({id: this.data.detail.id}).then(res => {
+          let detail = this.data.detail
+          detail.isCollect = false
+          this.setData({detail}, () => app.wxToast({title: '取消收藏', icon: 'success'}))
+        })
         break
       case 'about':
         wx.navigateTo({url: `${COMMON}homepage/homepage?companyId=${this.data.detail.companyId}`})

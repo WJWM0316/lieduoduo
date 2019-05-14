@@ -42,7 +42,8 @@ Page({
       list: [],
       pageNum: 1,
       isLastPage: false,
-      isRequire: false
+      isRequire: false,
+      isUse: false
     },
     pageCount: 10,
     background: 'transparent',
@@ -88,7 +89,8 @@ Page({
       list: [],
       pageNum: 1,
       isLastPage: false,
-      isRequire: false
+      isRequire: false,
+      isUse: false
     }
     this.setData({browseMySelf, collectMySelf}, () => this.getWelcomeWord())
     if (app.loginInit) {
@@ -152,13 +154,35 @@ Page({
       getCollectMySelfApi(params, hasLoading).then(res => {
         let collectMySelf = this.data.collectMySelf
         let onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
-        collectMySelf.list = collectMySelf.list.concat(res.data)
+        let list = this.appendData(res.data, collectMySelf)
+        collectMySelf.list = collectMySelf.list.concat(list)
         collectMySelf.isLastPage = res.meta.nextPageUrl ? false : true
         collectMySelf.pageNum = collectMySelf.pageNum + 1
         collectMySelf.isRequire = true
         this.setData({collectMySelf, onBottomStatus}, () => resolve(res))
       })
     })
+  },
+  /**
+   * @Author   小书包
+   * @DateTime 2019-05-14
+   * @detail   追加数据
+   * @return   {[type]}   [description]
+   */
+  appendData(list, collectMySelf) {
+    let detail = this.data.detail
+    let data = list
+    let item = {}
+    if(!collectMySelf.isUse) {
+      if(data.length) {
+        collectMySelf.isUse = true
+        if(!detail.positionNum) item.myType = 1
+        if(detail.positionNum) item.myType = 2
+        if(data.length < 7) data.push(item)
+        if(data.length >= 7) data.splice(6, 0, item)
+      }
+    }
+    return data
   },
   /**
    * @Author   小书包
@@ -244,8 +268,15 @@ Page({
    */
   viewResumeDetail(e) {
     let params = e.currentTarget.dataset
+    let uid = this.data.detail.uid
     if(!Object.keys(params).length) return;
-    wx.navigateTo({url: `${COMMON}resumeDetail/resumeDetail?uid=${params.jobhunteruid}`})
+    if(params.type === 1) {
+      wx.reLaunch({url: `${RECRUITER}position/index/index`})
+    } else if(params.type === 2) {
+      wx.navigateTo({url: `${COMMON}recruiterDetail/recruiterDetail?uid=${uid}`})
+    } else {
+      wx.navigateTo({url: `${COMMON}resumeDetail/resumeDetail?uid=${params.jobhunteruid}`})
+    }
   },
   routeJump(e) {
     let route = e.currentTarget.dataset.route
@@ -278,7 +309,7 @@ Page({
    */
   getWelcomeWord() {
     let d = new Date()
-    if(d.getHours() >= 6 &&d.getHours() < 12) {
+    if(d.getHours() >= 6 && d.getHours() < 12) {
       this.setData({welcomeWord: '早上好'})
     } else if(d.getHours() >= 12 && d.getHours() < 14) {
       this.setData({welcomeWord: '中午好'})
