@@ -76,6 +76,9 @@ Component({
             url: `${COMMON}poster/resume/resume`
           })
           break
+        case 'recruiter':
+          wx.navigateTo({url: `${COMMON}poster/recruiter/recruiter`})
+          break
       }
       wx.setStorageSync('posterData', this.data.posterData)
       this.setData({showChoose: false})

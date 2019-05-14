@@ -608,7 +608,6 @@ left, linear-gradient(-135deg, transparent 16rpx, #FFDC29 0) top right, linear-g
   height:88rpx;
   border-radius:49rpx;
   font-size:32rpx;
-  font-weight:400;
   line-height: 88rpx;
   text-align: center;
 }

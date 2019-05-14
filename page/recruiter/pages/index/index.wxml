@@ -20,7 +20,7 @@
 	<view class="floating-box">
 		<view class="row-one">
 			<view class="item left001" bindtap="routeJump" data-route="interested">
-				<view class="number">{{indexShowCount.jobHunterInterestedToR}}</view>
+				<view class="number">{{indexShowCount.recruiterInterestedToJ}}</view>
 				<view class="text">我感兴趣的<i class="icon iconfont icon-disejiantou-you"></i></view>
 			</view>
 			<view class="item center001" bindtap="routeJump" data-route="interview">
@@ -34,8 +34,8 @@
 		</view>
 		<view class="row-two" bindtap="routeJump" data-route="rank">
 			<view class="content">
-				<view class="row-three">招聘官排行榜</view>
-				<view class="row-four">你当前的人气：{{indexShowCount.rankDetail.popularity}} 排名：{{indexShowCount.rankDetail.influence}}</view>
+				<view class="row-three">面试官排行榜</view>
+				<view class="row-four">你当前的人气：{{indexShowCount.rankDetail.popularity}} 排名：{{indexShowCount.rankDetail.currentRank}}</view>
 			</view>
 			<view class="imglist">
 				<image class="imgitem" lazy-load wx:for="{{indexShowCount.moreRecruiter}}" wx:key="{{index}}" src="{{item.smallUrl}}" wx:if="{{index <= 2}}"></image>
@@ -145,8 +145,9 @@
 				</button>
 			</form>
 			<bottomStatus status="{{onBottomStatus}}" listData="{{collectMySelf.list}}" desc="立即分享，一大波候选人等着开撩你！" marginTop="{{40}}">
-				<button class="jump share-position" bindtap="routeJump" data-route="position">分享职位</button>
-				<button class="jump share-homepage" bindtap="routeJump" data-route="recruiter">分享我的主页</button>
+				<button class="jump share-position" bindtap="routeJump" data-route="position" wx:if="{{!detail.positionNum && !collectMySelf.list.length}}">发布/开放职位</button>
+				<button class="jump share-position" bindtap="routeJump" data-route="position" wx:if="{{detail.positionNum && !collectMySelf.list.length}}">转发职位</button>
+				<button class="jump share-homepage" bindtap="routeJump" data-route="recruiter" wx:if="{{detail.positionNum && !collectMySelf.list.length}}">转发我的主页</button>
 			</bottomStatus>
 		</view>
 
@@ -182,9 +183,9 @@
 					</view>
 				</button>
 			</form>
-			<bottomStatus status="{{onBottomStatus}}" listData="{{browseMySelf.list}}" desc="立即分享，一大波候选人等着开撩你！" marginTop="{{40}}">
-				<button class="jump share-position" bindtap="routeJump" data-route="position">分享职位</button>
-				<button class="jump share-homepage" bindtap="routeJump" data-route="recruiter">分享我的主页</button>
+			<bottomStatus status="{{onBottomStatus}}" listData="{{browseMySelf.list}}" desc="还没有候选人看过你哟～ 试试分享你的职位，让更多人来围观吧！~" marginTop="{{40}}">
+				<!-- <button class="jump share-position" bindtap="routeJump" data-route="position">分享职位</button> -->
+				<!-- <button class="jump share-homepage" bindtap="routeJump" data-route="recruiter">分享我的主页</button> -->
 			</bottomStatus>
 		</view>
 

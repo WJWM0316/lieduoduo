@@ -1,5 +1,5 @@
 <view class="more">
-  <navbar title="发现更多招聘官" color="#282828" background="#FFFFFF" showHome="{{true}}"></navbar>
+  <navbar title="发现更多面试官" color="#282828" background="#FFFFFF" showHome="{{true}}"></navbar>
   
   <view class="fixed-box" style="top: {{navH}}px">
     <view class="tabBar">

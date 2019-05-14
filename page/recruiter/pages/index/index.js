@@ -67,8 +67,30 @@ Page({
     banner: {}
   },
   onLoad() {
+    let browseMySelf = {
+      list: [],
+      pageNum: 1,
+      isLastPage: false,
+      isRequire: false,
+      total: 0
+    }
+    let collectMySelf = {
+      list: [],
+      pageNum: 1,
+      isLastPage: false,
+      isRequire: false,
+      isUse: false
+    }
     let choseType = wx.getStorageSync('choseType') || ''
-    this.setData({choseType})
+    this.setData({choseType, browseMySelf, collectMySelf}, () => {
+      if (app.loginInit) {
+        this.setData({detail: app.globalData.recruiterDetails}, () => this.getLists().then(() => this.getDomNodePosition()))
+      } else {
+        app.loginInit = () => {
+          this.setData({detail: app.globalData.recruiterDetails}, () => this.getLists().then(() => this.getDomNodePosition()))
+        }
+      }
+    })
     if (choseType === 'APPLICANT') {
       app.wxConfirm({
         title: '提示',
@@ -84,32 +106,37 @@ Page({
     }
   },
   onShow() {
-    let browseMySelf = {
-      list: [],
-      pageNum: 1,
-      isLastPage: false,
-      isRequire: false,
-      total: 0
-    }
-    let collectMySelf = {
-      list: [],
-      pageNum: 1,
-      isLastPage: false,
-      isRequire: false,
-      isUse: false
-    }
-    this.setData({browseMySelf, collectMySelf})
-    if (app.loginInit) {
-      this.getWelcomeWord()
-      this.getMixdata()
-      this.setData({detail: app.globalData.recruiterDetails}, () => this.getLists().then(() => this.getDomNodePosition()))
-    } else {
-      app.loginInit = () => {
-        this.getWelcomeWord()
-        this.getMixdata()
-        this.setData({detail: app.globalData.recruiterDetails}, () => this.getLists().then(() => this.getDomNodePosition()))
-      }
-    }
+
+    this.getWelcomeWord()
+    this.getMixdata()
+
+    // let browseMySelf = {
+    //   list: [],
+    //   pageNum: 1,
+    //   isLastPage: false,
+    //   isRequire: false,
+    //   total: 0
+    // }
+    // let collectMySelf = {
+    //   list: [],
+    //   pageNum: 1,
+    //   isLastPage: false,
+    //   isRequire: false,
+    //   isUse: false
+    // }
+
+    // this.setData({browseMySelf, collectMySelf},() => {
+    //   this.getWelcomeWord()
+    //   this.getMixdata()
+    // })
+
+    // if (app.loginInit) {
+    //   this.setData({detail: app.globalData.recruiterDetails}, () => this.getLists().then(() => this.getDomNodePosition()))
+    // } else {
+    //   app.loginInit = () => {
+    //     this.setData({detail: app.globalData.recruiterDetails}, () => this.getLists().then(() => this.getDomNodePosition()))
+    //   }
+    // }
   },
   getMixdata() {
     getIndexShowCountApi().then(res => this.setData({indexShowCount: res.data}))

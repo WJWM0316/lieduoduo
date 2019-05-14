@@ -299,5 +299,8 @@ Page({
   },
   share() {
     this.selectComponent('#shareBtn').oper()
-  }
+  },
+  getCreatedImg(e) {
+    recruiterCard = e.detail
+  },
 })

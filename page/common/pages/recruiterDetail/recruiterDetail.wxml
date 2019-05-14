@@ -128,4 +128,5 @@
     <view class="button button-edit" bindtap="edit">编辑主页</view>
     <view class="button button-share" bindtap="share">分享我的主页</view>
   </view>
+  <block wx:if="{{info.uid}}"><canvasCard cardData="{{info}}" type="recruiter" bindgetCreatedImg="getCreatedImg"></canvasCard></block>
 </view>
