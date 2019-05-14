@@ -62,7 +62,7 @@ Page({
   },
   onLoad() {
     let choseType = wx.getStorageSync('choseType') || ''
-    this.setData({choseType}, () => this.getMixdata())
+    this.setData({choseType})
     if (choseType === 'APPLICANT') {
       app.wxConfirm({
         title: '提示',
@@ -92,7 +92,10 @@ Page({
       isRequire: false,
       isUse: false
     }
-    this.setData({browseMySelf, collectMySelf}, () => this.getWelcomeWord())
+    this.setData({browseMySelf, collectMySelf}, () => {
+      this.getWelcomeWord()
+      this.getMixdata()
+    })
     if (app.loginInit) {
       this.setData({detail: app.globalData.recruiterDetails}, () => this.getLists().then(() => this.getDomNodePosition()))
     } else {
