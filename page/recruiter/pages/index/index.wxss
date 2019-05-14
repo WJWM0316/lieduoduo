@@ -25,7 +25,7 @@
   position: fixed;
   left: 30rpx;
   right: 30rpx;
-  box-shadow: 0 -20rpx 0 #FBFBFF;
+  box-shadow: 0 -19rpx 0 #FBFBFF;
   z-index: 22;
 }
 
@@ -206,7 +206,7 @@
 
 .item2 .row-two .icon-biaojiweiganxingqu{
   font-size:24rpx;
-  margin: 0 14rpx;
+  margin: 0 5rpx;
   color: #8452A7;
 }
 
@@ -274,12 +274,12 @@ left, linear-gradient(-135deg, transparent 16rpx, #FFDC29 0) top right, linear-g
   line-height: 40rpx;
   display: inline-block;
   padding-right: 25rpx;
-  margin-right: 12rpx;
+  margin-right: 5rpx;
 }
-
+/*
 .item2 .row-two view {
   display: inline-block;
-}
+}*/
 
 .item2 .row-two .status {
   float: right;
@@ -287,12 +287,22 @@ left, linear-gradient(-135deg, transparent 16rpx, #FFDC29 0) top right, linear-g
 }
 
 .item2 .row-two .action {
-  margin-left: 24rpx;
+  margin-left: 20rpx;
+  display: inline;
+}
+
+.item2 .row-two .day {
+  display: inline;
 }
 
 .item2 .row-two .status.dark{
   color: #FF7F4C;
 }
+
+.item2 .row-two .text {
+  display: inline;
+}
+
 
 .item2 .row-two .position {
   color: #652791;
@@ -334,7 +344,6 @@ left, linear-gradient(-135deg, transparent 16rpx, #FFDC29 0) top right, linear-g
 }
 
 .item2 .public .row3{
-  width:228rpx;
   height:60rpx;
   background:rgba(255,220,41,1);
   border-radius:30rpx;
@@ -345,6 +354,7 @@ left, linear-gradient(-135deg, transparent 16rpx, #FFDC29 0) top right, linear-g
   line-height: 60rpx;
   margin-top: 24rpx;
   padding: 0 28rpx;
+  display: inline-block;
 }
 
 .item2 .public .icon-disejiantou-you{
@@ -360,6 +370,17 @@ left, linear-gradient(-135deg, transparent 16rpx, #FFDC29 0) top right, linear-g
   top: 50%;
   transform: translateY(-50%);
 }
+
+.item2 .row-two .limit-wid {
+  max-width: 300rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  display: inline-block;
+  line-height: 40rpx;
+  vertical-align: top;
+}
+
 .floating-box {
   margin: -0 30rpx;
   position: relative;
@@ -374,14 +395,22 @@ left, linear-gradient(-135deg, transparent 16rpx, #FFDC29 0) top right, linear-g
   border-radius:16rpx 16rpx 0rpx 0rpx;
   position: relative;
   z-index: 2;
-  display: flex;
   padding: 44rpx 64rpx 44rpx 64rpx;
   box-sizing: border-box;
+  text-align: center;
 }
 
 .floating-box .item{
-  flex: 1;
   text-align: center;
+  display: inline-block;
+}
+
+.floating-box .left001{
+  float: left;
+}
+
+.floating-box .right001{
+  float: right;
 }
 
 .floating-box .number{
@@ -406,9 +435,8 @@ left, linear-gradient(-135deg, transparent 16rpx, #FFDC29 0) top right, linear-g
 .floating-box .text .icon{
   font-size:24rpx;
   color:#FFDC29;
-  position: absolute;
-  top: 8rpx;
-  right: -30rpx;
+  position: relative;
+  margin-left: 6rpx;
 }
 
 .floating-box .row-two {
@@ -538,7 +566,7 @@ left, linear-gradient(-135deg, transparent 16rpx, #FFDC29 0) top right, linear-g
 
 .welcome .icon-youyi {
   float: right;
-  color: rgba(255,255,255,.1);
+  color: rgba(255,255,255,.35);
   font-size: 24rpx;
 }
 

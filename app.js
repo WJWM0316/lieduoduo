@@ -512,10 +512,7 @@ App({
     let identity = wx.getStorageSync('choseType')
     if (identity === 'RECRUITER') {
       wx.setStorageSync('choseType', 'APPLICANT')
-      wx.reLaunch({
-        url: `${APPLICANT}index/index`
-      })
-      this.getAllInfo()
+      this.getAllInfo().then(() => wx.reLaunch({url: `${APPLICANT}index/index` }))
     } else {
       if (!this.globalData.hasLogin) {
         wx.navigateTo({

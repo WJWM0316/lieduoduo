@@ -56,7 +56,13 @@ Page({
     indexShowCount: {
       jobHunterInterestedToR: 0,
       recentInterview: 0,
-      onlinePosition: 0
+      onlinePosition: 0,
+      moreRecruiter: [],
+      rankDetail: {
+        currentRank: 0,
+        influence: 0,
+        popularity: 0
+      }
     },
     banner: {}
   },
@@ -92,14 +98,15 @@ Page({
       isRequire: false,
       isUse: false
     }
-    this.setData({browseMySelf, collectMySelf}, () => {
+    this.setData({browseMySelf, collectMySelf})
+    if (app.loginInit) {
       this.getWelcomeWord()
       this.getMixdata()
-    })
-    if (app.loginInit) {
       this.setData({detail: app.globalData.recruiterDetails}, () => this.getLists().then(() => this.getDomNodePosition()))
     } else {
       app.loginInit = () => {
+        this.getWelcomeWord()
+        this.getMixdata()
         this.setData({detail: app.globalData.recruiterDetails}, () => this.getLists().then(() => this.getDomNodePosition()))
       }
     }
@@ -197,6 +204,7 @@ Page({
     let pageList = e.currentTarget.dataset.key
     this.setData({ pageList }, () => {
       let key = this.data.pageList
+      getIndexShowCountApi().then(res => this.setData({indexShowCount: res.data}))
       if(!this.data[key].isRequire) this.getLists()
     })
   },
@@ -210,6 +218,7 @@ Page({
     let key = this.data.pageList
     let value = {list: [], pageNum: 1, isLastPage: false, isRequire: false}
     this.setData({[key]: value, hasReFresh: true})
+    getIndexShowCountApi().then(res => this.setData({indexShowCount: res.data}))
     this.getLists().then(res => {
       let value = {list: [], pageNum: 1, isLastPage: false, isRequire: false}
       let onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
@@ -220,6 +229,7 @@ Page({
       value.total = res.meta.total
       this.setData({[key]: value, onBottomStatus}, () => {
         wx.stopPullDownRefresh()
+        wx.pageScrollTo({scrollTop: 0 })
         this.setData({hasReFresh: false})
       })
     })
@@ -249,9 +259,9 @@ Page({
    */
   onPageScroll(e) {
     if(e.scrollTop > 0) {
-      this.setData({isFixed: true, background: '#652791'})
+      if (!this.data.isFixed) this.setData({isFixed: true, background: '#652791'})
     } else {
-      this.setData({isFixed: false, background: 'transparent'})
+      if (this.data.isFixed) this.setData({isFixed: false, background: 'transparent'})
     }
 
     if(e.scrollTop > fixedDomPosition) {

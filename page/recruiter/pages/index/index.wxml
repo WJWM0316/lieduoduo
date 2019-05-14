@@ -6,7 +6,7 @@
 	</view>
 	
 	<view class="index-bannar">
-		<image src="{{cdnImagePath}}recruiter_mine_bg.png"></image>
+		<image src="{{cdnImagePath}}recruiter_mine_new_bg.png"></image>
 	</view>
 	
 	<view class="welcome">
@@ -19,15 +19,15 @@
 
 	<view class="floating-box">
 		<view class="row-one">
-			<view class="item" bindtap="routeJump" data-route="interested">
+			<view class="item left001" bindtap="routeJump" data-route="interested">
 				<view class="number">{{indexShowCount.jobHunterInterestedToR}}</view>
 				<view class="text">我感兴趣的<i class="icon iconfont icon-disejiantou-you"></i></view>
 			</view>
-			<view class="item" bindtap="routeJump" data-route="interview">
+			<view class="item center001" bindtap="routeJump" data-route="interview">
 				<view class="number">{{indexShowCount.recentInterview}}</view>
 				<view class="text">最近面试<i class="icon iconfont icon-disejiantou-you"></i></view>
 			</view>
-			<view class="item" bindtap="routeJump" data-route="position">
+			<view class="item right001" bindtap="routeJump" data-route="position">
 				<view class="number">{{indexShowCount.onlinePosition}}</view>
 				<view class="text">在招职位<i class="icon iconfont icon-disejiantou-you"></i></view>
 			</view>
@@ -35,13 +35,11 @@
 		<view class="row-two" bindtap="routeJump" data-route="rank">
 			<view class="content">
 				<view class="row-three">招聘官排行榜</view>
-				<view class="row-four">你当前的人气：319 排名：61</view>
+				<view class="row-four">你当前的人气：{{indexShowCount.rankDetail.popularity}} 排名：{{indexShowCount.rankDetail.influence}}</view>
 			</view>
 			<view class="imglist">
-				<image class="imgitem" src="{{cdnImagePath}}more.png"></image>
-				<image class="imgitem" src="{{cdnImagePath}}more.png"></image>
-				<image class="imgitem" src="{{cdnImagePath}}more.png"></image>
-				<image class="imgitem" src="{{cdnImagePath}}more.png"></image>
+				<image class="imgitem" lazy-load wx:for="{{indexShowCount.moreRecruiter}}" wx:key="{{index}}" src="{{item.smallUrl}}" wx:if="{{index <= 2}}"></image>
+				<image class="imgitem" src="{{cdnImagePath}}more.png" wx:if="{{indexShowCount.moreRecruiter.length > 3}}"></image>
 			</view>
 		</view>
 		<view class="shadow"></view>
@@ -56,14 +54,14 @@
 		<view class="default" hidden="{{fixedDom}}">
 			<view class="ul-tab-bar">
 				<view class="li {{pageList === 'collectMySelf' ? 'active' : ''}}" bindtap="ontabClick" data-key="collectMySelf">发现<view></view></view>
-				<view class="li {{pageList === 'browseMySelf' ? 'active' : ''}}" bindtap="ontabClick" data-key="browseMySelf">看过我的<view class="total">{{browseMySelf.total}}</view></view>
+				<view class="li {{pageList === 'browseMySelf' ? 'active' : ''}}" bindtap="ontabClick" data-key="browseMySelf">看过我的<view class="total" wx:if="{{indexShowCount.viewCount}}">{{indexShowCount.viewCount}}</view></view>
 			</view>
 		</view>
 
 		<view class="default fixed" hidden="{{!fixedDom}}" style="top: {{navH + 10}}px">
 			<view class="ul-tab-bar">
 				<view class="li {{pageList === 'collectMySelf' ? 'active' : ''}}" bindtap="ontabClick" data-key="collectMySelf">发现<view></view></view>
-				<view class="li {{pageList === 'browseMySelf' ? 'active' : ''}}" bindtap="ontabClick" data-key="browseMySelf">看过我的<view></view></view>
+				<view class="li {{pageList === 'browseMySelf' ? 'active' : ''}}" bindtap="ontabClick" data-key="browseMySelf">看过我的<view class="total" wx:if="{{indexShowCount.viewCount}}">{{indexShowCount.viewCount}}</view><view></view></view>
 			</view>
 		</view>
 
@@ -117,10 +115,10 @@
 
 								<!-- 系统或者官方推荐 start -->
 								<block wx:else>
-									<view class="featured-icon">猎头推荐</view>
+									<view class="featured-icon">精选</view>
 									<view class="text">
 										根据你的
-										<view class="position">{{item.lastPosition}}</view>
+										<view class="position limit-wid">{{item.positionName}}</view>
 										为你推荐
 									</view>
 								</block>

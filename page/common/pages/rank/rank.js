@@ -15,7 +15,7 @@ import {APPLICANT, COMMON} from '../../../../config.js'
 
 import {getSelectorQuery} from "../../../../utils/util.js"
 
-const app = getApp()
+let app = getApp()
 let identity = '',
     cityIndex = 0,
     cateIndex = 0
@@ -31,25 +31,45 @@ Page({
       list: [],
       pageNum: 1,
       isLastPage: false,
-      isRequire: false
+      isRequire: false,
+      rankDetail: {
+        currentRank: 0,
+        influence: 0,
+        popularity: 0
+      }
     },
     rankCate: {
       list: [],
       pageNum: 1,
       isLastPage: false,
-      isRequire: false
+      isRequire: false,
+      rankDetail: {
+        currentRank: 0,
+        influence: 0,
+        popularity: 0
+      }
     },
     rankCity: {
       list: [],
       pageNum: 1,
       isLastPage: false,
-      isRequire: false
+      isRequire: false,
+      rankDetail: {
+        currentRank: 0,
+        influence: 0,
+        popularity: 0
+      }
     },
     commonList: {
       list: [],
       pageNum: 1,
       isLastPage: false,
-      isRequire: false
+      isRequire: false,
+      rankDetail: {
+        currentRank: 0,
+        influence: 0,
+        popularity: 0
+      }
     },
     pageCount: 20,
     hasReFresh: false,
@@ -98,8 +118,8 @@ Page({
    * @return   {[type]}     [description]
    */
   onTabClick(e) {
-    const key = e.target.dataset.tab
-    const value = this.data[key]
+    let key = e.target.dataset.tab
+    let value = this.data[key]
     let nowIndex = 0
     e.target.dataset.tab === 'rankCity' ? nowIndex = cityIndex : nowIndex = cateIndex
     this.setData({nowIndex, tab: key, commonList: value}, () => {
@@ -116,20 +136,20 @@ Page({
    * @return   {[type]}         [description]
    */
   toggle(e) {
-    const tab = this.data.tab === 'rankCity' ? 'area_id' : 'cate_id'
-    const key = this.data.tab
-    const value = this.data[key]
+    let tab = this.data.tab === 'rankCity' ? 'area_id' : 'cate_id'
+    let key = this.data.tab
+    let value = this.data[key]
     value.pageNum = 1
-    const params = e.currentTarget.dataset
+    let params = e.currentTarget.dataset
     this.data.tab === 'rankCity' ? cityIndex = params.nowindex : cateIndex = params.nowindex
     this.setData({nowIndex: params.nowindex, [tab]: params.id, [key]: value}, () => {
       let secondtItem = {}
-      const key = this.data.tab
-      const value = {list: [], pageNum: 1, isLastPage: false, isRequire: false}
+      let key = this.data.tab
+      let value = {list: [], pageNum: 1, isLastPage: false, isRequire: false}
       this.setData({[key]: value, commonList: value})
       this.getLists().then(res => {
-        const value = {list: [], pageNum: 1, isLastPage: false, isRequire: false}
-        const onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
+        let value = {list: [], pageNum: 1, isLastPage: false, isRequire: false}
+        let onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
         value.list = res.data
         value.isLastPage = res.meta && res.meta.nextPageUrl ? false : true
         value.pageNum = 2
@@ -170,16 +190,14 @@ Page({
    * @return   {[type]}   [description]
    */
   getSubmenuLists() {
-    Promise
-      .all([this.getCityLabel(), this.getJobLabelList()])
-      .then(res => {
-        this.setData({
-          cityLabel: res[0].data,
-          jobLabel: res[1].data,
-          area_id: res[0].data[0].areaId,
-          cate_id: res[1].data[0].labelId
-        })
+    Promise.all([this.getCityLabel(), this.getJobLabelList()]).then(res => {
+      this.setData({
+        cityLabel: res[0].data,
+        jobLabel: res[1].data,
+        area_id: res[0].data[0].areaId,
+        cate_id: res[1].data[0].labelId
       })
+    })
   },
   /**
    * @Author   小书包
@@ -210,10 +228,10 @@ Page({
    */
   getRankCity(hasLoading = true) {
     return new Promise((resolve, reject) => {
-      const params = {count: this.data.pageCount, page: this.data.rankCity.pageNum, area_id: this.data.area_id, ...app.getSource()}
+      let params = {count: this.data.pageCount, page: this.data.rankCity.pageNum, area_id: this.data.area_id, ...app.getSource()}
       getCityRankApi(params, hasLoading).then(res => {
-        const rankCity = this.data.rankCity
-        const onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
+        let rankCity = this.data.rankCity
+        let onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
         let secondtItem = {}
         if (identity !== 'RECRUITER') {
           rankCity.list = rankCity.list.concat(res.data)
@@ -230,6 +248,8 @@ Page({
           rankCity.list = rankCity.list.filter(field => field.uid !== secondtItem.uid)
           rankCity.list.unshift(secondtItem)
         }
+        rankCity.rankDetail = res.data.rankDetail
+        console.log(res)
         this.setData({rankCity, onBottomStatus, commonList: rankCity}, () => resolve(res))
       })
     })
@@ -242,10 +262,10 @@ Page({
    */
   getRankCate(hasLoading = true) {
     return new Promise((resolve, reject) => {
-      const params = {count: this.data.pageCount, page: this.data.rankCate.pageNum, cate_id: this.data.cate_id, ...app.getSource()}
+      let params = {count: this.data.pageCount, page: this.data.rankCate.pageNum, cate_id: this.data.cate_id, ...app.getSource()}
       getOfficeRankApi(params, hasLoading).then(res => {
-        const rankCate = this.data.rankCate
-        const onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
+        let rankCate = this.data.rankCate
+        let onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
         let secondtItem = {}
         if (identity !== 'RECRUITER') {
           rankCate.list = rankCate.list.concat(res.data)
@@ -262,6 +282,8 @@ Page({
           rankCate.list = rankCate.list.filter(field => field.uid !== secondtItem.uid)
           rankCate.list.unshift(secondtItem)
         }
+        rankCate.rankDetail = res.data.rankDetail
+        console.log(res)
         this.setData({rankCate, onBottomStatus, commonList: rankCate}, () => resolve(res))
       })
     })
@@ -274,10 +296,10 @@ Page({
    */
   getRankAll(hasLoading = true) {
     return new Promise((resolve, reject) => {
-      const params = {count: this.data.pageCount, page: this.data.rankAll.pageNum, ...app.getSource()}
+      let params = {count: this.data.pageCount, page: this.data.rankAll.pageNum, ...app.getSource()}
       getRankApi(params, hasLoading).then(res => {
-        const rankAll = this.data.rankAll
-        const onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
+        let rankAll = this.data.rankAll
+        let onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
         let secondtItem = {}
         if (identity !== 'RECRUITER') {
           rankAll.list = rankAll.list.concat(res.data)
@@ -294,6 +316,8 @@ Page({
           rankAll.list = rankAll.list.filter(field => field.uid !== secondtItem.uid)
           rankAll.list.unshift(secondtItem)
         }
+        rankAll.rankDetail = res.data.rankDetail
+        console.log(res)
         this.setData({rankAll, onBottomStatus, commonList: rankAll}, () => resolve(res))
       })
     })
@@ -305,9 +329,19 @@ Page({
    * @return   {[type]}              [description]
    */
   onPullDownRefresh(hasLoading = true) {
-
+    wx.stopPullDownRefresh();return
     let key = this.data.tab
-    let value = {list: [], pageNum: 1, isLastPage: false, isRequire: false}
+    let value = {
+      list: [], 
+      pageNum: 1, 
+      isLastPage: false, 
+      isRequire: false,
+      rankDetail: {
+        currentRank: 0,
+        influence: 0,
+        popularity: 0
+      }
+    }
     this.setData({[key]: value, hasReFresh: true, commonList: value})
     this.getLists().then(res => {
       let secondtItem = {}
@@ -341,8 +375,8 @@ Page({
    * @return   {[type]}   [description]
    */
   onReachBottom() {
-    const key = this.data.tab
-    const value = this.data[key]
+    let key = this.data.tab
+    let value = this.data[key]
     if (!value.isLastPage) {
       this.getLists(false).then(() => this.setData({onBottomStatus: 1}))
     }
@@ -358,5 +392,8 @@ Page({
   },
   toggleShowRules() {
     this.setData({showRules: !this.data.showRules})
+  },
+  stopPageScroll() {
+    return false
   }
 })
