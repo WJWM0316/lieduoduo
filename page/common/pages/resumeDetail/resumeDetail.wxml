@@ -4,8 +4,8 @@
   <wxs src="../../../../utils/filters.wxs" module="filters" />
   <navbar title="简历详情" background="#FFFFFF" color="#22292C" showHome="{{true}}"></navbar>
 
-  <view class="resume-from">
-    <view class="text4"><view class="icon1 icon-left"></view>此候选人来自：<view class="position">全民猎人</view><view class="icon1 icon-right"></view></view>
+  <view class="resume-from" wx:if="{{info.sourceDesc}}">
+    <view class="text4"><view class="icon1 icon-left"></view>此候选人来自：<view class="position">{{info.sourceDesc}}</view><view class="icon1 icon-right"></view></view>
   </view>
 
   <view hidden="{{!hasReFresh}}">

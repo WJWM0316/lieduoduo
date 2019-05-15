@@ -84,11 +84,15 @@ Page({
     }
 
     if (app.loginInit) {
-      this.setData({detail: app.globalData.recruiterDetails}, () => this.getLists().then(() => this.getDomNodePosition()))
+      this.getLists().then(() => {
+        this.getDomNodePosition()
+        this.setData({detail: app.globalData.recruiterDetails})
+      })
     } else {
-      app.loginInit = () => {
-        this.setData({detail: app.globalData.recruiterDetails}, () => this.getLists().then(() => this.getDomNodePosition()))
-      }
+      this.getLists().then(() => {
+        this.getDomNodePosition()
+        this.setData({detail: app.globalData.recruiterDetails})
+      })
     }
   },
   onShow() {
@@ -231,6 +235,7 @@ Page({
     let key = this.data.pageList
     let value = {list: [], pageNum: 1, isLastPage: false, isRequire: false}
     this.setData({[key]: value, hasReFresh: true, detail: app.globalData.recruiterDetails})
+    
     getIndexShowCountApi().then(res => this.setData({indexShowCount: res.data}))
     this.getLists().then(res => {
       let value = {list: [], pageNum: 1, isLastPage: false, isRequire: false}
@@ -272,15 +277,15 @@ Page({
    */
   onPageScroll(e) {
     if(e.scrollTop > 0) {
-      if (!this.data.isFixed) this.setData({isFixed: true, background: '#652791'})
+      this.setData({isFixed: true, background: '#652791'})
     } else {
-      if (this.data.isFixed) this.setData({isFixed: false, background: 'transparent'})
+      this.setData({isFixed: false, background: 'transparent'})
     }
 
-    if(e.scrollTop > fixedDomPosition) {
-      if (!this.data.fixedDom) this.setData({fixedDom: true})
+    if(e.scrollTop > fixedDomPosition - 20) {
+      this.setData({fixedDom: true})
     } else {
-      if (this.data.fixedDom) this.setData({fixedDom: false})
+      this.setData({fixedDom: false})
     }
   },
   jump() {},

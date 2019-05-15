@@ -51,21 +51,14 @@
 
 	<view class="index-list-box">
 
-		<view class="default" hidden="{{fixedDom}}">
+		<view class="default {{fixedDom ? 'fixed' : ''}}" style="top: {{navH}}px">
 			<view class="ul-tab-bar">
 				<view class="li {{pageList === 'collectMySelf' ? 'active' : ''}}" bindtap="ontabClick" data-key="collectMySelf">发现<view></view></view>
 				<view class="li {{pageList === 'browseMySelf' ? 'active' : ''}}" bindtap="ontabClick" data-key="browseMySelf">看过我的<view class="total" wx:if="{{indexShowCount.viewCount}}">{{indexShowCount.viewCount}}</view></view>
 			</view>
 		</view>
 
-		<view class="default fixed" hidden="{{!fixedDom}}" style="top: {{navH + 10}}px">
-			<view class="ul-tab-bar">
-				<view class="li {{pageList === 'collectMySelf' ? 'active' : ''}}" bindtap="ontabClick" data-key="collectMySelf">发现<view></view></view>
-				<view class="li {{pageList === 'browseMySelf' ? 'active' : ''}}" bindtap="ontabClick" data-key="browseMySelf">看过我的<view class="total" wx:if="{{indexShowCount.viewCount}}">{{indexShowCount.viewCount}}</view><view></view></view>
-			</view>
-		</view>
-
-		<view class="list-box a {{collectMySelf.list.length ? '' : 'nodata'}}" hidden="{{pageList === 'browseMySelf'}}">
+		<view class="list-box {{collectMySelf.list.length ? '' : 'nodata'}}" hidden="{{pageList === 'browseMySelf'}}">
 			<form bindsubmit="formSubmit" report-submit='{{true}}'> 
 				<button
 					form-type="submit"
@@ -151,7 +144,7 @@
 			</bottomStatus>
 		</view>
 
-		<view class="list-box b {{browseMySelf.list.length ? '' : 'nodata'}}" hidden="{{pageList === 'collectMySelf'}}">
+		<view class="list-box {{browseMySelf.list.length ? '' : 'nodata'}}" hidden="{{pageList === 'collectMySelf'}}">
 			<form bindsubmit="formSubmit" report-submit='{{true}}'> 
 				<button
 					form-type="submit"
