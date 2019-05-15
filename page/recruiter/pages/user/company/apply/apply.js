@@ -67,7 +67,7 @@ Page({
     getCompanyIdentityInfosApi({hasLoading}).then(res => {
       let companyInfo = res.data.companyInfo
       let status = 0
-      applyJoin = res.data.applyJoin
+      applyJoin = Reflect.has(res.data, 'applyJoin') ? res.data.applyJoin : this.data.applyJoin
       // 重新创建一条记录
       if(companyInfo.status === 2) {
         formData = {

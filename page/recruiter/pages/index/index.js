@@ -67,30 +67,8 @@ Page({
     banner: {}
   },
   onLoad() {
-    let browseMySelf = {
-      list: [],
-      pageNum: 1,
-      isLastPage: false,
-      isRequire: false,
-      total: 0
-    }
-    let collectMySelf = {
-      list: [],
-      pageNum: 1,
-      isLastPage: false,
-      isRequire: false,
-      isUse: false
-    }
     let choseType = wx.getStorageSync('choseType') || ''
-    this.setData({choseType, browseMySelf, collectMySelf}, () => {
-      if (app.loginInit) {
-        this.setData({detail: app.globalData.recruiterDetails}, () => this.getLists().then(() => this.getDomNodePosition()))
-      } else {
-        app.loginInit = () => {
-          this.setData({detail: app.globalData.recruiterDetails}, () => this.getLists().then(() => this.getDomNodePosition()))
-        }
-      }
-    })
+    this.setData({choseType})
     if (choseType === 'APPLICANT') {
       app.wxConfirm({
         title: '提示',
@@ -104,11 +82,16 @@ Page({
         }
       })
     }
+
+    if (app.loginInit) {
+      this.setData({detail: app.globalData.recruiterDetails}, () => this.getLists().then(() => this.getDomNodePosition()))
+    } else {
+      app.loginInit = () => {
+        this.setData({detail: app.globalData.recruiterDetails}, () => this.getLists().then(() => this.getDomNodePosition()))
+      }
+    }
   },
   onShow() {
-
-    this.getWelcomeWord()
-    this.getMixdata()
 
     // let browseMySelf = {
     //   list: [],
@@ -117,6 +100,7 @@ Page({
     //   isRequire: false,
     //   total: 0
     // }
+
     // let collectMySelf = {
     //   list: [],
     //   pageNum: 1,
@@ -125,15 +109,16 @@ Page({
     //   isUse: false
     // }
 
-    // this.setData({browseMySelf, collectMySelf},() => {
-    //   this.getWelcomeWord()
-    //   this.getMixdata()
-    // })
-
+    let browseMySelf = this.data.browseMySelf
+    let collectMySelf = this.data.collectMySelf
+    let onBottomStatus = this.data.onBottomStatus
+    this.setData({browseMySelf, collectMySelf, onBottomStatus}, () => this.getMixdata())
     // if (app.loginInit) {
+    //   this.getMixdata()
     //   this.setData({detail: app.globalData.recruiterDetails}, () => this.getLists().then(() => this.getDomNodePosition()))
     // } else {
     //   app.loginInit = () => {
+    //     this.getMixdata()
     //     this.setData({detail: app.globalData.recruiterDetails}, () => this.getLists().then(() => this.getDomNodePosition()))
     //   }
     // }
@@ -141,6 +126,7 @@ Page({
   getMixdata() {
     getIndexShowCountApi().then(res => this.setData({indexShowCount: res.data}))
     getAdBannerApi({location: 'recruiter_index'}).then(res => this.setData({banner: res.data[0]}))
+    this.getWelcomeWord()
   },
   getDomNodePosition() {
     getSelectorQuery('.index-list-box').then(res => fixedDomPosition = res.top - this.data.navH)
@@ -244,7 +230,7 @@ Page({
   onPullDownRefresh(hasLoading = true) {
     let key = this.data.pageList
     let value = {list: [], pageNum: 1, isLastPage: false, isRequire: false}
-    this.setData({[key]: value, hasReFresh: true})
+    this.setData({[key]: value, hasReFresh: true, detail: app.globalData.recruiterDetails})
     getIndexShowCountApi().then(res => this.setData({indexShowCount: res.data}))
     this.getLists().then(res => {
       let value = {list: [], pageNum: 1, isLastPage: false, isRequire: false}

@@ -311,7 +311,7 @@
   height:892rpx;
   background:rgba(255,255,255,1);
   border-radius:28rpx 28rpx 0rpx 0rpx;
-  position: absolute;
+  position: fixed;
   bottom: 0;
   right: 0;
   left: 0;

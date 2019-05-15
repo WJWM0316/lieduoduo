@@ -13,14 +13,14 @@ let noToastUrlArray = [
 let recruiterJump = (msg) => {
   let companyInfo = msg.data.companyInfo
   let identityInfo = msg.data
-  let applyJoin = msg.data.applyJoin
-  if(applyJoin) {
+  // let applyJoin = msg.data.applyJoin
+  if(Reflect.has(msg.data, 'applyJoin') && msg.data.applyJoin) {
     // 加入公司
-    wx.redirectTo({url: `${RECRUITER}user/company/status/status?from=join`})
+    wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=join`})
   } else {
     // 还没有创建公司信息
-    if(!companyInfo.id) {
-      wx.redirectTo({url: `${RECRUITER}user/company/apply/apply`})
+    if(!Reflect.has(companyInfo, 'id')) {
+      wx.reLaunch({url: `${RECRUITER}user/company/apply/apply`})
     } else {
       if(companyInfo.status === 1) {
         wx.reLaunch({url: `${RECRUITER}index/index`})

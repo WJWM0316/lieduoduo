@@ -44,6 +44,13 @@ Page({
     identity = app.identification(options)
     this.setData({options})
   },
+  backEvent() {
+    if(this.data.showEdit) {
+      this.setData({showEdit: false})
+    } else {
+      wx.navigateBack({delta: 1})
+    }
+  },
   /* 点击查看大头像 */
   readAvatar () {
     wx.previewImage({
