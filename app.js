@@ -1,6 +1,6 @@
 //app.js
 import {loginApi, checkSessionKeyApi, bindPhoneApi, uploginApi} from 'api/pages/auth.js'
-import {formIdApi, shareStatistics, readyStatistics} from 'api/pages/common.js'
+import {formIdApi, shareStatistics, readyStatistics, getVersionListApi} from 'api/pages/common.js'
 import {getPersonalResumeApi} from 'api/pages/center.js'
 import {getRecruiterDetailApi} from 'api/pages/recruiter.js'
 import {COMMON,RECRUITER,APPLICANT} from "config.js"
@@ -14,6 +14,7 @@ App({
   onLaunch: function (e) {
     // 获取导航栏高度
     this.checkUpdateVersion()
+    this.getVersionList()
     this.globalData.startRoute = e
     wx.getSystemInfo({
       success: res => {
@@ -131,8 +132,8 @@ App({
       this.globalData.hasLogin = 0
       this.globalData.resumeInfo = {}
       this.globalData.recruiterDetails = {}
-      this.globalData.isRecruiter = false
-      this.globalData.isJobhunter = false
+      this.globalData.isRecruiter = 0
+      this.globalData.isJobhunter = 0
       wx.reLaunch({url: `${COMMON}startPage/startPage`})
     })
   },
@@ -180,19 +181,19 @@ App({
     return new Promise((resolve, reject) => {
       getUserRoleApi().then(res0 => {
         if (res0.data.isRecruiter) {
-          this.globalData.isRecruiter = true
+          this.globalData.isRecruiter = 1
         } else {
-          this.globalData.isRecruiter = false
+          this.globalData.isRecruiter = 0
         }
         if (res0.data.isJobhunter) {
-          this.globalData.isJobhunter = true
+          this.globalData.isJobhunter = 1
         } else {
-          this.globalData.isJobhunter = false
+          this.globalData.isJobhunter = 0
         }
         if (res0.data.hasCard) {
-          this.globalData.isMicroCard = true
+          this.globalData.isMicroCard = 1
         } else {
-          this.globalData.isMicroCard = false
+          this.globalData.isMicroCard = 0
         }
         if (this.getRoleInit) { // 登陆初始化
           this.getRoleInit() //执行定义的回调函数
@@ -759,8 +760,11 @@ App({
     var pages = getCurrentPages() //获取加载的页面
     if (!index && index !== 0) index = pages.length - 1
     let pageUrl = pages[index].route
-    let path = `/${pageUrl}?${this.splicingParams(pages[index].options)}`
-    return path
+    if (this.splicingParams(pages[index].options)) {
+      return `/${pageUrl}?${this.splicingParams(pages[index].options)}`
+    } else {
+      return `/${pageUrl}`
+    }
   },
   // 操作统计
   shareStatistics ({id, type, channel, sCode}) {
@@ -771,5 +775,24 @@ App({
   readyStatistics ({id=0, page, channel, sCode}) {
     readyStatistics({id, page, channel, sCode}).then(res => {
     })
+  },
+  // 获取缓存接口版本号
+  getVersionList () {
+    getVersionListApi().then(res => {
+      if (res.data.constructor === Object) wx.setStorageSync('apiVersionList', res.data)
+    })
+  },
+  // 微信数据分析上报
+  wxReportAnalytics (type, param) {
+    var pages = getCurrentPages() //获取加载的页面
+    param.path = pages[pages.length - 1].route
+    switch (type) {
+      case 'btn_report':
+        wx.reportAnalytics('button_operation_report', param)
+        break
+      case 'enterPage_report':
+        wx.reportAnalytics('enterpage_report', param)
+        break
+    }
   }
 })

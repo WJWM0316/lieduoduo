@@ -248,6 +248,9 @@ Component({
             cancelText: '暂不完善',
             confirmText: '马上完善',
             confirmBack () {
+              app.wxReportAnalytics('btn_report', {
+                btn_type: 'perfect_immediately'
+              })
               wx.navigateTo({
                 url: `${COMMON}resumeDetail/resumeDetail?uid=${app.globalData.resumeInfo.uid}`
               })
@@ -263,6 +266,11 @@ Component({
             if(this.data.type === 'recruiter') {
               // 招聘官没有在线职位或者招聘官没发布过职位
               if(!this.data.infos.positionNum) {
+                app.wxReportAnalytics('btn_report', {
+                  isjobhunter: app.globalData.isJobhunter,
+                  resume_perfection: app.globalData.resumeInfo.resumeCompletePercentage,
+                  btn_type: 'job-hunting-chat'
+                })
                 applyInterviewApi({recruiterUid: this.data.infos.uid}).then(res => {
                   this.getInterviewStatus()
                   successPop()
@@ -271,6 +279,11 @@ Component({
                 wx.navigateTo({url: `${COMMON}chooseJob/chooseJob?type=job_hunting_chat&from=${this.data.currentPage}&showNotPositionApply=${interviewInfos.showNotPositionApply}&from=${this.data.currentPage}&recruiterUid=${this.data.infos.uid}`})
               }
             } else {
+              app.wxReportAnalytics('btn_report', {
+                isjobhunter: app.globalData.isJobhunter,
+                resume_perfection: app.globalData.resumeInfo.resumeCompletePercentage,
+                btn_type: 'job-hunting-chat'
+              })
               applyInterviewApi({recruiterUid: this.data.infos.recruiterInfo.uid, positionId: this.data.infos.id}).then(res => {
                 this.getInterviewStatus()
                 successPop()

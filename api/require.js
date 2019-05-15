@@ -8,6 +8,7 @@ let noToastUrlArray = [
   '/company/edit_first_step',
   '/company/self_help_verification'
 ]
+let apiVersionList = null
 let recruiterJump = (msg) => {
   let companyInfo = msg.data.companyInfo
   let identityInfo = msg.data
@@ -33,7 +34,7 @@ let recruiterJump = (msg) => {
   }
 }
 
-export const request = ({method = 'post', url, host, data = {}, needKey = true, hasLoading = true, loadingContent = '加载中...'}) => {
+export const request = ({name = '', method = 'post', url, host, data = {}, needKey = true, hasLoading = true, loadingContent = '加载中...'}) => {
   let addHttpHead = {}
   // baceHost 切换
   switch(host) {
@@ -47,7 +48,6 @@ export const request = ({method = 'post', url, host, data = {}, needKey = true, 
         BASEHOST = APPLICANTHOST
       }
   }
-
   // 如果连接带参数scode, 则存到头部
   if (data.sCode && !data.isReload) {
     addHttpHead['Act-Code'] = data.sCode
@@ -94,6 +94,17 @@ export const request = ({method = 'post', url, host, data = {}, needKey = true, 
 
   // 请求中间件
   const promise = new Promise((resolve, reject) => {
+    let saveApiData = {}
+    if (name) {
+      if (!apiVersionList && wx.getStorageSync('apiVersionList')) {
+        apiVersionList = wx.getStorageSync('apiVersionList')
+      }
+      saveApiData = wx.getStorageSync('saveApiData') || {}
+      if (apiVersionList[name] && saveApiData[name] && apiVersionList[name].version === saveApiData[name].version) {
+        resolve(saveApiData[name].data)
+        return
+      }
+    }
     // 开启菊花图
     if (data.hasOwnProperty('hasLoading')) {
       hasLoading = data.hasLoading
@@ -138,6 +149,20 @@ export const request = ({method = 'post', url, host, data = {}, needKey = true, 
           }
           switch (msg.httpStatus) {
             case 200:
+              if (name) {
+                saveApiData = wx.getStorageSync('saveApiData') || {}
+                if (!saveApiData[name]) {
+                  saveApiData[name] = {}
+                  saveApiData[name].version = 0
+                  saveApiData[name].data = res.data
+                  wx.setStorageSync('saveApiData', saveApiData)
+                }
+                if (!apiVersionList || !apiVersionList[name] || (apiVersionList[name] && apiVersionList[name].version !== saveApiData[name].version)) {
+                  saveApiData[name].version = !apiVersionList[name] ? 0 : apiVersionList[name].version
+                  saveApiData[name].data = res.data
+                  wx.setStorageSync('saveApiData', saveApiData)
+                }
+              } 
               break
             case 401:
               // 需要用到token， 需要绑定手机号

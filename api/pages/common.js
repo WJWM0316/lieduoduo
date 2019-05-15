@@ -34,7 +34,7 @@ export const getJobLabelApi = (data) => {
   })
 }
 // 生活标签接口
-export const getLifeLableApi = (data) => {
+export const getLifeLabelApi = (data) => {
   return request({
     method: 'get',
     data,
@@ -178,6 +178,7 @@ export const getAdBannerApi  = (data, hasLoading) => {
 // 获取广告位
 export const getAdApi  = (data, hasLoading) => {
   return request({
+    name: 'getAdApi',
     method: 'get',
     url: `/get/advertisement/lists`,
     data,
@@ -196,3 +197,16 @@ export const touchVkeyApi  = (data, hasLoading) => {
     hasLoading: false
   })
 }
+
+// 获取缓存接口版本列表
+export const getVersionListApi  = (data, hasLoading) => {
+  return request({
+    method: 'get',
+    url: `/version/cache/lists`,
+    data,
+    host: 'PUBAPIHOST',
+    hasLoading: false
+  })
+}
+
+

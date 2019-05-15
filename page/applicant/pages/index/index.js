@@ -116,6 +116,11 @@ Page({
       this.initPage()
     }
     let init = () => {
+      app.wxReportAnalytics('enterPage_report', {
+        haslogin: app.globalData.hasLogin,
+        isjobhunter: app.globalData.isJobhunter,
+        userinfo: app.globalData.userInfo ? 1 : 0
+      })
       this.setData({hasLogin: app.globalData.hasLogin, userInfo: app.globalData.userInfo, isJobhunter: app.globalData.isJobhunter})
       let bannerList = this.data.bannerList
       if (app.globalData.isJobhunter && bannerList.length > 0 && bannerList[bannerList.length - 1].smallImgUrl === 'https://attach.lieduoduo.ziwork.com/front-assets/images/banner_resume.png') {

@@ -23,7 +23,7 @@ export const getCompanyQrcodeApi = (data, hasLoading) => {
 }
 
 // 生成简历二维码
-export const getResumercodeApi = (data, hasLoading) => {
+export const getResumerCodeApi = (data, hasLoading) => {
   return request({
     method: 'get',
     url: '/share/resume_share',

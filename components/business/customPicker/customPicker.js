@@ -147,17 +147,7 @@ Component({
       }
     },
     getRegionData () {
-      let getAreaData = wx.getStorageSync('areaData')
-      if (getAreaData) {
-        return new Promise((resolve, reject) => {
-          resolve(getAreaData)
-        })
-      } else {
-        return getAreaListApi().then(res => {
-          wx.setStorageSync('areaData', res)
-          return res
-        })
-      }
+      return getAreaListApi()
     },
     bindChange (e) {
       let value = e.detail.value,

@@ -1,5 +1,5 @@
 // page/common/pages/tabsPage/tabsPage.js
-import {getJobLabelApi, getLifeLableApi, addJobLabelApi, addLifeLabelApi, saveLabelApi, saveRecruiterLabelApi} from '../../../../api/pages/common.js'
+import {getJobLabelApi, getLifeLabelApi, addJobLabelApi, addLifeLabelApi, saveLabelApi, saveRecruiterLabelApi} from '../../../../api/pages/common.js'
 let allSkills = []
 let choseFirstId = ''
 let choseFirstIndex = 0
@@ -91,7 +91,7 @@ Page({
       })
       this.setData({skills, literacy, choseJobList, choseFirstName})
     })
-    getLifeLableApi().then(res => {
+    getLifeLabelApi().then(res => {
       res.data.map((item, index) => {
         if (item.labelId === 110000) {
           character = item.children

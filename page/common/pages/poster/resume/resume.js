@@ -1,6 +1,6 @@
 import {getPositionListApi} from '../../../../../api/pages/position.js'
 import {getPersonalResumeApi} from '../../../../../api/pages/center.js'
-import {getResumercodeApi} from '../../../../../api/pages/qrcode.js'
+import {getResumerCodeApi} from '../../../../../api/pages/qrcode.js'
 import {ellipsis, lineFeed} from '../../../../../utils/canvas.js'
 let app = getApp()
 let qrCodeUrl = ''
@@ -495,7 +495,7 @@ Page({
 
     let loadQrCode = new Promise((resolve, reject) => {
       // 二维码
-      getResumercodeApi({resumeUid: app.globalData.resumeInfo.uid}).then(res => {
+      getResumerCodeApi({resumeUid: app.globalData.resumeInfo.uid}).then(res => {
         wx.downloadFile({
           url: res.data.positionQrCodeUrl,
           success(res) {
