@@ -14,7 +14,7 @@ App({
   onLaunch: function (e) {
     // 获取导航栏高度
     this.checkUpdateVersion()
-    // this.getVersionList()
+    this.getVersionList()
     this.globalData.startRoute = e
     wx.getSystemInfo({
       success: res => {

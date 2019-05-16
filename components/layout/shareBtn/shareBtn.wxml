@@ -7,7 +7,7 @@
 		  <view><i class="shareIcon iconfont icon-fenxiang"></i></view>
 		  <text>转发</text>
 		</button>
-		<view class="shareBox" hidden="{{!showChoose}}">
+		<view class="shareBox" hidden="{{!showChoose}}" catchtouchmove>
 			<view class="shareBg" bindtap="close">
 			</view>
 			<view class="posChoseBox" animation="{{animationData}}">
@@ -44,7 +44,7 @@
 			  <text>转发</text>
 			</button>
 		</block>
-		<view class="shareBox" hidden="{{!showChoose}}">
+		<view class="shareBox" hidden="{{!showChoose}}" catchtouchmove>
 			<view class="shareBg" bindtap="close">
 			</view>
 			<view class="posChoseBox" animation="{{animationData}}">

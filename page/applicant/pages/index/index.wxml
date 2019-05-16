@@ -40,10 +40,10 @@
     </view>
     <view class="select-box {{tabFixed ? 'fixed' : ''}}" style="{{tabFixed ? 'top:' + navH + 'px' : ''}}">
       <view class="select-tab">
-        <view class="item {{tabType === item.type ? 'cur' : ''}} {{item.active ? 'actived' : ''}}" bindtap="choseTab" data-type="{{item.type}}" wx:for="{{tabList}}" wx:key="{{index}}"><text class="txt">{{item.name}}</text><i class="icon iconfont icon-zhishibiao"></i></view>
+        <view class="item {{tabType === item.type ? 'cur' : ''}} {{item.active ? 'actived' : ''}}"  bindtap="choseTab" data-type="{{item.type}}" wx:for="{{tabList}}" wx:key="{{index}}"><text class="txt">{{item.name}}</text><i class="icon iconfont icon-zhishibiao"></i></view>
       </view>
       <view class="select-pop" hidden="{{tabType === 'closeTab'}}">
-        <view class="select-bg" bindtap="choseTab" data-type="closeTab" style="height: calc(100vh - {{navH + 49}}px)"></view>
+        <view class="select-bg" catchtouchmove bindtap="choseTab" data-type="closeTab" style="height: calc(100vh - {{navH + 49}}px)"></view>
         <view class="select-area city" hidden="{{tabType !== 'city'}}">
           <text class="select-area-item {{cityIndex === index ? 'cur' : ''}}" bindtap="toggle" data-index="{{index}}" data-name="{{item.name}}" data-id="{{item.areaId}}" wx:for="{{cityList}}" wx:key="{{index}}">{{item.name}}</text>
         </view>

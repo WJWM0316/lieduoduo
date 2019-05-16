@@ -1,4 +1,5 @@
 import {COMMON} from '../../../config.js'
+import localstorage from '../../../utils/localstorage.js'
 const app = getApp()
 const animation = wx.createAnimation({
   duration: 200,
@@ -29,6 +30,7 @@ Component({
     animationData: {}
   },
   attached () {
+    localstorage.set('name', 'wxx', {type: 'resetTheDay'})
   },
   /**
    * 组件的方法列表
