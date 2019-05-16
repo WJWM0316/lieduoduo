@@ -44,7 +44,7 @@ export const getPositionListNumApi = (data, hasLoading) => {
     method: 'get',
     url: '/position/statustotal',
     data,
-    hasLoading: hasLoading
+    hasLoading: false
   })
 }
 

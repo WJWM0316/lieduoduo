@@ -122,7 +122,8 @@
   background: url('https://lieduoduo-uploads-test.oss-cn-shenzhen.aliyuncs.com/front-assets/images/topicBg.png') no-repeat;
   background-color: #EFE9F4;
   background-size: 100% 100%;
-  padding: 50rpx 0 60rpx 0;
+  padding: 54rpx 0 60rpx 0;
+  position: relative;
 }
 /* 前3名样式 */
 .topicList{
@@ -179,7 +180,7 @@
   white-space: nowrap;
 }
 .title{
-  width: 100%;
+  width: 80%;
   font-size: 24rpx;
   font-weight: 300;
   color: #282828;
@@ -209,4 +210,218 @@
   font-weight: 500;
   font-size: 26rpx;
   margin-left: 10rpx;
+}
+
+.rules {
+  width:88rpx;
+  height:54rpx;
+  background:rgba(255,255,255,0.8);
+  border-radius:100rpx 0rpx 0rpx 100rpx;
+  position: absolute;
+  right: 0;
+  top: 20rpx;
+  font-size:24rpx;
+  color:rgba(132,82,167,1);
+  line-height: 54rpx;
+  text-align: center;
+}
+
+.foot-bar {
+  background:rgba(255,255,255,1);
+  box-shadow:0rpx -6rpx 20rpx 0rpx rgba(34,56,101,0.08);
+  border-radius:28rpx 28rpx 0rpx 0rpx;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 15rpx 40rpx;
+}
+
+.foot-bar .img-box{
+  width:100rpx;
+  height:100rpx;
+  border:3rpx solid rgba(255,255,255,1);
+  border-radius: 50%;
+  margin-right: 26rpx;
+  position: relative;
+}
+
+.foot-bar .img-box .image{
+  border-radius: 50%;
+  width: 100%;
+  height: 100%;
+}
+
+.foot-bar .content{
+  flex: 1;
+}
+
+.foot-bar .content .row-one{
+  height:30rpx;
+  font-size:30rpx;
+  font-weight:700;
+  color:rgba(40,40,40,1);
+  line-height:30rpx;
+}
+
+.foot-bar .content .row-two{
+  height:24rpx;
+  font-size:24rpx;
+  font-weight:300;
+  color:rgba(146,146,146,1);
+  line-height:24rpx;
+  margin-top: 13rpx;
+}
+
+.foot-bar .strong{
+  display: inline;
+  color: #652791;
+}
+
+.foot-bar .item10{
+  display: inline;
+  margin-right: 40rpx;
+}
+
+.rule-box {
+/*  width:100vw;
+  height:100vh;
+  background:rgba(0,0,0,.5);
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  z-index: 10000;*/
+}
+
+.rule-box .mask{
+  width:100vw;
+  height:100vh;
+  background:rgba(0,0,0,.5);
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  z-index: 10000;
+}
+
+.rule-box .content{
+  width:100vw;
+  height:892rpx;
+  background:rgba(255,255,255,1);
+  border-radius:28rpx 28rpx 0rpx 0rpx;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  overflow: hidden;
+  box-sizing: border-box;
+  z-index: 10001;
+}
+
+.rule-box .header{
+  height:108rpx;
+  background:rgba(255,255,255,1);
+  font-size:36rpx;
+  font-weight:700;
+  color:rgba(53,64,72,1);
+  line-height: 108rpx;
+  text-align: center;
+  position: relative;
+  margin-bottom: 25rpx;
+  padding: 0 60rpx;
+}
+
+.rule-box .header .icon-close{
+  color: #CDCBCF;
+  font-size: 25rpx;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 10rpx;
+  padding: 0 25rpx;
+}
+
+.rule-box .value{
+  font-size:30rpx;
+  font-weight:300;
+  color:rgba(40,40,40,1);
+  line-height:48rpx;
+}
+
+.rule-box .key{
+  width:159rpx;
+  height:56rpx;
+  font-size:30rpx;
+  font-weight:700;
+  color:rgba(40,40,40,1);
+  line-height: 56rpx;
+  text-align: center;
+  position: relative;
+  margin-bottom: 22rpx;
+}
+
+.rule-box .key:before{
+  width:159rpx;
+  height:56rpx;
+  background:rgba(255,220,41,1);
+  border:2rpx solid rgba(40,40,40,1);
+  content: '';
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
+
+.rule-box .key:after{
+  width:159rpx;
+  height:56rpx;
+  background:white;
+  border:2rpx solid rgba(40,40,40,1);
+  content: '';
+  display: block;
+  position: absolute;
+  left: 5rpx;
+  top: 5rpx;
+  z-index: 0;
+}
+
+.rule-box .key .text{
+  position: relative;
+  z-index: 2;
+}
+
+/*.rule-box .scroll-ul{
+  position: relative;
+  z-index: 2;
+  height: calc(892rpx - 108rpx - 25rpx);
+  overflow: hidden;
+  overflow-y: scroll;
+  padding: 0 60rpx;
+  width: 100vw;
+  box-sizing: border-box;
+}*/
+
+.rule-box .ul{
+  position: relative;
+  z-index: 2;
+  padding: 0 60rpx;
+  position: relative;
+  z-index: 2;
+  height: calc(892rpx - 108rpx - 25rpx);
+  overflow: hidden;
+  overflow-y: scroll;
+  padding: 0 60rpx;
+  width: 100vw;
+  box-sizing: border-box;
+}
+
+.rule-box .ul .li{
+  margin-bottom: 56rpx;
+}
+
+.hidden {
+  overflow-y: hidden;
 }

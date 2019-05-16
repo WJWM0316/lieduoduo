@@ -42,9 +42,7 @@
 	<view class="footer">
     <view bindtap="submit" class="button-submit button-enable">下一步</view>
     <view class="enter">
-			<text class="toggle" bindtap="toggle">前往求职端</text>
-  		 |
-  		<text class="changePhone" bindtap="changePhone">换个账号</text>
+			<text class="toggle left01" bindtap="toggle">前往求职端</text>|<text class="changePhone right01" bindtap="changePhone">换个账号</text>
   	</view>
   </view>
 

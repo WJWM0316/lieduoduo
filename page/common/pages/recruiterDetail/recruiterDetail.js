@@ -29,7 +29,8 @@ Page({
     options: {},
     hasReFresh: false,
     isApplicant: false,
-    cdnImagePath: app.globalData.cdnImagePath
+    cdnImagePath: app.globalData.cdnImagePath,
+    showEdit: false
   },
   /**
    * 生命周期函数--监听页面加载
@@ -43,6 +44,13 @@ Page({
     identity = app.identification(options)
     this.setData({options})
   },
+  backEvent() {
+    if(this.data.showEdit) {
+      this.setData({showEdit: false})
+    } else {
+      wx.navigateBack({delta: 1})
+    }
+  },
   /* 点击查看大头像 */
   readAvatar () {
     wx.previewImage({
@@ -53,6 +61,7 @@ Page({
   getOthersInfo(hasLoading = true, isReload = false) {
     return new Promise((resolve, reject) => {
       getOthersRecruiterDetailApi({uid: this.data.options.uid, hasLoading, isReload, ...app.getSource()}).then(res => {
+        // let isOwner = false
         let isOwner = res.data.isOwner && identity === 'RECRUITER' ? true : false
         this.setData({isOwner, info: res.data, realIsOwner: res.data.isOwner}, function() {
           if(this.selectComponent('#interviewBar')) this.selectComponent('#interviewBar').init()
@@ -292,6 +301,14 @@ Page({
       this.getPositionLists(false)
     }
   },
-  tips() {
-  }
+  tips() {},
+  edit() {
+    if(this.data.isOwner) this.setData({showEdit: true})
+  },
+  share() {
+    this.selectComponent('#shareBtn').oper()
+  },
+  getCreatedImg(e) {
+    recruiterCard = e.detail
+  },
 })

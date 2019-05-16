@@ -116,6 +116,15 @@
 	font-size:28rpx;
 	color:#BCBCBC;
 	line-height:28rpx;
+	font-weight: 300;
+}
+
+.enter .left01{
+	margin-right: 15rpx;
+}
+
+.enter .right01{
+	margin-left: 15rpx;
 }
 
 .footer {

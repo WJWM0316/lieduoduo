@@ -21,7 +21,8 @@ Page({
     hasReFresh: false,
     options: {},
     showLimit: 3,
-    cdnImagePath: app.globalData.cdnImagePath
+    cdnImagePath: app.globalData.cdnImagePath,
+    navH: app.globalData.navHeight
   },
   /**
    * 生命周期函数--监听页面加载

@@ -147,3 +147,7 @@ button.close .icon {
   display: block;
   margin: 12px 0;
 }
+
+.choseBox .button5 .btnCon{
+  border-bottom: unset;
+}

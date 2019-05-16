@@ -7,6 +7,8 @@ import {COMMON,RECRUITER,APPLICANT} from "config.js"
 import {getUserRoleApi} from "api/pages/user.js"
 import {quickLoginApi} from 'api/pages/auth.js'
 import {shareC, shareB} from 'utils/shareWord.js'
+import {getCompanyIdentityInfosApi} from 'api/pages/company.js'
+
 let that = null
 let formIdList = [],
     sendNum = 0 // formId 发送次数
@@ -366,6 +368,7 @@ App({
   },
   // 手机登陆
   phoneLogin(data, operType) {
+    let _this = this
     return new Promise((resolve, reject) => {
       bindPhoneApi(data).then(res => {
         if (res.data.token) wx.setStorageSync('token', res.data.token)
@@ -388,19 +391,21 @@ App({
                   })
                 } else {
                   if (getCurrentPages().length > 1) {
-                     wx.navigateBack({
-                      delta: 1
-                    })
+                    if(wx.getStorageSync('choseType') !== 'RECRUITER') {
+                      wx.navigateBack({
+                        delta: 1
+                      })
+                    } else {
+                      _this.getCompanyIdentity()
+                    }
                   } else {
-                      if (wx.getStorageSync('choseType') !== 'RECRUITER') {
-                        wx.reLaunch({
-                          url: `${APPLICANT}index/index`
-                        })
-                      } else {
-                        wx.reLaunch({
-                          url: `${RECRUITER}index/index`
-                        })
-                      }
+                    if (wx.getStorageSync('choseType') !== 'RECRUITER') {
+                      wx.reLaunch({
+                        url: `${APPLICANT}index/index`
+                      })
+                    } else {
+                      _this.getCompanyIdentity()
+                    }
                   }
                 }
               }
@@ -415,6 +420,12 @@ App({
           this.checkLogin()
         }
       })
+    })
+  },
+  getCompanyIdentity() {
+    getCompanyIdentityInfosApi({hasLoading: false}).then(msg => {
+      let companyInfo = msg.data.companyInfo
+      if(Reflect.has(companyInfo, 'status') && companyInfo.status === 1) wx.navigateBack({delta: 1 })
     })
   },
   // 小程序热更新
@@ -536,10 +547,11 @@ App({
     let identity = wx.getStorageSync('choseType')
     if (identity === 'RECRUITER') {
       wx.setStorageSync('choseType', 'APPLICANT')
-      wx.reLaunch({
-        url: `${APPLICANT}index/index`
+      this.getAllInfo().then(() => {
+        wx.reLaunch({url: `${APPLICANT}index/index` })
+      }).catch(() => {
+        wx.reLaunch({url: `${APPLICANT}index/index` })
       })
-      this.getAllInfo()
     } else {
       if (!this.globalData.hasLogin) {
         wx.navigateTo({
