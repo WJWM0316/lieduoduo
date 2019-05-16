@@ -98,11 +98,20 @@ Page({
   onShow() {
 
     let collectMySelf = this.data.collectMySelf
-    if(!collectMySelf.list.length) {
-      this.getLists().then(() => {
+    let onBottomStatus = this.data.onBottomStatus
+    let recruiterInfo = app.globalData.recruiterDetails
+    if(recruiterInfo.uid) {
+      if(!collectMySelf.list.length) onBottomStatus = 2
+      this.getMixdata()
+      this.setData({detail: recruiterInfo, onBottomStatus, collectMySelf})
+      console.log(this.data)
+    } else {
+      app.getAllInfo().then(res => {
+        recruiterInfo = app.globalData.recruiterDetails
         this.getMixdata()
-        this.getDomNodePosition()
-        this.setData({detail: app.globalData.recruiterDetails})
+        if(!collectMySelf.list.length) onBottomStatus = 2
+        this.setData({detail: recruiterInfo, onBottomStatus, collectMySelf})
+        console.log(this.data)
       })
     }
 
@@ -136,6 +145,7 @@ Page({
     getIndexShowCountApi().then(res => this.setData({indexShowCount: res.data}))
     getAdBannerApi({location: 'recruiter_index'}).then(res => this.setData({banner: res.data[0]}))
     this.getWelcomeWord()
+    this.getDomNodePosition()
   },
   getDomNodePosition() {
     getSelectorQuery('.index-list-box').then(res => fixedDomPosition = res.top - this.data.navH)
@@ -186,7 +196,8 @@ Page({
       getCollectMySelfApi(params, hasLoading).then(res => {
         let collectMySelf = this.data.collectMySelf
         let onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
-        let list = this.appendData(res.data, collectMySelf)
+        let list = res.data
+        list = this.appendData(list, collectMySelf)
         collectMySelf.list = collectMySelf.list.concat(list)
         collectMySelf.isLastPage = res.meta.nextPageUrl ? false : true
         collectMySelf.pageNum = collectMySelf.pageNum + 1
@@ -208,10 +219,14 @@ Page({
     if(!collectMySelf.isUse) {
       if(data.length) {
         collectMySelf.isUse = true
+        this.setData({collectMySelf})
         if(!detail.positionNum) item.myType = 1
         if(detail.positionNum) item.myType = 2
-        if(data.length < 7) data.push(item)
-        if(data.length >= 7) data.splice(6, 0, item)
+        if(data.length < 7) {
+          data.push(item)
+        } else {
+          data.splice(6, 0, item)
+        }
       }
     }
     return data
