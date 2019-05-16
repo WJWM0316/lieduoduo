@@ -45,7 +45,7 @@ Page({
       isRequire: false,
       isUse: false
     },
-    pageCount: 10,
+    pageCount: 20,
     background: 'transparent',
     hasReFresh: false,
     onBottomStatus: 0,
@@ -97,6 +97,14 @@ Page({
   },
   onShow() {
 
+    let collectMySelf = this.data.collectMySelf
+    if(!collectMySelf.list.length) {
+      this.getLists().then(() => {
+        this.getMixdata()
+        this.getDomNodePosition()
+      })
+    }
+    
     // let browseMySelf = {
     //   list: [],
     //   pageNum: 1,
@@ -113,10 +121,6 @@ Page({
     //   isUse: false
     // }
 
-    let browseMySelf = this.data.browseMySelf
-    let collectMySelf = this.data.collectMySelf
-    let onBottomStatus = this.data.onBottomStatus
-    this.setData({browseMySelf, collectMySelf, onBottomStatus}, () => this.getMixdata())
     // if (app.loginInit) {
     //   this.getMixdata()
     //   this.setData({detail: app.globalData.recruiterDetails}, () => this.getLists().then(() => this.getDomNodePosition()))

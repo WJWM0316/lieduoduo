@@ -27,24 +27,13 @@
 
 .fixed:before {
   position: absolute;
-  left: -60rpx;
+  left: -30rpx;
   height: 120rpx;
   top: -20rpx;
   content: '';
   display: block;
   background: #FBFBFF;
-  width: 60rpx;
-}
-
-.fixed:after {
-  position: absolute;
   right: -30rpx;
-  height: 120rpx;
-  top: -20rpx;
-  content: '';
-  display: block;
-  background: #FBFBFF;
-  width: 30rpx;
 }
 
 .ul-tab-bar {
@@ -59,9 +48,10 @@
   position: absolute;
   left: 0;
   right: 0;
-  bottom: -15rpx;
+  bottom: 5rpx;
   height: 15rpx;
   background: white;
+  /*background: red;*/
   content: '';
   display: block;
   z-index: -1;
@@ -86,7 +76,7 @@
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
-  bottom: -31rpx;
+  bottom: -28rpx;
   width: 0;
   height: 0;
   border-width:16rpx;
@@ -105,7 +95,7 @@
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
-  bottom: -32rpx;
+  bottom: -29rpx;
   width: 0;
   height: 0;
   border-width:16rpx;
@@ -117,7 +107,16 @@
   visibility: hidden;
   z-index: 1;
 }
-
+.ul-tab-bar .line {
+  background: white;
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 5rpx;
+  bottom: 0rpx;
+  z-index: 3;
+  /*background: red*/
+}
 .ul-tab-bar .active {
   background: #F7EBFF;
   pointer-events: none;
@@ -125,7 +124,10 @@
   font-weight:700;
   color:rgba(101,39,145,1);
 }
-
+.ul-tab-bar .active .line {
+  background: #F7EBFF;
+  /*background: red*/
+}
 .ul-tab-bar .total {
   width:36rpx;
   height:36rpx;
@@ -152,12 +154,9 @@
 }
 
 .list-box {
-  margin-top: -25rpx;
-  width: calc(100vw - 60rpx);
   position: relative;
-  left: 30rpx;
-  right: 30rpx;
   padding-bottom: 98rpx;
+  margin: -25rpx 30rpx auto 30rpx;
 }
 
 .nodata {

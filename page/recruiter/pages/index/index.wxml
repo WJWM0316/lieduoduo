@@ -53,8 +53,19 @@
 
 		<view class="default {{fixedDom ? 'fixed' : ''}}" style="top: {{navH}}px">
 			<view class="ul-tab-bar">
-				<view class="li {{pageList === 'collectMySelf' ? 'active' : ''}}" bindtap="ontabClick" data-key="collectMySelf">发现<view></view></view>
-				<view class="li {{pageList === 'browseMySelf' ? 'active' : ''}}" bindtap="ontabClick" data-key="browseMySelf">看过我的<view class="total" wx:if="{{indexShowCount.viewCount}}">{{indexShowCount.viewCount}}</view></view>
+				<view
+					class="li {{pageList === 'collectMySelf' ? 'active' : ''}}"
+					bindtap="ontabClick"
+					data-key="collectMySelf">
+					发现<view></view><view class="line"></view>
+				</view>
+				<view
+					class="li {{pageList === 'browseMySelf' ? 'active' : ''}}"
+					bindtap="ontabClick"
+					data-key="browseMySelf">
+					看过我的
+					<view class="total" wx:if="{{indexShowCount.viewCount}}">{{indexShowCount.viewCount}}</view><view class="line"></view>
+				</view>
 			</view>
 		</view>
 
