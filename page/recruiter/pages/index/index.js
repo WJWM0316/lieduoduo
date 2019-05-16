@@ -102,9 +102,10 @@ Page({
       this.getLists().then(() => {
         this.getMixdata()
         this.getDomNodePosition()
+        this.setData({detail: app.globalData.recruiterDetails})
       })
     }
-    
+
     // let browseMySelf = {
     //   list: [],
     //   pageNum: 1,
