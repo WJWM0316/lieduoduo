@@ -155,14 +155,13 @@
 
 .list-box {
   position: relative;
-  padding-bottom: 98rpx;
   margin: -25rpx 30rpx auto 30rpx;
 }
 
 .nodata {
   display: inline-block;
   vertical-align: middle;
-  width: 100%;
+  width: calc(100vw - 60rpx);
   background:rgba(255,255,255,1);
   box-shadow:0rpx 0rpx 20rpx 0rpx rgba(50,14,59,0.08);
   border-radius:16rpx;
@@ -652,4 +651,8 @@ left, linear-gradient(-135deg, transparent 16rpx, #FFDC29 0) top right, linear-g
   background:#F5F4F7;
   color:#5C565D;
   margin-top: 24rpx;
+}
+
+.index-list-box {
+  margin-bottom: 20rpx;
 }

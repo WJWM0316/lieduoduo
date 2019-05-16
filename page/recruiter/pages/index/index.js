@@ -105,14 +105,12 @@ Page({
       if(!collectMySelf.list.length) onBottomStatus = 2
       this.getMixdata()
       this.setData({detail: recruiterInfo, onBottomStatus, collectMySelf})
-      console.log(this.data)
     } else {
       app.getAllInfo().then(res => {
         recruiterInfo = app.globalData.recruiterDetails
         this.getMixdata()
         if(!collectMySelf.list.length) onBottomStatus = 2
         this.setData({detail: recruiterInfo, onBottomStatus, collectMySelf})
-        console.log(this.data)
       })
     }
 

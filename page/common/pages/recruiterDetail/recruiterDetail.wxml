@@ -1,6 +1,6 @@
 <form bindsubmit="formSubmit" report-submit='{{true}}'>
   <view class="recruiterDetail" wx:if="{{info.uid}}">
-    <navbar title="{{info.companyInfo.companyShortname}}-{{info.position}}" background="#fff" color="#22292C" showHome="{{true}}"></navbar>
+    <navbar title="{{info.companyInfo.companyShortname}}-{{info.position}}" background="#fff" color="#22292C" showHome="{{true}}" customBack bindbackEvent="backEvent"></navbar>
     <view hidden="{{!hasReFresh}}">
       <refreshStatus></refreshStatus>
     </view>
