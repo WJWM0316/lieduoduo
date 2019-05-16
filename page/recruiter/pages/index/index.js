@@ -43,7 +43,8 @@ Page({
       pageNum: 1,
       isLastPage: false,
       isRequire: false,
-      isUse: false
+      isUse: false,
+      loading: false
     },
     pageCount: 20,
     background: 'transparent',
@@ -68,8 +69,12 @@ Page({
   },
   onLoad() {
     let choseType = wx.getStorageSync('choseType') || ''
-    this.setData({choseType})
     let that = this
+
+    let collectMySelf = this.data.collectMySelf
+    let onBottomStatus = this.data.onBottomStatus
+    let recruiterInfo = app.globalData.recruiterDetails
+    
     if (choseType === 'APPLICANT') {
       app.wxConfirm({
         title: '提示',
@@ -85,34 +90,35 @@ Page({
     }
 
     if (app.loginInit) {
-      this.getLists().then(() => {
-        this.getDomNodePosition()
-        this.setData({detail: app.globalData.recruiterDetails})
+
+      app.getAllInfo().then(res => {
+        recruiterInfo = app.globalData.recruiterDetails
+        this.getLists()
+        if(!collectMySelf.list.length) onBottomStatus = 2
+        this.setData({detail: recruiterInfo, onBottomStatus, collectMySelf, choseType})
       })
     } else {
-      this.getLists().then(() => {
-        this.getDomNodePosition()
-        this.setData({detail: app.globalData.recruiterDetails})
-      })
+      app.loginInit = () => {
+        app.getAllInfo().then(res => {
+          recruiterInfo = app.globalData.recruiterDetails
+          this.getLists()
+          if(!collectMySelf.list.length) onBottomStatus = 2
+          this.setData({detail: recruiterInfo, onBottomStatus, collectMySelf, choseType})
+        })
+      }
     }
   },
   onShow() {
-
-    let collectMySelf = this.data.collectMySelf
-    let onBottomStatus = this.data.onBottomStatus
-    let recruiterInfo = app.globalData.recruiterDetails
-    if(recruiterInfo.uid) {
-      if(!collectMySelf.list.length) onBottomStatus = 2
-      this.getMixdata()
-      this.setData({detail: recruiterInfo, onBottomStatus, collectMySelf})
-    } else {
-      app.getAllInfo().then(res => {
-        recruiterInfo = app.globalData.recruiterDetails
-        this.getMixdata()
-        if(!collectMySelf.list.length) onBottomStatus = 2
-        this.setData({detail: recruiterInfo, onBottomStatus, collectMySelf})
-      })
-    }
+    this.getMixdata()
+    // let collectMySelf = this.data.collectMySelf
+    // let onBottomStatus = this.data.onBottomStatus
+    // let recruiterInfo = app.globalData.recruiterDetails
+    // app.getAllInfo().then(res => {
+    //   recruiterInfo = app.globalData.recruiterDetails
+    //   this.getMixdata()
+    //   if(!collectMySelf.list.length) onBottomStatus = 2
+    //   this.setData({detail: recruiterInfo, onBottomStatus, collectMySelf})
+    // })
 
     // let browseMySelf = {
     //   list: [],
@@ -192,8 +198,10 @@ Page({
   getCollectMySelf(hasLoading = true) {
     return new Promise((resolve, reject) => {
       let params = {count: this.data.pageCount, page: this.data.collectMySelf.pageNum, ...app.getSource()}
+      let collectMySelf = this.data.collectMySelf
+      collectMySelf.loading = true
+      this.setData({collectMySelf})
       getCollectMySelfApi(params, hasLoading).then(res => {
-        let collectMySelf = this.data.collectMySelf
         let onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
         let list = res.data
         list = this.appendData(list, collectMySelf)
@@ -201,6 +209,7 @@ Page({
         collectMySelf.isLastPage = res.meta.nextPageUrl ? false : true
         collectMySelf.pageNum = collectMySelf.pageNum + 1
         collectMySelf.isRequire = true
+        collectMySelf.loading = false
         this.setData({collectMySelf, onBottomStatus}, () => resolve(res))
       })
     })
@@ -252,7 +261,7 @@ Page({
    */
   onPullDownRefresh(hasLoading = true) {
     let key = this.data.pageList
-    let value = {list: [], pageNum: 1, isLastPage: false, isRequire: false}
+    let value = {list: [], pageNum: 1, isLastPage: false, isRequire: false, isUse: false, loading: false}
     this.setData({[key]: value, hasReFresh: true, detail: app.globalData.recruiterDetails})
     
     getIndexShowCountApi().then(res => this.setData({indexShowCount: res.data}))
