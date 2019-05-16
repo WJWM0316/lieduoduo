@@ -144,7 +144,7 @@ Page({
   },
   getMixdata() {
     getIndexShowCountApi().then(res => this.setData({indexShowCount: res.data}))
-    getAdBannerApi({location: 'recruiter_index'}).then(res => this.setData({banner: res.data[0]}))
+    getAdBannerApi({location: 'recruiter_index'}).then(res => this.setData({banner: res.data.length ? res.data[0] : {}}))
     this.getWelcomeWord()
     this.getDomNodePosition()
   },
