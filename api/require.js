@@ -95,16 +95,16 @@ export const request = ({name = '', method = 'post', url, host, data = {}, needK
   // 请求中间件
   const promise = new Promise((resolve, reject) => {
     let saveApiData = {}
-    if (name) {
-      if (!apiVersionList && wx.getStorageSync('apiVersionList')) {
-        apiVersionList = wx.getStorageSync('apiVersionList')
-      }
-      saveApiData = wx.getStorageSync('saveApiData') || {}
-      if (apiVersionList[name] && saveApiData[name] && apiVersionList[name].version === saveApiData[name].version) {
-        resolve(saveApiData[name].data)
-        return
-      }
-    }
+    // if (name) {
+    //   if (!apiVersionList && wx.getStorageSync('apiVersionList')) {
+    //     apiVersionList = wx.getStorageSync('apiVersionList')
+    //   }
+    //   saveApiData = wx.getStorageSync('saveApiData') || {}
+    //   if (apiVersionList[name] && saveApiData[name] && apiVersionList[name].version === saveApiData[name].version) {
+    //     resolve(saveApiData[name].data)
+    //     return
+    //   }
+    // }
     // 开启菊花图
     if (data.hasOwnProperty('hasLoading')) {
       hasLoading = data.hasLoading
@@ -149,20 +149,20 @@ export const request = ({name = '', method = 'post', url, host, data = {}, needK
           }
           switch (msg.httpStatus) {
             case 200:
-              if (name) {
-                saveApiData = wx.getStorageSync('saveApiData') || {}
-                if (!saveApiData[name]) {
-                  saveApiData[name] = {}
-                  saveApiData[name].version = 0
-                  saveApiData[name].data = res.data
-                  wx.setStorageSync('saveApiData', saveApiData)
-                }
-                if (!apiVersionList || !apiVersionList[name] || (apiVersionList[name] && apiVersionList[name].version !== saveApiData[name].version)) {
-                  saveApiData[name].version = !apiVersionList[name] ? 0 : apiVersionList[name].version
-                  saveApiData[name].data = res.data
-                  wx.setStorageSync('saveApiData', saveApiData)
-                }
-              } 
+              // if (name) {
+              //   saveApiData = wx.getStorageSync('saveApiData') || {}
+              //   if (!saveApiData[name]) {
+              //     saveApiData[name] = {}
+              //     saveApiData[name].version = 0
+              //     saveApiData[name].data = res.data
+              //     wx.setStorageSync('saveApiData', saveApiData)
+              //   }
+              //   if (!apiVersionList || !apiVersionList[name] || (apiVersionList[name] && apiVersionList[name].version !== saveApiData[name].version)) {
+              //     saveApiData[name].version = !apiVersionList[name] ? 0 : apiVersionList[name].version
+              //     saveApiData[name].data = res.data
+              //     wx.setStorageSync('saveApiData', saveApiData)
+              //   }
+              // } 
               break
             case 401:
               // 需要用到token， 需要绑定手机号
