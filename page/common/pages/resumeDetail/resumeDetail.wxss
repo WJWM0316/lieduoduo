@@ -464,6 +464,7 @@
 .addpadding{
   padding-bottom: 138rpx;
   min-height: 100vh;
+  background: #F5F4F7;
 }
 .openbtn {
   font-size: 26rpx;
@@ -519,15 +520,26 @@
   color:rgba(92,86,93,1);
   line-height:68rpx;
   text-align: center;
-/*  background: red;
-  position: fixed;
+  position: relative;
+}
+
+.resume-from:before {
+  height: 93rpx;
+  background: #F5F4F7;
+  content: '';
+  display: block;
+  position: absolute;
+  top: 0;
   left: 0;
-  right: 0;*/
+  right: 0;
+  width: 100%;
+  z-index: -1;
 }
 
 .resume-from .text4{
   display: inline-block;
   position: relative;
+  z-index: 5;
 }
 
 .resume-from .icon-left{
@@ -536,7 +548,7 @@
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  left: -35rpx;
+  left: -30rpx;
 }
 
 .resume-from .icon-right{
@@ -548,48 +560,36 @@
   right: -30rpx;
 }
 
-.resume-from .icon1:before {
-  width: 0;
-  height: 0;
-  position: absolute;
-  top: 0;
-  left: 0;
-  border-width: 10rpx;
-  border-style: solid;
-  border-color: #652791 transparent transparent transparent;
-  display: block;
-  content: '';
-  z-index: 2;
-}
-
-.resume-from .icon1:after {
-  width: 0;
-  height: 0;
-  position: absolute;
-  top: 3rpx;
-  left: 5rpx;
-  border-width: 10rpx;
-  border-style: solid;
-  border-color: #FFDC29 transparent transparent transparent;
-  display: block;
-  content: '';
-  z-index: 1;
+.resume-from .icon1 .img01 {
+  width: 20rpx;
+  height: 15rpx;
 }
 
 
 .resume-from .position {
   display: inline;
   position: relative;
+  color: #652791;
+}
+
+.resume-from .position .text10{
+  position: relative;
+  z-index: 1
 }
 
 .resume-from .position:after {
-  height:5rpx;
-  background:rgba(255,220,41,1);
+  height:6rpx;
+  background:#FFDC29;
   border-radius:2rpx;
   position: absolute;
   left: 0;
   right: 0;
-  bottom: 2rpx;
+  bottom: 4rpx;
   content: '';
   display: block;
+  z-index: 0;
+}
+
+.resumeDetail-box {
+
 }

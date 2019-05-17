@@ -33,7 +33,7 @@ Page({
     hasReFresh: false,
     onBottomStatus: 0
   },
-  onShow() {
+  onLoad() {
     let collectUsers = {
       list: [],
       pageNum: 1,
@@ -118,5 +118,8 @@ Page({
     if(!Object.keys(params).length) return;
     // console.log(params)
     wx.navigateTo({url: `${COMMON}resumeDetail/resumeDetail?uid=${params.jobhunteruid}`})
-  }
+  },
+  formSubmit(e) {
+    app.postFormId(e.detail.formId)
+  },
 })

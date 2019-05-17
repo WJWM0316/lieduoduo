@@ -17,7 +17,7 @@ import {realNameReg, emailReg, positionReg} from '../../../../../utils/fieldRegu
 
 import {RECRUITER, COMMON} from '../../../../../config.js'
 
-const app = getApp()
+let app = getApp()
 
 Page({
   data: {
@@ -50,7 +50,7 @@ Page({
     this.setData({pageTitle: options.positionId ? '编辑职位' : '发布职位', query: options})
   },
   onShow() {
-    const options = this.data.query
+    let options = this.data.query
     this.init(options)
   },
   backEvent() {
@@ -85,9 +85,10 @@ Page({
    * @return   {[type]}   [description]
    */
   init(options) {
-    const storage = wx.getStorageSync('createPosition')
-
-    const labels = []
+    let storage = wx.getStorageSync('createPosition') || {}
+    // 不显示弹窗
+    storage.showScanBox = false
+    let labels = []
 
     this.setData({query: options})
     
@@ -108,15 +109,15 @@ Page({
    * @return   {[type]}           [description]
    */
   getUpdateInfos(options) {
-    const storage = wx.getStorageSync('createPosition')
+    let storage = wx.getStorageSync('createPosition')
     if(storage) {
       Object.keys(storage).map(field => this.setData({[field]: storage[field]}))
       return;
     }
     getPositionApi({id: options.positionId})
       .then(res => {
-        const formData = {}
-        const infos = res.data
+        let formData = {}
+        let infos = res.data
         formData.position_name = infos.positionName
         formData.area_id = infos.areaId
         formData.type = infos.type
@@ -147,8 +148,8 @@ Page({
    * @return   {[type]}     [description]
    */
   routeJump(e) {
-    const route = e.currentTarget.dataset.route
-    const url = this.data.query.positionId
+    let route = e.currentTarget.dataset.route
+    let url = this.data.query.positionId
       ? `${RECRUITER}position/${route}/${route}?positionId=${this.data.query.positionId}`
       : `${RECRUITER}position/${route}/${route}`
 
@@ -166,7 +167,7 @@ Page({
    * @return   {[type]}     [description]
    */
   getPositionAddress() {
-    const url = this.data.query.positionId
+    let url = this.data.query.positionId
       ? `${RECRUITER}position/addressList/addressList?positionId=${this.data.query.positionId}&type=position&selected=1`
       : `${RECRUITER}position/addressList/addressList?type=position&selected=1`
       
@@ -180,7 +181,7 @@ Page({
    * @return   {[type]}     [description]
    */
   getCategory() {
-    const url = this.data.query.positionId
+    let url = this.data.query.positionId
       ? `${COMMON}category/category?positionId=${this.data.query.positionId}`
       : `${COMMON}category/category`
       
@@ -219,10 +220,10 @@ Page({
     this.setData({education: e.detail.propsResult, educationName: e.detail.propsDesc})
   },
   submit() {
-    const formData = {}
-    const labels = []
-    const action = this.data.query.positionId ? 'editPositionApi' : 'createPositionApi'
-    const params = [
+    let formData = {}
+    let labels = []
+    let action = this.data.query.positionId ? 'editPositionApi' : 'createPositionApi'
+    let params = [
       'position_name',
       'type',
       'area_id',
@@ -254,46 +255,46 @@ Page({
     }
 
     // 验证职位名称是否已经完善
-    const positionName = new Promise((resolve, reject) => {
+    let positionName = new Promise((resolve, reject) => {
       !this.data.position_name ? reject('请填写职位名称') : resolve()
     })
 
     // 验证职位类型是否已经选择
-    const positionType = new Promise((resolve, reject) => {
+    let positionType = new Promise((resolve, reject) => {
       !this.data.type ? reject('请选择职位类别') : resolve()
     })
 
-    const positionSkills = new Promise((resolve, reject) => {
+    let positionSkills = new Promise((resolve, reject) => {
       !this.data.skills.length ? reject('请选择技能要求') : resolve()
     })
 
     // 验证地址是否已经选择
-    const positionAddress = new Promise((resolve, reject) => {
+    let positionAddress = new Promise((resolve, reject) => {
       !this.data.address_id ? reject('请选择地址') : resolve()
     })
 
     // 验证技能是否已经选择
-    // const positionSkills = new Promise((resolve, reject) => {
+    // let positionSkills = new Promise((resolve, reject) => {
     //   !this.data.skills.length ? reject('请选择技能要求') : resolve()
     // })
 
     // 验证薪资是否已经选择
-    const positionEmolument = new Promise((resolve, reject) => {
+    let positionEmolument = new Promise((resolve, reject) => {
       !this.data.emolument_min ? reject('请选择薪资范围') : resolve()
     })
 
     // 验证经验是否已经选择
-    const positionExperience = new Promise((resolve, reject) => {
+    let positionExperience = new Promise((resolve, reject) => {
       !this.data.work_experience ? reject('请选择经验要求') : resolve()
     })
 
     // 验证学历是否已经选择
-    const positionEducation = new Promise((resolve, reject) => {
+    let positionEducation = new Promise((resolve, reject) => {
       !this.data.education ? reject('请选择学历要求') : resolve()
     })
 
     // 验证职位描述是否已经完善
-    const positionDescribe = new Promise((resolve, reject) => {
+    let positionDescribe = new Promise((resolve, reject) => {
       !this.data.describe ? reject('请填写职位描述') : resolve()
     })
 
@@ -322,7 +323,7 @@ Page({
     createPositionApi(formData).then(res => {
       let options = this.data.options
       let params = {}
-      const recruiterChatFirst = wx.getStorageSync('recruiter_chat_first')
+      let recruiterChatFirst = wx.getStorageSync('recruiter_chat_first')
       wx.removeStorageSync('createPosition')
 
       if(recruiterChatFirst) {
@@ -360,8 +361,8 @@ Page({
    * @return   {[type]}   [description]
    */
   bindButtonStatus() {
-    const infos = this.data
-    const canClick = infos.position_name
+    let infos = this.data
+    let canClick = infos.position_name
       && infos.type
       && infos.address_id
       // && infos.skills.length

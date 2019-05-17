@@ -11,7 +11,7 @@
 }
 .roleInfoCard .company {
   position: relative;
-  padding-left: 164rpx;
+  padding-left: 134rpx;
   padding-right: 50rpx;
   background: #fff;
   height:140rpx;
@@ -57,6 +57,7 @@
   overflow: hidden;
   text-overflow:ellipsis;
   white-space: nowrap;
+  text-align: left;
 }
 .roleInfoCard .applicantMsg .name .msg {
   font-size: 26rpx;
@@ -76,7 +77,7 @@
   font-size: 30rpx;
   color: #652791;
   padding-right: 33rpx;
-  padding-top: 45rpx;
+  padding-top: 18rpx;
 }
 .roleInfoCard .companyMsg .detail, .roleInfoCard .applicantMsg .detail, .roleInfoCard .recruiterMsg .detail {
   margin-top: 14rpx;
@@ -87,6 +88,7 @@
   overflow: hidden;
   text-overflow:ellipsis;
   white-space: nowrap;
+  text-align: left;
 }
 .roleInfoCard .company .icon {
   font-size: 32rpx;

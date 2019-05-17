@@ -1,5 +1,5 @@
 <view>
-	<navbar title="猎多多"  background="{{background}}" color="#fff" isFixed="{{isFixed}}"></navbar>
+	<navbar title="{{background !== 'transparent' ? '猎多多' : ''}}"  background="{{background}}" color="#fff" isFixed="{{isFixed}}"></navbar>
 
 	<view hidden="{{!hasReFresh}}">
 		<refreshStatus></refreshStatus>
@@ -35,7 +35,7 @@
 		<view class="row-two" bindtap="routeJump" data-route="rank">
 			<view class="content">
 				<view class="row-three">面试官排行榜</view>
-				<view class="row-four">你当前的人气：{{indexShowCount.rankDetail.popularity}} 排名：{{indexShowCount.rankDetail.currentRank}}</view>
+				<view class="row-four">你当前的人气：{{indexShowCount.rankDetail.popularity}}</view>
 			</view>
 			<view class="imglist">
 				<image class="imgitem" lazy-load wx:for="{{indexShowCount.moreRecruiter}}" wx:key="{{index}}" src="{{item.smallUrl}}" wx:if="{{index <= 2}}"></image>
@@ -45,11 +45,11 @@
 		<view class="shadow"></view>
 	</view>
 
-	<view class="shoper-banner">
+	<view class="shoper-banner" wx:if="{{banner.bigImgUrl}}" bindtap="toJump" data-url="{{banner.otherUrl}}">
 		<image src="{{banner.bigImgUrl}}" class="images"></image>
 	</view>
 
-	<view class="index-list-box">
+	<view>
 
 		<view class="default {{fixedDom ? 'fixed' : ''}}" style="top: {{navH}}px">
 			<view class="ul-tab-bar">
@@ -90,8 +90,8 @@
 										<view class="name">{{item.name}}</view>
 										<view class="zhiwei">
 											<block>{{item.workAgeDesc}}</block>
-											<block> . {{item.degreeDesc}}</block>
-											<block wx:if="{{item.salary}}"> . {{item.salary}}</block>
+											<block wx:if="{{item.degreeDesc}}"> . {{item.degreeDesc}}</block>
+											<block wx:if="{{item.salaryCeil}}"> . {{item.salaryFloor}}-{{item.salaryCeil}}k</block>
 										</view>
 									</view>
 									<view class="degress" wx:if="{{item.lastCompanyName || item.lastPosition}}">
@@ -173,7 +173,7 @@
 									<view class="name">{{item.name}}</view>
 									<view class="zhiwei">
 										<block>{{item.workAgeDesc}}</block>
-										<block> . {{item.degreeDesc}}</block>
+										<block wx:if="{{item.degreeDesc}}"> . {{item.degreeDesc}}</block>
 										<block wx:if="{{item.salary}}"> . {{item.salary}}</block>
 									</view>
 								</view>
@@ -197,4 +197,5 @@
 
   <tabBar tabType="1"></tabBar>
   <choose wx:if="{{!choseType}}"></choose>
+  <followWechat userInfo="{{userInfo}}"></followWechat>
 </view>

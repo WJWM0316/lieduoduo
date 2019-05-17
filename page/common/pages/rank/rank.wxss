@@ -318,6 +318,14 @@
   overflow: hidden;
   box-sizing: border-box;
   z-index: 10001;
+  transform: translateY(100%);
+  transition: all ease .2s;
+  opacity: .5;
+}
+
+.rule-box .show{
+  transform: translateY(0%);
+  opacity: 1
 }
 
 .rule-box .header{
@@ -335,7 +343,7 @@
 
 .rule-box .header .icon-close{
   color: #CDCBCF;
-  font-size: 25rpx;
+  font-size: 30rpx;
   position: absolute;
   top: 50%;
   transform: translateY(-50%);

@@ -391,9 +391,7 @@ Page({
     })
   },
   toggleShowRules() {
-    this.setData({showRules: !this.data.showRules})
+    this.setData({showRules: !this.data.showRules && identity === 'RECRUITER'})
   },
-  stopPageScroll() {
-    return false
-  }
+  stopPageScroll() {return false }
 })

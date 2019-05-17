@@ -63,18 +63,15 @@ Page({
         currentRank: 0,
         influence: 0,
         popularity: 0
-      }
+      },
+      recruiterInterestedToJ: 0
     },
     banner: {}
   },
   onLoad() {
     let choseType = wx.getStorageSync('choseType') || ''
-    let that = this
+    this.setData({ choseType})
 
-    let collectMySelf = this.data.collectMySelf
-    let onBottomStatus = this.data.onBottomStatus
-    let recruiterInfo = app.globalData.recruiterDetails
-    
     if (choseType === 'APPLICANT') {
       app.wxConfirm({
         title: '提示',
@@ -83,77 +80,46 @@ Page({
           wx.reLaunch({url: `${APPLICANT}index/index` })
         },
         cancelBack() {
-          wx.setStorageSync('choseType', 'RECRUITER')
-          app.getAllInfo()
+          app.getAllInfo().then(() => wx.setStorageSync('choseType', 'RECRUITER'))
         }
       })
     }
-
+  },
+  onShow() {
+    let recruiterInfo = app.globalData.recruiterDetails
+    let collectMySelf = this.data.collectMySelf
+    let userInfo = app.globalData.userInfo
     if (app.loginInit) {
-
       app.getAllInfo().then(res => {
         recruiterInfo = app.globalData.recruiterDetails
+        userInfo = app.globalData.userInfo
+        this.getDomNodePosition()
+        this.getMixdata()
         this.getLists()
-        if(!collectMySelf.list.length) onBottomStatus = 2
-        this.setData({detail: recruiterInfo, onBottomStatus, collectMySelf, choseType})
+        this.setData({detail: recruiterInfo, userInfo})
       })
     } else {
       app.loginInit = () => {
         app.getAllInfo().then(res => {
           recruiterInfo = app.globalData.recruiterDetails
+          userInfo = app.globalData.userInfo
+          this.getDomNodePosition()
+          this.getMixdata()
           this.getLists()
-          if(!collectMySelf.list.length) onBottomStatus = 2
-          this.setData({detail: recruiterInfo, onBottomStatus, collectMySelf, choseType})
+          this.setData({detail: recruiterInfo, userInfo})
         })
       }
     }
-  },
-  onShow() {
-    this.getMixdata()
-    // let collectMySelf = this.data.collectMySelf
-    // let onBottomStatus = this.data.onBottomStatus
-    // let recruiterInfo = app.globalData.recruiterDetails
-    // app.getAllInfo().then(res => {
-    //   recruiterInfo = app.globalData.recruiterDetails
-    //   this.getMixdata()
-    //   if(!collectMySelf.list.length) onBottomStatus = 2
-    //   this.setData({detail: recruiterInfo, onBottomStatus, collectMySelf})
-    // })
-
-    // let browseMySelf = {
-    //   list: [],
-    //   pageNum: 1,
-    //   isLastPage: false,
-    //   isRequire: false,
-    //   total: 0
-    // }
-
-    // let collectMySelf = {
-    //   list: [],
-    //   pageNum: 1,
-    //   isLastPage: false,
-    //   isRequire: false,
-    //   isUse: false
-    // }
-
-    // if (app.loginInit) {
-    //   this.getMixdata()
-    //   this.setData({detail: app.globalData.recruiterDetails}, () => this.getLists().then(() => this.getDomNodePosition()))
-    // } else {
-    //   app.loginInit = () => {
-    //     this.getMixdata()
-    //     this.setData({detail: app.globalData.recruiterDetails}, () => this.getLists().then(() => this.getDomNodePosition()))
-    //   }
-    // }
   },
   getMixdata() {
     getIndexShowCountApi().then(res => this.setData({indexShowCount: res.data}))
     getAdBannerApi({location: 'recruiter_index'}).then(res => this.setData({banner: res.data.length ? res.data[0] : {}}))
     this.getWelcomeWord()
-    this.getDomNodePosition()
   },
   getDomNodePosition() {
-    getSelectorQuery('.index-list-box').then(res => fixedDomPosition = res.top - this.data.navH)
+    getSelectorQuery('.default').then(res => {
+      if(!fixedDomPosition) fixedDomPosition = res.top - this.data.navH
+    })
   },
   /**
    * @Author   小书包
@@ -204,12 +170,12 @@ Page({
       getCollectMySelfApi(params, hasLoading).then(res => {
         let onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
         let list = res.data
-        list = this.appendData(list, collectMySelf)
-        collectMySelf.list = collectMySelf.list.concat(list)
         collectMySelf.isLastPage = res.meta.nextPageUrl ? false : true
         collectMySelf.pageNum = collectMySelf.pageNum + 1
         collectMySelf.isRequire = true
         collectMySelf.loading = false
+        list = this.appendData(list, collectMySelf)
+        collectMySelf.list = collectMySelf.list.concat(list)
         this.setData({collectMySelf, onBottomStatus}, () => resolve(res))
       })
     })
@@ -226,14 +192,18 @@ Page({
     let item = {}
     if(!collectMySelf.isUse) {
       if(data.length) {
-        collectMySelf.isUse = true
-        this.setData({collectMySelf})
         if(!detail.positionNum) item.myType = 1
         if(detail.positionNum) item.myType = 2
-        if(data.length < 7) {
+        if(data.length <= 7) {
+          collectMySelf.isUse = true
+          this.setData({collectMySelf})
           data.push(item)
         } else {
-          data.splice(6, 0, item)
+         if(collectMySelf.isLastPage) {
+          data.push(item)
+          collectMySelf.isUse = true
+          this.setData({collectMySelf})
+         }
         }
       }
     }
@@ -247,10 +217,38 @@ Page({
    */
   ontabClick(e) {
     let pageList = e.currentTarget.dataset.key
+    let browseMySelf = {
+      list: [],
+      pageNum: 1,
+      isLastPage: false,
+      isRequire: false,
+      total: 0
+    }
+
+    let collectMySelf = {
+      list: [],
+      pageNum: 1,
+      isLastPage: false,
+      isRequire: false,
+      isUse: false
+    }
     this.setData({ pageList }, () => {
-      let key = this.data.pageList
-      getIndexShowCountApi().then(res => this.setData({indexShowCount: res.data}))
-      if(!this.data[key].isRequire) this.getLists()
+
+      if(pageList === 'browseMySelf') {
+        getIndexShowCountApi().then(res => {
+          let indexShowCount = res.data
+          this.setData({indexShowCount, browseMySelf})
+          if(!this.data.browseMySelf.isLastPage) this.getLists()
+          if(indexShowCount.viewCount && this.data.browseMySelf.isLastPage) this.getLists()
+        })
+      } else {
+        getIndexShowCountApi().then(res => {
+          let indexShowCount = res.data
+          this.setData({indexShowCount, collectMySelf})
+          if(!this.data.collectMySelf.isLastPage) this.getLists()
+        })
+      }
+      
     })
   },
   /**
@@ -273,7 +271,7 @@ Page({
       value.pageNum = 2
       value.isRequire = true
       value.total = res.meta.total
-      this.setData({[key]: value, onBottomStatus}, () => {
+      this.setData({[key]: value, onBottomStatus, fixedDom: false}, () => {
         wx.stopPullDownRefresh()
         wx.pageScrollTo({scrollTop: 0 })
         this.setData({hasReFresh: false})
@@ -304,19 +302,17 @@ Page({
    * @return   {[type]}     [description]
    */
   onPageScroll(e) {
-    if(e.scrollTop > 0) {
+    if(e.scrollTop > 10) {
       this.setData({isFixed: true, background: '#652791'})
     } else {
       this.setData({isFixed: false, background: 'transparent'})
     }
-
-    if(e.scrollTop > fixedDomPosition - 20) {
-      this.setData({fixedDom: true})
+    if(e.scrollTop > fixedDomPosition) {
+      if(!this.data.fixedDom) this.setData({fixedDom: true})
     } else {
-      this.setData({fixedDom: false})
+      if(this.data.fixedDom) this.setData({fixedDom: false})
     }
   },
-  jump() {},
   formSubmit(e) {
     app.postFormId(e.detail.formId)
   },
@@ -377,5 +373,9 @@ Page({
     } else {
       this.setData({welcomeWord: '晚上好'})
     }
+  },
+  toJump(e) {
+    let url = '/' + e.currentTarget.dataset.url
+    wx.navigateTo({ url })
   }
 })

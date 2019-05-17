@@ -68,9 +68,9 @@
     </view>
   </view>
 
-  <view class="rule-box" wx:if="{{showRules && identity === 'RECRUITER'}}">
-    <view class="mask" catchtouchmove="stopPageScroll"  bindtap="toggleShowRules"></view>
-    <view class="content">
+  <view class="rule-box">
+    <view class="mask" catchtouchmove="stopPageScroll"  bindtap="toggleShowRules" hidden="{{!showRules}}"></view>
+    <view class="content {{showRules ? 'show' : ''}}">
       <view class="header" catchtouchmove="stopPageScroll">排行榜说明<i class="icon iconfont icon-close" bindtap="toggleShowRules"></i></view>
       <view class="ul">
         <view class="li">
