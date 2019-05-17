@@ -28,9 +28,9 @@ Page({
         case 'recruitmentDay':
           pageUrl = `${WEBVIEW}available?sessionToken=${sessionToken}&token=${token}`
           wxShare = {
-            title: '一大波高薪大厂机会来袭，社交招聘节来看看吗？',
+            title: '百亿资本加持下的风口新机遇火热来袭，顶级投资机构专场只等你来',
             path: '/page/common/pages/webView/webView?type=recruitmentDay',
-            imageUrl: `${this.data.cdnImagePath}zpjShareBg.jpg`
+            imageUrl: `${this.data.cdnImagePath}zpjShareBg_new.jpg`
           }
           app.readyStatistics({
             page: 'recruit_festival',

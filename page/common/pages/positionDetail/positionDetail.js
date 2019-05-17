@@ -79,7 +79,10 @@ Page({
     }
     return getPositionApi({id: this.data.query.positionId, hasLoading, isReload, ...app.getSource()})
       .then(res => {
-        let requireOAuth = res.meta && res.meta.requireOAuth ? res.meta.requireOAuth : false
+        let requireOAuth = null
+        if (this.data.query.sCode && !app.globalData.userInfo) {
+          requireOAuth = true
+        }
         this.setData({
           requireOAuth: requireOAuth,
           detail: res.data, 
