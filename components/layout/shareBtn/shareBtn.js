@@ -30,8 +30,6 @@ Component({
     animationData: {}
   },
   attached () {
-    localstorage.set('name', {showed: true, type: 'timeStamp', time: 1558074840000})
-    localstorage.get('name')
   },
   /**
    * 组件的方法列表
