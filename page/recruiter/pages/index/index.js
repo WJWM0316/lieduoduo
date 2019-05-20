@@ -90,7 +90,7 @@ Page({
     let collectMySelf = this.data.collectMySelf
     let browseMySelf = this.data.browseMySelf
     let userInfo = app.globalData.userInfo
-    console.log(collectMySelf)
+
     if (app.loginInit) {
       app.getAllInfo().then(res => {
         recruiterInfo = app.globalData.recruiterDetails
@@ -98,9 +98,9 @@ Page({
         this.getDomNodePosition()
         this.getMixdata()
         if(this.data.pageList !== 'collectMySelf') {
-          if(!collectMySelf.list.length && !collectMySelf.isLastPage) this.getLists()
+          if(!collectMySelf.list.length) this.getLists()
         } else {
-          if(!browseMySelf.list.length && !collectMySelf.isLastPage) this.getLists()
+          if(!browseMySelf.list.length) this.getLists()
         }
         this.setData({detail: recruiterInfo, userInfo})
       })
@@ -112,9 +112,9 @@ Page({
           this.getDomNodePosition()
           this.getMixdata()
           if(this.data.pageList !== 'collectMySelf') {
-            if(!collectMySelf.list.length && !collectMySelf.isLastPage) this.getLists()
+            if(!collectMySelf.list.length) this.getLists()
           } else {
-            if(!browseMySelf.list.length && !collectMySelf.isLastPage) this.getLists()
+            if(!browseMySelf.list.length) this.getLists()
           }
           this.setData({detail: recruiterInfo, userInfo})
         })
