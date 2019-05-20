@@ -41,7 +41,32 @@
 			</view>
 			<text class="rich-text">{{ detail.describe }}</text>
 		</view>
-		
+		<view class="work-adress">
+			<view class="title">
+				<view class="icon"> <view class="fan"></view> </view> 工作地点
+			</view>
+			<view
+				class="mapBox"
+				bindtap="viewMap"
+				data-longitude="{{detail.lng}}"
+				data-latitude="{{detail.lat}}"
+				data-address="{{detail.address}}"
+				data-doorplate="{{detail.doorplate}}">
+				<map
+					class="map"
+				  longitude="{{detail.lng}}"
+				  latitude="{{detail.lat}}"
+				  scale="16"
+				  enable-scroll="{{false}}"
+				  markers="{{detail.markers}}"
+				  show-location></map>
+			</view>
+			<view class="tab-company-address" data-type="map" bindtap="todoAction" wx:if="{{detail.address}}">
+				<i class="icon iconfont icon-dizhi"></i>
+				<view>{{detail.address}}{{detail.doorplate}}</view>
+				<i class="icon iconfont icon-xiangyou"></i>
+			</view>
+		</view>
 		<view class="about-company">
 			<view class="title">
 				<view class="icon"> <view class="fan"></view> </view> 关于我们
@@ -60,7 +85,7 @@
 			</button>
 			<view class="tab-company-address" data-type="map" bindtap="todoAction" wx:if="{{detail.address}}">
 				<i class="icon iconfont icon-dizhi"></i>
-				<view>{{detail.address}}</view>
+				<view>{{detail.address}}{{detail.doorplate}}</view>
 				<i class="icon iconfont icon-xiangyou"></i>
 			</view>
 			<view class="detail" wx:if="{{companyInfos.intro}}">

@@ -1,4 +1,5 @@
 import {APPLICANT,RECRUITER} from "../../../config.js"
+import localstorage from "../../../utils/localstorage.js"
 const app = getApp()
 Component({
   options: {
@@ -51,32 +52,35 @@ Component({
     navH: app.globalData.navHeight,
     positionStatus: 'fixed',
     cdnImagePath: app.globalData.cdnImagePath,
-    firstClick: true,
+    firstClick: false,
+    homeBubble: false,
+    choseType: 'APPLICANT',
     showScanBox: false
   },
-  // pageLifetimes: {
-  //   show() {
-  //     console.log(this.data, 'show')
-  //   }
-  // },
   attached() {
     let positionStatus = this.data.positionStatus
     let firstClick = wx.getStorageSync('firstClick')
+    let homeBubble = localstorage.get('backHomeTip')
     let route = getCurrentPages()
-
     if (!this.data.isFixed) {
       positionStatus = 'relative'
     }
-
     if (route.length > 1) {
       this.setData({showBackBtn: true, positionStatus})
     } else {
       this.setData({positionStatus})
     }
-
-    if(firstClick) {
-      this.setData({firstClick: false})
+    if(!firstClick) {
+      this.setData({firstClick: true})
     }
+    if (!homeBubble) {
+      this.setData({homeBubble: true}, () => {
+        let timer = setTimeout(res => {
+          this.setData({homeBubble: false}, () => localstorage.set('backHomeTip', {type: 'resetTheDay'}))
+        }, 5000)
+      })
+    }
+    this.setData({choseType: wx.getStorageSync('choseType')})
   },
   /**
    * 组件的方法列表
@@ -106,8 +110,17 @@ Component({
     formSubmit(e) {
       app.postFormId(e.detail.formId)
     },
-    closeTips() {
-      this.setData({firstClick: false}, () => wx.setStorageSync('firstClick', 1))
+    closeTips(e) {
+      console.log(e, 11)
+      switch (e.currentTarget.dataset.type) {
+        case 'scanCode':
+          this.setData({firstClick: false}, () => wx.setStorageSync('firstClick', 1))
+          break
+        case 'homeBubble':
+          this.setData({homeBubble: false}, () => localstorage.set('backHomeTip', {type: 'resetTheDay'}))
+          break
+      }
+      
     },
     showScan() {
       this.setData({showScanBox: true})

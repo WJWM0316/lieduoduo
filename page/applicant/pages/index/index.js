@@ -60,7 +60,7 @@ Page({
     emolumentList: [],
     requireOAuth: false,
     cdnImagePath: app.globalData.cdnImagePath,
-    userInfo: {},
+    userInfo: app.globalData.userInfo,
     options: {},
     hasLogin: 0,
     isJobhunter: 0,

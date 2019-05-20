@@ -28,7 +28,7 @@ Page({
         case 'recruitmentDay':
           pageUrl = `${WEBVIEW}available?sessionToken=${sessionToken}&token=${token}`
           wxShare = {
-            title: '百亿资本加持下的风口新机遇火热来袭，顶级投资机构专场只等你来',
+            title: '顶级机构百亿资本加持，给你不容错过的职场新风口',
             path: '/page/common/pages/webView/webView?type=recruitmentDay',
             imageUrl: `${this.data.cdnImagePath}zpjShareBg_new.jpg`
           }

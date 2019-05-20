@@ -41,7 +41,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 1,
+			"current": 4,
 			"list": [
 				{
 					"id": 0,
@@ -74,7 +74,7 @@
 					"id": 4,
 					"name": "【公包】公司主页",
 					"pathName": "page/common/pages/homepage/homepage",
-					"query": "companyId=435&sCode=121212",
+					"query": "companyId=869",
 					"scene": null
 				},
 				{

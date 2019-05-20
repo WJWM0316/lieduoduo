@@ -34,10 +34,9 @@ class localstorage {
 	}
 	get (key) {
 		let value = wx.getStorageSync(key)
-		console.log(value.overTimeStamp, new Date().getTime())
-		if (value.overTimeStamp <= new Date().getTime()) {
+		if (value.overTimeStamp && value.overTimeStamp <= new Date().getTime()) {
 			wx.removeStorageSync(key)
-			return {}
+			return undefined
 		} else {
 			return value
 		}

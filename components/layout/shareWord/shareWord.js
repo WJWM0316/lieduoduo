@@ -3,6 +3,7 @@ const animation = wx.createAnimation({
   duration: 200,
   timingFunction: 'ease-in-out'
 })
+let copyContent = ''
 Component({
   /**
    * 组件的属性列表
@@ -137,7 +138,7 @@ Component({
   methods: {
     copy () {
       wx.setClipboardData({
-        data: this.data.list[this.data.choseIndex].value[this.data.txtIndex],
+        data: copyContent,
         success(res) {
           wx.getClipboardData({
             success(res) {
@@ -169,6 +170,7 @@ Component({
           this.setData({txtIndex: index})
           break
       }
+      copyContent = this.data.list[this.data.choseIndex].value[this.data.txtIndex]
     },
     oper (e) {
       switch(e.currentTarget.dataset.type) {
@@ -206,7 +208,9 @@ Component({
           this.setData({openTro: false})
           break
       }
-      
+    },
+    getValue (e) {
+      copyContent = e.detail.value
     }
   }
 })

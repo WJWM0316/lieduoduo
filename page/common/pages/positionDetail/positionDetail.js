@@ -62,6 +62,18 @@ Page({
       this.setData({findMore: res.data})
     })
   },
+  viewMap(e) {
+    const params = e.currentTarget.dataset
+    wx.openLocation({
+      latitude: Number(params.latitude),
+      longitude: Number(params.longitude),
+      scale: 14,
+      address: `${params.address} ${params.doorplate}`,
+      fail: res => {
+        app.wxToast({title: '获取位置失败'})
+      }
+    })
+  },
   /**
    * @Author   小书包
    * @DateTime 2019-01-02
@@ -82,6 +94,21 @@ Page({
         let requireOAuth = null
         if (this.data.query.sCode && !app.globalData.userInfo) {
           requireOAuth = true
+        }
+        if (res.data.lng) {
+          res.data.markers = []
+          res.data.markers.push({
+            id: 1,
+            longitude: res.data.lng,
+            latitude: res.data.lat,
+            label: {
+              content: res.data.companyInfo.companyShortname,
+              fontSize:'18rpx',
+              color:'#282828',
+              anchorX: '30rpx',
+              anchorY: '-60rpx'
+            }
+          })
         }
         this.setData({
           requireOAuth: requireOAuth,

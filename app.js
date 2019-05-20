@@ -60,7 +60,7 @@ App({
     isJobhunter: 0, // 是否注册成求职者
     hasExpect: 1, // 有求职意向
     hasLogin: 0, // 判断是否登录
-    userInfo: {}, // 用户信息， 判断是否授权,
+    userInfo: null, // 用户信息， 判断是否授权,
     navHeight: 0,
     cdnImagePath: 'https://attach.lieduoduo.ziwork.com/front-assets/images/',
     companyInfo: {}, // 公司信息
