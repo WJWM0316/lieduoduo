@@ -69,7 +69,7 @@ Page({
     this.setData({index1: params.index, cityList, showMask: true})
     let selectCityName = cityList[params.index].title
     if (selectCityName === '北京市' || selectCityName === '天津市' || selectCityName === '上海市' || selectCityName === '重庆市') {
-      const selectCity = cityList[params.index]
+      const selectCity = cityList[params.index].children[0]
       wx.setStorageSync('selectCity', selectCity)
       wx.navigateBack({delta: 1})
     }

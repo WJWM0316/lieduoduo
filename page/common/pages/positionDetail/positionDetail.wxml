@@ -41,7 +41,7 @@
 			</view>
 			<text class="rich-text">{{ detail.describe }}</text>
 		</view>
-		<view class="work-adress">
+		<!-- <view class="work-adress" wx:if="{{detail.lng}}">
 			<view class="title">
 				<view class="icon"> <view class="fan"></view> </view> 工作地点
 			</view>
@@ -66,7 +66,7 @@
 				<view>{{detail.address}}{{detail.doorplate}}</view>
 				<i class="icon iconfont icon-xiangyou"></i>
 			</view>
-		</view>
+		</view> -->
 		<view class="about-company">
 			<view class="title">
 				<view class="icon"> <view class="fan"></view> </view> 关于我们

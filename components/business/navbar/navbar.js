@@ -74,11 +74,7 @@ Component({
       this.setData({firstClick: true})
     }
     if (!homeBubble) {
-      this.setData({homeBubble: true}, () => {
-        let timer = setTimeout(res => {
-          this.setData({homeBubble: false}, () => localstorage.set('backHomeTip', {type: 'resetTheDay'}))
-        }, 5000)
-      })
+      this.setData({homeBubble: true})
     }
     this.setData({choseType: wx.getStorageSync('choseType')})
   },
