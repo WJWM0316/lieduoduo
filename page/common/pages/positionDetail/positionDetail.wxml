@@ -84,8 +84,10 @@
 				</view>
 			</button>
 			<view class="tab-company-address" data-type="map" bindtap="todoAction" wx:if="{{detail.address}}">
-				<i class="icon iconfont icon-dizhi"></i>
-				<view>{{detail.address}}{{detail.doorplate}}</view>
+				<view class="address_left">
+        <i class="icon iconfont icon-dizhi"></i>
+				<view class="adress_txt">{{detail.address}}{{detail.doorplate}}</view>
+        </view>
 				<i class="icon iconfont icon-xiangyou"></i>
 			</view>
 			<view class="detail" wx:if="{{companyInfos.intro}}">
