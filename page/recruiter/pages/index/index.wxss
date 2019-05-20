@@ -225,6 +225,9 @@
   text-overflow: ellipsis;
   white-space: nowrap;
   max-width: 450rpx;
+  font-size: 26rpx;
+  color: #929292;
+  font-weight: 300
 }
 
 .item2 .header .name{

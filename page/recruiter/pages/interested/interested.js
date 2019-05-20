@@ -33,14 +33,11 @@ Page({
     hasReFresh: false,
     onBottomStatus: 0
   },
-  onLoad() {
-    let collectUsers = {
-      list: [],
-      pageNum: 1,
-      isLastPage: false,
-      isRequire: false
-    }
-    this.setData({collectUsers}, () => this.getMyCollectUsers())
+  onShow() {
+    let collectUsers = this.data.collectUsers
+    this.setData({collectUsers}, () => {
+      if(!collectUsers.list.length) this.getMyCollectUsers()
+    })
   },
   /**
    * @Author   小书包
