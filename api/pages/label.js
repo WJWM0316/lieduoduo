@@ -9,6 +9,7 @@ export const getLabelPositionApi = (data, hasLoading) => {
   })
 }
 
+// 技能标签
 export const getLabelProfessionalSkillsApi = (data, hasLoading) => {
   return request({
     method: 'get',
@@ -21,6 +22,7 @@ export const getLabelProfessionalSkillsApi = (data, hasLoading) => {
 // 省市区列表接口
 export const getAreaListApi = (data, hasLoading) => {
   return request({
+    name: 'getAreaListApi',
     method: 'get',
     url: '/area',
     data,
@@ -31,28 +33,9 @@ export const getAreaListApi = (data, hasLoading) => {
 // 行业领域
 export const getFieldListApi = (data, hasLoading) => {
   return request({
+    name: 'getFieldListApi',
     method: 'get',
     url: '/label/field',
-    data,
-    hasLoading: true
-  })
-}
-
-// 职业类别
-export const getPositionTypeApi = (data, hasLoading) => {
-  return request({
-    method: 'get',
-    url: '/label/positionType',
-    data,
-    hasLoading: true
-  })
-}
-
-// 技能标签
-export const getProfessionalSkillsApi = (data, hasLoading) => {
-  return request({
-    method: 'get',
-    url: '/label/professionalSkills',
     data,
     hasLoading: true
   })
@@ -99,7 +82,7 @@ export const getLabelLIstsApi = (data, hasLoading) => {
 }
 
 // 获取热门职位列表
-export const getHotLabelLIstsApi = (data, hasLoading) => {
+export const getHotLabelListsApi = (data, hasLoading) => {
   return request({
     method: 'get',
     url: '/label/position/hot',

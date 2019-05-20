@@ -1,7 +1,7 @@
 import {
   getLabelPositionApi,
   getLabelLIstsApi,
-  getHotLabelLIstsApi
+  getHotLabelListsApi
 } from '../../../../api/pages/label.js'
 
 import {RECRUITER} from '../../../../config.js'
@@ -26,7 +26,7 @@ Page({
   getLists() {
     const options = this.data.query
     if (options.hot) {
-      getHotLabelLIstsApi().then(res => {
+      getHotLabelListsApi().then(res => {
         let hotArea = res.data
         let positionType = wx.getStorageSync('positionType')
         if (positionType) {

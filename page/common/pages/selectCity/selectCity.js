@@ -1,6 +1,5 @@
 import {
   getAreaListApi,
-  getHotLabelLIstsApi
 } from '../../../../api/pages/label.js'
 import {getCityLabelApi} from '../../../../api/pages/common.js'
 import {RECRUITER} from '../../../../config.js'

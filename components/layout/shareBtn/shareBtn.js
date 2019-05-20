@@ -1,4 +1,5 @@
 import {COMMON} from '../../../config.js'
+import localstorage from '../../../utils/localstorage.js'
 const app = getApp()
 const animation = wx.createAnimation({
   duration: 200,

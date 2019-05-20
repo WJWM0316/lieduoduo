@@ -51,12 +51,14 @@
 }
 .backHome {
   font-size: 39rpx;
+  position: relative;
 }
 .formIdBtn {
   padding: 0;
   background: none;
   display:inline-block;
   line-height: 92rpx;
+  overflow:visible;
 }
 .formIdBtn:after {
   display: none;
@@ -91,4 +93,11 @@
 }
 .btn.btn1 {
   padding:0 22rpx 0 22rpx
+}
+.homeBubble {
+  position: absolute;
+  left:15rpx;
+  top:77rpx;
+  width: 367rpx;
+  height: 86rpx;
 }

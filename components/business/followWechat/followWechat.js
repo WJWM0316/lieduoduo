@@ -34,6 +34,9 @@ Component({
       }
     },
     show () {
+      app.wxReportAnalytics('btn_report', {
+        btn_type: 'follow_Wechat'
+      })
       if (app.globalData.userInfo.nickname) {
         this.setData({showPop: true})
       } else {

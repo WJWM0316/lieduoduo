@@ -22,7 +22,7 @@
 					<text class='type {{choseIndex === index ? "cur" : ""}}' bindtap="toggle" data-type="type" wx:for="{{list}}" wx:key="{{index}}" data-index="{{index}}">{{item.name}}</text>
 				</view>
 				<view class="word">
-					<text>{{list[choseIndex].value[txtIndex]}}</text>
+					<textarea class="textarea" value="{{list[choseIndex].value[txtIndex]}}" bindinput="getValue" bindconfirm="copy" cursor-spacing="{{150}}" show-confirm-bar></textarea>
 				</view>
 				<text class="tip">*复制后，可到聊天输入框或朋友圈编辑器粘贴使用</text>
 				<view class="operBox">

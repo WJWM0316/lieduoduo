@@ -6,7 +6,7 @@
   <image class="bgImg" mode="aspectFill" src="{{cdnImagePath}}mine_job_hunter.png"></image>
   <view style="height: 24rpx"></view>
   <form bindsubmit="formSubmit" report-submit='{{true}}'>
-    <view class="floating-box">
+    <view class="floating-box" bindtap='toEdit'>
   		<view class="header">
         <view class="content" wx:if='{{myInfo.uid}}'>
           <view class="realname">{{myInfo.name}}</view>
@@ -26,16 +26,16 @@
         </view>
   			<image class="img-box" src="{{myInfo.avatar.smallUrl}}"></image>
   		</view>
-      <button class="createBtn clear-style" form-type="submit" bindtap="jump" data-type="toCreate" wx:if="{{!isMicroCard && !isJobhunter}}">创建简历</button>
+      <button class="createBtn clear-style" form-type="submit" catchtap="jump" data-type="toCreate" wx:if="{{!isMicroCard && !isJobhunter}}">创建简历</button>
       <view class="experience" wx:if='{{myInfo.uid}}'>
         <view class="item" wx:if="{{myInfo.workAgeDesc}}"><i class="icon iconfont icon-zhiwei"></i>{{myInfo.workAgeDesc}}<text wx:if="{{myInfo.workAgeDesc !== '暂无经历'}}">经验</text></view>
         <view class="item" wx:if="{{myInfo.age}}"><i class="icon iconfont icon-nianling"></i>{{myInfo.age ? myInfo.age + '岁 ' : ''}}</view>
         <view class="item" wx:if="{{myInfo.degreeDesc}}"><i class="icon iconfont icon-xueli"></i>{{myInfo.degreeDesc}}</view>
       </view>
-      <button class="share-resume" form-type="submit" wx:if='{{!hasLogin}}' bindtap='login'>立即登录 <i class="icon iconfont icon-xiangyou"></i></button>
+      <button class="share-resume" form-type="submit" wx:if='{{!hasLogin}}' catchtap='login'>立即登录 <i class="icon iconfont icon-xiangyou"></i></button>
   		<block wx:if="{{isJobhunter}}">
-        <button form-type="submit" class="share-resume clear-style" bindtap='toEdit'>在线简历 ({{myInfo.resumeCompletePercentageDesc}})</button>
-        <button class="save-resume-pic clear-style" form-type="submit" bindtap="share">转发我的简历</button>
+        <button form-type="submit" class="share-resume clear-style" catchtap='toEdit'>在线简历 ({{myInfo.resumeCompletePercentageDesc}})</button>
+        <button class="save-resume-pic clear-style" form-type="submit" catchtap="share">转发我的简历</button>
       </block>
   	</view>
     <view class="createBox" wx:if='{{isMicroCard && !isJobhunter}}'>你与offer之间还差一份简历~<view class="btn" bindtap="completeResume">去创建<i class="icon iconfont icon-disejiantou-you"></i></view></view>

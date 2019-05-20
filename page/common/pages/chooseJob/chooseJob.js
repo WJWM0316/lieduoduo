@@ -293,6 +293,11 @@ Page({
    */
   applyInterview(params) {
     return new Promise((resolve, reject) => {
+      app.wxReportAnalytics('btn_report', {
+        isjobhunter: app.globalData.isJobhunter,
+        resume_perfection: app.globalData.resumeInfo.resumeCompletePercentage,
+        btn_type: 'job-hunting-chat'
+      })
       applyInterviewApi(params).then(res => {
         resolve(res)
         //  求职端返回上一页
@@ -308,6 +313,9 @@ Page({
                   cancelText: '暂不完善',
                   confirmText: '马上完善',
                   confirmBack () {
+                    app.wxReportAnalytics('btn_report', {
+                      btn_type: 'perfect_immediately'
+                    })
                     wx.navigateTo({
                       url: `${COMMON}resumeDetail/resumeDetail?uid=${app.globalData.resumeInfo.uid}`
                     })
