@@ -342,13 +342,13 @@
 }
 
 .rule-box .header .icon-close{
-  color: #CDCBCF;
   font-size: 30rpx;
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
   right: 10rpx;
   padding: 0 25rpx;
+  color: #929292;
 }
 
 .rule-box .value{

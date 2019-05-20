@@ -171,7 +171,7 @@ export const getAdBannerApi  = (data, hasLoading) => {
     method: 'get',
     url: `/banner`,
     data,
-    hasLoading
+    hasLoading: false
   })
 }
 

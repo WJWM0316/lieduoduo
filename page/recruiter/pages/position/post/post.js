@@ -50,8 +50,7 @@ Page({
     this.setData({pageTitle: options.positionId ? '编辑职位' : '发布职位', query: options})
   },
   onShow() {
-    let options = this.data.query
-    this.init(options)
+    this.getUpdateInfos()
   },
   backEvent() {
     if(this.data.query.positionId) {
@@ -80,66 +79,61 @@ Page({
   },
   /**
    * @Author   小书包
-   * @DateTime 2018-12-21
-   * @detail   初始化页面数据
-   * @return   {[type]}   [description]
-   */
-  init(options) {
-    let storage = wx.getStorageSync('createPosition') || {}
-    // 不显示弹窗
-    storage.showScanBox = false
-    let labels = []
-
-    this.setData({query: options})
-    
-    if(storage) {
-      Object.keys(storage).map(field => this.setData({[field]: storage[field]}))
-      this.bindButtonStatus()
-      return;
-    }
-
-    // 以下是编辑页面数据
-    if(options.positionId) this.getUpdateInfos(options)
-  },
-  /**
-   * @Author   小书包
    * @DateTime 2018-12-28
    * @detail   获取编辑页面的信息
    * @param    {[type]}   options [description]
    * @return   {[type]}           [description]
    */
-  getUpdateInfos(options) {
+  getUpdateInfos() {
+    let options = this.data.query
     let storage = wx.getStorageSync('createPosition')
-    if(storage) {
+    if(
+      storage.position_name
+      || storage.area_id
+      || storage.type
+      || storage.typeName
+      || storage.emolument_min
+      || storage.emolument_max
+      || storage.doorplate
+      || storage.address
+      || storage.describe
+      || storage.education
+      || storage.work_experience
+      || storage.lat
+      || storage.lng
+      || storage.address_id
+      || storage.parentType
+      ) {
       Object.keys(storage).map(field => this.setData({[field]: storage[field]}))
+      this.bindButtonStatus()
       return;
     }
-    getPositionApi({id: options.positionId})
-      .then(res => {
-        let formData = {}
-        let infos = res.data
-        formData.position_name = infos.positionName
-        formData.area_id = infos.areaId
-        formData.type = infos.type
-        formData.typeName = infos.typeName
-        formData.emolument_min = infos.emolumentMin
-        formData.emolument_max = infos.emolumentMax
-        formData.emolument_range = `${formData.emolument_min}k~${formData.emolument_max}k`
-        formData.doorplate = infos.doorplate
-        formData.address = infos.address
-        formData.skills = infos.skillsLabel
-        formData.describe = infos.describe
-        formData.education = infos.education
-        formData.educationName = infos.educationName
-        formData.work_experience = infos.workExperience
-        formData.work_experience_name = infos.workExperienceName
-        formData.lng = infos.lng
-        formData.lat = infos.lat
-        formData.address_id = infos.addressId
-        formData.parentType = infos.topPid
-        Object.keys(formData).map(field => this.setData({[field]: formData[field]}))
-        this.bindButtonStatus()
-      })
+    if(!Reflect.has(options, 'positionId')) return
+    getPositionApi({id: options.positionId}).then(res => {
+      let formData = {}
+      let infos = res.data
+      formData.position_name = storage.position_name || infos.positionName
+      formData.area_id = storage.area_id || infos.areaId
+      formData.type = storage.type || infos.type
+      formData.typeName = storage.typeName || infos.typeName
+      formData.emolument_min = storage.emolument_min || infos.emolumentMin
+      formData.emolument_max = storage.emolument_max || infos.emolumentMax
+      formData.emolument_range =  storage.emolument_range || `${formData.emolument_min}k~${formData.emolument_max}k`
+      formData.doorplate = storage.doorplate || infos.doorplate
+      formData.address = storage.address || infos.address
+      formData.skills = storage.skills || infos.skillsLabel
+      formData.describe = storage.describe || infos.describe
+      formData.education = storage.education || infos.education
+      formData.educationName = storage.educationName || infos.educationName
+      formData.work_experience = storage.work_experience || infos.workExperience
+      formData.work_experience_name = storage.work_experience_name || infos.workExperienceName
+      formData.lng = storage.lng || infos.lng
+      formData.lat = storage.lat || infos.lat
+      formData.address_id = storage.address_id || infos.addressId
+      formData.parentType = storage.parentType || infos.topPid
+      Object.keys(formData).map(field => this.setData({[field]: formData[field]}))
+      this.bindButtonStatus()
+    })
   },
   /**
    * @Author   小书包

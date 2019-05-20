@@ -88,14 +88,20 @@ Page({
   onShow() {
     let recruiterInfo = app.globalData.recruiterDetails
     let collectMySelf = this.data.collectMySelf
+    let browseMySelf = this.data.browseMySelf
     let userInfo = app.globalData.userInfo
+    console.log(collectMySelf)
     if (app.loginInit) {
       app.getAllInfo().then(res => {
         recruiterInfo = app.globalData.recruiterDetails
         userInfo = app.globalData.userInfo
         this.getDomNodePosition()
         this.getMixdata()
-        this.getLists()
+        if(this.data.pageList !== 'collectMySelf') {
+          if(!collectMySelf.list.length && !collectMySelf.isLastPage) this.getLists()
+        } else {
+          if(!browseMySelf.list.length && !collectMySelf.isLastPage) this.getLists()
+        }
         this.setData({detail: recruiterInfo, userInfo})
       })
     } else {
@@ -105,15 +111,19 @@ Page({
           userInfo = app.globalData.userInfo
           this.getDomNodePosition()
           this.getMixdata()
-          this.getLists()
+          if(this.data.pageList !== 'collectMySelf') {
+            if(!collectMySelf.list.length && !collectMySelf.isLastPage) this.getLists()
+          } else {
+            if(!browseMySelf.list.length && !collectMySelf.isLastPage) this.getLists()
+          }
           this.setData({detail: recruiterInfo, userInfo})
         })
       }
     }
   },
   getMixdata() {
-    getIndexShowCountApi().then(res => this.setData({indexShowCount: res.data}))
-    getAdBannerApi({location: 'recruiter_index'}).then(res => this.setData({banner: res.data.length ? res.data[0] : {}}))
+    getIndexShowCountApi({hasLoading: false}).then(res => this.setData({indexShowCount: res.data}))
+    getAdBannerApi({location: 'recruiter_index', hasLoading: false}).then(res => this.setData({banner: res.data.length ? res.data[0] : {}}))
     this.getWelcomeWord()
   },
   getDomNodePosition() {
@@ -129,9 +139,9 @@ Page({
    */
   getLists() {
     if(this.data.pageList !== 'collectMySelf') {
-      return this.getBrowseMySelf()
+      return this.getBrowseMySelf(false)
     } else {
-      return this.getCollectMySelf()
+      return this.getCollectMySelf(false)
     }
   },
   /**
@@ -148,6 +158,7 @@ Page({
         let onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
         browseMySelf.list = browseMySelf.list.concat(res.data)
         browseMySelf.isLastPage = res.meta && res.meta.nextPageUrl ? false : true
+        // if(browseMySelf.pageNum === res.meta.currentPage) return
         browseMySelf.pageNum = browseMySelf.pageNum + 1
         browseMySelf.isRequire = true
         browseMySelf.total = res.meta.total
@@ -171,6 +182,7 @@ Page({
         let onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
         let list = res.data
         collectMySelf.isLastPage = res.meta.nextPageUrl ? false : true
+        // if(collectMySelf.pageNum === res.meta.currentPage) return
         collectMySelf.pageNum = collectMySelf.pageNum + 1
         collectMySelf.isRequire = true
         collectMySelf.loading = false
@@ -217,6 +229,7 @@ Page({
    */
   ontabClick(e) {
     let pageList = e.currentTarget.dataset.key
+    let onBottomStatus = this.data.onBottomStatus
     let browseMySelf = {
       list: [],
       pageNum: 1,
@@ -232,7 +245,7 @@ Page({
       isRequire: false,
       isUse: false
     }
-    this.setData({ pageList }, () => {
+    this.setData({ pageList, onBottomStatus }, () => {
 
       if(pageList === 'browseMySelf') {
         getIndexShowCountApi().then(res => {
