@@ -92,7 +92,6 @@ Page({
     let userInfo = app.globalData.userInfo
     let pageList = this.data.pageList
     let value = this.data[pageList]
-    console.log(111111)
     if (app.loginInit) {
       app.getAllInfo().then(res => {
         recruiterInfo = app.globalData.recruiterDetails
@@ -133,11 +132,11 @@ Page({
    * @detail   获取列表数据
    * @return   {[type]}   [description]
    */
-  getLists() {
+  getLists(hasLoading) {
     if(this.data.pageList !== 'collectMySelf') {
-      return this.getBrowseMySelf(false)
+      return this.getBrowseMySelf(hasLoading)
     } else {
-      return this.getCollectMySelf(false)
+      return this.getCollectMySelf(hasLoading)
     }
   },
   /**
@@ -225,12 +224,44 @@ Page({
    */
   ontabClick(e) {
     let pageList = e.currentTarget.dataset.key
+    let browseMySelf = {
+      list: [],
+      pageNum: 1,
+      isLastPage: false,
+      isRequire: false,
+      total: 0
+    }
+
+    let collectMySelf = {
+      list: [],
+      pageNum: 1,
+      isLastPage: false,
+      isRequire: false,
+      isUse: false
+    }
+
     this.setData({ pageList }, () => {
-      let value = this.data[pageList]
+      let indexShowCount = this.data.indexShowCount
       getIndexShowCountApi().then(res => {
         let indexShowCount = res.data
         this.setData({ indexShowCount }, () => {
-          if(!value.isLastPage && !value.list.length) this.getLists()
+          if(pageList === 'browseMySelf') {
+            if(!this.data.browseMySelf.isLastPage && !this.data.browseMySelf.list.length) {
+              if(indexShowCount.viewCount) {
+                indexShowCount.viewCount = 0
+                this.setData({browseMySelf, indexShowCount}, () => this.getLists(true))
+              } else {
+                this.getLists(true)
+              }
+            } else {
+              if(indexShowCount.viewCount) {
+                indexShowCount.viewCount = 0
+                this.setData({browseMySelf, indexShowCount}, () => this.getLists(true))
+              }
+            }
+          } else {
+            if(!this.data.collectMySelf.isLastPage && !this.data.collectMySelf.list.length) this.getLists(true)
+          }
         })
       })
     })

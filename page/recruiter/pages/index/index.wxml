@@ -34,7 +34,7 @@
 		</view>
 		<view class="row-two" bindtap="routeJump" data-route="rank">
 			<view class="content">
-				<view class="row-three">面试官排行榜</view>
+				<view class="row-three">招聘官排行榜</view>
 				<view class="row-four">你当前的人气：{{indexShowCount.rankDetail.popularity}}</view>
 			</view>
 			<view class="imglist">

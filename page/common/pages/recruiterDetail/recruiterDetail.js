@@ -61,7 +61,7 @@ Page({
   getOthersInfo(hasLoading = true, isReload = false) {
     return new Promise((resolve, reject) => {
       getOthersRecruiterDetailApi({uid: this.data.options.uid, hasLoading, isReload, ...app.getSource()}).then(res => {
-        // let isOwner = false
+        let positionList = this.data.positionList
         let isOwner = res.data.isOwner && identity === 'RECRUITER' ? true : false
         this.setData({isOwner, info: res.data, realIsOwner: res.data.isOwner}, function() {
           if(this.selectComponent('#interviewBar')) this.selectComponent('#interviewBar').init()
@@ -69,15 +69,19 @@ Page({
           if (this.data.isOwner) {
             app.globalData.recruiterDetails = res.data
           }
+          if(!positionList.list.length) this.getPositionLists(hasLoading)
           resolve(res)
         })
       })
-      this.getPositionLists(hasLoading)
     })
   },
   getPositionLists(hasLoading = true) {
     return new Promise((resolve, reject) => {
-      const params = {recruiter: this.data.options.uid, count: this.data.pageCount, page: this.data.positionList.pageNum, hasLoading}
+      let isOwner = this.data.isOwner
+      let params = {recruiter: this.data.options.uid, count: this.data.pageCount, page: this.data.positionList.pageNum, hasLoading}
+      if(isOwner) {
+        params = Object.assign(params, {is_online: 1})
+      }
       getPositionListApi(params).then(res => {
         const positionList = this.data.positionList
         positionList.onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
