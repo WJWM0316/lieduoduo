@@ -72,7 +72,7 @@
     <view class="mask" catchtouchmove="stopPageScroll"  bindtap="toggleShowRules" hidden="{{!showRules}}"></view>
     <view class="content {{showRules ? 'show' : ''}}">
       <view class="header" catchtouchmove="stopPageScroll">排行榜说明<i class="icon iconfont icon-close" bindtap="toggleShowRules"></i></view>
-      <view class="ul">
+      <view class="ul" wx:if="{{showRules}}">
         <view class="li">
           <view class="key"><text class="text">人气</text></view>
           <view class="value">人气值由招聘官的主页和职位被候选人浏览、开撩约面、标记感兴趣等数据综合计算得出，代表了招聘官整体的人气热度。人气值越大，排名越靠前。</view>

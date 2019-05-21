@@ -90,18 +90,17 @@ Page({
     let collectMySelf = this.data.collectMySelf
     let browseMySelf = this.data.browseMySelf
     let userInfo = app.globalData.userInfo
-
+    let pageList = this.data.pageList
+    let value = this.data[pageList]
+    console.log(111111)
     if (app.loginInit) {
       app.getAllInfo().then(res => {
         recruiterInfo = app.globalData.recruiterDetails
         userInfo = app.globalData.userInfo
         this.getDomNodePosition()
         this.getMixdata()
-        if(this.data.pageList !== 'collectMySelf') {
-          if(!collectMySelf.list.length) this.getLists()
-        } else {
-          if(!browseMySelf.list.length) this.getLists()
-        }
+        if(!wx.getStorageSync('isReback') && !value.list.length) this.getLists()
+        wx.removeStorageSync('isReback')
         this.setData({detail: recruiterInfo, userInfo})
       })
     } else {
@@ -111,11 +110,8 @@ Page({
           userInfo = app.globalData.userInfo
           this.getDomNodePosition()
           this.getMixdata()
-          if(this.data.pageList !== 'collectMySelf') {
-            if(!collectMySelf.list.length) this.getLists()
-          } else {
-            if(!browseMySelf.list.length) this.getLists()
-          }
+          if(!wx.getStorageSync('isReback') && !value.list.length) this.getLists()
+          wx.removeStorageSync('isReback')
           this.setData({detail: recruiterInfo, userInfo})
         })
       }
@@ -229,39 +225,14 @@ Page({
    */
   ontabClick(e) {
     let pageList = e.currentTarget.dataset.key
-    let onBottomStatus = this.data.onBottomStatus
-    let browseMySelf = {
-      list: [],
-      pageNum: 1,
-      isLastPage: false,
-      isRequire: false,
-      total: 0
-    }
-
-    let collectMySelf = {
-      list: [],
-      pageNum: 1,
-      isLastPage: false,
-      isRequire: false,
-      isUse: false
-    }
-    this.setData({ pageList, onBottomStatus }, () => {
-
-      if(pageList === 'browseMySelf') {
-        getIndexShowCountApi().then(res => {
-          let indexShowCount = res.data
-          this.setData({indexShowCount, browseMySelf})
-          if(!this.data.browseMySelf.isLastPage) this.getLists()
-          if(indexShowCount.viewCount && this.data.browseMySelf.isLastPage) this.getLists()
+    this.setData({ pageList }, () => {
+      let value = this.data[pageList]
+      getIndexShowCountApi().then(res => {
+        let indexShowCount = res.data
+        this.setData({ indexShowCount }, () => {
+          if(!value.isLastPage && !value.list.length) this.getLists()
         })
-      } else {
-        getIndexShowCountApi().then(res => {
-          let indexShowCount = res.data
-          this.setData({indexShowCount, collectMySelf})
-          if(!this.data.collectMySelf.isLastPage) this.getLists()
-        })
-      }
-      
+      })
     })
   },
   /**
@@ -338,6 +309,7 @@ Page({
     let params = e.currentTarget.dataset
     let uid = this.data.detail.uid
     if(!Object.keys(params).length) return;
+    wx.setStorageSync('isReback', 'yes')
     if(params.type === 1) {
       wx.reLaunch({url: `${RECRUITER}position/index/index`})
     } else if(params.type === 2) {
