@@ -18,13 +18,14 @@
 }
 
 .default .image {
-  height: 16rpx;
+  height: 10rpx;
   position: absolute;
-  bottom: 6rpx;
+  bottom: 8rpx;
   z-index: 3;
   background: white;
   left: 0;
-  width: 100%;
+  width: 692rpx;
+  padding-bottom: 8rpx;
 }
 .fixed {
   position: fixed;
@@ -320,7 +321,7 @@
   border-color: red;
   position: absolute;
   top: 50%;
-  right: -40rpx;
+  right: -39rpx;
   transform: translateY(-50%);
   border-width: 20rpx;
   border-style: solid;

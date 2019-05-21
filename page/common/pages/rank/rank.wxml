@@ -24,7 +24,7 @@
     </view>
   </view>
 
-  <view style="height: calc(100vh - 892rpx)">
+  <view style="padding-bottom: 150rpx;">
     <!-- 前3名 -->
     <view class="topicBox" style="margin-top: {{fixedHeight}}px">
        <view class="rules" bindtap="toggleShowRules" wx:if="{{identity === 'RECRUITER'}}">规则</view>
@@ -38,10 +38,11 @@
           <view class="headIMg {{index === 1 ? 'first' : ''}}">
             <image src="{{item.avatar.smallUrl}}"></image>
             <view class='icon'>
-              <image wx:if="{{index === 1}}" src="{{cdnImagePath}}icon_no1.png" />
+              <image src="{{cdnImagePath}}icon_no{{item.currentRank}}.png" />
+              <!-- <image wx:if="{{index === 1}}" src="{{cdnImagePath}}icon_no1.png" />
               <image wx:if="{{index === 0 && commonList.list.length > 2}}" src="{{cdnImagePath}}icon_no2.png" />
               <image wx:if="{{index === 0 && commonList.list.length === 1}}" src="{{cdnImagePath}}icon_no1.png" />
-              <image wx:if="{{index === 2}}" src="{{cdnImagePath}}icon_no3.png" />
+              <image wx:if="{{index === 2}}" src="{{cdnImagePath}}icon_no3.png" /> -->
             </view>
           </view>
           <text class="name">{{item.name}}</text>
@@ -57,7 +58,7 @@
     <bottomStatus status="{{onBottomStatus}}" listData="{{commonList.list}}"></bottomStatus>
   </view>
   
-  <view class="foot-bar" wx:if="{{identity === 'RECRUITER'}}">
+  <view class="foot-bar" wx:if="{{identity === 'RECRUITER'}}" bindtap="viewYourself">
     <view class="img-box"><image mode="aspectFill" src="{{detail.avatar.smallUrl}}" class="image"></image></view>
     <view class="content">
       <view class="row-one">我的排名：<text class="{{commonList.rankDetail.currentRank ? 'strong' : ''}}">{{commonList.rankDetail.currentRank ? commonList.rankDetail.currentRank : '暂未上榜'}}</text></view>
