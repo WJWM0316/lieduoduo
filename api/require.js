@@ -191,7 +191,7 @@ export const request = ({name = '', method = 'post', url, host, data = {}, needK
                 wx.removeStorageSync('sessionToken')
                 wx.removeStorageSync('token')
                 getApp().login().then(res => {
-                  wx.reLaunch({
+                  wx.redirectTo({
                     url: getApp().getCurrentPagePath()
                   })
                 })
