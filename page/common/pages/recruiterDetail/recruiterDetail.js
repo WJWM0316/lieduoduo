@@ -61,7 +61,13 @@ Page({
   getOthersInfo(hasLoading = true, isReload = false) {
     return new Promise((resolve, reject) => {
       getOthersRecruiterDetailApi({uid: this.data.options.uid, hasLoading, isReload, ...app.getSource()}).then(res => {
-        let positionList = this.data.positionList
+        const positionList = {
+          list: [],
+          pageNum: 1,
+          isLastPage: false,
+          isRequire: false,
+          onBottomStatus: false
+        }
         let isOwner = res.data.isOwner && identity === 'RECRUITER' ? true : false
         this.setData({isOwner, info: res.data, realIsOwner: res.data.isOwner}, function() {
           if(this.selectComponent('#interviewBar')) this.selectComponent('#interviewBar').init()
@@ -69,7 +75,7 @@ Page({
           if (this.data.isOwner) {
             app.globalData.recruiterDetails = res.data
           }
-          if(!positionList.list.length) this.getPositionLists(hasLoading)
+          this.setData({positionList}, () => this.getPositionLists(hasLoading)) 
           resolve(res)
         })
       })

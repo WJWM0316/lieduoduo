@@ -78,6 +78,7 @@ Page({
         if (!app.globalData.hasLogin) wx.navigateTo({url: `${COMMON}bindPhone/bindPhone`})
       }
     }
+    let that = this
     if (choseType === 'APPLICANT') {
       let that = this
       app.wxConfirm({
@@ -350,12 +351,13 @@ Page({
     let params = e.currentTarget.dataset
     let uid = this.data.detail.uid
     if(!Object.keys(params).length) return;
-    wx.setStorageSync('isReback', 'yes')
     if(params.type === 1) {
       wx.reLaunch({url: `${RECRUITER}position/index/index`})
     } else if(params.type === 2) {
+      wx.setStorageSync('isReback', 'yes')
       wx.navigateTo({url: `${COMMON}recruiterDetail/recruiterDetail?uid=${uid}`})
     } else {
+      wx.setStorageSync('isReback', 'yes')
       wx.navigateTo({url: `${COMMON}resumeDetail/resumeDetail?uid=${params.jobhunteruid}`})
     }
   },
