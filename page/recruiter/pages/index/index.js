@@ -169,7 +169,7 @@ Page({
         browseMySelf.isRequire = true
         browseMySelf.total = res.meta.total
         this.setData({browseMySelf, onBottomStatus}, () => resolve(res))
-      })
+      }).catch(() => reject())
     })
   },
   /**
@@ -195,7 +195,7 @@ Page({
         list = this.appendData(list, collectMySelf)
         collectMySelf.list = collectMySelf.list.concat(list)
         this.setData({collectMySelf, onBottomStatus}, () => resolve(res))
-      })
+      }).catch(() => reject())
     })
   },
   /**
@@ -301,11 +301,11 @@ Page({
         wx.pageScrollTo({scrollTop: 0 })
         this.setData({hasReFresh: false})
       })
-      .catch(() => {
-        wx.stopPullDownRefresh()
-        wx.pageScrollTo({scrollTop: 0 })
-        this.setData({hasReFresh: false})
-      })
+    })
+    .catch(() => {
+      wx.stopPullDownRefresh()
+      wx.pageScrollTo({scrollTop: 0 })
+      this.setData({hasReFresh: false})
     })
   },
   /**
