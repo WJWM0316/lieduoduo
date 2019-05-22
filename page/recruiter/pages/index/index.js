@@ -71,8 +71,15 @@ Page({
   onLoad() {
     let choseType = wx.getStorageSync('choseType') || ''
     this.setData({ choseType})
-
+    if (app.loginInit) {
+      if (!app.globalData.hasLogin) wx.navigateTo({url: `${COMMON}bindPhone/bindPhone`})
+    } else {
+      app.loginInit = () => {
+        if (!app.globalData.hasLogin) wx.navigateTo({url: `${COMMON}bindPhone/bindPhone`})
+      }
+    }
     if (choseType === 'APPLICANT') {
+      let that = this
       app.wxConfirm({
         title: '提示',
         content: '检测到你是求职者，是否切换求职者',
@@ -80,20 +87,35 @@ Page({
           wx.reLaunch({url: `${APPLICANT}index/index` })
         },
         cancelBack() {
-          app.getAllInfo().then(() => wx.setStorageSync('choseType', 'RECRUITER'))
+          wx.setStorageSync('choseType', 'RECRUITER')
+          app.getAllInfo().then(res => {
+            that.init()
+          })
         }
       })
     }
   },
   onShow() {
+    this.init()
+  },
+  init () {
+    if (wx.getStorageSync('choseType') === 'APPLICANT') return
     let recruiterInfo = app.globalData.recruiterDetails
     let collectMySelf = this.data.collectMySelf
     let browseMySelf = this.data.browseMySelf
     let userInfo = app.globalData.userInfo
     let pageList = this.data.pageList
     let value = this.data[pageList]
-    if (app.loginInit) {
-      app.getAllInfo().then(res => {
+    if (app.pageInit) {
+      recruiterInfo = app.globalData.recruiterDetails
+      userInfo = app.globalData.userInfo
+      this.getDomNodePosition()
+      this.getMixdata()
+      if(!wx.getStorageSync('isReback') && !value.list.length) this.getLists()
+      wx.removeStorageSync('isReback')
+      this.setData({detail: recruiterInfo, userInfo})
+    } else {
+      app.pageInit = () => {
         recruiterInfo = app.globalData.recruiterDetails
         userInfo = app.globalData.userInfo
         this.getDomNodePosition()
@@ -101,18 +123,6 @@ Page({
         if(!wx.getStorageSync('isReback') && !value.list.length) this.getLists()
         wx.removeStorageSync('isReback')
         this.setData({detail: recruiterInfo, userInfo})
-      })
-    } else {
-      app.loginInit = () => {
-        app.getAllInfo().then(res => {
-          recruiterInfo = app.globalData.recruiterDetails
-          userInfo = app.globalData.userInfo
-          this.getDomNodePosition()
-          this.getMixdata()
-          if(!wx.getStorageSync('isReback') && !value.list.length) this.getLists()
-          wx.removeStorageSync('isReback')
-          this.setData({detail: recruiterInfo, userInfo})
-        })
       }
     }
   },
