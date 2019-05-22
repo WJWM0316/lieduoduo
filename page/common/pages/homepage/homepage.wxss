@@ -425,6 +425,7 @@
   overflow: hidden;
   line-height: 1;
   margin-top: 15rpx;
+  text-align: left;
 }
 
 .production-box .li .username {
