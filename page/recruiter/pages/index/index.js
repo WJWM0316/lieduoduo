@@ -71,6 +71,7 @@ Page({
   onLoad() {
     let choseType = wx.getStorageSync('choseType') || ''
     this.setData({ choseType})
+    let that = this
 
     if (choseType === 'APPLICANT') {
       app.wxConfirm({
@@ -80,7 +81,30 @@ Page({
           wx.reLaunch({url: `${APPLICANT}index/index` })
         },
         cancelBack() {
-          app.getAllInfo().then(() => wx.setStorageSync('choseType', 'RECRUITER'))
+          let browseMySelf = {
+            list: [],
+            pageNum: 1,
+            isLastPage: false,
+            isRequire: false,
+            total: 0
+          }
+
+          let collectMySelf = {
+            list: [],
+            pageNum: 1,
+            isLastPage: false,
+            isRequire: false,
+            isUse: false
+          }
+          wx.setStorageSync('choseType', 'RECRUITER')
+          app.getAllInfo().then(() => {
+            that.setData({browseMySelf, collectMySelf}, () => {
+              wx.removeStorageSync('isReback')
+              that.getDomNodePosition()
+              that.getMixdata()
+              that.getLists()
+            })
+          })
         }
       })
     }

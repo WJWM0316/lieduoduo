@@ -7,7 +7,7 @@
   </view>
 
 	<view class="banner">
-		<image class="bgImg" src="{{cdnImagePath}}company_banner.png" mode="aspectFill"></image>
+		<image class="bgImg" src="{{cdnImagePath}}company_banner_new.png" mode="aspectFill"></image>
 		<view class="box">
 			<view class="company-logo">
 				<image class="bgImg" src="{{companyInfos.logoInfo.smallUrl}}" mode="aspectFit"></image>
@@ -18,9 +18,19 @@
 		<shareBtn></shareBtn>
 	</view>
 	
-	<view class="ul-tab-bar {{isFixed ? 'fixed-bar' : ''}}" style="top: {{navH}}px">
-		<button form-type="submit" class="clear-style li {{tab === 'about' ? 'active' : ''}}" bindtap="onTabClick" data-tab="about">关于我们</button>
-		<button form-type="submit" class="clear-style li {{tab === 'recruitment' ? 'active' : ''}}" bindtap="onTabClick" data-tab="recruitment">在招职位({{companyInfos.positionNum}})</button>
+	<view class="ul-tab-bar {{isFixed ? 'fixed-bar' : ''}}" style="{{isFixed ? 'top:' + navH + 'px' : ''}}">
+		<button
+			form-type="submit"
+			class="button001 clear-style li {{tab === 'about' ? 'active' : ''}}"
+			bindtap="onTabClick"
+			data-tab="about">关于我们</button>
+		<button
+			form-type="submit"
+			class="button002 clear-style li {{tab === 'recruitment' ? 'active' : ''}}"
+			bindtap="onTabClick"
+			data-tab="recruitment">在招职位({{companyInfos.positionNum}})</button>
+		<image src="{{cdnImagePath}}line00002.png" class="image" hidden="{{tab === 'recruitment'}}"></image>
+		<image src="{{cdnImagePath}}line00001.png" class="image" hidden="{{tab === 'about'}}"></image>
 	</view>
 <!-- 	
 	<view class="child-box" hidden="{{tab === 'about'}}">
