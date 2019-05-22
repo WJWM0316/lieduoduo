@@ -287,8 +287,6 @@ Page({
     let key = this.data.pageList
     let value = {list: [], pageNum: 1, isLastPage: false, isRequire: false, isUse: false, loading: false}
     this.setData({[key]: value, hasReFresh: true, detail: app.globalData.recruiterDetails})
-    
-    getIndexShowCountApi().then(res => this.setData({indexShowCount: res.data}))
     this.getLists().then(res => {
       let value = {list: [], pageNum: 1, isLastPage: false, isRequire: false}
       let onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
@@ -297,7 +295,13 @@ Page({
       value.pageNum = 2
       value.isRequire = true
       value.total = res.meta.total
+      getIndexShowCountApi().then(res => this.setData({indexShowCount: res.data}))
       this.setData({[key]: value, onBottomStatus, fixedDom: false}, () => {
+        wx.stopPullDownRefresh()
+        wx.pageScrollTo({scrollTop: 0 })
+        this.setData({hasReFresh: false})
+      })
+      .catch(() => {
         wx.stopPullDownRefresh()
         wx.pageScrollTo({scrollTop: 0 })
         this.setData({hasReFresh: false})
