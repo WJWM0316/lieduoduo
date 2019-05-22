@@ -61,7 +61,7 @@ Page({
   getOthersInfo(hasLoading = true, isReload = false) {
     return new Promise((resolve, reject) => {
       getOthersRecruiterDetailApi({uid: this.data.options.uid, hasLoading, isReload, ...app.getSource()}).then(res => {
-        const positionList = {
+        let positionList = {
           list: [],
           pageNum: 1,
           isLastPage: false,
@@ -69,13 +69,14 @@ Page({
           onBottomStatus: false
         }
         let isOwner = res.data.isOwner && identity === 'RECRUITER' ? true : false
-        this.setData({isOwner, info: res.data, realIsOwner: res.data.isOwner}, function() {
+        this.setData({isOwner, info: res.data, realIsOwner: res.data.isOwner, positionList}, function() {
           if(this.selectComponent('#interviewBar')) this.selectComponent('#interviewBar').init()
           // this.getDomNodePosition()
           if (this.data.isOwner) {
             app.globalData.recruiterDetails = res.data
           }
-          this.setData({positionList}, () => this.getPositionLists(hasLoading)) 
+          console.log(this.data.positionList)
+          this.getPositionLists(false)
           resolve(res)
         })
       })
@@ -89,7 +90,7 @@ Page({
         params = Object.assign(params, {is_online: 1})
       }
       getPositionListApi(params).then(res => {
-        const positionList = this.data.positionList
+        let positionList = this.data.positionList
         positionList.onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
         positionList.list = positionList.list.concat(res.data)
         positionList.isLastPage = res.meta && res.meta.nextPageUrl ? false : true
@@ -102,15 +103,6 @@ Page({
   },
   onShow() {
     let options = this.data.options
-    const positionList = {
-      list: [],
-      pageNum: 1,
-      isLastPage: false,
-      isRequire: false,
-      onBottomStatus: false
-    }
-    this.setData({positionList})
-    
     if (app.loginInit) {
       this.getOthersInfo()
       if (app.globalData.isRecruiter) {
@@ -266,7 +258,7 @@ Page({
   // },
   onPullDownRefresh(hasLoading = true) {
     this.setData({hasReFresh: true})
-    const positionList = {
+    let positionList = {
       list: [],
       pageNum: 1,
       isLastPage: false,
@@ -306,7 +298,7 @@ Page({
    * @return   {[type]}   [description]
    */
   onReachBottom() {
-    const positionList = this.data.positionList
+    let positionList = this.data.positionList
     if (!positionList.isLastPage) {
       this.getPositionLists(false)
     }

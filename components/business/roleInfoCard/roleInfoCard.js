@@ -38,9 +38,6 @@ Component({
         phoneNumber: this.data.cardData.mobile
       })
     },
-    formSubmit(e) {
-      app.postFormId(e.detail.formId)
-    },
     setClipboardData() {
       wx.setClipboardData({
         data: this.data.cardData.wechat,
