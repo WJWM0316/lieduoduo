@@ -27,17 +27,37 @@ Page({
     this.setData({options})
   },
   onShow() {
+    let isCompanyAdmin = this.data.isCompanyAdmin
+    let recruiterInfo = app.globalData.recruiterDetails
+
     let recruitersList = {
       list: [],
       pageNum: 1,
       isLastPage: false,
       isRequire: false
     }
+
     if (app.pageInit) {
-      this.setData({recruitersList}, () => this.getLists())
+      if (recruiterInfo.uid) {
+        isCompanyAdmin = 1
+        this.setData({isCompanyAdmin, recruitersList}, () => this.getLists())
+      } else {
+        app.getAllInfo().then(res => {
+          isCompanyAdmin = 1
+          this.setData({isCompanyAdmin, recruitersList}, () => this.getLists())
+        })
+      }
     } else {
       app.pageInit = () => {
-        this.setData({recruitersList}, () => this.getLists())
+        if (recruiterInfo.uid) {
+          isCompanyAdmin = 1
+          this.setData({isCompanyAdmin, recruitersList}, () => this.getLists())
+        } else {
+          app.getAllInfo().then(res => {
+            isCompanyAdmin = 1
+            this.setData({isCompanyAdmin, recruitersList}, () => this.getLists())
+          })
+        }
       }
     }
   },
@@ -49,14 +69,14 @@ Page({
    */
   getLists() {
     return new Promise((resolve, reject) => {
-      const options = this.data.options
-      const params = {id: options.companyId, page: this.data.recruitersList.pageNum, count: this.data.pageCount}
+      let options = this.data.options
+      let params = {id: options.companyId, page: this.data.recruitersList.pageNum, count: this.data.pageCount}
+      let isCompanyAdmin = this.data.isCompanyAdmin
       getRecruitersListApi(params).then(res => {
-        const recruitersList = this.data.recruitersList
-        const onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
-        const list = res.data
+        let recruitersList = this.data.recruitersList
+        let onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
+        let list = res.data
         list.map(field => field.randomTxt = agreedTxtB())
-        let isCompanyAdmin = list.filter(item => item.isCompanyAdmin)[0].uid === app.globalData.recruiterDetails.uid
         recruitersList.list = recruitersList.list.concat(list)
         recruitersList.isLastPage = res.meta && res.meta.nextPageUrl ? false : true
         recruitersList.pageNum = recruitersList.pageNum + 1
@@ -72,7 +92,7 @@ Page({
    * @return   {[type]}   [description]
    */
   authTransfer() {
-  	const result = () => {
+  	let result = () => {
   		app.wxConfirm({
 	      title: '申请成功',
 	      content: `我们已收到您的申请，24小时内会有专人给您致电了解情况，请保持手机畅通。`,
@@ -100,7 +120,7 @@ Page({
     let recruitersList = this.data.recruitersList
   	let callback = () => this.setData({recruitersList})
 
-    const result = recruitersList.list.find((field, index) => params.index === index)
+    let result = recruitersList.list.find((field, index) => params.index === index)
   	app.wxConfirm({
       title: '移除面试官',
       content: `即将从公司中移除${result.name}，该面试官发布的职位将被关闭且无法继续进行招聘，确认移除吗?`,
@@ -118,12 +138,12 @@ Page({
    * @return   {[type]}   [description]
    */
   select(e) {
-  	const recruiterList = this.data.recruiterList
+  	let recruiterList = this.data.recruiterList
   	recruiterList.map((field, index) => field.active = index === params.active ? true : false)
   	this.setData({recruiterList})
   },
   jump(e) {
-    const uid = e.currentTarget.dataset.uid
+    let uid = e.currentTarget.dataset.uid
     wx.navigateTo({url: `${COMMON}recruiterDetail/recruiterDetail?uid=${uid}`})
   },
   /**
@@ -133,7 +153,7 @@ Page({
    * @return   {[type]}   [description]
    */
   onReachBottom() {
-    const recruitersList = this.data.recruitersList
+    let recruitersList = this.data.recruitersList
     if (!recruitersList.isLastPage) {
       this.setData({onBottomStatus: 1})
       this.getLists(false)
@@ -146,11 +166,11 @@ Page({
    * @return   {[type]}              [description]
    */
   onPullDownRefresh() {
-    const recruitersList = {list: [], pageNum: 1, isLastPage: false, isRequire: false}
+    let recruitersList = {list: [], pageNum: 1, isLastPage: false, isRequire: false}
     this.setData({recruitersList, hasReFresh: true, onBottomStatus: 1})
     this.getLists().then(res => {
-      const recruitersList = this.data.recruitersList
-      const onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
+      let recruitersList = this.data.recruitersList
+      let onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
       recruitersList.list = res.data
       recruitersList.isLastPage = res.meta && res.meta.nextPageUrl ? false : true
       recruitersList.pageNum = 2
