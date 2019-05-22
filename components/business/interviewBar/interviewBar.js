@@ -281,7 +281,7 @@ Component({
             } else {
               app.wxReportAnalytics('btn_report', {
                 isjobhunter: app.globalData.isJobhunter,
-                resume_perfection: app.globalData.resumeInfo.resumeCompletePercentage,
+                resume_perfection: app.globalData.resumeInfo.resumeCompletePercentage * 100,
                 btn_type: 'job-hunting-chat'
               })
               applyInterviewApi({recruiterUid: this.data.infos.recruiterInfo.uid, positionId: this.data.infos.id}).then(res => {
