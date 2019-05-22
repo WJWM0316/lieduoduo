@@ -165,9 +165,6 @@ Page({
       if(!value.isRequire) this.getLists()
     })
   },
-  onShareAppMessage(options) {
-　　return app.wxShare({options})
-  },
   /**
    * @Author   小书包
    * @DateTime 2019-01-21
