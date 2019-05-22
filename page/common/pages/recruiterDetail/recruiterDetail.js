@@ -9,6 +9,7 @@ let recruiterCard = ''
 let app = getApp()
 let positionTop = 0
 let identity = ''
+let isLock = 0
 Page({
   data: {
     showPage: false,
@@ -22,7 +23,7 @@ Page({
       isLastPage: false,
       isRequire: false,
       hasReFresh: false,
-      onBottomStatus: 0,
+      onBottomStatus: 0
     },
     pageCount: 20,
     isShowBtn: true,
@@ -61,21 +62,13 @@ Page({
   getOthersInfo(hasLoading = true, isReload = false) {
     return new Promise((resolve, reject) => {
       getOthersRecruiterDetailApi({uid: this.data.options.uid, hasLoading, isReload, ...app.getSource()}).then(res => {
-        let positionList = {
-          list: [],
-          pageNum: 1,
-          isLastPage: false,
-          isRequire: false,
-          onBottomStatus: false
-        }
         let isOwner = res.data.isOwner && identity === 'RECRUITER' ? true : false
-        this.setData({isOwner, info: res.data, realIsOwner: res.data.isOwner, positionList}, function() {
+        this.setData({isOwner, info: res.data, realIsOwner: res.data.isOwner}, function() {
           if(this.selectComponent('#interviewBar')) this.selectComponent('#interviewBar').init()
           // this.getDomNodePosition()
           if (this.data.isOwner) {
             app.globalData.recruiterDetails = res.data
           }
-          console.log(this.data.positionList)
           this.getPositionLists(false)
           resolve(res)
         })
@@ -97,12 +90,23 @@ Page({
         positionList.pageNum = positionList.pageNum + 1
         positionList.isRequire = true
         positionList.total = res.meta.total
+        isLock = 0
         this.setData({positionList}, () => resolve(res))
       })
     })
   },
   onShow() {
+    console.log('a')
     let options = this.data.options
+    let positionList = {
+      list: [],
+      pageNum: 1,
+      isLastPage: false,
+      isRequire: false,
+      onBottomStatus: false
+    }
+    isLock = 1
+    this.setData({positionList})
     if (app.loginInit) {
       this.getOthersInfo()
       if (app.globalData.isRecruiter) {
@@ -299,7 +303,8 @@ Page({
    */
   onReachBottom() {
     let positionList = this.data.positionList
-    if (!positionList.isLastPage) {
+    if (!positionList.isLastPage && !isLock ) {
+      console.log('c')
       this.getPositionLists(false)
     }
   },
