@@ -43,6 +43,9 @@ Page({
     isIphoneX: app.globalData.isIphoneX
   },
   onShow() {
+    if (wx.getStorageSync('choseType') !== 'APPLICANT') {
+      wx.setStorageSync('choseType', 'APPLICANT')
+    }
     this.clearListsData()
     if (app.getRoleInit) {
       this.setData({isJobhunter: app.globalData.isJobhunter})

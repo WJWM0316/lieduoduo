@@ -16,6 +16,9 @@ Page({
     options: {}
   },
   onLoad(options) {
+    if (wx.getStorageSync('choseType') !== 'APPLICANT') {
+      wx.setStorageSync('choseType', 'APPLICANT')
+    }
     this.setData({options})
   },
   onShow() {
