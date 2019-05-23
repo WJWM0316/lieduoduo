@@ -35,15 +35,13 @@
 	
 	<view class="child-box" hidden="{{tab === 'about'}}" wx:if="{{positionTypeList.length>0}}">
 		
-		<view
+		<text
 			class="tab {{item.active ? 'tab-active' : ''}}"
 			wx:for="{{positionTypeList}}"
 			wx:key="{{index}}"
 			data-id="{{item.id}}"
 			bindtap="setType"
-			wx-for-item="{{item}}">
-				{{item.name}}
-			</view>
+			wx-for-item="{{item}}">{{item.name}}</text>
 	</view>
 
 	<view hidden="{{tab === 'recruitment'}}">
