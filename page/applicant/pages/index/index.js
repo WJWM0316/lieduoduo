@@ -455,6 +455,10 @@ Page({
       salaryFloor: salaryFloor,
       salaryCeil: salaryCeil
     }
+    if (data.positionTypeList[data.typeIndex].pid === data.positionTypeList[data.typeIndex].topPid) {
+      lntention.positionType = 0
+      lntention.positionName = ''
+    }
     wx.setStorageSync('addIntention', lntention)
     wx.navigateTo({
       url: `/page/applicant/pages/center/resumeEditor/aimsEdit/aimsEdit`

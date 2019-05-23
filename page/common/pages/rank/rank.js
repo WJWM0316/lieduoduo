@@ -249,7 +249,6 @@ Page({
           rankCity.list.unshift(secondtItem)
         }
         rankCity.rankDetail = res.data.rankDetail
-        console.log(res)
         this.setData({rankCity, onBottomStatus, commonList: rankCity}, () => resolve(res))
       })
     })
@@ -283,7 +282,6 @@ Page({
           rankCate.list.unshift(secondtItem)
         }
         rankCate.rankDetail = res.data.rankDetail
-        console.log(res)
         this.setData({rankCate, onBottomStatus, commonList: rankCate}, () => resolve(res))
       })
     })
@@ -312,12 +310,12 @@ Page({
         if(rankAll.list.length > 1) {
           secondtItem = rankAll.list[1]
         }
+
         if(rankAll.list[0].influence >= secondtItem.influence && rankAll.list.length > 1) {
           rankAll.list = rankAll.list.filter(field => field.uid !== secondtItem.uid)
           rankAll.list.unshift(secondtItem)
         }
         rankAll.rankDetail = res.data.rankDetail
-        console.log(res)
         this.setData({rankAll, onBottomStatus, commonList: rankAll}, () => resolve(res))
       })
     })
@@ -393,5 +391,9 @@ Page({
   toggleShowRules() {
     this.setData({showRules: !this.data.showRules && identity === 'RECRUITER'})
   },
-  stopPageScroll() {return false }
+  stopPageScroll() {return false },
+  viewYourself() {
+    let detail = this.data.detail
+    wx.navigateTo({url: `${COMMON}recruiterDetail/recruiterDetail?uid=${detail.uid}`})
+  }
 })

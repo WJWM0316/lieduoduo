@@ -231,6 +231,7 @@
   font-size: 0;
   max-height: 658rpx;
   overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 .select-area-item {

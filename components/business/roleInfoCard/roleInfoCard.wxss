@@ -11,7 +11,7 @@
 }
 .roleInfoCard .company {
   position: relative;
-  padding-left: 134rpx;
+  padding-left: 164rpx;
   padding-right: 50rpx;
   background: #fff;
   height:140rpx;
@@ -19,6 +19,7 @@
 }
 .roleInfoCard .company.detail {
   height: 108rpx;
+  padding-left: 134rpx;
 }
 .roleInfoCard .company.edit {
   padding-right: 0;

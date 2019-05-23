@@ -193,7 +193,7 @@ Page({
       }
     })
   },
-  onShow() {
+  onLoad() {
     let interviewList = {
       list: [],
       pageNum: 1,

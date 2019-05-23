@@ -43,6 +43,9 @@ Page({
     isIphoneX: app.globalData.isIphoneX
   },
   onShow() {
+    if (wx.getStorageSync('choseType') !== 'APPLICANT') {
+      wx.setStorageSync('choseType', 'APPLICANT')
+    }
     this.clearListsData()
     if (app.getRoleInit) {
       this.setData({isJobhunter: app.globalData.isJobhunter})
@@ -161,9 +164,6 @@ Page({
     this.setData({pageList}, () => {
       if(!value.isRequire) this.getLists()
     })
-  },
-  onShareAppMessage(options) {
-　　return app.wxShare({options})
   },
   /**
    * @Author   小书包

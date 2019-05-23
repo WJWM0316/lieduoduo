@@ -9,6 +9,7 @@ let recruiterCard = ''
 let app = getApp()
 let positionTop = 0
 let identity = ''
+let isLock = 0
 Page({
   data: {
     showPage: false,
@@ -22,7 +23,7 @@ Page({
       isLastPage: false,
       isRequire: false,
       hasReFresh: false,
-      onBottomStatus: 0,
+      onBottomStatus: 0
     },
     pageCount: 20,
     isShowBtn: true,
@@ -61,7 +62,6 @@ Page({
   getOthersInfo(hasLoading = true, isReload = false) {
     return new Promise((resolve, reject) => {
       getOthersRecruiterDetailApi({uid: this.data.options.uid, hasLoading, isReload, ...app.getSource()}).then(res => {
-        // let isOwner = false
         let isOwner = res.data.isOwner && identity === 'RECRUITER' ? true : false
         this.setData({isOwner, info: res.data, realIsOwner: res.data.isOwner}, function() {
           if(this.selectComponent('#interviewBar')) this.selectComponent('#interviewBar').init()
@@ -69,38 +69,44 @@ Page({
           if (this.data.isOwner) {
             app.globalData.recruiterDetails = res.data
           }
+          this.getPositionLists(false)
           resolve(res)
         })
       })
-      this.getPositionLists(hasLoading)
     })
   },
   getPositionLists(hasLoading = true) {
     return new Promise((resolve, reject) => {
-      const params = {recruiter: this.data.options.uid, count: this.data.pageCount, page: this.data.positionList.pageNum, hasLoading}
+      let isOwner = this.data.isOwner
+      let params = {recruiter: this.data.options.uid, count: this.data.pageCount, page: this.data.positionList.pageNum, hasLoading}
+      if(isOwner) {
+        params = Object.assign(params, {is_online: 1})
+      }
       getPositionListApi(params).then(res => {
-        const positionList = this.data.positionList
+        let positionList = this.data.positionList
         positionList.onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
         positionList.list = positionList.list.concat(res.data)
         positionList.isLastPage = res.meta && res.meta.nextPageUrl ? false : true
         positionList.pageNum = positionList.pageNum + 1
         positionList.isRequire = true
         positionList.total = res.meta.total
+        isLock = 0
         this.setData({positionList}, () => resolve(res))
       })
     })
   },
   onShow() {
+    console.log('a')
     let options = this.data.options
-    const positionList = {
+    let positionList = {
       list: [],
       pageNum: 1,
       isLastPage: false,
       isRequire: false,
       onBottomStatus: false
     }
+    isLock = 1
     this.setData({positionList})
-    
     if (app.loginInit) {
       this.getOthersInfo()
       if (app.globalData.isRecruiter) {
@@ -256,7 +262,7 @@ Page({
   // },
   onPullDownRefresh(hasLoading = true) {
     this.setData({hasReFresh: true})
-    const positionList = {
+    let positionList = {
       list: [],
       pageNum: 1,
       isLastPage: false,
@@ -296,8 +302,9 @@ Page({
    * @return   {[type]}   [description]
    */
   onReachBottom() {
-    const positionList = this.data.positionList
-    if (!positionList.isLastPage) {
+    let positionList = this.data.positionList
+    if (!positionList.isLastPage && !isLock ) {
+      console.log('c')
       this.getPositionLists(false)
     }
   },

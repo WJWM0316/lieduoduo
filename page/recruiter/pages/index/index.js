@@ -71,8 +71,16 @@ Page({
   onLoad() {
     let choseType = wx.getStorageSync('choseType') || ''
     this.setData({ choseType})
-
+    if (app.loginInit) {
+      if (!app.globalData.hasLogin) wx.navigateTo({url: `${COMMON}bindPhone/bindPhone`})
+    } else {
+      app.loginInit = () => {
+        if (!app.globalData.hasLogin) wx.navigateTo({url: `${COMMON}bindPhone/bindPhone`})
+      }
+    }
+    let that = this
     if (choseType === 'APPLICANT') {
+      let that = this
       app.wxConfirm({
         title: '提示',
         content: '检测到你是求职者，是否切换求职者',
@@ -80,44 +88,42 @@ Page({
           wx.reLaunch({url: `${APPLICANT}index/index` })
         },
         cancelBack() {
-          app.getAllInfo().then(() => wx.setStorageSync('choseType', 'RECRUITER'))
+          wx.setStorageSync('choseType', 'RECRUITER')
+          app.getAllInfo().then(res => {
+            that.init()
+          })
         }
       })
     }
   },
   onShow() {
+    this.init()
+  },
+  init () {
+    if (wx.getStorageSync('choseType') === 'APPLICANT') return
     let recruiterInfo = app.globalData.recruiterDetails
     let collectMySelf = this.data.collectMySelf
     let browseMySelf = this.data.browseMySelf
     let userInfo = app.globalData.userInfo
-
-    if (app.loginInit) {
-      app.getAllInfo().then(res => {
+    let pageList = this.data.pageList
+    let value = this.data[pageList]
+    if (app.pageInit) {
+      recruiterInfo = app.globalData.recruiterDetails
+      userInfo = app.globalData.userInfo
+      this.getDomNodePosition()
+      this.getMixdata()
+      if(!wx.getStorageSync('isReback') && !value.list.length) this.getLists()
+      wx.removeStorageSync('isReback')
+      this.setData({detail: recruiterInfo, userInfo})
+    } else {
+      app.pageInit = () => {
         recruiterInfo = app.globalData.recruiterDetails
         userInfo = app.globalData.userInfo
         this.getDomNodePosition()
         this.getMixdata()
-        if(this.data.pageList !== 'collectMySelf') {
-          if(!collectMySelf.list.length) this.getLists()
-        } else {
-          if(!browseMySelf.list.length) this.getLists()
-        }
+        if(!wx.getStorageSync('isReback') && !value.list.length) this.getLists()
+        wx.removeStorageSync('isReback')
         this.setData({detail: recruiterInfo, userInfo})
-      })
-    } else {
-      app.loginInit = () => {
-        app.getAllInfo().then(res => {
-          recruiterInfo = app.globalData.recruiterDetails
-          userInfo = app.globalData.userInfo
-          this.getDomNodePosition()
-          this.getMixdata()
-          if(this.data.pageList !== 'collectMySelf') {
-            if(!collectMySelf.list.length) this.getLists()
-          } else {
-            if(!browseMySelf.list.length) this.getLists()
-          }
-          this.setData({detail: recruiterInfo, userInfo})
-        })
       }
     }
   },
@@ -137,11 +143,11 @@ Page({
    * @detail   获取列表数据
    * @return   {[type]}   [description]
    */
-  getLists() {
+  getLists(hasLoading) {
     if(this.data.pageList !== 'collectMySelf') {
-      return this.getBrowseMySelf(false)
+      return this.getBrowseMySelf(hasLoading)
     } else {
-      return this.getCollectMySelf(false)
+      return this.getCollectMySelf(hasLoading)
     }
   },
   /**
@@ -163,7 +169,7 @@ Page({
         browseMySelf.isRequire = true
         browseMySelf.total = res.meta.total
         this.setData({browseMySelf, onBottomStatus}, () => resolve(res))
-      })
+      }).catch(() => reject())
     })
   },
   /**
@@ -189,7 +195,7 @@ Page({
         list = this.appendData(list, collectMySelf)
         collectMySelf.list = collectMySelf.list.concat(list)
         this.setData({collectMySelf, onBottomStatus}, () => resolve(res))
-      })
+      }).catch(() => reject())
     })
   },
   /**
@@ -229,7 +235,6 @@ Page({
    */
   ontabClick(e) {
     let pageList = e.currentTarget.dataset.key
-    let onBottomStatus = this.data.onBottomStatus
     let browseMySelf = {
       list: [],
       pageNum: 1,
@@ -245,23 +250,31 @@ Page({
       isRequire: false,
       isUse: false
     }
-    this.setData({ pageList, onBottomStatus }, () => {
 
-      if(pageList === 'browseMySelf') {
-        getIndexShowCountApi().then(res => {
-          let indexShowCount = res.data
-          this.setData({indexShowCount, browseMySelf})
-          if(!this.data.browseMySelf.isLastPage) this.getLists()
-          if(indexShowCount.viewCount && this.data.browseMySelf.isLastPage) this.getLists()
+    this.setData({ pageList }, () => {
+      let indexShowCount = this.data.indexShowCount
+      getIndexShowCountApi().then(res => {
+        let indexShowCount = res.data
+        this.setData({ indexShowCount }, () => {
+          if(pageList === 'browseMySelf') {
+            if(!this.data.browseMySelf.isLastPage && !this.data.browseMySelf.list.length) {
+              if(indexShowCount.viewCount) {
+                indexShowCount.viewCount = 0
+                this.setData({browseMySelf, indexShowCount}, () => this.getLists(true))
+              } else {
+                this.getLists(true)
+              }
+            } else {
+              if(indexShowCount.viewCount) {
+                indexShowCount.viewCount = 0
+                this.setData({browseMySelf, indexShowCount}, () => this.getLists(true))
+              }
+            }
+          } else {
+            if(!this.data.collectMySelf.isLastPage && !this.data.collectMySelf.list.length) this.getLists(true)
+          }
         })
-      } else {
-        getIndexShowCountApi().then(res => {
-          let indexShowCount = res.data
-          this.setData({indexShowCount, collectMySelf})
-          if(!this.data.collectMySelf.isLastPage) this.getLists()
-        })
-      }
-      
+      })
     })
   },
   /**
@@ -274,8 +287,6 @@ Page({
     let key = this.data.pageList
     let value = {list: [], pageNum: 1, isLastPage: false, isRequire: false, isUse: false, loading: false}
     this.setData({[key]: value, hasReFresh: true, detail: app.globalData.recruiterDetails})
-    
-    getIndexShowCountApi().then(res => this.setData({indexShowCount: res.data}))
     this.getLists().then(res => {
       let value = {list: [], pageNum: 1, isLastPage: false, isRequire: false}
       let onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
@@ -284,11 +295,17 @@ Page({
       value.pageNum = 2
       value.isRequire = true
       value.total = res.meta.total
+      getIndexShowCountApi().then(res => this.setData({indexShowCount: res.data}))
       this.setData({[key]: value, onBottomStatus, fixedDom: false}, () => {
         wx.stopPullDownRefresh()
         wx.pageScrollTo({scrollTop: 0 })
         this.setData({hasReFresh: false})
       })
+    })
+    .catch(() => {
+      wx.stopPullDownRefresh()
+      wx.pageScrollTo({scrollTop: 0 })
+      this.setData({hasReFresh: false})
     })
   },
   /**
@@ -341,8 +358,10 @@ Page({
     if(params.type === 1) {
       wx.reLaunch({url: `${RECRUITER}position/index/index`})
     } else if(params.type === 2) {
+      wx.setStorageSync('isReback', 'yes')
       wx.navigateTo({url: `${COMMON}recruiterDetail/recruiterDetail?uid=${uid}`})
     } else {
+      wx.setStorageSync('isReback', 'yes')
       wx.navigateTo({url: `${COMMON}resumeDetail/resumeDetail?uid=${params.jobhunteruid}`})
     }
   },

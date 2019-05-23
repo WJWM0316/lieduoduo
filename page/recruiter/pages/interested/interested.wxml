@@ -23,8 +23,8 @@
 								<view class="name">{{item.name}}</view>
 								<view class="zhiwei">
 									<block>{{item.workAgeDesc}}</block>
-									<block wx:if="{{item.degreeDesc}}"> . {{item.degreeDesc}}</block>
-									<block wx:if="{{item.salary}}"> . {{item.salary}}</block>
+									<block wx:if="{{item.degreeDesc}}"> · {{item.degreeDesc}}</block>
+									<block wx:if="{{item.salary}}"> · {{item.salary}}</block>
 								</view>
 							</view>
 							<view class="degress" wx:if="{{item.lastCompanyName || item.lastPosition}}">
