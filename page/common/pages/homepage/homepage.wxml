@@ -41,7 +41,7 @@
 			wx:key="{{index}}"
 			data-id="{{item.id}}"
 			bindtap="setType"
-			wx-for-item="{{item}}">{{item.name}}</text>
+			>{{item.name}}</text>
 	</view>
 
 	<view hidden="{{tab === 'recruitment'}}">
