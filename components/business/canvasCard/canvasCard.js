@@ -24,6 +24,7 @@ Component({
   attached() {
     let that = this
     let avatarImg = ''
+      console.log('=====>avatarImg')
     if (this.data.type === 'position') {
       avatarImg = that.data.cardData.recruiterInfo.avatar.smallUrl
     } else if (this.data.type === 'company') {
@@ -58,7 +59,8 @@ Component({
       let that = this
       let info = this.data.cardData
       const ctx = wx.createCanvasContext('cardCanvas', this)
-      console.log('==>cardData',info)
+      console.log('=====>cardData',info)
+      console.log(this.data.type)
       switch(this.data.type) {
         case 'recruiter':
           ctx.drawImage(avatarUrl, 160, 73, 100, 100)

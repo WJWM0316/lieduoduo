@@ -162,7 +162,7 @@ Page({
   },
   onShareAppMessage(options) {
     let that = this
-    let btnImageUrl = `${that.data.cdnImagePath}shareC.png`
+    let imageUrl = `${that.data.cdnImagePath}shareC.png`
     app.shareStatistics({
       id: that.data.myInfo.uid,
       type: 'jobhunter',
@@ -171,14 +171,13 @@ Page({
     })
 
     if(positionCard){
-      btnImageUrl = positionCard
+      imageUrl = positionCard
     }
-
 　　return app.wxShare({
       options,
       btnTitle: shareResume(),
       btnPath: `${COMMON}resumeDetail/resumeDetail?uid=${this.data.myInfo.uid}&sCode=${this.data.myInfo.sCode}&sourceType=shj`,
-      btnImageUrl: btnImageUrl
+      imageUrl: imageUrl
     })
   },
   toggleIdentity() {

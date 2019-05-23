@@ -169,7 +169,7 @@ Page({
     let id = e.currentTarget.dataset.id
     let positionTypeList = this.data.positionTypeList
     let typeId = null
-
+    if(this.data.typeId === id) return
     let positionList = this.data.positionList
     positionList.pageNum = 1
     positionTypeList.map(item => {
@@ -355,6 +355,7 @@ Page({
     if(positionCard){
       imageUrl = positionCard
     }
+    console.log('companyInfos=====>',this.data.companyInfos)
 　　return app.wxShare({
       options,
       title: `${that.data.companyInfos.companyShortname}正在招聘，马上约面，极速入职！我在猎多多等你！`,
