@@ -3,6 +3,7 @@ import {COMMON,APPLICANT,RECRUITER} from "../../../../config.js"
 import {mobileReg} from "../../../../utils/fieldRegular.js"
 import {shareInterviewr} from '../../../../utils/shareWord.js'
 let app = getApp()
+let positionCard = ''
 Page({
 
   /**
@@ -239,6 +240,7 @@ Page({
   onLoad: function (options) {
     let identity = app.identification(options)
     this.setData({options, identity})
+    positionCard = ''
   },
   pageInit() {
     if (this.data.options.id) {
@@ -340,14 +342,24 @@ Page({
 
   },
 
+  getCreatedImg(e) {
+    positionCard = e.detail
+  },
+
   /**
    * 用户点击右上角分享
    */
   onShareAppMessage: function (options) {
+    let btnImageUrl = `${this.data.cdnImagePath}shareB.png`
+
+    if(positionCard){
+      btnImageUrl = positionCard
+    }
+    
     return app.wxShare({
       options,
       title: shareInterviewr,
-      noImg: true,
+      imageUrl: btnImageUrl,
       path: `${COMMON}arrangement/arrangement?id=${this.options.id}`
     })
   }

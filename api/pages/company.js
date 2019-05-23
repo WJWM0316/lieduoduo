@@ -455,3 +455,13 @@ export const notifyadminApi = (data) => {
     hasLoading: false
   })
 }
+
+// 获取公司职位类型列表
+export const getOnlinePositionTypeApi = (data) => {
+  return request({
+    url: `/company/onlinePositionType/${data.companyId}`,
+    method: 'get',
+    data,
+    hasLoading: false
+  })
+}

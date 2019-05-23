@@ -2,6 +2,7 @@ import {COMMON,APPLICANT,RECRUITER} from '../../../../../config.js'
 import { getPersonalResumeApi, getMyInfoApi } from '../../../../../api/pages/center.js'
 import {shareResume} from '../../../../../utils/shareWord.js'
 let app = getApp()
+let positionCard = ''
 Page({
 
   /**
@@ -20,6 +21,9 @@ Page({
     telePhone: app.globalData.telePhone,
     showScanIcon: false,
     navbarBg: 'transparent'
+  },
+  onLoad(options) {
+    positionCard = ''
   },
   /**
    * 生命周期函数--监听页面加载
@@ -158,17 +162,23 @@ Page({
   },
   onShareAppMessage(options) {
     let that = this
+    let btnImageUrl = `${that.data.cdnImagePath}shareC.png`
     app.shareStatistics({
       id: that.data.myInfo.uid,
       type: 'jobhunter',
       sCode: that.data.myInfo.sCode,
       channel: 'card'
     })
+
+    if(positionCard){
+      btnImageUrl = positionCard
+    }
+
 　　return app.wxShare({
       options,
       btnTitle: shareResume(),
       btnPath: `${COMMON}resumeDetail/resumeDetail?uid=${this.data.myInfo.uid}&sCode=${this.data.myInfo.sCode}&sourceType=shj`,
-      btnImageUrl: `${that.data.cdnImagePath}shareC.png`
+      btnImageUrl: btnImageUrl
     })
   },
   toggleIdentity() {
@@ -176,9 +186,13 @@ Page({
       title: '身份切换',
       content: `是否切换为面试官身份`,
       confirmBack() {
+        
         app.toggleIdentity()
       }
     })
+  },
+  getCreatedImg(e) {
+    positionCard = e.detail
   },
   onPageScroll(e) {
     let isFixed = e.scrollTop > this.data.navH

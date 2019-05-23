@@ -9,6 +9,7 @@ let isPreview = false
 const app = getApp()
 let resumeInfo = null
 let identity = ''
+let positionCard = ''
 Page({
 
   /**
@@ -30,6 +31,7 @@ Page({
     if (options.scene) options = app.getSceneParams(options.scene)
     identity = app.identification(options)
     this.setData({options})
+    positionCard = ''
   },
   /**
    * 生命周期函数--监听页面显示
@@ -167,6 +169,9 @@ Page({
   formSubmit(e) {
     app.postFormId(e.detail.formId)
   },
+  getCreatedImg(e) {
+    positionCard = e.detail
+  },
   onPullDownRefresh(hasLoading = true) {
     this.setData({hasReFresh: true})
     this.getOthersInfo(false, true).then(res => {
@@ -176,19 +181,25 @@ Page({
       wx.stopPullDownRefresh()
     })
   },
+
   onShareAppMessage(options) {
     let that = this
+    let btnImageUrl = `${that.data.cdnImagePath}shareB.png`
     app.shareStatistics({
       id: that.data.options.uid,
       type: 'resume',
       sCode: that.data.info.sCode,
       channel: 'card'
     })
+    if(positionCard){
+      btnImageUrl = positionCard
+    }
+
 　　return app.wxShare({
       options,
       title: shareResume(),
       path: `${COMMON}resumeDetail/resumeDetail?uid=${this.data.options.uid}&sCode=${this.data.info.sCode}&sourceType=shj`,
-      imageUrl: `${that.data.cdnImagePath}shareB.png`
+      btnImageUrl: btnImageUrl
     })
   }
 })

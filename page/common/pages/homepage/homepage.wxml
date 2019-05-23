@@ -156,8 +156,17 @@
 	</view>
 
 	<view class="job-list" hidden="{{tab === 'about'}}">
+		<view class="typeHint">>></view>
+		<view class="typeList" >
+			<view class="typeBlo {{item.class}}" wx:for="{{onlinePositionTypeList}}"
+			wx:key="{{index}}"
+			data-id="{{item.id}}"
+			bindtap="setType"
+			wx-for-item="{{item}}" >{{item.name}}</view>
+		</view>
 		<jobList list="{{positionList.list}}" showBoxShadow="{{false}}"></jobList>
 	</view>
+	<block wx:if="{{companyInfos.id}}"><canvasCard cardData="{{companyInfos}}" type="company" bindgetCreatedImg="getCreatedImg"></canvasCard></block>
 	<auth wx:if="{{requireOAuth}}" bindauthSuccess="authSuccess"></auth>
 </view>
 </form>

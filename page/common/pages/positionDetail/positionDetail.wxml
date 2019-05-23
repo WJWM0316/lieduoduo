@@ -95,7 +95,7 @@
 		<view class="findMore" bindtap="todoAction" data-type="findMore" wx:if="{{findMore.companyLogos && findMore.companyLogos.length > 0}}">
 			<view class="left">
 				<view class="title">发现更多职业机会</view>
-				<view class="msg">更多 <text class='name'>{{detail.typeName}}</text> 机会等你开撩</view>
+				<view class="msg"><text class="desc">更多</text><text class='name'>{{detail.typeName}}</text><text class="desc">机会等你开撩</text></view>
 			</view>
 			<view class="right">
 				<image class="img" wx:for="{{findMore.companyLogos}}" wx:if="{{index < 3}}" mode="aspectFit" wx:key="{{index}}" src="{{item.smallUrl}}"></image>
