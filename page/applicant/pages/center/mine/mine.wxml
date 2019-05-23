@@ -109,4 +109,5 @@
 </view>
 <tabBar></tabBar>
 <shareBtn id="share" posterType="applicant" shareBtn="{{false}}"></shareBtn>
+<block wx:if="{{myInfo.resumeAttach && myInfo.resumeAttach.id}}"><canvasCard cardData="{{myInfo}}" type="resume" bindgetCreatedImg="getCreatedImg"></canvasCard></block>
 <bindPhone hide="{{hideBind}}"></bindPhone>
