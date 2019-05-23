@@ -160,22 +160,25 @@
       <text class="add" data-editName="more" bindtap="edit" wx:if="{{!info.moreIntroduce.introduce && info.moreIntroduce.imgs.length === 0 && isOwner}}" data-id="0">完善更多介绍</text>
     </view>
   </view>
-  <button form-type="submit" wx:if="{{!realIsOwner}}" class="clear-style collect" bindtap="collect">
-    <i class="icon iconfont icon-ganxingqu" wx:if="{{!info.interested}}"></i>
-    <i class="icon iconfont icon-biaojiweiganxingqu" wx:else></i>
-  </button>
-  <!-- 底部开撩 -->
-  <view class="bottomBox">
-    <view wx:if="{{!options.preview}}">
-      <interviewBar
-        id="interviewBar"
-        infos="{{info}}"
-        type="resume"
-        bindresultevent="init"
-        wx:if="{{info.vkey && !isOwner}}"></interviewBar>
-    </view>
-    <view wx:if="{{options.preview && !isOwner}}" class="editBot">
-      <button form-type="submit" class="editBotBtn" bindtap="editSelf">编辑简历</button>
-    </view>
+
+<button form-type="submit" wx:if="{{!realIsOwner}}" class="clear-style collect" bindtap="collect">
+  <i class="icon iconfont icon-ganxingqu" wx:if="{{!info.interested}}"></i>
+  <i class="icon iconfont icon-biaojiweiganxingqu" wx:else></i>
+</button>
+<!-- 底部开撩 -->
+<view class="bottomBox">
+  <view wx:if="{{!options.preview}}">
+    <interviewBar
+      id="interviewBar"
+      infos="{{info}}"
+      type="resume"
+      bindresultevent="init"
+      wx:if="{{info.vkey && !isOwner}}"></interviewBar>
   </view>
+  <view wx:if="{{options.preview && !isOwner}}" class="editBot">
+    <button form-type="submit" class="editBotBtn" bindtap="editSelf">编辑简历</button>
+  </view>
+</view>
+
+<block wx:if="{{info.resumeAttach && info.resumeAttach.id}}"><canvasCard cardData="{{info}}" type="resume" bindgetCreatedImg="getCreatedImg"></canvasCard></block>
 </form>

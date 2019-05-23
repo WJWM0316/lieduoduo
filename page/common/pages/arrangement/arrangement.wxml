@@ -186,4 +186,6 @@
     </view>
 
   </block>
+
+  <block wx:if="{{info.vkey}}"><canvasCard cardData="{{info}}" type="interview" bindgetCreatedImg="getCreatedImg"></canvasCard></block>
 </view>

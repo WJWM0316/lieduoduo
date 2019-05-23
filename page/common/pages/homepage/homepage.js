@@ -1,6 +1,7 @@
 import {
   getCompanyInfosApi,
-  getRecruitersListApi
+  getRecruitersListApi,
+  getOnlinePositionTypeApi
 } from '../../../../api/pages/company.js'
 
 import {
@@ -23,8 +24,8 @@ import {getSelectorQuery} from "../../../../utils/util.js"
 import { agreedTxtC, agreedTxtB } from '../../../../utils/randomCopy.js'
 
 let app = getApp()
+let positionCard = ''
 Page({
-
   data: {
     navH: app.globalData.navHeight,
     tab: 'about',
@@ -37,7 +38,8 @@ Page({
     recruitersList: [],
     cdnImagePath: app.globalData.cdnImagePath,
     positionTypeList: [],
-    labelId: null,
+    onlinePositionTypeList: [],
+    typeId: null,
     domHeight: 0,
     isFixed: false,
     requireOAuth: false,
@@ -60,14 +62,15 @@ Page({
   onLoad(options) {
     if (options.scene) options = app.getSceneParams(options.scene)
     this.setData({query: options})
+    positionCard = ''
   },
   onShow() {
     if (app.loginInit) {
-      this.init().then(() => this.getLabelPosition())
+      this.init().then(() => this.getOnlinePositionType())
       this.getDomNodePosition()
     } else {
       app.loginInit = () => {
-        this.init().then(() => this.getLabelPosition())
+        this.init().then(() => this.getOnlinePositionType())
         this.getDomNodePosition()
       }
     }
@@ -92,26 +95,7 @@ Page({
   init() {
     return Promise.all([this.getCompanyDetail(), this.getRecruitersList()])
   },
-  /**
-   * @Author   小书包
-   * @DateTime 2019-01-23
-   * @detail   选择技能
-   * @return   {[type]}     [description]
-   */
-  selectSkill(e) {
-    const params = e.currentTarget.dataset
-    const positionTypeList = this.data.positionTypeList
-    let labelId = null
-    positionTypeList.map((field, index) => {
-      if(index === params.index) {
-        field.active = true
-        labelId = field.labelId
-      } else {
-        field.active = false
-      }
-    })
-    this.setData({positionTypeList, labelId}, () => this.reloadData())
-  },
+
   /**
    * @Author   小书包
    * @DateTime 2019-01-25
@@ -143,13 +127,18 @@ Page({
     return new Promise((resolve, reject) => {
       const options = this.data.query
       let params = {company_id: options.companyId, count: this.data.pageCount, page: this.data.positionList.pageNum}
-      if(typeof this.data.labelId === 'number') {
-        params = Object.assign(params, {type: this.data.labelId})
+      if(typeof this.data.typeId === 'number') {
+        params = Object.assign(params, {type: this.data.typeId})
       }
       getPositionListApi(params, hasLoading).then(res => {
+
         const positionList = this.data.positionList
         const onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
-        positionList.list = positionList.list.concat(res.data)
+        if(params.page !== 1) {
+          positionList.list = positionList.list.concat(res.data)
+        } else {
+          positionList.list = res.data
+        }
         positionList.isLastPage = res.meta && res.meta.nextPageUrl ? false : true
         positionList.pageNum = positionList.pageNum + 1
         positionList.isRequire = true
@@ -157,24 +146,42 @@ Page({
       })
     })
   },
-  /**
-   * @Author   小书包
-   * @DateTime 2019-01-23
-   * @detail   获取技能标签
-   * @return   {[type]}   [description]
-   */
-  getLabelPosition() {
-    getLabelPositionApi().then(res => {
+
+  //获取公司职位类型列表
+  getOnlinePositionType() {
+    let data = {
+      companyId: this.data.query.companyId
+    }
+    getOnlinePositionTypeApi(data).then(res=>{
       const positionTypeList = res.data
       positionTypeList.map(field => field.active = false)
       positionTypeList.unshift({
-        labelId: 'all',
+        id: 'all',
         name: '全部',
         active: true
       })
       this.setData({positionTypeList}, () => this.getPositionList())
     })
   },
+
+  // 职位分类选择
+  setType(e) {
+    let id = e.currentTarget.dataset.id
+    let positionTypeList = this.data.positionTypeList
+    let typeId = null
+
+    let positionList = this.data.positionList
+    positionList.pageNum = 1
+    positionTypeList.map(item => {
+      item.active = false
+      if (item.id === id) {
+        typeId = item.id
+        item.active = true
+      }
+    })
+    this.setData({positionTypeList, typeId, positionList}, () => this.getPositionList())
+  },
+
   /**
    * @Author   小书包
    * @DateTime 2019-01-23
@@ -333,19 +340,26 @@ Page({
       this.getPositionList(false).then(() => this.setData({onBottomStatus: 1}))
     }
   },
+  getCreatedImg(e) {
+    positionCard = e.detail
+  },
   onShareAppMessage(options) {
     let that = this
+    let imageUrl = `${that.data.cdnImagePath}shareC.png`
     app.shareStatistics({
       id: that.data.query.companyId,
       type: 'company',
       sCode: that.data.companyInfos.sCode,
       channel: 'card'
     })
+    if(positionCard){
+      imageUrl = positionCard
+    }
 　　return app.wxShare({
       options,
       title: `${that.data.companyInfos.companyShortname}正在招聘，马上约面，极速入职！我在猎多多等你！`,
       path: `${COMMON}homepage/homepage?companyId=${this.data.query.companyId}&sCode=${this.data.companyInfos.sCode}&sourceType=shc`,
-      imageUrl: `${that.data.cdnImagePath}shareC.png`
+      imageUrl: imageUrl
     })
   }
 })

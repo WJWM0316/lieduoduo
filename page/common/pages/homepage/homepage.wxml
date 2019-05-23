@@ -32,18 +32,18 @@
 		<image src="{{cdnImagePath}}line00002.png" class="image" hidden="{{tab === 'recruitment'}}"></image>
 		<image src="{{cdnImagePath}}line00001.png" class="image" hidden="{{tab === 'about'}}"></image>
 	</view>
-<!-- 	
+	
 	<view class="child-box" hidden="{{tab === 'about'}}">
 		<view
 			class="tab {{item.active ? 'tab-active' : ''}}"
 			wx:for="{{positionTypeList}}"
 			wx:key="{{index}}"
-			data-index="{{index}}"
-			bindtap="selectSkill"
+			data-id="{{item.id}}"
+			bindtap="setType"
 			wx-for-item="{{item}}">
 				{{item.name}}
 			</view>
-	</view> -->
+	</view>
 
 	<view hidden="{{tab === 'recruitment'}}">
 		<view class="homepage-team-box" wx:if="{{recruitersList.length}}">
@@ -166,8 +166,11 @@
 	</view>
 
 	<view class="job-list" hidden="{{tab === 'about'}}">
+		<view class="typeHint">>></view>
+
 		<jobList list="{{positionList.list}}" showBoxShadow="{{false}}"></jobList>
 	</view>
+	<block wx:if="{{companyInfos.id}}"><canvasCard cardData="{{companyInfos}}" type="company" bindgetCreatedImg="getCreatedImg"></canvasCard></block>
 	<auth wx:if="{{requireOAuth}}" bindauthSuccess="authSuccess"></auth>
 </view>
 </form>
