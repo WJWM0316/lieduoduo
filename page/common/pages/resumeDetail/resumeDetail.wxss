@@ -111,9 +111,6 @@
   align-content: center;
 }
 .experience{
-  display: flex;
-  flex-wrap: nowrap;
-  align-items: center;
   font-size: 24rpx;
   font-weight: 300;
   color: #282828;
@@ -124,6 +121,7 @@
   white-space: nowrap;
   margin-right: 32rpx;
   display: inline-block;
+  margin-bottom: 20rpx;
 }
 .experience i {
   color: #CDCBCF;
@@ -136,17 +134,10 @@
   color: #652791;
   background-color: #EFE9F4;
   padding: 0 18rpx !important;
-  max-width:200rpx;
-  overflow: hidden;
-  margin-top: 0rpx;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  display: inline-block;
-  margin-right: -2rpx;
-  float: right;
+  margin-right: 0
 }
 .fgLine{
-  margin-top: 42rpx;
+  margin-top: 22rpx;
   display: block;
   width: 100%;
   height: 10rpx;
