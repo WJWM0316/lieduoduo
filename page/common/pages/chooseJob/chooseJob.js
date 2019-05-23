@@ -305,7 +305,7 @@ Page({
           wx.navigateBack({
             delta: 1,
             success() {
-              if (app.globalData.isJobhunter.resumeCompletePercentage > 0.75) return
+              if (app.globalData.resumeInfo.resumeCompletePercentage > 0.75) return
               let timer = setTimeout(() => {
                 app.wxConfirm({
                   title: '开撩成功',

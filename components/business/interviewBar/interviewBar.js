@@ -241,7 +241,7 @@ Component({
         isRecruiter = app.globalData.isRecruiter
         isJobhunter = app.globalData.isJobhunter
         let successPop = () => {
-          if (isJobhunter.resumeCompletePercentage > 0.75) return
+          if (app.globalData.resumeInfo.resumeCompletePercentage > 0.75) return
           app.wxConfirm({
             title: '开撩成功',
             content: '你的简历竞争力只超过28%的求职者，建议你现在完善简历',
