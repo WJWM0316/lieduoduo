@@ -563,51 +563,10 @@
 .job-list .ul{
   background: transparent !important;
 }
-.job-list .typeList{
-  width: 690rpx;
-  height:90rpx;
-  background:rgba(255,255,255,1);
-  box-shadow:0rpx -1rpx 0rpx 0rpx rgba(101,39,145,0.1);
-  border-radius:0rpx 0rpx 10rpx 10rpx;
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  margin: 0 auto;
-  position: relative;
-  margin-bottom: 1rpx;
-  overflow-y: scroll;
-}
-.job-list .typeList .typeBlo {
-  height: 90rpx;
-  font-size:26rpx;
-  line-height:90rpx;
-  padding: 0 30rpx;
-  position: relative;
-  font-weight:300;
-  color:rgba(40,40,40,1);
-  float: left;
-  white-space: nowrap;
-}
-.job-list .typeList .cur{
-  font-weight:500;
-  color:rgba(40,40,40,1);
-}
-.job-list .typeList .cur::after{
-  position: absolute;
-  bottom: 0rpx;
-  left: 50%;
-  transform: translateX(-50%);
-  width:36rpx;
-  height:6rpx;
-  background:#8452A7;
-  border-radius:3rpx;
-  content: '';
-  transition: all ease .4s;
-} 
 .job-list .typeHint {
   position: absolute;
   right: 30rpx;
-  top: 0;
+  top: -90rpx;
   height: 90rpx;
   opacity: .8;
   width: 76rpx;
@@ -618,7 +577,6 @@
   z-index: 2;
 }
 .child-box {
-  box-shadow:0rpx -1rpx 0rpx 0rpx rgba(101,39,145,0.1);
   box-sizing: border-box;
   background: white;
   white-space: nowrap;
@@ -626,9 +584,13 @@
   overflow-x: scroll;
   display: flex;
   align-items: center;
-  margin: 0 30rpx;
+  margin: 0 auto;
   padding: 0 40rpx;
-  border-bottom: 1px solid rgba(101, 39, 145, 0.1);
+  width: 690rpx;
+  height:90rpx;
+  box-shadow:0rpx 0rpx 0rpx 0rpx rgba(101,39,145,0.1);
+  border-radius:0rpx 0rpx 10rpx 10rpx;
+  margin-bottom: 2rpx;
 }
 
 .child-box .tab{
@@ -642,6 +604,9 @@
   line-height: 90rpx;
   position: relative;
   z-index: 2;
+
+  font-weight:300;
+  color:rgba(40,40,40,1);
 }
 
 .child-box .tab:after{
@@ -658,8 +623,12 @@
   content: '';
   transition: all ease .4s
 }
-
+.child-box .tab-active{
+  font-weight:500;
+  color:rgba(40,40,40,1);
+}
 .child-box .tab-active:after{
   opacity: 1;
   visibility: visible;
+
 }

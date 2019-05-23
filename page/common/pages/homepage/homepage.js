@@ -39,7 +39,7 @@ Page({
     cdnImagePath: app.globalData.cdnImagePath,
     positionTypeList: [],
     onlinePositionTypeList: [],
-    labelId: null,
+    typeId: null,
     domHeight: 0,
     isFixed: false,
     requireOAuth: false,
@@ -66,11 +66,11 @@ Page({
   },
   onShow() {
     if (app.loginInit) {
-      this.init().then(() => this.getLabelPosition())
+      this.init().then(() => this.getOnlinePositionType())
       this.getDomNodePosition()
     } else {
       app.loginInit = () => {
-        this.init().then(() => this.getLabelPosition())
+        this.init().then(() => this.getOnlinePositionType())
         this.getDomNodePosition()
       }
     }
@@ -95,26 +95,7 @@ Page({
   init() {
     return Promise.all([this.getCompanyDetail(), this.getRecruitersList()])
   },
-  /**
-   * @Author   小书包
-   * @DateTime 2019-01-23
-   * @detail   选择技能
-   * @return   {[type]}     [description]
-   */
-  selectSkill(e) {
-    const params = e.currentTarget.dataset
-    const positionTypeList = this.data.positionTypeList
-    let labelId = null
-    positionTypeList.map((field, index) => {
-      if(index === params.index) {
-        field.active = true
-        labelId = field.labelId
-      } else {
-        field.active = false
-      }
-    })
-    this.setData({positionTypeList, labelId}, () => this.reloadData())
-  },
+
   /**
    * @Author   小书包
    * @DateTime 2019-01-25
@@ -146,13 +127,18 @@ Page({
     return new Promise((resolve, reject) => {
       const options = this.data.query
       let params = {company_id: options.companyId, count: this.data.pageCount, page: this.data.positionList.pageNum}
-      if(typeof this.data.labelId === 'number') {
-        params = Object.assign(params, {type: this.data.labelId})
+      if(typeof this.data.typeId === 'number') {
+        params = Object.assign(params, {type: this.data.typeId})
       }
       getPositionListApi(params, hasLoading).then(res => {
+
         const positionList = this.data.positionList
         const onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
-        positionList.list = positionList.list.concat(res.data)
+        if(params.page !== 1) {
+          positionList.list = positionList.list.concat(res.data)
+        } else {
+          positionList.list = res.data
+        }
         positionList.isLastPage = res.meta && res.meta.nextPageUrl ? false : true
         positionList.pageNum = positionList.pageNum + 1
         positionList.isRequire = true
@@ -167,46 +153,35 @@ Page({
       companyId: this.data.query.companyId
     }
     getOnlinePositionTypeApi(data).then(res=>{
-      let onlinePositionTypeList = [{id:'all',name:'全部'},...res.data]
-      onlinePositionTypeList.map(item => {
-        item.class = ''
-        if (item.id === 'all') item.class = 'cur'
+      const positionTypeList = res.data
+      positionTypeList.map(field => field.active = false)
+      positionTypeList.unshift({
+        id: 'all',
+        name: '全部',
+        active: true
       })
-      this.setData({onlinePositionTypeList})
+      this.setData({positionTypeList}, () => this.getPositionList())
     })
   },
 
   // 职位分类选择
   setType(e) {
     let id = e.currentTarget.dataset.id
-    let onlinePositionTypeList = this.data.onlinePositionTypeList
-    onlinePositionTypeList.map(item => {
-      item.class = ''
-      if (item.id === id) item.class = 'cur'
+    let positionTypeList = this.data.positionTypeList
+    let typeId = null
+
+    let positionList = this.data.positionList
+    positionList.pageNum = 1
+    positionTypeList.map(item => {
+      item.active = false
+      if (item.id === id) {
+        typeId = item.id
+        item.active = true
+      }
     })
-    this.setData({onlinePositionTypeList})
+    this.setData({positionTypeList, typeId, positionList}, () => this.getPositionList())
   },
-  /**
-   * @Author   小书包
-   * @DateTime 2019-01-23
-   * @detail   获取技能标签
-   * @return   {[type]}   [description]
-   */
-  getLabelPosition() {
-    getLabelPositionApi().then(res => {
-      const positionTypeList = res.data
-      positionTypeList.map(field => field.active = false)
-      positionTypeList.unshift({
-        labelId: 'all',
-        name: '全部',
-        active: true
-      })
-      this.setData({positionTypeList}, () => {
-        this.getPositionList()
-        this.getOnlinePositionType()
-      })
-    })
-  },
+
   /**
    * @Author   小书包
    * @DateTime 2019-01-23
