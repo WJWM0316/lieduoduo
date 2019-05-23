@@ -9,7 +9,7 @@ let app = getApp()
 
 Page({
   data: {
-    pageCount: 20,
+    pageCount: 10,
     hasReFresh: false,
     onBottomStatus: 0,
     recruitersList: {
@@ -27,7 +27,6 @@ Page({
     this.setData({options})
   },
   onShow() {
-    let isCompanyAdmin = this.data.isCompanyAdmin
     let recruiterInfo = app.globalData.recruiterDetails
 
     let recruitersList = {
@@ -38,26 +37,10 @@ Page({
     }
 
     if (app.pageInit) {
-      if (recruiterInfo.uid) {
-        isCompanyAdmin = 1
-        this.setData({isCompanyAdmin, recruitersList}, () => this.getLists())
-      } else {
-        app.getAllInfo().then(res => {
-          isCompanyAdmin = 1
-          this.setData({isCompanyAdmin, recruitersList}, () => this.getLists())
-        })
-      }
+      this.setData({recruitersList}, () => this.getLists())
     } else {
       app.pageInit = () => {
-        if (recruiterInfo.uid) {
-          isCompanyAdmin = 1
-          this.setData({isCompanyAdmin, recruitersList}, () => this.getLists())
-        } else {
-          app.getAllInfo().then(res => {
-            isCompanyAdmin = 1
-            this.setData({isCompanyAdmin, recruitersList}, () => this.getLists())
-          })
-        }
+        this.setData({recruitersList}, () => this.getLists())
       }
     }
   },
@@ -76,11 +59,15 @@ Page({
         let recruitersList = this.data.recruitersList
         let onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
         let list = res.data
+        let item = list.find(item => item.isCompanyAdmin)
         list.map(field => field.randomTxt = agreedTxtB())
         recruitersList.list = recruitersList.list.concat(list)
         recruitersList.isLastPage = res.meta && res.meta.nextPageUrl ? false : true
         recruitersList.pageNum = recruitersList.pageNum + 1
         recruitersList.isRequire = true
+        if(item) {
+          isCompanyAdmin = item.uid === app.globalData.recruiterDetails.uid
+        }
         this.setData({recruitersList, isCompanyAdmin, onBottomStatus}, () => resolve(res))
       })
     })
