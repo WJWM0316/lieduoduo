@@ -21,7 +21,7 @@
 					<image src="{{cdnPath}}sign1.png" mode="aspectFill" class="sign" wx:if="{{recruiterInfo.identityAuth}}"></image>
 				</view>
 			</view>
-			<button form-type="submit" open-type="share" class="share-homepage clear-style">分享我的主页</button>
+			<button form-type="submit" open-type="share" class="share-homepage clear-style">转发我的主页</button>
 			<button form-type="submit" class="share-homepage-pic clear-style" catchtap="routeJump" data-route="poster">生成朋友圈分享图</button>
 		</view>
 		<view class="show-off-block">

@@ -9,7 +9,7 @@ let app = getApp()
 
 Page({
   data: {
-    pageCount: 10,
+    pageCount: 20,
     hasReFresh: false,
     onBottomStatus: 0,
     recruitersList: {
@@ -28,6 +28,7 @@ Page({
   },
   onShow() {
     let recruiterInfo = app.globalData.recruiterDetails
+    let isCompanyAdmin = this.data.isCompanyAdmin
 
     let recruitersList = {
       list: [],
@@ -36,11 +37,20 @@ Page({
       isRequire: false
     }
 
+    this.setData({recruitersList})
     if (app.pageInit) {
-      this.setData({recruitersList}, () => this.getLists())
+      app.getRoleInfo().then(res => {
+        console.log(res)
+        isCompanyAdmin = res.data.isCompanyAdmin
+        this.setData({isCompanyAdmin}, this.getLists())
+      })
     } else {
       app.pageInit = () => {
-        this.setData({recruitersList}, () => this.getLists())
+        app.getRoleInfo().then(res => {
+          console.log(res)
+          isCompanyAdmin = res.data.isCompanyAdmin
+          this.setData({isCompanyAdmin}, this.getLists())
+        })
       }
     }
   },
@@ -54,7 +64,7 @@ Page({
     return new Promise((resolve, reject) => {
       let options = this.data.options
       let params = {id: options.companyId, page: this.data.recruitersList.pageNum, count: this.data.pageCount}
-      let isCompanyAdmin = this.data.isCompanyAdmin
+
       getRecruitersListApi(params).then(res => {
         let recruitersList = this.data.recruitersList
         let onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
@@ -65,10 +75,7 @@ Page({
         recruitersList.isLastPage = res.meta && res.meta.nextPageUrl ? false : true
         recruitersList.pageNum = recruitersList.pageNum + 1
         recruitersList.isRequire = true
-        if(item) {
-          isCompanyAdmin = item.uid === app.globalData.recruiterDetails.uid
-        }
-        this.setData({recruitersList, isCompanyAdmin, onBottomStatus}, () => resolve(res))
+        this.setData({recruitersList, onBottomStatus}, () => resolve(res))
       })
     })
   },
