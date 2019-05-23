@@ -167,7 +167,7 @@ Page({
       companyId: this.data.query.companyId
     }
     getOnlinePositionTypeApi(data).then(res=>{
-      let onlinePositionTypeList = [{id:'all',name:'全部'},...res.data,...res.data,...res.data]
+      let onlinePositionTypeList = [{id:'all',name:'全部'},...res.data]
       onlinePositionTypeList.map(item => {
         item.class = ''
         if (item.id === 'all') item.class = 'cur'
