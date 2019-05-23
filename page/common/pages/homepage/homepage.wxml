@@ -34,6 +34,7 @@
 	</view>
 	
 	<view class="child-box" hidden="{{tab === 'about'}}" wx:if="{{positionTypeList.length>0}}">
+		
 		<view
 			class="tab {{item.active ? 'tab-active' : ''}}"
 			wx:for="{{positionTypeList}}"
@@ -166,6 +167,8 @@
 	</view>
 
 	<view class="job-list" hidden="{{tab === 'about'}}">
+		<image src="{{cdnImagePath}}icon_triangle.png" class="icon_triangle" hidden="{{tab === 'about'}}"></image>
+		<image src="{{cdnImagePath}}icon_triangle.png" class="icon_right" hidden="{{tab === 'about'}}"></image>
 		<jobList list="{{positionList.list}}" showBoxShadow="{{false}}"></jobList>
 	</view>
 	<block wx:if="{{companyInfos.id}}"><canvasCard cardData="{{companyInfos}}" type="company" bindgetCreatedImg="getCreatedImg"></canvasCard></block>

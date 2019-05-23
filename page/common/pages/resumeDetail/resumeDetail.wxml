@@ -180,5 +180,5 @@
   </view>
 </view>
 
-<block wx:if="{{info.resumeAttach && info.resumeAttach.id}}"><canvasCard cardData="{{info}}" type="resume" bindgetCreatedImg="getCreatedImg"></canvasCard></block>
+<block wx:if="{{info.vkey}}"><canvasCard cardData="{{info}}" type="resume" bindgetCreatedImg="getCreatedImg"></canvasCard></block>
 </form>
