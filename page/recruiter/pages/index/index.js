@@ -128,7 +128,7 @@ Page({
     }
   },
   getMixdata() {
-    getIndexShowCountApi({hasLoading: false}).then(res => this.setData({indexShowCount: res.data}))
+    if (wx.getStorageSync('choseType') !== 'APPLICANT') getIndexShowCountApi({hasLoading: false}).then(res => this.setData({indexShowCount: res.data}))
     getAdBannerApi({location: 'recruiter_index', hasLoading: false}).then(res => this.setData({banner: res.data.length ? res.data[0] : {}}))
     this.getWelcomeWord()
   },
