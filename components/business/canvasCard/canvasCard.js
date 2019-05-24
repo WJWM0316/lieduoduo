@@ -24,7 +24,6 @@ Component({
   attached() {
     let that = this
     let avatarImg = ''
-      console.log('=====>avatarImg')
     if (this.data.type === 'position') {
       avatarImg = that.data.cardData.recruiterInfo.avatar.smallUrl
     } else if (this.data.type === 'company') {
@@ -59,8 +58,6 @@ Component({
       let that = this
       let info = this.data.cardData
       const ctx = wx.createCanvasContext('cardCanvas', this)
-      console.log('=====>cardData',info)
-      console.log(this.data.type)
       switch(this.data.type) {
         case 'recruiter':
           ctx.drawImage(avatarUrl, 160, 73, 100, 100)
@@ -156,7 +153,7 @@ Component({
             ellipsis(ctx, info.jobStatusDesc, 194, 170, 132)
           }
           let positionX2 = 0
-          if(info.expects.length>0){
+          if(info.expects && info.expects.length>0){
             ctx.setFontSize(22)
             ellipsis(ctx, `期望职位：${info.expects[0].position}`, 380, 40, 250)
             ctx.setFontSize(20)
@@ -166,10 +163,8 @@ Component({
           positionX2 = ellipsis(ctx, `${info.degreeDesc}`, 150, positionX2 + 20, 200, '#ffffff', {color: '#8452A7', padding: 12, height: 34, x: positionX2 + 8, y:176})
         break
         case 'company':
-          console.log('company',)
           ctx.drawImage(avatarUrl, 160, 75, 98, 98)
           ctx.drawImage('../../../images/shareCompany.png', 0, 0, 420, 336)
-
           ctx.setFontSize(30)
           ctx.setTextAlign('center')
           ctx.setFillStyle('#ffffff')
@@ -180,7 +175,6 @@ Component({
           position3 = ellipsis(ctx, `${info.industry} | ${info.financingInfo} | ${info.employeesInfo}`, 390, 210, 265)
         break
         case 'interview':
-          console.log('interview===>',)
           ctx.setTextAlign('left')
           ctx.drawImage(avatarUrl, 40, 76, 100, 100)
           ctx.drawImage('../../../images/shareInterview.png', 0, 0, 420, 336)
@@ -188,8 +182,7 @@ Component({
           ctx.setFillStyle('#ffffff')
           ellipsis(ctx, info.jobhunterInfo.realname, 194, 165, 115)
           ctx.setFontSize(22)
-          ellipsis(ctx, info.jobhunterInfo.workAge+'阿斯顿等等', 194, 165, 150)
-
+          ellipsis(ctx, info.jobhunterInfo.workAge, 194, 165, 150)
           ctx.setFontSize(24)
           ellipsis(ctx, `面试岗位：${info.positionName}`, 380, 40, 220)
           ellipsis(ctx, `面试时间：${info.arrangementInfo.appointment}`, 380, 40, 255)
