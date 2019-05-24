@@ -32,15 +32,13 @@ Page({
     let hasLogin = false
     let isJobhunter = 0
     let showScanIcon = this.data.showScanIcon
+    let myInfo = app.globalData.resumeInfo
     let init = () => {
+      myInfo = app.globalData.resumeInfo
       hasLogin = app.globalData.hasLogin
-      if (app.globalData.isJobhunter) {
-        let myInfo = app.globalData.resumeInfo
-        this.setData({myInfo})
-      }
       isJobhunter = app.globalData.isJobhunter
       showScanIcon = hasLogin && isJobhunter ? true : false
-      this.setData({isJobhunter, hasLogin, showScanIcon, resumeAttach: myInfo.resumeAttach || {}})
+      this.setData({myInfo, isJobhunter, hasLogin, showScanIcon, resumeAttach: myInfo.resumeAttach || {}})
     }
     if (app.getRoleInit) {
       this.getMyInfo()
