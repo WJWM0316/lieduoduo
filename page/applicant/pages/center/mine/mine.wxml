@@ -28,7 +28,7 @@
   		</view>
       <button class="createBtn clear-style" form-type="submit" catchtap="jump" data-type="toCreate" wx:if="{{!isMicroCard && !isJobhunter}}">创建简历</button>
       <view class="experience" wx:if='{{myInfo.uid}}'>
-        <view class="item" wx:if="{{myInfo.workAgeDesc}}"><i class="icon iconfont icon-zhiwei"></i>{{myInfo.workAgeDesc}}<text wx:if="{{myInfo.workAgeDesc !== '暂无经历'}}">经验</text></view>
+        <view class="item" wx:if="{{myInfo.workAgeDesc}}"><i class="icon iconfont icon-zhiwei"></i>{{myInfo.workAgeDesc}}</view>
         <view class="item" wx:if="{{myInfo.age}}"><i class="icon iconfont icon-nianling"></i>{{myInfo.age ? myInfo.age + '岁 ' : ''}}</view>
         <view class="item" wx:if="{{myInfo.degreeDesc}}"><i class="icon iconfont icon-xueli"></i>{{myInfo.degreeDesc}}</view>
       </view>

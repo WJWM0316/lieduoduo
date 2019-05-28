@@ -29,16 +29,11 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onShow() {
-    let hasLogin = false
-    let isJobhunter = 0
-    let showScanIcon = this.data.showScanIcon
-    let myInfo = app.globalData.resumeInfo
     let init = () => {
-      myInfo = app.globalData.resumeInfo
-      hasLogin = app.globalData.hasLogin
-      isJobhunter = app.globalData.isJobhunter
-      showScanIcon = hasLogin && isJobhunter ? true : false
-      this.setData({myInfo, isJobhunter, hasLogin, showScanIcon, resumeAttach: myInfo.resumeAttach || {}})
+      if (app.globalData.isJobhunter) {
+        let myInfo = app.globalData.resumeInfo
+        this.setData({myInfo, resumeAttach: myInfo.resumeAttach || {}})
+      }
     }
     if (app.getRoleInit) {
       this.getMyInfo()
@@ -54,6 +49,10 @@ Page({
     }
   },
   getMyInfo () {
+    let hasLogin = app.globalData.hasLogin,
+        isJobhunter = app.globalData.isJobhunter,
+        showScanIcon = hasLogin && isJobhunter ? true : false
+    this.setData({isJobhunter, hasLogin, showScanIcon})
     if (app.globalData.isMicroCard && !app.globalData.isJobhunter) {
       getMyInfoApi().then(res => {
         let myInfo = res.data
@@ -169,15 +168,12 @@ Page({
       sCode: that.data.myInfo.sCode,
       channel: 'card'
     })
-
-    if(positionCard){
-      imageUrl = positionCard
-    }
 　　return app.wxShare({
       options,
       btnTitle: shareResume(),
       btnPath: `${COMMON}resumeDetail/resumeDetail?uid=${this.data.myInfo.uid}&sCode=${this.data.myInfo.sCode}&sourceType=shj`,
-      imageUrl: imageUrl
+      imageUrl: imageUrl,
+      btnImageUrl: positionCard
     })
   },
   toggleIdentity() {
@@ -185,7 +181,6 @@ Page({
       title: '身份切换',
       content: `是否切换为面试官身份`,
       confirmBack() {
-        
         app.toggleIdentity()
       }
     })

@@ -159,8 +159,12 @@ Component({
             ctx.setFontSize(20)
             positionX2 = ellipsis(ctx, `${info.expects[0].city}`, 150, 50, 200, '#ffffff', {color: '#8452A7', padding: 12, height: 34, x: 40, y:176})
           }
-          positionX2 = ellipsis(ctx, `${info.workAgeDesc}`, 150, positionX2 + 20, 200, '#ffffff', {color: '#8452A7', padding: 12, height: 34, x: positionX2 + 8, y:176})
-          positionX2 = ellipsis(ctx, `${info.degreeDesc}`, 150, positionX2 + 20, 200, '#ffffff', {color: '#8452A7', padding: 12, height: 34, x: positionX2 + 8, y:176})
+          if (info.workAgeDesc) {
+            positionX2 = ellipsis(ctx, `${info.workAgeDesc}`, 150, positionX2 + 20, 200, '#ffffff', {color: '#8452A7', padding: 12, height: 34, x: positionX2 + 8, y:176})
+          }
+          if (info.degreeDesc) {
+            positionX2 = ellipsis(ctx, `${info.degreeDesc}`, 150, positionX2 + 20, 200, '#ffffff', {color: '#8452A7', padding: 12, height: 34, x: positionX2 + 8, y:176})
+          }
         break
         case 'company':
           ctx.drawImage(avatarUrl, 160, 75, 98, 98)

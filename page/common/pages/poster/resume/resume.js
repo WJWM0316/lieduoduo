@@ -286,7 +286,7 @@ Page({
       // 其他
       ctx.setFontSize(28)
       ctx.setTextAlign('left')
-      ellipsis(ctx, item.positionType, 390, 80, curHeight + 72)
+      ellipsis(ctx, item.position, 390, 80, curHeight + 72)
 
       let padding = 20
       curHeight = curHeight + 105
