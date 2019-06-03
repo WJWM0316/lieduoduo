@@ -462,7 +462,7 @@ App({
     }
   },
   // 微信toast
-  wxToast({title, icon = 'none', image, mask = true, duration = 1500, callback = function(){} }) {
+  wxToast({title, icon = 'none', image, mask = true, duration = 2000, callback = function(){} }) {
     // icon - success 显示成功图标，此时 title 文本最多显示 7 个汉字长度
     // icon - loading 显示加载图标，此时 title 文本最多显示 7 个汉字长度
     wx.showToast({

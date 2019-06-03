@@ -583,7 +583,9 @@
   line-height:22rpx;
   margin-top: 12rpx;
 }
-
+.floating-box .row-four .week {
+  margin-left: 30rpx;
+}
 .welcome {
   height: 56rpx;
   margin: 22rpx 36rpx 34rpx 60rpx;

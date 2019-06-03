@@ -108,7 +108,6 @@ Component({
       app.postFormId(e.detail.formId)
     },
     closeTips(e) {
-      console.log(e, 11)
       switch (e.currentTarget.dataset.type) {
         case 'scanCode':
           this.setData({firstClick: false}, () => wx.setStorageSync('firstClick', 1))
@@ -117,10 +116,23 @@ Component({
           this.setData({homeBubble: false}, () => localstorage.set('backHomeTip', {type: 'resetTheDay'}))
           break
       }
-      
     },
     showScan() {
       this.setData({showScanBox: true})
+    }
+  },
+  pageLifetimes: {
+    hide () {
+      if (!localstorage.get('backHomeTip')) {
+        let e = {
+          currentTarget: {
+            dataset: {
+              type : 'homeBubble'
+            }
+          }
+        }
+        this.closeTips(e)
+      }
     }
   }
 })

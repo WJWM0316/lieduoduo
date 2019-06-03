@@ -21,22 +21,22 @@
 					<image src="{{cdnPath}}sign1.png" mode="aspectFill" class="sign" wx:if="{{recruiterInfo.identityAuth}}"></image>
 				</view>
 			</view>
-			<button form-type="submit" open-type="share" class="share-homepage clear-style">转发我的主页</button>
+			<button form-type="submit" class="share-homepage clear-style">分享我的主页</button>
 			<button form-type="submit" class="share-homepage-pic clear-style" catchtap="routeJump" data-route="poster">生成朋友圈分享图</button>
 		</view>
 		<view class="show-off-block">
 			<view class="content">
 				<view class="first">
-					<view class="strong">{{recruiterInfo.wantInterview}}</view>人想和我约面
+					<text class="strong">{{recruiterInfo.ranking}}</text>排名
 				</view>
 				<view class="second">
-					主页 <view class="strong">{{recruiterInfo.viewedCount}}</view> 次预览 已有 <view class="strong">{{recruiterInfo.influence}}</view>  人支持
+					<text>本周人气 {{recruiterInfo.weekOfPopularity}}</text><text class="influence">影响力 {{recruiterInfo.influence}}</text>
 				</view>
 			</view>
-	<!-- 		<view class="btn-box">
+			<view class="btn-box">
 				<view class="btn">查看排行榜</view>
 				<i class="icon iconfont icon-xiangyou"></i>
-			</view> -->
+			</view>
 		</view>
 	</form>
 	<view class="entry-list">

@@ -111,6 +111,20 @@
   opacity: 0;
 }
 
+
+.rule {
+  padding: 24rpx 0;
+  text-align: center;
+  font-size:24rpx;
+  font-weight:300;
+  color:rgba(92,86,93,1);
+  line-height:33rpx;
+  background: #F9F8FC;
+}
+.rule .ruleBtn {
+  color: #8452A7;
+}
+
 .more .topicBox{
   display: block;
   width: 100%;
@@ -118,11 +132,10 @@
   display: flex;
   align-items: flex-end;
   justify-content: center;
-  padding-bottom: 61rpx;
   background: url('https://lieduoduo-uploads-test.oss-cn-shenzhen.aliyuncs.com/front-assets/images/topicBg.png') no-repeat;
   background-color: #EFE9F4;
   background-size: 100% 100%;
-  padding: 54rpx 0 60rpx 0;
+  padding: 30rpx 0 50rpx 0;
   position: relative;
 }
 /* 前3名样式 */
@@ -286,15 +299,6 @@
   margin-right: 40rpx;
 }
 
-.rule-box {
-/*  width:100vw;
-  height:100vh;
-  background:rgba(0,0,0,.5);
-  position: fixed;
-  left: 0;
-  bottom: 0;
-  z-index: 10000;*/
-}
 
 .rule-box .mask{
   width:100vw;
@@ -400,17 +404,6 @@
   position: relative;
   z-index: 2;
 }
-
-/*.rule-box .scroll-ul{
-  position: relative;
-  z-index: 2;
-  height: calc(892rpx - 108rpx - 25rpx);
-  overflow: hidden;
-  overflow-y: scroll;
-  padding: 0 60rpx;
-  width: 100vw;
-  box-sizing: border-box;
-}*/
 
 .rule-box .ul{
   position: relative;

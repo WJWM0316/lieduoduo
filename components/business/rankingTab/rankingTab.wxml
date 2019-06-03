@@ -12,8 +12,8 @@
       <text class="company">{{item.companyShortname}}</text>
       <view class='influence'>
         <i class="icon iconfont icon-yingxiangli"></i>
-        <text class='txt'>人气</text>
-        <text class='value'>{{item.influence}}</text>
+        <text class='txt'>本周人气</text>
+        <text class='value'>{{item.weekOfPopularity > 200 ? '200+' : item.weekOfPopularity}}</text>
       </view>
     </view>
   </view>

@@ -37,6 +37,16 @@ Page({
     identity = app.identification(options)
     this.findMorePsList(options)
     this.setData({query: options})
+    if (options.todoAction === 'collect') {
+      let e = {
+        currentTarget : {
+          dataset : {
+            type : 'collect'
+          }
+        }
+      }
+      this.todoAction(e)
+    }
   },
   onShow() {
     if (app.loginInit) {
@@ -182,7 +192,12 @@ Page({
           })
           return
         }
-        getMycollectPositionApi({id: this.data.detail.id}).then(res => {
+        if (app.globalData.hasLogin && !app.globalData.isJobhunter) {
+          let path = app.getCurrentPagePath()
+          wx.navigateTo({url: `${APPLICANT}createUser/createUser?directChat=${encodeURIComponent(path)}&todoAction=collect`})
+          return
+        }
+        getMycollectPositionApi({id: this.data.query.positionId}).then(res => {
           let detail = this.data.detail
           detail.isCollect = true
           this.setData({detail}, () => app.wxToast({title: '收藏成功', icon: 'success'}))

@@ -1,7 +1,7 @@
 import {RECRUITER, APPLICANT, COMMON} from '../../../../config.js'
 import {getSelectorQuery}  from '../../../../utils/util.js'
 import { getAvartListApi } from '../../../../api/pages/active.js'
-import { getPositionListApi, getPositionRecordApi } from '../../../../api/pages/position.js'
+import { getPositionListApi, getPositionRecordApi, getRecommendApi } from '../../../../api/pages/position.js'
 import {getFilterDataApi} from '../../../../api/pages/aggregate.js'
 import {getAdBannerApi} from '../../../../api/pages/common'
 import {shareChance} from '../../../../utils/shareWord.js'
@@ -64,7 +64,8 @@ Page({
     options: {},
     hasLogin: 0,
     isJobhunter: 0,
-    hasExpect: 1
+    hasExpect: 1,
+    recommended: 0 // 是否有推荐策略
   },
   onLoad(options) {
     hasOnload = false
@@ -274,15 +275,16 @@ Page({
   },
   getRecord() {
     return getPositionRecordApi().then(res => {
-      let city = this.data.city
-      let type = Number(this.data.options.positionTypeId) || Number(res.data.type) || 0
-      let typeName = this.data.options.typeName || res.data.typeName || ''
-      let emolument = this.data.emolument
-      let cityIndex = this.data.cityIndex
-      let typeIndex = this.data.typeIndex
-      let emolumentIndex = this.data.emolumentIndex
-      let tabList = this.data.tabList
-      let positionTypeList = this.data.positionTypeList
+      let city = this.data.city,
+          type = Number(this.data.options.positionTypeId) || Number(res.data.type) || 0,
+          typeName = this.data.options.typeName || res.data.typeName || '',
+          emolument = this.data.emolument,
+          cityIndex = this.data.cityIndex,
+          typeIndex = this.data.typeIndex,
+          emolumentIndex = this.data.emolumentIndex,
+          tabList = this.data.tabList,
+          positionTypeList = this.data.positionTypeList,
+          recommended = this.data.recommended
       if (res.data.city) {
         city = Number(res.data.city)
         this.data.cityList.map((item, index) => {
@@ -343,7 +345,10 @@ Page({
         tabList[2].active = false
         tabList[2].name = '薪资范围'
       }
-      this.setData({tabList, city, type, cityIndex, typeIndex, emolument, emolumentIndex}, () => {
+      if (res.data.recommended) {
+        recommended = res.data.recommended
+      }
+      this.setData({tabList, city, type, cityIndex, typeIndex, emolument, emolumentIndex, recommended}, () => {
         this.getPositionList()
       })  
     }).catch(e => {
@@ -375,17 +380,25 @@ Page({
       delete params.city
       delete params.emolument_id
     }
-    return getPositionListApi(params, hasLoading).then(res => {
+    let getList = null
+    if (this.data.recommended && !params.city && !params.type) {
+      getList = getRecommendApi
+      if (params.page === 1) params.isFisrtPage = 1
+    } else {
+      getList = getPositionListApi
+    }
+    return getList(params, hasLoading).then(res => {
       let positionList = this.data.positionList
       let onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
-      let requireOAuth = res.meta.requireOAuth || false
+      let requireOAuth = false
+      if (res.meta && res.meta.requireOAuth) requireOAuth = res.meta.requireOAuth
       if (this.data.options.needAuth && !app.globalData.userInfo) {
         requireOAuth = true
       }
       positionList.list = positionList.list.concat(res.data)
-      positionList.isLastPage = res.meta && res.meta.nextPageUrl ? false : true
+      positionList.isLastPage = res.data.length === 20 || (res.meta && res.meta.nextPageUrl) ? false : true
       positionList.pageNum = positionList.pageNum + 1
-      positionList.isRequire = true       
+      positionList.isRequire = true
       this.setData({positionList, requireOAuth, onBottomStatus})
     })
   },

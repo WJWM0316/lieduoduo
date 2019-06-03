@@ -31,7 +31,8 @@ Page({
     hasReFresh: false,
     isApplicant: false,
     cdnImagePath: app.globalData.cdnImagePath,
-    showEdit: false
+    showEdit: false,
+    showRules: false,
   },
   /**
    * 生命周期函数--监听页面加载
@@ -205,6 +206,11 @@ Page({
       })
       return
     }
+    if (app.globalData.hasLogin && !app.globalData.isJobhunter) {
+      let path = app.getCurrentPagePath()
+      wx.navigateTo({url: `${APPLICANT}createUser/createUser?directChat=${encodeURIComponent(path)}&todoAction=collect`})
+      return
+    }
     let data = {
       uid: this.data.options.uid
     }
@@ -308,7 +314,9 @@ Page({
       this.getPositionLists(false)
     }
   },
-  tips() {},
+  tips() {
+
+  },
   edit() {
     if(this.data.isOwner) this.setData({showEdit: true})
   },
@@ -318,4 +326,9 @@ Page({
   getCreatedImg(e) {
     recruiterCard = e.detail
   },
+  toggleShowRules() {
+    this.setData({showRules: !this.data.showRules})
+  },
+  stopPageScroll() {return false },
+
 })

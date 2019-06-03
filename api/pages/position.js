@@ -10,6 +10,16 @@ export const getPositionListApi = (data, hasLoading) => {
   })
 }
 
+// 获取推荐策略职位列表
+export const getRecommendApi = (data, hasLoading) => {
+  return request({
+    method: 'get',
+    url: '/recommend/oppty',
+    data,
+    hasLoading: hasLoading
+  })
+}
+
 export const findMorePsListApi = (data, hasLoading) => {
   return request({
     method: 'get',

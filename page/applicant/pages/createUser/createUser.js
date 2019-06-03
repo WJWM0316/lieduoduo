@@ -20,7 +20,8 @@ let timer = null,
     shipNum = 0, // 实习经历份数
     lableArr = [], // 领域标签
     curTime = new Date().getTime() / 1000,
-    directChat = ''
+    directChat = '',
+    todoAction = ''
 Page({
   /**
    * 页面的初始数据
@@ -124,6 +125,9 @@ Page({
     if (options.directChat) {
       directChat = options.directChat
     }
+    if (options.todoAction) {
+      todoAction = options.todoAction
+    }
     if (options.micro) {
       this.setData({isMicro: true, mustBack: false})
     }
@@ -201,7 +205,7 @@ Page({
                 })
               }
             } else {
-              let path = `${decodeURIComponent(directChat)}&directChat=true`
+              let path = `${decodeURIComponent(directChat)}&directChat=true&todoAction=${todoAction}`
               wx.reLaunch({
                 url: path
               })

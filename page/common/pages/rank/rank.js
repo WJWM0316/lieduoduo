@@ -389,7 +389,7 @@ Page({
     })
   },
   toggleShowRules() {
-    this.setData({showRules: !this.data.showRules && identity === 'RECRUITER'})
+    this.setData({showRules: !this.data.showRules})
   },
   stopPageScroll() {return false },
   viewYourself() {

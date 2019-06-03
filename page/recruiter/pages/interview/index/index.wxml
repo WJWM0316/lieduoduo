@@ -79,7 +79,7 @@
 	</view>
 
 	<!--收到意向-->
-	<view hidden="{{tabIndex !== 0}}" class="list-box" style="padding-top: 230rpx">
+	<view hidden="{{tabIndex !== 0}}" class="list-box" style="padding-top: 210rpx">
 		<view hidden="{{!hasReFresh}}">
 			<refreshStatus></refreshStatus>
 		</view>
@@ -128,7 +128,7 @@
 	</view>
 	
 	<!--我的邀请-->
-	<view hidden="{{tabIndex !== 1}}" class="list-box" style="padding-top: 230rpx">
+	<view hidden="{{tabIndex !== 1}}" class="list-box" style="padding-top: 210rpx">
 		<view hidden="{{!hasReFresh}}">
 			<refreshStatus></refreshStatus>
 		</view>

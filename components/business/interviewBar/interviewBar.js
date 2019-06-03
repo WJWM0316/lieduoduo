@@ -173,7 +173,7 @@ Component({
         this.setData({interviewInfos: res.data, identity: wx.getStorageSync('choseType')})
         if(res.code === 204) this.setData({isOwerner: true})
         if(res.code === 230) this.showMergeBox(res.data)
-        if (!res.data.haveInterview && this.data.options && this.data.options.directChat && automatic) {
+        if (!res.data.haveInterview && this.data.options && this.data.options.directChat && automatic && !this.data.options.todoAction) {
           let e = {
             currentTarget: {
               dataset: {

@@ -1,5 +1,5 @@
 <view class="more">
-  <navbar title="发现更多面试官" color="#282828" background="#FFFFFF" showHome="{{true}}"></navbar>
+  <navbar title="本周面试官榜单" color="#282828" background="#FFFFFF" showHome="{{true}}"></navbar>
   
   <view class="fixed-box" style="top: {{navH}}px">
     <view class="tabBar">
@@ -23,11 +23,15 @@
       <refreshStatus></refreshStatus>
     </view>
   </view>
-
-  <view style="padding-bottom: 150rpx;">
+  
+  
+  <view style="padding-bottom: 150rpx;"  style="margin-top: {{fixedHeight}}px">
+    <view class="rule"  bindtap="toggleShowRules">
+     <text>排名实时更新，每周一重置排名，<text class="ruleBtn">查看上榜规则</text></text>
+    </view>
     <!-- 前3名 -->
-    <view class="topicBox" style="margin-top: {{fixedHeight}}px">
-       <view class="rules" bindtap="toggleShowRules" wx:if="{{identity === 'RECRUITER'}}">规则</view>
+    <view class="topicBox">
+       <!-- <view class="rules" wx:if="{{identity === 'RECRUITER'}}">规则</view> -->
        <view
         class="topicList"
         wx:for="{{commonList.list}}"
@@ -48,8 +52,8 @@
           <text class="name">{{item.name}}</text>
           <text class="title">{{item.position}}</text>
           <view class="influence">
-            <text>人气</text>
-            <text class="num">{{item.influence}}</text>
+            <text>本周人气</text>
+            <text class="num">{{item.weekOfPopularity > 200 ? '200+' : item.weekOfPopularity}}</text>
           </view>
       </view> 
     </view>
@@ -64,7 +68,7 @@
       <view class="row-one">我的排名：<text class="{{commonList.rankDetail.currentRank ? 'strong' : ''}}">{{commonList.rankDetail.currentRank ? commonList.rankDetail.currentRank : '暂未上榜'}}</text></view>
       <view class="row-two">
         <view class="item10">影响力 <view class="strong">{{commonList.rankDetail.influence}}</view></view>
-        <view class="item10">人气 <view class="strong">{{commonList.rankDetail.popularity}}</view></view>
+        <view class="item10">本周人气 <view class="strong">{{commonList.rankDetail.weekOfPopularity > 200 ? '200+' : commonList.rankDetail.weekOfPopularity}}</view></view>
       </view>
     </view>
   </view>
@@ -75,24 +79,24 @@
       <view class="header" catchtouchmove="stopPageScroll">排行榜说明<i class="icon iconfont icon-close" bindtap="toggleShowRules"></i></view>
       <view class="ul" wx:if="{{showRules}}">
         <view class="li">
-          <view class="key"><text class="text">人气</text></view>
-          <view class="value">人气值由招聘官的主页和职位被候选人浏览、开撩约面、标记感兴趣等数据综合计算得出，代表了招聘官整体的人气热度。人气值越大，排名越靠前。</view>
+          <view class="key"><text class="text">本周人气</text></view>
+          <view class="value">人气值由面试官的主页和职位被候选人浏览、开撩约面、标记感兴趣等数据综合计算得出，代表了面试官整体的人气热度。人气值越大，排名越靠前。</view>
         </view>
         <view class="li">
           <view class="key"><text class="text">影响力</text></view>
-          <view class="value">用户可以在招聘官的主页中，对自己认可的招聘官打Call。每位用户可以为1位招聘官打Call1次。每获得1次打Call，招聘官影响力+1。影响力代表的是招聘官整体的被认可度。</view>
+          <view class="value">用户可以在面试官的主页中，对自己认可的面试官打Call。每位用户可以为1位面试官打Call1次。每获得1次打Call，面试官影响力+1。影响力代表的是面试官整体的被认可度。</view>
         </view>
         <view class="li">
           <view class="key"><text class="text">总榜</text></view>
-          <view class="value">人气值前200名可以进入总榜单，优先面向全站候选人曝光。榜单中的招聘官按人气值由高至低排列。</view>
+          <view class="value">人气值前200名可以进入总榜单，优先面向全站候选人曝光。榜单中的面试官按人气值由高至低排列。</view>
         </view>
         <view class="li">
           <view class="key"><text class="text">城市榜</text></view>
-          <view class="value">在北京、广州、深圳、上海、杭州、成都六大热门城市有在招职位，且人气值前200名的招聘官，可进入城市榜单。榜单中的招聘官按人气值由高至低排列。</view>
+          <view class="value">在北京、广州、深圳、上海、杭州、成都六大热门城市有在招职位，且人气值前200名的面试官，可进入城市榜单。榜单中的面试官按人气值由高至低排列。</view>
         </view>
         <view class="li">
           <view class="key"><text class="text">职位榜</text></view>
-          <view class="value">在对应职位类别有在招职位，且人气值前200名的招聘官，可以进入职位榜单。榜单中的招聘官按人气值由高至低排列。</view>
+          <view class="value">在对应职位类别有在招职位，且人气值前200名的面试官，可以进入职位榜单。榜单中的面试官按人气值由高至低排列。</view>
         </view>
       </view>
     </view>

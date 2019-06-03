@@ -50,6 +50,9 @@ export const request = ({name = '', method = 'post', url, host, data = {}, needK
         BASEHOST = APPLICANTHOST
       }
   }
+  // 版本号
+  addHttpHead['Wechat-Version'] = 100
+
   // 如果连接带参数scode, 则存到头部
   if (data.sCode && !data.isReload) {
     addHttpHead['Act-Code'] = data.sCode
@@ -207,6 +210,8 @@ export const request = ({name = '', method = 'post', url, host, data = {}, needK
                 recruiterJump(msg)
               }
           }
+        } else {
+          getApp().wxToast({title: '服务器异常，请稍后访问'})
         }
       },
       fail(e) {
