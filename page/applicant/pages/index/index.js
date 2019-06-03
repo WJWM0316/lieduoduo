@@ -383,6 +383,7 @@ Page({
     let getList = null
     if (this.data.recommended && !params.city && !params.type) {
       getList = getRecommendApi
+      params.count = 15
       if (params.page === 1) params.isFisrtPage = 1
     } else {
       getList = getPositionListApi
@@ -396,7 +397,7 @@ Page({
         requireOAuth = true
       }
       positionList.list = positionList.list.concat(res.data)
-      positionList.isLastPage = res.data.length === 20 || (res.meta && res.meta.nextPageUrl) ? false : true
+      positionList.isLastPage = res.data.length === params.count || (res.meta && res.meta.nextPageUrl) ? false : true
       positionList.pageNum = positionList.pageNum + 1
       positionList.isRequire = true
       this.setData({positionList, requireOAuth, onBottomStatus})
