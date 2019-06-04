@@ -14,7 +14,7 @@
 				<view class="content">
 					<view class="realname">{{recruiterInfo.name}}</view>
 					<view class="degree-name">{{recruiterInfo.companyShortname}} | {{recruiterInfo.position}}</view>
-					<button form-type="submit" class="edit clear-style" ><i class="icon iconfont icon-bianji"></i> 编辑资料</button>
+					<view class="perfects">完善度{{recruiterInfo.percent}}%</view>
 				</view>
 				<view class="img-box">
 					<image class="img-box" src="{{recruiterInfo.avatar.smallUrl}}" catchtap="preview"></image>
@@ -24,19 +24,17 @@
 			<button form-type="submit" class="share-homepage clear-style">分享我的主页</button>
 			<button form-type="submit" class="share-homepage-pic clear-style" catchtap="routeJump" data-route="poster">生成朋友圈分享图</button>
 		</view>
-		<view class="show-off-block">
+		<view class="entry-list show-off-block" bindtap="toRank">
 			<view class="content">
 				<view class="first">
-					<text class="strong">{{recruiterInfo.ranking}}</text>排名
+					<text class="strong">{{recruiterInfo.ranking}}</text> 排名
 				</view>
 				<view class="second">
 					<text>本周人气 {{recruiterInfo.weekOfPopularity}}</text><text class="influence">影响力 {{recruiterInfo.influence}}</text>
 				</view>
 			</view>
-			<view class="btn-box">
-				<view class="btn">查看排行榜</view>
-				<i class="icon iconfont icon-xiangyou"></i>
-			</view>
+			<i class="icon iconfont icon-xiangyou"></i>
+			<view class="text2 color-default">查看排行榜</view>
 		</view>
 	</form>
 	<view class="entry-list">

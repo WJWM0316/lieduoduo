@@ -695,6 +695,9 @@
 
 .rule-box .key .text{
   position: relative;
+  width: 100%;
+  line-height: 60rpx;
+  display: inline-block;
   z-index: 2;
 }
 

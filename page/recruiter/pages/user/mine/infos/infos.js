@@ -99,6 +99,9 @@ Page({
   formSubmit(e) {
     app.postFormId(e.detail.formId)
   },
+  toRank () {
+    wx.navigateTo({url: `${COMMON}rank/rank`})
+  },
   preview(e) {
     wx.previewImage({
       current: this.data.recruiterInfo.avatar.url,

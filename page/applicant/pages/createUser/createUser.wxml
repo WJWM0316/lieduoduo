@@ -27,10 +27,10 @@
 						    	<view class="myPicker" bindtap="openPicker" data-index="{{2}}"><view class="title">工作时间</view><view hidden="{{!city && !birthDesc && !startWorkYearDesc}}" class="value {{!startWorkYearDesc ? 'placeholder' : ''}}">{{startWorkYearDesc || '请选择'}}</view></view>
 						    </view>
 						    <view class="box">
-							    <input bindtap="jump" data-type="companyName" data-value="{{lastCompany}}"  maxlength="50" disabled name="company" placeholder-class="holderStyle" bindinput="getValue"placeholder="{{startWorkYear === 0 ? '最近任职公司（选填）' : '最近任职公司'}}" value="{{lastCompany}}"/>
+							    <input bindtap="jump" data-type="companyName" data-value="{{lastCompany}}"  disabled name="company" placeholder-class="holderStyle" bindinput="getValue"placeholder="{{startWorkYear === 0 ? '最近任职公司（选填）' : '最近任职公司'}}" value="{{lastCompany}}"  maxlength="50"/>
 							  </view>
 							  <view class="box">
-							    <input data-type="lastPosition" placeholder-class="holderStyle" bindinput="getValue" placeholder="{{startWorkYear === 0 ? '职位名称（选填）' : '职位名称'}}" value="{{lastPosition}}"/>
+							    <input data-type="lastPosition" placeholder-class="holderStyle" bindinput="getValue" placeholder="{{startWorkYear === 0 ? '职位名称（选填）' : '职位名称'}}" value="{{lastPosition}}" maxlength="20"/>
 							  </view>
 							  <block wx:if="{{!userInfo}}">
 							  	<button class="animation btn" form-type="submit" open-type="getUserInfo" bindgetuserinfo="onGotUserInfo" lang="zh_CN">

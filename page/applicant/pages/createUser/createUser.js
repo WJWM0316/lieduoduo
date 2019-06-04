@@ -11,7 +11,7 @@ import {getStepApi,
         postCreatFourthStepApi,
         postMicroApi} from '../../../../api/pages/center.js'
 import {COMMON, APPLICANT} from '../../../../config.js'
-import {userNameReg, positionReg, schoolNameReg, majorNameReg} from '../../../../utils/fieldRegular.js'
+import {userNameReg, positionReg, companyNameReg, schoolNameReg, majorNameReg} from '../../../../utils/fieldRegular.js'
 import * as watch from '../../../../utils/watch.js'
 const app = getApp()
 let timer = null,
@@ -416,6 +416,8 @@ Page({
     } else if (params.startWorkYear) {
       if (!params.lastCompany) {
         title = '请输入最近在职公司名称'
+      } else if (!companyNameReg.test(params.lastCompany)) {
+        title = '公司名称需为2-50个字符'
       } else if (!params.lastPosition) {
         title = '请输入职位名称'
       } else if (!positionReg.test(params.lastPosition)) {

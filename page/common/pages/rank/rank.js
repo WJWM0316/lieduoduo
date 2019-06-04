@@ -327,7 +327,6 @@ Page({
    * @return   {[type]}              [description]
    */
   onPullDownRefresh(hasLoading = true) {
-    wx.stopPullDownRefresh();return
     let key = this.data.tab
     let value = {
       list: [], 

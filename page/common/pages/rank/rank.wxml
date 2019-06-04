@@ -53,7 +53,7 @@
           <text class="title">{{item.position}}</text>
           <view class="influence">
             <text>本周人气</text>
-            <text class="num">{{item.weekOfPopularity > 200 ? '200+' : item.weekOfPopularity}}</text>
+            <text class="num">{{item.weekOfPopularity}}</text>
           </view>
       </view> 
     </view>
@@ -65,10 +65,10 @@
   <view class="foot-bar" wx:if="{{identity === 'RECRUITER'}}" bindtap="viewYourself">
     <view class="img-box"><image mode="aspectFill" src="{{detail.avatar.smallUrl}}" class="image"></image></view>
     <view class="content">
-      <view class="row-one">我的排名：<text class="{{commonList.rankDetail.currentRank ? 'strong' : ''}}">{{commonList.rankDetail.currentRank ? commonList.rankDetail.currentRank : '暂未上榜'}}</text></view>
+      <view class="row-one">我的排名：<text class="{{commonList.rankDetail.currentRank ? 'strong' : ''}}">{{commonList.rankDetail.currentRank > 200 ? '200+' : commonList.rankDetail.currentRank > 0 ? commonList.rankDetail.currentRank : '暂未上榜'}}</text></view>
       <view class="row-two">
         <view class="item10">影响力 <view class="strong">{{commonList.rankDetail.influence}}</view></view>
-        <view class="item10">本周人气 <view class="strong">{{commonList.rankDetail.weekOfPopularity > 200 ? '200+' : commonList.rankDetail.weekOfPopularity}}</view></view>
+        <view class="item10">本周人气 <view class="strong">{{commonList.rankDetail.weekOfPopularity}}</view></view>
       </view>
     </view>
   </view>
@@ -80,23 +80,23 @@
       <view class="ul" wx:if="{{showRules}}">
         <view class="li">
           <view class="key"><text class="text">本周人气</text></view>
-          <view class="value">人气值由面试官的主页和职位被候选人浏览、开撩约面、标记感兴趣等数据综合计算得出，代表了面试官整体的人气热度。人气值越大，排名越靠前。</view>
+          <view class="value">人气值由招聘官的主页和职位被候选人浏览、开撩约面、标记感兴趣等数据综合计算得出，数据每周一重置，代表了招聘官整体的人气热度。本周人气值越大，排名越靠前。</view>
         </view>
         <view class="li">
           <view class="key"><text class="text">影响力</text></view>
-          <view class="value">用户可以在面试官的主页中，对自己认可的面试官打Call。每位用户可以为1位面试官打Call1次。每获得1次打Call，面试官影响力+1。影响力代表的是面试官整体的被认可度。</view>
+          <view class="value">用户可以在招聘官的主页中，对自己认可的招聘官打Call。每位用户可以为1位招聘官打Call1次。每获得1次打Call，招聘官影响力+1。影响力代表的是招聘官整体的被认可度。</view>
         </view>
         <view class="li">
           <view class="key"><text class="text">总榜</text></view>
-          <view class="value">人气值前200名可以进入总榜单，优先面向全站候选人曝光。榜单中的面试官按人气值由高至低排列。</view>
+          <view class="value">每周人气值前200名，可以进入总榜，优先面向全站候选人曝光。榜单中的招聘官按当周人气值由高至低排列。</view>
         </view>
         <view class="li">
           <view class="key"><text class="text">城市榜</text></view>
-          <view class="value">在北京、广州、深圳、上海、杭州、成都六大热门城市有在招职位，且人气值前200名的面试官，可进入城市榜单。榜单中的面试官按人气值由高至低排列。</view>
+          <view class="value">在北京、广州、深圳、上海、杭州、成都六大热门城市有在招职位，且每周人气值前200名的招聘官，可进入城市榜单。榜单中的招聘官按当周人气值由高至低排列。</view>
         </view>
         <view class="li">
           <view class="key"><text class="text">职位榜</text></view>
-          <view class="value">在对应职位类别有在招职位，且人气值前200名的面试官，可以进入职位榜单。榜单中的面试官按人气值由高至低排列。</view>
+          <view class="value">在对应职位类别有在招职位，且每周人气值前200名的招聘官，可以进入职位榜单。榜单中的招聘官按当周人气值由高至低排列。</view>
         </view>
       </view>
     </view>

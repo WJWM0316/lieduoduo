@@ -97,7 +97,6 @@ Page({
     })
   },
   onShow() {
-    console.log('a')
     let options = this.data.options
     let positionList = {
       list: [],
@@ -208,7 +207,7 @@ Page({
     }
     if (app.globalData.hasLogin && !app.globalData.isJobhunter) {
       let path = app.getCurrentPagePath()
-      wx.navigateTo({url: `${APPLICANT}createUser/createUser?directChat=${encodeURIComponent(path)}&todoAction=collect`})
+      wx.navigateTo({url: `${APPLICANT}createUser/createUser?directChat=${encodeURIComponent(path)}&todoAction=collect&from=6`})
       return
     }
     let data = {
