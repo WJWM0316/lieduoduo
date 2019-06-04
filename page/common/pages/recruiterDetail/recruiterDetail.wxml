@@ -30,7 +30,7 @@
         <view class="dataShow" wx:if="{{!isOwner || !showEdit}}">
           <view class="dataBox">
             <view class="data">排名<i class="icon iconfont icon-zhushi" bindtap="toggleShowRules"></i><text class="num">{{info.ranking > 200 ? '200+' : info.ranking}}</text></view>
-            <view class="data">本周人气<text class="num">{{info.weekOfPopularity}}</text></view>
+            <view class="data" bindtap="editJump" data-type="toRank">本周人气<text class="num">{{info.weekOfPopularity}}</text></view>
             <view class="data">总人气<text class="num">{{info.viewedCount}}</text></view>
             <view class="data">影响力<text class="num">{{info.influence}}</text></view>
           </view>

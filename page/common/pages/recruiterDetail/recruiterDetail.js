@@ -159,6 +159,9 @@ Page({
       case 'addDeclaration':
         url = `${RECRUITER}user/chooseTopic/chooseTopic`
         break
+      case 'toRank':
+        url = `${COMMON}rank/rank`
+        break
     }
     wx.navigateTo({
       url: url
