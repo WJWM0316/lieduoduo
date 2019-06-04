@@ -90,7 +90,7 @@
 					</swiper-item>
 				</swiper>
 			</view>
-			<view class="company-detail" wx:if="{{companyInfos.intro}}">
+			<view class="company-detail {{!companyInfos.albumInfo.length ? 'gt' : ''}}" wx:if="{{companyInfos.intro}}">
 				<text class="p">{{companyInfos.intro}}</text>
 			</view>
 		</view>

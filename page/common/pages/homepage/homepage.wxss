@@ -638,3 +638,7 @@
   opacity: 1;
   visibility: visible;
 }
+
+.gt{
+  margin-top: 30rpx;
+}
