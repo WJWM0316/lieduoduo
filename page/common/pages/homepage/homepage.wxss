@@ -286,7 +286,6 @@
 
 .introduction .swiper-block {
   width: 100%;
-  margin-top: 40rpx;
 }
 
 .introduction .swiper-item {
@@ -310,9 +309,8 @@
   border-radius: 10rpx;
 }
 .swiper-box {
-  height:312rpx;
   position: relative;
-  margin-bottom: 40rpx;
+  margin: 35rpx 0;
 }
 .num-box {
   position: absolute;
