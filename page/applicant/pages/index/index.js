@@ -478,12 +478,6 @@ Page({
       url: `/page/applicant/pages/center/resumeEditor/aimsEdit/aimsEdit`
     })
   },
-  /**
-   * @Author   小书包
-   * @DateTime 2019-01-24
-   * @detail   刷新数据
-   * @return   {[type]}   [description]
-   */
   reloadPositionLists(hasLoading = true) {
     const positionList = {list: [], pageNum: 1, isLastPage: false, isRequire: false}
     this.setData({positionList})
@@ -508,12 +502,6 @@ Page({
       }
     }
   },
-  /**
-   * @Author   小书包
-   * @DateTime 2019-01-21
-   * @detail   下拉重新获取数据
-   * @return   {[type]}              [description]
-   */
   onPullDownRefresh() {
     const positionList = {list: [], pageNum: 1, isLastPage: false, isRequire: false}
     this.setData({positionList, hasReFresh: true})
@@ -525,12 +513,6 @@ Page({
       wx.stopPullDownRefresh()
     })
   },
-  /**
-   * @Author   小书包
-   * @DateTime 2019-01-21
-   * @detail   触底加载数据
-   * @return   {[type]}   [description]
-   */
   onReachBottom() {
     const positionList = this.data.positionList
     if (!positionList.isLastPage) {
@@ -539,7 +521,6 @@ Page({
     }
   },
   onShareAppMessage(options) {
-    let that = this
 　　return app.wxShare({
       options,
       title: shareChance,

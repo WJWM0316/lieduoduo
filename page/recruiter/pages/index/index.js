@@ -125,12 +125,20 @@ Page({
     }
   },
   getMixdata() {
-    if (wx.getStorageSync('choseType') !== 'APPLICANT') getIndexShowCountApi({hasLoading: false}).then(res => this.setData({indexShowCount: res.data, detail: res.data.recruiterInfo}))
-    getAdBannerApi({location: 'recruiter_index', hasLoading: false}).then(res => this.setData({banner: res.data.length ? res.data[0] : {}}))
+    this.getIndexShowCount()
+    this.getBanner()
     this.getWelcomeWord()
   },
+  getIndexShowCount () {
+    if (wx.getStorageSync('choseType') !== 'APPLICANT') {
+      return getIndexShowCountApi({hasLoading: false}).then(res => this.setData({indexShowCount: res.data, detail: res.data.recruiterInfo}))
+    }
+  },
+  getBanner () {
+    return getAdBannerApi({location: 'recruiter_index', hasLoading: false}).then(res => this.setData({banner: res.data.length ? res.data[0] : {}}))
+  },
   getDomNodePosition() {
-    getSelectorQuery('.default').then(res => {
+    return getSelectorQuery('.default').then(res => {
       if(!fixedDomPosition) fixedDomPosition = res.top - this.data.navH
     })
   },
@@ -185,7 +193,6 @@ Page({
         let onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
         let list = res.data
         collectMySelf.isLastPage = res.meta.nextPageUrl ? false : true
-        // if(collectMySelf.pageNum === res.meta.currentPage) return
         collectMySelf.pageNum = collectMySelf.pageNum + 1
         collectMySelf.isRequire = true
         collectMySelf.loading = false
@@ -247,31 +254,16 @@ Page({
       isRequire: false,
       isUse: false
     }
-
     this.setData({ pageList }, () => {
       let indexShowCount = this.data.indexShowCount
-      getIndexShowCountApi().then(res => {
-        let indexShowCount = res.data
-        this.setData({indexShowCount, detail: res.data.recruiterInfo}, () => {
-          if(pageList === 'browseMySelf') {
-            if(!this.data.browseMySelf.isLastPage && !this.data.browseMySelf.list.length) {
-              if(indexShowCount.viewCount) {
-                indexShowCount.viewCount = 0
-                this.setData({browseMySelf}, () => this.getLists(true))
-              } else {
-                this.getLists(true)
-              }
-            } else {
-              if(indexShowCount.viewCount) {
-                indexShowCount.viewCount = 0
-                this.setData({browseMySelf, indexShowCount}, () => this.getLists(true))
-              }
-            }
-          } else {
-            if(!this.data.collectMySelf.isLastPage && !this.data.collectMySelf.list.length) this.getLists(true)
-          }
-        })
-      })
+      if(pageList === 'browseMySelf') {
+        if(!this.data.browseMySelf.isRequire || indexShowCount.viewCount) {
+          indexShowCount.viewCount = 0
+          this.setData({browseMySelf, indexShowCount}, () => this.getLists(true))
+        }
+      } else if (!this.data.collectMySelf.isRequire) {
+        this.getLists(true)
+      }
     })
   },
   /**
@@ -283,23 +275,19 @@ Page({
   onPullDownRefresh(hasLoading = true) {
     let key = this.data.pageList
     let value = {list: [], pageNum: 1, isLastPage: false, isRequire: false, isUse: false, loading: false}
-    this.setData({[key]: value, hasReFresh: true, detail: app.globalData.recruiterDetails})
-    this.getLists().then(res => {
+    this.setData({[key]: value, hasReFresh: true})
+    Promise.all([this.getDomNodePosition(), this.getMixdata(), this.getLists()]).then(res => {
       let value = {list: [], pageNum: 1, isLastPage: false, isRequire: false}
-      let onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
-      value.list = res.data
-      value.isLastPage = res.meta && res.meta.nextPageUrl ? false : true
+      let onBottomStatus = res[2].meta && res[2].meta.nextPageUrl ? 0 : 2
+      value.list = res[2].data
+      value.isLastPage = res[2].meta && res[2].meta.nextPageUrl ? false : true
       value.pageNum = 2
       value.isRequire = true
-      value.total = res.meta.total
-      getIndexShowCountApi().then(res => this.setData({indexShowCount: res.data, detail: res.data.recruiterInfo}))
-      this.setData({[key]: value, onBottomStatus, fixedDom: false}, () => {
-        wx.stopPullDownRefresh()
-        wx.pageScrollTo({scrollTop: 0 })
-        this.setData({hasReFresh: false})
-      })
-    })
-    .catch(() => {
+      value.total = res[2].meta.total
+      wx.stopPullDownRefresh()
+      wx.pageScrollTo({scrollTop: 0 })
+      this.setData({[key]: value, onBottomStatus, fixedDom: false, hasReFresh: false})
+    }).catch(() => {
       wx.stopPullDownRefresh()
       wx.pageScrollTo({scrollTop: 0 })
       this.setData({hasReFresh: false})

@@ -314,6 +314,7 @@ Page({
         value.list = res.data
       } else {
         value.list = res.data.data
+        value.rankDetail = res.data.rankDetail
       }
       value.isLastPage = res.meta && res.meta.nextPageUrl ? false : true
       value.pageNum = 2
@@ -322,6 +323,7 @@ Page({
       wx.stopPullDownRefresh()
     }).catch(e => {
       wx.stopPullDownRefresh()
+      this.setData({hasReFresh: false})
     })
   },
   /**

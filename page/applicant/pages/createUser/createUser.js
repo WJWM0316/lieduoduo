@@ -690,7 +690,7 @@ Page({
           this.getStepData(1)
           break
         case 9:
-          step = 5
+          step = 0
           break  
       }
       if (this.data.isMicro) {
