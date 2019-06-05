@@ -10,27 +10,24 @@ Page({
   data: {
     navH: app.globalData.navHeight,
     tab: 'list0',
-    pageCount: 20,
+    pageCount: 10,
     hasReFresh: false,
     onBottomStatus: 0,
     list0: {
       list: [],
       pageNum: 1,
-      count: 20,
       isLastPage: false,
       isRequire: false
     },
     list1: {
       list: [],
       pageNum: 1,
-      count: 20,
       isLastPage: false,
       isRequire: false
     },
     list2: {
       list: [],
       pageNum: 1,
-      count: 20,
       isLastPage: false,
       isRequire: false
     }
@@ -42,21 +39,18 @@ Page({
     let list0 = {
       list: [],
       pageNum: 1,
-      count: 20,
       isLastPage: false,
       isRequire: false
     }
     let list1 = {
       list: [],
       pageNum: 1,
-      count: 20,
       isLastPage: false,
       isRequire: false
     }
     let list2 = {
       list: [],
       pageNum: 1,
-      count: 20,
       isLastPage: false,
       isRequire: false
     }
@@ -135,7 +129,7 @@ Page({
    */
   onReachBottom() {
     const tab = this.data.tab
-    const value = this.data[key]
+    const value = this.data[tab]
     if (!value.isLastPage) {
       this.setData({onBottomStatus: 1})
       this.getLists(false)

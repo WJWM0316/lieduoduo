@@ -110,6 +110,7 @@ Page({
       userInfo = app.globalData.userInfo
       this.getDomNodePosition()
       this.getMixdata()
+      this.getIndexShowCount()
       if(!wx.getStorageSync('isReback') && !value.list.length) this.getLists()
       wx.removeStorageSync('isReback')
       this.setData({userInfo})
@@ -118,6 +119,7 @@ Page({
         userInfo = app.globalData.userInfo
         this.getDomNodePosition()
         this.getMixdata()
+        this.getIndexShowCount()
         if(!wx.getStorageSync('isReback') && !value.list.length) this.getLists()
         wx.removeStorageSync('isReback')
         this.setData({userInfo})
@@ -264,6 +266,32 @@ Page({
       } else if (!this.data.collectMySelf.isRequire) {
         this.getLists(true)
       }
+      this.getIndexShowCount().then(res => {
+        if(pageList === 'browseMySelf') {
+          if(!this.data.browseMySelf.isLastPage && !this.data.browseMySelf.list.length) {
+            if(indexShowCount.viewCount) {
+              indexShowCount.viewCount = 0
+              this.setData({browseMySelf}, () => this.getLists(true))
+            } else {
+              this.getLists(true)
+            }
+          } else {
+            if(indexShowCount.viewCount) {
+              indexShowCount.viewCount = 0
+              this.setData({browseMySelf, indexShowCount}, () => this.getLists(true))
+            }
+          }
+        } else {
+          if(!this.data.collectMySelf.isLastPage && !this.data.collectMySelf.list.length) this.getLists(true)
+        }
+      })
+    })
+  },
+  getIndexShowCount() {
+    return new Promise((resolve, reject) => {
+      getIndexShowCountApi({hasLoading: false}).then(res => {
+        this.setData({indexShowCount: res.data, detail: res.data.recruiterInfo}, () => resolve(res))
+      })
     })
   },
   /**
