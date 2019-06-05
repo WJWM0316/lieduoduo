@@ -143,7 +143,6 @@ Page({
     let params = e.currentTarget.dataset
     this.data.tab === 'rankCity' ? cityIndex = params.nowindex : cateIndex = params.nowindex
     this.setData({nowIndex: params.nowindex, [tab]: params.id, [key]: value}, () => {
-      let secondtItem = {}
       let key = this.data.tab
       let value = {list: [], pageNum: 1, isLastPage: false, isRequire: false}
       this.setData({[key]: value, commonList: value})
@@ -154,13 +153,6 @@ Page({
         value.isLastPage = res.meta && res.meta.nextPageUrl ? false : true
         value.pageNum = 2
         value.isRequire = true
-        if(value.list.length > 1) {
-          secondtItem = value.list[1]
-        }
-        if(value.list[0].influence >= secondtItem.influence && value.list.length > 1) {
-          value.list = value.list.filter(field => field.uid !== secondtItem.uid)
-          value.list.unshift(secondtItem)
-        }
         this.setData({[key]: value, onBottomStatus, commonList: value})
       })
     })
@@ -232,7 +224,6 @@ Page({
       getCityRankApi(params, hasLoading).then(res => {
         let rankCity = this.data.rankCity
         let onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
-        let secondtItem = {}
         if (identity !== 'RECRUITER') {
           rankCity.list = rankCity.list.concat(res.data)
         } else {
@@ -241,13 +232,6 @@ Page({
         rankCity.isLastPage = res.meta && res.meta.nextPageUrl ? false : true
         rankCity.pageNum = rankCity.pageNum + 1
         rankCity.isRequire = true
-        if(rankCity.list.length > 1) {
-          secondtItem = rankCity.list[1]
-        }
-        if(rankCity.list[0].influence >= secondtItem.influence && rankCity.list.length > 1) {
-          rankCity.list = rankCity.list.filter(field => field.uid !== secondtItem.uid)
-          rankCity.list.unshift(secondtItem)
-        }
         rankCity.rankDetail = res.data.rankDetail
         this.setData({rankCity, onBottomStatus, commonList: rankCity}, () => resolve(res))
       })
@@ -265,7 +249,6 @@ Page({
       getOfficeRankApi(params, hasLoading).then(res => {
         let rankCate = this.data.rankCate
         let onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
-        let secondtItem = {}
         if (identity !== 'RECRUITER') {
           rankCate.list = rankCate.list.concat(res.data)
         } else {
@@ -274,13 +257,6 @@ Page({
         rankCate.isLastPage = res.meta && res.meta.nextPageUrl ? false : true
         rankCate.pageNum = rankCate.pageNum + 1
         rankCate.isRequire = true
-        if(rankCate.list.length > 1) {
-          secondtItem = rankCate.list[1]
-        }
-        if(rankCate.list[0].influence >= secondtItem.influence && rankCate.list.length > 1) {
-          rankCate.list = rankCate.list.filter(field => field.uid !== secondtItem.uid)
-          rankCate.list.unshift(secondtItem)
-        }
         rankCate.rankDetail = res.data.rankDetail
         this.setData({rankCate, onBottomStatus, commonList: rankCate}, () => resolve(res))
       })
@@ -298,7 +274,6 @@ Page({
       getRankApi(params, hasLoading).then(res => {
         let rankAll = this.data.rankAll
         let onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
-        let secondtItem = {}
         if (identity !== 'RECRUITER') {
           rankAll.list = rankAll.list.concat(res.data)
         } else {
@@ -307,14 +282,6 @@ Page({
         rankAll.isLastPage = res.meta && res.meta.nextPageUrl ? false : true
         rankAll.pageNum = rankAll.pageNum + 1
         rankAll.isRequire = true
-        if(rankAll.list.length > 1) {
-          secondtItem = rankAll.list[1]
-        }
-
-        if(rankAll.list[0].influence >= secondtItem.influence && rankAll.list.length > 1) {
-          rankAll.list = rankAll.list.filter(field => field.uid !== secondtItem.uid)
-          rankAll.list.unshift(secondtItem)
-        }
         rankAll.rankDetail = res.data.rankDetail
         this.setData({rankAll, onBottomStatus, commonList: rankAll}, () => resolve(res))
       })
@@ -341,7 +308,6 @@ Page({
     }
     this.setData({[key]: value, hasReFresh: true, commonList: value})
     this.getLists().then(res => {
-      let secondtItem = {}
       let value = {list: [], pageNum: 1, isLastPage: false, isRequire: false}
       let onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
       if (identity !== 'RECRUITER') {
@@ -352,13 +318,6 @@ Page({
       value.isLastPage = res.meta && res.meta.nextPageUrl ? false : true
       value.pageNum = 2
       value.isRequire = true
-      if(value.list.length > 1) {
-        secondtItem = value.list[1]
-      }
-      if((value.list[0].influence >= secondtItem.influence) && value.list.length > 1) {
-        value.list = value.list.filter(field => field.uid !== secondtItem.uid)
-        value.list.unshift(secondtItem)
-      }
       this.setData({hasReFresh: false, [key]: value, onBottomStatus, commonList: value})
       wx.stopPullDownRefresh()
     }).catch(e => {

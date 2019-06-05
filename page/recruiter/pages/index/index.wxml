@@ -10,7 +10,7 @@
 	</view>
 	
 	<view class="welcome">
-		<view class="admin">{{welcomeWord}}，{{detail.name}}</view>
+		<view class="admin">{{welcomeWord}}，{{detail.realname}}</view>
 		<view class="capsule" bindtap="routeJump" data-route="recruiter">
 			<view class="img-box"><image mode="aspectFill" src="{{detail.avatar.smallUrl}}" class="image"></image></view>
 			<i class="icon iconfont icon-youyi"></i>
@@ -35,7 +35,7 @@
 		<view class="row-two" bindtap="routeJump" data-route="rank">
 			<view class="content">
 				<view class="row-three">面试官本周排行榜</view>
-				<view class="row-four">我的排名：{{detail.ranking}}<text class="week">人气：{{indexShowCount.rankDetail.weekOfPopularity}}</text></view>
+				<view class="row-four">我的排名：{{indexShowCount.rankDetail.currentRank}}<text class="week">人气：{{indexShowCount.rankDetail.weekOfPopularity}}</text></view>
 			</view>
 			<view class="imglist">
 				<image class="imgitem" lazy-load wx:for="{{indexShowCount.moreRecruiter}}" wx:key="{{index}}" src="{{item.smallUrl}}" wx:if="{{index <= 2}}"></image>

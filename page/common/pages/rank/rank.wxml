@@ -25,7 +25,7 @@
   </view>
   
   
-  <view style="padding-bottom: 150rpx;"  style="margin-top: {{fixedHeight}}px">
+  <view class="listWrap" style="margin-top: {{fixedHeight}}px">
     <view class="rule"  bindtap="toggleShowRules">
      <text>排名实时更新，每周一重置排名，<text class="ruleBtn">查看上榜规则</text></text>
     </view>
@@ -49,7 +49,7 @@
         </view>
       </view>
       <view>
-        <view class="topicList" bindtap="toRecruitment" data-uid="{{commonList.list[0].uid}}">
+        <view wx:if="{{commonList.list[0]}}" class="topicList" bindtap="toRecruitment" data-uid="{{commonList.list[0].uid}}">
           <view class="headIMg first">
             <image src="{{commonList.list[0].avatar.smallUrl}}"></image>
             <view class='icon'>
@@ -64,7 +64,6 @@
           </view>
         </view>
       </view>
-      
       <view>
         <view wx:if="{{commonList.list[2]}}" class="topicList" bindtap="toRecruitment" data-uid="{{commonList.list[2].uid}}">
           <view class="headIMg">

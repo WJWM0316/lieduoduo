@@ -4,7 +4,7 @@
   background: #EFE9F4;
 }
 .more .scrollView{
-  height: 82vh;/*82vh*/
+  height: 82vh;
 }
 .more .bigTab{
   height: 75.5vh;
@@ -429,4 +429,8 @@
 
 .hidden {
   overflow-y: hidden;
+}
+
+.listWrap {
+  padding-bottom: 150rpx;
 }

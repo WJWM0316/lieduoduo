@@ -9,7 +9,6 @@
         class="swiper"
         autoplay
         circular
-        current="{{bannerIndex}}"
         bindchange="autoplay"
         style="height: {{bannerH}}px"
         >

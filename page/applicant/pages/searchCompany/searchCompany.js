@@ -11,7 +11,7 @@ import {companyNameReg} from '../../../../utils/fieldRegular.js'
 import {RECRUITER} from '../../../../config.js'
 
 const app = getApp()
-
+let lock = false
 Page({
   data: {
     formData: {
@@ -66,6 +66,7 @@ Page({
    * @return   {[type]}     [description]
    */
   bindInput(e) {
+    if (lock) return
     const name = e.detail.value
     this.debounce(this.getCompanyNameList, null, 300, name)
   },
@@ -78,15 +79,17 @@ Page({
   getCompanyNameList(name) {
     const formData = this.data.formData
     formData.company_name = name
-    this.setData({formData, canClick: true}, () => this.bindButtonStatus())
-    if (!name) return
-    getCompanyNameListApi({name: name, ...app.getSource()}).then(res => {
-      const nameList = res.data
-      nameList.map(field => {
-        field.html = field.companyName.replace(new RegExp(name,'g'),`<span style="color: #652791;">${name}</span>`)
-        field.html = `<div>${field.html}</div>`
+    this.setData({formData, canClick: true}, () => {
+      this.bindButtonStatus()
+      if (!name) return
+      getCompanyNameListApi({name: name, ...app.getSource()}).then(res => {
+        const nameList = res.data
+        nameList.map(field => {
+          field.html = field.companyName.replace(new RegExp(name,'g'),`<span style="color: #652791;">${name}</span>`)
+          field.html = `<div>${field.html}</div>`
+        })
+        this.setData({nameList})
       })
-      this.setData({nameList})
     })
   },
   /**
@@ -99,7 +102,12 @@ Page({
     const params = e.currentTarget.dataset
     const formData = this.data.formData
     formData.company_name = params.name
-    this.setData({canClick: true, formData, nameList: []})
+    this.setData({canClick: true, formData, nameList: []}, () => {
+      lock = true
+      let timer = setTimeout(() => {
+        lock = false
+      }, 1000)
+    })
   },
   close() {
     this.setData({showMaskBox: false})

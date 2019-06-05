@@ -101,34 +101,31 @@ Page({
   },
   init () {
     if (wx.getStorageSync('choseType') === 'APPLICANT') return
-    let recruiterInfo = app.globalData.recruiterDetails
     let collectMySelf = this.data.collectMySelf
     let browseMySelf = this.data.browseMySelf
     let userInfo = app.globalData.userInfo
     let pageList = this.data.pageList
     let value = this.data[pageList]
     if (app.pageInit) {
-      recruiterInfo = app.globalData.recruiterDetails
       userInfo = app.globalData.userInfo
       this.getDomNodePosition()
       this.getMixdata()
       if(!wx.getStorageSync('isReback') && !value.list.length) this.getLists()
       wx.removeStorageSync('isReback')
-      this.setData({detail: recruiterInfo, userInfo})
+      this.setData({userInfo})
     } else {
       app.pageInit = () => {
-        recruiterInfo = app.globalData.recruiterDetails
         userInfo = app.globalData.userInfo
         this.getDomNodePosition()
         this.getMixdata()
         if(!wx.getStorageSync('isReback') && !value.list.length) this.getLists()
         wx.removeStorageSync('isReback')
-        this.setData({detail: recruiterInfo, userInfo})
+        this.setData({userInfo})
       }
     }
   },
   getMixdata() {
-    if (wx.getStorageSync('choseType') !== 'APPLICANT') getIndexShowCountApi({hasLoading: false}).then(res => this.setData({indexShowCount: res.data}))
+    if (wx.getStorageSync('choseType') !== 'APPLICANT') getIndexShowCountApi({hasLoading: false}).then(res => this.setData({indexShowCount: res.data, detail: res.data.recruiterInfo}))
     getAdBannerApi({location: 'recruiter_index', hasLoading: false}).then(res => this.setData({banner: res.data.length ? res.data[0] : {}}))
     this.getWelcomeWord()
   },
@@ -255,12 +252,12 @@ Page({
       let indexShowCount = this.data.indexShowCount
       getIndexShowCountApi().then(res => {
         let indexShowCount = res.data
-        this.setData({ indexShowCount }, () => {
+        this.setData({indexShowCount, detail: res.data.recruiterInfo}, () => {
           if(pageList === 'browseMySelf') {
             if(!this.data.browseMySelf.isLastPage && !this.data.browseMySelf.list.length) {
               if(indexShowCount.viewCount) {
                 indexShowCount.viewCount = 0
-                this.setData({browseMySelf, indexShowCount}, () => this.getLists(true))
+                this.setData({browseMySelf}, () => this.getLists(true))
               } else {
                 this.getLists(true)
               }
@@ -295,7 +292,7 @@ Page({
       value.pageNum = 2
       value.isRequire = true
       value.total = res.meta.total
-      getIndexShowCountApi().then(res => this.setData({indexShowCount: res.data}))
+      getIndexShowCountApi().then(res => this.setData({indexShowCount: res.data, detail: res.data.recruiterInfo}))
       this.setData({[key]: value, onBottomStatus, fixedDom: false}, () => {
         wx.stopPullDownRefresh()
         wx.pageScrollTo({scrollTop: 0 })
@@ -367,7 +364,6 @@ Page({
   },
   routeJump(e) {
     let route = e.currentTarget.dataset.route
-    let uid = app.globalData.recruiterDetails.uid
     switch(route) {
       case 'interested':
         wx.navigateTo({url: `${RECRUITER}interested/interested`})
@@ -382,7 +378,7 @@ Page({
         wx.navigateTo({url: `${COMMON}rank/rank`})
         break
       case 'recruiter':
-        wx.navigateTo({url: `${COMMON}recruiterDetail/recruiterDetail?uid=${uid}`})
+        wx.navigateTo({url: `${COMMON}recruiterDetail/recruiterDetail?uid=${this.data.detail.uid}`})
         break
       default:
         break

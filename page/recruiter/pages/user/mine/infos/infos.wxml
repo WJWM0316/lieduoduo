@@ -27,7 +27,7 @@
 		<view class="entry-list show-off-block" bindtap="toRank">
 			<view class="content">
 				<view class="first">
-					<text class="strong">{{recruiterInfo.ranking}}</text> 排名
+					<text class="strong">{{recruiterInfo.ranking > 200 ? '200+' : recruiterInfo.ranking}}</text> 排名
 				</view>
 				<view class="second">
 					<text>本周人气 {{recruiterInfo.weekOfPopularity}}</text><text class="influence">影响力 {{recruiterInfo.influence}}</text>
