@@ -35,7 +35,7 @@
 		<view class="row-two" bindtap="routeJump" data-route="rank">
 			<view class="content">
 				<view class="row-three">面试官本周排行榜</view>
-				<view class="row-four">我的排名：{{indexShowCount.rankDetail.currentRank}}<text class="week">人气：{{indexShowCount.rankDetail.weekOfPopularity}}</text></view>
+				<view class="row-four">我的排名：{{indexShowCount.rankDetail.currentRank > 200 ? '200+' : indexShowCount.rankDetail.currentRank}}<text class="week">人气：{{indexShowCount.rankDetail.weekOfPopularity}}</text></view>
 			</view>
 			<view class="imglist">
 				<image class="imgitem" lazy-load wx:for="{{indexShowCount.moreRecruiter}}" wx:key="{{index}}" src="{{item.smallUrl}}" wx:if="{{index <= 2}}"></image>

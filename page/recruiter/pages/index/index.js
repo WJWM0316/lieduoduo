@@ -110,7 +110,6 @@ Page({
       userInfo = app.globalData.userInfo
       this.getDomNodePosition()
       this.getMixdata()
-      this.getIndexShowCount()
       if(!wx.getStorageSync('isReback') && !value.list.length) this.getLists()
       wx.removeStorageSync('isReback')
       this.setData({userInfo})
@@ -119,7 +118,6 @@ Page({
         userInfo = app.globalData.userInfo
         this.getDomNodePosition()
         this.getMixdata()
-        this.getIndexShowCount()
         if(!wx.getStorageSync('isReback') && !value.list.length) this.getLists()
         wx.removeStorageSync('isReback')
         this.setData({userInfo})
