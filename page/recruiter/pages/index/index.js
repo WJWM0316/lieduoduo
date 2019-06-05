@@ -254,6 +254,7 @@ Page({
       isRequire: false,
       isUse: false
     }
+    wx.pageScrollTo({scrollTop: 0})
     this.setData({ pageList }, () => {
       let indexShowCount = this.data.indexShowCount
       if(pageList === 'browseMySelf') {
@@ -311,11 +312,9 @@ Page({
       value.isRequire = true
       value.total = res[2].meta.total
       wx.stopPullDownRefresh()
-      wx.pageScrollTo({scrollTop: 0 })
       this.setData({[key]: value, onBottomStatus, fixedDom: false, hasReFresh: false})
     }).catch(() => {
       wx.stopPullDownRefresh()
-      wx.pageScrollTo({scrollTop: 0 })
       this.setData({hasReFresh: false})
     })
   },

@@ -146,15 +146,7 @@ Page({
       let key = this.data.tab
       let value = {list: [], pageNum: 1, isLastPage: false, isRequire: false}
       this.setData({[key]: value, commonList: value})
-      this.getLists().then(res => {
-        let value = {list: [], pageNum: 1, isLastPage: false, isRequire: false}
-        let onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
-        value.list = res.data
-        value.isLastPage = res.meta && res.meta.nextPageUrl ? false : true
-        value.pageNum = 2
-        value.isRequire = true
-        this.setData({[key]: value, onBottomStatus, commonList: value})
-      })
+      this.getLists()
     })
   },
   /**
