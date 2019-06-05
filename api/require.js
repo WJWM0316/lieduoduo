@@ -1,4 +1,4 @@
-import {APPLICANTHOST, RECRUITERHOST, PUBAPIHOST, COMMON, RECRUITER, APPLICANT} from '../config.js'
+import {APPLICANTHOST, RECRUITERHOST, PUBAPIHOST, COMMON, RECRUITER, APPLICANT, VERSION} from '../config.js'
 const app = getApp()
 let loadNum = 0
 let BASEHOST = ''
@@ -50,7 +50,7 @@ export const request = ({name = '', method = 'post', url, host, data = {}, needK
       }
   }
   // 版本号
-  addHttpHead['Wechat-Version'] = 100
+  addHttpHead['Wechat-Version'] = VERSION
 
   // 如果连接带参数scode, 则存到头部
   if (data.sCode && !data.isReload) {
