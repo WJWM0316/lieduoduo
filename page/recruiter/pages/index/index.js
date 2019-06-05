@@ -110,6 +110,7 @@ Page({
       userInfo = app.globalData.userInfo
       this.getDomNodePosition()
       this.getMixdata()
+      this.getIndexShowCount()
       if(!wx.getStorageSync('isReback') && !value.list.length) this.getLists()
       wx.removeStorageSync('isReback')
       this.setData({userInfo})
@@ -118,6 +119,7 @@ Page({
         userInfo = app.globalData.userInfo
         this.getDomNodePosition()
         this.getMixdata()
+        this.getIndexShowCount()
         if(!wx.getStorageSync('isReback') && !value.list.length) this.getLists()
         wx.removeStorageSync('isReback')
         this.setData({userInfo})
@@ -125,7 +127,7 @@ Page({
     }
   },
   getMixdata() {
-    if (wx.getStorageSync('choseType') !== 'APPLICANT') getIndexShowCountApi({hasLoading: false}).then(res => this.setData({indexShowCount: res.data, detail: res.data.recruiterInfo}))
+    if (wx.getStorageSync('choseType') !== 'APPLICANT') this.getIndexShowCount()
     getAdBannerApi({location: 'recruiter_index', hasLoading: false}).then(res => this.setData({banner: res.data.length ? res.data[0] : {}}))
     this.getWelcomeWord()
   },
@@ -250,27 +252,31 @@ Page({
 
     this.setData({ pageList }, () => {
       let indexShowCount = this.data.indexShowCount
-      getIndexShowCountApi().then(res => {
-        let indexShowCount = res.data
-        this.setData({indexShowCount, detail: res.data.recruiterInfo}, () => {
-          if(pageList === 'browseMySelf') {
-            if(!this.data.browseMySelf.isLastPage && !this.data.browseMySelf.list.length) {
-              if(indexShowCount.viewCount) {
-                indexShowCount.viewCount = 0
-                this.setData({browseMySelf}, () => this.getLists(true))
-              } else {
-                this.getLists(true)
-              }
+      this.getIndexShowCount().then(res => {
+        if(pageList === 'browseMySelf') {
+          if(!this.data.browseMySelf.isLastPage && !this.data.browseMySelf.list.length) {
+            if(indexShowCount.viewCount) {
+              indexShowCount.viewCount = 0
+              this.setData({browseMySelf}, () => this.getLists(true))
             } else {
-              if(indexShowCount.viewCount) {
-                indexShowCount.viewCount = 0
-                this.setData({browseMySelf, indexShowCount}, () => this.getLists(true))
-              }
+              this.getLists(true)
             }
           } else {
-            if(!this.data.collectMySelf.isLastPage && !this.data.collectMySelf.list.length) this.getLists(true)
+            if(indexShowCount.viewCount) {
+              indexShowCount.viewCount = 0
+              this.setData({browseMySelf, indexShowCount}, () => this.getLists(true))
+            }
           }
-        })
+        } else {
+          if(!this.data.collectMySelf.isLastPage && !this.data.collectMySelf.list.length) this.getLists(true)
+        }
+      })
+    })
+  },
+  getIndexShowCount() {
+    return new Promise((resolve, reject) => {
+      getIndexShowCountApi({hasLoading: false}).then(res => {
+        this.setData({indexShowCount: res.data, detail: res.data.recruiterInfo}, () => resolve(res))
       })
     })
   },
@@ -292,7 +298,7 @@ Page({
       value.pageNum = 2
       value.isRequire = true
       value.total = res.meta.total
-      getIndexShowCountApi().then(res => this.setData({indexShowCount: res.data, detail: res.data.recruiterInfo}))
+      this.getIndexShowCount()
       this.setData({[key]: value, onBottomStatus, fixedDom: false}, () => {
         wx.stopPullDownRefresh()
         wx.pageScrollTo({scrollTop: 0 })

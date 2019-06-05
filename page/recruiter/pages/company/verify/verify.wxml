@@ -31,7 +31,7 @@
 		<view class="ul">
 			<view class="li" wx:for="{{list1.list}}" wx:key="{{index}}" wx:for-item="item" bindtap="routeJump" data-index="{{index}}">
 				<view class="name">{{item.realName}}</view>
-				<view class="time">审核时间: {{item.createdAt}}</view>
+				<view class="time">审核时间: {{item.updatedAt}}</view>
 				<i class="icon iconfont icon-xiangyou"></i>
 				<!-- <view class="reddot"></view> -->
 			</view>
@@ -47,7 +47,7 @@
 		<view class="ul">
 			<view class="li" wx:for="{{list2.list}}" wx:key="{{index}}" wx:for-item="item" bindtap="routeJump" data-index="{{index}}">
 				<view class="name">{{item.realName}}</view>
-				<view class="time">审核时间: {{item.createdAt}}</view>
+				<view class="time">审核时间: {{item.updatedAt}}</view>
 				<i class="icon iconfont icon-xiangyou"></i>
 				<!-- <view class="reddot"></view> -->
 			</view>
