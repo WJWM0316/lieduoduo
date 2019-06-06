@@ -116,6 +116,7 @@ export const refuseInterviewApi = (data, hasLoading) => {
   return request({
     method: 'post',
     url: `/interview/refuse/${data.id}`,
+    data,
     hasLoading
   })
 }
@@ -186,6 +187,45 @@ export const getPositionTypeListApi = (data, hasLoading) => {
   return request({
     method: 'get',
     url: `/position/interviewTypeList`,
+    data,
+    hasLoading: false
+  })
+}
+
+// 获取面试评价不合适理由
+export const getCommentReasonApi = (data) => {
+  return request({
+    url: `/interview/getCommentReason`,
+    method: 'get',
+    hasLoading: false
+  })
+}
+
+// 不合适面试撤回
+export const interviewRetractApi = (data) => {
+  return request({
+    url: `/interview/interviewRetract/${data.id}`,
+    method: 'put',
+    hasLoading: false
+  })
+}
+
+
+// 获取不合适评价内容
+export const getInterviewCommentApi = (data) => {
+  return request({
+    url: `/interview/getInterviewComment`,
+    method: 'get',
+    data,
+    hasLoading: false
+  })
+}
+
+// 设置候选人是否到场
+export const setInterviewAttendApi = (data) => {
+  return request({
+    url: `/interview/attend`,
+    method: 'put',
     data,
     hasLoading: false
   })

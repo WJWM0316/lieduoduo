@@ -98,7 +98,7 @@
 
 	<block wx:else>
 
-		<view class="img-box">
+		<view class="img-box" wx:if="{{interviewInfos.lastInterviewStatus !== 52}}">
 			<image mode="aspectFill" src="{{infos.avatar.smallUrl || infos.recruiterInfo.avatar.smallUrl}}"></image>
 		</view>
 
@@ -116,7 +116,7 @@
 		<!-- 求职端已开启撩 招聘端可接受可拒绝 end-->
 		
 		<!-- 招聘端主动发起开料 start-->
-		<block wx:if="{{!interviewInfos.haveInterview}}">
+		<block wx:if="{{!interviewInfos.haveInterview && !interviewInfos.isOnProtected}}">
 			<view class="content">
 				<view class="first"><view class="name">{{infos.name || infos.recruiterInfo.name}}</view></view>
 				<view class="second">{{jobWords}}</view>
@@ -124,6 +124,19 @@
 			<button form-type="submit" class="clear-style button-box accept" data-action="recruiter-chat" bindtap="todoAction">
 				开撩约面
 			</button>
+		</block>
+		<block wx:if="{{!interviewInfos.haveInterview && interviewInfos.isOnProtected && interviewInfos.lastInterviewStatus !== 52}}">
+			<view class="content">
+				<view class="first"><view class="name">{{infos.name || infos.recruiterInfo.name}}</view></view>
+				<view class="second">暂不考虑</view>
+			</view>
+			<button class="clear-style button-box reject freeze"> 暂时无法约面 </button>
+		</block>
+		<block wx:if="{{!interviewInfos.haveInterview && interviewInfos.isOnProtected && interviewInfos.lastInterviewStatus === 52}}">
+			<view class="min-row">
+				<view class="btn_01">已标记不适合，<text class="active" data-action="reason" bindtap="todoAction">查看原因</text></view>
+				<view class="btn_02 active" data-action="retract" bindtap="todoAction"><i class="icon iconfont icon-huidaojintian"></i> 撤回</view>
+			</view>
 		</block>
 		<!-- 招聘端主动发起开料 end-->
 

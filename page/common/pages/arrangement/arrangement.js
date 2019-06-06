@@ -362,5 +362,26 @@ Page({
       imageUrl: btnImageUrl,
       path: `${COMMON}arrangement/arrangement?id=${this.options.id}`
     })
+  },
+  todoAction(e) {
+    let params = e.currentTarget.dataset
+    switch(params.action) {
+      case 'notArrive':
+        app.wxConfirm({
+          title: '该候选人未到场',
+          content: '确定标记未到场后，你可以再次对该候选人发起约面',
+          confirmBack() {
+            console.log('confirm')
+          },
+          cancelBack() {
+            console.log('cancel')
+          }
+        })
+        break
+      case 'arrived':
+        break
+      default:
+        break
+    }
   }
 })

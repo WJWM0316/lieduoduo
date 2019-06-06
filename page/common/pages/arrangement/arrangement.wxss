@@ -378,3 +378,146 @@
   height: 206rpx;
   margin-top: 32rpx;
 }
+
+.interview-result-box {
+  background: white;
+  margin-top: 20px;
+  box-shadow:0rpx -5rpx 40rpx 0rpx rgba(22,39,77,0.05);
+  border-radius:16rpx;
+  overflow: hidden;
+}
+
+.interview-result-box .arrive-status {
+  font-size:32rpx;
+  font-weight:700;
+  color:rgba(92,86,93,1);
+  line-height:1;
+  padding-left: 68rpx;
+  position: relative;
+  margin-top: 80rpx;
+}
+
+.interview-result-box .arrive-status:before {
+  display: block;
+  width:12rpx;
+  height:12rpx;
+  background:rgba(92,86,93,1);
+  border-radius: 50%;
+  content: '';
+  background: #5C565D;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 40rpx;
+}
+
+.interview-result-box .btn-list_1 {
+  height: 88rpx;
+  margin: 34rpx 40rpx 30rpx 36rpx;
+  line-height: 88rpx;
+}
+
+.interview-result-box .btn-list_2 {
+  height: 88rpx;
+  margin: 34rpx 40rpx 74rpx 36rpx;
+  line-height: 88rpx;
+}
+
+.interview-result-box .img {
+  height: 88rpx;
+  width: 88rpx;
+  border-radius: 50%;
+  background: red;
+  display: inline-block;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+.interview-result-box .btn-list_1 .txt {
+  display: inline-block;
+  font-size:28rpx;
+  color:rgba(40,40,40,1);
+  margin-left: 100rpx;
+}
+
+.interview-result-box .btn-list_2 .txt {
+  display: inline-block;
+  font-size:28rpx;
+  color:rgba(40,40,40,1);
+  margin-left: 126rpx;
+}
+
+.interview-result-box .btn {
+  height:88rpx;
+  background:rgba(248,245,250,1);
+  border-radius:44rpx;
+  width: 290rpx;
+  display: inline-block;
+  position: relative;
+}
+
+.interview-result-box .btn01 {
+  float: left;
+}
+
+.interview-result-box .btn02 {
+  float: right;
+}
+
+.interview-result-box .tips {
+  height:66rpx;
+  font-size:24rpx;
+  font-weight:300;
+  color:rgba(146,146,146,1);
+  line-height:33rpx;
+  margin: 0 46rpx 48rpx 40rpx;
+}
+
+.interview-result-box .sad-icon {
+  width: 148rpx;
+  height: 148rpx;
+  background: red;
+  border-radius: 50%;
+  margin: 20rpx auto 26rpx auto;
+}
+
+.interview-result-box .comment_1 {
+  font-size:32rpx;
+  color:rgba(40,40,40,1);
+  line-height:1;
+  text-align: center;
+}
+
+.interview-result-box .comment_2 {
+  font-size:24rpx;
+  font-weight:300;
+  color:rgba(146,146,146,1);
+  text-align: center;
+  margin-top: 16rpx;
+  margin-bottom: 50rpx;
+}
+
+.interview-result-box .comment_2 .strong{
+  font-weight:700;
+  color: #652791
+}
+
+.interview-result-box .comment_3{
+  font-size:24rpx;
+  color:rgba(101,39,145,1);
+  line-height:1;
+  text-align: center;
+  margin-top: 18rpx;
+  margin-bottom: 48rpx;
+}
+
+.interview-result-box .comment_3 text{
+  font-size:24rpx;
+  color:rgba(101,39,145,1);
+  line-height:1;
+  text-align: center;
+  margin-top: 18rpx;
+  margin-bottom: 48rpx;
+  margin: 0 19rpx;
+}

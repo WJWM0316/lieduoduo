@@ -22,7 +22,8 @@
     "page/common/pages/tabsPage/tabsPage",
     "page/common/pages/cutInside/cutInside",
     "page/common/pages/chooseJob/chooseJob",
-    "page/common/pages/webView/webView"
+    "page/common/pages/webView/webView",
+    "page/common/pages/interviewMark/interviewMark"
   ],
   "window": {
     "navigationBarTextStyle": "black",

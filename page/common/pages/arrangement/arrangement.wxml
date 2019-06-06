@@ -168,7 +168,63 @@
         <image class="pic" src="{{cdnImagePath}}emptyState.png"></image>
         <view class="btn" bindtap="jump" data-type="careerChance">发现更多好机会</view>
       </view>
+      <!-- B端面试结果 -->
+      <view class="interview-result-box">
+        <view class="title"><icon class="icon"></icon>面试结果</view>
 
+        <view wx:if="{{1 > 0}}">
+          <view class="arrive-status">候选人到场了吗 ？</view>
+          <view class="btn-list_1">
+            <view class="btn btn01" bindtap="todoAction" data-action="notArrive">
+              <view class="img"></view>
+              <view class="txt">候选人没来</view>
+            </view>
+            <view class="btn btn02" bindtap="todoAction" data-action="arrived">
+              <view class="img"></view>
+              <view class="txt">已到场面试</view>
+            </view>
+          </view>
+          <view class="tips">* 面试时间结束后48小时内未标记，平台将默认候选人已到场面试</view>
+        </view>
+
+        <view wx:if="{{1 > 10}}">
+          <view class="arrive-status">到场面试后感觉如何？评价一下吧～</view>
+          <view class="btn-list_2">
+            <view class="btn btn01">
+              <view class="img"></view>
+              <view class="txt">不合适</view>
+            </view>
+            <view class="btn btn02">
+              <view class="img"></view>
+              <view class="txt">感觉不错</view>
+            </view>
+          </view>
+        </view>
+        
+        <view wx:if="{{1 > 10}}">
+          <view class="sad-icon"></view>
+          <view class="comment_1">候选人没来</view>
+          <view class="comment_2">挥别错的才能和对的相逢~ <text class="strong">再次约面</text> </view>
+        </view>
+
+        <view wx:if="{{1 > 10}}">
+          <view class="sad-icon"></view>
+          <view class="comment_1">已到场面试，但不适合</view>
+          <view class="comment_3">
+            <text>查看原因</text>
+            <text>撤回不合适 </text>
+          </view>
+        </view>
+        
+        <view wx:if="{{1 > 10}}">
+          <view class="sad-icon"></view>
+          <view class="comment_1"> 已到场面试，感觉还不错！</view>
+          <view class="comment_2">
+            请联系候选人确认后续环节
+          </view>
+        </view>
+
+      </view>
     </view>
 
     <view class="btnBox" wx:if="{{identity === 'RECRUITER' && (info.status === 21 || info.status === 32)}}">

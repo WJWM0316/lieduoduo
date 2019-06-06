@@ -1,0 +1,41 @@
+<view class="interviewMark">
+	<navbar title="{{options.type === 'pending' ? '标记不适合' : '不适合原因'}}" background="#FFFFFF" color="#22292C"></navbar>
+	<block wx:if="{{options.type === 'pending'}}">
+		<view class="h2">请选择不适合的原因（多选）</view>
+		<view class="ul">
+			<view class="li {{item.active ? 'active' : ''}}"
+				wx:for="{{list}}"
+				wx:item="item"
+				wx:key="{{item}}"
+				data-index="{{index}}"
+				bindtap="check">{{item.title}}</view>
+		</view>
+		<view class="h3">补充说明（选填）</view>
+		<view class="edit-box">
+			<view class="edit">
+				<textarea
+					bindinput="bindInput"
+					class="textarea"
+					placeholder-style="color:#BCBCBC"
+					placeholder="告诉我们更多关于候选人的评价，以便我们改进服务（补充说明不会被候选人看到）"
+					maxlength="300"
+					value="{{extra}}" />
+				<view class="sum"><text class="{{extra.length ? 'red' : ''}}">{{ extra.length }}</text>/300</view>
+			</view>
+		</view>
+		<view class="btn-area">
+	    <view bindtap="submit" class="button-submit">确定</view>
+	  </view>
+	</block>
+	<block wx:else>
+		<view class="h2">不适合的原因：</view>
+		<view class="ul">
+			<view class="li"
+				wx:for="{{list}}"
+				wx:item="item"
+				wx:key="{{item}}">{{item.title}}</view>
+		</view>
+		<view class="h3">补充说明：</view>
+		<view class="tips"><text>没有携带相关资料，无法深入了解专业技能。</text></view>
+	</block>
+</view>
