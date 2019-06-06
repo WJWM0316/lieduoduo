@@ -47,7 +47,7 @@ Page({
           path: `/page/common/pages/webView/webView?p=${options.p}&t=${options.t}&i=${options.i}`,
           imageUrl: options.i
         }
-        pageUrl = options.p
+        pageUrl = `${options.p}?sessionToken=${sessionToken}&token=${token}`
       }
       this.setData({pageUrl})
     }
