@@ -79,7 +79,9 @@
   float: left;
   display: inline-block;
 }
-
+.lookMe {
+  display: inline-block;
+}
 /*.ul-tab-bar .li:before {
   content: '';
   display: block;
@@ -143,14 +145,15 @@
   height:36rpx;
   background:rgba(255,127,76,1);
   border-radius: 50%;
-  display: inline-block;
-  vertical-align: middle;
-  margin-left: 16rpx;
-  line-height: 36rpx;
+  line-height: 34rpx;
   text-align: center;
   font-size:24rpx;
   font-weight:700;
   color:rgba(255,255,255,1);
+  position: absolute;
+  top: 50%;
+  right: 20%;
+  transform: translate3d(0, -50%, 0);
 }
 
 .ul-tab-bar .active:before {

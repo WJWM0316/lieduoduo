@@ -57,14 +57,16 @@
 					class="li {{pageList === 'collectMySelf' ? 'active' : ''}}"
 					bindtap="ontabClick"
 					data-key="collectMySelf">
-					发现<view></view><view class="line"></view>
+					发现<view></view>
+					<view class="line"></view>
 				</view>
 				<view
 					class="li {{pageList === 'browseMySelf' ? 'active' : ''}}"
 					bindtap="ontabClick"
 					data-key="browseMySelf">
 					看过我的
-					<view class="total" wx:if="{{indexShowCount.viewCount}}">{{indexShowCount.viewCount}}</view><view class="line"></view>
+					<text class="total" wx:if="{{indexShowCount.viewCount}}">{{indexShowCount.viewCount}}</text>
+					<view class="line"></view>
 				</view>
 				<image src="{{cdnImagePath}}line00002.png" class="image" hidden="{{pageList === 'browseMySelf'}}"></image>
 				<image src="{{cdnImagePath}}line00001.png" class="image" hidden="{{pageList === 'collectMySelf'}}"></image>

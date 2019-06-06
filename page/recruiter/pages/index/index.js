@@ -130,7 +130,7 @@ Page({
     this.getWelcomeWord()
   },
   getIndexShowCount () {
-    if (wx.getStorageSync('choseType') !== 'APPLICANT') {
+    if (wx.getStorageSync('choseType') === 'RECRUITER') {
       return getIndexShowCountApi({hasLoading: false}).then(res => this.setData({indexShowCount: res.data, detail: res.data.recruiterInfo}))
     }
   },
@@ -246,7 +246,6 @@ Page({
       isRequire: false,
       total: 0
     }
-
     let collectMySelf = {
       list: [],
       pageNum: 1,
@@ -265,25 +264,6 @@ Page({
       } else if (!this.data.collectMySelf.isRequire) {
         this.getLists(true)
       }
-      this.getIndexShowCount().then(res => {
-        if(pageList === 'browseMySelf') {
-          if(!this.data.browseMySelf.isLastPage && !this.data.browseMySelf.list.length) {
-            if(indexShowCount.viewCount) {
-              indexShowCount.viewCount = 0
-              this.setData({browseMySelf}, () => this.getLists(true))
-            } else {
-              this.getLists(true)
-            }
-          } else {
-            if(indexShowCount.viewCount) {
-              indexShowCount.viewCount = 0
-              this.setData({browseMySelf, indexShowCount}, () => this.getLists(true))
-            }
-          }
-        } else {
-          if(!this.data.collectMySelf.isLastPage && !this.data.collectMySelf.list.length) this.getLists(true)
-        }
-      })
     })
   },
   getIndexShowCount() {

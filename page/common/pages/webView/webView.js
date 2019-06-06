@@ -41,6 +41,14 @@ Page({
           pageUrl = `${WEBVIEW}userAgreement`
           break
       }
+      if (options.p) {
+        wxShare = {
+          title: options.t,
+          path: `/page/common/pages/webView/webView?p=${options.p}&t=${options.t}&i=${options.i}`,
+          imageUrl: options.i
+        }
+        pageUrl = options.p
+      }
       this.setData({pageUrl})
     }
     if (app.loginInit) {

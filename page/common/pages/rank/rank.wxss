@@ -242,8 +242,8 @@
 
 .foot-bar {
   background:rgba(255,255,255,1);
-  box-shadow:0rpx -6rpx 20rpx 0rpx rgba(34,56,101,0.08);
-  border-radius:28rpx 28rpx 0rpx 0rpx;
+  box-shadow:0rpx -6rpx 30rpx 0rpx rgba(34,56,101,0.06);
+  border-radius:32rpx 32rpx 0rpx 0rpx;
   position: fixed;
   left: 0;
   bottom: 0;

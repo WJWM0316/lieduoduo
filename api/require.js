@@ -9,7 +9,8 @@ let noToastUrlArray = [
   '/company/self_help_verification'
 ]
 let apiVersionList = null
-let toAuth = false
+let toAuth = false,
+    toBindPhone = false
 let recruiterJump = (msg) => {
   let companyInfo = msg.data.companyInfo
   let identityInfo = msg.data
@@ -171,7 +172,12 @@ export const request = ({name = '', method = 'post', url, host, data = {}, needK
             case 401:
               // 需要用到token， 需要绑定手机号
               if (msg.code === 4010) {
-                if (getCurrentPages()[getCurrentPages().length - 1].route.indexOf('bindPhone/bindPhone') !== -1) return
+                if (toBindPhone) return
+                toBindPhone = true
+                let timer = setTimeout(() => {
+                  toBindPhone = false
+                  clearTimeout(timer)
+                }, 2000)
                 wx.removeStorageSync('token')
                 wx.navigateTo({
                   url: `${COMMON}bindPhone/bindPhone`
