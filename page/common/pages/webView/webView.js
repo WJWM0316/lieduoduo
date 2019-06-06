@@ -42,12 +42,16 @@ Page({
           break
       }
       if (options.p) {
+        let path = decodeURIComponent(options.p),
+            title = decodeURIComponent(options.t),
+            imgUrl = decodeURIComponent(options.i)
         wxShare = {
-          title: options.t,
-          path: `/page/common/pages/webView/webView?p=${options.p}&t=${options.t}&i=${options.i}`,
-          imageUrl: options.i
+          title: title,
+          path: app.getCurrentPagePath(),
+          imageUrl: imgUrl
         }
-        pageUrl = `${options.p}?sessionToken=${sessionToken}&token=${token}`
+        pageUrl = `${path}?sessionToken=${sessionToken}&token=${token}`
+        console.log(pageUrl)
       }
       this.setData({pageUrl})
     }
