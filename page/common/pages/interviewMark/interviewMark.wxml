@@ -33,9 +33,9 @@
 			<view class="li"
 				wx:for="{{list}}"
 				wx:item="item"
-				wx:key="{{item}}">{{item.title}}</view>
+				wx:key="{{item}}">{{item}}</view>
 		</view>
 		<view class="h3">补充说明：</view>
-		<view class="tips"><text>没有携带相关资料，无法深入了解专业技能。</text></view>
+		<view class="tips"><text>{{extra}}</text></view>
 	</block>
 </view>

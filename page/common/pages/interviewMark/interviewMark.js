@@ -33,7 +33,11 @@ Page({
   getInterviewComment() {
     return new Promise((resolve, reject) => {
       getInterviewCommentApi({interviewId: this.data.options.lastInterviewId}).then(res => {
-        this.setData({list: res.data})
+        let rtn = res.data
+        let list = rtn.reason.split(',')
+        let extra = rtn.extraDesc
+        console.log(rtn)
+        this.setData({list, extra})
       }).catch(() => reject())
     })
   },
@@ -46,8 +50,7 @@ Page({
   getCommentReason(hasLoading = false) {
     return new Promise((resolve, reject) => {
       getCommentReasonApi({hasLoading}).then(res => {
-        let list = res.data
-        this.setData({list})
+        this.setData({list: res.data})
       }).catch(() => reject())
     })
   },

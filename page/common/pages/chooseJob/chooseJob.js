@@ -466,7 +466,7 @@ Page({
 
           // 都不合适 则直接拒绝
           if(this.data.unsuitableChecked) {
-            cnosole.log(params)
+            console.log(params)
             // this.refuseInterview(params)
           } else {
             // 用选中的面试记录发起开撩
