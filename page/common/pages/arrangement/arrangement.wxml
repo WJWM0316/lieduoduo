@@ -224,7 +224,7 @@
           <view class="comment_1">已到场面试，但不适合</view>
           <view class="comment_3">
             <text bindtap="todoAction" data-action="reason">查看原因</text>
-            <text bindtap="todoAction" data-action="retract">撤回不合适 </text>
+            <text bindtap="todoAction" data-action="retract" wx:if="{{info.canRetract}}">撤回不合适 </text>
           </view>
         </view>
         <!-- 招聘官设置求职者不合适或者系统自动设置不合适 end -->

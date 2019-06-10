@@ -136,7 +136,7 @@
 		<block wx:if="{{!interviewInfos.haveInterview && interviewInfos.lastInterviewStatus === 52}}">
 			<view class="min-row">
 				<view class="btn_01">已标记不适合，<text class="active" data-action="reason" bindtap="todoAction">查看原因</text></view>
-				<view class="btn_02 active" data-action="retract" bindtap="todoAction"><i class="icon iconfont icon-huidaojintian"></i> 撤回</view>
+				<view class="btn_02 active" data-action="retract" bindtap="todoAction" wx:if="{{interviewInfos.canRetract}}"><i class="icon iconfont icon-huidaojintian"></i> 撤回</view>
 			</view>
 		</block>
 		<!-- 招聘端主动发起开料 end-->
