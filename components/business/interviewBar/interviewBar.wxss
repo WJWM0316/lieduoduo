@@ -9,7 +9,6 @@
   z-index: 10;
   left: 0;
   bottom: 0;
-  overflow: hidden;
   box-sizing: border-box;
   padding: 20rpx;
   display: flex;
@@ -33,9 +32,18 @@
 	overflow: hidden;
 }
 
-.interview-bar .img-box image {
+.interview-bar .img-box .img {
 	width: 100%;
 	height: 100%;
+}
+
+.interview-bar .img-box .tips-img {
+	width: 623rpx;
+	height: 135rpx;
+	position: absolute;
+	top: -90rpx;
+	left: 0;
+	z-index: 10;
 }
 
 .interview-bar .button-box{

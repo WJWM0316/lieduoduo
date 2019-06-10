@@ -65,10 +65,10 @@
 			</view>
 		</view>
 
-		<view hidden="{{!hasReFresh}}">
-			<refreshStatus></refreshStatus>
-		</view>
 		<view class="ul" wx:if="{{interviewList.list.length}}">
+			<view hidden="{{!hasReFresh}}">
+				<refreshStatus></refreshStatus>
+			</view>
 			<form bindsubmit="formSubmit" report-submit='{{true}}'> 
 				<button
 					form-type="submit" 

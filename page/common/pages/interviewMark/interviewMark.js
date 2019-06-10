@@ -36,7 +36,6 @@ Page({
         let rtn = res.data
         let list = rtn.reason.split(',')
         let extra = rtn.extraDesc
-        console.log(rtn)
         this.setData({list, extra})
       }).catch(() => reject())
     })
@@ -101,6 +100,7 @@ Page({
     let reason = tem.join(',')
     let params = {reason, id: this.options.jobhunterUid, extra: this.data.extra}
     refuseInterviewApi(params).then(() => {
+      wx.removeStorageSync('interviewChatLists')
       wx.navigateBack({delta: 1 })
     })
   }

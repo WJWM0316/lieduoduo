@@ -65,7 +65,8 @@ Component({
     isShare: false,
     cdnImagePath: app.globalData.cdnImagePath,
     positionInfos: {},
-    show: false
+    show: false,
+    loaded: false
   },
   attached() {
     identity = wx.getStorageSync('choseType')
@@ -171,9 +172,15 @@ Component({
      */
     getInterviewStatus() {
       getInterviewStatusApi({type: this.data.type, vkey: this.data.infos.vkey}).then(res => {
-        this.setData({interviewInfos: res.data, identity: wx.getStorageSync('choseType')})
+        let interviewInfos = res.data
+        this.setData({interviewInfos, identity: wx.getStorageSync('choseType'), loaded: true})
         if(res.code === 204) this.setData({isOwerner: true})
         if(res.code === 230) this.showMergeBox(res.data)
+        // 防止用户不刷新数据，自动取消气泡
+        setTimeout(() => {
+          interviewInfos.isReadRedot = 0
+          this.setData({interviewInfos})
+        }, 3000)
         if (!res.data.haveInterview && this.data.options && this.data.options.directChat && automatic && !this.data.options.todoAction) {
           let e = {
             currentTarget: {

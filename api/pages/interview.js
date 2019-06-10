@@ -230,3 +230,13 @@ export const setInterviewAttendApi = (data) => {
     hasLoading: false
   })
 }
+
+// 面试评价(设置感兴趣)
+export const setInterviewCommentApi = (data) => {
+  return request({
+    url: `/interview/interviewComment`,
+    method: 'post',
+    data,
+    hasLoading: false
+  })
+}

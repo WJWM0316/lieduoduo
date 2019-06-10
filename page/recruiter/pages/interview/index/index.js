@@ -12,24 +12,36 @@ import {getSelectorQuery} from "../../../../../utils/util.js"
 
 let positionList = []
 
-const initData = {
-  list: [],
-  pageNum: 1,
-  count: 20,
-  isLastPage: false,
-  isRequire: false,
-  total: 0
-}
-
 Page({
   data: {
     navH: app.globalData.navHeight,
     fixedBarHeight: 0,
     tabIndex: 0,
     hasReFresh: false,
-    applyData: initData,
-    receiveData: initData,
-    interviewData: initData,
+    applyData: {
+      list: [],
+      pageNum: 1,
+      count: 20,
+      isLastPage: false,
+      isRequire: false,
+      total: 0
+    },
+    receiveData: {
+      list: [],
+      pageNum: 1,
+      count: 20,
+      isLastPage: false,
+      isRequire: false,
+      total: 0
+    },
+    interviewData: {
+      list: [],
+      pageNum: 1,
+      count: 20,
+      isLastPage: false,
+      isRequire: false,
+      total: 0
+    },
     dateList: [],
     applyIndex: 0,
     receiveIndex: 0,
@@ -79,8 +91,11 @@ Page({
     ]
   },
   // 查看面试历史
-  jumpInterviewPage(e) {
-    wx.navigateTo({url: `${RECRUITER}interview/history/history`})
+  jumpInterviewPage() {
+    wx.navigateTo({
+      url: `${RECRUITER}interview/history/history`,
+      success: () => this.initDefault()
+    })
   },
   bindChange(e) {
     let type = ''
@@ -326,9 +341,30 @@ Page({
     this.setData({options, tabIndex, tabLists})
   },
   initDefault() {
-    let applyData = initData
-    let receiveData = initData
-    let interviewData = initData
+    let applyData = {
+      list: [],
+      pageNum: 1,
+      count: 20,
+      isLastPage: false,
+      isRequire: false,
+      total: 0
+    }
+    let receiveData = {
+      list: [],
+      pageNum: 1,
+      count: 20,
+      isLastPage: false,
+      isRequire: false,
+      total: 0
+    }
+    let interviewData = {
+      list: [],
+      pageNum: 1,
+      count: 20,
+      isLastPage: false,
+      isRequire: false,
+      total: 0
+    }
     let applyBottomStatus = 2
     let receiveBottomStatus = 2
     let interviewBottomStatus = 2

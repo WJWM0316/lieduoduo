@@ -35,7 +35,9 @@
 				wx:item="item"
 				wx:key="{{item}}">{{item}}</view>
 		</view>
-		<view class="h3">补充说明：</view>
-		<view class="tips"><text>{{extra}}</text></view>
+		<block wx:if="{{extra}}">
+			<view class="h3">补充说明：</view>
+			<view class="tips"><text>{{extra}}</text></view>
+		</block>
 	</block>
 </view>

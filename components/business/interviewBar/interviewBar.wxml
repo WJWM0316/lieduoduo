@@ -1,8 +1,8 @@
 <form bindsubmit="formSubmit" report-submit='{{true}}'>
-<view class="interview-bar" wx:if="{{ !isOwerner }}">
+<view class="interview-bar" wx:if="{{ !isOwerner && loaded }}">
 	<block wx:if="{{type === 'recruiter' || type === 'position'}}">
 		<button form-type="submit" class="clear-style img-box" bindtap="todoAction" data-action="viewRecruiter">
-			<image mode="aspectFill" src="{{infos.avatar.smallUrl || infos.recruiterInfo.avatar.smallUrl}}"></image>
+			<image mode="aspectFill" src="{{infos.avatar.smallUrl || infos.recruiterInfo.avatar.smallUrl}}" class="img"></image>
 		</button>
 
 		<!-- 求职者还没有发起开撩动作 招聘官主页 start-->
@@ -99,7 +99,8 @@
 	<block wx:else>
 
 		<view class="img-box" wx:if="{{interviewInfos.lastInterviewStatus !== 52}}">
-			<image mode="aspectFill" src="{{infos.avatar.smallUrl || infos.recruiterInfo.avatar.smallUrl}}"></image>
+			<image mode="aspectFill" src="{{infos.avatar.smallUrl || infos.recruiterInfo.avatar.smallUrl}}" class="img"></image>
+			<image class="tips-img" mode="aspectFill" src="{{cdnImagePath}}img_protected_01.png" wx:if="{{interviewInfos.lastInterviewStatus === 54 && interviewInfos.isOnProtected && interviewInfos.isReadRedot}}"></image>
 		</view>
 
 		<!-- 求职端已开启撩 招聘端可接受可拒绝 start-->
@@ -116,7 +117,7 @@
 		<!-- 求职端已开启撩 招聘端可接受可拒绝 end-->
 		
 		<!-- 招聘端主动发起开料 start-->
-		<block wx:if="{{!interviewInfos.haveInterview && !interviewInfos.isOnProtected}}">
+		<block wx:if="{{!interviewInfos.haveInterview && interviewInfos.lastInterviewStatus !== 52}}">
 			<view class="content">
 				<view class="first"><view class="name">{{infos.name || infos.recruiterInfo.name}}</view></view>
 				<view class="second">{{jobWords}}</view>
@@ -130,9 +131,9 @@
 				<view class="first"><view class="name">{{infos.name || infos.recruiterInfo.name}}</view></view>
 				<view class="second">暂不考虑</view>
 			</view>
-			<button class="clear-style button-box reject freeze"> 暂时无法约面 </button>
+			<button class="clear-style button-box reject freeze"> 对方暂不考虑 </button>
 		</block>
-		<block wx:if="{{!interviewInfos.haveInterview && interviewInfos.isOnProtected && interviewInfos.lastInterviewStatus === 52}}">
+		<block wx:if="{{!interviewInfos.haveInterview && interviewInfos.lastInterviewStatus === 52}}">
 			<view class="min-row">
 				<view class="btn_01">已标记不适合，<text class="active" data-action="reason" bindtap="todoAction">查看原因</text></view>
 				<view class="btn_02 active" data-action="retract" bindtap="todoAction"><i class="icon iconfont icon-huidaojintian"></i> 撤回</view>
@@ -145,8 +146,9 @@
 				<view class="first"><view class="name">{{infos.name || infos.recruiterInfo.name}}</view></view>
 				<view class="second">安排面试</view>
 			</view>
-			<view class="button-box button-box-color2">
-				<view data-action="recruiter-arrangement" bindtap="todoAction">安排面试</view>
+			<view class="button-box">
+				<view class="reject" data-action="recruiter-reject" bindtap="todoAction" class="reject">不合适</view>
+				<view data-action="recruiter-arrangement" bindtap="todoAction" class="accept">安排面试</view>
 			</view>
 		</block>
 		
@@ -155,8 +157,9 @@
 				<view class="first"><view class="name">{{infos.name || infos.recruiterInfo.name}}</view></view>
 				<view class="second">修改面试</view>
 			</view>
-			<view class="button-box button-box-color2" data-action="recruiter-modify" bindtap="todoAction">
-				<view bindtap="todoAction">修改面试</view>
+			<view class="button-box">
+				<view class="reject" data-action="recruiter-reject" bindtap="todoAction" class="reject">不合适</view>
+				<view data-action="recruiter-modify" bindtap="todoAction" class="accept">修改面试</view>
 			</view>
 		</block>
 
@@ -175,9 +178,9 @@
 				<view class="first"><view class="name">{{infos.name || infos.recruiterInfo.name}}</view></view>
 				<view class="second">待确认信息</view>
 			</view>
-			<view class="button-box button-box-color2">
-				<!-- <view class="reject" data-action="recruiter-reject" bindtap="todoAction">不合适</view> -->
-				<view data-action="recruiter-arrangement" class="recruiter-reject" bindtap="todoAction">修改面试</view>
+			<view class="button-box">
+				<view class="reject" data-action="recruiter-reject" bindtap="todoAction">不合适</view>
+				<view data-action="recruiter-arrangement" class="accept" bindtap="todoAction">修改面试</view>
 			</view>
 		</block>
 
