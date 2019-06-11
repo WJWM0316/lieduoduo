@@ -117,7 +117,7 @@
 		<!-- 求职端已开启撩 招聘端可接受可拒绝 end-->
 		
 		<!-- 招聘端主动发起开料 start-->
-		<block wx:if="{{!interviewInfos.haveInterview && interviewInfos.lastInterviewStatus < 50}}">
+		<block wx:if="{{!interviewInfos.haveInterview && !interviewInfos.isOnProtected}}">
 			<view class="content">
 				<view class="first"><view class="name">{{infos.name || infos.recruiterInfo.name}}</view></view>
 				<view class="second">{{jobWords}}</view>
@@ -135,7 +135,7 @@
 		</block>
 		<block wx:if="{{!interviewInfos.haveInterview && (interviewInfos.lastInterviewStatus === 52 || interviewInfos.lastInterviewStatus === 53)}}">
 			<view class="min-row">
-				<view class="btn_01">已标记不适合，<text class="active" data-action="reason" bindtap="todoAction">查看原因</text></view>
+				<view class="btn_01">已标记不合适，<text class="active" data-action="reason" bindtap="todoAction">查看原因</text></view>
 				<view class="btn_02 active" data-action="retract" bindtap="todoAction" wx:if="{{interviewInfos.canRetract}}"><i class="icon iconfont icon-huidaojintian"></i> 撤回</view>
 			</view>
 		</block>
