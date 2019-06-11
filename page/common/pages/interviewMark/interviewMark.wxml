@@ -1,7 +1,7 @@
 <view class="interviewMark">
-	<navbar title="{{options.type === 'pending' ? '标记不适合' : '不适合原因'}}" background="#FFFFFF" color="#22292C"></navbar>
+	<navbar title="{{options.type === 'pending' ? '标记不合适' : '不合适原因'}}" background="#FFFFFF" color="#22292C"></navbar>
 	<block wx:if="{{options.type === 'pending'}}">
-		<view class="h2">请选择不适合的原因（多选）</view>
+		<view class="h2">请选择不合适的原因（多选）</view>
 		<view class="ul">
 			<view class="li {{item.active ? 'active' : ''}}"
 				wx:for="{{list}}"
@@ -28,7 +28,7 @@
 	  </view>
 	</block>
 	<block wx:else>
-		<view class="h2">不适合的原因：</view>
+		<view class="h2">不合适的原因：</view>
 		<view class="ul">
 			<view class="li"
 				wx:for="{{list}}"
