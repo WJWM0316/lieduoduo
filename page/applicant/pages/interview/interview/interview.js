@@ -89,10 +89,7 @@ Page({
   },
   // 查看面试历史
   jumpInterviewPage(e) {
-    wx.navigateTo({
-      url: `${APPLICANT}interview/history/history`,
-      success: () => this.initDefault()
-    })
+    wx.navigateTo({url: `${APPLICANT}interview/history/history`})
   },
   /* 面试日程 */
   getResult(e) {

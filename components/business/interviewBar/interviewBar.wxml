@@ -21,7 +21,7 @@
 		<!-- 求职者还没有发起开撩动作 招聘官主页 end-->
 
 		<!-- 求职者还没有发起开撩动作 职位详情 start-->
-		<block wx:if="{{type === 'position' && (!interviewInfos.haveInterview || interviewInfos.interviewStatus === 51 || interviewInfos.interviewStatus === 54 || interviewInfos.interviewStatus === 52)}}">
+		<block wx:if="{{type === 'position' && (!interviewInfos.haveInterview || interviewInfos.interviewStatus === 51 || interviewInfos.interviewStatus === 54 || interviewInfos.interviewStatus === 52 || interviewInfos.interviewStatus === 55)}}">
 			<view class="content">
 				<view class="first">
 					<view class="name">{{infos.recruiterInfo.name}}</view>
@@ -117,7 +117,7 @@
 		<!-- 求职端已开启撩 招聘端可接受可拒绝 end-->
 		
 		<!-- 招聘端主动发起开料 start-->
-		<block wx:if="{{!interviewInfos.haveInterview && !interviewInfos.isOnProtected}}">
+		<block wx:if="{{!interviewInfos.haveInterview && !interviewInfos.isOnProtected && !interviewInfos.hasUnsuitRecord}}">
 			<view class="content">
 				<view class="first"><view class="name">{{infos.name || infos.recruiterInfo.name}}</view></view>
 				<view class="second">{{jobWords}}</view>
@@ -126,6 +126,7 @@
 				开撩约面
 			</button>
 		</block>
+
 		<block wx:if="{{!interviewInfos.haveInterview && interviewInfos.isOnProtected && (interviewInfos.lastInterviewStatus !== 54 || interviewInfos.lastInterviewStatus !== 55)}}">
 			<view class="content">
 				<view class="first"><view class="name">{{infos.name || infos.recruiterInfo.name}}</view></view>
@@ -133,10 +134,11 @@
 			</view>
 			<button class="clear-style button-box reject freeze"> 对方暂不考虑 </button>
 		</block>
+
 		<block wx:if="{{!interviewInfos.haveInterview && (interviewInfos.lastInterviewStatus === 52 || interviewInfos.lastInterviewStatus === 53)}}">
 			<view class="min-row">
 				<view class="btn_01">已标记不合适，<text class="active" data-action="reason" bindtap="todoAction">查看原因</text></view>
-				<view class="btn_02 active" data-action="retract" bindtap="todoAction" wx:if="{{interviewInfos.canRetract}}"><i class="icon iconfont icon-huidaojintian"></i> 撤回</view>
+				<view class="btn_02 active" data-action="retract" bindtap="todoAction"><i class="icon iconfont icon-huidaojintian"></i> 撤回</view>
 			</view>
 		</block>
 		<!-- 招聘端主动发起开料 end-->

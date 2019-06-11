@@ -92,10 +92,7 @@ Page({
   },
   // 查看面试历史
   jumpInterviewPage() {
-    wx.navigateTo({
-      url: `${RECRUITER}interview/history/history`,
-      success: () => this.initDefault()
-    })
+    wx.navigateTo({url: `${RECRUITER}interview/history/history`})
   },
   bindChange(e) {
     let type = ''

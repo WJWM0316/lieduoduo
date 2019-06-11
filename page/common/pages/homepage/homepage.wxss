@@ -3,9 +3,10 @@
   display: flex;
   line-height: 88rpx;
   padding: 0 30rpx;
+  height: 88rpx;
   background:#FBFBFF;
   z-index: 2;
-  padding-top: 20rpx;
+  border-top: 20rpx #FBFBFF solid;
   position: relative;
 }
 
@@ -566,9 +567,8 @@
   box-sizing: border-box;
   background: white;
   white-space: nowrap;
-  margin: 0 auto;
+  margin: 0 30rpx;
   padding: 26rpx 40rpx;
-  width: 690rpx;
   height:100rpx;
   box-shadow:0rpx 0rpx 20rpx 0rpx rgba(22,39,77,0.1);
   border-radius:0rpx 0rpx 0rpx 0rpx;
@@ -577,6 +577,13 @@
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
   font-size: 0;
+}
+
+::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  color: transparent;
+  display: none;
 }
 
 .job-list .icon_triangle{

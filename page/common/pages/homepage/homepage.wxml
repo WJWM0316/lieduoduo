@@ -33,7 +33,7 @@
 		<image src="{{cdnImagePath}}line00001.png" class="image" hidden="{{tab === 'about'}}"></image>
 	</view>
 	
-	<view class="child-box" hidden="{{tab === 'about'}}" wx:if="{{positionTypeList.length>0}}">
+	<view class="child-box" hidden="{{tab === 'about'}}" wx:if="{{positionTypeList.length > 1}}">
 		
 		<text
 			class="tab {{item.active ? 'tab-active' : ''}}"
