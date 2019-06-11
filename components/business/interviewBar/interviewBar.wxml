@@ -21,7 +21,7 @@
 		<!-- 求职者还没有发起开撩动作 招聘官主页 end-->
 
 		<!-- 求职者还没有发起开撩动作 职位详情 start-->
-		<block wx:if="{{type === 'position' && (!interviewInfos.haveInterview || interviewInfos.interviewStatus === 51 || interviewInfos.interviewStatus === 54 || interviewInfos.interviewStatus === 52 || interviewInfos.interviewStatus === 55)}}">
+		<block wx:if="{{type === 'position' && (!interviewInfos.haveInterview || interviewInfos.interviewStatus === 51 || interviewInfos.interviewStatus === 54 || interviewInfos.interviewStatus === 52 || interviewInfos.interviewStatus === 55 || interviewInfos.interviewStatus === 58)}}">
 			<view class="content">
 				<view class="first">
 					<view class="name">{{infos.recruiterInfo.name}}</view>
@@ -98,9 +98,9 @@
 
 	<block wx:else>
 
-		<view class="img-box" wx:if="{{interviewInfos.lastInterviewStatus !== 52}}">
+		<view class="img-box" wx:if="{{!interviewInfos.hasUnsuitRecord}}">
 			<image mode="aspectFill" src="{{infos.avatar.smallUrl || infos.recruiterInfo.avatar.smallUrl}}" class="img"></image>
-			<image class="tips-img" mode="aspectFill" src="{{cdnImagePath}}img_protected_01.png" wx:if="{{interviewInfos.lastInterviewStatus === 54 && interviewInfos.isOnProtected && interviewInfos.isReadRedot}}"></image>
+			<image class="tips-img" mode="aspectFill" src="{{cdnImagePath}}img_protected_01.png" wx:if="{{interviewInfos.isOnProtected && interviewInfos.isReadRedot}}"></image>
 		</view>
 
 		<!-- 求职端已开启撩 招聘端可接受可拒绝 start-->
@@ -127,7 +127,7 @@
 			</button>
 		</block>
 
-		<block wx:if="{{!interviewInfos.haveInterview && interviewInfos.isOnProtected && (interviewInfos.lastInterviewStatus !== 54 || interviewInfos.lastInterviewStatus !== 55)}}">
+		<block wx:if="{{!interviewInfos.haveInterview && interviewInfos.isOnProtected}}">
 			<view class="content">
 				<view class="first"><view class="name">{{infos.name || infos.recruiterInfo.name}}</view></view>
 				<view class="second">暂不考虑</view>
@@ -135,7 +135,7 @@
 			<button class="clear-style button-box reject freeze"> 对方暂不考虑 </button>
 		</block>
 
-		<block wx:if="{{!interviewInfos.haveInterview && (interviewInfos.lastInterviewStatus === 52 || interviewInfos.lastInterviewStatus === 53)}}">
+		<block wx:if="{{!interviewInfos.haveInterview && interviewInfos.hasUnsuitRecord}}">
 			<view class="min-row">
 				<view class="btn_01">已标记不合适，<text class="active" data-action="reason" bindtap="todoAction">查看原因</text></view>
 				<view class="btn_02 active" data-action="retract" bindtap="todoAction"><i class="icon iconfont icon-huidaojintian"></i> 撤回</view>

@@ -48,7 +48,7 @@
         </view>
       </view>
 
-      <view class="detail read" wx:if="{{identity === 'APPLICANT' || (identity === 'RECRUITER' && (info.status === 12 || info.status === 31 || info.status === 41 || info.status === 51 || info.status === 59 || info.status === 57 || info.status === 56))}}">
+      <view class="detail read" wx:if="{{identity === 'APPLICANT' || (identity === 'RECRUITER' && (info.status === 12 || info.status === 31 || info.status === 41 || info.status === 51 || info.status === 59 || info.status === 57 || info.status === 56 || info.status === 58))}}">
         <view class="title"><icon class="icon"></icon>面试信息</view>
         <view class="msgItem" bindtap="callPhone">
           <view class="inner">
@@ -73,7 +73,7 @@
             <i class="icon iconfont icon-xiangyou"></i>
           </view>
         </view>
-        <view class="msgItem" wx:if="{{info.status > 50}}">
+        <view class="msgItem" wx:if="{{info.status > 50 && identity === 'RECRUITER'}}">
           <view class="inner noborder">
             <i class="icon1 iconfont icon-shijian"></i>
             <view class="msg noWrap">{{info.arrangementInfo.appointment}}</view>
@@ -176,7 +176,7 @@
       </view>
 
       <!-- 面试结果 -->
-      <view class="interview-result-box" wx:if="{{(info.status === 51 || info.status === 59 || info.status === 57 || info.status === 56) && identity === 'RECRUITER'}}">
+      <view class="interview-result-box" wx:if="{{(info.status === 51 || info.status === 59 || info.status === 57 || info.status === 56 || info.status === 58) && identity === 'RECRUITER'}}">
         <view class="title"><icon class="icon"></icon>面试结果</view>
 
         <view wx:if="{{info.status === 51}}">
