@@ -90,7 +90,7 @@
 										<view class="name">{{item.recruiterRealname}}</view>
 										<view class="degree" wx:if="{{item.recruiterPositionName}}">{{item.recruiterPositionName}}</view>
 									</view>
-									<view class="time {{item.status === 51 ? '' : 'color'}}">{{item.arrangementInfo.appointment}}</view>
+									<view class="time {{item.status > 50 ? '' : 'color'}}">{{item.arrangementInfo.appointment}}</view>
 								</view>
 								<view class="infos2">{{item.companyShortname}}</view>
 							</view>

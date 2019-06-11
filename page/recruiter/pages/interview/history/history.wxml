@@ -93,7 +93,7 @@
 							<view class="content">
 								<view class="row10">
 									<view class="user-name">{{item.jobhunterRealname}}</view>
-									<view class="time {{item.status === 51 ? '' : 'color'}}">{{item.arrangementInfo.appointment}}</view>
+									<view class="time {{item.status > 50 ? '' : 'color'}}">{{item.arrangementInfo.appointment}}</view>
 								</view>
 								<view class="infos1">
 									{{item.workExperienceDesc}} · {{item.educationDesc}}
