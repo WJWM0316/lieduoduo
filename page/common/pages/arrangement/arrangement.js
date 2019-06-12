@@ -399,7 +399,7 @@ Page({
         })
         break
       case 'bad':
-        wx.navigateTo({url: `${COMMON}interviewMark/interviewMark?type=pending&jobhunterUid=${info.jobhunterInfo.uid}`})
+        wx.navigateTo({url: `${COMMON}interviewMark/interviewMark?type=pending&jobhunterUid=${info.jobhunterInfo.uid}&lastInterviewId=${info.interviewId}`})
         break
       case 'good':
         setInterviewCommentApi({interviewId: info.interviewId}).then(() => {
@@ -415,7 +415,7 @@ Page({
         interviewRetractApi({id: info.jobhunterInfo.uid}).then(() => _this.pageInit())
         break
       case 'notsuitable':
-        wx.navigateTo({url: `${COMMON}interviewMark/interviewMark?type=pending&jobhunterUid=${info.jobhunterInfo.uid}`})
+        wx.navigateTo({url: `${COMMON}interviewMark/interviewMark?type=pending&jobhunterUid=${info.jobhunterInfo.uid}&lastInterviewId=${info.interviewId}&reBack=2`})
         break
       default:
         break

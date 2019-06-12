@@ -438,19 +438,7 @@ Component({
             wx.navigateTo({url: `${COMMON}chooseJob/chooseJob?type=reject_chat&from=${this.data.currentPage}&jobhunterUid=${infos.uid}`})
             wx.setStorageSync('interviewChatLists', this.data.interviewInfos)
           } else {
-            wx.navigateTo({url: `${COMMON}interviewMark/interviewMark?type=pending&jobhunterUid=${infos.uid}`})
-            // app.wxConfirm({
-            //   title: '该求职者不适合',
-            //   content: '确定标记该求职者为不适合后，将终止这次约面流程',
-            //   showCancel: true,
-            //   cancelText: '我再想想',
-            //   confirmText: '确定',
-            //   cancelColor: '#BCBCBC',
-            //   confirmColor: '#652791',
-            //   confirmBack: () => {
-            //     refuseInterviewApi({id: infos.uid}).then(() => this.getInterviewStatus())
-            //   }
-            // })
+            wx.navigateTo({url: `${COMMON}interviewMark/interviewMark?type=pending&jobhunterUid=${infos.uid}&lastInterviewId=${interviewInfos.data[0].interviewId}`})
           }
           break
         // 求职者查看面试详情
@@ -545,7 +533,9 @@ Component({
           wx.navigateTo({url: `${COMMON}chooseJob/chooseJob?type=recruiter_chat&from=${this.data.currentPage}&jobhunterUid=${infos.uid}`})
           break
         case 'retract':
-          interviewRetractApi({id: infos.uid}).then(() => this.getInterviewStatus())
+          interviewRetractApi({id: infos.uid}).then(() => {
+            this.getInterviewStatus()
+          })
           break
         case 'reason':
           wx.navigateTo({url: `${COMMON}interviewMark/interviewMark?type=resolve&jobhunterUid=${infos.uid}&lastInterviewId=${interviewInfos.lastInterviewId}`})

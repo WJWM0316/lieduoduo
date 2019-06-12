@@ -466,7 +466,7 @@ Page({
 
           // 都不合适 则直接拒绝
           if(this.data.unsuitableChecked) {
-            wx.navigateTo({url: `${COMMON}interviewMark/interviewMark?type=pending&jobhunterUid=${params.id}`})
+            wx.navigateTo({url: `${COMMON}interviewMark/interviewMark?type=pending&jobhunterUid=${params.id}&reBack=2`})
             console.log(params)
             // this.refuseInterview(params)
           } else {

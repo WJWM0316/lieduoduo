@@ -155,10 +155,10 @@
         <view class="txt2" wx:if="{{identity === 'APPLICANT'}}">时间已添加到面试日程，记得准时赴约噢~</view>
         <view class="txt3">{{filters.dateFormat(info.arrangementInfo.appointmentTime, 'YYYY-MM-DD hh:mm')}}</view>
       </view>
-<!--       <view class="realDate" wx:if="{{info.status === 51}}">
+      <view class="realDate" wx:if="{{(info.status === 51 || info.status === 56 || info.status === 57 || info.status === 58 || info.status === 59)  && identity === 'APPLICANT'}}">
         <view class="txt1">面试已结束</view>
         <view class="txt3 end">{{filters.dateFormat(info.arrangementInfo.appointmentTime, 'YYYY-MM-DD hh:mm')}}</view>
-      </view> -->
+      </view>
       
       <!-- 招聘官主动发起开撩 求职者暂未同意 -->
       <view class="recruiter-waiting" wx:if="{{identity === 'RECRUITER' && info.status === 12}}">
@@ -198,7 +198,7 @@
         <view wx:if="{{info.status === 57 || info.status === 58}}">
           <view class="arrive-status">到场面试后感觉如何？评价一下吧～</view>
           <view class="btn-list_2">
-            <view class="btn btn01" bindtap="todoAction" data-action="sad">
+            <view class="btn btn01" bindtap="todoAction" data-action="notsuitable">
               <view class="img"><image class="pic" src="{{cdnImagePath}}img_sad_01.png"></image></view>
               <view class="txt">不合适</view>
             </view>

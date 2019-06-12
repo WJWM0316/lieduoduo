@@ -121,7 +121,7 @@
 
 								<!-- 系统或者官方推荐 start -->
 								<block wx:else>
-									<view class="featured-icon">精选</view>
+									<view class="featured-icon">热门简历推荐</view>
 									<view class="text">
 										根据你的
 										<view class="position limit-wid">{{item.positionName}}</view>

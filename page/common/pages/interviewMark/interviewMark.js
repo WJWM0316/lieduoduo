@@ -98,10 +98,15 @@ Page({
     }
     let tem = list.map(field => field.id)
     let reason = tem.join(',')
-    let params = {reason, id: this.options.jobhunterUid, extra: this.data.extra}
+    let options = this.data.options
+    let params = {reason, id: options.jobhunterUid, extra: this.data.extra, interviewId: options.lastInterviewId}
     refuseInterviewApi(params).then(() => {
       wx.removeStorageSync('interviewChatLists')
-      wx.navigateBack({delta: 1 })
+      if(options.reBack) {
+        wx.navigateBack({delta: 2 })
+      } else {
+        wx.navigateBack({delta: 1 })
+      }
     })
   }
 })
