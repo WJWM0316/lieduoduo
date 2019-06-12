@@ -79,14 +79,13 @@
   font-weight: 500;
 }
 .detail .inner .msg {
-  color: #282828;
+  color: #5C565D;
   overflow: hidden;
   line-height: 40rpx;
   align-items: center;
   flex: 1;
   text-overflow:ellipsis;
   white-space: nowrap;
-  font-weight:500;
 }
 .detail .inner .msg.noWrap {
   white-space: normal;
@@ -456,8 +455,12 @@
 }
 
 .interview-result-box .img image{
-  width: 100%;
-  height: 100%;
+  width: 96rpx;
+  height: 96rpx;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .interview-result-box .btn-list_1 .txt {
