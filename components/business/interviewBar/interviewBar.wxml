@@ -100,7 +100,7 @@
 			<view class="btnBox">
 				<block wx:if="{{!interviewInfos.hasUnsuitRecord && !interviewInfos.isOnProtected}}">
 					<block wx:if="{{!interviewInfos.haveInterview}}">
-						<view class="uninterested">不感兴趣</view>
+						<view class="uninterested" data-action="recruiter-reject" bindtap="todoAction">不感兴趣</view>
 						<view class="invitation" data-action="recruiter-chat" bindtap="todoAction">立即邀约</view>
 					</block>
 					<block wx:else>
