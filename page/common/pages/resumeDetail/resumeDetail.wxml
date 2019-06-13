@@ -6,7 +6,7 @@
 
 
 
-<block wx:if="{{!info.sourceDesc || (info.sourceDesc === 500 && info.arRecommendToCompany)}}">
+<block wx:if="{{!invisible}}">
   <view class="resume-from" wx:if="{{info.sourceDesc === 500}}">
     <view class="text4">
       <image class="icon1 icon-left img01" src="{{cdnImagePath}}sanjiaoxing001.png"></image>
@@ -31,11 +31,11 @@
       </button>
 
     <!-- 基本信息 -->
-      <view class="personalInfo commentBox {{info.sourceType === 500 && info.advisor && !info.advisor.dealStatus ? 'adviser' : ''}}">
+      <view class="personalInfo commentBox {{info.sourceType === 500 && info.advisor && info.advisor.glass ? 'adviser' : ''}}">
         <view class="top">
           <button class="clear-style avatarBox" form-type="submit" bindtap="readAvatar">
             <view class="avatar">
-              <image src="{{info.avatar.smallUrl}}" class="img {{!info.arDealStatus ? 'filter' : ''}}"></image>
+              <image src="{{info.avatar.smallUrl}}" class="img {{info.advisor && info.advisor.glass ? 'filter' : ''}}"></image>
             </view>
             <view class="gender">
               <image class="sexIcon" src="{{cdnImagePath}}nan.png" wx:if="{{info.gender === 1}}"></image>
@@ -43,7 +43,7 @@
             </view>
           </button>
           <view class="info">
-            <view class="name" wx:if="{{info.sourceType !== 500 || (info.sourceType === 500 && info.advisor && info.advisor.dealStatus)}}"><text>{{info.name}}</text><i class="icon iconfont icon-bianji1 edit" data-editName="info" data-id="{{item.id}}" bindtap="edit" wx:if="{{isOwner}}"></i></view>
+            <view class="name" wx:if="{{info.sourceType !== 500 || (info.sourceType === 500 && info.advisor && !info.advisor.glass)}}"><text>{{info.name}}</text><i class="icon iconfont icon-bianji1 edit" data-editName="info" data-id="{{item.id}}" bindtap="edit" wx:if="{{isOwner}}"></i></view>
             <image wx:else src="{{cdnImagePath}}invisible2.png" class="invisible"></image>
             <view class="companyName" wx:if="{{info.lastCompanyName || info.lastPosition}}">
               <text>{{info.lastCompanyName}}</text><block wx:if="{{info.lastCompanyName && info.lastPosition}}"> | </block><text>{{info.lastPosition}}</text>
@@ -190,5 +190,22 @@
   </form>
 </block>
 <block wx:else>
-  <view class=""></view>
+  <view class="invisibleWrap" style="margin-top: -{{navH}}px">
+    <view class="wrap">
+      <view class="photo">
+        <image class="img" src="https://attach.lieduoduo.ziwork.com/default/man.png!130xauto"></image>
+      </view>
+      <view class="desc">
+        <view>该简历为顾问精选简历</view>
+        <view>暂无查看权限</view>
+      </view>
+      <view class="rule" bindtap="toggleExplainPop">什么是精选简历？</view>
+      <button class="backHomeBtn" bindtap="backHome">返回首页</button>
+    </view>
+  </view>
+  <actionSheet class="actionSheet" openPop="{{hasExplainPop}}" title="精选简历" bindclose="toggleExplainPop">
+    <view class="content">精选简历，是猎多多专业版会员享有的特权。由平台专属顾问在365天的服务周期内，持续为招聘官量身甄选优质简历，提供打包推荐、跟进邀约面试等服务。</view>
+    <view class="desc">了解更多细则，欢迎联系我们</view>
+    <button class="callPhone" bindtap="callPhone">{{telePhone}}</button>
+  </actionSheet>
 </block>

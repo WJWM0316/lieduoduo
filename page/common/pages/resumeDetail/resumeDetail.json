@@ -6,6 +6,7 @@
     "navbar": "../../../../components/business/navbar/navbar",
     "shareBtn": "../../../../components/layout/shareBtn/shareBtn",
     "shrinkText": "../../../../components/functional/shrinkText/shrinkText",
-    "interviewBar": "../../../../components/business/interviewBar/interviewBar"
+    "interviewBar": "../../../../components/business/interviewBar/interviewBar",
+    "actionSheet": "../../../../components/layout/actionSheet/actionSheet"
   }
 }
