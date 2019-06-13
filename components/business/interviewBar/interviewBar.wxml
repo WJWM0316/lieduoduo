@@ -117,34 +117,6 @@
 		</block>
 
 		<block wx:else>
-			<view class="img-box">
-				<image mode="aspectFill" src="{{infos.avatar.smallUrl || infos.recruiterInfo.avatar.smallUrl}}"></image>
-			</view>
-
-			<!-- 求职端已开启撩 招聘端可接受可拒绝 start-->
-			<block wx:if="{{interviewInfos.interviewStatus === 11 && interviewInfos.haveInterview === 1}}">
-				<view class="content">
-					<view class="first"><view class="name">{{infos.name || infos.recruiterInfo.name}}</view></view>
-					<view class="second">约你面试</view>
-				</view>
-				<view class="button-box">
-					<view class="reject" data-action="recruiter-reject" bindtap="todoAction">不合适</view>
-					<view class="accept" data-action="recruiter-accept" bindtap="todoAction" data-status="{{'f'}}">确认约面</view>
-				</view>
-			</block>
-			<!-- 求职端已开启撩 招聘端可接受可拒绝 end-->
-			
-			<!-- 招聘端主动发起开料 start-->
-			<block wx:if="{{!interviewInfos.haveInterview}}">
-				<view class="content">
-					<view class="first"><view class="name">{{infos.name || infos.recruiterInfo.name}}</view></view>
-					<view class="second">{{jobWords}}</view>
-				</view>
-				<button form-type="submit" class="clear-style button-box accept" data-action="recruiter-chat" bindtap="todoAction">
-					开撩约面
-				</button>
-			</block>
-			<!-- 招聘端主动发起开料 end-->
 
 			<view class="img-box" wx:if="{{!interviewInfos.hasUnsuitRecord}}">
 				<image mode="aspectFill" src="{{infos.avatar.smallUrl || infos.recruiterInfo.avatar.smallUrl}}" class="img"></image>
