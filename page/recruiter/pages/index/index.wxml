@@ -35,7 +35,7 @@
 		<view class="row-two" bindtap="routeJump" data-route="rank">
 			<view class="content">
 				<view class="row-three">面试官本周排行榜</view>
-				<view class="row-four">我的排名：{{indexShowCount.rankDetail.currentRank > 200 ? '200+' : indexShowCount.rankDetail.currentRank}}<text class="week">人气：{{indexShowCount.rankDetail.weekOfPopularity}}</text></view>
+				<view class="row-four">我的排名：{{indexShowCount.rankDetail.currentRank > 200 ? '200+' : indexShowCount.rankDetail.currentRank}}<text class="week">本周人气：{{indexShowCount.rankDetail.weekOfPopularity}}</text></view>
 			</view>
 			<view class="imglist">
 				<image class="imgitem" lazy-load wx:for="{{indexShowCount.moreRecruiter}}" wx:key="{{index}}" src="{{item.smallUrl}}" wx:if="{{index <= 2}}"></image>
@@ -74,7 +74,32 @@
 		</view>
 
 		<view class="list-box {{collectMySelf.list.length ? '' : 'nodata'}}" hidden="{{pageList === 'browseMySelf'}}">
-			<form bindsubmit="formSubmit" report-submit='{{true}}'> 
+			<form bindsubmit="formSubmit" report-submit='{{true}}'>
+				<button form-type="submit" class="formIdBtn" wx:if="{{indexShowCount.advisor}}">
+					<view class="item2">
+						<view class="row-one">
+							<view class="img-box"><image lazy-load></image></view>
+							<view class="content">
+								<view class="header">
+									<view class="name">顾问精选简历</view>
+								</view>
+								<view class="degress">
+									<block wx:if="{{indexShowCount.advisor.total}}">
+										<block wx:if="{{indexShowCount.advisor.notHandleNum > 4}}">
+											<text class="num">{{indexShowCount.advisor.notHandleNum}}</text> 位候选人未处理
+										</block>
+										<block wx:else>
+											<text>已推荐 {{indexShowCount.advisor.total}} 位候选人</text>
+										</block>
+									</block>
+									<block wx:else>
+										<text>有合适简历将立即给您推荐</text>
+									</block>
+								</view>
+							</view>
+						</view>
+					</view>
+				</button>
 				<button
 					form-type="submit"
 					bindtap="viewResumeDetail"
@@ -123,7 +148,7 @@
 
 								<!-- 系统或者官方推荐 start -->
 								<block wx:else>
-									<view class="featured-icon">精选</view>
+									<view class="featured-icon">热门</view>
 									<view class="text">
 										根据你的
 										<view class="position limit-wid">{{item.positionName}}</view>

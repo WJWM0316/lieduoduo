@@ -89,6 +89,8 @@
         "pages/user/editBrief/editBrief",
         "pages/user/editDeclaration/editDeclaration",
         "pages/user/chooseTopic/chooseTopic",
+        "pages/user/myAccount/myAccount",
+        "pages/user/adviser/adviser",
         "pages/company/indexEdit/indexEdit",
         "pages/company/baseEdit/baseEdit",
         "pages/company/introducingEdit/introducingEdit",
@@ -121,7 +123,8 @@
   },
   "usingComponents": {
     "bottomStatus": "components/layout/bottomStatus/bottomStatus",
-    "refreshStatus": "components/layout/refreshStatus/refreshStatus"
+    "refreshStatus": "components/layout/refreshStatus/refreshStatus",
+    "navbar": "components/business/navbar/navbar"
   },
   "debug": false,
   "sitemapLocation": "sitemap.json"

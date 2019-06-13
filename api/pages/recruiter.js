@@ -180,3 +180,43 @@ export const getIndexShowCountApi = (data) => {
     hasLoading: false
   })
 }
+
+// 获取精选顾问列表
+export const getAdvisorListApi = (data, hasLoading) => {
+  return request({
+    url: `/advisor/recommend/list`,
+    method: 'get',
+    data,
+    hasLoading: hasLoading
+  })
+}
+
+// 获取扣点信息
+export const getRecommendChargeApi = (data, hasLoading) => {
+  return request({
+    url: `/advisor/recommend/charge/${data.positionId}`,
+    method: 'get',
+    data,
+    hasLoading: hasLoading
+  })
+}
+
+// 获取我的账户信息
+export const getMyAccoutApi = (data, hasLoading) => {
+  return request({
+    url: `/user/account`,
+    method: 'get',
+    data,
+    hasLoading: hasLoading
+  })
+}
+
+// 获取我的账户明细
+export const getOrdersListApi = (data, hasLoading) => {
+  return request({
+    url: `/user/account/orders`,
+    method: 'get',
+    data,
+    hasLoading: hasLoading
+  })
+}

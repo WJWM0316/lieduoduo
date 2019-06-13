@@ -323,9 +323,9 @@ Page({
    */
   onPageScroll(e) {
     if(e.scrollTop > 10) {
-      this.setData({isFixed: true, background: '#652791'})
+      if (this.data.background !== '#652791') this.setData({isFixed: true, background: '#652791'})
     } else {
-      this.setData({isFixed: false, background: 'transparent'})
+      if (this.data.background !== '#transparent') this.setData({isFixed: false, background: 'transparent'})
     }
     if(e.scrollTop > fixedDomPosition) {
       if(!this.data.fixedDom) this.setData({fixedDom: true})

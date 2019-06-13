@@ -45,12 +45,34 @@
 			<i class="icon iconfont icon-xiangyou"></i>
 		</view> -->
 
-		<view class="li" bindtap="routeJump" data-route="company">
+		<view class="li toolbox">
+			<view class="tool-item red"  bindtap="routeJump" data-route="adviser">
+				<image class="icon" src="{{cdnPath}}icon_my_resume.png"></image>
+				<view class="title">精选顾问</view>
+				<view class="txt"><text class="num">+</text>份未处理</view>
+			</view>
+			<view class="tool-item"  bindtap="routeJump" data-route="myAccount">
+				<image class="icon" src="{{cdnPath}}icon_my_account.png"></image>
+				<view class="title">我的账号</view>
+				<view class="txt"><text class="num">{{pageInfos.remain}}</text>多多币</view>
+			</view>
+			<view class="tool-item" bindtap="routeJump" data-route="interest">
+				<image class="icon" src="{{cdnPath}}icon_my_rights.png"></image>
+				<view class="title">我的权益</view>
+				<view class="txt">{{pageInfos.rtVersionName}}</view>
+			</view>
+			<view class="tool-item"  bindtap="routeJump" data-route="company">
+				<image class="icon" src="{{cdnPath}}icon_my_company.png"></image>
+				<view class="title">公司主页</view>
+			</view>
+		</view>
+
+		<!-- <view class="li" bindtap="routeJump" data-route="company">
 			<i class="icon iconfont icon-gongsi1 label-icon"></i>
 			<view class="text">我的公司</view>
 			<i class="icon iconfont icon-xiangyou"></i>
-		</view>
-
+		</view> -->
+		
 		<view class="li" bindtap="routeJump" data-route="team">
 			<i class="icon iconfont icon-zhaopintuandui label-icon"></i>
 			<view class="text">招聘团队</view>
@@ -69,12 +91,12 @@
 			<i class="icon iconfont icon-xiangyou"></i>
 		</view>
 
-		<view class="li" bindtap="routeJump" data-route="interest">
+		<!-- <view class="li" bindtap="routeJump" data-route="interest">
 			<i class="icon iconfont icon-wodequanyi label-icon"></i>
 			<i class="icon iconfont icon-xiangyou"></i>
 			<view class="text">我的权益</view>
 			<view class="text2 color-default">{{pageInfos.rtVersionName}}</view>
-		</view>
+		</view> -->
 
 		<view class="li" bindtap="routeJump" data-route="identity">
 			<i class="icon iconfont icon-renzheng label-icon"></i>

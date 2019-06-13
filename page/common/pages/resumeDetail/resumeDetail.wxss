@@ -5,6 +5,7 @@
   padding: 25rpx 30rpx;
   box-sizing: border-box;
   position: relative;
+  min-height: 85vh;
 }
 .share{
   width: 76rpx;
@@ -25,6 +26,9 @@
   height: 120rpx;
   margin-right: 40rpx;
   position: relative;
+}
+.adviser .avatarBox {
+  margin-right: 18rpx;
 }
 .avatarBox .gender{
   position: absolute;
@@ -53,8 +57,16 @@
   width: 120rpx;
   height: 120rpx;
   background-color: #ccc;
-  box-shadow:0px 2px 12px 0px rgba(0,0,0,0.12);
+  box-shadow:0rpx 2rpx 12rpx 0rpx rgba(0,0,0,0.12);
   flex-shrink: 0;
+  overflow: hidden;
+}
+.avatar .img {
+  width: 120rpx;
+  height: 120rpx;
+}
+.adviser .avatar .img {
+  filter:blur(8rpx);
 }
 .previewFile {
   background: #fff;
@@ -98,7 +110,10 @@
   font-size: 26rpx;
   font-weight: 300;
   color: #282828;
-  padding: 16rpx 0;
+  height: 120rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   flex-grow: 1;
 }
 .personalInfo .info .name{
@@ -109,6 +124,15 @@
   display: flex;
   justify-content: space-between;
   align-content: center;
+}
+.invisible {
+  width: 172rpx;
+  height: 72rpx;
+  display: block;
+}
+.adviser .companyName {
+  padding-left: 22rpx;
+  margin-top: 6rpx;
 }
 .experience{
   font-size: 24rpx;
@@ -456,7 +480,6 @@
 }
 .addpadding{
   padding-bottom: 138rpx;
-  min-height: 100vh;
   background: #F5F4F7;
 }
 .openbtn {

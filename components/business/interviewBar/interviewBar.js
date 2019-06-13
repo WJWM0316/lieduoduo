@@ -295,7 +295,7 @@ Component({
             this.getCompanyIdentityInfos()
           } else {
             // 走正常流程
-            wx.navigateTo({url: `${COMMON}chooseJob/chooseJob?type=recruiter_chat&from=${this.data.currentPage}&jobhunterUid=${this.data.infos.uid}&recruiterUid=${app.globalData.recruiterDetails.uid}`})
+            wx.navigateTo({url: `${COMMON}chooseJob/chooseJob?type=recruiter_chat&from=${this.data.currentPage}&jobhunterUid=${this.data.infos.uid}&recruiterUid=${app.globalData.recruiterDetails.uid}&sourceType=${this.data.infos.sourceType}`})
           }
         }
       }

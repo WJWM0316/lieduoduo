@@ -16,6 +16,8 @@ import {
   getCompanyIdentityInfosApi
 } from '../../../../api/pages/company.js'
 
+import {getRecommendChargeApi} from '../../../../api/pages/recruiter.js'
+
 import {RECRUITER, COMMON} from '../../../../config.js'
 
 let app = getApp()
@@ -38,7 +40,9 @@ Page({
     nowTab: 'online',
     buttonClick: false,
     api: '',
-    identityInfos: {}
+    identityInfos: {},
+    openPayPop: false,
+    chargeData: {}, // 扣点信息
   },
   onLoad(options) {
     
@@ -198,6 +202,12 @@ Page({
       })
     })
   },
+  // 获取扣点信息
+  getRecommendCharge(params) {
+    getRecommendChargeApi(params).then(res => {
+      this.setData({chargeData: res.data})
+    })
+  },
   /**
    * @Author   小书包
    * @DateTime 2019-03-15
@@ -243,7 +253,12 @@ Page({
         params.positionId = job.id
         params.status = job.status
         result = items.list.find((find, index) => job.index === index)
-        this.setData({params, buttonClick: result.active})
+        this.setData({params, buttonClick: result.active}, () => {
+          // 判断是否是精选简历需要先获取扣点信息
+          if (Number(this.data.options.sourceType) === 500) {
+            this.getRecommendCharge(params)
+          }
+        })
         break
 
       // 求职者 主动发起开撩
@@ -489,6 +504,11 @@ Page({
             }
           })
         } else {
+          // 需要扣点
+          if (Number(options.sourceType) === 500 && !this.data.openPayPop) {
+            this.setData({openPayPop: true})
+            return
+          }
           if(params.status === 0) {
             app.wxConfirm({
               title: '开放职位约面',
@@ -517,6 +537,9 @@ Page({
       default:
         break
     }
+  },
+  closePayPop () {
+    this.setData({openPayPop: false})
   },
   /**
    * @Author   小书包

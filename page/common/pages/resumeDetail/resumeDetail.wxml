@@ -28,17 +28,20 @@
     </button>
 
   <!-- 基本信息 -->
-    <view class="personalInfo commentBox">
+    <view class="personalInfo commentBox {{info.sourceType === 500 && !info.arDealStatus ? 'adviser' : ''}}">
       <view class="top">
         <button class="clear-style avatarBox" form-type="submit" bindtap="readAvatar">
-          <image src="{{info.avatar.smallUrl}}" class="avatar"></image>
+          <view class="avatar">
+            <image src="{{info.avatar.smallUrl}}" class="img {{!info.arDealStatus ? 'filter' : ''}}"></image>
+          </view>
           <view class="gender">
             <image class="sexIcon" src="{{cdnImagePath}}nan.png" wx:if="{{info.gender === 1}}"></image>
             <image class="sexIcon" src="{{cdnImagePath}}nv.png" wx:else></image>
           </view>
         </button>
         <view class="info">
-          <view class="name"><text>{{info.name}}</text><i class="icon iconfont icon-bianji1 edit" data-editName="info" data-id="{{item.id}}" bindtap="edit" wx:if="{{isOwner}}"></i></view>
+          <view class="name" wx:if="{{info.sourceType !== 500 || (info.sourceType === 500 && info.arDealStatus)}}"><text>{{info.name}}</text><i class="icon iconfont icon-bianji1 edit" data-editName="info" data-id="{{item.id}}" bindtap="edit" wx:if="{{isOwner}}"></i></view>
+          <image wx:else src="{{cdnImagePath}}invisible2.png" class="invisible"></image>
           <view class="companyName" wx:if="{{info.lastCompanyName || info.lastPosition}}">
             <text>{{info.lastCompanyName}}</text><block wx:if="{{info.lastCompanyName && info.lastPosition}}"> | </block><text>{{info.lastPosition}}</text>
           </view>
@@ -54,7 +57,7 @@
         <image class="fgLine" src="{{cdnImagePath}}line.png"></image>
         <view class="personalTip">
           <view class="text">{{info.signature || '你还未填写个性签名，说说你的想法吧~'}}</view>
-          <view class="tipBox">
+          <view class="tipBox" wx:if="{{info.personalizedLabels.length > 0}}">
             <text class="tip" wx:for="{{info.personalizedLabels}}" wx:key="{{index}}">{{item.labelName || item.name}}</text>
           </view>
         </view>
@@ -161,7 +164,7 @@
     </view>
   </view>
 
-<button form-type="submit" wx:if="{{!realIsOwner}}" class="clear-style collect" bindtap="collect">
+<button form-type="submit" wx:if="{{(!realIsOwner && info.sourceType !== 500) || (info.sourceType === 500 && info.arDealStatus)}}" class="clear-style collect" bindtap="collect">
   <i class="icon iconfont icon-ganxingqu" wx:if="{{!info.interested}}"></i>
   <i class="icon iconfont icon-biaojiweiganxingqu" wx:else></i>
 </button>

@@ -1,0 +1,116 @@
+@import '../../../iconfont.wxss'
+
+.rule-box .content{
+  width:100vw;
+  height:814rpx;
+  background:rgba(255,255,255,1);
+  border-radius:28rpx 28rpx 0rpx 0rpx;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  overflow: hidden;
+  box-sizing: border-box;
+  z-index: 10001;
+  transform: translateY(100%);
+  transition: all ease .2s;
+  opacity: .5;
+}
+
+.rule-box .mask {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background:rgba(0,0,0,.5);
+  z-index: 9;
+}
+.rule-box .show{
+  transform: translateY(0%);
+  opacity: 1
+}
+
+.rule-box .header{
+  height:108rpx;
+  background:rgba(255,255,255,1);
+  font-size:36rpx;
+  font-weight:700;
+  color:rgba(53,64,72,1);
+  line-height: 108rpx;
+  text-align: center;
+  position: relative;
+  margin-bottom: 30rpx;
+  padding: 0 60rpx;
+}
+
+.rule-box .header .icon-close{
+  font-size: 30rpx;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 10rpx;
+  padding: 0 25rpx;
+  color: #929292;
+}
+
+.content .tip {
+  font-size:26rpx;
+  font-weight:300;
+  color:#282828;
+  line-height:26rpx;
+  text-align: center;
+}
+.content .tip .txt {
+  color: #652791;
+}
+.content .tipTitle {
+  font-size:32rpx;
+  color:#5D565D;
+  line-height:32rpx;
+  margin-top: 44rpx;
+  text-align: center;
+}
+.content .num {
+  font-size:100rpx;
+  font-weight:700;
+  color:#282828;
+  line-height:100rpx;
+  text-align: center;
+  margin: 12rpx 0 46rpx;
+}
+.content .otherMsg {
+  font-size:26rpx;
+  font-weight:300;
+  color:#929292;
+  line-height:26rpx;
+  text-align: center;
+}
+.content .otherMsg.not {
+  color: #FF7F4D;
+}
+.content .msg {
+  width: 590rpx;
+  font-size:24rpx;
+  font-weight:300;
+  color:#BCBCBC;
+  line-height:36rpx;
+  margin: 62rpx auto 44rpx;
+}
+.content .msg .txt {
+  color: #8452A7;
+  text-decoration: underline;
+}
+.sureBtn {
+  width:610rpx;
+  height:88rpx;
+  background:#652791;
+  border-radius:44rpx;
+  font-size:32rpx;
+  color:#fff;
+  line-height:88rpx;
+  margin: 0 auto;
+}
+.sureBtn.not {
+  background: #FF7F4D;
+}

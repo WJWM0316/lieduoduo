@@ -130,8 +130,11 @@
   </view>
 
   <bottomStatus status="{{onLinePositionList}}" listData="{{onLinePositionList.list}}" desc="没有更多内容了~"></bottomStatus>
-
+  
   <view
     class="footer"
-    wx:if="{{options.type === 'confirm_chat' || options.type === 'reject_chat' || options.type === 'recruiter_chat'}}"><view bindtap="submit" class="button-submit {{buttonClick ? 'button-enable' : ''}}">确定</view></view>
+    wx:if="{{options.type === 'confirm_chat' || options.type === 'reject_chat' || options.type === 'recruiter_chat'}}">
+      <view bindtap="submit" class="button-submit {{buttonClick ? 'button-enable' : ''}}">确定</view>
+  </view>
+  <payPop openPayPop="{{openPayPop}}" chargeData="{{chargeData}}" bindsubmit="submit" bindclose="closePayPop"></payPop>
 </view>

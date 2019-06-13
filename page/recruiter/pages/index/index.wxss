@@ -289,7 +289,10 @@
   white-space: nowrap;
   max-width: 450rpx;
 }
-
+.item2 .degress .num {
+  color: #FF7F4D;
+  font-weight: 700;
+}
 .item2 .row-two {
   height:40rpx;
   font-size:24rpx;

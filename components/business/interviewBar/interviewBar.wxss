@@ -233,3 +233,45 @@
 	height: 290rpx;
 	margin: 38rpx auto 32rpx auto;
 }
+
+.btnBox {
+	width: 650rpx;
+	height: 100%;
+	line-height: 80rpx;
+	overflow: hidden;
+	font-size:28rpx;
+	font-weight:700;
+	color:#fff;
+	text-align: center;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin: 0 auto;
+}
+.btnBox .uninterested {
+	width:286rpx;
+	height:80rpx;
+	background:#EFE9F4;
+	color: #652791;
+	border-radius: 40rpx 0 0 40rpx;
+}
+.btnBox .invitation {
+	width:364rpx;
+	height:80rpx;
+	background:#652791;
+	border-radius: 0 40rpx 40rpx 0rpx;
+}
+.btnBox .viewInvitations {
+	width:100%;
+	height:80rpx;
+	background:#652791;
+	color: #ffffff;
+	border-radius: 40rpx;
+}
+.btnBox .default {
+	width:100%;
+	height:80rpx;
+	background:#F5F4F7;
+	color: #929292;
+	border-radius: 40rpx;
+}

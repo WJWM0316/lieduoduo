@@ -1,0 +1,37 @@
+<view hidden="{{!hasReFresh}}">
+  <refreshStatus></refreshStatus>
+</view>
+<navbar background="{{navbarData.background}}" title="{{navbarData.title}}" color="{{navbarData.color}}"></navbar>
+<view class="adviser">
+	<view class="head" style="margin-top: -{{navHeight}}px">
+		<image class="bg" mode="widthFix" src="{{cdnPath}}selectedbg.png" bindload="imgLoad"></image>
+	</view>
+	<view class="tab {{tabFloat ? 'tabFloat' : ''}}" style="top: {{navHeight}}px">
+		<view class="tab-item {{tabIndex === index ? 'cur' : ''}} {{item.redHot ? 'red' : ''}}" wx:for="{{tabList}}" wx:key="{{index}}" bindtap="toggle" data-index="{{index}}"><text class="txt">{{item.title}}</text></view>
+	</view>
+	<view class="tip" hidden="{{tabIndex !== 1}}" bindtap="jump">
+		<text>已邀约简历，可在【面试-我的邀请】统一处理</text><view class="go"><text>前往</text><i class="icon iconfont icon-xiangyou"></i></view>
+	</view>
+	<view class="list">
+		<view class="list-item" wx:for="{{listData.list}}" wx:key="{{index}}" bindtap="viewResumeDetail" data-uid="{{item.uid}}">
+			<view class="msg">
+				<view class="head">
+					<image class="img {{!item.dealStatus ? 'filter' : ''}}" mode="aspectFit" lazy-load  src="{{item.avatar.smallUrl}}"></image>
+				</view>
+				<view class="detail">
+					<view class="top {{item.dealStatus ? 'noFlex' : ''}}">
+						<text wx:if="{{item.dealStatus}}" class="name">{{item.name}}</text>
+						<image wx:else class="invisible" src="{{cdnPath}}invisible1.png"></image>
+						<text class="txt">{{item.workAgeDesc}}<block wx:if="{{item.degreeDesc}}"> · {{item.degreeDesc}}</block><block wx:if="{{item.salaryCeil}}"> · {{item.salaryFloor}}-{{item.salaryCeil}}k</block></text>
+					</view>
+					<view class="bot">{{item.lastCompanyName}}<block wx:if="{{item.lastCompanyName && item.lastCompanyName}}"> | </block>{{item.lastPosition}}</view>
+				</view>
+			</view>
+			<view class="desc">
+				<text class="icon">精选</text>
+				<text class="txt">根据你的<text class="positionName"> {{item.positionName}} </text>为你推荐</text>
+			</view>
+		</view>
+	</view>
+	<bottomStatus status="{{listData.onBottomStatus}}" listData="{{listData.list}}"></bottomStatus>
+</view>

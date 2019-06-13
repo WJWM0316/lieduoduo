@@ -90,7 +90,13 @@ Page({
         })
         break
       case 'interest':
-        wx.navigateTo({url: `${RECRUITER}company/interest/interest` })
+        wx.navigateTo({url: `${RECRUITER}company/interest/interest`})
+        break
+      case 'adviser':
+        wx.navigateTo({url: `${RECRUITER}user/adviser/adviser`})
+        break
+      case 'myAccount':
+        wx.navigateTo({url: `${RECRUITER}user/myAccount/myAccount`})
         break
       default:
         break
