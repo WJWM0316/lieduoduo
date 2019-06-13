@@ -490,9 +490,6 @@ Page({
       case 55:
         wx.navigateTo({url: `${COMMON}resumeDetail/resumeDetail?uid=${params.jobhunteruid}`})
         break
-      case 56:
-        wx.navigateTo({url: `${COMMON}arrangement/arrangement?id=${params.itemId}`})
-        break
       case 57:
         wx.navigateTo({url: `${COMMON}arrangement/arrangement?id=${params.itemId}`})
         break
@@ -500,6 +497,12 @@ Page({
         wx.navigateTo({url: `${COMMON}arrangement/arrangement?id=${params.itemId}`})
         break
       case 59:
+        wx.navigateTo({url: `${COMMON}arrangement/arrangement?id=${params.itemId}`})
+        break
+      case 60:
+        wx.navigateTo({url: `${COMMON}arrangement/arrangement?id=${params.itemId}`})
+        break
+      case 61:
         wx.navigateTo({url: `${COMMON}arrangement/arrangement?id=${params.itemId}`})
         break
       default:

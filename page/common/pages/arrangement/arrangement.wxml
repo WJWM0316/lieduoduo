@@ -42,13 +42,13 @@
         <view class="msgItem jump" bindtap="jump" data-type="addressList">
           <view class="inner noborder">
             <view class="txt">面试地址</view>
-            <view class="msg" data-type="addressList">{{info.address}}</view>
+            <view class="msg" data-type="addressList">{{info.address}}{{info.doorplate}}</view>
             <icon class="icon iconfont icon-xiangyou"></icon>
           </view>
         </view>
       </view>
 
-      <view class="detail read" wx:if="{{identity === 'APPLICANT' || (identity === 'RECRUITER' && (info.status === 12 || info.status === 31 || info.status === 41 || info.status === 51 || info.status === 59 || info.status === 57 || info.status === 56 || info.status === 58))}}">
+      <view class="detail read" wx:if="{{identity === 'APPLICANT' || (identity === 'RECRUITER' && (info.status === 12 || info.status === 31 || info.status === 41 || info.status === 51 || info.status === 59 || info.status === 57 || info.status === 60 || info.status === 58 || info.status === 61))}}">
         <view class="title"><icon class="icon"></icon>面试信息</view>
         <view class="msgItem" bindtap="callPhone">
           <view class="inner">
@@ -69,7 +69,7 @@
         <view class="msgItem jump" wx:if="{{info.address}}" bindtap="openMap">
           <view class="inner noborder">
             <i class="icon1 iconfont icon-mianshidizhi"></i>
-            <view class="msg noWrap">{{info.address}}</view>
+            <view class="msg noWrap">{{info.address}}{{info.doorplate}}</view>
             <i class="icon iconfont icon-xiangyou"></i>
           </view>
         </view>
@@ -155,7 +155,7 @@
         <view class="txt2" wx:if="{{identity === 'APPLICANT'}}">时间已添加到面试日程，记得准时赴约噢~</view>
         <view class="txt3">{{filters.dateFormat(info.arrangementInfo.appointmentTime, 'YYYY-MM-DD hh:mm')}}</view>
       </view>
-      <view class="realDate" wx:if="{{(info.status === 51 || info.status === 56 || info.status === 57 || info.status === 58 || info.status === 59)  && identity === 'APPLICANT'}}">
+      <view class="realDate" wx:if="{{(info.status === 51 || info.status === 60 || info.status === 57 || info.status === 58 || info.status === 59)  && identity === 'APPLICANT'}}">
         <view class="txt1">面试已结束</view>
         <view class="txt3 end">{{filters.dateFormat(info.arrangementInfo.appointmentTime, 'YYYY-MM-DD hh:mm')}}</view>
       </view>
@@ -176,7 +176,7 @@
       </view>
 
       <!-- 面试结果 -->
-      <view class="interview-result-box" wx:if="{{(info.status === 51 || info.status === 59 || info.status === 57 || info.status === 56 || info.status === 58) && identity === 'RECRUITER'}}">
+      <view class="interview-result-box" wx:if="{{(info.status === 51 || info.status === 59 || info.status === 57 || info.status === 60 || info.status === 58) && identity === 'RECRUITER'}}">
         <view class="title"><icon class="icon"></icon>面试结果</view>
 
         <view wx:if="{{info.status === 51}}">
@@ -230,7 +230,7 @@
         <!-- 招聘官设置求职者不合适或者系统自动设置不合适 end -->
         
         <!-- 招聘官已好评求职者 start -->
-        <view wx:if="{{info.status === 56}}">
+        <view wx:if="{{info.status === 60}}">
           <view class="sad-icon"><image class="pic" src="{{cdnImagePath}}img_smile_01.png"></image></view>
           <view class="comment_1"> 已到场面试，感觉还不错！</view>
           <view class="comment_2">
