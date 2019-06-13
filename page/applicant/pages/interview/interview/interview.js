@@ -471,6 +471,20 @@ Page({
           wx.navigateTo({url: `${COMMON}recruiterDetail/recruiterDetail?uid=${params.recruiteruid}`})
         }
         break
+      case 52:
+        if(Number(params.positionid)) {
+          wx.navigateTo({url: `${COMMON}positionDetail/positionDetail?positionId=${params.positionid}`})
+        } else {
+          wx.navigateTo({url: `${COMMON}recruiterDetail/recruiterDetail?uid=${params.recruiteruid}`})
+        }
+        break
+      case 53:
+        if(Number(params.positionid)) {
+          wx.navigateTo({url: `${COMMON}positionDetail/positionDetail?positionId=${params.positionid}`})
+        } else {
+          wx.navigateTo({url: `${COMMON}recruiterDetail/recruiterDetail?uid=${params.recruiteruid}`})
+        }
+        break
       case 54:
         if(Number(params.positionid)) {
           wx.navigateTo({url: `${COMMON}positionDetail/positionDetail?positionId=${params.positionid}`})
@@ -478,7 +492,7 @@ Page({
           wx.navigateTo({url: `${COMMON}recruiterDetail/recruiterDetail?uid=${params.recruiteruid}`})
         }
         break
-      case 52:
+      case 55:
         if(Number(params.positionid)) {
           wx.navigateTo({url: `${COMMON}positionDetail/positionDetail?positionId=${params.positionid}`})
         } else {
