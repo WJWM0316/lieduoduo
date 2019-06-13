@@ -129,11 +129,6 @@ Page({
     this.getBanner()
     this.getWelcomeWord()
   },
-  getIndexShowCount () {
-    if (wx.getStorageSync('choseType') === 'RECRUITER') {
-      return getIndexShowCountApi({hasLoading: false}).then(res => this.setData({indexShowCount: res.data, detail: res.data.recruiterInfo}))
-    }
-  },
   getBanner () {
     return getAdBannerApi({location: 'recruiter_index', hasLoading: false}).then(res => this.setData({banner: res.data.length ? res.data[0] : {}}))
   },
@@ -268,6 +263,10 @@ Page({
   },
   getIndexShowCount() {
     return new Promise((resolve, reject) => {
+      if (wx.getStorageSync('choseType') === 'APPLICANT') {
+        resolve()
+        return
+      }
       getIndexShowCountApi({hasLoading: false}).then(res => {
         this.setData({indexShowCount: res.data, detail: res.data.recruiterInfo}, () => resolve(res))
       })

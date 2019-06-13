@@ -48,7 +48,7 @@
         </view>
       </view>
 
-      <view class="detail read" wx:if="{{identity === 'APPLICANT' || (identity === 'RECRUITER' && (info.status === 12 || info.status === 31 || info.status === 41 || info.status === 51))}}">
+      <view class="detail read" wx:if="{{identity === 'APPLICANT' || (identity === 'RECRUITER' && (info.status === 12 || info.status === 31 || info.status === 41 || info.status === 51 || info.status === 59 || info.status === 57 || info.status === 56 || info.status === 58))}}">
         <view class="title"><icon class="icon"></icon>面试信息</view>
         <view class="msgItem" bindtap="callPhone">
           <view class="inner">
@@ -71,6 +71,12 @@
             <i class="icon1 iconfont icon-mianshidizhi"></i>
             <view class="msg noWrap">{{info.address}}</view>
             <i class="icon iconfont icon-xiangyou"></i>
+          </view>
+        </view>
+        <view class="msgItem" wx:if="{{info.status > 50 && identity === 'RECRUITER'}}">
+          <view class="inner noborder">
+            <i class="icon1 iconfont icon-shijian"></i>
+            <view class="msg noWrap">{{info.arrangementInfo.appointment}}</view>
           </view>
         </view>
       </view>
@@ -149,7 +155,7 @@
         <view class="txt2" wx:if="{{identity === 'APPLICANT'}}">时间已添加到面试日程，记得准时赴约噢~</view>
         <view class="txt3">{{filters.dateFormat(info.arrangementInfo.appointmentTime, 'YYYY-MM-DD hh:mm')}}</view>
       </view>
-      <view class="realDate" wx:if="{{info.status === 51}}">
+      <view class="realDate" wx:if="{{(info.status === 51 || info.status === 56 || info.status === 57 || info.status === 58 || info.status === 59)  && identity === 'APPLICANT'}}">
         <view class="txt1">面试已结束</view>
         <view class="txt3 end">{{filters.dateFormat(info.arrangementInfo.appointmentTime, 'YYYY-MM-DD hh:mm')}}</view>
       </view>
@@ -169,14 +175,79 @@
         <view class="btn" bindtap="jump" data-type="careerChance">发现更多好机会</view>
       </view>
 
+      <!-- 面试结果 -->
+      <view class="interview-result-box" wx:if="{{(info.status === 51 || info.status === 59 || info.status === 57 || info.status === 56 || info.status === 58) && identity === 'RECRUITER'}}">
+        <view class="title"><icon class="icon"></icon>面试结果</view>
+
+        <view wx:if="{{info.status === 51}}">
+          <view class="arrive-status">候选人到场了吗 ？</view>
+          <view class="btn-list_1">
+            <view class="btn btn01" bindtap="todoAction" data-action="notArrive">
+              <view class="img"><image class="pic" src="{{cdnImagePath}}img_sad_01.png"></image></view>
+              <view class="txt">候选人没来</view>
+            </view>
+            <view class="btn btn02" bindtap="todoAction" data-action="arrived">
+              <view class="img"><image class="pic" src="{{cdnImagePath}}img_smile_01.png"></image></view>
+              <view class="txt">已到场面试</view>
+            </view>
+          </view>
+          <view class="tips">* 面试时间结束后48小时内未标记，平台将默认候选人已到场面试</view>
+        </view>
+        
+        <!-- 招聘官标记求职者已到场 start -->
+        <view wx:if="{{info.status === 57 || info.status === 58}}">
+          <view class="arrive-status">到场面试后感觉如何？评价一下吧～</view>
+          <view class="btn-list_2">
+            <view class="btn btn01" bindtap="todoAction" data-action="notsuitable">
+              <view class="img"><image class="pic" src="{{cdnImagePath}}img_sad_01.png"></image></view>
+              <view class="txt">不合适</view>
+            </view>
+            <view class="btn btn02" bindtap="todoAction" data-action="good">
+              <view class="img"><image class="pic" src="{{cdnImagePath}}img_smile_01.png"></image></view>
+              <view class="txt">感觉不错</view>
+            </view>
+          </view>
+        </view>
+        <!-- 招聘官标记求职者已到场 end -->
+
+        <!-- 求职者未到场 start -->
+        <view wx:if="{{info.status === 59}}">
+          <view class="sad-icon"><image class="pic" src="{{cdnImagePath}}img_sad_01.png"></image></view>
+          <view class="comment_1">候选人没来</view>
+          <view class="comment_2">挥别错的才能和对的相逢~ <text class="strong" bindtap="todoAction" data-action="interview">再次约面</text> </view>
+        </view>
+        <!-- 求职者未到场 end -->
+        
+        <!-- 招聘官设置求职者不合适或者系统自动设置不合适 start -->
+        <view wx:if="{{info.status === 52 || info.status === 53}}">
+          <view class="sad-icon"><image class="pic" src="{{cdnImagePath}}img_sad_01.png"></image></view>
+          <view class="comment_1">已到场面试，但不适合</view>
+          <view class="comment_3">
+            <text bindtap="todoAction" data-action="reason">查看原因</text>
+            <text bindtap="todoAction" data-action="retract">撤回不合适 </text>
+          </view>
+        </view>
+        <!-- 招聘官设置求职者不合适或者系统自动设置不合适 end -->
+        
+        <!-- 招聘官已好评求职者 start -->
+        <view wx:if="{{info.status === 56}}">
+          <view class="sad-icon"><image class="pic" src="{{cdnImagePath}}img_smile_01.png"></image></view>
+          <view class="comment_1"> 已到场面试，感觉还不错！</view>
+          <view class="comment_2">
+            请联系候选人确认后续环节
+          </view>
+        </view>
+        <!-- 招聘官已好评求职者 end -->
+      </view>
     </view>
 
     <view class="btnBox" wx:if="{{identity === 'RECRUITER' && (info.status === 21 || info.status === 32)}}">
       <button class="btn" bindtap="send">发送面试安排</button>
     </view>
     <view class="btnBox1" wx:if="{{identity === 'RECRUITER' && info.status === 31}}">
-      <text class="txt">面试安排已发送，等待对方确认</text>
-      <button class="btn" bindtap="revise">修改信息</button>
+      <text class="txt">等待确认面试信息</text>
+      <button class="btn_01" bindtap="revise">修改面试</button>
+      <button class="btn_02" bindtap="todoAction" data-action="notsuitable">不合适</button>
     </view>
     <view class="btnBox" wx:if="{{identity === 'APPLICANT' && info.status === 31}}">
       <button class="btn" bindtap="sureDate">确定接受面试</button>

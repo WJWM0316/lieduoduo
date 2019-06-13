@@ -9,7 +9,6 @@
   z-index: 10;
   left: 0;
   bottom: 0;
-  overflow: hidden;
   box-sizing: border-box;
   padding: 20rpx;
   display: flex;
@@ -33,9 +32,18 @@
 	overflow: hidden;
 }
 
-.interview-bar .img-box image {
+.interview-bar .img-box .img {
 	width: 100%;
 	height: 100%;
+}
+
+.interview-bar .img-box .tips-img {
+	width: 623rpx;
+	height: 135rpx;
+	position: absolute;
+	top: -90rpx;
+	left: 0;
+	z-index: 10;
 }
 
 .interview-bar .button-box{
@@ -65,11 +73,17 @@
 	background: #EFE9F4;
 	color: #652791;
 }
+
 .interview-bar .accept, .interview-bar .reject {
   height: 80rpx;
   line-height: 80rpx;
 }
 
+.interview-bar .freeze {
+	background: #F5F4F7;
+	font-size:28rpx;
+	color:rgba(146,146,146,1);
+}
 .interview-bar .button-box-color1 {
 	background:rgba(101,39,145,1);
 	color:rgba(255,255,255,1);
@@ -233,7 +247,6 @@
 	height: 290rpx;
 	margin: 38rpx auto 32rpx auto;
 }
-
 .btnBox {
 	width: 650rpx;
 	height: 100%;
@@ -274,4 +287,26 @@
 	background:#F5F4F7;
 	color: #929292;
 	border-radius: 40rpx;
+}
+
+.min-row{
+	height: 100rpx;
+	line-height: 100rpx;
+	font-size:28rpx;
+	color:#282828;
+	flex: 1;
+}
+
+.min-row .active{
+	color:rgba(101,39,145,1);
+}
+
+.min-row .btn_01{
+	float: left;
+	padding-left: 50rpx;
+}
+
+.min-row .btn_02{
+	float: right;
+	padding-right: 50rpx;
 }

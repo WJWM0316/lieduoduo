@@ -13,14 +13,6 @@ import {getSelectorQuery} from "../../../../../utils/util.js"
 let app = getApp()
 
 let chooseTime = parseInt(new Date().getTime() / 1000)
-let initData = {
-  list: [],
-  pageNum: 1,
-  count: 20,
-  isLastPage: false,
-  isRequire: false,
-  total: 0
-}
 
 Page({
   data: {
@@ -70,9 +62,30 @@ Page({
     applyBottomStatus: 0,
     receiveBottomStatus: 0,
     interviewBottomStatus: 0,
-    applyData: {...initData},
-    receiveData: {...initData},
-    interviewData: {...initData}
+    applyData: {
+      list: [],
+      pageNum: 1,
+      count: 20,
+      isLastPage: false,
+      isRequire: false,
+      total: 0
+    },
+    receiveData: {
+      list: [],
+      pageNum: 1,
+      count: 20,
+      isLastPage: false,
+      isRequire: false,
+      total: 0
+    },
+    interviewData: {
+      list: [],
+      pageNum: 1,
+      count: 20,
+      isLastPage: false,
+      isRequire: false,
+      total: 0
+    }
   },
   // 查看面试历史
   jumpInterviewPage(e) {
@@ -252,27 +265,40 @@ Page({
     })
   },
   init () {
-    initData = {
-      list: [],
-      pageNum: 1,
-      count: 20,
-      isLastPage: false,
-      isRequire: false,
-      total: 0
-    }
     switch(this.data.tabIndex) {
       case 0:
-        let applyData = initData
+        let applyData = {
+          list: [],
+          pageNum: 1,
+          count: 20,
+          isLastPage: false,
+          isRequire: false,
+          total: 0
+        }
         this.setData({applyData})
         this.getApplyList()
         break
       case 1:
-        let receiveData = initData
+        let receiveData = {
+          list: [],
+          pageNum: 1,
+          count: 20,
+          isLastPage: false,
+          isRequire: false,
+          total: 0
+        }
         this.setData({receiveData})
         this.getInviteList()
         break
       case 2:
-        let interviewData = initData
+        let interviewData = {
+          list: [],
+          pageNum: 1,
+          count: 20,
+          isLastPage: false,
+          isRequire: false,
+          total: 0
+        }
         this.setData({interviewData}, () => this.getNewScheduleNumber())
     }
   },
@@ -280,7 +306,7 @@ Page({
     wx.setStorageSync('choseType', 'APPLICANT')
   },
   initDefault() {
-     initData = {
+    let applyData = {
       list: [],
       pageNum: 1,
       count: 20,
@@ -288,9 +314,22 @@ Page({
       isRequire: false,
       total: 0
     }
-    let applyData = initData
-    let receiveData = initData
-    let interviewData = initData
+    let receiveData = {
+      list: [],
+      pageNum: 1,
+      count: 20,
+      isLastPage: false,
+      isRequire: false,
+      total: 0
+    }
+    let interviewData = {
+      list: [],
+      pageNum: 1,
+      count: 20,
+      isLastPage: false,
+      isRequire: false,
+      total: 0
+    }
     let applyBottomStatus = 2
     let receiveBottomStatus = 2
     let interviewBottomStatus = 2
@@ -338,21 +377,20 @@ Page({
       wx.stopPullDownRefresh()
       return
     }
-    initData = {
-      list: [],
-      pageNum: 1,
-      count: 20,
-      isLastPage: false,
-      isRequire: false,
-      total: 0
-    }
     switch(this.data.tabIndex) {
       case 0:
         if (!this.data.isJobhunter) {
           wx.stopPullDownRefresh()
           return
         }
-        let applyData =initData
+        let applyData = {
+          list: [],
+          pageNum: 1,
+          count: 20,
+          isLastPage: false,
+          isRequire: false,
+          total: 0
+        }
         this.setData({applyData, applyBottomStatus: 0, hasReFresh: true})
         this.getApplyList(false).then(res => {
           wx.stopPullDownRefresh()
@@ -363,7 +401,14 @@ Page({
         })
       break
       case 1:
-        let receiveData = initData
+        let receiveData = {
+          list: [],
+          pageNum: 1,
+          count: 20,
+          isLastPage: false,
+          isRequire: false,
+          total: 0
+        }
         this.setData({receiveData, receiveBottomStatus: 0, hasReFresh: true})
         this.getInviteList(false).then(res => {
           wx.stopPullDownRefresh()
@@ -374,7 +419,20 @@ Page({
         })
       break
       case 2:
-        let interviewData = initData
+        let interviewData = {
+          list: [],
+          pageNum: 1,
+          count: 20,
+          isLastPage: false,
+          isRequire: false,
+          total: 0
+        }
+        let dateList = this.data.dateList
+        if(!dateList.length) {
+          wx.stopPullDownRefresh()
+          this.setData({hasReFresh: false})
+          return
+        }
         this.setData({interviewData, interviewBottomStatus: 0, hasReFresh: true})
         this.getScheduleList(false).then(res => {
           wx.stopPullDownRefresh()
@@ -396,13 +454,6 @@ Page({
     // 不知道什么情款  有时候拿不到数据
     if(!Object.keys(params).length) return
     switch(params.status) {
-      case 51:
-        if(Number(params.positionid)) {
-          wx.navigateTo({url: `${COMMON}positionDetail/positionDetail?positionId=${params.positionid}`})
-        } else {
-          wx.navigateTo({url: `${COMMON}recruiterDetail/recruiterDetail?uid=${params.recruiteruid}`})
-        }
-        break
       case 12:
         if(Number(params.positionid)) {
           wx.navigateTo({url: `${COMMON}positionDetail/positionDetail?positionId=${params.positionid}`})
@@ -424,6 +475,20 @@ Page({
           wx.navigateTo({url: `${COMMON}recruiterDetail/recruiterDetail?uid=${params.recruiteruid}`})
         }
         break
+      case 52:
+        if(Number(params.positionid)) {
+          wx.navigateTo({url: `${COMMON}positionDetail/positionDetail?positionId=${params.positionid}`})
+        } else {
+          wx.navigateTo({url: `${COMMON}recruiterDetail/recruiterDetail?uid=${params.recruiteruid}`})
+        }
+        break
+      case 53:
+        if(Number(params.positionid)) {
+          wx.navigateTo({url: `${COMMON}positionDetail/positionDetail?positionId=${params.positionid}`})
+        } else {
+          wx.navigateTo({url: `${COMMON}recruiterDetail/recruiterDetail?uid=${params.recruiteruid}`})
+        }
+        break
       case 54:
         if(Number(params.positionid)) {
           wx.navigateTo({url: `${COMMON}positionDetail/positionDetail?positionId=${params.positionid}`})
@@ -431,12 +496,24 @@ Page({
           wx.navigateTo({url: `${COMMON}recruiterDetail/recruiterDetail?uid=${params.recruiteruid}`})
         }
         break
-      case 52:
+      case 55:
         if(Number(params.positionid)) {
           wx.navigateTo({url: `${COMMON}positionDetail/positionDetail?positionId=${params.positionid}`})
         } else {
           wx.navigateTo({url: `${COMMON}recruiterDetail/recruiterDetail?uid=${params.recruiteruid}`})
         }
+        break
+      case 56:
+        wx.navigateTo({url: `${COMMON}arrangement/arrangement?id=${params.itemId}`})
+        break
+      case 57:
+        wx.navigateTo({url: `${COMMON}arrangement/arrangement?id=${params.itemId}`})
+        break
+      case 58:
+        wx.navigateTo({url: `${COMMON}arrangement/arrangement?id=${params.itemId}`})
+        break
+      case 59:
+        wx.navigateTo({url: `${COMMON}arrangement/arrangement?id=${params.itemId}`})
         break
       default:
         wx.navigateTo({url: `${COMMON}arrangement/arrangement?id=${params.itemId}`})

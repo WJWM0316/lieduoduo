@@ -4,7 +4,8 @@ import {
   inviteInterviewApi,
   refuseInterviewApi,
   confirmInterviewApi,
-  notonsiderInterviewApi
+  notonsiderInterviewApi,
+  interviewRetractApi
 } from '../../../api/pages/interview.js'
 
 import {
@@ -64,7 +65,8 @@ Component({
     isShare: false,
     cdnImagePath: app.globalData.cdnImagePath,
     positionInfos: {},
-    show: false
+    show: false,
+    loaded: false
   },
   attached() {
     identity = wx.getStorageSync('choseType')
@@ -170,9 +172,15 @@ Component({
      */
     getInterviewStatus() {
       getInterviewStatusApi({type: this.data.type, vkey: this.data.infos.vkey}).then(res => {
-        this.setData({interviewInfos: res.data, identity: wx.getStorageSync('choseType')})
+        let interviewInfos = res.data
+        this.setData({interviewInfos, identity: wx.getStorageSync('choseType'), loaded: true})
         if(res.code === 204) this.setData({isOwerner: true})
         if(res.code === 230) this.showMergeBox(res.data)
+        // 防止用户不刷新数据，自动取消气泡
+        setTimeout(() => {
+          interviewInfos.isReadRedot = 0
+          this.setData({interviewInfos})
+        }, 3000)
         if (!res.data.haveInterview && this.data.options && this.data.options.directChat && automatic && !this.data.options.todoAction) {
           let e = {
             currentTarget: {
@@ -430,18 +438,7 @@ Component({
             wx.navigateTo({url: `${COMMON}chooseJob/chooseJob?type=reject_chat&from=${this.data.currentPage}&jobhunterUid=${infos.uid}`})
             wx.setStorageSync('interviewChatLists', this.data.interviewInfos)
           } else {
-            app.wxConfirm({
-              title: '该求职者不适合',
-              content: '确定标记该求职者为不适合后，将终止这次约面流程',
-              showCancel: true,
-              cancelText: '我再想想',
-              confirmText: '确定',
-              cancelColor: '#BCBCBC',
-              confirmColor: '#652791',
-              confirmBack: () => {
-                refuseInterviewApi({id: infos.uid}).then(() => this.getInterviewStatus())
-              }
-            })
+            wx.navigateTo({url: `${COMMON}interviewMark/interviewMark?type=pending&jobhunterUid=${infos.uid}&lastInterviewId=${interviewInfos.data[0].interviewId}`})
           }
           break
         // 求职者查看面试详情
@@ -534,6 +531,14 @@ Component({
           break
         case 'openPosition':
           wx.navigateTo({url: `${COMMON}chooseJob/chooseJob?type=recruiter_chat&from=${this.data.currentPage}&jobhunterUid=${infos.uid}`})
+          break
+        case 'retract':
+          interviewRetractApi({id: infos.uid}).then(() => {
+            this.getInterviewStatus()
+          })
+          break
+        case 'reason':
+          wx.navigateTo({url: `${COMMON}interviewMark/interviewMark?type=resolve&jobhunterUid=${infos.uid}&lastInterviewId=${interviewInfos.lastInterviewId}`})
           break
         default:
           break

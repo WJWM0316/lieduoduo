@@ -207,7 +207,7 @@
 								<block wx:if="{{item.lastPosition}}"> | {{item.lastPosition}}</block>
 							</view>
 						</view>
-						<view class="time {{item.status !== 51 ? 'active' : ''}}"><i class="icon iconfont icon-lishijilu"></i>{{item.createdAtTime}}</view>
+						<view class="time {{item.status < 50 ? 'active' : ''}}" wx:if="{{item.createdAtTime}}"><i class="icon iconfont icon-lishijilu"></i>{{item.createdAtTime}}</view>
 					</view>
 					<view class="row-two">
 						<i class="icon iconfont icon-mianshizhiwei"></i>

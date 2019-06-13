@@ -1,4 +1,10 @@
-import {interviewDetailApi, setInterviewDetailApi, sureInterviewApi} from "../../../../api/pages/interview.js"
+import {
+  interviewDetailApi,
+  setInterviewDetailApi,
+  sureInterviewApi,
+  setInterviewAttendApi,
+  setInterviewCommentApi
+} from "../../../../api/pages/interview.js"
 import {COMMON,APPLICANT,RECRUITER} from "../../../../config.js"
 import {mobileReg} from "../../../../utils/fieldRegular.js"
 import {shareInterviewr} from '../../../../utils/shareWord.js'
@@ -158,7 +164,7 @@ Page({
         break
       case 'careerChance':
         wx.reLaunch({
-          url: `${COMMON}careerChance/careerChance`
+          url: `${APPLICANT}index/index`
         })
         break
     }
@@ -362,5 +368,57 @@ Page({
       imageUrl: btnImageUrl,
       path: `${COMMON}arrangement/arrangement?id=${this.options.id}`
     })
+  },
+  todoAction(e) {
+    let params = e.currentTarget.dataset
+    let _this = this
+    let info = _this.data.info
+    switch(params.action) {
+      case 'notArrive':
+        app.wxConfirm({
+          title: '该候选人未到场',
+          content: '确定标记未到场后，你可以再次对该候选人发起约面',
+          confirmBack() {
+            setInterviewAttendApi({interviewId: info.interviewId, isAttend: 0}).then(() => {
+              info.status = 59
+              _this.setData({info})
+            })
+          },
+          cancelBack() {}
+        })
+        break
+      case 'arrived':
+        setInterviewAttendApi({interviewId: info.interviewId, isAttend: 1}).then(() => {
+          info.status = 57
+          _this.setData({info})
+        })
+        break
+      case 'interview':
+        wx.navigateTo({
+          url: `${COMMON}resumeDetail/resumeDetail?uid=${info.jobhunterInfo.uid}`
+        })
+        break
+      case 'bad':
+        wx.navigateTo({url: `${COMMON}interviewMark/interviewMark?type=pending&jobhunterUid=${info.jobhunterInfo.uid}&lastInterviewId=${info.interviewId}`})
+        break
+      case 'good':
+        setInterviewCommentApi({interviewId: info.interviewId}).then(() => {
+          info.status = 56
+          _this.setData({info})
+          console.log(info)
+        })
+        break
+      case 'reason':
+        wx.navigateTo({url: `${COMMON}interviewMark/interviewMark?type=resolve&jobhunterUid=${info.jobhunterInfo.uid}&lastInterviewId=${info.interviewId}`})
+        break
+      case 'retract':
+        interviewRetractApi({id: info.jobhunterInfo.uid}).then(() => _this.pageInit())
+        break
+      case 'notsuitable':
+        wx.navigateTo({url: `${COMMON}interviewMark/interviewMark?type=pending&jobhunterUid=${info.jobhunterInfo.uid}&lastInterviewId=${info.interviewId}&reBack=2`})
+        break
+      default:
+        break
+    }
   }
 })

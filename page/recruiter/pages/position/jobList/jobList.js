@@ -511,10 +511,7 @@ Page({
 
     this.setData({onLinePositionList})
     if(!onLinePositionList.isLastPage) {
-      this[this.data.api](false).then(() => {
-        this.setData({onBottomStatus: 1})
-        console.log(this.data.onLinePositionList)
-      })
+      this[this.data.api](false).then(() => this.setData({onBottomStatus: 1}))
     }
   }
 })
