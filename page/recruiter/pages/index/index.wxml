@@ -75,7 +75,7 @@
 
 		<view class="list-box {{collectMySelf.list.length ? '' : 'nodata'}}" hidden="{{pageList === 'browseMySelf'}}">
 			<form bindsubmit="formSubmit" report-submit='{{true}}'>
-				<button form-type="submit" class="formIdBtn" wx:if="{{indexShowCount.advisor}}">
+				<button form-type="submit" class="formIdBtn" wx:if="{{indexShowCount.advisor}}" bindtap="routeJump" data-route="adviser">
 					<view class="item2">
 						<view class="row-one">
 							<view class="img-box"><image lazy-load></image></view>

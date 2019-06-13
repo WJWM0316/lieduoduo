@@ -373,6 +373,9 @@ Page({
       case 'recruiter':
         wx.navigateTo({url: `${COMMON}recruiterDetail/recruiterDetail?uid=${this.data.detail.uid}`})
         break
+      case 'adviser':
+        wx.navigateTo({url: `${RECRUITER}user/adviser/adviser`})
+        break
       default:
         break
     }
