@@ -469,20 +469,38 @@ Page({
   routeJump(e) {
     const params = e.currentTarget.dataset
     switch(params.status) {
-      case 51:
-        wx.navigateTo({url: `${COMMON}arrangement/arrangement?id=${params.itemId}`})
-        break
       case 12:
         wx.navigateTo({url: `${COMMON}resumeDetail/resumeDetail?uid=${params.jobhunteruid}`})
         break
       case 11:
         wx.navigateTo({url: `${COMMON}resumeDetail/resumeDetail?uid=${params.jobhunteruid}`})
         break
+      case 51:
+        wx.navigateTo({url: `${COMMON}arrangement/arrangement?id=${params.itemId}`})
+        break
       case 52:
+        wx.navigateTo({url: `${COMMON}resumeDetail/resumeDetail?uid=${params.jobhunteruid}`})
+        break
+      case 53:
         wx.navigateTo({url: `${COMMON}resumeDetail/resumeDetail?uid=${params.jobhunteruid}`})
         break
       case 54:
         wx.navigateTo({url: `${COMMON}resumeDetail/resumeDetail?uid=${params.jobhunteruid}`})
+        break
+      case 55:
+        wx.navigateTo({url: `${COMMON}resumeDetail/resumeDetail?uid=${params.jobhunteruid}`})
+        break
+      case 56:
+        wx.navigateTo({url: `${COMMON}arrangement/arrangement?id=${params.itemId}`})
+        break
+      case 57:
+        wx.navigateTo({url: `${COMMON}arrangement/arrangement?id=${params.itemId}`})
+        break
+      case 58:
+        wx.navigateTo({url: `${COMMON}arrangement/arrangement?id=${params.itemId}`})
+        break
+      case 59:
+        wx.navigateTo({url: `${COMMON}arrangement/arrangement?id=${params.itemId}`})
         break
       default:
         wx.navigateTo({url: `${COMMON}arrangement/arrangement?id=${params.itemId}`})

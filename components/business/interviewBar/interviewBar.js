@@ -95,9 +95,6 @@ Component({
       if (((currentPage === 'positionDetail' || currentPage === 'recruiterDetail') && identity === 'APPLICANT') || (currentPage === 'resumeDetail' && identity === 'RECRUITER')) {
         this.getInterviewStatus()
       }
-      // if(wx.getStorageSync('choseType') !== 'APPLICANT') {
-      //   this.getCompanyIdentityInfos()
-      // }
       this.setData({currentPage, jobWords: agreedTxtC(), recruiterWords: agreedTxtB(), show: false})
     },
     /**
@@ -181,6 +178,7 @@ Component({
           interviewInfos.isReadRedot = 0
           this.setData({interviewInfos})
         }, 3000)
+        
         if (!res.data.haveInterview && this.data.options && this.data.options.directChat && automatic && !this.data.options.todoAction) {
           let e = {
             currentTarget: {
@@ -424,10 +422,7 @@ Component({
               cancelColor: '#BCBCBC',
               confirmColor: '#652791',
               confirmBack: () => {
-                refuseInterviewApi({id: this.data.infos.recruiterInfo.uid}).then(res => {
-                  this.getInterviewStatus()
-                  // this.triggerEvent('resultevent', res)
-                })
+                refuseInterviewApi({id: this.data.infos.recruiterInfo.uid}).then(res => this.getInterviewStatus())
               }
             })
           }
@@ -533,9 +528,7 @@ Component({
           wx.navigateTo({url: `${COMMON}chooseJob/chooseJob?type=recruiter_chat&from=${this.data.currentPage}&jobhunterUid=${infos.uid}`})
           break
         case 'retract':
-          interviewRetractApi({id: infos.uid}).then(() => {
-            this.getInterviewStatus()
-          })
+          interviewRetractApi({id: infos.uid}).then(() => this.getInterviewStatus())
           break
         case 'reason':
           wx.navigateTo({url: `${COMMON}interviewMark/interviewMark?type=resolve&jobhunterUid=${infos.uid}&lastInterviewId=${interviewInfos.lastInterviewId}`})
