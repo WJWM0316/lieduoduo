@@ -434,11 +434,15 @@ Component({
           break
         // 招聘官拒绝求职者
         case 'recruiter-reject':
-          if(interviewInfos.data.length > 1) {
-            wx.navigateTo({url: `${COMMON}chooseJob/chooseJob?type=reject_chat&from=${this.data.currentPage}&jobhunterUid=${infos.uid}`})
-            wx.setStorageSync('interviewChatLists', this.data.interviewInfos)
+          if (this.data.infos &&this.data.infos.sourceType === 500) {
+              wx.navigateTo({url: `${COMMON}interviewMark/interviewMark?type=pending&jobhunterUid=${infos.uid}`})
           } else {
-            wx.navigateTo({url: `${COMMON}interviewMark/interviewMark?type=pending&jobhunterUid=${infos.uid}&lastInterviewId=${interviewInfos.data[0].interviewId}`})
+            if(interviewInfos.data && interviewInfos.data.length > 1) {
+              wx.navigateTo({url: `${COMMON}chooseJob/chooseJob?type=reject_chat&from=${this.data.currentPage}&jobhunterUid=${infos.uid}`})
+              wx.setStorageSync('interviewChatLists', this.data.interviewInfos)
+            } else {
+              wx.navigateTo({url: `${COMMON}interviewMark/interviewMark?type=pending&jobhunterUid=${infos.uid}&lastInterviewId=${interviewInfos.data[0].interviewId}`})
+            }
           }
           break
         // 求职者查看面试详情
@@ -450,9 +454,9 @@ Component({
           wx.navigateTo({url: `${COMMON}arrangement/arrangement?id=${interviewInfos.data[0].interviewId}`})
           break
         // B端开撩成功后跳转安排面试页面
-        case 'recruiter-accept':
+        case 'recruiter-accept':          
           // 求职者发起多条撩的记录
-          if(interviewInfos.data.length > 1) {
+          if(interviewInfos.data && interviewInfos.data.length > 1) {
             wx.navigateTo({url: `${COMMON}chooseJob/chooseJob?type=confirm_chat&from=${this.data.currentPage}&recruiterId=${interviewInfos.data[0].recruiterUid}`})
             wx.setStorageSync('interviewChatLists', this.data.interviewInfos)
           } else {
