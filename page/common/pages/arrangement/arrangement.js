@@ -164,7 +164,7 @@ Page({
         break
       case 'careerChance':
         wx.reLaunch({
-          url: `${COMMON}careerChance/careerChance`
+          url: `${APPLICANT}index/index`
         })
         break
     }

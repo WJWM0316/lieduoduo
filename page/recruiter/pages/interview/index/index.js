@@ -444,7 +444,11 @@ Page({
           total: 0
         }
         let dateList = this.data.dateList
-        if(!dateList.length) return
+        if(!dateList.length) {
+          wx.stopPullDownRefresh()
+          this.setData({hasReFresh: false})
+          return
+        }
         this.setData({interviewData, interviewBottomStatus: 0, hasReFresh: true})
         this.getScheduleList(false).then(res => {
           wx.stopPullDownRefresh()
