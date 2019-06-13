@@ -111,7 +111,7 @@ Page({
   },
   viewResumeDetail(e) {
     let uid = e.currentTarget.dataset.uid
-    wx.navigateTo({url: `${COMMON}resumeDetail/resumeDetail?uid=${uid}`})
+    wx.navigateTo({url: `${COMMON}resumeDetail/resumeDetail?uid=${uid}&adviser=true`})
   },
   jump () {
     wx.navigateTo({url: `${RECRUITER}interview/index/index?tabIndex=1`})

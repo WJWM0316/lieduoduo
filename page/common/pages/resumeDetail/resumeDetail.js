@@ -22,7 +22,10 @@ Page({
     hasReFresh: false,
     options: {},
     showLimit: 3,
+    hasExplainPop: false,
+    telePhone: app.globalData.telePhone,
     cdnImagePath: app.globalData.cdnImagePath,
+    invisible: false,
     navH: app.globalData.navHeight
   },
   /**
@@ -68,6 +71,14 @@ Page({
       }
     })
   },
+  toggleExplainPop () {
+    this.setData({hasExplainPop: !this.data.hasExplainPop})
+  },
+  callPhone () {
+    wx.makePhoneCall({
+      phoneNumber: this.data.telePhone
+    })
+  },
   /* 点击查看大头像 */
   readAvatar () {
     wx.previewImage({
@@ -77,7 +88,13 @@ Page({
   },
   getOthersInfo(hasLoading = true, isReload = false) {
     return new Promise((resolve, reject) => {
-      getOtherResumeApi({uid: this.data.options.uid, hasLoading, isReload, ...app.getSource()}).then(res => {
+      let params = {
+        uid: this.data.options.uid,
+        hasLoading, isReload,
+        ...app.getSource()
+      }
+      if (this.data.options.adviser) params.resumeSource = 500
+      getOtherResumeApi(params).then(res => {
         this.setData({info: res.data, isOwner: res.data.isOwner && identity === 'APPLICANT' && !this.data.options.preview, realIsOwner: res.data.isOwner}, function() {
           if (this.data.isOwner) {
             app.globalData.resumeInfo = res.data
@@ -87,7 +104,8 @@ Page({
           }
           resolve(res)
         })
-        
+      }).catch(e => {
+        if (e.code === 810) this.setData({invisible: true})
       })
     })
   },
@@ -117,6 +135,17 @@ Page({
         break;
     }
     wx.navigateTo({
+      url: url
+    })
+  },
+  backHome () {
+    let url = ''
+    if (identity === 'APPLICANT') {
+      url = `${APPLICANT}index/index`
+    } else {
+      url = `${RECRUITER}index/index`
+    }
+    wx.reLaunch({
       url: url
     })
   },

@@ -177,7 +177,7 @@ export const request = ({name = '', method = 'post', url, host, data = {}, needK
                 let timer = setTimeout(() => {
                   toBindPhone = false
                   clearTimeout(timer)
-                }, 2000)
+                }, 3000)
                 wx.removeStorageSync('token')
                 wx.navigateTo({
                   url: `${COMMON}bindPhone/bindPhone`

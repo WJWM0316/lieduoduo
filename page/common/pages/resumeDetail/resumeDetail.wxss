@@ -624,6 +624,77 @@
   z-index: 0;
 }
 
-.resumeDetail-box {
+.invisibleWrap {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
+.invisibleWrap .photo {
+  width:180rpx;
+  height:180rpx;
+  background:rgba(255,255,255,0.5);
+  border:2rpx solid rgba(232,233,235,1);
+  filter:blur(6rpx);
+  border-radius: 50%;
+  margin: 0 auto;
+  overflow: hidden;
+}
+.invisibleWrap .photo .img {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.invisibleWrap .desc {
+  text-align: center;
+  font-size:28rpx;
+  font-weight:300;
+  color:#282828;
+  line-height:40rpx;
+  margin-top: 40rpx;
+}
+.invisibleWrap .rule {
+  font-size:24rpx;
+  color:#652791;
+  line-height:33rpx;
+  text-align: center;
+  padding-top: 30rpx;
+}
+.invisibleWrap .backHomeBtn {
+  width:348rpx;
+  height:88rpx;
+  background:rgba(101,38,145,1);
+  border-radius:44rpx;
+  margin: 94rpx auto 0;
+  font-size:32rpx;
+  color:#fff;
+  line-height:88rpx;
+}
+
+.actionSheet .content {
+  width:630rpx;
+  font-size:28rpx;
+  font-weight:300;
+  color:#282828;
+  line-height:46rpx;
+  text-indent: 2em;
+  margin: 24rpx auto 70rpx;
+}
+.actionSheet .desc {
+  font-size:24rpx;
+  color:#929292;
+  line-height:24rpx;
+  text-align: center;
+}
+.actionSheet .callPhone {
+  width:376rpx;
+  height:88rpx;
+  background:#EFE9F4;
+  border-radius:44rpx;
+  margin: 30rpx auto 60rpx;
+  font-size:32rpx;
+  color:#652791;
+  line-height: 88rpx;
 }
