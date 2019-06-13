@@ -99,7 +99,7 @@
 							<i class="icon iconfont icon-mianshizhiwei"></i>面试职位：{{item.positionId ? item.positionName : '未选择面试职位'}}
 						</view>
 						<view class="row-three" wx:if="{{item.address}}">
-							<i class="icon iconfont icon-mianshidizhi"></i>{{item.address}}
+							<i class="icon iconfont icon-mianshidizhi"></i>{{item.address}}{{item.doorplate}}
 						</view>
 					</view>
 				</button>
