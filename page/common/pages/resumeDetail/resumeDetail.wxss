@@ -106,7 +106,7 @@
   flex-wrap: nowrap;
   width: 100%;
 }
-.personalInfo .info{
+/*.personalInfo .info{
   font-size: 26rpx;
   font-weight: 300;
   color: #282828;
@@ -124,7 +124,25 @@
   display: flex;
   justify-content: space-between;
   align-content: center;
+}*/
+
+.personalInfo .info{
+  font-size: 26rpx;
+  font-weight: 300;
+  color: #282828;
+  padding: 16rpx 0;
+  flex-grow: 1;
 }
+.personalInfo .info .name{
+  font-size: 46rpx;
+  font-weight: 500;
+  line-height: 46rpx;
+  margin-bottom: 10rpx;
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
+}
+
 .invisible {
   width: 172rpx;
   height: 72rpx;
