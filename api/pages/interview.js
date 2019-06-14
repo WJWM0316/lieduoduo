@@ -240,3 +240,44 @@ export const setInterviewCommentApi = (data) => {
     hasLoading: false
   })
 }
+
+// 设置推荐简历的不感兴趣 
+export const setRecomResumeNotSuitApi = (data) => {
+  return request({
+    url: `/interview/setRecomResumeNotSuit/${data.jobhunterUid}`,
+    method: 'put',
+    data,
+    hasLoading: false
+  })
+}
+
+// 设置推荐简历的不感兴趣撤回 
+export const resumeNotInterestRetractApi = (data) => {
+  return request({
+    url: `/interview/resumeNotInterestRetract/${data.jobhunterId}`,
+    method: 'put',
+    data,
+    hasLoading: false
+  })
+}
+
+// 获取推荐简历不合适理由
+export const getResumeRecomdReasonApi = (data) => {
+  return request({
+    url: `/interview/getResumeRecomdReason`,
+    method: 'get',
+    data,
+    hasLoading: false
+  })
+}
+
+// 获取简历不感兴趣评价内容
+export const getResumeRecomdCommentApi = (data) => {
+  return request({
+    url: `/interview/getResumeRecomdComment`,
+    method: 'get',
+    data,
+    hasLoading: false
+  })
+}
+

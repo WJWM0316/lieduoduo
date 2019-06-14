@@ -1,7 +1,10 @@
 import {
   getCommentReasonApi,
   refuseInterviewApi,
-  getInterviewCommentApi
+  getInterviewCommentApi,
+  setRecomResumeNotSuitApi,
+  getResumeRecomdReasonApi,
+  getResumeRecomdCommentApi
 } from '../../../../api/pages/interview.js'
 
 const app = getApp()
@@ -32,7 +35,16 @@ Page({
   },
   getInterviewComment() {
     return new Promise((resolve, reject) => {
-      getInterviewCommentApi({interviewId: this.data.options.lastInterviewId}).then(res => {
+      let reason = null,
+          params = {}
+      if (!this.data.options.adviser) {
+        reason = getInterviewCommentApi
+        params.interviewId = this.data.options.lastInterviewId
+      } else {
+        reason = getResumeRecomdCommentApi
+        params.jobhunterUid = this.data.options.jobhunterUid
+      } 
+      reason(params).then(res => {
         let rtn = res.data
         let list = rtn.reason.split(',')
         let extra = rtn.extraDesc
@@ -48,7 +60,16 @@ Page({
    */
   getCommentReason(hasLoading = false) {
     return new Promise((resolve, reject) => {
-      getCommentReasonApi({hasLoading}).then(res => {
+      let reason = null,
+          params = {
+            hasLoading
+          }
+      if (!this.data.options.adviser) {
+        reason = getCommentReasonApi
+      } else {
+        reason = getResumeRecomdReasonApi
+      }
+      reason(params).then(res => {
         this.setData({list: res.data})
       }).catch(() => reject())
     })
@@ -100,13 +121,26 @@ Page({
     let reason = tem.join(',')
     let options = this.data.options
     let params = {reason, id: options.jobhunterUid, extra: this.data.extra, interviewId: options.lastInterviewId}
-    refuseInterviewApi(params).then(() => {
-      wx.removeStorageSync('interviewChatLists')
-      if(options.reBack) {
-        wx.navigateBack({delta: 2 })
-      } else {
-        wx.navigateBack({delta: 1 })
-      }
+    let submitFun = null
+    if (this.data.options.adviser) {
+      submitFun = setRecomResumeNotSuitApi
+      params.jobhunterUid = options.jobhunterUid
+    } else {
+      submitFun = refuseInterviewApi
+    }
+    submitFun(params).then(() => {
+      app.wxToast({
+        title: '标记成功',
+        icon: 'success', 
+        callback () {
+          wx.removeStorageSync('interviewChatLists')
+          if(options.reBack) {
+            wx.navigateBack({delta: 2 })
+          } else {
+            wx.navigateBack({delta: 1 })
+          }
+        }
+      })
     })
   }
 })

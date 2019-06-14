@@ -100,7 +100,7 @@
 			<view class="btnBox">
 				<block wx:if="{{!interviewInfos.hasUnsuitRecord && !interviewInfos.isOnProtected}}">
 					<block wx:if="{{!interviewInfos.haveInterview}}">
-						<view class="uninterested" data-action="recruiter-reject" bindtap="todoAction">不感兴趣</view>
+						<view class="uninterested" data-action="recruiter-uninterested" bindtap="todoAction">不感兴趣</view>
 						<view class="invitation" data-action="recruiter-chat" bindtap="todoAction">立即邀约</view>
 					</block>
 					<block wx:else>
@@ -110,8 +110,11 @@
 				<block wx:elif="{{interviewInfos.isOnProtected}}">
 					<view class="default">对方暂不考虑</view>
 				</block>
-				<block wx:elif="{{interviewInfos.isOnProtected}}">
-					<view class="default">不感兴趣</view>
+				<block wx:elif="{{interviewInfos.hasUnsuitRecord}}">
+					<view class="min-row">
+						<view class="btn_01">已标记不合适，<text class="active" data-action="reason" bindtap="todoAction">查看原因</text></view>
+						<view class="btn_02 active" data-action="uninterested-retract" bindtap="todoAction"><i class="icon iconfont icon-huidaojintian"></i> 撤回</view>
+					</view>
 				</block>
 			</view>
 		</block>

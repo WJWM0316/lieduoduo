@@ -75,7 +75,12 @@ Page({
       title: '获取多多币',
       content: '获取多多币，欢迎联系我们~',
       confirmText: '联系我们',
-      confirmColor: '#652791'
+      confirmColor: '#652791',
+      confirmBack () {
+        wx.makePhoneCall({
+          phoneNumber: app.globalData.telePhone
+        })
+      }
     })
   },
   /**

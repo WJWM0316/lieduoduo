@@ -1,5 +1,5 @@
 <view class="interviewMark">
-	<navbar title="{{options.type === 'pending' ? '标记不合适' : '不合适原因'}}" background="#FFFFFF" color="#22292C"></navbar>
+	<navbar title="{{options.type === 'pending' ? options.adviser ? '标记不感兴趣' : '标记不合适' : '不合适原因'}}" background="#FFFFFF" color="#22292C"></navbar>
 	<block wx:if="{{options.type === 'pending'}}">
 		<view class="h2">请选择不合适的原因（多选）</view>
 		<view class="ul">

@@ -5,7 +5,8 @@ import {
   refuseInterviewApi,
   confirmInterviewApi,
   notonsiderInterviewApi,
-  interviewRetractApi
+  interviewRetractApi,
+  resumeNotInterestRetractApi
 } from '../../../api/pages/interview.js'
 
 import {
@@ -429,15 +430,11 @@ Component({
           break
         // 招聘官拒绝求职者
         case 'recruiter-reject':
-          if (this.data.infos &&this.data.infos.sourceType === 500) {
-              wx.navigateTo({url: `${COMMON}interviewMark/interviewMark?type=pending&jobhunterUid=${infos.uid}`})
+          if(interviewInfos.data && interviewInfos.data.length > 1) {
+            wx.navigateTo({url: `${COMMON}chooseJob/chooseJob?type=reject_chat&from=${this.data.currentPage}&jobhunterUid=${infos.uid}`})
+            wx.setStorageSync('interviewChatLists', this.data.interviewInfos)
           } else {
-            if(interviewInfos.data && interviewInfos.data.length > 1) {
-              wx.navigateTo({url: `${COMMON}chooseJob/chooseJob?type=reject_chat&from=${this.data.currentPage}&jobhunterUid=${infos.uid}`})
-              wx.setStorageSync('interviewChatLists', this.data.interviewInfos)
-            } else {
-              wx.navigateTo({url: `${COMMON}interviewMark/interviewMark?type=pending&jobhunterUid=${infos.uid}&lastInterviewId=${interviewInfos.data[0].interviewId}`})
-            }
+            wx.navigateTo({url: `${COMMON}interviewMark/interviewMark?type=pending&jobhunterUid=${infos.uid}&lastInterviewId=${interviewInfos.data[0].interviewId}`})
           }
           break
         // 求职者查看面试详情
@@ -535,8 +532,22 @@ Component({
           interviewRetractApi({id: infos.uid}).then(() => this.getInterviewStatus())
           break
         case 'reason':
-          wx.navigateTo({url: `${COMMON}interviewMark/interviewMark?type=resolve&jobhunterUid=${infos.uid}&lastInterviewId=${interviewInfos.lastInterviewId}`})
+          if (this.data.infos.sourceType === 500) {
+            wx.navigateTo({url: `${COMMON}interviewMark/interviewMark?type=resolve&jobhunterUid=${infos.uid}&adviser=true`})
+          } else {
+            wx.navigateTo({url: `${COMMON}interviewMark/interviewMark?type=resolve&jobhunterUid=${infos.uid}&lastInterviewId=${interviewInfos.lastInterviewId}`})
+          }
           break
+        case 'recruiter-uninterested':
+          wx.navigateTo({url: `${COMMON}interviewMark/interviewMark?type=pending&jobhunterUid=${infos.uid}&adviser=true`})
+          break
+        case 'uninterested-retract':
+          resumeNotInterestRetractApi({jobhunterId: infos.uid}).then(res => {
+            app.wxToast({title: '撤销成功', icon: 'success'})
+            interviewInfos.hasUnsuitRecord = 0
+            this.setData({interviewInfos})
+          })
+        break
         default:
           break
       }
