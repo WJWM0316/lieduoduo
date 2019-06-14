@@ -94,7 +94,7 @@
 								<view class="name">{{item.recruiterRealname}}</view>
 								<view class="zhiwei">{{item.recruiterPositionName}}</view>
 							</view>
-							<view class="degress">{{item.companyName}}</view>
+							<view class="degress">{{item.companyShortName}}</view>
 						</view>
 					</view>
 					<!-- <view class="reddot" wx:if="{{item.redDot}}"></view> -->
@@ -139,7 +139,7 @@
 								<view class="name">{{item.recruiterRealname}}</view>
 								<view class="zhiwei">{{item.recruiterPositionName}}</view>
 							</view>
-							<view class="degress">{{item.companyName}}</view>
+							<view class="degress">{{item.companyShortName}}</view>
 						</view>
 					</view>
 					<!-- <view class="reddot" wx:if="{{item.redDot}}"></view> -->
@@ -185,7 +185,7 @@
 									<view class="name">{{item.recruiterRealname}}</view>
 									<view class="zhiwei">{{item.recruiterPositionName}}</view>
 								</view>
-								<view class="degress">{{item.companyName}}</view>
+								<view class="degress">{{item.companyShortName}}</view>
 							</view>
 							<view class="time {{item.status < 50 ? 'active' : ''}}" wx:if="{{item.createdAtTime}}"><i class="icon iconfont icon-lishijilu"></i>{{item.createdAtTime}}</view>
 						</view>
@@ -194,7 +194,7 @@
 							面试职位：{{item.positionId ? item.positionName : '未选择面试职位'}}
 						</view>
 						<view class="row-three" wx:if="{{item.address}}">
-							<i class="icon iconfont icon-mianshidizhi"></i>{{item.address}}</view>
+							<i class="icon iconfont icon-mianshidizhi"></i>{{item.address}}{{item.doorplate}}</view>
 					</button>
 				</view>
 			</button>

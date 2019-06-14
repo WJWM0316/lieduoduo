@@ -3,7 +3,8 @@ import {
   setInterviewDetailApi,
   sureInterviewApi,
   setInterviewAttendApi,
-  setInterviewCommentApi
+  setInterviewCommentApi,
+  interviewRetractApi
 } from "../../../../api/pages/interview.js"
 import {COMMON,APPLICANT,RECRUITER} from "../../../../config.js"
 import {mobileReg} from "../../../../utils/fieldRegular.js"
@@ -404,18 +405,17 @@ Page({
       case 'good':
         setInterviewCommentApi({interviewId: info.interviewId}).then(() => {
           info.status = 56
-          _this.setData({info})
-          console.log(info)
+          _this.setData({info}, () => _this.pageInit())
         })
         break
       case 'reason':
         wx.navigateTo({url: `${COMMON}interviewMark/interviewMark?type=resolve&jobhunterUid=${info.jobhunterInfo.uid}&lastInterviewId=${info.interviewId}`})
         break
       case 'retract':
-        interviewRetractApi({id: info.jobhunterInfo.uid}).then(() => _this.pageInit())
+        interviewRetractApi({id: info.jobhunterInfo.uid, interviewId: info.interviewId}).then(() => _this.pageInit())
         break
       case 'notsuitable':
-        wx.navigateTo({url: `${COMMON}interviewMark/interviewMark?type=pending&jobhunterUid=${info.jobhunterInfo.uid}&lastInterviewId=${info.interviewId}&reBack=2`})
+        wx.navigateTo({url: `${COMMON}interviewMark/interviewMark?type=pending&jobhunterUid=${info.jobhunterInfo.uid}&lastInterviewId=${info.interviewId}`})
         break
       default:
         break

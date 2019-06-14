@@ -155,7 +155,7 @@
         <view class="txt2" wx:if="{{identity === 'APPLICANT'}}">时间已添加到面试日程，记得准时赴约噢~</view>
         <view class="txt3">{{filters.dateFormat(info.arrangementInfo.appointmentTime, 'YYYY-MM-DD hh:mm')}}</view>
       </view>
-      <view class="realDate" wx:if="{{(info.status === 51 || info.status === 60 || info.status === 57 || info.status === 58 || info.status === 59)  && identity === 'APPLICANT'}}">
+      <view class="realDate" wx:if="{{(info.status === 51 || info.status === 60 || info.status === 57 || info.status === 58 || info.status === 59 || info.status === 61)  && identity === 'APPLICANT'}}">
         <view class="txt1">面试已结束</view>
         <view class="txt3 end">{{filters.dateFormat(info.arrangementInfo.appointmentTime, 'YYYY-MM-DD hh:mm')}}</view>
       </view>
@@ -176,7 +176,7 @@
       </view>
 
       <!-- 面试结果 -->
-      <view class="interview-result-box" wx:if="{{(info.status === 51 || info.status === 59 || info.status === 57 || info.status === 60 || info.status === 58) && identity === 'RECRUITER'}}">
+      <view class="interview-result-box" wx:if="{{(info.status === 51 || info.status === 59 || info.status === 57 || info.status === 60 || info.status === 58 || info.status === 61) && identity === 'RECRUITER'}}">
         <view class="title"><icon class="icon"></icon>面试结果</view>
 
         <view wx:if="{{info.status === 51}}">
@@ -219,12 +219,12 @@
         <!-- 求职者未到场 end -->
         
         <!-- 招聘官设置求职者不合适或者系统自动设置不合适 start -->
-        <view wx:if="{{info.status === 52 || info.status === 53}}">
+        <view wx:if="{{info.status === 61}}">
           <view class="sad-icon"><image class="pic" src="{{cdnImagePath}}img_sad_01.png"></image></view>
           <view class="comment_1">已到场面试，但不适合</view>
           <view class="comment_3">
             <text bindtap="todoAction" data-action="reason">查看原因</text>
-            <text bindtap="todoAction" data-action="retract">撤回不合适 </text>
+            <text bindtap="todoAction" data-action="retract" wx:if="{{info.isRetractHide}}">撤回不合适 </text>
           </view>
         </view>
         <!-- 招聘官设置求职者不合适或者系统自动设置不合适 end -->
