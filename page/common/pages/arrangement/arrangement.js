@@ -399,9 +399,6 @@ Page({
           url: `${COMMON}resumeDetail/resumeDetail?uid=${info.jobhunterInfo.uid}`
         })
         break
-      case 'bad':
-        wx.navigateTo({url: `${COMMON}interviewMark/interviewMark?type=pending&jobhunterUid=${info.jobhunterInfo.uid}&lastInterviewId=${info.interviewId}`})
-        break
       case 'good':
         setInterviewCommentApi({interviewId: info.interviewId}).then(() => {
           info.status = 56
@@ -415,7 +412,10 @@ Page({
         interviewRetractApi({id: info.jobhunterInfo.uid, interviewId: info.interviewId}).then(() => _this.pageInit())
         break
       case 'notsuitable':
-        wx.navigateTo({url: `${COMMON}interviewMark/interviewMark?type=pending&jobhunterUid=${info.jobhunterInfo.uid}&lastInterviewId=${info.interviewId}`})
+        let url11 =  info.status === 57 || info.status === 58
+          ? `${COMMON}interviewMark/interviewMark?type=pending&jobhunterUid=${info.jobhunterInfo.uid}&lastInterviewId=${info.interviewId}`
+          : `${COMMON}interviewMark/interviewMark?type=pending&jobhunterUid=${info.jobhunterInfo.uid}&lastInterviewId=${info.interviewId}&reBack=2`
+        wx.navigateTo({url})
         break
       default:
         break
