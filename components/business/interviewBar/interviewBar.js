@@ -544,8 +544,8 @@ Component({
         case 'uninterested-retract':
           resumeNotInterestRetractApi({jobhunterId: infos.uid}).then(res => {
             app.wxToast({title: '撤销成功', icon: 'success'})
-            interviewInfos.hasUnsuitRecord = 0
-            this.setData({interviewInfos})
+            infos.advisor.dealStatus = 0
+            this.setData({infos})
           })
         break
         default:

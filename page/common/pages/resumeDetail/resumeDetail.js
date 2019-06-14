@@ -224,11 +224,13 @@ Page({
     if(positionCard){
       btnImageUrl = positionCard
     }
-
+    if (this.data.info.advisor && this.data.info.advisor.dealStatusDescAll !== 1) {
+      btnImageUrl = `${that.data.cdnImagePath}shareB.png`
+    }
 　　return app.wxShare({
       options,
       title: shareResume(),
-      path: `${COMMON}resumeDetail/resumeDetail?uid=${this.data.options.uid}&sCode=${this.data.info.sCode}&sourceType=shj`,
+      path: app.getCurrentPagePath(),
       btnImageUrl: btnImageUrl
     })
   }

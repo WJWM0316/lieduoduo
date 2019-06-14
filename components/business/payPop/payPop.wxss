@@ -35,6 +35,11 @@
 .actionSheet .otherMsg.not {
   color: #FF7F4D;
 }
+.actionSheet .otherMsg .more {
+  margin-left: 12rpx;
+  color: #652791;
+  font-weight: normal;
+}
 .actionSheet .msg {
   width: 590rpx;
   font-size:24rpx;

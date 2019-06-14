@@ -481,7 +481,6 @@ Page({
           // 都不合适 则直接拒绝
           if(this.data.unsuitableChecked) {
             wx.navigateTo({url: `${COMMON}interviewMark/interviewMark?type=pending&jobhunterUid=${params.id}&reBack=2`})
-            console.log(params)
             // this.refuseInterview(params)
           } else {
             // 用选中的面试记录发起开撩
@@ -506,7 +505,7 @@ Page({
           })
         } else {
           // 需要扣点
-          if (Number(options.sourceType) === 500 && this.data.chargeData.needCharge) {
+          if (this.data.chargeData.needCharge && !this.data.openPayPop) {
             this.setData({openPayPop: true})
             return
           }
