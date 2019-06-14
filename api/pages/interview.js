@@ -206,6 +206,7 @@ export const interviewRetractApi = (data) => {
   return request({
     url: `/interview/interviewRetract/${data.id}`,
     method: 'put',
+    data,
     hasLoading: false
   })
 }
