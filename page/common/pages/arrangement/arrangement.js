@@ -412,7 +412,7 @@ Page({
         wx.navigateTo({url: `${COMMON}interviewMark/interviewMark?type=resolve&jobhunterUid=${info.jobhunterInfo.uid}&lastInterviewId=${info.interviewId}`})
         break
       case 'retract':
-        interviewRetractApi({id: info.jobhunterInfo.uid}).then(() => _this.pageInit())
+        interviewRetractApi({id: info.jobhunterInfo.uid, interviewId: info.interviewId}).then(() => _this.pageInit())
         break
       case 'notsuitable':
         wx.navigateTo({url: `${COMMON}interviewMark/interviewMark?type=pending&jobhunterUid=${info.jobhunterInfo.uid}&lastInterviewId=${info.interviewId}`})
