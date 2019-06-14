@@ -529,7 +529,7 @@ Component({
           wx.navigateTo({url: `${COMMON}chooseJob/chooseJob?type=recruiter_chat&from=${this.data.currentPage}&jobhunterUid=${infos.uid}`})
           break
         case 'retract':
-          let params =  infos.lastStatus === 61 ? {id: infos.uid, interviewId: interviewInfos.lastInterviewId} : {id: infos.uid}
+          let params =  interviewInfos.lastInterviewStatus === 61 ? {id: infos.uid, interviewId: interviewInfos.lastInterviewId} : {id: infos.uid}
           interviewRetractApi(params).then(() => this.getInterviewStatus())
           break
         case 'reason':
