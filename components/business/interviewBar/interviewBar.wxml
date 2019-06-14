@@ -1,5 +1,6 @@
 <form bindsubmit="formSubmit" report-submit='{{true}}'>
 <view class="interview-bar" wx:if="{{ !isOwerner && interviewInfos && loaded }}">
+	
 	<block wx:if="{{type === 'recruiter' || type === 'position'}}">
 		<button form-type="submit" class="clear-style img-box" bindtap="todoAction" data-action="viewRecruiter">
 			<image mode="aspectFill" src="{{infos.avatar.smallUrl || infos.recruiterInfo.avatar.smallUrl}}" class="img"></image>
