@@ -167,7 +167,7 @@
       </view>
     </view>
 
-    <button form-type="submit" wx:if="{{(!realIsOwner && info.sourceType !== 500) || (info.sourceType === 500 && info.advisor && info.advisor.dealStatus)}}" class="clear-style collect" bindtap="collect">
+    <button form-type="submit" wx:if="{{!realIsOwner && info.sourceType !== 500}}" class="clear-style collect" bindtap="collect">
       <i class="icon iconfont icon-ganxingqu" wx:if="{{!info.interested}}"></i>
       <i class="icon iconfont icon-biaojiweiganxingqu" wx:else></i>
     </button>
