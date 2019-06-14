@@ -415,7 +415,7 @@ Page({
         let url11 =  info.status === 57 || info.status === 58
           ? `${COMMON}interviewMark/interviewMark?type=pending&jobhunterUid=${info.jobhunterInfo.uid}&lastInterviewId=${info.interviewId}`
           : `${COMMON}interviewMark/interviewMark?type=pending&jobhunterUid=${info.jobhunterInfo.uid}&lastInterviewId=${info.interviewId}&reBack=2`
-        wx.navigateTo({url})
+        wx.navigateTo({url: url11})
         break
       default:
         break
