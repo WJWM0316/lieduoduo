@@ -45,7 +45,6 @@ Page({
     chargeData: {}, // 扣点信息
   },
   onLoad(options) {
-    
     let api = ''
     if(wx.getStorageSync('choseType') === 'RECRUITER') {
       api = this.data.nowTab === 'online' ? 'getonLinePositionListB' : 'getoffLinePositionListB'
@@ -507,7 +506,7 @@ Page({
           })
         } else {
           // 需要扣点
-          if (Number(options.sourceType) === 500 && !this.data.openPayPop) {
+          if (Number(options.sourceType) === 500 && this.data.chargeData.needCharge) {
             this.setData({openPayPop: true})
             return
           }
