@@ -11,7 +11,7 @@ import {
   getIndexShowCountApi
 } from '../../../../api/pages/recruiter.js'
 
-import {RECRUITER, COMMON, APPLICANT} from '../../../../config.js'
+import {RECRUITER, COMMON, APPLICANT, WEBVIEW} from '../../../../config.js'
 
 import {getSelectorQuery}  from '../../../../utils/util.js'
 
@@ -399,6 +399,16 @@ Page({
   },
   toJump(e) {
     let url = '/' + e.currentTarget.dataset.url
+    let recruiterDetails = app.globalData.recruiterDetails
+    // 开通精选
+    if(url.includes('optimal')) {
+      if(recruiterDetails.haveAdvisorService) {
+        wx.navigateTo({url: `${RECRUITER}user/adviser/adviser`})
+        return
+      } else {
+        url = `${url}&p=${WEBVIEW}optimal?t=顾问精选服务&i=''&vkey=${recruiterDetails.vkey}&iso=0`
+      }
+    }    
     wx.navigateTo({ url })
   }
 })

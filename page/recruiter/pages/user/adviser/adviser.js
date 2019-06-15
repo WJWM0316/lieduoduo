@@ -173,5 +173,9 @@ Page({
     this.setData({listData}, () => {
       this.getList(false)
     })
+
+  },
+  read() {
+    wx.navigateTo({url: `${COMMON}webView/webView?type=optimal&p=${WEBVIEW}optimal?vkey=${this.data.recruiterInfo.vkey}`})
   }
 })
