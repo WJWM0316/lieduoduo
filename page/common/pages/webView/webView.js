@@ -51,6 +51,9 @@ Page({
           imageUrl: imgUrl
         }
         pageUrl = `${path}?sessionToken=${sessionToken}&token=${token}`
+        if(options.vkey) {
+          pageUrl = `${path}?sessionToken=${sessionToken}&token=${token}&vkey=${options.vkey}`
+        }
         console.log(pageUrl)
       }
       this.setData({pageUrl})
