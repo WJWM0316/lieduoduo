@@ -1,4 +1,6 @@
-.myAccount {}
+.myAccount {
+  background: #fff;
+}
 
 .head {
 	padding: 25rpx 30rpx 22rpx;

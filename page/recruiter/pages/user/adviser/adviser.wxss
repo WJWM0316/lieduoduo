@@ -37,7 +37,7 @@
 	display: block;
 }
 .tab-item.cur .txt {
-	color: #343944;
+	color: #282828;
 	font-weight: 700;
 }
 
@@ -64,10 +64,10 @@
 	right: -22rpx;
 }
 .tip {
-	padding: 0 60rpx 0 53rpx;
+	padding: 0 50rpx;
 	height:88rpx;
 	line-height: 88rpx;
-	background:#fff;
+	background:#FBFBFF;
 	box-shadow:0rpx 0rpx 20rpx 0rpx rgba(50,14,59,0.08);
 	border-radius:0rpx 0rpx 16rpx 16rpx;
 	font-size:26rpx;

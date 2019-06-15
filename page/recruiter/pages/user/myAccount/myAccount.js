@@ -8,6 +8,7 @@ Page({
   data: {
     hasReFresh: false,
     cdnPath: app.globalData.cdnImagePath,
+    navHeight: app.globalData.navHeight,
     myAccount: {},
     ordersData: {
       list: [],

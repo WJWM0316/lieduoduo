@@ -49,7 +49,7 @@
 			<view class="tool-item {{pageInfos.arNewResumeRedDot ? 'red' : ''}}"  bindtap="routeJump" data-route="adviser">
 				<image class="icon" src="{{cdnPath}}icon_my_resume.png"></image>
 				<view class="title">精选顾问</view>
-				<view class="txt" wx:if="{{pageInfos.arNotHandleNum > 0}}"><text class="num">{{pageInfos.arNotHandleNum}}+</text>份未处理</view>
+				<view class="txt" wx:if="{{pageInfos.arNotHandleNum > 0}}"><text class="num">{{pageInfos.arNotHandleNum}}<block wx:if="{{pageInfos.arNotHandleNum > 99}}">+</block></text>份未处理</view>
 			</view>
 			<view class="tool-item"  bindtap="routeJump" data-route="myAccount">
 				<image class="icon" src="{{cdnPath}}icon_my_account.png"></image>

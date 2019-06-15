@@ -3,7 +3,7 @@
 <view hidden="{{!hasReFresh}}">
   <refreshStatus></refreshStatus>
 </view>
-<view class="myAccount">
+<view class="myAccount" style="min-height: calc(100vh - {{navHeight}}px)">
 	<view class="head">
 		<view class="imgBox">
 			<image class="bg" mode="widthFix" src="{{cdnPath}}myAccount.png"></image>
@@ -26,5 +26,5 @@
 			</view>
 		</view>
 	</view>
-	<bottomStatus status="{{ordersData.onBottomStatus}}" listData="{{ordersData.list}}"></bottomStatus>
+	<bottomStatus status="{{ordersData.onBottomStatus}}" listData="{{ordersData.list}}" desc="暂无明细记录哦~"></bottomStatus>
 </view>
