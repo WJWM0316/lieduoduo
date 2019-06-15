@@ -4,7 +4,7 @@
 <navbar background="{{navbarData.background}}" title="{{navbarData.title}}" color="{{navbarData.color}}"></navbar>
 <view class="adviser">
 	<view class="head" style="margin-top: -{{navHeight}}px">
-		<image class="bg" mode="widthFix" src="{{cdnPath}}selectedbg.png" bindload="imgLoad"></image>
+		<image class="bg" mode="widthFix" src="{{cdnPath}}{{!isIphoneX ? 'bg_featured.png' : 'bg_featuredX.png'}}" bindload="imgLoad"></image>
 	</view>
 	<view class="tab {{tabFloat ? 'tabFloat' : ''}}" style="top: {{navHeight}}px">
 		<view class="tab-item {{tabIndex === index ? 'cur' : ''}} {{item.redHot ? 'red' : ''}}" wx:for="{{tabList}}" wx:key="{{index}}" bindtap="toggle" data-index="{{index}}"><text class="txt">{{item.title}}</text></view>

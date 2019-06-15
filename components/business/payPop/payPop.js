@@ -8,11 +8,11 @@ Component({
   properties: {
     openPayPop: {
       type: Boolean,
-      default: false
+      value: false
     },
     chargeData: {
       type: Object,
-      default: {}
+      value: {}
     }
   },
 

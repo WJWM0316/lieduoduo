@@ -15,7 +15,7 @@
 
   <block  wx:if="{{roleType === 'applicant'}}">
     <view class="applicant" bindtap="jumpApplicant">
-      <image lazy-load class="img" src="{{cardData.avatar.smallUrl}}" mode="aspectFill"></image>
+      <image lazy-load class="img {{!glass ? 'filter' : ''}}" src="{{cardData.avatar.smallUrl}}" mode="aspectFill"></image>
       <view class="applicantMsg">
         <view class="name">{{cardData.jobhunterRealname || cardData.realname}}<text class="msg"><text wx:if="{{cardData.workAgeDesc}}">{{cardData.workAgeDesc}}</text><text wx:if="{{cardData.degreeDesc}}"> · {{cardData.degreeDesc}}</text><text wx:if="{{cardData.salaryFloor}}"> · {{cardData.salaryFloor}}-{{cardData.salaryCeil}}k</text></text></view>
         <view class="detail" wx:if="{{cardData.lastCompanyName}}">{{cardData.lastCompanyName}} | {{cardData.positionName || cardData.lastPosition}}</view>

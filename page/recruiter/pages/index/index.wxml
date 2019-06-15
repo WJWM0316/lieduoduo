@@ -78,7 +78,7 @@
 				<button form-type="submit" class="formIdBtn" wx:if="{{indexShowCount.advisor}}" bindtap="routeJump" data-route="adviser">
 					<view class="item2">
 						<view class="row-one">
-							<view class="img-box"><image lazy-load></image></view>
+							<view class="img-box"><image src="{{cdnImagePath}}icon_gwhead.png" lazy-load></image></view>
 							<view class="content">
 								<view class="header">
 									<view class="name">顾问精选简历</view>

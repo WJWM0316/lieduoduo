@@ -533,11 +533,10 @@ Component({
           interviewRetractApi(params).then(() => this.getInterviewStatus())
           break
         case 'reason':
-          if (this.data.infos.sourceType === 500) {
-            wx.navigateTo({url: `${COMMON}interviewMark/interviewMark?type=resolve&jobhunterUid=${infos.uid}&adviser=true`})
-          } else {
-            wx.navigateTo({url: `${COMMON}interviewMark/interviewMark?type=resolve&jobhunterUid=${infos.uid}&lastInterviewId=${interviewInfos.lastInterviewId}`})
-          }
+          wx.navigateTo({url: `${COMMON}interviewMark/interviewMark?type=resolve&jobhunterUid=${infos.uid}&lastInterviewId=${interviewInfos.lastInterviewId}`})
+          break
+        case 'uninterested-reason':
+          wx.navigateTo({url: `${COMMON}interviewMark/interviewMark?type=resolve&jobhunterUid=${infos.uid}&adviser=true`})
           break
         case 'recruiter-uninterested':
           wx.navigateTo({url: `${COMMON}interviewMark/interviewMark?type=pending&jobhunterUid=${infos.uid}&adviser=true`})
@@ -545,8 +544,9 @@ Component({
         case 'uninterested-retract':
           resumeNotInterestRetractApi({jobhunterId: infos.uid}).then(res => {
             app.wxToast({title: '撤销成功', icon: 'success'})
+            interviewInfos.hasUnsuitRecord = 0
             infos.advisor.dealStatus = 0
-            this.setData({infos})
+            this.setData({interviewInfos, infos})
           })
         break
         default:

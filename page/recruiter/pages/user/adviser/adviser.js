@@ -15,6 +15,7 @@ Page({
       background: 'transparent',
       color: '#ffffff'
     },
+    isIphoneX: app.globalData.isIphoneX,
     navHeight: app.globalData.navHeight,
     cdnPath: app.globalData.cdnImagePath,
     tabFloat: false,
@@ -50,25 +51,8 @@ Page({
       onBottomStatus: 0
     }
   },
-
-  /**
-   * 生命周期函数--监听页面加载
-   */
   onLoad: function (options) {
     if (wx.setStorageSync('choseType') !== 'RECRUITER') wx.setStorageSync('choseType', 'RECRUITER')
-  },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
     let listData = {
       list: [],
       pageNum: 1,

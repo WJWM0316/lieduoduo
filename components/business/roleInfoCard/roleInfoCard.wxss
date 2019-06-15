@@ -33,6 +33,7 @@
   box-shadow:0rpx 8rpx 20rpx 0rpx rgba(45,45,45,0.06);
   border-radius:18rpx;
 }
+
 .roleInfoCard .company.detail .img {
   width: 108rpx;
   height: 108rpx;
@@ -158,6 +159,9 @@
   position: absolute;
   top: 22rpx;
   left: 28rpx;
+}
+.roleInfoCard .applicant .img.filter {
+  filter: blur(8rpx);
 }
 .roleInfoCard .vip {
   width: 36rpx;

@@ -15,6 +15,10 @@ Component({
     isMain: {
       type: Boolean,
       value: false
+    },
+    glass: {
+      type: Boolean,
+      value: false
     }
   },
 
@@ -26,6 +30,7 @@ Component({
     cdnImagePath: app.globalData.cdnImagePath
   },
   attached() {
+    console.log(this.data.glass, 111111)
     let isCompanyAdmin = app.globalData.recruiterDetails.isCompanyAdmin || 0
     this.setData({isCompanyAdmin})
   },

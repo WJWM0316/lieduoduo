@@ -6,11 +6,11 @@ Component({
   properties: {
     openPop: {
       type: Boolean,
-      default: false
+      value: false
     },
     title: {
       type: String,
-      default: ''
+      value: ''
     }
   },
 

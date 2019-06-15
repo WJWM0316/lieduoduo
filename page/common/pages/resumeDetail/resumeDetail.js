@@ -106,7 +106,7 @@ Page({
           resolve(res)
         })
       }).catch(e => {
-        if (e.code === 810) this.setData({invisible: true})
+        if (e.code === 910) this.setData({invisible: true})
       })
     })
   },
