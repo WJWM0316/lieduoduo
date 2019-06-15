@@ -31,7 +31,7 @@
       </button>
 
     <!-- 基本信息 -->
-      <view class="personalInfo commentBox {{info.sourceType === 500 && info.advisor && info.advisor.glass ? 'adviser' : ''}}">
+      <view class="personalInfo commentBox">
         <view class="top">
           <button class="clear-style avatarBox" form-type="submit" bindtap="readAvatar">
             <view class="avatar">
@@ -43,8 +43,7 @@
             </view>
           </button>
           <view class="info">
-            <view class="name" wx:if="{{info.sourceType !== 500 || (info.sourceType === 500 && info.advisor && !info.advisor.glass)}}"><text>{{info.name}}</text><i class="icon iconfont icon-bianji1 edit" data-editName="info" data-id="{{item.id}}" bindtap="edit" wx:if="{{isOwner}}"></i></view>
-            <image wx:else src="{{cdnImagePath}}invisible2.png" class="invisible"></image>
+            <view class="name"><text class="{{info.advisor.glass ? 'filter' : ''}}">{{info.advisor.glass ? '不可见' : info.name}}</text><i class="icon iconfont icon-bianji1 edit" data-editName="info" data-id="{{item.id}}" bindtap="edit" wx:if="{{isOwner}}"></i></view>
             <view class="companyName" wx:if="{{info.lastCompanyName || info.lastPosition}}">
               <text>{{info.lastCompanyName}}</text><block wx:if="{{info.lastCompanyName && info.lastPosition}}"> | </block><text>{{info.lastPosition}}</text>
             </view>
@@ -166,26 +165,27 @@
         <text class="add" data-editName="more" bindtap="edit" wx:if="{{!info.moreIntroduce.introduce && info.moreIntroduce.imgs.length === 0 && isOwner}}" data-id="0">完善更多介绍</text>
       </view>
     </view>
-
-    <button form-type="submit" wx:if="{{!realIsOwner && info.sourceType !== 500}}" class="clear-style collect" bindtap="collect">
-      <i class="icon iconfont icon-ganxingqu" wx:if="{{!info.interested}}"></i>
-      <i class="icon iconfont icon-biaojiweiganxingqu" wx:else></i>
-    </button>
-    <!-- 底部开撩 -->
-    <view class="bottomBox">
-      <view wx:if="{{!options.preview}}">
-        <interviewBar
-          id="interviewBar"
-          infos="{{info}}"
-          type="resume"
-          bindresultevent="init"
-          wx:if="{{info.vkey && !isOwner}}"></interviewBar>
+    
+    <block>
+      <button form-type="submit" wx:if="{{!realIsOwner}}" hidden="{{info.sourceType !== 500 && info.advisor && info.advisor.glass && info.advisor.recommendToCompany}}" class="clear-style collect" bindtap="collect">
+        <i class="icon iconfont icon-ganxingqu" wx:if="{{!info.interested}}"></i>
+        <i class="icon iconfont icon-biaojiweiganxingqu" wx:else></i>
+      </button>
+      <!-- 底部开撩 -->
+      <view class="bottomBox" hidden="{{info.sourceType !== 500 && info.advisor && info.advisor.glass && info.advisor.recommendToCompany}}">
+        <view wx:if="{{!options.preview}}">
+          <interviewBar
+            id="interviewBar"
+            infos="{{info}}"
+            type="resume"
+            bindresultevent="init"
+            wx:if="{{info.vkey && !isOwner}}"></interviewBar>
+        </view>
+        <view wx:if="{{options.preview && !isOwner}}" class="editBot">
+          <button form-type="submit" class="editBotBtn" bindtap="editSelf">编辑简历</button>
+        </view>
       </view>
-      <view wx:if="{{options.preview && !isOwner}}" class="editBot">
-        <button form-type="submit" class="editBotBtn" bindtap="editSelf">编辑简历</button>
-      </view>
-    </view>
-
+    </block>
     <block wx:if="{{info.vkey}}"><canvasCard cardData="{{info}}" type="resume" bindgetCreatedImg="getCreatedImg"></canvasCard></block>
   </form>
 </block>

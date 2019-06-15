@@ -135,7 +135,7 @@
 			
 			<!-- 招聘端主动发起开料 start-->
 			<block wx:if="{{!interviewInfos.haveInterview && !interviewInfos.isOnProtected && !interviewInfos.hasUnsuitRecord && infos.sourceType !== 500}}">
-				<view class="content">
+				<view class="content" wx:if="{{infos.sourceType !== 500}}">
 					<view class="first"><view class="name">{{infos.name || infos.recruiterInfo.name}}</view></view>
 					<view class="second">{{jobWords}}</view>
 				</view>
@@ -185,7 +185,7 @@
 			</block>
 			
 			<block wx:elif="{{interviewInfos.interviewStatus === 31}}">
-				<view class="content">
+				<view class="content" wx:if="{{infos.sourceType !== 500}}">
 					<view class="first"><view class="name">{{infos.name || infos.recruiterInfo.name}}</view></view>
 					<view class="second">修改面试</view>
 				</view>
@@ -234,17 +234,6 @@
 				<view class="button-box">
 					<view class="reject" data-action="recruiter-reject" bindtap="todoAction">不合适</view>
 					<view data-action="recruiter-arrangement" class="accept" bindtap="todoAction">修改面试</view>
-				</view>
-			</block>
-
-			<block wx:elif="{{interviewInfos.interviewStatus === 32}}">
-				<view class="content" wx:if="{{infos.sourceType !== 500}}">
-					<view class="first"><view class="name">{{infos.name || infos.recruiterInfo.name}}</view></view>
-					<view class="second">待确认信息</view>
-				</view>
-				<view class="button-box button-box-color2">
-					<!-- <view class="reject" data-action="recruiter-reject" bindtap="todoAction">不合适</view> -->
-					<view data-action="recruiter-arrangement" class="recruiter-reject" bindtap="todoAction">修改面试</view>
 				</view>
 			</block>
 

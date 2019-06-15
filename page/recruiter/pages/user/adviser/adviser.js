@@ -173,12 +173,5 @@ Page({
     this.setData({listData}, () => {
       this.getList(false)
     })
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
   }
 })

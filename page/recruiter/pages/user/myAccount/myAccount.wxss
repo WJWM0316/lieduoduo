@@ -40,6 +40,7 @@
 }
 .head .imgBox {
 	position: relative;
+  z-index: 5;
 }
 .head .imgBox .bg {
 	width: 100%;

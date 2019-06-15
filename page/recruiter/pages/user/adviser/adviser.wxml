@@ -19,9 +19,8 @@
 					<image class="img {{item.dealStatus !== 1 ? 'filter' : ''}}" mode="aspectFit" lazy-load  src="{{item.avatar.smallUrl}}"></image>
 				</view>
 				<view class="detail">
-					<view class="top {{item.dealStatus === 1 ? 'noFlex' : ''}}">
-						<text wx:if="{{item.dealStatus === 1}}" class="name">{{item.name}}</text>
-						<image wx:else class="invisible" src="{{cdnPath}}invisible1.png"></image>
+					<view class="top">
+						<text class="name {{item.glass ? 'filter' : ''}}">{{item.name}}</text>
 						<text class="txt">{{item.workAgeDesc}}<block wx:if="{{item.degreeDesc}}"> · {{item.degreeDesc}}</block><block wx:if="{{item.salaryCeil}}"> · {{item.salaryFloor}}-{{item.salaryCeil}}k</block></text>
 					</view>
 					<view class="bot">{{item.lastCompanyName}}<block wx:if="{{item.lastCompanyName && item.lastCompanyName}}"> | </block>{{item.lastPosition}}</view>

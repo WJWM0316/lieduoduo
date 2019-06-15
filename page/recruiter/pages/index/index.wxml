@@ -85,7 +85,7 @@
 								</view>
 								<view class="degress">
 									<block wx:if="{{indexShowCount.advisor.total}}">
-										<block wx:if="{{indexShowCount.advisor.notHandleNum > 4}}">
+										<block wx:if="{{indexShowCount.advisor.notHandleNum > 0}}">
 											<text class="num">{{indexShowCount.advisor.notHandleNum}}</text> 位候选人未处理
 										</block>
 										<block wx:else>

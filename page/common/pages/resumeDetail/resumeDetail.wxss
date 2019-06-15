@@ -65,7 +65,7 @@
   width: 120rpx;
   height: 120rpx;
 }
-.adviser .avatar .img {
+.avatar .img.filter {
   filter:blur(8rpx);
 }
 .previewFile {
@@ -137,12 +137,19 @@
   font-size: 46rpx;
   font-weight: 500;
   line-height: 46rpx;
+  height: 46rpx;
   margin-bottom: 10rpx;
   display: flex;
   justify-content: space-between;
   align-content: center;
 }
 
+.personalInfo .info .name .filter {
+  filter: blur(8rpx);
+  width: 108rpx;
+  display: inline-block;
+  overflow: hidden;
+}
 .invisible {
   width: 172rpx;
   height: 72rpx;

@@ -249,7 +249,6 @@
 }
 .btnBox {
 	width: 650rpx;
-	height: 100%;
 	line-height: 80rpx;
 	overflow: hidden;
 	font-size:28rpx;
