@@ -51,8 +51,8 @@ Page({
           imageUrl: imgUrl
         }
         pageUrl = `${path}?sessionToken=${sessionToken}&token=${token}`
-        if(options.vkey) {
-          pageUrl = `${path}?sessionToken=${sessionToken}&token=${token}&vkey=${options.vkey}`
+        if(options.optimal) {
+          pageUrl = `${path}?sessionToken=${sessionToken}&token=${token}&vkey=${options.vkey}&iso=${options.iso}`
         }
         console.log(pageUrl)
       }

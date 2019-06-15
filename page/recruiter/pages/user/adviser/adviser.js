@@ -196,5 +196,8 @@ Page({
    */
   onShareAppMessage: function () {
 
+  },
+  read() {
+    wx.navigateTo({url: `${COMMON}webView/webView?type=optimal&p=${WEBVIEW}optimal?t=顾问精选服务&i=''&vkey=${this.data.recruiterInfo.vkey}`})
   }
 })
