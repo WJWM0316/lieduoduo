@@ -210,8 +210,9 @@
 					<view class="first"><view class="name">{{infos.name || infos.recruiterInfo.name}}</view></view>
 					<view class="second">待确认约面</view>
 				</view>
-				<view class="button-box button-box-color2">
-					<view data-action="recruiter-apply" bindtap="todoAction">查看邀约</view>
+				<view class="button-box">
+					<view class="reject" data-action="recruiter-reject" bindtap="todoAction" class="reject">不合适</view>
+					<view data-action="recruiter-apply" bindtap="todoAction" class="accept">查看邀约</view>
 				</view>
 			</block>
 

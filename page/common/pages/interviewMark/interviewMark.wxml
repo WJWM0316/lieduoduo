@@ -30,7 +30,7 @@
 	<block wx:else>
 		<view class="h2">不合适的原因：</view>
 		<view class="ul">
-			<view class="li"
+			<view class="li disabled"
 				wx:for="{{list}}"
 				wx:item="item"
 				wx:key="{{item}}">{{item}}</view>

@@ -43,6 +43,10 @@
 	display: inline-block;
 }
 
+.interviewMark .disabled {
+	color: #282828 !important;
+	border-color: #5C565D !important;
+}
 .interviewMark .active{
 	border-color: #652791;
 	color: #652791;
