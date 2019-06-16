@@ -20,8 +20,8 @@
 					<image class="img {{item.glass ? 'filter' : ''}}" mode="aspectFit" lazy-load  src="{{item.avatar.smallUrl}}"></image>
 				</view>
 				<view class="detail">
-					<view class="top {{item.glass ? 'filter' : ''}}">
-						<text class="name">{{item.name}}</text>
+					<view class="top {{item.glass ? 'hasFilter' : ''}}">
+						<text class="name {{item.glass ? 'filter' : ''}}">{{item.name}}</text>
 						<text class="txt">{{item.workAgeDesc}}<block wx:if="{{item.degreeDesc}}"> · {{item.degreeDesc}}</block><block wx:if="{{item.salaryCeil}}"> · {{item.salaryFloor}}-{{item.salaryCeil}}k</block></text>
 					</view>
 					<view class="bot" wx:if="{{item.lastCompanyName}}">{{item.lastCompanyName}}<block wx:if="{{item.lastCompanyName && item.lastCompanyName}}"> | </block>{{item.lastPosition}}</view>

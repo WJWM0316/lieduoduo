@@ -122,10 +122,7 @@
 	height: 100%;
 	display: block;
 }
-.list-item .msg .head .img.filter {
-  -webkit-filter:blur(10rpx);
-	filter:blur(10rpx);
-}
+
 .list-item .msg .detail {
 	width: 100%;
 	height: 121rpx;
@@ -151,7 +148,7 @@
 .detail .top.noFlex {
   display: block;
 }
-.detail .top.filter {
+.detail .top.hasFilter {
   overflow: visible;
 }
 .detail .top .name {
@@ -163,10 +160,8 @@
   display: inline-block;
 }
 
-.detail .top.filter .name {
+.detail .top .name.filter {
   width: 72rpx;
-	filter: blur(10rpx);
-  -webkit-filter: blur(10rpx);
   overflow: hidden;
 }
 .invisible {
