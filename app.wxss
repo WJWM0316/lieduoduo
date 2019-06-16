@@ -27,8 +27,6 @@ view {
 button::after{
 	border: none;
 }
-
-
 /*
 @font-face {
   font-family: designFont;

@@ -106,6 +106,7 @@ Page({
           resolve(res)
         })
       }).catch(e => {
+        reject(e)
         if (e.code === 910) this.setData({invisible: true})
       })
     })
@@ -209,6 +210,7 @@ Page({
       this.setData({hasReFresh: false})
       wx.stopPullDownRefresh()
     }).catch(e => {
+      this.setData({hasReFresh: false})
       wx.stopPullDownRefresh()
     })
   },

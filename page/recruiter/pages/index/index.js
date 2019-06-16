@@ -72,10 +72,16 @@ Page({
     let choseType = wx.getStorageSync('choseType') || ''
     this.setData({ choseType})
     if (app.loginInit) {
-      if (!app.globalData.hasLogin) wx.navigateTo({url: `${COMMON}bindPhone/bindPhone`})
+      if (!app.globalData.hasLogin) {
+        wx.navigateTo({url: `${COMMON}bindPhone/bindPhone`})
+        return
+      }
     } else {
       app.loginInit = () => {
-        if (!app.globalData.hasLogin) wx.navigateTo({url: `${COMMON}bindPhone/bindPhone`})
+        if (!app.globalData.hasLogin) {
+          wx.navigateTo({url: `${COMMON}bindPhone/bindPhone`})
+          return
+        }
       }
     }
     let that = this
