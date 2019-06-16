@@ -1,6 +1,7 @@
 
 .head {
 	width: 100%;
+	position: relative;
 }
 .head .bg {
 	width: 100%;
@@ -218,4 +219,21 @@
 }
 .positionName {
 	color: #8452A7;
+}
+
+.know{
+	height:33rpx;
+	font-size:24rpx;
+	font-weight:400;
+	color:rgba(255,255,255,1);
+	line-height:33rpx;
+	position: absolute;
+	bottom: 44rpx;
+	left: 80rpx;
+}
+
+.know .icon{
+	font-size:24rpx;
+	color: #FFDC29;
+	margin-left: 8rpx;
 }

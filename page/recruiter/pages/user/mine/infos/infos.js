@@ -1,6 +1,6 @@
 import { getRecruiterOtherInfosApi } from '../../../../../../api/pages/recruiter.js'
 
-import {RECRUITER, COMMON} from '../../../../../../config.js'
+import {RECRUITER, COMMON, WEBVIEW} from '../../../../../../config.js'
 
 import {getUserRoleApi} from "../../../../../../api/pages/user.js"
 
@@ -68,6 +68,7 @@ Page({
    */
   routeJump(e) {
     const route = e.currentTarget.dataset.route
+    const pageInfos = this.data.pageInfos
     switch(route) {
       case 'company':
         wx.navigateTo({url: `${RECRUITER}company/indexEdit/indexEdit`})
@@ -93,7 +94,12 @@ Page({
         wx.navigateTo({url: `${RECRUITER}company/interest/interest`})
         break
       case 'adviser':
-        wx.navigateTo({url: `${RECRUITER}user/adviser/adviser`})
+        if(pageInfos.haveAdvisorService) {
+          wx.navigateTo({url: `${RECRUITER}user/adviser/adviser`})
+        } else {
+          let path = encodeURIComponent(`${WEBVIEW}optimal?vkey=${this.data.recruiterInfo.vkey}&iso=0&`)
+          wx.navigateTo({url: `${COMMON}webView/webView?type=optimal&p=${path}`})
+        }  
         break
       case 'myAccount':
         wx.navigateTo({url: `${RECRUITER}user/myAccount/myAccount`})

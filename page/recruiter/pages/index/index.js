@@ -404,11 +404,12 @@ Page({
     if(url.includes('optimal')) {
       if(recruiterDetails.haveAdvisorService) {
         wx.navigateTo({url: `${RECRUITER}user/adviser/adviser`})
-        return
       } else {
-        url = `${url}&p=${WEBVIEW}optimal?t=顾问精选服务&i=''&vkey=${recruiterDetails.vkey}&iso=0`
+        let path = encodeURIComponent(`${WEBVIEW}optimal?vkey=${recruiterDetails.vkey}&iso=0&`)
+        wx.navigateTo({url: `${COMMON}webView/webView?type=optimal&p=${path}`})
       }
-    }    
-    wx.navigateTo({ url })
+    } else {
+      wx.navigateTo({ url })
+    }
   }
 })

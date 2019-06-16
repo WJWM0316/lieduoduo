@@ -1,5 +1,5 @@
 import {getAdvisorListApi} from '../../../../../api/pages/recruiter.js'
-import {RECRUITER, COMMON, APPLICANT} from '../../../../../config.js'
+import {RECRUITER, COMMON, APPLICANT, WEBVIEW} from '../../../../../config.js'
 import {getSelectorQuery}  from '../../../../../utils/util.js'
 
 const app = getApp()
@@ -176,6 +176,7 @@ Page({
 
   },
   read() {
-    wx.navigateTo({url: `${COMMON}webView/webView?type=optimal&p=${WEBVIEW}optimal?vkey=${this.data.recruiterInfo.vkey}`})
+    let path = encodeURIComponent(`${WEBVIEW}optimal?vkey=${app.globalData.recruiterDetails.vkey}&iso=1&`)
+    wx.navigateTo({url: `${COMMON}webView/webView?type=optimal&p=${path}`})
   }
 })

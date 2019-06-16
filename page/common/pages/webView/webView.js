@@ -52,10 +52,7 @@ Page({
             imageUrl: imgUrl
           }
         }
-        pageUrl = `${path}?sessionToken=${sessionToken}&token=${token}`
-        if(options.optimal) {
-          pageUrl = `${path}?sessionToken=${sessionToken}&token=${token}&vkey=${options.vkey}&iso=${options.iso}`
-        }
+        pageUrl = `${path}&sessionToken=${sessionToken}&token=${token}`
         console.log(pageUrl)
       }
       this.setData({pageUrl})
