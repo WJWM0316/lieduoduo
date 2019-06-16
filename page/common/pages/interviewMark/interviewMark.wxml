@@ -18,9 +18,11 @@
 					class="textarea"
 					placeholder-style="color:#BCBCBC"
 					placeholder="告诉我们更多关于候选人的评价，以便我们改进服务（补充说明不会被候选人看到）"
-					maxlength="300"
+					maxlength="50000"
 					value="{{extra}}" />
-				<view class="sum"><text class="{{extra.length ? 'red' : ''}}">{{ extra.length }}</text>/300</view>
+				<view class="sum">
+					<text class="{{ (extra.length && extra.length <= 300) ? 'active' : extra.length > 300 ? 'warning' : '' }}"> {{ extra.length }}</text>/300
+				</view>
 			</view>
 		</view>
 		<view class="btn-area">

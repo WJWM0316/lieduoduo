@@ -99,8 +99,10 @@ Page({
    * @return   {[type]}     [description]
    */
   bindInput(e) {
-    let name = e.detail.value
-    this.debounce(this.bindChange, null, 500, name)
+    let extra = e.detail.value
+    // extra = extra.trimStart()
+    this.setData({extra})
+    // this.debounce(this.bindChange, null, 500, name)
   },
   /**
    * @Author   小书包
@@ -115,6 +117,10 @@ Page({
     let list = this.data.list.filter(field => field.active)
     if(!list.length) {
       app.wxToast({title: '请选择不适合的原因'})
+      return
+    }
+    if(this.data.extra && this.data.extra.length > 300) {
+      app.wxToast({title: '补充说明不得超过300字'})
       return
     }
     let tem = list.map(field => field.id)
