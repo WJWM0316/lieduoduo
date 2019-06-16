@@ -417,7 +417,7 @@ Page({
     this.setData({bannerIndex: e.detail.current})
   },
   toJump(e) {
-    let url = e.currentTarget.dataset.url
+    let url = '/'+e.currentTarget.dataset.url
     wx.navigateTo({ url })
   }
 })
