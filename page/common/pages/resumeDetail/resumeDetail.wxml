@@ -34,8 +34,8 @@
       <view class="personalInfo commentBox">
         <view class="top">
           <button class="clear-style avatarBox" form-type="submit" bindtap="readAvatar">
-            <view class="avatar {{info.advisor && info.advisor.glass ? 'filter' : ''}}">
-              <image src="{{info.avatar.smallUrl}}" class="img"></image>
+            <view class="avatar">
+              <image src="{{info.avatar.smallUrl}}" class="img {{info.advisor && info.advisor.glass ? 'filter' : ''}}"></image>
             </view>
             <view class="gender">
               <image class="sexIcon" src="{{cdnImagePath}}nan.png" wx:if="{{info.gender === 1}}"></image>

@@ -28,12 +28,8 @@ button::after{
 	border: none;
 }
 .filter {
-	width: 100%;
-	height: 100%;
 	-webkit-filter: blur(10rpx);
   filter: blur(10rpx);
-  border-radius: 50%;
-  display: block;
 }
 /*
 @font-face {
