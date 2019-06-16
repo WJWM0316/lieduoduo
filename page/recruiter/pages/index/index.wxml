@@ -45,14 +45,13 @@
 		<view class="shadow"></view>
 	</view>
 	
-	<view class="shoper-banner">
+	<view class="shoper-banner" wx:if="{{banner.length}}">
 		<swiper
       class="swiper"
       autoplay
       circular
       bindchange="autoplay">
       <swiper-item
-	      wx:if="{{banner.length}}" 
 				bindtap="toJump" 
 				data-url="{{item.otherUrl}}" 
 				wx:for="{{banner}}"
