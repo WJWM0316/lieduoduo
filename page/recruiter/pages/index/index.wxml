@@ -45,8 +45,29 @@
 		<view class="shadow"></view>
 	</view>
 
-	<view class="shoper-banner" wx:if="{{banner.bigImgUrl}}" bindtap="toJump" data-url="{{banner.otherUrl}}">
-		<image src="{{banner.bigImgUrl}}" class="images"></image>
+	<view class="shoper-banner" wx:if="{{!indexShowCount.advisor}}" bindtap="advisorJump">
+		<image class="images" src="{{cdnImagePath}}5d049a5ea678f@index.png"></image>
+	</view>
+	
+	<view class="shoper-banner">
+		<swiper
+      class="swiper"
+      autoplay
+      circular
+      bindchange="autoplay"
+      style="height: {{bannerH}}px"
+      >
+      <swiper-item
+      wx:if="{{banner.length}}" 
+			bindtap="toJump" 
+			data-url="{{banner.otherUrl}}" 
+			wx:for="{{banner}}"
+			wx:key="{{index}}"
+			class="swiper-item"
+			wx:for-item="item">
+        <image src="{{item.bigImgUrl}}" class="images"></image>
+      </swiper-item>
+    </swiper>
 	</view>
 
 	<view>
