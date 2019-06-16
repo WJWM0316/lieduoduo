@@ -254,17 +254,20 @@ Page({
       return interviewDetailApi({interviewId: this.data.options.id, ...app.getSource()}).then(res => {
         let addressData = wx.getStorageSync('createPosition')
         let positionData = wx.getStorageSync('interviewData')
-        if ((res.data.status === 12 || res.data.status === 21 || res.data.status === 32) && wx.getStorageSync('choseType') === 'RECRUITER') {
+        let info = res.data
+        info.jobhunterInfo = Object.assign(info.jobhunterInfo, {lastInterviewStatus: info.status})
+        if ((info.status === 12 || info.status === 21 || info.status === 32) && wx.getStorageSync('choseType') === 'RECRUITER') {
           if (addressData) {
-            res.data.addressId = addressData.address_id
-            res.data.address = addressData.address
+            info.addressId = addressData.address_id
+            info.address = addressData.address
           }
           if (positionData) {
-            res.data.positionName = positionData.positionName
-            res.data.positionId = positionData.positionId
+            info.positionName = positionData.positionName
+            info.positionId = positionData.positionId
           }
         }
-        this.setData({info: res.data})
+        console.log(info)
+        this.setData({info})
       })
     } else {
       let recruiter_chat_infos = wx.getStorageSync('recruiter_chat_infos')
