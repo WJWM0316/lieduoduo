@@ -245,6 +245,7 @@
   height:120rpx;
   border-radius: 50%;
   overflow: hidden;
+  display: block;
 }
 
 .item3 .row-one image {

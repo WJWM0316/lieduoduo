@@ -145,7 +145,7 @@
 				wx:key="{{index}}">
 				<view class="item2">
 					<view class="row-one">
-						<view class="img-box"><image class="{{item.glass ? 'filter' : ''}}" src="{{item.avatar.smallUrl}}"></image></view>
+						<view class="img-box"><view class="{{item.glass ? 'filter' : ''}}"><image src="{{item.avatar.smallUrl}}"></image></view></view>
 						<view class="content">
 							<view class="header {{item.glass ? 'hasFilter' : ''}}">
 								<view class="name {{item.glass ? 'filter' : ''}}">{{item.jobhunterRealname}}</view>

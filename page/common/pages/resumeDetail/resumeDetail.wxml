@@ -34,8 +34,8 @@
       <view class="personalInfo commentBox">
         <view class="top">
           <button class="clear-style avatarBox" form-type="submit" bindtap="readAvatar">
-            <view class="avatar">
-              <image src="{{info.avatar.smallUrl}}" class="img {{info.advisor && info.advisor.glass ? 'filter' : ''}}"></image>
+            <view class="avatar {{info.advisor && info.advisor.glass ? 'filter' : ''}}">
+              <image src="{{info.avatar.smallUrl}}" class="img"></image>
             </view>
             <view class="gender">
               <image class="sexIcon" src="{{cdnImagePath}}nan.png" wx:if="{{info.gender === 1}}"></image>
@@ -190,9 +190,9 @@
   </form>
 </block>
 <block wx:else>
-  <view class="invisibleWrap filter" style="margin-top: -{{navH}}px">
+  <view class="invisibleWrap" style="margin-top: -{{navH}}px">
     <view class="wrap">
-      <view class="photo">
+      <view class="photo filter">
         <image class="img" src="https://attach.lieduoduo.ziwork.com/default/man.png!130xauto"></image>
       </view>
       <view class="desc">
