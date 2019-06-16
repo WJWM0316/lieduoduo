@@ -17,7 +17,7 @@
 		<view class="list-item" wx:for="{{listData.list}}" wx:key="{{index}}" bindtap="viewResumeDetail" data-uid="{{item.uid}}">
 			<view class="msg">
 				<view class="head">
-					<image class="img {{item.dealStatus !== 1 ? 'filter' : ''}}" mode="aspectFit" lazy-load  src="{{item.avatar.smallUrl}}"></image>
+					<image class="img {{item.glass ? 'filter' : ''}}" mode="aspectFit" lazy-load  src="{{item.avatar.smallUrl}}"></image>
 				</view>
 				<view class="detail">
 					<view class="top">

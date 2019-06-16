@@ -43,7 +43,7 @@
             </view>
           </button>
           <view class="info">
-            <view class="name"><text class="{{info.advisor.glass ? 'filter' : ''}}">{{info.advisor.glass ? '不可见' : info.name}}</text><i class="icon iconfont icon-bianji1 edit" data-editName="info" data-id="{{item.id}}" bindtap="edit" wx:if="{{isOwner}}"></i></view>
+            <view class="name"><text class="{{info.advisor.glass ? 'filter' : ''}}">{{info.name}}</text><i class="icon iconfont icon-bianji1 edit" data-editName="info" data-id="{{item.id}}" bindtap="edit" wx:if="{{isOwner}}"></i></view>
             <view class="companyName" wx:if="{{info.lastCompanyName || info.lastPosition}}">
               <text>{{info.lastCompanyName}}</text><block wx:if="{{info.lastCompanyName && info.lastPosition}}"> | </block><text>{{info.lastPosition}}</text>
             </view>
