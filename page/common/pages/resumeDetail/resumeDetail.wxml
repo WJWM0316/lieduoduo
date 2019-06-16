@@ -172,7 +172,7 @@
         <i class="icon iconfont icon-biaojiweiganxingqu" wx:else></i>
       </button>
       <!-- 底部开撩 -->
-      <view class="bottomBox" hidden="{{info.sourceType !== 500 && info.advisor && info.advisor.glass && info.advisor.recommendToCompany}}">
+      <view class="bottomBox">
         <view wx:if="{{!options.preview}}">
           <interviewBar
             id="interviewBar"

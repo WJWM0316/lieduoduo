@@ -1,6 +1,6 @@
 // components/functional/unloadFile/unloadFile.js
 import {unloadApi} from '../../../api/pages/common.js'
-import {APPLICANTHOST, RECRUITERHOST, COMMON} from '../../../config.js'
+import {APPLICANTHOST, RECRUITERHOST, COMMON, VERSION} from '../../../config.js'
 let fileNum = 0 // 选择文件的数量
 let result = [] // 返回父组件的结果
 Component({
@@ -79,7 +79,8 @@ Component({
         methos: 'post',
         name:"file",
         header: {
-          'Authorization': wx.getStorageSync('token')
+          'Authorization': wx.getStorageSync('token'),
+          'Wechat-Version': VERSION
         }, 
         // 设置请求的 header
         formData,

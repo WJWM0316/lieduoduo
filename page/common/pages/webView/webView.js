@@ -42,13 +42,15 @@ Page({
           break
       }
       if (options.p) {
-        let path = decodeURIComponent(options.p),
-            title = decodeURIComponent(options.t),
-            imgUrl = decodeURIComponent(options.i)
-        wxShare = {
-          title: title,
-          path: app.getCurrentPagePath(),
-          imageUrl: imgUrl
+        let path = decodeURIComponent(options.p)
+        if (options.t) {
+          let title = decodeURIComponent(options.t),
+              imgUrl = decodeURIComponent(options.i)
+          wxShare = {
+            title: title,
+            path: app.getCurrentPagePath(),
+            imageUrl: imgUrl
+          }
         }
         pageUrl = `${path}?sessionToken=${sessionToken}&token=${token}`
         if(options.optimal) {
