@@ -123,7 +123,8 @@
 	display: block;
 }
 .list-item .msg .head .img.filter {
-	filter:blur(8rpx);
+  -webkit-filter:blur(10rpx);
+	filter:blur(10rpx);
 }
 .list-item .msg .detail {
 	width: 100%;
@@ -143,9 +144,6 @@
   display: flex;
   align-items: center;
   width: 100%;
-  overflow: hidden;
-  text-overflow:ellipsis;
-  white-space: nowrap;
 }
 .detail .top.noFlex {
   display: block;
@@ -157,6 +155,11 @@
 	color:#282828;
 	line-height:32rpx;
 	margin-right: 16rpx;
+  display: inline-block;
+  max-width: 140rpx;
+  overflow: hidden;
+  text-overflow:ellipsis;
+  white-space: nowrap;
 }
 
 .detail .top .name.filter {
@@ -164,6 +167,7 @@
 	width: 72rpx;
 	display: inline-block;
 	overflow: hidden;
+  text-overflow: unset;
 }
 .invisible {
 	width:96rpx;

@@ -388,9 +388,6 @@
 .item2 .header {
   height:36rpx;
   line-height:36rpx;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
   max-width: 490rpx;
   margin-top: 20rpx;
 }
@@ -400,6 +397,16 @@
   font-weight:bold;
   color:rgba(40,40,40,1);
   display: inline;
+  max-width: 150rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.item2 .header .name.filter {
+  width: 72rpx;
+  -webkit-filter: blur(10rpx);
+  filter: blur(10rpx);
+  text-overflow: unset;
 }
 
 .item2 .header .mix{
@@ -545,4 +552,8 @@
 
 .height10 {
   padding-top: 331rpx;
+}
+.item2 .row-one .img-box .filter {
+  -webkit-filter: blur(10rpx);
+  filter: blur(10rpx);
 }

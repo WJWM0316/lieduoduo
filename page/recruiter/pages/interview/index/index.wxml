@@ -145,10 +145,10 @@
 				wx:key="{{index}}">
 				<view class="item2">
 					<view class="row-one">
-						<view class="img-box"><image src="{{item.avatar.smallUrl}}"></image></view>
+						<view class="img-box"><image class="{{item.glass ? 'filter' : ''}}" src="{{item.avatar.smallUrl}}"></image></view>
 						<view class="content">
 							<view class="header">
-								<view class="name">{{item.jobhunterRealname}}</view>
+								<view class="name {{item.glass ? 'filter' : ''}}">{{item.jobhunterRealname}}</view>
 								<view class="mix">
 									<block wx:if="{{item.workExperienceDesc}}">{{item.workExperienceDesc}}</block>
 									<block wx:if="{{item.educationDesc}}"> · {{item.educationDesc}}</block>

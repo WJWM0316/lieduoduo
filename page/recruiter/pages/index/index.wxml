@@ -104,7 +104,7 @@
 											<text class="num">{{indexShowCount.advisor.notHandleNum}}</text> 位候选人未处理
 										</block>
 										<block wx:else>
-											<text>已推荐 {{indexShowCount.advisor.total}} 位候选人</text>
+											<text>累计收到 {{indexShowCount.advisor.total}} 位候选人</text>
 										</block>
 									</block>
 									<block wx:else>

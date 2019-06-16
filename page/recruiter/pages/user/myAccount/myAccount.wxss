@@ -93,7 +93,9 @@
 .list .list-item .top .price .priceTxt.reset {
 	color: #FF7F4D;
 }
-
+.list .list-item .top .price .priceTxt.gray {
+	color: #BCBCBC;
+}
 .list .list-item .bottom {
 	margin-top: 12rpx;
 	overflow: hidden;
