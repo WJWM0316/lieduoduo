@@ -390,6 +390,9 @@
   line-height:36rpx;
   max-width: 490rpx;
   margin-top: 20rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .item2 .header .name{
@@ -398,15 +401,14 @@
   color:rgba(40,40,40,1);
   display: inline;
   max-width: 150rpx;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
 }
-.item2 .header .name.filter {
+.item2 .header.filter {
+  overflow: visible;
+}
+.item2 .header.filter .name {
   width: 72rpx;
   -webkit-filter: blur(10rpx);
   filter: blur(10rpx);
-  text-overflow: unset;
 }
 
 .item2 .header .mix{

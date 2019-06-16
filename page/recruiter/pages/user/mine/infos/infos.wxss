@@ -1,4 +1,4 @@
-.center {
+top-banner.center {
 	position: relative;
 }
 .top-banner {
@@ -7,11 +7,13 @@
 	top: 0;
 	width: 100%;
 	height: 415rpx;
+  overflow: hidden;
 }
-
+.top-banner.isIphoneX {
+	overflow: visible;
+}
 .top-banner image {
 	width: 100%;
-	height: 415rpx;
 }
 
 .page-mine {
@@ -216,7 +218,7 @@
 }
 .entry-list .li.toolbox {
 	display: flex;
-	padding: 42rpx 0;
+	padding: 42rpx 36rpx;
 }
 .entry-list .li.toolbox .tool-item {
 	flex: 1;
@@ -259,7 +261,7 @@
 .entry-list .li:after {
 	position: absolute;
 	left: 40rpx;
-	right: 0;
+	right: 40rpx;
 	bottom: 0;
 	height: 1px;
 	background: rgba(232,233,235,1);

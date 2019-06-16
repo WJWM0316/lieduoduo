@@ -1,6 +1,6 @@
 <view class="center">
 <navbar background="{{navbarBg}}" title="我的" color="#fff" showScanIcon="{{showScanIcon}}"></navbar>
-<view class="top-banner">
+<view class="top-banner {{isIphoneX ? 'isIphoneX' : ''}}">
 	<image class="bgImg" mode="aspectFill" src="{{cdnPath}}recruiter_mine_new_bg.png"></image>
 </view>
 <view hidden="{{!hasReFresh}}">

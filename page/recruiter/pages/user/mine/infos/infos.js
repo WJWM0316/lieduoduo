@@ -16,6 +16,7 @@ Page({
     isRecruiter: app.globalData.isRecruiter,
     cdnPath: app.globalData.cdnImagePath,
     navH: app.globalData.navHeight,
+    isIphoneX: app.globalData.isIphoneX,
     hasReFresh: false,
     pageInfos: {},
     navbarBg: 'transparent',
