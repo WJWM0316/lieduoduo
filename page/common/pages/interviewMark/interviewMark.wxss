@@ -94,8 +94,12 @@
 	padding-right: 30rpx;
 }
 
-.interviewMark .red{
+.interviewMark .active {
 	color: #652791;
+}
+
+.interviewMark .warning{
+	color: red;
 }
 
 .interviewMark .btn-area {

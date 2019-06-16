@@ -172,12 +172,13 @@
         <view class="txt1">面试已取消</view>
         <block wx:if="{{identity === 'APPLICANT'}}">
           <view class="txt2">面试官标记为不合适，别灰心，还有大量机会等你发现</view>
+          <image class="pic" src="{{cdnImagePath}}emptyState.png"></image>
           <view class="btn" bindtap="jump" data-type="careerChance">发现更多好机会</view>
         </block>
         <block wx:else>
+          <image class="pic" src="{{cdnImagePath}}emptyState.png"></image>
           <view class="txt2">已标记为不合适，别灰心，去看看其他候选人吧~</view>
         </block>
-        <image class="pic" src="{{cdnImagePath}}emptyState.png"></image>
       </view>
 
       <!-- 面试结果 -->
