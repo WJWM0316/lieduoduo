@@ -141,6 +141,7 @@ Page({
       let recruiterDetails = app.globalData.recruiterDetails
       let path = encodeURIComponent(`${WEBVIEW}optimal?vkey=${recruiterDetails.vkey}&iso=0&`)
       let otherUrl = `${COMMON}webView/webView?type=optimal&p=${path}`
+          otherUrl = otherUrl.slice(1)
       let bigImgUrl = `${this.data.cdnImagePath}5d049a5ea678f@index.png`
       let indexShowCount = this.data.indexShowCount
       let item = {bigImgUrl, otherUrl }
