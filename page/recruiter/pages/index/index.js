@@ -130,7 +130,11 @@ Page({
     this.getWelcomeWord()
   },
   getBanner () {
-    return getAdBannerApi({location: 'recruiter_index', hasLoading: false}).then(res => this.setData({banner: res.data.length ? res.data[0] : {}}))
+    return getAdBannerApi({location: 'recruiter_index', hasLoading: false}).then(res => {
+      let banner = res.data
+      console.log(res.data)
+      this.setData({banner})
+    })
   },
   getDomNodePosition() {
     return getSelectorQuery('.default').then(res => {
@@ -268,7 +272,9 @@ Page({
         return
       }
       getIndexShowCountApi({hasLoading: false}).then(res => {
-        this.setData({indexShowCount: res.data, detail: res.data.recruiterInfo}, () => resolve(res))
+        let indexShowCount = res.data
+        console.log(indexShowCount)
+        this.setData({indexShowCount, detail: res.data.recruiterInfo}, () => resolve(res))
       })
     })
   },
@@ -399,17 +405,15 @@ Page({
   },
   toJump(e) {
     let url = '/' + e.currentTarget.dataset.url
+    wx.navigateTo({ url })
+  },
+  advisorJump() {
     let recruiterDetails = app.globalData.recruiterDetails
-    // 开通精选
-    if(url.includes('optimal')) {
-      if(recruiterDetails.haveAdvisorService) {
-        wx.navigateTo({url: `${RECRUITER}user/adviser/adviser`})
-      } else {
-        let path = encodeURIComponent(`${WEBVIEW}optimal?vkey=${recruiterDetails.vkey}&iso=0&`)
-        wx.navigateTo({url: `${COMMON}webView/webView?type=optimal&p=${path}`})
-      }
+    if(recruiterDetails.haveAdvisorService) {
+      wx.navigateTo({url: `${RECRUITER}user/adviser/adviser`})
     } else {
-      wx.navigateTo({ url })
+      let path = encodeURIComponent(`${WEBVIEW}optimal?vkey=${recruiterDetails.vkey}&iso=0&`)
+      wx.navigateTo({url: `${COMMON}webView/webView?type=optimal&p=${path}`})
     }
   }
 })
