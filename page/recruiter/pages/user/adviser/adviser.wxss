@@ -162,7 +162,7 @@
 
 .detail .top .name.filter {
   width: 72rpx;
-  overflow: hidden;
+  overflow-x: hidden;
 }
 .invisible {
 	width:96rpx;

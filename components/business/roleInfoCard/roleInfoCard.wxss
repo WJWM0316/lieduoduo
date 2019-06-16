@@ -71,7 +71,7 @@
   filter: blur(8rpx);
 	width: 72rpx;
 	display: inline-block;
-	overflow: hidden;
+	overflow-x: hidden;
 }
 .roleInfoCard .recruiterMsg .name .msg {
   font-size: 28rpx;

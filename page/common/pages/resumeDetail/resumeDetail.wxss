@@ -144,7 +144,7 @@
 .personalInfo .info .name .filter {
   width: 108rpx;
   display: inline-block;
-  overflow: hidden;
+  overflow-x: hidden;
 }
 .invisible {
   width: 172rpx;

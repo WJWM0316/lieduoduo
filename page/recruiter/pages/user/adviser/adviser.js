@@ -118,7 +118,7 @@ Page({
   },
   onPageScroll(e) {
     let navbarData = this.data.navbarData
-    if(e.scrollTop > 10) {
+    if(e.scrollTop > 0) {
       if (navbarData.background !== '#ffffff') {
         navbarData.background = '#ffffff'
         navbarData.color = '#22292C'

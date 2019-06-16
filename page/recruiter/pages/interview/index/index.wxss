@@ -407,7 +407,7 @@
 }
 .item2 .header.hasFilter .name {
   width: 72rpx;
-  overflow: hidden;
+  overflow-x: hidden;
   display: inline-block;
 }
 
