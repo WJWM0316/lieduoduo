@@ -66,7 +66,8 @@ Page({
       },
       recruiterInterestedToJ: 0
     },
-    banner: {}
+    banner: {},
+    bannerIndex: 0
   },
   onLoad() {
     let choseType = wx.getStorageSync('choseType') || ''
@@ -125,14 +126,19 @@ Page({
     }
   },
   getMixdata() {
-    this.getIndexShowCount()
-    this.getBanner()
+    this.getIndexShowCount().then(() => this.getBanner())
     this.getWelcomeWord()
   },
   getBanner () {
     return getAdBannerApi({location: 'recruiter_index', hasLoading: false}).then(res => {
       let banner = res.data
-      console.log(res.data)
+      let recruiterDetails = app.globalData.recruiterDetails
+      let path = encodeURIComponent(`${WEBVIEW}optimal?vkey=${recruiterDetails.vkey}&iso=0&`)
+      let otherUrl = `${COMMON}webView/webView?type=optimal&p=${path}`
+      let bigImgUrl = `${this.data.cdnImagePath}5d049a5ea678f@index.png`
+      let indexShowCount = this.data.indexShowCount
+      let item = {bigImgUrl, otherUrl }
+      if(!indexShowCount.advisor) banner.unshift(item)
       this.setData({banner})
     })
   },
@@ -272,9 +278,7 @@ Page({
         return
       }
       getIndexShowCountApi({hasLoading: false}).then(res => {
-        let indexShowCount = res.data
-        console.log(indexShowCount)
-        this.setData({indexShowCount, detail: res.data.recruiterInfo}, () => resolve(res))
+        this.setData({indexShowCount: res.data, detail: res.data.recruiterInfo}, () => resolve(res))
       })
     })
   },
@@ -403,17 +407,11 @@ Page({
       this.setData({welcomeWord: '晚上好'})
     }
   },
-  toJump(e) {
-    let url = '/' + e.currentTarget.dataset.url
-    wx.navigateTo({ url })
+  autoplay (e) {
+    this.setData({bannerIndex: e.detail.current})
   },
-  advisorJump() {
-    let recruiterDetails = app.globalData.recruiterDetails
-    if(recruiterDetails.haveAdvisorService) {
-      wx.navigateTo({url: `${RECRUITER}user/adviser/adviser`})
-    } else {
-      let path = encodeURIComponent(`${WEBVIEW}optimal?vkey=${recruiterDetails.vkey}&iso=0&`)
-      wx.navigateTo({url: `${COMMON}webView/webView?type=optimal&p=${path}`})
-    }
+  toJump(e) {
+    let url = e.currentTarget.dataset.url
+    wx.navigateTo({ url })
   }
 })
