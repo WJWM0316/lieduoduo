@@ -1,4 +1,4 @@
-import {getAdvisorListApi} from '../../../../../api/pages/recruiter.js'
+import {getAdvisorListApi, getRecommendReddotApi} from '../../../../../api/pages/recruiter.js'
 import {RECRUITER, COMMON, APPLICANT, WEBVIEW} from '../../../../../config.js'
 import {getSelectorQuery}  from '../../../../../utils/util.js'
 
@@ -18,6 +18,7 @@ Page({
     isIphoneX: app.globalData.isIphoneX,
     navHeight: app.globalData.navHeight,
     cdnPath: app.globalData.cdnImagePath,
+    arNewResumeRedDot: 0,
     tabFloat: false,
     tabIndex: 0,
     imgH: 164,
@@ -30,7 +31,7 @@ Page({
       {
         title: '未处理',
         value: 0,
-        redHot: 1
+        redHot: 0
       },
       {
         title: '已邀约',
@@ -61,7 +62,17 @@ Page({
       onBottomStatus: 0
     }
     this.setData({listData})
+    this.getRedHot()
     this.getList()
+  },
+  getRedHot () {
+    getRecommendReddotApi().then((res) => {
+      if (res.data.arNewResumeRedDot) {
+        let tabList = this.data.tabList
+        tabList[1].redHot = res.data.arNewResumeRedDot
+        this.setData({tabList})
+      }
+    })
   },
   getList (hasLogin = true) {
     let listData = this.data.listData
@@ -88,7 +99,7 @@ Page({
           count: app.globalData.pageCount,
           onBottomStatus: false
         }
-    if (tabList[index].redHot) tabList[index].redHot = false
+    if (tabList[index].redHot) tabList[index].redHot = 0
     this.setData({tabIndex: index, tabList, listData}, () => {
       this.getList()
     })

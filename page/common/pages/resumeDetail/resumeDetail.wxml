@@ -7,7 +7,7 @@
 
 
 <block wx:if="{{!invisible}}">
-  <view class="resume-from" wx:if="{{info.sourceDesc === 500}}">
+  <view class="resume-from" wx:if="{{info.sourceDesc}}">
     <view class="text4">
       <image class="icon1 icon-left img01" src="{{cdnImagePath}}sanjiaoxing001.png"></image>
       此候选人来自：<view class="position"><text class="text10">{{info.sourceDesc}}</text></view>
@@ -204,7 +204,7 @@
     </view>
   </view>
   <actionSheet class="actionSheet" openPop="{{hasExplainPop}}" title="精选简历" bindclose="toggleExplainPop">
-    <view class="content">精选简历，是猎多多专业版会员享有的特权。由平台专属顾问在365天的服务周期内，持续为招聘官量身甄选优质简历，提供打包推荐、跟进邀约面试等服务。</view>
+    <view class="content">精选简历，是猎Plus约面服务会员享有的特权。由平台专属顾问在365天的服务周期内，持续为招聘官量身甄选优质简历，提供打包推荐、跟进邀约面试等服务。</view>
     <view class="desc">了解更多细则，欢迎联系我们</view>
     <button class="callPhone" bindtap="callPhone">{{telePhone}}</button>
   </actionSheet>

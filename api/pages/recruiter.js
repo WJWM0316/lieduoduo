@@ -220,3 +220,16 @@ export const getOrdersListApi = (data, hasLoading) => {
     hasLoading: hasLoading
   })
 }
+
+
+// 获取精选顾问tab红点
+export const getRecommendReddotApi = (data, hasLoading) => {
+  return request({
+    url: `/advisor/recommend/red_dot`,
+    method: 'get',
+    data,
+    hasLoading: hasLoading
+  })
+}
+
+

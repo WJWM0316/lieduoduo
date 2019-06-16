@@ -18,7 +18,7 @@
 		<view class="list-item" wx:for="{{ordersData.list}}" wx:key="{{index}}">
 			<view class="top">
 				<view class="title">{{item.label}}</view>
-				<view class="price"><text class="priceTxt {{item.status === 3 ? 'returnCash' : ''}} {{item.type === -1 ? 'reset' : ''}}">{{item.type === 1 ? '-' : '+'}}{{item.money}}</text></view>
+				<view class="price"><text class="priceTxt {{item.status === 3 ? 'returnCash' : ''}} {{item.type === -1 ? 'reset' : ''}}">{{item.type === 1 && item.status !== 3 ? '-' : '+'}}{{item.money}}</text></view>
 			</view>
 			<view class="bottom">
 				<view class="date">{{filters.dateFormat(item.updateTime, 'YYYY-MM-DD hh:mm')}}</view>

@@ -155,7 +155,20 @@
 				</view>
 			</block>
 
+
+
 			<!-- 招聘端主动发起开料 end-->
+			<block wx:elif="{{interviewInfos.interviewStatus === 12 }}">
+				<view class="content" wx:if="{{infos.sourceType !== 500}}">
+					<view class="first"><view class="name">{{infos.name || infos.recruiterInfo.name}}</view></view>
+					<view class="second">待确认约面</view>
+				</view>
+				<view class="button-box">
+					<view class="reject" data-action="recruiter-reject" bindtap="todoAction" class="reject">不合适</view>
+					<view data-action="recruiter-apply" bindtap="todoAction" class="accept">查看邀约</view>
+				</view>
+			</block>
+
 			<block wx:elif="{{interviewInfos.interviewStatus === 21}}">
 				<view class="content" wx:if="{{infos.sourceType !== 500}}">
 					<view class="first"><view class="name">{{infos.name || infos.recruiterInfo.name}}</view></view>
@@ -170,42 +183,11 @@
 			<block wx:elif="{{interviewInfos.interviewStatus === 31}}">
 				<view class="content" wx:if="{{infos.sourceType !== 500}}">
 					<view class="first"><view class="name">{{infos.name || infos.recruiterInfo.name}}</view></view>
-					<view class="second">修改面试</view>
+					<view class="second">待确认信息</view>
 				</view>
 				<view class="button-box">
 					<view class="reject" data-action="recruiter-reject" bindtap="todoAction" class="reject">不合适</view>
 					<view data-action="recruiter-modify" bindtap="todoAction" class="accept">修改面试</view>
-				</view>
-			</block>
-
-			<block wx:elif="{{interviewInfos.interviewStatus === 21}}">
-				<view class="content" wx:if="{{infos.sourceType !== 500}}">
-					<view class="first"><view class="name">{{infos.name || infos.recruiterInfo.name}}</view></view>
-					<view class="second">安排面试</view>
-				</view>
-				<view class="button-box button-box-color2">
-					<view data-action="recruiter-arrangement" bindtap="todoAction">安排面试</view>
-				</view>
-			</block>
-			
-			<block wx:elif="{{interviewInfos.interviewStatus === 31}}">
-				<view class="content" wx:if="{{infos.sourceType !== 500}}">
-					<view class="first"><view class="name">{{infos.name || infos.recruiterInfo.name}}</view></view>
-					<view class="second">待确认信息</view>
-				</view>
-				<view class="button-box button-box-color2" data-action="recruiter-modify" bindtap="todoAction">
-					<view bindtap="todoAction">修改面试</view>
-				</view>
-			</block>
-
-			<block wx:elif="{{interviewInfos.interviewStatus === 12 }}">
-				<view class="content" wx:if="{{infos.sourceType !== 500}}">
-					<view class="first"><view class="name">{{infos.name || infos.recruiterInfo.name}}</view></view>
-					<view class="second">待确认约面</view>
-				</view>
-				<view class="button-box">
-					<view class="reject" data-action="recruiter-reject" bindtap="todoAction" class="reject">不合适</view>
-					<view data-action="recruiter-apply" bindtap="todoAction" class="accept">查看邀约</view>
 				</view>
 			</block>
 
