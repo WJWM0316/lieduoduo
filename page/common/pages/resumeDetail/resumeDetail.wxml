@@ -190,7 +190,7 @@
   </form>
 </block>
 <block wx:else>
-  <view class="invisibleWrap" style="margin-top: -{{navH}}px">
+  <view class="invisibleWrap filter" style="margin-top: -{{navH}}px">
     <view class="wrap">
       <view class="photo">
         <image class="img" src="https://attach.lieduoduo.ziwork.com/default/man.png!130xauto"></image>

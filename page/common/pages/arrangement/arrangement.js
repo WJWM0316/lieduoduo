@@ -248,6 +248,14 @@ Page({
     let identity = app.identification(options)
     this.setData({options, identity})
     positionCard = ''
+    if (options.adviser) {
+      app.wxConfirm({
+        title: '邀约已发送',
+        content: '已邀约的简历，可以在【面试】-【我的邀请】统一处理',
+        showCancel: false,
+        confirmText: '好的'
+      })
+    }
   },
   pageInit() {
     if (this.data.options.id) {

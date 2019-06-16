@@ -521,7 +521,11 @@ Page({
               confirmBack: () => {
                 openPositionApi({id: params.positionId}).then(res => {
                   that.applyInterview(params).then(res => {
-                    wx.redirectTo({url: `${COMMON}arrangement/arrangement?id=${res.data.interviewId}`})
+                    if (Number(this.data.options.sourceType) === 500) {
+                      wx.redirectTo({url: `${COMMON}arrangement/arrangement?id=${res.data.interviewId}&adviser=true`})
+                    } else {
+                      wx.redirectTo({url: `${COMMON}arrangement/arrangement?id=${res.data.interviewId}`})
+                    }
                   })
                 })
               }
@@ -530,7 +534,11 @@ Page({
             app.wxToast({title: '该职位未开放，不可选择约面'})
           } else {
             this.applyInterview(params).then(res => {
-              wx.redirectTo({url: `${COMMON}arrangement/arrangement?id=${res.data.interviewId}`})
+              if (Number(this.data.options.sourceType) === 500) {
+                wx.redirectTo({url: `${COMMON}arrangement/arrangement?id=${res.data.interviewId}&adviser=true`})
+              } else {
+                wx.redirectTo({url: `${COMMON}arrangement/arrangement?id=${res.data.interviewId}`})
+              }
             })
           }
         }

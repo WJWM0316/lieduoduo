@@ -23,7 +23,7 @@
 	display: block;
 }
 .desc {
-	width: 500rpx;
+	width: 530rpx;
 	margin: 0 auto;
 	font-weight:300;
 	color: #5C565D;

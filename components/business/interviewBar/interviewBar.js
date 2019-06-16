@@ -182,15 +182,6 @@ Component({
             this.setData({interviewInfos})
           }, 3000)
         }
-
-        if (this.data.infos.sourceType === 500 && interviewInfos.interviewStatus === 12) {
-          app.wxConfirm({
-            title: '邀约已发送',
-            content: '已邀约的简历，可以在【面试】-【我的邀请】统一处理',
-            showCancel: false,
-            confirmText: '好的'
-          })
-        }
         if (!res.data.haveInterview && this.data.options && this.data.options.directChat && automatic && !this.data.options.todoAction) {
           let e = {
             currentTarget: {

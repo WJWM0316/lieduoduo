@@ -186,9 +186,10 @@ Component({
           ctx.setFillStyle('#ffffff')
           ellipsis(ctx, info.jobhunterInfo.realname, 194, 165, 115)
           ctx.setFontSize(22)
-          ellipsis(ctx, info.jobhunterInfo.workAge, 194, 165, 150)
+          ellipsis(ctx, info.jobhunterInfo.workAgeDesc, 194, 165, 150)
           ctx.setFontSize(24)
-          ellipsis(ctx, `面试岗位：${info.positionName}`, 380, 40, 220)
+          ellipsis(ctx, `面试岗位：${info.positionName || '直接约面'}`, 380, 40, 220)
+          console.log(info.arrangementInfo, 1111)
           ellipsis(ctx, `面试时间：${info.arrangementInfo.appointment}`, 380, 40, 255)
         break
       }

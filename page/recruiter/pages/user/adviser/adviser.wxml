@@ -24,7 +24,7 @@
 						<text class="name">{{item.name}}</text>
 						<text class="txt">{{item.workAgeDesc}}<block wx:if="{{item.degreeDesc}}"> · {{item.degreeDesc}}</block><block wx:if="{{item.salaryCeil}}"> · {{item.salaryFloor}}-{{item.salaryCeil}}k</block></text>
 					</view>
-					<view class="bot">{{item.lastCompanyName}}<block wx:if="{{item.lastCompanyName && item.lastCompanyName}}"> | </block>{{item.lastPosition}}</view>
+					<view class="bot" wx:if="{{item.lastCompanyName}}">{{item.lastCompanyName}}<block wx:if="{{item.lastCompanyName && item.lastCompanyName}}"> | </block>{{item.lastPosition}}</view>
 				</view>
 			</view>
 			<view class="desc">
