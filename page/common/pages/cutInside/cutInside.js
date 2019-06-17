@@ -1,6 +1,6 @@
 import WeCropper from '../../../../components/functional/we-cropper/we-cropper.js'
 import {unloadApi} from '../../../../api/pages/common.js'
-import {APPLICANTHOST, RECRUITERHOST, COMMON} from '../../../../config.js'
+import {APPLICANTHOST, RECRUITERHOST, COMMON, VERSION} from '../../../../config.js'
 const device = wx.getSystemInfoSync()
 const width = device.windowWidth
 const height = device.windowHeight - 50
@@ -46,7 +46,8 @@ Page({
       methos: 'post',
       name: "avatar",
       header: {
-        'Authorization': wx.getStorageSync('token')
+        'Authorization': wx.getStorageSync('token'),
+        'Wechat-Version': VERSION
       }, 
       // 设置请求的 header
       formData: {
