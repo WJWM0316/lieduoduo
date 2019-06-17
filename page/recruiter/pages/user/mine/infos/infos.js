@@ -1,6 +1,6 @@
 import { getRecruiterOtherInfosApi } from '../../../../../../api/pages/recruiter.js'
 
-import {RECRUITER, COMMON, WEBVIEW} from '../../../../../../config.js'
+import {RECRUITER, COMMON, WEBVIEW, VERSION} from '../../../../../../config.js'
 
 import {getUserRoleApi} from "../../../../../../api/pages/user.js"
 
@@ -98,7 +98,7 @@ Page({
         if(pageInfos.haveAdvisorService) {
           wx.navigateTo({url: `${RECRUITER}user/adviser/adviser`})
         } else {
-          let path = encodeURIComponent(`${WEBVIEW}optimal?vkey=${this.data.recruiterInfo.vkey}&iso=0&`)
+          let path = encodeURIComponent(`${WEBVIEW}optimal?vkey=${this.data.recruiterInfo.vkey}&iso=0&version=${VERSION}&`)
           wx.navigateTo({url: `${COMMON}webView/webView?type=optimal&p=${path}`})
         }  
         break

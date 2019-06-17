@@ -11,7 +11,7 @@ import {
   getIndexShowCountApi
 } from '../../../../api/pages/recruiter.js'
 
-import {RECRUITER, COMMON, APPLICANT, WEBVIEW} from '../../../../config.js'
+import {RECRUITER, COMMON, APPLICANT, WEBVIEW, VERSION} from '../../../../config.js'
 
 import {getSelectorQuery}  from '../../../../utils/util.js'
 
@@ -139,7 +139,7 @@ Page({
     return getAdBannerApi({location: 'recruiter_index', hasLoading: false}).then(res => {
       let banner = res.data
       let recruiterDetails = app.globalData.recruiterDetails
-      let path = encodeURIComponent(`${WEBVIEW}optimal?vkey=${recruiterDetails.vkey}&iso=0&`)
+      let path = encodeURIComponent(`${WEBVIEW}optimal?vkey=${recruiterDetails.vkey}&iso=0&version=${VERSION}&`)
       let otherUrl = `${COMMON}webView/webView?type=optimal&p=${path}`
           otherUrl = otherUrl.slice(1)
       let bigImgUrl = `${this.data.cdnImagePath}5d049a5ea678f@index.png`
