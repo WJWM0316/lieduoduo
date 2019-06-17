@@ -1,5 +1,5 @@
 import {getAdvisorListApi, getRecommendReddotApi} from '../../../../../api/pages/recruiter.js'
-import {RECRUITER, COMMON, APPLICANT, WEBVIEW} from '../../../../../config.js'
+import {RECRUITER, COMMON, APPLICANT, WEBVIEW, VERSION} from '../../../../../config.js'
 import {getSelectorQuery}  from '../../../../../utils/util.js'
 
 const app = getApp()
@@ -187,7 +187,7 @@ Page({
 
   },
   read() {
-    let path = encodeURIComponent(`${WEBVIEW}optimal?vkey=${app.globalData.recruiterDetails.vkey}&iso=1&`)
+    let path = encodeURIComponent(`${WEBVIEW}optimal?vkey=${app.globalData.recruiterDetails.vkey}&iso=1&version=${VERSION}&`)
     wx.navigateTo({url: `${COMMON}webView/webView?type=optimal&p=${path}`})
   }
 })
