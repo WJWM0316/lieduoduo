@@ -24,7 +24,10 @@ Component({
     },
     background: {
       type: String,
-      value: '#652791'
+      value: '#652791',
+      observer: function(newVal, oldVal) {
+        console.log(newVal, oldVal)
+      }
     },
     color: {
       type: String,

@@ -10,7 +10,7 @@ Page({
    */
   data: {
     hasReFresh: false,
-    background: '',
+    background: 'transparent',
     title: '',
     navColor: '#fff',
     isIphoneX: app.globalData.isIphoneX,
@@ -118,6 +118,7 @@ Page({
     let title = this.data.title,
         background = this.data.background,
         navColor = this.data.navColor
+    console.log(e.scrollTop, 11)
     if(e.scrollTop > 10) {
       if (background !== '#fff') {
         title = '精选顾问'
@@ -126,16 +127,13 @@ Page({
         this.setData({title, background, navColor})
       }
     } else {
-      if (background !== '') {
+      if (background !== 'transparent') {
         title = ''
         navColor = '#fff'
-        this.setData({title, background: '', navColor})
+        wx.nextTick(() => {
+          this.setData({title, background: 'transparent', navColor})
+        })
       }
-    }
-    if (e.scrollTop >= this.data.imgH - this.data.navHeight) {
-      if (!this.data.tabFloat) this.setData({tabFloat: true})
-    } else {
-      if (this.data.tabFloat) this.setData({tabFloat: false})
     }
   },
   /**

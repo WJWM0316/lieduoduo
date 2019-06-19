@@ -215,7 +215,7 @@
   top: 50%;
   right: -40rpx;
   transform: translateY(-50%);
-  border-width: 21rpx;
+  border-width: 21.5rpx;
   border-style: solid;
   border-color: transparent transparent transparent #FFDC29;
   display: block;

@@ -14,7 +14,7 @@
 		<text>已邀约简历，可在【面试-我的邀请】统一处理</text><view class="go"><text>前往</text><i class="icon iconfont icon-xiangyou"></i></view>
 	</view>
 	<view class="list">
-		<view class="list-item {{item.redHot ? 'red' : ''}}" wx:for="{{listData.list}}" wx:key="{{index}}" bindtap="viewResumeDetail" data-uid="{{item.uid}}">
+		<view class="list-item {{item.redDot ? 'red' : ''}}" wx:for="{{listData.list}}" wx:key="{{index}}" bindtap="viewResumeDetail" data-uid="{{item.uid}}">
 			<view class="msg">
 				<view class="head">
 					<image class="img" mode="aspectFit" lazy-load  src="{{item.avatar.smallUrl}}"></image>
