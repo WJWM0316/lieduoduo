@@ -264,5 +264,5 @@
 
   </block>
 
-  <block wx:if="{{info.vkey}}"><canvasCard cardData="{{info}}" type="interview" bindgetCreatedImg="getCreatedImg"></canvasCard></block>
+  <block wx:if="{{info.vkey && identity === 'RECRUITER' && info.status === 41}}"><canvasCard cardData="{{info}}" type="interview" bindgetCreatedImg="getCreatedImg"></canvasCard></block>
 </view>

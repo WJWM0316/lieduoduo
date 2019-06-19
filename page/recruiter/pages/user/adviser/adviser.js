@@ -10,11 +10,9 @@ Page({
    */
   data: {
     hasReFresh: false,
-    navbarData: {
-      title: '',
-      background: 'transparent',
-      color: '#ffffff'
-    },
+    background: '',
+    title: '',
+    navColor: '#fff',
     isIphoneX: app.globalData.isIphoneX,
     navHeight: app.globalData.navHeight,
     cdnPath: app.globalData.cdnImagePath,
@@ -117,26 +115,21 @@ Page({
     })
   },
   onPageScroll(e) {
-    let navbarData = this.data.navbarData
+    let title = this.data.title,
+        background = this.data.background,
+        navColor = this.data.navColor
     if(e.scrollTop > 10) {
-      if (navbarData.background !== '#ffffff') {
-        navbarData = {
-          title: '精选顾问',
-          background: '#ffffff',
-          color: '#22292C',
-          isFixed: true
-        }
-        this.setData({navbarData})
+      if (background !== '#fff') {
+        title = '精选顾问'
+        background = '#ffffff'
+        navColor = '#22292C'
+        this.setData({title, background, navColor})
       }
     } else {
-      if (navbarData.background !== 'transparent') {
-        navbarData = {
-          title: '',
-          background: 'transparent',
-          color: '#ffffff',
-          isFixed: false
-        }
-        this.setData({navbarData})
+      if (background !== '') {
+        title = ''
+        navColor = '#fff'
+        this.setData({title, background: '', navColor})
       }
     }
     if (e.scrollTop >= this.data.imgH - this.data.navHeight) {

@@ -370,16 +370,14 @@ Page({
    */
   onShareAppMessage: function (options) {
     let btnImageUrl = `${this.data.cdnImagePath}shareB.png`
-
     if(positionCard){
       btnImageUrl = positionCard
     }
-    
     return app.wxShare({
       options,
-      title: shareInterviewr,
-      imageUrl: btnImageUrl,
-      path: `${COMMON}arrangement/arrangement?id=${this.options.id}`
+      btnTitle: shareInterviewr,
+      btnImageUrl: btnImageUrl,
+      btnPath: `${COMMON}arrangement/arrangement?id=${this.options.id}`
     })
   },
   todoAction(e) {
