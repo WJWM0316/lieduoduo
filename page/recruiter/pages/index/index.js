@@ -72,19 +72,6 @@ Page({
   onLoad() {
     let choseType = wx.getStorageSync('choseType') || ''
     this.setData({ choseType})
-    if (app.loginInit) {
-      if (!app.globalData.hasLogin) {
-        wx.navigateTo({url: `${COMMON}bindPhone/bindPhone`})
-        return
-      }
-    } else {
-      app.loginInit = () => {
-        if (!app.globalData.hasLogin) {
-          wx.navigateTo({url: `${COMMON}bindPhone/bindPhone`})
-          return
-        }
-      }
-    }
     let that = this
     if (choseType === 'APPLICANT') {
       let that = this
@@ -104,7 +91,22 @@ Page({
     }
   },
   onShow() {
-    this.init()
+    if (app.loginInit) {
+      if (!app.globalData.hasLogin) {
+        wx.navigateTo({url: `${COMMON}bindPhone/bindPhone`})
+        return
+      }
+      this.init()
+    } else {
+      app.loginInit = () => {
+        if (!app.globalData.hasLogin) {
+          wx.navigateTo({url: `${COMMON}bindPhone/bindPhone`})
+          return
+        }
+        this.init()
+      }
+    }
+    
   },
   init () {
     if (wx.getStorageSync('choseType') === 'APPLICANT') return
