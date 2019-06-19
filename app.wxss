@@ -27,9 +27,22 @@ view {
 button::after{
 	border: none;
 }
+.hasFilter {
+  height: 58rpx !important;
+  line-break: 58rpx !important;
+  display: flex !important;
+  align-items: center !important;
+}
 .filter {
-	-webkit-filter: blur(10rpx);
-  filter: blur(10rpx);
+  width: 96rpx;
+  height: 58rpx;
+  margin-right: 16rpx;
+}
+.filter2 {
+  width: 172rpx;
+  height: 72rpx;
+  margin-left: -20rpx;
+  margin-bottom: 6rpx;
 }
 /*
 @font-face {

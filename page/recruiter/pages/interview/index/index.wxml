@@ -106,7 +106,7 @@
 									<block wx:if="{{item.emolumentMin}}"> · {{item.emolument}}</block>
 								</view>
 							</view>
-							<view class="degress">
+							<view class="degress" wx:if="{{item.lastCompanyName}}">
 								<block wx:if="{{item.lastCompanyName}}">{{item.lastCompanyName}}</block>
 								<block wx:if="{{item.lastPosition}}"> | {{item.lastPosition}}</block>
 							</view>
@@ -145,17 +145,18 @@
 				wx:key="{{index}}">
 				<view class="item2">
 					<view class="row-one">
-						<view class="img-box"><image class="{{item.glass ? 'filter' : ''}}" src="{{item.avatar.smallUrl}}"></image></view>
+						<view class="img-box"><image src="{{item.avatar.smallUrl}}"></image></view>
 						<view class="content">
 							<view class="header {{item.glass ? 'hasFilter' : ''}}">
-								<view class="name {{item.glass ? 'filter' : ''}}">{{item.jobhunterRealname}}</view>
+								<view wx:if="{{!item.glass}}" class="name">{{item.jobhunterRealname}}</view>
+								<image wx:else class="filter" src="{{cdnPath}}invisible1.png" mode="aspectFit"></image>
 								<view class="mix">
 									<block wx:if="{{item.workExperienceDesc}}">{{item.workExperienceDesc}}</block>
 									<block wx:if="{{item.educationDesc}}"> · {{item.educationDesc}}</block>
 									<block wx:if="{{item.emolumentMin}}"> · {{item.emolument}}</block>
 								</view>
 							</view>
-							<view class="degress">
+							<view class="degress" wx:if="{{item.lastCompanyName}}">
 								<block wx:if="{{item.lastCompanyName}}">{{item.lastCompanyName}}</block>
 								<block wx:if="{{item.lastPosition}}"> | {{item.lastPosition}}</block>
 							</view>
@@ -202,7 +203,7 @@
 								<block wx:if="{{item.educationDesc}}"> · {{item.educationDesc}}</block>
 								<block wx:if="{{item.emolumentMin}}"> · {{item.emolument}}</block>
 							</view>
-							<view class="degress">
+							<view class="degress" wx:if="{{item.lastCompanyName}}">
 								<block wx:if="{{item.lastCompanyName}}">{{item.lastCompanyName}}</block>
 								<block wx:if="{{item.lastPosition}}"> | {{item.lastPosition}}</block>
 							</view>

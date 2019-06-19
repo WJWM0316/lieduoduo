@@ -127,8 +127,10 @@
   font-size: 26rpx;
   font-weight: 300;
   color: #282828;
-  padding: 16rpx 0;
   flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 .personalInfo .info .name{
   font-size: 46rpx;

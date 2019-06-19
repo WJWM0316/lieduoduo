@@ -118,22 +118,28 @@ Page({
   },
   onPageScroll(e) {
     let navbarData = this.data.navbarData
-    if(e.scrollTop > 0) {
+    if(e.scrollTop > 10) {
       if (navbarData.background !== '#ffffff') {
-        navbarData.background = '#ffffff'
-        navbarData.color = '#22292C'
-        navbarData.title = '精选顾问'
+        navbarData = {
+          title: '精选顾问',
+          background: '#ffffff',
+          color: '#22292C',
+          isFixed: true
+        }
         this.setData({navbarData})
       }
     } else {
       if (navbarData.background !== 'transparent') {
-        navbarData.background = 'transparent'
-        navbarData.title = ''
-        navbarData.color = '#ffffff'
+        navbarData = {
+          title: '',
+          background: 'transparent',
+          color: '#ffffff',
+          isFixed: false
+        }
         this.setData({navbarData})
       }
     }
-    if (e.scrollTop > this.data.imgH - this.data.navHeight) {
+    if (e.scrollTop >= this.data.imgH - this.data.navHeight) {
       if (!this.data.tabFloat) this.setData({tabFloat: true})
     } else {
       if (this.data.tabFloat) this.setData({tabFloat: false})

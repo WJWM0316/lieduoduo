@@ -35,7 +35,7 @@
         <view class="top">
           <button class="clear-style avatarBox" form-type="submit" bindtap="readAvatar">
             <view class="avatar">
-              <image src="{{info.avatar.smallUrl}}" class="img {{info.advisor && info.advisor.glass ? 'filter' : ''}}"></image>
+              <image src="{{info.avatar.smallUrl}}" class="img"></image>
             </view>
             <view class="gender">
               <image class="sexIcon" src="{{cdnImagePath}}nan.png" wx:if="{{info.gender === 1}}"></image>
@@ -43,7 +43,11 @@
             </view>
           </button>
           <view class="info">
-            <view class="name"><text class="{{info.advisor.glass ? 'filter' : ''}}">{{info.name}}</text><i class="icon iconfont icon-bianji1 edit" data-editName="info" data-id="{{item.id}}" bindtap="edit" wx:if="{{isOwner}}"></i></view>
+            <view class="name" wx:if="{{!info.advisor.glass}}">
+                <text>{{info.name}}</text>
+                <i class="icon iconfont icon-bianji1 edit" data-editName="info" data-id="{{item.id}}" bindtap="edit" wx:if="{{isOwner}}"></i>
+            </view>
+            <image wx:else src="{{cdnImagePath}}invisible2.png" class="filter2"></image>
             <view class="companyName" wx:if="{{info.lastCompanyName || info.lastPosition}}">
               <text>{{info.lastCompanyName}}</text><block wx:if="{{info.lastCompanyName && info.lastPosition}}"> | </block><text>{{info.lastPosition}}</text>
             </view>

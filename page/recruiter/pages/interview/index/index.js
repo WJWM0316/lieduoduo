@@ -18,6 +18,7 @@ Page({
     fixedBarHeight: 0,
     tabIndex: 0,
     hasReFresh: false,
+    cdnPath: app.globalData.cdnImagePath,
     applyData: {
       list: [],
       pageNum: 1,

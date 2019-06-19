@@ -98,8 +98,18 @@
 	width: 100%;
 	padding: 0 40rpx;
 	box-sizing: border-box;
+	position: relative;
 }
-
+.list-item.red::after {
+	content: '';
+	width: 14rpx;
+	height: 14rpx;
+	border-radius: 50%;
+	background: #FF2E3E;
+	position: absolute;
+	top: 30rpx;
+	right: 30rpx;
+}
 .list-item .msg {
 	padding: 30rpx 0 23rpx 140rpx;
 	position: relative;
@@ -148,15 +158,12 @@
 .detail .top.noFlex {
   display: block;
 }
-.detail .top.hasFilter {
-  overflow: visible;
-}
 .detail .top .name {
 	font-size:32rpx;
 	font-weight:700;
 	color:#282828;
 	line-height:32rpx;
-	margin-right: 16rpx;
+	margin-right: 30rpx;
   display: inline-block;
 }
 
@@ -200,17 +207,15 @@
   margin-right: 30rpx;
   position: relative;
   padding-right: 5rpx;
-  display: inline-block;
 }
 .list-item .desc .icon:before {
   width: 0;
   height: 0;
-  border-color: red;
   position: absolute;
   top: 50%;
-  right: -39rpx;
+  right: -40rpx;
   transform: translateY(-50%);
-  border-width: 20rpx;
+  border-width: 21rpx;
   border-style: solid;
   border-color: transparent transparent transparent #FFDC29;
   display: block;

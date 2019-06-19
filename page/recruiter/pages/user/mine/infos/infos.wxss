@@ -131,7 +131,6 @@ top-banner.center {
 	border: 1px solid rgba(40,120,255,1);
 	box-shadow:0px 10rpx 30rpx 0rpx rgba(22,39,77,0.05),0rpx -5rpx 40rpx 0rpx rgba(22,39,77,0.05);
 	border-radius:45rpx;
-	border:1rpx solid rgba(101,39,145,1);
 }
 
 .show-off-block {
@@ -140,7 +139,7 @@ top-banner.center {
 	border-radius:16rpx;
 	margin: 24rpx auto;
 	box-sizing: border-box;
-	padding: 26rpx 40rpx;
+	padding: 32rpx 40rpx;
   position: relative;
   display: flex;
   justify-content: space-between;

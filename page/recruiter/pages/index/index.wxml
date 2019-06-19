@@ -86,34 +86,35 @@
 				<image src="{{cdnImagePath}}line00001.png" class="image" hidden="{{pageList === 'collectMySelf'}}"></image>
 			</view>
 		</view>
-
-		<view class="list-box {{collectMySelf.list.length ? '' : 'nodata'}}" hidden="{{pageList === 'browseMySelf'}}">
-			<form bindsubmit="formSubmit" report-submit='{{true}}'>
-				<button form-type="submit" class="formIdBtn" wx:if="{{indexShowCount.advisor}}" bindtap="routeJump" data-route="adviser">
-					<view class="item2">
-						<view class="row-one">
-							<view class="img-box"><image src="{{cdnImagePath}}icon_gwhead.png" lazy-load></image></view>
-							<view class="content">
-								<view class="header">
-									<view class="name">顾问精选简历</view>
-								</view>
-								<view class="degress">
-									<block wx:if="{{indexShowCount.advisor.total}}">
-										<block wx:if="{{indexShowCount.advisor.notHandleNum > 0}}">
-											<text class="num">{{indexShowCount.advisor.notHandleNum}}</text> 位候选人未处理
-										</block>
-										<block wx:else>
-											<text>累计收到 {{indexShowCount.advisor.total}} 位候选人</text>
-										</block>
+		<view class="list-box adviser"  hidden="{{pageList === 'browseMySelf'}}">
+			<view class="formIdBtn" wx:if="{{indexShowCount.advisor}}" bindtap="routeJump" data-route="adviser">
+				<view class="item2">
+					<view class="row-one">
+						<view class="img-box"><image src="{{cdnImagePath}}icon_gwhead.png" lazy-load></image></view>
+						<view class="content">
+							<view class="header">
+								<view class="name">顾问精选简历</view>
+							</view>
+							<view class="degress">
+								<block wx:if="{{indexShowCount.advisor.total}}">
+									<block wx:if="{{indexShowCount.advisor.notHandleNum > 0}}">
+										<text class="num">{{indexShowCount.advisor.notHandleNum}}</text> 位候选人未处理
 									</block>
 									<block wx:else>
-										<text>有合适简历将立即给您推荐</text>
+										<text>累计收到 {{indexShowCount.advisor.total}} 位候选人</text>
 									</block>
-								</view>
+								</block>
+								<block wx:else>
+									<text>有合适简历将立即给您推荐</text>
+								</block>
 							</view>
 						</view>
 					</view>
-				</button>
+				</view>
+			</view>
+		</view>
+		<view class="list-box {{indexShowCount.advisor ? 'normal' : ''}}  {{collectMySelf.list.length ? '' : 'nodata'}}" hidden="{{pageList === 'browseMySelf'}}">
+			<form bindsubmit="formSubmit" report-submit='{{true}}'>
 				<button
 					form-type="submit"
 					bindtap="viewResumeDetail"

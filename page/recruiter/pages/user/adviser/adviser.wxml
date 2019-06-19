@@ -1,7 +1,7 @@
 <view hidden="{{!hasReFresh}}">
   <refreshStatus></refreshStatus>
 </view>
-<navbar background="{{navbarData.background}}" title="{{navbarData.title}}" color="{{navbarData.color}}"></navbar>
+<navbar background="{{navbarData.background}}" title="{{navbarData.title}}" color="{{navbarData.color}}" isFixed="{{navbarData.isFixed}}"></navbar>
 <view class="adviser">
 	<view class="head" style="margin-top: -{{navHeight}}px">
 		<image class="bg" mode="widthFix" src="{{cdnPath}}{{!isIphoneX ? 'bg_featured@new.png' : 'bg_featuredX@new.png'}}" bindload="imgLoad"></image>
@@ -14,14 +14,15 @@
 		<text>已邀约简历，可在【面试-我的邀请】统一处理</text><view class="go"><text>前往</text><i class="icon iconfont icon-xiangyou"></i></view>
 	</view>
 	<view class="list">
-		<view class="list-item" wx:for="{{listData.list}}" wx:key="{{index}}" bindtap="viewResumeDetail" data-uid="{{item.uid}}">
+		<view class="list-item red" wx:for="{{listData.list}}" wx:key="{{index}}" bindtap="viewResumeDetail" data-uid="{{item.uid}}">
 			<view class="msg">
 				<view class="head">
-					<image class="img {{item.glass ? 'filter' : ''}}" mode="aspectFit" lazy-load  src="{{item.avatar.smallUrl}}"></image>
+					<image class="img" mode="aspectFit" lazy-load  src="{{item.avatar.smallUrl}}"></image>
 				</view>
 				<view class="detail">
 					<view class="top {{item.glass ? 'hasFilter' : ''}}">
-						<text class="name {{item.glass ? 'filter' : ''}}">{{item.name}}</text>
+						<text wx:if="{{!item.glass}}" class="name">{{item.name}}</text>
+						<image wx:else class="filter" src="{{cdnPath}}invisible1.png" mode="aspectFit"></image>
 						<text class="txt">{{item.workAgeDesc}}<block wx:if="{{item.degreeDesc}}"> · {{item.degreeDesc}}</block><block wx:if="{{item.salaryCeil}}"> · {{item.salaryFloor}}-{{item.salaryCeil}}k</block></text>
 					</view>
 					<view class="bot" wx:if="{{item.lastCompanyName}}">{{item.lastCompanyName}}<block wx:if="{{item.lastCompanyName && item.lastCompanyName}}"> | </block>{{item.lastPosition}}</view>

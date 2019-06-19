@@ -1,4 +1,5 @@
 @import '../../../iconfont.wxss'
+@import '../../../app.wxss'
 .roleInfoCard .clear-style {
   background: none;
   border: 0;
@@ -65,13 +66,9 @@
   font-size: 26rpx;
   font-weight: 300;
   color: #929292;
-  margin-left: 30rpx;
 }
-.roleInfoCard .applicantMsg .name .nameTxt.filter {
-  filter: blur(8rpx);
-	width: 72rpx;
-	display: inline-block;
-	overflow-x: hidden;
+.roleInfoCard .applicantMsg .name .nameTxt {
+  margin-right: 30rpx;
 }
 .roleInfoCard .recruiterMsg .name .msg {
   font-size: 28rpx;
@@ -85,7 +82,7 @@
   font-size: 30rpx;
   color: #652791;
   padding-right: 33rpx;
-  padding-top: 18rpx;
+  padding-top: 44rpx;
 }
 .roleInfoCard .companyMsg .detail, .roleInfoCard .applicantMsg .detail, .roleInfoCard .recruiterMsg .detail {
   margin-top: 14rpx;
@@ -129,7 +126,7 @@
   padding-right: 176rpx;
 }
 .roleInfoCard .recruiter.recruiterMain {
-  padding-right: 58rpx;
+  padding-right: 30rpx;
 }
 .roleInfoCard .recruiter.recruiterList {
   padding-top: 30rpx;

@@ -360,11 +360,11 @@
 }
 
 .item2 .row-one {
-  display: flex;
   padding: 30rpx 0 20rpx 0;
   border-bottom: 1rpx dotted #BACED8;
   margin: 0 28rpx;
-  align-items: center;
+  position: relative;
+  padding-left: 144rpx;
 }
 
 .item2 .img-box {
@@ -373,6 +373,9 @@
   border-radius: 50%;
   display: block;
   overflow: hidden;
+  position: absolute;
+  top: 30rpx;
+  left: 0;
 }
 
 .item2 .img-box image{
@@ -381,16 +384,16 @@
 }
 
 .item2 .content {
-  margin-left: 24rpx;
   height: 120rpx;
-  flex: 1;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
 }
 
 .item2 .header {
   height:36rpx;
   line-height:36rpx;
   max-width: 490rpx;
-  margin-top: 20rpx;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -400,16 +403,8 @@
   font-size:36rpx;
   font-weight:bold;
   color:rgba(40,40,40,1);
+  margin-right: 30rpx;
   display: inline;
-  max-width: 150rpx;
-}
-.item2 .header.hasFilter {
-  overflow: visible;
-}
-.item2 .header.hasFilter .name {
-  width: 72rpx;
-  overflow-x: hidden;
-  display: inline-block;
 }
 
 .item2 .header .mix{
@@ -417,8 +412,6 @@
   font-weight:300;
   color:rgba(146,146,146,1);
   display: inline;
-  vertical-align: top;
-  margin-left: 30rpx;
 }
 
 .item2 .degress{

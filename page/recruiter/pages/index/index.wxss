@@ -170,7 +170,12 @@
   position: relative;
   margin: -28rpx 30rpx auto 30rpx;
 }
-
+.list-box.adviser {
+  margin-bottom: 20rpx;
+}
+.list-box.normal {
+  margin-top: 0;
+}
 .nodata {
   display: inline-block;
   vertical-align: middle;
