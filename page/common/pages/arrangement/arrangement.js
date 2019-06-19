@@ -264,7 +264,7 @@ Page({
         let positionData = wx.getStorageSync('interviewData')
         let info = res.data
         info.jobhunterInfo = Object.assign(info.jobhunterInfo, {lastInterviewStatus: info.status})
-        // info.recruiterInfo = Object.assign(info.recruiterInfo, {lastInterviewStatus: info.status})
+        info.recruiterInfo = Object.assign(info.recruiterInfo, {lastInterviewStatus: info.status})
         // 转发面试安排 所有人看的的面试安排都是一样
         // if(info.status === 41) {
         //   info.recruiterInfo = info.jobhunterInfo

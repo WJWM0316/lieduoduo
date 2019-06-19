@@ -5,13 +5,21 @@
   </view>
   <view class="tabBoxBg"></view>
   <view class="tabBox">
-    <view class="tab-item" bindtap="jumpMy" data-type="myBrowse"><view class="inner"><image class="icon" mode="aspectFit" src="{{cdnImagePath}}dynamics1.png"></image>我看过的</view></view>
-    <view class="tab-item" bindtap="jumpMy" data-type="myCollect"><view class="inner"><image class="icon" mode="aspectFit" src="{{cdnImagePath}}dynamics2.png"></image>我感兴趣</view></view>
+    <view class="tab-item" bindtap="jumpMy" data-type="myBrowse">
+      <view class="inner">
+        <image class="icon" mode="aspectFit" src="{{cdnImagePath}}dynamics1.png"></image>我看过的
+      </view>
+    </view>
+    <view class="tab-item" bindtap="jumpMy" data-type="myCollect">
+      <view class="inner">
+        <image class="icon" mode="aspectFit" src="{{cdnImagePath}}dynamics2.png"></image>我感兴趣
+      </view>
+    </view>
   </view>
   <view class="default {{fixedDom ? 'fixed' : ''}}" style="top: {{navH}}px">
     <view class="ul-tab-bar">
-      <view class="li {{pageList === 'myBrowse' ? 'active' : ''}}" bindtap="onTabClick" data-key="myBrowse">看过我</view>
-      <view class="li {{pageList === 'myCollect' ? 'active' : ''}}" bindtap="onTabClick" data-key="myCollect">对我感兴趣</view>
+      <view class="li {{pageList === 'myBrowse' ? 'active' : ''}}" bindtap="onTabClick" data-key="myBrowse"><view class="inner">看过我</view></view>
+      <view class="li {{pageList === 'myCollect' ? 'active' : ''}}" bindtap="onTabClick" data-key="myCollect"><view class="inner">对我感兴趣</view></view>
     </view>
   </view>
   <form bindsubmit="formSubmit" report-submit='{{true}}'>
