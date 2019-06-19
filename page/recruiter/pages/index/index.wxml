@@ -227,7 +227,16 @@
 								</view>
 							</view>
 						</view>
-						<!-- <view class="reddot"></view> -->
+						<view class="row-two">
+							<view class="day">{{item.viewAt}}</view>
+							<view class="action">
+								查看了你的{{item.positionName ? '职位' : ''}}
+							</view>
+							<view class="position">
+								<block wx:if="{{item.positionName}}">{{item.positionName}}</block>
+								<block wx:if="{{!item.positionName}}">个人主页</block>
+							</view>
+						</view>
 					</view>
 				</button>
 			</form>
