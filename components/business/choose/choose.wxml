@@ -3,7 +3,7 @@
 	<navbar title="选择身份" background="#FFFFFF" color="#22292C"></navbar>
 	<view class="title">
 		<image src="{{cdnImagePath}}choseIcon1.png" class="icon"></image>
-		<view class="desc">小程序找工作神器</view>
+		<view class="desc">精英人才招聘神器</view>
 	</view>
   <form bindsubmit="formSubmit" report-submit='{{true}}'>
     <button class="role1" form-type="submit" bindtap='jump' data-identity="APPLICANT" open-type="getUserInfo" bindgetuserinfo="onGotUserInfo" lang="zh_CN">
