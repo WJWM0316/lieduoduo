@@ -26,8 +26,7 @@
 				 	wx:key="{{index}}"
 					class="item {{item.active ? 'active' : ''}} {{item.showRedDot ? 'red-dot' : ''}}"
 					bindtap="chooseItem"
-					data-index="{{index}}"
-					>
+					data-index="{{index}}">
 						<view class="span">{{item.key}}</view>
 				</view>
 			</view>
@@ -42,8 +41,7 @@
 				 	wx:key="{{index}}"
 					class="item {{item.active ? 'active' : ''}} {{item.showRedDot ? 'red-dot' : ''}}"
 					bindtap="chooseItem"
-					data-index="{{index}}"
-					>
+					data-index="{{index}}">
 						<view class="span">{{item.key}}</view>
 				</view>
 			</view>

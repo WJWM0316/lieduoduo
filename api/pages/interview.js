@@ -282,3 +282,21 @@ export const getResumeRecomdCommentApi = (data) => {
   })
 }
 
+// 获取红点
+export const getInterviewRedDotApi = (data) => {
+  return request({
+    url: `/interview/getRedDotInfo`,
+    method: 'get',
+    hasLoading: false
+  })
+}
+
+// 清除红点
+export const deleteInterviewRedDotApi = (data) => {
+  return request({
+    url: `/interview/deleteTabRedDot`,
+    method: 'put',
+    data,
+    hasLoading: false
+  })
+}
