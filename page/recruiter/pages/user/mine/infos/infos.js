@@ -60,6 +60,9 @@ Page({
     wx.navigateTo({
       url: `${COMMON}recruiterDetail/recruiterDetail?uid=${this.data.recruiterInfo.uid}`
     })
+    app.wxReportAnalytics('btn_report', {
+      btn_type: 'share_myself_B'
+    })
   },
   /**
    * @Author   小书包
@@ -85,6 +88,9 @@ Page({
         break
       case 'poster':
         wx.navigateTo({url: `${COMMON}poster/recruiter/recruiter`})
+        app.wxReportAnalytics('btn_report', {
+          btn_type: 'created_posters_B'
+        })
         break
       case 'team':
         wx.navigateTo({
@@ -114,6 +120,9 @@ Page({
   },
   toRank () {
     wx.navigateTo({url: `${COMMON}rank/rank`})
+    app.wxReportAnalytics('btn_report', {
+      btn_type: 'look_at_the_rank'
+    })
   },
   preview(e) {
     wx.previewImage({
