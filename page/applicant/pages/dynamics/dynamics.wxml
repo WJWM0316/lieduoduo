@@ -24,13 +24,13 @@
   </view>
   <form bindsubmit="formSubmit" report-submit='{{true}}'>
     <view class="{{myBrowse.list.length ? '' : 'nodata'}}" style="min-height: calc(100vh - {{(!isIphoneX ? 49 : 83) + navH + 150}}px)" hidden="{{pageList === 'myCollect'}}">
-      <officerTab wx:if="{{myBrowse.list.length > 0}}" list="{{myBrowse.list}}" showSlideView="{{false}}" buttonType="delete"></officerTab>
+      <officerTab wx:if="{{myBrowse.list.length > 0}}" list="{{myBrowse.list}}"></officerTab>
       <bottomStatus status="{{myBrowse.onBottomStatus}}" listData="{{myBrowse.list}}" desc="{{isJobhunter ? '还没有面试官看过你哟~' : '你与offer之间就差一份简历~'}}" marginTop="{{30}}">
         <button class="jump clear-style" form-type="submit" bindtap="jump" data-type="{{isJobhunter ? 'positionList' : 'create'}}">{{isJobhunter ? '发现更多职业机会' : '立即创建简历'}}</button>
       </bottomStatus>
     </view>  
     <view class="{{myCollect.list.length ? '' : 'nodata'}}" style="min-height: calc(100vh - {{(!isIphoneX ? 49 : 83) + navH + 150}}px)" hidden="{{pageList === 'myBrowse'}}">
-      <officerTab wx:if="{{myCollect.list.length > 0}}" list="{{myCollect.list}}" showSlideView="{{false}}" buttonType="unsubscribe"></officerTab>
+      <officerTab wx:if="{{myCollect.list.length > 0}}" list="{{myCollect.list}}"></officerTab>
       <bottomStatus status="{{myCollect.onBottomStatus}}" listData="{{myCollect.list}}" desc="{{isJobhunter ? '还没有面试官对我感兴趣~' : '你与offer之间就差一份简历~'}}" marginTop="{{30}}">
         <button class="jump clear-style" form-type="submit" bindtap="jump" data-type="{{isJobhunter ? 'rank' : 'create'}}">{{isJobhunter ? '发现更多面试官' : '立即创建简历'}}</button>
       </bottomStatus>

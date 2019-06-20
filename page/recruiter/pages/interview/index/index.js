@@ -1,6 +1,14 @@
 import {RECRUITER, COMMON, APPLICANT} from '../../../../../config.js'
 
-import { getInviteListApi, getApplyListApi, getScheduleListApi, getScheduleNumberApi, getNewScheduleNumberApi} from '../../../../../api/pages/interview.js'
+import {
+  getInviteListApi,
+  getApplyListApi,
+  getScheduleListApi,
+  getScheduleNumberApi,
+  getNewScheduleNumberApi,
+  clearTabInterviewRedDotApi,
+  clearDayInterviewRedDotApi
+} from '../../../../../api/pages/interview.js'
 
 import {getRecruiterPositionListApi} from '../../../../../api/pages/position.js'
 
@@ -77,19 +85,26 @@ Page({
       {
         text: '收到意向',
         active: true,
-        showRedDot: false
+        showRedDot: 0,
+        flag: 'recruiterIntentionList',
+        type: 'intention_list'
       },
       {
         text: '我的邀请',
         active: false,
-        showRedDot: false
+        showRedDot: 0,
+        flag: 'recruiterInviteList',
+        type: 'invite_list'
       },
       {
         text: '面试日程',
         active: false,
-        showRedDot: false
+        showRedDot: 0,
+        flag: 'recruiterScheduleList',
+        type: 'intention_list'
       }
-    ]
+    ],
+    redDotInfos: {}
   },
   // 查看面试历史
   jumpInterviewPage() {
@@ -155,7 +170,7 @@ Page({
     }
   },
   getResult(e) {
-    let i = e.currentTarget.dataset.index
+    let params = e.currentTarget.dataset
     let dateList = this.data.dateList
     let interviewData = {
       list: [],
@@ -165,8 +180,16 @@ Page({
       isRequire: false,
       total: 0
     }
-    dateList.map((field, index) => field.active = index === i ? true : false)
-    chooseTime = e.currentTarget.dataset.time
+    dateList.map((field, index) => {
+      if(index === params.index) {
+        field.active = true
+        field.redDot = 0
+      } else {
+        field.active = false
+      }
+    })
+    chooseTime = params.time
+    this.clearDayInterviewRedDot(params.time)
     this.setData({interviewData, interviewBottomStatus: 0, dateList}, () => this.getScheduleList())
   },
   // 我的邀请
@@ -230,9 +253,7 @@ Page({
     let index = e.currentTarget.dataset.index
     let tabIndex = this.data.tabIndex
     let tabLists = this.data.tabLists
-    tabLists.map((item, i) => {
-      tabLists[i].active = false
-    })
+    tabLists.map((item, i) => tabLists[i].active = false)
     tabLists[index].active = true
     tabLists[index].showRedDot = false
     tabIndex = index
@@ -243,12 +264,14 @@ Page({
         data = this.data.receiveData
         if (!data.isRequire) {
           this.getInviteList()
+          this.clearTabInterviewRedDot(tabLists[index].type)
         }
         break
       case 1:
         data = this.data.applyData
         if (!data.isRequire) {
           this.getApplyList()
+          this.clearTabInterviewRedDot(tabLists[index].type)
         }
         break
       case 2:
@@ -372,11 +395,38 @@ Page({
     this.initDefault()
     if (app.globalData.isRecruiter) {
       this.init()
+      this.initTabRedDot()
     } else {
       app.getRoleInit = () => {
         this.init()
+        this.initTabRedDot()
       }
     }
+  },
+  // 初始化tab红点
+  initTabRedDot() {
+    let redDotInfos = app.globalData.redDotInfos
+    let tabLists = this.data.tabLists
+    tabLists.map(field => field.showRedDot = redDotInfos[field.flag])
+    this.setData({tabLists, redDotInfos})
+  },
+  /**
+   * @Author   小书包
+   * @DateTime 2019-06-19
+   * @detail   清除红点
+   * @return   {[type]}        [description]
+   */
+  clearTabInterviewRedDot(type) {
+    clearTabInterviewRedDotApi({type}).then(() => app.getInterviewRedDot())
+  },
+  /**
+   * @Author   小书包
+   * @DateTime 2019-06-19
+   * @detail   清除红点
+   * @return   {[type]}        [description]
+   */
+  clearDayInterviewRedDot(date) {
+    clearDayInterviewRedDotApi({date}).then(() => app.getInterviewRedDot())
   },
   onReachBottom(e) {
     switch(this.data.tabIndex) {

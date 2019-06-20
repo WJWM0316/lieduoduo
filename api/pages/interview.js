@@ -292,9 +292,19 @@ export const getInterviewRedDotApi = (data) => {
 }
 
 // 清除红点
-export const deleteInterviewRedDotApi = (data) => {
+export const clearTabInterviewRedDotApi = (data) => {
   return request({
     url: `/interview/deleteTabRedDot`,
+    method: 'put',
+    data,
+    hasLoading: false
+  })
+}
+
+// 清除日程红点
+export const clearDayInterviewRedDotApi = (data) => {
+  return request({
+    url: `/interview/deleteScheduleTabRedDot`,
     method: 'put',
     data,
     hasLoading: false

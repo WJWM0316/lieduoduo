@@ -99,6 +99,11 @@
 	color: #fff;
 }
 
+.interview-bar .button-box-color4 {
+	color: #fff;
+	background:rgba(205,203,207,1);
+}
+
 .interview-bar .content {
   position: relative;
 }

@@ -144,3 +144,15 @@
 .info .bottom .position .num{
   color: #8452A7;
 }
+
+.reddot {
+  width:14rpx;
+  height:14rpx;
+  background:#FF4949;
+  position: absolute;
+  top: 14rpx;
+  right: 14rpx;
+  border-radius: 50%;
+  content: '';
+  display: block;
+}

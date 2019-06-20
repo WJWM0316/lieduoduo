@@ -6,6 +6,7 @@
   	"jobList": "../../../../components/business/jobList/jobList",
   	"shareBtn": "../../../../components/layout/shareBtn/shareBtn",
   	"auth": "../../../../components/functional/auth/auth",
-  	"navbar": "../../../../components/business/navbar/navbar"
+  	"navbar": "../../../../components/business/navbar/navbar",
+  	"notFound": "../../../../components/layout/notFound/notFound"
   }
 }

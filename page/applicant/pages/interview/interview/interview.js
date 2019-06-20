@@ -4,7 +4,8 @@ import {
   getScheduleListApi,
   getRedDotListApi,
   getNewScheduleNumberApi,
-  deleteInterviewRedDotApi
+  clearTabInterviewRedDotApi,
+  clearDayInterviewRedDotApi
 } from '../../../../../api/pages/interview.js'
 
 import {RECRUITER, COMMON, APPLICANT} from '../../../../../config.js'
@@ -98,7 +99,7 @@ Page({
   },
   /* 面试日程 */
   getResult(e) {
-    let i = e.currentTarget.dataset.index
+    let params = e.currentTarget.dataset
     let dateList = this.data.dateList
     let interviewData = {
       list: [],
@@ -108,8 +109,15 @@ Page({
       isRequire: false,
       total: 0
     }
-    dateList.map((field, index) => field.active = index === i ? true : false)
-    chooseTime = e.currentTarget.dataset.time
+    dateList.map((field, index) => {
+      if(index === params.index) {
+        field.active = true
+        field.redDot = 0
+      } else {
+        field.active = false
+      }
+    })
+    chooseTime = params.time
     this.setData({interviewData, interviewBottomStatus: 0, dateList}, () => this.getScheduleList())
   },
   chooseParentTab(e) {
@@ -146,14 +154,16 @@ Page({
           total: 0
         }
         chooseTime = ''
-        this.setData({interviewData}, () => this.getNewScheduleNumber())
+        this.setData({interviewData}, () => {
+          this.getNewScheduleNumber().then(() => this.getScheduleList())
+        })
         break
     }
   },
   /**
    * @Author   小书包
    * @DateTime 2019-04-28
-   * @detail   获取满是日程列表
+   * @detail   获取面试日程的列表
    * @return   {[type]}   [description]
    */
   getNewScheduleNumber() {
@@ -171,8 +181,17 @@ Page({
    * @detail   清除红点
    * @return   {[type]}        [description]
    */
-  deleteInterviewRedDot(type) {
-    deleteInterviewRedDotApi({type})
+  clearTabInterviewRedDot(type) {
+    clearTabInterviewRedDotApi({type}).then(() => app.getInterviewRedDot())
+  },
+  /**
+   * @Author   小书包
+   * @DateTime 2019-06-19
+   * @detail   清除红点
+   * @return   {[type]}        [description]
+   */
+  clearDayInterviewRedDot(date) {
+    clearDayInterviewRedDotApi({date}).then(() => app.getInterviewRedDot())
   },
   chooseItem(e) {
     let params = e.currentTarget.dataset
@@ -197,7 +216,7 @@ Page({
         this.setData({applyData, [type]: obj, [typeIndex]: params.index})
         this.getApplyList()
         // 如果选中的这个tab有红点
-        if(obj[params.index].flag) this.deleteInterviewRedDot(obj[params.index].type)
+        if(obj[params.index].showRedDot) this.clearTabInterviewRedDot(obj[params.index].type)
         break
       case 1:
         typeIndex = 'receiveIndex'
@@ -215,7 +234,7 @@ Page({
         obj[params.index].active = true
         this.setData({receiveData, [type]: obj, [typeIndex]: params.index})
         this.getInviteList()
-        if(obj[params.index].flag) this.deleteInterviewRedDot(obj[params.index].type)
+        if(obj[params.index].showRedDot) this.clearTabInterviewRedDot(obj[params.index].type)
       break
     }
   },

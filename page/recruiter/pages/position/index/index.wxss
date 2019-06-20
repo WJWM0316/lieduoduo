@@ -149,6 +149,18 @@
   opacity: 0;
 }
 
+.office-status-bar .red-dot:before {
+  position: absolute;
+  top: 30rpx;
+  right: 13rpx;
+  display: block;
+  content: '';
+  background: red;
+  width:14rpx;
+  height:14rpx;
+  background:rgba(255,73,73,1);
+  border-radius: 50%;
+}
 .office-status-bar .publish {
   float: right;
   font-size:28rpx;

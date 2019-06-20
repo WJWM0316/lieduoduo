@@ -59,7 +59,7 @@
 			<view
 				wx:for="{{dateList}}"
 				wx:key="{{index}}"
-				class="item {{item.active ? 'active' : ''}}"
+				class="item {{item.active ? 'active' : ''}} {{item.number ? 'red' : ''}}"
 				wx:for-item="item"
 				data-time="{{item.time}}"
 				data-index="{{index}}"
@@ -95,7 +95,7 @@
 							<view class="degress">{{item.companyShortname}}</view>
 						</view>
 					</view>
-					<!-- <view class="reddot" wx:if="{{item.redDot}}"></view> -->
+					<view class="reddot" wx:if="{{item.redDot}}"></view>
 					<view class="row-two">
 						<view class="infos">
 							<view class="day">{{item.createdAt}}</view>
@@ -140,7 +140,7 @@
 							<view class="degress">{{item.companyShortname}}</view>
 						</view>
 					</view>
-					<!-- <view class="reddot" wx:if="{{item.redDot}}"></view> -->
+					<view class="reddot" wx:if="{{item.redDot}}"></view>
 					<view class="row-two">
 						<view class="infos">
 							<view class="day">{{item.createdAt}}</view>
@@ -185,7 +185,9 @@
 								</view>
 								<view class="degress">{{item.companyShortname}}</view>
 							</view>
-							<view class="time {{item.status < 50 ? 'active' : ''}}" wx:if="{{item.createdAtTime}}"><i class="icon iconfont icon-lishijilu"></i>{{item.createdAtTime}}</view>
+							<view class="time {{item.status < 50 ? 'active' : ''}} {{item.redDot ? 'redDot' : ''}}" wx:if="{{item.createdAtTime}}">
+								<i class="icon iconfont icon-lishijilu"></i>{{item.createdAtTime}}
+							</view>
 						</view>
 						<view class="row-two">
 							<i class="icon iconfont icon-mianshizhiwei"></i>

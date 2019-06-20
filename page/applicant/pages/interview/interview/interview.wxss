@@ -336,6 +336,17 @@
 	background: #E8E9EB;
 }
 
+.item3 .time.redDot:before {
+	width:14rpx;
+	height:14rpx;
+	background:#FF4949;
+	position: absolute;
+	top: 0;
+	right: 0;
+	border-radius: 50%;
+	content: '';
+	display: block;
+}
 .formIdBtn {
   padding: 0;
   background: none;
@@ -537,6 +548,7 @@
 .scroll-box .active{
 	border-color: #652791;
 	color: #652791;
+	pointer-events: none;
 }
 
 .scroll-box .red:before{

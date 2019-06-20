@@ -7,6 +7,7 @@
     "shareBtn": "../../../../components/layout/shareBtn/shareBtn",
     "shrinkText": "../../../../components/functional/shrinkText/shrinkText",
     "interviewBar": "../../../../components/business/interviewBar/interviewBar",
-    "actionSheet": "../../../../components/layout/actionSheet/actionSheet"
+    "actionSheet": "../../../../components/layout/actionSheet/actionSheet",
+    "notFound": "../../../../components/layout/notFound/notFound"
   }
 }
