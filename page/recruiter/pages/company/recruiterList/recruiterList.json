@@ -4,7 +4,6 @@
 	"backgroundTextStyle": "light",
   "usingComponents": {
   	"navbar": "../../../../../components/business/navbar/navbar",
-  	"roleInfoCard": "../../../../../components/business/roleInfoCard/roleInfoCard",
-  	"slide-view": "miniprogram-slide-view"
+  	"roleInfoCard": "../../../../../components/business/roleInfoCard/roleInfoCard"
   }
 }

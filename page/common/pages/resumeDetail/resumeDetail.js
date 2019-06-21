@@ -32,6 +32,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    console.log(options, 'gggggggggg')
     if (options.scene) options = app.getSceneParams(options.scene)
     identity = app.identification(options)
     this.setData({options})
