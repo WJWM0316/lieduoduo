@@ -112,7 +112,7 @@ Page({
     dateList.map((field, index) => {
       if(index === params.index) {
         field.active = true
-        field.redDot = 0
+        field.number = 0
       } else {
         field.active = false
       }
