@@ -37,14 +37,33 @@ Page({
    */
   getRecruiterInterest() {
     return new Promise((resolve, reject) => {
-      getRecruiterInterestApi().then(res => this.setData({infos: res.data}, () => resolve(res)))
+      getRecruiterInterestApi().then(res => {
+        let infos = res.data
+        infos.limitDay = this.getDay(infos.expired)
+        console.log(infos)
+        this.setData({infos}, () => resolve(res))
+      })
     })
   },
-  alert() {
+  alert1() {
     app.wxConfirm({
       title: '升级专业版',
       content: `了解更多猎多多招聘权益，欢迎联系我们~`,
-      cancelText: '取消',
+      cancelText: '考虑一下',
+      confirmText: '联系客服',
+      confirmBack: () => {
+        wx.makePhoneCall({phoneNumber: app.globalData.telePhone})
+      },
+      cancelBack: () => {
+        // wx.makePhoneCall({phoneNumber: '020-61279889'})
+      }
+    })
+  },
+  alert2() {
+    app.wxConfirm({
+      title: '服务续费',
+      content: `了解更多猎多多招聘权益，欢迎联系我们~`,
+      cancelText: '考虑一下',
       confirmText: '联系客服',
       confirmBack: () => {
         wx.makePhoneCall({phoneNumber: app.globalData.telePhone})
@@ -66,10 +85,12 @@ Page({
   onPullDownRefresh() {
     this.setData({hasReFresh: true})
     this.getPageInfos(false).then(res => {
-      console.log(res)
       this.setData({hasReFresh: false}, () => wx.stopPullDownRefresh())
     }).catch(e => {
       wx.stopPullDownRefresh()
     })
+  },
+  getDay(endtime) {
+    return Math.floor((endtime * 1000 - Date.parse(new Date())) / 86400000)
   }
 })

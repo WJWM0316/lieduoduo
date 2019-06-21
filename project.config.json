@@ -49,7 +49,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 1,
+			"current": 50,
 			"list": [
 				{
 					"id": 0,
@@ -380,6 +380,13 @@
 					"name": "【B端】审核管理",
 					"pathName": "page/recruiter/pages/company/verify/verify",
 					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "【B端】权益",
+					"pathName": "page/recruiter/pages/company/interest/interest",
+					"query": "positionId=6529&companyId=915",
 					"scene": null
 				}
 			]
