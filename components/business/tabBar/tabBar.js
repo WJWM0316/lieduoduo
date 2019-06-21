@@ -100,10 +100,14 @@ Component({
    */
   methods: {
     toggle(e) {
+      let action = () => {
+        wx.removeStorageSync('companyInfos')
+        app.getInterviewRedDot()
+      }
       if (app.getCurrentPagePath().indexOf(e.target.dataset.path) !== -1) return
       wx.reLaunch({
         url: e.target.dataset.path,
-        success: () => wx.removeStorageSync('companyInfos')
+        success: () => action()
       })
     }
   }

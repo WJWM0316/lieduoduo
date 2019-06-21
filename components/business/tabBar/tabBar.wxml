@@ -25,8 +25,13 @@
 		  			{{redDot.recruiterInterviewTotal}}
 		  		</view>
 		  		<view
-		  			class="reddot"
-		  			wx:if="{{item.flag === 'position' && redDot.recruiterInterviewTotal && identity === 'RECRUITER'}}">
+		  			class="reddot-mine"
+		  			wx:if="{{item.flag === 'position' && identity === 'RECRUITER'}}">
+		  			{{redDot.positionNum}}
+		  		</view>
+		  		<view
+		  			class="reddot-mine"
+		  			wx:if="{{item.flag === 'mine' && identity === 'RECRUITER'}}">
 		  			{{redDot.positionNum}}
 		  		</view>
 	  		</view>

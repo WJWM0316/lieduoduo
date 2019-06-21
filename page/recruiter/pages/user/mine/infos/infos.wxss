@@ -280,6 +280,7 @@ top-banner.center {
 .entry-list .text, .toggleIdentity .text {
 	display: inline-block;
 	color: #353943;
+	position: relative;
 }
 
 .entry-list .text2, .toggleIdentity .text2 {
@@ -363,10 +364,10 @@ top-banner.center {
 	position: relative;
 }
 
-.boxs.redDot:before {
+.entry-list .text.reddot:before {
 	position: absolute;
   top: 50%;
-  left: -30rpx;
+  right: -30rpx;
   display: block;
   content: '';
   background: red;

@@ -80,3 +80,13 @@
   margin-top: 11rpx;
   text-align: center;
 }
+
+.reddot-mine {
+  width:14rpx;
+  height:14rpx;
+  background:rgba(255,73,73,1);
+  border-radius: 50%;
+  position: absolute;
+  right: -9rpx;
+  top: -1rpx;
+}
