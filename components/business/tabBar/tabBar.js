@@ -91,8 +91,9 @@ Component({
   attached() {
     const list = !this.data.tabType  ? this.data.applicantList : this.data.recruiterList
     const currentRoute = '/' + getCurrentPages()[getCurrentPages().length - 1].route
+    const identity = wx.getStorageSync('choseType')
     list.map(field => field.active = field.path === currentRoute ? true : false)
-    this.setData({ list, redDot: app.globalData.redDotInfos })
+    this.setData({ list, redDot: app.globalData.redDotInfos, identity})
   },
   /**
    * 组件的方法列表

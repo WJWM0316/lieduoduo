@@ -1,5 +1,5 @@
 <form bindsubmit="formSubmit" report-submit='{{true}}'>
-	<view class="homepage" wx:if="{{companyInfos.id}}">
+	<view class="homepage" wx:if="{{companyInfos.id === 111}}">
 		<navbar title="{{companyInfos.companyShortname}}" background="#fff" color="#22292C" showHome="{{true}}"></navbar>
 
 		<view hidden="{{!hasReFresh}}">

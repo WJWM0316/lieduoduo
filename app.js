@@ -120,9 +120,7 @@ App({
               wx.setStorageSync('token', res.data.token)
               that.globalData.hasLogin = 1
               if (res.data.userWechatInfo.nickname) that.globalData.userInfo = res.data.userWechatInfo
-              that.getRoleInfo().then(() => {
-                that.getInterviewRedDot()
-              })
+              that.getRoleInfo()
               console.log('用户已认证')
             } else {
               if (res.data.userInfo.nickname) that.globalData.userInfo = res.data.userInfo
@@ -170,6 +168,7 @@ App({
         getRecruiterDetailApi().then(res0 => {
           this.globalData.recruiterDetails = res0.data
           this.globalData.isRecruiter = 1
+          this.getInterviewRedDot()
           pageInit()
           resolve(res0.data)
         }).catch((e) => {
@@ -181,6 +180,7 @@ App({
           this.globalData.resumeInfo = res0.data
           this.globalData.isJobhunter = 1
           this.globalData.hasExpect = 1
+          this.getInterviewRedDot()
           pageInit()
           resolve(res0.data)
         }).catch((e) => {

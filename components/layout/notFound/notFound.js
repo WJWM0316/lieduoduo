@@ -1,3 +1,5 @@
+import {APPLICANT,RECRUITER} from "../../../config.js"
+
 let app = getApp()
 Component({
   /**
@@ -23,6 +25,15 @@ Component({
    * 组件的方法列表
    */
   methods: {
-
+    jump() {
+      let identity = wx.getStorageSync('choseType')
+      let routes = getCurrentPages()
+      let url = identity === 'RECRUITER' ? `${RECRUITER}index/index` : `${APPLICANT}index/index`
+      if(routes.length) {
+        wx.navigateBack({delta: 1})
+      } else {
+        wx.reLaunch({url})
+      }
+    }
   }
 })
