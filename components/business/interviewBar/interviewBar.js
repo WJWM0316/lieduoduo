@@ -97,7 +97,6 @@ Component({
         this.getInterviewStatus()
       }
       this.setData({currentPage, jobWords: agreedTxtC(), recruiterWords: agreedTxtB(), show: false})
-      console.log(this.data.infos, 'fff')
     },
     /**
    * @Author   小书包

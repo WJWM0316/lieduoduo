@@ -10,7 +10,7 @@ Page({
   data: {
     navH: app.globalData.navHeight,
     tab: 'list0',
-    pageCount: 10,
+    pageCount: 20,
     hasReFresh: false,
     onBottomStatus: 0,
     list0: {
@@ -54,6 +54,10 @@ Page({
       isLastPage: false,
       isRequire: false
     }
+    app.getInterviewRedDot().then(() => {
+      let redDotInfos = app.globalData.redDotInfos
+      this.setData({redDotInfos})
+    })
     this.setData({list0, list1, list2}, () => this.getLists())
   },
   onClickTab(e) {

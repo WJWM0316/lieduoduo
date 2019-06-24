@@ -11,8 +11,8 @@
 		  		<image class="tabIcon" src="{{item.selectedIconPath}}" hidden="{{!item.active}}"></image>
 		  		<view
 		  			class="reddot"
-		  			wx:if="{{item.flag === 'dynamics' && redDot.dynamics && identity === 'APPLICANT'}}">
-		  			{{redDot.jobhunterInterviewTotal}}
+		  			wx:if="{{item.flag === 'dynamics' && redDot.dynamicRedDot && identity === 'APPLICANT'}}">
+		  			{{redDot.dynamicRedDot}}
 		  		</view>
 		  		<view
 		  			class="reddot"
@@ -26,14 +26,10 @@
 		  		</view>
 		  		<view
 		  			class="reddot-mine"
-		  			wx:if="{{item.flag === 'position' && identity === 'RECRUITER'}}">
-		  			{{redDot.positionNum}}
-		  		</view>
+		  			wx:if="{{item.flag === 'position' && redDot.positionErrorNum && identity === 'RECRUITER'}}"></view>
 		  		<view
 		  			class="reddot-mine"
-		  			wx:if="{{item.flag === 'mine' && identity === 'RECRUITER'}}">
-		  			{{redDot.positionNum}}
-		  		</view>
+		  			wx:if="{{item.flag === 'mine' && redDot.companyJoinApplyRedDot && identity === 'RECRUITER'}}"></view>
 	  		</view>
 	  		<view class="p">{{item.title}}</view>
 	  </view>

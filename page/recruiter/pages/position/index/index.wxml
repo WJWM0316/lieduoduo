@@ -5,7 +5,7 @@
 <view style="height: 98rpx"></view>
 <view class="office-status-bar" style="top:{{navH}}px">
   <view class="item {{positionStatus === '1' ? 'active' : ''}}" bindtap="onClickTab" data-status="1">招聘中({{onLinePositionNum}})</view>
-  <view class="item red-dot {{positionStatus === '2' ? 'active' : ''}}" bindtap="onClickTab" data-status="2">下线职位</view>
+  <view class="item {{positionStatus === '2' ? 'active' : ''}} {{redDotInfos.positionErrorNum ? 'red-dot' : ''}}" bindtap="onClickTab" data-status="2">下线职位</view>
   <view class="publish" data-action="add" bindtap="routeJump"><i class="icon iconfont icon-bianji"></i> 发布职位</view>
 </view>
 
@@ -55,6 +55,7 @@
 			data-position-id="{{item.id}}"
 			data-company-id="{{item.companyId}}"
 			bindtap="routeJump">
+			<view class="reddot" wx:if="{{item.redDot}}"></view>
 			<view class="header">
 				<view class="office-name">{{item.positionName}}</view>
 				<view class="office-sarary">{{item.emolumentMin}}K~{{item.emolumentMax}}K</view>

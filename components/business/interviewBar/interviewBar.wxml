@@ -34,7 +34,7 @@
 				<button class="clear-style button-box button-box-color4"> 职位已关闭 </button>
 			</block>
 			<block wx:elif="{{infos.status === 4}}">
-				<button class="clear-style button-box button-box-color4"> 审核状态不通过 </button>
+				<button class="clear-style button-box button-box-color4"> 职位已关闭 </button>
 			</block>
 			<block wx:else>
 				<button form-type="submit"  class="clear-style button-box button-box-color1" bindtap="todoAction" data-action="job-hunting-chat">

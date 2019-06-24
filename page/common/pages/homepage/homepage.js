@@ -346,6 +346,11 @@ Page({
   onShareAppMessage(options) {
     let that = this
     let imageUrl = `${that.data.cdnImagePath}shareC.png`
+    let companyInfos = this.data.companyInfos
+    if(!companyInfos.status) {
+      console.log('公司主页异常', companyInfos)
+      return app.wxShare(options)
+    }
     app.shareStatistics({
       id: that.data.query.companyId,
       type: 'company',

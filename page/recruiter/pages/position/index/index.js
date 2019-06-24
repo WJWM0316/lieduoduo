@@ -31,9 +31,9 @@ Page({
       isRequire: false
     },
     hasReFresh: false,
-    
     telePhone: app.globalData.telePhone,
-    options: {}
+    options: {},
+    redDotInfos: {}
   },
   onLoad(options) {
     wx.setStorageSync('choseType', 'RECRUITER')
@@ -59,7 +59,8 @@ Page({
     }
     getPositionListNumApi({recruiter: app.globalData.recruiterDetails.uid, ...app.getSource()}).then(res => {
       offLinePositionNum = res.data.offline
-      this.setData({onLinePosition, offLinePosition, onLinePositionNum: res.data.online})
+      let redDotInfos = app.globalData.redDotInfos
+      this.setData({onLinePosition, offLinePosition, onLinePositionNum: res.data.online, redDotInfos})
       this.getLists()
     })
   },
@@ -272,6 +273,7 @@ Page({
         wx.stopPullDownRefresh()
       })
     }
+    app.getInterviewRedDot()
     this.getCompanyIdentityInfos()
   },
   onShareAppMessage(options) {

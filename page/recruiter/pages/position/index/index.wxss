@@ -5,7 +5,6 @@
 }
 
 .office-manager-list .li {
-  overflow: hidden;
   position: relative;
   background:rgba(255,255,255,1);
   padding: 32rpx 28rpx;
@@ -178,7 +177,7 @@
   background: none;
   display:block;
   text-align: left;
-  overflow: hidden;
+  overflow: visible;
 }
 .formIdBtn:after {
   display: none;
@@ -186,4 +185,14 @@
 
 .nodata {
   padding-top: 294rpx;
+}
+
+.office-manager-list .li .reddot {
+  width:14rpx;
+  height:14rpx;
+  background:#FF4949;
+  position: absolute;
+  top: 0;
+  right: 0;
+  border-radius: 50%;
 }

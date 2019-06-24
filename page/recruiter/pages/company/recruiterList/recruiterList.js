@@ -29,7 +29,7 @@ Page({
   onShow() {
     let recruiterInfo = app.globalData.recruiterDetails
     let isCompanyAdmin = this.data.isCompanyAdmin
-
+    let redDotInfos = app.globalData.redDotInfos
     let recruitersList = {
       list: [],
       pageNum: 1,
@@ -40,16 +40,16 @@ Page({
     this.setData({recruitersList})
     if (app.pageInit) {
       app.getRoleInfo().then(res => {
-        console.log(res)
         isCompanyAdmin = res.data.isCompanyAdmin
-        this.setData({isCompanyAdmin}, this.getLists())
+        redDotInfos = app.globalData.redDotInfos
+        this.setData({isCompanyAdmin, redDotInfos}, this.getLists())
       })
     } else {
       app.pageInit = () => {
         app.getRoleInfo().then(res => {
-          console.log(res)
           isCompanyAdmin = res.data.isCompanyAdmin
-          this.setData({isCompanyAdmin}, this.getLists())
+          redDotInfos = app.globalData.redDotInfos
+          this.setData({isCompanyAdmin, redDotInfos}, this.getLists())
         })
       }
     }

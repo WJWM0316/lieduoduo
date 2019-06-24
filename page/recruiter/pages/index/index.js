@@ -301,6 +301,7 @@ Page({
     let key = this.data.pageList
     let value = {list: [], pageNum: 1, isLastPage: false, isRequire: false, isUse: false, loading: false}
     this.setData({[key]: value, hasReFresh: true})
+    app.getInterviewRedDot()
     Promise.all([this.getDomNodePosition(), this.getMixdata(), this.getLists()]).then(res => {
       let value = {list: [], pageNum: 1, isLastPage: false, isRequire: false}
       let onBottomStatus = res[2].meta && res[2].meta.nextPageUrl ? 0 : 2

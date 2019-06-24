@@ -118,6 +118,9 @@ Page({
       }
     })
     chooseTime = params.time
+    this.clearDayInterviewRedDot(params.time)
+    //模拟时时请求红点接口
+    app.getInterviewRedDot()
     this.setData({interviewData, interviewBottomStatus: 0, dateList}, () => this.getScheduleList())
   },
   chooseParentTab(e) {
@@ -128,7 +131,7 @@ Page({
       field.active = false
     })
     tabLists[tabIndex].active = true
-    this.setData({tabLists, tabIndex})
+    this.setData({tabLists, tabIndex}, () => app.getInterviewRedDot())
     let data = {}
     switch(index) {
       case 0:
@@ -154,9 +157,7 @@ Page({
           total: 0
         }
         chooseTime = ''
-        this.setData({interviewData}, () => {
-          this.getNewScheduleNumber().then(() => this.getScheduleList())
-        })
+        this.setData({interviewData}, () => this.getNewScheduleNumber())
         break
     }
   },
@@ -198,6 +199,8 @@ Page({
     let typeIndex = ''
     let type = ''
     let obj = {}
+    // 模拟时时刷新红点接口
+    app.getInterviewRedDot()
     switch(this.data.tabIndex) {
       case 0:
         typeIndex = 'applyIndex'
@@ -422,6 +425,7 @@ Page({
       wx.stopPullDownRefresh()
       return
     }
+    app.getInterviewRedDot()
     switch(this.data.tabIndex) {
       case 0:
         if (!this.data.isJobhunter) {

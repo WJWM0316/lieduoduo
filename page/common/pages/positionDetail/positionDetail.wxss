@@ -3,6 +3,8 @@
 	width: 100%;
 	overflow: hidden;
 	background: #F5F4F7;
+	box-sizing: border-box;
+	min-height: 100vh;
 }
 .title {
   font-size:28rpx;
@@ -513,4 +515,39 @@
 	border-radius: 50%;
 	margin-left: -10rpx;
 	display: inline-block;
+}
+
+.notfound {
+	box-shadow:0rpx 4rpx 20rpx 0rpx rgba(101,39,145,0.1);
+	border-radius:10rpx;
+	display:block;
+	box-sizing:border-box;
+	padding:88rpx;
+	background:white;
+	position:relative;
+	z-index:1;
+	margin:20rpx 30rpx
+}
+.notfound .pic{
+	width:340rpx;
+	height:240rpx;
+	margin:0 auto 40rpx auto;
+	display:block;
+}
+
+.notfound .h10{
+	text-align: center;
+	font-size: 46rpx;
+	color: #652791;
+	font-weight: 700;
+	line-height: 1;
+	margin-bottom: 16rpx;
+}
+
+.notfound .h11{
+	text-align: center;
+	font-size: 30rpx;
+	color: #5C565D;
+	line-height: 1;
+	font-weight: 300;
 }

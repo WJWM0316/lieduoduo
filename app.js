@@ -826,6 +826,11 @@ App({
   },
   // 获取面试红点情况
   getInterviewRedDot() {
-    getInterviewRedDotApi().then(res => this.globalData.redDotInfos = res.data)
+    return new Promise((resolve, reject) => {
+      getInterviewRedDotApi().then(res => {
+        this.globalData.redDotInfos = res.data
+        resolve(res)
+      })
+    })
   }
 })

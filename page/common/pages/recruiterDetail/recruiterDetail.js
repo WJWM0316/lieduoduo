@@ -290,6 +290,11 @@ Page({
   },
   onShareAppMessage(options) {
     let that = this
+    let info = this.data.info
+    if(info.isBlockRecruiter) {
+      console.log('该招聘官异常', info)
+      return app.wxShare(options)
+    }
     app.shareStatistics({
       id: that.data.options.uid,
       type: 'recruiter',

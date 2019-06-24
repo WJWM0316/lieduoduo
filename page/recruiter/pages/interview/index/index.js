@@ -190,6 +190,8 @@ Page({
     })
     chooseTime = params.time
     this.clearDayInterviewRedDot(params.time)
+    //模拟时时请求红点接口
+    app.getInterviewRedDot()
     this.setData({interviewData, interviewBottomStatus: 0, dateList}, () => this.getScheduleList())
   },
   // 我的邀请
@@ -257,7 +259,7 @@ Page({
     tabLists[index].active = true
     tabLists[index].showRedDot = false
     tabIndex = index
-    this.setData({tabLists, tabIndex})
+    this.setData({tabLists, tabIndex}, () => app.getInterviewRedDot())
     let data = {}
     switch(index) {
       case 0:
@@ -454,6 +456,7 @@ Page({
     }
   },
   onPullDownRefresh () {
+    app.getInterviewRedDot()
     switch(this.data.tabIndex) {
       case 0:
         let receiveData = {

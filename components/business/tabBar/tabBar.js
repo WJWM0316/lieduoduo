@@ -102,7 +102,7 @@ Component({
     toggle(e) {
       let action = () => {
         wx.removeStorageSync('companyInfos')
-        app.getInterviewRedDot()
+        app.getInterviewRedDot().then(res => app.globalData.redDotInfos = res.data)
       }
       if (app.getCurrentPagePath().indexOf(e.target.dataset.path) !== -1) return
       wx.reLaunch({

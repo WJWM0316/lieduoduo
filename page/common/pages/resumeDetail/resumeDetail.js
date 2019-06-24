@@ -219,6 +219,11 @@ Page({
   onShareAppMessage(options) {
     let that = this
     let btnImageUrl = `${that.data.cdnImagePath}shareB.png`
+    let info = this.data.info
+    if(info.isBlockResume) {
+      console.log('该简历异常', info)
+      return app.wxShare(options)
+    }
     app.shareStatistics({
       id: that.data.options.uid,
       type: 'resume',

@@ -275,12 +275,20 @@ Page({
   },
   onShareAppMessage(options) {
     let that = this
+    let detail = this.data.detail
+
+    if(!detail.status || detail.status === 4) {
+      console.log('职位异常', detail)
+      return app.wxShare({options})
+    }
+
     app.shareStatistics({
       id: that.data.query.positionId,
       type: 'position',
       sCode: that.data.detail.sCode,
       channel: 'card'
     })
+
 　　return app.wxShare({
       options,
       title: sharePosition(),

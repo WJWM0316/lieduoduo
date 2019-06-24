@@ -18,8 +18,12 @@
   </view>
   <view class="default {{fixedDom ? 'fixed' : ''}}" style="top: {{navH}}px">
     <view class="ul-tab-bar">
-      <view class="li {{pageList === 'myBrowse' ? 'active' : ''}}" bindtap="onTabClick" data-key="myBrowse"><view class="inner">看过我</view></view>
-      <view class="li {{pageList === 'myCollect' ? 'active' : ''}}" bindtap="onTabClick" data-key="myCollect"><view class="inner">对我感兴趣</view></view>
+      <view class="li {{pageList === 'myBrowse' ? 'active' : ''}}" bindtap="onTabClick" data-key="myBrowse">
+        <view class="{{redDot.redDotJobHunterViewList ? 'reddot' : ''}}">看过我</view>
+      </view>
+      <view class="li {{pageList === 'myCollect' ? 'active' : ''}}" bindtap="onTabClick" data-key="myCollect">
+        <view class="{{redDot.redDotJobHunterCollectList ? 'reddot' : ''}}">对我感兴趣</view>
+      </view>
     </view>
   </view>
   <form bindsubmit="formSubmit" report-submit='{{true}}'>

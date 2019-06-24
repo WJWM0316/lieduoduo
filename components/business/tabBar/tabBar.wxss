@@ -60,7 +60,7 @@
 .reddot {
   min-width:36rpx;
   height:36rpx;
-  background:rgba(255,127,76,1);
+  background:#FF4949;
   border-radius:18rpx;
   border-radius: 50%;
   position: absolute;

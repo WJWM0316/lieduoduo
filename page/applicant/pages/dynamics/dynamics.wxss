@@ -148,12 +148,12 @@
   visibility: visible;
 }
 
-.ul-tab-bar .inner {
+.ul-tab-bar .reddot {
   display: inline;
   position: relative;
 }
 
-/*.ul-tab-bar .inner:before {
+.ul-tab-bar .reddot:before {
   position: absolute;
   top: -5rpx;
   right: -20rpx;
@@ -164,7 +164,7 @@
   height:14rpx;
   background:rgba(255,73,73,1);
   border-radius: 50%;
-}*/
+}
 .jump {
   width: 430rpx;
   height: 98rpx;
