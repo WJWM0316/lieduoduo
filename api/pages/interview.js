@@ -282,8 +282,8 @@ export const getResumeRecomdCommentApi = (data) => {
   })
 }
 
-// 获取红点
-export const getInterviewRedDotApi = (data) => {
+// 获取底部蓝红点
+export const getBottomRedDotApi = (data) => {
   return request({
     url: `/interview/getRedDotInfo`,
     method: 'get',

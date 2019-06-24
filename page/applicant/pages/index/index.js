@@ -505,7 +505,6 @@ Page({
   onPullDownRefresh() {
     const positionList = {list: [], pageNum: 1, isLastPage: false, isRequire: false}
     this.setData({positionList, hasReFresh: true})
-    app.getInterviewRedDot()
     this.getPositionList().then(res => {
       this.setData({positionList, hasReFresh: false})
       wx.stopPullDownRefresh()

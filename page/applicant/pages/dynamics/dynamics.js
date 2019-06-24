@@ -51,12 +51,10 @@ Page({
     if (app.getRoleInit) {
       this.setData({isJobhunter: app.globalData.isJobhunter, redDot: app.globalData.redDotInfos})
       this.getLists().then(() => this.getDomNodePosition())
-      // app.getInterviewRedDot()
     } else {
       app.getRoleInit = () => {
         this.setData({isJobhunter: app.globalData.isJobhunter, redDot: app.globalData.redDotInfos})
         this.getLists().then(() => this.getDomNodePosition())
-        // app.getInterviewRedDot()
       }
     }
   },
@@ -178,7 +176,7 @@ Page({
     const key = this.data.pageList
     const value = {list: [], pageNum: 1, isLastPage: false, isRequire: false, onBottomStatus: 0}
     this.setData({[key]: value, hasReFresh: true})
-    app.getInterviewRedDot()
+    app.getBottomRedDot()
     this.getLists().then(res => {
       this.setData({hasReFresh: false})
       wx.stopPullDownRefresh()

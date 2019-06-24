@@ -30,7 +30,8 @@ Page({
       pageNum: 1,
       isLastPage: false,
       isRequire: false
-    }
+    },
+    redDotInfos: {}
   },
   onLoad() {
     wx.setStorageSync('choseType', 'RECRUITER')
@@ -54,10 +55,7 @@ Page({
       isLastPage: false,
       isRequire: false
     }
-    app.getInterviewRedDot().then(() => {
-      let redDotInfos = app.globalData.redDotInfos
-      this.setData({redDotInfos})
-    })
+    app.getBottomRedDot().then(res => this.setData({redDotInfos: res.data}))
     this.setData({list0, list1, list2}, () => this.getLists())
   },
   onClickTab(e) {
@@ -149,6 +147,7 @@ Page({
     const key = this.data.tab
     const value = {list: [], pageNum: 1, isLastPage: false, isRequire: false}
     this.setData({[key]: value, hasReFresh: true})
+    app.getBottomRedDot().then(res => this.setData({redDotInfos: res.data}))
     this[`getApplyjoin${this.data.tab}`](false).then(res => {
       const value = {list: [], pageNum: 1, isLastPage: false, isRequire: false}
       const onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2

@@ -273,7 +273,7 @@ Page({
         wx.stopPullDownRefresh()
       })
     }
-    app.getInterviewRedDot()
+    app.getBottomRedDot()
     this.getCompanyIdentityInfos()
   },
   onShareAppMessage(options) {

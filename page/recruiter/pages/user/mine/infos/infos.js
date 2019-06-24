@@ -51,7 +51,7 @@ Page({
     })
   },
   onShow() {
-    app.getInterviewRedDot()
+    app.getBottomRedDot()
     this.getRecruiterOtherInfos()
   },
   /**
@@ -134,7 +134,7 @@ Page({
   },
   onPullDownRefresh(hasLoading = true) {
     this.setData({hasReFresh: true})
-    app.getInterviewRedDot()
+    app.getBottomRedDot()
     app.getAllInfo().then(res => {
       this.setData({recruiterInfo: res, hasReFresh: false}, () => wx.stopPullDownRefresh())
       this.getRecruiterOtherInfos()

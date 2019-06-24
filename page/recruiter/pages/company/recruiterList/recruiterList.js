@@ -29,7 +29,6 @@ Page({
   onShow() {
     let recruiterInfo = app.globalData.recruiterDetails
     let isCompanyAdmin = this.data.isCompanyAdmin
-    let redDotInfos = app.globalData.redDotInfos
     let recruitersList = {
       list: [],
       pageNum: 1,
@@ -41,15 +40,15 @@ Page({
     if (app.pageInit) {
       app.getRoleInfo().then(res => {
         isCompanyAdmin = res.data.isCompanyAdmin
-        redDotInfos = app.globalData.redDotInfos
-        this.setData({isCompanyAdmin, redDotInfos}, this.getLists())
+        app.getBottomRedDot().then(res => this.setData({redDotInfos: res.data}))
+        this.setData({isCompanyAdmin}, this.getLists())
       })
     } else {
       app.pageInit = () => {
         app.getRoleInfo().then(res => {
           isCompanyAdmin = res.data.isCompanyAdmin
-          redDotInfos = app.globalData.redDotInfos
-          this.setData({isCompanyAdmin, redDotInfos}, this.getLists())
+          app.getBottomRedDot().then(res => this.setData({redDotInfos: res.data}))
+          this.setData({isCompanyAdmin}, this.getLists())
         })
       }
     }
@@ -162,6 +161,7 @@ Page({
   onPullDownRefresh() {
     let recruitersList = {list: [], pageNum: 1, isLastPage: false, isRequire: false}
     this.setData({recruitersList, hasReFresh: true, onBottomStatus: 1})
+    app.getBottomRedDot().then(res => this.setData({redDotInfos: res.data}))
     this.getLists().then(res => {
       let recruitersList = this.data.recruitersList
       let onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2

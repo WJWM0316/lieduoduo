@@ -1,5 +1,7 @@
 // components/business/tabBar/tabBar.js
 import {RECRUITER, APPLICANT, COMMON} from '../../../config.js'
+import { getBottomRedDotApi } from '../../../api/pages/interview.js'
+
 const app = getApp()
 const cdnImagePath = app.globalData.cdnImagePath
 Component({
@@ -93,21 +95,21 @@ Component({
     const currentRoute = '/' + getCurrentPages()[getCurrentPages().length - 1].route
     const identity = wx.getStorageSync('choseType')
     list.map(field => field.active = field.path === currentRoute ? true : false)
-    this.setData({ list, redDot: app.globalData.redDotInfos, identity})
+    this.setData({ list, identity}, () => this.init())
   },
   /**
    * 组件的方法列表
    */
   methods: {
+    // 获取底部栏红点情况
+    init() {
+      app.getBottomRedDot().then(res => this.setData({redDot: res.data}))
+    },
     toggle(e) {
-      let action = () => {
-        wx.removeStorageSync('companyInfos')
-        app.getInterviewRedDot().then(res => app.globalData.redDotInfos = res.data)
-      }
       if (app.getCurrentPagePath().indexOf(e.target.dataset.path) !== -1) return
       wx.reLaunch({
         url: e.target.dataset.path,
-        success: () => action()
+        success: () => wx.removeStorageSync('companyInfos')
       })
     }
   }

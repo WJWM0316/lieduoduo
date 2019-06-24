@@ -191,7 +191,7 @@ Page({
     chooseTime = params.time
     this.clearDayInterviewRedDot(params.time)
     //模拟时时请求红点接口
-    app.getInterviewRedDot()
+    this.selectComponent('#bottomRedDotBar').init()
     this.setData({interviewData, interviewBottomStatus: 0, dateList}, () => this.getScheduleList())
   },
   // 我的邀请
@@ -259,7 +259,7 @@ Page({
     tabLists[index].active = true
     tabLists[index].showRedDot = false
     tabIndex = index
-    this.setData({tabLists, tabIndex}, () => app.getInterviewRedDot())
+    this.setData({tabLists, tabIndex}, () => this.selectComponent('#bottomRedDotBar').init())
     let data = {}
     switch(index) {
       case 0:
@@ -419,7 +419,7 @@ Page({
    * @return   {[type]}        [description]
    */
   clearTabInterviewRedDot(type) {
-    clearTabInterviewRedDotApi({type}).then(() => app.getInterviewRedDot())
+    clearTabInterviewRedDotApi({type}).then(() => this.selectComponent('#bottomRedDotBar').init())
   },
   /**
    * @Author   小书包
@@ -428,7 +428,7 @@ Page({
    * @return   {[type]}        [description]
    */
   clearDayInterviewRedDot(date) {
-    clearDayInterviewRedDotApi({date}).then(() => app.getInterviewRedDot())
+    clearDayInterviewRedDotApi({date}).then(() => this.selectComponent('#bottomRedDotBar').init())
   },
   onReachBottom(e) {
     switch(this.data.tabIndex) {
@@ -456,7 +456,7 @@ Page({
     }
   },
   onPullDownRefresh () {
-    app.getInterviewRedDot()
+    this.selectComponent('#bottomRedDotBar').init()
     switch(this.data.tabIndex) {
       case 0:
         let receiveData = {

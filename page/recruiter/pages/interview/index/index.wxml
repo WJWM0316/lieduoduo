@@ -212,5 +212,5 @@
 		</form>
 		<bottomStatus status="{{interviewBottomStatus}}" listData="{{interviewData.list}}"></bottomStatus>
 	</view>
-  <tab-bar tabType="1"></tab-bar>
+  <tab-bar tabType="1" id="bottomRedDotBar"></tab-bar>
 </view>

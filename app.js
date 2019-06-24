@@ -8,7 +8,7 @@ import {getUserRoleApi} from "api/pages/user.js"
 import {quickLoginApi} from 'api/pages/auth.js'
 import {shareC, shareB} from 'utils/shareWord.js'
 import {getCompanyIdentityInfosApi} from 'api/pages/company.js'
-import {getInterviewRedDotApi} from 'api/pages/interview.js'
+import {getBottomRedDotApi} from 'api/pages/interview.js'
 
 let that = null
 let formIdList = [],
@@ -168,7 +168,6 @@ App({
         getRecruiterDetailApi().then(res0 => {
           this.globalData.recruiterDetails = res0.data
           this.globalData.isRecruiter = 1
-          this.getInterviewRedDot()
           pageInit()
           resolve(res0.data)
         }).catch((e) => {
@@ -180,7 +179,6 @@ App({
           this.globalData.resumeInfo = res0.data
           this.globalData.isJobhunter = 1
           this.globalData.hasExpect = 1
-          this.getInterviewRedDot()
           pageInit()
           resolve(res0.data)
         }).catch((e) => {
@@ -824,10 +822,10 @@ App({
         break
     }
   },
-  // 获取面试红点情况
-  getInterviewRedDot() {
+  // 获取底部栏红点情况
+  getBottomRedDot() {
     return new Promise((resolve, reject) => {
-      getInterviewRedDotApi().then(res => {
+      getBottomRedDotApi().then(res => {
         this.globalData.redDotInfos = res.data
         resolve(res)
       })
