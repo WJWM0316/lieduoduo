@@ -230,10 +230,14 @@ Page({
     if (this.data.info.advisor && this.data.info.advisor.dealStatusDescAll !== 1) {
       btnImageUrl = `${that.data.cdnImagePath}shareB.png`
     }
+    let url = `${COMMON}resumeDetail/resumeDetail?uid=${that.data.options.uid}&sCode=${this.data.info.sCode}&sourceType=shr`
+    if (that.data.info.sourceType === 500) {
+      url = `${COMMON}resumeDetail/resumeDetail?uid=${that.data.options.uid}&sCode=${this.data.info.sCode}&sourceType=shr&adviser=true`
+    }
 　　return app.wxShare({
       options,
       title: shareResume(),
-      path: `${COMMON}resumeDetail/resumeDetail?uid=${that.data.options.uid}&sCode=${this.data.info.sCode}&sourceType=shr`,
+      path: url,
       btnImageUrl: btnImageUrl
     })
   }

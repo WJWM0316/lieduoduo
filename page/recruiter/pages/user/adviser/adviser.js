@@ -52,16 +52,25 @@ Page({
   },
   onLoad: function (options) {
     if (wx.setStorageSync('choseType') !== 'RECRUITER') wx.setStorageSync('choseType', 'RECRUITER')
-    let listData = {
-      list: [],
-      pageNum: 1,
-      isLastPage: false,
-      count: app.globalData.pageCount,
-      onBottomStatus: 0
+    let init = () => {
+      let listData = {
+        list: [],
+        pageNum: 1,
+        isLastPage: false,
+        count: app.globalData.pageCount,
+        onBottomStatus: 0
+      }
+      this.setData({listData})
+      this.getRedHot()
+      this.getList()
     }
-    this.setData({listData})
-    this.getRedHot()
-    this.getList()
+    if (app.loginInit) {
+      init()
+    } else {
+      app.loginInit = () => {
+        init()
+      }
+    }
   },
   getRedHot () {
     getRecommendReddotApi().then((res) => {

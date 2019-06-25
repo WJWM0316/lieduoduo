@@ -25,7 +25,6 @@ if (environment === 0) {
 }
 
 
-
 // 招聘端page
 export const RECRUITER = '/page/recruiter/pages/'
 

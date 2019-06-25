@@ -24,7 +24,13 @@ Page({
    */
   onLoad: function (options) {
     if (wx.setStorageSync('choseType') !== 'RECRUITER') wx.setStorageSync('choseType', 'RECRUITER')
-    this.init()
+    if (app.loginInit) {
+      this.init()
+    } else {
+      app.loginInit = () => {
+        this.init()
+      }
+    }
   },
 
   /**

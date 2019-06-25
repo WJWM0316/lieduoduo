@@ -61,7 +61,15 @@ export const request = ({name = '', method = 'post', url, host, data = {}, needK
     delete addHttpHead['Act-Code']
     delete addHttpHead['Act-Pid']
   }
-  
+
+  // msg_id
+  let curRouteOptions = getCurrentPages()[0].options || {}
+  if (curRouteOptions.hasOwnProperty('msg_id')) {
+    addHttpHead['Msg-Id'] = curRouteOptions.msg_id
+  } else {
+    delete addHttpHead['Msg']
+  }
+    
   // 渠道统计
   if (data.sourceType && !data.isReload) {
     addHttpHead['Channel-Code'] = data.sourceType
