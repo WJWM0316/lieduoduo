@@ -257,7 +257,10 @@ Page({
     let tabIndex = this.data.tabIndex
     let tabLists = this.data.tabLists
     tabLists.map((item, i) => {
-      if(field.active && field.showRedDot) field.showRedDot = 0
+      if(item.active && item.showRedDot) {
+        item.showRedDot = 0
+        this.clearTabInterviewRedDot(item.type)
+      }
       tabLists[i].active = false
     })
     tabLists[index].active = true
@@ -270,14 +273,12 @@ Page({
         data = this.data.receiveData
         if (!data.isRequire) {
           this.getInviteList()
-          this.clearTabInterviewRedDot(tabLists[index].type)
         }
         break
       case 1:
         data = this.data.applyData
         if (!data.isRequire) {
           this.getApplyList()
-          this.clearTabInterviewRedDot(tabLists[index].type)
         }
         break
       case 2:
