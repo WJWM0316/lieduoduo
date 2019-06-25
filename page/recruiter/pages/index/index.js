@@ -122,6 +122,7 @@ Page({
       if(!wx.getStorageSync('isReback') && !value.list.length) this.getLists()
       wx.removeStorageSync('isReback')
       this.setData({userInfo})
+      this.selectComponent('#bottomRedDotBar').init()
     } else {
       app.pageInit = () => {
         userInfo = app.globalData.userInfo
@@ -130,6 +131,7 @@ Page({
         if(!wx.getStorageSync('isReback') && !value.list.length) this.getLists()
         wx.removeStorageSync('isReback')
         this.setData({userInfo})
+        this.selectComponent('#bottomRedDotBar').init()
       }
     }
   },

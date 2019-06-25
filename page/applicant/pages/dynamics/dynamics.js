@@ -49,10 +49,12 @@ Page({
     }
     this.clearListsData()
     if (app.getRoleInit) {
+      this.selectComponent('#bottomRedDotBar').init()
       this.setData({isJobhunter: app.globalData.isJobhunter, redDot: app.globalData.redDotInfos})
       this.getLists().then(() => this.getDomNodePosition())
     } else {
       app.getRoleInit = () => {
+        this.selectComponent('#bottomRedDotBar').init()
         this.setData({isJobhunter: app.globalData.isJobhunter, redDot: app.globalData.redDotInfos})
         this.getLists().then(() => this.getDomNodePosition())
       }

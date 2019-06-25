@@ -2,7 +2,7 @@
 <!-- 加载过滤器 -->
 <wxs src="../../../../utils/filters.wxs" module="filters" />
 
-<view wx:if="{{info.isBlockResume !== 1}}">
+<view wx:if="{{!info.isBlockResume}}">
   <navbar title="{{isOwner ? '简历完善度' + info.resumeCompletePercentageDesc : '简历详情'}}" background="#FFFFFF" color="#22292C" showHome="{{true}}"></navbar>
   <block wx:if="{{!invisible}}">
     <view class="resume-from" wx:if="{{info.sourceDesc}}">
@@ -212,4 +212,4 @@
     </actionSheet>
   </block>
 </view>
-<notFound msg="{{'oops！找不到这份简历了~'}}" title="{{'简历详情'}}" wx:else></notFound>
+<notFound msg="{{'oops！找不到这份简历了~'}}" title="{{'简历详情'}}" wx:if="{{info.isBlockResume}}"></notFound>

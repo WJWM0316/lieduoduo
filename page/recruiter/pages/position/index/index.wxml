@@ -71,5 +71,5 @@
 	<bottomStatus status="{{offBottomStatus}}" listData="{{offLinePosition.list}}" desc="没有更多内容了~" marginTop="{{0}}"></bottomStatus>
 </view>
 </form>
-<tab-bar tabType="1"></tab-bar>
+<tab-bar tabType="1" id="bottomRedDotBar"></tab-bar>
 </view>

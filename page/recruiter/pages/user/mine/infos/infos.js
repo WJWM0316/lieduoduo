@@ -51,7 +51,7 @@ Page({
     })
   },
   onShow() {
-    app.getBottomRedDot()
+    this.selectComponent('#bottomRedDotBar').init()
     this.getRecruiterOtherInfos()
   },
   /**
@@ -134,7 +134,7 @@ Page({
   },
   onPullDownRefresh(hasLoading = true) {
     this.setData({hasReFresh: true})
-    app.getBottomRedDot()
+    this.selectComponent('#bottomRedDotBar').init()
     app.getAllInfo().then(res => {
       this.setData({recruiterInfo: res, hasReFresh: false}, () => wx.stopPullDownRefresh())
       this.getRecruiterOtherInfos()

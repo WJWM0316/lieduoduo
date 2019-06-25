@@ -5,7 +5,8 @@ import {
   getRedDotListApi,
   getNewScheduleNumberApi,
   clearTabInterviewRedDotApi,
-  clearDayInterviewRedDotApi
+  clearDayInterviewRedDotApi,
+  getInterviewRedDotBarApi
 } from '../../../../../api/pages/interview.js'
 
 import {RECRUITER, COMMON, APPLICANT} from '../../../../../config.js'
@@ -120,18 +121,16 @@ Page({
     chooseTime = params.time
     this.clearDayInterviewRedDot(params.time)
     //模拟时时请求红点接口
-    this.selectComponent('#bottomRedDotBar').init()
+    this.initTabRedDot()
     this.setData({interviewData, interviewBottomStatus: 0, dateList}, () => this.getScheduleList())
   },
   chooseParentTab(e) {
     let index = e.currentTarget.dataset.index
     let tabLists = this.data.tabLists
     let tabIndex = index
-    tabLists.map((field, i) => {
-      field.active = false
-    })
+    tabLists.map((field, i) => {field.active = false })
     tabLists[tabIndex].active = true
-    this.setData({tabLists, tabIndex}, () => this.selectComponent('#bottomRedDotBar').init())
+    this.setData({tabLists, tabIndex}, () => this.initTabRedDot())
     let data = {}
     switch(index) {
       case 0:
@@ -183,7 +182,7 @@ Page({
    * @return   {[type]}        [description]
    */
   clearTabInterviewRedDot(type) {
-    clearTabInterviewRedDotApi({type}).then(() => this.selectComponent('#bottomRedDotBar').init())
+    clearTabInterviewRedDotApi({type}).then(() => this.initTabRedDot())
   },
   /**
    * @Author   小书包
@@ -192,7 +191,7 @@ Page({
    * @return   {[type]}        [description]
    */
   clearDayInterviewRedDot(date) {
-    clearDayInterviewRedDotApi({date}).then(() => this.selectComponent('#bottomRedDotBar').init())
+    clearDayInterviewRedDotApi({date}).then(() => this.initTabRedDot())
   },
   chooseItem(e) {
     let params = e.currentTarget.dataset
@@ -200,7 +199,7 @@ Page({
     let type = ''
     let obj = {}
     // 模拟时时刷新红点接口
-    this.selectComponent('#bottomRedDotBar').init()
+    this.initTabRedDot()
     switch(this.data.tabIndex) {
       case 0:
         typeIndex = 'applyIndex'
@@ -300,6 +299,7 @@ Page({
     })
   },
   init () {
+    this.initTabRedDot()
     switch(this.data.tabIndex) {
       case 0:
         let applyData = {
@@ -375,25 +375,37 @@ Page({
     if (app.getRoleInit) {
       this.setData({hasLogin: app.globalData.hasLogin, isJobhunter: app.globalData.isJobhunter})
       this.init()
-      this.initTabRedDot()
     } else {
       app.getRoleInit = () => {
         this.setData({hasLogin: app.globalData.hasLogin, isJobhunter: app.globalData.isJobhunter})
         this.init()
-        this.initTabRedDot()
       }
     }
   },
   // 初始化tab红点
   initTabRedDot() {
-    let redDotInfos = app.globalData.redDotInfos
-    let tabLists = this.data.tabLists
-    let applyScreen = this.data.applyScreen
-    let receiveScreen = this.data.receiveScreen
-    tabLists.map(field => field.showRedDot = redDotInfos[field.flag])
-    applyScreen.map(field => field.showRedDot = redDotInfos[field.flag])
-    receiveScreen.map(field => field.showRedDot = redDotInfos[field.flag])
-    this.setData({tabLists, applyScreen, receiveScreen, redDotInfos})
+    this.selectComponent('#bottomRedDotBar').init()
+    this.getInterviewRedDotBar().then(res => {
+      let redDotInfos = res.data
+      let tabLists = this.data.tabLists
+      let applyScreen = this.data.applyScreen
+      let receiveScreen = this.data.receiveScreen
+      tabLists.map(field => field.showRedDot = redDotInfos[field.flag])
+      applyScreen.map(field => field.showRedDot = redDotInfos[field.flag])
+      receiveScreen.map(field => field.showRedDot = redDotInfos[field.flag])
+      this.setData({tabLists, applyScreen, receiveScreen, redDotInfos})
+    })
+  },
+  /**
+   * @Author   小书包
+   * @DateTime 2019-06-25
+   * @detail   获取tab红点情况
+   * @return   {[type]}   [description]
+   */
+  getInterviewRedDotBar() {
+    return new Promise((resolve, reject) => {
+      getInterviewRedDotBarApi().then(res => resolve(res))
+    })
   },
   onReachBottom(e) {
     switch(this.data.tabIndex) {

@@ -291,6 +291,15 @@ export const getBottomRedDotApi = (data) => {
   })
 }
 
+// 获取面试蓝红点
+export const getInterviewRedDotBarApi = (data) => {
+  return request({
+    url: `/interview/getInterviewRedDotInfo`,
+    method: 'get',
+    hasLoading: false
+  })
+}
+
 // 清除红点
 export const clearTabInterviewRedDotApi = (data) => {
   return request({

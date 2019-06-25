@@ -7,7 +7,8 @@ import {
   getScheduleNumberApi,
   getNewScheduleNumberApi,
   clearTabInterviewRedDotApi,
-  clearDayInterviewRedDotApi
+  clearDayInterviewRedDotApi,
+  getInterviewRedDotBarApi
 } from '../../../../../api/pages/interview.js'
 
 import {getRecruiterPositionListApi} from '../../../../../api/pages/position.js'
@@ -191,7 +192,7 @@ Page({
     chooseTime = params.time
     this.clearDayInterviewRedDot(params.time)
     //模拟时时请求红点接口
-    this.selectComponent('#bottomRedDotBar').init()
+    this.initTabRedDot()
     this.setData({interviewData, interviewBottomStatus: 0, dateList}, () => this.getScheduleList())
   },
   // 我的邀请
@@ -259,7 +260,7 @@ Page({
     tabLists[index].active = true
     tabLists[index].showRedDot = false
     tabIndex = index
-    this.setData({tabLists, tabIndex}, () => this.selectComponent('#bottomRedDotBar').init())
+    this.setData({tabLists, tabIndex}, () => this.initTabRedDot())
     let data = {}
     switch(index) {
       case 0:
@@ -306,6 +307,7 @@ Page({
   },
   init () {
     let options = this.data.options
+    this.initTabRedDot()
     if (app.globalData.isRecruiter) {
       getRecruiterPositionListApi({is_online: 1, count: 50, page: 1}).then(res => {
         positionList = res.data
@@ -397,20 +399,21 @@ Page({
     this.initDefault()
     if (app.globalData.isRecruiter) {
       this.init()
-      this.initTabRedDot()
     } else {
       app.getRoleInit = () => {
         this.init()
-        this.initTabRedDot()
       }
     }
   },
   // 初始化tab红点
   initTabRedDot() {
-    let redDotInfos = app.globalData.redDotInfos
-    let tabLists = this.data.tabLists
-    tabLists.map(field => field.showRedDot = redDotInfos[field.flag])
-    this.setData({tabLists, redDotInfos})
+    this.selectComponent('#bottomRedDotBar').init()
+    this.getInterviewRedDotBar().then(res => {
+      let redDotInfos = res.data
+      let tabLists = this.data.tabLists
+      tabLists.map(field => field.showRedDot = redDotInfos[field.flag])
+      this.setData({tabLists, redDotInfos})
+    })
   },
   /**
    * @Author   小书包
@@ -429,6 +432,17 @@ Page({
    */
   clearDayInterviewRedDot(date) {
     clearDayInterviewRedDotApi({date}).then(() => this.selectComponent('#bottomRedDotBar').init())
+  },
+  /**
+   * @Author   小书包
+   * @DateTime 2019-06-25
+   * @detail   获取tab红点情况
+   * @return   {[type]}   [description]
+   */
+  getInterviewRedDotBar() {
+    return new Promise((resolve, reject) => {
+      getInterviewRedDotBarApi().then(res => resolve(res))
+    })
   },
   onReachBottom(e) {
     switch(this.data.tabIndex) {

@@ -277,7 +277,7 @@ Page({
     let that = this
     let detail = this.data.detail
 
-    if(!detail.status || detail.status === 4) {
+    if(detail.isOnline && (!detail.status || detail.status === 1 || detail.status === 3 || detail.status === 4)) {
       console.log('职位异常', detail)
       return app.wxShare({options})
     }

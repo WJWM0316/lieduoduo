@@ -57,6 +57,7 @@ Page({
       isLastPage: false,
       isRequire: false
     }
+    this.selectComponent('#bottomRedDotBar').init()
     getPositionListNumApi({recruiter: app.globalData.recruiterDetails.uid, ...app.getSource()}).then(res => {
       offLinePositionNum = res.data.offline
       let redDotInfos = app.globalData.redDotInfos

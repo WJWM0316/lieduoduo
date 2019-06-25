@@ -6,7 +6,7 @@
 	  </view>
 		<view class="page-top">
 			<image class="bgImg" src="{{cdnPath}}job-detail.png" mode="aspectFill"></image>
-			<shareBtn posterType="position" id="shareBtn" posterData="{{detail}}"></shareBtn>
+			<shareBtn posterType="position" id="shareBtn" posterData="{{detail}}" wx:if="{{detail.isOnline === 1 && (detail.status === 1 || detail.status === 2)}}"></shareBtn>
 			<view class="company-infos">
 				<view class="header">
 					<view class="text">
@@ -29,7 +29,7 @@
 		</view>
 		
 		<!-- 审核不通过 start-->
-		<block wx:if="{{detail.status === 4}}">
+		<block wx:if="{{!isOwner && detail.isOnline === 2 && (detail.status === 4 || detail.status === 3)}}">
 			<view class="notfound">
 				<image class="pic" src="{{cdnPath}}emptyState.png"></image>
 				<view class="h10">职位已关闭</view>
@@ -38,7 +38,7 @@
 		</block>
 		<!-- 审核不通过 end-->
 		<!-- 招聘罐主动关闭 start-->
-		<block wx:elif="{{detail.status === 0}}">
+		<block wx:elif="{{!isOwner && detail.isOnline === 2 && (detail.status === 0 || detail.status === 1)}}">
 			<view class="notfound">
 				<image class="pic" src="{{cdnPath}}emptyState.png"></image>
 				<view class="h10">职位已关闭</view>

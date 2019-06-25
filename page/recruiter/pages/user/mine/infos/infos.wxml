@@ -144,5 +144,5 @@
 </view>
 <block wx:if="{{recruiterInfo.uid}}"><canvasCard cardData="{{recruiterInfo}}" type="recruiter" bindgetCreatedImg="getCreatedImg"></canvasCard>
 </block>
-<tab-bar tabType="1"></tab-bar>
+<tab-bar tabType="1" id="bottomRedDotBar"></tab-bar>
 </view>

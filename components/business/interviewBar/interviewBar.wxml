@@ -30,10 +30,7 @@
 				</view>
 				<view class="second">{{recruiterWords}}</view>
 			</view>
-			<block wx:if="{{infos.status === 0}}">
-				<button class="clear-style button-box button-box-color4"> 职位已关闭 </button>
-			</block>
-			<block wx:elif="{{infos.status === 4}}">
+			<block wx:if="{{infos.isOnline === 2 && (infos.status === 0 || infos.status === 1 || infos.status === 3 || infos.status === 4)}}">
 				<button class="clear-style button-box button-box-color4"> 职位已关闭 </button>
 			</block>
 			<block wx:else>

@@ -129,9 +129,11 @@ Page({
         this.setData({bannerList, bannerIndex: 0})
       }
       if (app.pageInit) {
+        this.selectComponent('#bottomRedDotBar').init()
         this.setData({hasExpect: app.globalData.hasExpect})
       } else {
         app.pageInit = () => {
+          this.selectComponent('#bottomRedDotBar').init()
           this.setData({hasExpect: app.globalData.hasExpect})
         }
       }

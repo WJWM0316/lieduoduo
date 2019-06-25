@@ -95,7 +95,7 @@ Component({
     const currentRoute = '/' + getCurrentPages()[getCurrentPages().length - 1].route
     const identity = wx.getStorageSync('choseType')
     list.map(field => field.active = field.path === currentRoute ? true : false)
-    this.setData({ list, identity}, () => this.init())
+    this.setData({ list, identity })
   },
   /**
    * 组件的方法列表
@@ -103,7 +103,10 @@ Component({
   methods: {
     // 获取底部栏红点情况
     init() {
-      app.getBottomRedDot().then(res => this.setData({redDot: res.data}))
+      app.getBottomRedDot().then(res => {
+        app.globalData.redDotInfos = res.data
+        this.setData({redDot: res.data})
+      })
     },
     toggle(e) {
       if (app.getCurrentPagePath().indexOf(e.target.dataset.path) !== -1) return

@@ -53,6 +53,7 @@ Page({
         isJobhunter = app.globalData.isJobhunter,
         showScanIcon = hasLogin && isJobhunter ? true : false
     this.setData({isJobhunter, hasLogin, showScanIcon})
+    this.selectComponent('#bottomRedDotBar').init()
     if (app.globalData.isMicroCard && !app.globalData.isJobhunter) {
       getMyInfoApi().then(res => {
         let myInfo = res.data
