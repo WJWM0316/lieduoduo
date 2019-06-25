@@ -1,5 +1,5 @@
 <form bindsubmit="formSubmit" report-submit='{{true}}'>
-  <view class="recruiterDetail" wx:if="{{!info.isBlockRecruiter && info.currentCompanyId}}">
+  <view class="recruiterDetail" wx:if="{{info.hasDeleted === 0}}">
     <navbar title="{{info.companyInfo.companyShortname}}-{{info.position}}" background="#fff" color="#22292C" showHome="{{true}}" customBack bindbackEvent="backEvent"></navbar>
     <view hidden="{{!hasReFresh}}">
       <refreshStatus></refreshStatus>
@@ -151,5 +151,5 @@
       </view>
     </view>
   </view>
-  <notFound msg="{{'oops！这个面试官失踪了~'}}" title="{{'面试官详情'}}" wx:if="{{info.isBlockRecruiter || !info.currentCompanyId}}"></notFound>
+  <notFound msg="{{'oops！这个面试官失踪了~'}}" title="{{'面试官详情'}}" wx:if="{{info.hasDeleted === 1}}"></notFound>
 </form>

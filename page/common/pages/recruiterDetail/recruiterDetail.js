@@ -64,7 +64,13 @@ Page({
     return new Promise((resolve, reject) => {
       getOthersRecruiterDetailApi({uid: this.data.options.uid, hasLoading, isReload, ...app.getSource()}).then(res => {
         let isOwner = res.data.isOwner && identity === 'RECRUITER' ? true : false
-        this.setData({isOwner, info: res.data, realIsOwner: res.data.isOwner}, function() {
+        let info = res.data
+        if(info.isBlockRecruiter === 1 || info.currentCompanyId === 0) {
+          info.hasDeleted = 1
+        } else {
+          info.hasDeleted = 0
+        }
+        this.setData({isOwner, info, realIsOwner: res.data.isOwner}, function() {
           if(this.selectComponent('#interviewBar')) this.selectComponent('#interviewBar').init()
           // this.getDomNodePosition()
           if (this.data.isOwner) {

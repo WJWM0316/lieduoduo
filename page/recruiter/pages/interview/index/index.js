@@ -256,7 +256,10 @@ Page({
     let index = e.currentTarget.dataset.index
     let tabIndex = this.data.tabIndex
     let tabLists = this.data.tabLists
-    tabLists.map((item, i) => tabLists[i].active = false)
+    tabLists.map((item, i) => {
+      if(field.active && field.showRedDot) field.showRedDot = 0
+      tabLists[i].active = false
+    })
     tabLists[index].active = true
     tabLists[index].showRedDot = false
     tabIndex = index

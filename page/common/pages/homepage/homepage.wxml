@@ -1,5 +1,5 @@
 <form bindsubmit="formSubmit" report-submit='{{true}}'>
-	<view class="homepage" wx:if="{{companyInfos.status}}">
+	<view class="homepage" wx:if="{{companyInfos.status === 1}}">
 		<navbar title="{{companyInfos.companyShortname}}" background="#fff" color="#22292C" showHome="{{true}}"></navbar>
 
 		<view hidden="{{!hasReFresh}}">
@@ -172,5 +172,5 @@
 		<block wx:if="{{companyInfos.id}}"><canvasCard cardData="{{companyInfos}}" type="company" bindgetCreatedImg="getCreatedImg"></canvasCard></block>
 		<auth wx:if="{{requireOAuth}}" bindauthSuccess="authSuccess"></auth>
 	</view>
-	<notFound msg="{{'oops！找不到这个公司了~'}}" title="{{'公司详情'}}" wx:if="{{!companyInfos.status}}"></notFound>
+	<notFound msg="{{'oops！找不到这个公司了~'}}" title="{{'公司详情'}}" wx:if="{{companyInfos.status === 0}}"></notFound>
 </form>
