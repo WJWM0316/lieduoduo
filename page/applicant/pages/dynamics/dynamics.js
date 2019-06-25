@@ -176,7 +176,7 @@ Page({
     const key = this.data.pageList
     const value = {list: [], pageNum: 1, isLastPage: false, isRequire: false, onBottomStatus: 0}
     this.setData({[key]: value, hasReFresh: true})
-    app.getBottomRedDot()
+    this.selectComponent('#bottomRedDotBar').init()
     this.getLists().then(res => {
       this.setData({hasReFresh: false})
       wx.stopPullDownRefresh()

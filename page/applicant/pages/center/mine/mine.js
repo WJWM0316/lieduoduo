@@ -148,6 +148,7 @@ Page({
     let isJobhunter = 0
     let showScanIcon = this.data.showScanIcon
     this.setData({hasReFresh: true})
+    this.selectComponent('#bottomRedDotBar').init()
     getPersonalResumeApi({...app.getSource()}).then(res => {
       hasLogin = app.globalData.hasLogin
       isJobhunter = app.globalData.isJobhunter

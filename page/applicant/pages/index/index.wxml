@@ -63,7 +63,7 @@
     <jobList listType="{{!isJobhunter ? 'index' : ''}}" personality="jobItem" list="{{positionList.list}}" list-type="interview" current-tab="all"></jobList>
     <bottomStatus status="{{onBottomStatus}}" listData="{{positionList.list}}"></bottomStatus>
   </view>
-  <tabBar></tabBar>
+  <tabBar id="bottomRedDotBar"></tabBar>
   <auth wx:if="{{requireOAuth}}" bindauthSuccess="authSuccess"></auth>
   <bindPhone hide="{{hideLoginBox}}" hasClose="{{false}}"></bindPhone>
   <adPop></adPop>
