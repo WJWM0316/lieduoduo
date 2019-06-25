@@ -11,8 +11,8 @@
 		  		<image class="tabIcon" src="{{item.selectedIconPath}}" hidden="{{!item.active}}"></image>
 		  		<view
 		  			class="reddot"
-		  			wx:if="{{item.flag === 'dynamics' && redDot.dynamicRedDot && identity === 'APPLICANT'}}">
-		  			{{redDot.dynamicRedDot}}
+		  			wx:if="{{item.flag === 'dynamics' && redDot.redDotJobHunterDynamicStatus && identity === 'APPLICANT'}}">
+		  			{{redDot.redDotJobHunterDynamicStatus}}
 		  		</view>
 		  		<view
 		  			class="reddot"
