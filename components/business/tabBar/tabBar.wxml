@@ -26,10 +26,10 @@
 		  		</view>
 		  		<view
 		  			class="reddot-mine"
-		  			wx:if="{{item.flag === 'position' && redDot.positionErrorNum && identity === 'RECRUITER'}}"></view>
+		  			wx:if="{{item.flag === 'position' && redDot.positionCommonBar && identity === 'RECRUITER'}}"></view>
 		  		<view
 		  			class="reddot-mine"
-		  			wx:if="{{item.flag === 'mine' && redDot.companyJoinApplyRedDot && identity === 'RECRUITER'}}"></view>
+		  			wx:if="{{item.flag === 'mine' && redDot.applyAuditBar && identity === 'RECRUITER'}}"></view>
 	  		</view>
 	  		<view class="p">{{item.title}}</view>
 	  </view>

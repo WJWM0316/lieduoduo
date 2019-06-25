@@ -76,7 +76,7 @@
 		
 		<view class="li" bindtap="routeJump" data-route="team">
 			<i class="icon iconfont icon-zhaopintuandui label-icon"></i>
-			<view class="text {{redDotInfos.companyJoinApplyRedDot ? 'reddot' : ''}}">招聘团队</view>
+			<view class="text {{redDotInfos.applyAuditBar ? 'reddot' : ''}}">招聘团队</view>
 			<view class="boxs">
 				<image
 					class="people"

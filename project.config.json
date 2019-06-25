@@ -49,7 +49,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 4,
+			"current": 2,
 			"list": [
 				{
 					"id": 0,
@@ -68,7 +68,7 @@
 					"id": 2,
 					"name": "【公包】招聘官主页",
 					"pathName": "page/common/pages/recruiterDetail/recruiterDetail",
-					"query": "scene=uid%3D663%26s%3Dshr",
+					"query": "uid=3132",
 					"scene": 1001
 				},
 				{

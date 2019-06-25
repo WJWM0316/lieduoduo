@@ -6,7 +6,7 @@
 	<view style="height: 98rpx"></view>
 	<view class="office-status-bar" style="top:{{navH}}px">
 	  <view class="item {{tab === 'list0' ? 'active' : ''}}" bindtap="onClickTab" data-tab="list0">
-	  	<view class="{{redDotInfos.companyJoinApplyRedDot ? 'reddot' : ''}}">待审核</view>
+	  	<view class="{{redDotInfos.applyAuditBar ? 'reddot' : ''}}">待审核</view>
 	  </view>
 	  <view class="item {{tab === 'list2' ? 'active' : ''}}" bindtap="onClickTab" data-tab="list2"><view>审核未通过</view></view>
 	  <view class="item {{tab === 'list1' ? 'active' : ''}}" bindtap="onClickTab" data-tab="list1"><view>已通过</view></view>

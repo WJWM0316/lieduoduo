@@ -5,7 +5,7 @@
 .not-found .emptyState {
   width: 340rpx;
   height: 240rpx;
-  margin-top: 100rpx;
+  margin-top: 120rpx;
 }
 
 .not-found .oops {
