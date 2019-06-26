@@ -102,7 +102,7 @@ Page({
         active: false,
         showRedDot: 0,
         flag: 'recruiterScheduleList',
-        type: 'schedule_list'
+        type: ''
       }
     ],
     redDotInfos: {}
@@ -256,8 +256,9 @@ Page({
     let index = e.currentTarget.dataset.index
     let tabIndex = this.data.tabIndex
     let tabLists = this.data.tabLists
+    let dateList = this.data.dateList
     tabLists.map((item, i) => {
-      if(item.active && item.showRedDot) {
+      if(item.active && item.showRedDot && item.type) {
         item.showRedDot = 0
         this.clearTabInterviewRedDot(item.type)
       }
@@ -266,6 +267,8 @@ Page({
     tabLists[index].active = true
     tabLists[index].showRedDot = false
     tabIndex = index
+    // 当前tab位于面试日程，并且面试日程下面的日期列表的第一个有红点，则离开父级tab 则把首个日期列表的红点清除
+    if(index === 2 && dateList.length && dateList[0].number > 0) this.clearDayInterviewRedDot(dateList[0].time)
     this.setData({tabLists, tabIndex}, () => this.initTabRedDot())
     let data = {}
     switch(index) {
@@ -426,7 +429,12 @@ Page({
    * @return   {[type]}        [description]
    */
   clearTabInterviewRedDot(type) {
-    clearTabInterviewRedDotApi({type}).then(() => this.selectComponent('#bottomRedDotBar').init())
+    return new Promise((resolve, reject) => {
+      clearTabInterviewRedDotApi({type}).then(() => {
+        resolve(res)
+        this.selectComponent('#bottomRedDotBar').init()
+      })
+    })
   },
   /**
    * @Author   小书包
@@ -435,7 +443,12 @@ Page({
    * @return   {[type]}        [description]
    */
   clearDayInterviewRedDot(date) {
-    clearDayInterviewRedDotApi({date}).then(() => this.selectComponent('#bottomRedDotBar').init())
+    return new Promise((resolve, reject) => {
+      clearDayInterviewRedDotApi({date}).then(() => {
+        resolve()
+        this.selectComponent('#bottomRedDotBar').init()
+      })
+    })
   },
   /**
    * @Author   小书包

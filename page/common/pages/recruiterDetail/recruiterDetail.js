@@ -299,7 +299,7 @@ Page({
     let info = this.data.info
     if(info.hasDeleted) {
       console.log('该招聘官异常', info)
-      return app.wxShare(options)
+      return app.wxShare({options})
     }
     app.shareStatistics({
       id: that.data.options.uid,

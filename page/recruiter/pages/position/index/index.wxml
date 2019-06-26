@@ -5,7 +5,7 @@
 <view style="height: 98rpx"></view>
 <view class="office-status-bar" style="top:{{navH}}px">
   <view class="item {{positionStatus === '1' ? 'active' : ''}}" bindtap="onClickTab" data-status="1">招聘中({{onLinePositionNum}})</view>
-  <view class="item {{positionStatus === '2' ? 'active' : ''}} {{redDotInfos.positionCommonBar ? 'red-dot' : ''}}" bindtap="onClickTab" data-status="2">下线职位</view>
+  <view class="item {{positionStatus === '2' ? 'active' : ''}} {{redDotInfos.positionOfflineBar ? 'red-dot' : ''}}" bindtap="onClickTab" data-status="2">下线职位</view>
   <view class="publish" data-action="add" bindtap="routeJump"><i class="icon iconfont icon-bianji"></i> 发布职位</view>
 </view>
 
@@ -55,7 +55,7 @@
 			data-position-id="{{item.id}}"
 			data-company-id="{{item.companyId}}"
 			bindtap="routeJump">
-			<view class="reddot" wx:if="{{item.redDot}}"></view>
+			<view class="reddot" wx:if="{{item.isOnline === 2 && item.status === 4 && !item.isRead}}"></view>
 			<view class="header">
 				<view class="office-name">{{item.positionName}}</view>
 				<view class="office-sarary">{{item.emolumentMin}}K~{{item.emolumentMax}}K</view>
@@ -71,5 +71,5 @@
 	<bottomStatus status="{{offBottomStatus}}" listData="{{offLinePosition.list}}" desc="没有更多内容了~" marginTop="{{0}}"></bottomStatus>
 </view>
 </form>
-<tab-bar tabType="1" id="bottomRedDotBar"></tab-bar>
+<tab-bar tabType="1" id="bottomRedDotBar" bindresultevent="getResult"></tab-bar>
 </view>

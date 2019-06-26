@@ -128,10 +128,10 @@ Page({
     let index = e.currentTarget.dataset.index
     let tabLists = this.data.tabLists
     let tabIndex = index
-    tabLists.map((field, i) => {
-      // if(field.active && field.showRedDot) field.showRedDot = 0
-      field.active = false
-    })
+    let dateList = this.data.dateList
+    tabLists.map((field, i) => {field.active = false })
+    // 当前tab位于面试日程，并且面试日程下面的日期列表的第一个有红点，则离开父级tab 则把首个日期列表的红点清除
+    if(index === 2 && dateList.length && dateList[0].number > 0) this.clearDayInterviewRedDot(dateList[0].time)
     tabLists[tabIndex].active = true
     this.setData({tabLists, tabIndex}, () => this.initTabRedDot())
     let data = {}
@@ -208,7 +208,13 @@ Page({
         typeIndex = 'applyIndex'
         obj = this.data.applyScreen
         type = 'applyScreen'
-        obj.map((item, index) => { item.active = false })
+        obj.map((item, index) => {
+          if(item.active && item.showRedDot && item.type) {
+            item.showRedDot = 0
+            this.clearTabInterviewRedDot(item.type)
+          }
+          item.active = false
+        })
         let applyData = {
           list: [],
           pageNum: 1,
@@ -220,14 +226,18 @@ Page({
         obj[params.index].active = true
         this.setData({applyData, [type]: obj, [typeIndex]: params.index})
         this.getApplyList()
-        // 如果选中的这个tab有红点
-        if(obj[params.index].showRedDot) this.clearTabInterviewRedDot(obj[params.index].type)
         break
       case 1:
         typeIndex = 'receiveIndex'
         type = 'receiveScreen'
         obj = this.data.receiveScreen
-        obj.map((item, index) => { item.active = false })
+        obj.map((item, index) => {
+          if(item.active && item.showRedDot && item.type) {
+            item.showRedDot = 0
+            this.clearTabInterviewRedDot(item.type)
+          }
+          item.active = false
+        })
         let receiveData = {
           list: [],
           pageNum: 1,
@@ -239,7 +249,6 @@ Page({
         obj[params.index].active = true
         this.setData({receiveData, [type]: obj, [typeIndex]: params.index})
         this.getInviteList()
-        if(obj[params.index].showRedDot) this.clearTabInterviewRedDot(obj[params.index].type)
       break
     }
   },

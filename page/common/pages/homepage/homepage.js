@@ -349,7 +349,7 @@ Page({
     let companyInfos = this.data.companyInfos
     if(!companyInfos.status) {
       console.log('公司主页异常', companyInfos)
-      return app.wxShare(options)
+      return app.wxShare({options})
     }
     app.shareStatistics({
       id: that.data.query.companyId,

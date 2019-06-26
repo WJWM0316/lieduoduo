@@ -225,6 +225,9 @@ Page({
     }
     this.setData({positionStatus})
   },
+  getResult(e) {
+    this.setData({redDotInfos: e.detail})
+  },
   /**
    * @Author   小书包
    * @DateTime 2019-01-21

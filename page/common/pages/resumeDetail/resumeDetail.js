@@ -32,7 +32,6 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    console.log(options, 'gggggggggg')
     if (options.scene) options = app.getSceneParams(options.scene)
     identity = app.identification(options)
     this.setData({options})
@@ -222,7 +221,7 @@ Page({
     let info = this.data.info
     if(info.isBlockResume) {
       console.log('该简历异常', info)
-      return app.wxShare(options)
+      return app.wxShare({options})
     }
     app.shareStatistics({
       id: that.data.options.uid,

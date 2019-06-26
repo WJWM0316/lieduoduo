@@ -14,7 +14,7 @@ export const inviteInterviewApi = (data, hasLoading) => {
 export const interviewDetailApi = (data, hasLoading) => {
   return request({
     method: 'get',
-    url: `/interview/detail/${data.interviewId}`,
+    url: `/interview/detail/${data.interviewId}?`,
     data,
     hasLoading
   })
