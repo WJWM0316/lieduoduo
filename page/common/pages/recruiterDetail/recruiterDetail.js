@@ -297,7 +297,7 @@ Page({
   onShareAppMessage(options) {
     let that = this
     let info = this.data.info
-    if(info.isBlockRecruiter) {
+    if(info.hasDeleted) {
       console.log('该招聘官异常', info)
       return app.wxShare(options)
     }

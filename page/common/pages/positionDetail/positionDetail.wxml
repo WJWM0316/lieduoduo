@@ -106,7 +106,7 @@
 		</view>
 
 		<button
-			wx:if="{{!isOwner}}"
+			wx:if="{{!isOwner && (detail.isOnline === 1 && (detail.status === 1 || detail.status === 2))}}"
 			class="clear-style collect"
 			data-type="{{detail.isCollect ? 'uncollect' : 'collect'}}"
 			form-type="submit"
