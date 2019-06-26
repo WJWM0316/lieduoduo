@@ -13,15 +13,11 @@
 		  			class="reddot-mine"
 		  			wx:if="{{item.flag === 'dynamics' && redDot.redDotJobHunterDynamicStatus && identity === 'APPLICANT'}}"></view>
 		  		<view
-		  			class="reddot"
-		  			wx:if="{{item.flag === 'interview' && redDot.jobhunterInterviewTotal && identity === 'APPLICANT'}}">
-		  			{{redDot.jobhunterInterviewTotal}}
-		  		</view>
+		  			class="reddot-mine"
+		  			wx:if="{{item.flag === 'interview' && redDot.jobhunterInterviewTotal && identity === 'APPLICANT'}}"></view>
 		  		<view
-		  			class="reddot"
-		  			wx:if="{{item.flag === 'interview' && redDot.recruiterInterviewTotal && identity === 'RECRUITER'}}">
-		  			{{redDot.recruiterInterviewTotal}}
-		  		</view>
+		  			class="reddot-mine"
+		  			wx:if="{{item.flag === 'interview' && redDot.recruiterInterviewTotal && identity === 'RECRUITER'}}"></view>
 		  		<view
 		  			class="reddot-mine"
 		  			wx:if="{{item.flag === 'position' && redDot.positionCommonBar && identity === 'RECRUITER'}}"></view>

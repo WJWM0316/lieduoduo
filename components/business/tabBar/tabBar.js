@@ -106,6 +106,7 @@ Component({
       app.getBottomRedDot().then(res => {
         app.globalData.redDotInfos = res.data
         this.setData({redDot: res.data})
+        this.triggerEvent('resultevent', res.data)
       })
     },
     toggle(e) {

@@ -61,6 +61,7 @@ Page({
   onClickTab(e) {
     let tab = e.currentTarget.dataset.tab
     let redDotInfos = this.data.redDotInfos
+    app.getBottomRedDot().then(res => this.setData({redDotInfos: res.data}))
     if(redDotInfos.applyAuditBar && tab !== 'list0') redDotInfos.applyAuditBar = 0
     this.setData({tab, redDotInfos})
     if(!this.data[tab].isRequire) this.getLists(false)

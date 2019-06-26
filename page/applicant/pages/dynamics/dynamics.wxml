@@ -41,5 +41,5 @@
     </view>
   </form>
   <bindPhone wx:if="{{needLogin}}"></bindPhone>
-  <tabBar id="bottomRedDotBar"></tabBar>
+  <tabBar id="bottomRedDotBar" bindresultevent="getResult"></tabBar>
 </view>

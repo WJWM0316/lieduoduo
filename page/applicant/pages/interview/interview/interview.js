@@ -129,7 +129,7 @@ Page({
     let tabLists = this.data.tabLists
     let tabIndex = index
     tabLists.map((field, i) => {
-      if(field.active && field.showRedDot) field.showRedDot = 0
+      // if(field.active && field.showRedDot) field.showRedDot = 0
       field.active = false
     })
     tabLists[tabIndex].active = true
@@ -388,16 +388,7 @@ Page({
   // 初始化tab红点
   initTabRedDot() {
     this.selectComponent('#bottomRedDotBar').init()
-    this.getInterviewRedDotBar().then(res => {
-      let redDotInfos = res.data
-      let tabLists = this.data.tabLists
-      let applyScreen = this.data.applyScreen
-      let receiveScreen = this.data.receiveScreen
-      tabLists.map(field => field.showRedDot = redDotInfos[field.flag])
-      applyScreen.map(field => field.showRedDot = redDotInfos[field.flag])
-      receiveScreen.map(field => field.showRedDot = redDotInfos[field.flag])
-      this.setData({tabLists, applyScreen, receiveScreen, redDotInfos})
-    })
+    this.getInterviewRedDotBar()
   },
   /**
    * @Author   小书包
@@ -407,7 +398,17 @@ Page({
    */
   getInterviewRedDotBar() {
     return new Promise((resolve, reject) => {
-      getInterviewRedDotBarApi().then(res => resolve(res))
+      getInterviewRedDotBarApi().then(res => {
+        let redDotInfos = res.data
+        let tabLists = this.data.tabLists
+        let applyScreen = this.data.applyScreen
+        let receiveScreen = this.data.receiveScreen
+        tabLists.map(field => field.showRedDot = redDotInfos[field.flag])
+        applyScreen.map(field => field.showRedDot = redDotInfos[field.flag])
+        receiveScreen.map(field => field.showRedDot = redDotInfos[field.flag])
+        this.setData({tabLists, applyScreen, receiveScreen, redDotInfos})
+        resolve(res)
+      })
     })
   },
   onReachBottom(e) {

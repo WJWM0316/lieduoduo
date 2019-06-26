@@ -28,14 +28,12 @@ Page({
     wx.setStorageSync('choseType', 'RECRUITER')
     recruiterCard = ''
     let recruiterInfo = app.globalData.recruiterDetails
-    let redDotInfos = app.globalData.redDotInfos
     if (recruiterInfo.uid) {
-      this.setData({recruiterInfo, redDotInfos})
+      this.setData({recruiterInfo})
     } else {
       app.getAllInfo().then(res => {
         recruiterInfo = app.globalData.recruiterDetails
-        redDotInfos = app.globalData.redDotInfos
-        this.setData({recruiterInfo, redDotInfos})
+        this.setData({recruiterInfo})
       })
     }
   },
@@ -118,6 +116,9 @@ Page({
   },
   toRank () {
     wx.navigateTo({url: `${COMMON}rank/rank`})
+  },
+  getResult(e) {
+    this.setData({redDotInfos: e.detail})
   },
   preview(e) {
     wx.previewImage({
