@@ -6,7 +6,7 @@ import {
   getCompanyIdentityInfosApi
 } from '../../../../../api/pages/company.js'
 
-const app = getApp()
+let app = getApp()
 let identityInfos = {},
     offLinePositionNum = 0
 Page({
@@ -195,13 +195,16 @@ Page({
    * @return   {[type]}     [description]
    */
   routeJump(e) {
-    const params = e.currentTarget.dataset
+    let params = e.currentTarget.dataset
     switch(params.action) {
       case 'add':
         this.publicPosition()
         break
       case 'detail':
-        wx.navigateTo({url: `${COMMON}positionDetail/positionDetail?positionId=${params.positionId}&companyId=${params.companyId}`})
+        wx.navigateTo({url: `${COMMON}positionDetail/positionDetail?positionId=${params.positionId}`})
+        break
+      case 'fail':
+        wx.navigateTo({url: `${COMMON}positionDetail/positionDetail?positionId=${params.positionId}&type=clear_red_dot`})
         break
       default:
         break
@@ -209,7 +212,8 @@ Page({
   },
   /* 子级tab栏切换 */
   onClickTab(e) {
-    const positionStatus = e.currentTarget.dataset.status
+    let positionStatus = e.currentTarget.dataset.status
+    this.selectComponent('#bottomRedDotBar').init()
     if (positionStatus === '2') {
       if (!this.data.offLinePosition.isRequire) {
         this.getOffLineLists()

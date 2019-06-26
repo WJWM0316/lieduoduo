@@ -3,7 +3,8 @@ import {
   openPositionApi,
   closePositionApi,
   findMorePsListApi,
-  getPositionListNumApi
+  getPositionListNumApi,
+  getMyPositionApi
 } from '../../../../api/pages/position.js'
 
 import {
@@ -93,6 +94,7 @@ Page({
    */
   getPositionDetail(hasLoading = true, isReload = false) {
     let identity = wx.getStorageSync('choseType')
+    let query = this.data.query
     if (app.globalData.isRecruiter) {
       this.setData({isRecruiter: app.globalData.isRecruiter})
     } else {
@@ -100,6 +102,39 @@ Page({
         this.setData({isRecruiter: app.globalData.isRecruiter})
       }
     }
+    // 需要清除红点
+    if(query.type && query.type === 'clear_red_dot') {
+      return getMyPositionApi({id: this.data.query.positionId, hasLoading, isReload, ...app.getSource()}).then(res => {
+        let requireOAuth = null
+        if (this.data.query.sCode && !app.globalData.userInfo) {
+          requireOAuth = true
+        }
+        if (res.data.lng) {
+          res.data.markers = []
+          res.data.markers.push({
+            id: 1,
+            longitude: res.data.lng,
+            latitude: res.data.lat,
+            label: {
+              content: res.data.companyInfo.companyShortname,
+              fontSize:'18rpx',
+              color:'#282828',
+              anchorX: '30rpx',
+              anchorY: '-60rpx'
+            }
+          })
+        }
+        this.setData({
+          requireOAuth: requireOAuth,
+          detail: res.data, 
+          companyInfos: res.data.companyInfo, 
+          recruiterInfo: res.data.recruiterInfo, 
+          isOwner: res.data.isOwner && identity === 'RECRUITER' ? true : false
+        })
+        if(this.selectComponent('#interviewBar')) this.selectComponent('#interviewBar').init()
+      })
+    }
+    // 正常获取数据
     return getPositionApi({id: this.data.query.positionId, hasLoading, isReload, ...app.getSource()})
       .then(res => {
         let requireOAuth = null

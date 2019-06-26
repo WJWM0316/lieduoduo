@@ -442,6 +442,7 @@ Page({
       return
     }
     this.selectComponent('#bottomRedDotBar').init()
+    this.getInterviewRedDotBar()
     switch(this.data.tabIndex) {
       case 0:
         if (!this.data.isJobhunter) {

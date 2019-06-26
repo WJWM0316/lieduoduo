@@ -26,6 +26,7 @@
   text-align: center;
   position: relative;
   background:white;
+  line-height: 88rpx;
 }
 
 .ul-tab-bar .button001 {

@@ -51,7 +51,7 @@
 		<button 
 			form-type="submit" 
 			class="formIdBtn clear-style"
-			data-action="detail"
+			data-action="fail"
 			data-position-id="{{item.id}}"
 			data-company-id="{{item.companyId}}"
 			bindtap="routeJump">

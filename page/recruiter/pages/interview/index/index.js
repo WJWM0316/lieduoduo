@@ -102,7 +102,7 @@ Page({
         active: false,
         showRedDot: 0,
         flag: 'recruiterScheduleList',
-        type: 'intention_list'
+        type: 'schedule_list'
       }
     ],
     redDotInfos: {}

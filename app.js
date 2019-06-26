@@ -76,19 +76,7 @@ App({
     telePhone: '400-065-5788',  // 联系电话
     systemInfo: wx.getSystemInfoSync(), // 系统信息
     // 面试红点信息
-    redDotInfos: {
-      jobhunterApplyHaveArrangement: 0,
-      jobhunterApplyList: 0,
-      jobhunterApplyNotSuitable: 0,
-      jobhunterApplyWaitingArrangement: 0,
-      jobhunterInterviewTotal: 0,
-      jobhunterInviteHaveArrangement: 0,
-      jobhunterInviteList: 0,
-      jobhunterInviteNotSuitable: 0,
-      jobhunterInviteWaitingArrangement: 0,
-      jobhunterInviteWaitingProcessing: 0,
-      jobhunterScheduleList: 0,
-    }
+    redDotInfos: {}
   },
   // 登录
   login() {
