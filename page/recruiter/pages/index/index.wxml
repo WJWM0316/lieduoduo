@@ -208,6 +208,7 @@
 					wx:for="{{browseMySelf.list}}"
 					wx:for-item="item"
 					data-jobhunterUid="{{item.uid}}"
+					data-type="clearRedDot"
 					wx:key="{{index}}">
 					<view class="item2">
 						<view class="row-one">

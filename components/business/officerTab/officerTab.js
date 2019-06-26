@@ -2,6 +2,10 @@ import {
   deleteBrowseUserApi
 } from '../../../api/pages/browse.js'
 
+import {
+  clearReddotApi
+} from '../../../api/pages/common.js'
+
 import {deleteMyCollectUserApi} from "../../../api/pages/collect.js"
 
 const app = getApp()
@@ -19,6 +23,14 @@ Component({
     buttonType: {
       type: String,
       value: 'delete'
+    },
+    page: {
+      type: String,
+      value: ''
+    },
+    reddotType: {
+      type: String,
+      value: ''
     }
   },
   data: {
@@ -27,9 +39,13 @@ Component({
   methods: {
     routeJump (e) {
       const uid = e.currentTarget.dataset.uid
-      wx.navigateTo({
-        url: `/page/common/pages/recruiterDetail/recruiterDetail?uid=${uid}`
-      })
+      if(this.data.page && this.data.page === 'dynamics') {
+        clearReddotApi({jobHunterUid: uid, reddotType: this.data.reddotType}).then(() => {
+          wx.navigateTo({url: `/page/common/pages/recruiterDetail/recruiterDetail?uid=${uid}` })
+        })
+      } else {
+        wx.navigateTo({url: `/page/common/pages/recruiterDetail/recruiterDetail?uid=${uid}` })
+      }
     },
     /**
      * @Author   小书包

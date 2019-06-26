@@ -11,6 +11,10 @@ import {
   getIndexShowCountApi
 } from '../../../../api/pages/recruiter.js'
 
+import {
+  clearReddotApi
+} from '../../../../api/pages/common.js'
+
 import {RECRUITER, COMMON, APPLICANT, WEBVIEW, VERSION} from '../../../../config.js'
 
 import {getSelectorQuery}  from '../../../../utils/util.js'
@@ -373,7 +377,13 @@ Page({
       wx.navigateTo({url: `${COMMON}recruiterDetail/recruiterDetail?uid=${uid}`})
     } else {
       wx.setStorageSync('isReback', 'yes')
-      wx.navigateTo({url: `${COMMON}resumeDetail/resumeDetail?uid=${params.jobhunteruid}`})
+      if(params.type === 'clearRedDot') {
+        clearReddotApi({jobHunterUid: params.jobhunteruid, reddotType: 'red_dot_recruiter_view_item'}).then(() => {
+          wx.navigateTo({url: `${COMMON}resumeDetail/resumeDetail?uid=${params.jobhunteruid}`})
+        })
+      } else {
+        wx.navigateTo({url: `${COMMON}resumeDetail/resumeDetail?uid=${params.jobhunteruid}`})
+      }
     }
   },
   routeJump(e) {
