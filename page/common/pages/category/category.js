@@ -67,7 +67,7 @@ Page({
     // 只有一级标签
     const params = e.currentTarget.dataset
     const positionTypeList = this.data.positionTypeList
-    if (!positionTypeList[params.index].children) return
+    if (!positionTypeList[params.index] || !positionTypeList[params.index].children) return
     positionTypeList.map((field, index) => field.active = index === params.index ? true : false)
     positionTypeList[params.index].children.map((field, index) => field.active = index === this.data.index1 ? true : false)
     positionTypeList[params.index].children[this.data.index1].children[this.data.index2].active = true

@@ -83,7 +83,7 @@ Page({
             console.log(res, "上传失败")
             this.triggerEvent('failUpload')
             let data = typeof res.data === "string" ? JSON.parse(res.data) : res.data
-            getApp().wxToast({title: data.msg})
+            if (data.msg) getApp().wxToast({title: data.msg})
           }
         }
         wx.hideLoading()
