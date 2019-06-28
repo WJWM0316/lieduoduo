@@ -95,6 +95,7 @@ Page({
         ...app.getSource()
       }
       if (this.data.options.adviser) params.resumeSource = 500
+      if (this.data.options.relaySourceVkey) params.relaySourceVkey = this.data.options.relaySourceVkey
       getOtherResumeApi(params).then(res => {
         this.setData({info: res.data, isOwner: res.data.isOwner && identity === 'APPLICANT' && !this.data.options.preview, realIsOwner: res.data.isOwner}, function() {
           if (this.data.isOwner) {
@@ -227,17 +228,29 @@ Page({
     if(positionCard){
       btnImageUrl = positionCard
     }
-    if (this.data.info.advisor && this.data.info.advisor.dealStatusDescAll !== 1) {
+    if (this.data.info.advisor && this.data.info.advisor.glass) {
       btnImageUrl = `${that.data.cdnImagePath}shareB.png`
     }
-    let url = `${COMMON}resumeDetail/resumeDetail?uid=${that.data.options.uid}&sCode=${this.data.info.sCode}&sourceType=shr`
-    if (that.data.info.sourceType === 500) {
-      url = `${COMMON}resumeDetail/resumeDetail?uid=${that.data.options.uid}&sCode=${this.data.info.sCode}&sourceType=shr&adviser=true`
+    let myInfos = ''
+    if (identity === 'APPLICANT') {
+      myInfos = app.globalData.resumeInfo
+    } else {
+      myInfos = app.globalData.recruiterDetails
+    }
+    let url = `${COMMON}resumeDetail/resumeDetail`
+    let params = `?uid=${that.data.options.uid}&sCode=${this.data.info.sCode}&sourceType=shr`
+    if (this.data.options.relaySourceVkey) {
+      params = `${params}&relaySourceVkey=${this.data.options.relaySourceVkey}&adviser=true`
+    } else {
+      params = `${params}&relaySourceVkey=${myInfos.vkey}`
+    }
+    if (that.data.info.sourceType === 500 && !this.data.options.relaySourceVkey) {
+      params = `${params}&adviser=true`
     }
 　　return app.wxShare({
       options,
       title: shareResume(),
-      path: url,
+      path: `${url}${params}`,
       btnImageUrl: btnImageUrl
     })
   }
