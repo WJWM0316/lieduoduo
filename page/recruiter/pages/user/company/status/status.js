@@ -23,6 +23,7 @@ Page({
     showHome: false
   },
   onLoad(options) {
+    wx.setStorageSync('choseType', 'RECRUITER')
     this.setData({options})
   },
   onShow() {

@@ -342,7 +342,17 @@
   color:#652791;
   background: #FFDC29;
 }
-
+.item3 .time.redDot:before {
+  width:14rpx;
+  height:14rpx;
+  background:#FF4949;
+  position: absolute;
+  top: 0;
+  right: 0;
+  border-radius: 50%;
+  content: '';
+  display: block;
+}
 .formIdBtn {
   padding: 0;
   background: none;

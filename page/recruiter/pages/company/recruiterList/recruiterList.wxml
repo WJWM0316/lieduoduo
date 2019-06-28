@@ -4,6 +4,7 @@
 	 <view class="todo-tab" bindtap="routeJump" wx:if="{{isCompanyAdmin}}">
   	<i class="icon iconfont icon-tongzhi icon1"></i>
   	面试官加入申请
+  	<view class="red-dot" wx:if="{{redDotInfos.applyAuditBar}}"></view>
   	<i class="icon iconfont icon-xiangyou icon2"></i>
   </view>
 	

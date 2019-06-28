@@ -209,4 +209,12 @@ export const getVersionListApi  = (data, hasLoading) => {
   })
 }
 
-
+// 清除列表红点
+export const clearReddotApi  = (data, hasLoading) => {
+  return request({
+    method: 'delete',
+    url: `/reddot/clear/${data.jobHunterUid}`,
+    data,
+    hasLoading: false
+  })
+}

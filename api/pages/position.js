@@ -78,6 +78,15 @@ export const getPositionApi = (data, hasLoading) => {
   })
 }
 
+// 清除职位红点
+export const getMyPositionApi = (data, hasLoading) => {
+  return request({
+    method: 'get',
+    url: `/position/my_position/${data.id}`,
+    hasLoading: hasLoading
+  })
+}
+
 // 编辑职位信息
 export const editPositionApi = (data, hasLoading) => {
   return request({

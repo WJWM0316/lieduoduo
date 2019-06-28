@@ -1,6 +1,15 @@
 import {RECRUITER, COMMON, APPLICANT} from '../../../../../config.js'
 
-import { getInviteListApi, getApplyListApi, getScheduleListApi, getScheduleNumberApi, getNewScheduleNumberApi} from '../../../../../api/pages/interview.js'
+import {
+  getInviteListApi,
+  getApplyListApi,
+  getScheduleListApi,
+  getScheduleNumberApi,
+  getNewScheduleNumberApi,
+  clearTabInterviewRedDotApi,
+  clearDayInterviewRedDotApi,
+  getInterviewRedDotBarApi
+} from '../../../../../api/pages/interview.js'
 
 import {getRecruiterPositionListApi} from '../../../../../api/pages/position.js'
 
@@ -77,19 +86,26 @@ Page({
       {
         text: '收到意向',
         active: true,
-        showRedDot: false
+        showRedDot: 0,
+        flag: 'recruiterIntentionList',
+        type: 'intention_list'
       },
       {
         text: '我的邀请',
         active: false,
-        showRedDot: false
+        showRedDot: 0,
+        flag: 'recruiterInviteList',
+        type: 'invite_list'
       },
       {
         text: '面试日程',
         active: false,
-        showRedDot: false
+        showRedDot: 0,
+        flag: 'recruiterScheduleList',
+        type: ''
       }
-    ]
+    ],
+    redDotInfos: {}
   },
   // 查看面试历史
   jumpInterviewPage() {
@@ -155,7 +171,7 @@ Page({
     }
   },
   getResult(e) {
-    let i = e.currentTarget.dataset.index
+    let params = e.currentTarget.dataset
     let dateList = this.data.dateList
     let interviewData = {
       list: [],
@@ -165,8 +181,18 @@ Page({
       isRequire: false,
       total: 0
     }
-    dateList.map((field, index) => field.active = index === i ? true : false)
-    chooseTime = e.currentTarget.dataset.time
+    dateList.map((field, index) => {
+      if(index === params.index) {
+        field.active = true
+        field.number = 0
+      } else {
+        field.active = false
+      }
+    })
+    chooseTime = params.time
+    this.clearDayInterviewRedDot(params.time)
+    //模拟时时请求红点接口
+    this.initTabRedDot()
     this.setData({interviewData, interviewBottomStatus: 0, dateList}, () => this.getScheduleList())
   },
   // 我的邀请
@@ -230,13 +256,20 @@ Page({
     let index = e.currentTarget.dataset.index
     let tabIndex = this.data.tabIndex
     let tabLists = this.data.tabLists
+    let dateList = this.data.dateList
     tabLists.map((item, i) => {
+      if(item.active && item.showRedDot && item.type) {
+        item.showRedDot = 0
+        this.clearTabInterviewRedDot(item.type)
+      }
       tabLists[i].active = false
     })
     tabLists[index].active = true
     tabLists[index].showRedDot = false
     tabIndex = index
-    this.setData({tabLists, tabIndex})
+    // 当前tab位于面试日程，并且面试日程下面的日期列表的第一个有红点，则离开父级tab 则把首个日期列表的红点清除
+    if(index === 2 && dateList.length && dateList[0].number > 0) this.clearDayInterviewRedDot(dateList[0].time)
+    this.setData({tabLists, tabIndex}, () => this.initTabRedDot())
     let data = {}
     switch(index) {
       case 0:
@@ -281,6 +314,7 @@ Page({
   },
   init () {
     let options = this.data.options
+    this.initTabRedDot()
     if (app.globalData.isRecruiter) {
       getRecruiterPositionListApi({is_online: 1, count: 50, page: 1}).then(res => {
         positionList = res.data
@@ -378,6 +412,55 @@ Page({
       }
     }
   },
+  // 初始化tab红点
+  initTabRedDot() {
+    this.selectComponent('#bottomRedDotBar').init()
+    this.getInterviewRedDotBar().then(res => {
+      let redDotInfos = res.data
+      let tabLists = this.data.tabLists
+      tabLists.map(field => field.showRedDot = redDotInfos[field.flag])
+      this.setData({tabLists, redDotInfos})
+    })
+  },
+  /**
+   * @Author   小书包
+   * @DateTime 2019-06-19
+   * @detail   清除红点
+   * @return   {[type]}        [description]
+   */
+  clearTabInterviewRedDot(type) {
+    return new Promise((resolve, reject) => {
+      clearTabInterviewRedDotApi({type}).then(() => {
+        resolve(res)
+        this.selectComponent('#bottomRedDotBar').init()
+      })
+    })
+  },
+  /**
+   * @Author   小书包
+   * @DateTime 2019-06-19
+   * @detail   清除红点
+   * @return   {[type]}        [description]
+   */
+  clearDayInterviewRedDot(date) {
+    return new Promise((resolve, reject) => {
+      clearDayInterviewRedDotApi({date}).then(() => {
+        resolve()
+        this.selectComponent('#bottomRedDotBar').init()
+      })
+    })
+  },
+  /**
+   * @Author   小书包
+   * @DateTime 2019-06-25
+   * @detail   获取tab红点情况
+   * @return   {[type]}   [description]
+   */
+  getInterviewRedDotBar() {
+    return new Promise((resolve, reject) => {
+      getInterviewRedDotBarApi().then(res => resolve(res))
+    })
+  },
   onReachBottom(e) {
     switch(this.data.tabIndex) {
       case 0:
@@ -404,6 +487,7 @@ Page({
     }
   },
   onPullDownRefresh () {
+    this.selectComponent('#bottomRedDotBar').init()
     switch(this.data.tabIndex) {
       case 0:
         let receiveData = {

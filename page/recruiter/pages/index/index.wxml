@@ -208,6 +208,7 @@
 					wx:for="{{browseMySelf.list}}"
 					wx:for-item="item"
 					data-jobhunterUid="{{item.uid}}"
+					data-type="clearRedDot"
 					wx:key="{{index}}">
 					<view class="item2">
 						<view class="row-one">
@@ -248,7 +249,7 @@
 
 	</view>
 
-  <tabBar tabType="1"></tabBar>
+  <tabBar tabType="1" id="bottomRedDotBar"></tabBar>
   <choose wx:if="{{!choseType}}"></choose>
   <followWechat userInfo="{{userInfo}}"></followWechat>
 </view>

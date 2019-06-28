@@ -53,6 +53,7 @@ Page({
         isJobhunter = app.globalData.isJobhunter,
         showScanIcon = hasLogin && isJobhunter ? true : false
     this.setData({isJobhunter, hasLogin, showScanIcon})
+    this.selectComponent('#bottomRedDotBar').init()
     if (app.globalData.isMicroCard && !app.globalData.isJobhunter) {
       getMyInfoApi().then(res => {
         let myInfo = res.data
@@ -148,6 +149,7 @@ Page({
     let isJobhunter = 0
     let showScanIcon = this.data.showScanIcon
     this.setData({hasReFresh: true})
+    this.selectComponent('#bottomRedDotBar').init()
     getPersonalResumeApi({...app.getSource()}).then(res => {
       hasLogin = app.globalData.hasLogin
       isJobhunter = app.globalData.isJobhunter

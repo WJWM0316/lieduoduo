@@ -51,15 +51,6 @@
 			</view>
 		</view>
 		<!-- 收到意向 end-->
-		
-		<!-- 面试日程 start-->
-<!-- 		<myCalendar
-			id="myCalendar"
-			calendarType="roll"
-			setDateList="{{dateList}}"
-			switchable
-			bindresultEvent="getResult"
-			wx:if="{{tabIndex === 2}}"></myCalendar> -->
 
 		<view class="interview-page-title" wx:if="{{tabIndex === 2}}">
 			<view class="total">面试安排（{{interviewData.total}}）</view>
@@ -69,7 +60,7 @@
 			<view
 				wx:for="{{dateList}}"
 				wx:key="{{index}}"
-				class="item {{item.active ? 'active' : ''}}"
+				class="item {{item.active ? 'active' : ''}} {{item.number ? 'red' : ''}}"
 				wx:for-item="item"
 				data-time="{{item.time}}"
 				data-index="{{index}}"
@@ -112,7 +103,7 @@
 							</view>
 						</view>
 					</view>
-					<!-- <view class="reddot" wx:if="{{item.redDot}}"></view> -->
+					<view class="reddot" wx:if="{{item.redDot}}"></view>
 					<view class="row-two">
 						<view class="infos">
 							<view class="day">{{item.createdAt}}</view>
@@ -162,7 +153,7 @@
 							</view>
 						</view>
 					</view>
-					<!-- <view class="reddot" wx:if="{{item.redDot}}"></view> -->
+					<view class="reddot" wx:if="{{item.redDot}}"></view>
 					<view class="row-two">
 						<view class="infos">
 							<view class="day">{{item.createdAt}}</view>
@@ -208,7 +199,9 @@
 								<block wx:if="{{item.lastPosition}}"> | {{item.lastPosition}}</block>
 							</view>
 						</view>
-						<view class="time {{item.status < 50 ? 'active' : ''}}" wx:if="{{item.createdAtTime}}"><i class="icon iconfont icon-lishijilu"></i>{{item.createdAtTime}}</view>
+						<view class="time {{item.status < 50 ? 'active' : ''}} {{item.redDot ? 'redDot' : ''}}" wx:if="{{item.createdAtTime}}">
+							<i class="icon iconfont icon-lishijilu"></i>{{item.createdAtTime}}
+						</view>
 					</view>
 					<view class="row-two">
 						<i class="icon iconfont icon-mianshizhiwei"></i>
@@ -219,5 +212,5 @@
 		</form>
 		<bottomStatus status="{{interviewBottomStatus}}" listData="{{interviewData.list}}"></bottomStatus>
 	</view>
-  <tab-bar tabType="1"></tab-bar>
+  <tab-bar tabType="1" id="bottomRedDotBar"></tab-bar>
 </view>

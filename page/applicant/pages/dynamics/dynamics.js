@@ -40,7 +40,8 @@ Page({
     background: 'transparent',
     fixedDomPosition: 0,
     fixedDom: false,
-    isIphoneX: app.globalData.isIphoneX
+    isIphoneX: app.globalData.isIphoneX,
+    redDot: {}
   },
   onShow() {
     if (wx.getStorageSync('choseType') !== 'APPLICANT') {
@@ -48,19 +49,20 @@ Page({
     }
     this.clearListsData()
     if (app.getRoleInit) {
-      this.setData({isJobhunter: app.globalData.isJobhunter})
-      this.getLists().then(() => this.getDomNodePosition())
+      this.init()
     } else {
       app.getRoleInit = () => {
-        this.setData({isJobhunter: app.globalData.isJobhunter})
-        this.getLists().then(() => this.getDomNodePosition())
+        this.init()
       }
     }
   },
+  init() {
+    this.selectComponent('#bottomRedDotBar').init()
+    this.setData({isJobhunter: app.globalData.isJobhunter, redDot: app.globalData.redDotInfos})
+    this.getLists().then(() => this.getDomNodePosition())
+  },
   getDomNodePosition() {
-    getSelectorQuery('.ul-tab-bar').then(res => {
-      this.setData({fixedDomPosition: res.top - this.data.navH})
-    })
+    getSelectorQuery('.ul-tab-bar').then(res => this.setData({fixedDomPosition: res.top - this.data.navH}))
   },
   clearListsData() {
     const myBrowse = {
@@ -161,9 +163,13 @@ Page({
     const pageList = e.currentTarget.dataset.key
     const key = e.currentTarget.dataset.key
     const value = this.data[key]
+    this.selectComponent('#bottomRedDotBar').init()
     this.setData({pageList}, () => {
       if(!value.isRequire) this.getLists()
     })
+  },
+  getResult(e) {
+    this.setData({redDot: e.detail})
   },
   /**
    * @Author   小书包
@@ -175,6 +181,7 @@ Page({
     const key = this.data.pageList
     const value = {list: [], pageNum: 1, isLastPage: false, isRequire: false, onBottomStatus: 0}
     this.setData({[key]: value, hasReFresh: true})
+    this.selectComponent('#bottomRedDotBar').init()
     this.getLists().then(res => {
       this.setData({hasReFresh: false})
       wx.stopPullDownRefresh()

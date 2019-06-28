@@ -21,7 +21,8 @@ Page({
     pageInfos: {},
     navbarBg: 'transparent',
     telePhone: app.globalData.telePhone,
-    showScanIcon: true
+    showScanIcon: true,
+    redDotInfos: {}
   },
   onLoad() {
     wx.setStorageSync('choseType', 'RECRUITER')
@@ -48,6 +49,7 @@ Page({
     })
   },
   onShow() {
+    this.selectComponent('#bottomRedDotBar').init()
     this.getRecruiterOtherInfos()
   },
   /**
@@ -124,6 +126,9 @@ Page({
       btn_type: 'look_at_the_rank'
     })
   },
+  getResult(e) {
+    this.setData({redDotInfos: e.detail})
+  },
   preview(e) {
     wx.previewImage({
       current: this.data.recruiterInfo.avatar.url,
@@ -139,6 +144,7 @@ Page({
   },
   onPullDownRefresh(hasLoading = true) {
     this.setData({hasReFresh: true})
+    this.selectComponent('#bottomRedDotBar').init()
     app.getAllInfo().then(res => {
       this.setData({recruiterInfo: res, hasReFresh: false}, () => wx.stopPullDownRefresh())
       this.getRecruiterOtherInfos()

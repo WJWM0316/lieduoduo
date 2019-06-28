@@ -76,6 +76,23 @@
   font-style: re
 }
 
+.office-status-bar .reddot{
+  display: inline;
+  position: relative;
+}
+
+.office-status-bar .reddot::after{
+  background:#FF4949;
+  border-radius: 50%;
+  position: absolute;
+  top: -5rpx;
+  right: -20rpx;
+  content: '';
+  display: block;
+  width: 14rpx;
+  height: 14rpx;
+}
+
 .ul {
 	margin-top: 24rpx;
 }

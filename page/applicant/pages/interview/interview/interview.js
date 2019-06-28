@@ -3,7 +3,10 @@ import {
   getInviteListApi,
   getScheduleListApi,
   getRedDotListApi,
-  getNewScheduleNumberApi
+  getNewScheduleNumberApi,
+  clearTabInterviewRedDotApi,
+  clearDayInterviewRedDotApi,
+  getInterviewRedDotBarApi
 } from '../../../../../api/pages/interview.js'
 
 import {RECRUITER, COMMON, APPLICANT} from '../../../../../config.js'
@@ -25,36 +28,39 @@ Page({
     hasReFresh: false,
     tabIndex: 0,
     applyScreen: [
-      {key: '全部', value: 'all', active: true, showRedDot: false},
-      {key: '待安排面试', value: 'waiting_arrangement', active: false, showRedDot: false},
-      {key: '已安排面试', value: 'have_arrangement', active: false, showRedDot: false},
-      {key: '不合适', value: 'not_suitable'}
+      {key: '全部', value: 'all', active: true, showRedDot: 0, flag: 'all', type: 'all'},
+      {key: '待安排面试', value: 'waiting_arrangement', active: false, showRedDot: 0, flag: 'jobhunterApplyWaitingArrangement', type: 'apply_waiting_arrangement'},
+      {key: '已安排面试', value: 'have_arrangement', active: false, showRedDot: 0, flag: 'jobhunterApplyHaveArrangement', type: 'apply_have_arrangement'},
+      {key: '不合适', value: 'not_suitable', flag: 'jobhunterApplyNotSuitable', type: 'apply_not_suitable'}
     ],
     receiveScreen: [
-      {key: '全部', value: 'all', active: true, showRedDot: false},
-      {key: '待处理', value: 'waiting_processing', active: false, showRedDot: false},
-      {key: '待安排面试', value: 'waiting_arrangement', active: false, showRedDot: false},
-      {key: '已安排面试', value: 'have_arrangement', active: false, showRedDot: false},
-      {key: '不合适', value: 'not_suitable', active: false, showRedDot: false}
+      {key: '全部', value: 'all', active: true, showRedDot: 0, flag: 'all'},
+      {key: '待处理', value: 'waiting_processing', active: false, showRedDot: 0, flag: 'jobhunterInviteWaitingProcessing', type: 'invite_waiting_processing'},
+      {key: '待安排面试', value: 'waiting_arrangement', active: false, showRedDot: 0, flag: 'jobhunterInviteWaitingArrangement', type: 'invite_waiting_arrangement'},
+      {key: '已安排面试', value: 'have_arrangement', active: false, showRedDot: 0, flag: 'jobhunterInviteHaveArrangement', type: 'invite_have_arrangement'},
+      {key: '不合适', value: 'not_suitable', active: false, showRedDot: 0, flag: 'jobhunterInviteNotSuitable', type: 'invite_not_suitable'}
     ],
     tabLists: [
       {
         id: 'apply',
         text: '申请记录',
-        showRedDot: false,
-        active: true
+        showRedDot: 0,
+        active: true,
+        flag: 'jobhunterApplyList'
       },
       {
         id: 'receive',
         text: '收到邀请',
-        showRedDot: false,
-        active: false
+        showRedDot: 0,
+        active: false,
+        flag: 'jobhunterInviteList'
       },
       {
         id: 'interview',
         text: '面试日程',
-        showRedDot: false,
-        active: false
+        showRedDot: 0,
+        active: false,
+        flag: 'jobhunterScheduleList'
       }
     ],
     applyIndex: 0,
@@ -85,7 +91,8 @@ Page({
       isLastPage: false,
       isRequire: false,
       total: 0
-    }
+    },
+    redDotInfos: {}
   },
   // 查看面试历史
   jumpInterviewPage(e) {
@@ -93,7 +100,7 @@ Page({
   },
   /* 面试日程 */
   getResult(e) {
-    let i = e.currentTarget.dataset.index
+    let params = e.currentTarget.dataset
     let dateList = this.data.dateList
     let interviewData = {
       list: [],
@@ -103,19 +110,30 @@ Page({
       isRequire: false,
       total: 0
     }
-    dateList.map((field, index) => field.active = index === i ? true : false)
-    chooseTime = e.currentTarget.dataset.time
+    dateList.map((field, index) => {
+      if(index === params.index) {
+        field.active = true
+        field.number = 0
+      } else {
+        field.active = false
+      }
+    })
+    chooseTime = params.time
+    this.clearDayInterviewRedDot(params.time)
+    //模拟时时请求红点接口
+    this.initTabRedDot()
     this.setData({interviewData, interviewBottomStatus: 0, dateList}, () => this.getScheduleList())
   },
   chooseParentTab(e) {
     let index = e.currentTarget.dataset.index
     let tabLists = this.data.tabLists
     let tabIndex = index
-    tabLists.map((field, i) => {
-      field.active = false
-    })
+    let dateList = this.data.dateList
+    tabLists.map((field, i) => {field.active = false })
+    // 当前tab位于面试日程，并且面试日程下面的日期列表的第一个有红点，则离开父级tab 则把首个日期列表的红点清除
+    if(index === 2 && dateList.length && dateList[0].number > 0) this.clearDayInterviewRedDot(dateList[0].time)
     tabLists[tabIndex].active = true
-    this.setData({tabLists, tabIndex})
+    this.setData({tabLists, tabIndex}, () => this.initTabRedDot())
     let data = {}
     switch(index) {
       case 0:
@@ -148,7 +166,7 @@ Page({
   /**
    * @Author   小书包
    * @DateTime 2019-04-28
-   * @detail   获取满是日程列表
+   * @detail   获取面试日程的列表
    * @return   {[type]}   [description]
    */
   getNewScheduleNumber() {
@@ -160,17 +178,41 @@ Page({
       this.setData({dateList}, () => this.getScheduleList())
     })
   },
+  /**
+   * @Author   小书包
+   * @DateTime 2019-06-19
+   * @detail   清除红点
+   * @return   {[type]}        [description]
+   */
+  clearTabInterviewRedDot(type) {
+    clearTabInterviewRedDotApi({type}).then(() => this.initTabRedDot())
+  },
+  /**
+   * @Author   小书包
+   * @DateTime 2019-06-19
+   * @detail   清除红点
+   * @return   {[type]}        [description]
+   */
+  clearDayInterviewRedDot(date) {
+    clearDayInterviewRedDotApi({date}).then(() => this.initTabRedDot())
+  },
   chooseItem(e) {
-    let index = e.currentTarget.dataset.index
+    let params = e.currentTarget.dataset
     let typeIndex = ''
     let type = ''
     let obj = {}
+    // 模拟时时刷新红点接口
+    this.initTabRedDot()
     switch(this.data.tabIndex) {
       case 0:
         typeIndex = 'applyIndex'
         obj = this.data.applyScreen
         type = 'applyScreen'
         obj.map((item, index) => {
+          if(item.active && item.showRedDot && item.type) {
+            item.showRedDot = 0
+            this.clearTabInterviewRedDot(item.type)
+          }
           item.active = false
         })
         let applyData = {
@@ -181,8 +223,8 @@ Page({
           isRequire: false,
           total: 0
         }
-        obj[index].active = true
-        this.setData({applyData, [type]: obj, [typeIndex]: index})
+        obj[params.index].active = true
+        this.setData({applyData, [type]: obj, [typeIndex]: params.index})
         this.getApplyList()
         break
       case 1:
@@ -190,6 +232,10 @@ Page({
         type = 'receiveScreen'
         obj = this.data.receiveScreen
         obj.map((item, index) => {
+          if(item.active && item.showRedDot && item.type) {
+            item.showRedDot = 0
+            this.clearTabInterviewRedDot(item.type)
+          }
           item.active = false
         })
         let receiveData = {
@@ -200,8 +246,8 @@ Page({
           isRequire: false,
           total: 0
         }
-        obj[index].active = true
-        this.setData({receiveData, [type]: obj, [typeIndex]: index})
+        obj[params.index].active = true
+        this.setData({receiveData, [type]: obj, [typeIndex]: params.index})
         this.getInviteList()
       break
     }
@@ -265,6 +311,7 @@ Page({
     })
   },
   init () {
+    this.initTabRedDot()
     switch(this.data.tabIndex) {
       case 0:
         let applyData = {
@@ -347,6 +394,32 @@ Page({
       }
     }
   },
+  // 初始化tab红点
+  initTabRedDot() {
+    this.selectComponent('#bottomRedDotBar').init()
+    this.getInterviewRedDotBar()
+  },
+  /**
+   * @Author   小书包
+   * @DateTime 2019-06-25
+   * @detail   获取tab红点情况
+   * @return   {[type]}   [description]
+   */
+  getInterviewRedDotBar() {
+    return new Promise((resolve, reject) => {
+      getInterviewRedDotBarApi().then(res => {
+        let redDotInfos = res.data
+        let tabLists = this.data.tabLists
+        let applyScreen = this.data.applyScreen
+        let receiveScreen = this.data.receiveScreen
+        tabLists.map(field => field.showRedDot = redDotInfos[field.flag])
+        applyScreen.map(field => field.showRedDot = redDotInfos[field.flag])
+        receiveScreen.map(field => field.showRedDot = redDotInfos[field.flag])
+        this.setData({tabLists, applyScreen, receiveScreen, redDotInfos})
+        resolve(res)
+      })
+    })
+  },
   onReachBottom(e) {
     switch(this.data.tabIndex) {
       case 0:
@@ -377,6 +450,8 @@ Page({
       wx.stopPullDownRefresh()
       return
     }
+    this.selectComponent('#bottomRedDotBar').init()
+    this.getInterviewRedDotBar()
     switch(this.data.tabIndex) {
       case 0:
         if (!this.data.isJobhunter) {

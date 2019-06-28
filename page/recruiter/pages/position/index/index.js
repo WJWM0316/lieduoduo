@@ -6,7 +6,7 @@ import {
   getCompanyIdentityInfosApi
 } from '../../../../../api/pages/company.js'
 
-const app = getApp()
+let app = getApp()
 let identityInfos = {},
     offLinePositionNum = 0
 Page({
@@ -31,9 +31,9 @@ Page({
       isRequire: false
     },
     hasReFresh: false,
-    
     telePhone: app.globalData.telePhone,
-    options: {}
+    options: {},
+    redDotInfos: {}
   },
   onLoad(options) {
     wx.setStorageSync('choseType', 'RECRUITER')
@@ -57,9 +57,11 @@ Page({
       isLastPage: false,
       isRequire: false
     }
+    this.selectComponent('#bottomRedDotBar').init()
     getPositionListNumApi({recruiter: app.globalData.recruiterDetails.uid, ...app.getSource()}).then(res => {
       offLinePositionNum = res.data.offline
-      this.setData({onLinePosition, offLinePosition, onLinePositionNum: res.data.online})
+      let redDotInfos = app.globalData.redDotInfos
+      this.setData({onLinePosition, offLinePosition, onLinePositionNum: res.data.online, redDotInfos})
       this.getLists()
     })
   },
@@ -193,13 +195,16 @@ Page({
    * @return   {[type]}     [description]
    */
   routeJump(e) {
-    const params = e.currentTarget.dataset
+    let params = e.currentTarget.dataset
     switch(params.action) {
       case 'add':
         this.publicPosition()
         break
       case 'detail':
-        wx.navigateTo({url: `${COMMON}positionDetail/positionDetail?positionId=${params.positionId}&companyId=${params.companyId}`})
+        wx.navigateTo({url: `${COMMON}positionDetail/positionDetail?positionId=${params.positionId}`})
+        break
+      case 'fail':
+        wx.navigateTo({url: `${COMMON}positionDetail/positionDetail?positionId=${params.positionId}&type=clear_red_dot`})
         break
       default:
         break
@@ -207,7 +212,8 @@ Page({
   },
   /* 子级tab栏切换 */
   onClickTab(e) {
-    const positionStatus = e.currentTarget.dataset.status
+    let positionStatus = e.currentTarget.dataset.status
+    this.selectComponent('#bottomRedDotBar').init()
     if (positionStatus === '2') {
       if (!this.data.offLinePosition.isRequire) {
         this.getOffLineLists()
@@ -218,6 +224,9 @@ Page({
       }
     }
     this.setData({positionStatus})
+  },
+  getResult(e) {
+    this.setData({redDotInfos: e.detail})
   },
   /**
    * @Author   小书包
@@ -272,6 +281,7 @@ Page({
         wx.stopPullDownRefresh()
       })
     }
+    app.getBottomRedDot()
     this.getCompanyIdentityInfos()
   },
   onShareAppMessage(options) {

@@ -129,9 +129,11 @@ Page({
         this.setData({bannerList, bannerIndex: 0})
       }
       if (app.pageInit) {
+        this.selectComponent('#bottomRedDotBar').init()
         this.setData({hasExpect: app.globalData.hasExpect})
       } else {
         app.pageInit = () => {
+          this.selectComponent('#bottomRedDotBar').init()
           this.setData({hasExpect: app.globalData.hasExpect})
         }
       }
@@ -505,6 +507,7 @@ Page({
   onPullDownRefresh() {
     const positionList = {list: [], pageNum: 1, isLastPage: false, isRequire: false}
     this.setData({positionList, hasReFresh: true})
+    this.selectComponent('#bottomRedDotBar').init()
     this.getPositionList().then(res => {
       this.setData({positionList, hasReFresh: false})
       wx.stopPullDownRefresh()

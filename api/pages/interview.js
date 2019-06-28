@@ -14,7 +14,7 @@ export const inviteInterviewApi = (data, hasLoading) => {
 export const interviewDetailApi = (data, hasLoading) => {
   return request({
     method: 'get',
-    url: `/interview/detail/${data.interviewId}`,
+    url: `/interview/detail/${data.interviewId}?`,
     data,
     hasLoading
   })
@@ -282,3 +282,40 @@ export const getResumeRecomdCommentApi = (data) => {
   })
 }
 
+// 获取底部蓝红点
+export const getBottomRedDotApi = (data) => {
+  return request({
+    url: `/reddot/top_bar_info`,
+    method: 'get',
+    hasLoading: false
+  })
+}
+
+// 获取面试蓝红点
+export const getInterviewRedDotBarApi = (data) => {
+  return request({
+    url: `/interview/getInterviewRedDotInfo`,
+    method: 'get',
+    hasLoading: false
+  })
+}
+
+// 清除红点
+export const clearTabInterviewRedDotApi = (data) => {
+  return request({
+    url: `/interview/deleteTabRedDot`,
+    method: 'put',
+    data,
+    hasLoading: false
+  })
+}
+
+// 清除日程红点
+export const clearDayInterviewRedDotApi = (data) => {
+  return request({
+    url: `/interview/deleteScheduleTabRedDot`,
+    method: 'put',
+    data,
+    hasLoading: false
+  })
+}

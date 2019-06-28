@@ -238,7 +238,7 @@ Page({
         title: '确定成功',
         icon: 'success'
       })
-      this.pageInit()
+      this.pageInit('y')
     })
   },
   /**
@@ -257,9 +257,17 @@ Page({
       })
     }
   },
+  /**
+   * @Author   小书包
+   * @DateTime 2019-06-26
+   * @detail   加个参数 不清除红点
+   * @return   {[type]}            [description]
+   */
   pageInit() {
     if (this.data.options.id) {
-      return interviewDetailApi({interviewId: this.data.options.id, ...app.getSource()}).then(res => {
+      let params = {interviewId: this.data.options.id, ...app.getSource()}
+      // if(notClearRedDot) params.isReload = 1
+      return interviewDetailApi(params).then(res => {
         let addressData = wx.getStorageSync('createPosition')
         let positionData = wx.getStorageSync('interviewData')
         let info = res.data

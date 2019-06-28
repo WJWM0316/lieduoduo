@@ -1,5 +1,7 @@
 // components/business/tabBar/tabBar.js
 import {RECRUITER, APPLICANT, COMMON} from '../../../config.js'
+import { getBottomRedDotApi } from '../../../api/pages/interview.js'
+
 const app = getApp()
 const cdnImagePath = app.globalData.cdnImagePath
 Component({
@@ -17,9 +19,11 @@ Component({
    * 组件的初始数据
    */
   data: {
+    redDot: {},
     recruiterList: [
       {
         title: '首页',
+        flag: 'index',
         iconPath: `${cdnImagePath}tab_home_nor@3x.png`,
         selectedIconPath: `${cdnImagePath}tab_home_sel@3x.png`,
         active: true,
@@ -27,6 +31,7 @@ Component({
       },
       {
         title: '面试',
+        flag: 'interview',
         iconPath: `${cdnImagePath}tab_interview_nor@3x.png`,
         selectedIconPath: `${cdnImagePath}tab_interview_sel@3x.png`,
         active: false,
@@ -34,6 +39,7 @@ Component({
       },
       {
         title: '职位管理',
+        flag: 'position',
         iconPath: `${cdnImagePath}tab_job_nor@3x.png`,
         selectedIconPath: `${cdnImagePath}tab_job_sel@3x.png`,
         active: false,
@@ -41,6 +47,7 @@ Component({
       },
       {
         title: '我的',
+        flag: 'mine',
         iconPath: `${cdnImagePath}tab_me_nor@3x.png`,
         selectedIconPath: `${cdnImagePath}tab_me_sel@3x.png`,
         active: false,
@@ -50,6 +57,7 @@ Component({
     applicantList: [
       {
         title: '发现机会',
+        flag: 'chance',
         iconPath: `${cdnImagePath}tab_job_nor@3x.png`,
         selectedIconPath: `${cdnImagePath}tab_job_sel@3x.png`,
         active: true,
@@ -57,6 +65,7 @@ Component({
       },
       {
         title: '动态',
+        flag: 'dynamics',
         iconPath: `${cdnImagePath}tab_dynamics.png?a=1`,
         selectedIconPath: `${cdnImagePath}tab_dynamics_active.png?a=1`,
         active: false,
@@ -64,6 +73,7 @@ Component({
       },
       {
         title: '面试',
+        flag: 'interview',
         iconPath: `${cdnImagePath}tab_interview_nor@3x.png`,
         selectedIconPath: `${cdnImagePath}tab_interview_sel@3x.png`,
         active: false,
@@ -71,6 +81,7 @@ Component({
       },
       {
         title: '我的',
+        flag: 'mine',
         iconPath: `${cdnImagePath}tab_me_nor@3x.png`,
         selectedIconPath: `${cdnImagePath}tab_me_sel@3x.png`,
         active: false,
@@ -82,13 +93,22 @@ Component({
   attached() {
     const list = !this.data.tabType  ? this.data.applicantList : this.data.recruiterList
     const currentRoute = '/' + getCurrentPages()[getCurrentPages().length - 1].route
+    const identity = wx.getStorageSync('choseType')
     list.map(field => field.active = field.path === currentRoute ? true : false)
-    this.setData({ list })
+    this.setData({ list, identity })
   },
   /**
    * 组件的方法列表
    */
   methods: {
+    // 获取底部栏红点情况
+    init() {
+      app.getBottomRedDot().then(res => {
+        app.globalData.redDotInfos = res.data
+        this.setData({redDot: res.data})
+        this.triggerEvent('resultevent', res.data)
+      })
+    },
     toggle(e) {
       if (app.getCurrentPagePath().indexOf(e.target.dataset.path) !== -1) return
       wx.reLaunch({

@@ -11,6 +11,10 @@ import {
   getIndexShowCountApi
 } from '../../../../api/pages/recruiter.js'
 
+import {
+  clearReddotApi
+} from '../../../../api/pages/common.js'
+
 import {RECRUITER, COMMON, APPLICANT, WEBVIEW, VERSION} from '../../../../config.js'
 
 import {getSelectorQuery}  from '../../../../utils/util.js'
@@ -122,6 +126,7 @@ Page({
       if(!wx.getStorageSync('isReback') && !value.list.length) this.getLists()
       wx.removeStorageSync('isReback')
       this.setData({userInfo})
+      this.selectComponent('#bottomRedDotBar').init()
     } else {
       app.pageInit = () => {
         userInfo = app.globalData.userInfo
@@ -130,6 +135,7 @@ Page({
         if(!wx.getStorageSync('isReback') && !value.list.length) this.getLists()
         wx.removeStorageSync('isReback')
         this.setData({userInfo})
+        this.selectComponent('#bottomRedDotBar').init()
       }
     }
   },
@@ -301,6 +307,7 @@ Page({
     let key = this.data.pageList
     let value = {list: [], pageNum: 1, isLastPage: false, isRequire: false, isUse: false, loading: false}
     this.setData({[key]: value, hasReFresh: true})
+    this.selectComponent('#bottomRedDotBar').init()
     Promise.all([this.getDomNodePosition(), this.getMixdata(), this.getLists()]).then(res => {
       let value = {list: [], pageNum: 1, isLastPage: false, isRequire: false}
       let onBottomStatus = res[2].meta && res[2].meta.nextPageUrl ? 0 : 2
@@ -370,7 +377,13 @@ Page({
       wx.navigateTo({url: `${COMMON}recruiterDetail/recruiterDetail?uid=${uid}`})
     } else {
       wx.setStorageSync('isReback', 'yes')
-      wx.navigateTo({url: `${COMMON}resumeDetail/resumeDetail?uid=${params.jobhunteruid}`})
+      if(params.type === 'clearRedDot') {
+        clearReddotApi({jobHunterUid: params.jobhunteruid, reddotType: 'red_dot_recruiter_view_item'}).then(() => {
+          wx.navigateTo({url: `${COMMON}resumeDetail/resumeDetail?uid=${params.jobhunteruid}`})
+        })
+      } else {
+        wx.navigateTo({url: `${COMMON}resumeDetail/resumeDetail?uid=${params.jobhunteruid}`})
+      }
     }
   },
   routeJump(e) {

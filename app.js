@@ -8,6 +8,7 @@ import {getUserRoleApi} from "api/pages/user.js"
 import {quickLoginApi} from 'api/pages/auth.js'
 import {shareC, shareB} from 'utils/shareWord.js'
 import {getCompanyIdentityInfosApi} from 'api/pages/company.js'
+import {getBottomRedDotApi} from 'api/pages/interview.js'
 
 let that = null
 let formIdList = [],
@@ -73,7 +74,9 @@ App({
     isIos: false, // 是否是 ios
     isBangs: false, // 是否是刘海屏，水滴屏
     telePhone: '400-065-5788',  // 联系电话
-    systemInfo: wx.getSystemInfoSync() // 系统信息
+    systemInfo: wx.getSystemInfoSync(), // 系统信息
+    // 面试红点信息
+    redDotInfos: {}
   },
   // 登录
   login() {
@@ -806,5 +809,14 @@ App({
         wx.reportAnalytics('enterpage_report', param)
         break
     }
+  },
+  // 获取底部栏红点情况
+  getBottomRedDot() {
+    return new Promise((resolve, reject) => {
+      getBottomRedDotApi().then(res => {
+        this.globalData.redDotInfos = res.data
+        resolve(res)
+      })
+    })
   }
 })

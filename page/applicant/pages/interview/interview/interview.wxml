@@ -26,8 +26,7 @@
 				 	wx:key="{{index}}"
 					class="item {{item.active ? 'active' : ''}} {{item.showRedDot ? 'red-dot' : ''}}"
 					bindtap="chooseItem"
-					data-index="{{index}}"
-					>
+					data-index="{{index}}">
 						<view class="span">{{item.key}}</view>
 				</view>
 			</view>
@@ -42,8 +41,7 @@
 				 	wx:key="{{index}}"
 					class="item {{item.active ? 'active' : ''}} {{item.showRedDot ? 'red-dot' : ''}}"
 					bindtap="chooseItem"
-					data-index="{{index}}"
-					>
+					data-index="{{index}}">
 						<view class="span">{{item.key}}</view>
 				</view>
 			</view>
@@ -61,7 +59,7 @@
 			<view
 				wx:for="{{dateList}}"
 				wx:key="{{index}}"
-				class="item {{item.active ? 'active' : ''}}"
+				class="item {{item.active ? 'active' : ''}} {{item.number ? 'red' : ''}}"
 				wx:for-item="item"
 				data-time="{{item.time}}"
 				data-index="{{index}}"
@@ -97,7 +95,7 @@
 							<view class="degress">{{item.companyShortname}}</view>
 						</view>
 					</view>
-					<!-- <view class="reddot" wx:if="{{item.redDot}}"></view> -->
+					<view class="reddot" wx:if="{{item.redDot}}"></view>
 					<view class="row-two">
 						<view class="infos">
 							<view class="day">{{item.createdAt}}</view>
@@ -142,7 +140,7 @@
 							<view class="degress">{{item.companyShortname}}</view>
 						</view>
 					</view>
-					<!-- <view class="reddot" wx:if="{{item.redDot}}"></view> -->
+					<view class="reddot" wx:if="{{item.redDot}}"></view>
 					<view class="row-two">
 						<view class="infos">
 							<view class="day">{{item.createdAt}}</view>
@@ -187,7 +185,9 @@
 								</view>
 								<view class="degress">{{item.companyShortname}}</view>
 							</view>
-							<view class="time {{item.status < 50 ? 'active' : ''}}" wx:if="{{item.createdAtTime}}"><i class="icon iconfont icon-lishijilu"></i>{{item.createdAtTime}}</view>
+							<view class="time {{item.status < 50 ? 'active' : ''}} {{item.redDot ? 'redDot' : ''}}" wx:if="{{item.createdAtTime}}">
+								<i class="icon iconfont icon-lishijilu"></i>{{item.createdAtTime}}
+							</view>
 						</view>
 						<view class="row-two">
 							<i class="icon iconfont icon-mianshizhiwei"></i>
@@ -203,5 +203,5 @@
 			<button class="jump clear-style" form-type="submit" bindtap="jump" data-type="{{hasLogin ? (isJobhunter ? 'positionList' : 'create') : 'login'}}">{{hasLogin ? (isJobhunter ? '发现更多职业机会' : '立即创建简历') : '马上登录'}}</button>
 		</bottomStatus>
 	</view>
-	<tabBar></tabBar>
+	<tabBar id="bottomRedDotBar"></tabBar>
 </view>

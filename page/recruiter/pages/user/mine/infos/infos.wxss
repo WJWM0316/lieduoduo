@@ -280,6 +280,7 @@ top-banner.center {
 .entry-list .text, .toggleIdentity .text {
 	display: inline-block;
 	color: #353943;
+	position: relative;
 }
 
 .entry-list .text2, .toggleIdentity .text2 {
@@ -360,7 +361,23 @@ top-banner.center {
 	float: right;
 	margin-right: 24rpx;
 	line-height: 120rpx;
+	position: relative;
 }
+
+.entry-list .text.reddot:before {
+	position: absolute;
+  top: 50%;
+  right: -30rpx;
+  display: block;
+  content: '';
+  background: red;
+  width:14rpx;
+  height:14rpx;
+  background:rgba(255,73,73,1);
+  border-radius: 50%;
+  transform: translateY(-50%);
+}
+
 .boxs .people {
 	margin-right: -12rpx;
 	border-radius: 50%;

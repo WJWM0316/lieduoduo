@@ -5,9 +5,11 @@
   </view>
 	<view style="height: 98rpx"></view>
 	<view class="office-status-bar" style="top:{{navH}}px">
-	  <view class="item {{tab === 'list0' ? 'active' : ''}}" bindtap="onClickTab" data-tab="list0">待审核</view>
-	  <view class="item {{tab === 'list2' ? 'active' : ''}}" bindtap="onClickTab" data-tab="list2">审核未通过</view>
-	  <view class="item {{tab === 'list1' ? 'active' : ''}}" bindtap="onClickTab" data-tab="list1">已通过</view>
+	  <view class="item {{tab === 'list0' ? 'active' : ''}}" bindtap="onClickTab" data-tab="list0">
+	  	<view class="{{redDotInfos.applyAuditBar ? 'reddot' : ''}}">待审核</view>
+	  </view>
+	  <view class="item {{tab === 'list2' ? 'active' : ''}}" bindtap="onClickTab" data-tab="list2"><view>审核未通过</view></view>
+	  <view class="item {{tab === 'list1' ? 'active' : ''}}" bindtap="onClickTab" data-tab="list1"><view>已通过</view></view>
 	</view>
 	
 	<!-- 未审核 start-->
@@ -17,7 +19,7 @@
 				<view class="name">{{item.realName}}</view>
 				<view class="time">申请时间: {{item.createdAt}}</view>
 				<i class="icon iconfont icon-xiangyou"></i>
-				<view class="reddot"></view>
+				<view class="reddot" wx:if="{{!item.isRead}}"></view>
 			</view>
 		</view>
 		<bottomStatus status="{{onBottomStatus}}" listData="{{list0.list}}" desc="暂无面试官加入组织， 邀请同事加入，一起开启社交招聘~">

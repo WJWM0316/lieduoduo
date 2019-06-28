@@ -29,9 +29,14 @@
 				</view>
 				<view class="second">{{recruiterWords}}</view>
 			</view>
-			<button form-type="submit"  class="clear-style button-box button-box-color1" bindtap="todoAction" data-action="job-hunting-chat">
-				开撩约面
-			</button>
+			<block wx:if="{{infos.isOnline === 2 && (infos.status === 0 || infos.status === 1 || infos.status === 3 || infos.status === 4)}}">
+				<button class="clear-style button-box button-box-color4"> 职位已关闭 </button>
+			</block>
+			<block wx:else>
+				<button form-type="submit"  class="clear-style button-box button-box-color1" bindtap="todoAction" data-action="job-hunting-chat">
+					开撩约面
+				</button>
+			</block>
 		</block>
 		<!-- 求职者还没有发起开撩动作 职位详情 end-->
 

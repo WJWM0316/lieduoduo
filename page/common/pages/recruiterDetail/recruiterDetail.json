@@ -8,6 +8,7 @@
     "shareBtn": "../../../../components/layout/shareBtn/shareBtn",
     "interviewBar": "../../../../components/business/interviewBar/interviewBar",
     "company": "../../../../components/business/roleInfoCard/roleInfoCard",
-    "canvasCard": "../../../../components/business/canvasCard/canvasCard"
+    "canvasCard": "../../../../components/business/canvasCard/canvasCard",
+    "notFound": "../../../../components/layout/notFound/notFound"
   }
 }

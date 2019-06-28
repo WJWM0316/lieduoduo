@@ -107,7 +107,7 @@
 	</view> -->
   </form>
 </view>
-<tabBar></tabBar>
+<tabBar id="bottomRedDotBar"></tabBar>
 <shareBtn id="share" posterType="applicant" shareBtn="{{false}}"></shareBtn>
 <block wx:if="{{myInfo.vkey && myInfo.vkey}}"><canvasCard cardData="{{myInfo}}" type="resume" bindgetCreatedImg="getCreatedImg"></canvasCard></block>
 <bindPhone hide="{{hideBind}}"></bindPhone>

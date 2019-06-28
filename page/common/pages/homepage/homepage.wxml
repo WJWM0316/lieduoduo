@@ -1,175 +1,176 @@
 <form bindsubmit="formSubmit" report-submit='{{true}}'>
-<view class="homepage">
-	<navbar title="{{companyInfos.companyShortname}}" background="#fff" color="#22292C" showHome="{{true}}"></navbar>
+	<view class="homepage" wx:if="{{companyInfos.status === 1}}">
+		<navbar title="{{companyInfos.companyShortname}}" background="#fff" color="#22292C" showHome="{{true}}"></navbar>
 
-	<view hidden="{{!hasReFresh}}">
-    <refreshStatus></refreshStatus>
-  </view>
+		<view hidden="{{!hasReFresh}}">
+	    <refreshStatus></refreshStatus>
+	  </view>
 
-	<view class="banner">
-		<image class="bgImg" src="{{cdnImagePath}}company_banner_new.png" mode="aspectFill"></image>
-		<view class="box">
-			<view class="company-logo">
-				<image class="bgImg" src="{{companyInfos.logoInfo.smallUrl}}" mode="aspectFit"></image>
-			</view>
-			<view class="company-name">{{companyInfos.companyShortname}}</view>
-			<view class="infos">{{companyInfos.industry}} | {{companyInfos.financingInfo}} | {{companyInfos.employeesInfo}}</view>
-		</view>
-		<shareBtn></shareBtn>
-	</view>
-	
-	<view class="ul-tab-bar {{isFixed ? 'fixed-bar' : ''}}" style="{{isFixed ? 'top:' + navH + 'px' : ''}}">
-		<button
-			form-type="submit"
-			class="button001 clear-style li {{tab === 'about' ? 'active' : ''}}"
-			bindtap="onTabClick"
-			data-tab="about">关于我们</button>
-		<button
-			form-type="submit"
-			class="button002 clear-style li {{tab === 'recruitment' ? 'active' : ''}}"
-			bindtap="onTabClick"
-			data-tab="recruitment">在招职位({{companyInfos.positionNum}})</button>
-		<image src="{{cdnImagePath}}line00002.png" class="image" hidden="{{tab === 'recruitment'}}"></image>
-		<image src="{{cdnImagePath}}line00001.png" class="image" hidden="{{tab === 'about'}}"></image>
-	</view>
-	
-	<view class="child-box" hidden="{{tab === 'about'}}" wx:if="{{positionTypeList.length > 1}}">
-		
-		<text
-			class="tab {{item.active ? 'tab-active' : ''}}"
-			wx:for="{{positionTypeList}}"
-			wx:key="{{index}}"
-			data-id="{{item.id}}"
-			bindtap="setType"
-			>{{item.name}}</text>
-	</view>
-
-	<view hidden="{{tab === 'recruitment'}}">
-		<view class="homepage-team-box" wx:if="{{recruitersList.length}}">
-			<view class="title">
-				<view class="icon"> <view class="fan"></view> </view> 招聘团队
-			</view>
-			<view class="ul">
-				<view class="li" wx:for="{{ recruitersList }}" wx:key="{{index}}" wx:for-item="recruiter" bindtap="bindMain" data-uid="{{recruiter.uid}}" wx:if="{{index < 3}}">
-					<view class="img-box">
-						<image src="{{recruiter.avatar.smallUrl}}" class="avatar"></image>
-						<image src="{{cdnImagePath}}sign1.png" mode="aspectFill" class="sign1"></image>
-					</view>
-					<view class="content">
-						<view class="row-one">
-							<view class="username">{{recruiter.name}}</view>
-							<view class="recruitment-number" wx:if="{{recruiter.positionNum}}">{{recruiter.positionNum}} 个在招职位</view>
-						</view>
-						<view class="row-two">{{recruiter.position}}</view>
-						<view class="row-three">{{recruiter.randomTxt}}</view>
-					</view>
+		<view class="banner">
+			<image class="bgImg" src="{{cdnImagePath}}company_banner_new.png" mode="aspectFill"></image>
+			<view class="box">
+				<view class="company-logo">
+					<image class="bgImg" src="{{companyInfos.logoInfo.smallUrl}}" mode="aspectFit"></image>
 				</view>
+				<view class="company-name">{{companyInfos.companyShortname}}</view>
+				<view class="infos">{{companyInfos.industry}} | {{companyInfos.financingInfo}} | {{companyInfos.employeesInfo}}</view>
 			</view>
-			<view class="footer" wx:if="{{recruitersList.length > 3}}">
-				<view class="button" bindtap="routeJump" data-route="recruitersList">查看全部面试官<i class="icon iconfont icon-xiangyou"></i></view>
-			</view>
+			<shareBtn></shareBtn>
+		</view>
+		
+		<view class="ul-tab-bar {{isFixed ? 'fixed-bar' : ''}}" style="{{isFixed ? 'top:' + navH + 'px' : ''}}">
+			<button
+				form-type="submit"
+				class="button001 clear-style li {{tab === 'about' ? 'active' : ''}}"
+				bindtap="onTabClick"
+				data-tab="about">关于我们</button>
+			<button
+				form-type="submit"
+				class="button002 clear-style li {{tab === 'recruitment' ? 'active' : ''}}"
+				bindtap="onTabClick"
+				data-tab="recruitment">在招职位({{companyInfos.positionNum}})</button>
+			<image src="{{cdnImagePath}}line00002.png" class="image" hidden="{{tab === 'recruitment'}}"></image>
+			<image src="{{cdnImagePath}}line00001.png" class="image" hidden="{{tab === 'about'}}"></image>
+		</view>
+		
+		<view class="child-box" hidden="{{tab === 'about'}}" wx:if="{{positionTypeList.length > 1}}">
+			
+			<text
+				class="tab {{item.active ? 'tab-active' : ''}}"
+				wx:for="{{positionTypeList}}"
+				wx:key="{{index}}"
+				data-id="{{item.id}}"
+				bindtap="setType"
+				>{{item.name}}</text>
 		</view>
 
-		<view class="introduction" wx:if="{{companyInfos.intro || companyInfos.albumInfo.length }}">
-			<view class="title">
-				<view class="icon"> <view class="fan"></view> </view> 公司介绍
-			</view>
-			<view class="swiper-box" wx:if="{{companyInfos.albumInfo.length}}">
-				<view class="num-box">{{swiperIndex + 1}}/{{companyInfos.albumInfo.length}}</view>
-				<swiper
-					class="swiper-block"
-					previous-margin="40rpx"
-					next-margin="40rpx"
-					current="{{swiperIndex}}"
-					bindchange="swiperChange"
-					wx:if="{{companyInfos.albumInfo.length}}"
-					data-index="{{ swiperIndex }}"
-					autoplay="{{autoplay}}">
-					<swiper-item class="swiper-item {{swiperIndex == index ? 'div-active' : ''}}" wx:for="{{companyInfos.albumInfo}}" wx:key="{{index}}" wx:for-item="item">
-						<image mode="aspectFill" class="slide-image {{swiperIndex == index ? 'active' : ''}}" src="{{item.url}}" bindtap="previewImage" />
-					</swiper-item>
-				</swiper>
-			</view>
-			<view class="company-detail {{!companyInfos.albumInfo.length ? 'gt' : ''}}" wx:if="{{companyInfos.intro}}">
-				<text class="p">{{companyInfos.intro}}</text>
-			</view>
-		</view>
-
-		<view class="production-box" wx:if="{{companyInfos.product.length}}">
-			<view class="title">
-				<view class="icon"> <view class="fan"></view> </view> 产品介绍
-			</view>
-			<view class="ul">
-				<button form-type="submit" class="clear-style li" wx:for="{{companyInfos.product}}" wx:key="{{index}}" wx:for-item="item">
-					<view class="base">
+		<view hidden="{{tab === 'recruitment'}}">
+			<view class="homepage-team-box" wx:if="{{recruitersList.length}}">
+				<view class="title">
+					<view class="icon"> <view class="fan"></view> </view> 招聘团队
+				</view>
+				<view class="ul">
+					<view class="li" wx:for="{{ recruitersList }}" wx:key="{{index}}" wx:for-item="recruiter" bindtap="bindMain" data-uid="{{recruiter.uid}}" wx:if="{{index < 3}}">
 						<view class="img-box">
-							<image mode="aspectFill" src="{{item.logoInfo.smallUrl}}" />
+							<image src="{{recruiter.avatar.smallUrl}}" class="avatar"></image>
+							<image src="{{cdnImagePath}}sign1.png" mode="aspectFill" class="sign1"></image>
 						</view>
 						<view class="content">
 							<view class="row-one">
-								<view class="username">{{item.productName}}</view>
-								<view class="recruitment-number">{{item.slogan}}</view>
+								<view class="username">{{recruiter.name}}</view>
+								<view class="recruitment-number" wx:if="{{recruiter.positionNum}}">{{recruiter.positionNum}} 个在招职位</view>
 							</view>
+							<view class="row-two">{{recruiter.position}}</view>
+							<view class="row-three">{{recruiter.randomTxt}}</view>
 						</view>
 					</view>
-					<view class="row-two"># {{item.lightspot}}</view>
-				</button>
+				</view>
+				<view class="footer" wx:if="{{recruitersList.length > 3}}">
+					<view class="button" bindtap="routeJump" data-route="recruitersList">查看全部面试官<i class="icon iconfont icon-xiangyou"></i></view>
+				</view>
 			</view>
-		</view>
-		
-		<view class="company-address" wx:if="{{companyInfos.address.length > 0}}">
-			<view class="title">
-				<view class="icon"> <view class="fan"></view> </view> 公司地址
-			</view>
-			<view
-				class="map"
-				bindtap="viewMap"
-				data-longitude="{{map.longitude}}"
-				data-latitude="{{ map.latitude }}"
-				data-address="{{map.address}}"
-				data-doorplate="{{map.doorplate}}">
-				<map
-					wx:if="{{tab !== 'recruitment'}}"
-				  longitude="{{ map.longitude }}"
-				  latitude="{{ map.latitude }}"
-				  scale="16"
-				  enable-scroll="{{false}}"
-				  markers="{{map.markers}}"
-				  show-location></map>
-			</view>
-			<view
-				class="li"
-				wx:for="{{companyInfos.address}}"
-				wx:key="{{index}}"
-				wx:for-item="item"
-				data-longitude="{{item.lng}}"
-				data-latitude="{{item.lat}}"
-				data-address="{{item.address}}"
-				data-doorplate="{{item.doorplate}}"
-				bindtap="viewMap">
-					<i class="icon iconfont icon-dizhi"></i>
-					<view class="text">{{item.address}}</view>
-					<i class="icon iconfont icon-xiangyou"></i>
-			</view>
-		</view>
-		
-		<view class="company-website" wx:if="{{companyInfos.website}}">
-			<view class="title">
-				<view class="icon"> <view class="fan"></view> </view> 公司官网
-			</view>
-			<view class="link-box">
-				<view class="link">{{companyInfos.website}}</view>
-				<view class="button" bindtap="copyLink">复制</view>
-			</view>
-		</view>
-	</view>
 
-	<view class="job-list" hidden="{{tab === 'about'}}">
-		<image src="{{cdnImagePath}}icon_triangle.png" class="icon_triangle" hidden="{{tab === 'about'}}"></image>
-		<image src="{{cdnImagePath}}icon_triangle.png" class="icon_right" hidden="{{tab === 'about'}}"></image>
-		<jobList list="{{positionList.list}}" showBoxShadow="{{false}}"></jobList>
+			<view class="introduction" wx:if="{{companyInfos.intro || companyInfos.albumInfo.length }}">
+				<view class="title">
+					<view class="icon"> <view class="fan"></view> </view> 公司介绍
+				</view>
+				<view class="swiper-box" wx:if="{{companyInfos.albumInfo.length}}">
+					<view class="num-box">{{swiperIndex + 1}}/{{companyInfos.albumInfo.length}}</view>
+					<swiper
+						class="swiper-block"
+						previous-margin="40rpx"
+						next-margin="40rpx"
+						current="{{swiperIndex}}"
+						bindchange="swiperChange"
+						wx:if="{{companyInfos.albumInfo.length}}"
+						data-index="{{ swiperIndex }}"
+						autoplay="{{autoplay}}">
+						<swiper-item class="swiper-item {{swiperIndex == index ? 'div-active' : ''}}" wx:for="{{companyInfos.albumInfo}}" wx:key="{{index}}" wx:for-item="item">
+							<image mode="aspectFill" class="slide-image {{swiperIndex == index ? 'active' : ''}}" src="{{item.url}}" bindtap="previewImage" />
+						</swiper-item>
+					</swiper>
+				</view>
+				<view class="company-detail {{!companyInfos.albumInfo.length ? 'gt' : ''}}" wx:if="{{companyInfos.intro}}">
+					<text class="p">{{companyInfos.intro}}</text>
+				</view>
+			</view>
+
+			<view class="production-box" wx:if="{{companyInfos.product.length}}">
+				<view class="title">
+					<view class="icon"> <view class="fan"></view> </view> 产品介绍
+				</view>
+				<view class="ul">
+					<button form-type="submit" class="clear-style li" wx:for="{{companyInfos.product}}" wx:key="{{index}}" wx:for-item="item">
+						<view class="base">
+							<view class="img-box">
+								<image mode="aspectFill" src="{{item.logoInfo.smallUrl}}" />
+							</view>
+							<view class="content">
+								<view class="row-one">
+									<view class="username">{{item.productName}}</view>
+									<view class="recruitment-number">{{item.slogan}}</view>
+								</view>
+							</view>
+						</view>
+						<view class="row-two"># {{item.lightspot}}</view>
+					</button>
+				</view>
+			</view>
+			
+			<view class="company-address" wx:if="{{companyInfos.address.length > 0}}">
+				<view class="title">
+					<view class="icon"> <view class="fan"></view> </view> 公司地址
+				</view>
+				<view
+					class="map"
+					bindtap="viewMap"
+					data-longitude="{{map.longitude}}"
+					data-latitude="{{ map.latitude }}"
+					data-address="{{map.address}}"
+					data-doorplate="{{map.doorplate}}">
+					<map
+						wx:if="{{tab !== 'recruitment'}}"
+					  longitude="{{ map.longitude }}"
+					  latitude="{{ map.latitude }}"
+					  scale="16"
+					  enable-scroll="{{false}}"
+					  markers="{{map.markers}}"
+					  show-location></map>
+				</view>
+				<view
+					class="li"
+					wx:for="{{companyInfos.address}}"
+					wx:key="{{index}}"
+					wx:for-item="item"
+					data-longitude="{{item.lng}}"
+					data-latitude="{{item.lat}}"
+					data-address="{{item.address}}"
+					data-doorplate="{{item.doorplate}}"
+					bindtap="viewMap">
+						<i class="icon iconfont icon-dizhi"></i>
+						<view class="text">{{item.address}}</view>
+						<i class="icon iconfont icon-xiangyou"></i>
+				</view>
+			</view>
+			
+			<view class="company-website" wx:if="{{companyInfos.website}}">
+				<view class="title">
+					<view class="icon"> <view class="fan"></view> </view> 公司官网
+				</view>
+				<view class="link-box">
+					<view class="link">{{companyInfos.website}}</view>
+					<view class="button" bindtap="copyLink">复制</view>
+				</view>
+			</view>
+		</view>
+
+		<view class="job-list" hidden="{{tab === 'about'}}">
+			<image src="{{cdnImagePath}}icon_triangle.png" class="icon_triangle" hidden="{{tab === 'about'}}"></image>
+			<image src="{{cdnImagePath}}icon_triangle.png" class="icon_right" hidden="{{tab === 'about'}}"></image>
+			<jobList list="{{positionList.list}}" showBoxShadow="{{false}}"></jobList>
+		</view>
+		<block wx:if="{{companyInfos.id}}"><canvasCard cardData="{{companyInfos}}" type="company" bindgetCreatedImg="getCreatedImg"></canvasCard></block>
+		<auth wx:if="{{requireOAuth}}" bindauthSuccess="authSuccess"></auth>
 	</view>
-	<block wx:if="{{companyInfos.id}}"><canvasCard cardData="{{companyInfos}}" type="company" bindgetCreatedImg="getCreatedImg"></canvasCard></block>
-	<auth wx:if="{{requireOAuth}}" bindauthSuccess="authSuccess"></auth>
-</view>
+	<notFound msg="{{'oops！找不到这个公司了~'}}" title="{{'公司详情'}}" wx:if="{{companyInfos.status === 0}}"></notFound>
 </form>
