@@ -711,10 +711,12 @@ App({
     if (launch.path === 'page/common/pages/startPage/startPage' && launch.path === curPath.route) { // 自然搜索使用
       if (curPath.options && curPath.options.sourceType) {
         params.sourceType = curPath.options.sourceType
+        params.sourcePath = `/${launch.path}?${this.splicingParams(curPath.options)}`
       } else {
         params.sourceType = 'sch'
+        params.sourcePath = `/${launch.path}`
       }
-      params.sourcePath = `/${launch.path}?${this.splicingParams(curPath.options)}`
+      
     } else {
       if (curPath.options && curPath.options.scene) {
         curPath.options = this.getSceneParams(curPath.options.scene)
@@ -775,7 +777,7 @@ App({
     var pages = getCurrentPages() //获取加载的页面
     if (!index && index !== 0) index = pages.length - 1
     let pageUrl = pages[index].route
-    if (this.splicingParams(pages[index].options)) {
+    if (pages[index] && pages[index].options && this.splicingParams(pages[index].options)) {
       return `/${pageUrl}?${this.splicingParams(pages[index].options)}`
     } else {
       return `/${pageUrl}`
