@@ -34,6 +34,9 @@ Page({
     }
   },
   onLoad(options) {
+    if (wx.getStorageSync('choseType') !== 'APPLICANT') {
+      wx.setStorageSync('choseType', 'APPLICANT')
+    }
     if (options.tab ==='2') {
       this.setData({tab: 'recruiterList'})
     }
