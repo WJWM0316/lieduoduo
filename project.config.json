@@ -24,7 +24,7 @@
 	},
 	"compileType": "miniprogram",
 	"libVersion": "2.7.1",
-	"appid": "wxde5ab3ef647fba86",
+	"appid": "wx225f017495e6e195",
 	"projectname": "lieduoduo",
 	"debugOptions": {
 		"hidedInDevtools": []
@@ -49,7 +49,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 1,
+			"current": 52,
 			"list": [
 				{
 					"id": 0,
@@ -387,6 +387,20 @@
 					"name": "【B端】权益",
 					"pathName": "page/recruiter/pages/company/interest/interest",
 					"query": "positionId=6529&companyId=915",
+					"scene": null
+				},
+				{
+					"id": 51,
+					"name": "【B端】候选人动态",
+					"pathName": "page/recruiter/pages/dynamics/dynamics",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 52,
+					"name": "【公包】简历储备",
+					"pathName": "page/recruiter/pages/reserve/reserve",
+					"query": "uid=660",
 					"scene": null
 				}
 			]

@@ -63,7 +63,8 @@ export const request = ({name = '', method = 'post', url, host, data = {}, needK
   }
 
   // msg_id
-  let curRouteOptions = getCurrentPages()[0].options || {}
+  // let curRouteOptions = getCurrentPages()[0].options || {}
+  let curRouteOptions = {}
   if (curRouteOptions.hasOwnProperty('msg_id')) {
     addHttpHead['Msg-Id'] = curRouteOptions.msg_id
   } else {

@@ -1,0 +1,67 @@
+<view>
+	<navbar title="简历储备" background="#FFFFFF" color="#22292C"></navbar>
+	<view class="place"></view>
+	<view class="office-status-bar" style="top: {{navH}}px">
+		<view class="item" bindtap="onClickTab"><view class="text">职位 </view><i class="icon iconfont icon-zhishibiao"></i></view>
+  	<view class="item" bindtap="onClickTab"><view class="text">处理状态 </view><i class="icon iconfont icon-zhishibiao"></i></view>
+  	<view class="item" bindtap="onClickTab"><view class="text">筛选 </view><i class="icon iconfont icon-zhishibiao"></i></view>
+  	<view class="tips" bindtap="openTips">?</view>
+	</view>
+	<view class="block"></view>
+	<view hidden="{{!hasReFresh}}">
+		<refreshStatus></refreshStatus>
+	</view>
+
+	<view class="list-box">
+		<form bindsubmit="formSubmit" report-submit='{{true}}'>
+			<button
+				form-type="submit"
+				bindtap="viewResumeDetail"
+				class="formIdBtn"
+				wx:for="{{viewList.list}}"
+				wx:for-item="item"
+				data-jobhunterUid="{{item.uid}}"
+				data-type="{{item.myType}}"
+				wx:key="{{index}}">
+				<view class="item2">
+					<view class="row-one">
+						<view class="img-box">
+							<image class="avatar" src="{{item.avatar.smallUrl}}" lazy-load></image>
+							<image class="sexIcon" src="{{cdnImagePath}}nan.png" wx:if="{{item.gender === 1}}"></image>
+              <image class="sexIcon" src="{{cdnImagePath}}nv.png" wx:else></image>
+						</view>
+						<view class="content">
+							<view class="header">
+								<view class="name">{{item.name}}</view>
+								<view class="status">离职-随时到岗 </view>
+							</view>
+							<view class="degress" wx:if="{{item.lastCompanyName || item.lastPosition}}">
+								<block>3年</block>
+								<block> · 25岁</block>
+								<block> · 本科</block>
+							</view>
+						</view>
+					</view>
+					<view class="row-two">
+						<view class="left"><i class="icon iconfont icon-zhiwei"></i>弗联科技 | 高级架构师
+						</view>
+						<view class="right"> 1年半 </view>
+					</view>
+					<view class="row-three">
+						<view class="left"><i class="icon iconfont icon-xueli"></i>中央美术大学 | 艺术设计
+						</view>
+						<view class="right">2012-2019</view>
+					</view>
+				</view>
+			</button>
+		</form>
+		<bottomStatus status="{{ onBottomStatus }}" listData="{{interestList.list}}" desc="还没有候选人对你感兴趣哟～ 主动发现获取更多候选人吧" marginTop="{{40}}">
+			<button class="jump" bindtap="routeJump">发现更多候选人</button>
+		</bottomStatus>
+	</view>
+	<actionSheet title="{{'什么是简历储备'}}" openPop="{{showRules}}"  bindclose="closeTips">
+		<view class="rules_boxs">
+			用户可以在招聘官的主页中，对自己认可的招聘官打Call。每位用户可以为1位招聘官打Call1次。每获得1次打Call，招聘官影响力+1。影响力代表的是招聘官整体的被认可度。 文案看产品给什么吧，间距看设计稿
+		</view>
+	</actionSheet>
+</view>

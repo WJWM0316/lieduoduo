@@ -1,4 +1,4 @@
-<view>
+<view class="page_index">
 	<navbar title="{{background !== 'transparent' ? '猎多多' : ''}}"  background="{{background}}" color="#fff" isFixed="{{isFixed}}"></navbar>
 
 	<view hidden="{{!hasReFresh}}">
@@ -18,31 +18,48 @@
 	</view>
 
 	<view class="floating-box">
-		<view class="row-one">
-			<view class="item left001" bindtap="routeJump" data-route="interested">
-				<view class="number">{{indexShowCount.recruiterInterestedToJ}}</view>
-				<view class="text">我感兴趣的<i class="icon iconfont icon-disejiantou-you"></i></view>
-			</view>
-			<view class="item center001" bindtap="routeJump" data-route="interview">
-				<view class="number">{{indexShowCount.recentInterview}}</view>
-				<view class="text">最近面试<i class="icon iconfont icon-disejiantou-you"></i></view>
-			</view>
-			<view class="item right001" bindtap="routeJump" data-route="position">
-				<view class="number">{{indexShowCount.onlinePosition}}</view>
-				<view class="text">在招职位<i class="icon iconfont icon-disejiantou-you"></i></view>
-			</view>
+		<view class="item left001" bindtap="routeJump" data-route="interested">
+			<view class="number">{{indexShowCount.recruiterInterestedToJ}}</view>
+			<view class="text">我感兴趣的<i class="icon iconfont icon-disejiantou-you"></i></view>
 		</view>
-		<view class="row-two" bindtap="routeJump" data-route="rank">
-			<view class="content">
-				<view class="row-three">面试官本周排行榜</view>
-				<view class="row-four">我的排名：{{indexShowCount.rankDetail.currentRank > 200 ? '200+' : indexShowCount.rankDetail.currentRank}}<text class="week">本周人气：{{indexShowCount.rankDetail.weekOfPopularity}}</text></view>
-			</view>
+		<view class="item center001" bindtap="routeJump" data-route="interview">
+			<view class="number">{{indexShowCount.recentInterview}}</view>
+			<view class="text">最近面试<i class="icon iconfont icon-disejiantou-you"></i></view>
+		</view>
+		<view class="item right001" bindtap="routeJump" data-route="position">
+			<view class="number">{{indexShowCount.onlinePosition}}</view>
+			<view class="text">在招职位<i class="icon iconfont icon-disejiantou-you"></i></view>
+		</view>
+	</view>
+	
+	
+	<view class="todos_bar_notopen"  wx:if="{{!indexShowCount.advisor}}">
+		<view class="left">
+			<view class="todo_title">候选人动态<view class="number">33</view></view>
+			<view class="todo_tips">对我感兴趣/看过我的</view>
+		</view>
+		<view class="right">
 			<view class="imglist">
 				<image class="imgitem" lazy-load wx:for="{{indexShowCount.moreRecruiter}}" wx:key="{{index}}" src="{{item.smallUrl}}" wx:if="{{index <= 2}}"></image>
 				<image class="imgitem" src="{{cdnImagePath}}more.png" wx:if="{{indexShowCount.moreRecruiter.length > 3}}"></image>
 			</view>
 		</view>
-		<view class="shadow"></view>
+	</view>
+
+	<view class="todos_bar_open"  wx:if="{{indexShowCount.advisor}}">
+		<view class="todo_item todo_item_left">
+			<view class="todo_title">顾问精选简历<view class="number">122</view></view>
+			<view class="todo_tips"><text class="strong">122</text> 候选人未处理</view>
+			<image class="img_01"></image>
+		</view>
+		<view class="todo_item todo_item_right">
+			<view class="todo_title">候选人动态<view class="number">33</view></view>
+			<view class="todo_tips">对我感兴趣/看过我的</view>
+			<view class="imglist">
+				<image class="imgitem" lazy-load wx:for="{{indexShowCount.moreRecruiter}}" wx:key="{{index}}" src="{{item.smallUrl}}" wx:if="{{index <= 2}}"></image>
+				<image class="imgitem" src="{{cdnImagePath}}more.png" wx:if="{{indexShowCount.moreRecruiter.length > 3}}"></image>
+			</view>
+		</view>
 	</view>
 	
 	<view class="shoper-banner" wx:if="{{banner.length}}">
@@ -63,30 +80,16 @@
     </swiper>
 	</view>
 
-	<view>
-
+	<view class="page_index_list">
 		<view class="default {{fixedDom ? 'fixed' : ''}}" style="top: {{navH}}px">
-			<view class="ul-tab-bar">
-				<view
-					class="li {{pageList === 'collectMySelf' ? 'active' : ''}}"
-					bindtap="ontabClick"
-					data-key="collectMySelf">
-					发现<view></view>
-					<view class="line"></view>
-				</view>
-				<view
-					class="li {{pageList === 'browseMySelf' ? 'active' : ''}}"
-					bindtap="ontabClick"
-					data-key="browseMySelf">
-					看过我的
-					<text class="total" wx:if="{{indexShowCount.viewCount}}">{{indexShowCount.viewCount}}</text>
-					<view class="line"></view>
-				</view>
-				<image src="{{cdnImagePath}}line00002.png" class="image" hidden="{{pageList === 'browseMySelf'}}"></image>
-				<image src="{{cdnImagePath}}line00001.png" class="image" hidden="{{pageList === 'collectMySelf'}}"></image>
+			<view class="tab-bar">
+				<view class="li active">全部</view>
+				<view class="li" wx:for="{{[1,2,3,4,5,6,7,8,9]}}" wx:key="{{index}}">全部</view>
 			</view>
+			<view class="kind">1</view>
+			<view class="down"><i class="icon iconfont icon-zhishibiao"></i></view>
 		</view>
-		<view class="list-box adviser"  hidden="{{pageList === 'browseMySelf'}}">
+<!-- 		<view class="list-box adviser"  hidden="{{pageList === 'browseMySelf'}}">
 			<view class="formIdBtn" wx:if="{{indexShowCount.advisor}}" bindtap="routeJump" data-route="adviser">
 				<view class="item2">
 					<view class="row-one">
@@ -112,7 +115,7 @@
 					</view>
 				</view>
 			</view>
-		</view>
+		</view> -->
 		<view class="list-box {{indexShowCount.advisor ? 'normal' : ''}}  {{collectMySelf.list.length ? '' : 'nodata'}}" hidden="{{pageList === 'browseMySelf'}}">
 			<form bindsubmit="formSubmit" report-submit='{{true}}'>
 				<button
