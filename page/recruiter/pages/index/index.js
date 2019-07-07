@@ -34,14 +34,12 @@ Page({
     pageList: 'collectMySelf',
     cdnImagePath: app.globalData.cdnImagePath,
     navH: app.globalData.navHeight,
-    choseType: '',
-    browseMySelf: {
-      list: [],
-      pageNum: 1,
-      isLastPage: false,
-      isRequire: false,
-      total: 0
+    model: {
+      show: false,
+      title: '',
+      type: ''
     },
+    choseType: '',
     collectMySelf: {
       list: [],
       pageNum: 1,
@@ -169,33 +167,7 @@ Page({
    * @return   {[type]}   [description]
    */
   getLists(hasLoading) {
-    if(this.data.pageList !== 'collectMySelf') {
-      return this.getBrowseMySelf(hasLoading)
-    } else {
-      return this.getCollectMySelf(hasLoading)
-    }
-  },
-  /**
-   * @Author   小书包
-   * @DateTime 2019-01-21
-   * @detail   看过我的列表
-   * @return   {[type]}   [description]
-   */
-  getBrowseMySelf(hasLoading = true) {
-    return new Promise((resolve, reject) => {
-      let params = {count: this.data.pageCount, page: this.data.browseMySelf.pageNum, ...app.getSource()}
-      getBrowseMySelfApi(params, hasLoading).then(res => {
-        let browseMySelf = this.data.browseMySelf
-        let onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
-        browseMySelf.list = browseMySelf.list.concat(res.data)
-        browseMySelf.isLastPage = res.meta && res.meta.nextPageUrl ? false : true
-        // if(browseMySelf.pageNum === res.meta.currentPage) return
-        browseMySelf.pageNum = browseMySelf.pageNum + 1
-        browseMySelf.isRequire = true
-        browseMySelf.total = res.meta.total
-        this.setData({browseMySelf, onBottomStatus}, () => resolve(res))
-      }).catch(() => reject())
-    })
+    return this.getCollectMySelf(hasLoading)
   },
   /**
    * @Author   小书包
@@ -250,41 +222,6 @@ Page({
       }
     }
     return data
-  },
-  /**
-   * @Author   小书包
-   * @DateTime 2019-05-13
-   * @detail   tqb切换
-   * @return   {[type]}     [description]
-   */
-  ontabClick(e) {
-    let pageList = e.currentTarget.dataset.key
-    let browseMySelf = {
-      list: [],
-      pageNum: 1,
-      isLastPage: false,
-      isRequire: false,
-      total: 0
-    }
-    let collectMySelf = {
-      list: [],
-      pageNum: 1,
-      isLastPage: false,
-      isRequire: false,
-      isUse: false
-    }
-    wx.pageScrollTo({scrollTop: 0})
-    this.setData({ pageList }, () => {
-      let indexShowCount = this.data.indexShowCount
-      if(pageList === 'browseMySelf') {
-        if(!this.data.browseMySelf.isRequire || indexShowCount.viewCount) {
-          indexShowCount.viewCount = 0
-          this.setData({browseMySelf, indexShowCount}, () => this.getLists(true))
-        }
-      } else if (!this.data.collectMySelf.isRequire) {
-        this.getLists(true)
-      }
-    })
   },
   getIndexShowCount() {
     return new Promise((resolve, reject) => {
@@ -435,5 +372,44 @@ Page({
   toJump(e) {
     let url = '/'+e.currentTarget.dataset.url
     wx.navigateTo({ url })
+  },
+  openTips(e) {
+    let params = e.currentTarget.dataset
+    let model = this.data.model
+    model.show = true
+    switch(params.type) {
+      case 'position':
+        model.title = '在招职位筛选'
+        model.type = 'position'
+        break
+      case 'reduction':
+        model.title = ''
+        model.type = 'reduction'
+        break
+      default:
+        break
+    }
+    this.setData({model})
+  },
+  closeTips() {
+    let model = this.data.model
+    model.show = false
+    this.setData({model})
+  },
+  sChoice(e) {
+    let params = e.currentTarget.dataset
+    let collectMySelf = this.data.collectMySelf
+    let model = this.data.model
+    model.show = false
+    collectMySelf.list.map((field, index) => field.active = index === params.index ? true : false)
+    this.setData({collectMySelf, model})
+  },
+  mChoice(e) {
+    let params = e.currentTarget.dataset
+    let collectMySelf = this.data.collectMySelf
+    collectMySelf.list.map((field, index) => {
+      if(index === params.index) field.active = true
+    })
+    this.setData({collectMySelf})
   }
 })

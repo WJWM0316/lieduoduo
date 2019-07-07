@@ -31,6 +31,11 @@ Page({
     pageCount: 20,
     options: {},
     isJobhunter: app.globalData.isJobhunter,
+    model: {
+      show: false,
+      title: '',
+      type: ''
+    },
     interestList: {
       list: [],
       pageNum: 1,
@@ -44,13 +49,59 @@ Page({
       isLastPage: false,
       isRequire: false,
       onBottomStatus: 0
-    }
-  },
-  onLoad(options) {
-
+    },
+    positionChoose: '',
+    statusChoose: '',
+    mixChoose: {},
+    statusLists: [
+      {
+        id:1,
+        text: '全部'
+      },
+      {
+        id:2,
+        text: '未处理'
+      },
+      {
+        id:3,
+        text: '不感兴趣'
+      },
+      {
+        id:4,
+        text: '我邀请的'
+      },
+      {
+        id:5,
+        text: '待安排'
+      },
+      {
+        id:6,
+        text: '待对方确认'
+      },
+      {
+        id:7,
+        text: '待我修改'
+      },
+      {
+        id:8,
+        text: '待对方修改'
+      },
+      {
+        id:9,
+        text: '已安排'
+      },
+      {
+        id:10,
+        text: '已结束'
+      },
+      {
+        id:11,
+        text: '不合适'
+      }
+    ]
   },
   onShow() {
-    this.getLists()
+    this.getViewList()
   },
   /**
    * @Author   小书包
@@ -58,14 +109,10 @@ Page({
    * @detail   下拉重新获取数据
    * @return   {[type]}              [description]
    */
-  onPullDownRefresh(hasLoading = true) {
-    const key = this.data.tab
-    const value = {list: [], pageNum: 1, isLastPage: false, isRequire: false, onBottomStatus: 0}
-    this.setData({[key]: value, hasReFresh: true})
-    this.getLists().then(res => {
-      this.setData({hasReFresh: false})
-      wx.stopPullDownRefresh()
-    }).catch(e => {
+  onPullDownRefresh() {
+    let viewList = {list: [], pageNum: 1, isLastPage: false, isRequire: false, onBottomStatus: 0}
+    this.setData({viewList, hasReFresh: true})
+    this.getViewList().then(res => {
       this.setData({hasReFresh: false})
       wx.stopPullDownRefresh()
     })
@@ -76,7 +123,7 @@ Page({
   onReachBottom() {
     let key = this.data.tab
     this.setData({onBottomStatus: 1})
-    if (!this.data[key].isLastPage) this.getLists()
+    if (!this.data[key].isLastPage) this.getViewList()
   },
   /**
    * @Author   小书包
@@ -93,51 +140,13 @@ Page({
       wx.navigateTo({url: `${COMMON}resumeDetail/resumeDetail?uid=${params.jobhunteruid}`})
     }
   },
-  onClickTab(e) {
-    let params = e.currentTarget.dataset
-    console.log(params)
-  },
-  routeJump(e) {
+  backHome(e) {
     wx.reLaunch({url: `${RECRUITER}index/index`})
   },
   /**
    * @Author   小书包
    * @DateTime 2019-01-21
-   * @detail   获取列表数据
-   * @return   {[type]}   [description]
-   */
-  getLists() {
-    if(this.data.tab === 'interestList') {
-      return this.getViewList()
-    } else {
-      return this.getInterestList()
-    }
-  },
-  /**
-   * @Author   小书包
-   * @DateTime 2019-01-21
-   * @detail   看过我的列表
-   * @return   {[type]}   [description]
-   */
-  getInterestList(hasLoading = true) {
-    return new Promise((resolve, reject) => {
-      let params = {count: this.data.pageCount, page: this.data.interestList.pageNum}
-      getBrowseMySelfApi(params, hasLoading).then(res => {
-        let interestList = this.data.interestList
-        let onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
-        interestList.list = interestList.list.concat(res.data)
-        interestList.isLastPage = res.meta && res.meta.nextPageUrl ? false : true
-        interestList.pageNum = interestList.pageNum + 1
-        interestList.isRequire = true
-        interestList.total = res.meta.total
-        this.setData({interestList, onBottomStatus}, () => resolve(res))
-      })
-    })
-  },
-  /**
-   * @Author   小书包
-   * @DateTime 2019-01-21
-   * @detail   收集过我的列表
+   * @detail   获取简历列表
    * @return   {[type]}   [description]
    */
   getViewList(hasLoading = true) {
@@ -157,10 +166,63 @@ Page({
   formSubmit(e) {
     app.postFormId(e.detail.formId)
   },
-  openTips() {
-    this.setData({showRules: true})
-  },
   closeTips() {
     this.setData({showRules: false})
+  },
+  openTips(e) {
+    let params = e.currentTarget.dataset
+    let model = this.data.model
+    model.show = true
+    switch(params.type) {
+      case 'position':
+        model.title = '在招职位筛选'
+        model.type = 'position'
+        break
+      case 'reduction':
+        model.title = ''
+        model.type = 'reduction'
+        break
+      case 'status':
+        model.title = '处理状态'
+        model.type = 'status'
+        break
+      case 'rules':
+        model.title = '什么是简历储备'
+        model.type = 'rules'
+        break
+      default:
+        break
+    }
+    this.setData({model})
+  },
+  sChoice(e) {
+    let params = e.currentTarget.dataset
+    let model = this.data.model
+    let viewList = this.data.viewList
+    let statusLists = this.data.statusLists
+    let positionChoose = this.data.positionChoose
+    let statusChoose = this.data.statusChoose
+
+    switch(params.type) {
+      case 'status':
+        statusLists.map((field, index) => {
+          statusChoose = field
+          field.active = index === params.index ? true : false
+        })
+        break
+      case 'position':
+        viewList.list.map((field, index) => {
+          positionChoose = field
+          field.active = index === params.index ? true : false
+        })
+        break
+      default:
+        break
+    }
+    this.setData({viewList, statusLists, positionChoose, statusChoose})
+  },
+  mChoice(e) {
+    let params = e.currentTarget.dataset
+    console.log(params)
   }
 })

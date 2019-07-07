@@ -2,10 +2,22 @@
 	<navbar title="简历储备" background="#FFFFFF" color="#22292C"></navbar>
 	<view class="place"></view>
 	<view class="office-status-bar" style="top: {{navH}}px">
-		<view class="item" bindtap="onClickTab"><view class="text">职位 </view><i class="icon iconfont icon-zhishibiao"></i></view>
-  	<view class="item" bindtap="onClickTab"><view class="text">处理状态 </view><i class="icon iconfont icon-zhishibiao"></i></view>
-  	<view class="item" bindtap="onClickTab"><view class="text">筛选 </view><i class="icon iconfont icon-zhishibiao"></i></view>
-  	<view class="tips" bindtap="openTips">?</view>
+		<view class="item" bindtap="openTips" data-type="position">
+			<view class="text {{ positionChoose ? 'active' : '' }}">
+				{{ positionChoose ? positionChoose.positionName : '职位职位职位职位' }} 
+			</view>
+			<i class="icon iconfont icon-zhishibiao"></i>
+		</view>
+  	<view class="item" bindtap="openTips" data-type="status">
+  		<view class="text {{ statusChoose ? 'active' : '' }}">
+  			{{ statusChoose ? statusChoose.text : '处理状态' }} 
+  		</view>
+  		<i class="icon iconfont icon-zhishibiao"></i>
+  	</view>
+  	<view class="item" bindtap="openTips" data-type="reduction">
+  		<view class="text">筛选 </view><i class="icon iconfont icon-zhishibiao"></i>
+  	</view>
+  	<view class="tips" bindtap="openTips" bindtap="openTips" data-type="rules">?</view>
 	</view>
 	<view class="block"></view>
 	<view hidden="{{!hasReFresh}}">
@@ -55,13 +67,114 @@
 				</view>
 			</button>
 		</form>
-		<bottomStatus status="{{ onBottomStatus }}" listData="{{interestList.list}}" desc="还没有候选人对你感兴趣哟～ 主动发现获取更多候选人吧" marginTop="{{40}}">
-			<button class="jump" bindtap="routeJump">发现更多候选人</button>
+		<bottomStatus status="{{ onBottomStatus }}" listData="{{viewList.list}}" desc="还没有候选人对你感兴趣哟～ 主动发现获取更多候选人吧" marginTop="{{40}}">
+			<button class="jump" bindtap="backHome">发现更多候选人</button>
 		</bottomStatus>
 	</view>
-	<actionSheet title="{{'什么是简历储备'}}" openPop="{{showRules}}"  bindclose="closeTips">
-		<view class="rules_boxs">
+	<actionSheet title="{{model.title}}" openPop="{{model.show}}"  bindclose="closeTips">
+		
+		<!-- 职位筛选 start -->
+		<view class="position_list" wx:if="{{model.type === 'position'}}">
+			<view
+				class="list_item"
+				wx:for="{{viewList.list}}"
+				wx:key="{{index}}"
+			 	bindtap="sChoice"
+				data-index="{{index}}"
+				data-type="position">
+				<view class="list_item_first">
+					<view class="title">前端开发工程师</view>
+					<view class="saraly">12~20K</view>
+				</view>
+				<view class="list_item_second">
+					<view class="address">广州市天河区</view>
+					<view class="degress">本科</view>
+					<view class="experience">不限</view>
+				</view>
+        <view class="myRadio {{item.active ? 'active' : ''}}">
+          <i class="icon iconfont icon-wancheng" wx:if="{{item.active}}"></i>
+        </view>
+			</view>
+		</view>
+		<!-- 职位筛选 end -->
+		
+		<!-- 复合筛选 start -->
+		<view class="type_list" wx:if="{{model.type === 'reduction'}}">
+			<view class="type_header">
+				<view class="key">选择工作经验</view>
+				<view class="key_fix">（可多选）</view>
+			</view>
+			<view class="base_ul city_ul">
+				<view
+					class="base_item {{item.active ? 'base_item_active' : ''}}"
+					wx:for="{{viewList.list}}"
+					wx:key="{{index}}"
+					data-index="{{index}}"
+					bindtap="mChoice">全部{{index * 200}}</view>
+			</view>
+			<view class="type_header">
+				<view class="key">选择学历要求</view>
+				<view class="key_fix">（可多选）</view>
+			</view>
+			<view class="base_ul city_ul">
+				<view
+					class="base_item {{item.active ? 'base_item_active' : ''}}"
+					wx:for="{{viewList.list}}"
+					wx:key="{{index}}"
+					data-index="{{index}}"
+					bindtap="mChoice">全部{{index * 200}}</view>
+			</view>
+			<view class="type_header">
+				<view class="key">选择薪资范围</view>
+				<view class="key_fix">（可多选）</view>
+			</view>
+			<view class="base_ul city_ul">
+				<view
+					class="base_item {{item.active ? 'base_item_active' : ''}}"
+					wx:for="{{viewList.list}}"
+					wx:key="{{index}}"
+					data-index="{{index}}"
+					bindtap="mChoice">全部{{index * 200}}</view>
+			</view>
+			<view class="type_header">
+				<view class="key">选择求职状态</view>
+				<view class="key_fix">（可多选）</view>
+			</view>
+			<view class="base_ul saraly_ul">
+				<view
+					class="base_item {{item.active ? 'base_item_active' : ''}}"
+					wx:for="{{viewList.list}}"
+					wx:key="{{index}}"
+					data-index="{{index}}"
+					bindtap="mChoice">全部{{index * 200}}</view>
+			</view>
+
+			<view class="button-box">
+				<view class="btn_01">重置</view>
+				<view class="btn_02">确定</view>
+			</view>
+		</view>
+		<!-- 复合筛选 end -->
+		
+		<!-- 状态筛选 start -->
+		<view class="type_list" wx:if="{{model.type === 'status'}}">
+			<view class="base_ul city_ul">
+				<view
+					class="base_item {{item.active ? 'base_item_active' : ''}}"
+					wx:for="{{statusLists}}"
+					wx:key="{{index}}"
+					data-index="{{index}}"
+					data-type="status"
+					bindtap="sChoice">{{item.text}}</view>
+			</view>
+		</view>
+		<!-- 状态筛选 end -->
+		
+		<!-- 规则 start -->
+		<view class="rules_boxs" wx:if="{{model.type === 'rules'}}">
 			用户可以在招聘官的主页中，对自己认可的招聘官打Call。每位用户可以为1位招聘官打Call1次。每获得1次打Call，招聘官影响力+1。影响力代表的是招聘官整体的被认可度。 文案看产品给什么吧，间距看设计稿
 		</view>
+		<!-- 规则 start -->
+
 	</actionSheet>
 </view>

@@ -77,7 +77,7 @@ Page({
     const pageInfos = this.data.pageInfos
     switch(route) {
       case 'company':
-        wx.navigateTo({url: `${RECRUITER}company/indexEdit/indexEdit`})
+        wx.navigateTo({url: `${COMMON}homepage/homepage?companyId=${this.data.recruiterInfo.companyInfo.id}`})
         break
       case 'base':
         wx.navigateTo({url: `${RECRUITER}user/mine/base/base`})
@@ -98,6 +98,9 @@ Page({
         wx.navigateTo({
           url: `${RECRUITER}company/recruiterList/recruiterList?companyId=${this.data.recruiterInfo.companyInfo.id}`
         })
+        break
+      case 'reserve':
+        wx.navigateTo({url: `${RECRUITER}reserve/reserve`})
         break
       case 'interest':
         wx.navigateTo({url: `${RECRUITER}company/interest/interest`})

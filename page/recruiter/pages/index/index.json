@@ -5,6 +5,7 @@
   	"choose": "../../../../components/business/choose/choose",
     "tabBar": "../../../../components/business/tabBar/tabBar",
     "followWechat": "../../../../components/business/followWechat/followWechat",
-    "navbar": "../../../../components/business/navbar/navbar"
+    "navbar": "../../../../components/business/navbar/navbar",
+    "actionSheet": "../../../../components/layout/actionSheet/actionSheet"
   }
 }

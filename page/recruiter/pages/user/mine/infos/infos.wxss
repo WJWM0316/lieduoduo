@@ -132,6 +132,84 @@ top-banner.center {
 	box-shadow:0rpx 10rpx 30rpx 0rpx rgba(22,39,77,0.05),0rpx -5rpx 40rpx 0rpx rgba(22,39,77,0.05);
 }
 
+.floating-box .footer {
+	display: flex;
+	overflow: hidden;
+	margin-top: 80rpx;
+}
+
+.floating-box .footer .left{
+	flex-grow: 1;
+}
+
+.floating-box .footer .right{
+	flex-grow: 1;
+	text-align: right;
+}
+
+.floating-box .footer .icon_image{
+	width: 66rpx;
+	height: 66rpx;
+	background: rgba(0,0,0,.3);
+	display: block;
+	margin: 0 auto 5rpx auto;
+}
+
+.floating-box .footer .share-homepage-02{
+	text-align: center;
+	line-height: 1;
+	margin: 0;
+	font-size:26rpx;
+	color:rgba(40,40,40,1);
+	line-height:32rpx;
+	display: inline-block;
+}
+
+.floating-box .footer .share-homepage-pic-02{
+	text-align: center;
+	line-height: 1;
+	margin: 0;
+	font-size:26rpx;
+	color:rgba(40,40,40,1);
+	line-height:32rpx;
+	display: inline-block;
+	margin-left: 62rpx;
+}
+
+.floating-box .footer .rank_01{
+	height:54rpx;
+	line-height:54rpx;
+	font-weight:700;
+	margin-bottom: 12rpx;
+}
+
+.floating-box .rank_01 .strong{
+	font-size:54rpx;
+	color: #FF7F4D;
+	display: inline-block;
+	vertical-align: middle;
+}
+
+.floating-box .rank_01 .default{
+	font-size:28rpx;
+	color:rgba(40,40,40,1);
+	display: inline-block;
+	vertical-align: middle;
+}
+
+.floating-box .populor_01 {
+	height:26rpx;
+	font-size:26rpx;
+	font-weight:300;
+	color:rgba(93,86,93,1);
+	line-height:26rpx;
+}
+
+.floating-box .populor_01 .icon-disejiantou-you{
+	font-size:24rpx;
+	color: #CDCBCF;
+}
+
 .show-off-block {
 	background:rgba(255,255,255,1);
 	box-shadow:0rpx 10rpx 30rpx 0rpx rgba(22,39,77,0.05),0rpx -5rpx 40rpx 0rpx rgba(22,39,77,0.05);
@@ -214,15 +292,19 @@ top-banner.center {
 	position: relative;
 	padding: 0 40rpx 0 40rpx;
 }
-.entry-list .li.toolbox {
+.toolbox {
 	display: flex;
 	padding: 42rpx 36rpx;
+	background: white;
+	margin-top: 24rpx;
+	box-shadow:0rpx 8rpx 40rpx 0rpx rgba(16,40,79,0.06);
+	border-radius:16rpx;
 }
-.entry-list .li.toolbox .tool-item {
+.toolbox .tool-item {
 	flex: 1;
 	position: relative;
 }
-.entry-list .li.toolbox .tool-item.red::before {
+.toolbox .tool-item.red::before {
 	width: 14rpx;
 	height: 14rpx;
 	border-radius: 50%;
@@ -232,28 +314,28 @@ top-banner.center {
 	right: 40rpx;
 	background: #FF4949;
 }
-.entry-list .li.toolbox .tool-item .icon {
+.toolbox .tool-item .icon {
 	width:80rpx;
 	height:80rpx;
 	background:rgba(255,255,255,0.01);
   display: block;
 	margin: 0 auto;
 }
-.entry-list .li.toolbox .tool-item .title {
+.toolbox .tool-item .title {
 	font-size:26rpx;
 	color:#282828;
 	line-height:24rpx;
 	text-align: center;
 	margin-top: 16rpx;
 }
-.entry-list .li.toolbox .tool-item .txt {
+.toolbox .tool-item .txt {
 	font-size:22rpx;
 	color:#BCBCBC;
 	line-height:22rpx;
 	text-align: center;
 	margin-top: 10rpx;
 }
-.entry-list .li.toolbox .tool-item .txt .num {
+.toolbox .tool-item .txt .num {
 	color: #FF7F4D;
 }
 .entry-list .li:after {
