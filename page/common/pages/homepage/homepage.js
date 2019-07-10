@@ -67,11 +67,9 @@ Page({
   onShow() {
     if (app.loginInit) {
       this.init().then(() => this.getOnlinePositionType())
-      this.getDomNodePosition()
     } else {
       app.loginInit = () => {
         this.init().then(() => this.getOnlinePositionType())
-        this.getDomNodePosition()
       }
     }
   },
@@ -142,7 +140,10 @@ Page({
         positionList.isLastPage = res.meta && res.meta.nextPageUrl ? false : true
         positionList.pageNum = positionList.pageNum + 1
         positionList.isRequire = true
-        this.setData({positionList, onBottomStatus}, () => resolve(res))
+        this.setData({companyInfos, map, requireOAuth}, () => {
+          this.getDomNodePosition()
+          resolve(res)
+        })
       })
     })
   },
