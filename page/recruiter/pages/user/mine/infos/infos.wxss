@@ -135,7 +135,9 @@ top-banner.center {
 .floating-box .footer {
 	display: flex;
 	overflow: hidden;
-	margin-top: 80rpx;
+	margin-top: 45rpx;
+	padding-top: 35rpx;
+	border-top: 2rpx solid #652791;
 }
 
 .floating-box .footer .left{
@@ -150,7 +152,6 @@ top-banner.center {
 .floating-box .footer .icon_image{
 	width: 66rpx;
 	height: 66rpx;
-	background: rgba(0,0,0,.3);
 	display: block;
 	margin: 0 auto 5rpx auto;
 }
@@ -195,6 +196,7 @@ top-banner.center {
 	color:rgba(40,40,40,1);
 	display: inline-block;
 	vertical-align: middle;
+	margin-left: 6rpx;
 }
 
 .floating-box .populor_01 {

@@ -10,18 +10,21 @@ export let APPLICANTHOST = ''
 export let RECRUITERHOST = ''
 export let PUBAPIHOST = ''
 export let WEBVIEW = ''
+export let CDNPATH = ''
 if (environment === 0) {
 	// 测试服接口
 	APPLICANTHOST = 'https://qiuzhi-api.lieduoduo.ziwork.com'
 	RECRUITERHOST = 'https://zhaopin-api.lieduoduo.ziwork.com'
 	PUBAPIHOST = 'https://pub-api.lieduoduo.ziwork.com'
 	WEBVIEW = `https://h5.lieduoduo.ziwork.com/`
+	CDNPATH = 'https://attach.lieduoduo.ziwork.com/front-assets/images/'
 } else {
 	// 正式服环境
 	APPLICANTHOST = 'https://qiuzhi-api.lieduoduo.com'
 	RECRUITERHOST = 'https://zhaopin-api.lieduoduo.com'
 	PUBAPIHOST = 'https://pub-api.lieduoduo.com'
 	WEBVIEW = `https://h5.lieduoduo.com/`
+	CDNPATH = 'https://attach.lieduoduo.com/front-assets/images/'
 }
 
 

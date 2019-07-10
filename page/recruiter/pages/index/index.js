@@ -15,6 +15,8 @@ import {
   clearReddotApi
 } from '../../../../api/pages/common.js'
 
+import { getRecruiterPositionListApi } from '../../../../api/pages/position.js'
+
 import {RECRUITER, COMMON, APPLICANT, WEBVIEW, VERSION} from '../../../../config.js'
 
 import {getSelectorQuery}  from '../../../../utils/util.js'
@@ -31,7 +33,6 @@ let fixedDomPosition = 0
 
 Page({
   data: {
-    pageList: 'collectMySelf',
     cdnImagePath: app.globalData.cdnImagePath,
     navH: app.globalData.navHeight,
     model: {
@@ -39,8 +40,15 @@ Page({
       title: '',
       type: ''
     },
+    onLinePosition: {
+      list: [],
+      pageNum: 1,
+      count: 20,
+      isLastPage: false,
+      isRequire: false
+    },
     choseType: '',
-    collectMySelf: {
+    resumeList: {
       list: [],
       pageNum: 1,
       isLastPage: false,
@@ -69,7 +77,11 @@ Page({
       recruiterInterestedToJ: 0
     },
     banner: {},
-    bannerIndex: 0
+    bannerIndex: 0,
+    navTabIndex: 0,
+    moveParams: {
+      scrollLeft: 0
+    }
   },
   onLoad() {
     let choseType = wx.getStorageSync('choseType') || ''
@@ -112,30 +124,39 @@ Page({
   },
   init () {
     if (wx.getStorageSync('choseType') === 'APPLICANT') return
-    let collectMySelf = this.data.collectMySelf
-    let browseMySelf = this.data.browseMySelf
+    let resumeList = this.data.resumeList
     let userInfo = app.globalData.userInfo
-    let pageList = this.data.pageList
-    let value = this.data[pageList]
+    this.getDomNodePosition()
+    this.initDefaultBar()
+    this.clearOnlineLists()
     if (app.pageInit) {
       userInfo = app.globalData.userInfo
-      this.getDomNodePosition()
       this.getMixdata()
-      if(!wx.getStorageSync('isReback') && !value.list.length) this.getLists()
+      if(!wx.getStorageSync('isReback') && !resumeList.list.length) this.getLists()
       wx.removeStorageSync('isReback')
       this.setData({userInfo})
       this.selectComponent('#bottomRedDotBar').init()
+      this.getOnlineLists(false)
     } else {
       app.pageInit = () => {
         userInfo = app.globalData.userInfo
-        this.getDomNodePosition()
         this.getMixdata()
-        if(!wx.getStorageSync('isReback') && !value.list.length) this.getLists()
+        if(!wx.getStorageSync('isReback') && !resumeList.list.length) this.getLists()
         wx.removeStorageSync('isReback')
         this.setData({userInfo})
         this.selectComponent('#bottomRedDotBar').init()
+        this.getOnlineLists(false)
       }
     }
+  },
+  initDefaultBar() {
+    setTimeout(() => {
+      getSelectorQuery('.tab-bar').then(res => {
+        let moveParams = this.data.moveParams
+        moveParams.screenHalfWidth = res.width / 2
+        this.setData({moveParams})
+      })
+    }, 1000)
   },
   getMixdata() {
     this.getIndexShowCount().then(() => this.getBanner())
@@ -156,9 +177,11 @@ Page({
     })
   },
   getDomNodePosition() {
-    return getSelectorQuery('.default').then(res => {
-      if(!fixedDomPosition) fixedDomPosition = res.top - this.data.navH
-    })
+    setTimeout(() => {
+      getSelectorQuery('.default').then(res => {
+        if(!fixedDomPosition) fixedDomPosition = res.top - this.data.navH
+      })
+    }, 1000)
   },
   /**
    * @Author   小书包
@@ -167,7 +190,7 @@ Page({
    * @return   {[type]}   [description]
    */
   getLists(hasLoading) {
-    return this.getCollectMySelf(hasLoading)
+    return this.getResumeList(hasLoading)
   },
   /**
    * @Author   小书包
@@ -175,22 +198,22 @@ Page({
    * @detail   收集过我的列表
    * @return   {[type]}   [description]
    */
-  getCollectMySelf(hasLoading = true) {
+  getResumeList(hasLoading = true) {
     return new Promise((resolve, reject) => {
-      let params = {count: this.data.pageCount, page: this.data.collectMySelf.pageNum, ...app.getSource()}
-      let collectMySelf = this.data.collectMySelf
-      collectMySelf.loading = true
-      this.setData({collectMySelf})
+      let params = {count: this.data.pageCount, page: this.data.resumeList.pageNum, ...app.getSource()}
+      let resumeList = this.data.resumeList
+      resumeList.loading = true
+      this.setData({resumeList})
       getCollectMySelfApi(params, hasLoading).then(res => {
         let onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
         let list = res.data
-        collectMySelf.isLastPage = res.meta.nextPageUrl ? false : true
-        collectMySelf.pageNum = collectMySelf.pageNum + 1
-        collectMySelf.isRequire = true
-        collectMySelf.loading = false
-        list = this.appendData(list, collectMySelf)
-        collectMySelf.list = collectMySelf.list.concat(list)
-        this.setData({collectMySelf, onBottomStatus}, () => resolve(res))
+        resumeList.isLastPage = res.meta.nextPageUrl ? false : true
+        resumeList.pageNum = resumeList.pageNum + 1
+        resumeList.isRequire = true
+        resumeList.loading = false
+        // list = this.appendData(list, resumeList)
+        resumeList.list = resumeList.list.concat(list)
+        this.setData({resumeList, onBottomStatus}, () => resolve(res))
       }).catch(() => reject())
     })
   },
@@ -200,29 +223,29 @@ Page({
    * @detail   追加数据
    * @return   {[type]}   [description]
    */
-  appendData(list, collectMySelf) {
-    let detail = this.data.detail
-    let data = list
-    let item = {}
-    if(!collectMySelf.isUse) {
-      if(data.length) {
-        if(!detail.positionNum) item.myType = 1
-        if(detail.positionNum) item.myType = 2
-        if(data.length <= 7) {
-          collectMySelf.isUse = true
-          this.setData({collectMySelf})
-          data.push(item)
-        } else {
-         if(collectMySelf.isLastPage) {
-          data.push(item)
-          collectMySelf.isUse = true
-          this.setData({collectMySelf})
-         }
-        }
-      }
-    }
-    return data
-  },
+  // appendData(list, resumeList) {
+  //   let detail = this.data.detail
+  //   let data = list
+  //   let item = {}
+  //   if(!resumeList.isUse) {
+  //     if(data.length) {
+  //       if(!detail.positionNum) item.myType = 1
+  //       if(detail.positionNum) item.myType = 2
+  //       if(data.length <= 7) {
+  //         resumeList.isUse = true
+  //         this.setData({resumeList})
+  //         data.push(item)
+  //       } else {
+  //        if(resumeList.isLastPage) {
+  //         data.push(item)
+  //         resumeList.isUse = true
+  //         this.setData({resumeList})
+  //        }
+  //       }
+  //     }
+  //   }
+  //   return data
+  // },
   getIndexShowCount() {
     return new Promise((resolve, reject) => {
       if (wx.getStorageSync('choseType') === 'APPLICANT') {
@@ -240,21 +263,20 @@ Page({
    * @detail   下拉重新获取数据
    * @return   {[type]}              [description]
    */
-  onPullDownRefresh(hasLoading = true) {
-    let key = this.data.pageList
-    let value = {list: [], pageNum: 1, isLastPage: false, isRequire: false, isUse: false, loading: false}
-    this.setData({[key]: value, hasReFresh: true})
+  onPullDownRefresh() {
+    this.setData({hasReFresh: true})
     this.selectComponent('#bottomRedDotBar').init()
-    Promise.all([this.getDomNodePosition(), this.getMixdata(), this.getLists()]).then(res => {
-      let value = {list: [], pageNum: 1, isLastPage: false, isRequire: false}
+    this.getMixdata()
+    this.getLists().then(res => {
+      let resumeList = {list: [], pageNum: 1, isLastPage: false, isRequire: false}
       let onBottomStatus = res[2].meta && res[2].meta.nextPageUrl ? 0 : 2
-      value.list = res[2].data
-      value.isLastPage = res[2].meta && res[2].meta.nextPageUrl ? false : true
-      value.pageNum = 2
-      value.isRequire = true
-      value.total = res[2].meta.total
+      resumeList.list = res[2].data
+      resumeList.isLastPage = res[2].meta && res[2].meta.nextPageUrl ? false : true
+      resumeList.pageNum = 2
+      resumeList.isRequire = true
+      resumeList.total = res[2].meta.total
       wx.stopPullDownRefresh()
-      this.setData({[key]: value, onBottomStatus, fixedDom: false, hasReFresh: false})
+      this.setData({resumeList, onBottomStatus, fixedDom: false, hasReFresh: false})
     }).catch(() => {
       wx.stopPullDownRefresh()
       this.setData({hasReFresh: false})
@@ -267,14 +289,12 @@ Page({
    * @return   {[type]}   [description]
    */
   onReachBottom() {
-    let key = this.data.pageList
-    if (!this.data[key].isLastPage) {
+    if (!this.data.resumeList.isLastPage) {
       this.setData({onBottomStatus: 1})
       this.getLists(false)
     }
   },
   onShareAppMessage(options) {
-    let that = this
 　　return app.wxShare({options})
   },
   /**
@@ -344,6 +364,9 @@ Page({
       case 'adviser':
         wx.navigateTo({url: `${RECRUITER}user/adviser/adviser`})
         break
+      case 'dynamics':
+        wx.navigateTo({url: `${RECRUITER}dynamics/dynamics`})
+        break
       default:
         break
     }
@@ -398,18 +421,111 @@ Page({
   },
   sChoice(e) {
     let params = e.currentTarget.dataset
-    let collectMySelf = this.data.collectMySelf
+    let onLinePosition = this.data.onLinePosition
     let model = this.data.model
     model.show = false
-    collectMySelf.list.map((field, index) => field.active = index === params.index ? true : false)
-    this.setData({collectMySelf, model})
+    onLinePosition.list.map((field, index) => field.active = index === params.index ? true : false)
+    let item = onLinePosition.list.find((field, index) => index === params.index)
+    this.setData({onLinePosition, model})
   },
   mChoice(e) {
     let params = e.currentTarget.dataset
-    let collectMySelf = this.data.collectMySelf
-    collectMySelf.list.map((field, index) => {
+    let resumeList = this.data.resumeList
+    resumeList.list.map((field, index) => {
       if(index === params.index) field.active = true
     })
-    this.setData({collectMySelf})
+    this.setData({resumeList})
+  },
+  lower(e) {
+    console.log(this.data, 'gggggggggggg')
+  },
+  clearOnlineLists() {
+    let onLinePosition = {
+      list: [],
+      pageNum: 1,
+      count: 20,
+      isLastPage: false,
+      isRequire: false
+    }
+    this.setData({onLinePosition})
+  },
+  /**
+   * @Author   小书包
+   * @DateTime 2018-12-27
+   * @detail   获取列表数据
+   * @return   {[type]}   [description]
+   */
+  getOnlineLists(hasLoading = true) {
+    return new Promise((resolve, reject) => {
+      let onLinePosition = this.data.onLinePosition
+      let params = {is_online: 1, count: onLinePosition.count, page: onLinePosition.pageNum, hasLoading}
+      getRecruiterPositionListApi(params).then(res => {
+        let onBottomStatus = !res.meta || !res.meta.nextPageUrl ? 2 : 0
+        onLinePosition.list = onLinePosition.list.concat(res.data || [])
+        onLinePosition.list.unshift({id: 0, positionName: '全部', active: true })
+        onLinePosition.pageNum++
+        onLinePosition.isRequire = true
+        onLinePosition.isLastPage = !res.meta || !res.meta.nextPageUrl ? true : false
+        resolve(res)
+        this.setData({onLinePosition, onBottomStatus})
+      })
+    })
+  },
+  onClickSearch(e) {
+    let params = e.currentTarget.dataset
+    let onLinePosition = this.data.onLinePosition
+    onLinePosition.list.map((field, index) => field.active = index === params.index ? true : false)
+    this.setData({onLinePosition})
+  },
+  /**
+   * @Author   小书包
+   * @DateTime 2019-07-08
+   * @detail   选中当前的项
+   * @return   {[type]}     [description]
+   */
+  clickNav(e) {
+    let className = `.item${e.target.dataset.index}`
+    this.setData({navTabIndex: e.target.dataset.index }, () => this.getRect(className))
+  },
+  /**
+   * @Author   小书包
+   * @DateTime 2019-07-08
+   * @detail   获取当前选中的项
+   * @return   {[type]}             [description]
+   */
+  getRect(className) {
+    if(!className) return
+    getSelectorQuery(className).then(res => {
+      let moveParams = this.data.moveParams
+      moveParams.subLeft = res.left
+      moveParams.subHalfWidth = res.width / 2
+      this.moveTo()
+    })
+  },
+  /**
+   * @Author   小书包
+   * @DateTime 2019-07-08
+   * @detail   控制scroll-view
+   * @return   {[type]}     [description]
+   */
+  scrollViewMove(e) {
+    let moveParams = this.data.moveParams
+    moveParams.scrollLeft = e.detail.scrollLeft
+    this.setData({moveParams: moveParams })
+  },
+  /**
+   * @Author   小书包
+   * @DateTime 2019-07-08
+   * @detail   移动到指定位置
+   * @return   {[type]}   [description]
+   */
+  moveTo() {
+    let subLeft = this.data.moveParams.subLeft
+    let screenHalfWidth = this.data.moveParams.screenHalfWidth
+    let subHalfWidth = this.data.moveParams.subHalfWidth
+    let scrollLeft = this.data.moveParams.scrollLeft
+    let distance = subLeft - screenHalfWidth + subHalfWidth
+    scrollLeft = scrollLeft + distance
+    this.setData({scrollLeft: scrollLeft })
   }
 })

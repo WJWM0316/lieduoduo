@@ -33,12 +33,12 @@
 					</view>
 				</view>
 				<view class="right">
-					<button form-type="submit" class="share-homepage-02 clear-style">
-						<image class="icon_image"></image>
+					<button form-type="submit" class="share-homepage-02 clear-style" catchtap="routeJump" data-route="poster">
+						<image class="icon_image" src="{{cdnPath}}icon_my_sharepic.png"></image>
 						<view class="btn-text">转发海报</view>
 					</button>
-					<button form-type="submit" class="share-homepage-pic-02 clear-style" catchtap="routeJump" data-route="poster">
-						<image class="icon_image"></image>
+					<button form-type="submit" class="share-homepage-pic-02 clear-style">
+						<image class="icon_image" src="{{cdnPath}}icon_my_sharemyhp.png"></image>
 						<view class="btn-text">转发主页</view>
 					</button>
 				</view>

@@ -54,7 +54,7 @@
 				</view>
 			</button>
 		</form>
-		<bottomStatus status="{{ onBottomStatus }}" listData="{{interestList.list}}" desc="还没有候选人对你感兴趣哟～ 主动发现获取更多候选人吧" marginTop="{{40}}">
+		<bottomStatus status="{{ onBottomStatus }}" listData="{{viewList.list}}" desc="还没有候选人对你感兴趣哟～ 主动发现获取更多候选人吧" marginTop="{{40}}">
 			<button class="jump" bindtap="routeJump">发现更多候选人</button>
 		</bottomStatus>
 	</view>

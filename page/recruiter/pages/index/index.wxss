@@ -46,6 +46,8 @@
   line-height: 98rpx;
   color: #CDCBCF;
   background: white;
+  position: relative;
+  z-index: 2;
 }
 
 .default .kind.active{
@@ -73,9 +75,11 @@
   color: #CDCBCF;
   position: relative;
   padding-right: 28rpx;
+  position: relative;
+  z-index: 2
 }
 
-.default .down:before{
+/*.default .down:before{
   width: 100%;
   height: 100%;
   background: linear-gradient(to right, rgba(255,255,255,.6), rgba(255,255,255,1));
@@ -85,7 +89,7 @@
   left: 0;
   bottom: 0;
 }
-
+*/
 .default .down .iconfont{
   position: absolute;
   top: 50%;
@@ -98,6 +102,16 @@
   right: 0;
   bottom: 0;
   height: 100%;
+}
+
+.default .bg_transparent{
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 48rpx;
+  width: 150rpx;
+  z-index: 1;
 }
 
 .tab-bar {
@@ -136,7 +150,7 @@
   white-space: nowrap;
   line-height: 98rpx;
   overflow: hidden;
-  max-width: 120rpx;
+  /*max-width: 180rpx;*/
   text-align: center;
   display: inline-block;
   vertical-align: middle;
@@ -155,6 +169,11 @@
   display: block;
   opacity: 0;
   transition: all ease .4s;
+}
+
+.tab-bar .active {
+  color: #282828;
+  font-weight: 700;
 }
 
 .tab-bar .active:before {
@@ -201,12 +220,11 @@
   margin-top: 0;
 }
 .nodata {
-  display: inline-block;
-  vertical-align: middle;
-  width: calc(100vw - 60rpx);
   background:rgba(255,255,255,1);
   box-shadow:0rpx 0rpx 20rpx 0rpx rgba(50,14,59,0.08);
   border-radius:16rpx;
+  margin: 20rpx 30rpx;
+  overflow: hidden;
 }
 
 .formIdBtn {
@@ -315,10 +333,6 @@
   line-height:1.2;
   border-top: 1rpx solid #E8E9EB;
   padding: 32rpx 0;
-  max-width: 100%;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
 }
 
 .item2 .featured-icon {
@@ -444,12 +458,12 @@
 }
 
 .item2 .row-two .limit-wid {
-  max-width: 300rpx;
+  max-width: 400rpx;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
   display: inline-block;
-  line-height: 40rpx;
+  line-height: 1.2;
   vertical-align: top;
 }
 
@@ -698,8 +712,8 @@
   background:rgba(255,255,255,1);
   position: relative;
   overflow: hidden;
-  height: 260rpx;
   box-sizing: border-box;
+  padding: 54rpx 0;
 }
 
 .todos_bar_open::after {
@@ -733,10 +747,7 @@
   font-weight:700;
   color:rgba(40,40,40,1);
   line-height:1;
-  margin-top: 46rpx;
   position: relative;
-  display: inline-block;
-  vertical-align: middle;
 }
 
 .todos_bar_open .todo_tips {
@@ -759,11 +770,6 @@
 }
 
 .todos_bar_open .number {
-  height:30rpx;
-  line-height: 30rpx;
-  background:rgba(255,127,76,1);
-  border-radius:51rpx 51rpx 51rpx 2rpx;
-  border:2rpx solid rgba(255,255,255,1);
   padding: 0 8rpx;
   font-size:20rpx;
   font-weight:700;
@@ -772,6 +778,12 @@
   display: inline-block;
   vertical-align: top;
   margin-left: 12rpx;
+  height:32rpx;
+  line-height: 32rpx;
+  background:rgba(255,127,76,1);
+  border-radius:51rpx 51rpx 51rpx 45rpx;
+  box-sizing: border-box;
+  min-width: 32rpx;
 }
 
 .todos_bar_open .imglist {
@@ -821,6 +833,7 @@
 
 .page_index_list {
   background: #FBFBFF;
+  overflow: hidden;
 }
 
 .todos_bar_notopen {
@@ -847,11 +860,6 @@
 }
 
 .todos_bar_notopen .number {
-  height:30rpx;
-  line-height: 30rpx;
-  background:rgba(255,127,76,1);
-  border-radius:51rpx 51rpx 51rpx 2rpx;
-  border:2rpx solid rgba(255,255,255,1);
   padding: 0 8rpx;
   font-size:20rpx;
   font-weight:700;
@@ -860,6 +868,12 @@
   display: inline-block;
   vertical-align: top;
   margin-left: 12rpx;
+  height:32rpx;
+  line-height: 32rpx;
+  background:rgba(255,127,76,1);
+  border-radius:51rpx 51rpx 51rpx 45rpx;
+  box-sizing: border-box;
+  min-width: 32rpx;
 }
 
 .todos_bar_notopen .todo_tips {
@@ -960,6 +974,7 @@
 .position_list .saraly {
   display: inline-block;
   vertical-align: middle;
+  margin-left: 16rpx;
 }
 
 .position_list .list_item_second {
@@ -1067,8 +1082,7 @@
 
 .type_list .base_ul .base_item_active{
   border-color: #652791;
-  background: #652791;
-  color: white;
+  color: #652791;
 }
 
 .button-box {
@@ -1105,7 +1119,58 @@
   overflow-y: scroll;
 }
 
-.position_list{
-  overflow-y: scroll;
-  max-height: 892rpx;
+.position_list, .scroll_view{
+  max-height: calc(100vh - 280rpx - 108rpx);
+}
+
+.line-box {
+  font-size:28rpx;
+  font-weight:700;
+  color:rgba(101,39,145,1);
+  line-height: 1;
+  position: relative;
+  text-align: center;
+  margin: 0 120rpx;
+}
+
+.line-left {
+  position: absolute;
+  left: 0;
+  width: 140rpx;
+  top: 50%;
+  height: 1px;
+  background: #652791;
+}
+
+.line-left::before {
+  content: '';
+  display: block;
+  width: 15rpx;
+  height: 15rpx;
+  background: #652791;
+  transform: rotate(45deg) translateY(-50%);
+  position: absolute;
+  right: 0;
+  top: 45%;
+}
+
+.line-right {
+  position: absolute;
+  right: 0;
+  width: 140rpx;
+  top: 50%;
+  height: 1px;
+  background: #652791;
+}
+
+.line-right::before {
+  content: '';
+  display: block;
+  width: 15rpx;
+  height: 15rpx;
+  background: #652791;
+  transform: rotate(45deg) translateY(-50%);
+  position: absolute;
+  left: -15rpx;
+  top: 45%;
 }

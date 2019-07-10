@@ -4,7 +4,7 @@
 	<view class="office-status-bar" style="top: {{navH}}px">
 		<view class="item" bindtap="openTips" data-type="position">
 			<view class="text {{ positionChoose ? 'active' : '' }}">
-				{{ positionChoose ? positionChoose.positionName : '职位职位职位职位' }} 
+				{{ positionChoose ? positionChoose.positionName : '职位' }} 
 			</view>
 			<i class="icon iconfont icon-zhishibiao"></i>
 		</view>
@@ -75,80 +75,88 @@
 		
 		<!-- 职位筛选 start -->
 		<view class="position_list" wx:if="{{model.type === 'position'}}">
-			<view
-				class="list_item"
-				wx:for="{{viewList.list}}"
-				wx:key="{{index}}"
-			 	bindtap="sChoice"
-				data-index="{{index}}"
-				data-type="position">
-				<view class="list_item_first">
-					<view class="title">前端开发工程师</view>
-					<view class="saraly">12~20K</view>
-				</view>
-				<view class="list_item_second">
-					<view class="address">广州市天河区</view>
-					<view class="degress">本科</view>
-					<view class="experience">不限</view>
-				</view>
-        <view class="myRadio {{item.active ? 'active' : ''}}">
-          <i class="icon iconfont icon-wancheng" wx:if="{{item.active}}"></i>
-        </view>
-			</view>
+			<scroll-view
+				scroll-y
+				bindscrolltolower="lower"
+				class="scroll_view">
+					<view
+						class="list_item"
+						wx:for="{{viewList.list}}"
+						wx:key="{{index}}"
+						bindtap="sChoice"
+						data-index="{{index}}">
+						<view class="list_item_first">
+							<view class="title">前端开发工程师</view>
+							<view class="saraly">12~20K</view>
+						</view>
+						<view class="list_item_second">
+							<view class="address">广州市天河区</view>
+							<view class="degress">本科</view>
+							<view class="experience">不限</view>
+						</view>
+		        <view class="myRadio {{item.active ? 'active' : ''}}">
+		          <i class="icon iconfont icon-wancheng" wx:if="{{item.active}}"></i>
+		        </view>
+					</view>
+		  </scroll-view>
 		</view>
 		<!-- 职位筛选 end -->
 		
 		<!-- 复合筛选 start -->
 		<view class="type_list" wx:if="{{model.type === 'reduction'}}">
-			<view class="type_header">
-				<view class="key">选择工作经验</view>
-				<view class="key_fix">（可多选）</view>
-			</view>
-			<view class="base_ul city_ul">
-				<view
-					class="base_item {{item.active ? 'base_item_active' : ''}}"
-					wx:for="{{viewList.list}}"
-					wx:key="{{index}}"
-					data-index="{{index}}"
-					bindtap="mChoice">全部{{index * 200}}</view>
-			</view>
-			<view class="type_header">
-				<view class="key">选择学历要求</view>
-				<view class="key_fix">（可多选）</view>
-			</view>
-			<view class="base_ul city_ul">
-				<view
-					class="base_item {{item.active ? 'base_item_active' : ''}}"
-					wx:for="{{viewList.list}}"
-					wx:key="{{index}}"
-					data-index="{{index}}"
-					bindtap="mChoice">全部{{index * 200}}</view>
-			</view>
-			<view class="type_header">
-				<view class="key">选择薪资范围</view>
-				<view class="key_fix">（可多选）</view>
-			</view>
-			<view class="base_ul city_ul">
-				<view
-					class="base_item {{item.active ? 'base_item_active' : ''}}"
-					wx:for="{{viewList.list}}"
-					wx:key="{{index}}"
-					data-index="{{index}}"
-					bindtap="mChoice">全部{{index * 200}}</view>
-			</view>
-			<view class="type_header">
-				<view class="key">选择求职状态</view>
-				<view class="key_fix">（可多选）</view>
-			</view>
-			<view class="base_ul saraly_ul">
-				<view
-					class="base_item {{item.active ? 'base_item_active' : ''}}"
-					wx:for="{{viewList.list}}"
-					wx:key="{{index}}"
-					data-index="{{index}}"
-					bindtap="mChoice">全部{{index * 200}}</view>
-			</view>
-
+			<scroll-view
+				scroll-y
+				bindscrolltolower="lower"
+				class="scroll_view">
+				<view class="type_header">
+					<view class="key">选择工作经验</view>
+					<view class="key_fix">（可多选）</view>
+				</view>
+				<view class="base_ul city_ul">
+					<view
+						class="base_item {{item.active ? 'base_item_active' : ''}}"
+						wx:for="{{viewList.list}}"
+						wx:key="{{index}}"
+						data-index="{{index}}"
+						bindtap="mChoice">全部{{index * 200}}</view>
+				</view>
+				<view class="type_header">
+					<view class="key">选择学历要求</view>
+					<view class="key_fix">（可多选）</view>
+				</view>
+				<view class="base_ul city_ul">
+					<view
+						class="base_item {{item.active ? 'base_item_active' : ''}}"
+						wx:for="{{viewList.list}}"
+						wx:key="{{index}}"
+						data-index="{{index}}"
+						bindtap="mChoice">全部{{index * 200}}</view>
+				</view>
+				<view class="type_header">
+					<view class="key">选择薪资范围</view>
+					<view class="key_fix">（可多选）</view>
+				</view>
+				<view class="base_ul city_ul">
+					<view
+						class="base_item {{item.active ? 'base_item_active' : ''}}"
+						wx:for="{{viewList.list}}"
+						wx:key="{{index}}"
+						data-index="{{index}}"
+						bindtap="mChoice">全部{{index * 200}}</view>
+				</view>
+				<view class="type_header">
+					<view class="key">选择求职状态</view>
+					<view class="key_fix">（可多选）</view>
+				</view>
+				<view class="base_ul saraly_ul">
+					<view
+						class="base_item {{item.active ? 'base_item_active' : ''}}"
+						wx:for="{{viewList.list}}"
+						wx:key="{{index}}"
+						data-index="{{index}}"
+						bindtap="mChoice">全部{{index * 200}}</view>
+				</view>
+			</scroll-view>
 			<view class="button-box">
 				<view class="btn_01">重置</view>
 				<view class="btn_02">确定</view>
@@ -157,7 +165,7 @@
 		<!-- 复合筛选 end -->
 		
 		<!-- 状态筛选 start -->
-		<view class="type_list" wx:if="{{model.type === 'status'}}">
+		<view class="type_list status_ul" wx:if="{{model.type === 'status'}}">
 			<view class="base_ul city_ul">
 				<view
 					class="base_item {{item.active ? 'base_item_active' : ''}}"
@@ -172,7 +180,7 @@
 		
 		<!-- 规则 start -->
 		<view class="rules_boxs" wx:if="{{model.type === 'rules'}}">
-			用户可以在招聘官的主页中，对自己认可的招聘官打Call。每位用户可以为1位招聘官打Call1次。每获得1次打Call，招聘官影响力+1。影响力代表的是招聘官整体的被认可度。 文案看产品给什么吧，间距看设计稿
+			在猎多多里与您产生过申请、邀请记录，或者被您标记为感兴趣的简历，将自动进入简历储备。据说60%的职位需求会在简历储备中得到解决，各位招聘官好好利用哦~
 		</view>
 		<!-- 规则 start -->
 

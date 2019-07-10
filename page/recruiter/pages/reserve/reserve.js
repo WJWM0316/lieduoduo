@@ -224,5 +224,8 @@ Page({
   mChoice(e) {
     let params = e.currentTarget.dataset
     console.log(params)
-  }
+  },
+  lower(e) {
+    console.log(e, 'gggggggggggg')
+  },
 })

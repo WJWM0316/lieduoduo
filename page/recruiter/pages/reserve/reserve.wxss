@@ -17,12 +17,12 @@
 }
 
 .office-status-bar .item {
-  padding-right: 32rpx;
+  padding-right: 47rpx;
   text-align: center;
   border-radius: 27rpx;
   position: relative;
   display: inline-block;
-  margin-right: 80rpx;
+  margin-right: 40rpx;
 }
 
 .office-status-bar .tips {
@@ -45,7 +45,7 @@
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
-  max-width: 120rpx;
+  max-width: 140rpx;
   line-height: 88rpx;
   float: left;
 }
@@ -60,6 +60,8 @@
   top: 50%;
   transform: translateY(-50%);
   right: 0;
+  color: #CDCBCF;
+  font-size: 32rpx;
 }
 
 .item2 {
@@ -116,18 +118,18 @@
   max-width: 450rpx;
   font-size: 26rpx;
   color: #929292;
-  font-weight: 300
+  font-weight: 300;
+  position: relative;
 }
 
 .item2 .header .name{
   font-size:36rpx;
   font-weight:700;
   color:rgba(40,40,40,1);
-  max-width: 200rpx;
+  max-width: calc(100% - 195rpx - 16rpx);
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  display: inline-block;
   float: left;
 }
 
@@ -147,6 +149,9 @@
 	font-size:24rpx;
 	color:rgba(101,39,145,1);
   float: left;
+  width: 195rpx;
+  text-align: center;
+  box-sizing: border-box;
 }
 
 .item2 .degress{
@@ -279,10 +284,6 @@
   padding: 0 60rpx 100rpx 60rpx;
 }
 
-.position_list, .type_list {
-  max-height: 1000rpx;
-}
-
 .position_list .list_item {
   background:rgba(255,255,255,1);
   position: relative;
@@ -321,6 +322,7 @@
 .position_list .saraly {
   display: inline-block;
   vertical-align: middle;
+  margin-left: 16rpx;
 }
 
 .position_list .list_item_second {
@@ -428,8 +430,8 @@
 
 .type_list .base_ul .base_item_active{
   border-color: #652791;
-  background: #652791;
-  color: white;
+  color: #652791;
+  font-weight: 700;
 }
 
 .button-box {
@@ -461,14 +463,11 @@
   color: white;
 }
 
-.type_list{
+.type_list .scroll_view{
   padding: 0 40rpx;
-  overflow-y: scroll;
-}
-
-.position_list{
-  overflow-y: scroll;
-  max-height: 892rpx;
+  max-height: calc(100vh - 280rpx - 108rpx);
+  padding-bottom: 180rpx;
+  box-sizing: border-box;
 }
 
 ::-webkit-scrollbar {
@@ -476,4 +475,12 @@
   height: 0;
   color: transparent;
   display: none;
+}
+
+.position_list .scroll_view{
+  max-height: calc(100vh - 280rpx - 108rpx);
+}
+
+.status_ul {
+  padding: 0 40rpx;
 }

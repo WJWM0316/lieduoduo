@@ -33,9 +33,9 @@
 	</view>
 	
 	
-	<view class="todos_bar_notopen"  wx:if="{{!indexShowCount.advisor}}">
+	<view class="todos_bar_notopen"  wx:if="{{!indexShowCount.advisor}}" bindtap="routeJump" data-route="dynamics">
 		<view class="left">
-			<view class="todo_title">候选人动态<view class="number">33</view></view>
+			<view class="todo_title">候选人动态<view class="number">5</view></view>
 			<view class="todo_tips">对我感兴趣/看过我的</view>
 		</view>
 		<view class="right">
@@ -47,18 +47,16 @@
 	</view>
 
 	<view class="todos_bar_open"  wx:if="{{indexShowCount.advisor}}">
-		<view class="todo_item todo_item_left">
+		<view class="todo_item todo_item_left" bindtap="routeJump" data-route="adviser">
 			<view class="todo_title">顾问精选简历<view class="number">{{indexShowCount.advisor.total}}</view></view>
-			<view class="todo_tips"><text class="strong">{{indexShowCount.advisor.notHandleNum}}</text> 候选人未处理</view>
-			<image class="img_01"></image>
-		</view>
-		<view class="todo_item todo_item_right">
-			<view class="todo_title">候选人动态<view class="number">33</view></view>
-			<view class="todo_tips">对我感兴趣/看过我的</view>
-			<view class="imglist">
-				<image class="imgitem" lazy-load wx:for="{{indexShowCount.moreRecruiter}}" wx:key="{{index}}" src="{{item.smallUrl}}" wx:if="{{index <= 2}}"></image>
-				<image class="imgitem" src="{{cdnImagePath}}more.png" wx:if="{{indexShowCount.moreRecruiter.length > 3}}"></image>
+			<view class="todo_tips" wx:if="{{indexShowCount.advisor.notHandleNum}}">
+				<text class="strong">{{indexShowCount.advisor.notHandleNum}}</text> 候选人未处理
 			</view>
+			<view class="todo_tips" wx:if="{{!indexShowCount.advisor.notHandleNum}}"> 有合适简历将立即给您推荐 </view>
+		</view>
+		<view class="todo_item todo_item_right" bindtap="routeJump" data-route="dynamics">
+			<view class="todo_title">候选人动态<view class="number">5</view></view>
+			<view class="todo_tips">对我感兴趣/看过我的</view>
 		</view>
 	</view>
 	
@@ -81,31 +79,35 @@
 	</view>
 
 	<view class="page_index_list">
-		<view class="default {{fixedDom ? 'fixed' : ''}}" style="{{ fixedDom ? 'top:' + navH + 'px' : ''}}">
-			<view class="tab-bar">
-				<view class="li active">全部</view>
-				<view class="li" wx:for="{{collectMySelf.list}}" wx:key="{{index}}">全部全部全部</view>
+		
+		<block wx:if="{{detail.positionNum}}">
+			<view class="default {{fixedDom ? 'fixed' : ''}}" style="{{ fixedDom ? 'top:' + navH + 'px' : ''}}">
+				<scroll-view scroll-with-animation scroll-x class="tab-bar" bindscroll="scrollViewMove" scroll-left='{{scrollLeft}}'>
+			  	<view
+				  	wx:for="{{onLinePosition.list}}"
+				  	wx:key="index"
+				    class="li {{ navTabIndex === index ? 'active' : '' }} item{{index}}"
+				    bindtap="clickNav"
+				    data-index="{{index}}">{{item.positionName}}</view>
+			  </scroll-view>
+			  <view class="func_zone">
+			  	<image src="{{cdnImagePath}}bg_transparent.png" class="bg_transparent"></image>
+					<view class="kind" bindtap="openTips" data-type="reduction"><i class="icon iconfont icon-shaixuan"></i></view>
+					<view class="down" bindtap="openTips" data-type="position"><i class="icon iconfont icon-zhishibiao"></i></view>
+				</view>
 			</view>
-			<view class="func_zone">
-				<view class="kind" bindtap="openTips" data-type="reduction"><i class="icon iconfont icon-saoma"></i></view>
-				<view class="down" bindtap="openTips" data-type="position"><i class="icon iconfont icon-zhishibiao"></i></view>
-			</view>
-		</view>
-
-		<view class="list-box {{collectMySelf.list.length ? '' : 'nodata'}}">
-			<form bindsubmit="formSubmit" report-submit='{{true}}'>
-				<button
-					form-type="submit"
-					bindtap="viewResumeDetail"
-					class="formIdBtn"
-					wx:for="{{collectMySelf.list}}"
-					wx:for-item="item"
-					data-jobhunterUid="{{item.uid}}"
-					data-type="{{item.myType}}"
-					wx:key="{{index}}">
-					<view class="item2">
-						<!-- 无发布职位和分享按钮 start -->
-						<block wx:if="{{!item.myType}}">
+			<view class="list-box">
+				<form bindsubmit="formSubmit" report-submit="{{true}}" wx:if="{{resumeList.list.length}}">
+					<button
+						form-type="submit"
+						bindtap="viewResumeDetail"
+						class="formIdBtn"
+						wx:for="{{resumeList.list}}"
+						wx:for-item="item"
+						data-jobhunterUid="{{item.uid}}"
+						data-type="{{item.myType}}"
+						wx:key="{{index}}">
+						<view class="item2">
 							<view class="row-one">
 								<view class="img-box"><image src="{{item.avatar.smallUrl}}" lazy-load></image></view>
 								<view class="content">
@@ -123,76 +125,102 @@
 									</view>
 								</view>
 							</view>
-							<!-- <view class="reddot"></view> -->
 							<view class="row-two">
-								<!-- 正常列表数据 start -->
-								<block wx:if="{{!item.isRecommend}}">
-									<view class="day">{{item.viewAt}}</view>
-									<view class="action">
-										{{item.gender === 2 ? '她' : '他'}}
-										<i class="icon iconfont icon-biaojiweiganxingqu"></i>
-										你的
-									</view>
-									<view class="position">
-										<block wx:if="{{item.positionName}}">{{item.positionName}}</block>
-										<block wx:if="{{!item.positionName}}">个人主页</block>
-									</view>
-								</block>
-								<!-- 正常列表数据 end -->
-
-								<!-- 系统或者官方推荐 start -->
-								<block wx:else>
-									<view class="featured-icon">热门</view>
-									<view class="text">
-										根据你的
-										<view class="position limit-wid">{{item.positionName}}</view>
-										为你推荐
-									</view>
-								</block>
-								<!-- 系统或者官方推荐 end -->
-
+								根据你的 <view class="position limit-wid">{{item.positionName}}</view> 为你推荐
 							</view>
-						</block>
-						<!-- 无发布职位和分享按钮 end -->
-						<block wx:else>
-							<view class="public">
-								<view class="row1">Get更多优质简历</view>
-								<block wx:if="{{item.myType === 1}}">
-									<view class="row2">根据职位为你匹配优质候选人</view>
-									<view class="row3">发布/开放职位<i class="icon iconfont icon-disejiantou-you"></i></view>
-								</block>
-								<block wx:if="{{item.myType === 2}}">
-									<view class="row2">努力就有回报，主动出击去转发吧~</view>
-									<view class="row3">去转发主页<i class="icon iconfont icon-disejiantou-you"></i></view>
-								</block>
-								<image src="{{cdnImagePath}}image0001.png" class="image"></image>
-							</view>
-						</block>
-					</view>
-				</button>
-			</form>
-			<bottomStatus status="{{onBottomStatus}}" listData="{{collectMySelf.list}}" desc="无筛选结果，可以扩大筛选范围哟～" marginTop="{{80}}">
-				jjjj
-			</bottomStatus>
-		</view>
+						</view>
+					</button>
+				</form>
+				<bottomStatus
+					status="{{onBottomStatus}}"
+					listData="{{resumeList.list}}"
+					desc="无筛选结果，可以扩大筛选范围哟～"
+					marginTop="{{80}}">
+				</bottomStatus>
 
+				<!-- 系统推荐数据 start-->
+				<view class="line-box" wx:if="{{!resumeList.list.length}}"> <view class="line-left"></view> 为你推荐 <view class="line-right"></view> </view>
+				<form bindsubmit="formSubmit" report-submit="{{true}}" wx:if="{{!resumeList.list.length}}">
+					<button
+						form-type="submit"
+						bindtap="viewResumeDetail"
+						class="formIdBtn"
+						wx:for="{{resumeList.list}}"
+						wx:for-item="item"
+						data-jobhunterUid="{{item.uid}}"
+						data-type="{{item.myType}}"
+						wx:key="{{index}}">
+						<view class="item2">
+							<view class="row-one">
+								<view class="img-box"><image src="{{item.avatar.smallUrl}}" lazy-load></image></view>
+								<view class="content">
+									<view class="header">
+										<view class="name">{{item.name}}</view>
+										<view class="zhiwei">
+											<block>{{item.workAgeDesc}}</block>
+											<block wx:if="{{item.degreeDesc}}"> · {{item.degreeDesc}}</block>
+											<block wx:if="{{item.salaryCeil}}"> · {{item.salaryFloor}}-{{item.salaryCeil}}k</block>
+										</view>
+									</view>
+									<view class="degress" wx:if="{{item.lastCompanyName || item.lastPosition}}">
+										<block wx:if="{{item.lastCompanyName}}">{{item.lastCompanyName}}</block>
+										<block wx:if="{{item.lastPosition}}"> | {{item.lastPosition}}</block>
+									</view>
+								</view>
+							</view>
+							<view class="row-two">
+								根据你的 <view class="position limit-wid">{{item.positionName}}</view> 为你推荐
+							</view>
+						</view>
+					</button>
+				</form>
+				<!-- 系统推荐数据 start-->
+			</view>
+		</block>
+		<block wx:if="{{!detail.positionNum}}">
+			<view class="nodata">
+				<bottomStatus
+					status="{{ 2 }}"
+					listData="{{[]}}"
+					desc="发布/开放职位，我们将为你推荐优质候选人～"
+					marginTop="{{80}}">
+					<button
+						class="jump share-position"
+						bindtap="routeJump"
+						data-route="position">
+						发布/开放职位
+					</button>
+				</bottomStatus>
+			</view>
+		</block>
 	</view>
 	<actionSheet  title="{{model.title}}" openPop="{{model.show}}"  bindclose="closeTips">
 		<view class="position_list" wx:if="{{model.type === 'position'}}">
-			<view class="list_item" wx:for="{{collectMySelf.list}}" wx:key="{{index}}" bindtap="sChoice" data-index="{{index}}">
-				<view class="list_item_first">
-					<view class="title">前端开发工程师</view>
-					<view class="saraly">12~20K</view>
-				</view>
-				<view class="list_item_second">
-					<view class="address">广州市天河区</view>
-					<view class="degress">本科</view>
-					<view class="experience">不限</view>
-				</view>
-        <view class="myRadio {{item.active ? 'active' : ''}}">
-          <i class="icon iconfont icon-wancheng" wx:if="{{item.active}}"></i>
-        </view>
-			</view>
+			<scroll-view
+				scroll-y
+				bindscrolltolower="lower"
+				class="scroll_view">
+					<view
+						class="list_item"
+						wx:for="{{onLinePosition.list}}"
+						wx:key="{{index}}"
+						bindtap="sChoice"
+						wx:if="{{item.id}}"
+						data-index="{{index}}">
+						<view class="list_item_first">
+							<view class="title">{{item.positionName}}</view>
+							<view class="saraly">{{item.emolumentMin}}~{{item.emolumentMax}}K</view>
+						</view>
+						<view class="list_item_second">
+							<view class="address">{{item.city}}</view>
+							<view class="degress">{{item.educationName}}</view>
+							<view class="experience">{{item.workExperienceName}}</view>
+						</view>
+		        <view class="myRadio {{item.active ? 'active' : ''}}">
+		          <i class="icon iconfont icon-wancheng" wx:if="{{item.active}}"></i>
+		        </view>
+					</view>
+		  </scroll-view>
 		</view>
 		<view class="type_list" wx:if="{{model.type === 'reduction'}}">
 			<view class="type_header">
@@ -202,7 +230,7 @@
 			<view class="base_ul city_ul">
 				<view
 					class="base_item {{item.active ? 'base_item_active' : ''}}"
-					wx:for="{{collectMySelf.list}}"
+					wx:for="{{resumeList.list}}"
 					wx:key="{{index}}"
 					data-index="{{index}}"
 					bindtap="mChoice">全部{{index * 200}}</view>
@@ -214,7 +242,7 @@
 			<view class="base_ul saraly_ul">
 				<view
 					class="base_item {{item.active ? 'base_item_active' : ''}}"
-					wx:for="{{collectMySelf.list}}"
+					wx:for="{{resumeList.list}}"
 					wx:key="{{index}}"
 					data-index="{{index}}"
 					bindtap="mChoice">全部{{index * 200}}</view>
