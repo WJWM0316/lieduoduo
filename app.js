@@ -42,6 +42,12 @@ App({
     this.pageInit = null
     this.getRoleInit = null
     this.login()
+    // 这是一个官方api没有公布的方法，但又真实有效，慎用！
+    wx.onAppRoute((res) => {
+      if (res.query.hasOwnProperty('identity')) {
+        this.identification(res.query)
+      }
+    })
   },
   onHide: function (e) {
     // 切换后台 发送全部formId
@@ -583,12 +589,12 @@ App({
       let identity = ''
       switch(options.identity) {
         case 'recruiter':
-          wx.setStorageSync('choseType', 'RECRUITER')
           identity = 'RECRUITER'
+          if (wx.getStorageSync('choseType') !== 'RECRUITER') wx.setStorageSync('choseType', 'RECRUITER')          
           break
         case 'jobhunter':
-          wx.setStorageSync('choseType', 'APPLICANT')
           identity = 'APPLICANT'
+          if (wx.getStorageSync('choseType') !== 'APPLICANT') wx.setStorageSync('choseType', 'APPLICANT')
           break
       }
       return identity

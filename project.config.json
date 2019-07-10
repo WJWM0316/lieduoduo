@@ -24,7 +24,7 @@
 	},
 	"compileType": "miniprogram",
 	"libVersion": "2.7.1",
-	"appid": "wxde5ab3ef647fba86",
+	"appid": "wx225f017495e6e195",
 	"projectname": "lieduoduo",
 	"debugOptions": {
 		"hidedInDevtools": []
@@ -49,7 +49,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 1,
+			"current": 47,
 			"list": [
 				{
 					"id": 0,
@@ -61,7 +61,7 @@
 					"id": 1,
 					"name": "【公包】职位详情",
 					"pathName": "page/common/pages/positionDetail/positionDetail",
-					"query": "positionId=3521&sCode=12222&sourceType=22&directChat=true&msg_id=1234",
+					"query": "positionId=3521&identity=jobhunter",
 					"scene": 1001
 				},
 				{
@@ -365,7 +365,7 @@
 					"id": 47,
 					"name": "面试安排",
 					"pathName": "page/common/pages/arrangement/arrangement",
-					"query": "id=1872",
+					"query": "id=157&identity=jobhunter",
 					"scene": null
 				},
 				{

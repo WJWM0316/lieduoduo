@@ -87,8 +87,6 @@ Page({
   getUpdateInfos() {
     let options = this.data.query
     let storage = Object.assign(wx.getStorageSync('createPosition'))
-
-    console.log(storage)
     if(
       storage.position_name
       || storage.area_id

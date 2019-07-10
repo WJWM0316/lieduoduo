@@ -19,7 +19,7 @@
 	<view class="ul" hidden="{{tab === 'positionList'}}">
 		<form bindsubmit="formSubmit" report-submit='{{true}}'  wx:if="{{recruiterList.list.length > 0}}" > 
 			<button
-				form-type="submit" 
+				form-type="submit"
 				class="formIdBtn"
 				data-uid="{{item.uid}}"
 				bindtap="routeJump"
