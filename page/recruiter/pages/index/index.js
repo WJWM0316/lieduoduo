@@ -423,10 +423,19 @@ Page({
     let params = e.currentTarget.dataset
     let onLinePosition = this.data.onLinePosition
     let model = this.data.model
+    // let splitArray = [{id: 0, positionName: '全部', active: false }].concat(onLinePosition.list.splice(params.index, 1))
+    // onLinePosition.list.shift()
+
     model.show = false
     onLinePosition.list.map((field, index) => field.active = index === params.index ? true : false)
-    let item = onLinePosition.list.find((field, index) => index === params.index)
-    this.setData({onLinePosition, model})
+    // console.log(params.index, splitArray, onLinePosition.list)
+    this.setData({onLinePosition, model}, () => this.clickNav({
+      target: {
+        dataset: {
+          index : params.index
+        }
+      }
+    }))
   },
   mChoice(e) {
     let params = e.currentTarget.dataset
@@ -484,7 +493,7 @@ Page({
    * @return   {[type]}     [description]
    */
   clickNav(e) {
-    let className = `.item${e.target.dataset.index}`
+    let className = `.dom${e.target.dataset.index}`
     this.setData({navTabIndex: e.target.dataset.index }, () => this.getRect(className))
   },
   /**

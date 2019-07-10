@@ -86,7 +86,7 @@
 			  	<view
 				  	wx:for="{{onLinePosition.list}}"
 				  	wx:key="index"
-				    class="li {{ navTabIndex === index ? 'active' : '' }} item{{index}}"
+				    class="li {{ navTabIndex === index ? 'active' : '' }} dom{{index}}"
 				    bindtap="clickNav"
 				    data-index="{{index}}">{{item.positionName}}</view>
 			  </scroll-view>

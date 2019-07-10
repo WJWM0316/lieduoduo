@@ -46,28 +46,35 @@
 		</view>
 
 		<view class="toolbox">
-			<view class="tool-item reserve {{pageInfos.arNewResumeRedDot ? 'red' : ''}}"  bindtap="routeJump" data-route="reserve">
-				<image class="icon" src="{{cdnPath}}icon_my_resume.png"></image>
-				<view class="title">简历储备</view>
-				<view class="txt" wx:if="{{!pageInfos.haveAdvisorService}}">立即开通</view>
-				<view class="txt" wx:if="{{pageInfos.arNotHandleNum > 0}}">
-					<text class="num">{{pageInfos.arNotHandleNum}}<block wx:if="{{pageInfos.arNotHandleNum > 99}}">+</block></text>份未处理
+
+			<view class="left">
+				<view class="tool-item reserve {{pageInfos.arNewResumeRedDot ? 'red' : ''}}"  bindtap="routeJump" data-route="reserve">
+					<image class="icon" src="{{cdnPath}}icon_my_resume.png"></image>
+					<view class="title">简历储备</view>
+					<view class="txt" wx:if="{{!pageInfos.haveAdvisorService}}">立即开通</view>
+					<view class="txt" wx:if="{{pageInfos.arNotHandleNum > 0}}">
+						<text class="num">{{pageInfos.arNotHandleNum}}<block wx:if="{{pageInfos.arNotHandleNum > 99}}">+</block></text>份未处理
+					</view>
+				</view>
+				<view class="tool-item myAccount"  bindtap="routeJump" data-route="myAccount">
+					<image class="icon" src="{{cdnPath}}icon_my_account.png"></image>
+					<view class="title">我的账户</view>
+					<view class="txt"><text class="num">{{pageInfos.remain}}</text>多多币</view>
 				</view>
 			</view>
-			<view class="tool-item myAccount"  bindtap="routeJump" data-route="myAccount">
-				<image class="icon" src="{{cdnPath}}icon_my_account.png"></image>
-				<view class="title">我的账户</view>
-				<view class="txt"><text class="num">{{pageInfos.remain}}</text>多多币</view>
+
+			<view class="right">
+				<view class="tool-item interest" bindtap="routeJump" data-route="interest">
+					<image class="icon" src="{{cdnPath}}icon_my_rights.png"></image>
+					<view class="title">我的权益</view>
+					<view class="txt">{{pageInfos.rtVersionName}}</view>
+				</view>
+				<view class="tool-item company"  bindtap="routeJump" data-route="company">
+					<image class="icon" src="{{cdnPath}}icon_my_company.png"></image>
+					<view class="title">公司主页</view>
+				</view>
 			</view>
-			<view class="tool-item interest" bindtap="routeJump" data-route="interest">
-				<image class="icon" src="{{cdnPath}}icon_my_rights.png"></image>
-				<view class="title">我的权益</view>
-				<view class="txt">{{pageInfos.rtVersionName}}</view>
-			</view>
-			<view class="tool-item company"  bindtap="routeJump" data-route="company">
-				<image class="icon" src="{{cdnPath}}icon_my_company.png"></image>
-				<view class="title">公司主页</view>
-			</view>
+			
 		</view>
 	</form>
 	<view class="entry-list">

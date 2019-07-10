@@ -31,6 +31,7 @@
   padding-right: 36rpx;
   border-top: 4rpx solid #FBFBFF;
   position: relative;
+  box-shadow:0rpx 0rpx 20rpx 0rpx rgba(50,14,59,0.08);
 }
 
 .default .kind{
@@ -150,7 +151,7 @@
   white-space: nowrap;
   line-height: 98rpx;
   overflow: hidden;
-  /*max-width: 180rpx;*/
+  max-width: 180rpx;
   text-align: center;
   display: inline-block;
   vertical-align: middle;
@@ -240,7 +241,7 @@
 }
 .item2 {
   background:rgba(255,255,255,1);
-  /*box-shadow:0rpx 0rpx 20rpx 0rpx rgba(50,14,59,0.08);*/
+  box-shadow:0rpx 0rpx 20rpx 0rpx rgba(50,14,59,0.08);
   border-radius:16rpx;
   position: relative;
   padding: 0 40rpx;
