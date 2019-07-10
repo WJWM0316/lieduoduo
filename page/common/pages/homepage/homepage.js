@@ -67,13 +67,16 @@ Page({
   onShow() {
     if (app.loginInit) {
       this.init().then(() => this.getOnlinePositionType())
-      this.getDomNodePosition()
     } else {
       app.loginInit = () => {
         this.init().then(() => this.getOnlinePositionType())
-        this.getDomNodePosition()
       }
     }
+  },
+  onReady() {
+    setTimeout(() => {
+      this.getDomNodePosition()
+    }, 1000)
   },
   /**
    * @Author   小书包
