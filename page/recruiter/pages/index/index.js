@@ -4,7 +4,8 @@ import {
   getRecommendRangeAllApi,
   getRecommendResumePageListsApi,
   getRecommendResumeListsApi,
-  getRecommendResumeMoreListsApi
+  getRecommendResumeMoreListsApi,
+  getRecommendPositionRangeListsApi
 } from '../../../../api/pages/recruiter.js'
 
 import {
@@ -519,6 +520,39 @@ Page({
    * @return   {[type]}   [description]
    */
   getRecommendResumeMoreLists() {
+    return new Promise((resolve, reject) => {
+      let recommendResumeLists = this.data.recommendResumeLists
+      let barLists = this.data.barLists
+      let item = barLists.find(field => field.active)
+      let params = {
+        count: this.data.pageCount,
+        page: recommendResumeLists.pageNum
+      }
+
+      // 在已选职位的情况下
+      if(item && item.id) {
+        params = Object.assign(params, {positionId: item.id})
+      } else {
+        delete params.positionId
+      }
+      getRecommendResumeMoreListsApi(params).then(res => {
+        recommendResumeLists.onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
+        recommendResumeLists.isLastPage = res.meta.nextPageUrl ? false : true
+        recommendResumeLists.pageNum = recommendResumeLists.pageNum + 1
+        recommendResumeLists.isRequire = true
+        recommendResumeLists.list = recommendResumeLists.list.concat(res.data)
+        this.setData({recommendResumeLists, onBottomStatus}, () => resolve(res))
+        resolve(res)
+      })
+    })
+  },
+  /**
+   * @Author   小书包
+   * @DateTime 2019-07-13
+   * @detail   分页获取搜索范围 - 职位
+   * @return   {[type]}   [description]
+   */
+  getRecommendPositionRangeLists() {
     return new Promise((resolve, reject) => {
       let recommendResumeLists = this.data.recommendResumeLists
       let barLists = this.data.barLists

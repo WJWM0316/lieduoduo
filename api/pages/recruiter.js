@@ -262,6 +262,16 @@ export const getRecommendResumeListsApi = (data, hasLoading) => {
   })
 }
 
+// 分页获取搜索范围 - 职位
+export const getRecommendPositionRangeListsApi = (data, hasLoading) => {
+  return request({
+    url: `/recommend/position/ranges`,
+    method: 'get',
+    data,
+    hasLoading: hasLoading
+  })
+}
+
 // “为你推荐”列表, 列表数据过少时显示
 export const getRecommendResumeMoreListsApi = (data, hasLoading) => {
   return request({
