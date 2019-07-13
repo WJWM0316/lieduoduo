@@ -232,4 +232,42 @@ export const getRecommendReddotApi = (data, hasLoading) => {
   })
 }
 
+// 获取城市、薪资范围等搜索条件
+export const getRecommendRangeAllApi = (data, hasLoading) => {
+  return request({
+    url: `/recommend/ranges/all`,
+    method: 'get',
+    data,
+    hasLoading: hasLoading
+  })
+}
 
+// 当推荐任务还没跑完时调用该方法获取简历
+export const getRecommendResumePageListsApi = (data, hasLoading) => {
+  return request({
+    url: `/recommend/resume/page`,
+    method: 'get',
+    data,
+    hasLoading: hasLoading
+  })
+}
+
+// 获取下一批平台推荐简历
+export const getRecommendResumeListsApi = (data, hasLoading) => {
+  return request({
+    url: `/recommend/resumes`,
+    method: 'get',
+    data,
+    hasLoading: hasLoading
+  })
+}
+
+// “为你推荐”列表, 列表数据过少时显示
+export const getRecommendResumeMoreListsApi = (data, hasLoading) => {
+  return request({
+    url: `/recommend/resume/more`,
+    method: 'get',
+    data,
+    hasLoading: hasLoading
+  })
+}

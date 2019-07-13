@@ -829,7 +829,7 @@
 
 .page_index{
   min-height: 100vh;
-  background: white;
+  background: #FBFBFF;
 }
 
 .page_index_list {
@@ -934,7 +934,7 @@
 }
 
 .position_list, .type_list {
-  max-height: 1000rpx;
+  height: calc(100vh - 280rpx - 108rpx);
 }
 
 .position_list .list_item {
@@ -1121,7 +1121,7 @@
 }
 
 .position_list, .scroll_view{
-  max-height: calc(100vh - 280rpx - 108rpx);
+  height: calc(100vh - 280rpx - 108rpx);
 }
 
 .line-box {

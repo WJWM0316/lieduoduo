@@ -49,8 +49,14 @@
 	<view class="todos_bar_open"  wx:if="{{indexShowCount.advisor}}">
 		<view class="todo_item todo_item_left" bindtap="routeJump" data-route="adviser">
 			<view class="todo_title">顾问精选简历<view class="number">{{indexShowCount.advisor.total}}</view></view>
-			<view class="todo_tips" wx:if="{{indexShowCount.advisor.notHandleNum}}">
+			<view class="todo_tips" wx:if="{{indexShowCount.advisor.notHandleNum && indexShowCount.advisor.total}}">
 				<text class="strong">{{indexShowCount.advisor.notHandleNum}}</text> 候选人未处理
+			</view>
+			<view class="todo_tips" wx:if="{{!indexShowCount.advisor.notHandleNum && !indexShowCount.advisor.total}}">
+				有合适简历将立即给您推荐
+			</view>
+			<view class="todo_tips" wx:if="{{!indexShowCount.advisor.notHandleNum && indexShowCount.advisor.total}}">
+				已推荐 {{indexShowCount.advisor.total}} 位候选人
 			</view>
 			<view class="todo_tips" wx:if="{{!indexShowCount.advisor.notHandleNum}}"> 有合适简历将立即给您推荐 </view>
 		</view>
@@ -84,7 +90,7 @@
 			<view class="default {{fixedDom ? 'fixed' : ''}}" style="{{ fixedDom ? 'top:' + navH + 'px' : ''}}">
 				<scroll-view scroll-with-animation scroll-x class="tab-bar" bindscroll="scrollViewMove" scroll-left='{{scrollLeft}}'>
 			  	<view
-				  	wx:for="{{onLinePosition.list}}"
+				  	wx:for="{{barLists}}"
 				  	wx:key="index"
 				    class="li {{ navTabIndex === index ? 'active' : '' }} dom{{index}}"
 				    bindtap="clickNav"
@@ -140,7 +146,7 @@
 
 				<!-- 系统推荐数据 start-->
 				<view class="line-box" wx:if="{{!resumeList.list.length}}"> <view class="line-left"></view> 为你推荐 <view class="line-right"></view> </view>
-				<form bindsubmit="formSubmit" report-submit="{{true}}" wx:if="{{!resumeList.list.length}}">
+				<form bindsubmit="formSubmit" report-submit="{{true}}" wx:if="{{!resumeList.list.length && recommendResumeLists.list.length}}">
 					<button
 						form-type="submit"
 						bindtap="viewResumeDetail"
@@ -202,7 +208,7 @@
 				class="scroll_view">
 					<view
 						class="list_item"
-						wx:for="{{onLinePosition.list}}"
+						wx:for="{{positionLists.list}}"
 						wx:key="{{index}}"
 						bindtap="sChoice"
 						wx:if="{{item.id}}"
@@ -225,15 +231,15 @@
 		<view class="type_list" wx:if="{{model.type === 'reduction'}}">
 			<view class="type_header">
 				<view class="key">选择城市</view>
-				<view class="key_fix">（可多选）</view>
+				<view class="key_fix"></view>
 			</view>
 			<view class="base_ul city_ul">
 				<view
 					class="base_item {{item.active ? 'base_item_active' : ''}}"
-					wx:for="{{resumeList.list}}"
+					wx:for="{{cityLists.list}}"
 					wx:key="{{index}}"
 					data-index="{{index}}"
-					bindtap="mChoice">全部{{index * 200}}</view>
+					bindtap="cChoice">{{item.name}}</view>
 			</view>
 			<view class="type_header">
 				<view class="key">薪资范围</view>
@@ -242,15 +248,15 @@
 			<view class="base_ul saraly_ul">
 				<view
 					class="base_item {{item.active ? 'base_item_active' : ''}}"
-					wx:for="{{resumeList.list}}"
+					wx:for="{{salaryLists}}"
 					wx:key="{{index}}"
 					data-index="{{index}}"
-					bindtap="mChoice">全部{{index * 200}}</view>
+					bindtap="mChoice">{{item.text}}</view>
 			</view>
 
 			<view class="button-box">
-				<view class="btn_01">重置</view>
-				<view class="btn_02">确定</view>
+				<view class="btn_01" bindtap="reset">重置</view>
+				<view class="btn_02" bindtap="search">确定</view>
 			</view>
 		</view>
 	</actionSheet>

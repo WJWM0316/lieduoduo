@@ -1,32 +1,20 @@
 import {
-  getMyBrowseUsersListApi,
-  getMyBrowsePositionApi,
-  getBrowseMySelfApi,
-  getCollectMySelfApi,
-  getMyCollectUsersApi
-} from '../../../../api/pages/browse.js'
-
-import {
   getBrowseMySelfListsApi,
-  getIndexShowCountApi
+  getIndexShowCountApi,
+  getRecommendRangeAllApi,
+  getRecommendResumePageListsApi,
+  getRecommendResumeListsApi,
+  getRecommendResumeMoreListsApi
 } from '../../../../api/pages/recruiter.js'
 
 import {
-  clearReddotApi
+  clearReddotApi,
+  getAdBannerApi
 } from '../../../../api/pages/common.js'
-
-import { getRecruiterPositionListApi } from '../../../../api/pages/position.js'
 
 import {RECRUITER, COMMON, APPLICANT, WEBVIEW, VERSION} from '../../../../config.js'
 
 import {getSelectorQuery}  from '../../../../utils/util.js'
-
-import { getPositionListNumApi } from '../../../../api/pages/position.js'
-
-
-import {
-  getAdBannerApi
-} from '../../../../api/pages/common'
 
 let app = getApp()
 let fixedDomPosition = 0
@@ -40,21 +28,13 @@ Page({
       title: '',
       type: ''
     },
-    onLinePosition: {
-      list: [],
-      pageNum: 1,
-      count: 20,
-      isLastPage: false,
-      isRequire: false
-    },
     choseType: '',
     resumeList: {
       list: [],
       pageNum: 1,
       isLastPage: false,
       isRequire: false,
-      isUse: false,
-      loading: false
+      isUse: false
     },
     pageCount: 20,
     background: 'transparent',
@@ -81,6 +61,35 @@ Page({
     navTabIndex: 0,
     moveParams: {
       scrollLeft: 0
+    },
+    salaryLists: [],
+    cityLists: {
+      list: [],
+      pageNum: 1,
+      isLastPage: false,
+      isRequire: false,
+      onBottomStatus: 0
+    },
+    positionLists: {
+      list: [],
+      pageNum: 1,
+      count: 20,
+      isLastPage: false,
+      isRequire: false,
+      onBottomStatus: 0
+    },
+    barLists: [],
+    // 是否第一页，是1，否0，默认为0，当设置了薪资参数时，该参数无效
+    isFisrtPage: 1,
+    recommended: 0,
+    recommendResumeLists: {
+      list: [],
+      pageNum: 1,
+      count: 20,
+      isLastPage: false,
+      isRequire: false,
+      onBottomStatus: 0,
+      onBottomStatus: 0
     }
   },
   onLoad() {
@@ -128,24 +137,21 @@ Page({
     let userInfo = app.globalData.userInfo
     this.getDomNodePosition()
     this.initDefaultBar()
-    this.clearOnlineLists()
     if (app.pageInit) {
       userInfo = app.globalData.userInfo
       this.getMixdata()
-      if(!wx.getStorageSync('isReback') && !resumeList.list.length) this.getLists()
+      if(!wx.getStorageSync('isReback') && !resumeList.list.length) this.getRecommendRangeAll()
       wx.removeStorageSync('isReback')
       this.setData({userInfo})
       this.selectComponent('#bottomRedDotBar').init()
-      this.getOnlineLists(false)
     } else {
       app.pageInit = () => {
         userInfo = app.globalData.userInfo
         this.getMixdata()
-        if(!wx.getStorageSync('isReback') && !resumeList.list.length) this.getLists()
+        if(!wx.getStorageSync('isReback') && !resumeList.list.length) this.getRecommendRangeAll()
         wx.removeStorageSync('isReback')
         this.setData({userInfo})
         this.selectComponent('#bottomRedDotBar').init()
-        this.getOnlineLists(false)
       }
     }
   },
@@ -183,69 +189,6 @@ Page({
       })
     }, 1000)
   },
-  /**
-   * @Author   小书包
-   * @DateTime 2019-01-21
-   * @detail   获取列表数据
-   * @return   {[type]}   [description]
-   */
-  getLists(hasLoading) {
-    return this.getResumeList(hasLoading)
-  },
-  /**
-   * @Author   小书包
-   * @DateTime 2019-01-21
-   * @detail   收集过我的列表
-   * @return   {[type]}   [description]
-   */
-  getResumeList(hasLoading = true) {
-    return new Promise((resolve, reject) => {
-      let params = {count: this.data.pageCount, page: this.data.resumeList.pageNum, ...app.getSource()}
-      let resumeList = this.data.resumeList
-      resumeList.loading = true
-      this.setData({resumeList})
-      getCollectMySelfApi(params, hasLoading).then(res => {
-        let onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
-        let list = res.data
-        resumeList.isLastPage = res.meta.nextPageUrl ? false : true
-        resumeList.pageNum = resumeList.pageNum + 1
-        resumeList.isRequire = true
-        resumeList.loading = false
-        // list = this.appendData(list, resumeList)
-        resumeList.list = resumeList.list.concat(list)
-        this.setData({resumeList, onBottomStatus}, () => resolve(res))
-      }).catch(() => reject())
-    })
-  },
-  /**
-   * @Author   小书包
-   * @DateTime 2019-05-14
-   * @detail   追加数据
-   * @return   {[type]}   [description]
-   */
-  // appendData(list, resumeList) {
-  //   let detail = this.data.detail
-  //   let data = list
-  //   let item = {}
-  //   if(!resumeList.isUse) {
-  //     if(data.length) {
-  //       if(!detail.positionNum) item.myType = 1
-  //       if(detail.positionNum) item.myType = 2
-  //       if(data.length <= 7) {
-  //         resumeList.isUse = true
-  //         this.setData({resumeList})
-  //         data.push(item)
-  //       } else {
-  //        if(resumeList.isLastPage) {
-  //         data.push(item)
-  //         resumeList.isUse = true
-  //         this.setData({resumeList})
-  //        }
-  //       }
-  //     }
-  //   }
-  //   return data
-  // },
   getIndexShowCount() {
     return new Promise((resolve, reject) => {
       if (wx.getStorageSync('choseType') === 'APPLICANT') {
@@ -267,16 +210,9 @@ Page({
     this.setData({hasReFresh: true})
     this.selectComponent('#bottomRedDotBar').init()
     this.getMixdata()
-    this.getLists().then(res => {
-      let resumeList = {list: [], pageNum: 1, isLastPage: false, isRequire: false}
-      let onBottomStatus = res[2].meta && res[2].meta.nextPageUrl ? 0 : 2
-      resumeList.list = res[2].data
-      resumeList.isLastPage = res[2].meta && res[2].meta.nextPageUrl ? false : true
-      resumeList.pageNum = 2
-      resumeList.isRequire = true
-      resumeList.total = res[2].meta.total
+    this.getRecommendRangeAll().then(() => {
       wx.stopPullDownRefresh()
-      this.setData({resumeList, onBottomStatus, fixedDom: false, hasReFresh: false})
+      this.setData({fixedDom: false, hasReFresh: false})
     }).catch(() => {
       wx.stopPullDownRefresh()
       this.setData({hasReFresh: false})
@@ -291,7 +227,11 @@ Page({
   onReachBottom() {
     if (!this.data.resumeList.isLastPage) {
       this.setData({onBottomStatus: 1})
-      this.getLists(false)
+      if(this.data.recommended) {
+        this.getRecommendResumePageLists()
+      } else {
+        this.getRecommendResumeLists()
+      }
     }
   },
   onShareAppMessage(options) {
@@ -421,62 +361,187 @@ Page({
   },
   sChoice(e) {
     let params = e.currentTarget.dataset
-    let onLinePosition = this.data.onLinePosition
+    let positionLists = this.data.positionLists
     let model = this.data.model
-    // let splitArray = [{id: 0, positionName: '全部', active: false }].concat(onLinePosition.list.splice(params.index, 1))
-    // onLinePosition.list.shift()
-
     model.show = false
-    onLinePosition.list.map((field, index) => field.active = index === params.index ? true : false)
-    // console.log(params.index, splitArray, onLinePosition.list)
-    this.setData({onLinePosition, model}, () => this.clickNav({
+    positionLists.list.map((field, index) => field.active = index === params.index ? true : false)
+    this.setData({positionLists, model}, () => this.clickNav({
       target: {
         dataset: {
-          index : params.index
+          index : params.index + 1
         }
       }
     }))
   },
+  /**
+   * @Author   小书包
+   * @DateTime 2019-07-13
+   * @detail   薪资选择
+   * @return   {[type]}     [description]
+   */
   mChoice(e) {
     let params = e.currentTarget.dataset
-    let resumeList = this.data.resumeList
-    resumeList.list.map((field, index) => {
-      if(index === params.index) field.active = true
+    let salaryLists = this.data.salaryLists
+    salaryLists.map((field, index) => {
+      if(index === params.index) field.active = !field.active
     })
-    this.setData({resumeList})
+    this.setData({salaryLists})
   },
   lower(e) {
     console.log(this.data, 'gggggggggggg')
   },
-  clearOnlineLists() {
-    let onLinePosition = {
+  /**
+   * @Author   小书包
+   * @DateTime 2019-07-13
+   * @detail   城市选择
+   * @return   {[type]}     [description]
+   */
+  cChoice(e) {
+    let params = e.currentTarget.dataset
+    let cityLists = this.data.cityLists
+    cityLists.list.map((field, index) => field.active = index === params.index ? true : false)
+    this.setData({cityLists})
+  },
+  reset() {
+    let cityLists = this.data.cityLists
+    let salaryLists = this.data.salaryLists
+    cityLists.list.map(field => field.active = false)
+    salaryLists.map(field => field.active = false)
+    this.setData({cityLists, salaryLists})
+  },
+  search() {
+    let resumeList = {
       list: [],
       pageNum: 1,
-      count: 20,
       isLastPage: false,
-      isRequire: false
+      isRequire: false,
+      isUse: false
     }
-    this.setData({onLinePosition})
+    let params = {page: 1}
+    this.setData({resumeList}, () => {
+      this.getRecommendResumePageLists(params).then(res => {
+        let model = this.data.model
+        model.show = false
+        model.title = ''
+        model.type = ''
+        this.setData({model})
+      })
+    })    
   },
   /**
    * @Author   小书包
-   * @DateTime 2018-12-27
-   * @detail   获取列表数据
+   * @DateTime 2019-07-13
+   * @detail   当推荐任务还没跑完时调用该方法获取简历
+   * @return   {[type]}          [description]
+   */
+  getRecommendResumePageLists(config) {
+    let cityItem = this.data.cityLists.list.find(field => field.active)
+    let salaryLists = this.data.salaryLists.filter(field => field.active)
+    let positionItem = this.data.positionLists.list.find(field => field.active)
+    let salaryIds = []
+    let resumeList = this.data.resumeList
+    let params = {count: this.data.pageCount, page: this.data.resumeList.pageNum, isFisrtPage: this.data.isFisrtPage, ...app.getSource()}
+
+    // 选择了城市
+    if(cityItem && cityItem.areaId) {
+      params = Object.assign(params, {cityNum: cityItem.areaId})
+    }
+    // 选择了薪资
+    if(salaryLists.length) {
+      salaryIds = salaryLists.map(field => field.id).join(',')
+      params = Object.assign(params, {salaryIds})
+    }
+    // 选择了职位
+    if(positionItem) {
+      params = Object.assign(params, {positionId: positionItem.id})
+    }
+
+    params = Object.assign(params, config)
+
+    return new Promise((resolve, reject) => {
+      getRecommendResumePageListsApi(params).then(res => {
+        let onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
+        resumeList.isLastPage = res.meta.nextPageUrl ? false : true
+        resumeList.pageNum = resumeList.pageNum + 1
+        resumeList.isRequire = true
+        resumeList.list = resumeList.list.concat(res.data)
+        this.setData({resumeList, onBottomStatus}, () => resolve(res))
+        resolve(res)
+      })
+    })
+  },
+  /**
+   * @Author   小书包
+   * @DateTime 2019-07-13
+   * @detail   获取下一批平台推荐简历
+   * @return   {[type]}          [description]
+   */
+  getRecommendResumeLists(config) {
+    let cityItem = this.data.cityLists.list.find(field => field.active)
+    let salaryLists = this.data.salaryLists.filter(field => field.active)
+    let positionItem = this.data.positionLists.list.find(field => field.active)
+    let salaryIds = []
+    let resumeList = this.data.resumeList
+    let params = {count: this.data.pageCount, page: this.data.resumeList.pageNum, ...app.getSource()}
+
+    // 选择了城市
+    if(cityItem && cityItem.areaId) {
+      params = Object.assign(params, {cityNum: cityItem.areaId})
+    }
+    // 选择了薪资
+    if(salaryLists.length) {
+      salaryIds = salaryLists.map(field => field.id).join(',')
+      params = Object.assign(params, {salaryIds})
+    }
+    // 选择了职位
+    if(positionItem) {
+      params = Object.assign(params, {positionId: positionItem.id})
+    }
+
+    params = Object.assign(params, config)
+
+    return new Promise((resolve, reject) => {
+      getRecommendResumeListsApi(params).then(res => {
+        let onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
+        resumeList.isLastPage = res.meta.nextPageUrl ? false : true
+        resumeList.pageNum = resumeList.pageNum + 1
+        resumeList.isRequire = true
+        resumeList.list = resumeList.list.concat(res.data)
+        this.setData({resumeList, onBottomStatus}, () => resolve(res))
+        resolve(res)
+      })
+    })
+  },
+  /**
+   * @Author   小书包
+   * @DateTime 2019-07-13
+   * @detail   “为你推荐”列表, 列表数据过少时显示
    * @return   {[type]}   [description]
    */
-  getOnlineLists(hasLoading = true) {
+  getRecommendResumeMoreLists() {
     return new Promise((resolve, reject) => {
-      let onLinePosition = this.data.onLinePosition
-      let params = {is_online: 1, count: onLinePosition.count, page: onLinePosition.pageNum, hasLoading}
-      getRecruiterPositionListApi(params).then(res => {
-        let onBottomStatus = !res.meta || !res.meta.nextPageUrl ? 2 : 0
-        onLinePosition.list = onLinePosition.list.concat(res.data || [])
-        onLinePosition.list.unshift({id: 0, positionName: '全部', active: true })
-        onLinePosition.pageNum++
-        onLinePosition.isRequire = true
-        onLinePosition.isLastPage = !res.meta || !res.meta.nextPageUrl ? true : false
+      let recommendResumeLists = this.data.recommendResumeLists
+      let barLists = this.data.barLists
+      let item = barLists.find(field => field.active)
+      let params = {
+        count: this.data.pageCount,
+        page: recommendResumeLists.pageNum
+      }
+
+      // 在已选职位的情况下
+      if(item && item.id) {
+        params = Object.assign(params, {positionId: item.id})
+      } else {
+        delete params.positionId
+      }
+      getRecommendResumeMoreListsApi(params).then(res => {
+        recommendResumeLists.onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
+        recommendResumeLists.isLastPage = res.meta.nextPageUrl ? false : true
+        recommendResumeLists.pageNum = recommendResumeLists.pageNum + 1
+        recommendResumeLists.isRequire = true
+        recommendResumeLists.list = recommendResumeLists.list.concat(res.data)
+        this.setData({recommendResumeLists, onBottomStatus}, () => resolve(res))
         resolve(res)
-        this.setData({onLinePosition, onBottomStatus})
       })
     })
   },
@@ -494,7 +559,35 @@ Page({
    */
   clickNav(e) {
     let className = `.dom${e.target.dataset.index}`
-    this.setData({navTabIndex: e.target.dataset.index }, () => this.getRect(className))
+    let barLists = this.data.barLists
+    let params = {page: 1}
+    let recommended = this.data.recommended
+    let resumeList = {
+      list: [],
+      pageNum: 1,
+      count: 20,
+      isLastPage: false,
+      isRequire: false,
+      onBottomStatus: 0
+    }
+    barLists.map((field, index) => field.active = e.target.dataset.index === index ? true : false)
+    let item = barLists.find(field => field.active)
+    if(item.id) {
+      recommended = item.recommended
+    }
+    this.setData({navTabIndex: e.target.dataset.index, barLists, resumeList, recommended}, () => {
+      if(item && item.id) {
+        params = Object.assign(params, {positionId: item.id})
+      } else {
+        delete params.positionId
+      }
+      if(recommended) {
+        this.getRecommendResumePageLists(params)
+      } else {
+        this.getRecommendResumeLists(params)
+      }
+      this.getRect(className)
+    })
   },
   /**
    * @Author   小书包
@@ -536,5 +629,59 @@ Page({
     let distance = subLeft - screenHalfWidth + subHalfWidth
     scrollLeft = scrollLeft + distance
     this.setData({scrollLeft: scrollLeft })
+  },
+  /**
+   * @Author   小书包
+   * @DateTime 2019-07-13
+   * @detail   获取城市、薪资范围等搜索条件
+   * @return   {[type]}   [description]
+   */
+  getRecommendRangeAll() {
+    let params = {positionCount: this.data.pageCount, cityCount: this.data.pageCount}
+    let onBottomStatus = this.data.onBottomStatus
+    let barLists = this.data.barLists
+    let salaryLists = this.data.salaryLists
+    let recommended = this.data.recommended
+    let positionLists = {
+      list: [],
+      pageNum: 1,
+      count: 20,
+      isLastPage: false,
+      isRequire: false,
+      onBottomStatus: 0
+    }
+    let cityLists = {
+      list: [],
+      pageNum: 1,
+      isLastPage: false,
+      isRequire: false,
+      onBottomStatus: 0
+    }
+    this.setData({positionLists, cityLists})
+    return new Promise((resolve, reject) => {
+      getRecommendRangeAllApi(params).then(res => {
+        positionLists.onBottomStatus = res.data.position.length < 20 ? 2 : 0
+        positionLists.isLastPage = res.data.position.length < 20
+        positionLists.list = positionLists.list.concat(res.data.position || [])
+        positionLists.pageNum++
+        positionLists.isRequire = true
+        cityLists.onBottomStatus = res.data.position.length < 20 ? 2 : 0
+        cityLists.isLastPage = res.data.position.length < 20
+        cityLists.list = cityLists.list.concat(res.data.city || [])
+        cityLists.pageNum++
+        cityLists.isRequire = true
+        cityLists.list.unshift({areaId: 0, name: '全部', active: false })
+        salaryLists = res.data.salary
+        barLists = res.data.position || []
+        barLists.unshift({id: 0, positionName: '全部', active: true })
+        recommended = res.data.recommended
+        if(recommended) {
+          this.getRecommendResumePageLists()
+        } else {
+          this.getRecommendResumeLists()
+        }
+        this.setData({positionLists, cityLists, salaryLists, barLists, recommended}, () => resolve(res))
+      })
+    })
   }
 })

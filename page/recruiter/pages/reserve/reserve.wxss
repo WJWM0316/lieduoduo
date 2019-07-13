@@ -465,7 +465,7 @@
 
 .type_list .scroll_view{
   padding: 0 40rpx;
-  max-height: calc(100vh - 280rpx - 108rpx);
+  height: calc(100vh - 280rpx - 108rpx);
   padding-bottom: 180rpx;
   box-sizing: border-box;
 }
@@ -478,7 +478,7 @@
 }
 
 .position_list .scroll_view{
-  max-height: calc(100vh - 280rpx - 108rpx);
+  height: calc(100vh - 280rpx - 108rpx);
 }
 
 .status_ul {
