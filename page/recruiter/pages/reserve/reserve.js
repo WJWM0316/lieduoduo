@@ -1,13 +1,9 @@
 import {
-  getMyBrowseUsersListApi,
-  getMyBrowsePositionApi,
-  getBrowseMySelfApi,
-  getCollectMySelfApi
-} from '../../../../api/pages/browse.js'
-
-import {
   getBrowseMySelfListsApi,
-  getIndexShowCountApi
+  getIndexShowCountApi,
+  getReserveResumeSearchRangeListsApi,
+  getReserveResumeSearchPositionRangeListsApi,
+  getReserveResumeSearchListsApi
 } from '../../../../api/pages/recruiter.js'
 
 import {
@@ -16,11 +12,8 @@ import {
 
 import {RECRUITER, COMMON, APPLICANT, WEBVIEW, VERSION} from '../../../../config.js'
 
-import {getSelectorQuery}  from '../../../../utils/util.js'
-
-import { getPositionListNumApi } from '../../../../api/pages/position.js'
-
 let app = getApp()
+
 Page({
   data: {
     hasReFresh: false,
@@ -36,72 +29,47 @@ Page({
       title: '',
       type: ''
     },
-    interestList: {
+    resumeLists: {
       list: [],
       pageNum: 1,
       isLastPage: false,
       isRequire: false,
       onBottomStatus: 0
     },
-    viewList: {
+    positionLists: {
       list: [],
       pageNum: 1,
       isLastPage: false,
       isRequire: false,
       onBottomStatus: 0
     },
-    positionChoose: '',
-    statusChoose: '',
-    mixChoose: {},
-    statusLists: [
-      {
-        id:1,
-        text: '全部'
-      },
-      {
-        id:2,
-        text: '未处理'
-      },
-      {
-        id:3,
-        text: '不感兴趣'
-      },
-      {
-        id:4,
-        text: '我邀请的'
-      },
-      {
-        id:5,
-        text: '待安排'
-      },
-      {
-        id:6,
-        text: '待对方确认'
-      },
-      {
-        id:7,
-        text: '待我修改'
-      },
-      {
-        id:8,
-        text: '待对方修改'
-      },
-      {
-        id:9,
-        text: '已安排'
-      },
-      {
-        id:10,
-        text: '已结束'
-      },
-      {
-        id:11,
-        text: '不合适'
-      }
-    ]
+    workExperience: [],
+    salary: [],
+    jobStatus: [],
+    degrees: [],
+    handleStatus: [],
+    dealHandleStatus: {},
+    dealPositionStatus: {},
+    dealMultipleSelection: false
   },
   onShow() {
-    this.getViewList()
+    this.init()
+  },
+  init() {
+    this.getReserveResumeSearchPositionRangeList()
+    this.getReserveResumeSearchRangeLists()
+    this.getReserveResumeSearchLists()
+  },
+  getReserveResumeSearchRangeLists() {
+    getReserveResumeSearchRangeListsApi().then(res => {
+      this.setData({
+        degrees: res.data.degrees,
+        handleStatus: res.data.handleStatus,
+        jobStatus: res.data.jobStatus,
+        salary: res.data.salary,
+        workExperience: res.data.workExperience
+      })
+    })
   },
   /**
    * @Author   小书包
@@ -110,11 +78,13 @@ Page({
    * @return   {[type]}              [description]
    */
   onPullDownRefresh() {
-    let viewList = {list: [], pageNum: 1, isLastPage: false, isRequire: false, onBottomStatus: 0}
-    this.setData({viewList, hasReFresh: true})
-    this.getViewList().then(res => {
-      this.setData({hasReFresh: false})
-      wx.stopPullDownRefresh()
+    let resumeLists = {list: [], pageNum: 1, isLastPage: false, isRequire: false, onBottomStatus: 0}
+    let positionLists = {list: [], pageNum: 1, isLastPage: false, isRequire: false, onBottomStatus: 0}
+    this.setData({resumeLists, positionLists, hasReFresh: true}, () => {
+      this.getReserveResumeSearchLists().then(res => {
+        this.setData({hasReFresh: false})
+        wx.stopPullDownRefresh()
+      })
     })
   },
   /**
@@ -123,7 +93,7 @@ Page({
   onReachBottom() {
     let key = this.data.tab
     this.setData({onBottomStatus: 1})
-    if (!this.data[key].isLastPage) this.getViewList()
+    if (!this.data[key].isLastPage) this.init()
   },
   /**
    * @Author   小书包
@@ -149,17 +119,57 @@ Page({
    * @detail   获取简历列表
    * @return   {[type]}   [description]
    */
-  getViewList(hasLoading = true) {
+  getReserveResumeSearchPositionRangeList(hasLoading = true) {
     return new Promise((resolve, reject) => {
-      let params = {count: this.data.pageCount, page: this.data.viewList.pageNum}
-      getCollectMySelfApi(params, hasLoading).then(res => {
-        let onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
-        let viewList = this.data.viewList
-        viewList.isLastPage = res.meta.nextPageUrl ? false : true
-        viewList.pageNum = viewList.pageNum + 1
-        viewList.isRequire = true
-        viewList.list = viewList.list.concat(res.data)
-        this.setData({viewList, onBottomStatus}, () => resolve(res))
+      let positionLists = this.data.positionLists
+      let params = {count: this.data.pageCount, page: positionLists.pageNum}
+      getReserveResumeSearchPositionRangeListsApi(params, hasLoading).then(res => {
+        positionLists.onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
+        positionLists.isLastPage = res.meta.nextPageUrl ? false : true
+        positionLists.pageNum = positionLists.pageNum + 1
+        positionLists.isRequire = true
+        positionLists.list = positionLists.list.concat(res.data)
+        this.setData({positionLists}, () => resolve(res))
+      })
+    })
+  },
+  /**
+   * @Author   小书包
+   * @DateTime 2019-01-21
+   * @detail   获取简历列表
+   * @return   {[type]}   [description]
+   */
+  getReserveResumeSearchLists(hasLoading = true) {
+    return new Promise((resolve, reject) => {
+      let resumeLists = this.data.resumeLists
+      let params = {count: this.data.pageCount, page: resumeLists.pageNum, hasLoading}
+      let dealHandleStatus = this.data.dealHandleStatus
+      let dealPositionStatus = this.data.dealPositionStatus
+      let salary = this.data.salary.filter(field => field.active).map(field => field.id)
+      let jobStatus = this.data.jobStatus.filter(field => field.active).map(field => field.id)
+      let degrees = this.data.degrees.filter(field => field.active).map(field => field.id)
+      let workExperience = this.data.workExperience.filter(field => field.active).map(field => field.id)
+
+      // 已经选择处理状态
+      if(dealHandleStatus.id) params = Object.assign(params, {handleStatus: dealHandleStatus.id})
+      // 已经选择职位
+      if(dealPositionStatus.id) params = Object.assign(params, {positionId: dealPositionStatus.id})
+      // 已经选择薪资
+      if(salary.length) params = Object.assign(params, {salaryIds: salary.join(',')})
+      // 已经选择求职状态
+      if(jobStatus.length) params = Object.assign(params, {jobStatusIds: jobStatus.join(',')})
+      // 已经选择学习
+      if(degrees.length) params = Object.assign(params, {degreeIds: degrees.join(',')})
+      // 已经选择学习
+      if(workExperience.length) params = Object.assign(params, {workExperienceIds: workExperience.join(',')})
+
+      getReserveResumeSearchListsApi(params).then(res => {
+        resumeLists.onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
+        resumeLists.isLastPage = res.meta.nextPageUrl ? false : true
+        resumeLists.pageNum = resumeLists.pageNum + 1
+        resumeLists.isRequire = true
+        resumeLists.list = resumeLists.list.concat(res.data)
+        this.setData({resumeLists}, () => resolve(res))
       })
     })
   },
@@ -195,37 +205,179 @@ Page({
     }
     this.setData({model})
   },
+  /**
+   * @Author   小书包
+   * @DateTime 2019-07-15
+   * @detail   单选判断
+   * @return   {[type]}     [description]
+   */
   sChoice(e) {
     let params = e.currentTarget.dataset
     let model = this.data.model
-    let viewList = this.data.viewList
-    let statusLists = this.data.statusLists
-    let positionChoose = this.data.positionChoose
-    let statusChoose = this.data.statusChoose
-
+    let positionLists = this.data.positionLists
+    let dealPositionStatus = this.data.dealPositionStatus
+    let handleStatus = this.data.handleStatus
+    let dealHandleStatus = this.data.dealHandleStatus
+    let resumeLists = {
+      list: [],
+      pageNum: 1,
+      isLastPage: false,
+      isRequire: false,
+      onBottomStatus: 0
+    }
     switch(params.type) {
       case 'status':
-        statusLists.map((field, index) => {
-          statusChoose = field
-          field.active = index === params.index ? true : false
+        handleStatus.map((field, index) => {
+          field.active = false
+          if(index === params.index) {
+            dealHandleStatus = field
+            field.active = true
+            model.show = false
+            model.title = ''
+            model.type = ''
+          }
         })
         break
       case 'position':
-        viewList.list.map((field, index) => {
-          positionChoose = field
-          field.active = index === params.index ? true : false
+        positionLists.list.map((field, index) => {
+          field.active = false
+          if(index === params.index) {
+            dealPositionStatus = field
+            field.active = true
+            model.show = false
+            model.title = ''
+            model.type = ''
+          }
         })
         break
       default:
         break
     }
-    this.setData({viewList, statusLists, positionChoose, statusChoose})
+    this.setData({
+      positionLists,
+      dealPositionStatus,
+      dealHandleStatus,
+      handleStatus,
+      model,
+      resumeLists
+    }, () => this.getReserveResumeSearchLists(true))
   },
+  /**
+   * @Author   小书包
+   * @DateTime 2019-07-15
+   * @detail   处理多选操作
+   * @return   {[type]}     [description]
+   */
   mChoice(e) {
     let params = e.currentTarget.dataset
-    console.log(params)
+    let degrees = this.data.degrees
+    let jobStatus = this.data.jobStatus
+    let salary = this.data.salary
+    let workExperience = this.data.workExperience
+    let item = this.data[params.type].find((field, index) => index === params.index)
+    let resumeLists = {
+      list: [],
+      pageNum: 1,
+      isLastPage: false,
+      isRequire: false,
+      onBottomStatus: 0
+    }
+    switch(params.type) {
+      case 'workExperience':
+        if(item.id === 1 && !item.active) {
+          workExperience.map(field => field.active = true)
+        } else {
+          if(item.active) {
+            workExperience[params.index].active = false
+            let tem_03 = workExperience.filter(field => field.id !== 1)
+            let tem_04 = tem_03.filter(field => field.active)
+            if(tem_03.length !== tem_04.length) workExperience.map(field => {
+              if(field.id === 1) field.active = false
+            })
+          } else {
+            workExperience[params.index].active = true
+            let tem_01 = workExperience.filter(field => field.id !== 1)
+            let tem_02 = tem_01.filter(field => field.active)
+            if(tem_01.length === tem_02.length) workExperience.map(field => field.active = true)
+          }
+        }
+        break
+      case 'degrees':
+        degrees.map((field, index, arr) => {
+          if(index === params.index) {
+            field.active = !field.active
+          }
+        })
+        break
+      case 'salary':
+        salary.map((field, index, arr) => {
+          if(index === params.index) {
+            field.active = !field.active
+          }
+        })
+        break
+      case 'jobStatus':
+        jobStatus.map((field, index, arr) => {
+          if(index === params.index) {
+            field.active = !field.active
+          }
+        })
+        break
+      default:
+        break
+    }
+    this.setData({jobStatus, workExperience, salary, degrees, resumeLists})
   },
   lower(e) {
     console.log(e, 'gggggggggggg')
   },
+  /**
+   * @Author   小书包
+   * @DateTime 2019-07-15
+   * @detail   重置搜索条件
+   * @return   {[type]}   [description]
+   */
+  reset() {
+    let degrees = this.data.degrees
+    let jobStatus = this.data.jobStatus
+    let salary = this.data.salary
+    let workExperience = this.data.workExperience
+    degrees.map(field => field.active = false)
+    jobStatus.map(field => field.active = false)
+    salary.map(field => field.active = false)
+    workExperience.map(field => field.active = false)
+    this.setData({
+      degrees,
+      jobStatus,
+      salary,
+      workExperience
+    })
+  },
+  /**
+   * @Author   小书包
+   * @DateTime 2019-07-15
+   * @detail   租合赛选简历
+   * @return   {[type]}   [description]
+   */
+  submit() {
+    let model = this.data.model
+    let degrees = this.data.degrees
+    let jobStatus = this.data.jobStatus
+    let salary = this.data.salary
+    let workExperience = this.data.workExperience
+    let selectedsalary = this.data.salary.filter(field => field.active)
+    let selectedjobStatus = this.data.jobStatus.filter(field => field.active)
+    let selecteddegrees = this.data.degrees.filter(field => field.active)
+    let selectedworkExperience = this.data.workExperience.filter(field => field.active)
+    let dealMultipleSelection = this.data.dealMultipleSelection
+    model.title = ''
+    model.type = ''
+    model.show = false
+    if(selectedsalary.length || selectedjobStatus.length || selecteddegrees.length || selectedworkExperience.length) {
+      dealMultipleSelection = true
+    } else {
+      dealMultipleSelection = false
+    }
+    this.setData({model, dealMultipleSelection}, () => this.getReserveResumeSearchLists(true))
+  }
 })

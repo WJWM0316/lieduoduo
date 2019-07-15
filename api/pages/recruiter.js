@@ -281,3 +281,33 @@ export const getRecommendResumeMoreListsApi = (data, hasLoading) => {
     hasLoading: hasLoading
   })
 }
+
+// 简历储备
+export const getReserveResumeSearchListsApi = (data, hasLoading) => {
+  return request({
+    url: `/reserve/resume/search`,
+    method: 'get',
+    data,
+    hasLoading: hasLoading
+  })
+}
+
+// 获取简历储备搜索范围
+export const getReserveResumeSearchRangeListsApi = (data, hasLoading) => {
+  return request({
+    url: `/reserve/resume/search_range`,
+    method: 'get',
+    data,
+    hasLoading: hasLoading
+  })
+}
+
+// 获取职位搜索范围
+export const getReserveResumeSearchPositionRangeListsApi = (data, hasLoading) => {
+  return request({
+    url: `/reserve/resume/position_range`,
+    method: 'get',
+    data,
+    hasLoading: hasLoading
+  })
+}

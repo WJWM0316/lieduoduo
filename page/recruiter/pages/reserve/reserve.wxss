@@ -192,6 +192,10 @@
 	color:rgba(40,40,40,1);
 }
 
+.item2 .row-two .left .nodata {
+  color:#929292;
+}
+
 .item2 .row-two .iconfont {
   font-size: 30rpx;
   margin-right: 20rpx;

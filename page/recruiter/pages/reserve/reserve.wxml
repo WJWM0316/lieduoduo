@@ -3,19 +3,19 @@
 	<view class="place"></view>
 	<view class="office-status-bar" style="top: {{navH}}px">
 		<view class="item" bindtap="openTips" data-type="position">
-			<view class="text {{ positionChoose ? 'active' : '' }}">
-				{{ positionChoose ? positionChoose.positionName : '职位' }} 
+			<view class="text {{ dealPositionStatus.id ? 'active' : '' }}">
+				{{ dealPositionStatus.id ? dealPositionStatus.positionName : '职位' }} 
 			</view>
 			<i class="icon iconfont icon-zhishibiao"></i>
 		</view>
   	<view class="item" bindtap="openTips" data-type="status">
-  		<view class="text {{ statusChoose ? 'active' : '' }}">
-  			{{ statusChoose ? statusChoose.text : '处理状态' }} 
+  		<view class="text {{ dealHandleStatus.id ? 'active' : '' }}">
+  			{{ dealHandleStatus.id ? dealHandleStatus.text : '处理状态' }} 
   		</view>
   		<i class="icon iconfont icon-zhishibiao"></i>
   	</view>
   	<view class="item" bindtap="openTips" data-type="reduction">
-  		<view class="text">筛选 </view><i class="icon iconfont icon-zhishibiao"></i>
+  		<view class="text {{ dealMultipleSelection ? 'active' : '' }}">筛选 </view><i class="icon iconfont icon-zhishibiao"></i>
   	</view>
   	<view class="tips" bindtap="openTips" bindtap="openTips" data-type="rules">?</view>
 	</view>
@@ -30,7 +30,7 @@
 				form-type="submit"
 				bindtap="viewResumeDetail"
 				class="formIdBtn"
-				wx:for="{{viewList.list}}"
+				wx:for="{{resumeLists.list}}"
 				wx:for-item="item"
 				data-jobhunterUid="{{item.uid}}"
 				data-type="{{item.myType}}"
@@ -45,29 +45,35 @@
 						<view class="content">
 							<view class="header">
 								<view class="name">{{item.name}}</view>
-								<view class="status">离职-随时到岗 </view>
+								<view class="status" wx:if="{{item.jobStatusDesc}}">离职-随时到岗 </view>
 							</view>
-							<view class="degress" wx:if="{{item.lastCompanyName || item.lastPosition}}">
-								<block>3年</block>
-								<block> · 25岁</block>
-								<block> · 本科</block>
+							<view class="degress">
+								<block>{{item.workAgeDesc}}</block>
+								<block wx:if="{{item.age}}"> · {{item.age}}岁</block>
+								<block wx:if="{{item.degreeDesc}}"> · {{item.degreeDesc}}</block>
 							</view>
 						</view>
 					</view>
 					<view class="row-two">
-						<view class="left"><i class="icon iconfont icon-zhiwei"></i>弗联科技 | 高级架构师
+						<view class="left">
+							<i class="icon iconfont icon-zhiwei"></i>
+							<text wx:if="{{item.lastCompany}}">{{item.lastCompany}} | {{item.lastPosition}}</text>
+							<text wx:if="{{!item.lastCompany}}">暂未填写工作经历</text>
 						</view>
-						<view class="right"> 1年半 </view>
+						<view class="right" wx:if="{{item.lastCompanyWorkAgeDesc}}"> {{item.lastCompanyWorkAgeDesc}} </view>
 					</view>
 					<view class="row-three">
-						<view class="left"><i class="icon iconfont icon-xueli"></i>中央美术大学 | 艺术设计
+						<view class="left">
+							<i class="icon iconfont icon-xueli"></i>
+							<text wx:if="{{item.school}}">{{item.school}} | {{item.major}}</text>
+							<text wx:if="{{!item.school}}">暂未填写毕业院校</text>
 						</view>
-						<view class="right">2012-2019</view>
+						<view class="right" wx:if="{{item.lastCompanyStartWorkYearDesc}}">{{item.lastCompanyStartWorkYearDesc}}-{{item.lastCompanyEndWorkYearDesc}}</view>
 					</view>
 				</view>
 			</button>
 		</form>
-		<bottomStatus status="{{ onBottomStatus }}" listData="{{viewList.list}}" desc="还没有候选人对你感兴趣哟～ 主动发现获取更多候选人吧" marginTop="{{40}}">
+		<bottomStatus status="{{ resumeLists.onBottomStatus }}" listData="{{resumeLists.list}}" desc="还没有候选人对你感兴趣哟～ 主动发现获取更多候选人吧" marginTop="{{40}}">
 			<button class="jump" bindtap="backHome">发现更多候选人</button>
 		</bottomStatus>
 	</view>
@@ -81,18 +87,19 @@
 				class="scroll_view">
 					<view
 						class="list_item"
-						wx:for="{{viewList.list}}"
+						wx:for="{{positionLists.list}}"
 						wx:key="{{index}}"
 						bindtap="sChoice"
+						data-type="position"
 						data-index="{{index}}">
 						<view class="list_item_first">
-							<view class="title">前端开发工程师</view>
-							<view class="saraly">12~20K</view>
+							<view class="title">{{item.positionName}}</view>
+							<view class="saraly">{{item.emolumentMin}}~{{item.emolumentMax}}K</view>
 						</view>
 						<view class="list_item_second">
-							<view class="address">广州市天河区</view>
-							<view class="degress">本科</view>
-							<view class="experience">不限</view>
+							<view class="address">{{item.city}}{{item.district}}</view>
+							<view class="degress">{{item.educationName}}</view>
+							<view class="experience">{{item.workExperienceName}}</view>
 						</view>
 		        <view class="myRadio {{item.active ? 'active' : ''}}">
 		          <i class="icon iconfont icon-wancheng" wx:if="{{item.active}}"></i>
@@ -115,10 +122,11 @@
 				<view class="base_ul city_ul">
 					<view
 						class="base_item {{item.active ? 'base_item_active' : ''}}"
-						wx:for="{{viewList.list}}"
+						wx:for="{{workExperience}}"
 						wx:key="{{index}}"
 						data-index="{{index}}"
-						bindtap="mChoice">全部{{index * 200}}</view>
+						data-type="workExperience"
+						bindtap="mChoice">{{item.text}}</view>
 				</view>
 				<view class="type_header">
 					<view class="key">选择学历要求</view>
@@ -127,10 +135,11 @@
 				<view class="base_ul city_ul">
 					<view
 						class="base_item {{item.active ? 'base_item_active' : ''}}"
-						wx:for="{{viewList.list}}"
+						wx:for="{{degrees}}"
 						wx:key="{{index}}"
 						data-index="{{index}}"
-						bindtap="mChoice">全部{{index * 200}}</view>
+						data-type="degrees"
+						bindtap="mChoice">{{item.text}}</view>
 				</view>
 				<view class="type_header">
 					<view class="key">选择薪资范围</view>
@@ -139,10 +148,11 @@
 				<view class="base_ul city_ul">
 					<view
 						class="base_item {{item.active ? 'base_item_active' : ''}}"
-						wx:for="{{viewList.list}}"
+						wx:for="{{salary}}"
 						wx:key="{{index}}"
 						data-index="{{index}}"
-						bindtap="mChoice">全部{{index * 200}}</view>
+						data-type="salary"
+						bindtap="mChoice">{{item.text}}</view>
 				</view>
 				<view class="type_header">
 					<view class="key">选择求职状态</view>
@@ -151,15 +161,16 @@
 				<view class="base_ul saraly_ul">
 					<view
 						class="base_item {{item.active ? 'base_item_active' : ''}}"
-						wx:for="{{viewList.list}}"
+						wx:for="{{jobStatus}}"
 						wx:key="{{index}}"
 						data-index="{{index}}"
-						bindtap="mChoice">全部{{index * 200}}</view>
+						data-type="jobStatus"
+						bindtap="mChoice">{{item.text}}</view>
 				</view>
 			</scroll-view>
 			<view class="button-box">
-				<view class="btn_01">重置</view>
-				<view class="btn_02">确定</view>
+				<view class="btn_01" bindtap="reset">重置</view>
+				<view class="btn_02" bindtap="submit">确定</view>
 			</view>
 		</view>
 		<!-- 复合筛选 end -->
@@ -169,7 +180,7 @@
 			<view class="base_ul city_ul">
 				<view
 					class="base_item {{item.active ? 'base_item_active' : ''}}"
-					wx:for="{{statusLists}}"
+					wx:for="{{handleStatus}}"
 					wx:key="{{index}}"
 					data-index="{{index}}"
 					data-type="status"

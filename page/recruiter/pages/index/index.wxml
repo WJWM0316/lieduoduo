@@ -61,7 +61,7 @@
 			<view class="todo_tips" wx:if="{{!indexShowCount.advisor.notHandleNum}}"> 有合适简历将立即给您推荐 </view>
 		</view>
 		<view class="todo_item todo_item_right" bindtap="routeJump" data-route="dynamics">
-			<view class="todo_title">候选人动态<view class="number">5</view></view>
+			<view class="todo_title">候选人动态<view class="number" wx:if="{{indexShowCount.dynamicTotal}}">{{indexShowCount.dynamicTotal}}</view></view>
 			<view class="todo_tips">对我感兴趣/看过我的</view>
 		</view>
 	</view>
@@ -98,7 +98,7 @@
 			  </scroll-view>
 			  <view class="func_zone">
 			  	<image src="{{cdnImagePath}}bg_transparent.png" class="bg_transparent"></image>
-					<view class="kind" bindtap="openTips" data-type="reduction"><i class="icon iconfont icon-shaixuan"></i></view>
+					<view class="kind {{dealMultipleSelection ? 'active' : ''}}" bindtap="openTips" data-type="reduction"><i class="icon iconfont icon-shaixuan"></i></view>
 					<view class="down" bindtap="openTips" data-type="position"><i class="icon iconfont icon-zhishibiao"></i></view>
 				</view>
 			</view>
@@ -113,69 +113,63 @@
 						data-jobhunterUid="{{item.uid}}"
 						data-type="{{item.myType}}"
 						wx:key="{{index}}">
-						<view class="item2">
-							<view class="row-one">
-								<view class="img-box"><image src="{{item.avatar.smallUrl}}" lazy-load></image></view>
-								<view class="content">
-									<view class="header">
-										<view class="name">{{item.name}}</view>
-										<view class="zhiwei">
-											<block>{{item.workAgeDesc}}</block>
-											<block wx:if="{{item.degreeDesc}}"> · {{item.degreeDesc}}</block>
-											<block wx:if="{{item.salaryCeil}}"> · {{item.salaryFloor}}-{{item.salaryCeil}}k</block>
-										</view>
+						<view class="list-item {{item.redDot ? 'red' : ''}}">
+							<view class="msg">
+								<view class="head">
+									<image class="img" mode="aspectFit" lazy-load  src="{{item.avatar.smallUrl}}"></image>
+								</view>
+								<view class="detail">
+									<view class="top {{item.glass ? 'hasFilter' : ''}}">
+										<text wx:if="{{!item.glass}}" class="name">{{item.name}}</text>
+										<image wx:else class="filter" src="{{cdnImagePath}}invisible1.png" mode="aspectFit"></image>
+										<text class="txt">{{item.workAgeDesc}}<block wx:if="{{item.degreeDesc}}"> · {{item.degreeDesc}}</block><block wx:if="{{item.salaryCeil}}"> · {{item.salaryFloor}}-{{item.salaryCeil}}k</block></text>
 									</view>
-									<view class="degress" wx:if="{{item.lastCompanyName || item.lastPosition}}">
-										<block wx:if="{{item.lastCompanyName}}">{{item.lastCompanyName}}</block>
-										<block wx:if="{{item.lastPosition}}"> | {{item.lastPosition}}</block>
-									</view>
+									<view class="bot" wx:if="{{item.lastCompanyName}}">{{item.lastCompanyName}}<block wx:if="{{item.lastCompanyName && item.lastCompanyName}}"> | </block>{{item.lastPosition}}</view>
 								</view>
 							</view>
-							<view class="row-two">
-								根据你的 <view class="position limit-wid">{{item.positionName}}</view> 为你推荐
+							<view class="desc" wx:if="{{!exclusiveSelection}}">
+								<text class="txt">根据你的<text class="positionName"> {{item.positionName}} </text>为你推荐</text>
 							</view>
 						</view>
 					</button>
 				</form>
 				<bottomStatus
-					status="{{onBottomStatus}}"
+					status="{{resumeList.onBottomStatus}}"
 					listData="{{resumeList.list}}"
 					desc="无筛选结果，可以扩大筛选范围哟～"
 					marginTop="{{80}}">
 				</bottomStatus>
 
 				<!-- 系统推荐数据 start-->
-				<view class="line-box" wx:if="{{!resumeList.list.length}}"> <view class="line-left"></view> 为你推荐 <view class="line-right"></view> </view>
-				<form bindsubmit="formSubmit" report-submit="{{true}}" wx:if="{{!resumeList.list.length && recommendResumeLists.list.length}}">
+				<view class="line-box" wx:if="{{resumeList.showSystemData && recommendResumeLists.list.length}}">
+					<view class="line-left"></view> 为你推荐 <view class="line-right"></view>
+				</view>
+				<form bindsubmit="formSubmit" report-submit="{{true}}" wx:if="{{resumeList.showSystemData && recommendResumeLists.list.length}}">
 					<button
 						form-type="submit"
 						bindtap="viewResumeDetail"
 						class="formIdBtn"
-						wx:for="{{resumeList.list}}"
+						wx:for="{{recommendResumeLists.list}}"
 						wx:for-item="item"
 						data-jobhunterUid="{{item.uid}}"
 						data-type="{{item.myType}}"
 						wx:key="{{index}}">
-						<view class="item2">
-							<view class="row-one">
-								<view class="img-box"><image src="{{item.avatar.smallUrl}}" lazy-load></image></view>
-								<view class="content">
-									<view class="header">
-										<view class="name">{{item.name}}</view>
-										<view class="zhiwei">
-											<block>{{item.workAgeDesc}}</block>
-											<block wx:if="{{item.degreeDesc}}"> · {{item.degreeDesc}}</block>
-											<block wx:if="{{item.salaryCeil}}"> · {{item.salaryFloor}}-{{item.salaryCeil}}k</block>
-										</view>
+						<view class="list-item {{item.redDot ? 'red' : ''}}">
+							<view class="msg">
+								<view class="head">
+									<image class="img" mode="aspectFit" lazy-load  src="{{item.avatar.smallUrl}}"></image>
+								</view>
+								<view class="detail">
+									<view class="top {{item.glass ? 'hasFilter' : ''}}">
+										<text wx:if="{{!item.glass}}" class="name">{{item.name}}</text>
+										<image wx:else class="filter" src="{{cdnImagePath}}invisible1.png" mode="aspectFit"></image>
+										<text class="txt">{{item.workAgeDesc}}<block wx:if="{{item.degreeDesc}}"> · {{item.degreeDesc}}</block><block wx:if="{{item.salaryCeil}}"> · {{item.salaryFloor}}-{{item.salaryCeil}}k</block></text>
 									</view>
-									<view class="degress" wx:if="{{item.lastCompanyName || item.lastPosition}}">
-										<block wx:if="{{item.lastCompanyName}}">{{item.lastCompanyName}}</block>
-										<block wx:if="{{item.lastPosition}}"> | {{item.lastPosition}}</block>
-									</view>
+									<view class="bot" wx:if="{{item.lastCompanyName}}">{{item.lastCompanyName}}<block wx:if="{{item.lastCompanyName && item.lastCompanyName}}"> | </block>{{item.lastPosition}}</view>
 								</view>
 							</view>
-							<view class="row-two">
-								根据你的 <view class="position limit-wid">{{item.positionName}}</view> 为你推荐
+							<view class="desc" wx:if="{{!exclusiveSelection}}">
+								<text class="txt">根据你的<text class="positionName"> {{item.positionName}} </text>为你推荐</text>
 							</view>
 						</view>
 					</button>

@@ -35,7 +35,8 @@ Page({
       pageNum: 1,
       isLastPage: false,
       isRequire: false,
-      isUse: false
+      showSystemData: false,
+      onBottomStatus: 0
     },
     pageCount: 20,
     background: 'transparent',
@@ -89,9 +90,18 @@ Page({
       count: 20,
       isLastPage: false,
       isRequire: false,
-      onBottomStatus: 0,
       onBottomStatus: 0
-    }
+    },
+    recommendPositionRangeLists: {
+      list: [],
+      pageNum: 1,
+      count: 20,
+      isLastPage: false,
+      isRequire: false,
+      onBottomStatus: 0
+    },
+    exclusiveSelection: false,
+    dealMultipleSelection: false
   },
   onLoad() {
     let choseType = wx.getStorageSync('choseType') || ''
@@ -208,7 +218,16 @@ Page({
    * @return   {[type]}              [description]
    */
   onPullDownRefresh() {
-    this.setData({hasReFresh: true})
+    let resumeList = {
+      list: [],
+      pageNum: 1,
+      isLastPage: false,
+      isRequire: false,
+      isUse: false,
+      showSystemData: false,
+      onBottomStatus: 0
+    }
+    this.setData({hasReFresh: true, resumeList})
     this.selectComponent('#bottomRedDotBar').init()
     this.getMixdata()
     this.getRecommendRangeAll().then(() => {
@@ -229,9 +248,9 @@ Page({
     if (!this.data.resumeList.isLastPage) {
       this.setData({onBottomStatus: 1})
       if(this.data.recommended) {
-        this.getRecommendResumePageLists()
-      } else {
         this.getRecommendResumeLists()
+      } else {
+        this.getRecommendResumePageLists()
       }
     }
   },
@@ -363,16 +382,25 @@ Page({
   sChoice(e) {
     let params = e.currentTarget.dataset
     let positionLists = this.data.positionLists
+    let barLists = this.data.barLists
     let model = this.data.model
     model.show = false
     positionLists.list.map((field, index) => field.active = index === params.index ? true : false)
-    this.setData({positionLists, model}, () => this.clickNav({
-      target: {
-        dataset: {
-          index : params.index + 1
-        }
+    let item = positionLists.list.find(field => field.active)
+    barLists.map((field, index) => {
+      field.active = false
+      if(field.id === item.id) {
+        field.active = true
+        this.clickNav({
+          target: {
+            dataset: {
+              index
+            }
+          }
+        })
       }
-    }))
+    })
+    this.setData({positionLists, model, barLists})
   },
   /**
    * @Author   小书包
@@ -403,6 +431,12 @@ Page({
     cityLists.list.map((field, index) => field.active = index === params.index ? true : false)
     this.setData({cityLists})
   },
+  /**
+   * @Author   小书包
+   * @DateTime 2019-07-15
+   * @detail   清空符合筛选
+   * @return   {[type]}   [description]
+   */
   reset() {
     let cityLists = this.data.cityLists
     let salaryLists = this.data.salaryLists
@@ -410,16 +444,33 @@ Page({
     salaryLists.map(field => field.active = false)
     this.setData({cityLists, salaryLists})
   },
+  /**
+   * @Author   小书包
+   * @DateTime 2019-07-15
+   * @detail   执行符合筛选
+   * @return   {[type]}   [description]
+   */
   search() {
+    let cityLists = this.data.cityLists
+    let salaryLists = this.data.salaryLists
+    let dealMultipleSelection = this.data.dealMultipleSelection
     let resumeList = {
       list: [],
       pageNum: 1,
       isLastPage: false,
       isRequire: false,
-      isUse: false
+      isUse: false,
+      showSystemData: false,
+      onBottomStatus: 0
     }
+    let selectedCityLists = cityLists.list.map(field => field.active)
+    let selectedSalaryLists = salaryLists.map(field => field.active)
     let params = {page: 1}
-    this.setData({resumeList}, () => {
+    if(selectedCityLists.length || selectedSalaryLists.length) {
+      dealMultipleSelection = true
+    }
+    this.setData({resumeList, dealMultipleSelection}, () => {
+      console.log(this.data)
       this.getRecommendResumePageLists(params).then(res => {
         let model = this.data.model
         model.show = false
@@ -441,7 +492,7 @@ Page({
     let positionItem = this.data.positionLists.list.find(field => field.active)
     let salaryIds = []
     let resumeList = this.data.resumeList
-    let params = {count: this.data.pageCount, page: this.data.resumeList.pageNum, isFisrtPage: this.data.isFisrtPage, ...app.getSource()}
+    let params = {count: this.data.pageCount, page: resumeList.pageNum, ...app.getSource()}
 
     // 选择了城市
     if(cityItem && cityItem.areaId) {
@@ -457,17 +508,20 @@ Page({
       params = Object.assign(params, {positionId: positionItem.id})
     }
 
+    if(resumeList.pageNum === 1) {
+      params = Object.assign(params, {isFisrtPage: 1})
+    }
+
     params = Object.assign(params, config)
 
     return new Promise((resolve, reject) => {
       getRecommendResumePageListsApi(params).then(res => {
-        let onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
-        resumeList.isLastPage = res.meta.nextPageUrl ? false : true
+        resumeList.onBottomStatus = res.data.length > this.data.pageCount ? 0 : 2
+        resumeList.isLastPage = res.data.length > this.data.pageCount ? false : true
         resumeList.pageNum = resumeList.pageNum + 1
         resumeList.isRequire = true
         resumeList.list = resumeList.list.concat(res.data)
-        this.setData({resumeList, onBottomStatus}, () => resolve(res))
-        resolve(res)
+        this.setData({resumeList}, () => resolve(res))
       })
     })
   },
@@ -483,7 +537,7 @@ Page({
     let positionItem = this.data.positionLists.list.find(field => field.active)
     let salaryIds = []
     let resumeList = this.data.resumeList
-    let params = {count: this.data.pageCount, page: this.data.resumeList.pageNum, ...app.getSource()}
+    let params = {count: this.data.pageCount, page: resumeList.pageNum, ...app.getSource()}
 
     // 选择了城市
     if(cityItem && cityItem.areaId) {
@@ -503,13 +557,12 @@ Page({
 
     return new Promise((resolve, reject) => {
       getRecommendResumeListsApi(params).then(res => {
-        let onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
-        resumeList.isLastPage = res.meta.nextPageUrl ? false : true
+        resumeList.onBottomStatus = res.data.length > this.data.pageCount ? 0 : 2
+        resumeList.isLastPage = res.data.length > this.data.pageCount ? false : true
         resumeList.pageNum = resumeList.pageNum + 1
         resumeList.isRequire = true
         resumeList.list = resumeList.list.concat(res.data)
-        this.setData({resumeList, onBottomStatus}, () => resolve(res))
-        resolve(res)
+        this.setData({resumeList}, () => resolve(res))
       })
     })
   },
@@ -541,25 +594,24 @@ Page({
         recommendResumeLists.pageNum = recommendResumeLists.pageNum + 1
         recommendResumeLists.isRequire = true
         recommendResumeLists.list = recommendResumeLists.list.concat(res.data)
-        this.setData({recommendResumeLists, onBottomStatus}, () => resolve(res))
-        resolve(res)
+        this.setData({recommendResumeLists}, () => resolve(res))
       })
     })
   },
   /**
    * @Author   小书包
    * @DateTime 2019-07-13
-   * @detail   分页获取搜索范围 - 职位
+   * @detail   “为你推荐”列表, 列表数据过少时显示
    * @return   {[type]}   [description]
    */
   getRecommendPositionRangeLists() {
     return new Promise((resolve, reject) => {
-      let recommendResumeLists = this.data.recommendResumeLists
+      let recommendPositionRangeLists = this.data.recommendPositionRangeLists
       let barLists = this.data.barLists
       let item = barLists.find(field => field.active)
       let params = {
         count: this.data.pageCount,
-        page: recommendResumeLists.pageNum
+        page: recommendPositionRangeLists.pageNum
       }
 
       // 在已选职位的情况下
@@ -568,14 +620,14 @@ Page({
       } else {
         delete params.positionId
       }
-      getRecommendResumeMoreListsApi(params).then(res => {
-        recommendResumeLists.onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
-        recommendResumeLists.isLastPage = res.meta.nextPageUrl ? false : true
-        recommendResumeLists.pageNum = recommendResumeLists.pageNum + 1
-        recommendResumeLists.isRequire = true
-        recommendResumeLists.list = recommendResumeLists.list.concat(res.data)
-        this.setData({recommendResumeLists, onBottomStatus}, () => resolve(res))
-        resolve(res)
+      getRecommendPositionRangeListsApi(params).then(res => {
+        recommendPositionRangeLists.onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
+        recommendPositionRangeLists.isLastPage = res.meta.nextPageUrl ? false : true
+        recommendPositionRangeLists.pageNum = recommendPositionRangeLists.pageNum + 1
+        recommendPositionRangeLists.isRequire = true
+        recommendPositionRangeLists.list = recommendPositionRangeLists.list.concat(res.data)
+        console.log(recommendPositionRangeLists, this.data.resumeList, 'recommendPositionRangeLists') 
+        this.setData({recommendPositionRangeLists}, () => resolve(res))
       })
     })
   },
@@ -592,35 +644,56 @@ Page({
    * @return   {[type]}     [description]
    */
   clickNav(e) {
-    let className = `.dom${e.target.dataset.index}`
+    let navTabIndex = e.target.dataset.index
+    let className = `.dom${navTabIndex}`
     let barLists = this.data.barLists
     let params = {page: 1}
     let recommended = this.data.recommended
+    let positionLists = this.data.positionLists
+    let exclusiveSelection = this.data.exclusiveSelection
     let resumeList = {
       list: [],
       pageNum: 1,
       count: 20,
       isLastPage: false,
       isRequire: false,
-      onBottomStatus: 0
+      onBottomStatus: 0,
+      showSystemData: false
     }
-    barLists.map((field, index) => field.active = e.target.dataset.index === index ? true : false)
+    barLists.map((field, index) => field.active = navTabIndex === index ? true : false)
     let item = barLists.find(field => field.active)
+    positionLists.list.map(field => field.active = field.id === item.id)
     if(item.id) {
       recommended = item.recommended
+      exclusiveSelection = true
+    } else {
+      exclusiveSelection = false
     }
-    this.setData({navTabIndex: e.target.dataset.index, barLists, resumeList, recommended}, () => {
+    this.setData({navTabIndex, barLists, resumeList, recommended, positionLists, exclusiveSelection}, () => {
+      // 加上导航滚动特效
+      this.getRect(className)
       if(item && item.id) {
         params = Object.assign(params, {positionId: item.id})
       } else {
         delete params.positionId
       }
       if(recommended) {
-        this.getRecommendResumePageLists(params)
+        this.getRecommendResumeLists(params).then(res => {
+          // 去获取推荐数据
+          if(!res.data.length) {
+            resumeList.showSystemData = true
+            this.setData({resumeList}, () => this.getRecommendResumeMoreLists())
+          }
+        })
       } else {
-        this.getRecommendResumeLists(params)
+        this.getRecommendResumePageLists(params).then(res => {
+          // 去获取推荐数据
+          if(!res.data.length) {
+            resumeList.showSystemData = true
+            this.setData({resumeList}, () => this.getRecommendResumeMoreLists())
+          }
+        })
       }
-      this.getRect(className)
     })
   },
   /**
@@ -710,9 +783,9 @@ Page({
         barLists.unshift({id: 0, positionName: '全部', active: true })
         recommended = res.data.recommended
         if(recommended) {
-          this.getRecommendResumePageLists()
-        } else {
           this.getRecommendResumeLists()
+        } else {
+          this.getRecommendResumePageLists()
         }
         this.setData({positionLists, cityLists, salaryLists, barLists, recommended}, () => resolve(res))
       })
