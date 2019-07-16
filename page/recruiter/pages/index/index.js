@@ -152,16 +152,14 @@ Page({
     if (app.pageInit) {
       userInfo = app.globalData.userInfo
       this.getMixdata()
-      if(!wx.getStorageSync('isReback') && !resumeList.list.length) this.getRecommendRangeAll()
-      wx.removeStorageSync('isReback')
+      this.getRecommendRangeAll()
       this.setData({userInfo})
       this.selectComponent('#bottomRedDotBar').init()
     } else {
       app.pageInit = () => {
         userInfo = app.globalData.userInfo
         this.getMixdata()
-        if(!wx.getStorageSync('isReback') && !resumeList.list.length) this.getRecommendRangeAll()
-        wx.removeStorageSync('isReback')
+        this.getRecommendRangeAll()
         this.setData({userInfo})
         this.selectComponent('#bottomRedDotBar').init()
       }

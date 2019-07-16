@@ -1,6 +1,4 @@
 import {
-  getMyBrowseUsersListApi,
-  getMyBrowsePositionApi,
   getBrowseMySelfApi,
   getCollectMySelfApi
 } from '../../../../api/pages/browse.js'
@@ -16,11 +14,8 @@ import {
 
 import {RECRUITER, COMMON, APPLICANT, WEBVIEW, VERSION} from '../../../../config.js'
 
-import {getSelectorQuery}  from '../../../../utils/util.js'
-
-import { getPositionListNumApi } from '../../../../api/pages/position.js'
-
 let app = getApp()
+
 Page({
   data: {
     hasReFresh: false,
@@ -43,12 +38,17 @@ Page({
       isLastPage: false,
       isRequire: false,
       onBottomStatus: 0
+    },
+    indexShowCount: {
+      interestedNum: 0,
+      viewNum: 0
     }
   },
   onLoad(options) {
-
+    wx.setStorageSync('choseType', 'RECRUITER')
   },
   onShow() {
+    this.getIndexShowCount()
     this.getLists()
   },
   /**
@@ -61,6 +61,7 @@ Page({
     const key = this.data.tab
     const value = {list: [], pageNum: 1, isLastPage: false, isRequire: false, onBottomStatus: 0}
     this.setData({[key]: value, hasReFresh: true})
+    this.getIndexShowCount()
     this.getLists().then(res => {
       this.setData({hasReFresh: false})
       wx.stopPullDownRefresh()
@@ -94,7 +95,13 @@ Page({
   },
   onClickTab(e) {
     let tab = e.currentTarget.dataset.tab
-    this.setData({tab}, () => this.getLists())
+    let indexShowCount = this.data.indexShowCount
+    if(tab === 'viewList') {
+      indexShowCount.interestedNum = 0
+    } else {
+      indexShowCount.viewNum = 0
+    }
+    this.setData({tab, indexShowCount}, () => this.getLists())
   },
   routeJump(e) {
     wx.reLaunch({url: `${RECRUITER}index/index`})
@@ -155,5 +162,12 @@ Page({
   },
   formSubmit(e) {
     app.postFormId(e.detail.formId)
+  },
+  getIndexShowCount() {
+    return new Promise((resolve, reject) => {
+      getIndexShowCountApi({hasLoading: false}).then(res => {
+        this.setData({indexShowCount: res.data}, () => resolve(res))
+      })
+    })
   }
 })

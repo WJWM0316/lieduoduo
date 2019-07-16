@@ -2,8 +2,14 @@
 	<navbar title="候选人动态" background="#FFFFFF" color="#22292C"></navbar>
 	<view class="place"></view>
 	<view class="office-status-bar" style="top: {{navH}}px">
-		<view class="item {{tab === 'interestList' ? 'active' : ''}}" bindtap="onClickTab" data-tab="interestList">对我感兴趣</view>
-  	<view class="item {{tab === 'viewList' ? 'active' : ''}}" bindtap="onClickTab" data-tab="viewList">看过我的</view>
+		<view class="item {{tab === 'interestList' ? 'active' : ''}}" bindtap="onClickTab" data-tab="interestList">
+			对我感兴趣
+			<view class="redot" wx:if="{{indexShowCount.interestedNum}}">{{indexShowCount.interestedNum}}</view>
+		</view>
+  	<view class="item {{tab === 'viewList' ? 'active' : ''}}" bindtap="onClickTab" data-tab="viewList">
+  		看过我的
+  		<view class="redot" wx:if="{{indexShowCount.interestedNum}}">{{indexShowCount.interestedNum}}</view>
+  	</view>
 	</view>
 	<view class="block"></view>
 	<view hidden="{{!hasReFresh}}">

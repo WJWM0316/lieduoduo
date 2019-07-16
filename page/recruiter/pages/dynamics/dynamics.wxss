@@ -22,7 +22,7 @@
 
 .office-status-bar .item {
   box-sizing: border-box;
-  padding: 0 30rpx;
+  padding: 0 36rpx;
   text-align: center;
   background-color: #FFFFFF;
   margin-left: 10rpx;
@@ -65,6 +65,22 @@
   content: '.';
   display: block;
   opacity: 0;
+}
+
+.office-status-bar .item .redot{
+  width:36rpx;
+  height:36rpx;
+  background:rgba(255,127,76,1);
+  border-radius: 50%;
+  line-height: 34rpx;
+  text-align: center;
+  font-size:24rpx;
+  font-weight:700;
+  color:rgba(255,255,255,1);
+  position: absolute;
+  top: 50%;
+  right: -16rpx;
+  transform: translateY(-50%);
 }
 
 .item2 {

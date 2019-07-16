@@ -198,15 +198,18 @@
           <image class="img" src="https://attach.lieduoduo.ziwork.com/default/man.png!130xauto"></image>
         </view>
         <view class="desc">
-          <view>该简历为顾问精选简历</view>
+          <view wx:if="{{resumeType === 'featured'}}">该简历为顾问精选简历</view>
+          <view wx:if="{{resumeType === 'hot'}}">该简历热门简历</view>
           <view>暂无查看权限</view>
         </view>
-        <view class="rule" bindtap="toggleExplainPop">什么是精选简历？</view>
+        <view class="rule" bindtap="toggleExplainPop"  wx:if="{{resumeType === 'featured'}}">什么是精选简历？</view>
+        <view class="rule" bindtap="toggleExplainPop" wx:if="{{resumeType === 'hot'}}">什么是热门简历？</view>
         <button class="backHomeBtn" bindtap="backHome">返回首页</button>
       </view>
     </view>
     <actionSheet class="actionSheet" openPop="{{hasExplainPop}}" title="精选简历" bindclose="toggleExplainPop">
-      <view class="content">精选简历，是猎Plus约面服务会员享有的特权。由平台专属顾问在365天的服务周期内，持续为招聘官量身甄选优质简历，提供打包推荐、跟进邀约面试等服务。</view>
+      <view class="content" wx:if="{{resumeType === 'featured'}}">精选简历，是猎Plus约面服务会员享有的特权。由平台专属顾问在365天的服务周期内，持续为招聘官量身甄选优质简历，提供打包推荐、跟进邀约面试等服务。</view>
+      <view class="content" wx:if="{{resumeType === 'hot'}}">热门简历，是猎多多平台根据近15天候选人的活跃时长、被浏览次数、被邀请次数，综合计算热度评分较高的简历。TA们都很抢手，不要错过哦~</view>
       <view class="desc">了解更多细则，欢迎联系我们</view>
       <button class="callPhone" bindtap="callPhone">{{telePhone}}</button>
     </actionSheet>

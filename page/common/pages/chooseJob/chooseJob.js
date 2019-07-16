@@ -280,8 +280,10 @@ Page({
         if(this.data.identity === 'APPLICANT' && job.id === 'unsuitable') {
           params.id = options.recruiterUid
           buttonClick = this.data.unsuitableChecked
+          params.status = job.status
         } else if(this.data.identity === 'RECRUITER' && job.id === 'unsuitable') {
           params.id = options.jobhunterUid
+          params.status = job.status
           buttonClick = this.data.unsuitableChecked
         } else {
           result = items.list.find((find, index) => job.index === index)
@@ -480,7 +482,7 @@ Page({
 
           // 都不合适 则直接拒绝
           if(this.data.unsuitableChecked) {
-            wx.navigateTo({url: `${COMMON}interviewMark/interviewMark?type=pending&jobhunterUid=${params.id}&reBack=2`})
+            wx.navigateTo({url: `${COMMON}interviewMark/interviewMark?type=pending&jobhunterUid=${params.id}&reBack=2&status=${params.status}`})
             // this.refuseInterview(params)
           } else {
             // 用选中的面试记录发起开撩

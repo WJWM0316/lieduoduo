@@ -4,7 +4,8 @@ import {
   getInterviewCommentApi,
   setRecomResumeNotSuitApi,
   getResumeRecomdReasonApi,
-  getResumeRecomdCommentApi
+  getResumeRecomdCommentApi,
+  getInterviewNotSuitReasonApi
 } from '../../../../api/pages/interview.js'
 
 const app = getApp()
@@ -65,6 +66,7 @@ Page({
             hasLoading
           }
       if (!this.data.options.adviser) {
+        
         reason = getCommentReasonApi
       } else {
         reason = getResumeRecomdReasonApi

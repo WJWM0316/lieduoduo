@@ -35,7 +35,7 @@
 	
 	<view class="todos_bar_notopen"  wx:if="{{!indexShowCount.advisor}}" bindtap="routeJump" data-route="dynamics">
 		<view class="left">
-			<view class="todo_title">候选人动态<view class="number">5</view></view>
+			<view class="todo_title">候选人动态<view class="number" wx:if="{{indexShowCount.dynamicTotal}}">{{indexShowCount.dynamicTotal}}</view></view>
 			<view class="todo_tips">对我感兴趣/看过我的</view>
 		</view>
 		<view class="right">

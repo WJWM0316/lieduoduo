@@ -194,7 +194,7 @@ export const getAdvisorListApi = (data, hasLoading) => {
 // 获取扣点信息
 export const getRecommendChargeApi = (data, hasLoading) => {
   return request({
-    url: `/advisor/recommend/charge/${data.positionId}`,
+    url: `/charge/resume/${data.jobhunterUid}`,
     method: 'get',
     data,
     hasLoading: hasLoading

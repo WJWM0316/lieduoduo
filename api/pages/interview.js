@@ -319,3 +319,13 @@ export const clearDayInterviewRedDotApi = (data) => {
     hasLoading: false
   })
 }
+
+// 获取面试过程中不合适标签
+export const getInterviewNotSuitReasonApi = (data) => {
+  return request({
+    url: `/interview/getInterviewNotSuitReason`,
+    method: 'put',
+    data,
+    hasLoading: false
+  })
+}
