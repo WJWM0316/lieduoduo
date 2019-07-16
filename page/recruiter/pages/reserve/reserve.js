@@ -154,14 +154,39 @@ Page({
       if(dealHandleStatus.id) params = Object.assign(params, {handleStatus: dealHandleStatus.id})
       // 已经选择职位
       if(dealPositionStatus.id) params = Object.assign(params, {positionId: dealPositionStatus.id})
+
       // 已经选择薪资
-      if(salary.length) params = Object.assign(params, {salaryIds: salary.join(',')})
+      if(salary.length) {
+        if(salary.includes(1)) {
+          params = Object.assign(params, {salaryIds: 1})
+        } else {
+          params = Object.assign(params, {salaryIds: salary.join(',')})
+        }
+      }
       // 已经选择求职状态
-      if(jobStatus.length) params = Object.assign(params, {jobStatusIds: jobStatus.join(',')})
+      if(jobStatus.length) {
+        if(jobStatus.includes(0)) {
+          params = Object.assign(params, {jobStatusIds: 0})
+        } else {
+          params = Object.assign(params, {jobStatusIds: jobStatus.join(',')})
+        }
+      }
       // 已经选择学习
-      if(degrees.length) params = Object.assign(params, {degreeIds: degrees.join(',')})
+      if(degrees.length) {
+        if(degrees.includes(100)) {
+          params = Object.assign(params, {degreeIds: 100})
+        } else {
+          params = Object.assign(params, {degreeIds: degrees.join(',')})
+        }
+      }
       // 已经选择学习
-      if(workExperience.length) params = Object.assign(params, {workExperienceIds: workExperience.join(',')})
+      if(workExperience.length) {
+        if(workExperience.includes(1)) {
+          params = Object.assign(params, {workExperienceIds: 1})
+        } else {
+          params = Object.assign(params, {workExperienceIds: workExperience.join(',')})
+        }
+      }
 
       getReserveResumeSearchListsApi(params).then(res => {
         resumeLists.onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
@@ -275,6 +300,7 @@ Page({
     let salary = this.data.salary
     let workExperience = this.data.workExperience
     let item = this.data[params.type].find((field, index) => index === params.index)
+    let mark = null
     let resumeLists = {
       list: [],
       pageNum: 1,
@@ -284,44 +310,80 @@ Page({
     }
     switch(params.type) {
       case 'workExperience':
-        if(item.id === 1 && !item.active) {
-          workExperience.map(field => field.active = true)
-        } else {
+        mark = 1
+        if(item.id === mark) {
           if(item.active) {
-            workExperience[params.index].active = false
-            let tem_03 = workExperience.filter(field => field.id !== 1)
-            let tem_04 = tem_03.filter(field => field.active)
-            if(tem_03.length !== tem_04.length) workExperience.map(field => {
-              if(field.id === 1) field.active = false
-            })
+            workExperience.map(field => field.active = false)
           } else {
-            workExperience[params.index].active = true
-            let tem_01 = workExperience.filter(field => field.id !== 1)
-            let tem_02 = tem_01.filter(field => field.active)
-            if(tem_01.length === tem_02.length) workExperience.map(field => field.active = true)
+            workExperience.map(field => field.active = true)
+          }
+        } else {
+          workExperience[params.index].active = !workExperience[params.index].active
+          let tem = workExperience.filter(field => field.id !== mark)
+          let filter = tem.filter(field => field.active)
+          if(tem.length === filter.length) {
+            workExperience.map(field => field.active = true)
+          } else {
+            workExperience.map(field => {if(field.id === mark) {field.active = false}})
           }
         }
         break
       case 'degrees':
-        degrees.map((field, index, arr) => {
-          if(index === params.index) {
-            field.active = !field.active
+        mark = 100
+        if(item.id === mark) {
+          if(item.active) {
+            degrees.map(field => field.active = false)
+          } else {
+            degrees.map(field => field.active = true)
           }
-        })
+        } else {
+          degrees[params.index].active = !degrees[params.index].active
+          let tem = degrees.filter(field => field.id !== mark)
+          let filter = tem.filter(field => field.active)
+          if(tem.length === filter.length) {
+            degrees.map(field => field.active = true)
+          } else {
+            degrees.map(field => {if(field.id === mark) {field.active = false}})
+          }
+        }
         break
       case 'salary':
-        salary.map((field, index, arr) => {
-          if(index === params.index) {
-            field.active = !field.active
+        mark = 1
+        if(item.id === mark) {
+          if(item.active) {
+            salary.map(field => field.active = false)
+          } else {
+            salary.map(field => field.active = true)
           }
-        })
+        } else {
+          salary[params.index].active = !salary[params.index].active
+          let tem = salary.filter(field => field.id !== mark)
+          let filter = tem.filter(field => field.active)
+          if(tem.length === filter.length) {
+            salary.map(field => field.active = true)
+          } else {
+            salary.map(field => {if(field.id === mark) {field.active = false}})
+          }
+        }
         break
       case 'jobStatus':
-        jobStatus.map((field, index, arr) => {
-          if(index === params.index) {
-            field.active = !field.active
+        mark = 0
+        if(item.id === mark) {
+          if(item.active) {
+            jobStatus.map(field => field.active = false)
+          } else {
+            jobStatus.map(field => field.active = true)
           }
-        })
+        } else {
+          jobStatus[params.index].active = !jobStatus[params.index].active
+          let tem = jobStatus.filter(field => field.id !== mark)
+          let filter = tem.filter(field => field.active)
+          if(tem.length === filter.length) {
+            jobStatus.map(field => field.active = true)
+          } else {
+            jobStatus.map(field => {if(field.id === mark) {field.active = false}})
+          }
+        }
         break
       default:
         break

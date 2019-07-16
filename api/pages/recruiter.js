@@ -311,3 +311,13 @@ export const getReserveResumeSearchPositionRangeListsApi = (data, hasLoading) =>
     hasLoading: hasLoading
   })
 }
+
+// 获取职位搜索范围
+export const getRecommendCityRangesListsApi = (data, hasLoading) => {
+  return request({
+    url: `/recommend/city/ranges`,
+    method: 'get',
+    data,
+    hasLoading: hasLoading
+  })
+}
