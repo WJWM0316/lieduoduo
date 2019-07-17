@@ -60,14 +60,19 @@ Page({
    * @return   {[type]}              [description]
    */
   getCommentReason(hasLoading = false) {
+    // 在过程中获取不合适标记
+    let pending = [11, 12, 21, 31, 32, 41]
     return new Promise((resolve, reject) => {
       let reason = null,
           params = {
             hasLoading
           }
       if (!this.data.options.adviser) {
-        
-        reason = getCommentReasonApi
+        if(params.includes(Number(this.data.options.status))) {
+          reason = getInterviewNotSuitReasonApi
+        } else {
+          reason = getCommentReasonApi
+        }
       } else {
         reason = getResumeRecomdReasonApi
       }

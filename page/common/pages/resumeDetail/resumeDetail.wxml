@@ -41,7 +41,7 @@
               </view>
             </button>
             <view class="info">
-              <view class="name" wx:if="{{!info.advisor.glass}}">
+              <view class="name" wx:if="{{!info.advisor.glass || !info.glass}}">
                   <text>{{info.name}}</text>
                   <i class="icon iconfont icon-bianji1 edit" data-editName="info" data-id="{{item.id}}" bindtap="edit" wx:if="{{isOwner}}"></i>
               </view>
@@ -169,12 +169,12 @@
       </view>
       
       <block>
-        <button form-type="submit" hidden="{{options.adviser && info.sourceType !== 500 || info.sourceType !== 100 || info.advisor.glass}}" class="clear-style collect" bindtap="collect">
+        <button form-type="submit" hidden="{{options.adviser && info.sourceType !== 500 || info.sourceType !== 100 || info.advisor.glass || info.glass}}" class="clear-style collect" bindtap="collect">
           <i class="icon iconfont icon-ganxingqu" wx:if="{{!info.interested}}"></i>
           <i class="icon iconfont icon-biaojiweiganxingqu" wx:else></i>
         </button>
         <!-- 底部开撩 -->
-        <view class="bottomBox" hidden="{{options.adviser && info.sourceType !== 500 || info.sourceType !== 100}}">
+        <view class="bottomBox" hidden="{{(options.adviser && info.sourceType !== 500) || (options.hot && info.sourceType !== 100)}}">
           <view wx:if="{{!options.preview}}">
             <interviewBar
               id="interviewBar"
