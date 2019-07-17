@@ -68,7 +68,7 @@ Page({
             hasLoading
           }
       if (!this.data.options.adviser) {
-        if(params.includes(Number(this.data.options.status))) {
+        if(pending.includes(Number(this.data.options.status))) {
           reason = getInterviewNotSuitReasonApi
         } else {
           reason = getCommentReasonApi

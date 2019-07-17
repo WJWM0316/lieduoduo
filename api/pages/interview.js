@@ -324,7 +324,7 @@ export const clearDayInterviewRedDotApi = (data) => {
 export const getInterviewNotSuitReasonApi = (data) => {
   return request({
     url: `/interview/getInterviewNotSuitReason`,
-    method: 'put',
+    method: 'get',
     data,
     hasLoading: false
   })
