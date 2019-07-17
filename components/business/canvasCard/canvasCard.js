@@ -147,10 +147,14 @@ Component({
           ctx.drawImage('../../../images/shareResume.png', 0, 0, 420, 336)
           ctx.setFontSize(28)
           ctx.setFillStyle('#ffffff')
-          ellipsis(ctx, info.name, 194, 170, 102)
+          if(!info.glass) {
+            ellipsis(ctx, info.name, 194, 170, 102)
+          } else {
+            ctx.drawImage('../../../images/invisible1.png', 150, 72, 76, 44)
+          }
           if(info.jobStatusDesc){
             ctx.setFontSize(22)
-            ellipsis(ctx, info.jobStatusDesc, 194, 170, 132)
+            ellipsis(ctx, info.jobStatusDesc, 180, 160, 132)
           }
           let positionX2 = 0
           if(info.expects && info.expects.length>0){
