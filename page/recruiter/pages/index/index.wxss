@@ -1,3 +1,6 @@
+.index_header {
+  background: white;
+}
 .index-bannar image {
   width: 100%;
   height: 400rpx;

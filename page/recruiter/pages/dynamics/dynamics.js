@@ -4,7 +4,6 @@ import {
 } from '../../../../api/pages/browse.js'
 
 import {
-  getBrowseMySelfListsApi,
   getIndexShowCountApi
 } from '../../../../api/pages/recruiter.js'
 
@@ -12,7 +11,7 @@ import {
   clearReddotApi
 } from '../../../../api/pages/common.js'
 
-import {RECRUITER, COMMON, APPLICANT, WEBVIEW, VERSION} from '../../../../config.js'
+import {RECRUITER, COMMON} from '../../../../config.js'
 
 let app = getApp()
 
@@ -85,13 +84,9 @@ Page({
    */
   viewResumeDetail(e) {
     let params = e.currentTarget.dataset
-    if(params.type === 'clearRedDot') {
-      clearReddotApi({jobHunterUid: params.jobhunteruid, reddotType: 'red_dot_recruiter_view_item'}).then(() => {
-        wx.navigateTo({url: `${COMMON}resumeDetail/resumeDetail?uid=${params.jobhunteruid}`})
-      })
-    } else {
+    clearReddotApi({jobHunterUid: params.jobhunteruid, reddotType: params.type}).then(() => {
       wx.navigateTo({url: `${COMMON}resumeDetail/resumeDetail?uid=${params.jobhunteruid}`})
-    }
+    })
   },
   onClickTab(e) {
     let tab = e.currentTarget.dataset.tab

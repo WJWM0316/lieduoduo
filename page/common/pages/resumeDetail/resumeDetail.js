@@ -37,6 +37,7 @@ Page({
     identity = app.identification(options)
     this.setData({options})
     positionCard = ''
+    console.log(options)
   },
   /**
    * 生命周期函数--监听页面显示
@@ -95,7 +96,10 @@ Page({
         hasLoading, isReload,
         ...app.getSource()
       }
+      // 精选简历参数
       if (this.data.options.adviser) params.resumeSource = 500
+      // 热门简历参数
+      if (this.data.options.hot) params.resumeSource = 100
       if (this.data.options.relaySourceVkey) params.relaySourceVkey = this.data.options.relaySourceVkey
       getOtherResumeApi(params).then(res => {
         this.setData({info: res.data, isOwner: res.data.isOwner && identity === 'APPLICANT' && !this.data.options.preview, realIsOwner: res.data.isOwner}, function() {
@@ -247,12 +251,20 @@ Page({
     let url = `${COMMON}resumeDetail/resumeDetail`
     let params = `?uid=${that.data.options.uid}&sCode=${this.data.info.sCode}&sourceType=shr`
     if (this.data.options.relaySourceVkey) {
-      params = `${params}&relaySourceVkey=${this.data.options.relaySourceVkey}&adviser=true`
+      if(this.data.options.hot) {
+        params = `${params}&relaySourceVkey=${this.data.options.relaySourceVkey}&hot=true`
+      } else {
+        params = `${params}&relaySourceVkey=${this.data.options.relaySourceVkey}&adviser=true`
+      }
     } else {
       params = `${params}&relaySourceVkey=${myInfos.vkey}`
     }
     if (that.data.info.sourceType === 500 && !this.data.options.relaySourceVkey) {
       params = `${params}&adviser=true`
+    }
+    // 热门简历
+    if (that.data.info.sourceType === 100 && !this.data.options.relaySourceVkey) {
+      params = `${params}&hot=true`
     }
 　　return app.wxShare({
       options,

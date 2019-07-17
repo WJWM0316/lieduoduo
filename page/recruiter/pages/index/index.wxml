@@ -1,89 +1,90 @@
 <view class="page_index">
 	<navbar title="{{background !== 'transparent' ? '猎多多' : ''}}"  background="{{background}}" color="#fff" isFixed="{{isFixed}}"></navbar>
 
-	<view hidden="{{!hasReFresh}}">
-		<refreshStatus></refreshStatus>
-	</view>
-	
-	<view class="index-bannar">
-		<image src="{{cdnImagePath}}recruiter_mine_new_bg.png"></image>
-	</view>
-	
-	<view class="welcome">
-		<view class="admin">{{welcomeWord}}，{{detail.realname}}</view>
-		<view class="capsule" bindtap="routeJump" data-route="recruiter">
-			<view class="img-box"><image mode="aspectFill" src="{{detail.avatar.smallUrl}}" class="image"></image></view>
-			<i class="icon iconfont icon-youyi"></i>
+	<view class="index_header">
+		<view hidden="{{!hasReFresh}}">
+			<refreshStatus></refreshStatus>
 		</view>
-	</view>
+		
+		<view class="index-bannar">
+			<image src="{{cdnImagePath}}recruiter_mine_new_bg.png"></image>
+		</view>
+		
+		<view class="welcome">
+			<view class="admin">{{welcomeWord}}，{{detail.realname}}</view>
+			<view class="capsule" bindtap="routeJump" data-route="recruiter">
+				<view class="img-box"><image mode="aspectFill" src="{{detail.avatar.smallUrl}}" class="image"></image></view>
+				<i class="icon iconfont icon-youyi"></i>
+			</view>
+		</view>
 
-	<view class="floating-box">
-		<view class="item left001" bindtap="routeJump" data-route="interested">
-			<view class="number">{{indexShowCount.recruiterInterestedToJ}}</view>
-			<view class="text">我感兴趣的<i class="icon iconfont icon-disejiantou-you"></i></view>
-		</view>
-		<view class="item center001" bindtap="routeJump" data-route="interview">
-			<view class="number">{{indexShowCount.recentInterview}}</view>
-			<view class="text">最近面试<i class="icon iconfont icon-disejiantou-you"></i></view>
-		</view>
-		<view class="item right001" bindtap="routeJump" data-route="position">
-			<view class="number">{{indexShowCount.onlinePosition}}</view>
-			<view class="text">在招职位<i class="icon iconfont icon-disejiantou-you"></i></view>
-		</view>
-	</view>
-	
-	
-	<view class="todos_bar_notopen"  wx:if="{{!indexShowCount.advisor}}" bindtap="routeJump" data-route="dynamics">
-		<view class="left">
-			<view class="todo_title">候选人动态<view class="number" wx:if="{{indexShowCount.dynamicTotal}}">{{indexShowCount.dynamicTotal}}</view></view>
-			<view class="todo_tips">对我感兴趣/看过我的</view>
-		</view>
-		<view class="right">
-			<view class="imglist">
-				<image class="imgitem" lazy-load wx:for="{{indexShowCount.moreRecruiter}}" wx:key="{{index}}" src="{{item.smallUrl}}" wx:if="{{index <= 2}}"></image>
-				<image class="imgitem" src="{{cdnImagePath}}more.png" wx:if="{{indexShowCount.moreRecruiter.length > 3}}"></image>
+		<view class="floating-box">
+			<view class="item left001" bindtap="routeJump" data-route="interested">
+				<view class="number">{{indexShowCount.recruiterInterestedToJ}}</view>
+				<view class="text">我感兴趣的<i class="icon iconfont icon-disejiantou-you"></i></view>
+			</view>
+			<view class="item center001" bindtap="routeJump" data-route="interview">
+				<view class="number">{{indexShowCount.recentInterview}}</view>
+				<view class="text">最近面试<i class="icon iconfont icon-disejiantou-you"></i></view>
+			</view>
+			<view class="item right001" bindtap="routeJump" data-route="position">
+				<view class="number">{{indexShowCount.onlinePosition}}</view>
+				<view class="text">在招职位<i class="icon iconfont icon-disejiantou-you"></i></view>
 			</view>
 		</view>
-	</view>
+		
+		
+		<view class="todos_bar_notopen"  wx:if="{{!indexShowCount.advisor}}" bindtap="routeJump" data-route="dynamics">
+			<view class="left">
+				<view class="todo_title">候选人动态<view class="number" wx:if="{{indexShowCount.dynamicTotal}}">{{indexShowCount.dynamicTotal}}</view></view>
+				<view class="todo_tips">对我感兴趣/看过我的</view>
+			</view>
+			<view class="right">
+				<view class="imglist">
+					<image class="imgitem" lazy-load wx:for="{{indexShowCount.moreRecruiter}}" wx:key="{{index}}" src="{{item.smallUrl}}" wx:if="{{index <= 2}}"></image>
+					<image class="imgitem" src="{{cdnImagePath}}more.png" wx:if="{{indexShowCount.moreRecruiter.length > 3}}"></image>
+				</view>
+			</view>
+		</view>
 
-	<view class="todos_bar_open"  wx:if="{{indexShowCount.advisor}}">
-		<view class="todo_item todo_item_left" bindtap="routeJump" data-route="adviser">
-			<view class="todo_title">顾问精选简历<view class="number">{{indexShowCount.advisor.total}}</view></view>
-			<view class="todo_tips" wx:if="{{indexShowCount.advisor.notHandleNum && indexShowCount.advisor.total}}">
-				<text class="strong">{{indexShowCount.advisor.notHandleNum}}</text> 候选人未处理
+		<view class="todos_bar_open"  wx:if="{{indexShowCount.advisor}}">
+			<view class="todo_item todo_item_left" bindtap="routeJump" data-route="adviser">
+				<view class="todo_title">顾问精选简历<view class="number">{{indexShowCount.advisor.total}}</view></view>
+				<view class="todo_tips" wx:if="{{indexShowCount.advisor.notHandleNum && indexShowCount.advisor.total}}">
+					<text class="strong">{{indexShowCount.advisor.notHandleNum}}</text> 候选人未处理
+				</view>
+				<view class="todo_tips" wx:if="{{!indexShowCount.advisor.notHandleNum && !indexShowCount.advisor.total}}">
+					有合适简历将立即给您推荐
+				</view>
+				<view class="todo_tips" wx:if="{{!indexShowCount.advisor.notHandleNum && indexShowCount.advisor.total}}">
+					已推荐 {{indexShowCount.advisor.total}} 位候选人
+				</view>
+				<view class="todo_tips" wx:if="{{!indexShowCount.advisor.notHandleNum}}"> 有合适简历将立即给您推荐 </view>
 			</view>
-			<view class="todo_tips" wx:if="{{!indexShowCount.advisor.notHandleNum && !indexShowCount.advisor.total}}">
-				有合适简历将立即给您推荐
+			<view class="todo_item todo_item_right" bindtap="routeJump" data-route="dynamics">
+				<view class="todo_title">候选人动态<view class="number" wx:if="{{indexShowCount.dynamicTotal}}">{{indexShowCount.dynamicTotal}}</view></view>
+				<view class="todo_tips">对我感兴趣/看过我的</view>
 			</view>
-			<view class="todo_tips" wx:if="{{!indexShowCount.advisor.notHandleNum && indexShowCount.advisor.total}}">
-				已推荐 {{indexShowCount.advisor.total}} 位候选人
-			</view>
-			<view class="todo_tips" wx:if="{{!indexShowCount.advisor.notHandleNum}}"> 有合适简历将立即给您推荐 </view>
 		</view>
-		<view class="todo_item todo_item_right" bindtap="routeJump" data-route="dynamics">
-			<view class="todo_title">候选人动态<view class="number" wx:if="{{indexShowCount.dynamicTotal}}">{{indexShowCount.dynamicTotal}}</view></view>
-			<view class="todo_tips">对我感兴趣/看过我的</view>
+		
+		<view class="shoper-banner" wx:if="{{banner.length}}">
+			<swiper
+	      class="swiper"
+	      autoplay
+	      circular
+	      bindchange="autoplay">
+	      <swiper-item
+					bindtap="toJump" 
+					data-url="{{item.otherUrl}}" 
+					wx:for="{{banner}}"
+					wx:key="{{index}}"
+					class="swiper-item"
+					wx:for-item="item">
+	        <image src="{{item.bigImgUrl}}" class="images"></image>
+	      </swiper-item>
+	    </swiper>
 		</view>
 	</view>
-	
-	<view class="shoper-banner" wx:if="{{banner.length}}">
-		<swiper
-      class="swiper"
-      autoplay
-      circular
-      bindchange="autoplay">
-      <swiper-item
-				bindtap="toJump" 
-				data-url="{{item.otherUrl}}" 
-				wx:for="{{banner}}"
-				wx:key="{{index}}"
-				class="swiper-item"
-				wx:for-item="item">
-        <image src="{{item.bigImgUrl}}" class="images"></image>
-      </swiper-item>
-    </swiper>
-	</view>
-
 	<view class="page_index_list">
 		
 		<block wx:if="{{detail.positionNum}}">
@@ -177,6 +178,7 @@
 				<!-- 系统推荐数据 start-->
 			</view>
 		</block>
+
 		<block wx:if="{{!detail.positionNum}}">
 			<view class="nodata">
 				<bottomStatus
@@ -193,6 +195,7 @@
 				</bottomStatus>
 			</view>
 		</block>
+		
 	</view>
 	<actionSheet  title="{{model.title}}" openPop="{{model.show}}"  bindclose="closeTips">
 		<view class="position_list" wx:if="{{model.type === 'position'}}">

@@ -178,6 +178,12 @@ Page({
     this.getIndexShowCount().then(() => this.getBanner())
     this.getWelcomeWord()
   },
+  /**
+   * @Author   小书包
+   * @DateTime 2019-07-17
+   * @detail   获取轮播图
+   * @return   {[type]}   [description]
+   */
   getBanner () {
     return getAdBannerApi({location: 'recruiter_index', hasLoading: false}).then(res => {
       let banner = res.data
@@ -192,6 +198,12 @@ Page({
       this.setData({banner})
     })
   },
+  /**
+   * @Author   小书包
+   * @DateTime 2019-07-17
+   * @detail   获取悬浮的 dom节点
+   * @return   {[type]}   [description]
+   */
   getDomNodePosition() {
     setTimeout(() => {
       getSelectorQuery('.default').then(res => {
@@ -199,6 +211,12 @@ Page({
       })
     }, 1000)
   },
+  /**
+   * @Author   小书包
+   * @DateTime 2019-07-17
+   * @detail   模拟首页需要时时刷新的数据
+   * @return   {[type]}   [description]
+   */
   getIndexShowCount() {
     return new Promise((resolve, reject) => {
       if (wx.getStorageSync('choseType') === 'APPLICANT') {
@@ -217,6 +235,8 @@ Page({
    * @return   {[type]}              [description]
    */
   onPullDownRefresh() {
+    // getRecommendRangeAll
+    let api = this.data.recommended ? 'getRecommendResumeLists' : 'getRecommendResumePageLists'
     let resumeList = {
       list: [],
       pageNum: 1,
@@ -229,7 +249,7 @@ Page({
     this.setData({hasReFresh: true, resumeList})
     this.selectComponent('#bottomRedDotBar').init()
     this.getMixdata()
-    this.getRecommendRangeAll().then(() => {
+    this[api]().then(() => {
       wx.stopPullDownRefresh()
       this.setData({fixedDom: false, hasReFresh: false})
     }).catch(() => {
@@ -284,23 +304,9 @@ Page({
    */
   viewResumeDetail(e) {
     let params = e.currentTarget.dataset
-    let uid = this.data.detail.uid
     if(!Object.keys(params).length) return;
-    if(params.type === 1) {
-      wx.reLaunch({url: `${RECRUITER}position/index/index`})
-    } else if(params.type === 2) {
-      wx.setStorageSync('isReback', 'yes')
-      wx.navigateTo({url: `${COMMON}recruiterDetail/recruiterDetail?uid=${uid}`})
-    } else {
-      wx.setStorageSync('isReback', 'yes')
-      if(params.type === 'clearRedDot') {
-        clearReddotApi({jobHunterUid: params.jobhunteruid, reddotType: 'red_dot_recruiter_view_item'}).then(() => {
-          wx.navigateTo({url: `${COMMON}resumeDetail/resumeDetail?uid=${params.jobhunteruid}`})
-        })
-      } else {
-        wx.navigateTo({url: `${COMMON}resumeDetail/resumeDetail?uid=${params.jobhunteruid}`})
-      }
-    }
+    // wx.navigateTo({url: `${COMMON}resumeDetail/resumeDetail?uid=${params.jobhunteruid}&adviser=true`})
+    wx.navigateTo({url: `${COMMON}resumeDetail/resumeDetail?uid=${params.jobhunteruid}&hot=true`})
   },
   routeJump(e) {
     let route = e.currentTarget.dataset.route
@@ -401,23 +407,41 @@ Page({
     let positionLists = this.data.positionLists
     let barLists = this.data.barLists
     let model = this.data.model
+    let item = null
     model.show = false
-    positionLists.list.map((field, index) => field.active = index === params.index ? true : false)
-    let item = positionLists.list.find(field => field.active)
-    barLists.map((field, index) => {
-      field.active = false
-      if(field.id === item.id) {
-        field.active = true
-        this.clickNav({
-          target: {
-            dataset: {
-              index
+
+    if(params.index <= 20) {
+      positionLists.list.map((field, index) => field.active = index === params.index ? true : false)
+      item = positionLists.list.find(field => field.active)
+      barLists.map((field, index) => {
+        field.active = false
+        if(field.id === item.id) {
+          field.active = true
+          this.clickNav({
+            target: {
+              dataset: {
+                index
+              }
             }
+          })
+        }
+      })
+    } else {
+      item = positionLists.list.splice(params.index, 1)[0]
+      barLists.splice(1, 0, item)
+      positionLists.list.unshift(item)
+      positionLists.list[0].active = true
+      barLists.map(field => field.active = false)
+      barLists[1].active = true
+      this.clickNav({
+        target: {
+          dataset: {
+            index: 1
           }
-        })
-      }
-    })
-    this.setData({positionLists, model, barLists})
+        }
+      })
+    }
+    this.setData({barLists, positionLists, model})
   },
   /**
    * @Author   小书包
@@ -713,6 +737,7 @@ Page({
     let recommended = this.data.recommended
     let positionLists = this.data.positionLists
     let exclusiveSelection = this.data.exclusiveSelection
+    let item = null
     let resumeList = {
       list: [],
       pageNum: 1,
@@ -722,8 +747,13 @@ Page({
       onBottomStatus: 0,
       showSystemData: false
     }
-    barLists.map((field, index) => field.active = navTabIndex === index ? true : false)
-    let item = barLists.find(field => field.active)
+    barLists.map((field, index) => {
+      field.active = false
+      if(navTabIndex === index) {
+        field.active = true
+        item = field
+      }
+    })
     positionLists.list.map(field => field.active = field.id === item.id)
     if(item.id) {
       recommended = item.recommended

@@ -25,7 +25,7 @@
 				wx:for="{{viewList.list}}"
 				wx:for-item="item"
 				data-jobhunterUid="{{item.uid}}"
-				data-type="{{item.myType}}"
+				data-type="red_dot_recruiter_view_item"
 				wx:key="{{index}}">
 				<view class="item2">
 					<view class="row-one">
@@ -74,7 +74,7 @@
 				wx:for="{{interestList.list}}"
 				wx:for-item="item"
 				data-jobhunterUid="{{item.uid}}"
-				data-type="clearRedDot"
+				data-type="red_dot_recruiter_collect_item"
 				wx:key="{{index}}">
 				<view class="item2">
 					<view class="row-one">

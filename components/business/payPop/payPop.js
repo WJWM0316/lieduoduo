@@ -13,6 +13,10 @@ Component({
     chargeData: {
       type: Object,
       value: {}
+    },
+    title: {
+      type: String,
+      value: ''
     }
   },
 
