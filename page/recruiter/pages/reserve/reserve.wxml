@@ -105,6 +105,7 @@
 		          <i class="icon iconfont icon-wancheng" wx:if="{{item.active}}"></i>
 		        </view>
 					</view>
+					<bottomStatus status="{{positionLists.onBottomStatus}}"listData="{{positionLists.list}}"></bottomStatus>
 		  </scroll-view>
 		</view>
 		<!-- 职位筛选 end -->
