@@ -127,7 +127,6 @@ Page({
     let title = this.data.title,
         background = this.data.background,
         navColor = this.data.navColor
-    console.log(e.scrollTop, 11)
     if(e.scrollTop > 10) {
       if (background !== '#fff') {
         title = '精选顾问'
@@ -187,13 +186,11 @@ Page({
     let listData = this.data.listData
     if (listData.isLastPage) return
     listData.onBottomStatus = 1
-    this.setData({listData}, () => {
-      this.getList(false)
-    })
+    this.setData({listData}, () => { this.getList(false) })
 
   },
   read() {
-    let path = encodeURIComponent(`${WEBVIEW}optimal?vkey=${app.globalData.recruiterDetails.vkey}&iso=1&version=${VERSION}&`)
+    let path = encodeURIComponent(`${WEBVIEW}advisor`)
     wx.navigateTo({url: `${COMMON}webView/webView?type=optimal&p=${path}`})
   }
 })

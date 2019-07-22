@@ -436,7 +436,7 @@ Component({
             wx.navigateTo({url: `${COMMON}chooseJob/chooseJob?type=reject_chat&from=${this.data.currentPage}&jobhunterUid=${infos.uid}`})
             wx.setStorageSync('interviewChatLists', this.data.interviewInfos)
           } else {
-            wx.navigateTo({url: `${COMMON}interviewMark/interviewMark?type=pending&jobhunterUid=${infos.uid}&lastInterviewId=${interviewInfos.data[0].interviewId}`})
+            wx.navigateTo({url: `${COMMON}interviewMark/interviewMark?type=pending&jobhunterUid=${infos.uid}&lastInterviewId=${interviewInfos.data[0].interviewId}&status=${interviewInfos.interviewStatus}`})
           }
           break
         // 求职者查看面试详情

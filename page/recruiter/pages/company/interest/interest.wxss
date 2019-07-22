@@ -100,8 +100,12 @@
 	line-height:40rpx;
 }
 
-.card .overlay .name.default {
+.card .overlay .name.black {
 	color:#282828;
+}
+
+.card .overlay .name.default {
+	color:#5C565D;
 }
 
 .card .overlay .name.vip {

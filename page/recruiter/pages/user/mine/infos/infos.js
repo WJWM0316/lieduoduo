@@ -99,6 +99,9 @@ Page({
           url: `${RECRUITER}company/recruiterList/recruiterList?companyId=${this.data.recruiterInfo.companyInfo.id}`
         })
         break
+      case 'reserve':
+        wx.navigateTo({url: `${RECRUITER}reserve/reserve`})
+        break
       case 'interest':
         wx.navigateTo({url: `${RECRUITER}company/interest/interest`})
         break

@@ -428,15 +428,15 @@ Page({
         })
         break
       case 'reason':
-        wx.navigateTo({url: `${COMMON}interviewMark/interviewMark?type=resolve&jobhunterUid=${info.jobhunterInfo.uid}&lastInterviewId=${info.interviewId}`})
+        wx.navigateTo({url: `${COMMON}interviewMark/interviewMark?type=resolve&jobhunterUid=${info.jobhunterInfo.uid}&lastInterviewId=${info.interviewId}&status=${info.status}`})
         break
       case 'retract':
         interviewRetractApi({id: info.jobhunterInfo.uid, interviewId: info.interviewId}).then(() => _this.pageInit())
         break
       case 'notsuitable':
         let url11 =  info.status === 57 || info.status === 58
-          ? `${COMMON}interviewMark/interviewMark?type=pending&jobhunterUid=${info.jobhunterInfo.uid}&lastInterviewId=${info.interviewId}`
-          : `${COMMON}interviewMark/interviewMark?type=pending&jobhunterUid=${info.jobhunterInfo.uid}&lastInterviewId=${info.interviewId}&reBack=2`
+          ? `${COMMON}interviewMark/interviewMark?type=pending&jobhunterUid=${info.jobhunterInfo.uid}&lastInterviewId=${info.interviewId}&status=${info.status}`
+          : `${COMMON}interviewMark/interviewMark?type=pending&jobhunterUid=${info.jobhunterInfo.uid}&lastInterviewId=${info.interviewId}&reBack=2&status=${info.status}`
         wx.navigateTo({url: url11})
         break
       default:
