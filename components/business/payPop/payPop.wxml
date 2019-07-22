@@ -1,5 +1,5 @@
 <actionSheet class="actionSheet rule-box" openPop="{{openPayPop}}" title="确认邀约" bindclose="close">
-  <view class="tip">此候选人来自<text class="txt">顾问精选</text>推荐，开撩邀约需消耗</view>
+  <view class="tip">此候选人来自<text class="txt">{{title}}</text>推荐，开撩邀约需消耗</view>
   <view class="tipTitle">多多币</view>
   <view class="num">{{chargeData.charge}}</view>
   <view class="otherMsg" wx:if="{{chargeData.isEnough}}">账户剩余 {{chargeData.remain}} 多多币<text class="more" bindtap="callPhone">获取更多</text></view>

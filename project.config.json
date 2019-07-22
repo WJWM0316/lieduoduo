@@ -49,7 +49,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 47,
+			"current": 53,
 			"list": [
 				{
 					"id": 0,
@@ -387,6 +387,27 @@
 					"name": "【B端】权益",
 					"pathName": "page/recruiter/pages/company/interest/interest",
 					"query": "positionId=6529&companyId=915",
+					"scene": null
+				},
+				{
+					"id": 51,
+					"name": "【B端】候选人动态",
+					"pathName": "page/recruiter/pages/dynamics/dynamics",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 52,
+					"name": "【公包】简历储备",
+					"pathName": "page/recruiter/pages/reserve/reserve",
+					"query": "uid=660",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "【公包】测试",
+					"pathName": "page/recruiter/pages/test/test",
+					"query": "uid=660",
 					"scene": null
 				}
 			]

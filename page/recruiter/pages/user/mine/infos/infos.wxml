@@ -21,20 +21,59 @@
 					<image src="{{cdnPath}}sign1.png" mode="aspectFill" class="sign" wx:if="{{recruiterInfo.identityAuth}}"></image>
 				</view>
 			</view>
-			<button form-type="submit" class="share-homepage clear-style">分享我的主页</button>
-			<button form-type="submit" class="share-homepage-pic clear-style" catchtap="routeJump" data-route="poster">生成朋友圈分享图</button>
-		</view>
-		<view class="entry-list show-off-block" bindtap="toRank">
-			<view class="content">
-				<view class="first">
-					<text class="strong">{{recruiterInfo.ranking > 200 ? '200+' : recruiterInfo.ranking}}</text> 排名
+			<view class="footer">
+				<view class="left" bindtap="toRank">
+					<view class="rank_01">
+						<view class="strong">{{recruiterInfo.ranking > 200 ? '200+' : recruiterInfo.ranking}}</view>
+						<view class="default">排名</view>
+					</view>
+					<view class="populor_01">
+						本周人气 {{recruiterInfo.weekOfPopularity}}
+						<i class="icon iconfont icon-disejiantou-you"></i>
+					</view>
 				</view>
-				<view class="second">
-					<text>本周人气 {{recruiterInfo.weekOfPopularity}}</text><text class="influence">影响力 {{recruiterInfo.influence}}</text>
+				<view class="right">
+					<button form-type="submit" class="share-homepage-02 clear-style" catchtap="routeJump" data-route="poster">
+						<image class="icon_image" src="{{cdnPath}}icon_my_sharepic.png"></image>
+						<view class="btn-text">转发海报</view>
+					</button>
+					<button form-type="submit" class="share-homepage-pic-02 clear-style">
+						<image class="icon_image" src="{{cdnPath}}icon_my_sharemyhp.png"></image>
+						<view class="btn-text">转发主页</view>
+					</button>
 				</view>
 			</view>
-			<i class="icon iconfont icon-xiangyou"></i>
-			<view class="text2 color-default">查看排行榜</view>
+		</view>
+
+		<view class="toolbox">
+
+			<view class="left">
+				<view class="tool-item reserve"  bindtap="routeJump" data-route="reserve">
+					<image class="icon" src="{{cdnPath}}icon_my_resume.png"></image>
+					<view class="title">简历储备</view>
+					<view class="txt" wx:if="{{pageInfos.reserveTotal > 0}}">
+						<text class="num"> {{pageInfos.reserveTotal}} </text>份简历
+					</view>
+				</view>
+				<view class="tool-item myAccount"  bindtap="routeJump" data-route="myAccount">
+					<image class="icon" src="{{cdnPath}}icon_my_account.png"></image>
+					<view class="title">我的账户</view>
+					<view class="txt"><text class="num">{{pageInfos.remain}}</text>多多币</view>
+				</view>
+			</view>
+
+			<view class="right">
+				<view class="tool-item interest" bindtap="routeJump" data-route="interest">
+					<image class="icon" src="{{cdnPath}}icon_my_rights.png"></image>
+					<view class="title">我的权益</view>
+					<view class="txt">{{pageInfos.rtVersionName}}</view>
+				</view>
+				<view class="tool-item company"  bindtap="routeJump" data-route="company">
+					<image class="icon" src="{{cdnPath}}icon_my_company.png"></image>
+					<view class="title">我的公司</view>
+				</view>
+			</view>
+			
 		</view>
 	</form>
 	<view class="entry-list">
@@ -44,29 +83,6 @@
 			<view class="text">我感兴趣的</view>
 			<i class="icon iconfont icon-xiangyou"></i>
 		</view> -->
-
-		<view class="li toolbox">
-			<view class="tool-item {{pageInfos.arNewResumeRedDot ? 'red' : ''}}"  bindtap="routeJump" data-route="adviser">
-				<image class="icon" src="{{cdnPath}}icon_my_resume.png"></image>
-				<view class="title">顾问精选</view>
-				<view class="txt" wx:if="{{!pageInfos.haveAdvisorService}}">立即开通</view>
-				<view class="txt" wx:if="{{pageInfos.arNotHandleNum > 0}}"><text class="num">{{pageInfos.arNotHandleNum}}<block wx:if="{{pageInfos.arNotHandleNum > 99}}">+</block></text>份未处理</view>
-			</view>
-			<view class="tool-item"  bindtap="routeJump" data-route="myAccount">
-				<image class="icon" src="{{cdnPath}}icon_my_account.png"></image>
-				<view class="title">我的账号</view>
-				<view class="txt"><text class="num">{{pageInfos.remain}}</text>多多币</view>
-			</view>
-			<view class="tool-item" bindtap="routeJump" data-route="interest">
-				<image class="icon" src="{{cdnPath}}icon_my_rights.png"></image>
-				<view class="title">我的权益</view>
-				<view class="txt">{{pageInfos.rtVersionName}}</view>
-			</view>
-			<view class="tool-item"  bindtap="routeJump" data-route="company">
-				<image class="icon" src="{{cdnPath}}icon_my_company.png"></image>
-				<view class="title">我的公司</view>
-			</view>
-		</view>
 
 		<!-- <view class="li" bindtap="routeJump" data-route="company">
 			<i class="icon iconfont icon-gongsi1 label-icon"></i>

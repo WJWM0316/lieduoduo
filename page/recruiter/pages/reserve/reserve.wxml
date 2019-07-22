@@ -1,0 +1,200 @@
+<view>
+	<navbar title="简历储备" background="#FFFFFF" color="#22292C"></navbar>
+	<view class="place"></view>
+	<view class="office-status-bar" style="top: {{navH}}px">
+		<view class="item" bindtap="openTips" data-type="position">
+			<view class="text {{ dealPositionStatus.id ? 'active' : '' }}">
+				{{ dealPositionStatus.id ? dealPositionStatus.positionName : '职位' }} 
+			</view>
+			<i class="icon iconfont icon-zhishibiao"></i>
+		</view>
+  	<view class="item" bindtap="openTips" data-type="status">
+  		<view class="text {{ dealHandleStatus.id ? 'active' : '' }}">
+  			{{ dealHandleStatus.id ? dealHandleStatus.text : '处理状态' }} 
+  		</view>
+  		<i class="icon iconfont icon-zhishibiao"></i>
+  	</view>
+  	<view class="item" bindtap="openTips" data-type="reduction">
+  		<view class="text {{ dealMultipleSelection ? 'active' : '' }}">筛选 </view><i class="icon iconfont icon-zhishibiao"></i>
+  	</view>
+  	<view class="tips" bindtap="openTips" bindtap="openTips" data-type="rules">?</view>
+	</view>
+	<view class="block"></view>
+	<view hidden="{{!hasReFresh}}">
+		<refreshStatus></refreshStatus>
+	</view>
+
+	<view class="list-box">
+		<form bindsubmit="formSubmit" report-submit='{{true}}'>
+			<button
+				form-type="submit"
+				bindtap="viewResumeDetail"
+				class="formIdBtn"
+				wx:for="{{resumeLists.list}}"
+				wx:for-item="item"
+				data-jobhunterUid="{{item.uid}}"
+				data-type="{{item.myType}}"
+				wx:key="{{index}}">
+				<view class="item2">
+					<view class="row-one">
+						<view class="img-box">
+							<image class="avatar" src="{{item.avatar.smallUrl}}" lazy-load></image>
+							<image class="sexIcon" src="{{cdnImagePath}}nan.png" wx:if="{{item.gender === 1}}"></image>
+              <image class="sexIcon" src="{{cdnImagePath}}nv.png" wx:else></image>
+						</view>
+						<view class="content">
+							<view class="header">
+								<view class="name">{{item.name}}</view>
+								<view class="status" wx:if="{{item.jobStatusDesc}}">离职-随时到岗 </view>
+							</view>
+							<view class="degress">
+								<block>{{item.workAgeDesc}}</block>
+								<block wx:if="{{item.age}}"> · {{item.age}}岁</block>
+								<block wx:if="{{item.degreeDesc}}"> · {{item.degreeDesc}}</block>
+							</view>
+						</view>
+					</view>
+					<view class="row-two">
+						<view class="left">
+							<i class="icon iconfont icon-zhiwei"></i>
+							<text wx:if="{{item.lastCompany}}">{{item.lastCompany}} | {{item.lastPosition}}</text>
+							<text wx:if="{{!item.lastCompany}}">暂未填写工作经历</text>
+						</view>
+						<view class="right" wx:if="{{item.lastCompanyWorkAgeDesc}}"> {{item.lastCompanyWorkAgeDesc}} </view>
+					</view>
+					<view class="row-three">
+						<view class="left">
+							<i class="icon iconfont icon-xueli"></i>
+							<text wx:if="{{item.school}}">{{item.school}} | {{item.major}}</text>
+							<text wx:if="{{!item.school}}">暂未填写毕业院校</text>
+						</view>
+						<view class="right" wx:if="{{item.lastCompanyStartWorkYearDesc}}">{{item.lastCompanyStartWorkYearDesc}}-{{item.lastCompanyEndWorkYearDesc}}</view>
+					</view>
+				</view>
+			</button>
+		</form>
+		<bottomStatus status="{{ resumeLists.onBottomStatus }}" listData="{{resumeLists.list}}" desc="还没有候选人对你感兴趣哟～ 主动发现获取更多候选人吧" marginTop="{{40}}">
+			<button class="jump" bindtap="backHome">发现更多候选人</button>
+		</bottomStatus>
+	</view>
+	<actionSheet title="{{model.title}}" openPop="{{model.show}}"  bindclose="closeTips">
+		
+		<!-- 职位筛选 start -->
+		<view class="position_list" wx:if="{{model.type === 'position'}}">
+			<scroll-view
+				scroll-y
+				bindscrolltolower="lower"
+				class="scroll_view">
+					<view
+						class="list_item"
+						wx:for="{{positionLists.list}}"
+						wx:key="{{index}}"
+						bindtap="sChoice"
+						data-type="position"
+						data-index="{{index}}">
+						<view class="list_item_first">
+							<view class="title">{{item.positionName}}</view>
+							<view class="saraly">{{item.emolumentMin}}~{{item.emolumentMax}}K</view>
+						</view>
+						<view class="list_item_second">
+							<view class="address">{{item.city}}{{item.district}}</view>
+							<view class="degress">{{item.educationName}}</view>
+							<view class="experience">{{item.workExperienceName}}</view>
+						</view>
+		        <view class="myRadio {{item.active ? 'active' : ''}}">
+		          <i class="icon iconfont icon-wancheng" wx:if="{{item.active}}"></i>
+		        </view>
+					</view>
+					<bottomStatus status="{{positionLists.onBottomStatus}}"listData="{{positionLists.list}}"></bottomStatus>
+		  </scroll-view>
+		</view>
+		<!-- 职位筛选 end -->
+		
+		<!-- 复合筛选 start -->
+		<view class="type_list" wx:if="{{model.type === 'reduction'}}">
+			<scroll-view
+				scroll-y
+				bindscrolltolower="lower"
+				class="scroll_view">
+				<view class="type_header">
+					<view class="key">选择工作经验</view>
+					<view class="key_fix">（可多选）</view>
+				</view>
+				<view class="base_ul city_ul">
+					<view
+						class="base_item {{item.active ? 'base_item_active' : ''}}"
+						wx:for="{{workExperience}}"
+						wx:key="{{index}}"
+						data-index="{{index}}"
+						data-type="workExperience"
+						bindtap="mChoice">{{item.text}}</view>
+				</view>
+				<view class="type_header">
+					<view class="key">选择学历要求</view>
+					<view class="key_fix">（可多选）</view>
+				</view>
+				<view class="base_ul city_ul">
+					<view
+						class="base_item {{item.active ? 'base_item_active' : ''}}"
+						wx:for="{{degrees}}"
+						wx:key="{{index}}"
+						data-index="{{index}}"
+						data-type="degrees"
+						bindtap="mChoice">{{item.text}}</view>
+				</view>
+				<view class="type_header">
+					<view class="key">选择薪资范围</view>
+					<view class="key_fix">（可多选）</view>
+				</view>
+				<view class="base_ul city_ul">
+					<view
+						class="base_item {{item.active ? 'base_item_active' : ''}}"
+						wx:for="{{salary}}"
+						wx:key="{{index}}"
+						data-index="{{index}}"
+						data-type="salary"
+						bindtap="mChoice">{{item.text}}</view>
+				</view>
+				<view class="type_header">
+					<view class="key">选择求职状态</view>
+					<view class="key_fix">（可多选）</view>
+				</view>
+				<view class="base_ul saraly_ul">
+					<view
+						class="base_item {{item.active ? 'base_item_active' : ''}}"
+						wx:for="{{jobStatus}}"
+						wx:key="{{index}}"
+						data-index="{{index}}"
+						data-type="jobStatus"
+						bindtap="mChoice">{{item.text}}</view>
+				</view>
+			</scroll-view>
+			<view class="button-box">
+				<view class="btn_01" bindtap="reset">重置</view>
+				<view class="btn_02" bindtap="submit">确定</view>
+			</view>
+		</view>
+		<!-- 复合筛选 end -->
+		
+		<!-- 状态筛选 start -->
+		<view class="type_list status_ul" wx:if="{{model.type === 'status'}}">
+			<view class="base_ul city_ul">
+				<view
+					class="base_item {{item.active ? 'base_item_active' : ''}}"
+					wx:for="{{handleStatus}}"
+					wx:key="{{index}}"
+					data-index="{{index}}"
+					data-type="status"
+					bindtap="sChoice">{{item.text}}</view>
+			</view>
+		</view>
+		<!-- 状态筛选 end -->
+		
+		<!-- 规则 start -->
+		<view class="rules_boxs" wx:if="{{model.type === 'rules'}}">
+			在猎多多里与您产生过申请、邀请记录，或者被您标记为感兴趣的简历，将自动进入简历储备。据说60%的职位需求会在简历储备中得到解决，各位招聘官好好利用哦~
+		</view>
+		<!-- 规则 start -->
+
+	</actionSheet>
+</view>

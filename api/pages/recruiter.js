@@ -194,7 +194,7 @@ export const getAdvisorListApi = (data, hasLoading) => {
 // 获取扣点信息
 export const getRecommendChargeApi = (data, hasLoading) => {
   return request({
-    url: `/advisor/recommend/charge/${data.positionId}`,
+    url: `/charge/resume/${data.jobhunterUid}`,
     method: 'get',
     data,
     hasLoading: hasLoading
@@ -232,4 +232,92 @@ export const getRecommendReddotApi = (data, hasLoading) => {
   })
 }
 
+// 获取城市、薪资范围等搜索条件
+export const getRecommendRangeAllApi = (data, hasLoading) => {
+  return request({
+    url: `/recommend/ranges/all`,
+    method: 'get',
+    data,
+    hasLoading: hasLoading
+  })
+}
 
+// 当推荐任务还没跑完时调用该方法获取简历
+export const getRecommendResumePageListsApi = (data, hasLoading) => {
+  return request({
+    url: `/recommend/resume/page`,
+    method: 'get',
+    data,
+    hasLoading: hasLoading
+  })
+}
+
+// 获取下一批平台推荐简历
+export const getRecommendResumeListsApi = (data, hasLoading) => {
+  return request({
+    url: `/recommend/resumes`,
+    method: 'get',
+    data,
+    hasLoading: hasLoading
+  })
+}
+
+// 分页获取搜索范围 - 职位
+export const getRecommendPositionRangeListsApi = (data, hasLoading) => {
+  return request({
+    url: `/recommend/position/ranges`,
+    method: 'get',
+    data,
+    hasLoading: hasLoading
+  })
+}
+
+// “为你推荐”列表, 列表数据过少时显示
+export const getRecommendResumeMoreListsApi = (data, hasLoading) => {
+  return request({
+    url: `/recommend/resume/more`,
+    method: 'get',
+    data,
+    hasLoading: hasLoading
+  })
+}
+
+// 简历储备
+export const getReserveResumeSearchListsApi = (data, hasLoading) => {
+  return request({
+    url: `/reserve/resume/search`,
+    method: 'get',
+    data,
+    hasLoading: hasLoading
+  })
+}
+
+// 获取简历储备搜索范围
+export const getReserveResumeSearchRangeListsApi = (data, hasLoading) => {
+  return request({
+    url: `/reserve/resume/search_range`,
+    method: 'get',
+    data,
+    hasLoading: hasLoading
+  })
+}
+
+// 获取职位搜索范围
+export const getReserveResumeSearchPositionRangeListsApi = (data, hasLoading) => {
+  return request({
+    url: `/reserve/resume/position_range`,
+    method: 'get',
+    data,
+    hasLoading: hasLoading
+  })
+}
+
+// 获取职位搜索范围
+export const getRecommendCityRangesListsApi = (data, hasLoading) => {
+  return request({
+    url: `/recommend/city/ranges`,
+    method: 'get',
+    data,
+    hasLoading: hasLoading
+  })
+}

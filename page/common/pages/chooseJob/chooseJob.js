@@ -43,6 +43,8 @@ Page({
     identityInfos: {},
     openPayPop: false,
     chargeData: {}, // 扣点信息
+    interviewStatus: null,
+    payTitle: ''
   },
   onLoad(options) {
     let api = ''
@@ -68,11 +70,13 @@ Page({
     let onLinePositionList = {list: [], pageNum: 1, count: 20, isLastPage: false, isRequire: false}
     let storage = wx.getStorageSync('interviewChatLists')
     let value = this.data.onLinePositionList
+    let interviewStatus = this.data.interviewStatus
 
     // 这种情况是处理求职端的对条申请
     if(storage && wx.getStorageSync('choseType') === 'RECRUITER') {
       value.list = storage.data
-      this.setData({onLinePositionList: value})
+      interviewStatus = storage.interviewStatus
+      this.setData({onLinePositionList: value, interviewStatus})
       return;
     }
     this.setData({onLinePositionList}, () => this.getLists())
@@ -255,7 +259,10 @@ Page({
         this.setData({params, buttonClick: result.active}, () => {
           // 判断是否是精选简历需要先获取扣点信息
           if (Number(this.data.options.sourceType) === 500) {
-            this.getRecommendCharge(params)
+            this.setData({payTitle: '顾问精选'}, () => this.getRecommendCharge(params))
+          }
+          if (Number(this.data.options.sourceType) === 100) {
+            this.setData({payTitle: '热门简历'}, () => this.getRecommendCharge(params))
           }
         })
         break
@@ -282,6 +289,7 @@ Page({
           buttonClick = this.data.unsuitableChecked
         } else if(this.data.identity === 'RECRUITER' && job.id === 'unsuitable') {
           params.id = options.jobhunterUid
+          params.status = this.data.interviewStatus
           buttonClick = this.data.unsuitableChecked
         } else {
           result = items.list.find((find, index) => job.index === index)
@@ -480,7 +488,7 @@ Page({
 
           // 都不合适 则直接拒绝
           if(this.data.unsuitableChecked) {
-            wx.navigateTo({url: `${COMMON}interviewMark/interviewMark?type=pending&jobhunterUid=${params.id}&reBack=2`})
+            wx.navigateTo({url: `${COMMON}interviewMark/interviewMark?type=pending&jobhunterUid=${params.id}&reBack=2&status=${params.status}`})
             // this.refuseInterview(params)
           } else {
             // 用选中的面试记录发起开撩

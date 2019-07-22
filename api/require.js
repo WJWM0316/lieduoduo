@@ -154,7 +154,7 @@ export const request = ({name = '', method = 'post', url, host, data = {}, needK
           if (msg.httpStatus === 200) {
             resolve(msg)
           } else {
-            if (msg.httpStatus !== 401 && msg.code !== 701 && msg.code !== 801 && msg.code !== 910 && !noToastUrlArray.some(now => url.includes(now))) {
+            if (msg.httpStatus !== 401 && msg.code !== 701 && msg.code !== 801 && msg.code !== 910 && msg.code !== 911 && !noToastUrlArray.some(now => url.includes(now))) {
               getApp().wxToast({title: msg.msg})
             }
             reject(msg)
@@ -178,7 +178,7 @@ export const request = ({name = '', method = 'post', url, host, data = {}, needK
               break
             case 401:
               // 需要用到token， 需要绑定手机号
-              if (msg.code === 4010) {
+              if (msg.code === 4010 && url !== '/reddot/top_bar_info') {
                 if (toBindPhone) return
                 toBindPhone = true
                 let timer = setTimeout(() => {
@@ -191,7 +191,7 @@ export const request = ({name = '', method = 'post', url, host, data = {}, needK
                 })
               }
               // 需要用到微信token， 需要授权
-              if (msg.code === 0) {
+              if (msg.code === 0 && url !== '/reddot/top_bar_info') {
                 if (toAuth) return
                 toAuth = true
                 let timer = setTimeout(() => {

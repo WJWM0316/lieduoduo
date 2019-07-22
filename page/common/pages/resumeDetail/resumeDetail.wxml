@@ -19,7 +19,7 @@
         <refreshStatus></refreshStatus>
       </view>
 
-      <view class="resumeDetail {{isOwner? '' : 'addpadding'}}" wx:if="{{info}}">
+      <view class="resumeDetail {{isOwner ? '' : 'addpadding'}}" wx:if="{{info}}">
         
         <shareBtn wx:if="{{!isOwner}}" posterType="{{options.preview ? 'applicant' : ''}}"></shareBtn>
 
@@ -41,7 +41,7 @@
               </view>
             </button>
             <view class="info">
-              <view class="name" wx:if="{{!info.advisor.glass}}">
+              <view class="name" wx:if="{{!info.advisor.glass || !info.glass}}">
                   <text>{{info.name}}</text>
                   <i class="icon iconfont icon-bianji1 edit" data-editName="info" data-id="{{item.id}}" bindtap="edit" wx:if="{{isOwner}}"></i>
               </view>
@@ -169,12 +169,12 @@
       </view>
       
       <block>
-        <button form-type="submit" hidden="{{options.adviser && info.sourceType !== 500 || info.advisor.glass}}" class="clear-style collect" bindtap="collect">
+        <button form-type="submit" hidden="{{options.adviser && info.sourceType !== 500 || info.sourceType !== 100 || info.advisor.glass || info.glass}}" class="clear-style collect" bindtap="collect">
           <i class="icon iconfont icon-ganxingqu" wx:if="{{!info.interested}}"></i>
           <i class="icon iconfont icon-biaojiweiganxingqu" wx:else></i>
         </button>
         <!-- 底部开撩 -->
-        <view class="bottomBox" hidden="{{options.adviser && info.sourceType !== 500}}">
+        <view class="bottomBox" hidden="{{(options.adviser && info.sourceType !== 500) || (options.hot && info.sourceType !== 100)}}">
           <view wx:if="{{!options.preview}}">
             <interviewBar
               id="interviewBar"
@@ -198,15 +198,18 @@
           <image class="img" src="https://attach.lieduoduo.ziwork.com/default/man.png!130xauto"></image>
         </view>
         <view class="desc">
-          <view>该简历为顾问精选简历</view>
+          <view wx:if="{{resumeType === 'featured'}}">该简历为顾问精选简历</view>
+          <view wx:if="{{resumeType === 'hot'}}">该简历热门简历</view>
           <view>暂无查看权限</view>
         </view>
-        <view class="rule" bindtap="toggleExplainPop">什么是精选简历？</view>
+        <view class="rule" bindtap="toggleExplainPop"  wx:if="{{resumeType === 'featured'}}">什么是精选简历？</view>
+        <view class="rule" bindtap="toggleExplainPop" wx:if="{{resumeType === 'hot'}}">什么是热门简历？</view>
         <button class="backHomeBtn" bindtap="backHome">返回首页</button>
       </view>
     </view>
     <actionSheet class="actionSheet" openPop="{{hasExplainPop}}" title="精选简历" bindclose="toggleExplainPop">
-      <view class="content">精选简历，是猎Plus约面服务会员享有的特权。由平台专属顾问在365天的服务周期内，持续为招聘官量身甄选优质简历，提供打包推荐、跟进邀约面试等服务。</view>
+      <view class="content" wx:if="{{resumeType === 'featured'}}">精选简历，是猎Plus约面服务会员享有的特权。由平台专属顾问在365天的服务周期内，持续为招聘官量身甄选优质简历，提供打包推荐、跟进邀约面试等服务。</view>
+      <view class="content" wx:if="{{resumeType === 'hot'}}">热门简历，是猎多多平台根据近15天候选人的活跃时长、被浏览次数、被邀请次数，综合计算热度评分较高的简历。TA们都很抢手，不要错过哦~</view>
       <view class="desc">了解更多细则，欢迎联系我们</view>
       <button class="callPhone" bindtap="callPhone">{{telePhone}}</button>
     </actionSheet>

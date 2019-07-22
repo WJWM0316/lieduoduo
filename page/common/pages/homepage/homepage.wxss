@@ -432,6 +432,7 @@
   line-height: 30rpx;
   padding: 18rpx;
   border-radius: 10rpx;
+  text-align: left;
 }
 
 .production-box .li::after {
