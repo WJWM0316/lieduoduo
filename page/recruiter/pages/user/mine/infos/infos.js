@@ -77,7 +77,7 @@ Page({
     const pageInfos = this.data.pageInfos
     switch(route) {
       case 'company':
-        wx.navigateTo({url: `${COMMON}homepage/homepage?companyId=${this.data.recruiterInfo.companyInfo.id}`})
+        wx.navigateTo({url: `${RECRUITER}company/indexEdit/indexEdit`})
         break
       case 'base':
         wx.navigateTo({url: `${RECRUITER}user/mine/base/base`})

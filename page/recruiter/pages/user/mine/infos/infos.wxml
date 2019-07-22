@@ -70,7 +70,7 @@
 				</view>
 				<view class="tool-item company"  bindtap="routeJump" data-route="company">
 					<image class="icon" src="{{cdnPath}}icon_my_company.png"></image>
-					<view class="title">公司主页</view>
+					<view class="title">我的公司</view>
 				</view>
 			</view>
 			
