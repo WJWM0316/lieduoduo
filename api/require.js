@@ -51,7 +51,9 @@ export const request = ({name = '', method = 'post', url, host, data = {}, needK
   }
   // 版本号
   addHttpHead['Wechat-Version'] = VERSION
-
+  // 头参数
+  addHttpHead['Role'] = wx.getStorageSync('choseType') !== "RECRUITER" ? 'r' : 'j'
+  
   // 如果连接带参数scode, 则存到头部
   if (data.sCode && !data.isReload) {
     addHttpHead['Act-Code'] = data.sCode
