@@ -128,7 +128,7 @@
   font-weight:300;
   color:rgba(40,40,40,1);
   background: white;
-  padding-left: 48rpx;
+  padding-left: 60rpx;
   box-sizing: border-box;
   background: white;
   white-space: nowrap;
@@ -149,7 +149,7 @@
 
 .tab-bar .li {
   position: relative;
-  margin-right: 48rpx;
+  margin-right: 40rpx;
   text-overflow: ellipsis;
   white-space: nowrap;
   line-height: 98rpx;
@@ -168,7 +168,7 @@
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
-  bottom: 6rpx;
+  bottom: 2rpx;
   content: '';
   display: block;
   opacity: 0;
@@ -248,12 +248,13 @@
   margin: -0 30rpx;
   box-shadow:0rpx 0rpx 30rpx 0rpx rgba(50,14,59,0.1);
   border-radius:16rpx;
-  padding: 41rpx 64rpx 50rpx 64rpx;
+  padding: 38rpx 64rpx 50rpx 64rpx;
   box-sizing: border-box;
   text-align: center;
   position: relative;
   z-index: 2;
   background: white;
+  height: 190rpx;
 }
 
 .floating-box .item{
@@ -491,6 +492,7 @@
   overflow: hidden;
   box-sizing: border-box;
   padding: 54rpx 0;
+  height: 182rpx;
 }
 
 .todos_bar_open::after {
@@ -529,10 +531,10 @@
 
 .todos_bar_open .todo_tips {
   font-size:24rpx;
-  font-weight:700;
   color:#626262;
   line-height:1;
   margin-top: 11rpx;
+  text-align: left;
 }
 
 .todos_bar_open .todo_tips .strong{
@@ -655,7 +657,6 @@
 
 .todos_bar_notopen .todo_tips {
   font-size:24rpx;
-  font-weight:700;
   color:#626262;
   line-height:1;
   margin-top: 11rpx;
@@ -717,6 +718,18 @@
   background:rgba(255,255,255,1);
   position: relative;
   padding: 40rpx 0;
+  box-sizing: border-box;
+  min-height: 162rpx;
+}
+
+.position_list .label{
+  padding-left: 30rpx;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size:28rpx;
+  font-weight:700;
+  color:rgba(101,39,145,1);
 }
 
 .position_list .list_item::before {
@@ -811,6 +824,7 @@
 .type_list .type_header{
   line-height:1.2;
   margin-bottom: 30rpx;
+  padding: 0 40rpx;
 }
 
 .type_list .key{
@@ -834,11 +848,12 @@
 }
 
 .type_list .city_ul{
+  padding: 0 40rpx;
   margin-bottom: 70rpx;
 }
 
 .type_list .saraly_ul{
-  padding-bottom: 180rpx;
+  padding: 0 0 180rpx 40rpx;
 }
 
 .type_list .base_ul .base_item{
@@ -892,7 +907,6 @@
 }
 
 .type_list{
-  padding: 0 40rpx;
   overflow-y: scroll;
 }
 
@@ -1055,6 +1069,7 @@
   padding: 0 40rpx;
   box-sizing: border-box;
   position: relative;
+  min-height: 180rpx;
 }
 .list-item.red::after {
   content: '';
@@ -1179,6 +1194,13 @@
 }
 .positionName {
   color: #8452A7;
+  display: inline-block;
+  max-width: 400rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  vertical-align: middle;
+  margin: 0 4rpx;
 }
 
 .know{

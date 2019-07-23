@@ -320,3 +320,10 @@
 .btnBox .min-row .btn_02 {
   padding-right: 0;
 }
+
+.name_filter{
+	width:96rpx;
+	height:58rpx;
+	margin-right:16rpx;
+	margin-top: -20rpx;
+}

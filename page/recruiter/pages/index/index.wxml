@@ -49,7 +49,9 @@
 
 		<view class="todos_bar_open"  wx:if="{{indexShowCount.advisor}}">
 			<view class="todo_item todo_item_left" bindtap="routeJump" data-route="adviser">
-				<view class="todo_title">顾问精选简历<view class="number">{{indexShowCount.advisor.total}}</view></view>
+				<view class="todo_title">顾问精选简历
+					<view class="number" wx:if="{{indexShowCount.advisor.total}}">{{indexShowCount.advisor.total}}</view>
+				</view>
 				<view class="todo_tips" wx:if="{{indexShowCount.advisor.notHandleNum && indexShowCount.advisor.total}}">
 					<text class="strong">{{indexShowCount.advisor.notHandleNum}}</text> 候选人未处理
 				</view>
@@ -59,7 +61,6 @@
 				<view class="todo_tips" wx:if="{{!indexShowCount.advisor.notHandleNum && indexShowCount.advisor.total}}">
 					已推荐 {{indexShowCount.advisor.total}} 位候选人
 				</view>
-				<view class="todo_tips" wx:if="{{!indexShowCount.advisor.notHandleNum}}"> 有合适简历将立即给您推荐 </view>
 			</view>
 			<view class="todo_item todo_item_right" bindtap="routeJump" data-route="dynamics">
 				<view class="todo_title">候选人动态<view class="number" wx:if="{{indexShowCount.dynamicTotal}}">{{indexShowCount.dynamicTotal}}</view></view>
@@ -87,114 +88,110 @@
 	</view>
 	<view class="page_index_list">
 		
-		<block wx:if="{{detail.positionNum}}">
-			<view class="default {{fixedDom ? 'fixed' : ''}}" style="{{ fixedDom ? 'top:' + navH + 'px' : ''}}">
-				<scroll-view scroll-with-animation scroll-x class="tab-bar" bindscroll="scrollViewMove" scroll-left='{{scrollLeft}}'>
-			  	<view
-				  	wx:for="{{barLists}}"
-				  	wx:key="index"
-				    class="li {{ navTabIndex === index ? 'active' : '' }} dom{{index}}"
-				    bindtap="clickNav"
-				    data-index="{{index}}">{{item.positionName}}</view>
-			  </scroll-view>
-			  <view class="func_zone">
-			  	<image src="{{cdnImagePath}}bg_transparent.png" class="bg_transparent"></image>
-					<view class="kind {{dealMultipleSelection ? 'active' : ''}}" bindtap="openTips" data-type="reduction"><i class="icon iconfont icon-shaixuan"></i></view>
-					<view class="down" bindtap="openTips" data-type="position"><i class="icon iconfont icon-zhishibiao"></i></view>
-				</view>
+		<view class="default {{fixedDom ? 'fixed' : ''}}" style="{{ fixedDom ? 'top:' + navH + 'px' : ''}}" wx:if="{{detail.positionNum}}">
+			<scroll-view scroll-with-animation scroll-x class="tab-bar" bindscroll="scrollViewMove" scroll-left='{{scrollLeft}}'>
+		  	<view
+			  	wx:for="{{barLists}}"
+			  	wx:key="index"
+			    class="li {{ navTabIndex === index ? 'active' : '' }} dom{{index}}"
+			    bindtap="clickNav"
+			    data-index="{{index}}">{{item.positionName}}</view>
+		  </scroll-view>
+		  <view class="func_zone">
+		  	<image src="{{cdnImagePath}}bg_transparent.png" class="bg_transparent"></image>
+				<view class="kind {{dealMultipleSelection ? 'active' : ''}}" bindtap="openTips" data-type="reduction"><i class="icon iconfont icon-shaixuan"></i></view>
+				<view class="down" bindtap="openTips" data-type="position"><i class="icon iconfont icon-zhishibiao"></i></view>
 			</view>
-			<view class="list-box">
-				<form bindsubmit="formSubmit" report-submit="{{true}}" wx:if="{{resumeList.list.length}}">
-					<button
-						form-type="submit"
-						bindtap="viewResumeDetail"
-						class="formIdBtn"
-						wx:for="{{resumeList.list}}"
-						wx:for-item="item"
-						data-jobhunterUid="{{item.uid}}"
-						data-type="{{item.myType}}"
-						wx:key="{{index}}">
-						<view class="list-item {{item.redDot ? 'red' : ''}}">
-							<view class="msg">
-								<view class="head">
-									<image class="img" mode="aspectFit" lazy-load  src="{{item.avatar.smallUrl}}"></image>
-								</view>
-								<view class="detail">
-									<view class="top {{item.glass ? 'hasFilter' : ''}}">
-										<text wx:if="{{!item.glass}}" class="name">{{item.name}}</text>
-										<image wx:else class="filter" src="{{cdnImagePath}}invisible1.png" mode="aspectFit"></image>
-										<text class="txt">{{item.workAgeDesc}}<block wx:if="{{item.degreeDesc}}"> · {{item.degreeDesc}}</block><block wx:if="{{item.salaryCeil}}"> · {{item.salaryFloor}}-{{item.salaryCeil}}k</block></text>
-									</view>
-									<view class="bot" wx:if="{{item.lastCompanyName}}">{{item.lastCompanyName}}<block wx:if="{{item.lastCompanyName && item.lastCompanyName}}"> | </block>{{item.lastPosition}}</view>
-								</view>
+		</view>
+		<view class="list-box" wx:if="{{detail.positionNum || resumeList.list.length}}">
+			<form bindsubmit="formSubmit" report-submit="{{true}}" wx:if="{{resumeList.list.length}}">
+				<button
+					form-type="submit"
+					bindtap="viewResumeDetail"
+					class="formIdBtn"
+					wx:for="{{resumeList.list}}"
+					wx:for-item="item"
+					data-jobhunterUid="{{item.uid}}"
+					data-type="{{item.myType}}"
+					wx:key="{{index}}">
+					<view class="list-item {{item.redDot ? 'red' : ''}}">
+						<view class="msg">
+							<view class="head">
+								<image class="img" mode="aspectFit" lazy-load  src="{{item.avatar.smallUrl}}"></image>
 							</view>
-							<view class="desc" wx:if="{{!exclusiveSelection}}">
-								<text class="txt">根据你的<text class="positionName"> {{item.positionName}} </text>为你推荐</text>
+							<view class="detail">
+								<view class="top {{item.glass ? 'hasFilter' : ''}}">
+									<text wx:if="{{!item.glass}}" class="name">{{item.name}}</text>
+									<image wx:else class="filter" src="{{cdnImagePath}}invisible1.png" mode="aspectFit"></image>
+									<text class="txt">{{item.workAgeDesc}}<block wx:if="{{item.degreeDesc}}"> · {{item.degreeDesc}}</block><block wx:if="{{item.salaryCeil}}"> · {{item.salaryFloor}}-{{item.salaryCeil}}k</block></text>
+								</view>
+								<view class="bot" wx:if="{{item.lastCompanyName}}">{{item.lastCompanyName}}<block wx:if="{{item.lastCompanyName && item.lastCompanyName}}"> | </block>{{item.lastPosition}}</view>
 							</view>
 						</view>
-					</button>
-				</form>
-				<bottomStatus
-					status="{{resumeList.onBottomStatus}}"
-					listData="{{resumeList.list}}"
-					desc="无筛选结果，可以扩大筛选范围哟～"
-					marginTop="{{80}}">
-				</bottomStatus>
+						<view class="desc" wx:if="{{!exclusiveSelection && item.isRecommend}}">
+							<view class="txt">根据你的<view class="positionName"> {{item.positionName}} </view>为你推荐</view>
+						</view>
+					</view>
+				</button>
+			</form>
+			<bottomStatus
+				status="{{resumeList.onBottomStatus}}"
+				listData="{{resumeList.list}}"
+				desc="无筛选结果，可以扩大筛选范围哟～"
+				marginTop="{{80}}">
+			</bottomStatus>
 
-				<!-- 系统推荐数据 start-->
-				<view class="line-box" wx:if="{{resumeList.showSystemData && recommendResumeLists.list.length}}">
-					<view class="line-left"></view> 为你推荐 <view class="line-right"></view>
-				</view>
-				<form bindsubmit="formSubmit" report-submit="{{true}}" wx:if="{{resumeList.showSystemData && recommendResumeLists.list.length}}">
-					<button
-						form-type="submit"
-						bindtap="viewResumeDetail"
-						class="formIdBtn"
-						wx:for="{{recommendResumeLists.list}}"
-						wx:for-item="item"
-						data-jobhunterUid="{{item.uid}}"
-						data-type="{{item.myType}}"
-						wx:key="{{index}}">
-						<view class="list-item {{item.redDot ? 'red' : ''}}">
-							<view class="msg">
-								<view class="head">
-									<image class="img" mode="aspectFit" lazy-load  src="{{item.avatar.smallUrl}}"></image>
-								</view>
-								<view class="detail">
-									<view class="top {{item.glass ? 'hasFilter' : ''}}">
-										<text wx:if="{{!item.glass}}" class="name">{{item.name}}</text>
-										<image wx:else class="filter" src="{{cdnImagePath}}invisible1.png" mode="aspectFit"></image>
-										<text class="txt">{{item.workAgeDesc}}<block wx:if="{{item.degreeDesc}}"> · {{item.degreeDesc}}</block><block wx:if="{{item.salaryCeil}}"> · {{item.salaryFloor}}-{{item.salaryCeil}}k</block></text>
-									</view>
-									<view class="bot" wx:if="{{item.lastCompanyName}}">{{item.lastCompanyName}}<block wx:if="{{item.lastCompanyName && item.lastCompanyName}}"> | </block>{{item.lastPosition}}</view>
-								</view>
+			<!-- 系统推荐数据 start-->
+			<view class="line-box" wx:if="{{resumeList.showSystemData && recommendResumeLists.list.length}}">
+				<view class="line-left"></view> 为你推荐 <view class="line-right"></view>
+			</view>
+			<form bindsubmit="formSubmit" report-submit="{{true}}" wx:if="{{resumeList.showSystemData && recommendResumeLists.list.length}}">
+				<button
+					form-type="submit"
+					bindtap="viewResumeDetail"
+					class="formIdBtn"
+					wx:for="{{recommendResumeLists.list}}"
+					wx:for-item="item"
+					data-jobhunterUid="{{item.uid}}"
+					data-type="{{item.myType}}"
+					wx:key="{{index}}">
+					<view class="list-item {{item.redDot ? 'red' : ''}}">
+						<view class="msg">
+							<view class="head">
+								<image class="img" mode="aspectFit" lazy-load  src="{{item.avatar.smallUrl}}"></image>
 							</view>
-							<view class="desc" wx:if="{{!exclusiveSelection}}">
-								<text class="txt">根据你的<text class="positionName"> {{item.positionName}} </text>为你推荐</text>
+							<view class="detail">
+								<view class="top {{item.glass ? 'hasFilter' : ''}}">
+									<text wx:if="{{!item.glass}}" class="name">{{item.name}}</text>
+									<image wx:else class="filter" src="{{cdnImagePath}}invisible1.png" mode="aspectFit"></image>
+									<text class="txt">{{item.workAgeDesc}}<block wx:if="{{item.degreeDesc}}"> · {{item.degreeDesc}}</block><block wx:if="{{item.salaryCeil}}"> · {{item.salaryFloor}}-{{item.salaryCeil}}k</block></text>
+								</view>
+								<view class="bot" wx:if="{{item.lastCompanyName}}">{{item.lastCompanyName}}<block wx:if="{{item.lastCompanyName && item.lastCompanyName}}"> | </block>{{item.lastPosition}}</view>
 							</view>
 						</view>
-					</button>
-				</form>
-				<!-- 系统推荐数据 start-->
-			</view>
-		</block>
+						<view class="desc" wx:if="{{!exclusiveSelection && item.isRecommend}}">
+							<view class="txt">根据你的<view class="positionName"> {{item.positionName}} </view>为你推荐</view>
+						</view>
+					</view>
+				</button>
+			</form>
+			<!-- 系统推荐数据 start-->
+		</view>
 
-		<block wx:if="{{!detail.positionNum}}">
-			<view class="nodata">
-				<bottomStatus
-					status="{{ 2 }}"
-					listData="{{[]}}"
-					desc="发布/开放职位，我们将为你推荐优质候选人～"
-					marginTop="{{80}}">
-					<button
-						class="jump share-position"
-						bindtap="routeJump"
-						data-route="position">
-						发布/开放职位
-					</button>
-				</bottomStatus>
-			</view>
-		</block>
+		<view class="nodata" wx:if="{{!detail.positionNum && !resumeList.list.length}}">
+			<bottomStatus
+				status="{{ 2 }}"
+				listData="{{[]}}"
+				desc="发布/开放职位，我们将为你推荐优质候选人～"
+				marginTop="{{80}}">
+				<button
+					class="jump share-position"
+					bindtap="routeJump"
+					data-route="position">
+					发布/开放职位
+				</button>
+			</bottomStatus>
+		</view>
 		
 	</view>
 	<actionSheet  title="{{model.title}}" openPop="{{model.show}}"  bindclose="closeTips">
@@ -208,20 +205,27 @@
 						wx:for="{{positionLists.list}}"
 						wx:key="{{index}}"
 						bindtap="sChoice"
-						wx:if="{{item.id}}"
 						data-index="{{index}}">
-						<view class="list_item_first">
-							<view class="title">{{item.positionName}}</view>
-							<view class="saraly">{{item.emolumentMin}}~{{item.emolumentMax}}K</view>
-						</view>
-						<view class="list_item_second">
-							<view class="address">{{item.city}}</view>
-							<view class="degress">{{item.educationName}}</view>
-							<view class="experience">{{item.workExperienceName}}</view>
-						</view>
-		        <view class="myRadio {{item.active ? 'active' : ''}}">
-		          <i class="icon iconfont icon-wancheng" wx:if="{{item.active}}"></i>
-		        </view>
+						<block wx:if="{{!item.id}}">
+							<view class="label">全部</view>
+							<view class="myRadio {{item.active ? 'active' : ''}}">
+			          <i class="icon iconfont icon-wancheng" wx:if="{{item.active}}"></i>
+			        </view>
+						</block>
+						<block wx:if="{{item.id}}">
+							<view class="list_item_first">
+								<view class="title">{{item.positionName}}</view>
+								<view class="saraly">{{item.emolumentMin}}~{{item.emolumentMax}}K</view>
+							</view>
+							<view class="list_item_second">
+								<view class="address">{{item.city}}</view>
+								<view class="degress">{{item.educationName}}</view>
+								<view class="experience">{{item.workExperienceName}}</view>
+							</view>
+			        <view class="myRadio {{item.active ? 'active' : ''}}">
+			          <i class="icon iconfont icon-wancheng" wx:if="{{item.active}}"></i>
+			        </view>
+		        </block>
 					</view>
 					<bottomStatus status="{{positionLists.onBottomStatus}}"listData="{{positionLists.list}}"></bottomStatus>
 		  </scroll-view>

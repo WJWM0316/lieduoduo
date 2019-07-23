@@ -185,11 +185,16 @@
 }
 
 .item2 .row-two .left {
-  display: inline;
+  display: inline-block;
   float: left;
 	font-size:26rpx;
 	font-weight:300;
 	color:rgba(40,40,40,1);
+  max-width: 400rpx;
+  line-height: 28rpx;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .item2 .row-two .left .nodata {

@@ -83,7 +83,7 @@ Page({
   },
   /* 点击查看大头像 */
   readAvatar () {
-    if (this.data.info.advisor && this.data.info.advisor.glass) return
+    if (this.data.info.recommend && this.data.info.recommend.glass) return
     wx.previewImage({
       current: this.data.info.avatar.url, // 当前显示图片的http链接
       urls: [this.data.info.avatar.url] // 需要预览的图片http链接列表
@@ -226,7 +226,7 @@ Page({
     let that = this
     let btnImageUrl = `${that.data.cdnImagePath}shareB.png`
     let info = this.data.info
-    if(info.isBlockResume) {
+    if(info.isBlockResume || info.glass || info.recommend.glass) {
       console.log('该简历异常', info)
       return app.wxShare({options})
     }
@@ -239,7 +239,7 @@ Page({
     if(positionCard){
       btnImageUrl = positionCard
     }
-    if (this.data.info.advisor && this.data.info.advisor.glass) {
+    if (this.data.info.recommend && this.data.info.recommend.glass) {
       btnImageUrl = `${that.data.cdnImagePath}shareB.png`
     }
     let myInfos = ''

@@ -8,7 +8,7 @@
 		</view>
   	<view class="item {{tab === 'viewList' ? 'active' : ''}}" bindtap="onClickTab" data-tab="viewList">
   		看过我的
-  		<view class="redot" wx:if="{{indexShowCount.interestedNum}}">{{indexShowCount.interestedNum}}</view>
+  		<view class="redot" wx:if="{{indexShowCount.viewNum}}">{{indexShowCount.viewNum}}</view>
   	</view>
 	</view>
 	<view class="block"></view>
@@ -32,7 +32,8 @@
 						<view class="img-box"><image src="{{item.avatar.smallUrl}}" lazy-load></image></view>
 						<view class="content">
 							<view class="header">
-								<view class="name">{{item.name}}</view>
+								<text wx:if="{{!item.glass}}" class="name">{{item.name}}</text>
+								<image wx:else class="filter" src="{{cdnImagePath}}invisible1.png" mode="aspectFit"></image>
 								<view class="zhiwei">
 									<block>{{item.workAgeDesc}}</block>
 									<block wx:if="{{item.degreeDesc}}"> · {{item.degreeDesc}}</block>

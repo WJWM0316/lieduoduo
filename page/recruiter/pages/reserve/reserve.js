@@ -81,7 +81,7 @@ Page({
     let resumeLists = {list: [], pageNum: 1, isLastPage: false, isRequire: false, onBottomStatus: 0}
     let positionLists = {list: [], pageNum: 1, isLastPage: false, isRequire: false, onBottomStatus: 0}
     this.setData({resumeLists, positionLists, hasReFresh: true}, () => {
-      this.getReserveResumeSearchLists().then(res => {
+      Promise.all([this.getReserveResumeSearchPositionRangeList(), this.getReserveResumeSearchLists()]).then(() => {
         this.setData({hasReFresh: false})
         wx.stopPullDownRefresh()
       })
@@ -310,80 +310,24 @@ Page({
     }
     switch(params.type) {
       case 'workExperience':
-        mark = 1
-        if(item.id === mark) {
-          if(item.active) {
-            workExperience.map(field => field.active = false)
-          } else {
-            workExperience.map(field => field.active = true)
-          }
-        } else {
-          workExperience[params.index].active = !workExperience[params.index].active
-          let tem = workExperience.filter(field => field.id !== mark)
-          let filter = tem.filter(field => field.active)
-          if(tem.length === filter.length) {
-            workExperience.map(field => field.active = true)
-          } else {
-            workExperience.map(field => {if(field.id === mark) {field.active = false}})
-          }
-        }
+        workExperience.map((field, index) => {
+          if(index === params.index) field.active = !field.active
+        })
         break
       case 'degrees':
-        mark = 100
-        if(item.id === mark) {
-          if(item.active) {
-            degrees.map(field => field.active = false)
-          } else {
-            degrees.map(field => field.active = true)
-          }
-        } else {
-          degrees[params.index].active = !degrees[params.index].active
-          let tem = degrees.filter(field => field.id !== mark)
-          let filter = tem.filter(field => field.active)
-          if(tem.length === filter.length) {
-            degrees.map(field => field.active = true)
-          } else {
-            degrees.map(field => {if(field.id === mark) {field.active = false}})
-          }
-        }
+        degrees.map((field, index) => {
+          if(index === params.index) field.active = !field.active
+        })
         break
       case 'salary':
-        mark = 1
-        if(item.id === mark) {
-          if(item.active) {
-            salary.map(field => field.active = false)
-          } else {
-            salary.map(field => field.active = true)
-          }
-        } else {
-          salary[params.index].active = !salary[params.index].active
-          let tem = salary.filter(field => field.id !== mark)
-          let filter = tem.filter(field => field.active)
-          if(tem.length === filter.length) {
-            salary.map(field => field.active = true)
-          } else {
-            salary.map(field => {if(field.id === mark) {field.active = false}})
-          }
-        }
+        salary.map((field, index) => {
+          if(index === params.index) field.active = !field.active
+        })
         break
       case 'jobStatus':
-        mark = 0
-        if(item.id === mark) {
-          if(item.active) {
-            jobStatus.map(field => field.active = false)
-          } else {
-            jobStatus.map(field => field.active = true)
-          }
-        } else {
-          jobStatus[params.index].active = !jobStatus[params.index].active
-          let tem = jobStatus.filter(field => field.id !== mark)
-          let filter = tem.filter(field => field.active)
-          if(tem.length === filter.length) {
-            jobStatus.map(field => field.active = true)
-          } else {
-            jobStatus.map(field => {if(field.id === mark) {field.active = false}})
-          }
-        }
+        jobStatus.map((field, index) => {
+          if(index === params.index) field.active = !field.active
+        })
         break
       default:
         break
@@ -391,7 +335,10 @@ Page({
     this.setData({jobStatus, workExperience, salary, degrees, resumeLists})
   },
   lower(e) {
-    console.log(e, 'gggggggggggg')
+    let positionLists = this.data.positionLists
+    if (!positionLists.isLastPage) {
+      this.getReserveResumeSearchPositionRangeList()
+    }
   },
   /**
    * @Author   小书包

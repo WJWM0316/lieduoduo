@@ -122,8 +122,8 @@
 }
 
 .item2 .header {
-  height:36rpx;
-  line-height:36rpx;
+  height:58rpx;
+  line-height:58rpx;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -138,6 +138,7 @@
   font-weight:700;
   color:rgba(40,40,40,1);
   display: inline;
+  padding-right: 30rpx;
 }
 
 .item2 .row-two .icon-biaojiweiganxingqu{
@@ -152,7 +153,6 @@
   color:#929292;
   display: inline;
   vertical-align: top;
-  padding-left: 30rpx;
   position: relative;
 }
 

@@ -26,7 +26,7 @@ top-banner.center {
 	background:white;
 	border-radius:16rpx;
 	box-sizing: border-box;
-	padding: 44rpx 42rpx 40rpx 42rpx;
+	padding: 38rpx 42rpx 40rpx 42rpx;
 	background:rgba(255,255,255,1);
 	box-shadow:0rpx 10rpx 30rpx 0rpx rgba(22,39,77,0.05),0rpx -5rpx 40rpx 0rpx rgba(22,39,77,0.05);
 }
@@ -81,7 +81,7 @@ top-banner.center {
 	font-weight:400;
 	color:rgba(40,40,40,1);
 	line-height:1;
-	margin-top: 16rpx;
+	margin-top: 8rpx;
 	max-width: 400rpx;
 	overflow: hidden;
 	text-overflow: ellipsis;
@@ -174,7 +174,7 @@ top-banner.center {
 	color:rgba(40,40,40,1);
 	line-height:32rpx;
 	display: inline-block;
-	margin-left: 62rpx;
+	margin-left: 70rpx;
 }
 
 .floating-box .footer .rank_01{
@@ -533,6 +533,6 @@ top-banner.center {
 	color:#652791;
 	line-height:40rpx;
 	text-align: center;
-	margin-top: 26rpx;
+	margin-top: 28rpx;
 	display: inline-block;
 }

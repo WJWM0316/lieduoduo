@@ -82,8 +82,6 @@ Page({
       onBottomStatus: 0
     },
     barLists: [],
-    // 是否第一页，是1，否0，默认为0，当设置了薪资参数时，该参数无效
-    isFisrtPage: 1,
     recommended: 0,
     recommendResumeLists: {
       list: [],
@@ -145,23 +143,26 @@ Page({
   },
   init () {
     if (wx.getStorageSync('choseType') === 'APPLICANT') return
-    let resumeList = this.data.resumeList
     let userInfo = app.globalData.userInfo
+    let resumeList = this.data.resumeList
     this.getDomNodePosition()
-    this.initDefaultBar()
     if (app.pageInit) {
       userInfo = app.globalData.userInfo
       this.getMixdata()
+      this.setData({resumeList})
       this.getRecommendRangeAll()
       this.setData({userInfo})
       this.selectComponent('#bottomRedDotBar').init()
+      this.initDefaultBar()
     } else {
       app.pageInit = () => {
         userInfo = app.globalData.userInfo
         this.getMixdata()
+        this.setData({resumeList})
         this.getRecommendRangeAll()
         this.setData({userInfo})
         this.selectComponent('#bottomRedDotBar').init()
+        this.initDefaultBar()
       }
     }
   },
@@ -305,11 +306,12 @@ Page({
   viewResumeDetail(e) {
     let params = e.currentTarget.dataset
     if(!Object.keys(params).length) return;
-    // wx.navigateTo({url: `${COMMON}resumeDetail/resumeDetail?uid=${params.jobhunteruid}&adviser=true`})
+    wx.setStorageSync('isReback', true);
     wx.navigateTo({url: `${COMMON}resumeDetail/resumeDetail?uid=${params.jobhunteruid}&hot=true`})
   },
   routeJump(e) {
     let route = e.currentTarget.dataset.route
+    wx.setStorageSync('isReback', true)
     switch(route) {
       case 'interested':
         wx.navigateTo({url: `${RECRUITER}interested/interested`})
@@ -452,24 +454,9 @@ Page({
   mChoice(e) {
     let params = e.currentTarget.dataset
     let salaryLists = this.data.salaryLists
-    let item = salaryLists[params.index]
-    let mark = 1
-    if(item.id === mark) {
-      if(item.active) {
-        salaryLists.map(field => field.active = false)
-      } else {
-        salaryLists.map(field => field.active = true)
-      }
-    } else {
-      salaryLists[params.index].active = !salaryLists[params.index].active
-      let tem = salaryLists.filter(field => field.id !== mark)
-      let filter = tem.filter(field => field.active)
-      if(tem.length === filter.length) {
-        salaryLists.map(field => field.active = true)
-      } else {
-        salaryLists.map(field => {if(field.id === mark) {field.active = false}})
-      }
-    }
+    salaryLists.map((field, index) => {
+      if(index === params.index) field.active = !field.active
+    })
     this.setData({salaryLists})
   },
   /**
@@ -577,7 +564,7 @@ Page({
   getRecommendResumePageLists(config) {
     let cityItem = this.data.cityLists.list.find(field => field.active)
     let salaryLists = this.data.salaryLists.filter(field => field.active)
-    let positionItem = this.data.positionLists.list.find(field => field.active)
+    let positionItem = this.data.barLists.find(field => field.active)
     let salaryIds = []
     let resumeList = this.data.resumeList
     let params = {count: this.data.pageCount, page: resumeList.pageNum, ...app.getSource()}
@@ -592,7 +579,7 @@ Page({
       params = Object.assign(params, {salaryIds})
     }
     // 选择了职位
-    if(positionItem) {
+    if(positionItem && positionItem.id) {
       params = Object.assign(params, {positionId: positionItem.id})
     }
 
@@ -622,7 +609,7 @@ Page({
   getRecommendResumeLists(config) {
     let cityItem = this.data.cityLists.list.find(field => field.active)
     let salaryLists = this.data.salaryLists.filter(field => field.active)
-    let positionItem = this.data.positionLists.list.find(field => field.active)
+    let positionItem = this.data.barLists.find(field => field.active)
     let salaryIds = []
     let resumeList = this.data.resumeList
     let params = {count: this.data.pageCount, page: resumeList.pageNum, ...app.getSource()}
@@ -637,7 +624,7 @@ Page({
       params = Object.assign(params, {salaryIds})
     }
     // 选择了职位
-    if(positionItem) {
+    if(positionItem && positionItem.id) {
       params = Object.assign(params, {positionId: positionItem.id})
     }
 

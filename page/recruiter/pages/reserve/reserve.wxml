@@ -57,23 +57,23 @@
 					<view class="row-two">
 						<view class="left">
 							<i class="icon iconfont icon-zhiwei"></i>
-							<text wx:if="{{item.lastCompany}}">{{item.lastCompany}} | {{item.lastPosition}}</text>
-							<text wx:if="{{!item.lastCompany}}">暂未填写工作经历</text>
+							<block wx:if="{{item.lastCompany}}">{{item.lastCompany}} | {{item.lastPosition}}</block>
+							<block wx:if="{{!item.lastCompany}}">暂未填写工作经历</block>
 						</view>
 						<view class="right" wx:if="{{item.lastCompanyWorkAgeDesc}}"> {{item.lastCompanyWorkAgeDesc}} </view>
 					</view>
 					<view class="row-three">
 						<view class="left">
 							<i class="icon iconfont icon-xueli"></i>
-							<text wx:if="{{item.school}}">{{item.school}} | {{item.major}}</text>
-							<text wx:if="{{!item.school}}">暂未填写毕业院校</text>
+							<block wx:if="{{item.school}}">{{item.school}} | {{item.major}}</block>
+							<block wx:if="{{!item.school}}">暂未填写毕业院校</block>
 						</view>
 						<view class="right" wx:if="{{item.lastCompanyStartWorkYearDesc}}">{{item.lastCompanyStartWorkYearDesc}}-{{item.lastCompanyEndWorkYearDesc}}</view>
 					</view>
 				</view>
 			</button>
 		</form>
-		<bottomStatus status="{{ resumeLists.onBottomStatus }}" listData="{{resumeLists.list}}" desc="还没有候选人对你感兴趣哟～ 主动发现获取更多候选人吧" marginTop="{{40}}">
+		<bottomStatus status="{{ resumeLists.onBottomStatus }}" listData="{{resumeLists.list}}" desc="你的人才库还是空空哦，赶紧去收集吧" marginTop="{{120}}">
 			<button class="jump" bindtap="backHome">发现更多候选人</button>
 		</bottomStatus>
 	</view>
