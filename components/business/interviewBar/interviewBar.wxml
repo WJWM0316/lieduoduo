@@ -102,14 +102,14 @@
 
 	<block wx:else>
 		<block wx:if="{{identity === 'RECRUITER'}}">
-			<view class="img-box" wx:if="{{!interviewInfos.hasUnsuitRecord && infos.sourceType !== 500 && infos.sourceType !== 100}}">
+			<view class="img-box" wx:if="{{!interviewInfos.hasUnsuitRecord && infos.sourceType !== 500 && infos.sourceType !== 100 && !infos.recommend.recommendToCompany}}">
 				<image mode="aspectFill" src="{{infos.avatar.smallUrl || infos.recruiterInfo.avatar.smallUrl}}" class="img"></image>
 				<image class="tips-img" mode="aspectFill" src="{{cdnImagePath}}img_protected_01.png" wx:if="{{interviewInfos.isOnProtected && interviewInfos.isReadRedot}}"></image>
 			</view>
 
 			<!-- 求职端已开启撩 招聘端可接受可拒绝 start-->
 			<block wx:if="{{interviewInfos.interviewStatus === 11 && interviewInfos.haveInterview === 1}}">
-				<view class="content">
+				<view class="content"  wx:if="{{infos.sourceType !== 500 && infos.sourceType !== 100 && !infos.recommend.recommendToCompany}}">
 					<view class="first"><view class="name">{{infos.name || infos.recruiterInfo.name}}</view></view>
 					<view class="second">约你面试</view>
 				</view>
@@ -121,7 +121,7 @@
 			<!-- 求职端已开启撩 招聘端可接受可拒绝 end-->
 			
 			<!-- 招聘端主动发起开料 start-->
-			<block wx:if="{{!interviewInfos.haveInterview && !interviewInfos.isOnProtected && !interviewInfos.hasUnsuitRecord && infos.sourceType !== 500 && infos.sourceType !== 100}}">
+			<block wx:if="{{!interviewInfos.haveInterview && !interviewInfos.isOnProtected && !interviewInfos.hasUnsuitRecord && infos.sourceType !== 500 && infos.sourceType !== 100 && !infos.recommend.recommendToCompany}}">
 				<view class="content" wx:if="{{infos.sourceType !== 500 && infos.sourceType !== 100}}">
 					<view class="first">
 						<view class="name" wx:if="{{!infos.glass}}">{{infos.name || infos.recruiterInfo.name}}</view>
@@ -134,7 +134,7 @@
 				</button>
 			</block>
 
-			<block wx:if="{{!interviewInfos.hasUnsuitRecord && !interviewInfos.haveInterview && !interviewInfos.isOnProtected && (infos.sourceType === 500 || infos.sourceType === 100)}}">
+			<block wx:if="{{!interviewInfos.hasUnsuitRecord && !interviewInfos.haveInterview && !interviewInfos.isOnProtected && (infos.sourceType === 500 || infos.sourceType === 100 || infos.recommend.recommendToCompany)}}">
 				<view class="btnBox">
 					<view class="uninterested" data-action="recruiter-uninterested" bindtap="todoAction">不感兴趣</view>
 					<view class="invitation" data-action="recruiter-chat" bindtap="todoAction">立即邀约</view>
@@ -142,7 +142,7 @@
 			</block>
 
 			<block wx:if="{{!interviewInfos.haveInterview && interviewInfos.isOnProtected}}">
-				<view class="content" wx:if="{{infos.sourceType !== 500 && infos.sourceType !== 100}}">
+				<view class="content" wx:if="{{infos.sourceType !== 500 && infos.sourceType !== 100 && !infos.recommend.recommendToCompany}}">
 					<view class="first"><view class="name">{{infos.name || infos.recruiterInfo.name}}</view></view>
 					<view class="second">暂不考虑</view>
 				</view>
@@ -167,7 +167,7 @@
 
 			<!-- 招聘端主动发起开料 end-->
 			<block wx:elif="{{interviewInfos.interviewStatus === 12 }}">
-				<view class="content" wx:if="{{infos.sourceType !== 500 && infos.sourceType !== 100}}">
+				<view class="content" wx:if="{{infos.sourceType !== 500 && infos.sourceType !== 100 && !infos.recommend.recommendToCompany}}">
 					<view class="first"><view class="name">{{infos.name || infos.recruiterInfo.name}}</view></view>
 					<view class="second">待确认约面</view>
 				</view>
@@ -178,7 +178,7 @@
 			</block>
 
 			<block wx:elif="{{interviewInfos.interviewStatus === 21}}">
-				<view class="content" wx:if="{{infos.sourceType !== 500 && infos.sourceType !== 100}}">
+				<view class="content" wx:if="{{infos.sourceType !== 500 && infos.sourceType !== 100 && !infos.recommend.recommendToCompany}}">
 					<view class="first"><view class="name">{{infos.name || infos.recruiterInfo.name}}</view></view>
 					<view class="second">安排面试</view>
 				</view>
@@ -189,7 +189,7 @@
 			</block>
 			
 			<block wx:elif="{{interviewInfos.interviewStatus === 31}}">
-				<view class="content" wx:if="{{infos.sourceType !== 500 && infos.sourceType !== 100}}">
+				<view class="content" wx:if="{{infos.sourceType !== 500 && infos.sourceType !== 100 && !infos.recommend.recommendToCompany}}">
 					<view class="first"><view class="name">{{infos.name || infos.recruiterInfo.name}}</view></view>
 					<view class="second">待确认信息</view>
 				</view>
@@ -200,7 +200,7 @@
 			</block>
 
 			<block wx:elif="{{interviewInfos.interviewStatus === 32}}">
-				<view class="content" wx:if="{{infos.sourceType !== 500 && infos.sourceType !== 100}}">
+				<view class="content" wx:if="{{infos.sourceType !== 500 && infos.sourceType !== 100 && !infos.recommend.recommendToCompany}}">
 					<view class="first"><view class="name">{{infos.name || infos.recruiterInfo.name}}</view></view>
 					<view class="second">修改面试</view>
 				</view>
@@ -211,7 +211,7 @@
 			</block>
 
 			<block wx:elif="{{interviewInfos.interviewStatus === 41}}">
-				<view class="content" wx:if="{{infos.sourceType !== 500 && infos.sourceType !== 100}}">
+				<view class="content" wx:if="{{infos.sourceType !== 500 && infos.sourceType !== 100 && !infos.recommend.recommendToCompany}}">
 					<view class="first"><view class="name">{{infos.name || infos.recruiterInfo.name}}</view></view>
 					<view class="second">已确认面试</view>
 				</view>

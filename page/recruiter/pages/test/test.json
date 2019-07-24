@@ -1,8 +1,0 @@
-{
-	"enablePullDownRefresh": true,
-	"backgroundTextStyle": "light",
-  "usingComponents": {
-    "navbar": "../../../../components/business/navbar/navbar",
-    "actionSheet": "../../../../components/layout/actionSheet/actionSheet"
-  }
-}

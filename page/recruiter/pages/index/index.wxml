@@ -41,8 +41,8 @@
 			</view>
 			<view class="right">
 				<view class="imglist">
-					<image class="imgitem" lazy-load wx:for="{{indexShowCount.moreRecruiter}}" wx:key="{{index}}" src="{{item.smallUrl}}" wx:if="{{index <= 2}}"></image>
-					<image class="imgitem" src="{{cdnImagePath}}more.png" wx:if="{{indexShowCount.moreRecruiter.length > 3}}"></image>
+					<image class="imgitem" lazy-load wx:for="{{indexShowCount.candidateDynamic}}" wx:key="{{index}}" src="{{item.smallUrl}}" wx:if="{{index <= 2}}"></image>
+					<image class="imgitem" src="{{cdnImagePath}}more.png" wx:if="{{indexShowCount.candidateDynamic.length > 3}}"></image>
 				</view>
 			</view>
 		</view>
@@ -55,8 +55,7 @@
 				<view class="todo_tips" wx:if="{{indexShowCount.advisor.notHandleNum && indexShowCount.advisor.total}}">
 					<text class="strong">{{indexShowCount.advisor.notHandleNum}}</text> 候选人未处理
 				</view>
-				<view class="todo_tips" wx:if="{{!indexShowCount.advisor.notHandleNum && !indexShowCount.advisor.total}}">
-					有合适简历将立即给您推荐
+				<view class="todo_tips" wx:if="{{!indexShowCount.advisor.notHandleNum && !indexShowCount.advisor.total}}">有合适简历将立即给您推荐
 				</view>
 				<view class="todo_tips" wx:if="{{!indexShowCount.advisor.notHandleNum && indexShowCount.advisor.total}}">
 					已推荐 {{indexShowCount.advisor.total}} 位候选人
@@ -91,10 +90,11 @@
 		<view class="default {{fixedDom ? 'fixed' : ''}}" style="{{ fixedDom ? 'top:' + navH + 'px' : ''}}" wx:if="{{detail.positionNum}}">
 			<scroll-view scroll-with-animation scroll-x class="tab-bar" bindscroll="scrollViewMove" scroll-left='{{scrollLeft}}'>
 		  	<view
-			  	wx:for="{{barLists}}"
+			  	wx:for="{{positionLists.list}}"
 			  	wx:key="index"
 			    class="li {{ navTabIndex === index ? 'active' : '' }} dom{{index}}"
 			    bindtap="clickNav"
+			    wx:if="{{index < 21}}"
 			    data-index="{{index}}">{{item.positionName}}</view>
 		  </scroll-view>
 		  <view class="func_zone">
@@ -205,27 +205,20 @@
 						wx:for="{{positionLists.list}}"
 						wx:key="{{index}}"
 						bindtap="sChoice"
+						wx:if="{{item.id}}"
 						data-index="{{index}}">
-						<block wx:if="{{!item.id}}">
-							<view class="label">全部</view>
-							<view class="myRadio {{item.active ? 'active' : ''}}">
-			          <i class="icon iconfont icon-wancheng" wx:if="{{item.active}}"></i>
-			        </view>
-						</block>
-						<block wx:if="{{item.id}}">
-							<view class="list_item_first">
-								<view class="title">{{item.positionName}}</view>
-								<view class="saraly">{{item.emolumentMin}}~{{item.emolumentMax}}K</view>
-							</view>
-							<view class="list_item_second">
-								<view class="address">{{item.city}}</view>
-								<view class="degress">{{item.educationName}}</view>
-								<view class="experience">{{item.workExperienceName}}</view>
-							</view>
-			        <view class="myRadio {{item.active ? 'active' : ''}}">
-			          <i class="icon iconfont icon-wancheng" wx:if="{{item.active}}"></i>
-			        </view>
-		        </block>
+						<view class="list_item_first">
+							<view class="title">{{item.positionName}}</view>
+							<view class="saraly">{{item.emolumentMin}}~{{item.emolumentMax}}K</view>
+						</view>
+						<view class="list_item_second">
+							<view class="address">{{item.city}}</view>
+							<view class="degress">{{item.educationName}}</view>
+							<view class="experience">{{item.workExperienceName}}</view>
+						</view>
+		        <view class="myRadio {{item.active ? 'active' : ''}}">
+		          <i class="icon iconfont icon-wancheng" wx:if="{{item.active}}"></i>
+		        </view>
 					</view>
 					<bottomStatus status="{{positionLists.onBottomStatus}}"listData="{{positionLists.list}}"></bottomStatus>
 		  </scroll-view>

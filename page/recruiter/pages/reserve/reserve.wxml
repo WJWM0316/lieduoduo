@@ -45,7 +45,7 @@
 						<view class="content">
 							<view class="header">
 								<view class="name">{{item.name}}</view>
-								<view class="status" wx:if="{{item.jobStatusDesc}}">离职-随时到岗 </view>
+								<view class="status" wx:if="{{item.jobStatusDesc}}">{{item.jobStatusDesc}}</view>
 							</view>
 							<view class="degress">
 								<block>{{item.workAgeDesc}}</block>
@@ -68,7 +68,7 @@
 							<block wx:if="{{item.school}}">{{item.school}} | {{item.major}}</block>
 							<block wx:if="{{!item.school}}">暂未填写毕业院校</block>
 						</view>
-						<view class="right" wx:if="{{item.lastCompanyStartWorkYearDesc}}">{{item.lastCompanyStartWorkYearDesc}}-{{item.lastCompanyEndWorkYearDesc}}</view>
+						<view class="right" wx:if="{{item.lastCompanyStartWorkYearDesc}}">{{item.lastCompanyStartWorkYearDesc}}-{{item.lastCompanyEndWorkYearDesc ? item.lastCompanyEndWorkYearDesc : '至今'}}</view>
 					</view>
 				</view>
 			</button>
@@ -92,18 +92,26 @@
 						bindtap="sChoice"
 						data-type="position"
 						data-index="{{index}}">
-						<view class="list_item_first">
-							<view class="title">{{item.positionName}}</view>
-							<view class="saraly">{{item.emolumentMin}}~{{item.emolumentMax}}K</view>
-						</view>
-						<view class="list_item_second">
-							<view class="address">{{item.city}}{{item.district}}</view>
-							<view class="degress">{{item.educationName}}</view>
-							<view class="experience">{{item.workExperienceName}}</view>
-						</view>
-		        <view class="myRadio {{item.active ? 'active' : ''}}">
-		          <i class="icon iconfont icon-wancheng" wx:if="{{item.active}}"></i>
-		        </view>
+						<block wx:if="{{!item.id}}">
+							<view class="title_all">{{item.positionName}}</view>
+							<view class="myRadio {{item.active ? 'active' : ''}}">
+			          <i class="icon iconfont icon-wancheng" wx:if="{{item.active}}"></i>
+			        </view>
+						</block>
+						<block wx:else>
+							<view class="list_item_first">
+								<view class="title">{{item.positionName}}</view>
+								<view class="saraly">{{item.emolumentMin}}~{{item.emolumentMax}}K</view>
+							</view>
+							<view class="list_item_second">
+								<view class="address">{{item.city}}{{item.district}}</view>
+								<view class="degress">{{item.educationName}}</view>
+								<view class="experience">{{item.workExperienceName}}</view>
+							</view>
+			        <view class="myRadio {{item.active ? 'active' : ''}}">
+			          <i class="icon iconfont icon-wancheng" wx:if="{{item.active}}"></i>
+			        </view>
+			      </block>
 					</view>
 					<bottomStatus status="{{positionLists.onBottomStatus}}"listData="{{positionLists.list}}"></bottomStatus>
 		  </scroll-view>

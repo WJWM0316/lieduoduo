@@ -238,7 +238,7 @@ export const getRecommendRangeAllApi = (data, hasLoading) => {
     url: `/recommend/ranges/all`,
     method: 'get',
     data,
-    hasLoading: hasLoading
+    hasLoading: false
   })
 }
 
@@ -268,7 +268,7 @@ export const getRecommendPositionRangeListsApi = (data, hasLoading) => {
     url: `/recommend/position/ranges`,
     method: 'get',
     data,
-    hasLoading: hasLoading
+    hasLoading: false
   })
 }
 
@@ -278,7 +278,7 @@ export const getRecommendResumeMoreListsApi = (data, hasLoading) => {
     url: `/recommend/resume/more`,
     method: 'get',
     data,
-    hasLoading: hasLoading
+    hasLoading: false
   })
 }
 
@@ -318,6 +318,6 @@ export const getRecommendCityRangesListsApi = (data, hasLoading) => {
     url: `/recommend/city/ranges`,
     method: 'get',
     data,
-    hasLoading: hasLoading
+    hasLoading: false
   })
 }

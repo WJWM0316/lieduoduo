@@ -79,6 +79,9 @@ Page({
       case 'company':
         wx.navigateTo({url: `${RECRUITER}company/indexEdit/indexEdit`})
         break
+      case 'share':
+        this.selectComponent('#shareBtn').oper()
+        break
       case 'base':
         wx.navigateTo({url: `${RECRUITER}user/mine/base/base`})
         break

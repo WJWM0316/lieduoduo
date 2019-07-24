@@ -9,8 +9,8 @@
   
 <view class="page-mine">
 	<form bindsubmit="formSubmit" report-submit='{{true}}'>
-		<view class="floating-box" bindtap="jumpUpdateInfos">
-			<view class="header">
+		<view class="floating-box">
+			<view class="header" bindtap="jumpUpdateInfos">
 				<view class="content">
 					<view class="realname">{{recruiterInfo.name}}</view>
 					<view class="degree-name">{{recruiterInfo.companyShortname}} | {{recruiterInfo.position}}</view>
@@ -37,7 +37,7 @@
 						<image class="icon_image" src="{{cdnPath}}icon_my_sharepic.png"></image>
 						<view class="btn-text">转发海报</view>
 					</button>
-					<button form-type="submit" class="share-homepage-pic-02 clear-style">
+					<button form-type="submit" class="share-homepage-pic-02 clear-style" data-route="share" catchtap="routeJump">
 						<image class="icon_image" src="{{cdnPath}}icon_my_sharemyhp.png"></image>
 						<view class="btn-text">转发主页</view>
 					</button>
@@ -160,5 +160,6 @@
 </view>
 <block wx:if="{{recruiterInfo.uid}}"><canvasCard cardData="{{recruiterInfo}}" type="recruiter" bindgetCreatedImg="getCreatedImg"></canvasCard>
 </block>
+<shareBtn posterType="recruiter" id="shareBtn" shareBtn="{{false}}"></shareBtn>
 <tab-bar tabType="1" id="bottomRedDotBar" bindresultevent="getResult"></tab-bar>
 </view>

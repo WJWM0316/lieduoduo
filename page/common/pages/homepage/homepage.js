@@ -145,7 +145,7 @@ Page({
         positionList.isLastPage = res.meta && res.meta.nextPageUrl ? false : true
         positionList.pageNum = positionList.pageNum + 1
         positionList.isRequire = true
-        this.setData({companyInfos, map, requireOAuth}, () => {
+        this.setData({positionList}, () => {
           this.getDomNodePosition()
           resolve(res)
         })
@@ -176,8 +176,12 @@ Page({
     let positionTypeList = this.data.positionTypeList
     let typeId = null
     if(this.data.typeId === id) return
-    let positionList = this.data.positionList
-    positionList.pageNum = 1
+    let positionList = {
+      list: [],
+      pageNum: 1,
+      isLastPage: false,
+      isRequire: false
+    }
     positionTypeList.map(item => {
       item.active = false
       if (item.id === id) {

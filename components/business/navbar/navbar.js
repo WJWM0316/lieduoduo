@@ -98,6 +98,7 @@ Component({
           url: `${RECRUITER}index/index`
         })
         wx.removeStorageSync('isReback')
+        wx.removeStorageSync('cacheData')
       } else {
         wx.reLaunch({
           url: `${APPLICANT}index/index`

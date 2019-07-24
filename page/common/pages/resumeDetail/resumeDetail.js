@@ -226,7 +226,7 @@ Page({
     let that = this
     let btnImageUrl = `${that.data.cdnImagePath}shareB.png`
     let info = this.data.info
-    if(info.isBlockResume || info.glass || info.recommend.glass) {
+    if(info.isBlockResume || this.invisible) {
       console.log('该简历异常', info)
       return app.wxShare({options})
     }

@@ -108,8 +108,7 @@
         "pages/user/company/identityMethods/identityMethods",
         "pages/interested/interested",
         "pages/dynamics/dynamics",
-        "pages/reserve/reserve",
-        "pages/test/test"
+        "pages/reserve/reserve"
       ]
     }
   ],

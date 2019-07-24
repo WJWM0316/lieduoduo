@@ -91,9 +91,9 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom() {
-    let key = this.data.tab
+    let resumeLists = this.data.resumeLists
     this.setData({onBottomStatus: 1})
-    if (!this.data[key].isLastPage) this.init()
+    if (!resumeLists.isLastPage) this.init()
   },
   /**
    * @Author   小书包
@@ -124,11 +124,16 @@ Page({
       let positionLists = this.data.positionLists
       let params = {count: this.data.pageCount, page: positionLists.pageNum}
       getReserveResumeSearchPositionRangeListsApi(params, hasLoading).then(res => {
+        let list = []
+        if(!positionLists.list.length) {
+          list.unshift({id: 0, positionName: '全部职位', active: false})
+        }
+        list = list.concat(res.data || [])
         positionLists.onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
         positionLists.isLastPage = res.meta.nextPageUrl ? false : true
         positionLists.pageNum = positionLists.pageNum + 1
         positionLists.isRequire = true
-        positionLists.list = positionLists.list.concat(res.data)
+        positionLists.list = list
         this.setData({positionLists}, () => resolve(res))
       })
     })
@@ -301,38 +306,18 @@ Page({
     let workExperience = this.data.workExperience
     let item = this.data[params.type].find((field, index) => index === params.index)
     let mark = null
-    let resumeLists = {
-      list: [],
-      pageNum: 1,
-      isLastPage: false,
-      isRequire: false,
-      onBottomStatus: 0
+    let type = params.type
+    let list = this.data[type]
+    if(params.index) {
+      list[0].active = false
+      list.map((field, index) => {
+        if(index === params.index) field.active = !field.active
+      })
+    } else {
+      list.map(field => field.active = false)
+      list[0].active = true
     }
-    switch(params.type) {
-      case 'workExperience':
-        workExperience.map((field, index) => {
-          if(index === params.index) field.active = !field.active
-        })
-        break
-      case 'degrees':
-        degrees.map((field, index) => {
-          if(index === params.index) field.active = !field.active
-        })
-        break
-      case 'salary':
-        salary.map((field, index) => {
-          if(index === params.index) field.active = !field.active
-        })
-        break
-      case 'jobStatus':
-        jobStatus.map((field, index) => {
-          if(index === params.index) field.active = !field.active
-        })
-        break
-      default:
-        break
-    }
-    this.setData({jobStatus, workExperience, salary, degrees, resumeLists})
+    this.setData({[type]: list})
   },
   lower(e) {
     let positionLists = this.data.positionLists
@@ -379,6 +364,13 @@ Page({
     let selecteddegrees = this.data.degrees.filter(field => field.active)
     let selectedworkExperience = this.data.workExperience.filter(field => field.active)
     let dealMultipleSelection = this.data.dealMultipleSelection
+    let resumeLists = {
+      list: [],
+      pageNum: 1,
+      isLastPage: false,
+      isRequire: false,
+      onBottomStatus: 0
+    }
     model.title = ''
     model.type = ''
     model.show = false
@@ -387,6 +379,6 @@ Page({
     } else {
       dealMultipleSelection = false
     }
-    this.setData({model, dealMultipleSelection}, () => this.getReserveResumeSearchLists(true))
+    this.setData({model, dealMultipleSelection, resumeLists}, () => this.getReserveResumeSearchLists(true))
   }
 })

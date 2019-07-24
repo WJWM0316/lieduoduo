@@ -169,12 +169,12 @@
       </view>
       
       <block>
-        <button form-type="submit" hidden="{{options.adviser && info.sourceType !== 500 || info.sourceType !== 100 || info.recommend.glass || info.glass}}" class="clear-style collect" bindtap="collect">
+        <button form-type="submit" wx:if="{{!info.recommend.glass && !info.glass}}" class="clear-style collect" bindtap="collect">
           <i class="icon iconfont icon-ganxingqu" wx:if="{{!info.interested}}"></i>
           <i class="icon iconfont icon-biaojiweiganxingqu" wx:else></i>
         </button>
         <!-- 底部开撩 -->
-        <view class="bottomBox" hidden="{{(options.adviser && info.sourceType !== 500) || (options.hot && info.sourceType !== 100)}}">
+        <view class="bottomBox" hidden="{{(options.adviser && info.sourceType !== 500) || (options.hot && info.sourceType !== 100) || infos.recommend.recommendToCompany}}">
           <view wx:if="{{!options.preview}}">
             <interviewBar
               id="interviewBar"

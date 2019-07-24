@@ -514,7 +514,7 @@
 }
 
 .todos_bar_open .todo_item_left {
-  padding-left: 70rpx;
+  padding-left: 60rpx;
 }
 
 .todos_bar_open .todo_item_right {
@@ -533,7 +533,7 @@
   font-size:24rpx;
   color:#626262;
   line-height:1;
-  margin-top: 11rpx;
+  margin-top: 14rpx;
   text-align: left;
 }
 
@@ -560,7 +560,7 @@
   height:32rpx;
   line-height: 32rpx;
   background:rgba(255,127,76,1);
-  border-radius:51rpx 51rpx 51rpx 45rpx;
+  border-radius:50%;
   box-sizing: border-box;
   min-width: 32rpx;
 }
@@ -875,6 +875,7 @@
 .type_list .base_ul .base_item_active{
   border-color: #652791;
   color: #652791;
+  font-weight: 700;
 }
 
 .button-box {
@@ -1201,6 +1202,7 @@
   white-space: nowrap;
   vertical-align: middle;
   margin: 0 4rpx;
+  transform: translateY(-2rpx);
 }
 
 .know{

@@ -91,12 +91,26 @@ Page({
   onClickTab(e) {
     let tab = e.currentTarget.dataset.tab
     let indexShowCount = this.data.indexShowCount
+    let interestList = {
+      list: [],
+      pageNum: 1,
+      isLastPage: false,
+      isRequire: false,
+      onBottomStatus: 0
+    }
+    let viewList = {
+      list: [],
+      pageNum: 1,
+      isLastPage: false,
+      isRequire: false,
+      onBottomStatus: 0
+    }
     if(tab === 'viewList') {
       indexShowCount.interestedNum = 0
     } else {
       indexShowCount.viewNum = 0
     }
-    this.setData({tab, indexShowCount}, () => this.getLists())
+    this.setData({tab, indexShowCount, interestList, viewList}, () => this.getLists())
   },
   routeJump(e) {
     wx.reLaunch({url: `${RECRUITER}index/index`})
