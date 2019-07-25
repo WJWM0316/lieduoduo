@@ -9,8 +9,8 @@
 			<i class="icon iconfont icon-zhishibiao"></i>
 		</view>
   	<view class="item" bindtap="openTips" data-type="status">
-  		<view class="text {{ dealHandleStatus.id ? 'active' : '' }}">
-  			{{ dealHandleStatus.id ? dealHandleStatus.text : '处理状态' }} 
+  		<view class="text {{ dealHandleStatus.id && dealHandleStatus.id !== 100 ? 'active' : '' }}">
+  			{{ dealHandleStatus.id && dealHandleStatus.id !== 100 ? dealHandleStatus.text : '处理状态' }} 
   		</view>
   		<i class="icon iconfont icon-zhishibiao"></i>
   	</view>
@@ -68,7 +68,7 @@
 							<block wx:if="{{item.school}}">{{item.school}} | {{item.major}}</block>
 							<block wx:if="{{!item.school}}">暂未填写毕业院校</block>
 						</view>
-						<view class="right" wx:if="{{item.lastCompanyStartWorkYearDesc}}">{{item.lastCompanyStartWorkYearDesc}}-{{item.lastCompanyEndWorkYearDesc ? item.lastCompanyEndWorkYearDesc : '至今'}}</view>
+						<view class="right" wx:if="{{item.lastCompanyStartWorkYearDesc}}">{{item.lastCompanyStartWorkYearDesc}} - {{item.lastCompanyEndWorkYearDesc}}</view>
 					</view>
 				</view>
 			</button>

@@ -145,7 +145,7 @@ Page({
         positionLists.isLastPage = res.meta && res.meta.nextPageUrl ? false : true
         positionLists.pageNum = positionLists.pageNum + 1
         positionLists.isRequire = true
-        positionLists.list = list
+        positionLists.list = positionLists.list.concat(list)
         this.setData({positionLists}, () => resolve(res))
       })
     })
@@ -207,10 +207,6 @@ Page({
 
       getReserveResumeSearchListsApi(params).then(res => {
         let list = res.data
-        let year = null
-        let mounth = null
-        list.map(field => {})
-        console.log(list, 'ggggggg')
         resumeLists.onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
         resumeLists.isLastPage = res.meta && res.meta.nextPageUrl ? true : false
         resumeLists.pageNum = resumeLists.pageNum + 1
@@ -317,12 +313,6 @@ Page({
    */
   mChoice(e) {
     let params = e.currentTarget.dataset
-    let degrees = this.data.degrees
-    let jobStatus = this.data.jobStatus
-    let salary = this.data.salary
-    let workExperience = this.data.workExperience
-    let item = this.data[params.type].find((field, index) => index === params.index)
-    let mark = null
     let type = params.type
     let list = this.data[type]
     if(params.index) {
@@ -376,10 +366,10 @@ Page({
     let jobStatus = this.data.jobStatus
     let salary = this.data.salary
     let workExperience = this.data.workExperience
-    let selectedsalary = this.data.salary.filter(field => field.active)
-    let selectedjobStatus = this.data.jobStatus.filter(field => field.active)
-    let selecteddegrees = this.data.degrees.filter(field => field.active)
-    let selectedworkExperience = this.data.workExperience.filter(field => field.active)
+    let selectedsalary = this.data.salary.filter(field => field.active && field.id !== 1)
+    let selectedjobStatus = this.data.jobStatus.filter(field => field.active && field.id !== 9)
+    let selecteddegrees = this.data.degrees.filter(field => field.active && field.id !== 100)
+    let selectedworkExperience = this.data.workExperience.filter(field => field.active && field.id !== 1)
     let dealMultipleSelection = this.data.dealMultipleSelection
     let resumeLists = {
       list: [],

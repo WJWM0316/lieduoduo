@@ -160,6 +160,7 @@ Page({
         this.initDefaultBar()
       }
     }
+    console.log(this.data)
   },
   initDefaultBar() {
     setTimeout(() => {
@@ -758,14 +759,7 @@ Page({
     let exclusiveSelection = this.data.exclusiveSelection
     let item = null
     let resumeList = this.data.resumeList
-    let recommendResumeLists = {
-      list: [],
-      pageNum: 1,
-      count: 20,
-      isLastPage: false,
-      isRequire: false,
-      onBottomStatus: 0
-    }
+    let recommendResumeLists = this.data.recommendResumeLists
     if(!attrData.isReback) {
       resumeList = {
         list: [],
@@ -775,6 +769,14 @@ Page({
         isRequire: false,
         onBottomStatus: 0,
         showSystemData: false
+      }
+      recommendResumeLists = {
+        list: [],
+        pageNum: 1,
+        count: 20,
+        isLastPage: false,
+        isRequire: false,
+        onBottomStatus: 0
       }
     }
     positionLists.list.map((field, index) => {
@@ -871,7 +873,6 @@ Page({
     let onBottomStatus = this.data.onBottomStatus
     let salaryLists = this.data.salaryLists
     let recommended = this.data.recommended
-    let resumeList = this.data.resumeList
     let positionLists = {
       list: [],
       pageNum: 1,

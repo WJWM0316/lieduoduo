@@ -50,7 +50,7 @@
 		<view class="todos_bar_open"  wx:if="{{indexShowCount.advisor}}">
 			<view class="todo_item todo_item_left" bindtap="routeJump" data-route="adviser">
 				<view class="todo_title">顾问精选简历
-					<view class="number" wx:if="{{indexShowCount.advisor.total}}">{{indexShowCount.advisor.total}}</view>
+					<view class="number" wx:if="{{indexShowCount.advisor.notHandleNum}}">{{indexShowCount.advisor.notHandleNum}}</view>
 				</view>
 				<view class="todo_tips" wx:if="{{indexShowCount.advisor.notHandleNum && indexShowCount.advisor.total}}">
 					<text class="strong">{{indexShowCount.advisor.notHandleNum}}</text> 候选人未处理

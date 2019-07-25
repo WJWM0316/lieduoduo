@@ -27,6 +27,7 @@ Page({
     cdnImagePath: app.globalData.cdnImagePath,
     invisible: false,
     resumeType: '',
+    identity: '',
     navH: app.globalData.navHeight
   },
   /**
@@ -35,9 +36,9 @@ Page({
   onLoad: function (options) {
     if (options.scene) options = app.getSceneParams(options.scene)
     identity = app.identification(options)
-    this.setData({options})
+    this.setData({options, identity})
     positionCard = ''
-    console.log(options)
+    console.log(options, identity)
   },
   /**
    * 生命周期函数--监听页面显示
@@ -227,7 +228,7 @@ Page({
     let btnImageUrl = `${that.data.cdnImagePath}shareB.png`
     // 毛玻璃状态下没有info字段 需要初始化值
     let info = this.data.info || {}
-    if(info.isBlockResume) {
+    if(info.isBlockResume || this.data.invisible) {
       console.log('该简历异常', info)
       return app.wxShare({options})
     }
@@ -237,7 +238,6 @@ Page({
       sCode: that.data.info.sCode,
       channel: 'card'
     })
-    console.log(positionCard, 'ggggggggggg')
     if(positionCard){
       btnImageUrl = positionCard
     }
