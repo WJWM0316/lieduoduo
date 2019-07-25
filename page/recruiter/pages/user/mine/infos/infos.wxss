@@ -315,7 +315,7 @@ top-banner.center {
 }
 
 .toolbox .tool-item.company {
-	margin-left: 62rpx;
+	margin-left: 50rpx;
 }
 
 .toolbox .tool-item.red::before {
@@ -348,6 +348,8 @@ top-banner.center {
 	line-height:22rpx;
 	text-align: center;
 	margin-top: 10rpx;
+	min-width: 100rpx;
+	/*background: red;*/
 }
 .toolbox .tool-item .txt .num {
 	color: #FF7F4D;

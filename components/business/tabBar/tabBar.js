@@ -111,9 +111,13 @@ Component({
     },
     toggle(e) {
       if (app.getCurrentPagePath().indexOf(e.target.dataset.path) !== -1) return
+      let action = () => {
+        wx.removeStorageSync('companyInfos')
+        wx.removeStorageSync('cacheData')
+      }
       wx.reLaunch({
         url: e.target.dataset.path,
-        success: () => wx.removeStorageSync('companyInfos')
+        success: () => action()
       })
     }
   }

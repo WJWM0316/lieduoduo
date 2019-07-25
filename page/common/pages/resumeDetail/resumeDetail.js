@@ -113,8 +113,8 @@ Page({
         })
       }).catch(e => {
         reject(e)
-        if (e.code === 910) this.setData({invisible: true, resumeType: 'featured'})
-        if (e.code === 911) this.setData({invisible: true, resumeType: 'hot'})
+        if (e.code === 910) this.setData({invisible: true, resumeType: 'featured', info: {invisible: true}})
+        if (e.code === 911) this.setData({invisible: true, resumeType: 'hot', info: {invisible: true}})
       })
     })
   },
@@ -225,8 +225,9 @@ Page({
   onShareAppMessage(options) {
     let that = this
     let btnImageUrl = `${that.data.cdnImagePath}shareB.png`
-    let info = this.data.info
-    if(info.isBlockResume || this.invisible) {
+    // 毛玻璃状态下没有info字段 需要初始化值
+    let info = this.data.info || {}
+    if(info.isBlockResume) {
       console.log('该简历异常', info)
       return app.wxShare({options})
     }
@@ -236,12 +237,13 @@ Page({
       sCode: that.data.info.sCode,
       channel: 'card'
     })
+    console.log(positionCard, 'ggggggggggg')
     if(positionCard){
       btnImageUrl = positionCard
     }
-    if (this.data.info.recommend && this.data.info.recommend.glass) {
-      btnImageUrl = `${that.data.cdnImagePath}shareB.png`
-    }
+    // if (this.data.info.recommend && this.data.info.recommend.glass) {
+    //   btnImageUrl = `${that.data.cdnImagePath}shareB.png`
+    // }
     let myInfos = ''
     if (identity === 'APPLICANT') {
       myInfos = app.globalData.resumeInfo

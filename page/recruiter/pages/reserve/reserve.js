@@ -52,22 +52,34 @@ Page({
     dealPositionStatus: {},
     dealMultipleSelection: false
   },
+  onLoad() {
+    this.getReserveResumeSearchPositionRangeList()
+    this.getReserveResumeSearchRangeLists()
+  },
   onShow() {
     this.init()
   },
   init() {
-    this.getReserveResumeSearchPositionRangeList()
-    this.getReserveResumeSearchRangeLists()
     this.getReserveResumeSearchLists()
   },
   getReserveResumeSearchRangeLists() {
     getReserveResumeSearchRangeListsApi().then(res => {
+      let degrees = res.data.degrees
+      let handleStatus = res.data.handleStatus
+      let jobStatus = res.data.jobStatus
+      let salary = res.data.salary
+      let workExperience = res.data.workExperience
+      degrees[0].active = true
+      handleStatus[0].active = true
+      jobStatus[0].active = true
+      salary[0].active = true
+      workExperience[0].active = true
       this.setData({
-        degrees: res.data.degrees,
-        handleStatus: res.data.handleStatus,
-        jobStatus: res.data.jobStatus,
-        salary: res.data.salary,
-        workExperience: res.data.workExperience
+        degrees,
+        handleStatus,
+        jobStatus,
+        salary,
+        workExperience
       })
     })
   },
@@ -130,7 +142,7 @@ Page({
         }
         list = list.concat(res.data || [])
         positionLists.onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
-        positionLists.isLastPage = res.meta.nextPageUrl ? false : true
+        positionLists.isLastPage = res.meta && res.meta.nextPageUrl ? false : true
         positionLists.pageNum = positionLists.pageNum + 1
         positionLists.isRequire = true
         positionLists.list = list
@@ -194,11 +206,16 @@ Page({
       }
 
       getReserveResumeSearchListsApi(params).then(res => {
+        let list = res.data
+        let year = null
+        let mounth = null
+        list.map(field => {})
+        console.log(list, 'ggggggg')
         resumeLists.onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
-        resumeLists.isLastPage = res.meta.nextPageUrl ? false : true
+        resumeLists.isLastPage = res.meta && res.meta.nextPageUrl ? true : false
         resumeLists.pageNum = resumeLists.pageNum + 1
         resumeLists.isRequire = true
-        resumeLists.list = resumeLists.list.concat(res.data)
+        resumeLists.list = resumeLists.list.concat(list)
         this.setData({resumeLists}, () => resolve(res))
       })
     })

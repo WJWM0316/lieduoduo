@@ -31,6 +31,7 @@ Page({
     navH: app.globalData.navHeight,
     background: 'transparent',
     hasReFresh: false,
+    cdnImagePath: app.globalData.cdnImagePath,
     onBottomStatus: 0
   },
   onShow() {

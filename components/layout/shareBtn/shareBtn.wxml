@@ -102,7 +102,7 @@
 		<view class="shareBtn shareBtnBg"></view>
 		<button open-type="share" class="shareBtn clear-style" form-type="submit">
 			<view><i class="shareIcon iconfont icon-fenxiang"></i></view>
-		  <text>转发</text>
+		  <text>转发11</text>
 		</button>
 	</block>
 </form>
