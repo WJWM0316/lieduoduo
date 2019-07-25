@@ -98,7 +98,8 @@ Page({
       onBottomStatus: 0
     },
     exclusiveSelection: false,
-    dealMultipleSelection: false
+    dealMultipleSelection: false,
+    isReload: false
   },
   onLoad() {
     let choseType = wx.getStorageSync('choseType') || ''
@@ -160,7 +161,6 @@ Page({
         this.initDefaultBar()
       }
     }
-    console.log(this.data)
   },
   initDefaultBar() {
     setTimeout(() => {
@@ -241,7 +241,7 @@ Page({
       showSystemData: false,
       onBottomStatus: 0
     }
-    this.setData({hasReFresh: true, resumeList, dealMultipleSelection: false})
+    this.setData({hasReFresh: true, resumeList, dealMultipleSelection: false, isReload: true})
     this.selectComponent('#bottomRedDotBar').init()
     this.getMixdata()
     this.cacheData()
@@ -873,14 +873,15 @@ Page({
     let onBottomStatus = this.data.onBottomStatus
     let salaryLists = this.data.salaryLists
     let recommended = this.data.recommended
-    let positionLists = {
-      list: [],
-      pageNum: 1,
-      count: 20,
-      isLastPage: false,
-      isRequire: false,
-      onBottomStatus: 0
-    }
+    let positionLists = this.data.positionLists
+    // let positionLists = {
+    //   list: [],
+    //   pageNum: 1,
+    //   count: 20,
+    //   isLastPage: false,
+    //   isRequire: false,
+    //   onBottomStatus: 0
+    // }
     let cityLists = {
       list: [],
       pageNum: 1,
@@ -891,10 +892,11 @@ Page({
     this.setData({positionLists, cityLists})
     return new Promise((resolve, reject) => {
       getRecommendRangeAllApi(params).then(res => {
-        let list = res.data.position || []
+        let list = []
         let cacheData = wx.getStorageSync('cacheData')
         let salary = res.data.salary
         let dealMultipleSelection = false
+        list = res.data.position || []
         list.unshift({id: 0, positionName: '全部', active: false, recommended: res.data.recommended})
         positionLists.onBottomStatus = res.data.position.length === this.data.pageCount ? 0 : 2
         positionLists.isLastPage = res.data.position.length === this.data.pageCount ? true : false
@@ -942,9 +944,7 @@ Page({
 
         positionLists.list.map((field, index) => {
           if(field.active) {
-            let data = {
-              index
-            }
+            let data = { index }
             if(cacheData.isReback) {
               data = Object.assign(data, { isReback })
             }
@@ -957,7 +957,7 @@ Page({
             })
           }
         })
-        this.setData({positionLists, cityLists, salaryLists, recommended, dealMultipleSelection}, () => resolve(res))
+        this.setData({positionLists, cityLists, salaryLists, recommended, dealMultipleSelection, isReload: false}, () => resolve(res))
       })
     })
   },
