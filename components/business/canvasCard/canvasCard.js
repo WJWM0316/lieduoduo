@@ -57,9 +57,7 @@ Component({
     drawing (avatarUrl) {
       let that = this
       let info = this.data.cardData
-      let choseType = wx.getStorageSync('choseType') || ''
       const ctx = wx.createCanvasContext('cardCanvas', this)
-      console.log(choseType)
       switch(this.data.type) {
         case 'recruiter':
           ctx.drawImage(avatarUrl, 160, 73, 100, 100)
@@ -149,7 +147,7 @@ Component({
           ctx.drawImage('../../../images/shareResume.png', 0, 0, 420, 336)
           ctx.setFontSize(28)
           ctx.setFillStyle('#ffffff')
-          if(info.recommend && !info.recommend.glass) {
+          if((info.recommend && !info.recommend.glass) || !info.recommend) {
             ellipsis(ctx, info.name, 194, 170, 102)
           } else {
             ctx.drawImage('../../../images/invisible1.png', 150, 72, 76, 44)

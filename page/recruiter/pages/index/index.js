@@ -232,6 +232,7 @@ Page({
    * @return   {[type]}              [description]
    */
   onPullDownRefresh() {
+    let api = this.data.recommended ? 'getRecommendResumeLists' : 'getRecommendResumePageLists'
     let resumeList = {
       list: [],
       pageNum: 1,
@@ -245,7 +246,7 @@ Page({
     this.selectComponent('#bottomRedDotBar').init()
     this.getMixdata()
     this.cacheData()
-    this.getRecommendRangeAll(0).then(() => {
+    this[api]().then(() => {
       wx.stopPullDownRefresh()
       this.setData({fixedDom: false, hasReFresh: false})
     }).catch(() => {
@@ -529,6 +530,8 @@ Page({
     let salaryLists = this.data.salaryLists
     cityLists.list.map(field => field.active = false)
     salaryLists.map(field => field.active = false)
+    cityLists.list[0].active = true
+    salaryLists[0].active = true
     this.setData({cityLists, salaryLists})
   },
   /**
@@ -908,23 +911,10 @@ Page({
         cityLists.list = cityLists.list.concat(res.data.city || [])
         cityLists.pageNum++
         cityLists.isRequire = true
-        cityLists.list.unshift({areaId: 0, name: '全部', active: false })
-        salaryLists = salary
+        cityLists.list.unshift({areaId: 0, name: '全部', active: true })
+        salaryLists = res.data.salary
+        salaryLists[0].active = true
         recommended = res.data.recommended
-
-        // 已经进行职位筛选简历
-        if(cacheData && cacheData.positionId) {
-          // 判断该职位是否已经下线或者审核失败
-          let isExist = positionLists.list.find(field => field.id === cacheData.positionId)
-          if(isExist) {
-            positionLists.list.map(field => field.active = field.id === cacheData.positionId ? true : false)
-            dealMultipleSelection = true
-          } else {
-            positionLists.list[0].active = true
-          }
-        } else {
-          positionLists.list[0].active = true
-        }
 
         // 已经选择薪资
         if(cacheData && cacheData.salaryIds) {
@@ -942,22 +932,25 @@ Page({
           cityLists.list[0].active = true
         }
 
-        positionLists.list.map((field, index) => {
-          if(field.active) {
-            let data = { index }
-            if(cacheData.isReback) {
-              data = Object.assign(data, { isReback })
-            }
-            this.clickNav({
-              target: {
-                dataset: {
-                  ...data
-                }
-              }
-            })
-          }
-        })
-        this.setData({positionLists, cityLists, salaryLists, recommended, dealMultipleSelection, isReload: false}, () => resolve(res))
+        if(recommended) {
+          // if(cacheData && cacheData.isReback) {
+          //   salary.map(field => field.active = cacheData.salaryIds.includes(field.id) ? true : false)
+          //   dealMultipleSelection = true
+          // } else {
+          //   salary[0].active = true
+          // }
+          this.getRecommendResumeLists().then(() => {
+            let resumeList = this.data.resumeList
+            if(!resumeList.list.length) this.getRecommendResumeMoreLists()
+          })
+        } else {
+          this.getRecommendResumePageLists().then(() => {
+            let resumeList = this.data.resumeList
+            if(!resumeList.list.length) this.getRecommendResumeMoreLists()
+          })
+        }
+
+        this.setData({positionLists, cityLists, salaryLists, recommended, dealMultipleSelection}, () => resolve(res))
       })
     })
   },

@@ -441,7 +441,7 @@
   position: relative;
   overflow: hidden;
   background: white;
-  padding: 20rpx 30rpx;
+  padding: 0rpx 30rpx 20rpx 30rpx;
 }
 
 .shoper-banner .swiper {
