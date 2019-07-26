@@ -103,6 +103,7 @@
 				<view class="down" bindtap="openTips" data-type="position"><i class="icon iconfont icon-zhishibiao"></i></view>
 			</view>
 		</view>
+		<view class="placeholder" hidden="{{!fixedDom}}"></view>
 		<view class="list-box" wx:if="{{detail.positionNum || resumeList.list.length}}">
 			<form bindsubmit="formSubmit" report-submit="{{true}}" wx:if="{{resumeList.list.length}}">
 				<button
@@ -169,7 +170,7 @@
 								<view class="bot" wx:if="{{item.lastCompanyName}}">{{item.lastCompanyName}}<block wx:if="{{item.lastCompanyName && item.lastCompanyName}}"> | </block>{{item.lastPosition}}</view>
 							</view>
 						</view>
-						<view class="desc" wx:if="{{!exclusiveSelection && item.isRecommend}}">
+						<view class="desc" wx:if="{{item.isRecommend}}">
 							<view class="txt">根据你的<view class="positionName"> {{item.positionName}} </view>为你推荐</view>
 						</view>
 					</view>

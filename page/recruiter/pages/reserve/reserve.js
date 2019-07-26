@@ -347,6 +347,10 @@ Page({
     jobStatus.map(field => field.active = false)
     salary.map(field => field.active = false)
     workExperience.map(field => field.active = false)
+    degrees[0].active = true
+    jobStatus[0].active = true
+    salary[0].active = true
+    workExperience[0].active = true
     this.setData({
       degrees,
       jobStatus,

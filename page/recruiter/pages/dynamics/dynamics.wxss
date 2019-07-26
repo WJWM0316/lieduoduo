@@ -22,7 +22,6 @@
 
 .office-status-bar .item {
   box-sizing: border-box;
-  padding: 0 36rpx;
   text-align: center;
   background-color: #FFFFFF;
   margin-left: 10rpx;
@@ -79,7 +78,7 @@
   color:rgba(255,255,255,1);
   position: absolute;
   top: 50%;
-  right: -16rpx;
+  right: -50rpx;
   transform: translateY(-50%);
 }
 

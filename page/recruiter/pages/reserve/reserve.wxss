@@ -111,7 +111,7 @@
 }
 
 .item2 .header {
-  line-height:1.2;
+  line-height:58rpx;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -131,6 +131,7 @@
   text-overflow: ellipsis;
   white-space: nowrap;
   float: left;
+  margin-right: 16rpx;
 }
 
 .item2 .row-two .icon-biaojiweiganxingqu{
@@ -145,10 +146,8 @@
 	background:rgba(239,233,244,1);
 	border-radius:38rpx;
 	padding: 7rpx 18rpx;
-	margin-left: 16rpx;
 	font-size:24rpx;
 	color:rgba(101,39,145,1);
-  float: left;
   width: 195rpx;
   text-align: center;
   box-sizing: border-box;
@@ -156,7 +155,7 @@
 
 .item2 .degress{
   line-height:28rpx;
-  margin-top: 20rpx;
+  margin-top: 10rpx;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -171,7 +170,7 @@
 }
 
 .item2 .row-two {
-  line-height:28rpx;
+  line-height:30rpx;
   padding-bottom: 27rpx;
   max-width: 100%;
   overflow: hidden;
@@ -191,7 +190,7 @@
 	font-weight:300;
 	color:rgba(40,40,40,1);
   max-width: 400rpx;
-  line-height: 28rpx;
+  line-height: 30rpx;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -205,6 +204,7 @@
   font-size: 30rpx;
   margin-right: 20rpx;
   color: #CDCBCF;
+  transform: translateY(2px);
 }
 
 .item2 .row-two .right {
@@ -216,7 +216,7 @@
 }
 
 .item2 .row-three {
-  line-height:28rpx;
+  line-height:30rpx;
   padding-bottom: 40rpx;
   max-width: 100%;
   overflow: hidden;
@@ -241,6 +241,7 @@
   font-size: 30rpx;
   margin-right: 20rpx;
   color: #CDCBCF;
+  transform: translateY(2px);
 }
 
 .item2 .row-three .right {
@@ -503,4 +504,12 @@
 
 .status_ul {
   padding: 0 40rpx;
+}
+
+.name_filter{
+  width:96rpx;
+  height:58rpx;
+  margin-right:16rpx;
+  display:block;
+  float: left;
 }

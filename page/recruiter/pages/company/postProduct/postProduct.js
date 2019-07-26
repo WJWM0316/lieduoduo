@@ -57,7 +57,8 @@ Page({
   bindInput(e) {
   	const key = e.currentTarget.dataset.key
   	const value = e.detail.value
-  	this.debounce(this.bindChange, null, 500, { [key]: value} )
+    this.setData({[key]: value})
+  	// this.debounce(this.bindChange, null, 500, { [key]: value} )
   },
   /**
    * @Author   小书包

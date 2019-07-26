@@ -44,7 +44,8 @@
 						</view>
 						<view class="content">
 							<view class="header">
-								<view class="name">{{item.name}}</view>
+								<view class="name" wx:if="{{!item.glass}}">{{item.name}}</view>
+								<image wx:else class="name_filter" src="{{cdnImagePath}}invisible1.png" mode="aspectFit"></image>
 								<view class="status" wx:if="{{item.jobStatusDesc}}">{{item.jobStatusDesc}}</view>
 							</view>
 							<view class="degress">
@@ -68,7 +69,7 @@
 							<block wx:if="{{item.school}}">{{item.school}} | {{item.major}}</block>
 							<block wx:if="{{!item.school}}">暂未填写毕业院校</block>
 						</view>
-						<view class="right" wx:if="{{item.lastCompanyStartWorkYearDesc}}">{{item.lastCompanyStartWorkYearDesc}} - {{item.lastCompanyEndWorkYearDesc}}</view>
+						<view class="right" wx:if="{{item.lastCompanyStartWorkYearDesc}}">{{item.lastCompanyStartWorkYearDesc}}-{{item.lastCompanyEndWorkYearDesc}}</view>
 					</view>
 				</view>
 			</button>

@@ -147,27 +147,44 @@ Component({
           ctx.drawImage('../../../images/shareResume.png', 0, 0, 420, 336)
           ctx.setFontSize(28)
           ctx.setFillStyle('#ffffff')
+          // 没有毛玻璃的转发简历状态
           if((info.recommend && !info.recommend.glass) || !info.recommend) {
             ellipsis(ctx, info.name, 194, 170, 102)
+            if(info.jobStatusDesc){
+              ctx.setFontSize(22)
+              ellipsis(ctx, info.jobStatusDesc, 180, 160, 132)
+            }
+            let positionX2 = 0
+            if(info.expects && info.expects.length>0){
+              ctx.setFontSize(22)
+              ellipsis(ctx, `期望职位：${info.expects[0].position}`, 380, 40, 250)
+              ctx.setFontSize(20)
+              positionX2 = ellipsis(ctx, `${info.expects[0].city}`, 150, 50, 200, '#ffffff', {color: '#8452A7', padding: 12, height: 34, x: 40, y:176})
+            }
+            if (info.workAgeDesc) {
+              positionX2 = ellipsis(ctx, `${info.workAgeDesc}`, 150, positionX2 + 20, 200, '#ffffff', {color: '#8452A7', padding: 12, height: 34, x: positionX2 + 8, y:176})
+            }
+            if (info.degreeDesc) {
+              positionX2 = ellipsis(ctx, `${info.degreeDesc}`, 150, positionX2 + 20, 200, '#ffffff', {color: '#8452A7', padding: 12, height: 34, x: positionX2 + 8, y:176})
+            }
           } else {
             ctx.drawImage('../../../images/invisible1.png', 150, 72, 76, 44)
-          }
-          if(info.jobStatusDesc){
             ctx.setFontSize(22)
-            ellipsis(ctx, info.jobStatusDesc, 180, 160, 132)
-          }
-          let positionX2 = 0
-          if(info.expects && info.expects.length>0){
-            ctx.setFontSize(22)
-            ellipsis(ctx, `期望职位：${info.expects[0].position}`, 380, 40, 250)
-            ctx.setFontSize(20)
-            positionX2 = ellipsis(ctx, `${info.expects[0].city}`, 150, 50, 200, '#ffffff', {color: '#8452A7', padding: 12, height: 34, x: 40, y:176})
-          }
-          if (info.workAgeDesc) {
-            positionX2 = ellipsis(ctx, `${info.workAgeDesc}`, 150, positionX2 + 20, 200, '#ffffff', {color: '#8452A7', padding: 12, height: 34, x: positionX2 + 8, y:176})
-          }
-          if (info.degreeDesc) {
-            positionX2 = ellipsis(ctx, `${info.degreeDesc}`, 150, positionX2 + 20, 200, '#ffffff', {color: '#8452A7', padding: 12, height: 34, x: positionX2 + 8, y:176})
+            let city = info.expects[0].city
+            let word = null
+            if(city.length > 3) {
+              city = city.substring(0, 2) + '...'
+            }
+            if(city.length === 3) {
+              city = city.substring(0, 2)
+            }
+            word = `${city}-${info.workAgeDesc}-${info.degreeDesc}`
+            ellipsis(ctx, word, 240, 160, 132)
+            let positionX2 = 0
+            if(info.expects && info.expects.length > 0) {
+              ctx.setFontSize(22)
+              ellipsis(ctx, `期望职位：${info.expects[0].position}`, 380, 40, 200)
+            }
           }
         break
         case 'company':
