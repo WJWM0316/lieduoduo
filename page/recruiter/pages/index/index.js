@@ -242,11 +242,23 @@ Page({
       showSystemData: false,
       onBottomStatus: 0
     }
-    this.setData({hasReFresh: true, resumeList, dealMultipleSelection: false, isReload: true})
+    let recommendResumeLists = {
+      list: [],
+      pageNum: 1,
+      count: 20,
+      isLastPage: false,
+      isRequire: false,
+      onBottomStatus: 0
+    }
+    this.setData({hasReFresh: true, resumeList, dealMultipleSelection: false, recommendResumeLists})
     this.selectComponent('#bottomRedDotBar').init()
     this.getMixdata()
     this.cacheData()
     this[api]().then(() => {
+      resumeList.showSystemData = true
+      this.setData({resumeList}, () => {
+        if(!this.data.resumeList.list.length) this.getRecommendResumeMoreLists()
+      })
       wx.stopPullDownRefresh()
       this.setData({fixedDom: false, hasReFresh: false})
     }).catch(() => {
@@ -270,7 +282,7 @@ Page({
         this.getRecommendResumePageLists()
       }
     } else {
-      this.getRecommendResumeMoreLists()
+      if(!resumeList.list.length) this.getRecommendResumeMoreLists()
     }
   },
   onShareAppMessage(options) {
@@ -553,6 +565,14 @@ Page({
       showSystemData: false,
       onBottomStatus: 0
     }
+    let recommendResumeLists = {
+      list: [],
+      pageNum: 1,
+      count: 20,
+      isLastPage: false,
+      isRequire: false,
+      onBottomStatus: 0
+    }
     let cityItem = cityLists.list.find(field => field.active && field.areaId !== 0)
     let salary = salaryLists.filter(field => field.active && field.id !== 1).map(field => field.id)
     let params = {page: 1}
@@ -566,7 +586,7 @@ Page({
       dealMultipleSelection = true
     }
 
-    this.setData({resumeList, dealMultipleSelection}, () => {
+    this.setData({resumeList, dealMultipleSelection, recommendResumeLists}, () => {
       if(this.data.recommended) {
         this.getRecommendResumeLists(params).then(res => {
           let model = this.data.model
@@ -576,7 +596,7 @@ Page({
           this.setData({model})
           wx.removeStorageSync('cacheData')
           // 去获取推荐数据
-          if(!res.data.length) {
+          if(!this.data.resumeList.list.length) {
             resumeList.showSystemData = true
             this.setData({resumeList}, () => this.getRecommendResumeMoreLists())
           }
@@ -590,7 +610,7 @@ Page({
           this.setData({model})
           wx.removeStorageSync('cacheData')
           // 去获取推荐数据
-          if(!res.data.length) {
+          if(!this.data.resumeList.list.length) {
             resumeList.showSystemData = true
             this.setData({resumeList}, () => this.getRecommendResumeMoreLists())
           }
@@ -630,8 +650,8 @@ Page({
 
     return new Promise((resolve, reject) => {
       getRecommendResumePageListsApi(params).then(res => {
-        resumeList.onBottomStatus = res.data.length === 15 ? 0 : 2
-        resumeList.isLastPage = res.data.length === 15 ? false : true
+        resumeList.onBottomStatus = res.data.length ? 0 : 2
+        resumeList.isLastPage = res.data.length ? false : true
         resumeList.pageNum = resumeList.pageNum + 1
         resumeList.isRequire = true
         resumeList.list = resumeList.list.concat(res.data)
@@ -676,8 +696,8 @@ Page({
 
     return new Promise((resolve, reject) => {
       getRecommendResumeListsApi(params).then(res => {
-        resumeList.onBottomStatus = res.data.length === 15 ? 0 : 2
-        resumeList.isLastPage = res.data.length === 15 ? false : true
+        resumeList.onBottomStatus = res.data.length ? 0 : 2
+        resumeList.isLastPage = res.data.length ? false : true
         resumeList.pageNum = resumeList.pageNum + 1
         resumeList.isRequire = true
         resumeList.list = resumeList.list.concat(res.data)
@@ -877,14 +897,6 @@ Page({
     let salaryLists = this.data.salaryLists
     let recommended = this.data.recommended
     let positionLists = this.data.positionLists
-    // let positionLists = {
-    //   list: [],
-    //   pageNum: 1,
-    //   count: 20,
-    //   isLastPage: false,
-    //   isRequire: false,
-    //   onBottomStatus: 0
-    // }
     let cityLists = {
       list: [],
       pageNum: 1,
@@ -895,17 +907,19 @@ Page({
     this.setData({positionLists, cityLists})
     return new Promise((resolve, reject) => {
       getRecommendRangeAllApi(params).then(res => {
-        let list = []
+        let list = res.data.position || []
         let cacheData = wx.getStorageSync('cacheData')
         let salary = res.data.salary
         let dealMultipleSelection = false
-        list = res.data.position || []
-        list.unshift({id: 0, positionName: '全部', active: false, recommended: res.data.recommended})
-        positionLists.onBottomStatus = res.data.position.length === this.data.pageCount ? 0 : 2
-        positionLists.isLastPage = res.data.position.length === this.data.pageCount ? true : false
-        positionLists.list = positionLists.list.concat(list)
-        positionLists.pageNum++
-        positionLists.isRequire = true
+        if(!positionLists.list.length) {
+          list.unshift({id: 0, positionName: '全部', active: false, recommended: res.data.recommended})
+          positionLists.onBottomStatus = res.data.position.length === this.data.pageCount ? 0 : 2
+          positionLists.isLastPage = res.data.position.length === this.data.pageCount ? true : false
+          positionLists.list = positionLists.list.concat(list)
+          positionLists.pageNum++
+          positionLists.isRequire = true
+        }
+        
         cityLists.onBottomStatus = res.data.position.length === this.data.pageCount ? 0 : 2
         cityLists.isLastPage = res.data.position.length === this.data.pageCount ? true : false
         cityLists.list = cityLists.list.concat(res.data.city || [])
@@ -933,12 +947,6 @@ Page({
         }
 
         if(recommended) {
-          // if(cacheData && cacheData.isReback) {
-          //   salary.map(field => field.active = cacheData.salaryIds.includes(field.id) ? true : false)
-          //   dealMultipleSelection = true
-          // } else {
-          //   salary[0].active = true
-          // }
           this.getRecommendResumeLists().then(() => {
             let resumeList = this.data.resumeList
             if(!resumeList.list.length) this.getRecommendResumeMoreLists()
