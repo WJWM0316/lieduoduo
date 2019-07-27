@@ -41,8 +41,10 @@ Page({
           pageUrl = `${WEBVIEW}userAgreement`
           break
       }
+
       if (options.p) {
         let path = decodeURIComponent(options.p)
+             // path = path.includes('?') ? '&'
         if (options.t) {
           let title = decodeURIComponent(options.t),
               imgUrl = decodeURIComponent(options.i)

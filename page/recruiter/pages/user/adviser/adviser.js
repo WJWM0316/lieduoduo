@@ -190,7 +190,7 @@ Page({
 
   },
   read() {
-    let path = encodeURIComponent(`${WEBVIEW}advisor`)
+    let path = encodeURIComponent(`${WEBVIEW}advisor?page=advisor`)
     wx.navigateTo({url: `${COMMON}webView/webView?type=optimal&p=${path}`})
   }
 })
