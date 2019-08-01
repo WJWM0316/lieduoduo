@@ -1,0 +1,57 @@
+<navbar title="急速約面" background="linear-gradient(337deg,rgb(50, 32, 116) 0%,rgba(50,32,116,1) 100%);" color="#fff" wx:if="{{navFixed}}"></navbar>
+<view class="specialJob">
+	<view class="header" style="margin-top: {{navH -26}}px">
+		<image class="banner" src="{{cdnImagePath}}img_24h_banner.png" mode="widthFix"></image>
+	</view>
+	<view class="avatar">
+		<view class="avatar_left">
+			<view class="avatar_left_box">
+				<image class="avatarImg" wx:for="{{avatarList}}" wx:key="{{index}}"></image>
+				<text class="avatar_left_txt">2.4万人已参与</text>
+			</view>
+		</view>
+		<view class="avatar_right go">
+			<block wx:if="{{false}}"><text>领取资格</text><i class="icon iconfont icon-xiangyou"></i></block>
+			<block wx:else><text>抢占约面席位</text><i class="icon iconfont icon-xiangyou"></i></block>
+		</view>
+	</view>
+	<view class="tab {{tabFixed}}" style="top: {{navH}}px">
+		<view class="tab_item active">限时热抢</view>
+		<view class="tab_item">近期精选</view>
+	</view>
+	<view class="gd">
+		<image class="gdImg" src="{{cdnImagePath}}img_200yhb_banner.png" mode="widthFix"></image>
+	</view>
+	<view class="positionList">
+		<view class="positionBox">
+			<view class="position_head">
+				<image class="company_logo" mode="aspectFit"></image>
+				<view class="company_name ellipsis">老虎科技</view>
+				<view class="company_detail">移动互联网·1000-9999人·已上市</view>
+			</view>
+			<view class="position_detail">
+				<view class="position_desc1"><text class="position_name">产品总监</text><text class="position_money">20~40k·14薪</text></view>
+				<view	class="position_desc2">
+					<view class="position_explain"><i class="icon iconfont icon-dizhi"></i><text class="txt">广州</text></view>
+					<view class="position_explain"><i class="icon iconfont icon-zhiwei"></i><text class="txt">1-3年</text></view>
+					<view class="position_explain"><i class="icon iconfont icon-xueli"></i><text class="txt">本科</text></view>
+				</view>
+			</view>
+			<view class="company_word">国内顶级内容团队，月流水千万国内顶级内容团队，月流水千万</view>
+			<view class="position_bot">
+				<view class="time">还剩<block><text class="dateNum">2</text>天</block><text class="dateNum">11</text>:<text class="dateNum">22</text>:<text class="dateNum">02</text>
+				</view>
+				<view class="position_chance">
+					<view class="position_progress">
+						<view class="progress_num">还剩<text class="num">3</text>个机会</view>
+						<view class="progress_bar"></view>
+					</view>
+					<view class="btn">马上抢</view>
+				</view>
+			</view>
+		</view>
+	</view>
+	<view class="overWord">今天先推荐到这里，明天记得在来看看哦~</view>
+	<view class="toggleBtn">查看近期精选职位<i class="icon iconfont icon-xiangyou"></i></view>
+</view>
+<tabBar id="bottomRedDotBar"></tabBar>

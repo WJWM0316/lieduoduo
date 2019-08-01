@@ -48,6 +48,7 @@ App({
         this.identification(res.query)
       }
     })
+    this.getFont('Number', 'https://attach.lieduoduo.ziwork.com/font/DIN-Medium.ttf')
   },
   onHide: function (e) {
     // 切换后台 发送全部formId
@@ -825,6 +826,12 @@ App({
         this.globalData.redDotInfos = res.data
         resolve(res)
       })
+    })
+  },
+  getFont (name, url) {
+    wx.loadFontFace({
+      family: name,
+      source: `url(${url})`
     })
   }
 })

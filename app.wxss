@@ -44,8 +44,9 @@ button::after{
   margin-left: -20rpx;
   margin-bottom: 6rpx;
 }
-/*
-@font-face {
-  font-family: designFont;
-  src: url('./vendor/lib/DINAlternateBold.ttf');
-}*/
+
+.ellipsis {
+  overflow: hidden;
+  text-overflow:ellipsis;
+  white-space: nowrap;
+}

@@ -1,4 +1,4 @@
-import {APPLICANTHOST, RECRUITERHOST, PUBAPIHOST, COMMON, RECRUITER, APPLICANT, VERSION} from '../config.js'
+import {APPLICANTHOST, RECRUITERHOST, PUBAPIHOST, NODEHOST, COMMON, RECRUITER, APPLICANT, VERSION} from '../config.js'
 let loadNum = 0
 let BASEHOST = ''
 let noToastUrlArray = [
@@ -41,6 +41,9 @@ export const request = ({name = '', method = 'post', url, host, data = {}, needK
   switch(host) {
     case 'PUBAPIHOST':
       BASEHOST = PUBAPIHOST
+      break
+    case 'NODEHOST':
+      BASEHOST = NODEHOST
       break
     default:
       if (wx.getStorageSync('choseType') === "RECRUITER") {
