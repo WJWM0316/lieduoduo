@@ -1,0 +1,30 @@
+
+.barrage {
+	position: fixed;
+	z-index: 1;
+	bottom: 8%;
+	left: 60rpx;
+	height: 68rpx;
+	transition: all .5s;
+	opacity: 0;
+	overflow: hidden;
+}
+
+.barrage.active {
+	bottom: 13%;
+	opacity: 1;
+}
+.barrage.hide {
+	opacity: 0;
+}
+.barrage .barrage_item {
+	padding: 18rpx 30rpx;
+	background:rgba(239,233,244,1);
+	box-shadow:0rpx 10rpx 26rpx 0rpx rgba(101,39,145,0.2);
+	border-radius:34rpx;
+  display: inline-block;
+  font-size:24rpx;
+  font-weight:300;
+  color:rgba(101,39,145,1);
+  line-height:1x;
+}

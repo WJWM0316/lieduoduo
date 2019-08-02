@@ -1,0 +1,3 @@
+<view class="barrage my-class {{active ? 'active' : ''}} {{hide ? 'hide' : ''}}">
+	<view class="barrage_item my-item-class">{{item}}</view>
+</view>

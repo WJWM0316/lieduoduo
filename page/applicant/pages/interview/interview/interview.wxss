@@ -392,6 +392,8 @@
 	margin-left: 24rpx;
 	height: 120rpx;
 	flex: 1;
+  max-width: calc(100% - 144rpx);
+  position: relative;
 }
 
 .item2 .header {
@@ -402,6 +404,10 @@
 	white-space: nowrap;
 	max-width: 490rpx;
 	margin-top: 20rpx;
+}
+.item2 .header.specialType {
+  position: relative;
+  padding-right: 100rpx;
 }
 
 .item2 .header .name{

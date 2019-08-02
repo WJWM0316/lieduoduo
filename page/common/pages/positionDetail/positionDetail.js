@@ -16,10 +16,11 @@ import {getUserRoleApi} from "../../../../api/pages/user.js"
 import {RECRUITER, APPLICANT, COMMON} from '../../../../config.js'
 
 import {sharePosition} from '../../../../utils/shareWord.js'
-
+import timePocessor from '../../../../utils/timePocessor.js'
 let positionCard = ''
 let app = getApp()
-let identity= ''
+let identity = '',
+    timer = null
 Page({
   data: {
     detail: {},
@@ -28,6 +29,7 @@ Page({
     companyInfos: {},
     recruiterInfo: {},
     findMore: {},
+    time: {},
     hasReFresh: false,
     requireOAuth: false,
     cdnPath: app.globalData.cdnImagePath
@@ -156,15 +158,55 @@ Page({
             }
           })
         }
+        let time = {}
+        if (res.data.isRapidly === 1) {
+          time = timePocessor.restTime(res.data.rapidlyInfo.endTime)
+          this.countDown(time)
+        }
         this.setData({
           requireOAuth: requireOAuth,
           detail: res.data, 
           companyInfos: res.data.companyInfo, 
-          recruiterInfo: res.data.recruiterInfo, 
+          recruiterInfo: res.data.recruiterInfo,
+          time,
           isOwner: res.data.isOwner && identity === 'RECRUITER' ? true : false
         })
+        
         if(this.selectComponent('#interviewBar')) this.selectComponent('#interviewBar').init()
     })
+  },
+  countDown (time) {
+    timer = setInterval(() => {
+      let day = parseInt(time.day),
+          hour = parseInt(time.hour),
+          minute = parseInt(time.minute),
+          second = parseInt(time.second)
+      if (second && minute && hour && day) {
+        second--
+        if (second <= 0) {
+          second = 60
+          minute--
+          if (minute <= 0) {
+            minute = 60
+            hour--
+            if (hour <= 0) {
+              hour = 24
+              day--
+              if (day <= 0) day = 0
+            }
+          }
+        }
+      } else {
+        clearInterval(timer)
+        this.setData({[`detail.isRapidly`]: 2})
+        console.log('倒计时结束')
+      }
+      time.day = day
+      time.hour = hour >= 10 ? hour : '0' + hour
+      time.minute = minute >= 10 ? minute : '0' + minute
+      time.second = second >= 10 ? second : '0' + second
+      this.setData({time})
+    }, 1000)
   },
   authSuccess () {
     let requireOAuth = false

@@ -5,7 +5,7 @@
 	    <refreshStatus></refreshStatus>
 	  </view>
 		<view class="page-top">
-			<image class="bgImg" src="{{cdnPath}}job-detail.png" mode="aspectFill"></image>
+			<image class="bgImg" src="{{cdnPath}}job-detail.png" mode="widthFix"></image>
 			<shareBtn posterType="position" id="shareBtn" posterData="{{detail}}" wx:if="{{detail.isOnline === 1 && (detail.status === 1 || detail.status === 2)}}"></shareBtn>
 			<view class="company-infos">
 				<view class="header">
@@ -24,6 +24,16 @@
 				</view>
 				<view class="welfare-ul" wx:if="{{detail.lightspotInfo.length}}">
 					<view class="li" wx:for="{{detail.lightspotInfo}}" wx:key="{{index}}" wx:for-item="item">{{item}}</view>
+				</view>
+			</view>
+			<view class="specialJob" wx:if="{{detail.isRapidly === 1}}">
+				<view class="rest">
+					<view><text class="num">{{detail.rapidlyInfo.seatsNum - detail.rapidlyInfo.applyNum}}</text><text class="txt">个</text></view>
+					<view>剩余席位</view>
+				</view>
+				<view class="timeBox">
+					<view class="time">还剩<block wx:if="{{time.day}}"><text class="dateNum">{{time.day}}</text>天</block><text class="dateNum">{{time.hour}}</text>:<text class="dateNum">{{time.minute}}</text>:<text class="dateNum">{{time.second}}</text></view>
+					<viwe class="desc"><text>现在申请24小时内必定反馈</text><i class="icon iconfont icon-xinxi"></i></viwe>
 				</view>
 			</view>
 		</view>

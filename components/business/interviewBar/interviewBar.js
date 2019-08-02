@@ -293,7 +293,9 @@ Component({
                 resume_perfection: app.globalData.resumeInfo.resumeCompletePercentage * 100,
                 btn_type: 'job-hunting-chat'
               })
-              applyInterviewApi({recruiterUid: this.data.infos.recruiterInfo.uid, positionId: this.data.infos.id}).then(res => {
+              let params = {recruiterUid: this.data.infos.recruiterInfo.uid, positionId: this.data.infos.id}
+              if (this.data.infos.isRapidly === 1) params.interview_type = 2
+              applyInterviewApi(params).then(res => {
                 this.getInterviewStatus()
                 successPop()
               })

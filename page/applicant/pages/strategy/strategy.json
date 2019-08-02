@@ -1,6 +1,5 @@
 {
   "usingComponents": {
-  	"tabBar": "../../../../components/business/tabBar/tabBar",
   	"barrage": "../../../../components/layout/barrage/barrage"
   }
 }

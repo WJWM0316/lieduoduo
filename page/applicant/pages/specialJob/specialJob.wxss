@@ -102,6 +102,12 @@
 	justify-content: space-between;
 	box-sizing: border-box;
 }
+.tab.fixed {
+	position: fixed;
+	left: 0;
+	background: linear-gradient(337deg,rgb(50, 32, 116) 0%,rgba(50,32,116,1) 100%);
+  z-index: 1;
+}
 
 .tab_item {
 	font-size:38rpx;
@@ -136,6 +142,7 @@
 	border:2rpx solid rgba(0,0,0,1);
 	margin-bottom: 24rpx;
   overflow: hidden;
+  text-align: left;
 }
 .position_head {
 	padding: 22rpx 30rpx;
@@ -173,12 +180,13 @@
 	margin-bottom: 20rpx;
 }
 .position_name {
-	width:200rpx;
+	max-width:340rpx;
 	height:44rpx;
 	font-size:44rpx;
 	font-weight:700;
 	color:#282828;
 	line-height:44rpx;
+  display: inline-block
 }
 .position_money {
 	font-size:40rpx;
@@ -279,17 +287,28 @@
 	margin-bottom: 7rpx;
 }
 .progress_bar {
-	width: 124rpx;
+	width: 84rpx;
 	height: 14rpx;
 	background: #fff;
-	border-radius:7rpx;
+	border-radius:0 7rpx 7rpx 0;
 	position: relative;
+  margin-left: 40rpx;
+}
+.progress_bar:before {
+  content: '';
+	width: 40rpx;
+	height: 100%;
+	border-radius:7rpx;
+	background: #652791;
+	position: absolute;
+	top: 0;
+	left: -37rpx;
 }
 .progress_bar:after {
 	content: '';
-	width: 30%;
+	width: attr('progress');
 	height: 100%;
-	border-radius: 7rpx;
+	border-radius:0 7rpx 7rpx 0;
 	background: #652791;
 	position: absolute;
 	top: 0;
@@ -345,3 +364,4 @@
 	text-align: center;
 	line-height: 24rpx;
 }
+

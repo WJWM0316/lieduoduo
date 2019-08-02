@@ -1,0 +1,23 @@
+<navbar title="玩法攻略" background="#fff" color="#22292C"></navbar>
+<view class="strategy">
+	<image class="banner" src="{{cdnImagePath}}bg_24hinfro_banner@2x.png" mode="widthFix"></image>
+	<view class="content">
+		<view class="title"><text class="txt">参与流程</text><view class="bg"></view></view>
+		<view class="content_txt">
+			点击下方<text class="color">{{isJobhunter ? '【抢占约面席位】' : '【领取参与资格】'}}</text>按钮 ，挑选合适的职位抢占约面席位，面试官会在24小时内处理并且反馈
+		</view>
+		<view class="btn" wx:if="{{!isJobhunter}}" bindtap="routeJump">领取参与资格</view>
+		<view class="title"><text class="txt">奖励规则</text><view class="bg"></view></view>
+		<view class="content_txt">成功到场约面，客服会在x天内联系你发放红包 <text class="money">200元</text></view>
+		<view class="title title3"><text class="txt">注意事项</text><view class="bg"></view></view>
+		<view class="content_txt">
+			<view>1、注意事项一：这里是要注意的点和事项，文案由后台编辑上传，无字数限制 </view>
+			<view>2、注意事项二：领取须知只有新用户方可领取，点击参与资格前进抢占约面席位 </view>
+			<view>3、注意事项三：24小时内给予反馈，请你耐心等待一下哦，活动详情请往下阅读吧</view>
+		</view>
+	</view>
+	<view class="footer">
+		<view class="btn" bindtap="routeJump">{{isJobhunter ? '抢占约面席位' : '领取参与资格'}}</view>
+	</view>
+</view>
+<barrage list="{{list}}" wx:if="{{list.length}}"  my-class="barrage" my-item-class="barrage_item"></barrage>

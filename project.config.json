@@ -49,7 +49,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 55,
+			"current": 9,
 			"list": [
 				{
 					"id": 0,
@@ -66,9 +66,16 @@
 				},
 				{
 					"id": 1,
+					"name": "约面攻略",
+					"pathName": "page/applicant/pages/strategy/strategy",
+					"query": "",
+					"scene": 1001
+				},
+				{
+					"id": 3,
 					"name": "【公包】职位详情",
 					"pathName": "page/common/pages/positionDetail/positionDetail",
-					"query": "positionId=3521&identity=jobhunter",
+					"query": "positionId=6726",
 					"scene": 1001
 				},
 				{
@@ -102,6 +109,13 @@
 					"id": 6,
 					"name": "【公包】职位机会",
 					"pathName": "page/common/pages/careerChance/careerChance",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 9,
+					"name": "【公包】约面海报",
+					"pathName": "page/common/pages/poster/specailList/specailList",
 					"query": "",
 					"scene": null
 				},
@@ -168,10 +182,10 @@
 					"scene": null
 				},
 				{
-					"id": 16,
+					"id": 18,
 					"name": "【C端】创建用户",
 					"pathName": "page/applicant/pages/createUser/createUser",
-					"query": "micro=true",
+					"query": "from=specialJob",
 					"scene": null
 				},
 				{

@@ -6,6 +6,7 @@
           <!-- 职位名称 -->
           <view class="name">
             <view class="title">{{item.positionName}}</view>
+            <view class="strategy" wx:if="{{item.isRapidly === 1}}"></view>
             <view class="salary">{{item.emolumentMin}}K~{{item.emolumentMax}}K</view>
           </view>
           
@@ -18,14 +19,7 @@
           <!-- 公司情况 -->
           <view class="company">
             <text>{{item.companyInfo.companyShortname}}</text>
-            <text wx:if="{{item.companyInfo.financing === '1'}}"> | 未融资</text>
-            <text wx:if="{{item.companyInfo.financing === '2'}}"> | 天使轮</text>
-            <text wx:if="{{item.companyInfo.financing === '3'}}"> | A轮</text>
-            <text wx:if="{{item.companyInfo.financing === '4'}}"> | B轮</text>
-            <text wx:if="{{item.companyInfo.financing === '5'}}"> | C轮</text>
-            <text wx:if="{{item.companyInfo.financing === '6'}}"> | D轮</text>
-            <text wx:if="{{item.companyInfo.financing === '7'}}"> | 已上市</text>
-            <text wx:if="{{item.companyInfo.financing === '8'}}"> | 不需要融资</text>
+            <text wx:if="{{item.companyInfo.financingInfo}}"> | {{item.companyInfo.financingInfo}}</text>
           </view>
           <!-- hr信息 -->
           <view class="hr">

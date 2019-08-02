@@ -25,6 +25,7 @@ if (environment === 0) {
 	APPLICANTHOST = 'https://qiuzhi-api.lieduoduo.com'
 	RECRUITERHOST = 'https://zhaopin-api.lieduoduo.com'
 	PUBAPIHOST = 'https://pub-api.lieduoduo.com'
+	NODEHOST =  'https://node.lieduoduo.com/frontEnd'
 	WEBVIEW = `https://h5.lieduoduo.com/`
 	CDNPATH = 'https://attach.lieduoduo.com/front-assets/images/'
 }
