@@ -17,6 +17,24 @@
   line-height:30rpx;
   font-weight: 500;
 }
+.shareBtn1, .shareBtnBg1 {
+  width: 72rpx;
+  height: 68rpx;
+  border-radius: 34rpx 0 0 34rpx;
+  box-sizing: border-box;
+  padding: 20rpx 10rpx 10rpx 18rpx;
+  right: 0;
+  position: absolute;
+  border: none;
+  z-index: 2;
+}
+.shareBtnBg1 {
+  background: #FFDC29;
+  z-index: 1;
+}
+.shareBtn1 .shareIcon {
+  display: block;
+}
 .shareBtn .shareIcon  {
   margin-bottom: 8rpx;
   margin-left: -2rpx;

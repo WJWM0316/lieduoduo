@@ -89,7 +89,7 @@
 					<view class="row-one">
 						<view class="img-box"><image src="{{item.avatar.smallUrl}}"></image></view>
 						<view class="content">
-							<view class="header">
+							<view class="header {{item.interviewType === 2 ? 'specialType' : ''}}">
 								<view class="name">{{item.jobhunterRealname}}</view>
 								<view class="mix">
 									<block wx:if="{{item.workExperienceDesc}}">{{item.workExperienceDesc}}</block>
@@ -101,6 +101,7 @@
 								<block wx:if="{{item.lastCompanyName}}">{{item.lastCompanyName}}</block>
 								<block wx:if="{{item.lastPosition}}"> | {{item.lastPosition}}</block>
 							</view>
+							<view class="specialJobIcon" wx:if="{{item.interviewType === 2}}"></view>
 						</view>
 					</view>
 					<view class="reddot" wx:if="{{item.redDot}}"></view>
@@ -138,7 +139,7 @@
 					<view class="row-one">
 						<view class="img-box"><image src="{{item.avatar.smallUrl}}"></image></view>
 						<view class="content">
-							<view class="header {{item.glass ? 'hasFilter' : ''}}">
+							<view class="header {{item.interviewType === 2 ? 'specialType' : ''}}">
 								<view wx:if="{{!item.glass}}" class="name">{{item.jobhunterRealname}}</view>
 								<image wx:else class="filter" src="{{cdnPath}}invisible1.png" mode="aspectFit"></image>
 								<view class="mix">
@@ -151,6 +152,7 @@
 								<block wx:if="{{item.lastCompanyName}}">{{item.lastCompanyName}}</block>
 								<block wx:if="{{item.lastPosition}}"> | {{item.lastPosition}}</block>
 							</view>
+							<view class="specialJobIcon" wx:if="{{item.interviewType === 2}}"></view>
 						</view>
 					</view>
 					<view class="reddot" wx:if="{{item.redDot}}"></view>

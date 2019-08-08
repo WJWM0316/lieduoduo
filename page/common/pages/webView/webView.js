@@ -118,6 +118,7 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function (options) {
+    console.log(wxShare, 11111111111111)
     return app.wxShare({
       options,
       ...wxShare

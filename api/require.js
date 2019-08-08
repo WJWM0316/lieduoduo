@@ -1,4 +1,4 @@
-import {APPLICANTHOST, RECRUITERHOST, PUBAPIHOST, COMMON, RECRUITER, APPLICANT, VERSION} from '../config.js'
+import {APPLICANTHOST, RECRUITERHOST, PUBAPIHOST, NODEHOST, COMMON, RECRUITER, APPLICANT, VERSION} from '../config.js'
 let loadNum = 0
 let BASEHOST = ''
 let noToastUrlArray = [
@@ -42,6 +42,9 @@ export const request = ({name = '', method = 'post', url, host, data = {}, needK
     case 'PUBAPIHOST':
       BASEHOST = PUBAPIHOST
       break
+    case 'NODEHOST':
+      BASEHOST = NODEHOST
+      break
     default:
       if (wx.getStorageSync('choseType') === "RECRUITER") {
         BASEHOST = RECRUITERHOST
@@ -52,7 +55,7 @@ export const request = ({name = '', method = 'post', url, host, data = {}, needK
   // 版本号
   addHttpHead['Wechat-Version'] = VERSION
   // 头参数
-  addHttpHead['Role'] = wx.getStorageSync('choseType') !== "RECRUITER" ? 'r' : 'j'
+  addHttpHead['Role'] = wx.getStorageSync('choseType') !== "RECRUITER" ? 'j' : 'r'
   
   // 如果连接带参数scode, 则存到头部
   if (data.sCode && !data.isReload) {

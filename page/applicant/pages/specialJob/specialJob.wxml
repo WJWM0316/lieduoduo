@@ -1,0 +1,131 @@
+<view class="specialJobWrap">
+<navbar title="急速約面" background="linear-gradient(337deg,rgb(50, 32, 116) 0%,rgba(50,32,116,1) 100%);" color="#fff" wx:if="{{navFixed}}"></navbar>
+<view hidden="{{!hasReFresh}}">
+  <refreshStatus></refreshStatus>
+</view>
+<shareBtn posterType="specialJob"></shareBtn>
+<view class="specialJob">
+	<view class="header" style="padding-top: {{navH -26}}px">
+		<image class="banner" src="{{cdnImagePath}}img_24h_banner.png" mode="widthFix"></image>
+	</view>
+	<view class="avatar">
+		<view class="avatar_left">
+			<view class="avatar_left_box">
+				<image class="avatarImg" wx:for="{{otherData.joinUserAvatars}}" wx:if="{{index < 5}}" src="{{item.smallUrl}}" wx:key="{{index}}"></image>
+				<text class="avatar_left_txt">{{otherData.joinUserTotal}}人已参与</text>
+			</view>
+		</view>
+		<view class="avatar_right go" bindtap="routeJump" data-index="{{0}}" data-route="{{!isJobhunter ? 'createUser' : 'toggleTab'}}">
+			<block wx:if="{{!isJobhunter}}"><text>领取资格</text><i class="icon iconfont icon-xiangyou"></i></block>
+			<block wx:else><text>抢占约面席位</text><i class="icon iconfont icon-xiangyou"></i></block>
+		</view>
+	</view>
+	<view class="tab {{tabFixed ? 'fixed' : ''}}" style="top: {{navH}}px">
+		<view class="tab_item {{tabIndex === 0 ? 'active' : ''}}" bindtap="toggleTab" data-index="{{0}}">限时热抢</view>
+		<view class="tab_item {{tabIndex === 1 ? 'active' : ''}}" bindtap="toggleTab" data-index="{{1}}">近期精选</view>
+		<i wx:if="{{isJobhunter}}" class="icon iconfont icon-xinxi" bindtap="routeJump" data-route="strategy"></i>
+	</view>
+	<view class="gd">
+		<view bindtap="routeJump" data-route="strategy" hidden="{{tabIndex === 1}}" ><image bindtap="routeJump" data-btnType="{{2}}" data-route="{{!isJobhunter ? 'createUser' : ''}}" class="gdImg" src="{{!isJobhunter ? cdnImagePath + 'img_200yhb_banner.png' : cdnImagePath+'img_200yhb_banner_end.png'}}" mode="widthFix"></image></view>
+		<view  hidden="{{tabIndex === 0}}" class="gd_inner">
+			<image class="icon" src="{{cdnImagePath}}icon_24h_qxnotice3x.png"></image>
+			<text class="txt">以下职位的24小时反馈服务已结束，但仍可继续开约，不要错过哦~</text>
+		</view>
+	</view>
+	<form bindsubmit="formSubmit" report-submit='{{true}}'> 
+		<view hidden="{{tabIndex === 1}}">
+			<view class="positionList">
+				<block wx:for="{{nowListData.list}}" wx:key="{{index}}" wx:for-item="list" wx:for-index="listIndex">
+					<button
+						form-type="submit" 
+						class="positionBox clear-style"
+						wx:for="{{list}}"
+						data-route="positionDetail"
+						data-id="{{item.id}}"
+						bindtap="routeJump"
+						wx:key="{{item.id}}">
+							<view class="position_head">
+								<image class="company_logo" mode="aspectFit" src="{{item.logo}}"></image>
+								<view class="company_name ellipsis">{{item.companyShortname}}</view>
+								<view class="company_detail ellipsis">{{item.industry}}<block wx:if="{{item.industry && item.employeesInfo}}">·</block>{{item.employeesInfo}}<block wx:if="{{item.employeesInfo && item.financingInfo}}">·</block>{{item.financingInfo}}</view>
+							</view>
+							<view class="position_detail">
+								<view class="position_desc1"><text class="position_name ellipsis">{{item.positionName}}</text><text class="position_money">{{item.salary}}<block wx:if="{{item.salary && item.annualSalary > 12}}">·</block><block wx:if="{{item.annualSalary > 12}}">{{item.annualSalary}}<text class="font">薪</text></block></text></view>
+								<view	class="position_desc2">
+									<view class="position_explain"><i class="icon iconfont icon-dizhi"></i><text class="txt ellipsis">{{item.city}}{{item.district}}</text></view>
+									<view class="position_explain"><i class="icon iconfont icon-zhiwei"></i><text class="txt">{{item.workExperienceName}}</text></view>
+									<view class="position_explain"><i class="icon iconfont icon-xueli"></i><text class="txt">{{item.educationName}}</text></view>
+								</view>
+							</view>
+							<view class="company_word" wx:if="{{item.oneSentenceIntro}}"><text class="txt">{{item.oneSentenceIntro}}</text></view>
+							<view class="position_bot">
+								<view class="time">还剩<block wx:if="{{item.day}}"><text class="dateNum">{{timeList[listIndex][index].day}}</text>天</block><text class="dateNum">{{timeList[listIndex][index].hour}}</text>:<text class="dateNum">{{timeList[listIndex][index].minute}}</text>:<text class="dateNum">{{timeList[listIndex][index].second}}</text>
+								</view>
+								<view class="position_chance">
+									<view class="position_progress">
+										<view class="progress_num">还剩<text class="num">{{item.seatsNum - item.applyNum - item.natureApplyNum}}</text>个机会</view>
+										<view class="progress_bar {{(item.applyNum + item.natureApplyNum) === 0 ? 'noApplyNum' : ''}}"><text class="bar" style="width: {{(item.natureApplyNum + item.applyNum) /item.seatsNum * 100}}%"></text></view>
+									</view>
+									<view class="btn">马上抢</view>
+								</view>
+							</view>
+					</button>
+				</block>
+			</view>
+			<block wx:if="{{nowListData.isLastPage && nowListData.list[0].length > 0}}">
+				<view class="overWord">今天先推荐到这里，明天记得在来看看哦~</view>
+				<view class="toggleBtn" bindtap="toggleTab" data-index="{{1}}">查看近期精选职位<i class="icon iconfont icon-xiangyou"></i></view>
+			</block>
+			<bottomStatus wx:if="{{!nowListData.list[0].length}}" my-class="bottomStatus" my-item-class="desc" marginTop="{{86}}" status="{{nowListData.onBottomStatus}}" listData="{{nowListData.list[0]}}" desc="一大批优质职位即将来袭，等下再来看看吧～">
+				<button class="findBtn" bindtap="routeJump" data-route="index">发现更多好机会</button>
+			</bottomStatus>
+		</view>
+		<view hidden="{{tabIndex === 0}}">
+			<view class="positionList old">
+				<block wx:for="{{oldListData.list}}" wx:key="{{index}}" wx:for-item="list">
+					<button
+						form-type="submit" 
+						class="positionBox clear-style"
+						wx:for="{{list}}"
+						data-route="positionDetail"
+						data-id="{{item.id}}"
+						bindtap="routeJump"
+						wx:key="{{item.id}}">
+							<view class="position_head">
+								<image class="company_logo" mode="aspectFit" src="{{item.logo}}"></image>
+								<view class="company_name ellipsis">{{item.companyShortname}}</view>
+								<view class="company_detail ellipsis">{{item.industry}}<block wx:if="{{item.industry && item.employeesInfo}}">·</block>{{item.employeesInfo}}<block wx:if="{{item.employeesInfo && item.financingInfo}}">·</block>{{item.financingInfo}}</view>
+							</view>
+							<view class="position_detail">
+								<view class="position_desc1"><text class="position_name ellipsis">{{item.positionName}}</text><text class="position_money">{{item.salary}}<block wx:if="{{item.salary && item.annualSalary > 12}}">·</block><block wx:if="{{item.annualSalary > 12}}">{{item.annualSalary}}薪</block></text></view>
+								<view	class="position_desc2">
+									<view class="position_explain"><i class="icon iconfont icon-dizhi"></i><text class="txt">{{item.city}}{{item.district}}</text></view>
+									<view class="position_explain"><i class="icon iconfont icon-zhiwei"></i><text class="txt">{{item.workExperienceName}}</text></view>
+									<view class="position_explain"><i class="icon iconfont icon-xueli"></i><text class="txt">{{item.educationName}}</text></view>
+								</view>
+							</view>
+							<view class="company_word" wx:if="{{item.oneSentenceIntro}}"><text class="txt">{{item.oneSentenceIntro}}</text></view>
+							<view class="position_bot over">
+								<view class="viewNum"><text class="num">{{item.numOfVisitors}}</text> 人浏览过</view>
+								<view class="position_chance">
+									<view class="btn">开约</view>
+								</view>
+							</view>
+					</button>
+				</block>
+			</view>
+			<block wx:if="{{oldListData.isLastPage && oldListData.list[0].length > 0}}">
+				<view class="overWord">哎呀，没有更多精选职位啦～</view>
+				<view class="toggleBtn" bindtap="routeJump" data-route="index">发现更多好机会<i class="icon iconfont icon-xiangyou"></i></view>
+			</block>
+			<bottomStatus wx:if="{{!oldListData.list[0].length}}" my-class="bottomStatus" my-item-class="desc" marginTop="{{86}}" status="{{oldListData.onBottomStatus}}" listData="{{oldListData.list[0]}}" desc="一大批优质职位即将来袭，等下再来看看吧～">
+				<button class="findBtn" bindtap="routeJump" data-route="index">发现更多好机会</button>
+			</bottomStatus>
+		</view>
+	</form>
+	<image wx:if="{{!isJobhunter}}" bindtap="routeJump" data-route="strategy" class="glEnter" src="{{cdnImagePath}}glEnter.png" style="bottom: {{isIphoneX ? 190 : 122}}rpx"></image>
+</view>
+<barrage list="{{otherData.toastTips}}" wx:if="{{otherData.toastTips.length}}"  my-class="barrage" my-item-class="barrage_item"></barrage>
+<tabBar id="bottomRedDotBar"></tabBar>
+<bindPhone hide="{{hideLoginBox}}" hasClose="{{false}}"></bindPhone>
+</view>

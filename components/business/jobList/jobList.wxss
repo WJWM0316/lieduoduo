@@ -21,15 +21,13 @@
   border-radius:16rpx;
 }
 .li .name{
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
   font-size: 32rpx;
   font-weight:600;
   color: #354048;
+  overflow: hidden;
 }
 .li .name .title {
-  max-width: 400rpx;
+  max-width: 330rpx;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -37,12 +35,23 @@
   font-weight:500;
   color:rgba(40,40,40,1);
   line-height:32rpx;
+  float: left;
 }
+.li .strategy {
+  width: 64rpx;
+  height: 30rpx;
+  background: url('https://attach.lieduoduo.ziwork.com/front-assets/images/icon_hptag_24h@3x.png');
+  background-size: 100% 100%;
+  float: left;
+  margin-left: 6rpx;
+}
+
 .li .name .salary{
   color: #FF7F4C;
   font-weight:bold;
   font-size:32rpx;
   line-height:32rpx;
+  float: right;
 }
 .li .company{
   font-size: 26rpx;

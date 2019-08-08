@@ -257,6 +257,15 @@
 			</view>
 		</view>
 	</form>
+	<view class="tipPop" wx:if="{{options.from === 'specialJob' && showTipPop}}">
+		<view class="popInner">
+			<i class="icon iconfont icon-close" bindtap="closeTipPop"></i>
+			<view class="head">创建微简历，领取参与资格</view>
+			<view class="desc">这些名企都在这里等你急速约面</view>
+			<image class="picture" src="{{cdnImagePath}}img_popup_complogos.png" mode="widthFix"></image>
+			<view class="popBtn" bindtap="closeTipPop">好的</view>
+		</view>
+	</view>
 	<customPicker wx:if="{{isMicro}}" pickerType="{{pickerType}}" openPicker="{{openPicker}}" activeIndex="{{activeIndex}}" bindpickerResult="pickerResult"></customPicker>
 	<guidePop showPop="{{showPop}}"></guidePop>
 </view>

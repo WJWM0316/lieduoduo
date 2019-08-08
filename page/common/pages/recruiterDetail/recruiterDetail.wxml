@@ -89,9 +89,15 @@
         <company roleType="detailCompany" cardData="{{info.companyInfo}}"></company>
         <view class="positionList" wx:if="{{positionList.total}}">
           <button form-type="submit" class="clear-style positionItem" wx:for="{{positionList.list}}" wx:key="{{index}}" bindtap="jumpPage" data-id="{{item.id}}">
-            <view class="positionHead"><text class="positionTitle">{{item.positionName}}</text><text class="money">{{item.emolumentMin}}~{{item.emolumentMax}}k</text></view>
+            <view class="positionHead">
+              <view>
+                <text class="positionTitle {{item.isRapidly === 1 ? 'isStrategy' : ''}}">{{item.positionName}}</text>
+                <text class="strategy" wx:if="{{item.isRapidly === 1}}"></text>
+              </view>
+              <text class="money">{{item.emolumentMin}}~{{item.emolumentMax}}k</text>
+            </view>
             <view class="positionDeatil">
-              <text wx:if="{{item.city && item.district}}">{{item.city}}-{{item.district}} · </text>
+              <text wx:if="{{item.city}}">{{item.city}}<block wx:if="{{item.district}}">-{{item.district}}</block> · </text>
               <text>{{item.workExperienceName}} · </text>
               <text>{{item.educationName}}</text>
             </view>

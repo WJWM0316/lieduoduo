@@ -88,11 +88,12 @@
 					<view class="row-one">
 						<view class="img-box"><image src="{{item.avatar.smallUrl}}"></image></view>
 						<view class="content">
-							<view class="header">
+							<view class="header {{item.interviewType === 2 ? 'specialType' : ''}}">
 								<view class="name">{{item.recruiterRealname}}</view>
 								<view class="zhiwei">{{item.recruiterPositionName}}</view>
 							</view>
 							<view class="degress">{{item.companyShortname}}</view>
+							<view class="specialJobIcon" wx:if="{{item.interviewType === 2}}"></view>
 						</view>
 					</view>
 					<view class="reddot" wx:if="{{item.redDot}}"></view>
@@ -133,11 +134,12 @@
 					<view class="row-one">
 						<view class="img-box"><image src="{{item.avatar.smallUrl}}"></image></view>
 						<view class="content">
-							<view class="header">
+							<view class="header {{item.interviewType === 2 ? 'specialType' : ''}}">
 								<view class="name">{{item.recruiterRealname}}</view>
 								<view class="zhiwei">{{item.recruiterPositionName}}</view>
 							</view>
 							<view class="degress">{{item.companyShortname}}</view>
+							<view class="specialJobIcon" wx:if="{{item.interviewType === 2}}"></view>
 						</view>
 					</view>
 					<view class="reddot" wx:if="{{item.redDot}}"></view>

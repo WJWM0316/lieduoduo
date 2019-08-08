@@ -17,13 +17,14 @@
     "page/common/pages/poster/recruiter/recruiter",
     "page/common/pages/poster/exPosition/exPosition",
     "page/common/pages/poster/saveImg/saveImg",
+    "page/common/pages/poster/specailList/specailList",
     "page/common/pages/category/category",
     "page/common/pages/selectCity/selectCity",
     "page/common/pages/tabsPage/tabsPage",
     "page/common/pages/cutInside/cutInside",
     "page/common/pages/chooseJob/chooseJob",
     "page/common/pages/webView/webView",
-    "page/common/pages/interviewMark/interviewMark"
+    "page/common/pages/interviewMark/interviewMark"   
   ],
   "window": {
     "navigationBarTextStyle": "black",
@@ -59,7 +60,9 @@
         "pages/center/resumeEditor/moreEdit/moreEdit",
         "pages/interview/history/history",
         "pages/center/attachment/attachment",
-        "pages/jobs/like/like"
+        "pages/jobs/like/like",
+        "pages/specialJob/specialJob",
+        "pages/strategy/strategy"
       ]
     },
     {

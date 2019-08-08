@@ -66,10 +66,18 @@ Component({
       {
         title: '动态',
         flag: 'dynamics',
-        iconPath: `${cdnImagePath}tab_dynamics.png?a=1`,
-        selectedIconPath: `${cdnImagePath}tab_dynamics_active.png?a=1`,
+        iconPath: `${cdnImagePath}tab_dynamics.png`,
+        selectedIconPath: `${cdnImagePath}tab_dynamics_active.png`,
         active: false,
         path: `${APPLICANT}dynamics/dynamics`
+      },
+      {
+        title: '急速约面',
+        flag: 'specialJob',
+        iconPath: `${cdnImagePath}tab_24h.png`,
+        selectedIconPath: `${cdnImagePath}tab_24h_pre.png`,
+        active: false,
+        path: `${APPLICANT}specialJob/specialJob`
       },
       {
         title: '面试',

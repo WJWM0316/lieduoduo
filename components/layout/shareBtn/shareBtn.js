@@ -27,6 +27,7 @@ Component({
    */
   data: {
     showChoose: false,
+    navHeight: app.globalData.navHeight,
     animationData: {}
   },
   attached () {
@@ -79,6 +80,9 @@ Component({
           break
         case 'recruiter':
           wx.navigateTo({url: `${COMMON}poster/recruiter/recruiter`})
+          break
+        case 'specialJob':
+          wx.navigateTo({url: `${COMMON}poster/specailList/specailList`})
           break
       }
       wx.setStorageSync('posterData', this.data.posterData)

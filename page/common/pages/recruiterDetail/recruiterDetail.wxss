@@ -427,13 +427,17 @@
   align-items: center;
 }
 .positionTitle {
-  width: 394rpx;
+  max-width: 394rpx;
   font-size: 32rpx;
   font-weight: 500;
   color: #282828;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  display: inline-block;
+}
+.positionTitle.isStrategy {
+  max-width: 324rpx;
 }
 .money {
   font-size: 36rpx;
@@ -721,4 +725,13 @@
 
 .hidden {
   overflow-y: hidden;
+}
+
+.strategy {
+  width: 64rpx;
+  height: 30rpx;
+  background: url('https://attach.lieduoduo.ziwork.com/front-assets/images/icon_hptag_24h@3x.png');
+  background-size: 100% 100%;
+  margin-left: 6rpx;
+  display: inline-block;
 }

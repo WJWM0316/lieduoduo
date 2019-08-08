@@ -191,7 +191,16 @@ export const getAdApi  = (data, hasLoading) => {
 export const touchVkeyApi  = (data, hasLoading) => {
   return request({
     method: 'get',
-    url: `/touch/${data.vkey}`,
+    url: `/advertisement/touch/${data.vkey}`,
+    data,
+    host: 'PUBAPIHOST',
+    hasLoading: false
+  })
+}
+export const touchApi  = (data, hasLoading) => {
+  return request({
+    method: 'get',
+    url: `/touch`,
     data,
     host: 'PUBAPIHOST',
     hasLoading: false

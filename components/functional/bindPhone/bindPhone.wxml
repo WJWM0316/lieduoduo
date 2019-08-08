@@ -1,4 +1,4 @@
-<view class="bindPhone" wx:if="{{!hide}}">
+<view class="bindPhone" wx:if="{{!hide}}" catchtouchmove>
 	<form bindsubmit="formSubmit" report-submit='{{true}}'>
 	  <view class="inner">
 	    <i class="colse iconfont icon-close" bindtap="close" wx:if="{{hasClose}}"></i>

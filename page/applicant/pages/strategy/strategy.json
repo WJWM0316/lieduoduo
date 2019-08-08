@@ -1,0 +1,5 @@
+{
+  "usingComponents": {
+  	"barrage": "../../../../components/layout/barrage/barrage"
+  }
+}

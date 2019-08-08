@@ -44,8 +44,20 @@ button::after{
   margin-left: -20rpx;
   margin-bottom: 6rpx;
 }
-/*
-@font-face {
-  font-family: designFont;
-  src: url('./vendor/lib/DINAlternateBold.ttf');
-}*/
+
+.ellipsis {
+  overflow: hidden;
+  text-overflow:ellipsis;
+  white-space: nowrap;
+}
+
+
+.specialJobIcon {
+  width: 80rpx;
+  height: 32rpx;
+  background: url('https://attach.lieduoduo.ziwork.com/front-assets/images/icon_24htag_interview@3x.png');
+  background-size: 100% 100%;
+  position: absolute;
+  top: 20rpx;
+  right: -28rpx;
+}

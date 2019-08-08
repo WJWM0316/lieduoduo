@@ -398,6 +398,7 @@
   display: flex;
   justify-content: center;
   flex-direction: column;
+  position: relative;
 }
 
 .item2 .header {
@@ -408,7 +409,10 @@
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-
+.item2 .header.specialType {
+  position: relative;
+  padding-right: 100rpx;
+}
 .item2 .header .name{
   font-size:36rpx;
   font-weight:bold;

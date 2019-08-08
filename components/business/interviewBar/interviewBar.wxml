@@ -33,7 +33,13 @@
 				<button class="clear-style button-box button-box-color4"> 职位已关闭 </button>
 			</block>
 			<block wx:else>
-				<button form-type="submit"  class="clear-style button-box button-box-color1" bindtap="todoAction" data-action="job-hunting-chat">
+				<button wx:if="{{infos.isRapidly === 1 && !interviewInfos.applied && infos.rapidlyInfo.seatsNum - infos.rapidlyInfo.applyNum - infos.rapidlyInfo.natureApplyNum > 0}}" form-type="submit"  class="clear-style button-box button-box-color1 specailBtn" bindtap="todoAction" data-action="job-hunting-chat">
+					<view>
+						<view class="txt1">马上抢</view>
+						<view class="txt2">剩{{infos.rapidlyInfo.seatsNum - infos.rapidlyInfo.applyNum - infos.rapidlyInfo.natureApplyNum}}个约面机会</view>
+					</view>
+				</button>
+				<button wx:else form-type="submit"  class="clear-style button-box button-box-color1" bindtap="todoAction" data-action="job-hunting-chat">
 					开撩约面
 				</button>
 			</block>
@@ -47,7 +53,7 @@
 				<view class="second">待确认申请</view>
 			</view>
 			<view class="button-box button-box-color2">
-				<view bindtap="todoAction" data-action="job-hunting-applyed">已申请面试</view>
+				<view bindtap="todoAction" data-action="job-hunting-applyed">{{interviewInfos.interviewType === 2 ? '面试官将于24h内反馈' : '已申请面试'}}</view>
 			</view>
 		</block>
 		<!-- 求职者已经发起开撩动作 end-->
@@ -115,7 +121,7 @@
 				</view>
 				<view class="button-box">
 					<view class="reject" data-action="recruiter-reject" bindtap="todoAction">不合适</view>
-					<view class="accept" data-action="recruiter-accept" bindtap="todoAction" data-status="{{'f'}}">确认约面</view>
+					<view class="accept" data-action="recruiter-accept" bindtap="todoAction" data-status="{{'f'}}">{{interviewInfos.interviewType === 2 ? '查看联系' : '确认约面'}}</view>
 				</view>
 			</block>
 			<!-- 求职端已开启撩 招聘端可接受可拒绝 end-->

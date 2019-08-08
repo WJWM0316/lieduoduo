@@ -1,5 +1,5 @@
 {
-	"enablePullDownRefresh": true,
+    "enablePullDownRefresh": true,
 	"backgroundTextStyle": "light",
   "usingComponents": {
     "jobList": "../../../../components/business/jobList/jobList",
