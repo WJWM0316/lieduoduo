@@ -349,7 +349,7 @@ Page({
     let params = e.currentTarget.dataset
     if(!Object.keys(params).length) return;
     this.cacheData()
-    wx.navigateTo({url: `${COMMON}resumeDetail/resumeDetail?uid=${params.jobhunteruid}&hot=true`})
+    wx.navigateTo({url: `${COMMON}resumeDetail/resumeDetail?uid=${params.jobhunteruid}`})
   },
   routeJump(e) {
     let route = e.currentTarget.dataset.route

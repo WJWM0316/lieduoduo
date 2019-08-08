@@ -333,34 +333,28 @@ App({
                 title: '登录成功',
                 icon: 'success',
                 callback() {
-                  if (!res0.data.hasCard && operType === 'cIndex' &&  wx.getStorageSync('choseType') !== 'RECRUITER') {
-                    wx.reLaunch({
-                      url: `${APPLICANT}createUser/createUser?micro=true`
-                    })
-                  } else {
-                    if (operType === 'cIndex') {
+                  if (operType === 'cIndex') {
                       wx.reLaunch({
                         url: `${APPLICANT}index/index`
                       })
-                    } else if (operType === 'curPath') {
-                      wx.reLaunch({
-                        url: `${pageUrl}`
+                  } else if (operType === 'curPath') {
+                    wx.reLaunch({
+                      url: `${pageUrl}`
+                    })
+                  } else {
+                    if (getCurrentPages().length > 1) {
+                       wx.navigateBack({
+                        delta: 1
                       })
                     } else {
-                      if (getCurrentPages().length > 1) {
-                         wx.navigateBack({
-                          delta: 1
+                      if (wx.getStorageSync('choseType') !== 'RECRUITER') {
+                        wx.reLaunch({
+                          url: `${APPLICANT}index/index`
                         })
                       } else {
-                        if (wx.getStorageSync('choseType') !== 'RECRUITER') {
-                          wx.reLaunch({
-                            url: `${APPLICANT}index/index`
-                          })
-                        } else {
-                          wx.reLaunch({
-                            url: `${RECRUITER}index/index`
-                          })
-                        }
+                        wx.reLaunch({
+                          url: `${RECRUITER}index/index`
+                        })
                       }
                     }
                   }

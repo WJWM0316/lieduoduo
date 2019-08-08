@@ -30,6 +30,10 @@
 		  "page": "page/common/pages/rank/rank"
 		},
 		{
+		  "action": "allow",
+		  "page": "page/applicant/specialJob/specialJob"
+		},
+		{
       "action": "disallow",
       "page": "*"
     }

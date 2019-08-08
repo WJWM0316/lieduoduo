@@ -2,7 +2,8 @@
 .strategy {
 	background: #652791;
 	min-height: 100vh;
-  padding-bottom: 178rpx;
+  padding-bottom: 176rpx;
+  box-sizing: border-box;
 }
 .banner {
 	width: 100%;
@@ -33,6 +34,7 @@
 	background:#EEE7F3;
 	position: absolute;
 	text-align: center;
+  font-weight: bold;
 	left: 0;
 	top: 0;
 	z-index: 2;
@@ -51,6 +53,10 @@
 	color: #282828;
 	font-size: 28rpx;
 	line-height: 42rpx;
+  margin-bottom: 68rpx;
+}
+.content_txt.noMargin {
+  margin-bottom: 0;
 }
 .color {
 	color: #282828;
@@ -69,8 +75,9 @@
 	border-radius:44rpx;
 	font-size:28rpx;
 	color:#fff;
-	margin: 24rpx auto 54rpx;
+	margin: 24rpx auto 0;
 	text-align: center;
+  font-weight: bold;
 }
 
 .title3 {
@@ -95,4 +102,8 @@
 	height: 88rpx;
 	line-height: 88rpx;
 	margin: 0;
+}
+
+.phone {
+	color:#652791;
 }

@@ -1,8 +1,6 @@
 // components/layout/bottomStatus/bottomStatus.js
 Component({
-  /**
-   * 组件的属性列表
-   */
+  externalClasses: ['my-class', 'my-item-class'],
   properties: {
     status: {
       type: Number,

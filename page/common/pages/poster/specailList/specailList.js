@@ -1,6 +1,6 @@
 import {ellipsis, lineFeed} from '../../../../../utils/canvas.js'
 import {getPositionQrcodeApi} from '../../../../../api/pages/qrcode.js'
-import {agreedTxtB} from '../../../../../utils/randomCopy.js'
+import {getRapidlyViweApi} from '../../../../../api/pages/poster.js'
 let app = getApp()
 let info = null
 let avatarUrl = ''
@@ -24,34 +24,15 @@ Page({
     timerSecond: 30000,
     guidePop: true
   },
-  drawing (avatarUrl, companyUrl, qrCodeUrl) {
-    const ctx = wx.createCanvasContext('canvas')
-    let that = this
-    ctx.width = 750
-    ctx.fillRect(0, 0, 750, 2600)
-    ctx.draw(true, () => {
-      setTimeout(() => {
-        wx.canvasToTempFilePath({
-          x: 0,
-          y: 0,
-          width: 750,
-          height: curHeight,
-          quality: 1,
-          canvasId: 'canvas',
-          success(res) {
-            that.setData({imgUrl: res.tempFilePath, imgH: curHeight})
-          }
-        })
-      }, 1000)
-    })
-  },
+
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.drawing()
+    getRapidlyViweApi().then(res => {
+      this.setData({imgUrl: res.data.url})
+    })
   },
-
   /**
    * 生命周期函数--监听页面显示
    */
@@ -98,26 +79,29 @@ Page({
        }
     })
     function svae () {
-      wx.saveImageToPhotosAlbum({
-        filePath: that.data.imgUrl,
-        success: function (e) {
-          app.wxToast({
-            title: '已保存至相册',
-            icon: 'success',
-            callback () {
-              app.shareStatistics({
-                id: info.id,
-                type: 'position',
-                sCode: info.sCode,
-                channel: 'qrpl'
+      var save = wx.getFileSystemManager();
+      var number = Math.random();
+      save.writeFile({
+        filePath: wx.env.USER_DATA_PATH + '/pic' + number + '.png',
+        data: that.data.imgUrl.slice(22),
+        encoding: 'base64',
+        success: res => {
+          wx.saveImageToPhotosAlbum({
+            filePath: wx.env.USER_DATA_PATH + '/pic' +number+'.png',
+            success: function (e) {
+              app.wxToast({
+                title: '已保存至相册',
+                icon: 'success',
+                callback () {
+                }
+              })
+            },
+            fail: function (e) {
+              console.log(e)
+              app.wxToast({
+                title: '保存失败'
               })
             }
-          })
-        },
-        fail: function (e) {
-          console.log(e)
-          app.wxToast({
-            title: '保存失败'
           })
         }
       })

@@ -1,30 +1,31 @@
 
 .barrage {
 	position: fixed;
-	z-index: 1;
-	bottom: 8%;
-	left: 60rpx;
+	z-index: 5;
+	left: 20rpx;
 	height: 68rpx;
 	transition: all .5s;
 	opacity: 0;
+	transform: translate3d(0, 100%, 0);
 	overflow: hidden;
+  border-radius: 34rpx;
+  box-shadow:0rpx 10rpx 26rpx 0rpx rgba(101,39,145,0.2);
+  background:rgba(239,233,244,1);
 }
 
 .barrage.active {
-	bottom: 13%;
 	opacity: 1;
+	transform: translate3d(0, 0, 0);
 }
 .barrage.hide {
 	opacity: 0;
+	transform: translate3d(0, -100%, 0);
 }
 .barrage .barrage_item {
-	padding: 18rpx 30rpx;
-	background:rgba(239,233,244,1);
-	box-shadow:0rpx 10rpx 26rpx 0rpx rgba(101,39,145,0.2);
-	border-radius:34rpx;
-  display: inline-block;
+	padding: 0 30rpx;
   font-size:24rpx;
-  font-weight:300;
+  font-weight:700;
   color:rgba(101,39,145,1);
-  line-height:1x;
+  height: 68rpx;
+  line-height:68rpx;
 }

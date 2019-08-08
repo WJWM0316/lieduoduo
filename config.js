@@ -17,7 +17,7 @@ if (environment === 0) {
 	APPLICANTHOST = 'https://qiuzhi-api.lieduoduo.ziwork.com'
 	RECRUITERHOST = 'https://zhaopin-api.lieduoduo.ziwork.com'
 	PUBAPIHOST = 'https://pub-api.lieduoduo.ziwork.com'
-	NODEHOST = 'http://localhost:3000/frontEnd' // http://node.lieduoduo.ziwork.com/frontEnd'
+	NODEHOST = 'https://node.lieduoduo.ziwork.com/frontEnd' //  // 
 	WEBVIEW = `https://h5.lieduoduo.ziwork.com/`
 	CDNPATH = 'https://attach.lieduoduo.ziwork.com/front-assets/images/'
 } else {

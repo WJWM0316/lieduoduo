@@ -19,7 +19,8 @@ Component({
     index: 0,
     active: false,
     hide: false,
-    item: ''
+    item: '',
+    isIphoneX: getApp().globalData.isIphoneX
   },
   attached () {
     this.showBarrage()
@@ -43,7 +44,7 @@ Component({
             }
           }, 500)
           clearTimeout(timer1)
-        }, 1500)
+        }, 2000)
         clearTimeout(timer)
       }, duration)
     }

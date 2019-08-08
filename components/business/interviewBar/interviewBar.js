@@ -249,22 +249,51 @@ Component({
       const chat = () => {
         isRecruiter = app.globalData.isRecruiter
         isJobhunter = app.globalData.isJobhunter
-        let successPop = () => {
-          if (app.globalData.resumeInfo.resumeCompletePercentage > 0.75) return
-          app.wxConfirm({
-            title: '开撩成功',
-            content: '你的简历竞争力只超过28%的求职者，建议你现在完善简历',
-            cancelText: '暂不完善',
-            confirmText: '马上完善',
-            confirmBack () {
-              app.wxReportAnalytics('btn_report', {
-                btn_type: 'perfect_immediately'
+        let rapidlyInfo = this.data.infos.rapidlyInfo || {},
+            detail = this.data.infos
+
+        // 是急速约面开撩
+        let isSpecail = detail.isRapidly === 1 
+                        && !this.data.interviewInfos.applied
+                        && detail.rapidlyInfo.applyNum + detail.rapidlyInfo.natureApplyNum < detail.rapidlyInfo.seatsNum
+        let successPop = (res) => {
+          if (res.code === 916) {
+            app.wxConfirm({
+              title: '申请成功',
+              content: 'opps!约面席位刚被抢光啦~但面试官将尽快处理你的约面申请',
+              showCancel: false,
+              confirmText: '知道了',
+            })
+          } else if (res.code === 915) {
+            app.wxConfirm({
+              title: '申请成功',
+              content: 'opps!活动刚刚过期啦~但面试官将尽快处理你的约面申请',
+              showCancel: false,
+              confirmText: '知道了',
+            })
+          } else {
+            if (app.globalData.resumeInfo.resumeCompletePercentage > 0.75) {
+              app.wxToast({
+                title: '开撩成功',
+                icon: 'success'  
               })
-              wx.navigateTo({
-                url: `${COMMON}resumeDetail/resumeDetail?uid=${app.globalData.resumeInfo.uid}`
-              })
+              return
             }
-          })
+            app.wxConfirm({
+              title: '开撩成功',
+              content: '你的简历竞争力只超过28%的求职者，建议你现在完善简历',
+              cancelText: '暂不完善',
+              confirmText: '马上完善',
+              confirmBack () {
+                app.wxReportAnalytics('btn_report', {
+                  btn_type: 'perfect_immediately'
+                })
+                wx.navigateTo({
+                  url: `${COMMON}resumeDetail/resumeDetail?uid=${app.globalData.resumeInfo.uid}`
+                })
+              }
+            })
+          }
         }
         if(identity === 'APPLICANT') {
           if(!isJobhunter) {
@@ -272,7 +301,7 @@ Component({
             wx.navigateTo({url: `${APPLICANT}createUser/createUser?directChat=${encodeURIComponent(path)}&from=2`})
           } else {
             // 走正常流程
-            if(this.data.type === 'recruiter') {
+            if(this.data.type === 'recruiter') { // 开撩招聘官
               // 招聘官没有在线职位或者招聘官没发布过职位
               if(!this.data.infos.positionNum) {
                 app.wxReportAnalytics('btn_report', {
@@ -282,22 +311,27 @@ Component({
                 })
                 applyInterviewApi({recruiterUid: this.data.infos.uid}).then(res => {
                   this.getInterviewStatus()
-                  successPop()
+                  successPop(res)
                 })
               } else {
                 wx.navigateTo({url: `${COMMON}chooseJob/chooseJob?type=job_hunting_chat&from=${this.data.currentPage}&showNotPositionApply=${interviewInfos.showNotPositionApply}&from=${this.data.currentPage}&recruiterUid=${this.data.infos.uid}`})
               }
-            } else {
+            } else { // 开撩职位
               app.wxReportAnalytics('btn_report', {
                 isjobhunter: app.globalData.isJobhunter,
                 resume_perfection: app.globalData.resumeInfo.resumeCompletePercentage * 100,
                 btn_type: 'job-hunting-chat'
               })
               let params = {recruiterUid: this.data.infos.recruiterInfo.uid, positionId: this.data.infos.id}
-              if (this.data.infos.isRapidly === 1) params.interview_type = 2
+              if (isSpecail) params.interview_type = 2
               applyInterviewApi(params).then(res => {
                 this.getInterviewStatus()
-                successPop()
+                successPop(res)
+                // 未满急速约面开撩成功，需要记录一下返回时候重置一下数据
+                if (isSpecail) {
+                  this.triggerEvent('chatPosition', true)
+                  wx.setStorageSync('chatSuccess', detail)
+                }
               })
             }
           }

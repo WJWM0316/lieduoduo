@@ -5,15 +5,16 @@
 		<view class="title"><text class="txt">参与流程</text><view class="bg"></view></view>
 		<view class="content_txt">
 			点击下方<text class="color">{{isJobhunter ? '【抢占约面席位】' : '【领取参与资格】'}}</text>按钮 ，挑选合适的职位抢占约面席位，面试官会在24小时内处理并且反馈
+			<view class="btn" wx:if="{{!isJobhunter}}" bindtap="routeJump">领取参与资格</view>
 		</view>
-		<view class="btn" wx:if="{{!isJobhunter}}" bindtap="routeJump">领取参与资格</view>
+		
 		<view class="title"><text class="txt">奖励规则</text><view class="bg"></view></view>
-		<view class="content_txt">成功到场约面，客服会在x天内联系你发放红包 <text class="money">200元</text></view>
-		<view class="title title3"><text class="txt">注意事项</text><view class="bg"></view></view>
-		<view class="content_txt">
-			<view>1、注意事项一：这里是要注意的点和事项，文案由后台编辑上传，无字数限制 </view>
-			<view>2、注意事项二：领取须知只有新用户方可领取，点击参与资格前进抢占约面席位 </view>
-			<view>3、注意事项三：24小时内给予反馈，请你耐心等待一下哦，活动详情请往下阅读吧</view>
+		<view class="content_txt">成功到场面试者将获得平台送 <text class="money">200元</text>现金红包，奖励将在5个工作日内发放；</view>
+		<view class="title title3"><text class="txt">更多说明</text><view class="bg"></view></view>
+		<view class="content_txt noMargin">
+			<view>1、【限时热抢】为限时限量职位，有效期内成功抢占席位者，将尊享24小时急速反馈特权服务，反之则按普通流程速度反馈；</view>
+			<view>2、【200元现金红包】为平台额外奖励，请成功约面者保持通信设备畅通，以免奖励发放失败，造成后果将由用户自行承担；</view>
+			<view>3、本次活动最终解释权归广州老虎信息科技有限公司所有，如有企业进驻需求或其他疑问，欢迎联系官方客服：<text class="phone" bindtap="call">{{telePhone}}</text>；</view>
 		</view>
 	</view>
 	<view class="footer">

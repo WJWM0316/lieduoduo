@@ -52,7 +52,7 @@ button::after{
 }
 
 
-.specialJob {
+.specialJobIcon {
   width: 80rpx;
   height: 32rpx;
   background: url('https://attach.lieduoduo.ziwork.com/front-assets/images/icon_24htag_interview@3x.png');

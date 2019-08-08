@@ -93,7 +93,7 @@
 								<view class="zhiwei">{{item.recruiterPositionName}}</view>
 							</view>
 							<view class="degress">{{item.companyShortname}}</view>
-							<view class="specialJob" wx:if="{{item.interviewType === 2}}"></view>
+							<view class="specialJobIcon" wx:if="{{item.interviewType === 2}}"></view>
 						</view>
 					</view>
 					<view class="reddot" wx:if="{{item.redDot}}"></view>
@@ -139,7 +139,7 @@
 								<view class="zhiwei">{{item.recruiterPositionName}}</view>
 							</view>
 							<view class="degress">{{item.companyShortname}}</view>
-							<view class="specialJob" wx:if="{{item.interviewType === 2}}"></view>
+							<view class="specialJobIcon" wx:if="{{item.interviewType === 2}}"></view>
 						</view>
 					</view>
 					<view class="reddot" wx:if="{{item.redDot}}"></view>

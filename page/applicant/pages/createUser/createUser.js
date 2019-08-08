@@ -391,7 +391,8 @@ Page({
     }
   },
   createMicro () {
-    let data = this.data
+    let data = this.data,
+        that = this
     let params = {
       avatar: data.avatar.id,
       gender: data.gender,
@@ -438,9 +439,15 @@ Page({
         title: '创建成功',
         icon: 'success',
         callback () {
-          wx.reLaunch({
-            url: `${APPLICANT}index/index`
-          })
+          if (that.data.options.type === 'specialJob') {
+            wx.reLaunch({
+              url: `${APPLICANT}specialJob/specialJob`
+            })
+          } else {
+            wx.reLaunch({
+              url: `${APPLICANT}index/index`
+            })
+          }
         }
       })
     })

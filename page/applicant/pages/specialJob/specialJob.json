@@ -1,6 +1,10 @@
 {
+	"enablePullDownRefresh": true,
+	"backgroundTextStyle": "dark",
   "usingComponents": {
   	"tabBar": "../../../../components/business/tabBar/tabBar",
-  	"barrage": "../../../../components/layout/barrage/barrage"
+  	"barrage": "../../../../components/layout/barrage/barrage",
+  	"bindPhone": "../../../../components/functional/bindPhone/bindPhone",
+  	"shareBtn": "../../../../components/layout/shareBtn/shareBtn"
   }
 }
