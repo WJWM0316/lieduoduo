@@ -277,7 +277,7 @@ Page({
           let otherData = res.data
           delete otherData.items
           this.setData({otherData}, () => {
-            this.avatarsChange()
+            // this.avatarsChange()
           })
         }
       })
