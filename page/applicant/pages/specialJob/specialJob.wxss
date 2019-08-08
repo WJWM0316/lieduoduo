@@ -368,7 +368,7 @@
 	width: 84rpx;
 	height: 14rpx;
 	background: #fff;
-	border-radius:0 7rpx 7rpx 0;
+	border-radius:0 8rpx 8rpx 0;
 	position: relative;
   margin-left: 40rpx;
 }
@@ -376,7 +376,7 @@
   content: '';
 	width: 40rpx;
 	height: 100%;
-	border-radius:7rpx 0 0 7rpx;
+	border-radius:8rpx 0 0 8rpx;
 	background: #652791;
 	position: absolute;
 	top: 0;
@@ -388,7 +388,7 @@
 }
 .progress_bar .bar {
 	height: 100%;
-	border-radius:0 7rpx 7rpx 0;
+	border-radius:0 8rpx 8rpx 0;
 	background: #652791;
 	position: absolute;
 	top: 0;
@@ -487,4 +487,10 @@
 	position: fixed;
 	right: 12rpx;
 	z-index: 4;
+	animation: move 1s infinite;
+}
+@keyframes move {
+	0% 	 { transform: translate3d(0, 0rpx, 0) }
+	50% {transform: translate3d(0, -8rpx, 0) }
+	100% 	 { transform: translate3d(0, 0rpx, 0) }
 }

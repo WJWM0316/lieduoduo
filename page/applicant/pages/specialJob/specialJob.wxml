@@ -26,7 +26,7 @@
 		<i wx:if="{{isJobhunter}}" class="icon iconfont icon-xinxi" bindtap="routeJump" data-route="strategy"></i>
 	</view>
 	<view class="gd">
-		<view bindtap="routeJump" data-route="strategy" hidden="{{tabIndex === 1}}" ><image bindtap="routeJump" data-btnType="{{2}}" data-route="{{!isJobhunter ? 'createUser' : ''}}" class="gdImg" src="{{!isJobhunter ? cdnImagePath + 'img_200yhb_banner.png' : cdnImagePath+'img_200yhb_banner_end.png'}}" mode="widthFix"></image></view>
+		<view hidden="{{tabIndex === 1}}" ><image bindtap="routeJump" data-btnType="{{2}}" data-route="{{!isJobhunter ? 'createUser' : 'strategy'}}" class="gdImg" src="{{!isJobhunter ? cdnImagePath + 'img_200yhb_banner.png' : cdnImagePath+'img_200yhb_banner_end.png'}}" mode="widthFix"></image></view>
 		<view  hidden="{{tabIndex === 0}}" class="gd_inner">
 			<image class="icon" src="{{cdnImagePath}}icon_24h_qxnotice3x.png"></image>
 			<text class="txt">以下职位的24小时反馈服务已结束，但仍可继续开约，不要错过哦~</text>
