@@ -24,7 +24,8 @@
     "page/common/pages/cutInside/cutInside",
     "page/common/pages/chooseJob/chooseJob",
     "page/common/pages/webView/webView",
-    "page/common/pages/interviewMark/interviewMark"   
+    "page/common/pages/interviewMark/interviewMark",
+    "page/common/pages/poster/createPost/createPost"
   ],
   "window": {
     "navigationBarTextStyle": "black",

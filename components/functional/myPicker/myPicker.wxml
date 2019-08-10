@@ -30,9 +30,12 @@
               </block>
               <text wx:if="{{list[0][result[0]] !== firstOption}}">{{list[1][result[1]]}}</text>
               <text wx:if="{{list[0][result[0]] === firstOption && list[1][result[1]] === firstOption}}">{{list[0][result[0]]}}</text>
+              <block wx:if="{{pickerType === 'salaryRangeB'}}">
+                <text>·</text>
+                <text>{{list[2][result[2]]}}</text>
+              </block>
             </block>
           </block>
-
           <block wx:if="{{mode === 'selector'}}">
             <text wx:if="{{rangeKey}}" class="showTxt">{{list[result][rangeKey]}}<i class="iconfont icon-sanjiaoshaixuan triangle" wx:if="{{pickerType === 'occupation' && isTriangle}}"></i></text>
             <text wx:else class="showTxt">{{list[result]}}</text>

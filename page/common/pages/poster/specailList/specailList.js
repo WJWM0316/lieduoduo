@@ -1,16 +1,5 @@
-import {ellipsis, lineFeed} from '../../../../../utils/canvas.js'
-import {getPositionQrcodeApi} from '../../../../../api/pages/qrcode.js'
-import {getRapidlyViweApi} from '../../../../../api/pages/poster.js'
+import {getRapidlyViwePostApi} from '../../../../../api/pages/poster.js'
 let app = getApp()
-let info = null
-let avatarUrl = ''
-let companyUrl = ''
-let qrCodeUrl = '',
-    curHeight = 0
-let cWidth = 0,
-    cHeight = 0,
-    cX = 0,
-    cY = 0
 Page({
 
   /**
@@ -18,8 +7,6 @@ Page({
    */
   data: {
     imgUrl: '',
-    imgW: 750,
-    imgH: 0,
     openSet: true,
     timerSecond: 30000,
     guidePop: true
@@ -29,11 +16,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    wx.showLoading({
-      title: '正在生成...',
-    })
-    getRapidlyViweApi().then(res => {
-      wx.hideLoading()
+    getRapidlyViwePostApi().then(res => {
       this.setData({imgUrl: res.data.url})
     })
   },

@@ -1,4 +1,4 @@
-import {getRapidlyApi, getRecentApi} from '../../../../api/pages/specialJob.js'
+import {getRapidlyApi, getRecentApi, getSurfaceCityListApi} from '../../../../api/pages/specialJob.js'
 import {getSelectorQuery} from '../../../../utils/util.js'
 import {touchApi} from '../../../../api/pages/common.js'
 import {COMMON, APPLICANT} from '../../../../config.js'
@@ -8,7 +8,8 @@ let tabTop = 0,
     timer = null,
     navTimer = null,
     jumpTimer = null,
-    avatarsNum = 10
+    avatarsNum = 10,
+    areaId = 0
 Page({
 
   /**
@@ -20,6 +21,8 @@ Page({
     isJobhunter: app.globalData.isJobhunter,
     isIphoneX: app.globalData.isIphoneX,
     timeList: [],
+    cityList: [],
+    cityIndex: 0,
     hasReFresh: false,
     hideLoginBox: true,
     nowListData: {
@@ -57,11 +60,13 @@ Page({
     hasOnload = false
     if (app.loginInit) {
       this.getRapidly()
+      this.getCityList()
       hasOnload = true
       this.init()
     } else {
       app.loginInit = () => {
         this.getRapidly()
+        this.getCityList()
         hasOnload = true
         this.init()
       }
@@ -189,6 +194,14 @@ Page({
     let vkey = e.currentTarget.dataset.btntype === 1 ? this.data.otherData.buttons[0].vkey : this.data.otherData.buttons[1].vkey
     touchApi({vkey})
   },
+  filterCity (e) {
+    let dataset = e.currentTarget.dataset
+    areaId = dataset.areaid
+    this.resetList()
+    this.setData({cityIndex: dataset.index}, () => {
+      this.getRapidly()
+    })
+  },
   routeJump (e) {
     let touch = e.currentTarget.dataset
     switch (touch.route) {
@@ -245,6 +258,11 @@ Page({
     }
     jumpCreate()
   },
+  getCityList () {
+    return getSurfaceCityListApi().then(res => {
+      this.setData({cityList: res.data.cityList})
+    })
+  },
   getRapidly (hasLoading = true) {
     let tabIndex = this.data.tabIndex,
         listData = !tabIndex ? this.data.nowListData : this.data.oldListData,
@@ -256,6 +274,7 @@ Page({
           hasLoading
         } 
     params.page++
+    params.city = areaId
     return listFun(params).then(res => {
       let list = !tabIndex ? res.data.items : res.data,
           isLastPage = listData.isLastPage,
@@ -323,10 +342,7 @@ Page({
   formSubmit(e) {
     app.postFormId(e.detail.formId)
   },
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
+  resetList () {
     let tabIndex = this.data.tabIndex,
         listData = !tabIndex ? this.data.nowListData : this.data.oldListData,
         listType = !tabIndex ? 'nowListData' : 'oldListData',
@@ -346,13 +362,24 @@ Page({
           onBottomStatus: 0,
           isLastPage: false,
           isRequire: false
-      }, 
-      hasReFresh: true}, () => {
-          this.getRapidly(false).then(() => {
-            this.setData({hasReFresh: false})
-            wx.stopPullDownRefresh()
-          })
-        })
+      }
+    })
+  },
+  /**
+   * 页面相关事件处理函数--监听用户下拉动作
+   */
+  onPullDownRefresh: function () {
+    this.getCityList()
+    this.resetList()
+    this.setData({hasReFresh: true}, () => {
+      this.getRapidly(false).then(() => {
+        this.setData({hasReFresh: false})
+        wx.stopPullDownRefresh()
+      }).catch(e => {
+        this.setData({hasReFresh: false})
+        wx.stopPullDownRefresh()
+      })
+    })
   },
 
   /**

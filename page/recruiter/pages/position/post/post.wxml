@@ -1,4 +1,4 @@
-<view class="position-post">
+<view class="position-post" wx:if="{{isRequire}}">
 	<navbar title="{{pageTitle}}" background="#FFFFFF" color="#22292C" customBack bindbackEvent="backEvent"></navbar>
 	<view class="warning" bindtap="showTips"><i class="icon iconfont icon-PC"></i>前往PC端发布新职位<i class="icon iconfont icon-xiangyou"></i></view>
 	<view class="tips">* 职位名称、职位类别、工作地点发布后将不可修改</view>
@@ -40,9 +40,9 @@
 		<view class="li dropdown marginB24">
 			<view class="key"><text>*</text>薪资范围</view>
 			<i class="icon iconfont icon-xiangyou"></i>
-			<view class="text2 {{emolument_range !== '请选择薪资范围' ? '' : 'color-default'}}">{{emolument_range}}</view>
+			<view class="text2 {{emolument_range !== '请选择薪资范围' ? '' : 'color-default'}}">{{emolument_range}}<block wx:if="{{emolument_range !== '请选择薪资范围'}}">·{{annualSalary}}薪</block></view>
 			<view class="picker-box">
-				<myPicker setResult="{{ emolument_range }}" pickerType="salaryRangeB" bindresultevent="getSalary"></myPicker>
+				<myPicker setResult="{{emolument_range}}·{{annualSalary}}薪" pickerType="salaryRangeB" bindresultevent="getSalary"></myPicker>
 			</view>
 		</view>
 		<view class="li dropdown">

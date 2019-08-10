@@ -275,6 +275,12 @@ Page({
         this.selectComponent('#shareBtn').oper()
         break
       case 'edit':
+        if (this.data.detail.isRapidly === 1) {
+          app.wxToast({
+            title: '该职位暂不可编辑'
+          })
+          return
+        }
         wx.navigateTo({url: `${RECRUITER}position/post/post?positionId=${this.data.detail.id}`})
         break
       case 'collect':

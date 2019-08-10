@@ -138,12 +138,13 @@ Page({
         this.init()
       }
     }
-    
+  },
+  onReady () {
+    this.getDomNodePosition()
   },
   init () {
     if (wx.getStorageSync('choseType') === 'APPLICANT') return
     let userInfo = app.globalData.userInfo
-    this.getDomNodePosition()
     if (app.pageInit) {
       userInfo = app.globalData.userInfo
       this.getMixdata()

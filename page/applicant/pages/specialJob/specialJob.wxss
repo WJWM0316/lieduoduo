@@ -150,6 +150,57 @@
   margin-left: -29rpx;
   bottom: -20rpx;
 }
+.city {
+	width: 100%;
+	height: 56rpx;
+	overflow-x: auto;
+	padding-bottom: 28rpx;
+}
+
+.city.fixed {
+  position: fixed;
+  z-index: 1;
+  background: linear-gradient(337deg,rgb(50, 32, 116) 0%,rgba(50,32,116,1) 100%);
+}
+.cityBox {
+  min-width: 100%;
+	white-space: nowrap;
+	height: 56rpx;
+  padding: 0 40rpx;
+  box-sizing: border-box;
+  font-size: 0;
+}
+.city .cityInner {
+  margin-left: -8rpx;
+  display: inline-block;
+}
+.cityBox .cityName {
+	padding: 0 32rpx;
+  height: 56rpx;
+  line-height: 56rpx;
+  font-size:28rpx;
+  font-weight:300;
+  color:rgba(255,255,255,0.8);
+  display: inline-block;
+  vertical-align: top;
+}
+.cityBox .cityInner:first-child {
+  margin-left: 0;
+}
+.cityBox .cityInner.active .cityName {
+	color: #FFFFFF;
+  font-weight: bold;
+  background:rgba(105,74,150,1);
+  border-radius:30rpx;
+  overflow: hidden;
+}
+.city.center .cityBox {
+  display: flex;
+}
+.city.center .cityBox .cityInner {
+  flex: 1;
+  text-align: center;
+}
 .gd {
 	width: 100%;
 	padding: 0 30rpx 24rpx;
@@ -359,6 +410,7 @@
 }
 .position_progress .num {
 	color: #652791;
+  font-weight: bold;
 }
 .progress_num {
 	line-height: 20rpx;

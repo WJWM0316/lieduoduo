@@ -272,8 +272,14 @@ Component({
             }
           }
           result[1] = endNumB.indexOf(this.data.setResult.split('~')[1])
-          if (result[1] === -1) result = 0
-          list = [startNumB, endNumB]
+          if (result[1] === -1) result[1] = 0
+          let payNum = []
+          for (var i = 12; i <= 24; i++) {
+            payNum.push(i + '薪')
+          }
+          list = [startNumB, endNumB, payNum]
+          result[2] = payNum.indexOf(this.data.setResult.split('·')[1])
+          if (result[2] === -1) result[2] = 0
           this.setData({list, result, mode: 'multiSelector', placeholder: this.data.placeholderTxt || '请选择期望薪资'})
           break
         case 'occupation':
@@ -340,6 +346,10 @@ Component({
         } else if (this.data.pickerType === 'salaryRangeB' || this.data.pickerType === 'salaryRangeC') {
           propsResult = [list[0][result[0]], list[1][result[1]]]
           propsDesc = `${list[0][result[0]]}~${list[1][result[1]]}`
+          if (this.data.pickerType === 'salaryRangeB') {
+            propsResult.push(list[2][result[2]])
+            propsDesc = `${list[0][result[0]]}~${list[1][result[1]]}·${list[2][result[2]]}`
+          }
         } else if (this.data.pickerType === 'region') {
           propsResult = [list[0][result[0].areaId], list[1][result[1]].areaId]
           propsDesc = [list[0][result[0].title], list[1][result[1]].title]

@@ -18,7 +18,7 @@ import {realNameReg, emailReg, positionReg} from '../../../../../utils/fieldRegu
 import {RECRUITER, COMMON} from '../../../../../config.js'
 
 let app = getApp()
-
+let isRequire = false
 Page({
   data: {
     position_name: '',
@@ -31,6 +31,7 @@ Page({
     type: '',
     typeName: '',
     labels: [],
+    annualSalary: 12,
     emolument_min: '',
     emolument_max: '',
     emolument_range: '请选择薪资范围',
@@ -44,12 +45,14 @@ Page({
     pageTitle: '',
     canClick: false,
     showScanBox: false,
-    options: {}
+    options: {},
+    isRequire: false
   },
   onLoad(options) {
     this.setData({pageTitle: options.positionId ? '编辑职位' : '发布职位', query: options})
   },
   onShow() {
+    
     this.getUpdateInfos()
   },
   backEvent() {
@@ -85,6 +88,7 @@ Page({
    * @return   {[type]}           [description]
    */
   getUpdateInfos() {
+    this.setData({isRequire: false})
     let options = this.data.query
     let storage = Object.assign(wx.getStorageSync('createPosition'))
     if(
@@ -107,7 +111,10 @@ Page({
       this.bindButtonStatus()
       return;
     }
-    if(!Reflect.has(options, 'positionId')) return
+    if(!Reflect.has(options, 'positionId')) {
+      this.setData({isRequire: true})
+      return
+    }
     getPositionApi({id: options.positionId}).then(res => {
       let formData = {}
       let infos = res.data
@@ -125,12 +132,14 @@ Page({
       formData.education = storage.education || infos.education
       formData.educationName = storage.educationName || infos.educationName
       formData.work_experience = storage.work_experience || infos.workExperience
+      formData.annualSalary = storage.annualSalary || infos.annualSalary
       formData.work_experience_name = storage.work_experience_name || infos.workExperienceName
       formData.lng = storage.lng || infos.lng
       formData.lat = storage.lat || infos.lat
       formData.address_id = storage.address_id || infos.addressId
       formData.parentType = storage.parentType || infos.topPid
       Object.keys(formData).map(field => this.setData({[field]: formData[field]}))
+      this.setData({isRequire: true})
       this.bindButtonStatus()
     })
   },
@@ -191,6 +200,7 @@ Page({
     this.setData({
       emolument_min: parseInt(e.detail.propsResult[0]),
       emolument_max: parseInt(e.detail.propsResult[1]),
+      annualSalary: parseInt(e.detail.propsResult[2]),
       emolument_range: `${e.detail.propsResult[0]}~${e.detail.propsResult[1]}`
     })
   },
@@ -225,6 +235,7 @@ Page({
       'doorplate',
       'emolument_min',
       'emolument_max',
+      'annualSalary',
       'work_experience',
       'education',
       'describe',
@@ -232,7 +243,9 @@ Page({
       'lat',
       'address_id',
     ]
+    
     params.map(field => formData[field] = this.data[field])
+    formData['annual_salary'] = formData.annualSalary
     this.data.skills.map((field, index) => labels.push({id: field.labelId, is_diy: 0}))
     formData.labels = JSON.stringify(labels)
     if(this.data.query.positionId) formData.id = this.data.query.positionId
@@ -341,10 +354,15 @@ Page({
    * @return   {[type]}   [description]
    */
   editPositionApi(formData) {
-    editPositionApi(formData).then(res => {
-      wx.removeStorageSync('createPosition')
-      wx.reLaunch({url: `${RECRUITER}position/index/index`})
-      app.wxToast({title: '编辑成功'})
+    editPositionApi(formData).then(res => {  
+      app.wxToast({
+        title: '编辑成功',
+        icon: 'success',
+        callback () {
+          wx.removeStorageSync('createPosition')
+          wx.reLaunch({url: `${RECRUITER}position/index/index`})
+        }
+      })
     })
   },
   /**

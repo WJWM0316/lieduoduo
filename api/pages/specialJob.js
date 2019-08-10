@@ -19,3 +19,14 @@ export const getRecentApi = (data) => {
     data
   })
 }
+
+
+// 城市列表
+export const getSurfaceCityListApi = (data) => {
+  return request({
+    url: '/surface/city/list',
+    host: 'NODEHOST',
+    method: 'get',
+    data
+  })
+}

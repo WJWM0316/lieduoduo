@@ -15,7 +15,7 @@
 				<text class="avatar_left_txt">{{otherData.joinUserTotal}}人已参与</text>
 			</view>
 		</view>
-		<view class="avatar_right go" bindtap="routeJump" data-index="{{0}}" data-route="{{!isJobhunter ? 'createUser' : 'toggleTab'}}">
+		<view class="avatar_right {{isJobhunter ? 'go' : ''}}" bindtap="routeJump" data-index="{{0}}" data-route="{{!isJobhunter ? 'createUser' : 'toggleTab'}}">
 			<block wx:if="{{!isJobhunter}}"><text>领取资格</text><i class="icon iconfont icon-xiangyou"></i></block>
 			<block wx:else><text>抢占约面席位</text><i class="icon iconfont icon-xiangyou"></i></block>
 		</view>
@@ -24,6 +24,11 @@
 		<view class="tab_item {{tabIndex === 0 ? 'active' : ''}}" bindtap="toggleTab" data-index="{{0}}">限时热抢</view>
 		<view class="tab_item {{tabIndex === 1 ? 'active' : ''}}" bindtap="toggleTab" data-index="{{1}}">近期精选</view>
 		<i wx:if="{{isJobhunter}}" class="icon iconfont icon-xinxi" bindtap="routeJump" data-route="strategy"></i>
+	</view>
+	<view class="city {{tabFixed ? 'fixed' : ''}} {{cityList.length <= 6 ? 'center' : ''}}" wx:if="{{cityList.length}}" style="top: calc({{navH}}px + 90rpx)">
+		<view class="cityBox">
+			<view class="cityInner {{cityIndex === index ? 'active' : ''}}" wx:for="{{cityList}}" wx:key="{{index}}" bindtap="filterCity" data-index="{{index}}" data-areaid="{{item.areaId}}"><text class="cityName">{{item.areaName}}</text></view>
+		</view>
 	</view>
 	<view class="gd">
 		<view hidden="{{tabIndex === 1}}" ><image bindtap="routeJump" data-btnType="{{2}}" data-route="{{!isJobhunter ? 'createUser' : 'strategy'}}" class="gdImg" src="{{!isJobhunter ? cdnImagePath + 'img_200yhb_banner.png' : cdnImagePath+'img_200yhb_banner_end.png'}}" mode="widthFix"></image></view>
@@ -63,7 +68,12 @@
 								</view>
 								<view class="position_chance">
 									<view class="position_progress">
-										<view class="progress_num">还剩<text class="num">{{item.seatsNum - item.applyNum - item.natureApplyNum}}</text>个机会</view>
+										<view class="progress_num">
+											<block wx:if="{{item.seatsNum - item.applyNum - item.natureApplyNum > 0}}">
+												还剩<text class="num">{{item.seatsNum - item.applyNum - item.natureApplyNum > 100 ? '99+' : item.seatsNum - item.applyNum - item.natureApplyNum}}</text>个机会
+											</block>
+											<block wx:else>席位已抢光</block>
+										</view>
 										<view class="progress_bar {{(item.applyNum + item.natureApplyNum) === 0 ? 'noApplyNum' : ''}}"><text class="bar" style="width: {{(item.natureApplyNum + item.applyNum) /item.seatsNum * 100}}%"></text></view>
 									</view>
 									<view class="btn">马上抢</view>

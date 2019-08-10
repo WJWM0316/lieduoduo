@@ -27,7 +27,7 @@
   overflow: hidden;
 }
 .li .name .title {
-  max-width: 330rpx;
+  max-width: 360rpx;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;

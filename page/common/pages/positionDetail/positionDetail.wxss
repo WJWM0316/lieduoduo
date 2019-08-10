@@ -441,7 +441,29 @@
 	color:rgba(101,39,145,1);
 	flex: 1
 }
-
+.edit.prohibit {
+  background: #F5F4F7;
+  color: #BCBCBC;
+}
+.prohibitBox {
+  position: fixed;
+  bottom: 128rpx;
+  left: 0;
+  height: 80rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  box-sizing: border-box;
+  background: #FFFCEF;
+  color: #282828;
+  font-size:26rpx;
+  font-weight:300;
+}
+.prohibitBox .icon {
+  color: #FFDC29;
+  margin-right: 12rpx;
+}
 .footer .share{
 	height:88rpx;
 	background:rgba(101,39,145,1);

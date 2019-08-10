@@ -1,4 +1,4 @@
-import {getRapidlyViwePostApi} from '../../../../../api/pages/poster.js'
+import {getRapidlyViwePostApi, getPositionPostApi, getPositionMinPostApi, getResumePostApi} from '../../../../../api/pages/poster.js'
 let app = getApp()
 Page({
 
@@ -7,6 +7,7 @@ Page({
    */
   data: {
     imgUrl: '',
+    title: '保存图片',
     openSet: true,
     timerSecond: 30000,
     guidePop: true
@@ -16,7 +17,32 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    getRapidlyViwePostApi().then(res => {
+    let getImgFun = null
+    let type = options.type,
+        title = '',
+        params = {}
+    switch (type) {
+      case 'rapidlyViwe':
+        getImgFun = getRapidlyViwePostApi
+        title = '急速约面'
+        break
+      case 'position':
+        getImgFun = getPositionPostApi
+        title = '职位分享'
+        params.id = options.positionId
+        break
+      case 'positionMin':
+        getImgFun = getPositionMinPostApi
+        params.id = options.positionId
+        title = '职位分享'
+        break
+      case 'resume':
+        getImgFun = getResumePostApi
+        title = '简历分享'
+        params.id = options.uid
+        break
+    }
+    getImgFun(params).then(res => {
       this.setData({imgUrl: res.data.url})
     })
   },
