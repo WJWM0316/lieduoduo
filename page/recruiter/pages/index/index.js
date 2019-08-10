@@ -173,8 +173,9 @@ Page({
     }, 1000)
   },
   getMixdata() {
-    this.getIndexShowCount().then(() => this.getBanner())
     this.getWelcomeWord()
+    if (wx.getStorageSync('choseType') === 'APPLICANT') return
+    this.getIndexShowCount().then(() => this.getBanner())
   },
   /**
    * @Author   小书包
