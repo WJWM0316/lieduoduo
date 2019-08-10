@@ -56,21 +56,21 @@
 .li .company{
   font-size: 26rpx;
   color: #5C565D;
-  font-weight:400;
+  font-weight:300;
   line-height:26rpx;
   margin-top: 16rpx;
 }
 .li .labelList{
   display: flex;
-  margin-top: 16rpx;
+  margin-top: 14rpx;
 }
 .li .labelList .label{
   line-height: 24rpx;
   padding: 10rpx 12rpx;
   font-size: 24rpx;
-  font-weight: 400;
+  font-weight: 300;
   background-color: #F8F8F8;
-  color: #929292;
+  color: #5C565D;
   border-radius: 4rpx;
   margin-right: 16rpx;
 }
@@ -110,8 +110,7 @@
 }
 .hr .hrName{
   font-size: 24rpx;
-  font-weight: 400;
-  color: #626262;
+  color: #5C565D;
   align-items: center;
   max-width: 400rpx;
   overflow: hidden;
