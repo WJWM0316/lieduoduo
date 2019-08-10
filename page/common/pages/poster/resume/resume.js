@@ -52,7 +52,7 @@ Page({
       ctx.fillText(info.jobStatusDesc, 375, curHeight + 28)
     }
 
-     curHeight = curHeight + 60
+    curHeight = curHeight + 60
 
     ctx.setFontSize(24)
     ctx.setTextAlign('left')

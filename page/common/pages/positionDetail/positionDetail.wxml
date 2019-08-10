@@ -62,7 +62,7 @@
 				<view class="title">
 					<view class="icon"> <view class="fan"></view> </view> 职位描述
 				</view>
-				<view class="tags-ul">
+				<view class="tags-ul" wx:if="{{detail.skillsLabel.length}}">
 					<view
 					class="li"
 					wx:for="{{detail.skillsLabel}}"
