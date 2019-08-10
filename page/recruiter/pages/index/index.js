@@ -279,12 +279,12 @@ Page({
     if(!resumeList.isLastPage) {
       this.setData({onBottomStatus: 1})
       if(this.data.recommended) {
-        this.getRecommendResumeLists()
+        this.getRecommendResumeLists(false)
       } else {
-        this.getRecommendResumePageLists()
+        this.getRecommendResumePageLists(false)
       }
     } else {
-      if(!resumeList.list.length) this.getRecommendResumeMoreLists()
+      if(!resumeList.list.length) this.getRecommendResumeMoreLists(false)
     }
   },
   onShareAppMessage(options) {
