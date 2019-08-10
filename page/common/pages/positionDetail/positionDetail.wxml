@@ -131,7 +131,7 @@
 				<view class="h2">关闭职位后将不再产生招聘效果</view>
 				<i class="icon iconfont icon-disejiantou-you"></i>
 			</view>
-			<view class="prohibitBox" wx:if="{{detail.isRapidly === 1}}"><i class="icon iconfont icon-xinxi"></i>该职位是24h反馈职位，暂时不可以下架和编辑哦~</view>
+			<view class="prohibitBox" wx:if="{{detail.isRapidly === 1}}"><i class="icon iconfont icon-xinxi-huang"></i>24小时反馈职位暂不支持编辑或关闭</view>
 			<view class="footer">
 				<view class="edit {{detail.isRapidly === 1 ? 'prohibit' : ''}}" bindtap="todoAction" data-type="edit">编辑职位</view>
 				<view class="share" bindtap="todoAction" data-type="open" wx:if="{{detail.status !== 3 && detail.status !== 4 && detail.isOnline === 2}}">开放职位</view>
