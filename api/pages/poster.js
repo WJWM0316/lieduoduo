@@ -43,3 +43,14 @@ export const getResumePostApi = (data, hasLoading) => {
     hasLoading: hasLoading
   })
 }
+
+// 招聘官
+export const getRecruiterPostApi = (data, hasLoading) => {
+  return request({
+    method: 'get',
+    url: '/recruiter',
+    data,
+    host: 'NODEHOST',
+    hasLoading: hasLoading
+  })
+}

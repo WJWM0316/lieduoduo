@@ -1,4 +1,4 @@
-import {getRapidlyViwePostApi, getPositionPostApi, getPositionMinPostApi, getResumePostApi} from '../../../../../api/pages/poster.js'
+import {getRapidlyViwePostApi, getPositionPostApi, getPositionMinPostApi, getResumePostApi, getRecruiterPostApi} from '../../../../../api/pages/poster.js'
 let app = getApp()
 Page({
 
@@ -10,15 +10,16 @@ Page({
     title: '保存图片',
     openSet: true,
     timerSecond: 30000,
-    guidePop: true
+    guidePop: true,
+    options: {}
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    let getImgFun = null
-    let type = options.type,
+    let getImgFun = null,
+        type = options.type,
         title = '',
         params = {}
     switch (type) {
@@ -39,9 +40,15 @@ Page({
       case 'resume':
         getImgFun = getResumePostApi
         title = '简历分享'
-        params.id = options.uid
+        params.uid = options.uid
+        break
+      case 'recruiter':
+        getImgFun = getRecruiterPostApi
+        title = '招聘官分享'
+        params.uid = options.uid
         break
     }
+    this.setData({title, options})
     getImgFun(params).then(res => {
       this.setData({imgUrl: res.data.url})
     })
@@ -106,6 +113,41 @@ Page({
                 title: '已保存至相册',
                 icon: 'success',
                 callback () {
+                  let paramsType = '',
+                      paramsChannel = '',
+                      options = that.data.options,
+                      id = 0
+                  switch (options.type) {
+                    case 'position':
+                      paramsType = 'position'
+                      paramsChannel = 'qrpl'
+                      id = options.positionId
+                      break
+                    case 'positionMin':
+                      paramsType = 'position'
+                      paramsChannel = 'qrpe'
+                      id = options.positionId
+                      break
+                    case 'rapidlyViwe':
+                      paramsType = 'surface_rapidly'
+                      paramsChannel = 'qrpl'
+                      break
+                    case 'recruiter':
+                      paramsType = 'recruiter'
+                      paramsChannel = 'qrpl'
+                      id = options.uid
+                      break
+                    case 'resume':
+                      paramsType = 'resume'
+                      paramsChannel = 'qrpl'
+                      id = options.uid
+                      break
+                  }
+                  app.shareStatistics({
+                    id: id,
+                    type: paramsType,
+                    channel: paramsChannel
+                  })
                 }
               })
             },

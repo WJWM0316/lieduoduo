@@ -143,7 +143,7 @@ Page({
     this.getDomNodePosition()
   },
   init () {
-    if (wx.getStorageSync('choseType') === 'APPLICANT') return
+    if (wx.getStorageSync('choseType') !== 'RECRUITER') return
     let userInfo = app.globalData.userInfo
     if (app.pageInit) {
       userInfo = app.globalData.userInfo

@@ -92,7 +92,7 @@ Page({
         wx.navigateTo({url: `${COMMON}settings/settings`})
         break
       case 'poster':
-        wx.navigateTo({url: `${COMMON}poster/recruiter/recruiter`})
+        wx.navigateTo({url: `${COMMON}poster/createPost/createPost?type=recruiter&uid=${this.data.recruiterInfo.uid}`})
         app.wxReportAnalytics('btn_report', {
           btn_type: 'created_posters_B'
         })

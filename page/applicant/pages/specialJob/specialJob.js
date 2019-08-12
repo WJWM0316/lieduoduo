@@ -2,14 +2,14 @@ import {getRapidlyApi, getRecentApi, getSurfaceCityListApi} from '../../../../ap
 import {getSelectorQuery} from '../../../../utils/util.js'
 import {touchApi} from '../../../../api/pages/common.js'
 import {COMMON, APPLICANT} from '../../../../config.js'
+import {other} from '../../../../api/pages/qrcode.js'
 const app = getApp() 
 let tabTop = 0,
     hasOnload = false,
     timer = null,
     navTimer = null,
     jumpTimer = null,
-    avatarsNum = 10,
-    areaId = 0
+    avatarsNum = 10
 Page({
 
   /**
@@ -22,11 +22,13 @@ Page({
     isIphoneX: app.globalData.isIphoneX,
     timeList: [],
     cityList: [],
-    cityIndex: 0,
+    hasNav: false,
     hasReFresh: false,
     hideLoginBox: true,
     nowListData: {
       list: [],
+      cityIndex: 0,
+      areaId: 0,
       count: app.globalData.pageCount,
       pageNum: 0,
       isLastPage: false,
@@ -34,6 +36,8 @@ Page({
     },
     oldListData: {
       list: [],
+      cityIndex: 0,
+      areaId: 0,
       count: app.globalData.pageCount,
       pageNum: 0,
       onBottomStatus: 0,
@@ -195,12 +199,17 @@ Page({
     touchApi({vkey})
   },
   filterCity (e) {
-    let dataset = e.currentTarget.dataset
-    areaId = dataset.areaid
     this.resetList()
-    this.setData({cityIndex: dataset.index}, () => {
-      this.getRapidly()
+    let dataset = e.currentTarget.dataset
+    let index = dataset.index,
+        areaId = dataset.areaid,
+        tabIndex = this.data.tabIndex,
+        listType = !tabIndex ? 'nowListData' : 'oldListData'
+    this.setData({
+      [`${listType}.areaId`]: areaId,
+      [`${listType}.cityIndex`]: index
     })
+    this.getRapidly()
   },
   routeJump (e) {
     let touch = e.currentTarget.dataset
@@ -270,11 +279,11 @@ Page({
         listFun = !tabIndex ? getRapidlyApi : getRecentApi,
         params = {
           page: listData.pageNum,
+          city: listData.areaId,
           count: listData.count,
           hasLoading
         } 
     params.page++
-    params.city = areaId
     return listFun(params).then(res => {
       let list = !tabIndex ? res.data.items : res.data,
           isLastPage = listData.isLastPage,
@@ -324,20 +333,16 @@ Page({
     clearInterval(timer)
   },
   onPageScroll(e) {
-    clearTimeout(navTimer)
-    navTimer = setTimeout(() => {
-      if (e.scrollTop > 0) {
-        if (!this.data.navFixed) this.setData({navFixed: true})
-      } else {
-        if (this.data.navFixed) this.setData({navFixed: false})
-      }
-      if (e.scrollTop > tabTop) {
-       if (!this.data.tabFixed) this.setData({tabFixed: true})
-      } else {
-        if (this.data.tabFixed) this.setData({tabFixed: false})
-      }
-      clearTimeout(navTimer)
-    }, 10)
+    if (e.scrollTop > 0) {
+      if (!this.data.navFixed) this.setData({navFixed: true})
+    } else {
+      if (this.data.navFixed) this.setData({navFixed: false})
+    }
+    if (e.scrollTop > tabTop) {
+     if (!this.data.tabFixed) this.setData({tabFixed: true})
+    } else {
+      if (this.data.tabFixed) this.setData({tabFixed: false})
+    }
   },
   formSubmit(e) {
     app.postFormId(e.detail.formId)
@@ -345,24 +350,18 @@ Page({
   resetList () {
     let tabIndex = this.data.tabIndex,
         listData = !tabIndex ? this.data.nowListData : this.data.oldListData,
-        listType = !tabIndex ? 'nowListData' : 'oldListData',
-        defaultData = {
-          list: [],
-          count: app.globalData.pageCount,
-          pageNum: 0,
-          onBottomStatus: 0,
-          isLastPage: false,
-          isRequire: false
-        }
+        listType = !tabIndex ? 'nowListData' : 'oldListData'
     this.setData({
       [`${listType}`]: {
-          list: [],
-          count: app.globalData.pageCount,
-          pageNum: 0,
-          onBottomStatus: 0,
-          isLastPage: false,
-          isRequire: false
-      }
+            list: [],
+            areaId: listData.areaId,
+            cityIndex: listData.cityIndex,
+            count: app.globalData.pageCount,
+            pageNum: 0,
+            onBottomStatus: 0,
+            isLastPage: false,
+            isRequire: false
+          }
     })
   },
   /**

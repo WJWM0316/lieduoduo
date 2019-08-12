@@ -6,7 +6,7 @@
 	  </view>
 		<view class="page-top">
 			<image class="bgImg" src="{{cdnPath}}job-detail.png" mode="widthFix"></image>
-			<shareBtn posterType="position" id="shareBtn" posterData="{{detail}}" wx:if="{{detail.isOnline === 1 && (detail.status === 1 || detail.status === 2)}}"></shareBtn>
+			<shareBtn posterType="position" id="shareBtn" params="{{detail.id}}" wx:if="{{detail.isOnline === 1 && (detail.status === 1 || detail.status === 2)}}"></shareBtn>
 			<view class="company-infos {{detail.isRapidly === 1 ? 'hasSpecail' : ''}}">
 				<view class="header">
 					<view class="text">

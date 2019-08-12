@@ -36,7 +36,7 @@
 				<button wx:if="{{infos.isRapidly === 1 && !interviewInfos.applied && infos.rapidlyInfo.seatsNum - infos.rapidlyInfo.applyNum - infos.rapidlyInfo.natureApplyNum > 0}}" form-type="submit"  class="clear-style button-box button-box-color1 specailBtn" bindtap="todoAction" data-action="job-hunting-chat">
 					<view>
 						<view class="txt1">马上抢</view>
-						<view class="txt2">剩{{infos.rapidlyInfo.seatsNum - infos.rapidlyInfo.applyNum - infos.rapidlyInfo.natureApplyNum}}个约面机会</view>
+						<view class="txt2">剩{{infos.rapidlyInfo.seatsNum - infos.rapidlyInfo.applyNum - infos.rapidlyInfo.natureApplyNum}}个约面席位</view>
 					</view>
 				</button>
 				<button wx:else form-type="submit"  class="clear-style button-box button-box-color1" bindtap="todoAction" data-action="job-hunting-chat">

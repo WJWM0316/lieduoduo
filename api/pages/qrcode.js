@@ -43,3 +43,4 @@ export const getRecruiterQrcodeApi = (data, hasLoading) => {
     hasLoading: hasLoading
   })
 }
+

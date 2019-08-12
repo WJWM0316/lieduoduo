@@ -9,7 +9,8 @@ import {shareChance} from '../../../../utils/shareWord.js'
 const app = getApp()
 let timer = null
 let identity = '',
-    hasOnload = false // 用来判断是否执行了onload，就不走onShow的校验
+    hasOnload = false, // 用来判断是否执行了onload，就不走onShow的校验
+    tabTop = 0
 Page({
   data: {
     pageCount: 20,
@@ -21,7 +22,6 @@ Page({
     hideLoginBox: true,
     isBangs: app.globalData.isBangs,
     pixelRatio: app.globalData.systemInfo.pixelRatio,
-    bannerH: 200,
     tabList: [
       {
         name: '工作城市',
@@ -49,6 +49,7 @@ Page({
     bannerList: [],
     moreRecruiter: [],
     tabType: 'closeTab',
+    bannerH: 200,
     city: 0,
     cityIndex: 0,
     type: 0,
@@ -273,7 +274,7 @@ Page({
         this.reloadPositionLists()
         break
     }
-    if (this.data.tabFixed) this.setData({tabFixed: false})
+    wx.pageScrollTo({scrollTop: 0})
   },
   getRecord() {
     return getPositionRecordApi().then(res => {
@@ -418,6 +419,11 @@ Page({
         })
       }
       this.setData({bannerList: list})
+      wx.nextTick(() => {
+        getSelectorQuery('.select-box').then(res => {
+          tabTop = res.top - res.height
+        })
+      })
     })
   },
   authSuccess() {
@@ -486,22 +492,15 @@ Page({
     return this.getPositionList()
   },
   onPageScroll(e) {
-    if (e.scrollTop > this.data.bannerH + 37 + 55) {
-      if (!this.data.tabFixed) {
-        clearTimeout(timer)
-        timer = setTimeout(() => {
-          this.setData({tabFixed: true})
-          clearTimeout(timer)
-        }, 10) 
-      }
+    if (e.scrollTop > 0) {
+      if (!this.data.navFixed) this.setData({navFixed: true})
     } else {
-      if (this.data.tabFixed) {
-        clearTimeout(timer)
-        timer = setTimeout(() => {
-          this.setData({tabFixed: false})
-          clearTimeout(timer)
-        }, 10) 
-      }
+      if (this.data.navFixed) this.setData({navFixed: false})
+    }
+    if (e.scrollTop > tabTop) {
+      if (!this.data.tabFixed) this.setData({tabFixed: true})
+    } else {
+      if (this.data.tabFixed) this.setData({tabFixed: false})
     }
   },
   onPullDownRefresh() {

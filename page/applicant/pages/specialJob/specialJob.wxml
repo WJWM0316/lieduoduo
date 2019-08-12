@@ -1,11 +1,13 @@
 <view class="specialJobWrap">
-<navbar title="急速約面" background="linear-gradient(337deg,rgb(50, 32, 116) 0%,rgba(50,32,116,1) 100%);" color="#fff" wx:if="{{navFixed}}"></navbar>
+<view style="opacity: {{navFixed ? 1 : 0}}">
+	<navbar title="急速約面" background="linear-gradient(337deg,rgb(50, 32, 116) 0%,rgba(50,32,116,1) 100%);" color="#fff"></navbar>
+</view>
 <view hidden="{{!hasReFresh}}">
   <refreshStatus></refreshStatus>
 </view>
 <shareBtn posterType="specialJob"></shareBtn>
-<view class="specialJob">
-	<view class="header" style="padding-top: {{navH -26}}px">
+<view class="specialJob" style="margin-top: -26rpx">
+	<view class="header">
 		<image class="banner" src="{{cdnImagePath}}img_24h_banner.png" mode="widthFix"></image>
 	</view>
 	<view class="avatar">
@@ -27,7 +29,7 @@
 	</view>
 	<view class="city {{tabFixed ? 'fixed' : ''}} {{cityList.length <= 6 ? 'center' : ''}}" wx:if="{{cityList.length}}" style="top: calc({{navH}}px + 90rpx)">
 		<view class="cityBox">
-			<view class="cityInner {{cityIndex === index ? 'active' : ''}}" wx:for="{{cityList}}" wx:key="{{index}}" bindtap="filterCity" data-index="{{index}}" data-areaid="{{item.areaId}}"><text class="cityName">{{item.areaName}}</text></view>
+			<view class="cityInner {{!tabIndex ? (nowListData.cityIndex === index ? 'active' : '') : (oldListData.cityIndex === index ? 'active' : '')}}" wx:for="{{cityList}}" wx:key="{{index}}" bindtap="filterCity" data-index="{{index}}" data-areaid="{{item.areaId}}"><text class="cityName">{{item.areaName}}</text></view>
 		</view>
 	</view>
 	<view style="height: {{tabFixed ? 171 : 0}}rpx"></view>
@@ -71,13 +73,13 @@
 									<view class="position_progress">
 										<view class="progress_num">
 											<block wx:if="{{item.seatsNum - item.applyNum - item.natureApplyNum > 0}}">
-												还剩<text class="num">{{item.seatsNum - item.applyNum - item.natureApplyNum > 100 ? '99+' : item.seatsNum - item.applyNum - item.natureApplyNum}}</text>个机会
+												还剩<text class="num">{{item.seatsNum - item.applyNum - item.natureApplyNum > 100 ? '99+' : item.seatsNum - item.applyNum - item.natureApplyNum}}</text>个席位
 											</block>
 											<block wx:else>席位已抢光</block>
 										</view>
 										<view class="progress_bar {{(item.applyNum + item.natureApplyNum) === 0 ? 'noApplyNum' : ''}}"><text class="bar" style="width: {{(item.natureApplyNum + item.applyNum) /item.seatsNum * 100}}%"></text></view>
 									</view>
-									<view class="btn">马上抢</view>
+									<view class="btn">{{item.seatsNum - item.applyNum - item.natureApplyNum > 0 ? '马上抢' : '开约'}}</view>
 								</view>
 							</view>
 					</button>

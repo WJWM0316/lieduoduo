@@ -19,6 +19,9 @@ Component({
     shareBtn: {
       type: Boolean,
       value: true
+    },
+    params: {
+      type: String
     }
   },
 
@@ -65,24 +68,24 @@ Component({
         case 'position':
           if (e.currentTarget.dataset.type === 'position')
             wx.navigateTo({
-              url: `${COMMON}poster/position/position`
+              url: `${COMMON}poster/createPost/createPost?type=position&positionId=${this.data.params}`
             })
           else {
             wx.navigateTo({
-              url: `${COMMON}poster/exPosition/exPosition`
+              url: `${COMMON}poster/createPost/createPost?type=positionMin&positionId=${this.data.params}`
             })
           }
           break
         case 'applicant':
           wx.navigateTo({
-            url: `${COMMON}poster/resume/resume`
+            url: `${COMMON}poster/createPost/createPost?type=resume&uid=${this.data.params}`
           })
           break
         case 'recruiter':
-          wx.navigateTo({url: `${COMMON}poster/recruiter/recruiter`})
+          wx.navigateTo({url: `${COMMON}poster/createPost/createPost?type=recruiter&uid=${this.data.params}`})
           break
         case 'specialJob':
-          wx.navigateTo({url: `${COMMON}poster/specailList/specailList`})
+          wx.navigateTo({url: `${COMMON}poster/createPost/createPost?type=rapidlyViwe`})
           break
       }
       wx.setStorageSync('posterData', this.data.posterData)

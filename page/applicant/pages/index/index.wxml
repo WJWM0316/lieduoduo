@@ -1,9 +1,11 @@
 <view class="applicant-job">
-	<navbar title="猎多多" background="#652791" color="#fff" wx:if="{{tabFixed}}"></navbar>
+  <view style="opacity: {{navFixed ? 1 : 0}}">
+  <navbar title="猎多多" background="#652791" color="#fff"></navbar>
+  </view> 
 	<view hidden="{{!hasReFresh}}">
     <refreshStatus></refreshStatus>
   </view>
-  <view class="head" style="{{tabFixed ? 'margin-top:' + -navH + 'px' : ''}}">
+  <view class="head" style="margin-top: -{{navH}}px">
     <view class="bannerBox" wx:if="{{bannerList.length > 0}}">
       <swiper
         class="swiper"

@@ -459,6 +459,7 @@
   color: #282828;
   font-size:26rpx;
   font-weight:300;
+  z-index: 3;
 }
 .prohibitBox .icon {
   color: #FFDC29;

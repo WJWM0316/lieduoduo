@@ -105,9 +105,9 @@
 }
 .tab .icon {
   font-size: 36rpx;
-  padding: 10rpx;
-  top: 16rpx;
-  right: 20rpx;
+  padding: 0 30rpx;
+  top: 0;
+  right: 0;
   position: absolute;
   color: rgba(255,255,255,0.7);
   display: none;
@@ -117,10 +117,13 @@
 	left: 0;
 	background: linear-gradient(337deg,rgb(50, 32, 116) 0%,rgba(50,32,116,1) 100%);
   z-index: 1;
-  padding: 26rpx 180rpx;
+  padding: 20rpx 180rpx;
+  height: 90rpx;
+  line-height: 90rpx;
+  box-sizing: border-box;
 }
 .tab.fixed .icon {
-  display: block;
+  display: inline-block;
 }
 .tab_item {
 	font-size:38rpx;

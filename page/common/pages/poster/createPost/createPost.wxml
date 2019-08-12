@@ -1,5 +1,5 @@
 <view class="poster">
-	<navbar title="急速约面" background="#fff" color="#22292C"></navbar>
+	<navbar title="{{title}}" background="#fff" color="#22292C"></navbar>
 	<view class="imgBox">
 		<image class='showImg' src="{{imgUrl}}" style="width: 100%;" mode="widthFix"></image>
 	</view>
