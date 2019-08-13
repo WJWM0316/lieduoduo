@@ -1,8 +1,7 @@
-<view class="applicant-job" style="padding-top: {{navH}}px">
-  <view class="searchBox" style="height: {{navH}}px;padding-top: {{navH - 44}}px">
-    <view class="cityName">广州<i class="icon"></i></view>
-    <view class="search"><i class="icon iconfont"></i>输入关键/职位/公司</view>
-  </view>
+<view class="applicant-job">
+  <view style="opacity: {{navFixed ? 1 : 0}}">
+  <navbar title="猎多多" background="#652791" color="#fff"></navbar>
+  </view> 
 	<view hidden="{{!hasReFresh}}">
     <refreshStatus></refreshStatus>
   </view>
@@ -28,6 +27,18 @@
       <image class="banner" wx:if="{{!isBangs}}" src="{{cdnImagePath}}bg_homepageh.png?a=3" mode="widthFix"></image>
       <image class="banner" wx:else src="{{cdnImagePath}}bg_homepageh_3.png" mode="widthFix"></image>
     </block>
+    <view class='more'>
+      <view class="moreActive" bindtap='toMore'>
+        <view class="left">
+          <view class="title">发现更多面试官</view>
+          <view class="info">Ta们都在积极抢人，欢迎围观</view>
+        </view>
+        <view class="right">
+          <image class="avatar" lazy-load wx:for="{{moreRecruiter}}" wx:key="{{index}}" src="{{item.smallUrl}}" wx:if="{{index <= 2}}"></image>
+          <image class="avatar" wx:if="{{moreRecruiter.length > 3}}" src="{{cdnImagePath}}more.png"></image>
+        </view>
+      </view>    
+    </view>
     <view class="select-box {{tabFixed ? 'fixed' : ''}}" style="{{tabFixed ? 'top:' + navH + 'px' : ''}}">
       <view class="select-tab">
         <view class="item {{tabType === item.type ? 'cur' : ''}} {{item.active ? 'actived' : ''}}"  bindtap="choseTab" data-type="{{item.type}}" wx:for="{{tabList}}" wx:key="{{index}}"><text class="txt">{{item.name}}</text><i class="icon iconfont icon-zhishibiao"></i></view>
@@ -51,8 +62,11 @@
     <button class="addBtn">立即添加<i class="icon iconfont icon-disejiantou-you"></i></button>
   </view>
   <view class="list-box">
+    <jobList listType="{{!isJobhunter ? 'index' : ''}}" personality="jobItem" list="{{positionList.list}}" list-type="interview" current-tab="all"></jobList>
+    <bottomStatus status="{{onBottomStatus}}" listData="{{positionList.list}}"></bottomStatus>
   </view>
   <tabBar id="bottomRedDotBar"></tabBar>
+  <auth wx:if="{{requireOAuth}}" bindauthSuccess="authSuccess"></auth>
   <bindPhone hide="{{hideLoginBox}}" hasClose="{{false}}"></bindPhone>
   <adPop></adPop>
   <followWechat userInfo="{{userInfo}}"></followWechat>
