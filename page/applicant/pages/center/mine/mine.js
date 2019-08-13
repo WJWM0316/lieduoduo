@@ -137,7 +137,7 @@ Page({
   toEdit () {
     if (!this.data.isJobhunter) return
     wx.navigateTo({
-      url: `${COMMON}resumeDetail/resumeDetail?uid=${this.data.myInfo.uid}&preview=true`,
+      url: `${COMMON}resumeDetail/resumeDetail?uid=${this.data.myInfo.uid}`,
     })
   },
   share () {

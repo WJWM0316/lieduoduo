@@ -102,6 +102,8 @@ Page({
     isReload: false
   },
   onLoad() {
+    app.toastSwitch()
+    
     let choseType = wx.getStorageSync('choseType') || ''
     this.setData({ choseType})
     let that = this

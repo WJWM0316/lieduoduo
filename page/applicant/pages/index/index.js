@@ -69,6 +69,8 @@ Page({
     recommended: 0 // 是否有推荐策略
   },
   onLoad(options) {
+    app.toastSwitch()
+
     hasOnload = false
     let bannerH = this.data.bannerH,
         requireOAuth = this.data.requireOAuth
@@ -145,21 +147,6 @@ Page({
       app.getRoleInit = () => {
         init()
       }
-    }
-    if (wx.getStorageSync('choseType') === 'RECRUITER') {
-      app.wxConfirm({
-        title: '提示',
-        content: '检测到你是招聘官，是否切换招聘端',
-        confirmBack() {
-          wx.reLaunch({
-            url: `${RECRUITER}index/index`
-          })
-        },
-        cancelBack() {
-          wx.setStorageSync('choseType', 'APPLICANT')
-          app.getAllInfo()
-        }
-      })
     }
   },
   initPage () {

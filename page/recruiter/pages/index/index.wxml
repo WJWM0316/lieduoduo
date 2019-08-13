@@ -86,7 +86,6 @@
 		</view>
 	</view>
 	<view class="page_index_list">
-		
 		<view class="default {{fixedDom ? 'fixed' : ''}}" style="{{ fixedDom ? 'top:' + navH + 'px' : ''}}" wx:if="{{detail.positionNum}}">
 			<scroll-view scroll-with-animation scroll-x class="tab-bar" bindscroll="scrollViewMove" scroll-left='{{scrollLeft}}'>
 		  	<view
@@ -126,7 +125,7 @@
 									<image wx:else class="filter" src="{{cdnImagePath}}invisible1.png" mode="aspectFit"></image>
 									<text class="txt">{{item.workAgeDesc}}<block wx:if="{{item.degreeDesc}}"> · {{item.degreeDesc}}</block><block wx:if="{{item.salaryCeil}}"> · {{item.salaryFloor}}-{{item.salaryCeil}}k</block></text>
 								</view>
-								<view class="bot" wx:if="{{item.lastCompanyName}}">{{item.lastCompanyName}}<block wx:if="{{item.lastCompanyName && item.lastCompanyName}}"> | </block>{{item.lastPosition}}</view>
+								<view class="bot" wx:if="{{item.lastPosition}}">{{item.lastPosition}}<block wx:if="{{item.lastCompanyName && item.lastPosition}}"> | </block>{{item.lastCompanyName}}</view>
 							</view>
 						</view>
 						<view class="desc" wx:if="{{!exclusiveSelection && item.isRecommend}}">
@@ -167,7 +166,7 @@
 									<image wx:else class="filter" src="{{cdnImagePath}}invisible1.png" mode="aspectFit"></image>
 									<text class="txt">{{item.workAgeDesc}}<block wx:if="{{item.degreeDesc}}"> · {{item.degreeDesc}}</block><block wx:if="{{item.salaryCeil}}"> · {{item.salaryFloor}}-{{item.salaryCeil}}k</block></text>
 								</view>
-								<view class="bot" wx:if="{{item.lastCompanyName}}">{{item.lastCompanyName}}<block wx:if="{{item.lastCompanyName && item.lastCompanyName}}"> | </block>{{item.lastPosition}}</view>
+								<view class="bot" wx:if="{{item.lastPosition}}">{{item.lastPosition}}<block wx:if="{{item.lastCompanyName && item.lastPosition}}"> | </block>{{item.lastCompanyName}}</view>
 							</view>
 						</view>
 						<view class="desc" wx:if="{{item.isRecommend}}">
@@ -178,7 +177,6 @@
 			</form>
 			<!-- 系统推荐数据 start-->
 		</view>
-
 		<view class="nodata" wx:if="{{!detail.positionNum && !resumeList.list.length}}">
 			<bottomStatus
 				status="{{ 2 }}"
@@ -257,6 +255,5 @@
 		</view>
 	</actionSheet>
   <tabBar tabType="1" id="bottomRedDotBar"></tabBar>
-  <choose wx:if="{{!choseType}}"></choose>
   <followWechat userInfo="{{userInfo}}"></followWechat>
 </view>

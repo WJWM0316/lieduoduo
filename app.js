@@ -603,6 +603,31 @@ App({
       }
     }
   },
+  // APPLICANT访问B页面，或者RECRUITER访问C页面  
+  toastSwitch () {
+    let path = this.getCurrentPagePath(),
+        curRole = wx.getStorageSync('choseType'),
+        sameRole = path.indexOf(curRole === 'APPLICANT' ? 'applicant' : 'recruiter') !== -1
+    // 身份符合直接不弹提示
+    if (sameRole) return
+    let needRole = curRole === 'APPLICANT' ? 'RECRUITER' : 'APPLICANT'
+    let content = needRole === 'APPLICANT' ? '你当前身份是“面试官”，是否切换为“求职者”？' : '你当前身份是“求职者”，是否切换为“面试官”？'
+    this.wxConfirm({
+      title: '',
+      content,
+      cancelBack: () => {
+        wx.reLaunch({
+          url: needRole === 'APPLICANT' ? `${RECRUITER}index/index` : `${APPLICANT}index/index`
+        })
+      },
+      confirmBack: () => {
+        wx.setStorageSync('choseType', needRole)
+        this.getAllInfo().then(() => {
+          wx.reLaunch({url: path})
+        })
+      }
+    })
+  },
   // 提示切换身份
   promptSwitch({source, jumpPath, confirmBack, cancelBack, directId, directChat}) {
     let path = this.getCurrentPagePath()

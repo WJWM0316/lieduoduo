@@ -2,7 +2,7 @@
 <!-- 加载过滤器 -->
 <wxs src="../../../../utils/filters.wxs" module="filters" />
 
-<view wx:if="{{!info.isBlockResume}}">
+<view wx:if="{{!info.isBlockResume && info.uid}}">
   <navbar title="{{isOwner ? '简历完善度' + info.resumeCompletePercentageDesc : '简历详情'}}" background="#FFFFFF" color="#22292C" showHome="{{true}}"></navbar>
   <block wx:if="{{!invisible}}">
     <view class="resume-from" wx:if="{{info.sourceDesc}}">
@@ -19,7 +19,7 @@
         <refreshStatus></refreshStatus>
       </view>
 
-      <view class="resumeDetail {{isOwner ? '' : 'addpadding'}}" wx:if="{{info}}">
+      <view class="resumeDetail addpadding" wx:if="{{info}}">
         
         <shareBtn wx:if="{{!isOwner}}" posterType="{{options.preview ? 'applicant' : ''}}"></shareBtn>
 
@@ -182,6 +182,9 @@
               type="resume"
               bindresultevent="init"
               wx:if="{{info.vkey && !isOwner}}"></interviewBar>
+            <view wx:else class="editBot">
+              <button form-type="submit" class="editBotBtn" bindtap="previewSelf">预览简历</button>
+            </view>
           </view>
           <view wx:if="{{options.preview && !isOwner}}" class="editBot">
             <button form-type="submit" class="editBotBtn" bindtap="editSelf">编辑简历</button>

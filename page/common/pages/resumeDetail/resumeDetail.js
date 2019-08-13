@@ -38,7 +38,6 @@ Page({
     identity = app.identification(options)
     this.setData({options, identity})
     positionCard = ''
-    console.log(options, identity)
   },
   /**
    * 生命周期函数--监听页面显示
@@ -160,9 +159,10 @@ Page({
     })
   },
   editSelf () {
-    let options = this.data.options
-    options.preview = false
-    this.setData({isOwner: true, options})
+    this.setData({isOwner: true, ['options.preview']: false, ['info.vkey']: 1})
+  },
+  previewSelf () {
+    this.setData({isOwner: false, ['options.preview']: true, ['info.vkey']: 0})
   },
   copy(e) {
     wx.setClipboardData({
