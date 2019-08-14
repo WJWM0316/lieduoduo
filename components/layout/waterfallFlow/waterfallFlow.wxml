@@ -1,7 +1,31 @@
-<view class="my-class">
+<view class="wrap my-class" style="height: {{wrapH}}px">
 	<block wx:for="{{listData}}" wx:key="{{indexs}}" wx:for-item="list" wx:for-index="indexs">
 		<view class="flow flow{{indexs}}{{index}}" wx:for="{{list}}" wx:key="{{indexs}}{{index}}" style="left: {{item.left}}px;top: {{item.top}}px">
-			<text>{{item.title}}</text>
+			<view class="card">
+        <view class="header">
+        	<view class="people">
+        		<image class="avatar" src="{{item.recruiterInfo.avatar.smallUrl}}"></image>
+        		<view class="detail">
+        			<view class="name">{{item.recruiterInfo.name}}</view>
+        			<view class="company">{{item.recruiterInfo.companyShortname}}·{{item.recruiterInfo.position}}</view>
+        		</view>
+        	</view>
+        	<view class="signature">{{item.recruiterInfo.signature || '没有设置'}}</view>
+        </view>
+        <view class="content">
+        	<view class="positionName">{{item.positionName}}</view>
+        	<view class="salary">{{item.emolumentMin}}K~{{item.emolumentMax}}K<block wx:if="{{annualSalary > 12}}">·{{annualSalaryDesc}}</block></view>
+        	<view class="otherInfo">
+        		<text class="label">{{item.city}}<block wx:if="{{item.district}}">·{{item.district}}</block></text>
+        		<text class="label">{{item.workExperienceName}}</text>
+        		<text class="label">{{item.educationName}}</text>
+        	</view>
+        </view>
+        <view class="footer">
+        	<view class="viewNum"><text class="num">{{item.numOfVisitors}}</text> 人查看过</view>
+        	<view class="viewBtn"><i class="icon iconfont icon-yanzhengmawenti"></i>开约</view>
+        </view>
+      </view>
 		</view>
 	</block>
 </view>

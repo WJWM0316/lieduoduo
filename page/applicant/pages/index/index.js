@@ -5,6 +5,7 @@ import { getPositionListApi, getPositionRecordApi, getRecommendApi } from '../..
 import {getFilterDataApi} from '../../../../api/pages/aggregate.js'
 import {getAdBannerApi} from '../../../../api/pages/common'
 import {shareChance} from '../../../../utils/shareWord.js'
+import {agreedTxtB} from '../../../../utils/randomCopy.js'
 
 const app = getApp()
 let timer = null
@@ -41,7 +42,7 @@ Page({
     ],
     positionList: {
       list: [],
-      pageNum: 1,
+      pageNum: 0,
       isLastPage: false,
       isRequire: false
     },
@@ -70,26 +71,12 @@ Page({
   },
   onLoad(options) {
     app.toastSwitch()
-
     hasOnload = false
-    let bannerH = this.data.bannerH,
-        requireOAuth = this.data.requireOAuth
-    if (!this.data.isBangs) {
-      bannerH = app.globalData.systemInfo.screenWidth/(750/420)
-    } else {
-      bannerH = app.globalData.systemInfo.screenWidth/(750/468)
-    }
     if (options.needAuth && wx.getStorageSync('choseType') === 'RECRUITER') { // 是否从不服来赞过来的B身份 强制C端身份
       wx.setStorageSync('choseType', 'APPLICANT')
     }
     identity = app.identification(options)
-    const positionList = {
-      list: [],
-      pageNum: 1,
-      isLastPage: false,
-      isRequire: false
-    }
-    this.setData({positionList, bannerH, options})
+    this.setData({options})
     let init = () => {
       this.getAdBannerList()
       this.getAvartList()
@@ -370,7 +357,8 @@ Page({
       delete params.city
       delete params.emolument_id
     }
-    let getList = null
+    let getList = null,
+        positionList = this.data.positionList
     if (this.data.recommended && !params.city && !params.type) {
       getList = getRecommendApi
       params.count = 15
@@ -378,19 +366,17 @@ Page({
     } else {
       getList = getPositionListApi
     }
+    positionList.pageNum++
     return getList(params, hasLoading).then(res => {
-      let positionList = this.data.positionList
-      let onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
       let requireOAuth = false
       if (res.meta && res.meta.requireOAuth) requireOAuth = res.meta.requireOAuth
       if (this.data.options.needAuth && !app.globalData.userInfo) {
         requireOAuth = true
       }
-      positionList.list = positionList.list.concat(res.data)
+      positionList.list.push(res.data)
       positionList.isLastPage = res.data.length === params.count || (res.meta && res.meta.nextPageUrl) ? false : true
-      positionList.pageNum = positionList.pageNum + 1
       positionList.isRequire = true
-      this.setData({positionList, requireOAuth, onBottomStatus})
+      this.setData({positionList, requireOAuth})
     })
   },
   getAdBannerList () {
@@ -407,6 +393,10 @@ Page({
       }
       this.setData({bannerList: list})
       wx.nextTick(() => {
+        getSelectorQuery('.banner').then(res => {
+          let bannerH = res.height
+          this.setData({bannerH})
+        })
         getSelectorQuery('.select-box').then(res => {
           tabTop = res.top - res.height
         })

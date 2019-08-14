@@ -9,6 +9,7 @@
     "auth": "../../../../components/functional/auth/auth",
     "navbar": "../../../../components/business/navbar/navbar",
     "adPop": "../../../../components/business/adPop/adPop",
+    "waterfallFlow": "../../../../components/layout/waterfallFlow/waterfallFlow",
     "bindPhone": "../../../../components/functional/bindPhone/bindPhone"
   }
 }

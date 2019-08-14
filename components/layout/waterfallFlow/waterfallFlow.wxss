@@ -1,14 +1,118 @@
 .wrap {
-	width: 100vw;
+	width: 100%;
 	position: relative;
 }
 .flow {
-	width: 50%;
-	float: left;
-	text-align: center;
-	padding: 30rpx;
-	border: 1rpx solid #000;
-	box-sizing: border-box;
 	position: absolute;
 }
 
+.card {
+  width:354rpx;
+  background:#fff;
+  box-shadow:0rpx 2rpx 14rpx 0rpx rgba(50,14,59,0.08);
+  border-radius:16rpx;
+  overflow: hidden;
+}
+
+.header {
+	padding: 16rpx 28rpx 24rpx;
+	background: #E9E9F5;
+}
+.header .people {
+	padding-left: 84rpx;
+	position: relative;
+}
+.header .avatar {
+	width:72rpx;
+	height:72rpx;
+	border-radius: 50%;
+	border:1rpx solid rgba(255,255,255,1);
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+.header .detail {
+	height: 72rpx;
+	padding-top: 6rpx;
+	box-sizing: border-box;
+}
+.header .detail .name {
+	font-size:26rpx;
+	font-weight:700;
+	color:#282828;
+	line-height:34rpx;
+}
+
+.company {
+	font-size:20rpx;
+	font-weight:300;
+	color:#282828;
+	line-height:28rpx;
+}
+
+.signature {
+	font-size:22rpx;
+	font-weight:700;
+	color:#5C565D;
+	line-height:26rpx;
+	margin-top: 22rpx;
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: 2;
+	overflow: hidden;
+}
+
+.content {
+	padding: 42rpx 28rpx 56rpx;
+}
+.content .positionName {
+	font-size:32rpx;
+	font-weight:700;
+	color:#282828;
+	line-height:32rpx;
+}
+.content .salary {
+	font-size:36rpx;
+	font-family: 'Number';
+	font-weight:700;
+	color:#FF7F4C;
+	line-height:36rpx;
+	margin: 14rpx 0 28rpx;
+}
+.content .otherInfo {
+	font-size: 0;
+}
+.content .otherInfo .label {
+	font-size:20rpx;
+	font-weight:300;
+	color:#626262;
+	line-height:20rpx;
+	padding: 8rpx 12rpx;
+	min-width: 64rpx;
+	box-sizing: border-box;
+	background: #F8F7F9;
+	margin-right: 6rpx;
+}
+.content .otherInfo .label:last-child {
+	margin-right: 0;
+}
+
+.footer {
+	font-size:22rpx;
+	font-weight:700;
+	color:#5C565D;
+	line-height:22rpx;
+	overflow: hidden;
+	padding: 0 28rpx 40rpx;
+}
+.viewNum {
+	float: left;
+}
+.viewNum .num {
+	color: #652791;
+}
+.viewBtn {
+	float: right;
+	color: #652791;
+	font-weight: normal;
+}

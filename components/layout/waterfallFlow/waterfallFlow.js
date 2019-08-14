@@ -1,11 +1,12 @@
 import {getSelectorQuery} from '../../../utils/util.js'
-
+const app = getApp()
 let leftGrounp    = [],    // 每竖的left值集合
     heightGroup   = [],    // 每竖的高度集合
     page          = 1,     // 页码
     minIndex      = 0,     // 高度最小的一竖索引
     curDataGroupIndex = 0 // 开始渲染的排数
 Component({
+  externalClasses: ['my-class'],
   /**
    * 组件的属性列表
    */
@@ -31,7 +32,7 @@ Component({
     },
     spaceX: {            // 水平间距 (单位px)
       type: Number,
-      value: 20
+      value: 10
     },
     spaceY: {            // 垂直间距 (单位px)
       type: Number,
@@ -43,7 +44,8 @@ Component({
    * 组件的初始数据
    */
   data: {
-    listData: []
+    listData: [],
+    wrapH: 0
   },
 
   attached () {
@@ -69,6 +71,9 @@ Component({
       let minFun = (heightGroup) => {
         return minIndex = heightGroup.indexOf(Math.min(...heightGroup))
       }
+      let maxFun = (heightGroup) => {
+        return minIndex = heightGroup.indexOf(Math.max(...heightGroup))
+      }
       let array = list
       array.forEach((item, index) => {
         getSelectorQuery(`.flow${this.data.page - 1}${index}`, that).then(res => {
@@ -83,7 +88,7 @@ Component({
             if (index === 0) {
               array[index].left = 0
             } else {
-              array[index].left = array[index - 1].left + array[index - 1].width + this.data.spaceX
+              array[index].left = array[index - 1].left + array[index - 1].width + this.data.spaceX * app.globalData.xs
             }
             heightGroup.push(res.height) // 记录每路的高度
             leftGrounp.push(array[index].left) // 记录每路的left
@@ -91,11 +96,12 @@ Component({
           if (curDataGroupIndex > 1) { // 从第二排开始布局
             minIndex = minFun(heightGroup)
             array[index].left = leftGrounp[minIndex]
-            array[index].top = heightGroup[minIndex] + this.data.spaceY
+            array[index].top = heightGroup[minIndex] + this.data.spaceY * app.globalData.xs
             heightGroup[minIndex] = array[index].top + array[index].height // 重置每路的高度
           }
           if (index === list.length - 1) {
-            this.setData({[`listData[${this.data.page - 1}]`]: array})
+            let wrapH = heightGroup[maxFun(heightGroup)]
+            this.setData({[`listData[${this.data.page - 1}]`]: array, wrapH})
           }
         })
       })

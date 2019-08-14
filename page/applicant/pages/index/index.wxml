@@ -1,12 +1,13 @@
 <view class="applicant-job" style="padding-top: {{navH}}px">
   <view class="searchBox" style="height: {{navH}}px;padding-top: {{navH - 44}}px">
-    <view class="cityName">广州<i class="icon"></i></view>
-    <view class="search"><i class="icon iconfont"></i>输入关键/职位/公司</view>
+    <view class="cityName">广州</view>
+    <i class="cityIcon iconfont icon-sanjiaoshaixuan"></i>
+    <view class="search"><i class="icon iconfont icon-sousuo"></i>输入关键/职位/公司</view>
   </view>
 	<view hidden="{{!hasReFresh}}">
     <refreshStatus></refreshStatus>
   </view>
-  <view class="head" style="margin-top: -{{navH}}px">
+  <view class="head">
     <view class="bannerBox" wx:if="{{bannerList.length > 0}}">
       <swiper
         class="swiper"
@@ -51,6 +52,9 @@
     <button class="addBtn">立即添加<i class="icon iconfont icon-disejiantou-you"></i></button>
   </view>
   <view class="list-box">
+    <waterfallFlow my-class="waterfallFlow" id="waterfallFlow" value="{{positionList.list}}" page="{{positionList.pageNum}}">
+      
+    </waterfallFlow>
   </view>
   <tabBar id="bottomRedDotBar"></tabBar>
   <bindPhone hide="{{hideLoginBox}}" hasClose="{{false}}"></bindPhone>

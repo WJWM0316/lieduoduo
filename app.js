@@ -23,6 +23,7 @@ App({
       success: res => {
         //导航高度
         console.log(res, '系统信息')
+        this.globalData.xs = res.windowWidth / 375 / 2
         this.globalData.navHeight = res.statusBarHeight + 44
         if (res.model.indexOf('iPhone X') !== -1) {
           this.globalData.isIphoneX = true
@@ -82,6 +83,7 @@ App({
     isBangs: false, // 是否是刘海屏，水滴屏
     telePhone: '400-065-5788',  // 联系电话
     systemInfo: wx.getSystemInfoSync(), // 系统信息
+    xs: 0, // px 转化成 rpx 的 比例
     // 面试红点信息
     redDotInfos: {}
   },
