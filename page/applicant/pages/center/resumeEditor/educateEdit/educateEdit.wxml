@@ -3,15 +3,15 @@
 <view class="warp">
   <view class="commont">
     <view class="title"><text>*</text>学校</view>
-    <view class="result"><input type="text" bindblur="schoolName" placeholder="请填写学校名称" value="{{schoolName}}"></input></view>
+    <view class="result"><input type="text" bindblur="schoolName" placeholder-class="holderStyle" placeholder="请填写学校名称" value="{{schoolName}}"></input></view>
   </view>
   <view class="commont salary">
     <view class="title"><text>*</text>学历</view>
-    <myPicker class="myPicker" setResult="{{info.degreeDesc || '本科'}}" pickerType="education" placeholderStyle="color: #BCBCBC" rangeKey="text" data-time="education" bindresultevent="getresult"></myPicker>
+    <myPicker class="myPicker" setResult="{{info.degreeDesc}}" pickerType="education" placeholderStyle="color: #BCBCBC" rangeKey="text" data-time="education" bindresultevent="getresult"></myPicker>
   </view>
   <view class="commont">
     <view class="title"><text>*</text>专业</view>
-    <view class="result"><input type="text" bindblur="subject" placeholder="请填写专业名称" value="{{subject}}"></input></view>
+    <view class="result"><input type="text" bindblur="subject" placeholder-class="holderStyle" placeholder="请填写专业名称" value="{{subject}}"></input></view>
   </view>
   <view class="commont salary">
     <view class="title"><text>*</text>开始时间</view>
@@ -24,7 +24,7 @@
   <!--项目描述-->
   <view class="title">在校经历</view>
   <view class="textArea">
-    <textarea placeholder="在校期间获得了***的荣誉；学习了***的技能；与岗位契合的内容" placeholder-class="placeholder" maxlength="1000" bindinput="WriteContent" value="{{description}}"></textarea>
+    <textarea placeholder="在校期间获得了***的荣誉；学习了***的技能；与岗位契合的内容" placeholder-class="holderStyle" maxlength="1000" bindinput="WriteContent" value="{{description}}"></textarea>
     <view class="bottom">
       <view class="example" bindtap="showPopups"><!-- <i class="icon iconfont icon-chakan"></i>看看别人怎么写 --></view>
       <view class="num">{{description.length}}/1000</view>

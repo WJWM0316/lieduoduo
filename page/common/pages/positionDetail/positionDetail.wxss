@@ -138,11 +138,10 @@
 	display: inline-block;
 	margin-right: 16rpx;
 	margin-top: 16rpx;
-	line-height: 1;
 }
 
 .job-describe {
-	box-shadow:0rpx 4rpx 20rpx 0rpx rgba(101,39,145,0.1);
+	box-shadow:0px 0px 30px 0px rgba(22,39,77,0.07);
 	border-radius:16rpx;
 	display: block;
 	overflow: hidden;
@@ -150,7 +149,8 @@
 	padding: 40rpx;
 	margin: 20rpx 30rpx;
 	position: relative;
-	background: white;
+	background-color: #fff;
+  z-index: 2;
 }
 
 .tags-ul {
@@ -585,7 +585,6 @@
   border-radius: 0 0 16rpx 16rpx;
 }
 .rest {
-	width:90rpx;
 	font-size:22rpx;
 	font-weight:300;
 	color:#FFFFFF;
@@ -599,6 +598,14 @@
 	font-weight:700;
 	color:rgba(255,220,41,1);
 	line-height:46rpx;
+}
+.rest.no {
+	top: 40rpx;
+}
+.rest .num.no {
+	font-size: 32rpx;
+  line-height: 40rpx;
+  margin-bottom: 2rpx;
 }
 .rest .txt {
 	font-size:30rpx;
@@ -654,4 +661,39 @@
   line-height: 1;
 	margin-left: 8rpx;
 	color: #BC94D7;
+}
+
+.job-detail .companyTxt {
+	padding: 30rpx 40rpx;
+	font-size:28rpx;
+	font-weight:300;
+  min-height: 114rpx;
+  max-height: 136rpx;
+	color:rgba(40,40,40,1);
+  box-sizing: border-box;
+	line-height:38rpx;
+	display: flex;
+	align-items: center;
+	background: #F8F8F8 url('https://attach.lieduoduo.ziwork.com/front-assets/images/ada.png') no-repeat 554rpx bottom;
+  background-color: linear-gradient(180deg,rgba(248,248,248,0.49) 0%,rgba(248,248,248,1) 100%);
+  background-size: 96rpx 64rpx;
+  border-radius: 16rpx 16rpx 0 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+.job-detail .companyTxt.hidden {
+  opacity: 0;
+  position: relative;
+}
+.companyTxt .txt {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+
+.job-describe.hebing {
+  
 }

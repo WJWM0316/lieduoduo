@@ -3,15 +3,15 @@
 <view class="warp">
   <view class="commont">
     <view class="title"><text>*</text>公司名称</view>
-    <view class="result"><input type="text" maxlength="50" bindblur="inpCompany" placeholder="请输入公司名称" value="{{company}}"></input></view>
+    <view class="result"><input type="text" placeholder-class="holderStyle" maxlength="50" bindblur="inpCompany" placeholder="请输入公司名称" value="{{company}}"></input></view>
   </view>
   <view class="commont" data-type="3" bindtap="choose">
     <view class="title"><text>*</text>职位类别</view>
-    <view class="result">{{jobCategories.typeName || jobCategories || '选择职位类别'}}<i class="icon iconfont icon-xiangyou"></i></view>
+    <view class="result {{!jobCategories.typeName && !jobCategories ? 'holderStyle' : ''}}">{{jobCategories.typeName || jobCategories || '选择职位类别'}}<i class="icon iconfont icon-xiangyou"></i></view>
   </view>
   <view class="commont">
     <view class="title"><text>*</text>职位名称</view>
-    <view class="result"><input type="text" bindblur="inpPosition" placeholder="请输入职位名称" value="{{positionName}}"></input></view>
+    <view class="result"><input type="text" placeholder-class="holderStyle" bindblur="inpPosition" placeholder="请输入职位名称" value="{{positionName}}"></input></view>
   </view>
   <view class="commont salary">
     <view class="title"><text>*</text>开始时间</view>
@@ -24,10 +24,9 @@
   <view class="commont" data-type="4" bindtap="choose">
     <view class="title"><text>*</text>技能标签</view>
     <view class="result">
-      <text wx:for="{{skill}}" wx:if="{{skill.length > 0}}" class="labelTxt" wx:key="{{index}}">{{item.labelName || item.name}}<text wx:if="{{index !== skill.length-1}}">、</text></text>
-      <text wx:if="{{skill.length === 0}}" class="placeholder">选择技能标签</text><i class="icon iconfont icon-xiangyou"></i>
+      <view wx:for="{{skill}}" wx:if="{{skill.length > 0}}" class="labelTxt" wx:key="{{index}}">{{item.labelName || item.name}}<text wx:if="{{index !== skill.length-1}}">、</text><i class="icon iconfont icon-xiangyou {{skill.length === 0 ? 'holderStyle' : ''}}"></i></view>
+      <view wx:if="{{skill.length === 0}}" class="placeholder">选择技能标签<i class="icon iconfont icon-xiangyou {{skill.length === 0 ? 'holderStyle' : ''}}"></i></view>
     </view>
-
   </view>
   <!--工作内容-->
   <view class="title"><text>*</text>工作内容</view>

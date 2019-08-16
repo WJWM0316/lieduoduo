@@ -168,6 +168,11 @@ Page({
           time = timePocessor.restTime(res.data.rapidlyInfo.endTime.replace(/-/g, '/'))
           this.countDown(time)
         }
+        let serviceEndTime = res.data.rapidlyServiceEndTime
+        if (serviceEndTime) {
+          res.data['serviceEndTime'] = `${parseInt(serviceEndTime.slice(5, 7))}月${parseInt(serviceEndTime.slice(8, 10))}日`
+        }
+        console.log(res.data, 11)
         this.setData({
           requireOAuth: requireOAuth,
           detail: res.data, 

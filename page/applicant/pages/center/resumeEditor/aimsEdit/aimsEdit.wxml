@@ -10,7 +10,7 @@
     <view class="result">
       <text wx:if="{{info.position}}">{{info.position}}</text>
       <text class="holderStyle" wx:else>请选择</text>
-      <i class="icon iconfont icon-xiangyou"></i>
+      <i class="icon iconfont icon-xiangyou {{info.position ? '' : 'holderStyle'}}"></i>
     </view>
   </view>
   <view class="commont salary">
@@ -26,7 +26,7 @@
         </block>
         <text class="holderStyle" wx:else>请选择</text>
       </text>
-      <i class="icon iconfont icon-xiangyou"></i>
+      <i class="icon iconfont icon-xiangyou {{info.fields.length ? '' : 'holderStyle'}}"></i>
     </view>
   </view>
 </view>

@@ -412,6 +412,9 @@ Page({
       }
     }
   },
+  toIndex () {
+    wx.reLaunch({url: `${RECRUITER}index/index`})
+  },
   // 初始化tab红点
   initTabRedDot() {
     this.selectComponent('#bottomRedDotBar').init()

@@ -33,15 +33,18 @@
 				<button class="clear-style button-box button-box-color4"> 职位已关闭 </button>
 			</block>
 			<block wx:else>
-				<button wx:if="{{infos.isRapidly === 1 && !interviewInfos.applied && infos.rapidlyInfo.seatsNum - infos.rapidlyInfo.applyNum - infos.rapidlyInfo.natureApplyNum > 0}}" form-type="submit"  class="clear-style button-box button-box-color1 specailBtn" bindtap="todoAction" data-action="job-hunting-chat">
-					<view>
-						<view class="txt1">马上抢</view>
-						<view class="txt2">剩{{infos.rapidlyInfo.seatsNum - infos.rapidlyInfo.applyNum - infos.rapidlyInfo.natureApplyNum}}个约面席位</view>
-					</view>
-				</button>
-				<button wx:else form-type="submit"  class="clear-style button-box button-box-color1" bindtap="todoAction" data-action="job-hunting-chat">
-					开撩约面
-				</button>
+				<block wx:if="{{infos.isRapidly === 1 && !interviewInfos.applied && infos.rapidlyInfo.seatsNum - infos.rapidlyInfo.applyNum - infos.rapidlyInfo.natureApplyNum > 0}}" >
+					<button form-type="submit" class="clear-style button-box button-box-color1 specailBtn" bindtap="todoAction" data-action="job-hunting-chat">
+						<view>
+							<view class="txt1">马上抢</view>
+							<view class="txt2">剩{{infos.rapidlyInfo.seatsNum - infos.rapidlyInfo.applyNum - infos.rapidlyInfo.natureApplyNum}}个约面席位</view>
+						</view>
+					</button>
+				</block>
+				<block wx:else>
+					<button form-type="submit"  class="clear-style button-box button-box-color1" bindtap="todoAction" data-action="job-hunting-chat">开撩约面</button>
+					<image wx:if="{{showEndIcon}}" class="endIcon" src="{{cdnImagePath}}img_warnning_nosite@2x.png" mode="widthFix"></image>
+				</block>
 			</block>
 		</block>
 		<!-- 求职者还没有发起开撩动作 职位详情 end-->
@@ -53,7 +56,11 @@
 				<view class="second">待确认申请</view>
 			</view>
 			<view class="button-box button-box-color2">
-				<view bindtap="todoAction" data-action="job-hunting-applyed">{{interviewInfos.interviewType === 2 ? '面试官将于24h内反馈' : '已申请面试'}}</view>
+				<view bindtap="todoAction" data-action="job-hunting-applyed">
+					<block wx:if="{{interviewInfos.interviewType === 2 && !interviewInfos.serviceEndTimeDesc}}">面试官将于24h内反馈</block>
+					<block wx:elif="{{interviewInfos.interviewType === 2 && interviewInfos.serviceEndTimeDesc}}">面试官最迟将于{{interviewInfos.serviceEndTimeDesc}}反馈</block>
+					<block wx:else>已申请面试</block>
+				</view>
 			</view>
 		</block>
 		<!-- 求职者已经发起开撩动作 end-->
@@ -121,7 +128,7 @@
 				</view>
 				<view class="button-box">
 					<view class="reject" data-action="recruiter-reject" bindtap="todoAction">不合适</view>
-					<view class="accept" data-action="recruiter-accept" bindtap="todoAction" data-status="{{'f'}}">{{interviewInfos.interviewType === 2 ? '查看联系' : '确认约面'}}</view>
+					<view class="accept" data-action="recruiter-accept" bindtap="todoAction" data-status="{{'f'}}">查看联系</view>
 				</view>
 			</block>
 			<!-- 求职端已开启撩 招聘端可接受可拒绝 end-->
@@ -264,6 +271,15 @@
 			data-action="openPosition">
 			去发布/开放职位
 		</view>
+	</view>
+</view>
+<view class="seccessPop" wx:if="{{showSuccessPop}}">
+	<view class="popInner">
+		<view class="title">已抢占成功</view>
+		<i class="close iconfont icon-close" bindtap="closePop"></i>
+		<view class="contnet">{{successPopDesc}}</view>
+		<image class="cotImg" mode="widthFix" src="{{cdnImagePath}}img_popup_24succjob.png"></image>
+		<view class="popBtn" bindtap="todoAction" data-action="toSpecialJob">抢更多高薪机会</view>
 	</view>
 </view>
 </form>

@@ -226,6 +226,11 @@ Page({
         })
         wx.setStorageSync('strategyData', this.data.otherData.toastTips)
         this.touchVkey(e)
+        if (touch.report) {
+          app.wxReportAnalytics('btn_report', {
+            btn_type: 'specialJob_strategy_btn_tab'
+          })
+        }
         break
       case 'createUser':
         wx.navigateTo({

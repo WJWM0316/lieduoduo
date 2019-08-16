@@ -1,9 +1,12 @@
 <view class="bottomStatus my-class" wx:if="{{status}}">
 	<image class="loading status" wx:if="{{status === 1}}" src='{{cdnImagePath}}gif_listloading@3x.gif'></image>
-	<text class="txt status" wx:if="{{status === 2 && listData.length > 0}}"><slot></slot>没有更多数据</text>
+	<view class="txt status" wx:if="{{status === 2 && listData.length > 0}}" style="margin-top: {{marginTop}}rpx">
+		<view><text class="moreDesc">{{moreDesc}}</text></view>
+		<slot></slot>
+	</view>
 	<view class="txt" wx:if="{{status === 2 && listData.length === 0}}" style="margin-top: {{marginTop}}rpx">
 		<image class="pic" src="{{cdnImagePath}}emptyState.png"></image>
-		<view class="desc my-item-class">{{desc}}</view>
+		<text class="desc my-item-class">{{desc}}</text>
 		<slot></slot>
 	</view>
 </view>

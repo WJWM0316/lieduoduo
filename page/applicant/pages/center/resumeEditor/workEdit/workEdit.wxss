@@ -56,7 +56,7 @@
 .placeholder{
   padding: 20rpx 0;
   font-size: 28rpx;
-  font-weight: 400;
+  font-weight: 300;
   line-height: 36rpx;
   color: #BCBCBC;
 }

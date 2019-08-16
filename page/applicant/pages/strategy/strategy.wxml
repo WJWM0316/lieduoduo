@@ -14,7 +14,8 @@
 		<view class="content_txt noMargin">
 			<view>1、【限时热抢】为限时限量职位，有效期内成功抢占席位者，将尊享24小时急速反馈特权服务，反之则按普通流程速度反馈；</view>
 			<view>2、【200元现金红包】为平台额外奖励，请成功约面者保持通信设备畅通，以免奖励发放失败，造成后果将由用户自行承担；</view>
-			<view>3、本次活动最终解释权归广州老虎信息科技有限公司所有，如有企业进驻需求或其他疑问，欢迎联系官方客服：<text class="phone" bindtap="call">{{telePhone}}</text>；</view>
+			<view>3、节假日前一天及节假日内抢占席位，不享24小时急速反馈特权服务，将于节假日后24小时内反馈；</view>
+			<view>4、本次活动最终解释权归广州老虎信息科技有限公司所有，如有企业进驻需求或其他疑问，欢迎联系官方客服：<text class="phone" bindtap="call">{{telePhone}}</text>；</view>
 		</view>
 	</view>
 	<view class="footer">

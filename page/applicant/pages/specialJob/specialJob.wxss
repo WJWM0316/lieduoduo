@@ -47,7 +47,7 @@
 .avatar_left_box .avatarImg {
 	width: 48rpx;
 	height: 48rpx;
-	border: 1rpx solid #fff;
+	border: 2rpx solid rgba(255,255,255, .6);
 	float: left;
 	border-radius: 50%;
 	margin-left: -14rpx;

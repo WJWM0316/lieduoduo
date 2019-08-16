@@ -86,7 +86,7 @@
 				</block>
 			</view>
 			<block wx:if="{{nowListData.isLastPage && nowListData.list[0].length > 0}}">
-				<view class="overWord">今天先推荐到这里，明天记得在来看看哦~</view>
+				<view class="overWord">今天先推荐到这里，明天记得再来看看哦~</view>
 				<view class="toggleBtn" bindtap="toggleTab" data-index="{{1}}">查看近期精选职位<i class="icon iconfont icon-xiangyou"></i></view>
 			</block>
 			<bottomStatus wx:if="{{!nowListData.list[0].length}}" my-class="bottomStatus" my-item-class="desc" marginTop="{{86}}" status="{{nowListData.onBottomStatus}}" listData="{{nowListData.list[0]}}" desc="一大批优质职位即将来袭，等下再来看看吧～">
@@ -136,7 +136,7 @@
 			</bottomStatus>
 		</view>
 	</form>
-	<image wx:if="{{!isJobhunter}}" bindtap="routeJump" data-route="strategy" class="glEnter" src="{{cdnImagePath}}glEnter.png" style="bottom: {{isIphoneX ? 190 : 122}}rpx"></image>
+	<image wx:if="{{!isJobhunter}}" bindtap="routeJump" data-route="strategy" data-report="{{true}}" class="glEnter" src="{{cdnImagePath}}glEnter.png" style="bottom: {{isIphoneX ? 190 : 122}}rpx"></image>
 </view>
 <barrage list="{{otherData.toastTips}}" wx:if="{{otherData.toastTips.length}}"  my-class="barrage" my-item-class="barrage_item"></barrage>
 <tabBar id="bottomRedDotBar"></tabBar>

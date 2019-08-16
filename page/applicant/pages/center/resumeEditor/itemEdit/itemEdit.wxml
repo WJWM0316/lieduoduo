@@ -3,11 +3,11 @@
 <view class="warp">
   <view class="commont">
     <view class="title"><text>*</text>项目名称</view>
-    <view class="result"><input type="text" bindblur="itemName" placeholder="请输入项目名称" value="{{itemName}}"></input></view>
+    <view class="result"><input type="text" bindblur="itemName" placeholder-class="holderStyle" placeholder="请输入项目名称" value="{{itemName}}"></input></view>
   </view>
   <view class="commont">
     <view class="title"><text>*</text>担任角色</view>
-    <view class="result"><input type="text" bindblur="role" placeholder="请输入担任角色" value="{{role}}"></input></view>
+    <view class="result"><input type="text" bindblur="role" placeholder-class="holderStyle" placeholder="请输入担任角色" value="{{role}}"></input></view>
   </view>
   <view class="commont salary">
     <view class="title"><text>*</text>开始时间</view>
@@ -20,7 +20,7 @@
   <!--项目描述-->
   <view class="title"><text>*</text>项目描述</view>
   <view class="textArea">
-    <textarea placeholder="这个项目的目的是***，取得成就是***，我在其中发挥了***的作用" placeholder-class="placeholder" maxlength="1000" bindinput="writeContent" value="{{description}}"></textarea>
+    <textarea placeholder="这个项目的目的是***，取得成就是***，我在其中发挥了***的作用" placeholder-class="holderStyle" maxlength="1000" bindinput="writeContent" value="{{description}}"></textarea>
     <view class="bottom">
       <view class="example" bindtap="showPopups"><!-- <i class="icon iconfont icon-chakan"></i>看看别人怎么写 --></view>
       <view class="num">{{description.length}}/1000</view>
@@ -29,7 +29,7 @@
   <!--项目链接-->
   <view class="title">项目链接</view>
   <view class="textArea">
-    <textarea placeholder="可访问的项目链接" placeholder-class="placeholder" bindinput="itemLink" value="{{itemLink}}"></textarea>
+    <textarea placeholder="可访问的项目链接" placeholder-class="holderStyle" bindinput="itemLink" value="{{itemLink}}"></textarea>
   </view>
 </view>
 <view style="height: 168rpx;"></view>

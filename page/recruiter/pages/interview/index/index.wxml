@@ -116,7 +116,9 @@
 				</view>
 			</button>
 		</form>
-		<bottomStatus status="{{receiveBottomStatus}}" listData="{{receiveData.list}}"></bottomStatus>
+		<bottomStatus my-class="bottomStatus" status="{{receiveBottomStatus}}" listData="{{receiveData.list}}" moreDesc="与其等待，不如主动出击~" desc="与其等待，不如主动出击~" marginTop="80">
+			<button class="bottomStatusBtn" bindtap="toIndex">发现更多优质简历<i class="icon iconfont icon-disejiantou-you"></i></button>
+		</bottomStatus>
 	</view>
 	
 	<!--我的邀请-->
@@ -167,7 +169,9 @@
 				</view>
 			</button>
 		</form>
-		<bottomStatus status="{{applyBottomStatus}}" listData="{{applyData.list}}"></bottomStatus>
+		<bottomStatus my-class="bottomStatus" status="{{applyBottomStatus}}" listData="{{applyData.list}}" moreDesc="与其等待，不如主动出击~" desc="与其等待，不如主动出击~" marginTop="80">
+			<button class="bottomStatusBtn" bindtap="toIndex">发现更多优质简历<i class="icon iconfont icon-disejiantou-you"></i></button>
+		</bottomStatus>
 	</view>
 
 	<!--面试日程-->

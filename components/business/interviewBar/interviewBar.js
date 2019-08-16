@@ -67,7 +67,10 @@ Component({
     cdnImagePath: app.globalData.cdnImagePath,
     positionInfos: {},
     show: false,
-    loaded: false
+    loaded: false,
+    showSuccessPop: false,
+    successPopDesc: '',
+    showEndIcon: false
   },
   attached() {
     identity = wx.getStorageSync('choseType')
@@ -193,6 +196,17 @@ Component({
           this.todoAction(e)
           automatic = false
         }
+        let infos = this.data.infos,
+            showEndIcon = true
+        if (!interviewInfos.applied && infos.isRapidly === 1 && infos.rapidlyInfo.seatsNum - infos.rapidlyInfo.applyNum - infos.rapidlyInfo.natureApplyNum === 0) {
+          showEndIcon = true
+          this.setData({showEndIcon})
+          let showTimer = setTimeout(() => {
+            showEndIcon = false
+            clearTimeout(showTimer)
+            this.setData({showEndIcon})
+          }, 3000)
+        }
       })
     },
     /**
@@ -271,28 +285,34 @@ Component({
               showCancel: false,
               confirmText: '知道了',
             })
+          } else if (res.code === 917) {
+            this.setData({showSuccessPop: true, successPopDesc: res.msg})
           } else {
-            if (app.globalData.resumeInfo.resumeCompletePercentage > 0.75) {
+            if (isSpecail) {
+              this.setData({showSuccessPop: true, successPopDesc: '面试官已收到你的申请，将于24h内反馈'})
+              return
+            }
+            if (app.globalData.resumeInfo.resumeCompletePercentage < 0.75) {
+              app.wxConfirm({
+                title: '开撩成功',
+                content: '你的简历竞争力只超过28%的求职者，建议你现在完善简历',
+                cancelText: '暂不完善',
+                confirmText: '马上完善',
+                confirmBack () {
+                  app.wxReportAnalytics('btn_report', {
+                    btn_type: 'perfect_immediately'
+                  })
+                  wx.navigateTo({
+                    url: `${COMMON}resumeDetail/resumeDetail?uid=${app.globalData.resumeInfo.uid}`
+                  })
+                }
+              })
+            } else {
               app.wxToast({
                 title: '开撩成功',
                 icon: 'success'  
               })
-              return
             }
-            app.wxConfirm({
-              title: '开撩成功',
-              content: '你的简历竞争力只超过28%的求职者，建议你现在完善简历',
-              cancelText: '暂不完善',
-              confirmText: '马上完善',
-              confirmBack () {
-                app.wxReportAnalytics('btn_report', {
-                  btn_type: 'perfect_immediately'
-                })
-                wx.navigateTo({
-                  url: `${COMMON}resumeDetail/resumeDetail?uid=${app.globalData.resumeInfo.uid}`
-                })
-              }
-            })
           }
         }
         if(identity === 'APPLICANT') {
@@ -361,6 +381,9 @@ Component({
           }
         }
       }      
+    },
+    closePop () {
+      this.setData({showSuccessPop: false})
     },
     /**
      * @Author   小书包
@@ -586,7 +609,10 @@ Component({
             infos.recommend.dealStatus = 0
             this.setData({interviewInfos, infos})
           })
-        break
+          break
+        case 'toSpecialJob':
+          wx.reLaunch({url: `${APPLICANT}specialJob/specialJob`})
+          break
         default:
           break
       }

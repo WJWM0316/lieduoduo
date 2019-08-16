@@ -362,6 +362,10 @@
   box-shadow:0rpx -5rpx 40rpx 0rpx rgba(22,39,77,0.05);
 }
 
+.formIdBtn:last-child {
+  margin-bottom: 0;
+}
+
 .item2 {
   height:246rpx;
   background:rgba(255,255,255,1);
@@ -562,4 +566,22 @@
 
 .height10 {
   padding-top: 331rpx;
+}
+
+
+.bottomStatus .bottomStatusBtn {
+  padding: 0 40rpx;
+  height:68rpx;
+  border-radius:34rpx;
+  border:1rpx solid #652791;
+  margin: 24rpx auto;
+  display: inline-block;
+  background: none;
+  line-height: 68rpx;
+  font-size:28rpx;
+  color:#652791;
+}
+.bottomStatus .bottomStatusBtn .icon {
+  margin-left: 8rpx;
+  font-size: 24rpx;
 }

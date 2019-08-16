@@ -29,7 +29,14 @@
 	color: #5C565D;
 	line-height:36rpx;
 	font-size: 26rpx;
+	display: block;
+	text-align: center;
 }
 .status {
 	margin-top: 24rpx;
+}
+.moreDesc {
+	line-height: 26rpx;
+	display: block;
+	text-align: center;
 }

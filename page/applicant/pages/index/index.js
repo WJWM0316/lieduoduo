@@ -188,9 +188,15 @@ Page({
   },
   jumpBanner (e) {
     let url = e.currentTarget.dataset.url
-    wx.navigateTo({
-      url: `/${url}`
-    })
+    if (url.indexOf('index/index') !== -1 
+      || url.indexOf('dynamics/dynamics') !== -1 
+      || url.indexOf('specialJob/specialJob') !== -1 
+      || url.indexOf('interview/interview/interview') !== -1 
+      || url.indexOf('center/mine/mine') !== -1) {
+      wx.reLaunch({ url: `/${url}`})
+    } else {
+      wx.navigateTo({ url: `/${url}`})
+    }
   },
   getFilterData () {
     return getFilterDataApi().then(res => {

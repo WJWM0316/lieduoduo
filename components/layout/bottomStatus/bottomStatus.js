@@ -14,6 +14,10 @@ Component({
       type: String,
       value: '暂无数据'
     },
+    moreDesc: {
+      type: String,
+      value: '没有更多数据'
+    },
     marginTop: {
       type: Number,
       value: 120

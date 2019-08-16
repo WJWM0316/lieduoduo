@@ -21,7 +21,7 @@
 
       <view class="resumeDetail addpadding" wx:if="{{info}}">
         
-        <shareBtn wx:if="{{!isOwner}}" posterType="{{options.preview ? 'applicant' : ''}}"></shareBtn>
+        <shareBtn wx:if="{{!isOwner}}" params="{{info.uid}}" posterType="{{options.preview ? 'applicant' : ''}}"></shareBtn>
 
         <button form-type="submit" class="clear-style previewFile" wx:if="{{info.resumeAttach && !isOwner}}" bindtap="previewFile" data-file="{{info.resumeAttach}}">
           <view class="fileName"><image class="fileIcon" src="{{cdnImagePath}}jianliIcon.png"></image><text>该候选人已上传附件简历</text></view>
@@ -169,10 +169,11 @@
       </view>
       
       <block>
-        <button form-type="submit" wx:if="{{!info.recommend.glass && !info.glass}}" class="clear-style collect" bindtap="collect">
+        <button form-type="submit" wx:if="{{!options.preview && !isOwner && !info.recommend.glass && !info.glass}}" class="clear-style collect" bindtap="collect">
           <i class="icon iconfont icon-ganxingqu" wx:if="{{!info.interested}}"></i>
           <i class="icon iconfont icon-biaojiweiganxingqu" wx:else></i>
         </button>
+
         <!-- 底部开撩 -->
         <view class="bottomBox" hidden="{{(options.adviser && info.sourceType !== 500) || (options.hot && info.sourceType !== 100)}}">
           <view wx:if="{{!options.preview}}">
@@ -191,7 +192,7 @@
           </view>
         </view>
       </block>
-      <block wx:if="{{info.vkey}}"><canvasCard cardData="{{info}}" type="resume" bindgetCreatedImg="getCreatedImg"></canvasCard></block>
+      <block wx:if="{{info.uid}}"><canvasCard cardData="{{info}}" type="resume" bindgetCreatedImg="getCreatedImg"></canvasCard></block>
     </form>
   </block>
   <block wx:else>

@@ -103,26 +103,8 @@ Page({
   },
   onLoad() {
     app.toastSwitch()
-    
     let choseType = wx.getStorageSync('choseType') || ''
     this.setData({ choseType})
-    let that = this
-    if (choseType === 'APPLICANT') {
-      let that = this
-      app.wxConfirm({
-        title: '提示',
-        content: '检测到你是求职者，是否切换求职者',
-        confirmBack() {
-          wx.reLaunch({url: `${APPLICANT}index/index` })
-        },
-        cancelBack() {
-          wx.setStorageSync('choseType', 'RECRUITER')
-          app.getAllInfo().then(res => {
-            that.init()
-          })
-        }
-      })
-    }
   },
   onShow() {
     if (app.loginInit) {
@@ -896,6 +878,7 @@ Page({
    * @return   {[type]}   [description]
    */
   getRecommendRangeAll(isReback = 1) {
+    if (wx.getStorageSync('choseType') === 'APPLICANT') return
     let params = {positionCount: this.data.pageCount, cityCount: this.data.pageCount}
     let onBottomStatus = this.data.onBottomStatus
     let salaryLists = this.data.salaryLists

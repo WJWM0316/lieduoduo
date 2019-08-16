@@ -6,7 +6,7 @@
     </view>
     <view class="header" wx:if="{{!isOwner || !showEdit}}">
       <image class="bgImg" src="{{cdnImagePath}}bg_detail.png" mode="aspectFill"></image>
-      <shareBtn wx:if="{{!isOwner}}"></shareBtn>
+      <shareBtn params="{{info.uid}}" wx:if="{{!isOwner}}"></shareBtn>
       <div class="content">
         <button form-type="submit" class="clear-style avatar" bindtap="readAvatar">
           <image src="{{info.avatar.smallUrl}}" mode="aspectFill" class="avatar"></image>

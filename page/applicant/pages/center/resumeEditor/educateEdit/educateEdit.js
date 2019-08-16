@@ -11,14 +11,17 @@ Page({
    * 页面的初始数据
    */
   data: {
-    info: '',
+    info: {
+      education: 25, // 学历
+      degreeDesc: '本科' // 学历描述
+    },
     schoolName: '', // 学校名称
     subject: '', // 专业名
     startTime: '',
     endTime: '',
     description: '', // 学校经历描述
-    education: '', // 学历
-    degreeDesc: '', // 学历描述
+    education: 25, // 学历
+    degreeDesc: '本科', // 学历描述
     isAdd: false
   },
 
@@ -154,7 +157,12 @@ Page({
   init () {
     if (!nowEducateId) return
     app.globalData.resumeInfo.educations.map((item, index) => {
+
       if (item.id === nowEducateId) {
+        if (!item.degree) {
+          item.education = 25
+          item.degreeDesc = '本科'
+        }
         this.setData({
           schoolName: item.school,
           subject: item.major,
@@ -162,10 +170,8 @@ Page({
           startTime: item.startTime,
           endTime: item.endTime,
           education: item.degree,
-          info: item,
-          // degreeDesc: '中专/中技'
+          info: item
         })
-        console.log(this.data)
         if (item.endTimeDesc === '至今') {
           toToday = true
         }

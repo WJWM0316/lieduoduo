@@ -5,7 +5,7 @@
 	    <refreshStatus></refreshStatus>
 	  </view>
 		<view class="page-top">
-			<image class="bgImg" src="{{cdnPath}}job-detail.png" mode="widthFix"></image>
+			<image class="bgImg" src="{{cdnPath}}job-detail.png?a=1" mode="widthFix"></image>
 			<shareBtn posterType="position" id="shareBtn" params="{{detail.id}}" wx:if="{{detail.isOnline === 1 && (detail.status === 1 || detail.status === 2)}}"></shareBtn>
 			<view class="company-infos {{detail.isRapidly === 1 ? 'hasSpecail' : ''}}">
 				<view class="header">
@@ -27,13 +27,21 @@
 				</view>
 			</view>
 			<view class="specialJob" wx:if="{{detail.isRapidly === 1}}">
-				<view class="rest">
+				<view class="rest" wx:if="{{detail.rapidlyInfo.seatsNum - detail.rapidlyInfo.applyNum - detail.rapidlyInfo.natureApplyNum > 0}}">
 					<view><text class="num">{{detail.rapidlyInfo.seatsNum - detail.rapidlyInfo.applyNum - detail.rapidlyInfo.natureApplyNum}}</text><text class="txt">个</text></view>
 					<view>剩余席位</view>
 				</view>
+				<view class="rest no" wx:else>
+					<text class="num no">已抢光</text>
+					<view>约面席位</view>
+				</view>
 				<view class="timeBox">
 					<view class="time">还剩<block wx:if="{{time.day}}"><text class="dateNum">{{time.day}}</text>天</block><text class="dateNum">{{time.hour}}</text>:<text class="dateNum">{{time.minute}}</text>:<text class="dateNum">{{time.second}}</text></view>
-					<viwe class="desc" bindtap="todoAction" data-type="strategy"><text>现在申请24小时内必定反馈</text><i class="icon iconfont icon-xinxi"></i></viwe>
+					<viwe class="desc" bindtap="todoAction" data-type="strategy">
+						<text wx:if="{{detail.rapidlyInfo.seatsNum - detail.rapidlyInfo.applyNum - detail.rapidlyInfo.natureApplyNum == 0}}">现在申请，不享受24h反馈</text>
+						<text wx:elif="{{detail.rapidlyServiceEndTime}}">现在申请最迟{{detail.serviceEndTime}}反馈</text>
+						<text wx:else>现在申请24小时内必定反馈</text>
+						<i class="icon iconfont icon-xinxi"></i></viwe>
 				</view>
 			</view>
 		</view>
@@ -58,7 +66,10 @@
 		<!-- 招聘罐主动关闭 end-->
 		<!-- 正常职位 start-->
 		<block wx:else>
-			<view class="job-describe">
+			<view class="job-describe {{detail.companyInfo.oneSentenceIntro ? 'hebing' : ''}}">
+				<!-- 占高度用的 -->
+				<view class="companyTxt hidden" wx:if="{{detail.companyInfo.oneSentenceIntro}}"><text class="txt">{{detail.companyInfo.oneSentenceIntro}}</text></view>
+				<view class="companyTxt" wx:if="{{detail.companyInfo.oneSentenceIntro}}"><text class="txt">{{detail.companyInfo.oneSentenceIntro}}</text></view>
 				<view class="title">
 					<view class="icon"> <view class="fan"></view> </view> 职位描述
 				</view>
