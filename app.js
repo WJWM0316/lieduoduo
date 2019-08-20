@@ -72,6 +72,7 @@ App({
     hasExpect: 1, // 有求职意向
     hasLogin: 0, // 判断是否登录
     userInfo: null, // 用户信息， 判断是否授权,
+    officialId: 0, // 是否关注公众号
     navHeight: 0,
     cdnImagePath: 'https://attach.lieduoduo.ziwork.com/front-assets/images/',
     companyInfo: {}, // 公司信息
@@ -116,10 +117,12 @@ App({
             if (res.data.token) {
               wx.setStorageSync('token', res.data.token)
               that.globalData.hasLogin = 1
+              if (res.data.userWechatInfo.officialId) that.globalData.officialId = 1
               if (res.data.userWechatInfo.nickname) that.globalData.userInfo = res.data.userWechatInfo
               that.getRoleInfo()
               console.log('用户已认证')
             } else {
+              if (res.data.userInfo.officialId) that.globalData.officialId = 1
               if (res.data.userInfo.nickname) that.globalData.userInfo = res.data.userInfo
               that.globalData.hasLogin = 0
               console.log('用户未绑定手机号', 'sessionToken', res.data.sessionToken)
@@ -277,12 +280,14 @@ App({
               wx.setStorageSync('token', res.data.token)
               wx.setStorageSync('sessionToken', res.data.sessionToken)
               that.globalData.hasLogin = 1
+              if (res.data.userWechatInfo.officialId) that.globalData.officialId = 1
               if (res.data.userWechatInfo && res.data.userWechatInfo.nickname) that.globalData.userInfo = res.data.userWechatInfo
               that.getRoleInfo()
               console.log('用户已认证')
             } else {
               console.log('用户未绑定手机号')
               that.globalData.hasLogin = 0
+              if (res.data.userInfo.officialId) that.globalData.officialId = 1
               if (res.data.userInfo && res.data.userInfo.nickname) that.globalData.userInfo = res.data.userInfo
               wx.setStorageSync('sessionToken', res.data.sessionToken)
             }
@@ -329,6 +334,7 @@ App({
             wx.setStorageSync('token', res.data.token)
             this.globalData.hasLogin = 1
             this.globalData.userInfo = res.data
+            this.globalData.officialId = res.data.officialId || 0
             let pageUrl = this.getCurrentPagePath(0)
             this.getRoleInfo().then(res0 => {
               this.wxToast({
@@ -382,6 +388,7 @@ App({
         if (res.data.sessionToken) wx.setStorageSync('sessionToken', res.data.sessionToken)
         this.globalData.hasLogin = 1
         this.globalData.userInfo = res.data
+        this.globalData.officialId = res.data.officialId || 0
         this.getRoleInfo().then((res0) => {
           this.wxToast({
             title: '登录成功',

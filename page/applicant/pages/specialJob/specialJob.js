@@ -196,7 +196,8 @@ Page({
   },
   touchVkey (e) {
     if (!e.currentTarget.dataset.btntype) return
-    let vkey = e.currentTarget.dataset.btntype === 1 ? this.data.otherData.buttons[0].vkey : this.data.otherData.buttons[1].vkey
+    let index = e.currentTarget.dataset.btntype
+    let vkey =  this.data.otherData.buttons[index - 1].vkey
     touchApi({vkey})
   },
   filterCity (e) {
@@ -315,6 +316,10 @@ Page({
   toggleTab (e) {
     wx.pageScrollTo({scrollTop: 0})
     let tabIndex = e.currentTarget.dataset.index
+    app.wxReportAnalytics('button_operation_report', {
+      uid: app.globalData.resumeInfo && app.globalData.resumeInfo.uid || 0,
+      index: tabIndex
+    })
     this.setData({tabIndex}, () => {
       let listData = !tabIndex ? this.data.nowListData : this.data.oldListData
       if (!listData.isRequire) this.getRapidly()

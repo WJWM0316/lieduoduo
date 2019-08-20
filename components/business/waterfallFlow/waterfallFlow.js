@@ -13,18 +13,19 @@ Component({
   properties: {
     value: {               // 数据列表
       type: Object,
-      value: []
-    },
-    page: {
-      type: Number,        // 页码
-      value: 0,
+      value: [],
       observer (newVal, oldVal) {
+        if (newVal.length === 0) return
         let listData = this.data.listData
         listData.push(this.data.value[this.data.value.length - 1])
         this.setData({listData}, () => {
           this.updata()
         })
       }
+    },
+    page: {
+      type: Number,        // 页码
+      value: 0
     },
     horizontal: {          // 每排展示数量
       type: Number,
@@ -57,12 +58,12 @@ Component({
       page          = 1
       minIndex      = 0
       curDataGroupIndex = 0
-      wx.nextTick(() => {
-        this.typeset(this.data.listData[0])
-      })
+      this.setData({listData: [], wrapH: 0})
     },
     updata () {
       wx.nextTick(() => {
+        if (this.data.page === 0) return
+        console.log(this.data.listData, this.data.page)
         this.typeset(this.data.listData[this.data.page - 1])
       })
     },
@@ -75,6 +76,7 @@ Component({
         return minIndex = heightGroup.indexOf(Math.max(...heightGroup))
       }
       let array = list
+
       array.forEach((item, index) => {
         getSelectorQuery(`.flow${this.data.page - 1}${index}`, that).then(res => {
           array[index].width = res.width

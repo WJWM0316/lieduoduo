@@ -333,7 +333,10 @@ Page({
     })
   },
   getPositionList(hasLoading = true) {
-    let params = {count: this.data.pageCount, page: this.data.positionList.pageNum, is_record: 1, ...app.getSource()}
+    let getList = null,
+        positionList = this.data.positionList
+    positionList.pageNum++
+    let params = {count: this.data.pageCount, page: positionList.pageNum, is_record: 1, ...app.getSource()}
     if(this.data.city) {
       params = Object.assign(params, {city: this.data.city})
     }
@@ -357,8 +360,7 @@ Page({
       delete params.city
       delete params.emolument_id
     }
-    let getList = null,
-        positionList = this.data.positionList
+    
     if (this.data.recommended && !params.city && !params.type) {
       getList = getRecommendApi
       params.count = 15
@@ -366,7 +368,7 @@ Page({
     } else {
       getList = getPositionListApi
     }
-    positionList.pageNum++
+    
     return getList(params, hasLoading).then(res => {
       let requireOAuth = false
       if (res.meta && res.meta.requireOAuth) requireOAuth = res.meta.requireOAuth
@@ -481,15 +483,17 @@ Page({
     }
   },
   onPullDownRefresh() {
-    const positionList = {list: [], pageNum: 1, isLastPage: false, isRequire: false}
-    this.setData({positionList, hasReFresh: true})
+    this.selectComponent('#waterfallFlow').reset()
     this.selectComponent('#bottomRedDotBar').init()
-    this.getPositionList().then(res => {
-      this.setData({positionList, hasReFresh: false})
-      wx.stopPullDownRefresh()
-    }).catch(e => {
-      this.setData({positionList, hasReFresh: false})
-      wx.stopPullDownRefresh()
+    const positionList = {list: [], pageNum: 0, isLastPage: false, isRequire: false}
+    this.setData({positionList, hasReFresh: true}, () => {
+      this.getPositionList().then(res => {
+        this.setData({hasReFresh: false})
+        wx.stopPullDownRefresh()
+      }).catch(e => {
+        this.setData({hasReFresh: false})
+        wx.stopPullDownRefresh()
+      })
     })
   },
   onReachBottom() {

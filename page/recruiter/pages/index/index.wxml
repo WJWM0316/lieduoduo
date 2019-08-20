@@ -102,7 +102,7 @@
 				<view class="down" bindtap="openTips" data-type="position"><i class="icon iconfont icon-zhishibiao"></i></view>
 			</view>
 		</view>
-		<view class="placeholder" hidden="{{!fixedDom}}"></view>
+		<view class="placeholder" hidden="{{!fixedDom}}" wx:if="{{detail.positionNum}}"></view>
 		<view class="list-box" wx:if="{{detail.positionNum || resumeList.list.length}}">
 			<form bindsubmit="formSubmit" report-submit="{{true}}" wx:if="{{resumeList.list.length}}">
 				<button
@@ -255,5 +255,5 @@
 		</view>
 	</actionSheet>
   <tabBar tabType="1" id="bottomRedDotBar"></tabBar>
-  <followWechat userInfo="{{userInfo}}"></followWechat>
+  <followWechat wx:if="{{userInfo}}"></followWechat>
 </view>

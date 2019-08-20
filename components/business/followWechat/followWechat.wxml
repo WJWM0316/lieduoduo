@@ -1,4 +1,4 @@
-<block  wx:if="{{!userInfo.officialId}}">
+<block  wx:if="{{!officialId}}">
 	<view class="followWechat {{isIphoneX ? 'iphoneX' : ''}}"  bindtap="show">
 		<view class="left">
 			<image class="icon" src="{{cdnImagePath}}followWechat.png"></image>

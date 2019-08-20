@@ -40,7 +40,7 @@
 .li .strategy {
   width: 64rpx;
   height: 30rpx;
-  background: url('https://attach.lieduoduo.ziwork.com/front-assets/images/icon_hptag_24h@3x.png');
+  background: url('https://attach.lieduoduo.ziwork.com/front-assets/images/icon_hptag_24h@3x.png?a=1');
   background-size: 100% 100%;
   float: left;
   margin-left: 6rpx;
