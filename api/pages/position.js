@@ -4,7 +4,7 @@ import { request } from '../require.js'
 export const getPositionListApi = (data, hasLoading) => {
   return request({
     method: 'get',
-    url: '/position/list',
+    url: '/positions/sch',
     data,
     hasLoading: hasLoading
   })
@@ -14,7 +14,7 @@ export const getPositionListApi = (data, hasLoading) => {
 export const getRecommendApi = (data, hasLoading) => {
   return request({
     method: 'get',
-    url: '/recommend/oppty',
+    url: '/recommend/oppty/list',
     data,
     hasLoading: hasLoading
   })

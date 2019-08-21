@@ -5,7 +5,7 @@
 		<view class="title"><text class="txt">参与流程</text><view class="bg"></view></view>
 		<view class="content_txt">
 			点击下方<text class="color">{{isJobhunter ? '【抢占约面席位】' : '【领取参与资格】'}}</text>按钮 ，挑选合适的职位抢占约面席位，面试官会在24小时内处理并且反馈
-			<view class="btn" wx:if="{{!isJobhunter}}" bindtap="routeJump">领取参与资格</view>
+			<view class="btn" wx:if="{{!isJobhunter}}" bindtap="routeJump" data-from="{{9}}">领取参与资格</view>
 		</view>
 		
 		<view class="title"><text class="txt">奖励规则</text><view class="bg"></view></view>
@@ -18,7 +18,7 @@
 		</view>
 	</view>
 	<view class="footer">
-		<view class="btn" bindtap="routeJump">{{isJobhunter ? '抢占约面席位' : '领取参与资格'}}</view>
+		<view class="btn" bindtap="routeJump" data-from="{{10}}">{{isJobhunter ? '抢占约面席位' : '领取参与资格'}}</view>
 	</view>
 </view>
 <barrage list="{{list}}" wx:if="{{list.length}}"  my-class="barrage" my-item-class="barrage_item"></barrage>

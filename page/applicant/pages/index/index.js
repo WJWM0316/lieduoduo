@@ -14,7 +14,7 @@ let identity = '',
     tabTop = 0
 Page({
   data: {
-    pageCount: 20,
+    pageCount: 10,
     navH: app.globalData.navHeight,
     showNav: false,
     fixedBarHeight: 0,
@@ -326,10 +326,10 @@ Page({
         recommended = res.data.recommended
       }
       this.setData({tabList, city, type, cityIndex, typeIndex, emolument, emolumentIndex, recommended}, () => {
-        this.getPositionList()
-      })  
+        this.reloadPositionLists()
+      })
     }).catch(e => {
-      this.getPositionList()
+      this.reloadPositionLists()
     })
   },
   getPositionList(hasLoading = true) {
@@ -338,27 +338,27 @@ Page({
     positionList.pageNum++
     let params = {count: this.data.pageCount, page: positionList.pageNum, is_record: 1, ...app.getSource()}
     if(this.data.city) {
-      params = Object.assign(params, {city: this.data.city})
+      params = Object.assign(params, {cityNums: this.data.city})
     }
     if(this.data.type) {
-      params = Object.assign(params, {type: this.data.type})
+      params = Object.assign(params, {positionTypeIds: this.data.type})
     }
     if (this.data.emolument) {
-      params = Object.assign(params, {emolument_id: this.data.emolument})
+      params = Object.assign(params, {emolumentIds: this.data.emolument})
     }
     if(!this.data.type) {
-      delete params.type
+      delete params.positionTypeIds
     }
     if(!this.data.city) {
-      delete params.city
+      delete params.cityNums
     }
     if(!this.data.emolument) {
-      delete params.emolument_id
+      delete params.emolumentIds
     }
     if (this.data.options.positionTypeId) {
       params.is_record = 0
-      delete params.city
-      delete params.emolument_id
+      delete params.cityNums
+      delete params.emolumentIds
     }
     
     if (this.data.recommended && !params.city && !params.type) {
@@ -466,9 +466,10 @@ Page({
     })
   },
   reloadPositionLists(hasLoading = true) {
-    const positionList = {list: [], pageNum: 1, isLastPage: false, isRequire: false}
+    this.selectComponent('#waterfallFlow').reset()
+    const positionList = {list: [], pageNum: 0, isLastPage: false, isRequire: false}
     this.setData({positionList})
-    return this.getPositionList()
+    return this.getPositionList(hasLoading)
   },
   onPageScroll(e) {
     if (e.scrollTop > 0) {
@@ -483,24 +484,19 @@ Page({
     }
   },
   onPullDownRefresh() {
-    this.selectComponent('#waterfallFlow').reset()
     this.selectComponent('#bottomRedDotBar').init()
-    const positionList = {list: [], pageNum: 0, isLastPage: false, isRequire: false}
-    this.setData({positionList, hasReFresh: true}, () => {
-      this.getPositionList().then(res => {
-        this.setData({hasReFresh: false})
-        wx.stopPullDownRefresh()
-      }).catch(e => {
-        this.setData({hasReFresh: false})
-        wx.stopPullDownRefresh()
-      })
+    this.reloadPositionLists(false).then(res => {
+      this.setData({hasReFresh: false})
+      wx.stopPullDownRefresh()
     })
   },
   onReachBottom() {
     const positionList = this.data.positionList
     if (!positionList.isLastPage) {
       this.setData({onBottomStatus: 1})
-      this.getPositionList(false)
+      this.getPositionList(false).then(res => {
+        this.setData({onBottomStatus: this.data.positionList.isLastPage ? 2 : 0})
+      })
     }
   },
   onShareAppMessage(options) {

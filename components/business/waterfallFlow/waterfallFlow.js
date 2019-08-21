@@ -1,4 +1,5 @@
 import {getSelectorQuery} from '../../../utils/util.js'
+import {COMMON} from '../../../config.js'
 const app = getApp()
 let leftGrounp    = [],    // 每竖的left值集合
     heightGroup   = [],    // 每竖的高度集合
@@ -52,6 +53,13 @@ Component({
   attached () {
   },
   methods: {
+    routeJump (e) {
+      let id = e.currentTarget.dataset.id
+      wx.navigateTo({url: `${COMMON}positionDetail/positionDetail?positionId=${id}`})
+    },
+    formSubmit(e) {
+      app.postFormId(e.detail.formId)
+    },
     reset () {
       leftGrounp    = []
       heightGroup   = []

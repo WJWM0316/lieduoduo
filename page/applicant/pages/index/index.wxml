@@ -53,8 +53,7 @@
   </view>
   <view class="list-box">
     <waterfallFlow my-class="waterfallFlow" id="waterfallFlow" value="{{positionList.list}}" page="{{positionList.pageNum}}"></waterfallFlow>
-    <bottomStatus status="{{positionList.onBottomStatus}}" listData="{{positionList.list}}" desc="{{isJobhunter ? '还没有面试官对我感兴趣~' : '你与offer之间就差一份简历~'}}" marginTop="{{30}}">
-      <button class="jump clear-style" form-type="submit" bindtap="jump" data-type="{{isJobhunter ? 'rank' : 'create'}}">{{isJobhunter ? '发现更多面试官' : '立即创建简历'}}</button>
+    <bottomStatus status="{{onBottomStatus}}" listData="{{positionList.list[0]}}" marginTop="{{30}}">
     </bottomStatus>
   </view>
   <tabBar id="bottomRedDotBar"></tabBar>

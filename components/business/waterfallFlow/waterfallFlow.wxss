@@ -79,6 +79,7 @@
 	position: absolute;
 	top: 0;
 	left: 0;
+  background: #fff;
 }
 .header .detail {
 	height: 72rpx;
@@ -103,13 +104,16 @@
 	font-size:22rpx;
 	font-weight:700;
 	color:#5C565D;
-  text-align: center;
+  text-align: left;
 	line-height:26rpx;
 	margin-top: 22rpx;
 	display: -webkit-box;
 	-webkit-box-orient: vertical;
 	-webkit-line-clamp: 2;
 	overflow: hidden;
+}
+.specail .signature {
+  text-align: center;
 }
 
 .content {

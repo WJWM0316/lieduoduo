@@ -21,14 +21,15 @@ Page({
       wx.removeStorageSync('strategyData')
     })
   },
-  routeJump () {
+  routeJump (e) {
+    let from = e.currentTarget.dataset.from
     if (this.data.isJobhunter) {
       wx.navigateBack({
         delta: 1
       })
     } else {
       wx.navigateTo({
-        url: `${APPLICANT}createUser/createUser?from=specialJob`
+        url: `${APPLICANT}createUser/createUser?from=${from}`
       })
     }
   },

@@ -1,7 +1,13 @@
+<form bindsubmit="formSubmit" report-submit='{{true}}'> 
 <view class="wrap my-class" style="height: {{wrapH}}px">
 	<block wx:for="{{listData}}" wx:key="{{indexs}}" wx:for-item="list" wx:for-index="indexs">
 		<view class="flow flow{{indexs}}{{index}}" wx:for="{{list}}" wx:key="{{indexs}}{{index}}" style="left: {{item.left}}px;top: {{item.top}}px">
-			<view class="card">
+      <button
+          form-type="submit" 
+          class="card clear-style"
+          bindtap="routeJump"
+          data-id="{{item.id}}"
+          wx:key="{{item.id}}">
         <view class="iconfont header {{item.isRapidly === 1 ? 'specail' : ''}}">
           <block wx:if="{{item.isRapidly === 2}}">
           	<view class="people">
@@ -35,7 +41,8 @@
           <view class="viewNum icon" wx:else></view>
         	<view class="viewBtn"><i class="icon iconfont icon-yuemian"></i>开约</view>
         </view>
-      </view>
+      </button>
 		</view>
 	</block>
 </view>
+</form>

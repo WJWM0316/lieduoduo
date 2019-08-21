@@ -229,8 +229,9 @@ Page({
         this.touchVkey(e)
         break
       case 'createUser':
+      let from = touch.from
         wx.navigateTo({
-          url: `${APPLICANT}createUser/createUser?from=specialJob`
+          url: `${APPLICANT}createUser/createUser?from=${from}`
         })
         this.touchVkey(e)
         break
@@ -243,8 +244,6 @@ Page({
           url: `${APPLICANT}index/index`
         })
         break
-      default:
-        this.touchVkey(e)
     }
   },
   onReady: function () {
