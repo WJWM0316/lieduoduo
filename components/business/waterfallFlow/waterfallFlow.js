@@ -24,6 +24,10 @@ Component({
         })
       }
     },
+    flowClass: {
+      type: String,
+      value: ''
+    },
     page: {
       type: Number,        // 页码
       value: 0
@@ -51,6 +55,7 @@ Component({
   },
 
   attached () {
+    console.log(this.data.flowClass, 1111111111)
   },
   methods: {
     routeJump (e) {
@@ -71,7 +76,6 @@ Component({
     updata () {
       wx.nextTick(() => {
         if (this.data.page === 0) return
-        console.log(this.data.listData, this.data.page)
         this.typeset(this.data.listData[this.data.page - 1])
       })
     },
@@ -86,7 +90,8 @@ Component({
       let array = list
 
       array.forEach((item, index) => {
-        getSelectorQuery(`.flow${this.data.page - 1}${index}`, that).then(res => {
+        console.log(`.${this.data.flowClass}_flow${this.data.page - 1}${index}`)
+        getSelectorQuery(`.${this.data.flowClass}_flow${this.data.page - 1}${index}`, that).then(res => {
           array[index].width = res.width
           array[index].index = index
           array[index].height = res.height

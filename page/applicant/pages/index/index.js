@@ -8,10 +8,11 @@ import {shareChance} from '../../../../utils/shareWord.js'
 import {agreedTxtB} from '../../../../utils/randomCopy.js'
 
 const app = getApp()
-let timer = null
 let identity = '',
     hasOnload = false, // 用来判断是否执行了onload，就不走onShow的校验
-    tabTop = 0
+    tabTop = 0,
+    timer = null,
+    getRecommend = false
 Page({
   data: {
     pageCount: 10,
@@ -21,6 +22,7 @@ Page({
     hasReFresh: false,
     onBottomStatus: 0,
     hideLoginBox: true,
+    background: 'transparent',
     isBangs: app.globalData.isBangs,
     pixelRatio: app.globalData.systemInfo.pixelRatio,
     tabList: [
@@ -40,7 +42,13 @@ Page({
         active: false
       }
     ],
-    positionList: {
+    filterList: {
+      list: [],
+      pageNum: 0,
+      isLastPage: false,
+      isRequire: false
+    },
+    recommendList: {
       list: [],
       pageNum: 0,
       isLastPage: false,
@@ -333,52 +341,50 @@ Page({
     })
   },
   getPositionList(hasLoading = true) {
-    let getList = null,
-        positionList = this.data.positionList
-    positionList.pageNum++
-    let params = {count: this.data.pageCount, page: positionList.pageNum, is_record: 1, ...app.getSource()}
-    if(this.data.city) {
-      params = Object.assign(params, {cityNums: this.data.city})
+    let listData = null,
+        listType = null,
+        getList = null,
+        params = {count: this.data.pageCount, is_record: 1, ...app.getSource()}
+    this.data.city ? params = Object.assign(params, {cityNums: this.data.city}) : delete params.cityNums
+    this.data.type ? params = Object.assign(params, {positionTypeIds: this.data.type}) : delete params.positionTypeIds
+    this.data.emolument ? params = Object.assign(params, {emolumentIds: this.data.emolument}) : delete params.emolumentIds
+
+    if ((this.data.recommended && !params.cityNums && !params.positionTypeIds) || getRecommend) {
+      getList = getRecommendApi
+      params.count = 15
+      listData = this.data.recommendList
+      listType = 'recommendList'
+      if (params.page === 1) params.isFisrtPage = 1
+    } else {
+      listData = this.data.filterList
+      getList = getPositionListApi
+      listType = 'filterList'
     }
-    if(this.data.type) {
-      params = Object.assign(params, {positionTypeIds: this.data.type})
-    }
-    if (this.data.emolument) {
-      params = Object.assign(params, {emolumentIds: this.data.emolument})
-    }
-    if(!this.data.type) {
-      delete params.positionTypeIds
-    }
-    if(!this.data.city) {
-      delete params.cityNums
-    }
-    if(!this.data.emolument) {
-      delete params.emolumentIds
-    }
+    params.page = listData.pageNum
+
     if (this.data.options.positionTypeId) {
       params.is_record = 0
       delete params.cityNums
       delete params.emolumentIds
     }
     
-    if (this.data.recommended && !params.city && !params.type) {
-      getList = getRecommendApi
-      params.count = 15
-      if (params.page === 1) params.isFisrtPage = 1
-    } else {
-      getList = getPositionListApi
-    }
-    
+    listData.pageNum++
     return getList(params, hasLoading).then(res => {
       let requireOAuth = false
       if (res.meta && res.meta.requireOAuth) requireOAuth = res.meta.requireOAuth
       if (this.data.options.needAuth && !app.globalData.userInfo) {
         requireOAuth = true
       }
-      positionList.list.push(res.data)
-      positionList.isLastPage = res.data.length === params.count || (res.meta && res.meta.nextPageUrl) ? false : true
-      positionList.isRequire = true
-      this.setData({positionList, requireOAuth})
+      listData.list.push(res.data)
+      listData.isLastPage = res.data.length === 0 || (res.meta && parseInt(res.meta.currentPage) === res.meta.lastPage) ? true : false
+      listData.isRequire = true
+      this.setData({[`${listType}`]: listData, onBottomStatus: listData.isRequire ? 2 : 0, requireOAuth}, () => {
+        if (!this.data.recommendList.isRequire && this.data.filterList.isRequire && this.data.filterList.isLastPage && (!this.data.recommended || params.cityNums || params.positionTypeIds)) {
+          getRecommend = true
+          this.selectComponent('#recommendList').reset()
+          this.getPositionList()
+        }
+      })
     })
   },
   getAdBannerList () {
@@ -466,16 +472,18 @@ Page({
     })
   },
   reloadPositionLists(hasLoading = true) {
-    this.selectComponent('#waterfallFlow').reset()
-    const positionList = {list: [], pageNum: 0, isLastPage: false, isRequire: false}
-    this.setData({positionList})
+    this.selectComponent('#filterList').reset()
+    this.selectComponent('#recommendList').reset()
+    const filterList = {list: [], pageNum: 0, isLastPage: false, isRequire: false},
+          recommendList = {list: [], pageNum: 0, isLastPage: false, isRequire: false}
+    this.setData({filterList, recommendList})
     return this.getPositionList(hasLoading)
   },
   onPageScroll(e) {
     if (e.scrollTop > 0) {
-      if (!this.data.navFixed) this.setData({navFixed: true})
+      if (this.data.background !== '#652791') this.setData({background: '#652791'})
     } else {
-      if (this.data.navFixed) this.setData({navFixed: false})
+      if (this.data.background === '#652791') this.setData({background: 'transparent'})
     }
     if (e.scrollTop > tabTop) {
       if (!this.data.tabFixed) this.setData({tabFixed: true})
@@ -491,13 +499,8 @@ Page({
     })
   },
   onReachBottom() {
-    const positionList = this.data.positionList
-    if (!positionList.isLastPage) {
-      this.setData({onBottomStatus: 1})
-      this.getPositionList(false).then(res => {
-        this.setData({onBottomStatus: this.data.positionList.isLastPage ? 2 : 0})
-      })
-    }
+    this.setData({onBottomStatus: 1})
+    this.getPositionList(false)
   },
   onShareAppMessage(options) {
 　　return app.wxShare({

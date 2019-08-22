@@ -6,6 +6,10 @@ Component({
     addGlobalClass: true,
   },
   properties: {
+    isSearch: {
+      type: Boolean,
+      value: false
+    },
     title: {
       type: String,
       value: '猎多多'

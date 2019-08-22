@@ -1,7 +1,7 @@
 <form bindsubmit="formSubmit" report-submit='{{true}}'>
 <view style="height:{{navH}}px;">
   <view class="navbar" style="height:{{navH}}px;background: {{background}};position: {{positionStatus}}">
-    <view class="navbar-title" style="color: {{color}}"> 
+    <view class="navbar-title" style="color: {{color}}" wx:if="{{!isSearch}}"> 
 	    <view class="page-title">{{ title }}</view>
 		    <view class="return-back">
 		    	<view class="formIdBox">
@@ -16,6 +16,11 @@
 		    		</button>
   				</view>
   			</view>
+	  </view>
+	  <view class="searchBox" wx:else>
+	    <view class="cityName">广州</view>
+	    <i class="cityIcon iconfont icon-sanjiaoshaixuan"></i>
+	    <view class="search"><i class="icon iconfont icon-sousuo"></i>输入关键/职位/公司</view>
 	  </view>
   </view>
 </view>

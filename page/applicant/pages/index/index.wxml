@@ -1,9 +1,5 @@
-<view class="applicant-job" style="padding-top: {{navH}}px">
-  <view class="searchBox" style="height: {{navH}}px;padding-top: {{navH - 44}}px">
-    <view class="cityName">广州</view>
-    <i class="cityIcon iconfont icon-sanjiaoshaixuan"></i>
-    <view class="search"><i class="icon iconfont icon-sousuo"></i>输入关键/职位/公司</view>
-  </view>
+<navbar isSearch="{{true}}" background="{{background}}"></navbar>
+<view class="applicant-job" style="margin-top: -{{navH}}px">
 	<view hidden="{{!hasReFresh}}">
     <refreshStatus></refreshStatus>
   </view>
@@ -52,9 +48,15 @@
     <button class="addBtn">立即添加<i class="icon iconfont icon-disejiantou-you"></i></button>
   </view>
   <view class="list-box">
-    <waterfallFlow my-class="waterfallFlow" id="waterfallFlow" value="{{positionList.list}}" page="{{positionList.pageNum}}"></waterfallFlow>
-    <bottomStatus status="{{onBottomStatus}}" listData="{{positionList.list[0]}}" marginTop="{{30}}">
-    </bottomStatus>
+    <waterfallFlow my-class="filterList" id="filterList" flowClass="{{'filterList'}}" value="{{filterList.list}}" page="{{filterList.pageNum}}"></waterfallFlow>
+    <waterfallFlow  my-class="recommendList" id="recommendList" flowClass="{{'recommendList'}}" value="{{recommendList.list}}" page="{{recommendList.pageNum}}"></waterfallFlow>
+    <!-- <bottomStatus status="{{onBottomStatus}}" marginTop="{{30}}" desc="暂时没有符合条件的结果～">
+      <button class="botBtn" bind>发现更多优质机会</button>
+    </bottomStatus> -->
+  </view>
+  <view class="noMore" wx:if="{{false}}">
+    <view class="icon"></view>
+    <view class="txt">暂时没有更多符合条件的结果，下面为你推荐可能相关的机会</view>
   </view>
   <tabBar id="bottomRedDotBar"></tabBar>
   <bindPhone hide="{{hideLoginBox}}" hasClose="{{false}}"></bindPhone>

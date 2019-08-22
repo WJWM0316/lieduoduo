@@ -1,48 +1,49 @@
 <form bindsubmit="formSubmit" report-submit='{{true}}'> 
-<view class="wrap my-class" style="height: {{wrapH}}px">
-	<block wx:for="{{listData}}" wx:key="{{indexs}}" wx:for-item="list" wx:for-index="indexs">
-		<view class="flow flow{{indexs}}{{index}}" wx:for="{{list}}" wx:key="{{indexs}}{{index}}" style="left: {{item.left}}px;top: {{item.top}}px">
-      <button
-          form-type="submit" 
-          class="card clear-style"
-          bindtap="routeJump"
-          data-id="{{item.id}}"
-          wx:key="{{item.id}}">
-        <view class="iconfont header {{item.isRapidly === 1 ? 'specail' : ''}}">
-          <block wx:if="{{item.isRapidly === 2}}">
-          	<view class="people">
-          		<image class="avatar" src="{{item.recruiterInfo.avatar.smallUrl}}"></image>
-          		<view class="detail">
-          			<view class="name">{{item.recruiterInfo.name}}</view>
-          			<view class="company ellipsis">{{item.recruiterInfo.companyShortname}}·{{item.recruiterInfo.position}}</view>
-          		</view>
+  <view class="wrap my-class" style="height: {{wrapH}}px">
+  	<block wx:for="{{listData}}" wx:key="{{indexs}}" wx:for-item="list" wx:for-index="indexs">
+  		<view class="flow {{flowClass}}_flow{{indexs}}{{index}}" wx:for="{{list}}" wx:key="{{indexs}}{{index}}" style="left: {{item.left}}px;top: {{item.top}}px">
+        <button
+            form-type="submit" 
+            class="card clear-style"
+            bindtap="routeJump"
+            data-id="{{item.id}}"
+            wx:key="{{item.id}}">
+          <view class="iconfont header {{item.isRapidly === 1 ? 'specail' : ''}} {{item.recruiterInfo.signature ? 'hasSignature' : ''}}">
+            <block wx:if="{{item.isRapidly === 2}}">
+            	<view class="people">
+            		<image class="avatar" src="{{item.recruiterInfo.avatar.smallUrl}}"></image>
+            		<view class="detail">
+            			<view class="name">{{item.recruiterInfo.name}}</view>
+            			<view class="company ellipsis">{{item.recruiterInfo.companyShortname}}·{{item.recruiterInfo.position}}</view>
+            		</view>
+            	</view>
+            </block>
+            <block wx:if="{{item.isRapidly === 1}}">
+              <view class="specailBox">
+                <view class="avatarBox"><image class="avatar" src="{{item.recruiterInfo.avatar.smallUrl}}"></image></view>
+                <view class="name">{{item.recruiterInfo.name}}</view>
+                <view class="company ellipsis">{{item.recruiterInfo.companyShortname}}·{{item.recruiterInfo.position}}</view>
+              </view>
+            </block>
+          	<view class="signature" wx:if="{{item.recruiterInfo.signature}}">{{item.recruiterInfo.signature}}</view>
+          </view>
+          <view class="content">
+          	<view class="positionName ellipsis">{{item.positionName}}</view>
+          	<view class="salary">{{item.emolumentMin}}K~{{item.emolumentMax}}K<block wx:if="{{annualSalary > 12}}">·{{annualSalaryDesc}}</block></view>
+          	<view class="otherInfo">
+          		<text class="label">{{item.city}}<block wx:if="{{item.district}}">·{{item.district}}</block></text>
+          		<text class="label">{{item.workExperienceName}}</text>
+          		<text class="label">{{item.educationName}}</text>
           	</view>
-          </block>
-          <block wx:if="{{item.isRapidly === 1}}">
-            <view class="specailBox">
-              <view class="avatarBox"><image class="avatar" src="{{item.recruiterInfo.avatar.smallUrl}}"></image></view>
-              <view class="name">{{item.recruiterInfo.name}}</view>
-              <view class="company ellipsis">{{item.recruiterInfo.companyShortname}}·{{item.recruiterInfo.position}}</view>
-            </view>
-          </block>
-        	<view class="signature">{{item.recruiterInfo.signature || '还未设置'}}</view>
-        </view>
-        <view class="content">
-        	<view class="positionName ellipsis">{{item.positionName}}</view>
-        	<view class="salary">{{item.emolumentMin}}K~{{item.emolumentMax}}K<block wx:if="{{annualSalary > 12}}">·{{annualSalaryDesc}}</block></view>
-        	<view class="otherInfo">
-        		<text class="label">{{item.city}}<block wx:if="{{item.district}}">·{{item.district}}</block></text>
-        		<text class="label">{{item.workExperienceName}}</text>
-        		<text class="label">{{item.educationName}}</text>
-        	</view>
-        </view>
-        <view class="footer">
-        	<view class="viewNum" wx:if="{{item.isRapidly === 2}}"><text class="num">{{item.numOfVisitors}}</text> 人查看过</view>
-          <view class="viewNum icon" wx:else></view>
-        	<view class="viewBtn"><i class="icon iconfont icon-yuemian"></i>开约</view>
-        </view>
-      </button>
-		</view>
-	</block>
-</view>
+          </view>
+          <view class="footer">
+          	<view class="viewNum" wx:if="{{item.isRapidly === 2}}"><text class="num">{{item.numOfVisitors}}</text> 人查看过</view>
+            <view class="viewNum icon" wx:else></view>
+          	<view class="viewBtn"><i class="icon iconfont icon-yuemian"></i>开约</view>
+          </view>
+        </button>
+  		</view>
+  	</block>
+  </view>
 </form>
+
