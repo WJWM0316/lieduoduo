@@ -320,6 +320,11 @@ Page({
   toggleTab (e) {
     wx.pageScrollTo({scrollTop: 0})
     let tabIndex = e.currentTarget.dataset.index
+    app.wxReportAnalytics('btn_report', {
+      index: tabIndex,
+      uid: app.globalData.resumeInfo && app.globalData.resumeInfo.uid || 0,
+      btn_type: 'specialJob_tab_btn'
+    })
     this.setData({tabIndex}, () => {
       let listData = !tabIndex ? this.data.nowListData : this.data.oldListData
       if (!listData.isRequire) this.getRapidly()
