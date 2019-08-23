@@ -39,6 +39,7 @@
       "root": "page/applicant/",
       "pages": [
         "pages/index/index",
+        "pages/search/search",
         "pages/dynamics/dynamics",
         "pages/dynamicsList/dynamicsList",
         "pages/jobs/job/job",

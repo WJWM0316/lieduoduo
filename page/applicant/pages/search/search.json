@@ -1,0 +1,5 @@
+{
+  "usingComponents": {
+  	"waterfallFlow": "../../../../components/business/waterfallFlow/waterfallFlow"
+  }
+}

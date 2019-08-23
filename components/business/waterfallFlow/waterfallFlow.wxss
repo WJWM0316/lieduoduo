@@ -132,7 +132,7 @@
 }
 .content .salary {
 	font-size:36rpx;
-	font-family: 'Number';
+	font-family: 'Number, sans-serif';
 	font-weight:700;
 	color:#FF7F4C;
 	line-height:36rpx;

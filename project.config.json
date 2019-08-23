@@ -24,7 +24,7 @@
 	},
 	"compileType": "miniprogram",
 	"libVersion": "2.7.1",
-	"appid": "wxde5ab3ef647fba86",
+	"appid": "wx225f017495e6e195",
 	"projectname": "lieduoduo",
 	"debugOptions": {
 		"hidedInDevtools": []
@@ -56,20 +56,6 @@
 					"name": "【公包】启动页",
 					"pathName": "page/common/pages/startPage/startPage",
 					"query": ""
-				},
-				{
-					"id": 1,
-					"name": "急速约面",
-					"pathName": "page/applicant/pages/specialJob/specialJob",
-					"query": "",
-					"scene": 1001
-				},
-				{
-					"id": 1,
-					"name": "约面攻略",
-					"pathName": "page/applicant/pages/strategy/strategy",
-					"query": "",
-					"scene": 1001
 				},
 				{
 					"id": 3,
@@ -156,10 +142,31 @@
 				},
 				{
 					"id": 10,
+					"name": "【C端】搜索页",
+					"pathName": "page/applicant/pages/search/search",
+					"query": "type=myCollect",
+					"scene": null
+				},
+				{
+					"id": 10,
 					"name": "【C端】动态列表",
 					"pathName": "page/applicant/pages/dynamicsList/dynamicsList",
 					"query": "type=myCollect",
 					"scene": null
+				},
+				{
+					"id": 1,
+					"name": "【C端】急速约面",
+					"pathName": "page/applicant/pages/specialJob/specialJob",
+					"query": "",
+					"scene": 1001
+				},
+				{
+					"id": 1,
+					"name": "【C端】约面攻略",
+					"pathName": "page/applicant/pages/strategy/strategy",
+					"query": "",
+					"scene": 1001
 				},
 				{
 					"id": 8,

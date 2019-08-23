@@ -47,16 +47,17 @@
     <text>把你的筛选条件添加到求职意向</text>
     <button class="addBtn">立即添加<i class="icon iconfont icon-disejiantou-you"></i></button>
   </view>
-  <view class="list-box">
-    <waterfallFlow my-class="filterList" id="filterList" flowClass="{{'filterList'}}" value="{{filterList.list}}" page="{{filterList.pageNum}}"></waterfallFlow>
-    <waterfallFlow  my-class="recommendList" id="recommendList" flowClass="{{'recommendList'}}" value="{{recommendList.list}}" page="{{recommendList.pageNum}}"></waterfallFlow>
-    <!-- <bottomStatus status="{{onBottomStatus}}" marginTop="{{30}}" desc="暂时没有符合条件的结果～">
-      <button class="botBtn" bind>发现更多优质机会</button>
-    </bottomStatus> -->
+  <view class="list-box" wx:if="{{filterList.list[0].length}}">
+    <waterfallFlow wx:key="filterList" my-class="waterfallFlow" id="filterList" flowClass="{{'filterList'}}" value="{{filterList.list}}" page="{{filterList.pageNum}}"></waterfallFlow>
   </view>
-  <view class="noMore" wx:if="{{false}}">
+  <bottomStatus  wx:if="{{filterList.onBottomStatus !== 2 || !filterList.list[0].length}}" status="{{filterList.onBottomStatus}}" listData="{{filterList.list[0]}}" marginTop="{{30}}" desc="暂时没有符合条件的结果～"></bottomStatus>
+  <view class="noMore" wx:if="{{getRecommend}}">
     <view class="icon"></view>
     <view class="txt">暂时没有更多符合条件的结果，下面为你推荐可能相关的机会</view>
+  </view>
+  <view class="list-box" wx:if="{{recommendList.list[0].length}}">
+    <waterfallFlow wx:key="recommendList"  my-class="waterfallFlow" id="recommendList" flowClass="{{'recommendList'}}" value="{{recommendList.list}}" page="{{recommendList.pageNum}}"></waterfallFlow>
+    <bottomStatus status="{{recommendList.onBottomStatus}}" listData="{{recommendList.list[0]}}" marginTop="{{30}}" desc="暂时没有符合条件的结果～"></bottomStatus>
   </view>
   <tabBar id="bottomRedDotBar"></tabBar>
   <bindPhone hide="{{hideLoginBox}}" hasClose="{{false}}"></bindPhone>

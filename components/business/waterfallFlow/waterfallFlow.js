@@ -1,7 +1,7 @@
 import {getSelectorQuery} from '../../../utils/util.js'
 import {COMMON} from '../../../config.js'
 const app = getApp()
-let leftGrounp    = [],    // 每竖的left值集合
+var leftGrounp    = [],    // 每竖的left值集合
     heightGroup   = [],    // 每竖的高度集合
     page          = 1,     // 页码
     minIndex      = 0,     // 高度最小的一竖索引
@@ -55,7 +55,11 @@ Component({
   },
 
   attached () {
-    console.log(this.data.flowClass, 1111111111)
+    leftGrounp    = []
+    heightGroup   = []
+    page          = 1
+    minIndex      = 0
+    curDataGroupIndex = 0 
   },
   methods: {
     routeJump (e) {
@@ -89,8 +93,8 @@ Component({
       }
       let array = list
 
+
       array.forEach((item, index) => {
-        console.log(`.${this.data.flowClass}_flow${this.data.page - 1}${index}`)
         getSelectorQuery(`.${this.data.flowClass}_flow${this.data.page - 1}${index}`, that).then(res => {
           array[index].width = res.width
           array[index].index = index

@@ -1,0 +1,73 @@
+<navbar title="搜素" background="#FFFFFF" color="#22292C"></navbar>
+<view class="search" style="padding-top: {{!positionData.isRequire && !companyData.isRequire && !keyWord ? 90 : 170}}rpx">
+	<view class="search-box" style="top: {{navH}}px">
+		<view class="city">广州<i class="icon iconfont icon-sanjiaoshaixuan"></i></view>
+		<view class="search-bar {{hasFocus ? 'edit' : ''}}">
+			<i class="searchIcon iconfont icon-sousuo"></i>
+			<input class="search-input" type='text' placeholder="输入关键/职位/公司" placeholder-class="holderStyle" bindinput="bindInput" bindfocus="bindfocus" bindblur="bindblur" value="{{keyWord}}" confirm-type="search" bindconfirm="bindconfirm"/>
+			<i class="resetIcon iconfont icon-shurukuang-shanchu" bindtap="removeWord"></i>
+		</view>
+		<view hidden="{{!hasFocus}}" class="searchBtn" bindtap="choseKeyWord" data-type="searchBtn">搜索</view>
+		<view class="keyWordList" wx:if="{{keyWordList.length && keyWord}}" style="height: calc(100vh - {{navH}}px - 90rpx)">
+			<view class="keyWord" wx:for="{{keyWordList}}" wx:key="{{index}}" bindtap="choseKeyWord" data-type="searchList" data-word="{{item.word}}">
+				<view class="keyWordTxt ellipsis">
+					<rich-text nodes="{{item.html}}"></rich-text>
+				</view>
+			</view>
+		</view>
+	</view>
+	<view class="filterData" hidden="{{!positionData.isRequire && !companyData.isRequire && !keyWord}}" style="top: calc({{navH}}px + 90rpx)">
+		<view class="filterTab">
+			<view class="filter-item {{tabIndex === 0 ? 'active' : ''}}" bindtap="toggleTab" data-index="{{0}}">搜职位</view>
+			<view class="filter-item {{tabIndex === 1 ? 'active' : ''}}" bindtap="toggleTab" data-index="{{1}}">搜公司</view>
+		</view>
+		<view class="filterOption">
+			<view class="option-item active">公司</view>
+			<view class="option-item">要求</view>
+		</view>
+	</view>
+	<view class="list">
+		<view hidden="{{tabIndex === 1}}">
+			<view class="list-box" wx:if="{{positionData.list[0].length}}">
+		    <waterfallFlow wx:key="positionData" my-class="waterfallFlow" id="positionData" flowClass="{{'positionData'}}" value="{{positionData.list}}" page="{{positionData.pageNum}}" isLastPage="{{positionData.isLastPage}}" bindwxNextTick="wxNextTick"></waterfallFlow>
+		  </view>
+		  <bottomStatus wx:if="{{positionData.onBottomStatus !== 2 || !positionData.list[0].length}}" status="{{positionData.onBottomStatus}}" listData="{{positionData.list[0]}}" marginTop="{{30}}" desc="暂时没有符合条件的结果～"></bottomStatus>
+		  <view class="noMore" wx:if="{{getRecommend}}">
+		    <view class="icon"></view>
+		    <view class="txt">暂时没有更多符合条件的结果，下面为你推荐可能相关的机会</view>
+		  </view>
+		  <view class="list-box" wx:if="{{recommendList.list[0].length}}">
+		    <waterfallFlow wx:key="recommendList"  my-class="waterfallFlow" id="recommendList" flowClass="{{'recommendList'}}" value="{{recommendList.list}}" page="{{recommendList.pageNum}}"></waterfallFlow>
+		    <bottomStatus status="{{recommendList.onBottomStatus}}" listData="{{recommendList.list[0]}}" marginTop="{{30}}" desc="暂时没有符合条件的结果～"></bottomStatus>
+	  	</view>
+	  </view>
+	  <view hidden="{{tabIndex === 0}}">
+	  	<view class="companyList">
+	  		<block wx:for="{{companyData.list}}" wx:for-item="list" wx:for-index="firstIndex" wx:key="first_{{firstIndex}}">
+	  			<view class="company-item" wx:for="{{list}}" wx:for-item="item" wx:for-index="index" wx:key="second_{{index}}">
+		  			<image class="logo" src='{{item.logoInfo.smallUrl}}'></image>
+		  			<view class="infos ellipsis">
+		  				<view class="name">{{item.companyShortname}}</view>
+		  				<view class="label">{{item.financingInfo}} | {{item.employeesInfo}} | {{item.industry}}</view>
+		  				<view class="other" wx:if="{{item.area || item.onlinePositions}}">
+		  					<view class="other-item" wx:if="{{item.area}}"><i class="icon iconfont icon-dizhi"></i>{{item.area}}</view>
+		  					<view class="other-item" wx:if="{{item.onlinePositions}}"><i class="icon iconfont icon-zhiwei"></i><text class="num">{{item.onlinePositions}}</text>个在招职位</view>
+		  				</view>
+		  			</view>
+		  		</view>
+	  		</block>
+	  	</view>
+	  	<bottomStatus status="{{companyData.onBottomStatus}}" listData="{{companyData.list[0]}}" marginTop="{{30}}" desc="暂时没有符合条件的结果～"></bottomStatus>
+	  </view>
+  </view>
+  <view class="labelBox" style="height: calc(100vh - {{navH}}px - 90rpx)" hidden="{{positionData.isRequire || tabIndex && companyData.isRequire || keyWord}}">
+	  <view class="historyArea" wx:if="{{historyList.length}}">
+	  	<view class="title">历史搜索<i class="remove iconfont icon-yuemian" bindtap="removeHistory"></i></view>
+	    <text class="record ellipsis" wx:for="{{historyList}}"  wx:key="{{index}}" data-item="{{item}}" data-type="label" bindtap="choseKeyWord">{{item.word}}</text>
+	  </view>
+	  <view class="hotArea" wx:if="{{hotList.length}}">
+	  	<view class="title">热门搜索</view>
+	    <text class="record ellipsis" wx:for="{{hotList}}" wx:key="{{index}}" data-item="{{item}}" data-type="label" bindtap="choseKeyWord">{{item.word}}</text>
+	  </view>
+  </view>
+</view>

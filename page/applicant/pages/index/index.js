@@ -1,7 +1,7 @@
 import {RECRUITER, APPLICANT, COMMON} from '../../../../config.js'
 import {getSelectorQuery}  from '../../../../utils/util.js'
 import { getAvartListApi } from '../../../../api/pages/active.js'
-import { getPositionListApi, getPositionRecordApi, getRecommendApi } from '../../../../api/pages/position.js'
+import { getPositionSchListApi, getPositionRecordApi, getRecommendApi } from '../../../../api/pages/position.js'
 import {getFilterDataApi} from '../../../../api/pages/aggregate.js'
 import {getAdBannerApi} from '../../../../api/pages/common'
 import {shareChance} from '../../../../utils/shareWord.js'
@@ -12,7 +12,7 @@ let identity = '',
     hasOnload = false, // 用来判断是否执行了onload，就不走onShow的校验
     tabTop = 0,
     timer = null,
-    getRecommend = false
+    adPositionIds = null
 Page({
   data: {
     pageCount: 10,
@@ -20,7 +20,6 @@ Page({
     showNav: false,
     fixedBarHeight: 0,
     hasReFresh: false,
-    onBottomStatus: 0,
     hideLoginBox: true,
     background: 'transparent',
     isBangs: app.globalData.isBangs,
@@ -45,12 +44,14 @@ Page({
     filterList: {
       list: [],
       pageNum: 0,
+      onBottomStatus: 0,
       isLastPage: false,
       isRequire: false
     },
     recommendList: {
       list: [],
       pageNum: 0,
+      onBottomStatus: 0,
       isLastPage: false,
       isRequire: false
     },
@@ -75,11 +76,14 @@ Page({
     hasLogin: 0,
     isJobhunter: 0,
     hasExpect: 1,
-    recommended: 0 // 是否有推荐策略
+    recommended: 0, // 是否有推荐策略
+    getRecommend: 0 // 过滤数据完毕开始加载推荐疏数据
   },
   onLoad(options) {
     app.toastSwitch()
     hasOnload = false
+    adPositionIds = null
+    
     if (options.needAuth && wx.getStorageSync('choseType') === 'RECRUITER') { // 是否从不服来赞过来的B身份 强制C端身份
       wx.setStorageSync('choseType', 'APPLICANT')
     }
@@ -349,40 +353,42 @@ Page({
     this.data.type ? params = Object.assign(params, {positionTypeIds: this.data.type}) : delete params.positionTypeIds
     this.data.emolument ? params = Object.assign(params, {emolumentIds: this.data.emolument}) : delete params.emolumentIds
 
-    if ((this.data.recommended && !params.cityNums && !params.positionTypeIds) || getRecommend) {
+    if ((this.data.recommended && !params.cityNums && !params.positionTypeIds) || this.data.getRecommend) {
       getList = getRecommendApi
-      params.count = 15
+      params.count = 20
       listData = this.data.recommendList
       listType = 'recommendList'
+      params.adPositionIds = adPositionIds
       if (params.page === 1) params.isFisrtPage = 1
     } else {
       listData = this.data.filterList
-      getList = getPositionListApi
+      getList = getPositionSchListApi
       listType = 'filterList'
     }
+    listData.pageNum++
     params.page = listData.pageNum
-
     if (this.data.options.positionTypeId) {
       params.is_record = 0
       delete params.cityNums
       delete params.emolumentIds
     }
     
-    listData.pageNum++
     return getList(params, hasLoading).then(res => {
       let requireOAuth = false
       if (res.meta && res.meta.requireOAuth) requireOAuth = res.meta.requireOAuth
       if (this.data.options.needAuth && !app.globalData.userInfo) {
         requireOAuth = true
       }
+      if (res.meta && res.meta.adPositionIds) adPositionIds = res.meta.adPositionIds
       listData.list.push(res.data)
-      listData.isLastPage = res.data.length === 0 || (res.meta && parseInt(res.meta.currentPage) === res.meta.lastPage) ? true : false
+      listData.isLastPage = res.data.length < 20 || (res.meta && res.meta.currentPage && parseInt(res.meta.currentPage) === res.meta.lastPage) ? true : false
       listData.isRequire = true
-      this.setData({[`${listType}`]: listData, onBottomStatus: listData.isRequire ? 2 : 0, requireOAuth}, () => {
+      listData.onBottomStatus = listData.isLastPage ? 2 : 0
+      this.setData({[`${listType}`]: listData, requireOAuth}, () => {
         if (!this.data.recommendList.isRequire && this.data.filterList.isRequire && this.data.filterList.isLastPage && (!this.data.recommended || params.cityNums || params.positionTypeIds)) {
-          getRecommend = true
-          this.selectComponent('#recommendList').reset()
-          this.getPositionList()
+          this.setData({getRecommend: 1}, () => {
+            this.getPositionList(false)
+          })
         }
       })
     })
@@ -472,8 +478,6 @@ Page({
     })
   },
   reloadPositionLists(hasLoading = true) {
-    this.selectComponent('#filterList').reset()
-    this.selectComponent('#recommendList').reset()
     const filterList = {list: [], pageNum: 0, isLastPage: false, isRequire: false},
           recommendList = {list: [], pageNum: 0, isLastPage: false, isRequire: false}
     this.setData({filterList, recommendList})
@@ -499,7 +503,14 @@ Page({
     })
   },
   onReachBottom() {
-    this.setData({onBottomStatus: 1})
+    let listType = null
+    if ((this.data.recommended && !this.data.city && !this.data.type) || this.data.getRecommend) {
+      listType = 'recommendList'
+    } else {
+      listType = 'filterList'
+    }
+    if (this.data[listType].isLastPage) return
+    this.setData({[`${listType}.onBottomStatus`]: 1})
     this.getPositionList(false)
   },
   onShareAppMessage(options) {

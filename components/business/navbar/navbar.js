@@ -109,6 +109,9 @@ Component({
         })
       }
     },
+    toSearch () {
+      wx.navigateTo({url: `${APPLICANT}search/search`})
+    },
     formSubmit(e) {
       app.postFormId(e.detail.formId)
     },
