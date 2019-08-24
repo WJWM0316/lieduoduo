@@ -1,0 +1,9 @@
+<view class="filterPop">
+	<actionSheet openPop="{{true}}">
+		<view class="title">选择城市</view>
+		<view class="">111111111111111</view>
+	</actionSheet>
+
+
+
+</view>

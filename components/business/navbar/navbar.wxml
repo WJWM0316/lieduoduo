@@ -25,4 +25,5 @@
   </view>
 </view>
 </form>
+<filterPop></filterPop>
 <scanCodeTips showScanBox="{{showScanBox}}" wx:if="{{showScanBox}}"></scanCodeTips>
