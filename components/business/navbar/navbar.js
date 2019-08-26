@@ -59,7 +59,9 @@ Component({
     firstClick: false,
     homeBubble: false,
     choseType: 'APPLICANT',
-    showScanBox: false
+    showScanBox: false,
+    openPop: false,
+    cityName: ''
   },
   attached() {
     let positionStatus = this.data.positionStatus
@@ -127,6 +129,13 @@ Component({
     },
     showScan() {
       this.setData({showScanBox: true})
+    },
+    chooseCity () {
+      this.setData({openPop: true})
+    },
+    getFilterResult (e) {
+      this.setData({cityName: e.detail.cityName})
+      this.triggerEvent('FilterResult', e.detail)
     }
   },
   pageLifetimes: {

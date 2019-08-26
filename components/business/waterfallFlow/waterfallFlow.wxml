@@ -8,7 +8,7 @@
             bindtap="routeJump"
             data-id="{{item.id}}"
             wx:key="{{item.id}}">
-          <view class="iconfont header {{item.isRapidly === 1 ? 'specail' : ''}} {{item.recruiterInfo.signature ? 'hasSignature' : ''}}">
+          <view class="iconfont header {{item.isRapidly === 1 || item.isUrgency === 1 ? 'specail' : ''}} {{item.recruiterInfo.signature ? 'hasSignature' : ''}}">
             <block wx:if="{{item.isRapidly === 2}}">
             	<view class="people">
             		<image class="avatar" src="{{item.recruiterInfo.avatar.smallUrl}}"></image>
@@ -18,7 +18,7 @@
             		</view>
             	</view>
             </block>
-            <block wx:if="{{item.isRapidly === 1}}">
+            <block wx:if="{{item.isRapidly === 1 || item.isUrgency === 1}}">
               <view class="specailBox">
                 <view class="avatarBox"><image class="avatar" src="{{item.recruiterInfo.avatar.smallUrl}}"></image></view>
                 <view class="name">{{item.recruiterInfo.name}}</view>

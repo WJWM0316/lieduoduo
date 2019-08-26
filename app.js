@@ -119,6 +119,7 @@ App({
               that.globalData.hasLogin = 1
               if (res.data.userWechatInfo.officialId) that.globalData.officialId = 1
               if (res.data.userWechatInfo.nickname) that.globalData.userInfo = res.data.userWechatInfo
+              if (res.data.sessionToken) wx.setStorageSync('sessionToken', res.data.sessionToken)
               that.getRoleInfo()
               console.log('用户已认证')
             } else {

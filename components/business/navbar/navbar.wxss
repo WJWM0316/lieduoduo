@@ -114,7 +114,11 @@
   bottom: 18rpx;
 }
 .searchBox .cityName {
+  width:56rpx;
+  display: inline-block;
+  overflow: hidden;
   font-size:28rpx;
+  height: 28rpx;
   font-weight:300;
   color:#fff;
   line-height:28rpx;

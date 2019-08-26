@@ -44,7 +44,10 @@ Page({
       isRequire: false
     },
     historyList: [],
-    hotList: []
+    hotList: [],
+    openPop: false,
+    filterData: {},
+    filterType: 'company'
   },
 
   /**
@@ -113,7 +116,6 @@ Page({
     })
   },
   resetList () {
-    if (this.data.positionData.list[0] && this.data.positionData.list[0].length) this.selectComponent('#positionData').reset()
     this.setData({
       getRecommend: false,
       positionData: {list: [], pageNum: 0, onBottomStatus: 0, isLastPage: false},
@@ -130,7 +132,7 @@ Page({
       }
     })
   },
-  getSearchData (hasLoading = false) {
+  getSearchData (hasLoading = true) {
     let tabIndex     = this.data.tabIndex,
         getRecommend = this.data.getRecommend,
         listType     = null,
@@ -143,7 +145,9 @@ Page({
     let params = {
       page: listData.pageNum,
       count: app.globalData.pageCount,
-      keyword: this.data.keyWord
+      keyword: this.data.keyWord,
+      recordParams: 1,
+      ...this.data.filterData
     }
     return listFun(params, hasLoading).then(res => {
       listData.list.push(res.data)
@@ -151,7 +155,7 @@ Page({
       listData.isLastPage = (res.data.length < params.count) || (res.meta && parseInt(res.meta.currentPage) === res.meta.lastPage) ? 1 : 0
       listData.onBottomStatus = listData.isLastPage ? 2 : 0
       this.setData({[`${listType}`]: listData}, () => {
-        if (!this.data.tabIndex && !this.data.getRecommend) {
+        if (this.data.positionData.isLastPage && !this.data.tabIndex && !this.data.getRecommend) {
           this.setData({getRecommend: 1}, () => {
             this.getSearchData(false)
           })
@@ -193,6 +197,17 @@ Page({
     lastWord = keyWord
     keyWord = ''
     this.setData({keyWord})
+  },
+  getFilterResult (e) {
+    let filterData = e.detail
+    this.setData({filterData}, () => {
+      this.resetList()
+      this.getSearchData()
+    })
+  },
+  chooseType (e) {
+    let type = e.currentTarget.dataset.type
+    this.setData({filterType: type, openPop: true})
   },
   /**
    * 生命周期函数--监听页面初次渲染完成

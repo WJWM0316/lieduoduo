@@ -1,7 +1,7 @@
 <navbar title="搜素" background="#FFFFFF" color="#22292C"></navbar>
 <view class="search" style="padding-top: {{!positionData.isRequire && !companyData.isRequire && !keyWord ? 90 : 170}}rpx">
 	<view class="search-box" style="top: {{navH}}px">
-		<view class="city">广州<i class="icon iconfont icon-sanjiaoshaixuan"></i></view>
+		<view class="city" bindtap="chooseType" data-type="city">{{filterData.cityName || '全国'}}<i class="icon iconfont icon-sanjiaoshaixuan"></i></view>
 		<view class="search-bar {{hasFocus ? 'edit' : ''}}">
 			<i class="searchIcon iconfont icon-sousuo"></i>
 			<input class="search-input" type='text' placeholder="输入关键/职位/公司" placeholder-class="holderStyle" bindinput="bindInput" bindfocus="bindfocus" bindblur="bindblur" value="{{keyWord}}" confirm-type="search" bindconfirm="bindconfirm"/>
@@ -22,8 +22,8 @@
 			<view class="filter-item {{tabIndex === 1 ? 'active' : ''}}" bindtap="toggleTab" data-index="{{1}}">搜公司</view>
 		</view>
 		<view class="filterOption">
-			<view class="option-item active">公司</view>
-			<view class="option-item">要求</view>
+			<view class="option-item {{filterData.employeeIds || filterData.industryIds || filterData.financingIds ? 'active' : ''}}" bindtap="chooseType" data-type="company">公司</view>
+			<view class="option-item {{filterData.experienceIds || (filterData.emolumentIds && filterData.emolumentIds !== '1') ? 'active' : ''}}" bindtap="chooseType" data-type="require">要求</view>
 		</view>
 	</view>
 	<view class="list">
@@ -71,3 +71,4 @@
 	  </view>
   </view>
 </view>
+<filterPop openPop="{{openPop}}" filterType="{{filterType}}" bindFilterResult="getFilterResult"></filterPop>
