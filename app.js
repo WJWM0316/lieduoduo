@@ -115,7 +115,7 @@ App({
           loginApi({code: res0.code, ...params}).then(res => {
             // 有token说明已经绑定过用户了
             if (res.data.token) {
-              wx.setStorageSync('token', 'a7804535c7499406730aa89c13ebaf0e') // res.data.token
+              wx.setStorageSync('token', res.data.token)
               that.globalData.hasLogin = 1
               if (res.data.userWechatInfo.officialId) that.globalData.officialId = 1
               if (res.data.userWechatInfo.nickname) that.globalData.userInfo = res.data.userWechatInfo
@@ -617,17 +617,17 @@ App({
   toastSwitch () {
     let path = this.getCurrentPagePath(),
         curRole = wx.getStorageSync('choseType'),
-        sameRole = path.indexOf(curRole === 'APPLICANT' ? 'applicant' : 'recruiter') !== -1
+        sameRole = path.indexOf(curRole !== 'RECRUITER' ? 'applicant' : 'recruiter') !== -1
     // 身份符合直接不弹提示
     if (sameRole) return
-    let needRole = curRole === 'APPLICANT' ? 'RECRUITER' : 'APPLICANT'
-    let content = needRole === 'APPLICANT' ? '你当前身份是“面试官”，是否切换为“求职者”？' : '你当前身份是“求职者”，是否切换为“面试官”？'
+    let needRole = curRole !== 'RECRUITER' ? 'RECRUITER' : 'APPLICANT'
+    let content = needRole !== 'RECRUITER' ? '你当前身份是“面试官”，是否切换为“求职者”？' : '你当前身份是“求职者”，是否切换为“面试官”？'
     this.wxConfirm({
       title: '',
       content,
       cancelBack: () => {
         wx.reLaunch({
-          url: needRole === 'APPLICANT' ? `${RECRUITER}index/index` : `${APPLICANT}index/index`
+          url: needRole !== 'RECRUITER' ? `${RECRUITER}index/index` : `${APPLICANT}index/index`
         })
       },
       confirmBack: () => {

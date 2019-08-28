@@ -284,7 +284,7 @@ Component({
           console.log(filter.positionType, filter.topindex, 111)
           filterResult.positionTypeIds = filterList(filter.positionType[filter.topindex].children).join()
           filterResult.topId = filter.topindex
-          if (filterResult.positionTypeIds === '0') filterResult.positionTypeIds
+          if (filterResult.positionTypeIds === '0') filterResult.positionTypeIds = 0
           break
       }
       this.setData({openPop: false})
