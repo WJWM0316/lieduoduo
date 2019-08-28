@@ -79,8 +79,6 @@ Page({
   },
   onShow: function () {
     if (hasOnload) this.init()
-    // 强制切换身份
-    if (wx.getStorageSync('choseType') !== 'APPLICANT') wx.setStorageSync('choseType', 'APPLICANT')
     // 更新数据
     if (wx.getStorageSync('chatSuccess') && this.data.nowListData.list.length > 0) {
       let chatSuccess = wx.getStorageSync('chatSuccess')
@@ -259,7 +257,7 @@ Page({
     })
   },
   initPage () {
-    clearTimeout(jumpTimer)
+    if (wx.getStorageSync('choseType') !== 'APPLICANT') return
     let jumpCreate = () => {
       app.wxToast({
         title: '前往求职飞船',

@@ -150,8 +150,9 @@ Page({
     }
   },
   initPage () {
+    if (wx.getStorageSync('choseType') !== 'APPLICANT') return
     let jumpCreate = () => {
-      if (!app.globalData.isMicroCard && wx.getStorageSync('choseType') !== 'RECRUITER') {
+      if (!app.globalData.isMicroCard) {
         app.wxToast({
           title: '前往求职飞船',
           icon: 'loading',
