@@ -42,13 +42,13 @@ App({
     this.pageInit = null
     this.getRoleInit = null
     this.login()
+    this.getFont('Number', 'https://attach.lieduoduo.com/font/DIN-Medium.ttf')
     // 这是一个官方api没有公布的方法，但又真实有效，慎用！
     wx.onAppRoute((res) => {
       if (res.query.hasOwnProperty('identity')) {
         this.identification(res.query)
       }
     })
-    this.getFont('Number', 'https://attach.lieduoduo.ziwork.com/font/DIN-Medium.ttf')
   },
   onHide: function (e) {
     // 切换后台 发送全部formId
@@ -112,7 +112,7 @@ App({
           loginApi({code: res0.code, ...params}).then(res => {
             // 有token说明已经绑定过用户了
             if (res.data.token) {
-              wx.setStorageSync('token', res.data.token)
+              wx.setStorageSync('token', 'a7804535c7499406730aa89c13ebaf0e') //res.data.token
               that.globalData.hasLogin = 1
               if (res.data.userWechatInfo.nickname) that.globalData.userInfo = res.data.userWechatInfo
               that.getRoleInfo()
@@ -154,9 +154,8 @@ App({
     let pageInit = () => {
       if (this.pageInit) { // 页面初始化
         this.pageInit() //执行定义的回调函数
-      } else {
-        this.pageInit = function () {}
       }
+      this.pageInit = function () {}
     }
     return new Promise((resolve, reject) => {
       if (wx.getStorageSync('choseType') === 'RECRUITER') {
@@ -209,9 +208,8 @@ App({
         }
         if (this.getRoleInit) { // 登陆初始化
           this.getRoleInit() //执行定义的回调函数
-        } else {
-          this.getRoleInit = function () {}
         }
+        this.getRoleInit = function () {}
         this.getAllInfo()
         resolve(res0)
       })
