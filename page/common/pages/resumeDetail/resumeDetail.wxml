@@ -74,7 +74,7 @@
           <view class="officeTab" wx:for="{{info.expects}}" wx:if="{{index < 3}}" wx:key="{{index}}">
             <view>
               <view class="officeDetail">
-                <text class="name">{{item.position}} | {{item.city}}</text>
+                <text class="name">{{item.position}}<block wx:if="{{item.city}}"> | {{item.city}}</block></text>
                 <text class="salary">{{item.salaryFloor}}~{{item.salaryCeil}}K</text>
                 <i class="icon iconfont icon-bianji1 edit" data-editName="intent" data-id="{{item.id}}" bindtap="edit" wx:if="{{isOwner}}"></i></view>
             </view>

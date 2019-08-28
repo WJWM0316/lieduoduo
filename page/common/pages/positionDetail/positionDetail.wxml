@@ -10,7 +10,7 @@
 			<view class="company-infos {{detail.isRapidly === 1 ? 'hasSpecail' : ''}}">
 				<view class="header">
 					<view class="text">
-						<view class="position-name">{{detail.positionName}}</view>
+						<view class="position-name"><view class="jp" wx:if="{{detail.isUrgency === 1}}"><i class="icon iconfont icon-shandian"></i>急聘</view>{{detail.positionName}}</view>
 						<view class="position-salary">{{detail.emolumentMin}}k-{{detail.emolumentMax}}k</view>
 					</view>
 					<view class="img-box" data-type="about" bindtap="todoAction">

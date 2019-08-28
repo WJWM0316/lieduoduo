@@ -8,7 +8,6 @@ let tabTop = 0,
     hasOnload = false,
     timer = null,
     navTimer = null,
-    jumpTimer = null,
     avatarsNum = 10
 Page({
 
@@ -254,7 +253,6 @@ Page({
     })
   },
   initPage () {
-    clearTimeout(jumpTimer)
     let jumpCreate = () => {
       app.wxToast({
         title: '前往求职飞船',

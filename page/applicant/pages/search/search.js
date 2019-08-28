@@ -6,9 +6,10 @@ import {
   getSearchConpanyListApi,
   getRecommendApi
 } from '../../../../api/pages/search.js'
+import {COMMON, RECRUITER, APPLICANT} from '../../../../config.js'
 const app = getApp()
 let timer = null,
-    keyWord = '',
+    keyword = '',
     lastWord = '记录上一条搜索词'
 Page({
 
@@ -18,7 +19,7 @@ Page({
   data: {
     navH: app.globalData.navHeight,
     tabIndex: 0,
-    keyWord: '',
+    keyword: '',
     hasFocus: false,
     keyWordList: [],
     getRecommend: false, // 获取推荐数据
@@ -46,6 +47,7 @@ Page({
     historyList: [],
     hotList: [],
     openPop: false,
+    focus: false,
     filterData: {},
     filterType: 'company'
   },
@@ -56,6 +58,7 @@ Page({
   onLoad: function (options) {
     let searchRecord = wx.getStorageSync('searchRecord') || []
     if (searchRecord.length) this.setData({historyList: searchRecord})
+    this.setData({focus: true})
     this.getHotKeyWordList()
   },
   bindblur () {
@@ -66,12 +69,12 @@ Page({
   },
   bindInput (e) {
     console.log(e)
-    keyWord = e.detail.value.trim()
-    if (lastWord === keyWord) return
-    lastWord = keyWord
+    keyword = e.detail.value.trim()
+    if (lastWord === keyword) return
+    lastWord = keyword
     clearTimeout(timer)
     timer = setTimeout(() => {
-      if (!keyWord) this.setData({keyWord}, () => {
+      if (!keyword) this.setData({keyword}, () => {
         this.resetList()
       })
       this.getKeyWordList()
@@ -82,8 +85,18 @@ Page({
     this.choseKeyWord(e)
   },
   updateHistory (word) {
-    let searchRecord = this.data.historyList || []
-    if (!searchRecord.some(item => { return item.word === word })) searchRecord.unshift({word, type: !this.data.tabIndex ? 1 : 2})
+    if (!keyword) return
+    let searchRecord = this.data.historyList || [],
+        isRecordIndex= null
+    // 判断该关键字是否已经存在，存在则位置提前，不存在则加到第一个
+    
+    searchRecord.forEach((item, index) => { if (item.word === word) isRecordIndex = index })
+    if (!isRecordIndex && isRecordIndex !== 0) {
+      searchRecord.unshift({word, type: !this.data.tabIndex ? 1 : 2})
+    } else {
+      searchRecord.splice(isRecordIndex, 1)
+      searchRecord.unshift({word, type: !this.data.tabIndex ? 1 : 2})
+    }
     if (searchRecord.length > 7)  searchRecord.pop(1)
     if (searchRecord.length) {
       wx.setStorageSync('searchRecord', searchRecord)
@@ -98,7 +111,7 @@ Page({
         word = dataset.word
         break
       case 'searchBtn':
-        word = keyWord
+        word = keyword
         break
       case 'label':
         word = dataset.item.word
@@ -106,12 +119,11 @@ Page({
         this.setData({tabIndex})
         break
     }
-    lastWord = keyWord
-    keyWord = word
-    if (!keyWord) return
+    lastWord = keyword
+    keyword = word
     this.resetList()
-    this.updateHistory(keyWord)
-    this.setData({keyWord: word, keyWordList: []}, () => {
+    this.updateHistory(keyword)
+    this.setData({keyword, keyWordList: []}, () => {
       this.getSearchData()
     })
   },
@@ -134,10 +146,12 @@ Page({
   },
   getSearchData (hasLoading = true) {
     let tabIndex     = this.data.tabIndex,
+        keyword      = this.data.keyword,
         getRecommend = this.data.getRecommend,
         listType     = null,
         listFun      = null,
         listData     = null
+    if (!keyword) return
     listType = tabIndex ? 'companyData' : !getRecommend ? 'positionData' : 'recommendList'
     listFun  = tabIndex ? getSearchConpanyListApi : !getRecommend ? getSearchPositionListApi : getRecommendApi
     listData = this.data[listType]
@@ -145,16 +159,22 @@ Page({
     let params = {
       page: listData.pageNum,
       count: app.globalData.pageCount,
-      keyword: this.data.keyWord,
-      recordParams: 1,
+      keyword,
+      recordParams: 0,
       ...this.data.filterData
     }
     return listFun(params, hasLoading).then(res => {
-      listData.list.push(res.data)
-      listData.isRequire = 1
-      listData.isLastPage = (res.data.length < params.count) || (res.meta && parseInt(res.meta.currentPage) === res.meta.lastPage) ? 1 : 0
-      listData.onBottomStatus = listData.isLastPage ? 2 : 0
-      this.setData({[`${listType}`]: listData}, () => {
+      let isRequire = 1
+      let isLastPage = (res.data.length < params.count) || (res.meta && parseInt(res.meta.currentPage) === res.meta.lastPage) ? 1 : 0
+      let onBottomStatus = isLastPage ? 2 : 0
+      let setData = {
+        [`${listType}.pageNum`]: listData.pageNum,
+        [`${listType}.isLastPage`]: isLastPage, 
+        [`${listType}.isRequire`]: isRequire, 
+        [`${listType}.onBottomStatus`]: onBottomStatus
+      }
+      tabIndex === 1 ? setData[`${listType}.list[${listData.pageNum - 1}]`] = res.data : setData[`${listType}.list`] = res.data
+      this.setData(setData, () => {
         if (this.data.positionData.isLastPage && !this.data.tabIndex && !this.data.getRecommend) {
           this.setData({getRecommend: 1}, () => {
             this.getSearchData(false)
@@ -169,9 +189,9 @@ Page({
     })
   },
   getKeyWordList () {
-    if (!keyWord) return
+    if (!keyword) return
     let params = {
-      position: keyWord,
+      position: keyword,
       count: 10
     }
     getKeyWordListApi(params).then(res => {
@@ -179,11 +199,11 @@ Page({
       res.data.map(field => {
         let item = {}
         item.word = field
-        item.html = item.word.replace(new RegExp(keyWord,'g'),`<span style="color: #652791;font-weight: normal">${keyWord}</span>`)
+        item.html = item.word.replace(new RegExp(keyword,'g'),`<span style="color: #652791;font-weight: normal">${keyword}</span>`)
         item.html = `<div>${item.html}</div>`
         list.push(item)
       })
-      this.setData({keyWordList: list, keyWord})
+      this.setData({keyWordList: list, keyword})
     })
   },
   removeHistory () {
@@ -192,11 +212,11 @@ Page({
     })
   },
   removeWord () {
-    if (!keyWord) return
+    if (!keyword) return
     this.resetList()
-    lastWord = keyWord
-    keyWord = ''
-    this.setData({keyWord})
+    lastWord = keyword
+    keyword = ''
+    this.setData({keyword, focus: true})
   },
   getFilterResult (e) {
     let filterData = e.detail
@@ -208,6 +228,18 @@ Page({
   chooseType (e) {
     let type = e.currentTarget.dataset.type
     this.setData({filterType: type, openPop: true})
+  },
+  routeJump (e) {
+    let route = e.currentTarget.dataset.route,
+        item  = e.currentTarget.dataset.item
+    switch (route) {
+      case 'specialJob':
+        wx.reLaunch({url: `${APPLICANT}specialJob/specialJob`})
+        break
+      case 'company':
+        wx.navigateTo({url: `${COMMON}homepage/homepage?companyId=${item.id}`})
+        break
+    }
   },
   /**
    * 生命周期函数--监听页面初次渲染完成
@@ -258,7 +290,7 @@ Page({
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
-
+  onShareAppMessage(options) {
+　　return app.wxShare({options})
   }
 })

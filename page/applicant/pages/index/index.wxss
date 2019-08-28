@@ -142,11 +142,13 @@
   box-sizing: border-box;
 }
 .noMore .icon {
-  width:119rpx;
-  height:83rpx;
+  width:160rpx;
+  height:82rpx;
   position: absolute;
   top: 21rpx;
   left: 56rpx;
+  background: url('https://attach.lieduoduo.ziwork.com/front-assets/available/nomore1.png') no-repeat;
+  background-size: 100% auto;
 }
 .noMore .txt {
   font-size:26rpx;
@@ -155,14 +157,18 @@
   line-height:36rpx;
 }
 
-.botBtn {
-  width:380rpx;
-  height:88rpx;
-  background:#FFDC29;
-  box-shadow:0rpx 15rpx 28rpx 0rpx rgba(241,214,72,0.46);
-  border-radius:44rpx;
-  margin: 0 auto;
-  font-size:30rpx;
-  color:#282828;
-  line-height: 88rpx;
+.moreBtn {
+  width:368rpx;
+  height:68rpx;
+  border-radius:34rpx;
+  border:1rpx solid #652791;
+  line-height: 68rpx;
+  text-align: center;
+  font-size:28rpx;
+  color:#652791;
+  margin: 24rpx auto;
+}
+.moreBtn .icon {
+  font-size: 24rpx;
+  margin-left: 12rpx;
 }

@@ -7,7 +7,7 @@ export const getKeyWordListApi = (data, hasLoading) => {
     method: 'get',
     url: `/search/matches/position`,
     data,
-    hasLoading: hasLoading
+    hasLoading: false
   })
 }
 
@@ -17,7 +17,7 @@ export const getHotKeyWordListApi = (data, hasLoading) => {
     method: 'get',
     url: `/search/hot/words`,
     data,
-    hasLoading: hasLoading
+    hasLoading: false
   })
 }
 

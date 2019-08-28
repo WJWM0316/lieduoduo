@@ -115,7 +115,7 @@ App({
           loginApi({code: res0.code, ...params}).then(res => {
             // 有token说明已经绑定过用户了
             if (res.data.token) {
-              wx.setStorageSync('token', res.data.token)
+              wx.setStorageSync('token', 'a7804535c7499406730aa89c13ebaf0e') // res.data.token
               that.globalData.hasLogin = 1
               if (res.data.userWechatInfo.officialId) that.globalData.officialId = 1
               if (res.data.userWechatInfo.nickname) that.globalData.userInfo = res.data.userWechatInfo

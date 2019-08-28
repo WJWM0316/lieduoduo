@@ -17,9 +17,7 @@ Component({
       value: [],
       observer (newVal, oldVal) {
         if (newVal.length === 0) return
-        let listData = this.data.listData
-        listData.push(this.data.value[this.data.value.length - 1])
-        this.setData({listData}, () => {
+        this.setData({[`listData[${this.data.page}]`]: newVal}, () => {
           this.updata()
         })
       }
@@ -79,8 +77,7 @@ Component({
     },
     updata () {
       wx.nextTick(() => {
-        if (this.data.page === 0) return
-        this.typeset(this.data.listData[this.data.page - 1])
+        this.typeset(this.data.listData[this.data.page])
       })
     },
     typeset (list) {
@@ -95,7 +92,7 @@ Component({
 
 
       array.forEach((item, index) => {
-        getSelectorQuery(`.${this.data.flowClass}_flow${this.data.page - 1}${index}`, that).then(res => {
+        getSelectorQuery(`.${this.data.flowClass}_flow${this.data.page}${index}`, that).then(res => {
           array[index].width = res.width
           array[index].index = index
           array[index].height = res.height
@@ -120,7 +117,7 @@ Component({
           }
           if (index === list.length - 1) {
             let wrapH = heightGroup[maxFun(heightGroup)]
-            this.setData({[`listData[${this.data.page - 1}]`]: array, wrapH})
+            this.setData({[`listData[${this.data.page}]`]: array, wrapH})
           }
         })
       })

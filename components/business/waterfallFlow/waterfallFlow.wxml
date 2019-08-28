@@ -8,20 +8,20 @@
             bindtap="routeJump"
             data-id="{{item.id}}"
             wx:key="{{item.id}}">
-          <view class="iconfont header {{item.isRapidly === 1 || item.isUrgency === 1 ? 'specail' : ''}} {{item.recruiterInfo.signature ? 'hasSignature' : ''}}">
-            <block wx:if="{{item.isRapidly === 2}}">
+          <view class="iconfont header {{item.isUrgency === 1 ? 'specail' : ''}} {{item.recruiterInfo.signature ? 'hasSignature' : ''}}">
+            <block wx:if="{{item.isUrgency !== 1}}">
             	<view class="people">
             		<image class="avatar" src="{{item.recruiterInfo.avatar.smallUrl}}"></image>
             		<view class="detail">
-            			<view class="name">{{item.recruiterInfo.name}}</view>
+            			<view class="name ellipsis">{{item.recruiterInfo.name}}</view>
             			<view class="company ellipsis">{{item.recruiterInfo.companyShortname}}·{{item.recruiterInfo.position}}</view>
             		</view>
             	</view>
             </block>
-            <block wx:if="{{item.isRapidly === 1 || item.isUrgency === 1}}">
+            <block wx:if="{{item.isUrgency === 1}}">
               <view class="specailBox">
                 <view class="avatarBox"><image class="avatar" src="{{item.recruiterInfo.avatar.smallUrl}}"></image></view>
-                <view class="name">{{item.recruiterInfo.name}}</view>
+                <view class="name ellipsis">{{item.recruiterInfo.name}}</view>
                 <view class="company ellipsis">{{item.recruiterInfo.companyShortname}}·{{item.recruiterInfo.position}}</view>
               </view>
             </block>
@@ -29,7 +29,7 @@
           </view>
           <view class="content">
           	<view class="positionName ellipsis">{{item.positionName}}</view>
-          	<view class="salary">{{item.emolumentMin}}K~{{item.emolumentMax}}K<block wx:if="{{annualSalary > 12}}">·{{annualSalaryDesc}}</block></view>
+          	<view class="salary">{{item.emolumentMin}}K~{{item.emolumentMax}}K<block wx:if="{{item.annualSalary > 12}}">·{{item.annualSalaryDesc}}</block></view>
           	<view class="otherInfo">
           		<text class="label">{{item.city}}<block wx:if="{{item.district}}">·{{item.district}}</block></text>
           		<text class="label">{{item.workExperienceName}}</text>
@@ -37,8 +37,8 @@
           	</view>
           </view>
           <view class="footer">
-          	<view class="viewNum" wx:if="{{item.isRapidly === 2}}"><text class="num">{{item.numOfVisitors}}</text> 人查看过</view>
-            <view class="viewNum icon" wx:else></view>
+            <view class="viewNum icon" wx:if="{{item.isRapidly === 1}}"></view>
+          	<view class="viewNum" wx:else><text class="num">{{item.numOfVisitors}}</text> 人查看过</view>
           	<view class="viewBtn"><i class="icon iconfont icon-yuemian"></i>开约</view>
           </view>
         </button>

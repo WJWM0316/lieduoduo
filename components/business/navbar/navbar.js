@@ -49,6 +49,10 @@ Component({
     mustBack: {
       type: Boolean,
       value: false
+    },
+    filterResult: {
+      type: Object,
+      value: {}
     }
   },
   data: {
@@ -134,8 +138,11 @@ Component({
       this.setData({openPop: true})
     },
     getFilterResult (e) {
-      this.setData({cityName: e.detail.cityName})
-      this.triggerEvent('FilterResult', e.detail)
+      let filterResult = this.data.filterResult
+      filterResult.cityName = e.detail.cityName
+      filterResult.cityNums = e.detail.cityNums
+      this.setData({filterResult})
+      this.triggerEvent('FilterResult', filterResult)
     }
   },
   pageLifetimes: {

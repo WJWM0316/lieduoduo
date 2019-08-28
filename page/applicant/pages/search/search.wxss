@@ -18,11 +18,19 @@
 	font-size:28rpx;
 	color:#282828;
 }
+.cityName {
+	width: 56rpx;
+  display: inline-block;
+  height: 28rpx;
+  line-height: 28rpx;
+	overflow: hidden;
+}
 .city .icon {
   font-size: 12rpx;
   color: #C7C2C2;
   margin-left: 10rpx;
   line-height: 1;
+  vertical-align: middle;
 }
 .search-bar {
 	width:560rpx;
@@ -67,6 +75,7 @@
 	right: 0rpx;
   padding: 22rpx 28rpx 22rpx 16rpx;
   line-height: 1;
+  display: block;
 }
 
 .filterData {
@@ -198,23 +207,81 @@
 
 .noMore {
   width: 100%;
-  padding: 21rpx 56rpx 24rpx 218rpx;
+  padding: 21rpx 56rpx 24rpx 230rpx;
   height: 128rpx;
   position: relative;
   box-sizing: border-box;
+  background: #fff;
+  margin: 8rpx 0 60rpx;
 }
 .noMore .icon {
-  width:119rpx;
-  height:83rpx;
+  width:160rpx;
+  height:82rpx;
   position: absolute;
   top: 21rpx;
   left: 56rpx;
+  background: url('https://attach.lieduoduo.ziwork.com/front-assets/available/nomore1.png') no-repeat;
+  background-size: 100% auto;
 }
 .noMore .txt {
   font-size:26rpx;
   font-weight:300;
   color:#282828;
   line-height:36rpx;
+  margin-top: 6rpx;
+}
+.recommendTitle {
+  width: 100%;
+  margin: 0 0 28rpx;
+  text-align: center;
+  line-height: 36rpx;
+  height: 36rpx;
+  position: relative;
+  box-sizing: border-box;
+}
+
+.recommendTitle .txt {
+  width: 112rpx;
+  margin: 0 auto;
+  font-size:26rpx;
+  color:#8452A7;
+  line-height:36rpx;
+  position: relative;
+  font-weight: 700;
+}
+
+.recommendTitle .txt .line {
+  width:140rpx;
+  height:2rpx;
+  background: #8452A7;
+  top: 50%;
+  display: block;
+  position: absolute;
+}
+.recommendTitle .txt .line1 {
+  left: 0;
+  transform: translate3d(calc(-100% - 28rpx), -100%, 0);
+}
+.recommendTitle .txt .line2 {
+  right: 0;
+  transform: translate3d(calc(100% + 28rpx), -100%, 0);
+}
+.recommendTitle .txt .line1:before, .recommendTitle .txt .line2:before {
+  content: '';
+  width: 8rpx;
+  height: 8rpx;
+  border-radius: 50%;
+  top: 50%;
+  margin-top: -4rpx;
+  background: #8452A7;
+  display: block;
+  position: absolute;
+}
+.recommendTitle .txt .line1:before {
+  right: -8rpx;
+}
+.recommendTitle .txt .line2:before {
+  left: -8rpx;
 }
 
 .companyList {
@@ -274,4 +341,17 @@
 .companyList .company-item .infos .other .icon {
 	font-size: 26rpx;
 	margin-right: 16rpx;
+}
+
+.guideBto {
+	width:380rpx;
+	height:88rpx;
+	background:#FFDC29;
+	box-shadow:0rpx 15rpx 28rpx 0rpx rgba(241,214,72,0.46);
+	border-radius:44rpx;
+	margin: 50rpx auto 65rpx;
+	font-size:30rpx;
+	color:#282828;
+	line-height:88rpx;
+	text-align: center;
 }

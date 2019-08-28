@@ -1,4 +1,6 @@
 import {getFilterDataApi} from '../../../api/pages/aggregate.js'
+import {getSelectorQuery} from '../../../utils/util.js'
+const app = getApp()
 Component({
   /**
    * 组件的属性列表
@@ -16,25 +18,15 @@ Component({
       type: Boolean,
       value: false,
       observer: function(newVal, oldVal) {
-        if (newVal) {
-          if (this.data.filterType !== 'city' && this.data.filterType !== 'emolument') {
-            setTimeout(() => {
-              this.setData({headerFlexed: true})
-            }, 300)
-          }
-        } else {
-          this.setData({headerFlexed: false})
-        }
         getFilterDataApi().then(res => {
           let filter       = res.data,
               filterResult = this.data.filterResult
-          console.log(filter, this.data.filterResult, 11111111)
           for (var type in filterResult) {
             switch (type) {
               case 'cityNums':
                 if (filterResult['cityNums']) {
                   filter['area'].filter((item, index) => {
-                    if (item.areaId === filterResult['cityNums']) item.active = true
+                    if (item.areaId === parseInt(filterResult['cityNums'])) item.active = true
                   })
                 } else {
                   filter['area'][0].active = true
@@ -43,11 +35,11 @@ Component({
               case 'positionTypeIds':
                 if (filterResult['positionTypeIds']) {
                   filter['positionType'].filter((item, index) => {
-                    if (item.labelId === filterResult['topId']) {
+                    if (item.labelId === parseInt(filterResult['topId'])) {
                       item.active = true
                       filter.topIndex = index
                       item.children.filter((item0) => {
-                        if (parseIntitem0.labelId === filterResult['positionTypeIds']) item0.active = true
+                        if (parseInt(item0.labelId) === parseInt(filterResult['positionTypeIds'])) item0.active = true
                       })
                     }
                   })
@@ -112,7 +104,16 @@ Component({
                 break
             }
           }
-          this.setData({filter})
+          this.setData({filter}, () => {
+            wx.nextTick(() => {
+              getSelectorQuery('.scrollView', this).then(res => {
+                let headerFlexed = res.height >=  (app.globalData.systemInfo.windowHeight - (224 / app.globalData.xs))
+                setTimeout(() => {
+                  this.setData({headerFlexed})
+                }, 300)
+              })
+            })
+          })
         })
       }
     }
@@ -126,9 +127,6 @@ Component({
     comanyMore: false
   },
   attached () {
-    // getFilterDataApi().then(res => {
-    //   this.setData({filter: res.data})
-    // })
   },
   /**
    * 组件的方法列表
@@ -191,13 +189,10 @@ Component({
         if (dataset.first) {
           active = typeData[dataset.topindex].active || false
           typeData[dataset.topindex].active = !active
-          filterResult.topId = typeData[dataset.topindex].labelId
+          typeData.topindex = dataset.topindex
         } else {
           active = typeData[dataset.index].active || false
           typeData[dataset.index].active = !active
-          filterResult.positionTypeIds = typeData[dataset.index].labelId
-          this.setData({openPop: false, filterType: ''})
-          this.triggerEvent('FilterResult', filterResult)
         }
         this.setData({[`${type}`]: typeData})
       } else {
@@ -209,6 +204,10 @@ Component({
           typeData[dataset.index].active = !active
           this.setData({[`${type}`]: typeData})
         } else {
+          if (typeData.filter(item => { return item.active}).length >= 3) {
+            app.wxToast({title: '最多可选3个'})
+            return
+          }
           this.setData({[`${type}[${dataset.index}].active`]: !active, [`${type}[0].active`]: false})
         }
       }
@@ -249,6 +248,12 @@ Component({
           resetList(filter.emolument)
           filter.emolument[0].active = true
           break
+        case 'positionType':
+          resetList(filter.positionType)
+          resetList(filter.positionType[filter.topindex].children)
+          filter.positionType[0].active = true
+          filter.positionType[0].children[0].active = true
+          break
       }
       this.setData({filter})
     },
@@ -274,6 +279,12 @@ Component({
           break
         case 'emolument':
           filterResult.emolumentIds = filterList(filter.emolument).join()
+          break
+        case 'positionType':
+          console.log(filter.positionType, filter.topindex, 111)
+          filterResult.positionTypeIds = filterList(filter.positionType[filter.topindex].children).join()
+          filterResult.topId = filter.topindex
+          if (filterResult.positionTypeIds === '0') filterResult.positionTypeIds
           break
       }
       this.setData({openPop: false})
