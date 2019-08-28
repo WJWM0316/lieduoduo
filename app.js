@@ -219,8 +219,9 @@ App({
   // 检查微信授权
   checkLogin () {
     let that = this
-    return new Promise((resolve, reject) => {
-      checkSessionKeyApi({session_token: wx.getStorageSync('sessionToken')}).then(res0 => {
+    return new Promise((resolve, reject) => { 
+      let sessionToken = wx.getStorageSync('sessionToken')
+      checkSessionKeyApi({session_token: sessionToken}).then(res0 => {
         wx.getUserInfo({
           success: res => {
             // 可以将 res 发送给后台解码出 unionId
@@ -606,17 +607,17 @@ App({
   toastSwitch () {
     let path = this.getCurrentPagePath(),
         curRole = wx.getStorageSync('choseType'),
-        sameRole = path.indexOf(curRole === 'APPLICANT' ? 'applicant' : 'recruiter') !== -1
+        sameRole = path.indexOf(curRole !== 'RECRUITER' ? 'applicant' : 'recruiter') !== -1
     // 身份符合直接不弹提示
     if (sameRole) return
-    let needRole = curRole === 'APPLICANT' ? 'RECRUITER' : 'APPLICANT'
-    let content = needRole === 'APPLICANT' ? '你当前身份是“面试官”，是否切换为“求职者”？' : '你当前身份是“求职者”，是否切换为“面试官”？'
+    let needRole = curRole !== 'RECRUITER' ? 'RECRUITER' : 'APPLICANT'
+    let content = needRole !== 'RECRUITER' ? '你当前身份是“面试官”，是否切换为“求职者”？' : '你当前身份是“求职者”，是否切换为“面试官”？'
     this.wxConfirm({
       title: '',
       content,
       cancelBack: () => {
         wx.reLaunch({
-          url: needRole === 'APPLICANT' ? `${RECRUITER}index/index` : `${APPLICANT}index/index`
+          url: needRole !== 'RECRUITER' ? `${RECRUITER}index/index` : `${APPLICANT}index/index`
         })
       },
       confirmBack: () => {
