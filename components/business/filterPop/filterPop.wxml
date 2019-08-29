@@ -13,7 +13,7 @@
 				<view class="type industry" wx:if="{{filterType === 'company'}}">
 					<view class="title">选择行业<text class="tip">（可多选）</text><view class="open" bindtap="openMore" data-type="company">展开更多<i class="icon iconfont icon-zhishibiao"></i></view></view>
 					<view class="labelBox {{comanyMore ? 'more' : ''}}">
-						<view class="label {{item.active ? 'active' : ''}}" wx:for="{{filter.industry}}" wx:key="industry_{{index}}" data-index="{{index}}" data-item="{{item}}" data-type="industry" bindtap="chooseItem">{{item.name}}</view>
+						<view class="label label{{item.labelId}} {{item.active ? 'active' : ''}}" wx:for="{{filter.industry}}" wx:key="industry_{{index}}" data-index="{{index}}" data-item="{{item}}" data-type="industry" bindtap="chooseItem">{{item.name}}</view>
 					</view>
 				</view>
 				<view class="type employee" wx:if="{{filterType === 'company'}}">

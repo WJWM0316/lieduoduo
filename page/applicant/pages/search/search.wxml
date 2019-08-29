@@ -31,10 +31,12 @@
 			<view class="list-box" wx:if="{{positionData.list.length}}">
 		    <waterfallFlow wx:key="positionData" my-class="waterfallFlow" id="positionData" flowClass="{{'positionData'}}" value="{{positionData.list}}" page="{{positionData.pageNum}}" isLastPage="{{positionData.isLastPage}}" bindwxNextTick="wxNextTick"></waterfallFlow>
 		  </view>
-		  <bottomStatus wx:if="{{!recommendList.list.length}}" status="{{positionData.onBottomStatus}}" listData="{{positionData.list}}" marginTop="{{30}}" desc="暂时没有符合条件的结果～">
+
+		  <bottomStatus wx:if="{{!positionData.list.length && positionData.isLastPage}}" status="{{positionData.onBottomStatus}}" listData="{{positionData.list}}" marginTop="{{30}}" desc="暂时没有符合条件的结果～">
 		  	<view class="guideBto" bindtap="routeJump" data-route="specialJob">发现更多优质机会</view>
 		  </bottomStatus>
-		  <view class="noMore" wx:if="{{recommendList.list.length}}">
+
+		  <view class="noMore" wx:if="{{positionData.list.length && recommendList.list.length}}">
 		    <view class="icon"></view>
 		    <view class="txt">暂时没有更多符合条件的结果，下面为你推荐可能相关的机会</view>
 		  </view>

@@ -28,8 +28,9 @@
 			data-company-id="{{item.companyId}}"
 			bindtap="routeJump">
 			<view class="header">
-				<view class="office-name">{{item.positionName}}</view>
-				<view class="office-sarary">{{item.emolumentMin}}K~{{item.emolumentMax}}K</view>
+				<view class="office-name {{item.emolumentMin >= 100 ? 'smaller' : ''}}">{{item.positionName}}{{item.positionName}}{{item.positionName}}</view>
+				<view class="strategy" wx:if="{{item.isRapidly === 1}}"></view>
+				<view class="office-sarary">{{item.emolumentMin}}K~{{item.emolumentMax}}K<block wx:if="{{item.annualSalary > 12}}">·{{item.annualSalary}}<text class="small">薪</text></block></view>
 			</view>
 			<view class="tags-box">
 				<view class="item" wx:if="{{item.city}}">{{item.city}}{{item.district}}</view>
@@ -57,8 +58,9 @@
 			bindtap="routeJump">
 			<view class="reddot" wx:if="{{item.isOnline === 2 && item.status === 4 && !item.isRead}}"></view>
 			<view class="header">
-				<view class="office-name">{{item.positionName}}</view>
-				<view class="office-sarary">{{item.emolumentMin}}K~{{item.emolumentMax}}K</view>
+				<view class="office-name {{item.emolumentMin >= 100 ? 'smaller' : ''}}">{{item.positionName}}{{item.positionName}}{{item.positionName}}</view>
+				<view class="strategy" wx:if="{{item.isRapidly === 1}}"></view>
+				<view class="office-sarary">{{item.emolumentMin}}K~{{item.emolumentMax}}K<block wx:if="{{item.annualSalary > 12}}">·{{item.annualSalary}}<text class="small">薪</text></block></view>
 			</view>
 			<view class="tags-box">
 				<view class="item" wx:if="{{item.city}}">{{item.city}}{{item.district}}</view>

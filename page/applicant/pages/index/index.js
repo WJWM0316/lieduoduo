@@ -227,12 +227,16 @@ Page({
     }
     listData.pageNum++
     params.page = listData.pageNum
+
+    // 从职位详情过来的推荐数据 不需要记录且不需要其他条件
     if (this.data.options.positionTypeId) {
       params.recordParams = 0
       delete params.cityNums
       delete params.emolumentIds
     }
-    
+    // 加载完正常列表 再加载的推荐数据不需要传薪资条件
+    if (this.data.getRecommend) delete params.emolumentIds
+      
     return getList(params, hasLoading).then(res => {
       let requireOAuth = false
       if (res.meta && res.meta.requireOAuth) requireOAuth = res.meta.requireOAuth
@@ -252,7 +256,7 @@ Page({
         [`${listType}.isRequire`]: isRequire, 
         [`${listType}.onBottomStatus`]: onBottomStatus, 
         requireOAuth}, () => {
-        if (app.globalData.haslogin && 
+        if (app.globalData.hasLogin && 
             !this.data.recommendList.isRequire && 
             this.data.filterList.isRequire && 
             this.data.filterList.isLastPage) {
@@ -298,7 +302,7 @@ Page({
     let data = this.data.filterResult,
         salaryFloor = 0,
         salaryCeil = 0
-    switch (data.employeeIds) {
+    switch (Math.max(...data.employeeIds.split(','))) {
       case 1:
         salaryFloor = 0
         salaryCeil = 0
@@ -332,15 +336,25 @@ Page({
         salaryCeil = 100
         break
     }
+
     let lntention = {
       city: data.cityNums,
       cityName: data.cityName,
-      provinceName: data.cityList[data.cityIndex].provinceName,
       positionType: data.positionTypeIds,
-      positionName: data.positionTypeList[data.typeIndex].name,
       salaryFloor: salaryFloor,
       salaryCeil: salaryCeil
     }
+    filterData['area'].filter(item => {
+      if (item.areaId === parseInt(data.cityNums)) {
+        lntention.provinceName = item.provinceName
+      }
+    })
+    let array = filterData['positionType'].filter(item => { return item.labelId === data.topId})
+    array[0].children.filter(item => {
+      if (item.labelId === parseInt(data.positionTypeIds)) {
+        lntention.positionName = item.name
+      }
+    })
     wx.setStorageSync('addIntention', lntention)
     wx.navigateTo({
       url: `/page/applicant/pages/center/resumeEditor/aimsEdit/aimsEdit`
@@ -349,7 +363,7 @@ Page({
   reloadPositionLists(hasLoading = true) {
     const filterList = {list: [], pageNum: 0, isLastPage: false, isRequire: false},
           recommendList = {list: [], pageNum: 0, isLastPage: false, isRequire: false}
-    this.setData({filterList, recommendList})
+    this.setData({filterList, recommendList, getRecommend: 0})
     return this.getPositionList(hasLoading)
   },
   routeJump (e) {

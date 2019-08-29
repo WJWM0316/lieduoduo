@@ -163,6 +163,9 @@ Page({
       recordParams: 0,
       ...this.data.filterData
     }
+    // 加载完正常列表 再加载的推荐数据不需要传薪资条件
+    if (this.data.getRecommend) delete params.emolumentIds
+
     return listFun(params, hasLoading).then(res => {
       let isRequire = 1
       let isLastPage = (res.data.length < params.count) || (res.meta && parseInt(res.meta.currentPage) === res.meta.lastPage) ? 1 : 0
@@ -182,6 +185,7 @@ Page({
         }
       })
     })
+  
   },
   getHotKeyWordList () {
     getHotKeyWordListApi().then(res => {

@@ -29,10 +29,11 @@
       </view>
     </view>
   </view>
-  <view class="addIntention" bindtap="addIntention" wx:if="{{!hasExpect && (cityIndex || typeIndex || emolumentIndex)}}">
+  <view class="addIntention" bindtap="addIntention" wx:if="{{!hasExpect && (filterResult.cityNums || filterResult.positionTypeIds || filterResult.emolumentIds)}}">
     <text>把你的筛选条件添加到求职意向</text>
     <button class="addBtn">立即添加<i class="icon iconfont icon-disejiantou-you"></i></button>
   </view>
+
   <view class="list-box" wx:if="{{filterList.list.length}}">
     <waterfallFlow wx:key="filterList" my-class="waterfallFlow" id="filterList" flowClass="{{'filterList'}}" value="{{filterList.list}}" page="{{filterList.pageNum - 1}}"></waterfallFlow>
   </view>
@@ -45,7 +46,7 @@
   </view>
   <view class="list-box" wx:if="{{recommendList.list.length}}">
     <waterfallFlow wx:key="recommendList"  my-class="waterfallFlow" id="recommendList" flowClass="{{'recommendList'}}" value="{{recommendList.list}}" page="{{recommendList.pageNum - 1}}"></waterfallFlow>
-    <bottomStatus status="{{recommendList.onBottomStatus}}" listData="{{recommendList.list}}" marginTop="{{30}}" desc="一大批优质机会即将上线~">
+    <bottomStatus status="{{recommendList.onBottomStatus}}" listData="[]" hasImg="{{recommendList.list.length ? false : true}}" marginTop="{{30}}" desc="一大批优质机会即将上线~">
       <view class="moreBtn" data-route="specialJob" bindtap="routeJump">去看看急速约面机会<i class="icon iconfont icon-disejiantou-you"></i></view>
     </bottomStatus>
   </view>

@@ -13,7 +13,8 @@
 .filterBox {
 	box-sizing: border-box;
   position: relative;
-  max-height: 846rpx;
+  margin-top: 16rpx;
+  max-height: calc(100vh - 508rpx);
 }
 .type {
 	padding: 0 40rpx;
@@ -134,16 +135,19 @@
 	top: 0;
 }
 .firstBoxScroll {
-	height: 772rpx;
+	min-height: 772rpx;
 	width:284rpx;
 	left: 0;
+  max-height: calc(100vh - 508rpx);
 }
 .secondBoxScroll {
-	height: 846rpx;
+	min-height: 772rpx;
 	width:466rpx;
 	top: 0;
 	right: 0;
 	background: #ffffff;
+  max-height: calc(100vh - 508rpx);
+
 }
 .firstBox {
 	
@@ -178,11 +182,10 @@
   font-size:36rpx;
   font-weight:700;
   color:rgba(53,64,72,1);
-  line-height: 108rpx;
   text-align: center;
-  padding: 0 60rpx;
+  padding: 2rpx 60rpx;
   box-sizing: border-box;
-  height: 100rpx;
+  height: 104rpx;
   position: relative;
 }
 .header .icon-close{
