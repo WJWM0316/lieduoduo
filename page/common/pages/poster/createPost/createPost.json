@@ -1,3 +1,5 @@
 {
-  "usingComponents": {}
+  "usingComponents": {
+  	"shareWord": "../../../../components/layout/shareWord/shareWord"
+  }
 }

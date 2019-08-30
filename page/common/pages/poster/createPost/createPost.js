@@ -50,6 +50,8 @@ Page({
     }
     this.setData({title, options})
     getImgFun(params).then(res => {
+      if (res.data.posterData) wx.setStorageSync('posterData', res.data.posterData)
+      
       this.setData({imgUrl: res.data.url})
     })
   },
@@ -174,7 +176,7 @@ Page({
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
-
+    wx.removeStorageSync('posterData')
   },
 
   /**

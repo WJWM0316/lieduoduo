@@ -2,6 +2,7 @@ import {APPLICANT,RECRUITER} from "../../../config.js"
 import localstorage from "../../../utils/localstorage.js"
 const app = getApp()
 Component({
+  externalClasses: ['my-class'],
   options: {
     addGlobalClass: true,
   },

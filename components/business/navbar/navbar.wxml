@@ -1,6 +1,6 @@
 <form bindsubmit="formSubmit" report-submit='{{true}}'>
 <view style="height:{{navH}}px;">
-  <view class="navbar" style="height:{{navH}}px;background: {{background}};position: {{positionStatus}}">
+  <view class="navbar my-class" style="height:{{navH}}px;background: {{background}};position: {{positionStatus}}">
     <view class="navbar-title" style="color: {{color}}" wx:if="{{!isSearch}}"> 
 	    <view class="page-title">{{ title }}</view>
 		    <view class="return-back">
@@ -18,8 +18,10 @@
   			</view>
 	  </view>
 	  <view class="searchBox" wx:else>
-	    <view class="cityName" bindtap="chooseCity">{{filterResult.cityName || '全国'}}</view>
-	    <i class="cityIcon iconfont icon-sanjiaoshaixuan"></i>
+	    <view class="cityBox" bindtap="chooseCity">
+	    	<view class="cityName">{{filterResult.cityName || '全国'}}</view>
+	    	<i class="cityIcon iconfont icon-sanjiaoshaixuan"></i>
+	    </view>
 	    <view class="search" bindtap="toSearch"><i class="icon iconfont icon-sousuo"></i>输入关键/职位/公司</view>
 	  </view>
   </view>

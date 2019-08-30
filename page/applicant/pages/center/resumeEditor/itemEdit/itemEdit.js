@@ -19,7 +19,8 @@ Page({
     endTime: '',
     description: '', // 项目描述
     itemLink: '',
-    isAdd: false
+    isAdd: false,
+    options: {}
   },
 
   /**
@@ -30,7 +31,8 @@ Page({
     this.setData({options})
     if (!options.id || app.globalData.resumeInfo.projects.length === 1) {
       this.setData({
-        isAdd: true
+        isAdd: true,
+        options
       })
     }
     if (options.id) {
@@ -113,11 +115,15 @@ Page({
       })
     } else {
       addProjectApi(param).then(res => {
+        let that = this
         app.globalData.resumeInfo.projects.push(res.data)
         app.wxToast({
           title: '保存成功',
           icon: 'success',
           callback() {
+            if (that.data.options.from === 'guideCard') {
+              wx.setStorageSync('appendItemEdit', {firstIndex: that.data.options.firstIndex, secondIndex: that.data.options.secondIndex})
+            }
             wx.navigateBack({delta: 1}) 
           }
         })
@@ -163,7 +169,6 @@ Page({
           endTime: item.endTime,
           info: item
         })
-        console.log(item)
         return
       }
     })

@@ -1,7 +1,6 @@
 /**app.wxss**/
-@import 'iconfont.wxss'
-.container {
-} 
+@import 'iconfont.wxss';
+
 .holderStyle{
   color: #BCBCBC;
 	font-weight: 300;
@@ -60,4 +59,8 @@ button::after{
   position: absolute;
   top: 20rpx;
   right: -28rpx;
+}
+
+.hasColor {
+  background: #652791 !important;
 }

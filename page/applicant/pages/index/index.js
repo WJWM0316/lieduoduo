@@ -55,7 +55,6 @@ Page({
     app.toastSwitch()
     hasOnload = false
     adPositionIds = null
-    
     if (options.needAuth && wx.getStorageSync('choseType') === 'RECRUITER') { // 是否从不服来赞过来的B身份 强制C端身份
       wx.setStorageSync('choseType', 'APPLICANT')
     }
@@ -138,7 +137,7 @@ Page({
     if (!app.globalData.hasLogin) {
       this.setData({hideLoginBox: false})
     } else {
-      let timer = setTimeout(() => {
+      timer = setTimeout(() => {
         jumpCreate()
         clearTimeout(timer)
       }, 500)
@@ -184,8 +183,18 @@ Page({
       let recommended = false,
           filterResult = res.data
       // 没有topId, 根据规则自己造一个
-      if (!filterResult.topId && filterResult['positionTypeIds']) filterResult.topId = filterResult['positionTypeIds'] ? filterResult['positionTypeIds'].slice(0, 2) + '0000' : 0
+      if (!filterResult.topId && filterResult['positionTypeIds']) filterResult.topId = filterResult['positionTypeIds'].slice(0, 2) + '0000'
 
+      // 没有职位列表名称
+      if (!filterResult['positionTypeName'] && filterResult['positionTypeIds']) {
+        let array  = filterData['positionType'].filter(item => { return item.labelId === parseInt(filterResult.topId)})
+        array[0].children.filter(item => {
+          if (item.labelId === parseInt(filterResult['positionTypeIds'])) {
+            filterResult['positionTypeName'] = item.name
+          }
+        })
+      }
+      
       // 没有城市名，自己造一个
       if (!filterResult.cityName && filterResult.cityNums) {
         let array = filterData['area'].filter(item => { return item.areaId === parseInt(filterResult.cityNums)})
@@ -196,6 +205,7 @@ Page({
       this.setData({recommended, filterResult}, () => {
         this.reloadPositionLists()
       })
+
     }).catch(e => {
       this.reloadPositionLists()
     })
@@ -230,12 +240,19 @@ Page({
 
     // 从职位详情过来的推荐数据 不需要记录且不需要其他条件
     if (this.data.options.positionTypeId) {
+      params.positionTypeIds = this.data.options.positionTypeId
       params.recordParams = 0
       delete params.cityNums
       delete params.emolumentIds
+      delete params.industryIds
+      delete params.employeeIds
+      delete params.financingIds
     }
     // 加载完正常列表 再加载的推荐数据不需要传薪资条件
-    if (this.data.getRecommend) delete params.emolumentIds
+    if (this.data.getRecommend) {
+      params.recordParams = 0
+      delete params.emolumentIds
+    }
       
     return getList(params, hasLoading).then(res => {
       let requireOAuth = false
@@ -248,14 +265,16 @@ Page({
       let isLastPage     = res.data.length < 20 || (res.meta && res.meta.currentPage && parseInt(res.meta.currentPage) === res.meta.lastPage) ? true : false
       let isRequire      = true
       let onBottomStatus = isLastPage ? 2 : 0
-      
-      this.setData({
-        [`${listType}.list`]: res.data,
+      let setData = {
         [`${listType}.pageNum`]: listData.pageNum,
         [`${listType}.isLastPage`]: isLastPage, 
         [`${listType}.isRequire`]: isRequire, 
         [`${listType}.onBottomStatus`]: onBottomStatus, 
-        requireOAuth}, () => {
+        requireOAuth
+      }
+
+      if (res.data.length) setData[`${listType}.list`] = res.data
+      this.setData(setData, () => {
         if (app.globalData.hasLogin && 
             !this.data.recommendList.isRequire && 
             this.data.filterList.isRequire && 
@@ -302,41 +321,42 @@ Page({
     let data = this.data.filterResult,
         salaryFloor = 0,
         salaryCeil = 0
-    switch (Math.max(...data.employeeIds.split(','))) {
-      case 1:
-        salaryFloor = 0
-        salaryCeil = 0
-        break
-      case 2:
-        salaryFloor = 1
-        salaryCeil = 2
-        break
-      case 3:
-        salaryFloor = 3
-        salaryCeil = 6
-        break
-      case 4:
-        salaryFloor = 5
-        salaryCeil = 10
-        break
-      case 5:
-        salaryFloor = 10
-        salaryCeil = 20
-        break
-      case 6:
-        salaryFloor = 15
-        salaryCeil = 30
-        break
-      case 7:
-        salaryFloor = 20
-        salaryCeil = 40
-        break
-      case 8:
-        salaryFloor = 50
-        salaryCeil = 100
-        break
+    if (data.employeeIds) {
+      switch (Math.max(...data.employeeIds.split(','))) {
+        case 1:
+          salaryFloor = 0
+          salaryCeil = 0
+          break
+        case 2:
+          salaryFloor = 1
+          salaryCeil = 2
+          break
+        case 3:
+          salaryFloor = 3
+          salaryCeil = 6
+          break
+        case 4:
+          salaryFloor = 5
+          salaryCeil = 10
+          break
+        case 5:
+          salaryFloor = 10
+          salaryCeil = 20
+          break
+        case 6:
+          salaryFloor = 15
+          salaryCeil = 30
+          break
+        case 7:
+          salaryFloor = 20
+          salaryCeil = 40
+          break
+        case 8:
+          salaryFloor = 50
+          salaryCeil = 100
+          break
+      }
     }
-
     let lntention = {
       city: data.cityNums,
       cityName: data.cityName,
@@ -349,7 +369,7 @@ Page({
         lntention.provinceName = item.provinceName
       }
     })
-    let array = filterData['positionType'].filter(item => { return item.labelId === data.topId})
+    let array = filterData['positionType'].filter(item => { return item.labelId === parseInt(data.topId)})
     array[0].children.filter(item => {
       if (item.labelId === parseInt(data.positionTypeIds)) {
         lntention.positionName = item.name
@@ -378,7 +398,9 @@ Page({
     if (e.scrollTop > 0) {
       if (this.data.background !== '#652791') this.setData({background: '#652791'})
     } else {
-      if (this.data.background === '#652791' && this.data.bannerList.length) this.setData({background: 'transparent'})
+      if (this.data.bannerList.length && this.data.background === '#652791') {
+        this.setData({background: 'transparent'})
+      }
     }
     if (e.scrollTop > tabTop) {
       if (!this.data.tabFixed) this.setData({tabFixed: true})
@@ -394,8 +416,15 @@ Page({
     })
   },
   onReachBottom() {
-    let listType = null
-    if (this.data.getRecommend) {
+    let listType = null,
+        filterResult = this.data.filterResult,
+        canRecommend = filterResult.recommended && 
+                       !filterResult.cityNums && 
+                       !filterResult.positionTypeIds && 
+                       !filterResult.industryIds && 
+                       !filterResult.employeeIds && 
+                       !filterResult.financingIds
+    if (canRecommend || this.data.getRecommend) {
       listType = 'recommendList'
     } else {
       listType = 'filterList'

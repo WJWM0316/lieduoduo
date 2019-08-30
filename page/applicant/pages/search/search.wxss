@@ -355,3 +355,18 @@
 	line-height:88rpx;
 	text-align: center;
 }
+.moreBtn {
+  width:368rpx;
+  height:68rpx;
+  border-radius:34rpx;
+  border:1rpx solid #652791;
+  line-height: 68rpx;
+  text-align: center;
+  font-size:28rpx;
+  color:#652791;
+  margin: 24rpx auto;
+}
+.moreBtn .icon {
+  font-size: 24rpx;
+  margin-left: 12rpx;
+}

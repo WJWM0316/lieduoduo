@@ -57,7 +57,7 @@ Page({
         let second = 60
         let timer = null
         app.wxToast({
-          title: '验证码发送成功',
+          title: '发送成功',
           icon: 'success'
         })
         timer = setInterval(() => {

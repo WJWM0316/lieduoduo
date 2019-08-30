@@ -152,6 +152,7 @@ Component({
           filterResult.cityNums = item.areaId
           filterResult.cityName = item.name
           this.triggerEvent('FilterResult', filterResult)
+          this.setData({openPop: false})
           break
         case 'employee':
           typeData = filter['employee']
@@ -270,12 +271,17 @@ Component({
     sure () {
       let filter = this.data.filter,
           filterResult = this.data.filterResult
-      let filterList = (array) => {
+      let filterList = (array, returnIndex) => {
         let list = []
-        array.forEach((item) => {
-          if (item.active) list.push(item.value || item.labelId || item.id)
+        array.forEach((item, index) => {
+          if (item.active) {
+            list.push(item.value || item.labelId || item.id)
+            if (this.data.filterType === 'positionType') {
+              filterResult.positionTypeName = item.name
+            }
+          }
         })
-        return list
+        return !returnIndex ? list : index
       }
       switch (this.data.filterType) {
         case 'company':

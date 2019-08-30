@@ -1,11 +1,6 @@
 import {getSelectorQuery} from '../../../utils/util.js'
-import {COMMON} from '../../../config.js'
+import {COMMON, APPLICANT, RECRUITER} from '../../../config.js'
 const app = getApp()
-var leftGrounp    = [],    // 每竖的left值集合
-    heightGroup   = [],    // 每竖的高度集合
-    page          = 1,     // 页码
-    minIndex      = 0,     // 高度最小的一竖索引
-    curDataGroupIndex = 0 // 开始渲染的排数
 Component({
   externalClasses: ['my-class'],
   /**
@@ -16,9 +11,13 @@ Component({
       type: Object,
       value: [],
       observer (newVal, oldVal) {
-        if (newVal.length === 0) return
-        this.setData({[`listData[${this.data.page}]`]: newVal}, () => {
-          this.updata()
+        wx.nextTick(() => {
+          if (!newVal || newVal.length === 0) return
+          if (!this.data.page) this.floor = newVal.length > 6 ? 6 : newVal.length
+          if (app.globalData.hasLogin) newVal = this.appendCard(newVal)
+          this.setData({[`listData[${this.data.page}]`]: newVal}, () => {
+            this.updata()
+          })
         })
       }
     },
@@ -49,30 +48,141 @@ Component({
    */
   data: {
     listData: [],
-    wrapH: 0
+    wrapH: 0,
+    cdnImagePath: app.globalData.cdnImagePath
   },
 
   attached () {
-    leftGrounp    = []
-    heightGroup   = []
-    page          = 1
-    minIndex      = 0
-    curDataGroupIndex = 0 
+    this.leftGrounp    = []     // 每竖的left值集合
+    this.heightGroup   = []     // 每竖的高度集合
+    this.minIndex      = 0      // 高度最小的一竖索引
+    this.curDataGroupIndex = 0  // 开始渲染的排数
+    this.floor = 6
+    this.totalItem = 0
   },
+  pageLifetimes: {
+    // 组件所在页面的生命周期函数
+    show: function () {
+      let userInfoEdit       = wx.getStorageSync('appendUserInfoEdit'),
+          creatUser          = wx.getStorageSync('appendCreatUser'),
+          itemEdit           = wx.getStorageSync('appendItemEdit'),
+          moreEdit           = wx.getStorageSync('appendMoreEdit'),
+          listData           = this.data.listData,
+          storageData        = {},
+          storageType        = ''
+      storageData = creatUser || itemEdit || userInfoEdit || moreEdit
+      storageType = creatUser ? 'appendCreatUser' : itemEdit ? 'appendItemEdit' : userInfoEdit ? 'appendUserInfoEdit' : moreEdit ? 'appendMoreEdit' : ''
+      console.log(storageType, storageData, '存储数据')
+      if (storageData) {
+          //let saveList = listData
+
+          listData[storageData.firstIndex].splice(storageData.secondIndex, 1)
+
+          //this.reset()
+          this.leftGrounp    = []
+          this.heightGroup   = []
+          this.minIndex = 0
+          this.curDataGroupIndex = 0
+          this.totalItem = 0
+          
+          if (storageType === 'appendCreatUser') this.floor = 6
+
+          wx.removeStorageSync(`${storageType}`)
+          listData.forEach((item, index) => {
+            item = this.appendCard(item)
+            this.setData({[`listData[${index}]`]: item}, () => {
+              console.log(this.data.page, item)
+              this.typeset(item, index)
+            })
+          })
+      }
+    }
+  },
+
   methods: {
+    appendCard (newVal) {
+      let listData = this.data.listData
+      // 累计卡片数目
+      this.totalItem = this.totalItem + newVal.length
+
+      let appended = (type) => {
+        for (var i = 0; i < listData.length; i++) {
+          if (listData[i].some(item => {return item.cardType === type})) return true
+        }
+      }
+      
+      // 添加创建简历 引导卡片
+      if (this.totalItem > 0 && !app.globalData.isJobhunter) {
+        if (!appended('creatUser')) {
+          let index = this.totalItem > 6 ? 6 : this.totalItem.length
+          newVal.splice(index, 0, {cardType: 'creatUser'})
+        }
+      }
+      if (app.globalData.isJobhunter) {
+        // 添加项目经历 引导卡片
+        if (this.totalItem > this.floor && !app.globalData.resumeInfo.projects.length) {
+          if (!appended('itemEdit')) {
+            let index = this.totalItem === newVal.length ? this.floor : this.floor - newVal.length
+            newVal.splice(index, 0, {cardType: 'itemEdit'})
+            this.floor += 10
+          }
+        }
+        // 添加完善个人信息 引导卡片
+        if (this.totalItem > this.floor && !app.globalData.resumeInfo.jobStatus) {
+          if (!appended('userInfoEdit')) {
+            let index = this.totalItem === newVal.length ? this.floor : this.floor - newVal.length
+            newVal.splice(index, 0, {cardType: 'userInfoEdit'})
+            this.floor += 10
+          }
+        }
+        
+        // 添加更多介绍 引导卡片
+        if (this.totalItem > this.floor && !app.globalData.resumeInfo.moreIntroduce.introduce && !app.globalData.resumeInfo.moreIntroduce.imgs.length) {
+          if (!appended('moreEdit')) {
+            let index = this.totalItem === newVal.length ? this.floor : this.floor - newVal.length
+            newVal.splice(index, 0, {cardType: 'moreEdit'})
+          }
+        }
+      }
+      return newVal
+    },
     routeJump (e) {
-      let id = e.currentTarget.dataset.id
-      wx.navigateTo({url: `${COMMON}positionDetail/positionDetail?positionId=${id}`})
+      let dataset  = e.currentTarget.dataset,
+          routeUrl = ''
+      switch (dataset.type) {
+        case 'creatUser':
+          routeUrl = `${APPLICANT}createUser/createUser`
+          break
+        case 'itemEdit':
+          routeUrl = `${APPLICANT}center/resumeEditor/itemEdit/itemEdit`
+          break
+        case 'userInfoEdit':
+          routeUrl = `${APPLICANT}center/userInfoEdit/userInfoEdit`
+          break
+        case 'moreEdit':
+          routeUrl = `${APPLICANT}center/resumeEditor/moreEdit/moreEdit`
+          break
+        default: 
+          routeUrl = `${COMMON}positionDetail/positionDetail?positionId=${dataset.id}`
+      }
+      if (routeUrl.indexOf('?') !== -1) {
+        routeUrl = `${routeUrl}&from=guideCard&firstIndex=${dataset.firstindex}&secondIndex=${dataset.secondindex}`
+      } else {
+        routeUrl = `${routeUrl}?from=guideCard&firstIndex=${dataset.firstindex}&secondIndex=${dataset.secondindex}`
+      }
+      wx.navigateTo({url: routeUrl})
     },
     formSubmit(e) {
       app.postFormId(e.detail.formId)
     },
+
     reset () {
-      leftGrounp    = []
-      heightGroup   = []
-      page          = 1
-      minIndex      = 0
-      curDataGroupIndex = 0
+      this.leftGrounp    = []
+      this.heightGroup   = []
+      this.minIndex = 0
+      this.curDataGroupIndex = 0
+      this.totalItem = 0
+      this.floor = 6
       this.setData({listData: [], wrapH: 0})
     },
     updata () {
@@ -80,45 +190,49 @@ Component({
         this.typeset(this.data.listData[this.data.page])
       })
     },
-    typeset (list) {
+    typeset (list, pageIndex = this.data.page) {
       let that = this
       let minFun = (heightGroup) => {
-        return minIndex = heightGroup.indexOf(Math.min(...heightGroup))
+        return heightGroup.indexOf(Math.min(...heightGroup))
       }
       let maxFun = (heightGroup) => {
-        return minIndex = heightGroup.indexOf(Math.max(...heightGroup))
+        return heightGroup.indexOf(Math.max(...heightGroup))
       }
-      let array = list
-
-
-      array.forEach((item, index) => {
-        getSelectorQuery(`.${this.data.flowClass}_flow${this.data.page}${index}`, that).then(res => {
-          array[index].width = res.width
-          array[index].index = index
-          array[index].height = res.height
-          if (index % this.data.horizontal === 0) { // 每排数据开始重置一下dataGroup
-            curDataGroupIndex++
-          }
-          if (curDataGroupIndex === 1) { // 第一排需要特殊处理 top = 0
-            array[index].top = 0
-            if (index === 0) {
-              array[index].left = 0
-            } else {
-              array[index].left = array[index - 1].left + array[index - 1].width + this.data.spaceX * app.globalData.xs
+      wx.nextTick(() => {
+        list.forEach((item, index) => {
+          getSelectorQuery(`.${this.data.flowClass}_flow${pageIndex}${index}`, that).then(res => {
+            console.log(`.${this.data.flowClass}_flow${pageIndex}${index}`)
+            // if (!res) {
+              
+            //   return
+            // }
+            list[index].width = res.width
+            list[index].index = index
+            list[index].height = res.height
+            if (index % this.data.horizontal === 0) { // 每排数据开始重置一下dataGroup
+              this.curDataGroupIndex++
             }
-            heightGroup.push(res.height) // 记录每路的高度
-            leftGrounp.push(array[index].left) // 记录每路的left
-          }
-          if (curDataGroupIndex > 1) { // 从第二排开始布局
-            minIndex = minFun(heightGroup)
-            array[index].left = leftGrounp[minIndex]
-            array[index].top = heightGroup[minIndex] + this.data.spaceY * app.globalData.xs
-            heightGroup[minIndex] = array[index].top + array[index].height // 重置每路的高度
-          }
-          if (index === list.length - 1) {
-            let wrapH = heightGroup[maxFun(heightGroup)]
-            this.setData({[`listData[${this.data.page}]`]: array, wrapH})
-          }
+            if (this.curDataGroupIndex === 1) { // 第一排需要特殊处理 top = 0
+              list[index].top = 0
+              if (index === 0) {
+                list[index].left = 0
+              } else {
+                list[index].left = list[index - 1].left + list[index - 1].width + this.data.spaceX * app.globalData.xs
+              }
+              this.heightGroup.push(res.height) // 记录每路的高度
+              this.leftGrounp.push(list[index].left) // 记录每路的left
+            }
+            if (this.curDataGroupIndex > 1) { // 从第二排开始布局
+              this.minIndex = minFun(this.heightGroup)
+              list[index].left = this.leftGrounp[this.minIndex]
+              list[index].top = this.heightGroup[this.minIndex] + this.data.spaceY * app.globalData.xs
+              this.heightGroup[this.minIndex] = list[index].top + list[index].height // 重置每路的高度
+            }
+            if (index === list.length - 1) {
+              let wrapH = this.heightGroup[maxFun(this.heightGroup)]
+              this.setData({[`listData[${pageIndex}]`]: list, wrapH})
+            }
+          })
         })
       })
     }

@@ -176,7 +176,7 @@ Page({
         [`${listType}.isRequire`]: isRequire, 
         [`${listType}.onBottomStatus`]: onBottomStatus
       }
-      tabIndex === 1 ? setData[`${listType}.list[${listData.pageNum - 1}]`] = res.data : setData[`${listType}.list`] = res.data
+      tabIndex === 1 ? setData[`${listType}.list[${listData.pageNum - 1}]`] = res.data : res.data.length ? setData[`${listType}.list`] = res.data : null
       this.setData(setData, () => {
         if (this.data.positionData.isLastPage && !this.data.tabIndex && !this.data.getRecommend) {
           this.setData({getRecommend: 1}, () => {

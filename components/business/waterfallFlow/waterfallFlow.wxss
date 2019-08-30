@@ -140,17 +140,24 @@
 }
 .content .otherInfo {
 	font-size: 0;
+  height: 44rpx;
+  line-height: 44rpx;
 }
 .content .otherInfo .label {
 	font-size:20rpx;
 	font-weight:300;
 	color:#626262;
-	line-height:20rpx;
-	padding: 8rpx 12rpx;
-	min-width: 64rpx;
+	padding: 0 12rpx;
+  height: 36rpx;
+  line-height: 36rpx;
 	box-sizing: border-box;
 	background: #F8F7F9;
 	margin-right: 6rpx;
+  display: inline-block;
+  vertical-align: top;
+}
+.content .otherInfo .label:first-child {
+  max-width: 150rpx;
 }
 .content .otherInfo .label:last-child {
 	margin-right: 0;
@@ -194,7 +201,6 @@
 .viewBtn {
 	float: right;
   height: 30rpx;
-  line-height: 30rpx;
 	color: #652791;
 	font-weight: normal;
 }
@@ -203,3 +209,47 @@
 	margin-right: 4rpx;
 }
 
+.cardBlock {
+	padding: 46rpx 28rpx 44rpx;
+	background: #fff;
+	box-shadow:0rpx 2rpx 14rpx 0rpx rgba(50,14,59,0.08);
+	border-radius:16rpx;
+	height:514rpx;
+	box-sizing: border-box;
+}
+.cardBlock .title {
+	font-size:36rpx;
+	font-weight:700;
+	color:#652791;
+	line-height:36rpx;
+	margin: 12rpx 0 18rpx;
+}
+.cardBlock .desc {
+	font-size:26rpx;
+	font-weight:300;
+	color:#5C565D;
+	line-height:34rpx;
+  margin-bottom: 18rpx;
+}
+.cardBlock .picture {
+	width: 278rpx;
+	height: 210rpx;
+	margin: 0 auto;
+  display: block;
+}
+.cardBlock .cardBtn {
+	width:216rpx;
+	height:60rpx;
+	background:#FFDC29;
+	border-radius:30rpx;
+	font-size:26rpx;
+	font-weight:700;
+	color:#652791;
+	line-height:60rpx;
+	text-align: center;
+  margin-top: 20rpx;
+}
+.cardBlock .cardBtn .icon {
+	font-size: 26rpx;
+	margin-left: 10rpx;
+}

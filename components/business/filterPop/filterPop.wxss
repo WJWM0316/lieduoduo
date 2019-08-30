@@ -126,28 +126,26 @@
   padding: 0;
 }
 .positionType .listBox {
-	height: 772rpx;
+	min-height: 772rpx;
+  max-height: calc(100vh - 508rpx);
+  overflow: hidden;
 	position: relative;
 }
 .firstBoxScroll, .secondBoxScroll {
 	background: #FBFBFF;
 	position: absolute;
 	top: 0;
+  height: 100%;
 }
 .firstBoxScroll {
-	min-height: 772rpx;
 	width:284rpx;
 	left: 0;
-  max-height: calc(100vh - 508rpx);
 }
 .secondBoxScroll {
-	min-height: 772rpx;
 	width:466rpx;
 	top: 0;
 	right: 0;
 	background: #ffffff;
-  max-height: calc(100vh - 508rpx);
-
 }
 .firstBox {
 	

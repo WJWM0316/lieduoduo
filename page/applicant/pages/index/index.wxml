@@ -1,4 +1,9 @@
-<navbar isSearch="{{true}}" background="{{background}}" bindFilterResult="getFilterResult" filterResult="{{filterResult}}"></navbar>
+<view hidden="{{background !== 'transparent'}}">
+<navbar isSearch="{{true}}" background="transparent" bindFilterResult="getFilterResult" filterResult="{{filterResult}}"></navbar>
+</view>
+<view hidden="{{background === 'transparent'}}" >
+<navbar isSearch="{{true}}" background="#652791" bindFilterResult="getFilterResult" filterResult="{{filterResult}}"></navbar>
+</view>
 <view class="applicant-job" style="margin-top: -{{navH}}px">
 	<view hidden="{{!hasReFresh}}">
     <refreshStatus></refreshStatus>
@@ -21,15 +26,16 @@
         <view wx:for="{{bannerList}}" wx:key="{{index}}" class="swiper-dots-item {{bannerIndex === index ? 'active' : ''}}"></view>
       </view>
     </view>
+    <view hidden='{{!tabFixed}}' style="height: 90rpx;"></view>
     <view class="select-box {{tabFixed ? 'fixed' : ''}}" style="{{tabFixed ? 'top:' + navH + 'px' : ''}}">
       <view class="select-tab">
         <view class="item {{filterResult.employeeIds || filterResult.industryIds || filterResult.financingIds ? 'actived' : ''}}"  bindtap="chooseType" data-type="company"><text class="txt">公司</text><i class="icon iconfont icon-zhishibiao"></i></view>
-        <view class="item {{filterResult.positionTypeIds ? 'actived' : ''}}"  bindtap="chooseType" data-type="positionType"><text class="txt">类别</text><i class="icon iconfont icon-zhishibiao"></i></view>
-        <view class="item {{filterResult.emolumentIds && filterResult.emolumentIds !== 1 ? 'actived' : ''}}"  bindtap="chooseType" data-type="emolument"><text class="txt">薪资</text><i class="icon iconfont icon-zhishibiao"></i></view>
+        <view class="item {{filterResult.positionTypeIds ? 'actived' : ''}}"  bindtap="chooseType" data-type="positionType"><text class="txt">{{filterResult.positionTypeName || '类别'}}</text><i class="icon iconfont icon-zhishibiao"></i></view>
+        <view class="item {{filterResult.emolumentIds && filterResult.emolumentIds !== '1' && filterResult.emolumentIds !== 1 ? 'actived' : ''}}"  bindtap="chooseType" data-type="emolument"><text class="txt">薪资</text><i class="icon iconfont icon-zhishibiao"></i></view>
       </view>
     </view>
   </view>
-  <view class="addIntention" bindtap="addIntention" wx:if="{{!hasExpect && (filterResult.cityNums || filterResult.positionTypeIds || filterResult.emolumentIds)}}">
+  <view class="addIntention" bindtap="addIntention" wx:if="{{!hasExpect && (filterResult.cityNums || filterResult.positionTypeIds || (filterResult.emolumentIds && filterResult.emolumentIds !== '1'))}}">
     <text>把你的筛选条件添加到求职意向</text>
     <button class="addBtn">立即添加<i class="icon iconfont icon-disejiantou-you"></i></button>
   </view>

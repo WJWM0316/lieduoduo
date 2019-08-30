@@ -45,8 +45,10 @@
 		  </view>
 		  <view class="list-box" wx:if="{{recommendList.list.length}}">
 		    <waterfallFlow wx:key="recommendList"  my-class="waterfallFlow" id="recommendList" flowClass="recommendList" value="{{recommendList.list}}" page="{{recommendList.pageNum}}"></waterfallFlow>
-		    <bottomStatus status="{{recommendList.onBottomStatus}}" listData="{{recommendList.list}}" marginTop="{{30}}" desc="暂时没有符合条件的结果～"></bottomStatus>
 	  	</view>
+	  	<bottomStatus status="{{recommendList.onBottomStatus}}" hasImg="{{false}}" listData="{{recommendList.list}}" marginTop="{{30}}" desc="一大批优质机会即将上线">
+		    <view class="moreBtn" data-route="specialJob" bindtap="routeJump">去看看急速约面机会<i class="icon iconfont icon-disejiantou-you"></i></view>
+		  </bottomStatus>
 	  </view>
 	  <view hidden="{{tabIndex === 0}}">
 	  	<view class="companyList">

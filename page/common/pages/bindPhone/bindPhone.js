@@ -93,7 +93,7 @@ Page({
       this.callback = null
       second = 60
       app.wxToast({
-        title: '验证码发送成功',
+        title: '发送成功',
         icon: 'success'
       })
       this.setTime(second)

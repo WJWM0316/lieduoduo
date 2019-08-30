@@ -157,6 +157,7 @@ Page({
     }
   },
   progress (step) {
+    let that = this
     this.setData({step}, () => {
       this.setData({active: step})
       if (step < 8) {
@@ -172,6 +173,7 @@ Page({
       } else {
         app.getAllInfo().then(res => {
           app.globalData.isMicroCard = true
+          app.globalData.isJobhunter = true
           timer = setTimeout(() => {
             if (!directChat) {
               let success = () => {
@@ -194,6 +196,9 @@ Page({
                 }, 1000)
               }
               if (getCurrentPages().length > 1) {
+                if (that.data.options.from === 'guideCard') {
+                  wx.setStorageSync('appendCreatUser', {firstIndex: that.data.options.firstIndex, secondIndex: that.data.options.secondIndex})
+                }
                 wx.navigateBack({
                   delta: 1,
                   success () {
