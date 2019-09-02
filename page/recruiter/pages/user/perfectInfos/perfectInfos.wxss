@@ -1,0 +1,277 @@
+/* page/applicant/pages/createUser/createUser.wxss */
+.createUser {
+	width: 100%;
+	height: 100vh;
+	background: #50286e url('https://attach.lieduoduo.ziwork.com/front-assets/images/pic_bg.jpg') no-repeat bottom center;
+	background-size: 100% auto;
+	position: relative;
+}
+.wrap {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+  box-sizing: border-box;
+  overflow-y: auto;
+}
+.inner {
+	width: 100%;
+	height: 100%;
+	box-sizing: border-box;
+	position: relative;
+}
+.inner .h1 {
+	width:489rpx;
+	height:128rpx;
+	font-size:48rpx;
+	font-weight:300;
+	line-height:64rpx;
+	color: #FFFFFF;
+	margin: 228rpx auto 24rpx;
+  text-align: center;
+}
+.inner .h1 .num {
+	color: #FFDC29;
+}
+.inner .h2 {
+	font-size:26rpx;
+	font-weight:300;
+	color:rgba(255,255,255,0.8);
+	line-height:25rpx;
+	text-align: center;
+}
+
+.entry, .first, .second {
+	width: 100%;
+	height: 100%;
+	position: relative;
+}
+.entry .animation.title {
+	position: absolute;
+	top: 309rpx;
+	left: 50%;
+	transform:translateX(-50%);
+	opacity: 0;
+	transition: all 0.8s ease-in-out;
+}
+.transition.entry .animation.title {
+	width:568rpx;
+	height:164rpx;
+	line-height: 164rpx;
+	text-align: center;
+	background: url('https://attach.lieduoduo.ziwork.com/front-assets/images/pic_talk.png') no-repeat;
+	background-size: 100% 100%;
+	font-size:30rpx;
+	font-weight:400;
+	color:#fff;
+	text-shadow:0rpx 0rpx 10rpx rgba(130,31,214,1);
+}
+.entry .animation.title .pic {
+	width: 504rpx;
+	display: block;	
+}
+.entry .animation.icon {
+	position: absolute;
+	top: 507rpx;
+	left: 50%;
+	transform:translateX(-50%);
+	opacity: 0;
+	transition: all 0.5s ease-in-out 0.1s;
+}
+.transition.entry .animation.icon {
+	top: 435rpx;
+	transform:translateX(0) rotate(-25deg);
+	left: 420rpx;
+}
+.entry .animation.icon .pic {
+	width: 222rpx;
+	display: block;
+}
+
+.entry.active .animation.title {
+	top: 269rpx;
+	opacity: 1;
+}
+.entry.active .animation.icon {
+	top: 467rpx;
+	opacity: 1;
+}
+.transition.entry.active .animation.icon {
+	top: 395rpx;
+}
+.end.entry .animation.icon{
+	top: 265rpx;
+	left: 50%;
+	transform: translateX(-200%) translateY(200%);
+	transition: all 2s ease-out;
+	opacity: 1;
+}
+.end.entry .animation.icon .pic {
+	width: 347rpx;
+}
+.end.entry.active .animation.icon  {
+	top: 0;
+	left: 100%;
+	transform: translate3d(-80%, 80%, 0) scale(0.3);
+	opacity: 0.5;
+}
+.fourth .icon {
+	font-size: 30rpx;
+	color: #fff;
+	animation: play 0.7s ease-in-out infinite;
+	position: absolute;
+	top: -70rpx;
+	left: 50%;
+	transform: translateX(-50%);
+}
+@keyframes play {
+	0% { top: -70rpx; }
+	50% { top: -60rpx; }
+	100% { top: -70rpx; }
+}
+.first .animation.title {
+	height: 76rpx;
+	line-height: 76rpx;
+	background: url('https://attach.lieduoduo.ziwork.com/front-assets/images/pic_title.png') no-repeat;
+	background-size: 100% 100%;
+	padding: 0 100rpx 0 30rpx;
+	font-size:26rpx;
+	font-weight: 300;
+	color: #fff;
+	white-space:nowrap;
+}
+.title .err {
+	color: #FF7F4C;
+}
+.active .animation.title {
+	top: 15rpx;
+	opacity: 1;
+}
+.form {
+	width: 480rpx;
+	margin-bottom: 114rpx;
+	margin: 114rpx auto 0;
+}
+
+.form .head {
+	width: 100%;
+	height: 104rpx;
+	background:rgba(239,233,244,0.2);
+	border-bottom:2rpx solid rgba(255,255,255,1);
+	background:rgba(255,255,255,0.1);
+	font-size:46rpx;
+	font-weight:500;
+	line-height: 104rpx;
+	text-align: center;
+	color: #fff;
+	position: relative;
+  border-radius:20rpx 20rpx 0rpx 0rpx;
+}
+.close {
+	width: 44rpx;
+	height: 44rpx;
+	text-align: center;
+	line-height: 44rpx;
+	position: absolute;
+	top: -20rpx;
+	right: -20rpx;
+  background: #fff;
+  border-radius: 50%;
+  z-index: 2;
+}
+.close .iconfont {
+	font-size: 18rpx;
+	color: #652791;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate3d(-50%, -50%, 0);
+}
+
+.box {
+  width: 480rpx;
+  height: 88rpx;
+  line-height: 88rpx;
+  margin: 0 auto 24rpx;
+  background: #40195C;
+  border-radius: 50rpx;
+  text-align: center;
+  font-size: 28rpx;
+  font-weight: 300;
+  box-sizing: border-box;
+}
+.animation.form .content {
+	width: 100%;
+	height: 600rpx;
+	padding: 40rpx 44rpx;
+	box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.name input, .box input {
+  box-sizing: border-box;
+  padding: 0 50rpx;
+  width: 100%;
+  height: 100%;
+  color: #EFE9F4;
+  background:none;
+  font-size: 28rpx;
+}
+
+.animation.btn {
+	transition: all 0.5s ease-in-out 0.2s;
+	opacity: 1;
+	margin: 205rpx auto 0;
+	position: relative;
+  background: none;
+}
+.btn-area {
+	width:325rpx;
+	height:102rpx;
+	line-height: 102rpx;
+	box-sizing: border-box;
+	background:#FFDC29;
+	border-radius:56rpx;
+	border:2rpx solid #fff;
+	position: relative;
+	margin: 0 auto;
+	font-size:30rpx;
+	font-weight:bold;
+	text-align: center;
+	color: #652791;
+	overflow: visible;
+	z-index: 2;
+}
+.btn-area-bg {
+	width: 308rpx;
+	height: 79rpx;
+	display: block;
+	border:2rpx solid #fff;
+	border-radius:56rpx;
+	box-sizing: border-box;
+	margin: -65rpx auto 0;
+	transform: translateX(16rpx);
+	position: relative;
+	z-index: 1;
+}
+.botBox {
+	width: 326rpx;
+	margin: 40rpx auto 0;
+	display: flex;
+	justify-content: space-between;
+  position: fixed;
+  bottom: 80rpx;
+  left: 50%;
+  margin-left: -163rpx;
+}
+.toggleAccount, .toggleIdentity {
+	font-size:26rpx;
+	color:#fff;
+	line-height:26rpx;
+	font-weight: 300;
+	opacity: 0.6;
+  padding: 30rpx 0 20rpx;
+}

@@ -111,6 +111,8 @@
         "pages/company/interest/interest",
         "pages/user/company/createdCompanyInfos/createdCompanyInfos",
         "pages/user/company/identityMethods/identityMethods",
+        "pages/user/perfectInfos/perfectInfos",
+        "pages/user/signature/signature",
         "pages/interested/interested",
         "pages/dynamics/dynamics",
         "pages/reserve/reserve"

@@ -321,3 +321,13 @@ export const getRecommendCityRangesListsApi = (data, hasLoading) => {
     hasLoading: false
   })
 }
+
+// 设置招聘官基本信息
+export const getRecruiteBaseApi = (data, hasLoading) => {
+  return request({
+    url: `/recruiter/base`,
+    method: 'get',
+    data,
+    hasLoading: false
+  })
+}

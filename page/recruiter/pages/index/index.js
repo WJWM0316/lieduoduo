@@ -103,26 +103,9 @@ Page({
   },
   onLoad() {
     app.toastSwitch()
-    
     let choseType = wx.getStorageSync('choseType') || ''
     this.setData({ choseType})
     let that = this
-    if (choseType === 'APPLICANT') {
-      let that = this
-      app.wxConfirm({
-        title: '提示',
-        content: '检测到你是求职者，是否切换求职者',
-        confirmBack() {
-          wx.reLaunch({url: `${APPLICANT}index/index` })
-        },
-        cancelBack() {
-          wx.setStorageSync('choseType', 'RECRUITER')
-          app.getAllInfo().then(res => {
-            that.init()
-          })
-        }
-      })
-    }
   },
   onShow() {
     if (app.loginInit) {
@@ -149,6 +132,7 @@ Page({
     let userInfo = app.globalData.userInfo
     if (app.pageInit) {
       userInfo = app.globalData.userInfo
+      this.perfectInfos()
       this.getMixdata()
       this.getRecommendRangeAll()
       this.setData({userInfo})
@@ -157,12 +141,22 @@ Page({
     } else {
       app.pageInit = () => {
         userInfo = app.globalData.userInfo
+        this.perfectInfos()
         this.getMixdata()
         this.getRecommendRangeAll()
         this.setData({userInfo})
         this.selectComponent('#bottomRedDotBar').init()
         this.initDefaultBar()
       }
+    }
+  },
+  perfectInfos () {
+    if (app.globalData.isRecruiter &&
+        app.globalData.recruiterDetails &&
+        (!app.globalData.recruiterDetails.signature ||
+         !app.globalData.recruiterDetails.personalizedLabels.length)
+      ) {
+      wx.navigateTo({url: `${RECRUITER}user/perfectInfos/perfectInfos`})
     }
   },
   initDefaultBar() {

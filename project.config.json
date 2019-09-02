@@ -215,6 +215,13 @@
 					"scene": null
 				},
 				{
+					"id": 18,
+					"name": "【B端】完善信息",
+					"pathName": "page/recruiter/pages/user/perfectInfos/perfectInfos",
+					"query": "sourceType=22",
+					"scene": null
+				},
+				{
 					"id": 13,
 					"name": "【B端】面试",
 					"pathName": "page/recruiter/pages/interview/index/index",
