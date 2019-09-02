@@ -232,8 +232,8 @@
   margin-bottom: 18rpx;
 }
 .cardBlock .picture {
-	width: 278rpx;
-	height: 210rpx;
+	width: 254rpx;
+	height: 192rpx;
 	margin: 0 auto;
   display: block;
 }

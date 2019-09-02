@@ -196,7 +196,7 @@ Page({
                 }, 1000)
               }
               if (getCurrentPages().length > 1) {
-                if (that.data.options.from === 'guideCard') {
+                if (that.data.options.fromType === 'guideCard') {
                   wx.setStorageSync('appendCreatUser', {firstIndex: that.data.options.firstIndex, secondIndex: that.data.options.secondIndex})
                 }
                 wx.navigateBack({

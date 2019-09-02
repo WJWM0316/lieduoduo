@@ -180,6 +180,7 @@ Component({
             type     = `filter.positionType`
             lastTopIndex = filter.topIndex || 0
             filter.topIndex = dataset.topindex
+            if (!filter.topIndex) filter['positionType'][filter.topIndex].children[0].active = true
             this.setData({[`filter.topIndex`]: filter.topIndex})
           } else {
             typeData = filter['positionType'][filter.topIndex].children
@@ -299,6 +300,10 @@ Component({
         case 'positionType':
           filterResult.positionTypeIds = filterList(filter.positionType[filter.topIndex].children).join()
           filterResult.topId = filter.positionType[filter.topIndex].labelId
+          if (!filterResult.positionTypeIds && (filterResult.topId !== 0)) {
+            app.wxToast({title: '请选择二级类型'})
+            return
+          }
           if (filterResult.positionTypeIds === '0') filterResult.positionTypeIds = 0
           break
       }

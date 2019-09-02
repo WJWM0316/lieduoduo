@@ -14,7 +14,7 @@ Component({
         wx.nextTick(() => {
           if (!newVal || newVal.length === 0) return
           if (!this.data.page) this.floor = newVal.length > 6 ? 6 : newVal.length
-          if (app.globalData.hasLogin) newVal = this.appendCard(newVal)
+          if (app.globalData.hasLogin && this.data.hasGuide) newVal = this.appendCard(newVal)
           this.setData({[`listData[${this.data.page}]`]: newVal}, () => {
             this.updata()
           })
@@ -24,6 +24,10 @@ Component({
     flowClass: {
       type: String,
       value: ''
+    },
+    hasGuide: {
+      type: Boolean,
+      value: false
     },
     page: {
       type: Number,        // 页码
@@ -63,6 +67,7 @@ Component({
   pageLifetimes: {
     // 组件所在页面的生命周期函数
     show: function () {
+      if (!this.data.hasGuide) return
       let userInfoEdit       = wx.getStorageSync('appendUserInfoEdit'),
           creatUser          = wx.getStorageSync('appendCreatUser'),
           itemEdit           = wx.getStorageSync('appendItemEdit'),
@@ -72,29 +77,21 @@ Component({
           storageType        = ''
       storageData = creatUser || itemEdit || userInfoEdit || moreEdit
       storageType = creatUser ? 'appendCreatUser' : itemEdit ? 'appendItemEdit' : userInfoEdit ? 'appendUserInfoEdit' : moreEdit ? 'appendMoreEdit' : ''
-      console.log(storageType, storageData, '存储数据')
       if (storageData) {
-          //let saveList = listData
-
-          listData[storageData.firstIndex].splice(storageData.secondIndex, 1)
-
-          //this.reset()
-          this.leftGrounp    = []
-          this.heightGroup   = []
-          this.minIndex = 0
-          this.curDataGroupIndex = 0
-          this.totalItem = 0
-          
-          if (storageType === 'appendCreatUser') this.floor = 6
-
-          wx.removeStorageSync(`${storageType}`)
-          listData.forEach((item, index) => {
-            item = this.appendCard(item)
-            this.setData({[`listData[${index}]`]: item}, () => {
-              console.log(this.data.page, item)
-              this.typeset(item, index)
-            })
+        listData[storageData.firstIndex].splice(storageData.secondIndex, 1)
+        this.leftGrounp    = []
+        this.heightGroup   = []
+        this.minIndex = 0
+        this.curDataGroupIndex = 0
+        this.totalItem = 0
+        if (storageType === 'appendCreatUser') this.floor = 6
+        wx.removeStorageSync(`${storageType}`)
+        listData.forEach((item, index) => {
+          item = this.appendCard(item)
+          this.setData({[`listData[${index}]`]: item}, () => {
+            this.typeset(item, index)
           })
+        })
       }
     }
   },
@@ -110,37 +107,51 @@ Component({
           if (listData[i].some(item => {return item.cardType === type})) return true
         }
       }
-      
+
+      let index = 0
+
+      let setIndex = () => {
+        if (this.totalItem > 6) {
+          index = this.totalItem === newVal.length ? this.floor : this.floor - (this.totalItem - newVal.length)
+        } else {
+          index = this.totalItem
+        }
+      }
+            
       // 添加创建简历 引导卡片
-      if (this.totalItem > 0 && !app.globalData.isJobhunter) {
+      if (this.totalItem >= this.floor && !app.globalData.isJobhunter) {
         if (!appended('creatUser')) {
-          let index = this.totalItem > 6 ? 6 : this.totalItem.length
+          setIndex()
           newVal.splice(index, 0, {cardType: 'creatUser'})
+          this.totalItem++
         }
       }
       if (app.globalData.isJobhunter) {
         // 添加项目经历 引导卡片
-        if (this.totalItem > this.floor && !app.globalData.resumeInfo.projects.length) {
+        if (this.totalItem >= this.floor && !app.globalData.resumeInfo.projects.length) {
           if (!appended('itemEdit')) {
-            let index = this.totalItem === newVal.length ? this.floor : this.floor - newVal.length
+            setIndex()
             newVal.splice(index, 0, {cardType: 'itemEdit'})
             this.floor += 10
+            this.totalItem++
           }
         }
         // 添加完善个人信息 引导卡片
-        if (this.totalItem > this.floor && !app.globalData.resumeInfo.jobStatus) {
+        if (this.totalItem >= this.floor && !app.globalData.resumeInfo.jobStatus) {
           if (!appended('userInfoEdit')) {
-            let index = this.totalItem === newVal.length ? this.floor : this.floor - newVal.length
+            setIndex()
             newVal.splice(index, 0, {cardType: 'userInfoEdit'})
             this.floor += 10
+            this.totalItem++
           }
         }
         
         // 添加更多介绍 引导卡片
-        if (this.totalItem > this.floor && !app.globalData.resumeInfo.moreIntroduce.introduce && !app.globalData.resumeInfo.moreIntroduce.imgs.length) {
+        if (this.totalItem >= this.floor && !app.globalData.resumeInfo.moreIntroduce.introduce && !app.globalData.resumeInfo.moreIntroduce.imgs.length) {
           if (!appended('moreEdit')) {
-            let index = this.totalItem === newVal.length ? this.floor : this.floor - newVal.length
+            setIndex()
             newVal.splice(index, 0, {cardType: 'moreEdit'})
+            this.totalItem++
           }
         }
       }
@@ -166,9 +177,9 @@ Component({
           routeUrl = `${COMMON}positionDetail/positionDetail?positionId=${dataset.id}`
       }
       if (routeUrl.indexOf('?') !== -1) {
-        routeUrl = `${routeUrl}&from=guideCard&firstIndex=${dataset.firstindex}&secondIndex=${dataset.secondindex}`
+        routeUrl = `${routeUrl}&fromType=guideCard&firstIndex=${dataset.firstindex}&secondIndex=${dataset.secondindex}`
       } else {
-        routeUrl = `${routeUrl}?from=guideCard&firstIndex=${dataset.firstindex}&secondIndex=${dataset.secondindex}`
+        routeUrl = `${routeUrl}?fromType=guideCard&firstIndex=${dataset.firstindex}&secondIndex=${dataset.secondindex}`
       }
       wx.navigateTo({url: routeUrl})
     },
@@ -185,11 +196,13 @@ Component({
       this.floor = 6
       this.setData({listData: [], wrapH: 0})
     },
+
     updata () {
       wx.nextTick(() => {
         this.typeset(this.data.listData[this.data.page])
       })
     },
+
     typeset (list, pageIndex = this.data.page) {
       let that = this
       let minFun = (heightGroup) => {
@@ -201,11 +214,7 @@ Component({
       wx.nextTick(() => {
         list.forEach((item, index) => {
           getSelectorQuery(`.${this.data.flowClass}_flow${pageIndex}${index}`, that).then(res => {
-            console.log(`.${this.data.flowClass}_flow${pageIndex}${index}`)
-            // if (!res) {
-              
-            //   return
-            // }
+            if (!res) return
             list[index].width = res.width
             list[index].index = index
             list[index].height = res.height

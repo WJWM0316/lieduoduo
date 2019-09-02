@@ -29,7 +29,7 @@
 	<view class="list">
 		<view hidden="{{tabIndex === 1}}">
 			<view class="list-box" wx:if="{{positionData.list.length}}">
-		    <waterfallFlow wx:key="positionData" my-class="waterfallFlow" id="positionData" flowClass="{{'positionData'}}" value="{{positionData.list}}" page="{{positionData.pageNum}}" isLastPage="{{positionData.isLastPage}}" bindwxNextTick="wxNextTick"></waterfallFlow>
+		    <waterfallFlow wx:key="positionData" my-class="waterfallFlow" id="positionData" flowClass="{{'positionData'}}" value="{{positionData.list}}" page="{{positionData.pageNum - 1}}" isLastPage="{{positionData.isLastPage}}" bindwxNextTick="wxNextTick"></waterfallFlow>
 		  </view>
 
 		  <bottomStatus wx:if="{{!positionData.list.length && positionData.isLastPage}}" status="{{positionData.onBottomStatus}}" listData="{{positionData.list}}" marginTop="{{30}}" desc="暂时没有符合条件的结果～">

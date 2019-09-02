@@ -61,7 +61,7 @@ Page({
     identity = app.identification(options)
     this.setData({options})
     let init = () => {
-      this.getAdBannerList()
+      
       this.getAvartList()
       this.getFilterData().then(() => {
         this.getRecord()
@@ -100,7 +100,9 @@ Page({
       let bannerList = this.data.bannerList
       if (app.globalData.isJobhunter && bannerList.length > 0 && bannerList[bannerList.length - 1].type === 'create') {
         bannerList.splice(bannerList.length - 1, 1)
-        this.setData({bannerList, bannerIndex: 0})
+        let background = null
+        if (!bannerList.length)  background = '#652791'
+        this.setData({bannerList, bannerIndex: 0, background})
       }
       if (app.pageInit) {
         this.selectComponent('#bottomRedDotBar').init()
@@ -248,6 +250,7 @@ Page({
       delete params.employeeIds
       delete params.financingIds
     }
+
     // 加载完正常列表 再加载的推荐数据不需要传薪资条件
     if (this.data.getRecommend) {
       params.recordParams = 0
@@ -284,6 +287,8 @@ Page({
           })
         }
       })
+
+      this.getAdBannerList()
     })
   },
   getAdBannerList () {
@@ -291,12 +296,22 @@ Page({
       let list = res.data
       // 没有创建简历的 新增一个banner位
       if (!app.globalData.isJobhunter) {
-        list.push({
+        let item = {
           bigImgUrl: "https://attach.lieduoduo.ziwork.com/front-assets/images/banner_resumeX.png",
           smallImgUrl:"https://attach.lieduoduo.ziwork.com/front-assets/images/banner_resume.png",
-          targetUrl:`page/applicant/pages/createUser/createUser?from=3`,
+          targetUrl: `page/applicant/pages/createUser/createUser?from=3&fromType=guideCard&firstIndex=0&secondIndex=6`,
           type: 'create'
-        })
+        }
+        if (this.data.filterList.list.length > 6 || this.data.recommendList.list.length > 6) {
+          item.targetUrl = `page/applicant/pages/createUser/createUser?from=3&fromType=guideCard&firstIndex=0&secondIndex=6`
+        } else {
+          if (this.data.filterList.list.length > 0) {
+            item.targetUrl = `page/applicant/pages/createUser/createUser?from=3&fromType=guideCard&firstIndex=0&secondIndex=${this.data.filterList.list.length}`
+          } else if (this.data.recommendList.list.length > 0) {
+            item.targetUrl = `page/applicant/pages/createUser/createUser?from=3&fromType=guideCard&firstIndex=0&secondIndex=${this.data.recommendList.list.length}`
+          }
+        }
+        list.push(item)
       }
       let background = this.data.background
       if (!list.length && this.data.background !== '#652791')  background = '#652791'

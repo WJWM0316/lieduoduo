@@ -97,7 +97,7 @@ Page({
         icon: 'success',
         callback() {
           app.getAllInfo().then(res => {
-            if (that.data.options.from === 'guideCard') {
+            if (that.data.options.fromType === 'guideCard') {
               wx.setStorageSync('appendMoreEdit', {firstIndex: that.data.options.firstIndex, secondIndex: that.data.options.secondIndex})
             }
             wx.navigateBack({delta: 1})

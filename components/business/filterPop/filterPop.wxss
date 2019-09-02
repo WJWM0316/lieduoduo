@@ -46,6 +46,10 @@
 	font-style: 18rpx;
 	margin-left: 12rpx;
 }
+.open .icon.rotate {
+	transform:rotate(180deg);
+  display: inline-block;
+}
 .type .labelBox {
   overflow: hidden;
   height: 258rpx;

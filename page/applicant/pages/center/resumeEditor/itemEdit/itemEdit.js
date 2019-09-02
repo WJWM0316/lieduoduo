@@ -121,7 +121,7 @@ Page({
           title: '保存成功',
           icon: 'success',
           callback() {
-            if (that.data.options.from === 'guideCard') {
+            if (that.data.options.fromType === 'guideCard') {
               wx.setStorageSync('appendItemEdit', {firstIndex: that.data.options.firstIndex, secondIndex: that.data.options.secondIndex})
             }
             wx.navigateBack({delta: 1}) 
