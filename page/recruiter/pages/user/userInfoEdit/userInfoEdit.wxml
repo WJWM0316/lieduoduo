@@ -39,6 +39,12 @@
     </view>
   </view>
   <view class="item">
+    <view class="txt">担任职务类别</view>
+    <view class="edit">
+      <input type="text" data-type="positionType" disabled bindtap="routeJump" value="{{positionType}}" placeholder="请选择担任职务类别" placeholder-style="color: #B2B6C2"/>
+    </view>
+  </view>
+  <view class="item">
     <view class="txt">担任职务</view>
     <view class="edit">
       <input type="text" value="{{position}}" data-type="position" bindblur="getInputValue" placeholder="请填写担任职务" placeholder-style="color: #B2B6C2"/>
@@ -57,7 +63,7 @@
       <input type="text" value="{{wechat}}" data-type="wechat" bindblur="getInputValue" placeholder="请填写微信号" placeholder-style="color: #B2B6C2"/>
     </view>
   </view>
-  <view class="title">个性签名</view>
+  <view class="title red">个性签名</view>
   <view class="signBox">
     <textarea class="sign" value="{{signature}}" auto-height maxlength='30' placeholder="用一句话介绍你自己吧~" bindinput="singInput" placeholder-style="color: #B2B6C2; font-weight: 300"></textarea>
     <view class="number">{{signature.length || 0}}/30</view>

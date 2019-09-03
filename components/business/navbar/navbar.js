@@ -2,10 +2,15 @@ import {APPLICANT,RECRUITER} from "../../../config.js"
 import localstorage from "../../../utils/localstorage.js"
 const app = getApp()
 Component({
+  externalClasses: ['my-class'],
   options: {
     addGlobalClass: true,
   },
   properties: {
+    isSearch: {
+      type: Boolean,
+      value: false
+    },
     title: {
       type: String,
       value: '猎多多'
@@ -45,6 +50,10 @@ Component({
     mustBack: {
       type: Boolean,
       value: false
+    },
+    filterResult: {
+      type: Object,
+      value: {}
     }
   },
   data: {
@@ -55,7 +64,9 @@ Component({
     firstClick: false,
     homeBubble: false,
     choseType: 'APPLICANT',
-    showScanBox: false
+    showScanBox: false,
+    openPop: false,
+    cityName: ''
   },
   attached() {
     let positionStatus = this.data.positionStatus
@@ -105,6 +116,9 @@ Component({
         })
       }
     },
+    toSearch () {
+      wx.navigateTo({url: `${APPLICANT}search/search`})
+    },
     formSubmit(e) {
       app.postFormId(e.detail.formId)
     },
@@ -120,6 +134,16 @@ Component({
     },
     showScan() {
       this.setData({showScanBox: true})
+    },
+    chooseCity () {
+      this.setData({openPop: true})
+    },
+    getFilterResult (e) {
+      let filterResult = this.data.filterResult
+      filterResult.cityName = e.detail.cityName
+      filterResult.cityNums = e.detail.cityNums
+      this.setData({filterResult})
+      this.triggerEvent('FilterResult', filterResult)
     }
   },
   pageLifetimes: {

@@ -1,5 +1,14 @@
 import { request } from '../require.js'
 
+// 搜索职位列表
+export const getPositionSchListApi = (data, hasLoading) => {
+  return request({
+    method: 'get',
+    url: '/positions/sch',
+    data,
+    hasLoading: hasLoading
+  })
+}
 // 职位列表
 export const getPositionListApi = (data, hasLoading) => {
   return request({
@@ -14,7 +23,7 @@ export const getPositionListApi = (data, hasLoading) => {
 export const getRecommendApi = (data, hasLoading) => {
   return request({
     method: 'get',
-    url: '/recommend/oppty',
+    url: '/recommend/oppty/list',
     data,
     hasLoading: hasLoading
   })
@@ -166,3 +175,4 @@ export const getEmolumentApi = (data, hasLoading) => {
     hasLoading: false
   })
 }
+

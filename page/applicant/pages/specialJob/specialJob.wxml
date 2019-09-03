@@ -17,7 +17,7 @@
 				<text class="avatar_left_txt">{{otherData.joinUserTotal}}人已参与</text>
 			</view>
 		</view>
-		<view class="avatar_right {{isJobhunter ? 'go' : ''}}" bindtap="routeJump" data-index="{{0}}" data-route="{{!isJobhunter ? 'createUser' : 'toggleTab'}}">
+		<view class="avatar_right {{isJobhunter ? 'go' : ''}}" data-from="{{7}}" data-btnType="{{1}}" bindtap="routeJump" data-index="{{0}}" data-route="{{!isJobhunter ? 'createUser' : 'toggleTab'}}">
 			<block wx:if="{{!isJobhunter}}"><text>领取资格</text><i class="icon iconfont icon-xiangyou"></i></block>
 			<block wx:else><text>抢占约面席位</text><i class="icon iconfont icon-xiangyou"></i></block>
 		</view>
@@ -34,7 +34,7 @@
 	</view>
 	<view style="height: {{tabFixed ? 171 : 0}}rpx"></view>
 	<view class="gd">
-		<view hidden="{{tabIndex === 1}}" ><image bindtap="routeJump" data-btnType="{{2}}" data-route="{{!isJobhunter ? 'createUser' : 'strategy'}}" class="gdImg" src="{{!isJobhunter ? cdnImagePath + 'img_200yhb_banner.png' : cdnImagePath+'img_200yhb_banner_end.png'}}" mode="widthFix"></image></view>
+		<view hidden="{{tabIndex === 1}}" ><image bindtap="routeJump" data-from="{{8}}" data-btnType="{{2}}" data-route="{{!isJobhunter ? 'createUser' : 'strategy'}}" class="gdImg" src="{{!isJobhunter ? cdnImagePath + 'img_200yhb_banner.png' : cdnImagePath+'img_200yhb_banner_end.png'}}" mode="widthFix"></image></view>
 		<view  hidden="{{tabIndex === 0}}" class="gd_inner">
 			<image class="icon" src="{{cdnImagePath}}icon_24h_qxnotice3x.png"></image>
 			<text class="txt">以下职位的24小时反馈服务已结束，但仍可继续开约，不要错过哦~</text>

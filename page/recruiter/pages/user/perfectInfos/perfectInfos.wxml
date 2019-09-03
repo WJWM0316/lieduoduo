@@ -1,0 +1,35 @@
+<view class="createUser">
+	<navbar title="" background="#4F286E" color="#fff"></navbar>
+	<form bindsubmit="formSubmit" report-submit='{{true}}'>
+		<view class="wrap">
+			<view class="inner">
+				<view class="first micro">
+					<view class="h1"><text>完善基本信息，\n预计收到简历增加</text><text class="num">30%</text></view>
+					<view class="h2"><text>信息将用于招聘主页和职位列表展示</text></view>
+					<view class="animation form">
+				    <view class="box" data-type="positionType" bindtap="routeJump">
+					    <input bindtap="jump" disabled placeholder-class="holderStyle" placeholder="请选择担任职位类型" value="{{positionType}}"  maxlength="50"/>
+					  </view>
+						<view class="box" data-type="labelType" bindtap="routeJump">
+					    <input bindtap="jump" disabled placeholder-class="holderStyle" placeholder="请选择入个性标签" value="{{labelType}}"  maxlength="50"/>
+					  </view>
+					  <view class="box" data-type="signature" bindtap="routeJump">
+					    <input bindtap="jump" disabled placeholder-class="holderStyle" placeholder="请输入个性签名" value="{{signature}}"  maxlength="50"/>
+					  </view>
+					  <block>
+					  	<button class="animation btn" form-type="submit" bindtap="saveInfo" id="microBtn">
+					  		<view class="btn-area">完成</view>
+						    <view class="btn-area-bg"></view>
+					  	</button>
+					  </block>
+					  <view></view>
+					  <!-- <view class="botBox">
+					  	<view class="toggleIdentity" bindtap="toggleIdentity">切换为求职者</view>
+					  	<view class="toggleAccount" bindtap="routeJump" data-type="changeAccount">切换账号</view>
+					  </view> -->
+					</view>
+				</view>
+			</view>
+		</view>
+	</form>
+</view>

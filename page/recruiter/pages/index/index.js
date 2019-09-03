@@ -131,6 +131,7 @@ Page({
     let userInfo = app.globalData.userInfo
     if (app.pageInit) {
       userInfo = app.globalData.userInfo
+      // this.perfectInfos()
       this.getMixdata()
       this.getRecommendRangeAll()
       this.setData({userInfo})
@@ -139,6 +140,7 @@ Page({
     } else {
       app.pageInit = () => {
         userInfo = app.globalData.userInfo
+        // this.perfectInfos()
         this.getMixdata()
         this.getRecommendRangeAll()
         this.setData({userInfo})
@@ -147,7 +149,18 @@ Page({
       }
     }
   },
+  perfectInfos () {
+    if (app.globalData.isRecruiter &&
+        app.globalData.recruiterDetails &&
+        (!app.globalData.recruiterDetails.signature ||
+         !app.globalData.recruiterDetails.personalizedLabels.length ||
+         !app.globalData.recruiterDetails.positionTypeId)
+      ) {
+      wx.navigateTo({url: `${RECRUITER}user/perfectInfos/perfectInfos`})
+    }
+  },
   initDefaultBar() {
+    if (!this.data.detail.positionNum) return
     setTimeout(() => {
       getSelectorQuery('.tab-bar').then(res => {
         let moveParams = this.data.moveParams
@@ -188,6 +201,7 @@ Page({
    * @return   {[type]}   [description]
    */
   getDomNodePosition() {
+    if (!this.data.detail.positionNum) return
     setTimeout(() => {
       getSelectorQuery('.default').then(res => {
         if(!fixedDomPosition) fixedDomPosition = res.top - this.data.navH
@@ -337,6 +351,7 @@ Page({
     this.cacheData()
     wx.navigateTo({url: `${COMMON}resumeDetail/resumeDetail?uid=${params.jobhunteruid}`})
   },
+
   routeJump(e) {
     let route = e.currentTarget.dataset.route
     this.cacheData()
@@ -604,6 +619,7 @@ Page({
       }
     })    
   },
+
   /**
    * @Author   小书包
    * @DateTime 2019-07-13
@@ -646,6 +662,7 @@ Page({
       })
     })
   },
+
   /**
    * @Author   小书包
    * @DateTime 2019-07-13
@@ -692,6 +709,7 @@ Page({
       })
     })
   },
+
   /**
    * @Author   小书包
    * @DateTime 2019-07-13
@@ -715,6 +733,7 @@ Page({
       })
     })
   },
+
   /**
    * @Author   小书包
    * @DateTime 2019-07-13
@@ -746,6 +765,7 @@ Page({
       })
     })
   },
+
   onClickSearch(e) {
     let params = e.currentTarget.dataset
     let onLinePosition = this.data.onLinePosition

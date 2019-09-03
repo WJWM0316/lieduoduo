@@ -44,7 +44,6 @@ Page({
 
       if (options.p) {
         let path = decodeURIComponent(options.p)
-             // path = path.includes('?') ? '&'
         if (options.t) {
           let title = decodeURIComponent(options.t),
               imgUrl = decodeURIComponent(options.i)
@@ -54,7 +53,11 @@ Page({
             imageUrl: imgUrl
           }
         }
-        pageUrl = `${path}&sessionToken=${sessionToken}&token=${token}`
+        if (path.indexOf('?')) {
+          pageUrl = `${path}&sessionToken=${sessionToken}&token=${token}`
+        } else {
+          pageUrl = `${path}?sessionToken=${sessionToken}&token=${token}`
+        }
         console.log(pageUrl)
       }
       this.setData({pageUrl})

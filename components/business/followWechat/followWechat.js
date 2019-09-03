@@ -1,14 +1,5 @@
 const app = getApp()
 Component({
-  /**
-   * 组件的属性列表
-   */
-  properties: {
-    userInfo: {
-      type: Object,
-      value: app.globalData.userInfo
-    }
-  },
 
   /**
    * 组件的初始数据
@@ -16,19 +7,23 @@ Component({
   data: {
     cdnImagePath: app.globalData.cdnImagePath,
     isIphoneX: app.globalData.isIphoneX,
+    userInfo: null,
+    officialId: 0,
     showPop: false,
     authPop: false,
   },
 
   attached () {
+    this.setData({officialId: app.globalData.officialId, userInfo: app.globalData.userInfo})
   },
   methods: {
     close (e) {
       if (e.currentTarget.dataset.type !== 'authPop') {
         let userInfo = this.data.userInfo
-        userInfo.officialId = true
+        let officialId = 1
+        app.globalData.officialId = 1
         app.globalData.userInfo = userInfo
-        this.setData({userInfo, showPop: false})
+        this.setData({userInfo, officialId, showPop: false})
       } else {
         this.setData({authPop: false})
       }

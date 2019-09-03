@@ -5,7 +5,7 @@
 		<slot></slot>
 	</view>
 	<view class="txt" wx:if="{{status === 2 && listData.length === 0}}" style="margin-top: {{marginTop}}rpx">
-		<image class="pic" src="{{cdnImagePath}}emptyState.png"></image>
+		<image class="pic" src="{{cdnImagePath}}emptyState.png" wx:if="{{hasImg}}"></image>
 		<text class="desc my-item-class">{{desc}}</text>
 		<slot></slot>
 	</view>

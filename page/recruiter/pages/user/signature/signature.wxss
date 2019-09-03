@@ -1,0 +1,54 @@
+
+.signatureBox {
+	margin-top: 20rpx;
+}
+.inputBox {
+	padding: 40rpx;
+	background: #fff;
+}
+.textarea {
+	font-size:28rpx;
+	font-family:PingFangSC;
+	line-height:36rpx;
+	height: 120rpx;
+}
+.inputBox .txt {
+	font-size:24rpx;
+	color:#BCBCBC;
+	line-height:24rpx;
+	text-align: right;
+	margin-top: 24rpx;
+}
+.botBtn {
+	padding: 30rpx 100rpx;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  box-sizing: border-box;
+}
+.btn {
+	width: 100%;
+	height:88rpx;
+	line-height: 88rpx;
+	font-size:32rpx;
+	color:#fff;
+	text-align: center;
+	background: #652791;
+  border-radius:48rpx;
+}
+.picture {
+	width:610rpx;
+	height:581rpx;
+	background:rgba(255,255,255,0.36);
+	margin: 30rpx auto 0;
+  display: block;
+}
+.desc {
+	font-size:24rpx;
+	font-weight:300;
+	color:#929292;
+	line-height:34rpx;
+	margin-top: 50rpx;
+	padding: 0 40rpx;
+}

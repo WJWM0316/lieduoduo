@@ -1,4 +1,4 @@
-@import '../../../iconfont.wxss'
+@import '../../../iconfont.wxss';
 
 .navbar {
   width: 100%;
@@ -101,4 +101,49 @@
   top:77rpx;
   width: 367rpx;
   height: 86rpx;
+}
+
+.searchBox {
+  padding-left: 40rpx;
+  box-sizing: border-box;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  position: absolute;
+  left: 0;
+  bottom: 18rpx;
+}
+.cityBox {
+  display: flex;
+  align-items: center;
+}
+.searchBox .cityName {
+  width:56rpx;
+  display: inline-block;
+  overflow: hidden;
+  font-size:28rpx;
+  height: 28rpx;
+  font-weight:300;
+  color:#fff;
+  line-height:28rpx;
+}
+.searchBox .cityIcon {
+  font-size: 14rpx;
+  margin: 0 26rpx 0 12rpx;
+  color:rgba(255,255,255,0.8);
+}
+.searchBox .search {
+  width:390rpx;
+  height:60rpx;
+  background:rgba(255,255,255,0.22);
+  border-radius:30rpx;
+  font-size:26rpx;
+  font-weight:300;
+  color:rgba(255,255,255,0.8);
+  line-height:60rpx;
+  text-align: center;
+}
+.searchBox .search .icon {
+  font-size:22rpx;
+  margin-right: 12rpx;
 }

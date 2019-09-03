@@ -1,97 +1,67 @@
 import {RECRUITER, APPLICANT, COMMON} from '../../../../config.js'
 import {getSelectorQuery}  from '../../../../utils/util.js'
 import { getAvartListApi } from '../../../../api/pages/active.js'
-import { getPositionListApi, getPositionRecordApi, getRecommendApi } from '../../../../api/pages/position.js'
+import { getPositionSchListApi, getPositionRecordApi, getRecommendApi } from '../../../../api/pages/position.js'
 import {getFilterDataApi} from '../../../../api/pages/aggregate.js'
 import {getAdBannerApi} from '../../../../api/pages/common'
 import {shareChance} from '../../../../utils/shareWord.js'
+import {agreedTxtB} from '../../../../utils/randomCopy.js'
 
 const app = getApp()
-let timer = null
 let identity = '',
     hasOnload = false, // 用来判断是否执行了onload，就不走onShow的校验
-    tabTop = 0
+    tabTop = 0,
+    timer = null,
+    adPositionIds = null,
+    filterData = {}
 Page({
   data: {
-    pageCount: 20,
+    pageCount: app.globalData.pageCount,
     navH: app.globalData.navHeight,
-    showNav: false,
-    fixedBarHeight: 0,
     hasReFresh: false,
-    onBottomStatus: 0,
     hideLoginBox: true,
-    isBangs: app.globalData.isBangs,
-    pixelRatio: app.globalData.systemInfo.pixelRatio,
-    tabList: [
-      {
-        name: '工作城市',
-        type: 'city',
-        active: false
-      },
-      {
-        name: '职位类型',
-        type: 'positionType',
-        active: false
-      },
-      {
-        name: '薪资范围',
-        type: 'salary',
-        active: false
-      }
-    ],
-    positionList: {
+    background: 'transparent',
+    isBangs: app.globalData.isBangs, // 是否有齐刘海
+    filterList: {
       list: [],
-      pageNum: 1,
+      pageNum: 0,
+      onBottomStatus: 0,
+      isLastPage: false,
+      isRequire: false
+    },
+    recommendList: {
+      list: [],
+      pageNum: 0,
+      onBottomStatus: 0,
       isLastPage: false,
       isRequire: false
     },
     bannerIndex: 0,
     bannerList: [],
     moreRecruiter: [],
-    tabType: 'closeTab',
     bannerH: 200,
-    city: 0,
-    cityIndex: 0,
-    type: 0,
-    typeIndex: 0,
-    emolument: 1,
-    emolumentIndex: 0,
-    cityList: [],
-    positionTypeList: [],
-    emolumentList: [],
     requireOAuth: false,
     cdnImagePath: app.globalData.cdnImagePath,
     userInfo: app.globalData.userInfo,
     options: {},
-    hasLogin: 0,
-    isJobhunter: 0,
     hasExpect: 1,
-    recommended: 0 // 是否有推荐策略
+    recommended: 0, // 是否有推荐策略
+    getRecommend: 0, // 过滤数据完毕开始加载推荐疏数据
+    filterResult: {}, // 筛选项结果 
+    filterType: '', // 筛选类型
+    openPop: false // 过滤组件开关
   },
   onLoad(options) {
     app.toastSwitch()
-
     hasOnload = false
-    let bannerH = this.data.bannerH,
-        requireOAuth = this.data.requireOAuth
-    if (!this.data.isBangs) {
-      bannerH = app.globalData.systemInfo.screenWidth/(750/420)
-    } else {
-      bannerH = app.globalData.systemInfo.screenWidth/(750/468)
-    }
+    adPositionIds = null
     if (options.needAuth && wx.getStorageSync('choseType') === 'RECRUITER') { // 是否从不服来赞过来的B身份 强制C端身份
       wx.setStorageSync('choseType', 'APPLICANT')
     }
     identity = app.identification(options)
-    const positionList = {
-      list: [],
-      pageNum: 1,
-      isLastPage: false,
-      isRequire: false
-    }
-    this.setData({positionList, bannerH, options})
+    this.setData({options})
     let init = () => {
-      this.getAdBannerList()
+      
       this.getAvartList()
       this.getFilterData().then(() => {
         this.getRecord()
@@ -125,11 +95,14 @@ Page({
         isjobhunter: app.globalData.isJobhunter,
         userinfo: app.globalData.userInfo ? 1 : 0
       })
-      this.setData({hasLogin: app.globalData.hasLogin, userInfo: app.globalData.userInfo, isJobhunter: app.globalData.isJobhunter})
+      this.setData({userInfo: app.globalData.userInfo})
+      // 如果已创建了，需要删除引导创建banner
       let bannerList = this.data.bannerList
-      if (app.globalData.isJobhunter && bannerList.length > 0 && bannerList[bannerList.length - 1].smallImgUrl === 'https://attach.lieduoduo.ziwork.com/front-assets/images/banner_resume.png') {
+      if (app.globalData.isJobhunter && bannerList.length > 0 && bannerList[bannerList.length - 1].type === 'create') {
         bannerList.splice(bannerList.length - 1, 1)
-        this.setData({bannerList, bannerIndex: 0})
+        let background = null
+        if (!bannerList.length)  background = '#652791'
+        this.setData({bannerList, bannerIndex: 0, background})
       }
       if (app.pageInit) {
         this.selectComponent('#bottomRedDotBar').init()
@@ -167,7 +140,7 @@ Page({
     if (!app.globalData.hasLogin) {
       this.setData({hideLoginBox: false})
     } else {
-      let timer = setTimeout(() => {
+      timer = setTimeout(() => {
         jumpCreate()
         clearTimeout(timer)
       }, 500)
@@ -201,203 +174,127 @@ Page({
   },
   getFilterData () {
     return getFilterDataApi().then(res => {
-      let cityList = res.data.area,
-          positionTypeList = res.data.label,
-          emolumentList = res.data.emolument
-      cityList.unshift({areaId: '', name: '全部'})
-      positionTypeList.map(field => field.active = false)
-      positionTypeList.unshift({
-        labelId: '',
-        name: '全部',
-        type: 'self_label_position'
-      })
-      this.setData({cityList, positionTypeList, emolumentList})
+      filterData = res.data
     })
   },
-  choseTab (e) {
-    let closeTab = e.currentTarget.dataset.type
-    if (this.data.tabType === closeTab || closeTab === 'closeTab') {
-      this.setData({tabType: 'closeTab'})
-    } else {
-      this.setData({tabType: closeTab})
-    }
+  getFilterResult (e) {
+    let filterResult = e.detail
+    this.setData({filterResult}, () => {
+      this.reloadPositionLists()
+    })
   },
-  toggle (e) {
-    let id = e.currentTarget.dataset.id
-    let index = e.currentTarget.dataset.index
-    let name = e.currentTarget.dataset.name
-    let tabList = this.data.tabList
-    if (this.data.options.positionTypeId) {
-      let options = this.data.options
-      delete options.positionTypeId
-      delete options.typeName
-      this.setData({options})
-    }
-    switch (this.data.tabType) {
-      case 'city':
-        if (index === 0) {
-          tabList[0].name = '工作城市'
-          tabList[0].active = false
-        } else {
-          tabList[0].active = true
-          tabList[0].name = name
-        }
-        this.setData({tabList, city: id, cityIndex: index, tabType: 'closeTab'})
-        this.reloadPositionLists()
-        break
-      case 'positionType':
-        if (index === 0) {
-          tabList[1].name = '职位类型'
-          tabList[1].active = false
-        } else {
-          tabList[1].active = true
-          tabList[1].name = name
-        }
-        this.setData({tabList, type: id, typeIndex: index, tabType: 'closeTab'})
-        this.reloadPositionLists()
-        break
-      case 'salary':
-        if (index === 0) {
-          tabList[2].name = '薪资范围'
-          tabList[2].active = false
-        } else {
-          tabList[2].active = true
-          tabList[2].name = name
-        }
-        this.setData({tabList, emolument: id, emolumentIndex: index, tabType: 'closeTab'})
-        this.reloadPositionLists()
-        break
-    }
-    wx.pageScrollTo({scrollTop: 0})
+  chooseType (e) {
+    let type = e.currentTarget.dataset.type
+    this.setData({filterType: type, openPop: true})
   },
   getRecord() {
     return getPositionRecordApi().then(res => {
-      let city = this.data.city,
-          type = Number(this.data.options.positionTypeId) || Number(res.data.type) || 0,
-          typeName = this.data.options.typeName || res.data.typeName || '',
-          emolument = this.data.emolument,
-          cityIndex = this.data.cityIndex,
-          typeIndex = this.data.typeIndex,
-          emolumentIndex = this.data.emolumentIndex,
-          tabList = this.data.tabList,
-          positionTypeList = this.data.positionTypeList,
-          recommended = this.data.recommended
-      if (res.data.city) {
-        city = Number(res.data.city)
-        this.data.cityList.map((item, index) => {
-          if (item.areaId === city) {
-            cityIndex = index
-            if (index === 0) {
-              tabList[0].name = '工作城市'
-            } else {
-              tabList[0].active = true
-              tabList[0].name = item.name
-            }
+      let recommended = false,
+          filterResult = res.data
+      // 没有topId, 根据规则自己造一个
+      if (!filterResult.topId && filterResult['positionTypeIds']) filterResult.topId = filterResult['positionTypeIds'].slice(0, 2) + '0000'
+
+      // 没有职位列表名称
+      if (!filterResult['positionTypeName'] && filterResult['positionTypeIds']) {
+        let array  = filterData['positionType'].filter(item => { return item.labelId === parseInt(filterResult.topId)})
+        array[0].children.filter(item => {
+          if (item.labelId === parseInt(filterResult['positionTypeIds'])) {
+            filterResult['positionTypeName'] = item.name
           }
         })
       }
-      if (type) {
-        let curType = positionTypeList.filter((item) => { return item.labelId === type})
-        if (curType.length === 0) {
-          tabList[1].active = true
-          tabList[1].name = typeName
-          positionTypeList.push({labelId: type, name: typeName})
-          typeIndex = positionTypeList.length - 1
-          this.setData({positionTypeList})
-        } else {
-          positionTypeList.forEach((item, index) => {
-            if (item.labelId === type) {
-              typeIndex = index
-              if (index === 0) {
-                tabList[1].name = '职位类型'
-              } else {
-                tabList[1].active = true
-                tabList[1].name = item.name
-              }
-            }
-          })
-        }
+      
+      // 没有城市名，自己造一个
+      if (!filterResult.cityName && filterResult.cityNums) {
+        let array = filterData['area'].filter(item => { return item.areaId === parseInt(filterResult.cityNums)})
+        filterResult.cityName =  array[0] && array[0].name || ''
       }
-      if (res.data.emolumentId) {
-        emolument = Number(res.data.emolumentId)
-        this.data.emolumentList.map((item, index) => {
-          if (item.id === emolument) {
-            emolumentIndex = index
-            if (index === 0) {
-              tabList[2].name = '薪资范围'
-            } else {
-              tabList[2].active = true
-              tabList[2].name = item.text
-            }
-          }
-        })
-      }
-      if (this.data.options.positionTypeId) {
-        city = 0
-        cityIndex = 0
-        tabList[0].name = '工作城市'
-        tabList[0].active = false
-        emolument = 1
-        emolumentIndex = 0
-        tabList[2].active = false
-        tabList[2].name = '薪资范围'
-      }
-      if (res.data.recommended) {
-        recommended = res.data.recommended
-      }
-      this.setData({tabList, city, type, cityIndex, typeIndex, emolument, emolumentIndex, recommended}, () => {
-        this.getPositionList()
-      })  
+
+      if (filterResult.recommended) recommended = filterResult.recommended
+      this.setData({recommended, filterResult}, () => {
+        this.reloadPositionLists()
+      })
+
     }).catch(e => {
-      this.getPositionList()
+      this.reloadPositionLists()
     })
   },
   getPositionList(hasLoading = true) {
-    let params = {count: this.data.pageCount, page: this.data.positionList.pageNum, is_record: 1, ...app.getSource()}
-    if(this.data.city) {
-      params = Object.assign(params, {city: this.data.city})
-    }
-    if(this.data.type) {
-      params = Object.assign(params, {type: this.data.type})
-    }
-    if (this.data.emolument) {
-      params = Object.assign(params, {emolument_id: this.data.emolument})
-    }
-    if(!this.data.type) {
-      delete params.type
-    }
-    if(!this.data.city) {
-      delete params.city
-    }
-    if(!this.data.emolument) {
-      delete params.emolument_id
-    }
-    if (this.data.options.positionTypeId) {
-      params.is_record = 0
-      delete params.city
-      delete params.emolument_id
-    }
-    let getList = null
-    if (this.data.recommended && !params.city && !params.type) {
+    let listData = null,
+        listType = null,
+        getList = null,
+        params = {count: this.data.pageCount, recordParams: 1, ...this.data.filterResult, ...app.getSource()}
+    // 除了薪资范围，选择其余筛选条件都是请求正常数据列表，否则请求推荐列表
+    let canRecommend = params.recommended && 
+                       !params.cityNums && 
+                       !params.positionTypeIds && 
+                       !params.industryIds && 
+                       !params.employeeIds && 
+                       !params.financingIds
+    
+    if (canRecommend || this.data.getRecommend) {
       getList = getRecommendApi
-      params.count = 15
+      params.count = 20
+      listData = this.data.recommendList
+      listType = 'recommendList'
+      params.adPositionIds = adPositionIds
       if (params.page === 1) params.isFisrtPage = 1
     } else {
-      getList = getPositionListApi
+      listData = this.data.filterList
+      getList = getPositionSchListApi
+      listType = 'filterList'
     }
+    listData.pageNum++
+    params.page = listData.pageNum
+
+    // 从职位详情过来的推荐数据 不需要记录且不需要其他条件
+    if (this.data.options.positionTypeId) {
+      params.positionTypeIds = this.data.options.positionTypeId
+      params.recordParams = 0
+      delete params.cityNums
+      delete params.emolumentIds
+      delete params.industryIds
+      delete params.employeeIds
+      delete params.financingIds
+    }
+
+    // 加载完正常列表 再加载的推荐数据不需要传薪资条件
+    if (this.data.getRecommend) {
+      params.recordParams = 0
+      delete params.emolumentIds
+    }
+      
     return getList(params, hasLoading).then(res => {
-      let positionList = this.data.positionList
-      let onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
       let requireOAuth = false
       if (res.meta && res.meta.requireOAuth) requireOAuth = res.meta.requireOAuth
       if (this.data.options.needAuth && !app.globalData.userInfo) {
         requireOAuth = true
       }
-      positionList.list = positionList.list.concat(res.data)
-      positionList.isLastPage = res.data.length === params.count || (res.meta && res.meta.nextPageUrl) ? false : true
-      positionList.pageNum = positionList.pageNum + 1
-      positionList.isRequire = true
-      this.setData({positionList, requireOAuth, onBottomStatus})
+      if (res.meta && res.meta.adPositionIds) adPositionIds = res.meta.adPositionIds
+
+      let isLastPage     = res.data.length < 20 || (res.meta && res.meta.currentPage && parseInt(res.meta.currentPage) === res.meta.lastPage) ? true : false
+      let isRequire      = true
+      let onBottomStatus = isLastPage ? 2 : 0
+      let setData = {
+        [`${listType}.pageNum`]: listData.pageNum,
+        [`${listType}.isLastPage`]: isLastPage, 
+        [`${listType}.isRequire`]: isRequire, 
+        [`${listType}.onBottomStatus`]: onBottomStatus, 
+        requireOAuth
+      }
+
+      if (res.data.length) setData[`${listType}.list`] = res.data
+      this.setData(setData, () => {
+        if (app.globalData.hasLogin && 
+            !this.data.recommendList.isRequire && 
+            this.data.filterList.isRequire && 
+            this.data.filterList.isLastPage) {
+          this.setData({getRecommend: 1}, () => {
+            this.getPositionList(false)
+          })
+        }
+      })
+      if (!this.data.bannerList.length && listData.pageNum === 1) this.getAdBannerList()
     })
   },
   getAdBannerList () {
@@ -405,18 +302,35 @@ Page({
       let list = res.data
       // 没有创建简历的 新增一个banner位
       if (!app.globalData.isJobhunter) {
-        list.push({
+        let item = {
           bigImgUrl: "https://attach.lieduoduo.ziwork.com/front-assets/images/banner_resumeX.png",
           smallImgUrl:"https://attach.lieduoduo.ziwork.com/front-assets/images/banner_resume.png",
-          targetUrl:`page/applicant/pages/createUser/createUser?from=3`,
+          targetUrl: `page/applicant/pages/createUser/createUser?from=3&fromType=guideCard&firstIndex=0&secondIndex=6`,
           type: 'create'
-        })
+        }
+        if (this.data.filterList.list.length > 6 || this.data.recommendList.list.length > 6) {
+          item.targetUrl = `page/applicant/pages/createUser/createUser?from=3&fromType=guideCard&firstIndex=0&secondIndex=6`
+        } else {
+          if (this.data.filterList.list.length > 0) {
+            item.targetUrl = `page/applicant/pages/createUser/createUser?from=3&fromType=guideCard&firstIndex=0&secondIndex=${this.data.filterList.list.length}`
+          } else if (this.data.recommendList.list.length > 0) {
+            item.targetUrl = `page/applicant/pages/createUser/createUser?from=3&fromType=guideCard&firstIndex=0&secondIndex=${this.data.recommendList.list.length}`
+          }
+        }
+        list.push(item)
       }
-      this.setData({bannerList: list})
-      wx.nextTick(() => {
-        getSelectorQuery('.select-box').then(res => {
-          tabTop = res.top - res.height
-        })
+      let background = this.data.background
+      if (!list.length && this.data.background !== '#652791')  background = '#652791'
+      this.setData({bannerList: list, background}, () => {
+        if (list.length) {
+          getSelectorQuery('.banner').then(res => {
+            let bannerH = res.height
+            this.setData({bannerH})
+          })
+        }
+      })
+      getSelectorQuery('.select-box').then(res => {
+        tabTop = res.top - res.height
       })
     })
   },
@@ -425,71 +339,89 @@ Page({
     this.setData({requireOAuth})
   },
   addIntention () {
-    let data = this.data,
+    let data = this.data.filterResult,
         salaryFloor = 0,
         salaryCeil = 0
-    switch (data.emolument) {
-      case 1:
-        salaryFloor = 0
-        salaryCeil = 0
-        break
-      case 2:
-        salaryFloor = 1
-        salaryCeil = 2
-        break
-      case 3:
-        salaryFloor = 3
-        salaryCeil = 6
-        break
-      case 4:
-        salaryFloor = 5
-        salaryCeil = 10
-        break
-      case 5:
-        salaryFloor = 10
-        salaryCeil = 20
-        break
-      case 6:
-        salaryFloor = 15
-        salaryCeil = 30
-        break
-      case 7:
-        salaryFloor = 20
-        salaryCeil = 40
-        break
-      case 8:
-        salaryFloor = 50
-        salaryCeil = 100
-        break
+    if (data.employeeIds) {
+      switch (Math.max(...data.employeeIds.split(','))) {
+        case 1:
+          salaryFloor = 0
+          salaryCeil = 0
+          break
+        case 2:
+          salaryFloor = 1
+          salaryCeil = 2
+          break
+        case 3:
+          salaryFloor = 3
+          salaryCeil = 6
+          break
+        case 4:
+          salaryFloor = 5
+          salaryCeil = 10
+          break
+        case 5:
+          salaryFloor = 10
+          salaryCeil = 20
+          break
+        case 6:
+          salaryFloor = 15
+          salaryCeil = 30
+          break
+        case 7:
+          salaryFloor = 20
+          salaryCeil = 40
+          break
+        case 8:
+          salaryFloor = 50
+          salaryCeil = 100
+          break
+      }
     }
     let lntention = {
-      city: data.city,
-      cityName: data.cityList[data.cityIndex].name,
-      provinceName: data.cityList[data.cityIndex].provinceName,
-      positionType: data.type,
-      positionName: data.positionTypeList[data.typeIndex].name,
+      city: data.cityNums,
+      cityName: data.cityName,
+      positionType: data.positionTypeIds,
       salaryFloor: salaryFloor,
       salaryCeil: salaryCeil
     }
-    if (data.positionTypeList[data.typeIndex].pid === data.positionTypeList[data.typeIndex].topPid) {
-      lntention.positionType = 0
-      lntention.positionName = ''
-    }
+    filterData['area'].filter(item => {
+      if (item.areaId === parseInt(data.cityNums)) {
+        lntention.provinceName = item.provinceName
+      }
+    })
+    let array = filterData['positionType'].filter(item => { return item.labelId === parseInt(data.topId)})
+    array[0].children.filter(item => {
+      if (item.labelId === parseInt(data.positionTypeIds)) {
+        lntention.positionName = item.name
+      }
+    })
     wx.setStorageSync('addIntention', lntention)
     wx.navigateTo({
       url: `/page/applicant/pages/center/resumeEditor/aimsEdit/aimsEdit`
     })
   },
   reloadPositionLists(hasLoading = true) {
-    const positionList = {list: [], pageNum: 1, isLastPage: false, isRequire: false}
-    this.setData({positionList})
-    return this.getPositionList()
+    const filterList = {list: [], pageNum: 0, isLastPage: false, isRequire: false},
+          recommendList = {list: [], pageNum: 0, isLastPage: false, isRequire: false}
+    this.setData({filterList, recommendList, getRecommend: 0})
+    return this.getPositionList(hasLoading)
+  },
+  routeJump (e) {
+    let route = e.currentTarget.dataset.route
+    switch (route) {
+      case 'specialJob':
+        wx.reLaunch({url: `${APPLICANT}specialJob/specialJob`})
+        break
+    }
   },
   onPageScroll(e) {
     if (e.scrollTop > 0) {
-      if (!this.data.navFixed) this.setData({navFixed: true})
+      if (this.data.background !== '#652791') this.setData({background: '#652791'})
     } else {
-      if (this.data.navFixed) this.setData({navFixed: false})
+      if (this.data.bannerList.length && this.data.background === '#652791') {
+        this.setData({background: 'transparent'})
+      }
     }
     if (e.scrollTop > tabTop) {
       if (!this.data.tabFixed) this.setData({tabFixed: true})
@@ -498,23 +430,29 @@ Page({
     }
   },
   onPullDownRefresh() {
-    const positionList = {list: [], pageNum: 1, isLastPage: false, isRequire: false}
-    this.setData({positionList, hasReFresh: true})
     this.selectComponent('#bottomRedDotBar').init()
-    this.getPositionList().then(res => {
-      this.setData({positionList, hasReFresh: false})
-      wx.stopPullDownRefresh()
-    }).catch(e => {
-      this.setData({positionList, hasReFresh: false})
+    this.reloadPositionLists(false).then(res => {
+      this.setData({hasReFresh: false})
       wx.stopPullDownRefresh()
     })
   },
   onReachBottom() {
-    const positionList = this.data.positionList
-    if (!positionList.isLastPage) {
-      this.setData({onBottomStatus: 1})
-      this.getPositionList(false)
+    let listType = null,
+        filterResult = this.data.filterResult,
+        canRecommend = filterResult.recommended && 
+                       !filterResult.cityNums && 
+                       !filterResult.positionTypeIds && 
+                       !filterResult.industryIds && 
+                       !filterResult.employeeIds && 
+                       !filterResult.financingIds
+    if (canRecommend || this.data.getRecommend) {
+      listType = 'recommendList'
+    } else {
+      listType = 'filterList'
     }
+    if (this.data[listType].isLastPage) return
+    this.setData({[`${listType}.onBottomStatus`]: 1})
+    this.getPositionList(false)
   },
   onShareAppMessage(options) {
 　　return app.wxShare({

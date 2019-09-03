@@ -1,0 +1,381 @@
+
+.search-box {
+	width: 100%;
+	padding: 11rpx 40rpx;
+	height: 90rpx;
+	background: #fff;
+	position: fixed;
+  box-sizing: border-box;
+  left: 0;
+  z-index: 2;
+}
+
+.city {
+	width: 110rpx;
+	height: 68rpx;
+	line-height: 68rpx;
+	float: left;
+	font-size:28rpx;
+	color:#282828;
+}
+.cityName {
+	width: 56rpx;
+  display: inline-block;
+  height: 28rpx;
+  line-height: 28rpx;
+	overflow: hidden;
+}
+.city .icon {
+  font-size: 12rpx;
+  color: #C7C2C2;
+  margin-left: 10rpx;
+  line-height: 1;
+  vertical-align: middle;
+}
+.search-bar {
+	width:560rpx;
+	height:68rpx;
+	background:rgba(248,248,248,1);
+	border-radius:34rpx;
+	float: left;
+	padding: 0 70rpx;
+	box-sizing: border-box;
+	position: relative;
+}
+.search-bar.edit {
+  width: 488rpx;
+}
+.search-bar .search-input {
+	width: 100%;
+	height: 100%;
+	font-size:28rpx;
+	color:#282828;
+}
+.searchBtn {
+	float: right;
+	font-size:28rpx;
+	color:#929292;
+	margin-right: -10rpx;
+  line-height: 68rpx;
+  padding-left: 10rpx;
+}
+.searchIcon {
+	color: #C7C2C2;
+	font-size: 24rpx;
+	position: absolute;
+	top: 22rpx;
+	left: 30rpx;
+}
+
+.resetIcon {
+	color: #C7C2C2;
+	font-size: 26rpx;
+	position: absolute;
+	top: 0rpx;
+	right: 0rpx;
+  padding: 22rpx 28rpx 22rpx 16rpx;
+  line-height: 1;
+  display: block;
+}
+
+.filterData {
+	width: 100%;
+	height:80rpx;
+	padding: 14rpx 40rpx;
+	box-sizing: border-box;
+	overflow: hidden;
+	background: #fff;
+	line-height: 52rpx;
+	position: fixed;
+	left: 0;
+  z-index: 1;
+}
+.filterData .filterTab {
+	float: left;
+	height: 52rpx;
+	font-size:28rpx;
+	font-weight:300;
+	color:#282828;
+}
+.filterData .filterTab .filter-item {
+	display: inline-block;
+	margin-right: 60rpx;
+	position: relative;
+}
+.filterData .filterTab .filter-item.active {
+  font-weight: 700;
+}
+.filterData .filterTab .filter-item.active:after {
+	content: '';
+	display: block;
+	width:30rpx;
+	height:6rpx;
+	background:rgba(132,82,167,1);
+	border-radius:6rpx;
+	position: absolute;
+	left: 50%;
+	margin-left: -15rpx;
+	bottom: -8rpx;
+	
+}
+.filterData .filterOption {
+	float: right;
+	height: 52rpx;
+	font-size:24rpx;
+	color:#5C565D;
+}
+
+.filterData .filterOption .option-item {
+	display: inline-block;
+	height: 52rpx;
+  line-height: 52rpx;
+	margin-left: 24rpx;
+	padding: 0 30rpx;
+	background: #F8F8F8;
+	box-sizing: border-box;
+	border-radius:26rpx;
+}
+
+.filterData .filterOption .option-item .icon {
+  font-size: 24rpx;
+  margin-left: 6rpx;
+}
+.filterData .filterOption .option-item.active {
+	color: #652791;
+	background: #EFE9F4;
+}
+
+.keyWordList {
+	width: 100%;
+  position: absolute;
+  background: #fff;
+  left: 0;
+  top: 90rpx;
+  z-index: 1;
+  padding: 0 40rpx;
+  box-sizing: border-box;
+}
+.keyWord {
+	width: 100%;
+	padding: 36rpx 0;
+	font-size:28rpx;
+	line-height: 1;
+	font-weight:300;
+	color:#282828;
+	box-sizing: border-box;
+	border-bottom: 1rpx solid #E8E9EB;
+}
+.keyWordList .keyWord:last-child {
+	border-bottom: none;
+}
+
+.keyWordTxt {
+  width: 600rpx;
+}
+
+.list-box {
+	margin: 20rpx 16rpx;
+}
+.labelBox {
+	background: #fff;
+}
+.historyArea, .hotArea {
+	padding: 42rpx 40rpx 24rpx;
+  font-size: 0;
+}
+.historyArea .title, .hotArea .title {
+	margin-bottom: 24rpx;
+  font-size:28rpx;
+	font-weight:700;
+	color:#929292;
+	line-height:36rpx;
+  position: relative;
+}
+.title .remove {
+  font-size: 32rpx;
+  color: #BCBCBC;
+  position: absolute;
+  padding: 10rpx;
+  top: -10rpx;
+  right: -10rpx;
+}
+.record {
+	padding: 0 30rpx;
+	height: 58rpx;
+	line-height: 58rpx;
+	font-size:26rpx;
+	color:#929292;
+	margin-right: 20rpx;
+	margin-bottom: 26rpx;
+	border-radius:29rpx;
+	border:1rpx solid rgba(205,203,207,1);
+  font-weight: normal;
+  max-width: 610rpx;
+  display: inline-block;
+}
+
+.noMore {
+  width: 100%;
+  padding: 21rpx 56rpx 24rpx 230rpx;
+  height: 128rpx;
+  position: relative;
+  box-sizing: border-box;
+  background: #fff;
+  margin: 8rpx 0 60rpx;
+}
+.noMore .icon {
+  width:160rpx;
+  height:82rpx;
+  position: absolute;
+  top: 21rpx;
+  left: 56rpx;
+  background: url('https://attach.lieduoduo.ziwork.com/front-assets/available/nomore1.png') no-repeat;
+  background-size: 100% auto;
+}
+.noMore .txt {
+  font-size:26rpx;
+  font-weight:300;
+  color:#282828;
+  line-height:36rpx;
+  margin-top: 6rpx;
+}
+.recommendTitle {
+  width: 100%;
+  margin: 0 0 28rpx;
+  text-align: center;
+  line-height: 36rpx;
+  height: 36rpx;
+  position: relative;
+  box-sizing: border-box;
+}
+
+.recommendTitle .txt {
+  width: 112rpx;
+  margin: 0 auto;
+  font-size:26rpx;
+  color:#8452A7;
+  line-height:36rpx;
+  position: relative;
+  font-weight: 700;
+}
+
+.recommendTitle .txt .line {
+  width:140rpx;
+  height:2rpx;
+  background: #8452A7;
+  top: 50%;
+  display: block;
+  position: absolute;
+}
+.recommendTitle .txt .line1 {
+  left: 0;
+  transform: translate3d(calc(-100% - 28rpx), -100%, 0);
+}
+.recommendTitle .txt .line2 {
+  right: 0;
+  transform: translate3d(calc(100% + 28rpx), -100%, 0);
+}
+.recommendTitle .txt .line1:before, .recommendTitle .txt .line2:before {
+  content: '';
+  width: 8rpx;
+  height: 8rpx;
+  border-radius: 50%;
+  top: 50%;
+  margin-top: -4rpx;
+  background: #8452A7;
+  display: block;
+  position: absolute;
+}
+.recommendTitle .txt .line1:before {
+  right: -8rpx;
+}
+.recommendTitle .txt .line2:before {
+  left: -8rpx;
+}
+
+.companyList {
+	margin-top: 10rpx;
+	background: #fff;
+}
+.companyList .company-item {
+	padding: 46rpx 40rpx 46rpx 184rpx;
+	position: relative;
+	border-bottom: 1rpx solid #E8E9EB;
+  min-height: 112rpx;
+  display: flex;
+  align-items: center;
+}
+.companyList .company-item .logo {
+	width:112rpx;
+	height:112rpx;
+	box-shadow:0rpx 2rpx 16rpx 0rpx rgba(0,0,0,0.06);
+	border-radius:16rpx;
+	position: absolute;
+	top: 46rpx;
+	left: 40rpx;
+}
+.companyList .company-item .infos {
+	width:526rpx;
+}
+.companyList .company-item .infos .name {
+	font-size:32rpx;
+	font-weight:700;
+	color:#282828;
+	line-height:40rpx;
+}
+.companyList .company-item .infos .label {
+	font-size:28rpx;
+	font-weight:300;
+	color:#5C565D;
+	line-height:34rpx;
+	margin-top: 8rpx;
+}
+.companyList .company-item .infos .other {
+	font-size:24rpx;
+	font-weight:300;
+	color:#929292;
+	line-height:32rpx;
+	margin-top: 28rpx;
+	overflow: hidden;
+}
+.companyList .company-item .infos .other .other-item {
+	float: left;
+}
+.companyList .company-item .infos .other .other-item:first-child {
+	margin-right: 22rpx;
+}
+.companyList .company-item .infos .other .num {
+	color: #8452A7;
+}
+.companyList .company-item .infos .other .icon {
+	font-size: 26rpx;
+	margin-right: 16rpx;
+}
+
+.guideBto {
+	width:380rpx;
+	height:88rpx;
+	background:#FFDC29;
+	box-shadow:0rpx 15rpx 28rpx 0rpx rgba(241,214,72,0.46);
+	border-radius:44rpx;
+	margin: 50rpx auto 65rpx;
+	font-size:30rpx;
+	color:#282828;
+	line-height:88rpx;
+	text-align: center;
+}
+.moreBtn {
+  width:368rpx;
+  height:68rpx;
+  border-radius:34rpx;
+  border:1rpx solid #652791;
+  line-height: 68rpx;
+  text-align: center;
+  font-size:28rpx;
+  color:#652791;
+  margin: 24rpx auto;
+}
+.moreBtn .icon {
+  font-size: 24rpx;
+  margin-left: 12rpx;
+}

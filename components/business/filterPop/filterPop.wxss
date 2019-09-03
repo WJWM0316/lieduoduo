@@ -1,0 +1,201 @@
+@import '../../../iconfont.wxss';
+.scrollView {
+  height: auto;
+}
+.fliterOv {
+	padding-top: 100rpx;
+	box-sizing: border-box;
+  position: relative;
+}
+.fliterOv.padTom {
+	padding-bottom: 180rpx;
+}
+.filterBox {
+	box-sizing: border-box;
+  position: relative;
+  margin-top: 16rpx;
+  max-height: calc(100vh - 508rpx);
+}
+.type {
+	padding: 0 40rpx;
+}
+.type .title {
+	margin-bottom: 30rpx;
+	font-size:37rpx;
+	font-weight:700;
+	color:#354048;
+	line-height:44rpx;
+}
+.type.positionType .title {
+  padding: 0 40rpx;
+}
+.tip {
+	font-size:28rpx;
+	font-weight:300;
+	color:#929292;
+	line-height:44rpx;
+}
+.open {
+	float: right;
+	font-size:26rpx;
+	font-weight:300;
+	color:#652791;
+	line-height:34rpx;
+}
+.open .icon {
+	font-style: 18rpx;
+	margin-left: 12rpx;
+}
+.open .icon.rotate {
+	transform:rotate(180deg);
+  display: inline-block;
+}
+.type .labelBox {
+  overflow: hidden;
+  height: 258rpx;
+  font-size: 0;
+}
+.type .labelBox.more {
+	height: auto;
+	overflow: visible;
+}
+
+.label {
+	height:60rpx;
+  display: inline-block;
+	border-radius:30rpx;
+	border:1rpx solid #CDCBCF;
+	font-size:26rpx;
+	color:#929292;
+	line-height:60rpx;
+	text-align: center;
+	margin-bottom: 26rpx;
+  margin-right: 20rpx;
+  padding: 0 30rpx;
+  box-sizing: border-box;
+}
+.label.active {
+  color: #652791;
+  font-weight: bold;
+  border-color: #652791;
+}
+.city {
+	padding-bottom: 112rpx;
+}
+.employee {
+	margin: 76rpx 0;
+}
+.city .label {
+  min-width: 148rpx;
+  padding: 0 30rpx;
+}
+.city .label:nth-child(4n) {
+  margin-right: 0;
+}
+.employee .label, .financing .label {
+	width: 210rpx;
+	padding: 0;
+}
+.employee .label:nth-child(3n), .financing .label:nth-child(3n) {
+	margin-right: 0;
+}
+
+.btnBox {
+	padding: 46rpx 40rpx;
+	height: 88rpx;
+	line-height: 88rpx;
+	font-size:30rpx;
+	color:#5D565D;
+  overflow: hidden;
+  text-align: center;
+  background: #fff;
+}
+.reset {
+	width: 248rpx;
+	background: #F5F4F7;
+  float: left;
+  border-radius:44rpx 0 0 44rpx;
+}
+.sure {
+	width: 422rpx;
+	background: #652791;
+	color: #fff;
+  float: right;
+  border-radius:0 44rpx 44rpx 0;
+}
+.listBox {
+	overflow: hidden;
+}
+.positionType {
+  padding: 0;
+}
+.positionType .listBox {
+	min-height: 772rpx;
+  max-height: calc(100vh - 508rpx);
+  overflow: hidden;
+	position: relative;
+}
+.firstBoxScroll, .secondBoxScroll {
+	background: #FBFBFF;
+	position: absolute;
+	top: 0;
+  height: 100%;
+}
+.firstBoxScroll {
+	width:284rpx;
+	left: 0;
+}
+.secondBoxScroll {
+	width:466rpx;
+	top: 0;
+	right: 0;
+	background: #ffffff;
+}
+.firstBox {
+	
+
+}
+.secondBox {
+	
+}
+
+.first, .second {
+	height:110rpx;
+	font-size:28rpx;
+	color:#282828;
+	line-height:36rpx;
+	display: flex;
+	align-items: center;
+  box-sizing: border-box;
+}
+.first.active, .second.active {
+  color: #652791;
+  font-weight: 700;
+}
+.first {
+  padding: 0 30rpx;
+}
+.second {
+  padding: 0 106rpx 0 60rpx;
+}
+.header{
+  width: 100%;
+  background:rgba(255,255,255,1);
+  font-size:36rpx;
+  font-weight:700;
+  color:rgba(53,64,72,1);
+  text-align: center;
+  padding: 2rpx 60rpx;
+  box-sizing: border-box;
+  height: 104rpx;
+  position: relative;
+}
+.header .icon-close{
+  font-size: 30rpx;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 10rpx;
+  padding: 0 25rpx;
+  color: #929292;
+}

@@ -5,9 +5,9 @@
         <view class="li personality {{showBoxShadow ? 'box-shadow' : ''}} {{listType === 'index' ? 'index' : ''}}">
           <!-- 职位名称 -->
           <view class="name">
-            <view class="title">{{item.positionName}}</view>
+            <view class="title {{item.emolumentMin >= 100 ? 'smaller' : ''}}">{{item.positionName}}</view>
             <view class="strategy" wx:if="{{item.isRapidly === 1}}"></view>
-            <view class="salary">{{item.emolumentMin}}K~{{item.emolumentMax}}K</view>
+            <view class="salary">{{item.emolumentMin}}K~{{item.emolumentMax}}K<block wx:if="{{item.annualSalary > 12}}">·{{item.annualSalary}}<text class="small">薪</text></block></view>
           </view>
           
           <!-- 标签 -->

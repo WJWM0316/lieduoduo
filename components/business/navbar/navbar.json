@@ -1,6 +1,7 @@
 {
   "component": true,
   "usingComponents": {
-  	"scanCodeTips": "../../../components/layout/scanCodeTips/scanCodeTips"
+  	"scanCodeTips": "../../../components/layout/scanCodeTips/scanCodeTips",
+  	"filterPop": "../../../components/business/filterPop/filterPop"
   }
 }

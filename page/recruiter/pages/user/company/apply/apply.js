@@ -23,6 +23,8 @@ Page({
       real_name: '',
       user_email: '',
       user_position: '',
+      user_positionType: '',
+      user_positionTypeValue: '',
       company_name: ''
     },
     canClick: false,
@@ -87,7 +89,14 @@ Page({
         // 重新编辑 加公司id
         if(options.action && options.action === 'edit') formData = Object.assign(formData, {id: companyInfo.id, status: companyInfo.status})
         if(applyJoin) formData = Object.assign(formData, {applyId: companyInfo.applyId})
+        let createPosition = wx.getStorageSync('createPosition')
+        if (createPosition) {
+          formData.user_positionType = createPosition.type
+          formData.user_positionTypeValue = createPosition.typeName
+        }
+
         this.setData({formData, canClick: true, applyJoin, status})
+        wx.removeStorageSync('createPosition')
         wx.setStorageSync('createdCompany', Object.assign(formData, this.data.formData))
       }
     })
@@ -240,6 +249,7 @@ Page({
       user_email: formData.user_email.trim(),
       user_position: formData.user_position,
       company_name: formData.company_name,
+      position_type_id: formData.user_positionType, 
       company_id: formData.id
     }
     hasApplayRecordApi().then(res => {
@@ -356,6 +366,7 @@ Page({
       real_name: formData.real_name,
       user_email: formData.user_email.trim(),
       user_position: formData.user_position,
+      position_type_id: formData.user_positionType, 
       company_name: formData.company_name
     }
     createCompanyApi(params).then(res => {
@@ -435,4 +446,8 @@ Page({
 
     })
   },
+
+  toChooseType () {
+    wx.navigateTo({url: `${COMMON}category/category`})
+  }
 })

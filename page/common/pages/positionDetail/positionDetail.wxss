@@ -86,12 +86,28 @@
 	font-weight:300;
 	color:rgba(40,40,40,1);
 	overflow: hidden;
-	line-height: 1;
+	line-height: 36rpx;
 	text-overflow: ellipsis;
 	white-space: nowrap;
 	width: 428rpx;
 }
-
+.position-name .jp {
+	width:76rpx;
+	height:36rpx;
+	background:#FF7F4C;
+	border-radius:4rpx;
+	text-align: center;
+	line-height: 36rpx;
+	color: #fff;
+	font-size:22rpx;
+  display: inline-block;
+  margin-right: 8rpx;
+  transform: translateY(-2rpx);
+}
+.position-name .jp .icon {
+	font-size: 20rpx;
+	margin-right: 3rpx;
+}
 .company-infos .header .position-salary {
 	display: block;
 	font-size:60rpx;

@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+  	"waterfallFlow": "../../../../components/business/waterfallFlow/waterfallFlow",
+  	"filterPop": "../../../../components/business/filterPop/filterPop"
+  }
+}

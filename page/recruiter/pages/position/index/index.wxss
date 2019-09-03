@@ -31,13 +31,22 @@
 }
 
 .office-manager-list .li .office-name{
-  max-width:400rpx;
+  max-width:308rpx;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
   vertical-align: middle;
 }
-
+.office-manager-list .li .office-name.smaller {
+  max-width: 248rpx;
+}
+.strategy {
+  width: 64rpx;
+  height: 30rpx;
+  background: url('https://attach.lieduoduo.ziwork.com/front-assets/images/icon_hptag_24h@3x.png?a=1');
+  background-size: 100% 100%;
+  margin-left: 6rpx;
+}
 .office-manager-list .li .tags-box {
   font-size:24rpx;
   font-weight:400;

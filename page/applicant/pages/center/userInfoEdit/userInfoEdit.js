@@ -7,13 +7,15 @@ Page({
    * 页面的初始数据
    */
   data: {
-    info: {}
+    info: {},
+    options: {}
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    this.setData({options})
   },
   jumpLabel() {
     wx.navigateTo({
@@ -135,8 +137,13 @@ Page({
         icon: 'success',
         callback() {
           that.setData({info})
-          wx.navigateBack({
-            delta: 1
+          app.getAllInfo().then(res => {
+            if (that.data.options.fromType === 'guideCard') {
+              wx.setStorageSync('appendUserInfoEdit', {firstIndex: that.data.options.firstIndex, secondIndex: that.data.options.secondIndex})
+            }
+            wx.navigateBack({
+              delta: 1
+            })
           })
           wx.removeStorageSync('avatar')
         }
@@ -172,27 +179,6 @@ Page({
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
 
   }
 })

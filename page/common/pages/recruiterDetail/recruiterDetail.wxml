@@ -6,7 +6,9 @@
     </view>
     <view class="header" wx:if="{{!isOwner || !showEdit}}">
       <image class="bgImg" src="{{cdnImagePath}}bg_detail.png" mode="aspectFill"></image>
+
       <shareBtn params="{{info.uid}}" wx:if="{{!isOwner}}"></shareBtn>
+
       <div class="content">
         <button form-type="submit" class="clear-style avatar" bindtap="readAvatar">
           <image src="{{info.avatar.smallUrl}}" mode="aspectFill" class="avatar"></image>
@@ -91,10 +93,10 @@
           <button form-type="submit" class="clear-style positionItem" wx:for="{{positionList.list}}" wx:key="{{index}}" bindtap="jumpPage" data-id="{{item.id}}">
             <view class="positionHead">
               <view>
-                <text class="positionTitle {{item.isRapidly === 1 ? 'isStrategy' : ''}}">{{item.positionName}}</text>
+                <text class="positionTitle {{item.emolumentMin >= 100 ? 'smaller' : ''}}">{{item.positionName}}</text>
                 <text class="strategy" wx:if="{{item.isRapidly === 1}}"></text>
               </view>
-              <text class="money">{{item.emolumentMin}}~{{item.emolumentMax}}k</text>
+              <text class="money">{{item.emolumentMin}}~{{item.emolumentMax}}k<block wx:if="{{item.annualSalary > 12}}">·{{item.annualSalary}}<text class="small">薪</text></block></text>
             </view>
             <view class="positionDeatil">
               <text wx:if="{{item.city}}">{{item.city}}<block wx:if="{{item.district}}">-{{item.district}}</block> · </text>

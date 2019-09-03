@@ -8,7 +8,6 @@ let tabTop = 0,
     hasOnload = false,
     timer = null,
     navTimer = null,
-    jumpTimer = null,
     avatarsNum = 10
 Page({
 
@@ -194,7 +193,8 @@ Page({
   },
   touchVkey (e) {
     if (!e.currentTarget.dataset.btntype) return
-    let vkey = e.currentTarget.dataset.btntype === 1 ? this.data.otherData.buttons[0].vkey : this.data.otherData.buttons[1].vkey
+    let index = e.currentTarget.dataset.btntype
+    let vkey =  this.data.otherData.buttons[index - 1].vkey
     touchApi({vkey})
   },
   filterCity (e) {
@@ -231,8 +231,9 @@ Page({
         }
         break
       case 'createUser':
+      let from = touch.from
         wx.navigateTo({
-          url: `${APPLICANT}createUser/createUser?from=specialJob`
+          url: `${APPLICANT}createUser/createUser?from=${from}`
         })
         this.touchVkey(e)
         break
@@ -245,8 +246,6 @@ Page({
           url: `${APPLICANT}index/index`
         })
         break
-      default:
-        this.touchVkey(e)
     }
   },
   onReady: function () {
@@ -258,6 +257,7 @@ Page({
   },
   initPage () {
     if (wx.getStorageSync('choseType') !== 'APPLICANT') return
+
     let jumpCreate = () => {
       app.wxToast({
         title: '前往求职飞船',

@@ -427,7 +427,7 @@
   align-items: center;
 }
 .positionTitle {
-  max-width: 394rpx;
+  max-width: 385rpx;
   font-size: 32rpx;
   font-weight: 500;
   color: #282828;
@@ -436,8 +436,8 @@
   white-space: nowrap;
   display: inline-block;
 }
-.positionTitle.isStrategy {
-  max-width: 324rpx;
+.positionTitle.smaller {
+  max-width: 340rpx;
 }
 .money {
   font-size: 36rpx;

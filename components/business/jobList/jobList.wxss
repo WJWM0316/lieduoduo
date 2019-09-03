@@ -27,7 +27,7 @@
   overflow: hidden;
 }
 .li .name .title {
-  max-width: 360rpx;
+  max-width: 290rpx;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -36,6 +36,9 @@
   color:rgba(40,40,40,1);
   line-height:32rpx;
   float: left;
+}
+.li .name .title.smaller {
+  width: 260rpx;
 }
 .li .strategy {
   width: 83rpx;
@@ -53,6 +56,7 @@
   line-height:32rpx;
   float: right;
 }
+
 .li .company{
   font-size: 26rpx;
   color: #5C565D;

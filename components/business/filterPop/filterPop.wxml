@@ -1,0 +1,66 @@
+<view class="filterPop">
+	<actionSheet openPop="{{openPop}}" type="filterPop" bindclose="close">
+		<view class="scrollView">
+			<view class="header"><i class="icon iconfont icon-close" bindtap="close"></i></view>
+			<scroll-view scroll-y="{{true}}" scroll-top="{{!openPop ? 0 : ''}}" enable-back-to-top>
+				<view class="filterBox">
+				<view class="type city" wx:if="{{filterType === 'city'}}">
+					<view class="title">选择城市</view>
+					<view class="labelBox">
+						<view class="label {{item.active ? 'active' : ''}}" wx:for="{{filter.area}}" wx:key="area_{{index}}" data-index="{{index}}" data-item="{{item}}" data-type="city" bindtap="chooseItem">{{item.name}}</view>
+					</view>
+				</view>
+				<view class="type industry" wx:if="{{filterType === 'company'}}">
+					<view class="title">选择行业<text class="tip">（可多选）</text><view class="open" bindtap="openMore" data-type="company">{{!comanyMore ? '展开更多' : '收起'}}<i class="icon iconfont icon-zhishibiao {{comanyMore ? 'rotate' : ''}}"></i></view></view>
+					<view class="labelBox {{comanyMore ? 'more' : ''}}">
+						<view class="label label{{item.labelId}} {{item.active ? 'active' : ''}}" wx:for="{{filter.industry}}" wx:key="industry_{{index}}" data-index="{{index}}" data-item="{{item}}" data-type="industry" bindtap="chooseItem">{{item.name}}</view>
+					</view>
+				</view>
+				<view class="type employee" wx:if="{{filterType === 'company'}}">
+					<view class="title">选择规模<text class="tip">（可多选）</text></view>
+					<view class="labelBox">
+						<view class="label {{item.active ? 'active' : ''}}" wx:for="{{filter.employee}}" wx:key="employee_{{index}}" data-index="{{index}}" data-item="{{item}}" data-type="employee" bindtap="chooseItem">{{item.text}}</view>
+					</view>
+				</view>
+				<view class="type financing" wx:if="{{filterType === 'company'}}">
+					<view class="title">选择融资阶段<text class="tip">（可多选）</text></view>
+					<view class="labelBox">
+						<view class="label {{item.active ? 'active' : ''}}" wx:for="{{filter.financing}}" wx:key="financing_{{index}}" data-index="{{index}}" data-item="{{item}}" data-type="financing" bindtap="chooseItem">{{item.text}}</view>
+					</view>
+				</view>
+				<view class="type experience" wx:if="{{filterType === 'require'}}">
+					<view class="title">选择工作经验<text class="tip">（可多选）</text></view>
+					<view class="labelBox">
+						<view class="label {{item.active ? 'active' : ''}}" wx:for="{{filter.experience}}" wx:key="experience_{{index}}" data-index="{{index}}" data-item="{{item}}" data-type="experience" bindtap="chooseItem">{{item.text}}</view>
+					</view>
+				</view>
+				<view class="type emolument" wx:if="{{filterType === 'require' || filterType === 'emolument'}}">
+					<view class="title">选择薪资范围<text class="tip">（可多选）</text></view>
+					<view class="labelBox">
+						<view class="label {{item.active ? 'active' : ''}}" wx:for="{{filter.emolument}}" wx:key="emolument_{{index}}" data-index="{{index}}" data-item="{{item}}" data-type="emolument" bindtap="chooseItem">{{item.text}}</view>
+					</view>
+				</view>
+				<view class="type positionType" wx:if="{{filterType === 'positionType'}}">
+					<view class="title">职位类别</view>
+					<view class="listBox">
+						<scroll-view class="firstBoxScroll" scroll-y="{{true}}" scroll-top="{{!openPop ? 0 : ''}}" enable-back-to-top>
+							<view class="firstBox">
+								<view class="first {{item.active ? 'active' : ''}}" wx:for="{{filter.positionType}}" wx:key="positionType_{{index}}_first" data-topindex="{{index}}" data-item="{{item}}" data-type="positionType" bindtap="chooseItem" data-first="{{true}}">{{item.name}}</view>
+							</view>
+						</scroll-view>
+						<scroll-view class="secondBoxScroll" scroll-y="{{true}}" scroll-top="{{!openPop ? 0 : ''}}" enable-back-to-top>
+							<view class="secondBox">
+								<view class="second {{item.active ? 'active' : ''}}" wx:for="{{filter.positionType[filter.topIndex || 0].children}}" wx:key="positionType_{{index}}_second" data-index="{{index}}" data-item="{{item}}" data-type="positionType" bindtap="chooseItem" data-second="{{true}}">{{item.name}}</view>
+							</view>
+						</scroll-view>
+					</view>
+				</view>
+				</view>
+			</scroll-view>
+			<view class="btnBox" wx:if="{{filterType === 'company' || filterType === 'require' || filterType === 'emolument' || filterType === 'positionType'}}">
+				<view class="reset" bindtap="reset">重置</view>
+				<view class="sure" bindtap="sure">确定</view>
+			</view>
+		</view>
+	</actionSheet>
+</view>

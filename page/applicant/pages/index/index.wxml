@@ -1,11 +1,14 @@
-<view class="applicant-job">
-  <view style="opacity: {{navFixed ? 1 : 0}}">
-  <navbar title="猎多多" background="#652791" color="#fff"></navbar>
-  </view> 
+<view hidden="{{background !== 'transparent'}}">
+<navbar isSearch="{{true}}" background="transparent" bindFilterResult="getFilterResult" filterResult="{{filterResult}}"></navbar>
+</view>
+<view hidden="{{background === 'transparent'}}" >
+<navbar isSearch="{{true}}" background="#652791" bindFilterResult="getFilterResult" filterResult="{{filterResult}}"></navbar>
+</view>
+<view class="applicant-job" style="margin-top: -{{navH}}px">
 	<view hidden="{{!hasReFresh}}">
     <refreshStatus></refreshStatus>
   </view>
-  <view class="head" style="margin-top: -{{navH}}px">
+  <view class="head" style="padding-top: {{!bannerList.length ? navH : ''}}px">
     <view class="bannerBox" wx:if="{{bannerList.length > 0}}">
       <swiper
         class="swiper"
@@ -23,51 +26,39 @@
         <view wx:for="{{bannerList}}" wx:key="{{index}}" class="swiper-dots-item {{bannerIndex === index ? 'active' : ''}}"></view>
       </view>
     </view>
-    <block  wx:else>
-      <image class="banner" wx:if="{{!isBangs}}" src="{{cdnImagePath}}bg_homepageh.png?a=3" mode="widthFix"></image>
-      <image class="banner" wx:else src="{{cdnImagePath}}bg_homepageh_3.png" mode="widthFix"></image>
-    </block>
-    <view class='more'>
-      <view class="moreActive" bindtap='toMore'>
-        <view class="left">
-          <view class="title">发现更多面试官</view>
-          <view class="info">Ta们都在积极抢人，欢迎围观</view>
-        </view>
-        <view class="right">
-          <image class="avatar" lazy-load wx:for="{{moreRecruiter}}" wx:key="{{index}}" src="{{item.smallUrl}}" wx:if="{{index <= 2}}"></image>
-          <image class="avatar" wx:if="{{moreRecruiter.length > 3}}" src="{{cdnImagePath}}more.png"></image>
-        </view>
-      </view>    
-    </view>
+    <view hidden='{{!tabFixed}}' style="height: 90rpx;"></view>
     <view class="select-box {{tabFixed ? 'fixed' : ''}}" style="{{tabFixed ? 'top:' + navH + 'px' : ''}}">
       <view class="select-tab">
-        <view class="item {{tabType === item.type ? 'cur' : ''}} {{item.active ? 'actived' : ''}}"  bindtap="choseTab" data-type="{{item.type}}" wx:for="{{tabList}}" wx:key="{{index}}"><text class="txt">{{item.name}}</text><i class="icon iconfont icon-zhishibiao"></i></view>
-      </view>
-      <view class="select-pop" hidden="{{tabType === 'closeTab'}}">
-        <view class="select-bg" catchtouchmove bindtap="choseTab" data-type="closeTab" style="height: calc(100vh - {{navH + 49}}px)"></view>
-        <view class="select-area city" hidden="{{tabType !== 'city'}}">
-          <text class="select-area-item {{cityIndex === index ? 'cur' : ''}}" bindtap="toggle" data-index="{{index}}" data-name="{{item.name}}" data-id="{{item.areaId}}" wx:for="{{cityList}}" wx:key="{{index}}">{{item.name}}</text>
-        </view>
-        <view class="select-area" hidden="{{tabType !== 'positionType'}}">
-          <text class="select-area-item {{typeIndex === index ? 'cur' : ''}}" bindtap="toggle" data-index="{{index}}" data-name="{{item.name}}" data-id="{{item.labelId}}" wx:for="{{positionTypeList}}" wx:key="{{index}}">{{item.name}}</text>
-        </view>
-        <view class="select-area salary" hidden="{{tabType !== 'salary'}}">
-          <text class="select-area-item {{emolumentIndex === index ? 'cur' : ''}}" bindtap="toggle" data-index="{{index}}" data-name="{{item.text}}" data-id="{{item.id}}" wx:for="{{emolumentList}}" wx:key="{{index}}">{{item.text}}</text>
-        </view>
+        <view class="item {{filterResult.employeeIds || filterResult.industryIds || filterResult.financingIds ? 'actived' : ''}}"  bindtap="chooseType" data-type="company"><text class="txt">公司</text><i class="icon iconfont icon-zhishibiao"></i></view>
+        <view class="item {{filterResult.positionTypeIds ? 'actived' : ''}}"  bindtap="chooseType" data-type="positionType"><text class="txt">{{filterResult.positionTypeName || '类别'}}</text><i class="icon iconfont icon-zhishibiao"></i></view>
+        <view class="item {{filterResult.emolumentIds && filterResult.emolumentIds !== '1' && filterResult.emolumentIds !== 1 ? 'actived' : ''}}"  bindtap="chooseType" data-type="emolument"><text class="txt">薪资</text><i class="icon iconfont icon-zhishibiao"></i></view>
       </view>
     </view>
   </view>
-  <view class="addIntention" bindtap="addIntention" wx:if="{{!hasExpect && (cityIndex || typeIndex || emolumentIndex)}}">
+  <view class="addIntention" bindtap="addIntention" wx:if="{{!hasExpect && (filterResult.cityNums || filterResult.positionTypeIds || (filterResult.emolumentIds && filterResult.emolumentIds !== '1'))}}">
     <text>把你的筛选条件添加到求职意向</text>
     <button class="addBtn">立即添加<i class="icon iconfont icon-disejiantou-you"></i></button>
   </view>
-  <view class="list-box">
-    <jobList listType="{{!isJobhunter ? 'index' : ''}}" personality="jobItem" list="{{positionList.list}}" list-type="interview" current-tab="all"></jobList>
-    <bottomStatus status="{{onBottomStatus}}" listData="{{positionList.list}}"></bottomStatus>
+
+  <view class="list-box" wx:if="{{filterList.list.length}}">
+    <waterfallFlow hasGuide="{{true}}" wx:key="filterList" my-class="waterfallFlow" id="filterList" flowClass="{{'filterList'}}" value="{{filterList.list}}" page="{{filterList.pageNum - 1}}"></waterfallFlow>
+  </view>
+  <bottomStatus wx:if="{{!recommendList.list.length}}" status="{{filterList.onBottomStatus}}" listData="{{filterList.list}}" marginTop="{{30}}" desc="一大批优质机会即将上线">
+    <view class="moreBtn" data-route="specialJob" bindtap="routeJump">去看看急速约面机会<i class="icon iconfont icon-disejiantou-you"></i></view>
+  </bottomStatus>
+  <view class="noMore" wx:if="{{filterList.isRequire && recommendList.list.length}}">
+    <view class="icon"></view>
+    <view class="txt">暂时没有更多符合条件的结果，下面为你推荐可能相关的机会</view>
+  </view>
+  <view class="list-box" wx:if="{{recommendList.list.length}}">
+    <waterfallFlow hasGuide="{{true}}" wx:key="recommendList"  my-class="waterfallFlow" id="recommendList" flowClass="{{'recommendList'}}" value="{{recommendList.list}}" page="{{recommendList.pageNum - 1}}"></waterfallFlow>
+    <bottomStatus status="{{recommendList.onBottomStatus}}" listData="[]" hasImg="{{recommendList.list.length ? false : true}}" marginTop="{{30}}" desc="一大批优质机会即将上线~">
+      <view class="moreBtn" data-route="specialJob" bindtap="routeJump">去看看急速约面机会<i class="icon iconfont icon-disejiantou-you"></i></view>
+    </bottomStatus>
   </view>
   <tabBar id="bottomRedDotBar"></tabBar>
-  <auth wx:if="{{requireOAuth}}" bindauthSuccess="authSuccess"></auth>
   <bindPhone hide="{{hideLoginBox}}" hasClose="{{false}}"></bindPhone>
   <adPop></adPop>
-  <followWechat userInfo="{{userInfo}}"></followWechat>
+  <followWechat wx:if="{{userInfo}}"></followWechat>
+  <filterPop openPop="{{openPop}}" filterType="{{filterType}}" filterResult="{{filterResult}}" bindFilterResult="getFilterResult"></filterPop>
 </view>

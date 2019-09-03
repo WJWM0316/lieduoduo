@@ -18,7 +18,6 @@ import {realNameReg, emailReg, positionReg} from '../../../../../utils/fieldRegu
 import {RECRUITER, COMMON} from '../../../../../config.js'
 
 let app = getApp()
-let isRequire = false
 Page({
   data: {
     position_name: '',
@@ -52,7 +51,6 @@ Page({
     this.setData({pageTitle: options.positionId ? '编辑职位' : '发布职位', query: options})
   },
   onShow() {
-    
     this.getUpdateInfos()
   },
   backEvent() {
@@ -65,7 +63,7 @@ Page({
         cancelBack() {
           wx.removeStorageSync('createPosition')
           wx.navigateBack({delta: 1})
-        },
+        }
       })
     } else {
       app.wxConfirm({
@@ -88,7 +86,6 @@ Page({
    * @return   {[type]}           [description]
    */
   getUpdateInfos() {
-    this.setData({isRequire: false})
     let options = this.data.query
     let storage = Object.assign(wx.getStorageSync('createPosition'))
     if(
@@ -111,7 +108,7 @@ Page({
       this.bindButtonStatus()
       return;
     }
-    if(!Reflect.has(options, 'positionId')) {
+    if(!this.data.query.positionId) {
       this.setData({isRequire: true})
       return
     }

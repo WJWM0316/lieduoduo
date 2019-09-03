@@ -148,81 +148,73 @@ export const request = ({name = '', method = 'post', url, host, data = {}, needK
           loadNum = 0
         }
         console.log(url, res.data)
-        if (typeof res.data === 'string') { // 转换返回json
-          res.data = JSON.parse(res.data)
-        }
-        if (res) {
-          let msg = res.data
-          let showToast = true
-          //有字符串的情况下 转数字
-          msg.httpStatus = parseInt(msg.httpStatus)
-          if (msg.httpStatus === 200) {
-            resolve(msg)
-          } else {
-            if (msg.httpStatus !== 401 && msg.code !== 701 && msg.code !== 801 && msg.code !== 910 && msg.code !== 911 && !noToastUrlArray.some(now => url.includes(now))) {
-              getApp().wxToast({title: msg.msg})
+        try {
+          if (typeof res.data === 'string') { // 转换返回json
+            res.data = JSON.parse(res.data)
+          }
+          if (res) {
+            let msg = res.data
+            let showToast = true
+            //有字符串的情况下 转数字
+            msg.httpStatus = parseInt(msg.httpStatus)
+            if (msg.httpStatus === 200) {
+              resolve(msg)
+            } else {
+              if (msg.httpStatus !== 401 && msg.code !== 701 && msg.code !== 801 && msg.code !== 910 && msg.code !== 911 && !noToastUrlArray.some(now => url.includes(now))) {
+                getApp().wxToast({title: msg.msg})
+              }
+              reject(msg)
             }
-            reject(msg)
-          }
-          switch (msg.httpStatus) {
-            case 200:
-              // if (name) {
-              //   saveApiData = wx.getStorageSync('saveApiData') || {}
-              //   if (!saveApiData[name]) {
-              //     saveApiData[name] = {}
-              //     saveApiData[name].version = 0
-              //     saveApiData[name].data = res.data
-              //     wx.setStorageSync('saveApiData', saveApiData)
-              //   }
-              //   if (!apiVersionList || !apiVersionList[name] || (apiVersionList[name] && apiVersionList[name].version !== saveApiData[name].version)) {
-              //     saveApiData[name].version = !apiVersionList[name] ? 0 : apiVersionList[name].version
-              //     saveApiData[name].data = res.data
-              //     wx.setStorageSync('saveApiData', saveApiData)
-              //   }
-              // } 
-              break
-            case 401:
-              // 需要用到token， 需要绑定手机号
-              if (msg.code === 4010 && url !== '/reddot/top_bar_info') {
-                if (toBindPhone) return
-                toBindPhone = true
-                let timer = setTimeout(() => {
-                  toBindPhone = false
-                  clearTimeout(timer)
-                }, 3000)
-                wx.removeStorageSync('token')
-                wx.navigateTo({
-                  url: `${COMMON}bindPhone/bindPhone`
-                })
-              }
-              // 需要用到微信token， 需要授权
-              if (msg.code === 0 && url !== '/reddot/top_bar_info') {
-                if (toAuth) return
-                toAuth = true
-                let timer = setTimeout(() => {
-                  toAuth = false
-                  clearTimeout(timer)
-                }, 3000)
-                wx.removeStorageSync('sessionToken')
-                wx.removeStorageSync('token')
-                getApp().login().then(res => {
-                  wx.redirectTo({
-                    url: getApp().getCurrentPagePath()
+            switch (msg.httpStatus) {
+              case 200:
+                break
+              case 401:
+                // 需要用到token， 需要绑定手机号
+                if (msg.code === 4010 && url !== '/reddot/top_bar_info') {
+                  if (toBindPhone) return
+                  toBindPhone = true
+                  let timer = setTimeout(() => {
+                    toBindPhone = false
+                    clearTimeout(timer)
+                  }, 3000)
+                  wx.removeStorageSync('token')
+                  wx.navigateTo({
+                    url: `${COMMON}bindPhone/bindPhone`
                   })
-                })
-              }
-              break
-            case 400:
-              if (msg.code === 703) {
-                wx.reLaunch({
-                  url: `${APPLICANT}createUser/createUser?micro=true`
-                })
-              }
-              if (msg.code === 801) {
-                recruiterJump(msg)
-              }
+                }
+                // 需要用到微信token， 需要授权
+                if (msg.code === 0 && url !== '/reddot/top_bar_info') {
+                  if (toAuth) return
+                  toAuth = true
+                  let timer = setTimeout(() => {
+                    toAuth = false
+                    clearTimeout(timer)
+                  }, 3000)
+                  wx.removeStorageSync('sessionToken')
+                  wx.removeStorageSync('token')
+                  getApp().login().then(res => {
+                    wx.redirectTo({
+                      url: getApp().getCurrentPagePath()
+                    })
+                  })
+                }
+                break
+              case 400:
+                if (msg.code === 703) {
+                  wx.reLaunch({
+                    url: `${APPLICANT}createUser/createUser?micro=true`
+                  })
+                }
+                if (msg.code === 801) {
+                  recruiterJump(msg)
+                }
+                break
+              case 500:
+                getApp().wxToast({title: '服务器异常，请稍后访问'})
+                break
+            }
           }
-        } else {
+        } catch (e) {
           getApp().wxToast({title: '服务器异常，请稍后访问'})
         }
       },
@@ -232,7 +224,7 @@ export const request = ({name = '', method = 'post', url, host, data = {}, needK
           wx.hideLoading()
           loadNum = 0
         }
-        console.log(e, 'wx.request发神经了')
+        getApp().wxToast({title: '服务器异常，请稍后访问'})
       }
     })
   })
