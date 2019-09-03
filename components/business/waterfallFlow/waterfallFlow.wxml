@@ -42,7 +42,7 @@
             </view>
             <view class="footer">
               <view class="viewNum icon" wx:if="{{item.isRapidly === 1}}"></view>
-            	<view class="viewNum" wx:else><text class="num">{{item.numOfVisitors}}</text> 人查看过</view>
+            	<view class="viewNum" wx:else><text class="num">{{item.numOfVisitors}}</text><text class="normal"> 人查看过</text></view>
             	<view class="viewBtn"><i class="icon iconfont icon-yuemian"></i>开约</view>
             </view>
           </block>

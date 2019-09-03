@@ -11,7 +11,6 @@
 
 .card {
   width:354rpx;
-  background:#fff;
   box-shadow:0rpx 2rpx 14rpx 0rpx rgba(50,14,59,0.08);
   text-align: left;
   position: static;
@@ -126,7 +125,8 @@
 }
 
 .content {
-	padding: 42rpx 28rpx 56rpx;
+	padding: 40rpx 28rpx 50rpx;
+  background: #fff;
 }
 .content .positionName {
 	font-size:32rpx;
@@ -140,7 +140,7 @@
 	font-weight:700;
 	color:#FF7F4C;
 	line-height:36rpx;
-	margin: 14rpx 0 28rpx;
+	margin: 10rpx 0 28rpx;
 }
 .content .otherInfo {
 	font-size: 0;
@@ -189,12 +189,16 @@
 	line-height:22rpx;
 	overflow: hidden;
 	padding: 0 28rpx 40rpx;
+  background: #fff;
 }
 .viewNum {
 	float: left;
 }
 .viewNum .num {
 	color: #652791;
+}
+.viewNum .normal {
+	font-weight: normal;
 }
 .viewNum.icon {
 	width: 83rpx;
