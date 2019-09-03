@@ -1,6 +1,7 @@
 import {getSelectorQuery} from '../../../utils/util.js'
 import {COMMON, APPLICANT, RECRUITER} from '../../../config.js'
 const app = getApp()
+let lock = false
 Component({
   externalClasses: ['my-class'],
   /**
@@ -16,6 +17,7 @@ Component({
           if (!this.data.page) this.floor = newVal.length > 6 ? 6 : newVal.length
           if (app.globalData.hasLogin && this.data.hasGuide) newVal = this.appendCard(newVal)
           this.setData({[`listData[${this.data.page}]`]: newVal}, () => {
+            console.log(1111111111111, this.data.listData)
             this.updata()
           })
         })
@@ -204,6 +206,7 @@ Component({
     },
 
     typeset (list, pageIndex = this.data.page) {
+      if (!list.length) return
       let that = this
       let minFun = (heightGroup) => {
         return heightGroup.indexOf(Math.min(...heightGroup))
@@ -239,7 +242,9 @@ Component({
             }
             if (index === list.length - 1) {
               let wrapH = this.heightGroup[maxFun(this.heightGroup)]
-              this.setData({[`listData[${pageIndex}]`]: list, wrapH})
+              this.setData({[`listData[${pageIndex}]`]: list, wrapH}, () => {
+                console.log(222222222222, this.data.listData)
+              })
             }
           })
         })

@@ -13,7 +13,8 @@ let identity = '',
     tabTop = 0,
     timer = null,
     adPositionIds = null,
-    filterData = {}
+    filterData = {},
+    lock = false
 Page({
   data: {
     pageCount: app.globalData.pageCount,
@@ -290,7 +291,10 @@ Page({
             this.data.filterList.isRequire && 
             this.data.filterList.isLastPage) {
           this.setData({getRecommend: 1}, () => {
-            this.getPositionList(false)
+            lock = true
+            this.getPositionList(false).then(res => {
+              lock = false
+            })
           })
         }
       })
@@ -339,51 +343,11 @@ Page({
     this.setData({requireOAuth})
   },
   addIntention () {
-    let data = this.data.filterResult,
-        salaryFloor = 0,
-        salaryCeil = 0
-    if (data.employeeIds) {
-      switch (Math.max(...data.employeeIds.split(','))) {
-        case 1:
-          salaryFloor = 0
-          salaryCeil = 0
-          break
-        case 2:
-          salaryFloor = 1
-          salaryCeil = 2
-          break
-        case 3:
-          salaryFloor = 3
-          salaryCeil = 6
-          break
-        case 4:
-          salaryFloor = 5
-          salaryCeil = 10
-          break
-        case 5:
-          salaryFloor = 10
-          salaryCeil = 20
-          break
-        case 6:
-          salaryFloor = 15
-          salaryCeil = 30
-          break
-        case 7:
-          salaryFloor = 20
-          salaryCeil = 40
-          break
-        case 8:
-          salaryFloor = 50
-          salaryCeil = 100
-          break
-      }
-    }
+    let data = this.data.filterResult
     let lntention = {
       city: data.cityNums,
       cityName: data.cityName,
-      positionType: data.positionTypeIds,
-      salaryFloor: salaryFloor,
-      salaryCeil: salaryCeil
+      positionType: data.positionTypeIds
     }
     filterData['area'].filter(item => {
       if (item.areaId === parseInt(data.cityNums)) {
@@ -437,6 +401,8 @@ Page({
     })
   },
   onReachBottom() {
+    if (lock) return
+
     let listType = null,
         filterResult = this.data.filterResult,
         canRecommend = filterResult.recommended && 

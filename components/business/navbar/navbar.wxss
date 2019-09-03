@@ -128,7 +128,7 @@
   line-height:28rpx;
 }
 .searchBox .cityIcon {
-  font-size: 14rpx;
+  font-size: 10rpx;
   margin: 0 26rpx 0 12rpx;
   color:rgba(255,255,255,0.8);
 }

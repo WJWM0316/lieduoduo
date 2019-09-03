@@ -10,7 +10,8 @@ import {COMMON, RECRUITER, APPLICANT} from '../../../../config.js'
 const app = getApp()
 let timer = null,
     keyword = '',
-    lastWord = '记录上一条搜索词'
+    lastWord = '记录上一条搜索词',
+    lock = false
 Page({
 
   /**
@@ -180,7 +181,10 @@ Page({
       this.setData(setData, () => {
         if (this.data.positionData.isLastPage && !this.data.tabIndex && !this.data.getRecommend) {
           this.setData({getRecommend: 1}, () => {
-            this.getSearchData(false)
+            lock = true
+            this.getSearchData(false).then(res => {
+              lock = false
+            })
           })
         }
       })
@@ -284,6 +288,7 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
+    if (lock) return
     let tabIndex = this.data.tabIndex,
         listType = tabIndex ? 'companyData' : !this.data.getRecommend ? 'positionData' : 'recommendList'
     if (this.data[listType].isLastPage) return

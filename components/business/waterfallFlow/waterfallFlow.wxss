@@ -13,10 +13,19 @@
   width:354rpx;
   box-shadow:0rpx 2rpx 14rpx 0rpx rgba(50,14,59,0.08);
   text-align: left;
-  position: static;
+  position: relative;
   overflow: visible;
+  min-height: 200rpx;
 }
-
+.icon.specail {
+  width: 36rpx;
+  height: 54rpx;
+  position: absolute;
+  top: -4rpx;
+  left: 24rpx;
+  background: url('https://attach.lieduoduo.ziwork.com/front-assets/images/jIcon.png') no-repeat;
+  background-size: 100% 100%;
+}
 .header {
 	padding: 16rpx 28rpx 16rpx;
 	background: #E9E9F5;
@@ -33,20 +42,11 @@
   background: #652791;
   position: relative;
 }
-.header.specail:before {
-  content: '';
-  width: 36rpx;
-  height: 54rpx;
-  position: absolute;
-  top: -4rpx;
-  left: 24rpx;
-  background: url('https://attach.lieduoduo.ziwork.com/front-assets/images/jIcon.png') no-repeat;
-  background-size: 100% 100%;
-}
+
 .header.hasSignature::after {
   content: '\e62f';
-  font-size: 95rpx;
-  line-height: 95rpx;
+  font-size: 76rpx;
+  line-height: 76rpx;
   position: absolute;
   right: 28rpx;
   top: 110rpx;
@@ -144,7 +144,6 @@
 }
 .content .otherInfo {
 	font-size: 0;
-  height: 44rpx;
   line-height: 44rpx;
 }
 .content .otherInfo .label {
@@ -190,6 +189,7 @@
 	overflow: hidden;
 	padding: 0 28rpx 40rpx;
   background: #fff;
+  border-radius: 0 0 16rpx 16rpx;
 }
 .viewNum {
 	float: left;
@@ -208,13 +208,11 @@
 }
 .viewBtn {
 	float: right;
-  height: 30rpx;
 	color: #652791;
 	font-weight: normal;
-  line-height: 30rpx;
 }
 .viewBtn .icon {
-	font-size: 24rpx;
+	font-size: 20rpx;
 	margin-right: 4rpx;
 }
 
@@ -231,7 +229,7 @@
 	font-weight:700;
 	color:#652791;
 	line-height:36rpx;
-	margin: 12rpx 0 18rpx;
+	margin: 2rpx 0 12rpx;
 }
 .cardBlock .desc {
 	font-size:26rpx;
@@ -241,8 +239,8 @@
   margin-bottom: 18rpx;
 }
 .cardBlock .picture {
-	width: 254rpx;
-	height: 192rpx;
+	width: 278rpx;
+	height: 210rpx;
 	margin: 0 auto;
   display: block;
 }

@@ -1,7 +1,0 @@
-<view class="my-class">
-	<block wx:for="{{listData}}" wx:key="{{indexs}}" wx:for-item="list" wx:for-index="indexs">
-		<view class="flow flow{{indexs}}{{index}}" wx:for="{{list}}" wx:key="{{indexs}}{{index}}" style="left: {{item.left}}px;top: {{item.top}}px">
-			<text>{{item.title}}</text>
-		</view>
-	</block>
-</view>

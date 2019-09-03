@@ -22,7 +22,7 @@
 	    	<view class="cityName">{{filterResult.cityName || '全国'}}</view>
 	    	<i class="cityIcon iconfont icon-sanjiaoshaixuan"></i>
 	    </view>
-	    <view class="search" bindtap="toSearch"><i class="icon iconfont icon-sousuo"></i>输入关键/职位/公司</view>
+	    <view class="search" bindtap="toSearch"><i class="icon iconfont icon-sousuo"></i>输入关键字/职位/公司</view>
 	  </view>
   </view>
 </view>
