@@ -24,6 +24,7 @@
 	background-size: 96rpx 64rpx;
   position: relative;
   border-radius: 16rpx 16rpx 0 0;
+  overflow: hidden;
 }
 .header.hasSignature {
   padding: 16rpx 28rpx 24rpx;
@@ -43,14 +44,17 @@
   background: url('https://attach.lieduoduo.ziwork.com/front-assets/images/jIcon.png') no-repeat;
   background-size: 100% 100%;
 }
-.header::after {
+.header.hasSignature::after {
   content: '\e62f';
   font-size: 95rpx;
   line-height: 95rpx;
   position: absolute;
   right: 28rpx;
-  bottom: -2rpx;
+  top: 110rpx;
   color: rgba(50,39,145,0.04);
+}
+.header.specail.hasSignature::after {
+	top: 215rpx;
 }
 .header.specail::after {
   right: 14rpx;
@@ -203,6 +207,7 @@
   height: 30rpx;
 	color: #652791;
 	font-weight: normal;
+  line-height: 30rpx;
 }
 .viewBtn .icon {
 	font-size: 24rpx;

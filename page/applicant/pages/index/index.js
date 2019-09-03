@@ -287,8 +287,7 @@ Page({
           })
         }
       })
-
-      this.getAdBannerList()
+      if (!this.data.bannerList.length && listData.pageNum === 1) this.getAdBannerList()
     })
   },
   getAdBannerList () {

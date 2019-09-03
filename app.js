@@ -343,9 +343,13 @@ App({
                 icon: 'success',
                 callback() {
                   if (operType === 'cIndex') {
-                      wx.reLaunch({
-                        url: `${APPLICANT}index/index`
-                      })
+                    wx.reLaunch({
+                      url: `${APPLICANT}index/index`
+                    })
+                  } else if (operType === 'bIndex') {
+                    wx.reLaunch({
+                      url: `${RECRUITER}index/index`
+                    })
                   } else if (operType === 'curPath') {
                     wx.reLaunch({
                       url: `${pageUrl}`

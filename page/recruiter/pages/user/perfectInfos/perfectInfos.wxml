@@ -23,10 +23,10 @@
 					  	</button>
 					  </block>
 					  <view></view>
-					  <view class="botBox">
-					  	<view class="toggleIdentity" bindtap="toggleIdentity">切换为招聘官</view>
-					  	<view class="toggleAccount" bindtap="jump" data-type="changeAccount">切换账号</view>
-					  </view>
+					  <!-- <view class="botBox">
+					  	<view class="toggleIdentity" bindtap="toggleIdentity">切换为求职者</view>
+					  	<view class="toggleAccount" bindtap="routeJump" data-type="changeAccount">切换账号</view>
+					  </view> -->
 					</view>
 				</view>
 			</view>

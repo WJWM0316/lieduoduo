@@ -33,7 +33,7 @@ Page({
           labelType= []
       personalizedLabels.forEach(item => {
         labelIds.push(item.id)
-        labelType.push(item.labelName)
+        labelType.push(item.labelName || item.name)
       })
       setData = {labelType: labelType.join(','), labelIds: labelIds.join(',')}
     }
@@ -42,6 +42,13 @@ Page({
     if (getSignature) {
       setData.signature = getSignature
       wx.removeStorageSync('saveSignature')
+    }
+
+    let positionTypeIds = app.globalData.recruiterDetails.positionTypeId,
+        positionType = app.globalData.recruiterDetails.positionType
+    if (positionTypeIds) {
+      setData.positionTypeIds = positionTypeIds
+      setData.positionType = positionType
     }
     if (createPosition) {
       setData.positionTypeIds = createPosition.type
@@ -62,6 +69,9 @@ Page({
         break
       case 'signature':
         url = `${RECRUITER}user/signature/signature`
+        break
+      case 'changeAccount':
+        url = `${COMMON}bindPhone/bindPhone`
         break
     }
     wx.navigateTo({url})
@@ -86,10 +96,21 @@ Page({
         title: '保存成功',
         icon: 'success',
         callback () {
-          app.globalData.signature = that.data.signature
+          app.globalData.recruiterDetails.signature = that.data.signature
+          app.globalData.recruiterDetails.positionTypeId = that.data.positionTypeIds
+          app.globalData.recruiterDetails.positionType = that.data.positionType
           wx.navigateBack({delta: 1})
         }
       })
     })
-  }
+  },
+  toggleIdentity () {
+    app.wxConfirm({
+      title: '身份切换',
+      content: `是否切换为求职者身份`,
+      confirmBack() {
+        app.toggleIdentity()
+      }
+    })
+  },
 })

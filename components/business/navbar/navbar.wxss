@@ -113,6 +113,10 @@
   left: 0;
   bottom: 18rpx;
 }
+.cityBox {
+  display: flex;
+  align-items: center;
+}
 .searchBox .cityName {
   width:56rpx;
   display: inline-block;

@@ -1,5 +1,6 @@
 import {saveRecruiterInfoApi} from '../../../../../api/pages/recruiter.js'
 import {removeFileApi} from '../../../../../api/pages/common.js'
+import {COMMON} from "../../../../../config.js"
 import {realNameReg,positionReg,emailReg,wechatReg,mobileReg} from '../../../../../utils/fieldRegular.js'
 let userInfo = null
 let app = getApp()
@@ -15,6 +16,8 @@ Page({
     email: '',
     wechat: '',
     signature: '',
+    positionTypeId: 0,
+    positionType: '',
     picList: [],
     choseNum: 6
   },
@@ -32,7 +35,9 @@ Page({
       email: userInfo.email,
       wechat: userInfo.wechat,
       signature: userInfo.signature,
-      picList: userInfo.avatars
+      picList: userInfo.avatars,
+      positionTypeId: userInfo.positionTypeId,
+      positionType: userInfo.positionType
     })
   },
   jumpLabel() {
@@ -49,6 +54,13 @@ Page({
     let choseNum = this.data.choseNum
     choseNum = 6 - picList.length
     this.setData({picList, choseNum})
+  },
+  routeJump (e) {
+    switch (e.target.dataset.type) {
+      case 'positionType':
+        wx.navigateTo({url: `${COMMON}category/category`})
+        break
+    }
   },
   getInputValue(e) {
     let type = ''
@@ -90,6 +102,9 @@ Page({
     if (!realNameReg.test(info.userName)) {
       title = '姓名需为2-20个中文字符'
     }
+    if (!info.positionTypeId) {
+      title = '请选择担任职务类别'
+    }
     if (!positionReg.test(info.position)) {
       title = '担任职务需为2-20个字'
     }
@@ -105,6 +120,8 @@ Page({
       } else if (info.signature.length > 30) {
         title = '个人签名最多输入30个字'
       }
+    } else {
+      title = '个人签名需为6~30个字'
     }
     if (title) {
       app.wxToast({
@@ -119,7 +136,8 @@ Page({
       position: info.position,
       email: info.email,
       wechat: info.wechat,
-      signature: info.signature, 
+      signature: info.signature,
+      positionTypeId: info.positionTypeId,
       ...app.getSource()
     }
     saveRecruiterInfoApi(data).then(res => {
@@ -135,6 +153,8 @@ Page({
           app.globalData.recruiterDetails.email = info.email
           app.globalData.recruiterDetails.wechat = info.wechat
           app.globalData.recruiterDetails.signature = info.signature
+          app.globalData.recruiterDetails.positionTypeId = info.positionTypeId
+          app.globalData.recruiterDetails.positionType = info.positionType
           wx.navigateBack({
             delta: 1
           })
@@ -153,6 +173,15 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
+    let createPosition = wx.getStorageSync('createPosition'),
+        setData = {}
+    if (createPosition) {
+      setData.positionTypeId = createPosition.type
+      setData.positionType = createPosition.typeName
+      this.setData(setData)
+      wx.removeStorageSync('createPosition')
+    }
+    
     let avatar = wx.getStorageSync('avatar')
     if (avatar) {
       let picList = this.data.picList

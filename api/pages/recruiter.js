@@ -326,7 +326,7 @@ export const getRecommendCityRangesListsApi = (data, hasLoading) => {
 export const getRecruiteBaseApi = (data, hasLoading) => {
   return request({
     url: `/recruiter/base`,
-    method: 'get',
+    method: 'put',
     data,
     hasLoading: false
   })

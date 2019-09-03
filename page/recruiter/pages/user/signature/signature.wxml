@@ -1,7 +1,7 @@
 <navbar title="填写个性签名" background="#4F286E" color="#fff"></navbar>
 <view class="signatureBox">
 	<view class="inputBox">
-		<textarea class="textarea" bindinput="bindinput" placeholder-class="holderStyle" placeholder="用一句个性签名，秀出想对候选人说的话吧~（公司愿景、团队氛围、领导风格、员工福利...只要能吸引求职者都可以哦~）"></textarea>
+		<textarea class="textarea" bindinput="bindinput" placeholder-class="holderStyle" maxlength="30" placeholder="用一句个性签名，秀出想对候选人说的话吧~（公司愿景、团队氛围、领导风格、员工福利...只要能吸引求职者都可以哦~）"></textarea>
 		<view class="txt">{{value.length}}/30</view>
 	</view>
 	<view class="desc">* 个性签名将用于求职端职位列表的展示，有助于提高最终的招聘效果请认真填写~</view>

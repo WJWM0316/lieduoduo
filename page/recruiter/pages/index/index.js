@@ -132,7 +132,7 @@ Page({
     let userInfo = app.globalData.userInfo
     if (app.pageInit) {
       userInfo = app.globalData.userInfo
-      this.perfectInfos()
+      // this.perfectInfos()
       this.getMixdata()
       this.getRecommendRangeAll()
       this.setData({userInfo})
@@ -141,7 +141,7 @@ Page({
     } else {
       app.pageInit = () => {
         userInfo = app.globalData.userInfo
-        this.perfectInfos()
+        // this.perfectInfos()
         this.getMixdata()
         this.getRecommendRangeAll()
         this.setData({userInfo})
@@ -154,7 +154,8 @@ Page({
     if (app.globalData.isRecruiter &&
         app.globalData.recruiterDetails &&
         (!app.globalData.recruiterDetails.signature ||
-         !app.globalData.recruiterDetails.personalizedLabels.length)
+         !app.globalData.recruiterDetails.personalizedLabels.length ||
+         !app.globalData.recruiterDetails.positionTypeId)
       ) {
       wx.navigateTo({url: `${RECRUITER}user/perfectInfos/perfectInfos`})
     }
@@ -351,6 +352,7 @@ Page({
     this.cacheData()
     wx.navigateTo({url: `${COMMON}resumeDetail/resumeDetail?uid=${params.jobhunteruid}`})
   },
+
   routeJump(e) {
     let route = e.currentTarget.dataset.route
     this.cacheData()
@@ -618,6 +620,7 @@ Page({
       }
     })    
   },
+
   /**
    * @Author   小书包
    * @DateTime 2019-07-13
@@ -660,6 +663,7 @@ Page({
       })
     })
   },
+
   /**
    * @Author   小书包
    * @DateTime 2019-07-13
@@ -706,6 +710,7 @@ Page({
       })
     })
   },
+
   /**
    * @Author   小书包
    * @DateTime 2019-07-13
@@ -729,6 +734,7 @@ Page({
       })
     })
   },
+
   /**
    * @Author   小书包
    * @DateTime 2019-07-13
@@ -760,6 +766,7 @@ Page({
       })
     })
   },
+
   onClickSearch(e) {
     let params = e.currentTarget.dataset
     let onLinePosition = this.data.onLinePosition

@@ -37,6 +37,10 @@ Page({
       app.wxToast({title: '请填写您的个性签名！'})
       return
     }
+    if (value.length < 6 || value.length > 30) {
+      app.wxToast({title: '个性签名需为6~30个字符！'})
+      return
+    }
     wx.setStorageSync('saveSignature', value)
     wx.navigateBack({
       delta: 1
