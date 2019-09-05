@@ -9,6 +9,7 @@ Page({
     list: [],
     pageNum: 1,
     isJobhunter: app.globalData.isJobhunter,
+    hasLogin: app.globalData.hasLogin,
     isLastPage: false,
     pageCount: 20,
     hasReFresh: false,
@@ -31,12 +32,15 @@ Page({
     }
   },
   getLists(hasLoading) {
-    let isJobhunter = this.data.isJobhunter
+    let isJobhunter = this.data.isJobhunter,
+        hasLogin  = this.data.hasLogin 
     if (app.getRoleInit) {
       isJobhunter = app.globalData.isJobhunter
+      hasLogin = app.globalData.hasLogin
     } else {
       app.getRoleInit = () => {
         isJobhunter = app.globalData.isJobhunter
+        hasLogin = app.globalData.hasLogin
       }
     }
     this.setData({isJobhunter})

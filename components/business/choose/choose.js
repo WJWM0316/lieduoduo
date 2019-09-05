@@ -54,6 +54,9 @@ Component({
         app.getAllInfo().then(res => {
           this.setData({isChose: true})
           wx.reLaunch({url})
+        }).catch(e => {
+          this.setData({isChose: true})
+          wx.reLaunch({url})
         })
       } else {
         wx.reLaunch({url})

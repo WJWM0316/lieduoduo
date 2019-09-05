@@ -18,6 +18,7 @@ Page({
     pageCount: 20,
     options: {},
     isJobhunter: app.globalData.isJobhunter,
+    hasLogin: app.globalData.hasLogin,
     positionList: {
       list: [],
       pageNum: 1,
@@ -42,12 +43,15 @@ Page({
     }
   },
   onShow() {
-    let isJobhunter = this.data.isJobhunter
+    let isJobhunter = this.data.isJobhunter,
+        hasLogin  = this.data.hasLogin 
     if (app.getRoleInit) {
       isJobhunter = app.globalData.isJobhunter
+      hasLogin = app.globalData.hasLogin
     } else {
       app.getRoleInit = () => {
         isJobhunter = app.globalData.isJobhunter
+        hasLogin = app.globalData.hasLogin
       }
     }
     const positionList = {
@@ -62,7 +66,7 @@ Page({
       isLastPage: false,
       isRequire: false
     }
-    this.setData({positionList, recruiterList, isJobhunter}, () => this.getLists(false))
+    this.setData({positionList, recruiterList, isJobhunter, hasLogin}, () => this.getLists(false))
   },
   /**
    * @Author   小书包

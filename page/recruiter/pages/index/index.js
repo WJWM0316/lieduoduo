@@ -198,7 +198,7 @@ Page({
    * @return   {[type]}   [description]
    */
   getDomNodePosition() {
-    // if (!this.data.positionLists.list.length) return
+    if (!this.data.detail.positionNum) return
     setTimeout(() => {
       getSelectorQuery('.default').then(res => {
         if(!fixedDomPosition) fixedDomPosition = res.top - this.data.navH

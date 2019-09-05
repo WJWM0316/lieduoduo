@@ -69,7 +69,7 @@ App({
     isMicroCard: 0, // 是否创建微名片
     isRecruiter: 0, // 是否认证成为招聘官
     isJobhunter: 0, // 是否注册成求职者
-    hasExpect: 1, // 有求职意向
+    hasExpect: 0, // 有求职意向
     hasLogin: 0, // 判断是否登录
     userInfo: null, // 用户信息， 判断是否授权,
     officialId: 0, // 是否关注公众号
@@ -153,6 +153,8 @@ App({
       this.globalData.recruiterDetails = {}
       this.globalData.isRecruiter = 0
       this.globalData.isJobhunter = 0
+      this.globalData.hasExpect = 0
+      this.globalData.officialId = 0
       wx.reLaunch({url: `${COMMON}startPage/startPage`})
     })
   },

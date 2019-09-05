@@ -14,7 +14,8 @@ let identity = '',
     timer = null,
     adPositionIds = null,
     filterData = {},
-    lock = false
+    lock = false,
+    recordParams = 1 // 是否需要记录筛选条件
 Page({
   data: {
     pageCount: app.globalData.pageCount,
@@ -44,8 +45,9 @@ Page({
     requireOAuth: false,
     cdnImagePath: app.globalData.cdnImagePath,
     userInfo: app.globalData.userInfo,
+    hasLogin: app.globalData.hasLogin,
     options: {},
-    hasExpect: 1,
+    hasExpect: 0,
     recommended: 0, // 是否有推荐策略
     getRecommend: 0, // 过滤数据完毕开始加载推荐疏数据
     filterResult: {}, // 筛选项结果 
@@ -60,9 +62,8 @@ Page({
       wx.setStorageSync('choseType', 'APPLICANT')
     }
     identity = app.identification(options)
-    this.setData({options})
     let init = () => {
-      
+      this.setData({options, hasLogin: app.globalData.hasLogin})
       this.getAvartList()
       this.getFilterData().then(() => {
         this.getRecord()
@@ -105,13 +106,12 @@ Page({
         if (!bannerList.length)  background = '#652791'
         this.setData({bannerList, bannerIndex: 0, background})
       }
+      this.setData({hasExpect: app.globalData.hasExpect})
       if (app.pageInit) {
         this.selectComponent('#bottomRedDotBar').init()
-        this.setData({hasExpect: app.globalData.hasExpect})
       } else {
         app.pageInit = () => {
           this.selectComponent('#bottomRedDotBar').init()
-          this.setData({hasExpect: app.globalData.hasExpect})
         }
       }
     }
@@ -122,6 +122,14 @@ Page({
         init()
       }
     }
+    // // 从职位详情过来的推荐数据 不需要记录且不需要其他条件
+    // if (this.data.options.positionTypeId) {
+    //   let filterResult = this.data.filterResult
+    //   filterResult.positionTypeId = this.data.options.positionTypeId
+    //   if (this.data.options.typeName) filterResult.positionTypeName = this.data.options.typeName
+    //   recordParams = 0
+    //   this.setData({filterResult})
+    // }
   },
   initPage () {
     if (wx.getStorageSync('choseType') !== 'APPLICANT') return
@@ -248,17 +256,6 @@ Page({
     listData.pageNum++
     params.page = listData.pageNum
 
-    // 从职位详情过来的推荐数据 不需要记录且不需要其他条件
-    if (this.data.options.positionTypeId) {
-      params.positionTypeIds = this.data.options.positionTypeId
-      params.recordParams = 0
-      delete params.cityNums
-      delete params.emolumentIds
-      delete params.industryIds
-      delete params.employeeIds
-      delete params.financingIds
-    }
-
     // 加载完正常列表 再加载的推荐数据不需要传薪资条件
     if (this.data.getRecommend) {
       params.recordParams = 0
@@ -355,11 +352,13 @@ Page({
       }
     })
     let array = filterData['positionType'].filter(item => { return item.labelId === parseInt(data.topId)})
-    array[0].children.filter(item => {
+    if (array[0]) {
+      array[0].children.filter(item => {
       if (item.labelId === parseInt(data.positionTypeIds)) {
         lntention.positionName = item.name
       }
     })
+    }
     wx.setStorageSync('addIntention', lntention)
     wx.navigateTo({
       url: `/page/applicant/pages/center/resumeEditor/aimsEdit/aimsEdit`

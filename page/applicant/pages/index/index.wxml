@@ -35,27 +35,38 @@
       </view>
     </view>
   </view>
-  <view class="addIntention" bindtap="addIntention" wx:if="{{!hasExpect && (filterResult.cityNums || filterResult.positionTypeIds || (filterResult.emolumentIds && filterResult.emolumentIds !== '1'))}}">
+  <view class="addIntention" bindtap="addIntention" wx:if="{{hasLogin && !hasExpect && (filterResult.cityNums || filterResult.positionTypeIds || (filterResult.emolumentIds && filterResult.emolumentIds !== '1'))}}">
     <text>把你的筛选条件添加到求职意向</text>
     <button class="addBtn">立即添加<i class="icon iconfont icon-disejiantou-you"></i></button>
   </view>
 
-  <view class="list-box" wx:if="{{filterList.list.length}}">
-    <waterfallFlow hasGuide="{{true}}" wx:key="filterList" my-class="waterfallFlow" id="filterList" flowClass="{{'filterList'}}" value="{{filterList.list}}" page="{{filterList.pageNum - 1}}"></waterfallFlow>
-  </view>
-  <bottomStatus wx:if="{{!recommendList.list.length}}" hasMoreSlot="{{true}}" status="{{filterList.onBottomStatus}}" listData="{{filterList.list}}" marginTop="{{30}}" desc="一大批优质机会即将上线">
-    <view class="moreBtn" data-route="specialJob" bindtap="routeJump">去看看急速约面机会<i class="icon iconfont icon-disejiantou-you"></i></view>
-  </bottomStatus>
-  <view class="noMore" wx:if="{{filterList.isRequire && recommendList.list.length}}">
-    <view class="icon"></view>
-    <view class="txt">暂时没有更多符合条件的结果，下面为你推荐可能相关的机会</view>
-  </view>
-  <view class="list-box" wx:if="{{recommendList.isLastPage}}">
-    <waterfallFlow hasGuide="{{true}}" wx:key="recommendList"  my-class="waterfallFlow" id="recommendList" flowClass="{{'recommendList'}}" value="{{recommendList.list}}" page="{{recommendList.pageNum - 1}}"></waterfallFlow>
-    <bottomStatus hasMoreSlot="{{true}}" status="{{recommendList.onBottomStatus}}" listData="[]" hasImg="{{recommendList.list.length ? false : true}}" marginTop="{{30}}" desc="一大批优质机会即将上线~">
+  <block wx:if="{{filterList.isRequire}}">
+    <view class="list-box" wx:if="{{filterList.list.length}}">
+      <waterfallFlow hasGuide="{{true}}" wx:key="filterList" my-class="waterfallFlow" id="filterList" flowClass="{{'filterList'}}" value="{{filterList.list}}" page="{{filterList.pageNum - 1}}"></waterfallFlow>
+    </view>
+    <bottomStatus wx:if="{{!recommendList.list.length}}" hasMoreSlot="{{true}}" status="{{filterList.onBottomStatus}}" listData="{{filterList.list}}" marginTop="{{30}}" desc="一大批优质机会即将上线">
       <view class="moreBtn" data-route="specialJob" bindtap="routeJump">去看看急速约面机会<i class="icon iconfont icon-disejiantou-you"></i></view>
     </bottomStatus>
-  </view>
+  </block>
+
+  
+    <view class="noMore" wx:if="{{filterList.isRequire && recommendList.list.length}}">
+      <view class="icon"></view>
+      <view class="txt">暂时没有更多符合条件的结果，下面为你推荐可能相关的机会</view>
+    </view>
+  <block wx:if="{{recommendList.isRequire}}">
+    <view class="list-box" wx:if="{{recommendList.list.length}}">
+      <waterfallFlow hasGuide="{{true}}" wx:key="recommendList"  my-class="waterfallFlow" id="recommendList" flowClass="{{'recommendList'}}" value="{{recommendList.list}}" page="{{recommendList.pageNum - 1}}"></waterfallFlow>
+      <bottomStatus hasMoreSlot="{{true}}" status="{{recommendList.onBottomStatus}}" listData="[]" hasImg="{{recommendList.list.length ? false : true}}" marginTop="{{30}}" desc="一大批优质机会即将上线~">
+        <view class="moreBtn" data-route="specialJob" bindtap="routeJump">去看看急速约面机会<i class="icon iconfont icon-disejiantou-you"></i></view>
+      </bottomStatus>
+    </view>
+    <block wx:if="{{!filterList.list.length && !recommendList.list.length}}">
+      <bottomStatus status="{{2}}" listData="[]"  marginTop="{{30}}" desc="一大批优质机会即将上线~">
+        <view class="moreBtn" data-route="specialJob" bindtap="routeJump">去看看急速约面机会<i class="icon iconfont icon-disejiantou-you"></i></view>
+      </bottomStatus>
+    </block>
+  </block>
   <tabBar id="bottomRedDotBar"></tabBar>
   <bindPhone hide="{{hideLoginBox}}"></bindPhone>
   <adPop></adPop>

@@ -86,7 +86,7 @@
 		</view>
 	</view>
 	<view class="page_index_list">
-		<view class="default {{fixedDom ? 'fixed' : ''}}" style="{{ fixedDom ? 'top:' + navH + 'px' : ''}}" wx:if="{{positionLists.list.length}}">
+		<view class="default {{fixedDom ? 'fixed' : ''}}" style="{{ fixedDom ? 'top:' + navH + 'px' : ''}}" wx:if="{{detail.positionNum}}">
 			<scroll-view scroll-with-animation scroll-x class="tab-bar" bindscroll="scrollViewMove" scroll-left='{{scrollLeft}}'>
 		  	<view
 			  	wx:for="{{positionLists.list}}"
@@ -102,7 +102,7 @@
 				<view class="down" bindtap="openTips" data-type="position"><i class="icon iconfont icon-zhishibiao"></i></view>
 			</view>
 		</view>
-		<view class="placeholder" hidden="{{!fixedDom}}" wx:if="{{positionLists.list.length}}"></view>
+		<view class="placeholder" hidden="{{!fixedDom}}" wx:if="{{detail.positionNum}}"></view>
 
 		<view class="list-box" wx:if="{{detail.positionNum || resumeList.list.length}}">
 			<form bindsubmit="formSubmit" report-submit="{{true}}" wx:if="{{resumeList.list.length}}">
