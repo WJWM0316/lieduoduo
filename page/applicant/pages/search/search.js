@@ -179,7 +179,7 @@ Page({
       }
       tabIndex === 1 ? setData[`${listType}.list[${listData.pageNum - 1}]`] = res.data : res.data.length ? setData[`${listType}.list`] = res.data : null
       this.setData(setData, () => {
-        if (this.data.positionData.isLastPage && !this.data.tabIndex && !this.data.getRecommend) {
+        if (app.globalData.hasLogin && this.data.positionData.isLastPage && !this.data.tabIndex && !this.data.getRecommend) {
           this.setData({getRecommend: 1}, () => {
             lock = true
             this.getSearchData(false).then(res => {

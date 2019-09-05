@@ -6,11 +6,11 @@
 		<view class="desc">精英人才招聘神器</view>
 	</view>
   <form bindsubmit="formSubmit" report-submit='{{true}}'>
-    <button class="role1" form-type="submit" bindtap='jump' data-identity="APPLICANT" open-type="getUserInfo" bindgetuserinfo="onGotUserInfo" lang="zh_CN">
+    <button class="role1" form-type="submit" bindtap='jump' data-identity="APPLICANT">
     	<view class="desc">我是求职者<icon class="icon iconfont icon-disejiantou-you"></icon></view>
     	<image class="img" src="{{cdnImagePath}}choseIcon2.png"></image>
     </button>
-    <button class="role2" form-type="submit" bindtap='jump' data-identity="RECRUITER" open-type="getUserInfo" bindgetuserinfo="onGotUserInfo" lang="zh_CN">
+    <button class="role2" form-type="submit" bindtap='jump' data-identity="RECRUITER">
     	<view class="desc">我是面试官<icon class="icon iconfont icon-disejiantou-you"></icon></view>
     	<image class="img" src="{{cdnImagePath}}choseIcon3.png"></image>
     </button>

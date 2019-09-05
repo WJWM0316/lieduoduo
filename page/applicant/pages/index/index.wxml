@@ -50,14 +50,14 @@
     <view class="icon"></view>
     <view class="txt">暂时没有更多符合条件的结果，下面为你推荐可能相关的机会</view>
   </view>
-  <view class="list-box" wx:if="{{recommendList.list.length}}">
+  <view class="list-box" wx:if="{{recommendList.isLastPage}}">
     <waterfallFlow hasGuide="{{true}}" wx:key="recommendList"  my-class="waterfallFlow" id="recommendList" flowClass="{{'recommendList'}}" value="{{recommendList.list}}" page="{{recommendList.pageNum - 1}}"></waterfallFlow>
     <bottomStatus hasMoreSlot="{{true}}" status="{{recommendList.onBottomStatus}}" listData="[]" hasImg="{{recommendList.list.length ? false : true}}" marginTop="{{30}}" desc="一大批优质机会即将上线~">
       <view class="moreBtn" data-route="specialJob" bindtap="routeJump">去看看急速约面机会<i class="icon iconfont icon-disejiantou-you"></i></view>
     </bottomStatus>
   </view>
   <tabBar id="bottomRedDotBar"></tabBar>
-  <bindPhone hide="{{hideLoginBox}}" hasClose="{{false}}"></bindPhone>
+  <bindPhone hide="{{hideLoginBox}}"></bindPhone>
   <adPop></adPop>
   <followWechat wx:if="{{userInfo}}"></followWechat>
   <filterPop openPop="{{openPop}}" filterType="{{filterType}}" filterResult="{{filterResult}}" bindFilterResult="getFilterResult"></filterPop>

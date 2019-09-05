@@ -9,7 +9,8 @@ Page({
     cdnImagePath: app.globalData.cdnImagePath,
     telePhone: app.globalData.telePhone,
     isJobhunter: 0,
-    list: []
+    list: [],
+    hideLoginBox: true
   },
   /**
    * 生命周期函数--监听页面加载
@@ -28,6 +29,10 @@ Page({
         delta: 1
       })
     } else {
+      if (!app.globalData.hasLogin) {
+        this.setData({hideLoginBox: false})
+        return
+      }
       wx.navigateTo({
         url: `${APPLICANT}createUser/createUser?from=${from}`
       })

@@ -23,3 +23,4 @@
 	</view>
 </view>
 <barrage list="{{list}}" wx:if="{{list.length}}"  my-class="barrage" my-item-class="barrage_item"></barrage>
+<bindPhone hide="{{hideLoginBox}}"></bindPhone>

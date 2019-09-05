@@ -24,7 +24,7 @@
 	},
 	"compileType": "miniprogram",
 	"libVersion": "2.7.1",
-	"appid": "wx225f017495e6e195",
+	"appid": "wxde5ab3ef647fba86",
 	"projectname": "lieduoduo",
 	"debugOptions": {
 		"hidedInDevtools": []
@@ -49,7 +49,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 60,
+			"current": 63,
 			"list": [
 				{
 					"id": 0,
@@ -471,6 +471,13 @@
 					"name": "急速约面",
 					"pathName": "page/applicant/pages/specialJob/specialJob",
 					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "测试某个用户",
+					"pathName": "page/common/pages/testBugPage/testBugPage",
+					"query": "uid=3132",
 					"scene": null
 				}
 			]

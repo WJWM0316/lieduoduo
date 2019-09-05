@@ -123,9 +123,6 @@ Page({
       }
     }
   },
-  onReady () {
-    this.getDomNodePosition()
-  },
   init () {
     if (wx.getStorageSync('choseType') !== 'RECRUITER') return
     let userInfo = app.globalData.userInfo
@@ -201,12 +198,12 @@ Page({
    * @return   {[type]}   [description]
    */
   getDomNodePosition() {
-    if (!this.data.detail.positionNum) return
+    // if (!this.data.positionLists.list.length) return
     setTimeout(() => {
       getSelectorQuery('.default').then(res => {
         if(!fixedDomPosition) fixedDomPosition = res.top - this.data.navH
       })
-    }, 1000)
+    }, 300)
   },
   /**
    * @Author   小书包
@@ -964,8 +961,8 @@ Page({
             if(!resumeList.list.length) this.getRecommendResumeMoreLists()
           })
         }
-
         this.setData({positionLists, cityLists, salaryLists, recommended, dealMultipleSelection}, () => resolve(res))
+        this.getDomNodePosition()
       })
     })
   },

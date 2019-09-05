@@ -82,14 +82,16 @@ Page({
   jump (e) {
     let type = e.currentTarget.dataset.type
     if (this.data.options.type === 'myBrowse') {
-      if (type === 'index') {
-        wx.navigateTo({
-          url: `${APPLICANT}index/index`
-        })
-      } else {
-        wx.navigateTo({
-          url: `${APPLICANT}createUser/createUser`
-        })
+      switch (type) {
+        case 'index':
+          wx.navigateTo({url: `${APPLICANT}index/index`})
+          break
+        case 'create':
+          wx.navigateTo({url: `${APPLICANT}createUser/createUser`})
+          break
+        case 'login':
+          wx.navigateTo({url: `${COMMON}bindPhone/bindPhone`})
+          break
       }
     } else {
       wx.navigateTo({

@@ -179,6 +179,8 @@ Page({
       wx.navigateTo({url: `${APPLICANT}createUser/createUser`})
     } else if (type === 'rank') {
       wx.navigateTo({url: `${COMMON}rank/rank`})
+    } else if (type === 'login') {
+      wx.navigateTo({url: `${COMMON}bindPhone/bindPhone`})
     }
   }
 })

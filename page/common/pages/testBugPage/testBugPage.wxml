@@ -1,0 +1,4 @@
+<navbar title="登录用户账号"></navbar>
+
+<input type="text" class="token" bindblur="bindblur" placeholder="输入用户token值"/>
+<button class="setToken" bindtap="setToken">设置token</button>

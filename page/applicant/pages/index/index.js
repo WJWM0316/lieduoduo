@@ -305,7 +305,7 @@ Page({
     getAdBannerApi().then(res => {
       let list = res.data
       // 没有创建简历的 新增一个banner位
-      if (!app.globalData.isJobhunter) {
+      if (app.globalData.hasLogin && !app.globalData.isJobhunter) {
         let item = {
           bigImgUrl: "https://attach.lieduoduo.ziwork.com/front-assets/images/banner_resumeX.png",
           smallImgUrl:"https://attach.lieduoduo.ziwork.com/front-assets/images/banner_resume.png",

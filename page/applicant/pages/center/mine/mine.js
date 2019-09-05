@@ -44,8 +44,10 @@ Page({
     }
     if(app.pageInit) {
       init()
-    } app.pageInit = () => {
-      init()
+    } else {
+      app.pageInit = () => {
+        init()
+      }
     }
   },
   getMyInfo () {

@@ -23,12 +23,15 @@ Component({
         wx.setStorageSync('code', res0.code)
       }
     })
+
     let choseType = wx.getStorageSync('choseType') || null
     if (choseType) {
       this.setData({
         isChose: true
       })
     }
+
+
   },
   /**
    * 组件的方法列表
@@ -38,28 +41,23 @@ Component({
       app.postFormId(e.detail.formId)
     },
     jump(e) {
+      let url = ''
       if (e.currentTarget.dataset.identity === 'APPLICANT') {
         identity = 'APPLICANT'
+        url = `${APPLICANT}index/index`
       } else {
         identity = 'RECRUITER'
+        url = `${RECRUITER}index/index`
       }
       wx.setStorageSync('choseType', identity)
-    },
-    onGotUserInfo(e) {
-      getApp().onGotUserInfo(e, true).then(res => {
-        if (identity === 'RECRUITER') {
-          wx.reLaunch({
-            url: `${RECRUITER}index/index`
-          })
-        } else {
-          wx.reLaunch({
-            url: `${APPLICANT}index/index`
-          })
-          this.setData({
-            isChose: true
-          })
-        }
-      })
+      if (app.globalData.hasLogin) {
+        app.getAllInfo().then(res => {
+          this.setData({isChose: true})
+          wx.reLaunch({url})
+        })
+      } else {
+        wx.reLaunch({url})
+      }
     }
   }
 })

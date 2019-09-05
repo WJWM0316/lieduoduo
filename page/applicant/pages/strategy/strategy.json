@@ -1,5 +1,6 @@
 {
   "usingComponents": {
-  	"barrage": "../../../../components/layout/barrage/barrage"
+  	"barrage": "../../../../components/layout/barrage/barrage",
+  	"bindPhone": "../../../../components/functional/bindPhone/bindPhone"
   }
 }

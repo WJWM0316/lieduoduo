@@ -18,6 +18,7 @@ Page({
     cdnImagePath: app.globalData.cdnImagePath,
     navH: app.globalData.navHeight,
     isJobhunter: app.globalData.isJobhunter,
+    hasLogin: app.globalData.hasLogin,
     myBrowse: {
       list: [],
       pageNum: 1,
@@ -58,7 +59,7 @@ Page({
   },
   init() {
     this.selectComponent('#bottomRedDotBar').init()
-    this.setData({isJobhunter: app.globalData.isJobhunter, redDot: app.globalData.redDotInfos})
+    this.setData({isJobhunter: app.globalData.isJobhunter, hasLogin: app.globalData.hasLogin, redDot: app.globalData.redDotInfos})
     this.getLists().then(() => this.getDomNodePosition())
   },
   getDomNodePosition() {
@@ -142,12 +143,19 @@ Page({
   },
   jump(e) {
     let type = e.currentTarget.dataset.type
-    if(type === 'positionList') {
-      wx.reLaunch({url: `${APPLICANT}index/index`})
-    } else if (type === 'rank') {
-      wx.navigateTo({url: `${COMMON}rank/rank`})
-    } else if (type === 'create') {
-      wx.navigateTo({url: `${APPLICANT}createUser/createUser`})
+    switch (type) {
+      case 'positionList':
+        wx.reLaunch({url: `${APPLICANT}index/index`})
+        break
+      case 'rank':
+        wx.navigateTo({url: `${COMMON}rank/rank`})
+        break
+      case 'create':
+        wx.navigateTo({url: `${APPLICANT}createUser/createUser`})
+        break
+      case 'login':
+        wx.navigateTo({url: `${COMMON}bindPhone/bindPhone`})
+        break
     }
   },
   formSubmit(e) {

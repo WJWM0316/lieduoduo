@@ -231,7 +231,11 @@ Page({
         }
         break
       case 'createUser':
-      let from = touch.from
+        if (!app.globalData.hasLogin) {
+          this.setData({hideLoginBox: false})
+          return
+        }
+        let from = touch.from
         wx.navigateTo({
           url: `${APPLICANT}createUser/createUser?from=${from}`
         })
