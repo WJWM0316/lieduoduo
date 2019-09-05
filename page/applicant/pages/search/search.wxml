@@ -32,7 +32,7 @@
 		    <waterfallFlow wx:key="positionData" my-class="waterfallFlow" id="positionData" flowClass="{{'positionData'}}" value="{{positionData.list}}" page="{{positionData.pageNum - 1}}" isLastPage="{{positionData.isLastPage}}" bindwxNextTick="wxNextTick"></waterfallFlow>
 		  </view>
 
-		  <bottomStatus wx:if="{{!positionData.list.length && positionData.isLastPage}}" status="{{positionData.onBottomStatus}}" listData="{{positionData.list}}" marginTop="{{30}}" desc="暂时没有符合条件的结果～">
+		  <bottomStatus hasMoreSlot="{{true}}" wx:if="{{!positionData.list.length && positionData.isLastPage}}" status="{{positionData.onBottomStatus}}" listData="{{positionData.list}}" marginTop="{{30}}" desc="暂时没有符合条件的结果～">
 		  	<view class="guideBto" bindtap="routeJump" data-route="specialJob">发现更多优质机会</view>
 		  </bottomStatus>
 
@@ -46,7 +46,7 @@
 		  <view class="list-box" wx:if="{{recommendList.list.length}}">
 		    <waterfallFlow wx:key="recommendList"  my-class="waterfallFlow" id="recommendList" flowClass="recommendList" value="{{recommendList.list}}" page="{{recommendList.pageNum}}"></waterfallFlow>
 	  	</view>
-	  	<bottomStatus status="{{recommendList.onBottomStatus}}" hasImg="{{false}}" listData="{{recommendList.list}}" marginTop="{{30}}" desc="一大批优质机会即将上线">
+	  	<bottomStatus hasMoreSlot="{{true}}" status="{{recommendList.onBottomStatus}}" hasImg="{{false}}" listData="{{recommendList.list}}" marginTop="{{30}}" desc="一大批优质机会即将上线">
 		    <view class="moreBtn" data-route="specialJob" bindtap="routeJump">去看看急速约面机会<i class="icon iconfont icon-disejiantou-you"></i></view>
 		  </bottomStatus>
 	  </view>

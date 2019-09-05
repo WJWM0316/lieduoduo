@@ -17,7 +17,6 @@ Component({
           if (!this.data.page) this.floor = newVal.length > 6 ? 6 : newVal.length
           if (app.globalData.hasLogin && this.data.hasGuide) newVal = this.appendCard(newVal)
           this.setData({[`listData[${this.data.page}]`]: newVal}, () => {
-            console.log(1111111111111, this.data.listData)
             this.updata()
           })
         })
@@ -243,7 +242,6 @@ Component({
             if (index === list.length - 1) {
               let wrapH = this.heightGroup[maxFun(this.heightGroup)]
               this.setData({[`listData[${pageIndex}]`]: list, wrapH}, () => {
-                console.log(222222222222, this.data.listData)
               })
             }
           })

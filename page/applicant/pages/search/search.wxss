@@ -342,7 +342,7 @@
 	float: left;
 }
 .companyList .company-item .infos .other .other-item:first-child {
-	margin-right: 22rpx;
+	margin-right: 48rpx;
 }
 .companyList .company-item .infos .other .num {
 	color: #8452A7;
@@ -350,6 +350,7 @@
 .companyList .company-item .infos .other .icon {
 	font-size: 26rpx;
 	margin-right: 16rpx;
+  color: #BCBCBC;
 }
 
 .guideBto {

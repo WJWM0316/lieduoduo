@@ -12,7 +12,6 @@ Component({
     showPop: false,
     authPop: false,
   },
-
   attached () {
     this.setData({officialId: app.globalData.officialId, userInfo: app.globalData.userInfo})
   },

@@ -10,6 +10,10 @@ Component({
       type: Boolean,
       value: true
     },
+    hasMoreSlot: {
+      type: Boolean,
+      value: false
+    },
     listData: {
       type: Array,
       value: []

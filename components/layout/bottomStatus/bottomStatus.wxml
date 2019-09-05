@@ -2,7 +2,7 @@
 	<image class="loading status" wx:if="{{status === 1}}" src='{{cdnImagePath}}gif_listloading@3x.gif'></image>
 	<view class="txt status" wx:if="{{status === 2 && listData.length > 0}}" style="margin-top: {{marginTop}}rpx">
 		<view><text class="moreDesc">{{moreDesc}}</text></view>
-		<slot></slot>
+		<block wx:if="{{hasMoreSlot}}"><slot></slot></block>
 	</view>
 	<view class="txt" wx:if="{{status === 2 && listData.length === 0}}" style="margin-top: {{marginTop}}rpx">
 		<image class="pic" src="{{cdnImagePath}}emptyState.png" wx:if="{{hasImg}}"></image>

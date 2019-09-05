@@ -73,9 +73,13 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom() {
-    let key = this.data.tab
-    this.setData({onBottomStatus: 1})
-    if (!this.data[key].isLastPage) this.getLists()
+    let key = this.data.tab,
+        type = ''
+    
+    key === 'interestList' ? type = 'viewList' : type = 'interestList'
+    this.setData({[`${key}.onBottomStatus`]: 1})
+    console.log(type, this.data[type].isLastPage)
+    if (!this.data[type].isLastPage) this.getLists()
   },
   /**
    * @Author   小书包
@@ -139,13 +143,13 @@ Page({
       let params = {count: this.data.pageCount, page: this.data.interestList.pageNum}
       getBrowseMySelfApi(params, hasLoading).then(res => {
         let interestList = this.data.interestList
-        let onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
+        interestList.onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
         interestList.list = interestList.list.concat(res.data)
-        interestList.isLastPage = res.meta && res.meta.nextPageUrl ? false : true
+        interestList.isLastPage = res.meta && !res.meta.nextPageUrl ? true : false
         interestList.pageNum = interestList.pageNum + 1
         interestList.isRequire = true
         interestList.total = res.meta.total
-        this.setData({interestList, onBottomStatus}, () => resolve(res))
+        this.setData({interestList}, () => resolve(res))
       })
     })
   },
@@ -159,13 +163,13 @@ Page({
     return new Promise((resolve, reject) => {
       let params = {count: this.data.pageCount, page: this.data.viewList.pageNum}
       getCollectMySelfApi(params, hasLoading).then(res => {
-        let onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
         let viewList = this.data.viewList
-        viewList.isLastPage = res.meta.nextPageUrl ? false : true
+        viewList.onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
+        viewList.isLastPage = res.meta && !res.meta.nextPageUrl ? true : false
         viewList.pageNum = viewList.pageNum + 1
         viewList.isRequire = true
         viewList.list = viewList.list.concat(res.data)
-        this.setData({viewList, onBottomStatus}, () => resolve(res))
+        this.setData({viewList}, () => resolve(res))
       })
     })
   },
