@@ -41,7 +41,7 @@ Page({
     bannerIndex: 0,
     bannerList: [],
     moreRecruiter: [],
-    bannerH: 200,
+    bannerH: 240,
     requireOAuth: false,
     cdnImagePath: app.globalData.cdnImagePath,
     userInfo: app.globalData.userInfo,
@@ -304,8 +304,8 @@ Page({
       // 没有创建简历的 新增一个banner位
       if (app.globalData.hasLogin && !app.globalData.isJobhunter) {
         let item = {
-          bigImgUrl: "https://attach.lieduoduo.ziwork.com/front-assets/images/banner_resumeX.png",
-          smallImgUrl:"https://attach.lieduoduo.ziwork.com/front-assets/images/banner_resume.png",
+          bigImgUrl: "https://attach.lieduoduo.ziwork.com/front-assets/images/banner_resumeX1.png",
+          smallImgUrl:"https://attach.lieduoduo.ziwork.com/front-assets/images/banner_resume1.png",
           targetUrl: `page/applicant/pages/createUser/createUser?from=3&fromType=guideCard&firstIndex=0&secondIndex=6`,
           type: 'create'
         }
@@ -322,17 +322,18 @@ Page({
       }
       let background = this.data.background
       if (!list.length && this.data.background !== '#652791')  background = '#652791'
-      this.setData({bannerList: list, background}, () => {
-        if (list.length) {
-          getSelectorQuery('.banner').then(res => {
-            let bannerH = res.height
-            this.setData({bannerH})
-          })
-        }
-      })
+      this.setData({bannerList: list, background})
       getSelectorQuery('.select-box').then(res => {
         tabTop = res.top - res.height
       })
+    })
+  },
+  bannerLoad (e) {
+    let index = e.currentTarget.dataset.index
+    if (index) return
+    getSelectorQuery('.banner').then(res => {
+      let bannerH = res.height
+      this.setData({bannerH})
     })
   },
   authSuccess() {

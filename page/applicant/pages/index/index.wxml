@@ -18,8 +18,7 @@
         style="height: {{bannerH}}px"
         >
         <swiper-item wx:for="{{bannerList}}" wx:key="{{index}}" bindtap="jumpBanner" data-url="{{item.targetUrl || item.otherUrl}}">
-          <image class="banner" wx:if="{{isBangs}}" src="{{item.bigImgUrl}}" mode="widthFix"></image>
-          <image class="banner" wx:else src="{{item.smallImgUrl}}" mode="widthFix"></image>
+          <image data-index="{{index}}" bindload="bannerLoad" class="banner" src="{{isBangs ? item.bigImgUrl : item.smallImgUrl}}" mode="widthFix"></image>
         </swiper-item>
       </swiper>
       <view class="swiper-dots" wx:if="{{bannerList.length > 1}}">

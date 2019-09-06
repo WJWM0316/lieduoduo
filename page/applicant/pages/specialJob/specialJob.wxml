@@ -53,7 +53,7 @@
 						bindtap="routeJump"
 						wx:key="{{item.id}}">
 							<view class="position_head">
-								<image class="company_logo" mode="aspectFit" src="{{item.logo}}"></image>
+								<image lazy-load class="company_logo" mode="aspectFit" src="{{item.logo}}"></image>
 								<view class="company_name ellipsis">{{item.companyShortname}}</view>
 								<view class="company_detail ellipsis">{{item.industry}}<block wx:if="{{item.industry && item.employeesInfo}}">·</block>{{item.employeesInfo}}<block wx:if="{{item.employeesInfo && item.financingInfo}}">·</block>{{item.financingInfo}}</view>
 							</view>
@@ -105,7 +105,7 @@
 						bindtap="routeJump"
 						wx:key="{{item.id}}">
 							<view class="position_head">
-								<image class="company_logo" mode="aspectFit" src="{{item.logo}}"></image>
+								<image lazy-load class="company_logo" mode="aspectFit" src="{{item.logo}}"></image>
 								<view class="company_name ellipsis">{{item.companyShortname}}</view>
 								<view class="company_detail ellipsis">{{item.industry}}<block wx:if="{{item.industry && item.employeesInfo}}">·</block>{{item.employeesInfo}}<block wx:if="{{item.employeesInfo && item.financingInfo}}">·</block>{{item.financingInfo}}</view>
 							</view>
