@@ -51,7 +51,6 @@ Page({
     this.setData({title, options})
     getImgFun(params).then(res => {
       if (res.data.posterData) wx.setStorageSync('posterData', res.data.posterData)
-      
       this.setData({imgUrl: res.data.url})
     })
   },

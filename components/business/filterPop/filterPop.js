@@ -183,8 +183,12 @@ Component({
             if (!filter.topIndex) filter['positionType'][filter.topIndex].children[0].active = true
             this.setData({[`filter.topIndex`]: filter.topIndex})
           } else {
+
+            if (!item.labelId) {
+              filter.topIndex = 0
+            }
             typeData = filter['positionType'][filter.topIndex].children
-            type     = `filter.positionType[${filter.topIndex}].children`
+            type = `filter.positionType[${filter.topIndex}].children`
           }
           break
       }
@@ -198,12 +202,16 @@ Component({
           active = typeData[dataset.topindex].active || false
           typeData[dataset.topindex].active = !active
         } else {
+          if (!item.labelId) {
+            this.setData({[`filter.positionType[0].active`]: true})
+          }
           // 重置之前的选项
-          filter['positionType'][lastTopIndex].children.filter(item => {
-            if (item.active) item.active = false
+          filter['positionType'][lastTopIndex].children.filter(item0 => {
+            if (item0.active) item0.active = false
           })
           active = typeData[dataset.index].active || false
           typeData[dataset.index].active = !active
+          
         }
         this.setData({[`${type}`]: typeData})
       } else {

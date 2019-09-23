@@ -17,4 +17,12 @@
   </form>
   <!-- <image class="ad" src="{{cdnImagePath}}ad.png"></image> -->
   <!-- <bindPhone></bindPhone> -->
+  <view class="showRule" wx:if="{{showRule}}">
+    <view class="rulePop">
+      <i class="close iconfont icon-close" bindtap="close"></i>
+      <view class="txt">根据<text class="main">《中华人民共和国网络安全法》</text>要求，自2017年6月1日起使用信息发布、即时通讯等互联网服务<text class="main">需进行身份信息严重</text>。为保障您的使用体验，建议尽快完成<text class="main">手机号绑定严重</text>，感谢您的理解和支持。</view>
+      <view class="label" catchtap="look"><i class="icon iconfont {{looked ? 'clicker' : ''}}"></i>请阅读并同意 <text class="rule" catchtap="toRule">《猎多多用户协议》</text></view>
+      <view class="btn" bindtap="bindPhone">去绑定</view>
+    </view>
+  </view>
 </view>

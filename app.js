@@ -181,16 +181,11 @@ App({
         getPersonalResumeApi().then(res0 => {
           this.globalData.resumeInfo = res0.data
           this.globalData.isJobhunter = 1
-          this.globalData.hasExpect = 1
+          this.globalData.hasExpect = res0.data.expects.length ? 1 : 0
           pageInit()
           resolve(res0.data)
         }).catch((e) => {
           reject(e)
-          if (e.data.hasExpect === 0) {
-            this.globalData.hasExpect = 0
-          } else {
-            this.globalData.hasExpect = 1
-          }
           pageInit()
         })
       }
@@ -229,6 +224,7 @@ App({
     let that = this
     return new Promise((resolve, reject) => { 
       let sessionToken = wx.getStorageSync('sessionToken')
+      if (!sessionToken) return
       checkSessionKeyApi({session_token: sessionToken}).then(res0 => {
         wx.getUserInfo({
           success: res => {
@@ -329,7 +325,8 @@ App({
     if (e.detail.errMsg === 'getPhoneNumber:ok') {
       let data = {
         iv_key: e.detail.iv,
-        data: e.detail.encryptedData
+        data: e.detail.encryptedData,
+        code: wx.getStorageSync('code')
       }
       return new Promise((resolve, reject) => {
         quickLoginApi(data).then(res => {
@@ -409,6 +406,10 @@ App({
                 if (operType === 'cIndex') {
                   wx.reLaunch({
                     url: `${APPLICANT}index/index`
+                  })
+                } else if (operType === 'bIndex') {
+                  wx.reLaunch({
+                    url: `${RECRUITER}index/index`
                   })
                 } else {
                   if (getCurrentPages().length > 1) {

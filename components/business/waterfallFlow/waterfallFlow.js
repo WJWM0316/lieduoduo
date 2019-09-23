@@ -1,7 +1,10 @@
 import {getSelectorQuery} from '../../../utils/util.js'
 import {COMMON, APPLICANT, RECRUITER} from '../../../config.js'
 const app = getApp()
-let lock = false
+let appendCreatUser = 0,
+    appendUserInfoEdit = 0,
+    appendItemEdit = 0,
+    appendMoreEdit = 0
 Component({
   externalClasses: ['my-class'],
   /**
@@ -58,12 +61,19 @@ Component({
   },
 
   attached () {
+
     this.leftGrounp    = []     // 每竖的left值集合
     this.heightGroup   = []     // 每竖的高度集合
     this.minIndex      = 0      // 高度最小的一竖索引
     this.curDataGroupIndex = 0  // 开始渲染的排数
     this.floor = 6
     this.totalItem = 0
+  },
+  detached: function() {
+    appendCreatUser = 0
+    appendUserInfoEdit = 0
+    appendItemEdit = 0
+    appendMoreEdit = 0
   },
   pageLifetimes: {
     // 组件所在页面的生命周期函数
@@ -94,6 +104,9 @@ Component({
           })
         })
       }
+    },
+    hide: function () {
+      
     }
   },
 
@@ -121,38 +134,42 @@ Component({
             
       // 添加创建简历 引导卡片
       if (this.totalItem >= this.floor && !app.globalData.isJobhunter) {
-        if (!appended('creatUser')) {
+        if (!appendCreatUser && !appended('creatUser')) {
           setIndex()
           newVal.splice(index, 0, {cardType: 'creatUser'})
           this.totalItem++
+          appendCreatUser = 1
         }
       }
       if (app.globalData.isJobhunter) {
         // 添加项目经历 引导卡片
         if (this.totalItem >= this.floor && !app.globalData.resumeInfo.projects.length) {
-          if (!appended('itemEdit')) {
+          if (!appendItemEdit && !appended('itemEdit')) {
             setIndex()
             newVal.splice(index, 0, {cardType: 'itemEdit'})
             this.floor += 10
             this.totalItem++
+            appendItemEdit = 1
           }
         }
         // 添加完善个人信息 引导卡片
         if (this.totalItem >= this.floor && !app.globalData.resumeInfo.jobStatus) {
-          if (!appended('userInfoEdit')) {
+          if (!appendUserInfoEdit && !appended('userInfoEdit')) {
             setIndex()
             newVal.splice(index, 0, {cardType: 'userInfoEdit'})
             this.floor += 10
             this.totalItem++
+            appendUserInfoEdit = 1
           }
         }
         
         // 添加更多介绍 引导卡片
         if (this.totalItem >= this.floor && !app.globalData.resumeInfo.moreIntroduce.introduce && !app.globalData.resumeInfo.moreIntroduce.imgs.length) {
-          if (!appended('moreEdit')) {
+          if (!appendMoreEdit && !appended('moreEdit')) {
             setIndex()
             newVal.splice(index, 0, {cardType: 'moreEdit'})
             this.totalItem++
+            appendMoreEdit = 1
           }
         }
       }

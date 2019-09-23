@@ -52,13 +52,17 @@ Page({
             path: app.getCurrentPagePath(),
             imageUrl: imgUrl
           }
+          console.log(options.t)
+          console.log(decodeURIComponent(options.t))
+          console.log(imgUrl)
         }
-        if (path.indexOf('?')) {
+        if (path.indexOf('?') !== -1) {
           pageUrl = `${path}&sessionToken=${sessionToken}&token=${token}`
         } else {
           pageUrl = `${path}?sessionToken=${sessionToken}&token=${token}`
         }
         console.log(pageUrl)
+
       }
       this.setData({pageUrl})
     }
@@ -100,7 +104,8 @@ Page({
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
-
+    wxShare = {}
+    options = {}
   },
 
   /**

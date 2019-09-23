@@ -14,7 +14,9 @@ Component({
    * 组件的初始数据
    */
   data: {
+    looked: true,
     isChose: false,
+    showRule: false,
     cdnImagePath: getApp().globalData.cdnImagePath
   },
   attached: function () {
@@ -40,6 +42,26 @@ Component({
     formSubmit(e) {
       app.postFormId(e.detail.formId)
     },
+    look () {
+      let looked = this.data.looked
+      this.setData({looked: !looked})
+    },
+    bindPhone () {
+      if (!this.data.looked) {
+        app.wxToast({title: '请先阅读并同意《猎多多用户协议》'})
+        return
+      }
+      wx.setStorageSync('choseType', 'RECRUITER')
+      wx.navigateTo({url: `${COMMON}bindPhone/bindPhone?backType=bIndex`})
+      this.setData({showRule: false})
+    },
+    close () {
+      this.setData({showRule: false})
+    },
+    toRule () {
+      wx.navigateTo({url: `${COMMON}webView/webView?type=userAgreement`})
+      wx.removeStorageSync('choseType')
+    },
     jump(e) {
       let url = ''
       if (e.currentTarget.dataset.identity === 'APPLICANT') {
@@ -50,6 +72,7 @@ Component({
         url = `${RECRUITER}index/index`
       }
       wx.setStorageSync('choseType', identity)
+
       if (app.globalData.hasLogin) {
         app.getAllInfo().then(res => {
           this.setData({isChose: true})
@@ -59,6 +82,10 @@ Component({
           wx.reLaunch({url})
         })
       } else {
+        if (!this.data.showRule && identity === 'RECRUITER') {
+          this.setData({showRule: true})
+          return
+        }
         wx.reLaunch({url})
       }
     }

@@ -17,7 +17,7 @@
   text-align: center;
   position: absolute;
   left: 0;
-  bottom: 113rpx;
+  bottom: 30rpx;
   font-size: 0;
 }
 .swiper-dots-item {

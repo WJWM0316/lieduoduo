@@ -97,7 +97,7 @@ Page({
   },
   init () {
     if (!app.globalData.hasLogin) {
-      this.setData({hideLoginBox: false})
+      // this.setData({hideLoginBox: false})
     } else {
       if (app.getRoleInit) {
         this.setData({isJobhunter: app.globalData.isJobhunter})

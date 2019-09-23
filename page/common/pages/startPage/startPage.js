@@ -13,19 +13,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    let choseType = wx.getStorageSync('choseType')
-    switch(choseType) {
-      case 'RECRUITER':
-        wx.redirectTo({
-          url: `${RECRUITER}index/index`
-        })
-        break
-      case 'APPLICANT':
-        wx.redirectTo({
-          url: `${APPLICANT}index/index`
-        })
-        break
-    }
+    
   },
 
   /**
@@ -39,7 +27,19 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    let choseType = wx.getStorageSync('choseType')
+    switch(choseType) {
+      case 'RECRUITER':
+        wx.redirectTo({
+          url: `${RECRUITER}index/index`
+        })
+        break
+      case 'APPLICANT':
+        wx.redirectTo({
+          url: `${APPLICANT}index/index`
+        })
+        break
+    }
   },
 
   /**

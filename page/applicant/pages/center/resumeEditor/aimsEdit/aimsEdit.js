@@ -46,10 +46,12 @@ Page({
     let addIntention = wx.getStorageSync('addIntention')
     if (result) {
       info.fields = result
+      wx.removeStorageSync('skillsLabel')
     }
     if (position) {
       info.position = position.typeName
       info.positionId = position.type
+      wx.removeStorageSync('createPosition')
     }
     if (info.fields) {
       wx.setStorageSync('skillsLabel', info.fields)
@@ -64,13 +66,11 @@ Page({
       info.province = addIntention.provinceName
       info.city = addIntention.cityName
       info.cityNum = addIntention.city
+      wx.removeStorageSync('addIntention')
     }
     this.setData({info})
   },
-  onUnload: function () {
-    wx.removeStorageSync('addIntention')
-    wx.removeStorageSync('createPosition')
-    wx.removeStorageSync('skillsLabel')
+  onUnload: function () { 
   },
   /* 去选择页面(0、选择城市，1、选择职位，2、选择领域) */
   choose (e) {
@@ -93,8 +93,8 @@ Page({
     } else {
       info.cityNum = e.detail.propsResult[1]
       info.city = e.detail.propsDesc[1]
-      this.setData({info})
     }
+    this.setData({info})
   },
   // 保存修改
   save () {

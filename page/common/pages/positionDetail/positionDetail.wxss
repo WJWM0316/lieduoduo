@@ -549,12 +549,18 @@
 	float: right;
 	padding: 6rpx 0;
 }
+.findMore .right .imgBox {
+  display: inline-block;
+  margin-left: -10rpx;
+  background: #fff;
+  border: 1rpx solid #E8E9EB;
+  border-radius: 50%;
+  overflow: hidden;
+}
 .findMore .right .img {
 	width: 64rpx;
 	height: 64rpx;
-	border-radius: 50%;
-	margin-left: -10rpx;
-	display: inline-block;
+	display: block;
 }
 
 .notfound {

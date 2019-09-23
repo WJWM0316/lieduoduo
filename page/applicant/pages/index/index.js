@@ -106,11 +106,13 @@ Page({
         if (!bannerList.length)  background = '#652791'
         this.setData({bannerList, bannerIndex: 0, background})
       }
-      this.setData({hasExpect: app.globalData.hasExpect})
+      
       if (app.pageInit) {
+        this.setData({hasExpect: app.globalData.hasExpect})
         this.selectComponent('#bottomRedDotBar').init()
       } else {
         app.pageInit = () => {
+          this.setData({hasExpect: app.globalData.hasExpect})
           this.selectComponent('#bottomRedDotBar').init()
         }
       }
@@ -147,7 +149,7 @@ Page({
       }
     }
     if (!app.globalData.hasLogin) {
-      this.setData({hideLoginBox: false})
+      // this.setData({hideLoginBox: false})
     } else {
       timer = setTimeout(() => {
         jumpCreate()

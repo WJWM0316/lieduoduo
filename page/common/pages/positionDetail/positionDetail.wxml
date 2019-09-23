@@ -115,8 +115,8 @@
 					<view class="msg"><text class="desc">更多</text><text class='name'>{{detail.typeName}}</text><text class="desc">机会等你开撩</text></view>
 				</view>
 				<view class="right">
-					<image class="img" wx:for="{{findMore.companyLogos}}" wx:if="{{index < 3}}" mode="aspectFit" wx:key="{{index}}" src="{{item.smallUrl}}"></image>
-					<image class="img" wx:if="{{findMore.companyLogos && findMore.companyLogos.length > 3}}" src="{{cdnPath}}more.png"></image>
+					<viwe class="imgBox" wx:for="{{findMore.companyLogos}}" wx:if="{{index < 3}}" ><image class="img" mode="aspectFit" wx:key="{{index}}" src="{{item.smallUrl}}"></image></viwe>
+					<viwe class="imgBox" wx:if="{{findMore.companyLogos && findMore.companyLogos.length > 3}}" ><image class="img" src="{{cdnPath}}more.png"></image></viwe>
 				</view>
 			</view>
 		</block>

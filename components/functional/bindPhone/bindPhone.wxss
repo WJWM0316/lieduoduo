@@ -10,11 +10,19 @@
 }
 .tip {
   font-size:36rpx;
-  font-weight: 500;
-  color: #353943;
+  color: #282828;
+  font-weight: 700;
   line-height: 36rpx;
-  margin: 0 0 70rpx;
+  margin: 0 0 40rpx;
   text-align: center;
+}
+.txt {
+  font-size:28rpx;
+  color: #282828;
+  line-height: 28rpx;
+  margin: 0 0 40rpx;
+  text-align: center;
+  font-weight: 300;
 }
 .colse {
   width: 50rpx;
@@ -28,7 +36,6 @@
 }
 .bindPhone .inner {
   width: 650rpx;
-  height: 430rpx;
   padding: 60rpx 50rpx 56rpx;
   box-sizing: border-box;
   background: #fff;

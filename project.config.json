@@ -49,7 +49,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 63,
+			"current": 64,
 			"list": [
 				{
 					"id": 0,
@@ -478,6 +478,13 @@
 					"name": "测试某个用户",
 					"pathName": "page/common/pages/testBugPage/testBugPage",
 					"query": "uid=3132",
+					"scene": null
+				},
+				{
+					"id": 64,
+					"name": "webView",
+					"pathName": "page/common/pages/webView/webView",
+					"query": "p=https%3A%2F%2Fh5.lieduoduo.com%2Favailable_v4%3Ftype%3D1&t=%E7%AB%99%E5%9C%A8%E9%A3%8E%E5%8F%A3%E4%B8%8A%EF%BC%8C%E8%AE%A9%E6%95%99%E8%82%B2%E8%A1%8C%E4%B8%9A%E6%88%90%E5%B0%B1%E4%BD%A0%E7%9A%84%E9%AB%98%E8%96%AA%E6%9C%AA%E6%9D%A5%EF%BC%81&i=https%3A%2F%2Fattach.lieduoduo.ziwork.com%2Ffront-assets%2Favailable%2Fshare_img_v4.jpg",
 					"scene": null
 				}
 			]
