@@ -10,6 +10,7 @@
 		"postcss": true,
 		"minified": true,
 		"newFeature": true,
+		"coverView": true,
 		"nodeModules": true,
 		"autoAudits": false,
 		"uglifyFileName": false,
@@ -24,7 +25,7 @@
 	},
 	"compileType": "miniprogram",
 	"libVersion": "2.7.1",
-	"appid": "wxde5ab3ef647fba86",
+	"appid": "wx225f017495e6e195",
 	"projectname": "lieduoduo",
 	"debugOptions": {
 		"hidedInDevtools": []
@@ -49,7 +50,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 64,
+			"current": 13,
 			"list": [
 				{
 					"id": 0,
@@ -141,10 +142,10 @@
 					"scene": null
 				},
 				{
-					"id": 10,
+					"id": 13,
 					"name": "【C端】搜索页",
 					"pathName": "page/applicant/pages/search/search",
-					"query": "type=myCollect",
+					"query": "keyword=123&type=company",
 					"scene": null
 				},
 				{

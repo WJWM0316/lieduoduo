@@ -57,10 +57,32 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    let searchRecord = wx.getStorageSync('searchRecord') || []
-    if (searchRecord.length) this.setData({historyList: searchRecord})
-    this.setData({focus: true})
-    this.getHotKeyWordList()
+    let init = () => {
+      let searchRecord = wx.getStorageSync('searchRecord') || []
+      let tabIndex = 0
+      let setData = {}
+      if (searchRecord.length) setData.historyList = searchRecord
+      if (options.type) {
+        setData.tabIndex = options.type !== 'company' ? 0 : 1
+      }
+      if (options.keyword) {
+        keyword = options.keyword
+        setData.keyword = options.keyword
+        this.setData(setData)
+        this.updateHistory(keyword)
+        this.getSearchData()
+      }
+      this.setData({focus: true})
+      this.getHotKeyWordList()
+    }
+    if (app.loginInit) {
+      init()
+    } else {
+      app.loginInit = () => {
+        init()
+      }
+    }
+    
   },
   bindblur () {
     this.setData({hasFocus: false})
@@ -146,6 +168,7 @@ Page({
     })
   },
   getSearchData (hasLoading = true) {
+    console.log(this.data.keyword, 333333333333)
     let tabIndex     = this.data.tabIndex,
         keyword      = this.data.keyword,
         getRecommend = this.data.getRecommend,
@@ -189,7 +212,6 @@ Page({
         }
       })
     })
-  
   },
   getHotKeyWordList () {
     getHotKeyWordListApi().then(res => {
