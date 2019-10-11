@@ -1,12 +1,13 @@
 <view class="saveImg">
-<navbar title="保存图片" background="#fff" color="#22292C"></navbar>
-<image class="img" src="{{url}}" mode="widthFix"></image>
-<view class="save">
-		<view class="saveBtn" bindtap="saveImg" wx:if="{{openSet}}">
-			<view class="yellow">保存图片</view>
-			<view class="violet"></view>
-		</view>
-		<button class="saveBtn" open-type="openSetting" wx:if="{{!openSet}}">
+	<navbar title="{{options.from === 'wantYou' ? '10要你节' : '保存图片'}}" background="#fff" color="#22292C"></navbar>
+	<image class="img" src="{{url}}" mode="widthFix"></image>
+	
+	<view class="shareBox" wx:if="{{options.from === 'wantYou'}}">
+		<button class="shartBtn clear-style" open-type="share"></button>
+		<button class="saveBtn" open-type="{{!openSet ? 'openSetting' : ''}}" bindtap="{{openSet ? 'saveImg' : ''}}"></button>
+	</view>
+	<view class="save" wx:else>
+		<button class="saveBtn" open-type="{{!openSet ? 'openSetting' : ''}}" bindtap="{{openSet ? 'saveImg' : ''}}">
 			<view class="yellow">保存图片</view>
 			<view class="violet"></view>
 		</button>

@@ -43,11 +43,17 @@ App({
     this.pageInit = null
     this.getRoleInit = null
     this.login()
+    
     this.getFont('Number', 'https://attach.lieduoduo.com/font/DIN-Medium.ttf')
     // 这是一个官方api没有公布的方法，但又真实有效，慎用！
     wx.onAppRoute((res) => {
+      if (res.query.token) {
+        this.globalData.hasLogin = 1
+        wx.setStorageSync('token', res.query.token)
+        this.getRoleInfo()
+      }
       if (res.query.hasOwnProperty('identity')) {
-        this.identification(res.query)
+        that.identification(res.query)
       }
     })
   },

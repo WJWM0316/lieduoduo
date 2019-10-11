@@ -27,6 +27,7 @@ Component({
       wx.scanCode({
         onlyFromCamera: true,
         success: res => {
+          console.log(res, 11111111111)
           let uuid = res.result.split('&')[0].slice(5)
           let params = {uuid}
 

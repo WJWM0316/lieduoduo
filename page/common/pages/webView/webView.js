@@ -40,6 +40,22 @@ Page({
         case 'userAgreement':
           pageUrl = `${WEBVIEW}userAgreement`
           break
+        case 'wantYouC':
+          pageUrl = `${WEBVIEW}wantYou?vkey=sdfcxfe&sessionToken=${sessionToken}&token=${token}`
+          wxShare = {
+            title: '跟我一起加入猎多多10要你节赢10万福利~',
+            path: '/page/common/pages/webView/webView?type=wantYouC',
+            imageUrl: `https://attach.lieduoduo.ziwork.com/front-assets/wantYou/wantYouShareC.png`
+          }
+          break
+        case 'wantYouB':
+          pageUrl = `${WEBVIEW}wantYou?vkey=sdfcxfe&type=bIndex&sessionToken=${sessionToken}&token=${token}`
+          wxShare = {
+            title: '跟我一起加入猎多多求职招聘狂欢节~',
+            path: '/page/common/pages/webView/webView?type=wantYouB',
+            imageUrl: `https://attach.lieduoduo.ziwork.com/front-assets/wantYou/wantYouShareB.png`
+          }
+          break
       }
 
       if (options.p) {
@@ -52,18 +68,14 @@ Page({
             path: app.getCurrentPagePath(),
             imageUrl: imgUrl
           }
-          console.log(options.t)
-          console.log(decodeURIComponent(options.t))
-          console.log(imgUrl)
         }
         if (path.indexOf('?') !== -1) {
           pageUrl = `${path}&sessionToken=${sessionToken}&token=${token}`
         } else {
           pageUrl = `${path}?sessionToken=${sessionToken}&token=${token}`
         }
-        console.log(pageUrl)
-
       }
+      console.log(pageUrl, 11111111)
       this.setData({pageUrl})
     }
     if (app.loginInit) {
@@ -126,7 +138,6 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function (options) {
-    console.log(wxShare, 11111111111111)
     return app.wxShare({
       options,
       ...wxShare

@@ -54,3 +54,14 @@ export const getRecruiterPostApi = (data, hasLoading) => {
     hasLoading: hasLoading
   })
 }
+
+// 10要你节
+export const getWantYouApi = (data, hasLoading) => {
+  return request({
+    method: 'get',
+    url: '/wantYou',
+    data,
+    host: 'NODEHOST',
+    hasLoading: hasLoading
+  })
+}

@@ -5,7 +5,7 @@
 // 环境切换
 // 0 是测试环境  1 是正式环境
 let environment = 0
-export let 	VERSION = 108,
+export let 	VERSION = 109,
 						APPLICANTHOST = '',
 						RECRUITERHOST = '',
 						PUBAPIHOST = '',
@@ -29,7 +29,6 @@ if (environment === 0) {
 	WEBVIEW = `https://h5.lieduoduo.com/`
 	CDNPATH = 'https://attach.lieduoduo.com/front-assets/images/'
 }
-
 
 // 招聘端page
 export const RECRUITER = '/page/recruiter/pages/'

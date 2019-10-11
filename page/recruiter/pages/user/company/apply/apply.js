@@ -1,6 +1,6 @@
 import {realNameRegB, emailReg, positionReg, companyNameReg} from '../../../../../../utils/fieldRegular.js'
 
-import {RECRUITER, COMMON, APPLICANT} from '../../../../../../config.js'
+import {RECRUITER, COMMON, APPLICANT, WEBVIEW} from '../../../../../../config.js'
 
 import {getSelectorQuery} from "../../../../../../utils/util.js"
 
@@ -16,7 +16,7 @@ import {
 } from '../../../../../../api/pages/company.js'
 
 let app = getApp()
-
+let hasLoaded = false
 Page({
   data: {
     formData: {
@@ -36,9 +36,22 @@ Page({
     applyJoin: false
   },
   onLoad(options) {
-    this.setData({options})
+    this.setData({options}, () => {
+      this.init()
+      hasLoaded = true
+    })
+  },
+  onUnload () {
+    hasLoaded = false
+    if (this.data.options.from === 'wantYou') {
+      wx.setStorageSync('choseType', 'APPLICANT')
+    }
   },
   onShow() {
+    if (hasLoaded) this.init()
+  },
+  init () {
+    if (wx.getStorageSync('choseType') !== 'RECRUITER') wx.setStorageSync('choseType', 'RECRUITER')
     this.getBannerHeight()
     this.getCompanyIdentityInfos(false)
   },
@@ -94,7 +107,6 @@ Page({
           formData.user_positionType = createPosition.type
           formData.user_positionTypeValue = createPosition.typeName
         }
-
         this.setData({formData, canClick: true, applyJoin, status})
         wx.removeStorageSync('createPosition')
         wx.setStorageSync('createdCompany', Object.assign(formData, this.data.formData))
@@ -178,7 +190,6 @@ Page({
       }
     })
     .catch(err => {
-      console.log(err)
       app.wxToast({title: err})
     })
   },
@@ -257,22 +268,36 @@ Page({
       if(res.data.id) {
         this.editJoinCompany()
       } else {
-        applyCompanyApi(params).then(res => {
+        return applyCompanyApi(params).then(res => {
           wx.removeStorageSync('createdCompany')
-          if(res.data.emailStatus) {
-            wx.navigateTo({url: `${RECRUITER}user/company/identityMethods/identityMethods?from=join&suffix=${res.data.suffix}&companyId=${res.data.companyId}`})
+          if (this.data.options.from === 'wantYou') {
+            let p = `${WEBVIEW}wantYou?type=success1&vkey=sdfcxfe`
+            wx.navigateTo({
+              url: `${COMMON}webView/webView?p=${encodeURIComponent(p)}`
+            })
           } else {
-            wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=join`})
+            if(res.data.emailStatus) {
+              wx.navigateTo({url: `${RECRUITER}user/company/identityMethods/identityMethods?from=join&suffix=${res.data.suffix}&companyId=${res.data.companyId}`})
+            } else {
+              wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=join`})
+            }
           }
         })
         .catch(err => {
           if(err.code === 307) {
-            app.wxToast({
-              title: err.msg,
-              callback() {
-                wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=join`})
-              }
-            })
+            if (this.data.options.from === 'wantYou') {
+              let p = `${WEBVIEW}wantYou?type=success1&vkey=sdfcxfe`
+              wx.navigateTo({
+                url: `${COMMON}webView/webView?p=${encodeURIComponent(p)}`
+              })
+            } else {
+              app.wxToast({
+                title: err.msg,
+                callback() {
+                  wx.reLaunch({url: `${RECRUITER}user/company/status/status?from=join`})
+                }
+              })
+            }
           } 
         })
       }
@@ -370,7 +395,14 @@ Page({
       company_name: formData.company_name
     }
     createCompanyApi(params).then(res => {
-      wx.reLaunch({url: `${RECRUITER}user/company/createdCompanyInfos/createdCompanyInfos?from=company`})
+      if (this.data.options.from === 'wantYou') {
+        let p = `${WEBVIEW}wantYouSuccess`
+        wx.navigateTo({
+          url: `${COMMON}webView/webView?p=${encodeURIComponent(p)}`
+        })
+      } else {
+        wx.reLaunch({url: `${RECRUITER}user/company/createdCompanyInfos/createdCompanyInfos?from=company`})
+      }
       wx.removeStorageSync('createdCompany')
     })
     // 公司存在 直接走加入流程
