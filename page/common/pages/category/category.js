@@ -101,15 +101,8 @@ Page({
     storage.typeName = result.name
     if(this.data.positionTypeList[this.data.index1].labelId !== storage.parentType) storage.skills = []
     storage.parentType = this.data.positionTypeList[this.data.index1].labelId
-    if (this.data.query.from === 'wantYou') {
-      let query = this.data.query
-      let path = `${WEBVIEW}wantYou_b?uid=${query.uid}&name=${query.name}&position=${query.position}&positionType=${storage.typeName}&positionTypeId=${storage.type}`
-      wx.reLaunch({url: `/page/common/pages/webView/webView?type=1&p=${encodeURIComponent(path)}`})
-    } else {
-      wx.setStorageSync('createPosition', storage)
-      wx.navigateBack({delta: 1})
-    }
-    
+    wx.setStorageSync('createPosition', storage)
+    wx.navigateBack({delta: 1})
   },
   tapHot (e) {
     const params = e.currentTarget.dataset

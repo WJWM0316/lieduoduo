@@ -7,6 +7,15 @@ export const getSessionKeyApi = (data, hasLoading) => {
     hasLoading: false
   })
 }
+// 获取授权用户相关信息
+export const getOauthUserApi = (data, host, hasLoading) => {
+  return request({
+    url: '/oauth/user',
+    data,
+    host: 'PUBAPIHOST',
+    hasLoading: false
+  })
+}
 export const checkSessionKeyApi = (data, hasLoading) => {
   return request({
     url: '/wechat/check/session',

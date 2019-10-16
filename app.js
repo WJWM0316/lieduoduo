@@ -1,5 +1,5 @@
 //app.js
-import {loginApi, checkSessionKeyApi, bindPhoneApi, uploginApi} from 'api/pages/auth.js'
+import {loginApi, checkSessionKeyApi, bindPhoneApi, uploginApi, getOauthUserApi} from 'api/pages/auth.js'
 import {formIdApi, shareStatistics, readyStatistics, getVersionListApi} from 'api/pages/common.js'
 import {getPersonalResumeApi} from 'api/pages/center.js'
 import {getRecruiterDetailApi} from 'api/pages/recruiter.js'
@@ -47,11 +47,6 @@ App({
     this.getFont('Number', 'https://attach.lieduoduo.com/font/DIN-Medium.ttf')
     // 这是一个官方api没有公布的方法，但又真实有效，慎用！
     wx.onAppRoute((res) => {
-      if (res.query.token) {
-        this.globalData.hasLogin = 1
-        wx.setStorageSync('token', res.query.token)
-        this.getRoleInfo()
-      }
       if (res.query.hasOwnProperty('identity')) {
         that.identification(res.query)
       }
@@ -222,6 +217,21 @@ App({
         this.getRoleInit = function () {}
         this.getAllInfo()
         resolve(res0)
+      })
+    })
+  },
+  // 伪登录 重置小程序个人信息
+  oauthCode(options) {
+    wx.setStorageSync('token', options.token)
+    this.globalData.hasLogin = 1
+    getOauthUserApi({oauth_code: options.oauthCode}).then(res => {
+      this.globalData.userInfo = res.data.wechatInfo || {}
+      getUserRoleApi().then(res0 => {
+        this.globalData.isRecruiter = res0.data.isRecruiter || 0
+        this.globalData.isJobhunter = res0.data.isJobhunter || 0
+        this.globalData.isMicroCard = res0.data.hasCard || 0
+        if (this.getRoleInit) this.getRoleInit()
+        if (this.globalData.isRecruiter || this.globalData.isJobhunter) this.getAllInfo()
       })
     })
   },

@@ -491,8 +491,8 @@
 				{
 					"id": 65,
 					"name": "保存",
-					"pathName": "page/common/pages/poster/saveImg/saveImg",
-					"query": "from=wantYou&uid=193",
+					"pathName": "page/recruiter/pages/user/company/apply/apply",
+					"query": "from=wantYou&token=b0cb3c011915ae7bed867739b3d653a1&oauthCode= @@auth_5da4618693b84",
 					"scene": null
 				}
 			]

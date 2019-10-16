@@ -30,6 +30,12 @@ Page({
       })
     }
     if (options.from === 'wantYou') {
+      wx.setStorageSync('choseType', 'APPLICANT')
+      if (options.token && options.oauthCode) {        
+        if (!app.globalData.hasLogin) {
+          app.oauthCode(options)
+        }
+      }
       let params = options.uid ? {uid: options.uid} : {}
       getWantYouApi(params).then(res => {
         detail = res.data.detail
@@ -42,7 +48,6 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-
   },
 
   /**
@@ -170,6 +175,7 @@ Page({
       p        = `${WEBVIEW}wantYou_b?vkey=sdfcxfe&uid=${detail.uid}`
       path  = `page/common/pages/webView/webView?type=1&p=${encodeURIComponent(p)}`
       imageUrl = 'https://attach.lieduoduo.ziwork.com/front-assets/wantYou/wantYouShareP1.jpg'
+      app.shareStatistics({type: 'want_you_activity', id: 0, channel: 'card', sCode: 0})
     }
     return app.wxShare({
       options,

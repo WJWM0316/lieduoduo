@@ -41,6 +41,7 @@ Page({
           pageUrl = `${WEBVIEW}userAgreement`
           break
         case 'wantYouC':
+          app.readyStatistics('enterPage_report')
           pageUrl = `${WEBVIEW}wantYou?vkey=sdfcxfe&sessionToken=${sessionToken}&token=${token}`
           wxShare = {
             title: '跟我一起加入猎多多10要你节赢10万福利~',
@@ -49,6 +50,7 @@ Page({
           }
           break
         case 'wantYouB':
+          app.readyStatistics('enterPage_report')
           pageUrl = `${WEBVIEW}wantYou?vkey=sdfcxfe&type=bIndex&sessionToken=${sessionToken}&token=${token}`
           wxShare = {
             title: '跟我一起加入猎多多求职招聘狂欢节~',

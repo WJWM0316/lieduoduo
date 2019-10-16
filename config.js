@@ -5,7 +5,7 @@
 // 环境切换
 // 0 是测试环境  1 是正式环境
 let environment = 0
-export let 	VERSION = 109,
+export let 	VERSION = 108,
 						APPLICANTHOST = '',
 						RECRUITERHOST = '',
 						PUBAPIHOST = '',
@@ -17,7 +17,7 @@ if (environment === 0) {
 	APPLICANTHOST = 'https://qiuzhi-api.lieduoduo.ziwork.com'
 	RECRUITERHOST = 'https://zhaopin-api.lieduoduo.ziwork.com'
 	PUBAPIHOST = 'https://pub-api.lieduoduo.ziwork.com'
-	NODEHOST = 'https://node.lieduoduo.ziwork.com/frontEnd'
+	NODEHOST = 'https://node.lieduoduo.ziwork.com/frontEnd' //'http://192.168.5.159:3000/frontEnd' //
 	WEBVIEW = `https://h5.lieduoduo.ziwork.com/`
 	CDNPATH = 'https://attach.lieduoduo.ziwork.com/front-assets/images/'
 } else {

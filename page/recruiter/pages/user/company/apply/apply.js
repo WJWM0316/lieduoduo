@@ -36,15 +36,32 @@ Page({
     applyJoin: false
   },
   onLoad(options) {
-    this.setData({options}, () => {
-      this.init()
+    this.getBannerHeight()
+    
+    let initFun = () => {
       hasLoaded = true
-    })
+      if (options.from === 'wantYou' && options.token && options.oauthCode) {        
+        if (!app.globalData.hasLogin) {
+          app.oauthCode(options)
+        }
+      }
+      this.init()
+    }
+    
+    if (app.loginInit) {
+      initFun()
+    } else {
+      app.loginInit = () => {
+        initFun()
+      }
+    }
+    this.setData({options})
   },
   onUnload () {
     hasLoaded = false
     if (this.data.options.from === 'wantYou') {
       wx.setStorageSync('choseType', 'APPLICANT')
+      app.getRoleInfo()
     }
   },
   onShow() {
@@ -52,7 +69,6 @@ Page({
   },
   init () {
     if (wx.getStorageSync('choseType') !== 'RECRUITER') wx.setStorageSync('choseType', 'RECRUITER')
-    this.getBannerHeight()
     this.getCompanyIdentityInfos(false)
   },
   backEvent() {
@@ -272,7 +288,7 @@ Page({
           wx.removeStorageSync('createdCompany')
           if (this.data.options.from === 'wantYou') {
             let p = `${WEBVIEW}wantYou?type=success1&vkey=sdfcxfe`
-            wx.navigateTo({
+            wx.reLaunch({
               url: `${COMMON}webView/webView?p=${encodeURIComponent(p)}`
             })
           } else {
@@ -287,7 +303,7 @@ Page({
           if(err.code === 307) {
             if (this.data.options.from === 'wantYou') {
               let p = `${WEBVIEW}wantYou?type=success1&vkey=sdfcxfe`
-              wx.navigateTo({
+              wx.reLaunch({
                 url: `${COMMON}webView/webView?p=${encodeURIComponent(p)}`
               })
             } else {
@@ -397,7 +413,7 @@ Page({
     createCompanyApi(params).then(res => {
       if (this.data.options.from === 'wantYou') {
         let p = `${WEBVIEW}wantYouSuccess`
-        wx.navigateTo({
+        wx.reLaunch({
           url: `${COMMON}webView/webView?p=${encodeURIComponent(p)}`
         })
       } else {
@@ -407,7 +423,6 @@ Page({
     })
     // 公司存在 直接走加入流程
     .catch(err => {
-
       if(err.code === 307) {
         app.wxToast({
           title: err.msg,
