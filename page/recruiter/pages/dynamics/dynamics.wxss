@@ -328,7 +328,7 @@
   vertical-align: top;
 }
 
-.formIdBtn {
+.viewList .formIdBtn {
   padding: 0;
   background: none;
   text-align: left;
@@ -336,7 +336,7 @@
   overflow: unset;
   margin: 20rpx 30rpx;
 }
-.formIdBtn::after {
+.viewList .formIdBtn::after {
   display: none;
 }
 

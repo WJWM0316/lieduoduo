@@ -39,6 +39,14 @@ Page({
       wx.reLaunch({url: `${RECRUITER}index/index`})
     }
   },
+  ceshi () {
+    wx.chooseMessageFile({
+      count: 2,
+      success: (res) => {
+        console.log(res)
+      }
+    })
+  },
   /**
    * 生命周期函数--监听页面隐藏
    */

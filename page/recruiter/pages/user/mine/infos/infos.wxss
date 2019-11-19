@@ -133,48 +133,43 @@ top-banner.center {
 }
 
 .floating-box .footer {
-	display: flex;
 	overflow: hidden;
 	margin-top: 45rpx;
 	padding-top: 35rpx;
 	border-top: 1rpx solid #E8E9EB;
+  position: relative;
 }
-
+.floating-box .footer .btnBox {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
 .floating-box .footer .left{
-	flex-grow: 1;
+	position: absolute;
+  top: 35rpx;
+  left: 0;
+  z-index: 2;
 }
 
 .floating-box .footer .right{
-	flex-grow: 1;
+	flex: 1;
 	text-align: right;
+  display: flex;
+  justify-content: space-between;
 }
-
+.share-homepage-02, .share-homepage-pic-02 {
+  text-align: center;
+	margin: 0;
+	font-size:26rpx;
+	color:rgba(40,40,40,1);
+	line-height:32rpx;
+	display: inline-block;
+}
 .floating-box .footer .icon_image{
 	width: 66rpx;
 	height: 66rpx;
 	display: block;
 	margin: 0 auto 5rpx auto;
-}
-
-.floating-box .footer .share-homepage-02{
-	text-align: center;
-	line-height: 1;
-	margin: 0;
-	font-size:26rpx;
-	color:rgba(40,40,40,1);
-	line-height:32rpx;
-	display: inline-block;
-}
-
-.floating-box .footer .share-homepage-pic-02{
-	text-align: center;
-	line-height: 1;
-	margin: 0;
-	font-size:26rpx;
-	color:rgba(40,40,40,1);
-	line-height:32rpx;
-	display: inline-block;
-	margin-left: 70rpx;
 }
 
 .floating-box .footer .rank_01{
@@ -301,21 +296,11 @@ top-banner.center {
 	box-shadow:0rpx 8rpx 40rpx 0rpx rgba(16,40,79,0.06);
 	border-radius:16rpx;
 	overflow: hidden;
-	/*text-align: center;*/
+	display: flex;
+  justify-content: space-between;
 }
 .toolbox .tool-item {
 	position: relative;
-	display: inline-block;
-	vertical-align: top;
-}
-
-.toolbox .tool-item.reserve {
-	float: left;
-	margin-right: 50rpx;
-}
-
-.toolbox .tool-item.company {
-	margin-left: 66rpx;
 }
 
 .toolbox .tool-item.red::before {

@@ -172,7 +172,12 @@ Page({
     this.setData({bannerIndex: e.detail.current})
   },
   jumpBanner (e) {
-    let url = e.currentTarget.dataset.url
+    let url = e.currentTarget.dataset.url,
+        name= e.currentTarget.dataset.name
+    app.wxReportAnalytics('btn_report', {
+      btn_type: 'banner_enter_statistics',
+      title: name || '其他'
+    })
     if (url.indexOf('index/index') !== -1 
       || url.indexOf('dynamics/dynamics') !== -1 
       || url.indexOf('specialJob/specialJob') !== -1 
