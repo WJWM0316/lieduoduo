@@ -57,7 +57,11 @@ export const request = ({name = '', method = 'post', url, host, data = {}, needK
   // 头参数
   addHttpHead['Role'] = wx.getStorageSync('choseType') !== "RECRUITER" ? 'j' : 'r'
   addHttpHead['Source'] = wx.getStorageSync('choseType') !== "RECRUITER" ? 'mini_c' : 'mini_b'
-  
+  // h5活动参数
+	if (data.from === 'h5Activity') {
+		addHttpHead['Exquisite-Code'] = data.vkey
+	}
+	
   // 如果连接带参数scode, 则存到头部
   if (data.sCode && !data.isReload) {
     addHttpHead['Act-Code'] = data.sCode
@@ -83,7 +87,7 @@ export const request = ({name = '', method = 'post', url, host, data = {}, needK
     delete addHttpHead['Channel-Code']
     delete addHttpHead['Channel-Url']
   }
-
+	delete data['from']
   delete data['sCode']
   delete data['isReload']
   delete data['sourceType']

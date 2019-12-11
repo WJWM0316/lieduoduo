@@ -27,15 +27,20 @@ Page({
   onLoad() {
     wx.setStorageSync('choseType', 'RECRUITER')
     recruiterCard = ''
-    let recruiterInfo = app.globalData.recruiterDetails
-    if (recruiterInfo.uid) {
-      this.setData({recruiterInfo})
-    } else {
-      app.getAllInfo().then(res => {
-        recruiterInfo = app.globalData.recruiterDetails
-        this.setData({recruiterInfo})
-      })
-    }
+		let init = () => {
+			let recruiterInfo = app.globalData.recruiterDetails
+			if (recruiterInfo.uid) {
+			  this.setData({recruiterInfo})
+			}
+		}
+		if (app.pageInit) {
+			init()
+		} else {
+			app.pageInit = () => {
+				init()
+			}
+		}
+    
   },
   /**
    * @Author   小书包

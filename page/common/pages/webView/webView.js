@@ -1,4 +1,6 @@
 import {WEBVIEW} from '../../../../config.js'
+import { request } from '../../../../api/require.js'
+
 const app = getApp()
 let wxShare = {}
 let options = {}
@@ -10,6 +12,7 @@ Page({
   data: {
     pageUrl: '',
     cdnImagePath: app.globalData.cdnImagePath,
+		h5Data: {},
     navH: app.globalData.navHeight
   },
 
@@ -58,6 +61,15 @@ Page({
             imageUrl: `https://attach.lieduoduo.ziwork.com/front-assets/wantYou/wantYouShareB.png`
           }
           break
+				case 'delicate':
+					app.readyStatistics('enterPage_report')
+					pageUrl =  `${WEBVIEW}delicate?vkey=${options.vkey}&sessionToken=${sessionToken}&token=${token}`
+					wxShare = {
+					  title: '@精致的你，快来集合！3000+酷公司正在找你',
+					  path: `/page/common/pages/webView/webView?type=delicate&vkey=${options.vkey}`,
+					  imageUrl: `https://attach.lieduoduo.ziwork.com/front-assets/delicate/delicateShare.jpg`
+					}
+					break
       }
 
       if (options.p) {
@@ -89,7 +101,8 @@ Page({
     }
   },
   getMessage (e) {
-    console.log(e, 'h5返回的信息')
+		this.setData({h5Data: e.detail.data[0]})
+    console.log(this.data.h5Data, 'h5返回的信息')
   },
   webLoad (e) {
   },
@@ -140,6 +153,13 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function (options) {
+		// 拼接转发人vkey
+		if (wxShare.path.indexOf('vkey') !== -1) {
+			let a = wxShare.path.split('=')
+			a[a.length - 1] = this.data.h5Data.vkey
+			wxShare.path = a.join('=')
+		}
+		console.log(wxShare)
     return app.wxShare({
       options,
       ...wxShare

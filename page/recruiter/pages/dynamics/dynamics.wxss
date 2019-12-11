@@ -328,7 +328,7 @@
   vertical-align: top;
 }
 
-.viewList .formIdBtn {
+.formIdBtn {
   padding: 0;
   background: none;
   text-align: left;

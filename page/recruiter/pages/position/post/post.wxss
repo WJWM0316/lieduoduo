@@ -299,3 +299,11 @@
 .position-post .marginB24:after {
 	display: none;
 }
+
+.desc {
+	font-size:24rpx;
+	font-weight:300;
+	color:#BCBCBC;
+	line-height:38rpx;
+	padding: 6rpx 40rpx 30rpx;
+}

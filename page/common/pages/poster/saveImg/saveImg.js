@@ -120,6 +120,10 @@ Page({
         wx.saveImageToPhotosAlbum({
           filePath: imgUrl,
           success: function (e) {
+						app.wxReportAnalytics('btn_report', {
+						  btn_type: 'save-activity-poster',
+							title: that.data.options.from
+						})
             app.wxToast({
               title: '已保存至相册',
               icon: 'success'

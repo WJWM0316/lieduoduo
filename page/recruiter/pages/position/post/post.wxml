@@ -1,7 +1,7 @@
 <view class="position-post" wx:if="{{isRequire}}">
 	<navbar title="{{pageTitle}}" background="#FFFFFF" color="#22292C" customBack bindbackEvent="backEvent"></navbar>
 	<view class="warning" bindtap="showTips"><i class="icon iconfont icon-PC"></i>前往PC端发布新职位<i class="icon iconfont icon-xiangyou"></i></view>
-	<view class="tips">* 职位名称、职位类别、工作地点发布后将不可修改</view>
+	<view class="tips">* 职位名称、职位类别发布后将不可修改</view>
 	<view class="entry-list">
 
 		<view class="li link" bindtap="routeJump" data-route="search" wx:if="{{!query.positionId}}">
@@ -45,6 +45,7 @@
 				<myPicker setResult="{{emolument_range}}·{{annualSalary}}薪" pickerType="salaryRangeB" bindresultevent="getSalary"></myPicker>
 			</view>
 		</view>
+		<view class="desc">注：猎多多专注高端人才招聘，薪资范围不得低于10K</view>
 		<view class="li dropdown">
 			<view class="key"><text>*</text>经验要求</view>
 			<i class="icon iconfont icon-xiangyou"></i>
@@ -81,7 +82,7 @@
   		<view class="dl">
 				<view class="dt">
 					<view class="label">第1步</view>
-					<view class="value">电脑浏览器打开网址“<text bindtap="copy">www.lieduoduo.com</text>”</view>
+					<view class="value">电脑浏览器打开网址“<text bindtap="copy">www.lieduoduo.com/login</text>”</view>
 				</view>
 				<view class="dt">
 					<view class="label">第2步</view>

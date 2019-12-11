@@ -110,11 +110,22 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+		
     directChat = ''
     if (app.loginInit) {
+			if (options.token && options.oauthCode) {
+			  if (!app.globalData.hasLogin) {
+			    app.oauthCode(options)
+			  }
+			}
       this.getStep()
     } else {
       app.loginInit = () => {
+				if (options.token && options.oauthCode) {
+				  if (!app.globalData.hasLogin) {
+				    app.oauthCode(options)
+				  }
+				}
         this.getStep()
       }
     }
@@ -688,7 +699,7 @@ Page({
     }
   },
   getStep () {
-    getStepApi().then(res => {
+    getStepApi({from: this.data.options.from, vkey: this.data.options.vkey}).then(res => {
       let step = res.data.step
       switch (step) {
         case 1:

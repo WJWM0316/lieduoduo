@@ -254,7 +254,7 @@ Component({
         case 'salaryRangeB':
           let startNumB = []
           let endNumB = []
-          for (let i = 1; i <= 29; i++) {
+          for (let i = 10; i <= 29; i++) {
             startNumB.push(`${i}k`)
           }
           for (let i = 30; i <= 95; i+=5) {

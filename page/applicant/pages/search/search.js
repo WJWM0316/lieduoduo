@@ -61,7 +61,6 @@ Page({
       let searchRecord = wx.getStorageSync('searchRecord') || []
       let tabIndex = 0
       let setData = {}
-      if (searchRecord.length) setData.historyList = searchRecord
       if (options.type) {
         setData.tabIndex = options.type !== 'company' ? 0 : 1
       }
@@ -72,7 +71,7 @@ Page({
         this.updateHistory(keyword)
         this.getSearchData()
       }
-      this.setData({focus: true})
+      this.setData({focus: true, historyList: searchRecord})
       this.getHotKeyWordList()
     }
     if (app.loginInit) {

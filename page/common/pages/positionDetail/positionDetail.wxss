@@ -127,7 +127,9 @@
 	color:rgba(40,40,40,1);
 	margin-right: 42rpx;
 }
-
+.company-infos .infos view:last-child {
+	margin-right: 0;
+}
 .company-infos .infos .icon {
 	color: #CDCBCF;
 	margin-right: 10rpx;

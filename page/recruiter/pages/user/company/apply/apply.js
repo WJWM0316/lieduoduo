@@ -40,7 +40,7 @@ Page({
     
     let initFun = () => {
       hasLoaded = true
-      if (options.from === 'wantYou' && options.token && options.oauthCode) {        
+      if (options.token && options.oauthCode) {        
         if (!app.globalData.hasLogin) {
           app.oauthCode(options)
         }
