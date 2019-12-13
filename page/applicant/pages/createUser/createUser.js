@@ -110,7 +110,6 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-		
     directChat = ''
     if (app.loginInit) {
 			if (options.token && options.oauthCode) {
@@ -207,15 +206,21 @@ Page({
                 }, 1000)
               }
               if (getCurrentPages().length > 1) {
-                if (that.data.options.fromType === 'guideCard') {
-                  wx.setStorageSync('appendCreatUser', {firstIndex: that.data.options.firstIndex, secondIndex: that.data.options.secondIndex})
-                }
-                wx.navigateBack({
-                  delta: 1,
-                  success () {
-                    success()
-                  }
-                })
+								if (this.data.options.token && this.data.options.oauthCode) {
+									wx.reLaunch({
+										url: app.getCurrentPagePath(getCurrentPages().length - 2)
+									})
+								} else {
+									if (that.data.options.fromType === 'guideCardguideCard') {
+									  wx.setStorageSync('appendCreatUser', {firstIndex: that.data.options.firstIndex, secondIndex: that.data.options.secondIndex})
+									}
+									wx.navigateBack({
+									  delta: 1,
+									  success () {
+									    success()
+									  }
+									})
+								}
               } else {
                 wx.reLaunch({
                   url: `${APPLICANT}index/index`
@@ -1071,27 +1076,23 @@ Page({
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
-
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
-
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-
   }
 })
