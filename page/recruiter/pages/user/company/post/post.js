@@ -53,7 +53,7 @@ Page({
         business_license: storage.business_license || infos.businessLicenseInfo,
         on_job: storage.on_job || infos.onJobInfo
       }
-      this.setData({formData})
+      this.setData({formData}, () => wx.removeStorageSync('createdCompany'))
     })
   },
   onHide() {

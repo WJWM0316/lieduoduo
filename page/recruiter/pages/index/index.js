@@ -187,6 +187,7 @@ Page({
       let bigImgUrl = `${this.data.cdnImagePath}5d049a5ea678f@index.png`
       let indexShowCount = this.data.indexShowCount
       let item = {bigImgUrl, otherUrl }
+      // banner.unshift(item)
       if(!indexShowCount.advisor) banner.unshift(item)
       this.setData({banner})
     })
@@ -400,7 +401,19 @@ Page({
     this.setData({bannerIndex: e.detail.current})
   },
   toJump(e) {
-    let url = '/' + e.currentTarget.dataset.url
+    let url = ''
+    let params = e.currentTarget.dataset;
+    let data = this.data.banner.find((v,i,a) => i === params.index)
+    if(!data.otherUrl && !data.targetUrl) {
+      return
+    }
+    console.log(data)
+    // let url = '/' + e.currentTarget.dataset.url
+    if(data.otherUrl) {
+      url = '/' + data.otherUrl
+    } else {
+      url = '/' + data.targetUrl
+    }
     wx.navigateTo({ url })
   },
   /**

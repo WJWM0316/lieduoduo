@@ -75,7 +75,9 @@
 	      bindchange="autoplay">
 	      <swiper-item
 					bindtap="toJump" 
-					data-url="{{item.otherUrl}}" 
+					data-url="{{item.targetUrl || item.otherUrl}}"
+					data-type="{{item.type}}"
+					data-index="{{index}}"
 					wx:for="{{banner}}"
 					wx:key="{{index}}"
 					class="swiper-item"
