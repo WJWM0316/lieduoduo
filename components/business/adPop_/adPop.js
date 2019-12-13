@@ -1,6 +1,4 @@
 import {getAdApi, touchVkeyApi} from '../../../api/pages/common.js'
-import {getAdBannerApi} from '../../../api/pages/common'
-
 const app = getApp()
 Component({
   /**
@@ -18,13 +16,6 @@ Component({
     adData: {}
   },
   attached () {
-    getAdBannerApi({location: 'miniProgram_c_index_find_opportunity'}).then(res => {
-      if (res.data.length > 0) {
-        let adData = res.data[0]
-        this.setData({adData, showPop: true})
-      }
-    })
-    return
     getAdApi().then(res => {
       if (res.data.length > 0) {
         let adData = res.data[0]
@@ -38,7 +29,7 @@ Component({
   methods: {
     jump () {
       wx.navigateTo({
-        url: `/${this.data.adData.targetUrl}`
+        url: `/${this.data.adData.path}`
       })
       this.close()
     },
