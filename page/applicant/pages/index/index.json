@@ -8,7 +8,7 @@
     "myPicker": "../../../../components/functional/myPicker/myPicker",
     "auth": "../../../../components/functional/auth/auth",
     "navbar": "../../../../components/business/navbar/navbar",
-    "adPop": "../../../../components/business/adPop/adPop",
+    "adPop": "../../../../components/business/adPop_/adPop_",
     "waterfallFlow": "../../../../components/business/waterfallFlow/waterfallFlow",
     "filterPop": "../../../../components/business/filterPop/filterPop",
     "bindPhone": "../../../../components/functional/bindPhone/bindPhone"
