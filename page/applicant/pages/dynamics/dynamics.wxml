@@ -42,4 +42,5 @@
   </form>
   <bindPhone wx:if="{{needLogin}}"></bindPhone>
   <tabBar id="bottomRedDotBar" bindresultevent="getResult"></tabBar>
+  <adPop></adPop>
 </view>

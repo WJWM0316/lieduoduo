@@ -140,4 +140,5 @@
 <barrage list="{{otherData.toastTips}}" wx:if="{{otherData.toastTips.length}}"  my-class="barrage" my-item-class="barrage_item"></barrage>
 <tabBar id="bottomRedDotBar"></tabBar>
 <bindPhone hide="{{hideLoginBox}}"></bindPhone>
+<adPop></adPop>
 </view>

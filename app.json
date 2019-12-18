@@ -135,7 +135,8 @@
   "usingComponents": {
     "bottomStatus": "components/layout/bottomStatus/bottomStatus",
     "refreshStatus": "components/layout/refreshStatus/refreshStatus",
-    "navbar": "components/business/navbar/navbar"
+    "navbar": "components/business/navbar/navbar",
+    "adPop": "components/business/adPop/adPop"
   },
   "debug": false,
   "sitemapLocation": "sitemap.json"
