@@ -721,6 +721,9 @@ App({
       })
     }
   },
+  // 活动支持
+  activitySupport() {
+  },
   // 收集formId
   postFormId(id) {
     console.log(`=======================收集到这个formId了 ${id}=========================`)

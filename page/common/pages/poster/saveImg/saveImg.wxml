@@ -2,7 +2,7 @@
 	<navbar title="{{options.from === 'wantYou' ? '10要你节' : '保存图片'}}" background="#fff" color="#22292C"></navbar>
 	<image class="img" src="{{url}}" mode="widthFix"></image>
 	
-	<view class="shareBox" wx:if="{{options.from === 'wantYou'}}">
+	<view class="shareBox" wx:if="{{options.from === 'wantYou' || options.hasShare}}">
 		<button class="shartBtn clear-style" open-type="share"></button>
 		<button class="saveBtn" open-type="{{!openSet ? 'openSetting' : ''}}" bindtap="{{openSet ? 'saveImg' : ''}}"></button>
 	</view>

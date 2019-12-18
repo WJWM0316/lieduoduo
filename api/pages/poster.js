@@ -65,3 +65,14 @@ export const getWantYouApi = (data, hasLoading) => {
     hasLoading: hasLoading
   })
 }
+
+// 精致派
+export const getDelicateApi = (data, hasLoading) => {
+  return request({
+    method: 'get',
+    url: '/delicate',
+    data,
+    host: 'NODEHOST',
+    hasLoading: hasLoading
+  })
+}

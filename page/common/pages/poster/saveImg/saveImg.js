@@ -1,7 +1,7 @@
 const app = getApp()
 let imgUrl = '',
     detail = ''
-import {getWantYouApi} from '../../../../../api/pages/poster.js'
+import {getWantYouApi, getDelicateApi} from '../../../../../api/pages/poster.js'
 import {WEBVIEW} from '../../../../../config.js'
 Page({
 
@@ -42,6 +42,18 @@ Page({
         this.setData({url: res.data.url})
       })
     }
+		if (options.from === 'delicate') {
+			wx.setStorageSync('choseType', 'APPLICANT')
+			if (options.token && options.oauthCode) {        
+			  if (!app.globalData.hasLogin) {
+			    app.oauthCode(options)
+			  }
+			}
+			let params = {vkey: options.vkey}
+			getDelicateApi(params).then(res => {
+			  this.setData({url: res.data.url})
+			})
+		}
   },
 
   /**
@@ -91,7 +103,7 @@ Page({
        }
     })
     function svae () {
-      if (that.data.options.from === 'wantYou') {
+      if (that.data.options.from === 'wantYou' || that.data.options.from === 'delicate') {
         var save = wx.getFileSystemManager();
         var number = Math.random();
         save.writeFile({

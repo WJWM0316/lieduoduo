@@ -65,7 +65,7 @@ Page({
 					app.readyStatistics('enterPage_report')
 					pageUrl =  `${WEBVIEW}delicate?vkey=${options.vkey}&sessionToken=${sessionToken}&token=${token}`
 					wxShare = {
-					  title: '@精致的你，快来集合！3000+酷公司正在找你',
+					  title: '@精致的你，快来集合！3000+酷公司高薪机会正在找你',
 					  path: `/page/common/pages/webView/webView?type=delicate&vkey=${options.vkey}`,
 					  imageUrl: `https://attach.lieduoduo.ziwork.com/front-assets/delicate/delicateShare.jpg`
 					}
