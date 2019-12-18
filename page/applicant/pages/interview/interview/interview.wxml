@@ -205,5 +205,6 @@
 			<button class="jump clear-style" form-type="submit" bindtap="jump" data-type="{{hasLogin ? (isJobhunter ? 'positionList' : 'create') : 'login'}}">{{hasLogin ? (isJobhunter ? '发现更多职业机会' : '立即创建简历') : '马上登录'}}</button>
 		</bottomStatus>
 	</view>
+	<adPop></adPop>
 	<tabBar id="bottomRedDotBar"></tabBar>
 </view>

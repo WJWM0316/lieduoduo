@@ -107,6 +107,7 @@
 	</view> -->
   </form>
 </view>
+<adPop></adPop>
 <tabBar id="bottomRedDotBar"></tabBar>
 <shareBtn id="share" posterType="applicant" shareBtn="{{false}}" params="{{myInfo.uid}}"></shareBtn>
 <block wx:if="{{myInfo.vkey && myInfo.vkey}}"><canvasCard cardData="{{myInfo}}" type="resume" bindgetCreatedImg="getCreatedImg"></canvasCard></block>
