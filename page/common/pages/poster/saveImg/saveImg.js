@@ -157,7 +157,6 @@ Page({
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
-
   },
 
   /**
@@ -185,14 +184,11 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function (options) {
-    let title, p, path, imageUrl
-    if (this.data.options.from === 'wantYou') {
-      title = `我已加入公司内部招聘行列，就差你了~`
-      p        = `${WEBVIEW}wantYou_b?vkey=sdfcxfe&uid=${detail.uid}`
-      path  = `page/common/pages/webView/webView?type=1&p=${encodeURIComponent(p)}`
-      imageUrl = 'https://attach.lieduoduo.ziwork.com/front-assets/wantYou/wantYouShareP1.jpg'
-      app.shareStatistics({type: 'want_you_activity', id: 0, channel: 'card', sCode: 0})
-    }
+    let title, path, imageUrl
+    if (this.data.options.p) path  = `page/common/pages/webView/webView?type=1&p=${this.data.options.p}`
+    if (this.data.options.t) title = decodeURIComponent(this.data.options.t)
+    if (this.data.options.i) imageUrl = decodeURIComponent(this.data.options.i)
+    if (this.data.options.statisticalType) app.shareStatistics({type: this.data.options.statisticalType, id: 0, channel: 'card', sCode: 0})
     return app.wxShare({
       options,
       title,

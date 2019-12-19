@@ -27,6 +27,7 @@ Page({
       let pageUrl = ''
       let sessionToken = wx.getStorageSync('sessionToken')
       let token = wx.getStorageSync('token')
+      app.readyStatistics('enterPage_report')
       switch (options.type) {
         case 'recruitmentDay':
           pageUrl = `${WEBVIEW}available?sessionToken=${sessionToken}&token=${token}`
@@ -45,24 +46,12 @@ Page({
           break
         case 'wantYouC':
           app.readyStatistics('enterPage_report')
-          pageUrl = `${WEBVIEW}wantYou?vkey=sdfcxfe&sessionToken=${sessionToken}&token=${token}`
-          wxShare = {
-            title: '跟我一起加入猎多多10要你节赢10万福利~',
-            path: '/page/common/pages/webView/webView?type=wantYouC',
-            imageUrl: `https://attach.lieduoduo.ziwork.com/front-assets/wantYou/wantYouShareC.png`
-          }
-          break
+          pageUrl = `${WEBVIEW}wantYou?sessionToken=${sessionToken}&token=${token}`
         case 'wantYouB':
           app.readyStatistics('enterPage_report')
-          pageUrl = `${WEBVIEW}wantYou?vkey=sdfcxfe&type=bIndex&sessionToken=${sessionToken}&token=${token}`
-          wxShare = {
-            title: '跟我一起加入猎多多求职招聘狂欢节~',
-            path: '/page/common/pages/webView/webView?type=wantYouB',
-            imageUrl: `https://attach.lieduoduo.ziwork.com/front-assets/wantYou/wantYouShareB.png`
-          }
+          pageUrl = `${WEBVIEW}wantYou?type=bIndex&sessionToken=${sessionToken}&token=${token}`
           break
 				case 'delicate':
-					app.readyStatistics('enterPage_report')
 					pageUrl =  `${WEBVIEW}delicate?vkey=${options.vkey}&sessionToken=${sessionToken}&token=${token}`
 					wxShare = {
 					  title: '@精致的你，快来集合！3000+酷公司高薪机会正在找你',
@@ -89,7 +78,6 @@ Page({
           pageUrl = `${path}?sessionToken=${sessionToken}&token=${token}`
         }
       }
-      console.log(pageUrl, 11111111)
       this.setData({pageUrl})
     }
     if (app.loginInit) {
@@ -101,16 +89,20 @@ Page({
     }
   },
   getMessage (e) {
-		this.setData({h5Data: e.detail.data[0]})
+    if (e.detail.data[0].vkey) {
+      this.data.h5Data = e.detail.data[0]
+    } else {
+      wxShare = e.detail.data[0]
+    }
     console.log(this.data.h5Data, 'h5返回的信息')
   },
   webLoad (e) {
+    console.log(e, 111)
   },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-
   },
 
   /**
@@ -159,7 +151,6 @@ Page({
 			a[a.length - 1] = this.data.h5Data.vkey
 			wxShare.path = a.join('=')
 		}
-		console.log(wxShare)
     return app.wxShare({
       options,
       ...wxShare
