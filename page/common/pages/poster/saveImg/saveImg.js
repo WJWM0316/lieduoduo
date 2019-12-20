@@ -185,10 +185,10 @@ Page({
    */
   onShareAppMessage: function (options) {
     let title, path, imageUrl
-    if (this.data.options.p) path  = `page/common/pages/webView/webView?type=1&p=${this.data.options.p}`
+    if (this.data.options.p) path  = `page/common/pages/webView/webView?p=${this.data.options.p}`
     if (this.data.options.t) title = decodeURIComponent(this.data.options.t)
     if (this.data.options.i) imageUrl = decodeURIComponent(this.data.options.i)
-    if (this.data.options.statisticalType) app.shareStatistics({type: this.data.options.statisticalType, id: 0, channel: 'card', sCode: 0})
+    if (this.data.options.statisticalType) app.shareStatistics({type: this.data.options.statisticalType, knacks: this.data.options.knacks, id: 0, channel: 'card', sCode: 0})
     return app.wxShare({
       options,
       title,

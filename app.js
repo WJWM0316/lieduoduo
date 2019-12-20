@@ -848,8 +848,8 @@ App({
     }
   },
   // 操作统计
-  shareStatistics ({id, type, channel, sCode}) {
-    shareStatistics({id, type, channel, sCode}).then(res => {
+  shareStatistics ({id, type, knacks, channel, sCode}) {
+    shareStatistics({id, type, knacks, channel, sCode}).then(res => {
     })
   },
   // 浏览统计

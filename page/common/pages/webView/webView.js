@@ -47,6 +47,7 @@ Page({
         case 'wantYouC':
           app.readyStatistics('enterPage_report')
           pageUrl = `${WEBVIEW}wantYou?sessionToken=${sessionToken}&token=${token}`
+          break
         case 'wantYouB':
           app.readyStatistics('enterPage_report')
           pageUrl = `${WEBVIEW}wantYou?type=bIndex&sessionToken=${sessionToken}&token=${token}`
@@ -78,6 +79,7 @@ Page({
           pageUrl = `${path}?sessionToken=${sessionToken}&token=${token}`
         }
       }
+
       this.setData({pageUrl})
     }
     if (app.loginInit) {
