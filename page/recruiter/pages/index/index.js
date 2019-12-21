@@ -157,7 +157,7 @@ Page({
     }
   },
   initDefaultBar() {
-    if (!this.data.detail.positionNum) return
+    // if (!this.data.detail.positionNum) return
     setTimeout(() => {
       getSelectorQuery('.tab-bar').then(res => {
         let moveParams = this.data.moveParams
