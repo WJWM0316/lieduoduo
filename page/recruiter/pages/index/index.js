@@ -199,7 +199,7 @@ Page({
    * @return   {[type]}   [description]
    */
   getDomNodePosition() {
-    if (!this.data.detail.positionNum) return
+    // if (!this.data.detail.positionNum) return
     setTimeout(() => {
       getSelectorQuery('.default').then(res => {
         if(!fixedDomPosition) fixedDomPosition = res.top - this.data.navH
@@ -298,6 +298,7 @@ Page({
     } else {
       if (this.data.background !== 'transparent') this.setData({isFixed: false, background: 'transparent'})
     }
+    console.log(e.scrollTop ,'===', fixedDomPosition)
     if(e.scrollTop > fixedDomPosition) {
       if(!this.data.fixedDom) this.setData({fixedDom: true})
     } else {
