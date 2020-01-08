@@ -4,7 +4,7 @@
 	  <view
 	  	class="tabBar-item {{item.active ? 'tabBar-item-active' : ''}}"
 	  	wx:for="{{list}}"
-	  	wx:key="{{index}}">
+	  	wx:key="flag">
 	  		<view class="tap" data-path="{{item.path}}" bindtap="toggle" data-index="{{index}}"></view>
 	  		<view class="icon-box_01">
 		  		<image class="tabIcon" src="{{item.iconPath}}" hidden="{{item.active}}"></image>

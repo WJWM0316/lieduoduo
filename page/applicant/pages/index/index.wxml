@@ -17,12 +17,12 @@
         bindchange="autoplay"
         style="height: {{bannerH}}px"
         >
-        <swiper-item wx:for="{{bannerList}}" wx:key="{{index}}" bindtap="jumpBanner" data-name="{{item.name}}" data-url="{{item.targetUrl || item.otherUrl}}">
+        <swiper-item wx:for="{{bannerList}}" wx:key="name" bindtap="jumpBanner" data-name="{{item.name}}" data-url="{{item.targetUrl || item.otherUrl}}">
           <image data-index="{{index}}" bindload="bannerLoad" class="banner" src="{{isBangs ? item.bigImgUrl : item.smallImgUrl}}" mode="widthFix"></image>
         </swiper-item>
       </swiper>
       <view class="swiper-dots" wx:if="{{bannerList.length > 1}}">
-        <view wx:for="{{bannerList}}" wx:key="{{index}}" class="swiper-dots-item {{bannerIndex === index ? 'active' : ''}}"></view>
+        <view wx:for="{{bannerList}}" wx:key="name" class="swiper-dots-item {{bannerIndex === index ? 'active' : ''}}"></view>
       </view>
     </view>
     <view hidden='{{!tabFixed}}' style="height: 90rpx;"></view>

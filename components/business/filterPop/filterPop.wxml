@@ -7,7 +7,7 @@
 				<view class="type city" wx:if="{{filterType === 'city'}}">
 					<view class="title">选择城市</view>
 					<view class="labelBox">
-						<view class="label {{item.active ? 'active' : ''}}" wx:for="{{filter.area}}" wx:key="area_{{index}}" data-index="{{index}}" data-item="{{item}}" data-type="city" bindtap="chooseItem">{{item.name}}</view>
+						<view class="label {{item.active ? 'active' : ''}}" wx:for="{{filter.area}}" wx:key="areaId" data-index="{{index}}" data-item="{{item}}" data-type="city" bindtap="chooseItem">{{item.name}}</view>
 					</view>
 				</view>
 				<view class="type industry" wx:if="{{filterType === 'company'}}">

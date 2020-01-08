@@ -1,7 +1,7 @@
 <form bindsubmit="formSubmit" report-submit='{{true}}'> 
   <view class="wrap my-class" style="height: {{wrapH}}px">
-  	<block wx:for="{{listData}}" wx:key="{{indexs}}" wx:for-item="list" wx:for-index="indexs">
-  		<view class="flow {{flowClass}}_flow{{indexs}}{{index}}" wx:for="{{list}}" wx:key="{{indexs}}{{index}}" style="left: {{item.left}}px;top: {{item.top}}px">
+  	<block wx:for="{{listData}}" wx:key="id" wx:for-item="list" wx:for-index="indexs">
+  		<view class="flow {{flowClass}}_flow{{indexs}}{{index}}" wx:for="{{list}}" wx:key="id" style="left: {{item.left}}px;top: {{item.top}}px">
         <button
             form-type="submit" 
             class="card clear-style"

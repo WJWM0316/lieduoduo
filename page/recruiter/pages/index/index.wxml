@@ -41,7 +41,7 @@
 			</view>
 			<view class="right">
 				<view class="imglist">
-					<image class="imgitem" lazy-load wx:for="{{indexShowCount.candidateDynamic}}" wx:key="{{index}}" src="{{item.smallUrl}}" wx:if="{{index <= 2}}"></image>
+					<image class="imgitem" lazy-load wx:for="{{indexShowCount.candidateDynamic}}" wx:key="id" src="{{item.smallUrl}}" wx:if="{{index <= 2}}"></image>
 					<image class="imgitem" src="{{cdnImagePath}}more.png" wx:if="{{indexShowCount.candidateDynamic.length > 3}}"></image>
 				</view>
 			</view>
@@ -79,7 +79,7 @@
 					data-type="{{item.type}}"
 					data-index="{{index}}"
 					wx:for="{{banner}}"
-					wx:key="{{index}}"
+					wx:key="name"
 					class="swiper-item"
 					wx:for-item="item">
 	        <image src="{{item.bigImgUrl}}" class="images"></image>
@@ -116,7 +116,7 @@
 					wx:for-item="item"
 					data-jobhunterUid="{{item.uid}}"
 					data-type="{{item.myType}}"
-					wx:key="{{index}}">
+					wx:key="id">
 					<view class="list-item {{item.redDot ? 'red' : ''}}">
 						<view class="msg">
 							<view class="head">
@@ -157,7 +157,7 @@
 					wx:for-item="item"
 					data-jobhunterUid="{{item.uid}}"
 					data-type="{{item.myType}}"
-					wx:key="{{index}}">
+					wx:key="id">
 					<view class="list-item {{item.redDot ? 'red' : ''}}">
 						<view class="msg">
 							<view class="head">
@@ -205,7 +205,7 @@
 					<view
 						class="list_item"
 						wx:for="{{positionLists.list}}"
-						wx:key="{{index}}"
+						wx:key="id"
 						bindtap="sChoice"
 						wx:if="{{item.id}}"
 						data-index="{{index}}">
@@ -234,7 +234,7 @@
 				<view
 					class="base_item {{item.active ? 'base_item_active' : ''}}"
 					wx:for="{{cityLists.list}}"
-					wx:key="{{index}}"
+					wx:key="areaId"
 					data-index="{{index}}"
 					bindtap="cChoice">{{item.name}}</view>
 			</view>
@@ -246,7 +246,7 @@
 				<view
 					class="base_item {{item.active ? 'base_item_active' : ''}}"
 					wx:for="{{salaryLists}}"
-					wx:key="{{index}}"
+					wx:key="id"
 					data-index="{{index}}"
 					bindtap="mChoice">{{item.text}}</view>
 			</view>
