@@ -194,16 +194,18 @@ Page({
       checkUserPosition
     ])
     .then(res => {
-      if(options.action && options.action === 'edit') {
-        // 对于已有的数据 直接编辑 编辑加入或者创建的信息
-        if(applyJoin) {
-          this.editJoinCompany()
+      app.subscribeWechatMessage('recruiterRegisterInfo').then(() => {
+        if(options.action && options.action === 'edit') {
+          // 对于已有的数据 直接编辑 编辑加入或者创建的信息
+          if(applyJoin) {
+            this.editJoinCompany()
+          } else {
+            this.editCreateCompany()
+          }
         } else {
-          this.editCreateCompany()
+          this.createCompany()
         }
-      } else {
-        this.createCompany()
-      }
+      })      
     })
     .catch(err => {
       app.wxToast({title: err})

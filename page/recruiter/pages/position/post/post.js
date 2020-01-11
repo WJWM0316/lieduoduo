@@ -312,7 +312,9 @@ Page({
       positionEducation,
       positionDescribe
     ]).then(res => {
-      this[action](formData)
+      app.subscribeWechatMessage('updatePosition').then(() => {
+        this[action](formData)
+      })
     })
     .catch(err => app.wxToast({title: err}))
   },

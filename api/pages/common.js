@@ -227,3 +227,25 @@ export const clearReddotApi  = (data, hasLoading) => {
     hasLoading: false
   })
 }
+
+// 小程序全局相关配置接口
+export const getWechatConfigMiniProgramApi  = (data, hasLoading) => {
+  return request({
+    method: 'get',
+    url: `/config/mini_program`,
+    data,
+    host: 'PUBAPIHOST',
+    hasLoading: false
+  })
+}
+
+// 订阅小程序消息
+export const subscribeWechatMessageApi  = (data, hasLoading) => {
+  return request({
+    method: 'post',
+    url: `/wechat/message/subscribe`,
+    data,
+    host: 'PUBAPIHOST',
+    hasLoading: false
+  })
+}

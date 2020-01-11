@@ -175,48 +175,50 @@ Page({
     this.setData({appointmentId})
   },
   send() {
-    let info = this.data.info
-    let dateList = []
-    if(!info.arrangementInfo.appointmentList || (info.arrangementInfo.appointmentList && info.arrangementInfo.appointmentList.length === 0)) {
-      app.wxToast({title: '请编辑面试时间'})
-      return
-    }
-    if (info.arrangementInfo) {
-      info.arrangementInfo.appointmentList.map((item, index) => {
-        dateList.push(item.appointmentTime)
-      })
-    }
+    app.subscribeWechatMessage('updateInterview').then(() => {
+      let info = this.data.info
+      let dateList = []
+      if(!info.arrangementInfo.appointmentList || (info.arrangementInfo.appointmentList && info.arrangementInfo.appointmentList.length === 0)) {
+        app.wxToast({title: '请编辑面试时间'})
+        return
+      }
+      if (info.arrangementInfo) {
+        info.arrangementInfo.appointmentList.map((item, index) => {
+          dateList.push(item.appointmentTime)
+        })
+      }
 
-    let data = {
-      interviewId: this.data.options.id,
-      realname: info.recruiterInfo.realname,
-      mobile: info.recruiterInfo.mobile,
-      positionId: info.positionId,
-      addressId: info.addressId,
-      interviewTime: dateList.join(',')
-    }
-    let title = ''
-    if (!info.recruiterInfo.realname) {
-      title = '请填写面试联系人'
-    } else if (!info.recruiterInfo.mobile) {
-      title = '请填写面试联系电话'
-    } else if (info.recruiterInfo.mobile && !mobileReg.test(info.recruiterInfo.mobile)) {
-      title = '联系电话格式错误'
-    } else if (!data.interviewTime) {
-      title = '请至少添加一个约面时间'
-    }
-    if (title) {
-      app.wxToast({title})
-      return
-    }
-    setInterviewDetailApi(data).then(res => {
-      wx.removeStorageSync('interviewData')
-      wx.removeStorageSync('createPosition')
-      app.wxToast({
-        title: '发送成功',
-        icon: 'success'
+      let data = {
+        interviewId: this.data.options.id,
+        realname: info.recruiterInfo.realname,
+        mobile: info.recruiterInfo.mobile,
+        positionId: info.positionId,
+        addressId: info.addressId,
+        interviewTime: dateList.join(',')
+      }
+      let title = ''
+      if (!info.recruiterInfo.realname) {
+        title = '请填写面试联系人'
+      } else if (!info.recruiterInfo.mobile) {
+        title = '请填写面试联系电话'
+      } else if (info.recruiterInfo.mobile && !mobileReg.test(info.recruiterInfo.mobile)) {
+        title = '联系电话格式错误'
+      } else if (!data.interviewTime) {
+        title = '请至少添加一个约面时间'
+      }
+      if (title) {
+        app.wxToast({title})
+        return
+      }
+      setInterviewDetailApi(data).then(res => {
+        wx.removeStorageSync('interviewData')
+        wx.removeStorageSync('createPosition')
+        app.wxToast({
+          title: '发送成功',
+          icon: 'success'
+        })
+        this.pageInit()
       })
-      this.pageInit()
     })
   },
   revise() {
