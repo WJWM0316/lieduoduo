@@ -19,7 +19,7 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad(options) {
     wxShare = {}
     options = options
     if (options.scene) options = app.getSceneParams(options.scene)
@@ -98,29 +98,6 @@ Page({
     }
     console.log(this.data.h5Data, 'h5返回的信息')
   },
-  webLoad (e) {
-    console.log(e, 111)
-  },
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
-  },
-
   /**
    * 生命周期函数--监听页面卸载
    */
@@ -128,25 +105,10 @@ Page({
     wxShare = {}
     options = {}
   },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
-
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function (options) {
+  onShareAppMessage(options) {
 		// 拼接转发人vkey
 		if (wxShare.path.indexOf('vkey') !== -1) {
 			let a = wxShare.path.split('=')

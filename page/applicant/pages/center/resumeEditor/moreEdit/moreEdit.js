@@ -17,7 +17,7 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad(options) {
     if (options.id === 'undefined' || !options.id) {
       let limitNum = this.data.limitNum
       limitNum = limitNum - app.globalData.resumeInfo.moreIntroduce.imgs.length
