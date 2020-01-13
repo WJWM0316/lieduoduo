@@ -17,6 +17,7 @@ import {RECRUITER, APPLICANT, COMMON} from '../../../../config.js'
 
 import {sharePosition} from '../../../../utils/shareWord.js'
 import timePocessor from '../../../../utils/timePocessor.js'
+
 let positionCard = ''
 let app = getApp()
 let identity = '',

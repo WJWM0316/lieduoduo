@@ -16,7 +16,7 @@ import {
   getCompanyIdentityInfosApi
 } from '../../../../api/pages/company.js'
 
-import {getRecommendChargeApi} from '../../../../api/pages/recruiter.js'
+import { getRecommendChargeApi } from '../../../../api/pages/recruiter.js'
 
 import {RECRUITER, COMMON} from '../../../../config.js'
 
@@ -51,7 +51,7 @@ Page({
     if(wx.getStorageSync('choseType') === 'RECRUITER') {
       api = this.data.nowTab === 'online' ? 'getonLinePositionListB' : 'getoffLinePositionListB'
       // 招聘端则判断个人身份是否已经认证 不然不能发布职位
-      this.getCompanyIdentityInfos()
+      // this.getCompanyIdentityInfos()
     } else {
       api = 'getonLinePositionListC'
     }
@@ -218,7 +218,6 @@ Page({
    * @return   {[type]}     [description]
    */
   onClick(e) {
-
     let data = wx.getStorageSync('interviewData') || {}
     let job = e.currentTarget.dataset
     let params = {}
