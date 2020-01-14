@@ -177,12 +177,13 @@
         <!-- 底部开撩 -->
         <view class="bottomBox" hidden="{{(options.adviser && info.sourceType !== 500) || (options.hot && info.sourceType !== 100)}}">
           <view wx:if="{{!options.preview}}">
-            <interviewBar
+            <communicationBar
               id="interviewBar"
-              infos="{{info}}"
+              infos="{{ info }}"
               type="resume"
               bindresultevent="init"
-              wx:if="{{info.vkey && !isOwner}}"></interviewBar>
+              wx:if="{{info.vkey && !isOwner}}">
+            </communicationBar>
             <view wx:else class="editBot">
               <button form-type="submit" class="editBotBtn" bindtap="previewSelf">预览简历</button>
             </view>

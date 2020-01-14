@@ -14,7 +14,7 @@ let that = null
 let formIdList = [],
     sendNum = 0 // formId 发送次数
 App({
-  onLaunch: function (e) {
+  onLaunch(e) {
     // 获取导航栏高度
     this.getWechatConfig()
     this.checkUpdateVersion()

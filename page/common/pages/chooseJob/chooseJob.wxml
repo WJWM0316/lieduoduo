@@ -136,5 +136,14 @@
     wx:if="{{options.type === 'confirm_chat' || options.type === 'reject_chat' || options.type === 'recruiter_chat'}}">
       <view bindtap="submit" class="button-submit {{buttonClick ? 'button-enable' : ''}}">确定</view>
   </view>
-  <payPop openPayPop="{{openPayPop}}" chargeData="{{chargeData}}" bindsubmit="submit" bindclose="closePayPop" title="{{payTitle}}"></payPop>
+  <payPop openPayPop="{{ openPayPop }}" chargeData="{{ chargeData }}" bindsubmit="submit" bindclose="closePayPop" title="{{options.chattype === 'onekey' ? '邀请候选人约聊': '顾问约面服务' }}"></payPop>
+  <view class="overlay2">
+		<view class="box">
+			<i class="icon iconfont icon-close" bindtap="todoAction" data-action="close-advisor-model"></i>
+			<image src="{{cdnImagePath}}none_position.png"></image>
+			<view class="p1">约聊成功</view>
+			<view class="p2">下载猎多多App，体验完整功能，随时随地掌握约聊动态</view>
+			<view	class="button" bindtap="todoAction"	data-action="advisor-help-chat">	下载App </view>
+		</view>
+	</view>
 </view>
