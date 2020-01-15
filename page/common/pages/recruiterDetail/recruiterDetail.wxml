@@ -122,6 +122,7 @@
         bindresultevent="getPositionDetail"
         type="recruiter"
         options="{{options}}"
+        bindreLoad="reload"
         wx:if="{{info.vkey && !isOwner}}">
     </communicationBar>
     <shareBtn posterType="recruiter" id="shareBtn" shareBtn="{{false}}" params="{{info.uid}}" wx:if="{{isOwner && !showEdit}}"></shareBtn>

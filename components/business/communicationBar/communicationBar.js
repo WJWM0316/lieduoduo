@@ -3,6 +3,10 @@ import {
 } from '../../../api/pages/position.js'
 
 import {
+  applyInterviewApi,
+} from '../../../api/pages/interview.js'
+
+import {
   getCompanyIdentityInfosApi
 } from '../../../api/pages/company.js'
 
@@ -15,7 +19,6 @@ import {
   RECRUITER, 
   COMMON, 
   APPLICANT, 
-  WEBVIEW,
   DOWNLOADAPPURL
 } from '../../../config.js'
 
@@ -224,12 +227,10 @@ Component({
       let chat = () => {
         isRecruiter = app.globalData.isRecruiter
         isJobhunter = app.globalData.isJobhunter
-        let rapidlyInfo = this.data.infos.rapidlyInfo || {},
-            detail = this.data.infos
+        let detail = this.data.infos
 
         // 是急速约面开撩
         let isSpecail = detail.isRapidly === 1 
-                        && !this.data.interviewInfos.applied
                         && detail.rapidlyInfo.applyNum + detail.rapidlyInfo.natureApplyNum < detail.rapidlyInfo.seatsNum
         let successPop = (res) => {
           if (res.code === 916) {
@@ -318,6 +319,9 @@ Component({
                     cancelBack: () => {}
                   })
                 } else {
+                  if(this.data.infos.isRapidly) {
+                    applyInterviewApi({positionId: this.data.infos.id, interview_type: 2, recruiterUid: this.data.infos.recruiterInfo.uid})
+                  }
                   applyChatApi(params).then(res => {
                     this.triggerEvent('reLoad', true)
                     successPop(res)
