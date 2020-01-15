@@ -575,6 +575,6 @@ Page({
    * @return   {[type]}   [description]
    */
   closeDownloadModel() {
-    this.setData({showDownloadModel: false}, () => wx.navigateBack({ delta: 2 }))
+    this.setData({showDownloadModel: false})
   }
 })

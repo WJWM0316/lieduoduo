@@ -1,3 +1,4 @@
+import { WEBVIEW, DOWNLOADAPPURL } from '../../../config.js'
 let app = getApp()
 Component({
   properties: {
@@ -11,9 +12,12 @@ Component({
   },
   methods: {
     download() {
-      this.triggerEvent('change')
-      let path = encodeURIComponent(`${WEBVIEW}advisor?page=advisor`)
-      wx.navigateTo({url: `${COMMON}webView/webView?type=optimal&p=${path}`})
+      this.triggerEvent('close')
+      wx.navigateTo({url: `${COMMON}webView/webView?type=optimal&p=${ DOWNLOADAPPURL }`})
+    },
+    close() {
+      this.triggerEvent('close')
+      wx.navigateBack({ delta: 2 })
     }
   }
 })
