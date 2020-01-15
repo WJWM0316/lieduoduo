@@ -12,7 +12,7 @@
   box-sizing: border-box;
   padding: 20rpx;
   display: flex;
-  border-radius:28rpx 28rpx 0rpx 0rpx;
+  /* border-radius:28rpx 28rpx 0rpx 0rpx; */
 }
 .interview-bar .clear-style {
   padding: 0;

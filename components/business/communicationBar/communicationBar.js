@@ -25,7 +25,7 @@ import {
   deleteNotInterestApi,
   getNotInterestAllReasonListApi
 } from '../../../api/pages/chat.js'
-import {RECRUITER, COMMON, APPLICANT, WEBVIEW} from '../../../config.js'
+import {RECRUITER, COMMON, APPLICANT, WEBVIEW, DOWNLOADAPPURL} from '../../../config.js'
 
 import { agreedTxtC, agreedTxtB } from '../../../utils/randomCopy.js'
 
@@ -296,15 +296,6 @@ Component({
       let isJobhunter = app.globalData.isJobhunter
       let interviewInfos = this.data.interviewInfos
       let infos = this.data.infos
-
-      let getRole = () => {
-        if(app.getRoleInit) {
-          chat()
-        } else {
-          app.getRoleInit = () => chat()
-        }
-      }
-
       // 开撩动作
       let chat = () => {
         isRecruiter = app.globalData.isRecruiter
@@ -362,13 +353,14 @@ Component({
           }
         }
 
-        if(identity === 'APPLICANT') {
+        if( identity === 'APPLICANT' ) {
           if(!isJobhunter) {
             let path = app.getCurrentPagePath()
             wx.navigateTo({url: `${APPLICANT}createUser/createUser?directChat=${encodeURIComponent(path)}&from=2`})
           } else {
             // 走正常流程
-            if(this.data.type === 'recruiter') { // 开撩招聘官
+            if(this.data.type === 'recruiter') {
+              // 开撩招聘官
               // 招聘官没有在线职位或者招聘官没发布过职位
               if(!this.data.infos.positionNum) {
                 app.wxReportAnalytics('btn_report', {
@@ -383,7 +375,8 @@ Component({
               } else {
                 wx.navigateTo({url: `${COMMON}chooseJob/chooseJob?type=job_hunting_chat&from=${this.data.currentPage}&showNotPositionApply=${interviewInfos.showNotPositionApply}&from=${this.data.currentPage}&recruiterUid=${this.data.infos.uid}&chattype=${this.data.chatType}`})
               }
-            } else { // 开撩职位
+            } else {
+              // 开撩职位
               app.wxReportAnalytics('btn_report', {
                 isjobhunter: app.globalData.isJobhunter,
                 resume_perfection: app.globalData.resumeInfo.resumeCompletePercentage * 100,
@@ -391,16 +384,32 @@ Component({
               })
               let params = {recruiter: this.data.infos.recruiterInfo.uid, position: this.data.infos.id}
               if (isSpecail) params.interview_type = 2
-              applyChatApi(params).then(res => {
-                this.triggerEvent('reLoad', true)
-                this.getInterviewStatus()
-                successPop(res)
-                // 未满急速约面开撩成功，需要记录一下返回时候重置一下数据
-                if (isSpecail) {
-                  this.triggerEvent('chatPosition', true)
-                  wx.setStorageSync('chatSuccess', detail)
+              let cb = () => {
+                if(infos.interviewSummary && infos.interviewSummary.interviewId) {
+                  app.wxConfirm({
+                    title: '不能同时约面招聘官下的多个职位哦',
+                    content: '是否更换为约面该职位',
+                    cancelText: '我在想想',
+                    confirmText: '更换职位',
+                    confirmBack: () => {
+                      wx.navigateTo({url: `${COMMON}chooseJob/chooseJob?type=job_hunting_chat&recruiterUid=${infos.recruiterInfo.uid}`})
+                    },
+                    cancelBack: () => {}
+                  })
+                } else {
+                  applyChatApi(params).then(res => {
+                    this.triggerEvent('reLoad', true)
+                    this.getInterviewStatus()
+                    successPop(res)
+                    // 未满急速约面开撩成功，需要记录一下返回时候重置一下数据
+                    if (isSpecail) {
+                      this.triggerEvent('chatPosition', true)
+                      wx.setStorageSync('chatSuccess', detail)
+                    }
+                  })
                 }
-              })
+              }
+              cb()
             }
           }
         } else {
@@ -410,6 +419,13 @@ Component({
             // 走正常流程
             wx.navigateTo({url: `${COMMON}chooseJob/chooseJob?type=recruiter_chat&jobhunterUid=${ infos.uid }&recruiterUid=${app.globalData.recruiterDetails.uid}&sourceType=${this.data.infos.sourceType}&chattype=${this.data.chatType}`})
           }
+        }
+      }
+      let getRole = () => {
+        if(app.getRoleInit) {
+          chat()
+        } else {
+          app.getRoleInit = () => chat()
         }
       }
 
@@ -520,8 +536,7 @@ Component({
               }
             })
           } else {
-            let path = encodeURIComponent(`${WEBVIEW}advisor?page=advisor`)
-            wx.navigateTo({url: `${COMMON}webView/webView?type=optimal&p=${path}`})
+            wx.navigateTo({url: `${ COMMON }webView/webView?type=optimal&p=${ DOWNLOADAPPURL }`})
           }
           break
         case 'recruiter-chat':
@@ -704,7 +719,9 @@ Component({
           wx.reLaunch({url: `${APPLICANT}specialJob/specialJob`})
           break
         case 'delete-not-interest':
-          this.deleteNotInterest({id: infos.chatInfo.id, jobhunter: infos.uid})
+          this.deleteNotInterest({id: infos.chatInfo.id, jobhunter: infos.uid}).then(() => {
+            wx.navigateTo({url: `${COMMON}webView/webView?type=optimal&p=${ DOWNLOADAPPURL }`})
+          })
           break
         case 'view-not-interest-reason':
           this.showNotInterestReason()
@@ -715,6 +732,9 @@ Component({
           break
         case 'close-advisor-model':
           this.setData({showAdvisor: false})
+          break
+        case 'advisor-helping':
+          wx.navigateTo({url: `${COMMON}arrangement/arrangement?id=${ infos.chatInfo.imTopInterviewInfo.interviewInfo.interviewId }`})
           break
         default:
           break

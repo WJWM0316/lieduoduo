@@ -238,7 +238,7 @@
 					<view class="btnBox">
 						<view
 							class="advisor-entering"
-							data-action="advisor-popup"
+							data-action="advisor-helping"
 							bindtap="todoAction">
 							顾问跟进中
 						</view>
