@@ -1,26 +1,17 @@
 <!-- 加载过滤器 -->
 <wxs src="../../../../utils/filters.wxs" module="filters" />
 <view class="arrangement" wx:if="{{info.interviewId}}">
-
-  <navbar
-    title="面试详情"
-    background="#FFFFFF"
-    color="#22292C">
-  </navbar>
-
+  <navbar title="面试详情" background="#FFFFFF" color="#22292C"></navbar>
   <view hidden="{{!hasReFresh}}">
     <refreshStatus></refreshStatus>
   </view>
-
   <view class="tip" wx:if="{{identity === 'RECRUITER' && info.status === 32}}">备选时间不合适，请联系候选人重新确定时间</view>
-
   <view class="headInfo">
     <view class="roleDetail" wx:if="{{info.interviewId}}">
       <roleInfoCard wx:if="{{identity === 'RECRUITER'}}" cardData="{{info.jobhunterInfo}}" roleType="applicant" glass="{{info.glass}}"></roleInfoCard>
       <roleInfoCard wx:if="{{identity === 'APPLICANT'}}" cardData="{{info.recruiterInfo}}" roleType="recruiter"></roleInfoCard>
     </view>
   </view>
-
   <block>
     <view class="content">
       <view class="detail" wx:if="{{identity === 'RECRUITER' && (info.status === 21 || info.status === 32)}}">
@@ -75,13 +66,7 @@
             <i class="icon iconfont icon-xiangyou"></i>
           </view>
         </view>
-        <view class="msgItem">
-          <view class="inner">
-            <i class="icon1 iconfont icon-mianshizhiwei"></i>
-            <view class="msg">{{info.sourceTypeDesc}}</view>
-          </view>
-        </view>
-        <view class="msgItem jump" wx:if="{{info.address && info.sourceType === 1}}" bindtap="openMap">
+        <view class="msgItem jump" wx:if="{{info.address}}" bindtap="openMap">
           <view class="inner noborder">
             <i class="icon1 iconfont icon-mianshidizhi"></i>
             <view class="msg noWrap">{{info.address}}{{info.doorplate}}</view>
@@ -140,7 +125,7 @@
         <image class="pic" src="{{cdnImagePath}}wait.png"></image>
       </view>
 
-      <!-- <view class="date read" wx:if="{{identity === 'APPLICANT' && info.status === 31}}">
+      <view class="date read" wx:if="{{identity === 'APPLICANT' && info.status === 31}}">
         <view class="title"><icon class="icon"></icon>约面时间<text class="newTip">请选择一个时间接受面试</text></view>
         <radio-group class="radio-group dateItem" bindchange="radioChange">
           <label wx:for="{{info.arrangementInfo.appointmentList}}" wx:key="{{index}}">
@@ -162,7 +147,7 @@
             </view>
           </label>
         </radio-group>
-      </view> -->
+      </view>
       
       <view class="realDate" wx:if="{{info.status === 41}}">
         <view class="txt1">面试时间已确认</view>
@@ -261,6 +246,7 @@
         <!-- 招聘官已好评求职者 end -->
       </view>
     </view>
+
     <view class="btnBox" wx:if="{{identity === 'RECRUITER' && (info.status === 21 || info.status === 32)}}">
       <button class="btn" bindtap="send">发送面试安排</button>
     </view>
@@ -270,17 +256,13 @@
       <button class="btn_02" bindtap="todoAction" data-action="notsuitable">不合适</button>
     </view>
     <view class="btnBox" wx:if="{{identity === 'APPLICANT' && info.status === 31}}">
-      <button class="btn" bindtap="sureDate">选择面试时间</button>
+      <button class="btn" bindtap="sureDate">确定接受面试</button>
     </view>
     <view class="btnBox" wx:if="{{identity === 'RECRUITER' && info.status === 41}}">
       <button class="btn" open-type="share">转发安排给其他同事</button>
     </view>
-    <view class="btnBox" wx:if="{{identity === 'APPLICANT' && (info.status === 21 || info.status === 32 || info.status === 41)}}">
-      <button class="btn" bindtap="sureDate">订阅面试反馈提醒</button>
-    </view>
+
   </block>
 
-  <block wx:if="{{info.vkey && identity === 'RECRUITER' && info.status === 41}}">
-    <canvasCard cardData="{{info}}" type="interview" bindgetCreatedImg="getCreatedImg"></canvasCard>
-  </block>
+  <block wx:if="{{info.vkey && identity === 'RECRUITER' && info.status === 41}}"><canvasCard cardData="{{info}}" type="interview" bindgetCreatedImg="getCreatedImg"></canvasCard></block>
 </view>

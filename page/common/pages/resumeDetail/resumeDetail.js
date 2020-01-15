@@ -106,16 +106,12 @@ Page({
           if (this.data.isOwner) {
             app.globalData.resumeInfo = res.data
           }
-          if (this.selectComponent('#interviewBar')) {
-            this.selectComponent('#interviewBar').init()
-          }
           resolve(res)
         })
       }).catch(e => {
         reject(e)
         if (e.code === 910) this.setData({invisible: true, resumeType: 'featured', info: {invisible: true}})
         if (e.code === 911) this.setData({invisible: true, resumeType: 'hot', info: {invisible: true}})
-          console.log(11111111111111111111)
       })
     })
   },

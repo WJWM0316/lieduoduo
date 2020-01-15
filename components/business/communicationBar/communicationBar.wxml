@@ -51,9 +51,6 @@
 							data-action="job-hunting-chat">
 							<view>
 								<view class="txt1">马上抢</view>
-								<!-- <view class="txt2">
-									剩{{ infos.rapidlyInfo.seatsNum - infos.rapidlyInfo.applyNum - infos.rapidlyInfo.natureApplyNum }}个约面席位
-								</view> -->
 							</view>
 						</button>
 						<button
@@ -62,9 +59,11 @@
 							bindtap="todoAction"
 							wx:if="{{ infos.rapidlyInfo.seatsNum - infos.rapidlyInfo.applyNum - infos.rapidlyInfo.natureApplyNum === 0 }}"
 							data-action="job-hunting-chat">
-							<view	class="tooltips">
-								席位抢光没关系，点击一键约聊，面试官将尽快回复哦~
-							</view>
+							<image
+								class="endIcon"
+								src="{{ cdnImagePath }}img_warnning_nosite@2x.png"
+								mode="widthFix">
+							</image>
 							一键约聊
 						</button>
 					</block>
@@ -76,12 +75,6 @@
 							data-action="job-hunting-chat">
 							一键约聊
 						</button>
-						<image
-							wx:if="{{ showEndIcon }}"
-							class="endIcon"
-							src="{{ cdnImagePath }}img_warnning_nosite@2x.png"
-							mode="widthFix">
-						</image>
 					</block>
 				</block>
 			</block>
@@ -108,7 +101,7 @@
 					</view>
 					<view
 						bindtap="todoAction"
-						data-action="job-hunting-applyed"
+						data-action="keep-communicating"
 						wx:else>
 							继续聊
 					</view>
@@ -166,7 +159,7 @@
 					</view>
 				</view>
 				<view class="clear-style button-box button-box-color1">
-					<view bindtap="todoAction" data-action="job-hunting-applyed">
+					<view bindtap="todoAction" data-action="keep-communicating">
 						继续聊
 					</view>
 				</view>
@@ -209,7 +202,7 @@
 						form-type="submit"
 						class="clear-style button-box button-box-color1"
 						bindtap="todoAction"
-						data-action="job-hunting-applyed">
+						data-action="keep-communicating">
 						继续聊
 					</button>
 				</block>
@@ -244,7 +237,7 @@
 						</view>
 						<view
 							class="btn-chat"
-							data-action="job-hunting-applyed"
+							data-action="keep-communicating"
 							bindtap="todoAction">
 							继续聊
 						</view>

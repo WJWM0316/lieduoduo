@@ -94,6 +94,9 @@ Page({
       }
     })
   },
+  reload() {
+    this.getPositionDetail(false, true)
+  },
   /**
    * @Author   小书包
    * @DateTime 2019-01-02
@@ -139,7 +142,7 @@ Page({
           recruiterInfo: res.data.recruiterInfo, 
           isOwner: res.data.isOwner && identity === 'RECRUITER' ? true : false
         })
-        if(this.selectComponent('#interviewBar')) this.selectComponent('#interviewBar').init()
+        // if(this.selectComponent('#interviewBar')) this.selectComponent('#interviewBar').init()
       })
     }
     // 正常获取数据
@@ -182,7 +185,7 @@ Page({
           time,
           isOwner: res.data.isOwner && identity === 'RECRUITER' ? true : false
         })
-        if(this.selectComponent('#interviewBar')) this.selectComponent('#interviewBar').init()
+        // if(this.selectComponent('#interviewBar')) this.selectComponent('#interviewBar').init()
     })
   },
   countDown (time) {

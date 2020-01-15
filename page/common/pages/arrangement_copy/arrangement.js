@@ -6,7 +6,7 @@ import {
   setInterviewCommentApi,
   interviewRetractApi
 } from "../../../../api/pages/interview.js"
-import {COMMON,APPLICANT,RECRUITER, DOWNLOADAPPURL} from "../../../../config.js"
+import {COMMON,APPLICANT,RECRUITER} from "../../../../config.js"
 import {mobileReg} from "../../../../utils/fieldRegular.js"
 import {shareInterviewr} from '../../../../utils/shareWord.js'
 let app = getApp()
@@ -227,7 +227,21 @@ Page({
     this.setData({info, revised: true})
   },
   sureDate() {
-    wx.navigateTo({url: `${ COMMON }webView/webView?type=optimal&p=${ DOWNLOADAPPURL }`})
+    let data = {
+      interviewId: this.data.options.id,
+      appointmentId: this.data.appointmentId
+    }
+    if(!this.data.appointmentId) {
+      app.wxToast({title: '请选择一个面试时间'})
+      return;
+    }
+    sureInterviewApi(data).then(res => {
+      app.wxToast({
+        title: '确定成功',
+        icon: 'success'
+      })
+      this.pageInit('y')
+    })
   },
   /**
    * 生命周期函数--监听页面加载

@@ -519,6 +519,13 @@
 					"pathName": "page/common/pages/chooseJob/chooseJob",
 					"query": "type=recruiter_chat&jobhunterUid=5029&recruiterUid=662&sourceType=null",
 					"scene": null
+				},
+				{
+					"id": 69,
+					"name": "【C端】约面",
+					"pathName": "page/common/pages/arrangement/arrangement",
+					"query": "id=3257",
+					"scene": null
 				}
 			]
 		}
