@@ -64,15 +64,12 @@ Component({
     slogoIndex: 0,
     // 是否是我发布
     isOwerner: false,
-    currentPage: '',
     index: 0,
     jobWords: agreedTxtC(),
     recruiterWords: agreedTxtB(),
-    isShare: false,
     cdnImagePath: app.globalData.cdnImagePath,
     positionInfos: {},
     show: false,
-    loaded: false,
     showSuccessPop: false,
     successPopDesc: '',
     showEndIcon: false,
@@ -99,24 +96,6 @@ Component({
     this.setData({ identity })
   },
   methods: {
-    init() {
-      let currentPage = ''
-      switch(this.data.type) {
-        case 'position':
-          currentPage = 'positionDetail'
-          break
-        case 'resume':
-          currentPage = 'resumeDetail'
-          break
-        case 'recruiter':
-          currentPage = 'recruiterDetail'
-          break
-        default:
-          currentPage = ''
-          break
-      }
-      this.setData({currentPage, jobWords: agreedTxtC(), recruiterWords: agreedTxtB(), show: false})
-    },
     /**
      * @Author   小书包
      * @DateTime 2019-01-29
@@ -124,7 +103,7 @@ Component({
      * @return   {[type]}   [description]
      */
     getNotInterestAllReasonList() {
-      getNotInterestAllReasonListApi().then(({ data }) => this.setData({notInterestReasonList: data}))
+      getNotInterestAllReasonListApi().then(({ data }) => this.setData({ notInterestReasonList: data }))
     },
     /**
      * @Author   小书包
@@ -133,7 +112,7 @@ Component({
      * @return   {[type]}   [description]
      */
     getRecommendCharge(params) {
-      return getRecommendChargeApi({ jobhunter: params.jobhunter }).then(({ data }) => this.setData({chargeData: data}))
+      return getRecommendChargeApi({ jobhunter: params.jobhunter }).then(({ data }) => this.setData({ chargeData: data }))
     },
     /**
      * @Author   小书包
@@ -208,7 +187,7 @@ Component({
      */
     getPositionListNum() {
       return new Promise((resolve, reject) => {
-        getPositionListNumApi().then(res => this.setData({positionInfos: res.data}, () => resolve(res)))
+        getPositionListNumApi().then(res => this.setData({ positionInfos: res.data }, () => resolve(res)))
       })
     },
     /**
@@ -315,7 +294,7 @@ Component({
                 })
                 applyChatApi({recruiterUid: this.data.infos.uid}).then(res => successPop(res))
               } else {
-                wx.navigateTo({url: `${COMMON}chooseJob/chooseJob?type=job_hunting_chat&from=${this.data.currentPage}&showNotPositionApply=${interviewInfos.showNotPositionApply}&from=${this.data.currentPage}&recruiterUid=${this.data.infos.uid}&chattype=${this.data.chatType}`})
+                wx.navigateTo({url: `${COMMON}chooseJob/chooseJob?type=job_hunting_chat&showNotPositionApply=${interviewInfos.showNotPositionApply}&recruiterUid=${this.data.infos.uid}&chattype=${this.data.chatType}`})
               }
             } else {
               // 开撩职位
@@ -485,7 +464,7 @@ Component({
             this.setData({chatType: 'onekey'})
             let type = this.data.type
             if ((identity !== 'RECRUITER' && type === 'position') || (identity === 'RECRUITER' && type === 'resume')) {
-              if(this.data.currentPage === 'resumeDetail') {
+              if(type === 'resume') {
                 this.getPositionListNum().then(res => {
                   if(!res.data.online) {
                     this.setData({show: true})
@@ -552,7 +531,7 @@ Component({
           })
           break
         case 'openPosition':
-          wx.navigateTo({url: `${COMMON}chooseJob/chooseJob?type=recruiter_chat&from=${this.data.currentPage}&jobhunterUid=${infos.uid}`})
+          wx.navigateTo({url: `${COMMON}chooseJob/chooseJob?type=recruiter_chat&jobhunterUid=${infos.uid}`})
           break
         case 'toSpecialJob':
           wx.reLaunch({url: `${APPLICANT}specialJob/specialJob`})

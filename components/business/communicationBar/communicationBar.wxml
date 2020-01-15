@@ -173,7 +173,7 @@
 			<block wx:if="{{ identity === 'RECRUITER' }}">
 				
 				<!-- C主动约聊B，B接受约聊后，底部栏显示为【招聘官信息+继续聊】 start-->
-				<block wx:if="{{ infos.chatInfo && infos.chatInfo.status === 301 }}">
+				<block wx:if="{{ infos.chatInfo && infos.chatInfo.status === 301 || infos.chatInfo.status === 101}}">
 					<view
 						class="img-box">
 						<image
@@ -227,7 +227,7 @@
 				</block>
 
 				<block 
-					wx:if="{{ infos.chatInfo && (infos.chatInfo.status === 701 || infos.chatInfo.status === 101 || infos.chatInfo.status === 501)}}">
+					wx:if="{{ infos.chatInfo && (infos.chatInfo.status === 701 || infos.chatInfo.status === 501)}}">
 					<view class="btnBox">
 						<view
 							class="advisor-entering"
