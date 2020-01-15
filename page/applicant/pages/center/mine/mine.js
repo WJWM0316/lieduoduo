@@ -1,4 +1,4 @@
-import {COMMON,APPLICANT,RECRUITER} from '../../../../../config.js'
+import {COMMON,APPLICANT,RECRUITER, DOWNLOADAPPPATH} from '../../../../../config.js'
 import { getPersonalResumeApi, getMyInfoApi } from '../../../../../api/pages/center.js'
 import {shareResume} from '../../../../../utils/shareWord.js'
 let app = getApp()
@@ -101,6 +101,11 @@ Page({
   },
   jump(e) {
     switch(e.currentTarget.dataset.type) {
+      case "loadApp":
+        wx.navigateTo({
+          url: DOWNLOADAPPPATH
+        })
+        break
       case "settings":
         wx.navigateTo({
           url: `${COMMON}settings/settings`

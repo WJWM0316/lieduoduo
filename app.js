@@ -1,9 +1,9 @@
 //app.js
 import {loginApi, checkSessionKeyApi, bindPhoneApi, uploginApi, getOauthUserApi} from 'api/pages/auth.js'
-import {formIdApi, shareStatistics, readyStatistics, getVersionListApi,getWechatConfigMiniProgramApi, subscribeWechatMessageApi} from 'api/pages/common.js'
+import {formIdApi, shareStatistics, readyStatistics, getVersionListApi,getWechatConfigMiniProgramApi, subscribeWechatMessageApi, getCurEnvApi} from 'api/pages/common.js'
 import {getPersonalResumeApi} from 'api/pages/center.js'
 import {getRecruiterDetailApi} from 'api/pages/recruiter.js'
-import {COMMON,RECRUITER,APPLICANT} from "config.js"
+import {COMMON, RECRUITER, APPLICANT, CDNPATH} from "config.js"
 import {getUserRoleApi} from "api/pages/user.js"
 import {quickLoginApi} from 'api/pages/auth.js'
 import {shareC, shareB} from 'utils/shareWord.js'
@@ -45,14 +45,14 @@ App({
     this.pageInit = null
     this.getRoleInit = null
     this.login()
-    
-    this.getFont('Number', 'https://attach.lieduoduo.com/font/DIN-Medium.ttf')
+    this.getCurEnv()
     // 这是一个官方api没有公布的方法，但又真实有效，慎用！
     wx.onAppRoute((res) => {
       if (res.query.hasOwnProperty('identity')) {
         that.identification(res.query)
       }
     })
+    this.getFont('Number', 'https://attach.lieduoduo.com/font/DIN-Medium.ttf')
   },
   onHide: function (e) {
     // 切换后台 发送全部formId
@@ -77,7 +77,7 @@ App({
     userInfo: null, // 用户信息， 判断是否授权,
     officialId: 0, // 是否关注公众号
     navHeight: 0,
-    cdnImagePath: 'https://attach.lieduoduo.ziwork.com/front-assets/images/',
+    cdnImagePath: CDNPATH,
     companyInfo: {}, // 公司信息
     resumeInfo: {}, // 个人简历信息
     recruiterDetails: {}, // 招聘官详情信息
@@ -88,10 +88,10 @@ App({
     telePhone: '400-065-5788',  // 联系电话
     systemInfo: wx.getSystemInfoSync(), // 系统信息
     xs: 0, // px 转化成 rpx 的 比例
-    // 面试红点信息
-    redDotInfos: {},
+    redDotInfos: {},// 面试红点信息
     subscribeConfig: {},
-    platform: ''
+    platform: '',
+    stg: 0 // 是否是预发布
   },
   // 登录
   login() {
@@ -938,6 +938,11 @@ App({
           }
         }
       })
+    })
+  },
+  getCurEnv () {
+    getCurEnvApi().then(res => {
+      this.globalData.stg = res.data.stg
     })
   }
 })

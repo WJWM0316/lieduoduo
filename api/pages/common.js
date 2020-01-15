@@ -249,3 +249,14 @@ export const subscribeWechatMessageApi  = (data, hasLoading) => {
     hasLoading: false
   })
 }
+
+// 获取后端环境
+export const getCurEnvApi  = (data, hasLoading) => {
+  return request({
+    method: 'get',
+    url: `/env/cur`,
+    data,
+    host: 'PUBAPIHOST',
+    hasLoading: false
+  })
+}

@@ -1,0 +1,49 @@
+const app = getApp()
+import {COMMON, APPLICANT, DOWNLOADAPPPATH} from '../../../config.js'
+
+Component({
+  /**
+   * 组件的属性列表
+   */
+  properties: {
+    type: {
+      type: Number,
+      value: 1
+    }
+  },
+
+  /**
+   * 组件的初始数据
+   */
+  data: {
+    showPop: true,
+    cdnImagePath: app.globalData.cdnImagePath
+  },
+
+  /**
+   * 组件的方法列表
+   */
+  methods: {
+    close () {
+      this.setData({showPop: false})
+    },
+    toDo (e) {
+      let url = ''
+      switch (e.currentTarget.dataset.type) {
+        case 'perfect':
+          url = `${COMMON}resumeDetail/resumeDetail?uid=${app.globalData.resumeInfo.uid}`
+          break
+        case 'index':
+          url = `${APPLICANT}index/index`
+          break
+        case 'specialJob':
+          url = `${APPLICANT}specialJob/specialJob`
+          break
+        case 'downLoadApp':
+          url = DOWNLOADAPPPATH
+          break
+      }
+      wx.navigateTo({url})
+    }
+  }
+})

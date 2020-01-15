@@ -1,6 +1,6 @@
 import { getRecruiterOtherInfosApi } from '../../../../../../api/pages/recruiter.js'
 
-import {RECRUITER, COMMON, WEBVIEW, VERSION} from '../../../../../../config.js'
+import {RECRUITER, COMMON, DOWNLOADAPPPATH, VERSION} from '../../../../../../config.js'
 
 import {getUserRoleApi} from "../../../../../../api/pages/user.js"
 
@@ -81,6 +81,11 @@ Page({
     const route = e.currentTarget.dataset.route
     const pageInfos = this.data.pageInfos
     switch(route) {
+      case 'loadApp':
+        wx.navigateTo({
+          url: DOWNLOADAPPPATH
+        })
+        break
       case 'company':
         wx.navigateTo({url: `${RECRUITER}company/indexEdit/indexEdit`})
         break

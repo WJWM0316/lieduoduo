@@ -37,7 +37,6 @@ Component({
   },
   attached () {
     this.setData({timestamp: Date.parse(getdate()) + 24 * 60 * 60 * 1000 - 1})
-    console.log(getdate(), '====', this.data.timestamp)
     let item = applicantList.find(v => v.path.includes(app.getCurrentPagePath()))
     getAdBannerApi({location: 'miniProgram_c_index_find_opportunity'}).then(res => {
       if (res.data.length) {
