@@ -26,15 +26,13 @@ import {
 
 import {
   RECRUITER,
-  COMMON,
-  WEBVIEW
+  COMMON
 } from '../../../../config.js'
 
 let app = getApp()
 
 Page({
   data: {
-    cdnImagePath: app.globalData.cdnImagePath,
     options: {},
     identity: '',
     onBottomStatus: 0,
@@ -55,7 +53,8 @@ Page({
     openPayPop: false,
     chargeData: {}, // 扣点信息
     interviewStatus: null,
-    payTitle: ''
+    payTitle: '',
+    showDownloadModel: false
   },
   onLoad(options) {
     let api = ''
@@ -132,7 +131,6 @@ Page({
         hasLoading
       }
       getRecruiterPositionListApi(params).then(res => {
-
         let onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
         let list = res.data || []
         list.map(field => field.active = false)
@@ -164,7 +162,6 @@ Page({
         hasLoading,
         recruiter: options.recruiterUid
       }
-
       getfilterPositionListApi(params).then(res => {
         let onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
         let list = res.data || []
@@ -234,7 +231,6 @@ Page({
     let buttonClick = this.data.buttonClick
     data.positionName = job.name
     data.positionId = job.id
-
     // 给不合适或者直接与我约面加按钮状态 并且选中的按钮只能有一个
     if(typeof job.id === 'string') {
       key = `${job.id}Checked`
@@ -254,29 +250,21 @@ Page({
 
     switch(options.type) {
 
-      // 招聘官主动发起开撩
+      // 招聘官主动发起约聊
       case 'recruiter_chat':
         params.jobhunter = options.jobhunterUid
         params.position = job.id
         params.status = job.status
-        this.setData({ params, buttonClick: true }, () => {
-          // 判断是否是精选简历需要先获取扣点信息
-          // if (Number(this.data.options.sourceType) === 500) {
-          //   this.setData({ payTitle: '顾问精选' }, () => this.getRecommendCharge(params))
-          // }
-          // if (Number(this.data.options.sourceType) === 100) {
-          //   this.setData({ payTitle: '热门简历' }, () => this.getRecommendCharge(params))
-          // }
-        })
+        this.setData({ params, buttonClick: true })
         break
-      // 求职者 主动发起开撩
+      // 求职者 主动发起约聊
       case 'job_hunting_chat':
         params.recruiterUid = this.data.options.recruiterUid
         if(job.id !== 'person') params.positionId = job.id
         this.applyInterview(params)
         break
 
-      // 招聘官确认开撩
+      // 招聘官确认约聊
       case 'confirm_chat':
         params.id = job.id
         params.status = job.status
@@ -284,7 +272,7 @@ Page({
         this.setData({ params, buttonClick: true })
         break
 
-      // 招聘官拒绝开撩
+      // 招聘官拒绝约聊
       case 'reject_chat':
         if(this.data.identity === 'APPLICANT' && job.id === 'unsuitable') {
           params.id = options.recruiterUid
@@ -312,7 +300,7 @@ Page({
   /**
    * @Author   小书包
    * @DateTime 2019-01-09
-   * @detail   开撩
+   * @detail   约聊
    * @return   {[type]}          [description]
    */
   applyInterview(params) {
@@ -332,7 +320,7 @@ Page({
               if (app.globalData.resumeInfo.resumeCompletePercentage > 0.75) return
               let timer = setTimeout(() => {
                 app.wxConfirm({
-                  title: '开撩成功',
+                  title: '约聊成功',
                   content: '你的简历竞争力只超过28%的求职者，建议你现在完善简历',
                   cancelText: '暂不完善',
                   confirmText: '马上完善',
@@ -372,7 +360,7 @@ Page({
   /**
    * @Author   小书包
    * @DateTime 2019-01-09
-   * @detail   拒绝开撩
+   * @detail   拒绝约聊
    * @return   {[type]}          [description]
    */
   refuseInterview(params) {
@@ -465,7 +453,7 @@ Page({
     let params = this.data.params
     let that = this
     // 0已经关闭的职位
-    if(params.status === 0) {
+    if( params.status === 0 ) {
       app.wxConfirm({
         title: '开放职位约面',
         content: '确认开放该职位进行约面吗？',
@@ -486,7 +474,7 @@ Page({
         wx.navigateTo({url: `${COMMON}interviewMark/interviewMark?type=pending&jobhunterUid=${params.id}&reBack=2&status=${params.status}`})
         // this.refuseInterview(params)
       } else {
-        // 用选中的面试记录发起开撩
+        // 用选中的面试记录发起约聊
         this.confirmInterview(params)
       }
     }
@@ -506,7 +494,7 @@ Page({
       this.setData({openPayPop: true})
       return
     }
-    if(params.status === 0) {
+    if( params.status === 0 ) {
       app.wxConfirm({
         title: '开放职位约面',
         content: '确认开放该职位进行约面吗？',
@@ -517,40 +505,14 @@ Page({
         confirmColor: '#652791',
         confirmBack: () => {
           openPositionApi({id: params.positionId}).then(res => {
-            that.applyInterview(params).then(res => {
-              this.setData({openPayPop: false})
-              app.wxConfirm({
-                title: '提示',
-                content: `这个是引导下载APP弹窗~`,
-                cancelText: '知道了',
-                confirmText: '去下载',
-                confirmBack: () => {
-                  let path = encodeURIComponent(`${WEBVIEW}advisor?page=advisor`)
-                  wx.navigateTo({url: `${COMMON}webView/webView?type=optimal&p=${path}`})
-                },
-                cancelBack: () => {}
-              })
-            })
+            that.applyInterview(params).then(res => that.setData({openPayPop: false, showDownloadModel: true}))
           })
         }
       })
     } else if(params.status === 3 || params.status === 4) {
       app.wxToast({title: '该职位未开放，不可选择约面'})
     } else {
-      this.applyInterview(params).then(res => {
-        this.setData({openPayPop: false})
-        app.wxConfirm({
-          title: '提示',
-          content: `这个是引导下载APP弹窗~`,
-          cancelText: '知道了',
-          confirmText: '去下载',
-          confirmBack: () => {
-            let path = encodeURIComponent(`${WEBVIEW}advisor?page=advisor`)
-            wx.navigateTo({url: `${COMMON}webView/webView?type=optimal&p=${path}`})
-          },
-          cancelBack: () => {}
-        })
-      })
+      this.applyInterview(params).then(res => that.setData({openPayPop: false, showDownloadModel: true}))
     }
   },
   /**
@@ -562,7 +524,7 @@ Page({
     let options = this.data.options
     if(!this.data.buttonClick) return;
     switch(options.type) {
-      // 确认开撩
+      // 确认约聊
       case 'confirm_chat':
         this.confirmChat()
         break
@@ -576,6 +538,12 @@ Page({
         break
     }
   },
+  /**
+   * @Author   小书包
+   * @DateTime 2019-01-21
+   * @detail   关闭支付弹窗
+   * @return   {[type]}   [description]
+   */
   closePayPop () {
     this.setData({openPayPop: false})
   },
@@ -599,5 +567,14 @@ Page({
     if(!onLinePositionList.isLastPage) {
       this[this.data.api](false).then(() => this.setData({onBottomStatus: 1}))
     }
+  },
+  /**
+   * @Author   小书包
+   * @DateTime 2019-01-21
+   * @detail   关闭弹窗 直接回到简历详情
+   * @return   {[type]}   [description]
+   */
+  closeDownloadModel() {
+    this.setData({showDownloadModel: false}, () => wx.navigateBack({ delta: 2 }))
   }
 })

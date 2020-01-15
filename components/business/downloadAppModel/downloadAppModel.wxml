@@ -1,0 +1,9 @@
+<view class="download-app" wx:if="{{ show }}">
+  <view class="box">
+    <i class="icon iconfont icon-close" bindtap="todoAction" data-action="close-advisor-model"></i>
+    <view class="p1">约聊成功</view>
+    <view class="p2">下载猎多多App，体验完整功能，随时随地掌握约聊动态</view>
+    <image class="cotImg" mode="widthFix" src="{{ cdnImagePath }}img_popup_24succjob.png"></image>
+    <view	class="button" bindtap="download">	下载App </view>
+  </view>
+</view>

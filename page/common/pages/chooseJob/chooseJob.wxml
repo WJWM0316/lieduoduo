@@ -1,5 +1,10 @@
 <view class="job-list">
-  <navbar title="{{ (options.type === 'confirm_chat' || options.type === 'reject_chat') ? '处理申请' : '选择职位'}}" background="#FFFFFF" color="#22292C"></navbar>
+
+  <navbar
+    title="{{ (options.type === 'confirm_chat' || options.type === 'reject_chat') ? '处理申请' : '选择职位'}}"
+    background="#FFFFFF"
+    color="#22292C">
+  </navbar>
 
   <view class="position-tab" wx:if="{{identity === 'RECRUITER' && options.type === 'recruiter_chat'}}">
     <view class="name">可选择以下职位</view>
@@ -12,7 +17,9 @@
 
   <block wx:if="{{identity === 'RECRUITER' && options.type === 'confirm_chat'}}">
     <view class="h1">以下是候选人多条申请记录，请选择处理</view>
-    <view class="p">确认选择后，候选人其他申请记录将自动合并处理，不需要再单独处理；面试最终确认前，你可以随时与候选人沟通更改面试职位</view>
+    <view class="p">
+      确认选择后，候选人其他申请记录将自动合并处理，不需要再单独处理；面试最终确认前，你可以随时与候选人沟通更改面试职位
+    </view>
   </block>
   
   <block wx:if="{{identity === 'RECRUITER' && options.type === 'reject_chat'}}">
@@ -26,8 +33,9 @@
     <!-- 求职端开撩 start -->
     <block wx:if="{{identity === 'APPLICANT' && options.type === 'job_hunting_chat'}}">
       <view class="h1">选择约面职位</view>
-      <view class="p" wx:if="{{options.showNotPositionApply === '1'}}">请从面试官的招聘职位中选择1个，发起面试申请。你也可以不选择职位，直接申请面试</view>
-
+      <view class="p" wx:if="{{options.showNotPositionApply === '1'}}">
+        请从面试官的招聘职位中选择1个，发起面试申请。你也可以不选择职位，直接申请面试
+      </view>
       <view class="li clear-bottom" wx:if="{{options.showNotPositionApply === '1' && identity === 'APPLICANT'}}">
         <view class="content unsuitable">暂不选择职位</view>
         <view class="radio-box" bindtap="onClick" data-name="{{item.positionName}}" data-id="{{'person'}}">
@@ -105,7 +113,8 @@
           data-name="{{item.positionName}}"
           data-id="{{item.interviewId}}"
           >
-          <view class="myRadio {{item.active ? 'active' : ''}}"><i class="icon iconfont icon-wancheng" wx:if="{{item.active}}"></i>
+          <view class="myRadio {{item.active ? 'active' : ''}}">
+            <i class="icon iconfont icon-wancheng" wx:if="{{item.active}}"></i>
           </view>
         </view>
       </block>
@@ -136,14 +145,15 @@
     wx:if="{{options.type === 'confirm_chat' || options.type === 'reject_chat' || options.type === 'recruiter_chat'}}">
       <view bindtap="submit" class="button-submit {{buttonClick ? 'button-enable' : ''}}">确定</view>
   </view>
-  <payPop openPayPop="{{ openPayPop }}" chargeData="{{ chargeData }}" bindsubmit="submit" bindclose="closePayPop" title="{{options.chattype === 'onekey' ? '邀请候选人约聊': '顾问约面服务' }}"></payPop>
-  <view class="overlay2">
-		<view class="box">
-			<i class="icon iconfont icon-close" bindtap="todoAction" data-action="close-advisor-model"></i>
-			<image src="{{cdnImagePath}}none_position.png"></image>
-			<view class="p1">约聊成功</view>
-			<view class="p2">下载猎多多App，体验完整功能，随时随地掌握约聊动态</view>
-			<view	class="button" bindtap="todoAction"	data-action="advisor-help-chat">	下载App </view>
-		</view>
-	</view>
+  <payPop 
+    openPayPop="{{ openPayPop }}" 
+    chargeData="{{ chargeData }}" 
+    bindsubmit="submit" 
+    bindclose="closePayPop" 
+    title="{{ options.chattype === 'onekey' ? '邀请候选人约聊': '顾问约面服务' }}">
+  </payPop>
+  <downloadAppModel
+    show="{{ showDownloadModel }}"
+    bindclose="closeDownloadModel">
+  </downloadAppModel>
 </view>
