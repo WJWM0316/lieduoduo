@@ -244,7 +244,6 @@ Page({
     let end = new Date(endTime.date).getTime()
     let timeStamp = end - start
     let day = Math.floor(timeStamp / 86400000)
-    console.log(day)
     return day > 30
   },
   /**

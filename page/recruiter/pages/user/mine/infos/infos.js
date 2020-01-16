@@ -78,8 +78,8 @@ Page({
    * @return   {[type]}     [description]
    */
   routeJump(e) {
-    const route = e.currentTarget.dataset.route
-    const pageInfos = this.data.pageInfos
+    let route = e.currentTarget.dataset.route
+    let pageInfos = this.data.pageInfos
     switch(route) {
       case 'loadApp':
         wx.navigateTo({
@@ -200,7 +200,7 @@ Page({
    */
   viewIdentity() {
     
-    const pageInfos = this.data.pageInfos
+    let pageInfos = this.data.pageInfos
 
     //未认证
     if(!pageInfos.identityAuth && (pageInfos.identityStatus !== 0 && pageInfos.identityStatus !== 1 && pageInfos.identityStatus !== 2)) {

@@ -23,7 +23,7 @@ Page({
     this.setData({options})
   },
   onShow() {
-    const recruitersList = {
+    let recruitersList = {
       list: [],
       pageNum: 1,
       isLastPage: false,
@@ -42,9 +42,9 @@ Page({
       let options = this.data.options
       let params = {count: this.data.pageCount, page: this.data.recruitersList.pageNum, hasLoading, id: options.companyId}
       getRecruitersListApi(params).then(res => {
-        const recruitersList = this.data.recruitersList
-        const list = res.data
-        const onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
+        let recruitersList = this.data.recruitersList
+        let list = res.data
+        let onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
         list.map(field => field.randomTxt = agreedTxtB())
         recruitersList.list = recruitersList.list.concat(list)
         recruitersList.isLastPage = res.meta && res.meta.nextPageUrl ? false : true
@@ -61,7 +61,7 @@ Page({
    * @return   {[type]}     [description]
    */
   bindMain(e) {
-    const params = e.currentTarget.dataset
+    let params = e.currentTarget.dataset
     wx.navigateTo({
       url: `${COMMON}recruiterDetail/recruiterDetail?uid=${params.uid}`
     })
@@ -73,7 +73,7 @@ Page({
    * @return   {[type]}   [description]
    */
   onReachBottom() {
-    const recruitersList = this.data.recruitersList
+    let recruitersList = this.data.recruitersList
     if (!recruitersList.isLastPage) {
       this.getLists(false).then(() => this.setData({onBottomStatus: 1}))
     }
@@ -85,12 +85,12 @@ Page({
    * @return   {[type]}              [description]
    */
   onPullDownRefresh() {
-    const recruitersList = {list: [], pageNum: 1, isLastPage: false, isRequire: false}
+    let recruitersList = {list: [], pageNum: 1, isLastPage: false, isRequire: false}
     this.setData({recruitersList, hasReFresh: true})
     this.getLists().then(res => {
-      const recruitersList = {list: [], pageNum: 1, isLastPage: false, isRequire: false}
-      const onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
-      const list = res.data
+      let recruitersList = {list: [], pageNum: 1, isLastPage: false, isRequire: false}
+      let onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
+      let list = res.data
       list.map(field => field.randomTxt = agreedTxtB())
       recruitersList.list = list
       recruitersList.isLastPage = res.meta && res.meta.nextPageUrl ? false : true

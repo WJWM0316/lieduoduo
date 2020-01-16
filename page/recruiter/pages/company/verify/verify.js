@@ -4,7 +4,7 @@ import {
 
 import {RECRUITER} from '../../../../../config.js'
 
-const app = getApp()
+let app = getApp()
 
 Page({
   data: {
@@ -78,8 +78,8 @@ Page({
   	return new Promise((resolve, reject) => {
       let params = {count: this.data.pageCount, page: this.data.list0.pageNum, hasLoading, status: 0}
       getApplyjoinListApi(params).then(res => {
-        const list0 = this.data.list0
-        const onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
+        let list0 = this.data.list0
+        let onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
         list0.list = list0.list.concat(res.data)
         list0.isLastPage = res.meta && res.meta.nextPageUrl ? false : true
         list0.pageNum = list0.pageNum + 1
@@ -97,8 +97,8 @@ Page({
   	return new Promise((resolve, reject) => {
       let params = {count: this.data.pageCount, page: this.data.list2.pageNum, hasLoading, status: 2}
       getApplyjoinListApi(params).then(res => {
-        const list2 = this.data.list2
-        const onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
+        let list2 = this.data.list2
+        let onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
         list2.list = list2.list.concat(res.data)
         list2.isLastPage = res.meta && res.meta.nextPageUrl ? false : true
         list2.pageNum = list2.pageNum + 1
@@ -116,8 +116,8 @@ Page({
   	return new Promise((resolve, reject) => {
       let params = {count: this.data.pageCount, page: this.data.list1.pageNum, hasLoading, status: 1}
       getApplyjoinListApi(params).then(res => {
-        const list1 = this.data.list1
-        const onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
+        let list1 = this.data.list1
+        let onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
         list1.list = list1.list.concat(res.data)
         list1.isLastPage = res.meta && res.meta.nextPageUrl ? false : true
         list1.pageNum = list1.pageNum + 1
@@ -133,8 +133,8 @@ Page({
    * @return   {[type]}   [description]
    */
   onReachBottom() {
-    const tab = this.data.tab
-    const value = this.data[tab]
+    let tab = this.data.tab
+    let value = this.data[tab]
     if (!value.isLastPage) {
       this.setData({onBottomStatus: 1})
       this.getLists(false)
@@ -147,13 +147,13 @@ Page({
    * @return   {[type]}              [description]
    */
   onPullDownRefresh() {
-    const key = this.data.tab
-    const value = {list: [], pageNum: 1, isLastPage: false, isRequire: false}
+    let key = this.data.tab
+    let value = {list: [], pageNum: 1, isLastPage: false, isRequire: false}
     this.setData({[key]: value, hasReFresh: true})
     app.getBottomRedDot().then(res => this.setData({redDotInfos: res.data}))
     this[`getApplyjoin${this.data.tab}`](false).then(res => {
-      const value = {list: [], pageNum: 1, isLastPage: false, isRequire: false}
-      const onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
+      let value = {list: [], pageNum: 1, isLastPage: false, isRequire: false}
+      let onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
       value.list = res.data
       value.isLastPage = res.meta && res.meta.nextPageUrl ? false : true
       value.pageNum = 2
@@ -164,9 +164,9 @@ Page({
     })
   },
   routeJump(e) {
-    const params = e.currentTarget.dataset
-    const list = this.data[this.data.tab].list
-    const result = list.find((field, index, arr) => index === params.index)
+    let params = e.currentTarget.dataset
+    let list = this.data[this.data.tab].list
+    let result = list.find((field, index, arr) => index === params.index)
     wx.navigateTo({url: `${RECRUITER}company/verifyResult/verifyResult?id=${result.id}`})
   }
 })

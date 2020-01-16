@@ -152,40 +152,38 @@ Page({
     return new Promise((resolve, reject) => {
       let onLinePosition = this.data.onLinePosition
       let onBottomStatus = this.data.onBottomStatus
-      getRecruiterPositionListApi({is_online: 1, count: onLinePosition.count, page: onLinePosition.pageNum, hasLoading})
-        .then(res => {
-          onLinePosition.list = onLinePosition.list.concat(res.data || [])
-          onLinePosition.pageNum++
-          onLinePosition.isRequire = true
-          if (!res.meta || !res.meta.nextPageUrl) {
-            onLinePosition.isLastPage = true
-            onBottomStatus = 2
-          } else {
-            onBottomStatus = 0
-          }
-          resolve(res)
-          this.setData({onLinePosition, onBottomStatus})
-        })
+      getRecruiterPositionListApi({is_online: 1, count: onLinePosition.count, page: onLinePosition.pageNum, hasLoading}).then(res => {
+        onLinePosition.list = onLinePosition.list.concat(res.data || [])
+        onLinePosition.pageNum++
+        onLinePosition.isRequire = true
+        if (!res.meta || !res.meta.nextPageUrl) {
+          onLinePosition.isLastPage = true
+          onBottomStatus = 2
+        } else {
+          onBottomStatus = 0
+        }
+        resolve(res)
+        this.setData({onLinePosition, onBottomStatus})
+      })
     })
   },
   getOffLineLists(hasLoading = true) {
     return new Promise((resolve, reject) => {
       let offLinePosition = this.data.offLinePosition
       let offBottomStatus = this.data.offBottomStatus
-      getRecruiterPositionListApi({is_online: 2, count: offLinePosition.count, page: offLinePosition.pageNum, hasLoading})
-        .then(res => {
-          offLinePosition.list = offLinePosition.list.concat(res.data || [])
-          offLinePosition.pageNum++
-          offLinePosition.isRequire = true
-          if (!res.meta || !res.meta.nextPageUrl) {
-            offLinePosition.isLastPage = true
-            offBottomStatus = 2
-          } else {
-            offBottomStatus = 0
-          }
-          this.setData({offLinePosition, offBottomStatus})
-          resolve()
-        })
+      getRecruiterPositionListApi({is_online: 2, count: offLinePosition.count, page: offLinePosition.pageNum, hasLoading}).then(res => {
+        offLinePosition.list = offLinePosition.list.concat(res.data || [])
+        offLinePosition.pageNum++
+        offLinePosition.isRequire = true
+        if (!res.meta || !res.meta.nextPageUrl) {
+          offLinePosition.isLastPage = true
+          offBottomStatus = 2
+        } else {
+          offBottomStatus = 0
+        }
+        this.setData({offLinePosition, offBottomStatus})
+        resolve()
+      })
     })
   },
   /**

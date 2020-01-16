@@ -1,23 +1,22 @@
-// components/business/downloadBar/downloadBar.js
+import {
+  RECRUITER, 
+  COMMON, 
+  APPLICANT, 
+  DOWNLOADAPPPATH
+} from '../../../config.js'
+
 Component({
-  /**
-   * 组件的属性列表
-   */
   properties: {
-
+    className: {
+      type: String,
+      value: 'style1'
+    }
   },
-
-  /**
-   * 组件的初始数据
-   */
-  data: {
-
-  },
-
-  /**
-   * 组件的方法列表
-   */
   methods: {
-
+    jump() {
+      wx.navigateTo({
+        url: DOWNLOADAPPPATH
+      })
+    }
   }
 })

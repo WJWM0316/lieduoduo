@@ -89,11 +89,9 @@ Page({
         wx.makePhoneCall({phoneNumber: app.globalData.telePhone})
         break
       case 'notice':
-        notifyadminApi()
-        .then(() => {
+        notifyadminApi().then(() => {
           app.wxToast({title: '通知成功'})
-        })
-        .catch(err => {
+        }).catch(err => {
           if(err.code === 420) {
             app.wxConfirm({
               title: '温馨提示',

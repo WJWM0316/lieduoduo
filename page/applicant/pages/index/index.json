@@ -10,6 +10,7 @@
     "navbar": "../../../../components/business/navbar/navbar",
     "waterfallFlow": "../../../../components/business/waterfallFlow/waterfallFlow",
     "filterPop": "../../../../components/business/filterPop/filterPop",
-    "bindPhone": "../../../../components/functional/bindPhone/bindPhone"
+    "bindPhone": "../../../../components/functional/bindPhone/bindPhone",
+    "downloadBar": "../../../../components/business/downloadBar/downloadBar"
   }
 }
