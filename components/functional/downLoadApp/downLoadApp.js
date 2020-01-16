@@ -9,6 +9,10 @@ Component({
     type: {
       type: Number,
       value: 1
+    },
+    popDesc: {
+      type: String,
+      value: ''
     }
   },
 
@@ -16,7 +20,7 @@ Component({
    * 组件的初始数据
    */
   data: {
-    showPop: true,
+    showPop: false,
     cdnImagePath: app.globalData.cdnImagePath
   },
 
@@ -25,7 +29,11 @@ Component({
    */
   methods: {
     close () {
+      console.log(11111111111111111111)
       this.setData({showPop: false})
+    },
+    show () {
+      this.setData({showPop: true})
     },
     toDo (e) {
       let url = ''

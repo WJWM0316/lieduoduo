@@ -411,4 +411,5 @@
 			<view	class="button" bindtap="todoAction"	data-action="advisor-help-chat">	立即约面 </view>
 		</view>
 	</view>
+	<downLoadApp id="downLoadApp" type="{{downLoadAppType}}" popDesc="{{popDesc}}"></downLoadApp>
 </form>

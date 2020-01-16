@@ -91,7 +91,8 @@ Component({
     showAdvisor: false,
     notInterestReasonList: [],
     chatType: '',
-    downLoadAppType: 1
+    downLoadAppType: 1,
+    popDesc: ''
   },
   attached() {
     identity = wx.getStorageSync('choseType')
@@ -237,27 +238,43 @@ Component({
         let successPop = (res) => {
           if (res.code === 916) {
             this.setData({downLoadAppType: 3}, () => {
-              this.selectComponent('#downLoadApp').showPop = true
+              this.selectComponent('#downLoadApp').show()
             })
           } else if (res.code === 915) {
-            this.setData({downLoadAppType: 3}, () => {
-              this.selectComponent('#downLoadApp').showPop = true
+            this.setData({downLoadAppType: 4}, () => {
+              this.selectComponent('#downLoadApp').show()
             })
           } else if (res.code === 917) {
-            this.setData({showSuccessPop: true, successPopDesc: res.msg})
-          } else {
-            if (isSpecail) {
-              this.setData({downLoadAppType: 6}, () => {
-                this.selectComponent('#downLoadApp').showPop = true
-              })
-              return
-            }
             if (app.globalData.resumeInfo.resumeCompletePercentage < 0.75) {
-              this.setData({downLoadAppType: 1}, () => {
-                this.selectComponent('#downLoadApp').showPop = true
+              this.setData({downLoadAppType: 5, popDesc: res.msg}, () => {
+                this.selectComponent('#downLoadApp').show()
               })
             } else {
-              app.wxToast({ title: '开撩成功', icon: 'success' })
+              this.setData({downLoadAppType: 8, popDesc: res.msg}, () => {
+                this.selectComponent('#downLoadApp').show()
+              })
+            }
+          } else {
+            if (isSpecail) {
+              if (app.globalData.resumeInfo.resumeCompletePercentage < 0.75) {
+                this.setData({downLoadAppType: 7}, () => {
+                  this.selectComponent('#downLoadApp').show()
+                })
+              } else {
+                this.setData({downLoadAppType: 6}, () => {
+                  this.selectComponent('#downLoadApp').show()
+                })
+              }
+            } else {
+              if (app.globalData.resumeInfo.resumeCompletePercentage < 0.75) {
+                this.setData({downLoadAppType: 1}, () => {
+                  this.selectComponent('#downLoadApp').show()
+                })
+              } else {
+                this.setData({downLoadAppType: 2}, () => {
+                  this.selectComponent('#downLoadApp').show()
+                })
+              }
             }
           }
         }
