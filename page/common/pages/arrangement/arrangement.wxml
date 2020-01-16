@@ -12,17 +12,29 @@
     <refreshStatus></refreshStatus>
   </view>
 
-  <view class="tip" wx:if="{{identity === 'RECRUITER' && info.status === 32}}">备选时间不合适，请联系候选人重新确定时间</view>
+  <view class="tip" wx:if="{{identity === 'RECRUITER' && info.status === 32}}">
+    备选时间不合适，请联系候选人重新确定时间
+  </view>
 
   <view class="headInfo">
     <view class="roleDetail" wx:if="{{info.interviewId}}">
-      <roleInfoCard wx:if="{{identity === 'RECRUITER'}}" cardData="{{info.jobhunterInfo}}" roleType="applicant" glass="{{info.glass}}"></roleInfoCard>
-      <roleInfoCard wx:if="{{identity === 'APPLICANT'}}" cardData="{{info.recruiterInfo}}" roleType="recruiter"></roleInfoCard>
+      <roleInfoCard
+        wx:if="{{identity === 'RECRUITER'}}"
+        cardData="{{info.jobhunterInfo}}"
+        roleType="applicant"
+        glass="{{info.glass}}">
+      </roleInfoCard>
+      <roleInfoCard
+        wx:if="{{identity === 'APPLICANT'}}"
+        cardData="{{info.recruiterInfo}}"
+        roleType="recruiter">
+      </roleInfoCard>
     </view>
   </view>
 
   <block>
     <view class="content">
+
       <view class="detail" wx:if="{{identity === 'RECRUITER' && (info.status === 21 || info.status === 32)}}">
         <view class="title"><icon class="icon"></icon>面试信息</view>
         <view class="msgItem">
@@ -57,7 +69,7 @@
         </view>
       </view>
 
-      <view class="detail read" wx:if="{{identity === 'APPLICANT' || (identity === 'RECRUITER' && (info.status === 12 || info.status === 31 || info.status === 41 || info.status === 51 || info.status === 59 || info.status === 57 || info.status === 60 || info.status === 58 || info.status === 61))}}">
+      <view class="detail read" wx:if="{{(identity === 'APPLICANT' && (info.status === 54 || info.status === 55 || info.status === 52 || info.status === 53)) || (identity === 'RECRUITER' && (info.status === 12 || info.status === 31 || info.status === 41 || info.status === 51 || info.status === 59 || info.status === 57 || info.status === 60 || info.status === 58 || info.status === 61))}}">
         <view class="title"><icon class="icon"></icon>面试信息</view>
         <view class="msgItem" bindtap="callPhone">
           <view class="inner">
@@ -134,10 +146,15 @@
         </view>
       </view> -->
 
-      <view class="realDate wait" wx:if="{{identity === 'APPLICANT' && (info.status === 21 || info.status === 32)}}">
+      <view class="realDate wait" wx:if="{{identity === 'APPLICANT' && info.status === 21}}">
         <view class="txt1">等待面试官安排面试</view>
         <view class="txt2">你也可以通过上方的电话，联系面试官确认时间~</view>
         <image class="pic" src="{{cdnImagePath}}wait.png"></image>
+      </view>
+
+      <view class="realDate wait" wx:if="{{identity === 'APPLICANT' && info.status === 32}}">
+        <view class="txt1">时间不合适，等待重新安排</view>
+        <image class="pic" src="{{cdnImagePath}}clock_show.png"></image>
       </view>
 
       <!-- <view class="date read" wx:if="{{identity === 'APPLICANT' && info.status === 31}}">
@@ -170,6 +187,7 @@
         <view class="txt2" wx:if="{{identity === 'APPLICANT'}}">时间已添加到面试日程，记得准时赴约噢~</view>
         <view class="txt3">{{filters.dateFormat(info.arrangementInfo.appointmentTime, 'YYYY-MM-DD hh:mm')}}</view>
       </view>
+      
       <view class="realDate" wx:if="{{(info.status === 51 || info.status === 60 || info.status === 57 || info.status === 58 || info.status === 59 || info.status === 61)  && identity === 'APPLICANT'}}">
         <view class="txt1">面试已结束</view>
         <view class="txt3 end">{{filters.dateFormat(info.arrangementInfo.appointmentTime, 'YYYY-MM-DD hh:mm')}}</view>
@@ -265,29 +283,37 @@
         </view>
         <!-- 招聘官已好评求职者 end -->
       </view>
+
       <view class="adviser-bar" wx:if="{{ identity === 'RECRUITER' && info.isAdvisor }}" bindtap="todoAction" data-action="show-adviser-model">
         <view class="img"></view>
         <view class="text">此次面试将享受顾问约面跟进服务</view>
         <i class="iconfont icon-disejiantou-you"></i>
       </view>
+
     </view>
+
     <view class="btnBox" wx:if="{{identity === 'RECRUITER' && (info.status === 21 || info.status === 32)}}">
       <button class="btn" bindtap="send">使用多多币发起邀请</button>
     </view>
+
     <view class="btnBox1" wx:if="{{identity === 'RECRUITER' && info.status === 31}}">
       <text class="txt">等待确认面试信息</text>
       <button class="btn_01" bindtap="revise">修改面试</button>
       <button class="btn_02" bindtap="todoAction" data-action="notsuitable">不合适</button>
     </view>
+
     <view class="btnBox" wx:if="{{identity === 'APPLICANT' && info.status === 31}}">
       <button class="btn" bindtap="sureDate">选择面试时间</button>
     </view>
+
     <view class="btnBox" wx:if="{{identity === 'RECRUITER' && info.status === 41}}">
       <button class="btn" open-type="share">转发安排给其他同事</button>
     </view>
+
     <view class="btnBox" wx:if="{{ info.status === 21 || info.status === 32 || info.status === 41 || info.status === 12 || info.status === 31 }}">
-      <button class="btn" bindtap="sureDate">订阅面试反馈提醒</button>
+      <button class="btn" bindtap="sureDate">{{info.status === 12 && identity === 'APPLICANT' ? '处理面试邀约' : '订阅面试反馈提醒'}}</button>
     </view>
+    
   </block>
 
   <block wx:if="{{info.vkey && identity === 'RECRUITER' && info.status === 41}}">

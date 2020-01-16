@@ -270,10 +270,7 @@ Component({
                 }
               })
             } else {
-              app.wxToast({
-                title: '开撩成功',
-                icon: 'success'  
-              })
+              app.wxToast({ title: '开撩成功', icon: 'success' })
             }
           }
         }
@@ -285,7 +282,6 @@ Component({
           } else {
             // 走正常流程
             if(this.data.type === 'recruiter') {
-              // 开撩招聘官
               // 招聘官没有在线职位或者招聘官没发布过职位
               if(!this.data.infos.positionNum) {
                 app.wxReportAnalytics('btn_report', {
@@ -298,7 +294,6 @@ Component({
                 wx.navigateTo({url: `${COMMON}chooseJob/chooseJob?type=job_hunting_chat&showNotPositionApply=${interviewInfos.showNotPositionApply}&recruiterUid=${this.data.infos.uid}&chattype=${this.data.chatType}`})
               }
             } else {
-              // 开撩职位
               app.wxReportAnalytics('btn_report', {
                 isjobhunter: app.globalData.isJobhunter,
                 resume_perfection: app.globalData.resumeInfo.resumeCompletePercentage * 100,
