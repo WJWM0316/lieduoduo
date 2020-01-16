@@ -319,6 +319,7 @@
   <block wx:if="{{info.vkey && identity === 'RECRUITER' && info.status === 41}}">
     <canvasCard cardData="{{info}}" type="interview" bindgetCreatedImg="getCreatedImg"></canvasCard>
   </block>
+
   <actionSheet  title="{{ model.title }}" openPop="{{ model.show }}"  bindclose="closeTips" class="adviser-model">
     <view class="limit-adviser-box" wx:if="{{model.show}}">
       <view class="p22">顾问服务</view>
@@ -365,6 +366,6 @@
     chargeData="{{ chargeData }}" 
     bindsubmit="send" 
     bindclose="closePayPop" 
-    title="{{ options.chattype === 'onekey' ? '邀请候选人约聊': '顾问约面服务' }}">
+    title="{{ !info.isAdvisor ? '邀请候选人约聊': '顾问约面服务' }}">
   </payPop>
 </view>

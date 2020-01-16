@@ -235,7 +235,7 @@
 							data-action="advisor-helping"
 							bindtap="todoAction">
 							<view class="icon"></view>
-							顾问服务中
+							顾问跟进中
 						</view>
 						<view
 							class="btn-chat"

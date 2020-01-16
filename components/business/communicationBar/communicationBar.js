@@ -394,16 +394,17 @@ Component({
       let infos = this.data.infos
       let cb = () => {
         if(infos.interviewSummary && infos.interviewSummary.interviewId) {
-          app.wxConfirm({
-            title: '提示',
-            content: '您当前存在进行中的约面记录，处理完该面试后，即可使用当前功能；',
-            cancelText: '取消',
-            confirmText: '前往查看',
-            confirmBack: () => {
-              wx.navigateTo({url: `${COMMON}arrangement/arrangement?id=${ infos.interviewSummary.interviewId }`})
-            },
-            cancelBack: () => {}
-          })
+          wx.navigateTo({url: `${COMMON}arrangement/arrangement?id=${ infos.interviewSummary.interviewId }`})
+          // app.wxConfirm({
+          //   title: '提示',
+          //   content: '您当前存在进行中的约面记录，处理完该面试后，即可使用当前功能；',
+          //   cancelText: '取消',
+          //   confirmText: '前往查看',
+          //   confirmBack: () => {
+          //     wx.navigateTo({url: `${COMMON}arrangement/arrangement?id=${ infos.interviewSummary.interviewId }`})
+          //   },
+          //   cancelBack: () => {}
+          // })
         } else {
           this.getPositionListNum().then(res => {
             if (!res.data.online) {
