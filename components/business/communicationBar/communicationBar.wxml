@@ -69,7 +69,7 @@
 					</block>
 					<block wx:else>
 						<button
-							form-type="submit" 
+							form-type="submit"
 							class="clear-style button-box button-box-color1"
 							bindtap="todoAction"
 							data-action="job-hunting-chat">
@@ -80,7 +80,7 @@
 			</block>
 			<!-- 求职者还没有发起约聊动作 此处可以发起约面 职位详情 end-->
 
-			<!-- 求职者已经发起约聊动作 此刻应该处在继续共同 start-->
+			<!-- 求职者已经发起约聊动作 此刻应该处在继续聊 start-->
 			<block wx:elif="{{ infos.chatInfo }}">
 				<view class="content">
 					<view class="first">
@@ -93,21 +93,41 @@
 					</view>
 				</view>
 				<view class="clear-style button-box button-box-color1">
-					<view
-						bindtap="todoAction"
-						wx:if="{{ (infos.chatInfo.status !== 101 || infos.chatInfo.status !== 301 || infos.chatInfo.status !== 501) && infos.isRapidly === 1 }}"
-						data-action="job-hunting-chat">
-							一键约聊
-					</view>
-					<view
-						bindtap="todoAction"
-						data-action="keep-communicating"
-						wx:else>
-							继续聊
-					</view>
+					<!-- 24h职位  start-->
+					<block wx:if="{{ infos.isRapidly }}">
+						<view
+							bindtap="todoAction"
+							wx:if="{{ infos.chatInfo.status !== 101 }}"
+							data-action="job-hunting-chat">
+								一键约聊
+						</view>
+						<view
+							bindtap="todoAction"
+							data-action="keep-communicating"
+							wx:else>
+								继续聊
+						</view>
+					</block>
+					<!-- 24h职位  start-->
+					<!-- 普通职位  start-->
+					<block wx:if="{{ !infos.isRapidly }}">
+						<view
+							bindtap="todoAction"
+							wx:if="{{ infos.chatInfo.status === 316 || infos.chatInfo.status === 305 || infos.chatInfo.status === 315}}"
+							data-action="job-hunting-chat">
+								一键约聊
+						</view>
+						<view
+							bindtap="todoAction"
+							data-action="keep-communicating"
+							wx:else>
+								继续聊
+						</view>
+					</block>
+					<!-- 普通职位  start-->
 				</view>
 			</block>
-			<!-- 求职者已经发起约聊动作 此刻应该处在继续共同 end-->
+			<!-- 求职者已经发起约聊动作 此刻应该处在继续聊 end-->
 
 		</block>
 
@@ -310,23 +330,52 @@
 
 	<view class="seccessPop" wx:if="{{ showSuccessPop }}">
 		<view class="popInner">
-			<view class="title">已抢占成功</view>
+			<view class="title">
+				已抢占成功
+			</view>
 			<i class="close iconfont icon-close" bindtap="closePop"></i>
-			<view class="contnet">{{successPopDesc}}</view>
-			<image class="cotImg" mode="widthFix" src="{{cdnImagePath}}img_popup_24succjob.png"></image>
-			<view class="popBtn" bindtap="todoAction" data-action="toSpecialJob">抢更多高薪机会</view>
+			<view class="contnet">
+				{{ successPopDesc }}
+			</view>
+			<image
+				class="cotImg"
+				mode="widthFix"
+				src="{{cdnImagePath}}img_popup_24succjob.png">
+			</image>
+			<view
+				class="popBtn"
+				bindtap="todoAction"
+				data-action="toSpecialJob">
+				抢更多高薪机会
+			</view>
 		</view>
 	</view>
 	
-	<actionSheet  title="{{ model.title }}" openPop="{{ model.show }}"  bindclose="closeTips">
+	<actionSheet
+		title="{{ model.title }}"
+		openPop="{{ model.show }}" 
+		bindclose="closeTips">
 		<view class="reason-box" wx:if="{{ model.type === 'showReason' }}">
-			<view class="h11">不适合原因</view>
-			<view class="p11">原因仅自己可见</view>
-			<view class="reason-ul">
-				<view class="reason-item" wx:for="{{ infos.chatInfo.reason }}" wx:key="item">{{ item }}</view>
+			<view class="h11">
+				不适合原因
 			</view>
-			<view class="title11">补充说明：</view>
-			<view class="content11"><text>项目经理不足，沟通不太流畅，不适合本岗位。项目经理不足，沟通不太流畅，不适合本岗位</text></view>
+			<view class="p11">
+				原因仅自己可见
+			</view>
+			<view class="reason-ul">
+				<view
+					class="reason-item"
+					wx:for="{{ infos.chatInfo.reason }}"
+					wx:key="item">
+					{{ item }}
+				</view>
+			</view>
+			<block wx:if="{{ infos.chatInfo.extraDesc }}">
+				<view class="title11">补充说明：</view>
+				<view class="content11">
+					<text>{{ infos.chatInfo.extraDesc }}</text>
+				</view>
+			</block>
 		</view>
 		<view class="reason-box" wx:if="{{1 > 2}}">
 			<view class="h11">不适合原因</view>
@@ -346,7 +395,13 @@
 			<view class="btn-confirm">确定</view>
 		</view>
 	</actionSheet>
-	<payPop openPayPop="{{ payPop.show }}" chargeData="{{ chargeData }}" bindsubmit="submit" bindclose="closePayPop" title="{{ payPop.title }}"></payPop>
+	<payPop
+		openPayPop="{{ payPop.show }}"
+		chargeData="{{ chargeData }}"
+		bindsubmit="submit"
+		bindclose="closePayPop"
+		title="{{ payPop.title }}">
+	</payPop>
 	<view class="overlay2" wx:if="{{ showAdvisor }}">
 		<view class="box">
 			<i class="icon iconfont icon-close" bindtap="todoAction" data-action="close-advisor-model"></i>

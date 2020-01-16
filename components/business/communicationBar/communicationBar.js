@@ -13,7 +13,8 @@ import {
 import {
   applyChatApi,
   deleteNotInterestApi,
-  getNotInterestAllReasonListApi
+  getNotInterestAllReasonListApi,
+  deleteNotInterestForUserApi
 } from '../../../api/pages/chat.js'
 import {
   RECRUITER, 
@@ -537,6 +538,7 @@ Component({
           wx.reLaunch({url: `${APPLICANT}specialJob/specialJob`})
           break
         case 'delete-not-interest':
+          this.deleteNotInterestForUserApi({uid: infos.uid})
           this.deleteNotInterest({id: infos.chatInfo.id, jobhunter: infos.uid}).then(() => {
             wx.navigateTo({url: `${COMMON}webView/webView?type=optimal&p=${ DOWNLOADAPPURL }`})
           })
