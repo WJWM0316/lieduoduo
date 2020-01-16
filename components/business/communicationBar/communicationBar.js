@@ -294,7 +294,7 @@ Component({
                 })
                 applyChatApi({recruiterUid: this.data.infos.uid}).then(res => successPop(res))
               } else {
-                wx.navigateTo({url: `${COMMON}chooseJob/chooseJob?type=job_hunting_chat&showNotPositionApply=${interviewInfos.showNotPositionApply}&recruiterUid=${this.data.infos.uid}&chattype=${this.data.chatType}`})
+                wx.navigateTo({url: `${COMMON}chooseJob/chooseJob?type=job_hunting_chat&recruiterUid=${this.data.infos.uid}`})
               }
             } else {
               app.wxReportAnalytics('btn_report', {
@@ -380,10 +380,7 @@ Component({
     getCompanyIdentityInfos() {
       return new Promise((resolve, reject) => {
         getCompanyIdentityInfosApi({hasLoading: false}).then(res => {
-          let companyInfo = res.data.companyInfo
-          let identityInfos = res.data
-          let applyJoin = res.data.applyJoin
-          this.setData({identityInfos}, () => resolve(res))
+          this.setData({identityInfos: res.data}, () => resolve(res))
         })
       })
     },
@@ -433,7 +430,6 @@ Component({
      */
     todoAction(e) {
       let action = e.currentTarget.dataset.action
-      let interviewInfos = this.data.interviewInfos
       let infos = this.data.infos
       switch(action) {
         // 求职端发起开撩

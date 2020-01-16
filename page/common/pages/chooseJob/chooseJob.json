@@ -2,6 +2,7 @@
   "usingComponents": {
     "navbar": "../../../../components/business/navbar/navbar",
     "payPop": "../../../../components/business/payPop/payPop",
-    "downloadAppModel": "../../../../components/business/downloadAppModel/downloadAppModel"
+    "downloadAppModel": "../../../../components/business/downloadAppModel/downloadAppModel",
+    "downLoadApp":  "../../../../components/functional/downLoadApp/downLoadApp"
   }
 }

@@ -2,9 +2,8 @@ import {
   getAreaListApi,
 } from '../../../../api/pages/label.js'
 import {getCityLabelApi} from '../../../../api/pages/common.js'
-import {RECRUITER} from '../../../../config.js'
 
-const app = getApp()
+let app = getApp()
 
 Page({
   data: {
@@ -22,7 +21,6 @@ Page({
     this.getLists()
   },
   getLists() {
-    const options = this.data.query
     getCityLabelApi().then(res => {
       let hotArea = res.data
       let selectCity = wx.getStorageSync('selectCity')
@@ -37,15 +35,13 @@ Page({
         wx.removeStorageSync('selectCity')
       })
     })
-    getAreaListApi()
-      .then(res => {
-        const cityList = res.data
-        this.setData({cityList: res.data})
-      })
+    getAreaListApi().then(res => {
+      this.setData({cityList: res.data})
+    })
   },
   onClick(e) {
-    const params = e.currentTarget.dataset
-    const storage = wx.getStorageSync('createPosition') || {}
+    let params = e.currentTarget.dataset
+    let storage = wx.getStorageSync('createPosition') || {}
     storage.type = params.labelId
     storage.typeName = params.name
     if(params.topid !== storage.parentType) storage.skills = []
@@ -61,15 +57,15 @@ Page({
    */
   onClick1(e) {
     // 只有一级标签
-    const params = e.currentTarget.dataset
-    const cityList = this.data.cityList
+    let params = e.currentTarget.dataset
+    let cityList = this.data.cityList
     cityList.map((field, index) => field.active = index === params.index ? true : false)
     cityList[params.index].children.map((field, index) => field.active = index === this.data.index1 ? true : false)
     // cityList[params.index].children[this.data.index1].children[this.data.index2].active = true
     this.setData({index1: params.index, cityList, showMask: true})
     let selectCityName = cityList[params.index].title
     if (selectCityName === '北京市' || selectCityName === '天津市' || selectCityName === '上海市' || selectCityName === '重庆市') {
-      const selectCity = cityList[params.index].children[0]
+      let selectCity = cityList[params.index].children[0]
       wx.setStorageSync('selectCity', selectCity)
       wx.navigateBack({delta: 1})
     }
@@ -81,11 +77,11 @@ Page({
    * @return   {[type]}     [description]
    */
   onClick2(e) {
-    const params = e.currentTarget.dataset
-    const cityList = this.data.cityList
+    let params = e.currentTarget.dataset
+    let cityList = this.data.cityList
     cityList[this.data.index1].children.map((field, index) => field.active = index === params.index ? true : false)
     this.setData({index2: params.index, cityList, showMask: true})
-    const selectCity = cityList[this.data.index1].children[this.data.index2]
+    let selectCity = cityList[this.data.index1].children[this.data.index2]
     wx.setStorageSync('selectCity', selectCity)
     wx.navigateBack({delta: 1})
   },
@@ -96,10 +92,10 @@ Page({
    * @return   {[type]}     [description]
    */
   onClick3(e) {
-    const params = e.currentTarget.dataset
-    const result = this.data.cityList[this.data.index1].children[this.data.index2].children[params.index]
+    let params = e.currentTarget.dataset
+    let result = this.data.cityList[this.data.index1].children[this.data.index2].children[params.index]
     this.setData({showMask: false})
-    const storage = wx.getStorageSync('createPosition') || {}
+    let storage = wx.getStorageSync('createPosition') || {}
     storage.type = result.labelId
     storage.typeName = result.name
     if(this.data.cityList[this.data.index1].labelId !== storage.parentType) storage.skills = []
@@ -108,8 +104,8 @@ Page({
     wx.navigateBack({delta: 1})
   },
   tapHot (e) {
-    const params = e.currentTarget.dataset
-    const storage = {}
+    let params = e.currentTarget.dataset
+    let storage = {}
     storage.areaId = params.item.areaId
     storage.name = params.item.name
     wx.setStorageSync('selectCity', storage)
@@ -122,7 +118,7 @@ Page({
    * @return   {[type]}     [description]
    */
   bindInput(e) {
-    const name = e.detail.value
+    let name = e.detail.value
     this.debounce(this.getLabelLIsts, null, 500, name)
   },
   /**
@@ -147,16 +143,15 @@ Page({
       this.setData({searing: false}, () => this.getLists())
       return;
     }
-    getLabelLIstsApi({name})
-      .then(res => {
-        const cityList = res.data
-        const regExp = new RegExp(name, 'g')
-        cityList.map(field => {
-          field.html = field.name.replace(regExp, `<span style="color: #652791;">${name}</span>`)
-          field.html = `<div>${field.html}</div>`
-        })
-        this.setData({cityList, searing: true})
+    getLabelLIstsApi({name}).then(res => {
+      let cityList = res.data
+      let regExp = new RegExp(name, 'g')
+      cityList.map(field => {
+        field.html = field.name.replace(regExp, `<span style="color: #652791;">${name}</span>`)
+        field.html = `<div>${field.html}</div>`
       })
+      this.setData({cityList, searing: true})
+    })
   },
   closeMask(e) {
     this.setData({showMask: false, index1: 0, index2: 0})

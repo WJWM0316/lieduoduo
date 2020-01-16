@@ -52,7 +52,8 @@ Page({
     chargeData: {}, // 扣点信息
     interviewStatus: null,
     payTitle: '',
-    showDownloadModel: false
+    showDownloadModel: false,
+    downLoadAppType: 1
   },
   onLoad(options) {
     let api = ''
@@ -120,7 +121,6 @@ Page({
    */
   getonLinePositionListB(hasLoading = true) {
     return new Promise((resolve, reject) => {
-      let options = this.data.options
       let onLinePositionList = this.data.onLinePositionList
       let params = {
         is_online: 1,
@@ -219,7 +219,6 @@ Page({
    * @return   {[type]}     [description]
    */
   onClick(e) {
-    let data = wx.getStorageSync('interviewData') || {}
     let job = e.currentTarget.dataset
     let params = {}
     let options = this.data.options
@@ -227,8 +226,6 @@ Page({
     let key = ''
     let result = {}
     let buttonClick = this.data.buttonClick
-    data.positionName = job.name
-    data.positionId = job.id
     // 给不合适或者直接与我约面加按钮状态 并且选中的按钮只能有一个
     if(typeof job.id === 'string') {
       key = `${job.id}Checked`
@@ -257,7 +254,7 @@ Page({
         break
       // 求职者 主动发起约聊
       case 'job_hunting_chat':
-        params.recruiterUid = this.data.options.recruiterUid
+        params.recruiter = this.data.options.recruiterUid
         if(job.id !== 'person') params.positionId = job.id
         this.applyInterview(params)
         break
@@ -310,6 +307,9 @@ Page({
         resolve(res)
         //  求职端返回上一页
         if(wx.getStorageSync('choseType') !== 'RECRUITER') {
+          // this.setData({downLoadAppType: 3}, () => {
+          //   this.selectComponent('#downLoadApp').show()
+          // })
           wx.navigateBack({
             delta: 1,
             success() {
@@ -499,8 +499,13 @@ Page({
         cancelColor: '#BCBCBC',
         confirmColor: '#652791',
         confirmBack: () => {
-          openPositionApi({id: params.positionId}).then(res => {
+          openPositionApi({id: params.positionId}).then(() => {
             that.applyInterview(params).then(res => that.setData({openPayPop: false, showDownloadModel: true}))
+            // this.applyInterview(params).then(res => {
+            //   this.setData({openPayPop: false, showDownloadModel: true, downLoadAppType: 3}, () => {
+            //     this.selectComponent('#downLoadApp').show()
+            //   })
+            // })
           })
         }
       })
