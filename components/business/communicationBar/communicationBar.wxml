@@ -215,6 +215,7 @@
 							class="advisor-entering"
 							data-action="advisor-popup-help"
 							bindtap="todoAction">
+							<view class="icon"></view>
 							顾问帮约
 						</view>
 						<view
@@ -230,9 +231,10 @@
 					wx:if="{{ infos.chatInfo && (infos.chatInfo.status === 701 || infos.chatInfo.status === 501)}}">
 					<view class="btnBox">
 						<view
-							class="advisor-entering"
+							class="advisor-help-entering"
 							data-action="advisor-helping"
 							bindtap="todoAction">
+							<view class="icon"></view>
 							顾问服务中
 						</view>
 						<view

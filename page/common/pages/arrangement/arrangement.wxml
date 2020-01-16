@@ -69,7 +69,7 @@
         </view>
       </view>
 
-      <view class="detail read" wx:if="{{(identity === 'APPLICANT' && (info.status === 54 || info.status === 55 || info.status === 52 || info.status === 53)) || (identity === 'RECRUITER' && (info.status === 12 || info.status === 31 || info.status === 41 || info.status === 51 || info.status === 59 || info.status === 57 || info.status === 60 || info.status === 58 || info.status === 61))}}">
+      <view class="detail read" wx:if="{{identity === 'APPLICANT' || (identity === 'RECRUITER' && (info.status === 12 || info.status === 31 || info.status === 41 || info.status === 51 || info.status === 59 || info.status === 57 || info.status === 60 || info.status === 58 || info.status === 61))}}">
         <view class="title"><icon class="icon"></icon>面试信息</view>
         <view class="msgItem" bindtap="callPhone">
           <view class="inner">
