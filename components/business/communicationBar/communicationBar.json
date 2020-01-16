@@ -1,6 +1,7 @@
  {
   "component": true,
   "usingComponents": {
-  	"bindPhone": "../../../components/functional/bindPhone/bindPhone"
+    "bindPhone": "../../../components/functional/bindPhone/bindPhone",
+    "actionSheet": "../../../components/layout/actionSheet/actionSheet"
   }
 }

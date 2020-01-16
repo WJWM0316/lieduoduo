@@ -6,7 +6,7 @@
     "navbar": "../../../../components/business/navbar/navbar",
     "roleInfoCard": "../../../../components/business/roleInfoCard/roleInfoCard",
     "shareBtn": "../../../../components/layout/shareBtn/shareBtn",
-    "interviewBar": "../../../../components/business/interviewBar/interviewBar",
+    "communicationBar": "../../../../components/business/communicationBar/communicationBar",
     "company": "../../../../components/business/roleInfoCard/roleInfoCard",
     "canvasCard": "../../../../components/business/canvasCard/canvasCard",
     "notFound": "../../../../components/layout/notFound/notFound"

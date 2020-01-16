@@ -1,5 +1,26 @@
-<actionSheet class="actionSheet rule-box" openPop="{{openPayPop}}" title="确认邀约" bindclose="close">
-  <view class="tip">此候选人来自<text class="txt">{{title}}</text>推荐，开撩邀约需消耗</view>
+<actionSheet class="actionSheet rule-box" openPop="{{ openPayPop }}" title="" bindclose="close">
+  <view class="h22">{{ title }}</view>
+  <view class="p22">向候选人发起约聊，需消耗<view class="strong22">{{ chargeData.charge }}</view>多多币</view>
+  <view class="welfare-ul">
+    <view class="welfare-item">畅聊职位</view>
+    <view class="welfare-item">高效约面</view>
+    <view class="welfare-item">了解面试进展</view>
+    <view class="welfare-item">受邀才扣费</view>
+  </view>
+  <view class="tips22">* 候选人7天内未接受邀请时，多多币将原路退回到你的账户</view>
+  <view class="tips22">* 更多细则，欢迎联系客服</view>
+  <view class="footer22">
+    <view class="view-remian">
+      <view class="chat-cost">
+        <view class="number22">{{ chargeData.charge }}</view>
+        <view class="default">多多币</view>
+      </view>
+      <view class="monny-remian">账户剩余 {{ chargeData.remain }} </view>
+    </view>
+    <view class="btn-confirm enable" bindtap="submit" wx:if="{{chargeData.isEnough}}">确认约聊</view>
+    <view class="btn-confirm disable" bindtap="callPhone" wx:else>余币不足，联系我们</view>
+  </view>
+  <!-- <view class="tip">此候选人来自<text class="txt">{{title}}</text>推荐，开撩邀约需消耗</view>
   <view class="tipTitle">多多币</view>
   <view class="num">{{chargeData.charge}}</view>
   <view class="otherMsg" wx:if="{{chargeData.isEnough}}">账户剩余 {{chargeData.remain}} 多多币<text class="more" bindtap="callPhone">获取更多</text></view>
@@ -10,6 +31,6 @@
     * 更多细则，欢迎联系客服 </text>
     <text class="txt" bindtap="callPhone">{{telePhone}}</text>
   </view>
-  <button class="sureBtn" bindtap="submit" wx:if="{{chargeData.isEnough}}">确认邀约</button>
-  <button class="sureBtn not" bindtap="callPhone" wx:else>余币不足，邀约请联系我们</button>
+  <button class="sureBtn" bindtap="submit" wx:if="{{chargeData.isEnough}}">确定邀约</button>
+  <button class="sureBtn not" bindtap="callPhone" wx:else>余币不足，邀约请联系我们</button> -->
 </actionSheet>

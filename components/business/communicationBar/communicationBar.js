@@ -1,30 +1,38 @@
 import {
-  applyInterviewApi,
-  getInterviewStatusApi,
-  inviteInterviewApi,
-  refuseInterviewApi,
-  confirmInterviewApi,
-  notonsiderInterviewApi,
-  interviewRetractApi,
-  resumeNotInterestRetractApi
-} from '../../../api/pages/interview.js'
-
-import {
-  getPositionApi,
-  openPositionApi,
-  closePositionApi,
   getPositionListNumApi
 } from '../../../api/pages/position.js'
+
+import {
+  applyInterviewApi,
+} from '../../../api/pages/interview.js'
 
 import {
   getCompanyIdentityInfosApi
 } from '../../../api/pages/company.js'
 
-import {RECRUITER, COMMON, APPLICANT} from '../../../config.js'
+import {
+  applyChatApi,
+  deleteNotInterestApi,
+  getNotInterestAllReasonListApi
+} from '../../../api/pages/chat.js'
+import {
+  RECRUITER, 
+  COMMON, 
+  APPLICANT, 
+  DOWNLOADAPPURL
+} from '../../../config.js'
 
-import { agreedTxtC, agreedTxtB } from '../../../utils/randomCopy.js'
+import {
+  agreedTxtC,
+  agreedTxtB
+} from '../../../utils/randomCopy.js'
+
+import {
+  getRecommendChargeApi
+} from '../../../api/pages/recruiter.js'
+
 let automatic = false
-const app = getApp()
+let app = getApp()
 let identity = ''
 Component({
   properties: {
@@ -59,101 +67,121 @@ Component({
     slogoIndex: 0,
     // 是否是我发布
     isOwerner: false,
-    currentPage: '',
     index: 0,
     jobWords: agreedTxtC(),
     recruiterWords: agreedTxtB(),
-    isShare: false,
     cdnImagePath: app.globalData.cdnImagePath,
     positionInfos: {},
     show: false,
-    loaded: false,
     showSuccessPop: false,
     successPopDesc: '',
-    showEndIcon: false
+    showEndIcon: false,
+    model: {
+      show: false,
+      title: '',
+      type: 'showReason',
+      reason: {}
+    },
+    payPop: {
+      show: false,
+      title: ''
+    },
+    chargeData: {}, // 扣点信息
+    showAdvisor: false,
+    notInterestReasonList: [],
+    chatType: ''
   },
   attached() {
-    setTimeout(() => {
-      console.log(this.data, 'infos')
-    }, 3000)
     identity = wx.getStorageSync('choseType')
     if (this.data.options && this.data.options.directChat) {
       automatic = true
     }
-    this.setData({identity})
+    this.setData({ identity })
   },
   methods: {
-    init() {
-      let currentPage = ''
-      switch(this.data.type) {
-        case 'position':
-          currentPage = 'positionDetail'
-          break
-        case 'resume':
-          currentPage = 'resumeDetail'
-          break
-        case 'recruiter':
-          currentPage = 'recruiterDetail'
-          break
-        default:
-          currentPage = ''
-          break
-      }
-      if (((currentPage === 'positionDetail' || currentPage === 'recruiterDetail') && identity === 'APPLICANT') || (currentPage === 'resumeDetail' && identity === 'RECRUITER')) {
-        this.getInterviewStatus()
-      }
-      this.setData({currentPage, jobWords: agreedTxtC(), recruiterWords: agreedTxtB(), show: false})
+    /**
+     * @Author   小书包
+     * @DateTime 2019-01-29
+     * @detail   获取约聊不合适的列表
+     * @return   {[type]}   [description]
+     */
+    getNotInterestAllReasonList() {
+      getNotInterestAllReasonListApi().then(({ data }) => this.setData({ notInterestReasonList: data }))
     },
     /**
-   * @Author   小书包
-   * @DateTime 2019-01-29
-   * @detail   发布职位
-   * @return   {[type]}   [description]
-   */
-  publicPosition() {
-    let identityInfos = this.data.identityInfos
-    // 跟后端协商  =1 则可以发布
-    if(identityInfos.identityAuth) {
-      wx.navigateTo({url: `${RECRUITER}position/post/post`})
-      return;
-    }
-
-    if(identityInfos.status === 1) {
-      wx.navigateTo({url: `${RECRUITER}position/post/post`})
-    }
-
-    // 已经填写身份证 但是管理员还没有处理或者身份证信息不符合规范
-    if(identityInfos.status === 0 || identityInfos.status === 2) {
-      this.setData({show: false})
-      app.wxConfirm({
-        title: '',
-        content: `您当前认证身份信息已提交申请，猎多多将尽快审核处理，请耐心的等待，感谢您的配合~`,
-        cancelText: '联系客服',
-        confirmText: '我知道了',
-        confirmBack: () => {
-          wx.navigateTo({url: `${RECRUITER}user/company/status/status?from=identity`})
-        },
-        cancelBack: () => {
-          wx.makePhoneCall({phoneNumber: this.data.telePhone})
-        }
-      })
-      return;
-    }
-
-    // 没有填身份证 则没有验证
-    if(!identityInfos.identityNum) {
-      this.setData({show: false})
-      app.wxConfirm({
-        title: '',
-        content: `检测到您尚未认证身份，请立即认证，完成发布职位`,
-        confirmText: '去认证',
-        confirmBack: () => {
-          wx.navigateTo({url: `${RECRUITER}user/company/identity/identity?from=identity`})
-        }
-      })
-      return;
-    }
-  },
+     * @Author   小书包
+     * @DateTime 2019-01-29
+     * @detail   获取扣点信息
+     * @return   {[type]}   [description]
+     */
+    getRecommendCharge(params) {
+      return getRecommendChargeApi({ jobhunter: params.jobhunter }).then(({ data }) => this.setData({ chargeData: data }))
+    },
+    /**
+     * @Author   小书包
+     * @DateTime 2019-01-29
+     * @detail   取消约聊不合适
+     * @return   {[type]}   [description]
+     */
+    deleteNotInterest(params) {
+      return deleteNotInterestApi({id: params.id, jobhunter: params.uid})
+    },
+    /**
+     * @Author   小书包
+     * @DateTime 2019-01-29
+     * @detail   显示不合适原因
+     * @return   {[type]}   [description]
+     */
+    showNotInterestReason() {
+      let model = this.data.model
+      model.show = true
+      model.type = 'showReason'
+      this.setData({ model })
+    },
+    /**
+     * @Author   小书包
+     * @DateTime 2019-01-29
+     * @detail   发布职位
+     * @return   {[type]}   [description]
+     */
+    publicPosition() {
+      let identityInfos = this.data.identityInfos
+      // 跟后端协商  =1 则可以发布
+      if(identityInfos.identityAuth || identityInfos.status === 1) {
+        wx.navigateTo({url: `${RECRUITER}position/post/post`})
+        return;
+      }
+      // 已经填写身份证 但是管理员还没有处理或者身份证信息不符合规范
+      if(identityInfos.status === 0 || identityInfos.status === 2) {
+        this.setData({show: false})
+        app.wxConfirm({
+          title: '',
+          content: `您当前认证身份信息已提交申请，猎多多将尽快审核处理，请耐心的等待，感谢您的配合~`,
+          cancelText: '联系客服',
+          confirmText: '我知道了',
+          confirmBack: () => {
+            wx.navigateTo({url: `${RECRUITER}user/company/status/status?from=identity`})
+          },
+          cancelBack: () => {
+            wx.makePhoneCall({phoneNumber: this.data.telePhone})
+          }
+        })
+        return;
+      }
+      // 没有填身份证 则没有验证
+      if(!identityInfos.identityNum) {
+        this.setData({show: false})
+        app.wxConfirm({
+          title: '',
+          content: `检测到您尚未认证身份，请立即认证，完成发布职位`,
+          confirmText: '去认证',
+          confirmBack: () => {
+            wx.navigateTo({url: `${RECRUITER}user/company/identity/identity?from=identity`})
+          }
+        })
+        return;
+      }
+    },
     /**
      * @Author   小书包
      * @DateTime 2019-03-14
@@ -162,54 +190,7 @@ Component({
      */
     getPositionListNum() {
       return new Promise((resolve, reject) => {
-        getPositionListNumApi().then(res => {
-          this.setData({positionInfos: res.data})
-          resolve(res)
-        })
-      })
-    },
-    /**
-     * @Author   小书包
-     * @DateTime 2019-01-05
-     * @detail   获取开料状态
-     * @return   {[type]}   [description]
-     */
-    getInterviewStatus() {
-      getInterviewStatusApi({type: this.data.type, vkey: this.data.infos.vkey}).then(res => {
-        let interviewInfos = res.data
-        this.setData({interviewInfos, identity: wx.getStorageSync('choseType'), loaded: true})
-        if(res.code === 204) this.setData({isOwerner: true})
-        if(res.code === 230) this.showMergeBox(res.data)
-          
-        // 防止用户不刷新数据，自动取消气泡
-        if(interviewInfos.isReadRedot) {
-          setTimeout(() => {
-            interviewInfos.isReadRedot = 0
-            this.setData({interviewInfos})
-          }, 3000)
-        }
-        if (!res.data.haveInterview && this.data.options && this.data.options.directChat && automatic && !this.data.options.todoAction) {
-          let e = {
-            currentTarget: {
-              dataset: {
-                action : 'job-hunting-chat'
-              }
-            }
-          }
-          this.todoAction(e)
-          automatic = false
-        }
-        let infos = this.data.infos,
-            showEndIcon = true
-        if (!interviewInfos.applied && infos.isRapidly === 1 && infos.rapidlyInfo.seatsNum - infos.rapidlyInfo.applyNum - infos.rapidlyInfo.natureApplyNum === 0) {
-          showEndIcon = true
-          this.setData({showEndIcon})
-          let showTimer = setTimeout(() => {
-            showEndIcon = false
-            clearTimeout(showTimer)
-            this.setData({showEndIcon})
-          }, 3000)
-        }
+        getPositionListNumApi().then(res => this.setData({ positionInfos: res.data }, () => resolve(res)))
       })
     },
     /**
@@ -219,7 +200,7 @@ Component({
      * @return   {[type]}         [description]
      */
     showMergeBox(infos) {
-      const content = infos.tipsData.positionId === 0
+      let content = infos.tipsData.positionId === 0
         ? '面试官已接受与你约面，但没有选择约面职位，其他职位申请将自动合并，如需修改约面职位，可直接与面试官协商'
         : `面试官已选择你申请职位中的“${infos.tipsData.positionName}”，其他职位申请将自动合并，如需修改约面职位，可直接与面试官协商。`
       app.wxConfirm({
@@ -232,18 +213,6 @@ Component({
     },
     /**
      * @Author   小书包
-     * @DateTime 2019-01-22
-     * @detail   获取范围内随机数
-     * @return   {[type]}       [description]
-     */
-    getRandomNum(Min, Max) {
-      var Range = Max - Min
-      var Rand = Math.random()
-      var num = Min + Math.floor(Rand * Range)
-      return num
-    },
-    /**
-     * @Author   小书包
      * @DateTime 2019-01-30
      * @detail   通过分享入口进行开撩
      * @return   {[type]}   [description]
@@ -253,25 +222,15 @@ Component({
       let isRecruiter = app.globalData.isRecruiter
       let isJobhunter = app.globalData.isJobhunter
       let interviewInfos = this.data.interviewInfos
-
-      const getRole = () => {
-        if(app.getRoleInit) {
-          chat()
-        } else {
-          app.getRoleInit = () => chat()
-        }
-      }
-
+      let infos = this.data.infos
       // 开撩动作
-      const chat = () => {
+      let chat = () => {
         isRecruiter = app.globalData.isRecruiter
         isJobhunter = app.globalData.isJobhunter
-        let rapidlyInfo = this.data.infos.rapidlyInfo || {},
-            detail = this.data.infos
+        let detail = this.data.infos
 
         // 是急速约面开撩
         let isSpecail = detail.isRapidly === 1 
-                        && !this.data.interviewInfos.applied
                         && detail.rapidlyInfo.applyNum + detail.rapidlyInfo.natureApplyNum < detail.rapidlyInfo.seatsNum
         let successPop = (res) => {
           if (res.code === 916) {
@@ -318,13 +277,15 @@ Component({
             }
           }
         }
-        if(identity === 'APPLICANT') {
+
+        if( identity === 'APPLICANT' ) {
           if(!isJobhunter) {
             let path = app.getCurrentPagePath()
             wx.navigateTo({url: `${APPLICANT}createUser/createUser?directChat=${encodeURIComponent(path)}&from=2`})
           } else {
             // 走正常流程
-            if(this.data.type === 'recruiter') { // 开撩招聘官
+            if(this.data.type === 'recruiter') {
+              // 开撩招聘官
               // 招聘官没有在线职位或者招聘官没发布过职位
               if(!this.data.infos.positionNum) {
                 app.wxReportAnalytics('btn_report', {
@@ -332,30 +293,47 @@ Component({
                   resume_perfection: app.globalData.resumeInfo.resumeCompletePercentage * 100,
                   btn_type: 'job-hunting-chat'
                 })
-                applyInterviewApi({recruiterUid: this.data.infos.uid}).then(res => {
-                  this.getInterviewStatus()
-                  successPop(res)
-                })
+                applyChatApi({recruiterUid: this.data.infos.uid}).then(res => successPop(res))
               } else {
-                wx.navigateTo({url: `${COMMON}chooseJob/chooseJob?type=job_hunting_chat&from=${this.data.currentPage}&showNotPositionApply=${interviewInfos.showNotPositionApply}&from=${this.data.currentPage}&recruiterUid=${this.data.infos.uid}`})
+                wx.navigateTo({url: `${COMMON}chooseJob/chooseJob?type=job_hunting_chat&showNotPositionApply=${interviewInfos.showNotPositionApply}&recruiterUid=${this.data.infos.uid}&chattype=${this.data.chatType}`})
               }
-            } else { // 开撩职位
+            } else {
+              // 开撩职位
               app.wxReportAnalytics('btn_report', {
                 isjobhunter: app.globalData.isJobhunter,
                 resume_perfection: app.globalData.resumeInfo.resumeCompletePercentage * 100,
                 btn_type: 'job-hunting-chat'
               })
-              let params = {recruiterUid: this.data.infos.recruiterInfo.uid, positionId: this.data.infos.id}
+              let params = {recruiter: this.data.infos.recruiterInfo.uid, position: this.data.infos.id}
               if (isSpecail) params.interview_type = 2
-              applyInterviewApi(params).then(res => {
-                this.getInterviewStatus()
-                successPop(res)
-                // 未满急速约面开撩成功，需要记录一下返回时候重置一下数据
-                if (isSpecail) {
-                  this.triggerEvent('chatPosition', true)
-                  wx.setStorageSync('chatSuccess', detail)
+              let cb = () => {
+                if(infos.interviewSummary && infos.interviewSummary.interviewId) {
+                  app.wxConfirm({
+                    title: '已约面该招聘官的其他职位',
+                    content: '是否要更换约面职位',
+                    cancelText: '我在想想',
+                    confirmText: '更换职位',
+                    confirmBack: () => {
+                      wx.navigateTo({url: `${COMMON}chooseJob/chooseJob?type=job_hunting_chat&recruiterUid=${infos.recruiterInfo.uid}`})
+                    },
+                    cancelBack: () => {}
+                  })
+                } else {
+                  if(this.data.infos.isRapidly) {
+                    applyInterviewApi({positionId: this.data.infos.id, interview_type: 2, recruiterUid: this.data.infos.recruiterInfo.uid})
+                  }
+                  applyChatApi(params).then(res => {
+                    this.triggerEvent('reLoad', true)
+                    successPop(res)
+                    // 未满急速约面开撩成功，需要记录一下返回时候重置一下数据
+                    if (isSpecail) {
+                      this.triggerEvent('chatPosition', true)
+                      wx.setStorageSync('chatSuccess', detail)
+                    }
+                  })
                 }
-              })
+              }
+              cb()
             }
           }
         } else {
@@ -363,15 +341,22 @@ Component({
             this.getCompanyIdentityInfos()
           } else {
             // 走正常流程
-            wx.navigateTo({url: `${COMMON}chooseJob/chooseJob?type=recruiter_chat&from=${this.data.currentPage}&jobhunterUid=${this.data.infos.uid}&recruiterUid=${app.globalData.recruiterDetails.uid}&sourceType=${this.data.infos.sourceType}`})
+            wx.navigateTo({url: `${COMMON}chooseJob/chooseJob?type=recruiter_chat&jobhunterUid=${ infos.uid }&recruiterUid=${app.globalData.recruiterDetails.uid}&sourceType=${this.data.infos.sourceType}&chattype=${this.data.chatType}`})
           }
+        }
+      }
+      let getRole = () => {
+        if(app.getRoleInit) {
+          chat()
+        } else {
+          app.getRoleInit = () => chat()
         }
       }
 
       // 判断用户是否登录
       if (app.loginInit) {
         if (!app.globalData.hasLogin) {
-          this.setData({showLoginBox: true})
+          this.setData({ showLoginBox: true })
         } else {
           getRole()
         }
@@ -386,7 +371,7 @@ Component({
       }      
     },
     closePop () {
-      this.setData({showSuccessPop: false})
+      this.setData({ showSuccessPop: false })
     },
     /**
      * @Author   小书包
@@ -406,31 +391,68 @@ Component({
     },
     /**
      * @Author   小书包
+     * @DateTime 2019-01-29
+     * @detail   招聘官、顾问发起约面
+     * @return   {[type]}   [description]
+     */
+    recruiterChat() {
+      let infos = this.data.infos
+      let cb = () => {
+        if(infos.interviewSummary && infos.interviewSummary.interviewId) {
+          app.wxConfirm({
+            title: '提示',
+            content: '您当前存在进行中的约面记录，处理完该面试后，即可使用当前功能；',
+            cancelText: '取消',
+            confirmText: '前往查看',
+            confirmBack: () => {
+              wx.navigateTo({url: `${COMMON}arrangement/arrangement?id=${ infos.interviewSummary.interviewId }`})
+            },
+            cancelBack: () => {}
+          })
+        } else {
+          this.getPositionListNum().then(res => {
+            if (!res.data.online) {
+              this.setData({show: true})
+            } else {
+              this.shareChat()
+            }
+          })
+        }
+      }
+      if (!wx.getStorageSync('firstOpenAdvisor')) {
+        wx.setStorageSync('firstOpenAdvisor', 1)
+        this.setData({showAdvisor: true})
+      } else {
+        cb()
+      }
+    },
+    /**
+     * @Author   小书包
      * @DateTime 2019-01-02
      * @detail   待办项
      * @return   {[type]}     [description]
      */
     todoAction(e) {
-      const action = e.currentTarget.dataset.action
-      const interviewInfos = this.data.interviewInfos
-      const infos = this.data.infos
+      let action = e.currentTarget.dataset.action
+      let interviewInfos = this.data.interviewInfos
+      let infos = this.data.infos
       switch(action) {
         // 求职端发起开撩
         case 'job-hunting-chat':
           if (identity === 'APPLICANT') {
-            this.shareChat()
+            app.subscribeWechatMessage('openChat').then(() => this.shareChat())            
           } else {
             app.promptSwitch({
               source: identity
             })
           }
           break
-        case 'job-hunting-applyed':
-          let { changePositionToast } = this.data.infos.rapidlyInfo
-          if (changePositionToast ) {
+        case 'keep-communicating':
+          let changePositionToast = this.data.infos.rapidlyInfo && this.data.infos.rapidlyInfo.changePositionToast
+          if ( changePositionToast ) {
             app.wxConfirm({
               title: '已约面该招聘官的其他职位',
-              content: '是否更换为约面该职位',
+              content: '是否要更换约面职位',
               cancelText: '我再想想',
               confirmText: '更换职位',
               confirmBack() {
@@ -438,105 +460,33 @@ Component({
               }
             })
           } else {
-            app.wxToast({title: '跳转引导下载app页'})
+            wx.navigateTo({url: `${ COMMON }webView/webView?type=optimal&p=${ DOWNLOADAPPURL }`})
           }
           break
         case 'recruiter-chat':
-          let type = this.data.type
-          if ((identity !== 'RECRUITER' && type === 'position') || (identity === 'RECRUITER' && type === 'resume')) {
-            if(this.data.currentPage === 'resumeDetail') {
-              this.getPositionListNum().then(res => {
-                if(!res.data.online) {
-                  this.setData({show: true})
-                } else {
-                  this.shareChat()
-                }
+          app.subscribeWechatMessage('openChatInterview').then(() => {
+            this.setData({chatType: 'onekey'})
+            let type = this.data.type
+            if ((identity !== 'RECRUITER' && type === 'position') || (identity === 'RECRUITER' && type === 'resume')) {
+              if(type === 'resume') {
+                this.getPositionListNum().then(res => {
+                  if(!res.data.online) {
+                    this.setData({show: true})
+                  } else {
+                    this.shareChat()
+                  }
+                })
+              }
+            } else {
+              app.promptSwitch({
+                source: identity
               })
             }
-          } else {
-            app.promptSwitch({
-              source: identity
-            })
-          }
-          break
-        case 'job-hunting-waiting-interview':
-          app.wxToast({title: '等待面试官安排面试'})
-          break
-        // 求职者等待招聘管确认
-        case 'waiting-staff-confirm':
-          app.wxToast({title: '等待求职者确认'})
-          break
-        // 求职者接受约面
-        case 'job-hunting-accept':
-          confirmInterviewApi({id: interviewInfos.data[0].interviewId}).then(res => {
-            app.wxToast({title: '已接受约面'})
-            // this.triggerEvent('resultevent', this.data.infos)
-            this.getInterviewStatus()
           })
           break
-        // 求职端拒绝招聘官
-        case 'job-hunting-reject':
-          if(this.data.type === 'recruiter') {
-            refuseInterviewApi({id: this.data.infos.uid}).then(res => {
-              this.getInterviewStatus()
-            })
-          } else {
-            app.wxConfirm({
-              title: '暂不考虑该职位',
-              content: '确定暂不考虑后，面试官将终止这次约面流程',
-              showCancel: true,
-              cancelText: '我再想想',
-              confirmText: '确定',
-              cancelColor: '#BCBCBC',
-              confirmColor: '#652791',
-              confirmBack: () => {
-                refuseInterviewApi({id: this.data.infos.recruiterInfo.uid}).then(res => this.getInterviewStatus())
-              }
-            })
-          }
-          break
-        // 招聘官拒绝求职者
-        case 'recruiter-reject':
-          if(interviewInfos.data && interviewInfos.data.length > 1) {
-            wx.navigateTo({url: `${COMMON}chooseJob/chooseJob?type=reject_chat&from=${this.data.currentPage}&jobhunterUid=${infos.uid}`})
-            wx.setStorageSync('interviewChatLists', this.data.interviewInfos)
-          } else {
-            wx.navigateTo({url: `${COMMON}interviewMark/interviewMark?type=pending&jobhunterUid=${infos.uid}&lastInterviewId=${interviewInfos.data[0].interviewId}&status=${interviewInfos.interviewStatus}`})
-          }
-          break
-        // 求职者查看面试详情
-        case 'job-hunting-view-detail':
-          wx.navigateTo({url: `${COMMON}arrangement/arrangement?id=${interviewInfos.data[0].interviewId}`})
-          break
-        // 招聘官查看面试安排
-        case 'recruiter-view-detail':
-          wx.navigateTo({url: `${COMMON}arrangement/arrangement?id=${interviewInfos.data[0].interviewId}`})
-          break
-        // B端开撩成功后跳转安排面试页面
-        case 'recruiter-accept':          
-          // 求职者发起多条撩的记录
-          if(interviewInfos.data && interviewInfos.data.length > 1) {
-            wx.navigateTo({url: `${COMMON}chooseJob/chooseJob?type=confirm_chat&from=${this.data.currentPage}&recruiterId=${interviewInfos.data[0].recruiterUid}`})
-            wx.setStorageSync('interviewChatLists', this.data.interviewInfos)
-          } else {
-            if(interviewInfos.data[0].positionStatus === 0) {
-              wx.setStorageSync('interviewChatLists', this.data.interviewInfos)
-              wx.navigateTo({url: `${COMMON}chooseJob/chooseJob?type=confirm_chat&from=${this.data.currentPage}&recruiterId=${interviewInfos.data[0].recruiterUid}`})
-            } else {
-              confirmInterviewApi({id: interviewInfos.data[0].interviewId}).then(res => {
-                wx.navigateTo({url: `${COMMON}arrangement/arrangement?id=${interviewInfos.data[0].interviewId}`})
-              })
-            }
-          }
-          break
-        case 'recruiter-apply':
-          wx.navigateTo({url: `${COMMON}arrangement/arrangement?id=${interviewInfos.data[0].interviewId}`})
-          break
-        case 'recruiter-modify':
-          wx.navigateTo({url: `${COMMON}arrangement/arrangement?id=${interviewInfos.data[0].interviewId}`})
-          break
-        case 'recruiter-arrangement':
-          wx.navigateTo({url: `${COMMON}arrangement/arrangement?id=${interviewInfos.data[0].interviewId}`})
+        case 'advisor-popup-help':
+          this.setData({chatType: 'advisorHelp'})
+          this.recruiterChat()
           break
         case 'viewRecruiter':
           if(this.data.type === 'position') wx.navigateTo({url: `${COMMON}recruiterDetail/recruiterDetail?uid=${this.data.infos.recruiterInfo.uid}`})
@@ -548,19 +498,12 @@ Component({
           this.getCompanyIdentityInfos().then(() => {
             // 跟后端协商  =1 则可以发布
             let identityInfos = this.data.identityInfos
-            if(identityInfos.identityAuth) {
+            if(identityInfos.identityAuth || identityInfos.status === 1) {
               wx.setStorageSync('recruiter_chat_first', {jobhunterUid: infos.uid })
               this.publicPosition()
               wx.navigateTo({url: `${RECRUITER}position/post/post`})
               return;
             }
-
-            if(identityInfos.status === 1) {
-              wx.setStorageSync('recruiter_chat_first', {jobhunterUid: infos.uid })
-              this.publicPosition()
-              wx.navigateTo({url: `${RECRUITER}position/post/post`})
-            }
-
             // 已经填写身份证 但是管理员还没有处理或者身份证信息不符合规范
             if(identityInfos.status === 0 || identityInfos.status === 2) {
               app.wxConfirm({
@@ -577,7 +520,6 @@ Component({
               })
               return;
             }
-
             // 没有填身份证 则没有验证
             if(!identityInfos.identityNum) {
               app.wxConfirm({
@@ -593,31 +535,28 @@ Component({
           })
           break
         case 'openPosition':
-          wx.navigateTo({url: `${COMMON}chooseJob/chooseJob?type=recruiter_chat&from=${this.data.currentPage}&jobhunterUid=${infos.uid}`})
-          break
-        case 'retract':
-          let params =  interviewInfos.lastInterviewStatus === 61 ? {id: infos.uid, interviewId: interviewInfos.lastInterviewId} : {id: infos.uid}
-          interviewRetractApi(params).then(() => this.getInterviewStatus())
-          break
-        case 'reason':
-          wx.navigateTo({url: `${COMMON}interviewMark/interviewMark?type=resolve&jobhunterUid=${infos.uid}&lastInterviewId=${interviewInfos.lastInterviewId}`})
-          break
-        case 'uninterested-reason':
-          wx.navigateTo({url: `${COMMON}interviewMark/interviewMark?type=resolve&jobhunterUid=${infos.uid}&adviser=true`})
-          break
-        case 'recruiter-uninterested':
-          wx.navigateTo({url: `${COMMON}interviewMark/interviewMark?type=pending&jobhunterUid=${infos.uid}&adviser=true`})
-          break
-        case 'uninterested-retract':
-          resumeNotInterestRetractApi({jobhunterId: infos.uid}).then(res => {
-            app.wxToast({title: '撤销成功', icon: 'success'})
-            interviewInfos.hasUnsuitRecord = 0
-            infos.recommend.dealStatus = 0
-            this.setData({interviewInfos, infos})
-          })
+          wx.navigateTo({url: `${COMMON}chooseJob/chooseJob?type=recruiter_chat&jobhunterUid=${infos.uid}`})
           break
         case 'toSpecialJob':
           wx.reLaunch({url: `${APPLICANT}specialJob/specialJob`})
+          break
+        case 'delete-not-interest':
+          this.deleteNotInterest({id: infos.chatInfo.id, jobhunter: infos.uid}).then(() => {
+            wx.navigateTo({url: `${COMMON}webView/webView?type=optimal&p=${ DOWNLOADAPPURL }`})
+          })
+          break
+        case 'view-not-interest-reason':
+          this.showNotInterestReason()
+          break
+        case 'advisor-help-chat':
+          this.setData({ showAdvisor: false })
+          this.recruiterChat()
+          break
+        case 'close-advisor-model':
+          this.setData({showAdvisor: false})
+          break
+        case 'advisor-helping':
+          wx.navigateTo({url: `${COMMON}arrangement/arrangement?id=${ infos.chatInfo.imTopInterviewInfo.interviewInfo.interviewId }`})
           break
         default:
           break

@@ -160,6 +160,7 @@ Page({
     // if (!this.data.detail.positionNum) return
     setTimeout(() => {
       getSelectorQuery('.tab-bar').then(res => {
+        if(!res) return
         let moveParams = this.data.moveParams
         moveParams.screenHalfWidth = res.width / 2
         this.setData({moveParams})

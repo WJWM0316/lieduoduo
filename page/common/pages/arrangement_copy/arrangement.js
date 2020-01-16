@@ -6,14 +6,9 @@ import {
   setInterviewCommentApi,
   interviewRetractApi
 } from "../../../../api/pages/interview.js"
-import {COMMON,APPLICANT,RECRUITER, DOWNLOADAPPURL} from "../../../../config.js"
+import {COMMON,APPLICANT,RECRUITER} from "../../../../config.js"
 import {mobileReg} from "../../../../utils/fieldRegular.js"
 import {shareInterviewr} from '../../../../utils/shareWord.js'
-
-import {
-  getRecommendChargeApi
-} from '../../../../api/pages/recruiter.js'
-
 let app = getApp()
 let positionCard = ''
 Page({
@@ -28,16 +23,7 @@ Page({
     appointmentId: '',
     hasReFresh: false,
     revised: false, // 重新编辑面试安排信息
-    info: {},
-    model: {
-      show: false,
-      title: ''
-    },
-    chargeData: {}
-  },
-  // 获取扣点信息
-  getRecommendCharge(params) {
-    return getRecommendChargeApi({ jobhunter: params.jobhunter }).then(({ data }) => this.setData({chargeData: data}))
+    info: {}
   },
   getResult(e) {
     let hasFilter = false
@@ -190,11 +176,6 @@ Page({
   },
   send() {
     app.subscribeWechatMessage('updateInterview').then(() => {
-      // 需要扣点
-      if (this.data.chargeData.needCharge && !this.data.openPayPop) {
-        this.setData({openPayPop: true})
-        return
-      }
       let info = this.data.info
       let dateList = []
       if(!info.arrangementInfo.appointmentList || (info.arrangementInfo.appointmentList && info.arrangementInfo.appointmentList.length === 0)) {
@@ -240,16 +221,27 @@ Page({
       })
     })
   },
-  closePayPop() {
-    this.setData({openPayPop: false})
-  },
   revise() {
     let info = this.data.info
     info.status = 21
     this.setData({info, revised: true})
   },
   sureDate() {
-    wx.navigateTo({url: `${ COMMON }webView/webView?type=optimal&p=${ DOWNLOADAPPURL }`})
+    let data = {
+      interviewId: this.data.options.id,
+      appointmentId: this.data.appointmentId
+    }
+    if(!this.data.appointmentId) {
+      app.wxToast({title: '请选择一个面试时间'})
+      return;
+    }
+    sureInterviewApi(data).then(res => {
+      app.wxToast({
+        title: '确定成功',
+        icon: 'success'
+      })
+      this.pageInit('y')
+    })
   },
   /**
    * 生命周期函数--监听页面加载
@@ -284,9 +276,6 @@ Page({
         let info = res.data
         info.jobhunterInfo = Object.assign(info.jobhunterInfo, {lastInterviewStatus: info.status})
         info.recruiterInfo = Object.assign(info.recruiterInfo, {lastInterviewStatus: info.status})
-        if(wx.getStorageSync('choseType') === 'RECRUITER') {
-          this.getRecommendCharge({jobhunter: info.jobhunterInfo.uid})
-        }        
         // 转发面试安排 所有人看的的面试安排都是一样
         // if(info.status === 41) {
         //   info.recruiterInfo = info.jobhunterInfo
@@ -351,6 +340,14 @@ Page({
       }
     }
   },
+
+  /**
+   * 生命周期函数--监听页面隐藏
+   */
+  onHide: function () {
+
+  },
+
   /**
    * 生命周期函数--监听页面卸载
    */
@@ -371,6 +368,14 @@ Page({
       wx.stopPullDownRefresh()
     })
   },
+
+  /**
+   * 页面上拉触底事件的处理函数
+   */
+  onReachBottom: function () {
+
+  },
+
   getCreatedImg(e) {
     positionCard = e.detail
   },
@@ -436,11 +441,6 @@ Page({
           ? `${COMMON}interviewMark/interviewMark?type=pending&jobhunterUid=${info.jobhunterInfo.uid}&lastInterviewId=${info.interviewId}&status=${info.status}`
           : `${COMMON}interviewMark/interviewMark?type=pending&jobhunterUid=${info.jobhunterInfo.uid}&lastInterviewId=${info.interviewId}&reBack=2&status=${info.status}`
         wx.navigateTo({url: url11})
-        break
-      case 'show-adviser-model':
-        let model = this.data.model
-        model.show = true
-        this.setData({model})
         break
       default:
         break

@@ -5,7 +5,6 @@
   	"canvasCard": "../../../../../components/business/canvasCard/canvasCard",
     "navbar": "../../../../../components/business/navbar/navbar",
     "roleInfoCard": "../../../../components/business/roleInfoCard/roleInfoCard",
-    "myPicker": "../../../../../components/functional/myPicker/myPicker",
-    "actionSheet": "../../../../../components/layout/actionSheet/actionSheet"
+    "myPicker": "../../../../../components/functional/myPicker/myPicker"
   }
 }

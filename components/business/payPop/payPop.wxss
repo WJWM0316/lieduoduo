@@ -65,3 +65,133 @@
 .actionSheet .sureBtn.not {
   background: #FF7F4D;
 }
+
+.actionSheet .h22{
+  height:50rpx;
+  font-size:42rpx;
+  font-weight:700;
+  color:rgba(40,40,40,1);
+  line-height:50rpx;
+  padding-left: 60rpx;
+}
+
+.actionSheet .p22{
+  height:34rpx;
+  font-size:26rpx;
+  color:rgba(102,102,110,1);
+  line-height:34rpx;
+  padding-left: 60rpx;
+}
+
+.actionSheet .strong22 {
+  display: inline;
+  color: #FF7F4C;
+}
+
+.welfare-ul {
+  padding: 60rpx;
+}
+
+.welfare-ul .welfare-item {
+  height:140rpx;
+  background:rgba(239,233,244,1);
+  border-radius:16rpx;
+  box-sizing: border-box;
+  padding: 30rpx 38rpx;
+  font-size:28rpx;
+  color:rgba(101,39,145,1);
+  margin-bottom: 16rpx;
+}
+
+.welfare-ul .welfare-item:nth-child(2n){
+  margin-left: 9rpx;
+  width: calc(50% - 9rpx);
+  display: inline-block;
+}
+
+.welfare-ul .welfare-item:nth-child(2n-1){
+  margin-right: 9rpx;
+  width: calc(50% - 9rpx);
+  display: inline-block;
+}
+
+.tips22 {
+  font-size:24rpx;
+  font-weight:300;
+  color:rgba(188,190,192,1);
+  line-height:36rpx;
+  padding-left: 60rpx;
+}
+
+.footer22 {
+  height:88rpx;
+  border-radius:44rpx;
+  margin-top: 114rpx;
+  padding: 0 40rpx 92rpx 60rpx;
+}
+
+.btn-confirm {
+  width:386rpx;
+  height:88rpx;
+  border-radius:44rpx;
+  display: inline-block;
+  vertical-align: middle;
+  font-size:32rpx;
+  font-weight:700;
+  color:rgba(255,255,255,1);
+  text-align: center;
+  line-height: 88rpx;
+}
+
+.enable {
+  background:rgba(101,39,145,1);
+}
+
+.disable {
+  background: #FF7F4C;
+}
+.view-remian {
+  height:88rpx;
+  display: inline-block;
+  vertical-align: middle;
+  width: calc(100% - 386rpx);
+}
+
+.view-remian .chat-cost {
+  font-size:26rpx;
+  color:rgba(40,40,40,1);
+  position: relative;
+}
+
+.view-remian .monny-remian {
+  border-radius:4rpx;
+  border:1rpx solid rgba(221,225,224,1);
+  font-size:22rpx;
+  color:rgba(188,190,192,1);
+  margin-top: 8rpx;
+  padding: 0 20rpx;
+  display: inline-block;
+  vertical-align: top;
+  box-sizing: border-box;
+  height: 32rpx;
+  line-height: 29rpx;
+}
+
+.view-remian .number22 {
+  display: inline-block;
+  color:rgba(255,127,76,1);
+  font-size:48rpx;
+  vertical-align: middle;
+  line-height: 1;
+}
+
+.view-remian .default {
+  display: inline-block;
+  font-size:26rpx;
+  color:rgba(40,40,40,1);
+  vertical-align: bottom;
+  line-height: 1;
+  position: relative;
+  bottom: 7rpx;
+  padding-left: 4rpx;
+}

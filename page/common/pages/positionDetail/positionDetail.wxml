@@ -156,8 +156,9 @@
 			infos="{{ detail }}"
 			bindresultevent="bindStatusChange"
 			bindchatPosition="chatPosition"
+			bindreLoad="reload"
 			type="position"
-			options="{{query}}"
+			options="{{ query }}"
 			wx:if="{{ detail.vkey && !isOwner }}"></communicationBar>
 		<auth wx:if="{{requireOAuth}}" bindauthSuccess="authSuccess"></auth>
 	</view>

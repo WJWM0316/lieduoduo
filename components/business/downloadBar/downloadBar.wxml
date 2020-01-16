@@ -1,0 +1,9 @@
+<view class="download-bar">
+  <view class="text">
+    <i class="iconfont icon-tongzhi"></i>
+    订阅消息通知，随时随地掌握约面动态
+  </view>
+  <view class="btn">
+    订阅<i class="iconfont icon-xiangyou"></i>
+  </view>
+</view>

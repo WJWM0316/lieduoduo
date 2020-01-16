@@ -86,7 +86,6 @@ Component({
       let adData = this.data.adData
       let popupNum = adData.popupNum
       let ad = wx.getStorageSync('ad')
-      console.log(Date.parse(new Date()), '---', this.data.timestamp)
       popupNum--
       if(ad) {
         ad.leaveClickNum--

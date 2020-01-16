@@ -11,23 +11,26 @@ export let 	VERSION = 108,
 						PUBAPIHOST = '',
 						NODEHOST = '',
 						WEBVIEW = '',
-						CDNPATH = ''
+						CDNPATH = '',
+						DOWNLOADAPPURL = ''
 if (environment === 0) {
 	// 测试服口
 	APPLICANTHOST = 'https://qiuzhi-api.lieduoduo.ziwork.com'
 	RECRUITERHOST = 'https://zhaopin-api.lieduoduo.ziwork.com'
 	PUBAPIHOST 		= 'https://pub-api.lieduoduo.ziwork.com'
 	NODEHOST 			= 'https://node.lieduoduo.ziwork.com/frontEnd' //'http://192.168.5.159:3000/frontEnd' //
-	WEBVIEW 			= `https://h5.lieduoduo.ziwork.com/`
-	CDNPATH 			= 'https://attach.lieduoduo.ziwork.com/front-assets/images/'
+	WEBVIEW = `https://h5.lieduoduo.ziwork.com/`
+	CDNPATH = 'https://attach.lieduoduo.ziwork.com/front-assets/images/'
+	DOWNLOADAPPURL = encodeURIComponent(`${WEBVIEW}advisor?page=advisor`)
 } else {
 	// 正式服环境
 	APPLICANTHOST = 'https://qiuzhi-api.lieduoduo.com'
 	RECRUITERHOST = 'https://zhaopin-api.lieduoduo.com'
-	PUBAPIHOST 		= 'https://pub-api.lieduoduo.com'
-	NODEHOST 			=  'https://node.lieduoduo.com/frontEnd'
-	WEBVIEW 			= `https://h5.lieduoduo.com/`
-	CDNPATH 			= 'https://attach.lieduoduo.com/front-assets/images/'
+	PUBAPIHOST = 'https://pub-api.lieduoduo.com'
+	NODEHOST =  'https://node.lieduoduo.com/frontEnd'
+	WEBVIEW = `https://h5.lieduoduo.com/`
+	CDNPATH = 'https://attach.lieduoduo.com/front-assets/images/'
+	DOWNLOADAPPURL = encodeURIComponent(`${WEBVIEW}advisor?page=advisor`)
 }
 
 // 招聘端page
