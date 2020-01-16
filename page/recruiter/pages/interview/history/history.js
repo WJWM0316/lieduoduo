@@ -362,7 +362,6 @@ Page({
         this.setData({positionSelected: false})
       }
 
-      console.log(this.data)
       if((activeItem && activeItem.active && activeItem.id !== 1) || (startTime.active && endTime.active)) {
         this.setData({timeSelected: true})
       } else {
