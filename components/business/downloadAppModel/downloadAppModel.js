@@ -1,4 +1,4 @@
-import { WEBVIEW, DOWNLOADAPPURL } from '../../../config.js'
+import { COMMON, DOWNLOADAPPURL } from '../../../config.js'
 let app = getApp()
 Component({
   properties: {

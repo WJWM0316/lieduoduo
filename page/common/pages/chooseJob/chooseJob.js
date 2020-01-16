@@ -1,5 +1,4 @@
 import {
-  getPositionListApi,
   openPositionApi,
   getRecruiterPositionListApi,
   getfilterPositionListApi,
@@ -7,7 +6,6 @@ import {
 } from "../../../../api/pages/position.js"
 
 import {
-  applyInterviewApi,
   confirmInterviewApi,
   refuseInterviewApi
 } from '../../../../api/pages/interview.js'
@@ -263,7 +261,6 @@ Page({
         if(job.id !== 'person') params.positionId = job.id
         this.applyInterview(params)
         break
-
       // 招聘官确认约聊
       case 'confirm_chat':
         params.id = job.id
@@ -271,7 +268,6 @@ Page({
         params.positionId = job.positionId
         this.setData({ params, buttonClick: true })
         break
-
       // 招聘官拒绝约聊
       case 'reject_chat':
         if(this.data.identity === 'APPLICANT' && job.id === 'unsuitable') {
@@ -402,7 +398,6 @@ Page({
       })
       return;
     }
-
     // 没有填身份证 则没有验证
     if(!identityInfos.identityNum) {
       app.wxConfirm({

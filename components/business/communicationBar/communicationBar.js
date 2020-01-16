@@ -13,7 +13,8 @@ import {
 import {
   applyChatApi,
   deleteNotInterestApi,
-  getNotInterestAllReasonListApi
+  getNotInterestAllReasonListApi,
+  deleteNotInterestForUserApi
 } from '../../../api/pages/chat.js'
 import {
   RECRUITER, 
@@ -270,10 +271,7 @@ Component({
                 }
               })
             } else {
-              app.wxToast({
-                title: '开撩成功',
-                icon: 'success'  
-              })
+              app.wxToast({ title: '开撩成功', icon: 'success' })
             }
           }
         }
@@ -285,7 +283,6 @@ Component({
           } else {
             // 走正常流程
             if(this.data.type === 'recruiter') {
-              // 开撩招聘官
               // 招聘官没有在线职位或者招聘官没发布过职位
               if(!this.data.infos.positionNum) {
                 app.wxReportAnalytics('btn_report', {
@@ -298,7 +295,6 @@ Component({
                 wx.navigateTo({url: `${COMMON}chooseJob/chooseJob?type=job_hunting_chat&showNotPositionApply=${interviewInfos.showNotPositionApply}&recruiterUid=${this.data.infos.uid}&chattype=${this.data.chatType}`})
               }
             } else {
-              // 开撩职位
               app.wxReportAnalytics('btn_report', {
                 isjobhunter: app.globalData.isJobhunter,
                 resume_perfection: app.globalData.resumeInfo.resumeCompletePercentage * 100,
@@ -399,16 +395,17 @@ Component({
       let infos = this.data.infos
       let cb = () => {
         if(infos.interviewSummary && infos.interviewSummary.interviewId) {
-          app.wxConfirm({
-            title: '提示',
-            content: '您当前存在进行中的约面记录，处理完该面试后，即可使用当前功能；',
-            cancelText: '取消',
-            confirmText: '前往查看',
-            confirmBack: () => {
-              wx.navigateTo({url: `${COMMON}arrangement/arrangement?id=${ infos.interviewSummary.interviewId }`})
-            },
-            cancelBack: () => {}
-          })
+          wx.navigateTo({url: `${COMMON}arrangement/arrangement?id=${ infos.interviewSummary.interviewId }`})
+          // app.wxConfirm({
+          //   title: '提示',
+          //   content: '您当前存在进行中的约面记录，处理完该面试后，即可使用当前功能；',
+          //   cancelText: '取消',
+          //   confirmText: '前往查看',
+          //   confirmBack: () => {
+          //     wx.navigateTo({url: `${COMMON}arrangement/arrangement?id=${ infos.interviewSummary.interviewId }`})
+          //   },
+          //   cancelBack: () => {}
+          // })
         } else {
           this.getPositionListNum().then(res => {
             if (!res.data.online) {
@@ -541,6 +538,7 @@ Component({
           wx.reLaunch({url: `${APPLICANT}specialJob/specialJob`})
           break
         case 'delete-not-interest':
+          this.deleteNotInterestForUserApi({uid: infos.uid})
           this.deleteNotInterest({id: infos.chatInfo.id, jobhunter: infos.uid}).then(() => {
             wx.navigateTo({url: `${COMMON}webView/webView?type=optimal&p=${ DOWNLOADAPPURL }`})
           })

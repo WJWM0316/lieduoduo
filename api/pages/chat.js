@@ -80,6 +80,15 @@ export const deleteNotInterestApi = (data, hasLoading) => {
   })
 }
 
+// 取消设置求职者不合适
+export const deleteNotInterestForUserApi = (data, hasLoading) => {
+  return request({
+    url: `/not_suit/jobhunter/${data.uid}`,
+    method: 'delete',
+    hasLoading
+  })
+}
+
 // 获取多个约聊（ids、recruiters、jpushIds优先级一次降低，同时使用多个参数仅优先级高一个生效）
 export const getAllChatListApi = (data, hasLoading) => {
   return request({
