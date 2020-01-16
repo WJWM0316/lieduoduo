@@ -6,7 +6,7 @@ import {
   setInterviewCommentApi,
   interviewRetractApi
 } from "../../../../api/pages/interview.js"
-import {COMMON,APPLICANT,RECRUITER, DOWNLOADAPPURL} from "../../../../config.js"
+import {COMMON,APPLICANT,RECRUITER, DOWNLOADAPPPATH} from "../../../../config.js"
 import {mobileReg} from "../../../../utils/fieldRegular.js"
 import {shareInterviewr} from '../../../../utils/shareWord.js'
 
@@ -249,7 +249,7 @@ Page({
     this.setData({info, revised: true})
   },
   sureDate() {
-    wx.navigateTo({url: `${ COMMON }webView/webView?type=optimal&p=${ DOWNLOADAPPURL }`})
+    wx.navigateTo({url: DOWNLOADAPPPATH})
   },
   /**
    * 生命周期函数--监听页面加载
