@@ -2,7 +2,7 @@
 	<navbar title="面试"  background="#652791" color="#fff"></navbar>
 	
 	<view class="fixed-dom" style="top: {{navH}}px">
-
+		<downloadBar className="style1"></downloadBar>
 		<!-- 一级导航栏 start -->
 		<view class="fixed-bar">
 			<view
@@ -68,7 +68,7 @@
 	</view>
 
   <!--申请记录-->
-	<view hidden="{{tabIndex !== 0}}" class="list-box type1" style="padding-top: 186rpx">
+	<view hidden="{{tabIndex !== 0}}" class="list-box type1" style="padding-top: 284rpx">
 		<view hidden="{{!hasReFresh}}">
 			<refreshStatus></refreshStatus>
 		</view>
@@ -114,7 +114,7 @@
 	</view>
 
 	<!--收到邀请-->
-	<view hidden="{{tabIndex !== 1}}" class="list-box type2" style="padding-top: 186rpx">
+	<view hidden="{{tabIndex !== 1}}" class="list-box type2" style="padding-top: 284rpx">
 		<view hidden="{{!hasReFresh}}">
 			<refreshStatus></refreshStatus>
 		</view>

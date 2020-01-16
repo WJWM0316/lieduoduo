@@ -3,6 +3,7 @@
 
 	<view class="fixed-dom" style="top: {{navH}}px">
 
+		<downloadBar className="style1"></downloadBar>
 		<!-- 顶部tab栏 start-->
 		<view class="fixed-bar">
 			<view
@@ -17,7 +18,7 @@
 			</view>
 		</view>
 		<!-- 顶部tab栏 end-->
-		<downloadBar className="style1"></downloadBar>
+		
 		<!-- 收到意向 start-->
 		<view class="select-box" hidden="{{tabIndex !== 0}}">
 			<view class="item">
@@ -70,7 +71,7 @@
 	</view>
 
 	<!--收到意向-->
-	<view hidden="{{tabIndex !== 0}}" class="list-box">
+	<view hidden="{{tabIndex !== 0}}" class="list-box" style="padding-top: 308rpx">
 		<view hidden="{{!hasReFresh}}">
 			<refreshStatus></refreshStatus>
 		</view>
@@ -122,7 +123,7 @@
 	</view>
 	
 	<!--我的邀请-->
-	<view hidden="{{tabIndex !== 1}}" class="list-box">
+	<view hidden="{{tabIndex !== 1}}" class="list-box" style="padding-top: 308rpx">
 		<view hidden="{{!hasReFresh}}">
 			<refreshStatus></refreshStatus>
 		</view>

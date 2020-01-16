@@ -32,7 +32,6 @@ import {
   getRecommendChargeApi
 } from '../../../api/pages/recruiter.js'
 
-let automatic = false
 let app = getApp()
 let identity = ''
 Component({
@@ -448,20 +447,21 @@ Component({
           }
           break
         case 'keep-communicating':
-          let changePositionToast = this.data.infos.rapidlyInfo && this.data.infos.rapidlyInfo.changePositionToast
-          if ( changePositionToast ) {
-            app.wxConfirm({
-              title: '已约面该招聘官的其他职位',
-              content: '是否要更换约面职位',
-              cancelText: '我再想想',
-              confirmText: '更换职位',
-              confirmBack() {
-                wx.navigateTo({url: `${COMMON}chooseJob/chooseJob?type=job_hunting_chat&recruiterUid=${infos.recruiterInfo.uid}`})
-              }
-            })
-          } else {
-            wx.navigateTo({url: DOWNLOADAPPPATH})
-          }
+          wx.navigateTo({url: DOWNLOADAPPPATH})
+          // let changePositionToast = this.data.infos.rapidlyInfo && this.data.infos.rapidlyInfo.changePositionToast
+          // if ( changePositionToast ) {
+          //   app.wxConfirm({
+          //     title: '已约面该招聘官的其他职位',
+          //     content: '是否要更换约面职位',
+          //     cancelText: '我再想想',
+          //     confirmText: '更换职位',
+          //     confirmBack() {
+          //       wx.navigateTo({url: `${COMMON}chooseJob/chooseJob?type=job_hunting_chat&recruiterUid=${infos.recruiterInfo.uid}`})
+          //     }
+          //   })
+          // } else {
+          //   wx.navigateTo({url: DOWNLOADAPPPATH})
+          // }
           break
         case 'recruiter-chat':
           app.subscribeWechatMessage('openChatInterview').then(() => {
