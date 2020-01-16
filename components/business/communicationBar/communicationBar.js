@@ -20,7 +20,7 @@ import {
   RECRUITER, 
   COMMON, 
   APPLICANT, 
-  DOWNLOADAPPURL
+  DOWNLOADAPPPATH
 } from '../../../config.js'
 
 import {
@@ -457,7 +457,7 @@ Component({
               }
             })
           } else {
-            wx.navigateTo({url: `${ COMMON }webView/webView?type=optimal&p=${ DOWNLOADAPPURL }`})
+            wx.navigateTo({url: DOWNLOADAPPPATH})
           }
           break
         case 'recruiter-chat':
@@ -540,7 +540,7 @@ Component({
         case 'delete-not-interest':
           this.deleteNotInterestForUserApi({uid: infos.uid})
           this.deleteNotInterest({id: infos.chatInfo.id, jobhunter: infos.uid}).then(() => {
-            wx.navigateTo({url: `${COMMON}webView/webView?type=optimal&p=${ DOWNLOADAPPURL }`})
+            wx.navigateTo({url: DOWNLOADAPPPATH})
           })
           break
         case 'view-not-interest-reason':

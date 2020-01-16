@@ -1,4 +1,4 @@
-import { COMMON, DOWNLOADAPPURL } from '../../../config.js'
+import { DOWNLOADAPPPATH } from '../../../config.js'
 let app = getApp()
 Component({
   properties: {
@@ -13,7 +13,7 @@ Component({
   methods: {
     download() {
       this.triggerEvent('close')
-      wx.navigateTo({url: `${COMMON}webView/webView?type=optimal&p=${ DOWNLOADAPPURL }`})
+      wx.navigateTo({url: DOWNLOADAPPPATH})
     },
     close() {
       this.triggerEvent('close')
