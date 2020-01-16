@@ -90,7 +90,8 @@ Component({
     chargeData: {}, // 扣点信息
     showAdvisor: false,
     notInterestReasonList: [],
-    chatType: ''
+    chatType: '',
+    downLoadAppType: 1
   },
   attached() {
     identity = wx.getStorageSync('choseType')
@@ -235,40 +236,25 @@ Component({
                         && detail.rapidlyInfo.applyNum + detail.rapidlyInfo.natureApplyNum < detail.rapidlyInfo.seatsNum
         let successPop = (res) => {
           if (res.code === 916) {
-            app.wxConfirm({
-              title: '申请成功',
-              content: 'opps!约面席位刚被抢光啦~但面试官将尽快处理你的约面申请',
-              showCancel: false,
-              confirmText: '知道了',
+            this.setData({downLoadAppType: 3}, () => {
+              this.selectComponent('#downLoadApp').showPop = true
             })
           } else if (res.code === 915) {
-            app.wxConfirm({
-              title: '申请成功',
-              content: 'opps!活动刚刚过期啦~但面试官将尽快处理你的约面申请',
-              showCancel: false,
-              confirmText: '知道了',
+            this.setData({downLoadAppType: 3}, () => {
+              this.selectComponent('#downLoadApp').showPop = true
             })
           } else if (res.code === 917) {
             this.setData({showSuccessPop: true, successPopDesc: res.msg})
           } else {
             if (isSpecail) {
-              this.setData({showSuccessPop: true, successPopDesc: '面试官已收到你的申请，将于24h内反馈'})
+              this.setData({downLoadAppType: 6}, () => {
+                this.selectComponent('#downLoadApp').showPop = true
+              })
               return
             }
             if (app.globalData.resumeInfo.resumeCompletePercentage < 0.75) {
-              app.wxConfirm({
-                title: '开撩成功',
-                content: '你的简历竞争力只超过28%的求职者，建议你现在完善简历',
-                cancelText: '暂不完善',
-                confirmText: '马上完善',
-                confirmBack () {
-                  app.wxReportAnalytics('btn_report', {
-                    btn_type: 'perfect_immediately'
-                  })
-                  wx.navigateTo({
-                    url: `${COMMON}resumeDetail/resumeDetail?uid=${app.globalData.resumeInfo.uid}`
-                  })
-                }
+              this.setData({downLoadAppType: 1}, () => {
+                this.selectComponent('#downLoadApp').showPop = true
               })
             } else {
               app.wxToast({ title: '开撩成功', icon: 'success' })

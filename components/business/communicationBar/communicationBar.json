@@ -2,6 +2,7 @@
   "component": true,
   "usingComponents": {
     "bindPhone": "../../../components/functional/bindPhone/bindPhone",
-    "actionSheet": "../../../components/layout/actionSheet/actionSheet"
+    "actionSheet": "../../../components/layout/actionSheet/actionSheet",
+    "downLoadApp":  "../../../components/functional/downLoadApp/downLoadApp"
   }
 }
