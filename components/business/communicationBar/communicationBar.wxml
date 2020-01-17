@@ -245,7 +245,7 @@
 							bindtap="todoAction">
 							<image
 								mode="aspectFill"
-								src="{{ cdnPath }}icon_guwenbangyue_head@3x.png"
+								src="{{ cdnImagePath }}icon_guwenbangyue_head@3x.png"
 								class="icon">
 							</image>
 							顾问帮约
@@ -268,7 +268,7 @@
 							bindtap="todoAction">
 							<image
 								mode="aspectFill"
-								src="{{ cdnPath }}icon_guwenbangyue_head@3x.png"
+								src="{{ cdnImagePath }}icon_guwenbangyue_head@3x.png"
 								class="icon">
 							</image>
 							顾问跟进中

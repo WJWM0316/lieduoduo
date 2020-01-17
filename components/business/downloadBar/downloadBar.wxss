@@ -20,11 +20,15 @@
   text-align: center;
 }
 
-.download-bar .icon-tixing1 {
+.download-bar .icon_notice_v210 {
   position: relative;
   font-size: 28rpx;
-  padding-left: 10rpx;
   color: #652791;
+  width: calc(42rpx * .55);
+  height: calc(48rpx * .55);
+  display: inline-block;
+  vertical-align: middle;
+  top: -4rpx;
 }
 
 .download-bar .icon-xiangyou {

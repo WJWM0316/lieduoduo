@@ -100,12 +100,10 @@
           <view class="inner">
             <i class="icon1 iconfont icon-mianshiguan"></i>
             <view class="msg">
-              <text>
-                {{ info.arrangementInfo.realname || info.recruiterRealname }} | 
-                <text class="phone">
-                  {{ info.arrangementInfo.mobile || info.recruiterRealMobile }}
-                </text>
-              </text>
+              {{ info.arrangementInfo.realname || info.recruiterRealname }} | 
+              <view class="phone">
+                {{ info.arrangementInfo.mobile || info.recruiterRealMobile }}
+              </view>
             </view>
             <i class="icon iconfont icon-xiangyou"></i>
           </view>

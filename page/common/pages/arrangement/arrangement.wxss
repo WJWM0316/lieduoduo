@@ -112,6 +112,7 @@
 }
 .detail .inner .phone {
   color: #652791;
+  display: inline;
 }
 .dateItem {
   padding: 0 32rpx 0 30rpx;
