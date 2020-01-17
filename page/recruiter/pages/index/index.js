@@ -299,7 +299,6 @@ Page({
     } else {
       if (this.data.background !== 'transparent') this.setData({isFixed: false, background: 'transparent'})
     }
-    console.log(e.scrollTop ,'===', fixedDomPosition)
     if(e.scrollTop > fixedDomPosition) {
       if(!this.data.fixedDom) this.setData({fixedDom: true})
     } else {

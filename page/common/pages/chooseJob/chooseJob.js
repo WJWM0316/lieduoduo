@@ -52,7 +52,8 @@ Page({
     chargeData: {}, // 扣点信息
     interviewStatus: null,
     payTitle: '',
-    showDownloadModel: false
+    showDownloadModel: false,
+    downLoadAppType: 1
   },
   onLoad(options) {
     let api = ''
@@ -500,14 +501,18 @@ Page({
         confirmColor: '#652791',
         confirmBack: () => {
           openPositionApi({id: params.positionId}).then(res => {
-            that.applyInterview(params).then(res => that.setData({openPayPop: false, showDownloadModel: true}))
+            that.applyInterview(params).then(res => that.setData({openPayPop: false, downLoadAppType: 9}, () => {
+              this.selectComponent('#downLoadApp').show()
+            }))
           })
         }
       })
     } else if(params.status === 3 || params.status === 4) {
       app.wxToast({title: '该职位未开放，不可选择约面'})
     } else {
-      this.applyInterview(params).then(res => that.setData({openPayPop: false, showDownloadModel: true}))
+      this.applyInterview(params).then(res => that.setData({openPayPop: false, downLoadAppType: 9}, () => {
+        this.selectComponent('#downLoadApp').show()
+      }))
     }
   },
   /**

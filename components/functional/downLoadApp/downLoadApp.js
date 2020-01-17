@@ -29,7 +29,6 @@ Component({
    */
   methods: {
     close () {
-      console.log(11111111111111111111)
       this.setData({showPop: false})
     },
     show () {
