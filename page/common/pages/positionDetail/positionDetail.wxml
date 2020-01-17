@@ -119,6 +119,7 @@
 					<viwe class="imgBox" wx:if="{{findMore.companyLogos && findMore.companyLogos.length > 3}}" ><image class="img" src="{{cdnPath}}more.png"></image></viwe>
 				</view>
 			</view>
+			<downloadBar stamp="stamp2" className="style1"></downloadBar>
 		</block>
 		<!-- 正常职位 end-->
 

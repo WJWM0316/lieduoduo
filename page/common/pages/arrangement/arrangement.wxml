@@ -405,7 +405,7 @@
         <view class="li">
           <view class="key">
             <view class="text">
-              <i class="iconfont icon-zhongxinshangchuan"></i>专业顾问
+              <i class="iconfont icon-baidi-gou"></i>专业顾问
             </view>
             <view class="bg"></view>          
           </view>
@@ -416,7 +416,7 @@
         <view class="li">
           <view class="key">
             <view class="text">
-              <i class="iconfont icon-zhongxinshangchuan"></i>全程跟进
+              <i class="iconfont icon-baidi-gou"></i>全程跟进
             </view>
             <view class="bg"></view>          
           </view>
@@ -427,7 +427,7 @@
         <view class="li">
           <view class="key">
             <view class="text">
-              <i class="iconfont icon-zhongxinshangchuan"></i>进度可视
+              <i class="iconfont icon-baidi-gou"></i>进度可视
             </view>
             <view class="bg"></view>          
           </view>
@@ -438,7 +438,7 @@
         <view class="li">
           <view class="key">
             <view class="text">
-              <i class="iconfont icon-zhongxinshangchuan"></i>保证到场
+              <i class="iconfont icon-baidi-gou"></i>保证到场
             </view>
             <view class="bg"></view>          
           </view>

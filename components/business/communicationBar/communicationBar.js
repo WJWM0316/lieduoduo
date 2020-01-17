@@ -550,10 +550,10 @@ Component({
           this.recruiterChat()
           break
         case 'close-advisor-model':
-          this.setData({showAdvisor: false})
+          this.setData({ showAdvisor: false })
           break
         case 'advisor-helping':
-          wx.navigateTo({url: `${COMMON}arrangement/arrangement?id=${ infos.chatInfo.imTopInterviewInfo.interviewInfo.interviewId }`})
+          wx.navigateTo({ url: `${COMMON}arrangement/arrangement?id=${ infos.chatInfo.imTopInterviewInfo.interviewInfo.interviewId }` })
           break
         default:
           break

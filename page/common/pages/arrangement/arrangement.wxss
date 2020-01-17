@@ -647,6 +647,8 @@
 .adviser-model .iconfont{
   font-size: 24rpx;
   line-height: 1;
+  color: white;
+  margin-right: 5rpx;
 }
 
 .adviser-model .value{

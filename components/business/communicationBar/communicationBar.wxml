@@ -243,7 +243,11 @@
 							class="advisor-entering"
 							data-action="advisor-popup-help"
 							bindtap="todoAction">
-							<view class="icon"></view>
+							<image
+								mode="aspectFill"
+								src="{{ cdnPath }}icon_guwenbangyue_head@3x.png"
+								class="icon">
+							</image>
 							顾问帮约
 						</view>
 						<view
@@ -262,7 +266,11 @@
 							class="advisor-help-entering"
 							data-action="advisor-helping"
 							bindtap="todoAction">
-							<view class="icon"></view>
+							<image
+								mode="aspectFill"
+								src="{{ cdnPath }}icon_guwenbangyue_head@3x.png"
+								class="icon">
+							</image>
 							顾问跟进中
 						</view>
 						<view
@@ -296,13 +304,23 @@
 
 			<block wx:else>
 				<view class="img-box">
-					<image mode="aspectFill" src="{{infos.avatar.smallUrl || infos.recruiterInfo.avatar.smallUrl}}" class="img"></image>
+					<image
+						mode="aspectFill"
+						src="{{infos.avatar.smallUrl || infos.recruiterInfo.avatar.smallUrl}}"
+						class="img">
+					</image>
 				</view>
 				<view class="content">
-					<view class="first"><view class="name">{{infos.name || infos.recruiterInfo.name}}</view></view>
+					<view class="first">
+						<view class="name">{{infos.name || infos.recruiterInfo.name}}</view>
+					</view>
 					<view class="second">{{jobWords}}</view>
 				</view>
-				<button form-type="submit" class="clear-style button-box accept" data-action="recruiter-chat" bindtap="todoAction">
+				<button
+					form-type="submit"
+					class="clear-style button-box accept"
+					data-action="recruiter-chat"
+					bindtap="todoAction">
 					开撩约面
 				</button>
 			</block>
@@ -316,7 +334,7 @@
 	<view class="overlay" wx:if="{{ currentPage === 'resumeDetail' && !positionInfos.online  && show }}">
 		<view class="box">
 			<i class="icon iconfont icon-close" bindtap="todoAction" data-action="close"></i>
-			<image src="{{cdnImagePath}}none_position.png"></image>
+			<image src="{{ cdnImagePath }}none_position.png"></image>
 			<view class="p1">邀请候选人面试</view>
 			<view class="p2">至少需要一个招聘中职位~</view>
 			<view

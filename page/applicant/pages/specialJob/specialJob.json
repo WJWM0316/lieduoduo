@@ -5,6 +5,7 @@
   	"tabBar": "../../../../components/business/tabBar/tabBar",
   	"barrage": "../../../../components/layout/barrage/barrage",
   	"bindPhone": "../../../../components/functional/bindPhone/bindPhone",
-  	"shareBtn": "../../../../components/layout/shareBtn/shareBtn"
+		"shareBtn": "../../../../components/layout/shareBtn/shareBtn",
+		"downloadBar": "../../../../components/business/downloadBar/downloadBar"
   }
 }

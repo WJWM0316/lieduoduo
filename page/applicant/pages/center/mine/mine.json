@@ -8,6 +8,7 @@
     "canvasCard": "../../../../components/business/canvasCard/canvasCard",
   	"auth": "../../../../components/functional/auth/auth",
     "bindPhone": "../../../../components/functional/bindPhone/bindPhone",
-    "navbar": "../../../../../components/business/navbar/navbar"  
+		"navbar": "../../../../../components/business/navbar/navbar",
+		"downloadBar": "../../../../../components/business/downloadBar/downloadBar"
   }
 }
