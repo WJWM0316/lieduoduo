@@ -78,7 +78,6 @@ Page({
     
     key === 'interestList' ? type = 'viewList' : type = 'interestList'
     this.setData({[`${key}.onBottomStatus`]: 1})
-    console.log(type, this.data[type].isLastPage)
     if (!this.data[type].isLastPage) this.getLists()
   },
   /**

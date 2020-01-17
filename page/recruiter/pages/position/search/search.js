@@ -4,7 +4,7 @@ import {
 
 import {RECRUITER} from '../../../../../config.js'
 
-const app = getApp()
+let app = getApp()
 
 Page({
   data: {
@@ -23,7 +23,7 @@ Page({
     fn.timeoutId = setTimeout(() => fn.call(context, text), delay)
   },
   onLoad() {
-    const storage = wx.getStorageSync('createPosition')
+    let storage = wx.getStorageSync('createPosition')
     if(storage) {
       this.setData({keyword: storage.position_name, canClick: true})
     }
@@ -35,7 +35,7 @@ Page({
    * @return   {[type]}     [description]
    */
   bindInput(e) {
-    const name = e.detail.value
+    let name = e.detail.value
     if(name && name !== '.') {
       this.debounce(this.getPositionNameList, null, 500, name)
     } else {
@@ -52,7 +52,7 @@ Page({
     this.setData({keyword: name})
     this.bindButtonStatus()
     getPositionNameListApi({name}).then(res => {
-      const nameLists = res.data
+      let nameLists = res.data
       nameLists.map(field => field.html = '<div>' + field.name.replace(new RegExp(name,'g'), `<span style="color: #652791;">${name}</span>`) + '</div>')
       this.setData({nameLists})
     })
@@ -64,18 +64,18 @@ Page({
    * @return   {[type]}   [description]
    */
   bindButtonStatus() {
-    const canClick = this.data.keyword ? true : false
+    let canClick = this.data.keyword ? true : false
     this.setData({canClick})
   },
   onClick(e) {
-    const name = e.currentTarget.dataset.name
-    const storage = wx.getStorageSync('createPosition')
+    let name = e.currentTarget.dataset.name
+    let storage = wx.getStorageSync('createPosition')
     storage.position_name = name
     wx.setStorageSync('createPosition', storage)
     this.setData({keyword: name, nameLists: []})
   },
   submit(e) {
-    const storage = wx.getStorageSync('createPosition')
+    let storage = wx.getStorageSync('createPosition')
     storage.position_name = this.data.keyword
     wx.setStorageSync('createPosition', storage)
     wx.navigateBack({

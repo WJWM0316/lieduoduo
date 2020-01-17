@@ -3,6 +3,7 @@
 
 	<view class="fixed-dom" style="top: {{navH}}px">
 
+		<downloadBar className="style1"></downloadBar>
 		<!-- 顶部tab栏 start-->
 		<view class="fixed-bar">
 			<view
@@ -17,7 +18,7 @@
 			</view>
 		</view>
 		<!-- 顶部tab栏 end-->
-
+		
 		<!-- 收到意向 start-->
 		<view class="select-box" hidden="{{tabIndex !== 0}}">
 			<view class="item">
@@ -70,7 +71,7 @@
 	</view>
 
 	<!--收到意向-->
-	<view hidden="{{tabIndex !== 0}}" class="list-box" style="padding-top: 210rpx">
+	<view hidden="{{tabIndex !== 0}}" class="list-box" style="padding-top: 308rpx">
 		<view hidden="{{!hasReFresh}}">
 			<refreshStatus></refreshStatus>
 		</view>
@@ -122,7 +123,7 @@
 	</view>
 	
 	<!--我的邀请-->
-	<view hidden="{{tabIndex !== 1}}" class="list-box" style="padding-top: 210rpx">
+	<view hidden="{{tabIndex !== 1}}" class="list-box" style="padding-top: 308rpx">
 		<view hidden="{{!hasReFresh}}">
 			<refreshStatus></refreshStatus>
 		</view>
@@ -175,7 +176,7 @@
 	</view>
 
 	<!--面试日程-->
-	<view hidden="{{tabIndex !== 2}}" class="list-box list-box2 {{dateList.length ? 'height10' : ''}}">
+	<view hidden="{{tabIndex !== 2}}" class="list-box list-box2 {{ dateList.length ? 'height10' : '' }}">
 		<view hidden="{{!hasReFresh}}">
 			<refreshStatus></refreshStatus>
 		</view>

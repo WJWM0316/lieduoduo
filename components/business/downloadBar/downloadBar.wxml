@@ -1,4 +1,4 @@
-<view class="download-bar">
+<view class="download-bar {{ className }}" bindtap="jump">
   <view class="text">
     <i class="iconfont icon-tongzhi"></i>
     订阅消息通知，随时随地掌握约面动态

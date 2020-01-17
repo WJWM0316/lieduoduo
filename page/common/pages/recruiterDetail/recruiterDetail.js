@@ -1,5 +1,5 @@
 import {getSelectorQuery} from "../../../../utils/util.js"
-import {getOthersRecruiterDetailApi, getRecruiterDetailApi, giveMecallApi, putLabelFavorApi, removeLabelFavorApi} from "../../../../api/pages/recruiter.js"
+import {getOthersRecruiterDetailApi, giveMecallApi, putLabelFavorApi, removeLabelFavorApi} from "../../../../api/pages/recruiter.js"
 import {getPositionListApi} from "../../../../api/pages/position.js"
 import {getMyCollectUserApi, deleteMyCollectUserApi} from "../../../../api/pages/collect.js"
 import {COMMON,RECRUITER,APPLICANT} from "../../../../config.js"

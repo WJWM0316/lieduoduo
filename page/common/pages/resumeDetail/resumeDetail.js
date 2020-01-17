@@ -1,13 +1,9 @@
-// page/common/pages/resumeDetail/resumeDetail.js
 import { getOtherResumeApi } from '../../../../api/pages/center.js'
-import { inviteInterviewApi } from '../../../../api/pages/interview.js'
-import {getSelectorQuery} from "../../../../utils/util.js"
 import { getMyCollectUserApi, deleteMyCollectUserApi } from '../../../../api/pages/collect.js'
 import {APPLICANT, COMMON, RECRUITER} from '../../../../config.js'
 import {shareResume} from '../../../../utils/shareWord.js'
 let isPreview = false
 const app = getApp()
-let resumeInfo = null
 let identity = ''
 let positionCard = ''
 Page({

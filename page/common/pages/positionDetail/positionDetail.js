@@ -11,7 +11,6 @@ import {
   getMycollectPositionApi,
   deleteMycollectPositionApi
 } from '../../../../api/pages/collect.js'
-import {getUserRoleApi} from "../../../../api/pages/user.js"
 
 import {RECRUITER, APPLICANT, COMMON} from '../../../../config.js'
 
@@ -142,7 +141,6 @@ Page({
           recruiterInfo: res.data.recruiterInfo, 
           isOwner: res.data.isOwner && identity === 'RECRUITER' ? true : false
         })
-        // if(this.selectComponent('#interviewBar')) this.selectComponent('#interviewBar').init()
       })
     }
     // 正常获取数据
@@ -176,7 +174,6 @@ Page({
         if (serviceEndTime) {
           res.data['serviceEndTime'] = `${parseInt(serviceEndTime.slice(5, 7))}月${parseInt(serviceEndTime.slice(8, 10))}日`
         }
-        console.log(res.data, 11)
         this.setData({
           requireOAuth: requireOAuth,
           detail: res.data, 
@@ -185,7 +182,6 @@ Page({
           time,
           isOwner: res.data.isOwner && identity === 'RECRUITER' ? true : false
         })
-        // if(this.selectComponent('#interviewBar')) this.selectComponent('#interviewBar').init()
     })
   },
   countDown (time) {

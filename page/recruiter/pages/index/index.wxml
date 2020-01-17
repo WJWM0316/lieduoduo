@@ -104,7 +104,7 @@
 			</view>
 		</view>
 		<view class="placeholder" hidden="{{!fixedDom}}" wx:if="{{detail.positionNum}}"></view>
-
+		<downloadBar className="style1"></downloadBar>
 		<view class="list-box" wx:if="{{detail.positionNum || resumeList.list.length}}">
 			<form bindsubmit="formSubmit" report-submit="{{true}}" wx:if="{{resumeList.list.length}}">
 				<button

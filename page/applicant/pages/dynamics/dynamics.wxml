@@ -3,7 +3,8 @@
   <view hidden="{{!hasReFresh}}">
     <refreshStatus></refreshStatus>
   </view>
-  <view class="tabBoxBg"></view>
+  <!-- <view class="tabBoxBg"></view> -->
+  <downloadBar className="style1"></downloadBar>
   <view class="tabBox">
     <view class="tab-item" bindtap="jumpMy" data-type="myBrowse">
       <view class="inner">

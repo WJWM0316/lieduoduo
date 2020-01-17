@@ -4,7 +4,6 @@
   background: #652791;
 }
 .tabBox {
-  width:690rpx;
   height:136rpx;
   background:rgba(255,255,255,1);
   box-shadow:0rpx 8rpx 20rpx 0rpx rgba(34,56,101,0.08);
@@ -20,6 +19,7 @@
   line-height: 26rpx;
   position: relative;
   z-index: 2;
+  margin: 24rpx 30rpx 0 30rpx;
 }
 .tab-item {
   flex: 1;

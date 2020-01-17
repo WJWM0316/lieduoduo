@@ -1,6 +1,6 @@
 import {RECRUITER} from '../../../../../config.js'
 import {othersPositionTxtB} from '../../../../../utils/randomCopy.js'
-const app = getApp()
+let app = getApp()
 
 Page({
 	data: {
@@ -10,7 +10,7 @@ Page({
     show: false
 	},
 	onLoad(options) {
-    const storage = wx.getStorageSync('createPosition')
+    let storage = wx.getStorageSync('createPosition')
     if(storage.describe) this.setData({ describe: storage.describe, canClick: true })
     this.setData({randomCopy: othersPositionTxtB()})
 	},
@@ -31,7 +31,7 @@ Page({
    * @return   {[type]}     [description]
    */
   bindInput(e) {
-    const name = e.detail.value
+    let name = e.detail.value
     this.debounce(this.bindChange, null, 500, name)
   },
   /**
@@ -54,7 +54,7 @@ Page({
     this.setData({canClick: this.data.describe})
   },
   submit(e) {
-    const storage = wx.getStorageSync('createPosition')
+    let storage = wx.getStorageSync('createPosition')
     storage.describe = this.data.describe
     if(this.data.describe.length < 6) {
       app.wxToast({title: '职位描述最少6个字'})

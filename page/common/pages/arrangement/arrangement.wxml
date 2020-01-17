@@ -405,34 +405,45 @@
         <view class="li">
           <view class="key">
             <view class="text">
-              <i class="iconfont icon-zhongxinshangchuan"></i>畅聊职位
+              <i class="iconfont icon-zhongxinshangchuan"></i>专业顾问
             </view>
             <view class="bg"></view>          
           </view>
           <view class="value">
-            项目经理不足，沟通不太流畅，不适合本岗位。项目经理不足，沟通不太流畅，不适合本岗位项目经理不足，沟通不太流畅，不适合本岗位。项目经理不足，沟通不太流畅，不适合本岗位
+            平台招聘顾问团队平均从业经验5年+，拥有丰富的人力资源服务经验，为您提供更优质的招聘服务；
           </view>
         </view>
         <view class="li">
           <view class="key">
             <view class="text">
-              <i class="iconfont icon-zhongxinshangchuan"></i>畅聊职位
+              <i class="iconfont icon-zhongxinshangchuan"></i>全程跟进
             </view>
             <view class="bg"></view>          
           </view>
           <view class="value">
-            项目经理不足，沟通不太流畅，不适合本岗位。项目经理不足，沟通不太流畅，不适合本岗位项目经理不足，沟通不太流畅，不适合本岗位。项目经理不足，沟通不太流畅，不适合本岗位
+            招聘官使用约面服务后，顾问将人工协助招聘官邀约候选人，直到候选人到场面试，每一个环节都急您所需，为您提升约面效率；
           </view>
         </view>
         <view class="li">
           <view class="key">
             <view class="text">
-              <i class="iconfont icon-zhongxinshangchuan"></i>畅聊职位
+              <i class="iconfont icon-zhongxinshangchuan"></i>进度可视
             </view>
             <view class="bg"></view>          
           </view>
           <view class="value">
-            项目经理不足，沟通不太流畅，不适合本岗位。项目经理不足，沟通不太流畅，不适合本岗位项目经理不足，沟通不太流畅，不适合本岗位。项目经理不足，沟通不太流畅，不适合本岗位
+            候选人接受约面后，双方线上可以直接沟通，发起面试安排，还可以将日程一键转发给同事，实现协同；
+          </view>
+        </view>
+        <view class="li">
+          <view class="key">
+            <view class="text">
+              <i class="iconfont icon-zhongxinshangchuan"></i>保证到场
+            </view>
+            <view class="bg"></view>          
+          </view>
+          <view class="value">
+            使用顾问帮约服务后，若候选人最终未按招聘方要求，完成求职招聘相关的有效沟通时（包含但不限于到场、电话、视频等面试形式），多多币将会退回到招聘官的账户；
           </view>
         </view>
       </view>

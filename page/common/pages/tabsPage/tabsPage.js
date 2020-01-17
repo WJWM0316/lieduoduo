@@ -1,4 +1,3 @@
-// page/common/pages/tabsPage/tabsPage.js
 import {getJobLabelApi, getLifeLabelApi, addJobLabelApi, addLifeLabelApi, saveLabelApi, saveRecruiterLabelApi} from '../../../../api/pages/common.js'
 let allSkills = []
 let choseFirstId = ''
@@ -29,7 +28,7 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onShow: function (options) {
+  onShow(options) {
     let character = []
     let interest = []
     let skills = []

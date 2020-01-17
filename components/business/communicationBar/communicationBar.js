@@ -32,7 +32,6 @@ import {
   getRecommendChargeApi
 } from '../../../api/pages/recruiter.js'
 
-let automatic = false
 let app = getApp()
 let identity = ''
 Component({
@@ -295,7 +294,7 @@ Component({
                 })
                 applyChatApi({recruiterUid: this.data.infos.uid}).then(res => successPop(res))
               } else {
-                wx.navigateTo({url: `${COMMON}chooseJob/chooseJob?type=job_hunting_chat&showNotPositionApply=${interviewInfos.showNotPositionApply}&recruiterUid=${this.data.infos.uid}&chattype=${this.data.chatType}`})
+                wx.navigateTo({url: `${COMMON}chooseJob/chooseJob?type=job_hunting_chat&recruiterUid=${this.data.infos.uid}`})
               }
             } else {
               app.wxReportAnalytics('btn_report', {
@@ -381,10 +380,7 @@ Component({
     getCompanyIdentityInfos() {
       return new Promise((resolve, reject) => {
         getCompanyIdentityInfosApi({hasLoading: false}).then(res => {
-          let companyInfo = res.data.companyInfo
-          let identityInfos = res.data
-          let applyJoin = res.data.applyJoin
-          this.setData({identityInfos}, () => resolve(res))
+          this.setData({identityInfos: res.data}, () => resolve(res))
         })
       })
     },
@@ -434,7 +430,6 @@ Component({
      */
     todoAction(e) {
       let action = e.currentTarget.dataset.action
-      let interviewInfos = this.data.interviewInfos
       let infos = this.data.infos
       switch(action) {
         // 求职端发起开撩
@@ -448,20 +443,21 @@ Component({
           }
           break
         case 'keep-communicating':
-          let changePositionToast = this.data.infos.rapidlyInfo && this.data.infos.rapidlyInfo.changePositionToast
-          if ( changePositionToast ) {
-            app.wxConfirm({
-              title: '已约面该招聘官的其他职位',
-              content: '是否要更换约面职位',
-              cancelText: '我再想想',
-              confirmText: '更换职位',
-              confirmBack() {
-                wx.navigateTo({url: `${COMMON}chooseJob/chooseJob?type=job_hunting_chat&recruiterUid=${infos.recruiterInfo.uid}`})
-              }
-            })
-          } else {
-            wx.navigateTo({url: DOWNLOADAPPPATH})
-          }
+          wx.navigateTo({url: DOWNLOADAPPPATH})
+          // let changePositionToast = this.data.infos.rapidlyInfo && this.data.infos.rapidlyInfo.changePositionToast
+          // if ( changePositionToast ) {
+          //   app.wxConfirm({
+          //     title: '已约面该招聘官的其他职位',
+          //     content: '是否要更换约面职位',
+          //     cancelText: '我再想想',
+          //     confirmText: '更换职位',
+          //     confirmBack() {
+          //       wx.navigateTo({url: `${COMMON}chooseJob/chooseJob?type=job_hunting_chat&recruiterUid=${infos.recruiterInfo.uid}`})
+          //     }
+          //   })
+          // } else {
+          //   wx.navigateTo({url: DOWNLOADAPPPATH})
+          // }
           break
         case 'recruiter-chat':
           app.subscribeWechatMessage('openChatInterview').then(() => {
@@ -541,7 +537,7 @@ Component({
           wx.reLaunch({url: `${APPLICANT}specialJob/specialJob`})
           break
         case 'delete-not-interest':
-          this.deleteNotInterestForUserApi({uid: infos.uid})
+          deleteNotInterestForUserApi({uid: infos.uid})
           this.deleteNotInterest({id: infos.chatInfo.id, jobhunter: infos.uid}).then(() => {
             wx.navigateTo({url: DOWNLOADAPPPATH})
           })

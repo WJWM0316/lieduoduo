@@ -408,7 +408,6 @@ Page({
     if(!data.otherUrl && !data.targetUrl) {
       return
     }
-    console.log(data)
     // let url = '/' + e.currentTarget.dataset.url
     if(data.otherUrl) {
       url = '/' + data.otherUrl
