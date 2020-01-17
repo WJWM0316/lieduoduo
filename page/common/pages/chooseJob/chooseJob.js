@@ -76,17 +76,6 @@ Page({
   },
   onShow() {
     let onLinePositionList = { list: [], pageNum: 1, count: 20, isLastPage: false, isRequire: false }
-    let storage = wx.getStorageSync('interviewChatLists')
-    let value = this.data.onLinePositionList
-    let interviewStatus = this.data.interviewStatus
-
-    // 这种情况是处理求职端的对条申请
-    if(storage && wx.getStorageSync('choseType') === 'RECRUITER') {
-      value.list = storage.data
-      interviewStatus = storage.interviewStatus
-      this.setData({onLinePositionList: value, interviewStatus})
-      return;
-    }
     this.setData({onLinePositionList}, () => this.getLists())
   },
   /**

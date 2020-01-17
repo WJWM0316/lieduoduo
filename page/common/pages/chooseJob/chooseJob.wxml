@@ -36,7 +36,7 @@
       <view class="p" wx:if="{{options.showNotPositionApply === '1'}}">
         请从面试官的招聘职位中选择1个，发起面试申请。你也可以不选择职位，直接申请面试
       </view>
-      <view class="li clear-bottom" wx:if="{{options.showNotPositionApply === '1' && identity === 'APPLICANT'}}">
+      <view class="li clear-bottom">
         <view class="content unsuitable">暂不选择职位</view>
         <view class="radio-box" bindtap="onClick" data-name="{{item.positionName}}" data-id="{{'person'}}">
           <view class="myRadio {{item.active ? 'active' : ''}}">
@@ -44,11 +44,11 @@
           </view>
         </view>
       </view>
-      <view class="example" wx:if="{{options.showNotPositionApply === '1'}}">TA的在线职位</view>
+      <view class="example" wx:if="{{ onLinePositionList.list.length }}">TA的在线职位</view>
     </block>
     <!-- 求职端开撩 end -->
 
-    <view class="li" wx:for="{{onLinePositionList.list}}" wx:key="{{index}}">
+    <view class="li" wx:for="{{ onLinePositionList.list }}" wx:key="{{index}}">
       <block wx:if="{{item.positionId || item.id}}">
         <view class="content">
           <view class="title">
