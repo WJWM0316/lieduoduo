@@ -70,5 +70,13 @@
 				<view class="btn1" bindtap="toDo" data-type="downLoadApp">下载APP体验完整功能</view>
 				<view class="btn2" bindtap="toDo" data-type="specialJob">抢更多高薪机会</view>
 			</block>
+			<!-- B端约聊 -->
+			<block wx:if="{{type === 9}}">
+				<i class="close iconfont icon-close" bindtap="close"></i>
+				<view class="title">约聊成功</view>
+				<view class="content">下载猎多多APP，体验完整功能，随时随地掌握约聊动态</view>
+				<image class="picture" src="{{cdnImagePath}}img_popup_24succjob@2x.png"></image>
+				<view class="btn1" bindtap="toDo" data-type="downLoadApp">下载APP</view>
+			</block>
 	</view>
 </view>

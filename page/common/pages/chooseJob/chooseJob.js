@@ -488,20 +488,19 @@ Page({
         cancelColor: '#BCBCBC',
         confirmColor: '#652791',
         confirmBack: () => {
-          openPositionApi({id: params.positionId}).then(() => {
-            that.applyInterview(params).then(res => that.setData({openPayPop: false, showDownloadModel: true}))
-            // this.applyInterview(params).then(res => {
-            //   this.setData({openPayPop: false, showDownloadModel: true, downLoadAppType: 3}, () => {
-            //     this.selectComponent('#downLoadApp').show()
-            //   })
-            // })
+          openPositionApi({id: params.positionId}).then(res => {
+            that.applyInterview(params).then(res => that.setData({openPayPop: false, downLoadAppType: 9}, () => {
+              this.selectComponent('#downLoadApp').show()
+            }))
           })
         }
       })
     } else if(params.status === 3 || params.status === 4) {
       app.wxToast({title: '该职位未开放，不可选择约面'})
     } else {
-      this.applyInterview(params).then(res => that.setData({openPayPop: false, showDownloadModel: true}))
+      this.applyInterview(params).then(res => that.setData({openPayPop: false, downLoadAppType: 9}, () => {
+        this.selectComponent('#downLoadApp').show()
+      }))
     }
   },
   /**

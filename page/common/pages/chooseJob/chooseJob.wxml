@@ -152,8 +152,5 @@
     bindclose="closePayPop" 
     title="{{ options.chattype === 'onekey' ? '邀请候选人约聊': '顾问约面服务' }}">
   </payPop>
-  <downloadAppModel
-    show="{{ showDownloadModel }}"
-    bindclose="closeDownloadModel">
-  </downloadAppModel>
+  <downLoadApp id="downLoadApp" type="{{downLoadAppType}}"></downLoadApp>
 </view>
