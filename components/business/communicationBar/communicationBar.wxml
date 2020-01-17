@@ -179,7 +179,15 @@
 					</view>
 				</view>
 				<view class="clear-style button-box button-box-color1">
-					<view bindtap="todoAction" data-action="keep-communicating">
+					<button
+						form-type="submit"
+						class="clear-style button-box button-box-color1"
+						bindtap="todoAction"
+						wx:if="{{ infos.chatInfo.status === 316 || infos.chatInfo.status === 305 || infos.chatInfo.status === 315}}"
+						data-action="job-hunting-chat">
+						一键约聊
+					</button>
+					<view bindtap="todoAction" data-action="keep-communicating" wx:else>
 						继续聊
 					</view>
 				</view>
