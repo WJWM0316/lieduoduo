@@ -307,30 +307,18 @@ Page({
         resolve(res)
         //  求职端返回上一页
         if(wx.getStorageSync('choseType') !== 'RECRUITER') {
-          // this.setData({downLoadAppType: 3}, () => {
-          //   this.selectComponent('#downLoadApp').show()
-          // })
           wx.navigateBack({
             delta: 1,
             success() {
-              if (app.globalData.resumeInfo.resumeCompletePercentage > 0.75) return
-              let timer = setTimeout(() => {
-                app.wxConfirm({
-                  title: '约聊成功',
-                  content: '你的简历竞争力只超过28%的求职者，建议你现在完善简历',
-                  cancelText: '暂不完善',
-                  confirmText: '马上完善',
-                  confirmBack () {
-                    app.wxReportAnalytics('btn_report', {
-                      btn_type: 'perfect_immediately'
-                    })
-                    wx.navigateTo({
-                      url: `${COMMON}resumeDetail/resumeDetail?uid=${app.globalData.resumeInfo.uid}`
-                    })
-                  }
+              if (app.globalData.resumeInfo.resumeCompletePercentage > 0.75) {
+                that.setData({downLoadAppType: 2}, () => {
+                  this.selectComponent('#downLoadApp').show()
                 })
-                clearTimeout(timer)
-              }, 1000)
+              } else {
+                that.setData({downLoadAppType: 1}, () => {
+                  this.selectComponent('#downLoadApp').show()
+                })
+              }
             }
           })
         }
