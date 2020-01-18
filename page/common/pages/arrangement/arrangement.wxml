@@ -370,8 +370,7 @@
         <!-- <view class="img"></view> -->
         <image
           class="img"
-          src="{{ cdnImagePath }}img_warnning_nosite@2x.png"
-          mode="widthFix">
+          src="{{ cdnImagePath }}icon_guwenbangyue_head@3x.png">
         </image>
         <view class="text">
           此次面试将享受顾问约面跟进服务
@@ -411,9 +410,9 @@
       <view class="btnBox" wx:if="{{ info.status === 31 }}">
         <button class="btn" bindtap="revise"> 修改面试 </button>
       </view>
-      <view class="btnBox" wx:if="{{mytype === '修改面试'}}">
+      <!-- <view class="btnBox" wx:if="{{mytype === '修改面试'}}">
         <button class="btn" bindtap="send"> 重新发送邀请 </button>
-      </view>
+      </view> -->
     </block>
 
     <!-- <view
