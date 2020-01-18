@@ -61,7 +61,6 @@ Page({
     let api = ''
     if ( wx.getStorageSync('choseType') === 'RECRUITER' ) {
       this.getCompanyIdentityInfos()
-      this.getRecommendCharge({ jobhunter: options.jobhunterUid })
     } else {
       api = 'getonLinePositionListC'
     }
@@ -202,7 +201,7 @@ Page({
   // 获取扣点信息
   getRecommendCharge(params) {
     let funcApi = this.data.options.chattype === 'onekey' ? getRecommendChargeChatApi : getRecommendChargeInterviewApi
-    funcApi({ jobhunter: params.jobhunter }).then(({ data }) => this.setData({chargeData: data}))
+    return funcApi(params).then(({ data }) => this.setData({chargeData: data}))
   },
   /**
    * @Author   小书包
@@ -242,7 +241,10 @@ Page({
         params.jobhunter = options.jobhunterUid
         params.position = job.id
         params.status = job.status
-        this.setData({ params, buttonClick: true })
+        console.log(params)
+        this.setData({ params, buttonClick: true },() => {
+          this.getRecommendCharge({ jobhunter: this.data.options.jobhunterUid, positionId: params.position })
+        })
         break
       // 求职者 主动发起约聊
       case 'job_hunting_chat':
