@@ -7,7 +7,8 @@ import {
 
 import {
   confirmInterviewApi,
-  refuseInterviewApi
+  refuseInterviewApi,
+  applyInterviewApi
 } from '../../../../api/pages/interview.js'
 
 import {
@@ -292,7 +293,20 @@ Page({
         resume_perfection: app.globalData.resumeInfo.resumeCompletePercentage * 100,
         btn_type: 'job-hunting-chat'
       })
-      applyChatApi(params).then(res => {
+      let data = {}
+      let funcApi = ''
+      if (this.data.options.chattype === 'onekey') {
+        data = params
+        funcApi = applyChatApi
+      } else {
+        data = {
+          jobhunterUid: params.jobhunter,
+          positionId: params.position,
+          isAdvisor: 1
+        }
+        funcApi = applyInterviewApi
+      }
+      funcApi(data).then(res => {
         resolve(res)
         //  求职端返回上一页
         if(wx.getStorageSync('choseType') !== 'RECRUITER') {
