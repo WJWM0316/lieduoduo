@@ -20,7 +20,8 @@ import {
 } from '../../../../api/pages/chat.js'
 
 import {
-  getRecommendChargeApi
+  getRecommendChargeChatApi,
+  getRecommendChargeInterviewApi
 } from '../../../../api/pages/recruiter.js'
 
 import {
@@ -200,7 +201,8 @@ Page({
   },
   // 获取扣点信息
   getRecommendCharge(params) {
-    getRecommendChargeApi({ jobhunter: params.jobhunter }).then(({ data }) => this.setData({chargeData: data}))
+    let funcApi = this.data.options.chattype === 'onekey' ? getRecommendChargeChatApi : getRecommendChargeInterviewApi
+    funcApi({ jobhunter: params.jobhunter }).then(({ data }) => this.setData({chargeData: data}))
   },
   /**
    * @Author   小书包

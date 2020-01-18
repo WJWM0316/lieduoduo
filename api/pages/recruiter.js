@@ -191,8 +191,8 @@ export const getAdvisorListApi = (data, hasLoading) => {
   })
 }
 
-// 获取扣点信息
-export const getRecommendChargeApi = (data, hasLoading) => {
+// 获取约聊扣点信息
+export const getRecommendChargeChatApi = (data, hasLoading) => {
   return request({
     url: `/charge/chat/${data.jobhunter}`,
     method: 'get',
@@ -200,6 +200,17 @@ export const getRecommendChargeApi = (data, hasLoading) => {
     hasLoading: hasLoading
   })
 }
+
+// 获取约面扣点信息
+export const getRecommendChargeInterviewApi = (data, hasLoading) => {
+  return request({
+    url: `/charge/resume/${data.jobhunter}`,
+    method: 'get',
+    data,
+    hasLoading: hasLoading
+  })
+}
+
 
 // 获取我的账户信息
 export const getMyAccoutApi = (data, hasLoading) => {
