@@ -204,7 +204,7 @@ export const getRecommendChargeChatApi = (data, hasLoading) => {
 // 获取约面扣点信息
 export const getRecommendChargeInterviewApi = (data, hasLoading) => {
   return request({
-    url: `/charge/resume/${data.jobhunter}`,
+    url: `/charge/advisor_help/${data.jobhunter}`,
     method: 'get',
     data,
     hasLoading: hasLoading

@@ -138,9 +138,9 @@
         </view>
       </view>
 
-      <!-- <view class="date" wx:if="{{identity === 'RECRUITER' && (info.status === 21 || info.status === 31 || info.status === 32)}}">
+      <view class="date" wx:if="{{ identity === 'RECRUITER' && (info.status === 21 || info.status === 31 || info.status === 32) }}">
         <view class="title"><icon class="icon"></icon>约面时间</view>
-        <block wx:if="{{info.status === 21}}">
+        <block wx:if="{{ info.status === 21 }}">
           <view class="dateItem" wx:for="{{info.arrangementInfo.appointmentList}}" wx:key="{{index}}" wx:if="{{item.appointmentTime}}">
             <view class="inner">
               <view class="removeIcon" bindtap="removeDate" data-index="{{index}}">
@@ -151,30 +151,47 @@
             </view>
           </view>
         </block>
-        <block wx:if="{{info.status === 32}}">
-          <view class="dateItem" wx:for="{{info.arrangementInfo.appointmentList}}" wx:key="{{index}}">
+        <block wx:if="{{ info.status === 32 }}">
+          <view class="dateItem" wx:for="{{ info.arrangementInfo.appointmentList }}" wx:key="{{ index }}">
             <view class="inner">
-              <view class="removeIcon" bindtap="removeDate" data-index="{{index}}">
+              <view class="removeIcon" bindtap="removeDate" data-index="{{ index }}">
                 <view class="icon1"></view>
               </view>
-              <view class="dateDetail edit"><myPicker id="myPicker{{index}}" pickerType="dateTime" class="myPicker" data-time="{{item.appointmentTime}}" data-type="edit" data-index="{{index}}" setResult="{{filters.dateFormat(item.appointmentTime, 'YYYY-MM-DD hh:mm')}}" bindresultevent="getResult">
-              </myPicker></view>
+              <view class="dateDetail edit">
+                <myPicker
+                  id="myPicker{{ index }}"
+                  pickerType="dateTime"
+                  class="myPicker"
+                  data-time="{{ item.appointmentTime }}"
+                  data-type="edit"
+                  data-index="{{ index }}"
+                  setResult="{{ filters.dateFormat(item.appointmentTime, 'YYYY-MM-DD hh:mm') }}"
+                  bindresultevent="getResult">
+              </myPicker>
+              </view>
             </view>
           </view>
         </block>
-        <view wx:if="{{info.status === 31}}" class="dateItem" wx:for="{{info.arrangementInfo.appointmentList}}" wx:key="{{index}}">
+        <view wx:if="{{ info.status === 31 }}" class="dateItem" wx:for="{{ info.arrangementInfo.appointmentList }}" wx:key="{{ index }}">
           <view class="inner">
-            <view class="xuhao">时间{{index + 1}}</view>
-            <view class="dateDetail">{{filters.dateFormat(item.appointmentTime, 'YYYY-MM-DD hh:mm')}}</view>
+            <view class="xuhao">时间{{ index + 1 }}</view>
+            <view class="dateDetail">{{ filters.dateFormat(item.appointmentTime, 'YYYY-MM-DD hh:mm') }}</view>
           </view>
         </view>
         <view class="dateItem" wx:if="{{                                                                                                             (!info.arrangementInfo.appointmentList || info.arrangementInfo.appointmentList.length < 3) && info.status !== 31}}">
           <view class="inner noborder">
             <view class="txt">最多可添加3个时间供候选人选择</view>
-            <view class="msg"><myPicker pickerType="dateTime" class="myPicker" needSlot="{{true}}" bindresultevent="getResult"><text class="add">+</text>添加时间</myPicker></view>
+            <view class="msg">
+              <myPicker
+                pickerType="dateTime"
+                class="myPicker"
+                needSlot="{{ true }}"
+                bindresultevent="getResult"><text class="add">+</text>添加时间
+              </myPicker>
+            </view>
           </view>
         </view>
-      </view> -->
+      </view>
 
       <view
         class="realDate wait"
@@ -350,7 +367,12 @@
         wx:if="{{ identity === 'RECRUITER' && info.isAdvisor }}"
         bindtap="todoAction"
         data-action="show-adviser-model">
-        <view class="img"></view>
+        <!-- <view class="img"></view> -->
+        <image
+          class="img"
+          src="{{ cdnImagePath }}img_warnning_nosite@2x.png"
+          mode="widthFix">
+        </image>
         <view class="text">
           此次面试将享受顾问约面跟进服务
         </view>
@@ -359,7 +381,42 @@
 
     </view>
 
-    <view
+    <block wx:if="{{ identity === 'APPLICANT' }}">
+      <view class="btnBox" wx:if="{{ info.status === 32 || info.status === 11 || info.status === 41 || info.status === 21 }}">
+        <button class="btn" bindtap="download"> 订阅面试反馈提醒 </button>
+      </view>
+      <view class="btnBox" wx:if="{{ info.status === 12 }}">
+        <button class="btn" bindtap="download"> 处理面试邀约 </button>
+      </view>
+      <view class="btnBox" wx:if="{{ info.status === 31 }}">
+        <button class="btn" bindtap="download"> 选择面试时间 </button>
+      </view>
+    </block>
+    <block wx:else>
+      <view class="btnBox" wx:if="{{ info.status === 12 || info.status === 41 }}">
+        <button class="btn" bindtap="download"> 订阅面试反馈提醒 </button>
+      </view>
+      <view class="btnBox1" wx:if="{{ info.status === 311 }}">
+        <button class="btn_01" bindtap="notsuitable">拒绝</button>
+        <button class="btn_02" bindtap="todoAction" data-action="revise">安排面试</button>
+      </view>
+      <view class="btnBox" wx:if="{{ info.status === 21 || info.status === 32 }}">
+        <button class="btn" bindtap="send">
+          <block wx:if="{{ info.isAdvisor }}">使用多多币发起邀请</block>
+          <block wx:else>
+            {{ info.sourceType === 1 ? '发送约见邀请' : '发送电话邀请' }}
+          </block>
+        </button>
+      </view>
+      <view class="btnBox" wx:if="{{ info.status === 31 }}">
+        <button class="btn" bindtap="revise"> 修改面试 </button>
+      </view>
+      <view class="btnBox" wx:if="{{mytype === '修改面试'}}">
+        <button class="btn" bindtap="send"> 重新发送邀请 </button>
+      </view>
+    </block>
+
+    <!-- <view
       class="btnBox"
       wx:if="{{identity === 'RECRUITER' && (info.status === 21 || info.status === 32)}}">
       <button class="btn" bindtap="send">使用多多币发起邀请</button>
@@ -372,7 +429,7 @@
     </view>
 
     <view class="btnBox" wx:if="{{identity === 'APPLICANT' && info.status === 31}}">
-      <button class="btn" bindtap="sureDate">选择面试时间</button>
+      <button class="btn" bindtap="download">选择面试时间</button>
     </view>
 
     <view class="btnBox" wx:if="{{identity === 'RECRUITER' && info.status === 41}}">
@@ -382,8 +439,8 @@
     <view
       class="btnBox"
       wx:if="{{ info.status === 21 || info.status === 32 || info.status === 41 || info.status === 12 || info.status === 31 }}">
-      <button class="btn" bindtap="sureDate">{{info.status === 12 && identity === 'APPLICANT' ? '处理面试邀约' : '订阅面试反馈提醒'}}</button>
-    </view>
+      <button class="btn" bindtap="download">{{info.status === 12 && identity === 'APPLICANT' ? '处理面试邀约' : '订阅面试反馈提醒'}}</button>
+    </view> -->
     
   </block>
 

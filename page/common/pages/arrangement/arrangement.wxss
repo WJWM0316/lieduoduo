@@ -578,7 +578,6 @@
   display: inline-block;
   width: 64rpx;
   height: 64rpx;
-  background: rgba(0,0,0,0.1);
   border-radius: 50%;
   margin-right: 18rpx;
   display: inline-block;

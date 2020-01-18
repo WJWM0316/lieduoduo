@@ -299,7 +299,7 @@ Page({
       })
       let data = {}
       let funcApi = ''
-      if (this.data.options.chattype === 'onekey') {
+      if (this.data.options.chattype === 'onekey' || this.data.identity === 'APPLICANT') {
         data = params
         funcApi = applyChatApi
       } else {

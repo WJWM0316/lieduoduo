@@ -305,6 +305,7 @@ Component({
               let params = {recruiter: this.data.infos.recruiterInfo.uid, position: this.data.infos.id}
               if (isSpecail) params.interview_type = 2
               let cb = () => {
+                // 约面过期后  只存在约聊才会出现
                 if(infos.interviewSummary && infos.interviewSummary.interviewId) {
                   app.wxConfirm({
                     title: '已约面该招聘官的其他职位',
@@ -317,18 +318,29 @@ Component({
                     cancelBack: () => {}
                   })
                 } else {
-                  if(this.data.infos.isRapidly) {
-                    applyInterviewApi({positionId: this.data.infos.id, interview_type: 2, recruiterUid: this.data.infos.recruiterInfo.uid})
+                  if(isSpecail) {
+                    applyInterviewApi({positionId: this.data.infos.id, interview_type: 2, recruiterUid: this.data.infos.recruiterInfo.uid}).then(() => {
+                      this.triggerEvent('reLoad', true)
+                      successPop(res)
+                      // 未满急速约面开撩成功，需要记录一下返回时候重置一下数据
+                      if (isSpecail) {
+                        this.triggerEvent('chatPosition', true)
+                        wx.setStorageSync('chatSuccess', detail)
+                      }
+                    }).catch(() => {
+                      this.triggerEvent('reLoad', true)
+                    })
+                  } else {
+                    applyChatApi(params).then(res => {
+                      this.triggerEvent('reLoad', true)
+                      successPop(res)
+                      // 未满急速约面开撩成功，需要记录一下返回时候重置一下数据
+                      if (isSpecail) {
+                        this.triggerEvent('chatPosition', true)
+                        wx.setStorageSync('chatSuccess', detail)
+                      }
+                    })
                   }
-                  applyChatApi(params).then(res => {
-                    this.triggerEvent('reLoad', true)
-                    successPop(res)
-                    // 未满急速约面开撩成功，需要记录一下返回时候重置一下数据
-                    if (isSpecail) {
-                      this.triggerEvent('chatPosition', true)
-                      wx.setStorageSync('chatSuccess', detail)
-                    }
-                  })
                 }
               }
               cb()

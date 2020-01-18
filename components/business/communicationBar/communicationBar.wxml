@@ -113,7 +113,7 @@
 					<block wx:if="{{ !infos.isRapidly }}">
 						<view
 							bindtap="todoAction"
-							wx:if="{{ infos.chatInfo.status === 316 || infos.chatInfo.status === 305 || infos.chatInfo.status === 315}}"
+							wx:if="{{ infos.chatInfo.status === 316 || infos.chatInfo.status === 305 || infos.chatInfo.status === 315 }}"
 							data-action="job-hunting-chat">
 								一键约聊
 						</view>
