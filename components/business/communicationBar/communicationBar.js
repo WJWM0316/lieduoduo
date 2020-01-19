@@ -315,8 +315,8 @@ Component({
                     confirmText: '更换职位',
                     confirmBack() {
                       applyInterviewApi({positionId: that.data.infos.id, interview_type: 2, recruiterUid: that.data.infos.recruiterInfo.uid}).then(res => {
-                        this.triggerEvent('reLoad', true)
                         successPop(res)
+                        this.triggerEvent('reLoad', true)
                         // 未满急速约面开撩成功，需要记录一下返回时候重置一下数据
                         if (isSpecail) {
                           that.triggerEvent('chatPosition', true)
@@ -330,24 +330,24 @@ Component({
                 } else {
                   if(isSpecail) {
                     applyInterviewApi({positionId: this.data.infos.id, interview_type: 2, recruiterUid: this.data.infos.recruiterInfo.uid}).then(res => {
-                      this.triggerEvent('reLoad', true)
                       successPop(res)
+                      this.triggerEvent('reLoad', true)
                       // 未满急速约面开撩成功，需要记录一下返回时候重置一下数据
                       if (isSpecail) {
-                        this.triggerEvent('chatPosition', true)
                         wx.setStorageSync('chatSuccess', detail)
+                        this.triggerEvent('chatPosition', true)
                       }
                     }).catch(() => {
                       this.triggerEvent('reLoad', true)
                     })
                   } else {
                     applyChatApi(params).then(res => {
-                      this.triggerEvent('reLoad', true)
                       successPop(res)
+                      this.triggerEvent('reLoad', true)
                       // 未满急速约面开撩成功，需要记录一下返回时候重置一下数据
                       if (isSpecail) {
-                        this.triggerEvent('chatPosition', true)
                         wx.setStorageSync('chatSuccess', detail)
+                        this.triggerEvent('chatPosition', true)
                       }
                     })
                   }
