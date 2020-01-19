@@ -17,8 +17,6 @@ const app = getApp()
 
 let chooseTime = parseInt(new Date().getTime() / 1000)
 
-import {getSelectorQuery} from "../../../../../utils/util.js"
-
 let positionList = []
 
 Page({

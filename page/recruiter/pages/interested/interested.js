@@ -12,8 +12,6 @@ import {
 
 import {RECRUITER, COMMON, APPLICANT} from '../../../../config.js'
 
-import {getSelectorQuery}  from '../../../../utils/util.js'
-
 import { getPositionListNumApi } from '../../../../api/pages/position.js'
 
 let app = getApp()
