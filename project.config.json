@@ -66,7 +66,7 @@
 					"id": 1,
 					"name": "【公包】职位详情",
 					"pathName": "page/common/pages/positionDetail/positionDetail",
-					"query": "positionId=7276",
+					"query": "positionId=7268&fromType=guideCard&firstIndex=0&secondIndex=0",
 					"scene": 1001
 				},
 				{

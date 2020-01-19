@@ -351,9 +351,9 @@
 	width:478rpx;
   height: 140rpx;
 	position: absolute;
-  top: 0;
+  top: -30rpx;
   transform: translate3d(0, calc(-100% + 25rpx), 0);
-  right: 20rpx;
+  right: 0;
 }
 
 .seccessPop {
