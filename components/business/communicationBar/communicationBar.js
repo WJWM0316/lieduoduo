@@ -305,6 +305,7 @@ Component({
               let params = {recruiter: this.data.infos.recruiterInfo.uid, position: this.data.infos.id}
               if (isSpecail) params.interview_type = 2
               let cb = () => {
+                let that = this
                 // 约面过期后  只存在约聊才会出现
                 if(infos.rapidlyInfo && infos.rapidlyInfo.changePositionToast) {
                   app.wxConfirm({
@@ -313,22 +314,22 @@ Component({
                     cancelText: '我再想想',
                     confirmText: '更换职位',
                     confirmBack() {
-                      wx.navigateTo({url: `${COMMON}chooseJob/chooseJob?type=job_hunting_chat&recruiterUid=${infos.recruiterInfo.uid}`})
+                      applyInterviewApi({positionId: that.data.infos.id, interview_type: 2, recruiterUid: that.data.infos.recruiterInfo.uid}).then(() => {
+                        this.triggerEvent('reLoad', true)
+                        successPop(res)
+                        // 未满急速约面开撩成功，需要记录一下返回时候重置一下数据
+                        if (isSpecail) {
+                          that.triggerEvent('chatPosition', true)
+                          wx.setStorageSync('chatSuccess', detail)
+                        }
+                      }).catch(() => {
+                        that.triggerEvent('reLoad', true)
+                      })
                     }
                   })
-                  // app.wxConfirm({
-                  //   title: '已约面该招聘官的其他职位',
-                  //   content: '是否要更换约面职位',
-                  //   cancelText: '我在想想',
-                  //   confirmText: '更换职位',
-                  //   confirmBack: () => {
-                  //     wx.navigateTo({url: `${COMMON}chooseJob/chooseJob?type=job_hunting_chat&recruiterUid=${infos.recruiterInfo.uid}`})
-                  //   },
-                  //   cancelBack: () => {}
-                  // })
                 } else {
                   if(isSpecail) {
-                    applyInterviewApi({positionId: this.data.infos.id, interview_type: 2, recruiterUid: this.data.infos.recruiterInfo.uid}).then(() => {
+                    applyInterviewApi({positionId: this.data.infos.id, interview_type: 2, recruiterUid: this.data.infos.recruiterInfo.uid}).then(res => {
                       this.triggerEvent('reLoad', true)
                       successPop(res)
                       // 未满急速约面开撩成功，需要记录一下返回时候重置一下数据

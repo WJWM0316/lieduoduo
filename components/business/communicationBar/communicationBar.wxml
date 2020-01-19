@@ -31,33 +31,48 @@
 				</view>
 			</view>
 
-			<block>
-				<!-- 判断该职位的状态 start -->
-				<block
-					wx:if="{{ infos.isOnline === 2 && (infos.status === 0 || infos.status === 1 || infos.status === 3 || infos.status === 4) }}">
+			<!-- 判断该职位的状态 start -->
+			<block
+				wx:if="{{ infos.isOnline === 2 && (infos.status === 0 || infos.status === 1 || infos.status === 3 || infos.status === 4) }}">
+				<button
+					class="clear-style button-box button-box-color4">
+						职位已关闭
+				</button>
+			</block>
+			<!-- 判断该职位的状态 end -->
+
+			<!-- 正常职位 start -->
+			<block wx:else>
+				<!-- 已经进入面试的阶段 start -->
+				<block wx:if="{{ infos.chatInfo && (infos.chatInfo.imTopInterviewInfo.interviewInfo.status === 21 || infos.chatInfo.imTopInterviewInfo.interviewInfo.status === 31 || infos.chatInfo.imTopInterviewInfo.interviewInfo.status === 32 || infos.chatInfo.imTopInterviewInfo.interviewInfo.status === 41) }}">
 					<button
-						class="clear-style button-box button-box-color4">
-							职位已关闭
+						form-type="submit"
+						class="clear-style button-box button-box-color1"
+						bindtap="todoAction"
+						data-action="keep-communicating">
+						继续聊
 					</button>
 				</block>
-				<!-- 判断该职位的状态 end -->
-
-				<block wx:else>
+				<!-- 已经进入面试的阶段 end -->
+				<!-- 未进入面试的阶段 start -->
+				<block wx:else>				
+					<!-- 未进入面试的阶段 end -->
 					<!-- 特殊职位判断 start -->
-					<block wx:if="{{ infos.isRapidly === 1 }}" >
+					<block wx:if="{{ infos.isRapidly === 1 }}">
 						<!-- 该24h职位未被申请 start -->
-						<block wx:if="{{ !infos.rapidlyInfo.applied }}">
+						<block wx:if="{{ !infos.rapidlyInfo.applied}}">
 							<!-- 该24h职位未被申请且还具备被抢占 start -->
-							<button
-								form-type="submit"
-								class="clear-style button-box button-box-color1 specailBtn"
-								bindtap="todoAction"
-								wx:if="{{ infos.rapidlyInfo.seatsNum - infos.rapidlyInfo.applyNum - infos.rapidlyInfo.natureApplyNum > 0 }}"
-								data-action="job-hunting-chat">
-								<view>
-									<view class="txt1">马上抢</view>
-								</view>
-							</button>
+							<block wx:if="{{ infos.rapidlyInfo.seatsNum - infos.rapidlyInfo.applyNum - infos.rapidlyInfo.natureApplyNum > 0 }}">
+								<button
+									form-type="submit"
+									class="clear-style button-box button-box-color1 specailBtn"
+									bindtap="todoAction"
+									data-action="job-hunting-chat">
+									<view>
+										<view class="txt1">马上抢</view>
+									</view>
+								</button>
+							</block>
 							<!-- 该24h职位未被申请且还具备被抢占 end -->
 							<!-- 该24h职位未被申请且已经被抢完 start -->
 							<button
@@ -109,10 +124,10 @@
 							</button>
 						</block>
 					</block>
-					<!-- 普通职位判断 end -->
 				</block>
+				<!-- 普通职位判断 end -->
 			</block>
-
+			<!-- 正常职位 end -->
 		</block>
 
 		<block wx:if="{{type === 'recruiter'}}">

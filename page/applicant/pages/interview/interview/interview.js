@@ -527,9 +527,9 @@ Page({
   routeJump(e) {
     let params = e.currentTarget.dataset
     // 不知道什么情款  有时候拿不到数据
-    if(!Object.keys(params).length) return
+
     switch(params.status) {
-      case 12:
+      // case 12:
         // if(Number(params.positionid)) {
         //   wx.navigateTo({url: `${COMMON}positionDetail/positionDetail?positionId=${params.positionid}`})
         // } else {
