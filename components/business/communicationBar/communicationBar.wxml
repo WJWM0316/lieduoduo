@@ -75,9 +75,8 @@
 							</block>
 							<!-- 该24h职位未被申请且还具备被抢占 end -->
 							<!-- 该24h职位未被申请且已经被抢完 start -->
-							<button
-								form-type="submit"
-								class="clear-style button-box button-box-color1 specailBtn"
+							<view
+								class="clear-style button-box button-box-color1"
 								bindtap="todoAction"								
 								data-action="job-hunting-chat"
 								wx:else>
@@ -87,7 +86,7 @@
 									mode="widthFix">
 								</image>
 								一键约聊
-							</button>
+							</view>
 							<!-- 该24h职位未被申请且已经被抢完 end -->
 						</block>
 						<!-- 该24h职位未被申请 end -->

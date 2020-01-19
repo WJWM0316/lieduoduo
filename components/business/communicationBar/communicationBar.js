@@ -314,7 +314,7 @@ Component({
                     cancelText: '我再想想',
                     confirmText: '更换职位',
                     confirmBack() {
-                      applyInterviewApi({positionId: that.data.infos.id, interview_type: 2, recruiterUid: that.data.infos.recruiterInfo.uid}).then(() => {
+                      applyInterviewApi({positionId: that.data.infos.id, interview_type: 2, recruiterUid: that.data.infos.recruiterInfo.uid}).then(res => {
                         this.triggerEvent('reLoad', true)
                         successPop(res)
                         // 未满急速约面开撩成功，需要记录一下返回时候重置一下数据
