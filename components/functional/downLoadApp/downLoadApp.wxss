@@ -61,6 +61,6 @@
 }
 .btn2 {
 	margin-top: 21rpx;
-	border: 1rpx solid #652791;
+	border: 2rpx solid #652791;
 	color: #652791;
 }
