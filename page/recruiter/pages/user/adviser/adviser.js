@@ -35,12 +35,12 @@ Page({
         title: '已邀约',
         value: 1,
         redHot: 0
-      },
-      {
-        title: '不感兴趣',
-        value: 2,
-        redHot: 0
       }
+      // {
+      //   title: '不感兴趣',
+      //   value: 2,
+      //   redHot: 0
+      // }
     ],
     listData: {
       list: [],

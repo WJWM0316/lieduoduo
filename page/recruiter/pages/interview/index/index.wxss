@@ -425,11 +425,17 @@
   display: inline;
 }
 
+.item2 .header .filter{
+  height: 36rpx;
+  vertical-align: middle;
+}
+
 .item2 .header .mix{
   font-size:26rpx;
   font-weight:300;
   color:rgba(146,146,146,1);
-  display: inline;
+  display: inline-block;
+  vertical-align: middle;
 }
 
 .item2 .degress{
