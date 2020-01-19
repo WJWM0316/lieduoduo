@@ -248,7 +248,7 @@
 					<view
 						class="btn-chat"
 						data-action="keep-communicating"
-						wx:if="{{ infos.chatInfo && (infos.chatInfo.status === 701 || infos.chatInfo.status === 101)}}"
+						wx:if="{{ infos.chatInfo && (infos.chatInfo.status === 701 || infos.chatInfo.status === 101  || infos.chatInfo.status === 501)}}"
 						bindtap="todoAction">
 						继续聊
 					</view>
