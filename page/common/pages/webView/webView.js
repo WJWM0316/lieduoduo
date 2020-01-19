@@ -79,7 +79,7 @@ Page({
           pageUrl = `${path}?sessionToken=${sessionToken}&token=${token}`
         }
       }
-
+      console.log(pageUrl, 'H5链接')
       this.setData({pageUrl})
     }
     if (app.loginInit) {

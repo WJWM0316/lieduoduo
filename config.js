@@ -18,7 +18,7 @@ if (environment === 0) {
 	RECRUITERHOST = 'https://zhaopin-api.lieduoduo.ziwork.com'
 	PUBAPIHOST 		= 'https://pub-api.lieduoduo.ziwork.com'
 	NODEHOST 			= 'https://node.lieduoduo.ziwork.com/frontEnd' //'http://192.168.5.159:3000/frontEnd' //
-	WEBVIEW = `https://h5.lieduoduo.ziwork.com/`
+	WEBVIEW = 'http://localhost:8090/' //`https://h5.lieduoduo.ziwork.com/`
 	CDNPATH = 'https://attach.lieduoduo.ziwork.com/front-assets/images/'
 } else {
 	// 正式服环境
@@ -46,4 +46,4 @@ export const COMPONENTS = '/components/'
 export const API = '/api/'
 
 // downLoadApp
-export const DOWNLOADAPPPATH = `${COMMON}webView/webView?p=${encodeURIComponent(`${WEBVIEW}art/downLoadApp?sessionToken=${wx.getStorageSync('sessionToken')}&token=${wx.getStorageSync('token')}`)}`
+export const DOWNLOADAPPPATH = `${COMMON}webView/webView?p=${encodeURIComponent(`${WEBVIEW}/downLoadApp?sessionToken=${wx.getStorageSync('sessionToken')}&token=${wx.getStorageSync('token')}`)}`
