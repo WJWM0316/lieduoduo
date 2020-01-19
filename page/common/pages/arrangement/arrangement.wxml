@@ -106,7 +106,7 @@
         <view class="title">
           <icon class="icon"></icon>面试信息
         </view>
-        <view class="msgItem" bindtap="callPhone">
+        <view class="msgItem" bindtap="callPhone"> 
           <view class="inner">
             <i class="icon1 iconfont icon-mianshiguan"></i>
             <view class="msg">

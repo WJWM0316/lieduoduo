@@ -306,17 +306,26 @@ Component({
               if (isSpecail) params.interview_type = 2
               let cb = () => {
                 // 约面过期后  只存在约聊才会出现
-                if(infos.interviewSummary && infos.interviewSummary.interviewId) {
+                if(infos.rapidlyInfo && infos.rapidlyInfo.changePositionToast) {
                   app.wxConfirm({
                     title: '已约面该招聘官的其他职位',
                     content: '是否要更换约面职位',
-                    cancelText: '我在想想',
+                    cancelText: '我再想想',
                     confirmText: '更换职位',
-                    confirmBack: () => {
+                    confirmBack() {
                       wx.navigateTo({url: `${COMMON}chooseJob/chooseJob?type=job_hunting_chat&recruiterUid=${infos.recruiterInfo.uid}`})
-                    },
-                    cancelBack: () => {}
+                    }
                   })
+                  // app.wxConfirm({
+                  //   title: '已约面该招聘官的其他职位',
+                  //   content: '是否要更换约面职位',
+                  //   cancelText: '我在想想',
+                  //   confirmText: '更换职位',
+                  //   confirmBack: () => {
+                  //     wx.navigateTo({url: `${COMMON}chooseJob/chooseJob?type=job_hunting_chat&recruiterUid=${infos.recruiterInfo.uid}`})
+                  //   },
+                  //   cancelBack: () => {}
+                  // })
                 } else {
                   if(isSpecail) {
                     applyInterviewApi({positionId: this.data.infos.id, interview_type: 2, recruiterUid: this.data.infos.recruiterInfo.uid}).then(() => {
@@ -405,6 +414,7 @@ Component({
     recruiterChat() {
       let infos = this.data.infos
       let cb = () => {
+        // 简历详情会有这个字段
         if(infos.interviewSummary && infos.interviewSummary.interviewId) {
           wx.navigateTo({url: `${COMMON}arrangement/arrangement?id=${ infos.interviewSummary.interviewId }`})
           // app.wxConfirm({
@@ -504,7 +514,6 @@ Component({
           break
         case 'public':
           this.getCompanyIdentityInfos().then(() => {
-            // 跟后端协商  =1 则可以发布
             let identityInfos = this.data.identityInfos
             if(identityInfos.identityAuth || identityInfos.status === 1) {
               wx.setStorageSync('recruiter_chat_first', {jobhunterUid: infos.uid })
