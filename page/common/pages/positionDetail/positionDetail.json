@@ -7,6 +7,7 @@
   	"auth": "../../../../components/functional/auth/auth",
   	"canvasCard": "../../../../components/business/canvasCard/canvasCard",
   	"communicationBar": "../../../../components/business/communicationBar/communicationBar",
-  	"roleInfoCard": "../../../../components/business/roleInfoCard/roleInfoCard"
+		"roleInfoCard": "../../../../components/business/roleInfoCard/roleInfoCard",
+		"downloadBar": "../../../../components/business/downloadBar/downloadBar"
   }
 }

@@ -1,9 +1,30 @@
-<view class="download-bar {{ className }}" bindtap="jump">
-  <view class="text">
-    <i class="iconfont icon-tongzhi"></i>
-    订阅消息通知，随时随地掌握约面动态
+<block wx:if="{{ stamp === 'stamp1' }}">
+  <view class="download-bar {{ className }}" bindtap="jump">
+    <view class="text">
+      <image class="icon_notice_v210" mode="aspectFill" src="{{ cdnPath }}icon_notice_v210.png"></image>
+      订阅消息通知，随时随地掌握约面动态
+    </view>
+    <view class="btn">
+      订阅<i class="iconfont icon-xiangyou"></i>
+    </view>
   </view>
-  <view class="btn">
-    订阅<i class="iconfont icon-xiangyou"></i>
+</block>
+<block wx:else>
+  <view class="guide-download {{ className }}" bindtap="jump">
+    <image class="img" mode="aspectFill" src="{{ cdnPath }}bg_appgo_company.png" wx:if="{{ className === 'style1' }}"></image>
+    <view class="col-left">
+      <view class="head">
+        <!-- <view class="strong">100+</view> -->
+        <image class="strong" mode="aspectFill" src="{{ cdnPath }}icon_appgo_100_yellow.png" wx:if="{{ className === 'style1' }}"></image>
+        <image class="strong" mode="aspectFill" src="{{ cdnPath }}icon_appgo100_black.png" wx:if="{{ className === 'style2' }}"></image>
+        <view class="text1">酷公司已加入24小时急速面试</view>
+      </view>
+      <image class="imglist" mode="aspectFill" src="{{ cdnPath }}img_goapp_logos@3x.png"></image>
+    </view>
+    <view class="col-right">
+      <view class="btn">
+        开抢<i class="iconfont icon-xiangyou"></i>
+      </view>
+    </view>
   </view>
-</view>
+</block>

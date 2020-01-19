@@ -7,7 +7,8 @@ import {
 
 import {
   confirmInterviewApi,
-  refuseInterviewApi
+  refuseInterviewApi,
+  applyInterviewApi
 } from '../../../../api/pages/interview.js'
 
 import {
@@ -19,7 +20,8 @@ import {
 } from '../../../../api/pages/chat.js'
 
 import {
-  getRecommendChargeApi
+  getRecommendChargeChatApi,
+  getRecommendChargeInterviewApi
 } from '../../../../api/pages/recruiter.js'
 
 import {
@@ -59,7 +61,6 @@ Page({
     let api = ''
     if ( wx.getStorageSync('choseType') === 'RECRUITER' ) {
       this.getCompanyIdentityInfos()
-      this.getRecommendCharge({ jobhunter: options.jobhunterUid })
     } else {
       api = 'getonLinePositionListC'
     }
@@ -199,7 +200,8 @@ Page({
   },
   // 获取扣点信息
   getRecommendCharge(params) {
-    getRecommendChargeApi({ jobhunter: params.jobhunter }).then(({ data }) => this.setData({chargeData: data}))
+    let funcApi = this.data.options.chattype === 'onekey' ? getRecommendChargeChatApi : getRecommendChargeInterviewApi
+    return funcApi(params).then(({ data }) => this.setData({chargeData: data}))
   },
   /**
    * @Author   小书包
@@ -239,7 +241,10 @@ Page({
         params.jobhunter = options.jobhunterUid
         params.position = job.id
         params.status = job.status
-        this.setData({ params, buttonClick: true })
+        console.log(params)
+        this.setData({ params, buttonClick: true },() => {
+          this.getRecommendCharge({ jobhunter: this.data.options.jobhunterUid, positionId: params.position })
+        })
         break
       // 求职者 主动发起约聊
       case 'job_hunting_chat':
@@ -292,7 +297,20 @@ Page({
         resume_perfection: app.globalData.resumeInfo.resumeCompletePercentage * 100,
         btn_type: 'job-hunting-chat'
       })
-      applyChatApi(params).then(res => {
+      let data = {}
+      let funcApi = ''
+      if (this.data.options.chattype === 'onekey' || this.data.identity === 'APPLICANT') {
+        data = params
+        funcApi = applyChatApi
+      } else {
+        data = {
+          jobhunterUid: params.jobhunter,
+          positionId: params.position,
+          isAdvisor: 1
+        }
+        funcApi = applyInterviewApi
+      }
+      funcApi(data).then(res => {
         resolve(res)
         //  求职端返回上一页
         if(wx.getStorageSync('choseType') !== 'RECRUITER') {

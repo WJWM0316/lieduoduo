@@ -11,16 +11,13 @@ import {mobileReg} from "../../../../utils/fieldRegular.js"
 import {shareInterviewr} from '../../../../utils/shareWord.js'
 
 import {
-  getRecommendChargeApi
+  getRecommendChargeChatApi,
+  getRecommendChargeInterviewApi
 } from '../../../../api/pages/recruiter.js'
 
 let app = getApp()
 let positionCard = ''
 Page({
-
-  /**
-   * 页面的初始数据
-   */
   data: {
     identity: "", // 身份标识
     options: {},
@@ -37,7 +34,9 @@ Page({
   },
   // 获取扣点信息
   getRecommendCharge(params) {
-    return getRecommendChargeApi({ jobhunter: params.jobhunter }).then(({ data }) => this.setData({chargeData: data}))
+    let info = this.data.info
+    let funcApi = !info.isAdvisor ? getRecommendChargeChatApi : getRecommendChargeInterviewApi
+    return funcApi({ jobhunter: params.jobhunter }).then(({ data }) => this.setData({chargeData: data}))
   },
   getResult(e) {
     let hasFilter = false
@@ -248,13 +247,13 @@ Page({
     info.status = 21
     this.setData({info, revised: true})
   },
-  sureDate() {
+  download() {
     wx.navigateTo({url: DOWNLOADAPPPATH})
   },
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad(options) {
     if (options.scene) options = app.getSceneParams(options.scene)
     let identity = app.identification(options)
     this.setData({options, identity})
@@ -285,7 +284,7 @@ Page({
         info.jobhunterInfo = Object.assign(info.jobhunterInfo, {lastInterviewStatus: info.status})
         info.recruiterInfo = Object.assign(info.recruiterInfo, {lastInterviewStatus: info.status})
         if(wx.getStorageSync('choseType') === 'RECRUITER') {
-          this.getRecommendCharge({jobhunter: info.jobhunterInfo.uid})
+          this.getRecommendCharge({jobhunter: info.jobhunterInfo.uid, positionId: info.positionId})
         }        
         // 转发面试安排 所有人看的的面试安排都是一样
         // if(info.status === 41) {
@@ -301,8 +300,7 @@ Page({
             info.positionId = positionData.positionId
           }
         }
-        console.log(info)
-        this.setData({info})
+        this.setData({ info })
       })
     } else {
       let recruiter_chat_infos = wx.getStorageSync('recruiter_chat_infos')
@@ -317,15 +315,9 @@ Page({
     }
   },
   /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-  },
-
-  /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
+  onShow() {
     let init = () => {
       let positionData = wx.getStorageSync('interviewData')
       let addressData = wx.getStorageSync('createPosition')
@@ -354,7 +346,7 @@ Page({
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {
+  onUnload() {
     wx.removeStorageSync('createPosition')
     wx.removeStorageSync('interviewData')
   },
