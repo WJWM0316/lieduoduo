@@ -431,6 +431,12 @@ App({
                   wx.reLaunch({
                     url: `${RECRUITER}index/index`
                   })
+                } else if (operType === 'redirectBack') {
+                  let lastRoute = _this.getCurrentPagePath(2)
+                  console.log(lastRoute)
+                  wx.reLaunch({
+                    url: lastRoute
+                  })
                 } else {
                   if (getCurrentPages().length > 1) {
                     if(wx.getStorageSync('choseType') !== 'RECRUITER') {
@@ -844,7 +850,7 @@ App({
   // 获取当前页面完整链接
   getCurrentPagePath (index) {
     var pages = getCurrentPages() //获取加载的页面
-    if (!index && index !== 0) index = pages.length - 1
+    index = !index ? pages.length - 1 : pages.length - index
     let pageUrl = pages[index].route
     if (pages[index] && pages[index].options && this.splicingParams(pages[index].options)) {
       return `/${pageUrl}?${this.splicingParams(pages[index].options)}`

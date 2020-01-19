@@ -46,4 +46,4 @@ export const COMPONENTS = '/components/'
 export const API = '/api/'
 
 // downLoadApp
-export const DOWNLOADAPPPATH = `${COMMON}webView/webView?p=${encodeURIComponent(`${WEBVIEW}/downLoadApp?sessionToken=${wx.getStorageSync('sessionToken')}&token=${wx.getStorageSync('token')}`)}`
+export const DOWNLOADAPPPATH = `${COMMON}webView/webView?p=${encodeURIComponent(`${WEBVIEW}/downLoadApp`)}`
