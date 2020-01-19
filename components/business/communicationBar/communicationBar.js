@@ -126,7 +126,7 @@ Component({
      * @return   {[type]}   [description]
      */
     deleteNotInterest(params) {
-      return deleteNotInterestApi({id: params.id, jobhunter: params.uid})
+      return deleteNotInterestApi({jobhunter: params.jobhunter})
     },
     /**
      * @Author   小书包
@@ -560,7 +560,7 @@ Component({
           break
         case 'delete-not-interest':
           deleteNotInterestForUserApi({uid: infos.uid})
-          this.deleteNotInterest({id: infos.chatInfo.id, jobhunter: infos.uid}).then(() => {
+          this.deleteNotInterest({jobhunter: infos.uid}).then(() => {
             wx.navigateTo({url: DOWNLOADAPPPATH})
           })
           break
