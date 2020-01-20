@@ -526,6 +526,13 @@
 					"pathName": "page/common/pages/arrangement/arrangement",
 					"query": "id=371",
 					"scene": null
+				},
+				{
+					"id": 70,
+					"name": "B端面试",
+					"pathName": "page/recruiter/pages/interview/index/index",
+					"query": "tabIndex=1",
+					"scene": null
 				}
 			]
 		}

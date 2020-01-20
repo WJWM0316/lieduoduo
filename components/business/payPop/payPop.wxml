@@ -1,5 +1,5 @@
 <actionSheet class="actionSheet rule-box" openPop="{{ openPayPop }}" title="" bindclose="close">
-  <view class="h22">{{ title }}</view>
+  <view class="h22">{{ type == 1 ? '邀请候选人约聊': '顾问约面服务' }}</view>
   <view class="p22">向候选人发起约聊，需消耗<view class="strong22">{{ chargeData.charge }}</view>多多币</view>
   <view class="welfare-ul">
     <view class="welfare-item">畅聊职位</view>
@@ -7,11 +7,14 @@
     <view class="welfare-item">了解面试进展</view>
     <view class="welfare-item">受邀才扣费</view>
   </view>
-  <block>
+  <block wx:if="{{ type == 1}}">
     <view class="tips22">* 候选人7天内未接受邀请时，多多币将原路退回到你的账户</view>
-    <view class="tips22">* 更多细则，欢迎联系客服</view>
+    <view class="tips22">* 更多细则，欢迎联系客服<text class="txt" bindtap="callPhone">{{ telePhone }}</text></view>
   </block>
-  <block>
+  <block wx:else>
+    <view class="tips22">* 邀约后，平台顾问将1V1跟进候选人处理&面试情况</view>
+    <view class="tips22">* 候选人在48小时内未接受邀请，或未按约定时间到场面试时，多多币将原路退回到你的账户</view>
+    <view class="tips22">* 更多细则，欢迎联系客服<text class="txt" bindtap="callPhone">{{ telePhone }}</text></view>
   </block>
   <view class="footer22">
     <view class="view-remian">

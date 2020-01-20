@@ -17,6 +17,10 @@ Component({
     title: {
       type: String,
       value: ''
+    },
+    type: {
+      type: Number,
+      value: 1
     }
   },
 
