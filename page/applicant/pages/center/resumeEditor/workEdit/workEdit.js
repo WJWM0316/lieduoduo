@@ -74,7 +74,7 @@ Page({
       this.setData({skill, skillsId})
     }
   },
-  onUnload () {
+  onUnload: function () {
     if (!this.data.options.id) {
       wx.removeStorageSync('createPosition')
       wx.removeStorageSync('skillsLabel')

@@ -22,14 +22,14 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad(options) {
+  onLoad: function (options) {
     query = options
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow() {
+  onShow: function () {
     let info = this.data.info
     let workContent = wx.getStorageSync('workContent')
     let createPosition = wx.getStorageSync('createPosition')
@@ -40,6 +40,12 @@ Page({
     info.duty = workContent
     info.positionType = createPosition
     this.setData({info})
+  },
+  
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onHide: function () {
   },
   eidt () {
     wx.navigateTo({

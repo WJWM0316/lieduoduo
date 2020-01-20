@@ -16,7 +16,7 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad(options) {
+  onLoad: function (options) {
     let info = this.data.info
     const id = parseInt(options.id)
     wx.removeStorageSync('createPosition')
@@ -39,7 +39,7 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow() {
+  onShow: function () {
     let result = wx.getStorageSync('skillsLabel')
     let info = this.data.info
     let position = wx.getStorageSync('createPosition')
@@ -69,6 +69,8 @@ Page({
       wx.removeStorageSync('addIntention')
     }
     this.setData({info})
+  },
+  onUnload: function () { 
   },
   /* 去选择页面(0、选择城市，1、选择职位，2、选择领域) */
   choose (e) {

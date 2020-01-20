@@ -28,7 +28,7 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad(options) {
+  onLoad: function (options) {
     if (!options.id || app.globalData.resumeInfo.educations.length === 1) {
       this.setData({
         isAdd: true
