@@ -903,6 +903,7 @@ App({
     })
   },
   subscribeWechatMessage(key) {
+    //
     return new Promise((resolve, reject) => {
       let that = this
       let subscribeConfig = that.globalData.subscribeConfig[key]
