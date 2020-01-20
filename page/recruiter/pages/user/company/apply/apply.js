@@ -113,7 +113,9 @@ Page({
           real_name: storage.real_name || companyInfo.realName,
           user_email: storage.user_email || companyInfo.userEmail,
           user_position: storage.user_position || companyInfo.userPosition,
-          company_name: storage.company_name || companyInfo.companyName
+          company_name: storage.company_name || companyInfo.companyName,
+          user_positionType: companyInfo.positionTypeId,
+          user_positionTypeValue: companyInfo.positionTypeName
         }
         // 重新编辑 加公司id
         if(options.action && options.action === 'edit') formData = Object.assign(formData, {id: companyInfo.id, status: companyInfo.status})
@@ -336,7 +338,8 @@ Page({
       user_email: formData.user_email.trim(),
       user_position: formData.user_position,
       company_name: formData.company_name,
-      company_id: formData.id
+      company_id: formData.id,
+      position_type_id: formData.user_positionType
     }
     // 判断公司是否存在
     justifyCompanyExistApi({name: formData.company_name}).then(res0 => {
@@ -458,7 +461,8 @@ Page({
       real_name: formData.real_name,
       user_email: formData.user_email.trim(),
       user_position: formData.user_position,
-      company_name: formData.company_name
+      company_name: formData.company_name,
+      position_type_id: formData.user_positionType
     }
     editCompanyFirstStepApi(params).then(() => {
       wx.reLaunch({url: `${RECRUITER}user/company/createdCompanyInfos/createdCompanyInfos?from=company&action=edit`})
