@@ -113,7 +113,9 @@ Page({
           real_name: storage.real_name || companyInfo.realName,
           user_email: storage.user_email || companyInfo.userEmail,
           user_position: storage.user_position || companyInfo.userPosition,
-          company_name: storage.company_name || companyInfo.companyName
+          company_name: storage.company_name || companyInfo.companyName,
+          user_positionType: companyInfo.positionTypeId,
+          user_positionTypeValue: companyInfo.positionTypeName
         }
         // 重新编辑 加公司id
         if(options.action && options.action === 'edit') formData = Object.assign(formData, {id: companyInfo.id, status: companyInfo.status})
@@ -125,7 +127,10 @@ Page({
         }
         this.setData({formData, canClick: true, applyJoin, status})
         wx.removeStorageSync('createPosition')
-        wx.setStorageSync('createdCompany', Object.assign(formData, this.data.formData))
+        setTimeout(() => {
+          wx.removeStorageSync('createdCompany')
+        }, 16.7)
+        // wx.setStorageSync('createdCompany', Object.assign(formData, this.data.formData))
       }
     })
   },
@@ -162,51 +167,53 @@ Page({
    * @return   {[type]}   [description]
    */
   submit() {
-    let formData = this.data.formData
-    let options = this.data.options
-    let applyJoin = this.data.applyJoin
-    let storage = wx.getStorageSync('createdCompany') || {} 
+    app.subscribeWechatMessage('recruiterRegisterInfo').then(() => {
+      let formData = this.data.formData
+      let options = this.data.options
+      let applyJoin = this.data.applyJoin
+      let storage = wx.getStorageSync('createdCompany') || {} 
 
-    // 验证姓名
-    let checkRealName = new Promise((resolve, reject) => {
-      !realNameRegB.test(formData.real_name) ? reject('姓名需为2-20个中文字符') : resolve()
-    })
+      // 验证姓名
+      let checkRealName = new Promise((resolve, reject) => {
+        !realNameRegB.test(formData.real_name) ? reject('姓名需为2-20个中文字符') : resolve()
+      })
 
-    // 验证公司名称
-    let checkCompanyName = new Promise((resolve, reject) => {
-      !companyNameReg.test(formData.company_name) ? reject('请输入有效的公司名称') : resolve()
-    })
+      // 验证公司名称
+      let checkCompanyName = new Promise((resolve, reject) => {
+        !companyNameReg.test(formData.company_name) ? reject('请输入有效的公司名称') : resolve()
+      })
 
-    // 验证邮箱
-    let checkUserEmail = new Promise((resolve, reject) => {
-      !emailReg.test(formData.user_email) ? reject('请填写有效的邮箱') : resolve()
-    })
+      // 验证邮箱
+      let checkUserEmail = new Promise((resolve, reject) => {
+        !emailReg.test(formData.user_email) ? reject('请填写有效的邮箱') : resolve()
+      })
 
-    // 验证职位
-    let checkUserPosition = new Promise((resolve, reject) => {
-      !positionReg.test(formData.user_position) ? reject('担任职务需为2-50个字') : resolve()
-    })
+      // 验证职位
+      let checkUserPosition = new Promise((resolve, reject) => {
+        !positionReg.test(formData.user_position) ? reject('担任职务需为2-50个字') : resolve()
+      })
 
-    Promise.all([
-      checkRealName,
-      checkCompanyName,
-      checkUserEmail,
-      checkUserPosition
-    ])
-    .then(res => {
-      if(options.action && options.action === 'edit') {
-        // 对于已有的数据 直接编辑 编辑加入或者创建的信息
-        if(applyJoin) {
-          this.editJoinCompany()
+      Promise.all([
+        checkRealName,
+        checkCompanyName,
+        checkUserEmail,
+        checkUserPosition
+      ])
+      .then(res => {
+        if(options.action && options.action === 'edit') {
+          // 对于已有的数据 直接编辑 编辑加入或者创建的信息
+          if(applyJoin) {
+            this.editJoinCompany()
+          } else {
+            this.editCreateCompany()
+          }
         } else {
-          this.editCreateCompany()
-        }
-      } else {
-        this.createCompany()
-      }
-    })
-    .catch(err => {
-      app.wxToast({title: err})
+          this.createCompany()
+        }    
+      })
+      .catch(err => {
+        app.wxToast({title: err})
+      })
     })
   },
   /**
@@ -334,7 +341,8 @@ Page({
       user_email: formData.user_email.trim(),
       user_position: formData.user_position,
       company_name: formData.company_name,
-      company_id: formData.id
+      company_id: formData.id,
+      position_type_id: formData.user_positionType
     }
     // 判断公司是否存在
     justifyCompanyExistApi({name: formData.company_name}).then(res0 => {
@@ -456,7 +464,8 @@ Page({
       real_name: formData.real_name,
       user_email: formData.user_email.trim(),
       user_position: formData.user_position,
-      company_name: formData.company_name
+      company_name: formData.company_name,
+      position_type_id: formData.user_positionType
     }
     editCompanyFirstStepApi(params).then(() => {
       wx.reLaunch({url: `${RECRUITER}user/company/createdCompanyInfos/createdCompanyInfos?from=company&action=edit`})
@@ -495,6 +504,7 @@ Page({
   },
 
   toChooseType () {
+    wx.setStorageSync('createdCompany', this.data.formData)
     wx.navigateTo({url: `${COMMON}category/category`})
   }
 })

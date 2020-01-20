@@ -50,7 +50,7 @@ Page({
       onBottomStatus: 0
     }
   },
-  onLoad: function (options) {
+  onLoad(options) {
     if (wx.setStorageSync('choseType') !== 'RECRUITER') wx.setStorageSync('choseType', 'RECRUITER')
     let init = () => {
       let listData = {
@@ -145,23 +145,9 @@ Page({
     }
   },
   /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
-
-  /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {
+  onPullDownRefresh() {
     let listData = {
           list: [],
           pageNum: 1,
