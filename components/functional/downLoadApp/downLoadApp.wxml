@@ -1,4 +1,4 @@
-<view class="downLoadApp" wx:if="{{showPop}}">
+<view class="downLoadApp" wx:if="{{showPop && !stg}}">
 	<view class="inner">
 		  <!-- 申请成功，非完整简历 -->
 			<block wx:if="{{type === 1}}">
@@ -7,7 +7,7 @@
 				<view class="content">你的简历竞争力<text class="main">偏低</text>，建议完善简历提高申请通过率~</view>
 				<image class="picture" src="{{cdnImagePath}}img_popup_24succjob@2x.png"></image>
 				<view class="btn1" bindtap="toDo" data-type="perfect">马上完善</view>
-				<view class="btn2" bindtap="toDo" data-type="downLoadApp">去APP完善简历</view>
+				<view class="btn2" bindtap="toDo" data-type="downLoadApp" data-pagetype="4">去APP完善简历</view>
 			</block>
 			<!-- 申请成功，完整简历 -->
 			<block wx:if="{{type === 2}}">
@@ -15,7 +15,7 @@
 				<view class="title">申请成功</view>
 				<view class="content">因小程序功能限制，完整约聊功能请下载猎多多APP使用</view>
 				<image class="picture" src="{{cdnImagePath}}img_popup_24succjob@2x.png"></image>
-				<view class="btn1" bindtap="toDo" data-type="downLoadApp">下载APP体验完整功能</view>
+				<view class="btn1" bindtap="toDo" data-type="downLoadApp" data-pagetype="4">下载APP体验完整功能</view>
 				<view class="btn2" bindtap="toDo" data-type="index">抢更多高薪机会</view>
 			</block>
 			<!-- 急速约面抢占时，约面席位被抢光，导致只申请约聊 -->
@@ -24,7 +24,7 @@
 				<view class="title">申请成功</view>
 				<view class="content">opps！约面席位刚被抢光啦~面试官将尽快处理你的约聊申请</view>
 				<image class="picture" src="{{cdnImagePath}}img_popup_24succjob@2x.png"></image>
-				<view class="btn1" bindtap="toDo" data-type="downLoadApp">下载APP体验完整功能</view>
+				<view class="btn1" bindtap="toDo" data-type="downLoadApp" data-pagetype="4">下载APP体验完整功能</view>
 			</block>
 			<!-- 急速约面抢占时，已过期，导致只申请约聊 -->
 			<block wx:if="{{type === 4}}">
@@ -32,7 +32,7 @@
 				<view class="title">申请成功</view>
 				<view class="content">opps！活动刚刚结束啦~面试官将尽快处理你的约聊申请</view>
 				<image class="picture" src="{{cdnImagePath}}img_popup_24succjob@2x.png"></image>
-				<view class="btn1" bindtap="toDo" data-type="downLoadApp">下载APP体验完整功能</view>
+				<view class="btn1" bindtap="toDo" data-type="downLoadApp" data-pagetype="4">下载APP体验完整功能</view>
 			</block>
 			<!-- 急速约面 非完整简历 有节假日-->
 			<block wx:if="{{type === 5}}">
@@ -41,7 +41,7 @@
 				<view class="content">你的简历竞争力<text class="main">偏低</text>，建议完善简历提高申请通过率~</view>
 				<image class="picture" src="{{cdnImagePath}}img_popup_24succjob@2x.png"></image>
 				<view class="btn1" bindtap="toDo" data-type="perfect">马上完善</view>
-				<view class="btn2" bindtap="toDo" data-type="downLoadApp">去APP完善简历</view>
+				<view class="btn2" bindtap="toDo" data-type="downLoadApp" data-pagetype="4">去APP完善简历</view>
 			</block>
 			<!-- 急速约面 完整简历 无节假日-->
 			<block wx:if="{{type === 6}}">
@@ -49,7 +49,7 @@
 				<view class="title">抢占成功</view>
 				<view class="content">面试官已收到你的申请，将于24h内给你反馈~</view>
 				<image class="picture" src="{{cdnImagePath}}img_popup_24succjob@2x.png"></image>
-				<view class="btn1" bindtap="toDo" data-type="downLoadApp">下载APP体验完整功能</view>
+				<view class="btn1" bindtap="toDo" data-type="downLoadApp" data-pagetype="4">下载APP体验完整功能</view>
 				<view class="btn2" bindtap="toDo" data-type="specialJob">抢更多高薪机会</view>
 			</block>
 			<!-- 急速约面 非完整简历 无节假日-->
@@ -59,7 +59,7 @@
 				<view class="content">你的简历竞争力<text class="main">偏低</text>，建议完善简历提高申请通过率~</view>
 				<image class="picture" src="{{cdnImagePath}}img_popup_24succjob@2x.png"></image>
 				<view class="btn1" bindtap="toDo" data-type="perfect">马上完善</view>
-				<view class="btn2" bindtap="toDo" data-type="downLoadApp">去APP完善简历</view>
+				<view class="btn2" bindtap="toDo" data-type="downLoadApp" data-pagetype="4">去APP完善简历</view>
 			</block>
 			<!-- 急速约面 完整简历 有节假日-->
 			<block wx:if="{{type === 8}}">
@@ -67,7 +67,7 @@
 				<view class="title">抢占成功</view>
 				<view class="content">{{popDesc}}</view>
 				<image class="picture" src="{{cdnImagePath}}img_popup_24succjob@2x.png"></image>
-				<view class="btn1" bindtap="toDo" data-type="downLoadApp">下载APP体验完整功能</view>
+				<view class="btn1" bindtap="toDo" data-type="downLoadApp" data-pagetype="4">下载APP体验完整功能</view>
 				<view class="btn2" bindtap="toDo" data-type="specialJob">抢更多高薪机会</view>
 			</block>
 			<!-- B端约聊 -->
@@ -76,7 +76,7 @@
 				<view class="title">约聊成功</view>
 				<view class="content">下载猎多多APP，体验完整功能，随时随地掌握约聊动态</view>
 				<image class="picture" src="{{cdnImagePath}}img_popup_24succjob@2x.png"></image>
-				<view class="btn1" bindtap="toDo" data-type="downLoadApp">下载APP</view>
+				<view class="btn1" bindtap="toDo" data-type="downLoadApp" data-pagetype="5">下载APP</view>
 			</block>
 	</view>
 </view>

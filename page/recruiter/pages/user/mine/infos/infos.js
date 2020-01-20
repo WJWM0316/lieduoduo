@@ -83,7 +83,7 @@ Page({
     switch(route) {
       case 'loadApp':
         wx.navigateTo({
-          url: DOWNLOADAPPPATH
+          url: `${DOWNLOADAPPPATH}${encodeURIComponent(`&pageType=6`)}`
         })
         break
       case 'company':

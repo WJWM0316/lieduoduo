@@ -18,9 +18,8 @@ Component({
   },
   methods: {
     jump() {
-      wx.navigateTo({
-        url: DOWNLOADAPPPATH
-      })
+      let url = this.data.stamp === 'stamp1' ? `${DOWNLOADAPPPATH}${encodeURIComponent(`&pageType=1`)}` : `${DOWNLOADAPPPATH}${encodeURIComponent(`&pageType=2`)}`
+      wx.navigateTo({url})
     }
   }
 })

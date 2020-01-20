@@ -373,6 +373,11 @@ App({
                     wx.reLaunch({
                       url: `${pageUrl}`
                     })
+                  }  else if (operType === 'redirectBack') {
+                    let lastRoute = _this.getCurrentPagePath(2)
+                    wx.redirectTo({
+                      url: lastRoute
+                    })
                   } else {
                     if (getCurrentPages().length > 1) {
                        wx.navigateBack({
@@ -433,8 +438,7 @@ App({
                   })
                 } else if (operType === 'redirectBack') {
                   let lastRoute = _this.getCurrentPagePath(2)
-                  console.log(lastRoute)
-                  wx.reLaunch({
+                  wx.redirectTo({
                     url: lastRoute
                   })
                 } else {

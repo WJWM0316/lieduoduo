@@ -21,6 +21,7 @@ Component({
    */
   data: {
     showPop: false,
+    stg: app.globalData.stg,
     cdnImagePath: app.globalData.cdnImagePath
   },
 
@@ -47,10 +48,18 @@ Component({
           url = `${APPLICANT}specialJob/specialJob`
           break
         case 'downLoadApp':
-          url = DOWNLOADAPPPATH
+          switch (e.currentTarget.dataset.pagetype) {
+            case '4':
+              url = `${DOWNLOADAPPPATH}${encodeURIComponent(`&pageType=4`)}`
+              break
+            case '5':
+              url = `${DOWNLOADAPPPATH}${encodeURIComponent(`&pageType=5`)}`
+              break
+          }
           break
       }
       wx.navigateTo({url})
+      this.close()
     }
   }
 })

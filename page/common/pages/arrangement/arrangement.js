@@ -248,7 +248,7 @@ Page({
     this.setData({info, revised: true})
   },
   download() {
-    wx.navigateTo({url: DOWNLOADAPPPATH})
+    wx.navigateTo({url: `${DOWNLOADAPPPATH}${encodeURIComponent(`&pageType=3`)}`})
   },
   /**
    * 生命周期函数--监听页面加载

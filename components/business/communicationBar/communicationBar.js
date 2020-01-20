@@ -466,7 +466,7 @@ Component({
           }
           break
         case 'keep-communicating':
-          wx.navigateTo({url: DOWNLOADAPPPATH})
+          wx.navigateTo({url: `${DOWNLOADAPPPATH}${encodeURIComponent(`&pageType=4`)}`})
           // let changePositionToast = this.data.infos.rapidlyInfo && this.data.infos.rapidlyInfo.changePositionToast
           // if ( changePositionToast ) {
           //   app.wxConfirm({
@@ -561,7 +561,7 @@ Component({
         case 'delete-not-interest':
           deleteNotInterestForUserApi({uid: infos.uid})
           this.deleteNotInterest({id: infos.chatInfo.id, jobhunter: infos.uid}).then(() => {
-            wx.navigateTo({url: DOWNLOADAPPPATH})
+            wx.navigateTo({url: `${DOWNLOADAPPPATH}${encodeURIComponent(`&pageType=4`)}`})
           })
           break
         case 'view-not-interest-reason':
