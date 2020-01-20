@@ -162,39 +162,39 @@ Page({
    * @return   {[type]}   [description]
    */
   submit() {
-    let formData = this.data.formData
-    let options = this.data.options
-    let applyJoin = this.data.applyJoin
-    let storage = wx.getStorageSync('createdCompany') || {} 
+    app.subscribeWechatMessage('recruiterRegisterInfo').then(() => {
+      let formData = this.data.formData
+      let options = this.data.options
+      let applyJoin = this.data.applyJoin
+      let storage = wx.getStorageSync('createdCompany') || {} 
 
-    // 验证姓名
-    let checkRealName = new Promise((resolve, reject) => {
-      !realNameRegB.test(formData.real_name) ? reject('姓名需为2-20个中文字符') : resolve()
-    })
+      // 验证姓名
+      let checkRealName = new Promise((resolve, reject) => {
+        !realNameRegB.test(formData.real_name) ? reject('姓名需为2-20个中文字符') : resolve()
+      })
 
-    // 验证公司名称
-    let checkCompanyName = new Promise((resolve, reject) => {
-      !companyNameReg.test(formData.company_name) ? reject('请输入有效的公司名称') : resolve()
-    })
+      // 验证公司名称
+      let checkCompanyName = new Promise((resolve, reject) => {
+        !companyNameReg.test(formData.company_name) ? reject('请输入有效的公司名称') : resolve()
+      })
 
-    // 验证邮箱
-    let checkUserEmail = new Promise((resolve, reject) => {
-      !emailReg.test(formData.user_email) ? reject('请填写有效的邮箱') : resolve()
-    })
+      // 验证邮箱
+      let checkUserEmail = new Promise((resolve, reject) => {
+        !emailReg.test(formData.user_email) ? reject('请填写有效的邮箱') : resolve()
+      })
 
-    // 验证职位
-    let checkUserPosition = new Promise((resolve, reject) => {
-      !positionReg.test(formData.user_position) ? reject('担任职务需为2-50个字') : resolve()
-    })
+      // 验证职位
+      let checkUserPosition = new Promise((resolve, reject) => {
+        !positionReg.test(formData.user_position) ? reject('担任职务需为2-50个字') : resolve()
+      })
 
-    Promise.all([
-      checkRealName,
-      checkCompanyName,
-      checkUserEmail,
-      checkUserPosition
-    ])
-    .then(res => {
-      app.subscribeWechatMessage('recruiterRegisterInfo').then(() => {
+      Promise.all([
+        checkRealName,
+        checkCompanyName,
+        checkUserEmail,
+        checkUserPosition
+      ])
+      .then(res => {
         if(options.action && options.action === 'edit') {
           // 对于已有的数据 直接编辑 编辑加入或者创建的信息
           if(applyJoin) {
@@ -204,11 +204,11 @@ Page({
           }
         } else {
           this.createCompany()
-        }
-      })      
-    })
-    .catch(err => {
-      app.wxToast({title: err})
+        }    
+      })
+      .catch(err => {
+        app.wxToast({title: err})
+      })
     })
   },
   /**
