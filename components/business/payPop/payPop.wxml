@@ -7,8 +7,12 @@
     <view class="welfare-item">了解面试进展</view>
     <view class="welfare-item">受邀才扣费</view>
   </view>
-  <view class="tips22">* 候选人7天内未接受邀请时，多多币将原路退回到你的账户</view>
-  <view class="tips22">* 更多细则，欢迎联系客服</view>
+  <block>
+    <view class="tips22">* 候选人7天内未接受邀请时，多多币将原路退回到你的账户</view>
+    <view class="tips22">* 更多细则，欢迎联系客服</view>
+  </block>
+  <block>
+  </block>
   <view class="footer22">
     <view class="view-remian">
       <view class="chat-cost">

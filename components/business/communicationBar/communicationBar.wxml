@@ -43,108 +43,123 @@
 
 			<!-- 正常职位 start -->
 			<block wx:else>
-				<!-- 已经进入面试的阶段 start -->
-				<block wx:if="{{ infos.chatInfo && (infos.chatInfo.imTopInterviewInfo.interviewInfo.status === 21 || infos.chatInfo.imTopInterviewInfo.interviewInfo.status === 31 || infos.chatInfo.imTopInterviewInfo.interviewInfo.status === 32 || infos.chatInfo.imTopInterviewInfo.interviewInfo.status === 41) }}">
-					<button
-						form-type="submit"
+				<block wx:if="{{ infos.interviewSummary && infos.interviewSummary.interviewId }}">
+					<view
 						class="clear-style button-box button-box-color1"
-						bindtap="todoAction"
-						data-action="keep-communicating">
-						继续聊
-					</button>
+						bindtap="todoAction"								
+						data-action="job-hunting-chat">
+						一键约聊
+					</view>
 				</block>
-				<!-- 已经进入面试的阶段 end -->
-				<!-- 未进入面试的阶段 start -->
-				<block wx:else>				
-					<!-- 未进入面试的阶段 end -->
-					<!-- 特殊职位判断 start -->
-					<block wx:if="{{ infos.isRapidly === 1 }}">
-						<block wx:if="{{ infos.chatInfo && infos.chatInfo.status === 501}}">
-							<block wx:if="{{ infos.chatInfo.imTopInterviewInfo.isAdvisor}}">
-								<view
+				<block wx:else>
+					<!-- 已经进入面试的阶段 start -->
+					<block wx:if="{{ infos.chatInfo && (infos.chatInfo.imTopInterviewInfo.interviewInfo.status === 21 || infos.chatInfo.imTopInterviewInfo.interviewInfo.status === 31 || infos.chatInfo.imTopInterviewInfo.interviewInfo.status === 32 || infos.chatInfo.imTopInterviewInfo.interviewInfo.status === 41) }}">
+						<button
+							form-type="submit"
+							class="clear-style button-box button-box-color1"
+							bindtap="todoAction"
+							data-action="keep-communicating">
+							继续聊
+						</button>
+					</block>
+					<!-- 已经进入面试的阶段 end -->
+					<!-- 未进入面试的阶段 start -->
+					<block wx:else>				
+						<!-- 未进入面试的阶段 end -->
+						<!-- 特殊职位判断 start -->
+						<block wx:if="{{ infos.isRapidly === 1 }}">
+							<!-- 主动权在招聘端(一键约聊) start -->
+							<block wx:if="{{ infos.chatInfo && infos.chatInfo.status === 501}}">
+								<block wx:if="{{ infos.chatInfo.imTopInterviewInfo.isAdvisor}}">
+									<view
+										class="clear-style button-box button-box-color1"
+										bindtap="todoAction"								
+										data-action="job-hunting-chat">
+										一键约聊
+									</view>
+								</block>
+								<block wx:else>
+									<view
+										class="clear-style button-box button-box-color1"
+										bindtap="todoAction"								
+										data-action="keep-communicating">
+										继续聊
+									</view>
+								</block>
+							</block>
+							<!-- 主动权在招聘端(一键约聊) end -->
+							<!-- 主动权在求职端 end -->
+							<block wx:else>				
+								<!-- 该24h职位未被申请 start -->
+								<block wx:if="{{ !infos.rapidlyInfo.applied}}">
+									<!-- 该24h职位未被申请且还具备被抢占 start -->
+									<block wx:if="{{ infos.rapidlyInfo.seatsNum - infos.rapidlyInfo.applyNum - infos.rapidlyInfo.natureApplyNum > 0 }}">
+										<button
+											form-type="submit"
+											class="clear-style button-box button-box-color1 specailBtn"
+											bindtap="todoAction"
+											data-action="job-hunting-chat">
+											<view>
+												<view class="txt1">马上抢</view>
+											</view>
+										</button>
+									</block>
+									<!-- 该24h职位未被申请且还具备被抢占 end -->
+									<!-- 该24h职位未被申请且已经被抢完 start -->
+									<view
+										class="clear-style button-box button-box-color1"
+										bindtap="todoAction"								
+										data-action="job-hunting-chat"
+										wx:else>
+										<image
+											class="endIcon"
+											src="{{ cdnImagePath }}img_warnning_nosite@2x.png"
+											mode="widthFix">
+										</image>
+										一键约聊
+									</view>
+									<!-- 该24h职位未被申请且已经被抢完 end -->
+								</block>
+								<!-- 该24h职位未被申请 end -->
+								<!-- 该24h职位已被申请 start -->
+								<block wx:else>
+									<view
+										class="clear-style button-box button-box-color1"
+										bindtap="todoAction"
+										data-action="keep-communicating">
+											继续聊
+									</view>
+								</block>
+								<!-- 该24h职位已被申请 end -->
+							</block>
+							<!-- 主动权在求职端 end -->
+						</block>
+						<!-- 特殊职位判断 end -->
+						<!-- 普通职位判断 start -->
+						<block wx:else>
+							<block wx:if="{{ !infos.chatInfo }}">
+								<button
+									form-type="submit"
 									class="clear-style button-box button-box-color1"
-									bindtap="todoAction"								
+									bindtap="todoAction"
 									data-action="job-hunting-chat">
 									一键约聊
-								</view>
+								</button>
 							</block>
-							<block wx:else>
-								<view
-									class="clear-style button-box button-box-color1"
-									bindtap="todoAction"								
-									data-action="keep-communicating">
-									继续聊
-								</view>
-							</block>
-						</block>
-						<block wx:else>				
-							<!-- 该24h职位未被申请 start -->
-							<block wx:if="{{ !infos.rapidlyInfo.applied}}">
-								<!-- 该24h职位未被申请且还具备被抢占 start -->
-								<block wx:if="{{ infos.rapidlyInfo.seatsNum - infos.rapidlyInfo.applyNum - infos.rapidlyInfo.natureApplyNum > 0 }}">
-									<button
-										form-type="submit"
-										class="clear-style button-box button-box-color1 specailBtn"
-										bindtap="todoAction"
-										data-action="job-hunting-chat">
-										<view>
-											<view class="txt1">马上抢</view>
-										</view>
-									</button>
-								</block>
-								<!-- 该24h职位未被申请且还具备被抢占 end -->
-								<!-- 该24h职位未被申请且已经被抢完 start -->
-								<view
-									class="clear-style button-box button-box-color1"
-									bindtap="todoAction"								
-									data-action="job-hunting-chat"
-									wx:else>
-									<image
-										class="endIcon"
-										src="{{ cdnImagePath }}img_warnning_nosite@2x.png"
-										mode="widthFix">
-									</image>
-									一键约聊
-								</view>
-								<!-- 该24h职位未被申请且已经被抢完 end -->
-							</block>
-							<!-- 该24h职位未被申请 end -->
-							<!-- 该24h职位已被申请 start -->
-							<block wx:else>
-								<view
+							<block wx:else>							
+								<button
+									form-type="submit"
 									class="clear-style button-box button-box-color1"
 									bindtap="todoAction"
 									data-action="keep-communicating">
-										继续聊
-								</view>
+									继续聊
+								</button>
 							</block>
-							<!-- 该24h职位已被申请 end -->
 						</block>
+						<!-- 普通职位判断 end -->
 					</block>
-					<!-- 特殊职位判断 end -->
-					<!-- 普通职位判断 start -->
-					<block wx:else>
-						<block wx:if="{{ !infos.chatInfo }}">
-							<button
-								form-type="submit"
-								class="clear-style button-box button-box-color1"
-								bindtap="todoAction"
-								data-action="job-hunting-chat">
-								一键约聊
-							</button>
-						</block>
-						<block wx:else>							
-							<button
-								form-type="submit"
-								class="clear-style button-box button-box-color1"
-								bindtap="todoAction"
-								data-action="keep-communicating">
-								继续聊
-							</button>
-						</block>
-					</block>
+					<!-- 未进入面试的阶段 end -->
 				</block>
-				<!-- 普通职位判断 end -->
 			</block>
 			<!-- 正常职位 end -->
 		</block>

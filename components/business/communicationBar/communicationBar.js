@@ -559,7 +559,7 @@ Component({
           wx.reLaunch({url: `${APPLICANT}specialJob/specialJob`})
           break
         case 'delete-not-interest':
-          deleteNotInterestForUserApi({uid: infos.uid})
+          // deleteNotInterestForUserApi({uid: infos.uid})
           this.deleteNotInterest({jobhunter: infos.uid}).then(() => {
             wx.navigateTo({url: DOWNLOADAPPPATH})
           })
