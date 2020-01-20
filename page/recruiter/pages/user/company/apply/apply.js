@@ -127,7 +127,10 @@ Page({
         }
         this.setData({formData, canClick: true, applyJoin, status})
         wx.removeStorageSync('createPosition')
-        wx.setStorageSync('createdCompany', Object.assign(formData, this.data.formData))
+        setTimeout(() => {
+          wx.removeStorageSync('createdCompany')
+        }, 16.7)
+        // wx.setStorageSync('createdCompany', Object.assign(formData, this.data.formData))
       }
     })
   },
@@ -501,6 +504,7 @@ Page({
   },
 
   toChooseType () {
+    wx.setStorageSync('createdCompany', this.data.formData)
     wx.navigateTo({url: `${COMMON}category/category`})
   }
 })
