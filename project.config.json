@@ -239,10 +239,11 @@
 					"query": ""
 				},
 				{
-					"id": 15,
+					"id": 27,
 					"name": "【B端】职位管理",
 					"pathName": "page/recruiter/pages/position/index/index",
-					"query": ""
+					"query": "positionStatus=2",
+					"scene": null
 				},
 				{
 					"id": 16,

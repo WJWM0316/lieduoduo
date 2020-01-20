@@ -1,4 +1,4 @@
-<form bindsubmit="formSubmit" report-submit="{{ true }}">
+ 。<form bindsubmit="formSubmit" report-submit="{{ true }}">
 	<view class="interview-bar" wx:if="{{!isOwerner}}">
 
 		<block wx:if="{{type === 'position'}}">
