@@ -45,6 +45,92 @@
 			<block wx:else>
 				<!-- 有约面记录 start	 -->
 				<block wx:if="{{ infos.interviewSummary && infos.interviewSummary.interviewId }}">
+
+					<!-- 有约聊记录 end	 -->
+					<block wx:if="{{ infos.chatInfo }}">
+						<!-- 约聊有B端发起 start -->
+						<block wx:if="{{ infos.chatInfo && infos.chatInfo.status === 501 }}">
+							<button
+								form-type="submit"
+								class="clear-style button-box button-box-color1"
+								bindtap="todoAction"
+								data-action="keep-communicating">
+								继续聊
+							</button>
+						</block>
+						<!-- 约聊有B端发起 end -->
+						<!-- 约聊有C端发起 start -->
+						<block wx:else>
+							<!-- 24h职位 start -->
+							<block wx:if="{{ infos.isRapidly === 1 }}">
+								<!-- 该24h职位未被申请 start -->
+								<block wx:if="{{ !infos.rapidlyInfo.applied}}">
+									<!-- 该24h职位未被申请且还具备被抢占 start -->
+									<block wx:if="{{ infos.rapidlyInfo.seatsNum - infos.rapidlyInfo.applyNum - infos.rapidlyInfo.natureApplyNum > 0 }}">
+										<button
+											form-type="submit"
+											class="clear-style button-box button-box-color1 specailBtn"
+											bindtap="todoAction"
+											data-action="job-hunting-chat">
+											<view>
+												<view class="txt1">马上抢</view>
+											</view>
+										</button>
+									</block>
+									<!-- 该24h职位未被申请且还具备被抢占 end -->
+									<!-- 该24h职位未被申请且已经被抢完 start -->
+									<view
+										class="clear-style button-box button-box-color1"
+										bindtap="todoAction"								
+										data-action="keep-communicating"
+										wx:else>
+										继续聊
+									</view>
+									<!-- 该24h职位未被申请且已经被抢完 end -->
+								</block>
+								<!-- 该24h职位未被申请 end -->
+								<!-- 该24h职位已被申请 start -->
+								<block wx:else>
+									<view
+										class="clear-style button-box button-box-color1"
+										bindtap="todoAction"
+										data-action="keep-communicating">
+											继续聊
+									</view>
+								</block>
+								<!-- 该24h职位已被申请 end -->
+							</block>
+							<!-- 24h职位 end -->
+							<!-- 普通职位 start -->
+							<block wx:else>
+								<button
+									form-type="submit"
+									class="clear-style button-box button-box-color1"
+									bindtap="todoAction"
+									data-action="keep-communicating">
+									继续聊
+								</button>
+							</block>
+							<!-- 普通职位 end -->
+						</block>
+						<!-- 约聊有C端发起 end -->
+					</block>
+					<!-- 有约聊记录 end	 -->
+					<!-- 没有约聊记录 start	 -->
+					<block wx:else>
+						<!-- 24h职位 start -->
+						<block wx:if="{{ infos.isRapidly === 1 }}">
+						
+						</block>
+						<!-- 24h职位 end -->
+						<!-- 普通职位 start -->
+						<block wx:else>
+						
+						</block>
+						<!-- 普通职位 end -->
+					</block>
+					<!-- 没有约聊记录 end	 -->
+
 					<!-- 有约聊记录 start	 -->
 					<block wx:if="{{ infos.chatInfo }}">
 						<button
@@ -93,7 +179,7 @@
 										bindtap="todoAction"								
 										data-action="keep-communicating">
 										继续聊
-									</view>
+									</view>									
 								</block>
 								<!-- 该操作是 一键约聊 start -->
 							</block>
@@ -246,6 +332,7 @@
 		</block>
 
 		<block wx:if="{{type === 'recruiter'}}">
+
 			<button
 				form-type="submit"
 				class="clear-style img-box"
@@ -258,56 +345,59 @@
 				</image>
 			</button>
 
-			<!-- 求职者还没有发起开撩动作 start-->
-			<block wx:if="{{ !infos.chatInfo }}">
-				<view class="content">
-					<view class="first">
-						<view class="name">
-							{{ infos.name }}
-						</view>
-					</view>
-					<view class="second">
-						{{ recruiterWords }}
+			<view class="content">
+				<view class="first">
+					<view class="name">
+						{{ infos.name }}
 					</view>
 				</view>
-				<button
-					form-type="submit"
-					class="clear-style button-box button-box-color1"
-					bindtap="todoAction"
-					data-action="job-hunting-chat">
-					一键约聊
-				</button>
-			</block>
-			<!-- 求职者还没有发起开撩动作 end-->
-
-			<!-- 求职者已经发起开撩动作 start-->
-			<block wx:elif="{{ infos.chatInfo }}">
-				<view class="content">
-					<view class="first">
-						<view class="name">
-							{{ infos.name || infos.recruiterInfo.name }}
-						</view>
-					</view>
-					<view class="second">
-						{{ recruiterWords }}
-					</view>
+				<view class="second">
+					{{ recruiterWords }}
 				</view>
+			</view>
+			
+			<!-- 已生成面试记录 start -->
+			<block wx:if="{{ infos.interviewSummary && infos.interviewSummary.interviewId }}">
 				<view class="clear-style button-box button-box-color1">
-					<button
-						form-type="submit"
-						class="clear-style button-box button-box-color1"
-						bindtap="todoAction"
-						wx:if="{{ infos.chatInfo.status === 316 || infos.chatInfo.status === 305 || infos.chatInfo.status === 315}}"
-						data-action="job-hunting-chat">
-						一键约聊
-					</button>
-					<view bindtap="todoAction" data-action="keep-communicating" wx:else>
+					<view bindtap="todoAction" data-action="keep-communicating">
 						继续聊
 					</view>
 				</view>
 			</block>
-			<!-- 求职者已经发起开撩动作 end-->
+			<!-- 已生成面试记录 end -->
+			<!-- 未生成面试记录 start -->
+			<block wx:else>
+				<!-- 求职者还没有发起开撩动作 start-->
+				<block wx:if="{{ !infos.chatInfo }}">
+					<button
+						form-type="submit"
+						class="clear-style button-box button-box-color1"
+						bindtap="todoAction"
+						data-action="job-hunting-chat">
+						一键约聊
+					</button>
+				</block>
+				<!-- 求职者还没有发起开撩动作 end-->
 
+				<!-- 求职者已经发起开撩动作 start-->
+				<block wx:elif="{{ infos.chatInfo }}">
+					<view class="clear-style button-box button-box-color1">
+						<button
+							form-type="submit"
+							class="clear-style button-box button-box-color1"
+							bindtap="todoAction"
+							wx:if="{{ infos.chatInfo.status === 316 || infos.chatInfo.status === 305 || infos.chatInfo.status === 315}}"
+							data-action="job-hunting-chat">
+							一键约聊
+						</button>
+						<view bindtap="todoAction" data-action="keep-communicating" wx:else>
+							继续聊
+						</view>
+					</view>
+				</block>
+				<!-- 求职者已经发起开撩动作 end-->
+			</block>
+			<!-- 未生成面试记录 end -->
 		</block>
 		
 		<block wx:if="{{ type === 'resume' }}">
@@ -576,11 +666,11 @@
 	<view class="overlay2" wx:if="{{ showAdvisor }}">
 		<view class="box">
 			<i class="icon iconfont icon-close" bindtap="todoAction" data-action="close-advisor-model"></i>
-			<image src="{{cdnImagePath}}none_position.png"></image>
+			<image src="{{ cdnImagePath }}none_position.png"></image>
 			<view class="p1">顾问帮你约面试</view>
 			<view class="p2">猎多多顾问会为您联系候选人，了解对方意愿，并确认对方是否接受你的面试邀请，若候选人拒绝，平台会将多多币退回给您！</view>
 			<view	class="button" bindtap="todoAction"	data-action="advisor-help-chat">	立即约面 </view>
 		</view>
 	</view>
-	<downLoadApp id="downLoadApp" type="{{downLoadAppType}}" popDesc="{{popDesc}}"></downLoadApp>
+	<downLoadApp id="downLoadApp" type="{{ downLoadAppType }}" popDesc="{{ popDesc }}"></downLoadApp>
 </form>
