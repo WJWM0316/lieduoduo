@@ -415,7 +415,7 @@ Component({
         // 求职端发起开撩
         case 'job-hunting-chat':
           if (identity === 'APPLICANT') {
-            app.subscribeWechatMessage('openChat').then(() => this.shareChat())            
+            this.shareChat()
           } else {
             app.promptSwitch({
               source: identity
@@ -436,24 +436,22 @@ Component({
           app.wxToast({title: '面试申请已发送'})
           break
         case 'recruiter-chat':
-          app.subscribeWechatMessage('openChatInterview').then(() => {
-            let type = this.data.type
-            if ((identity !== 'RECRUITER' && type === 'position') || (identity === 'RECRUITER' && type === 'resume')) {
-              if(this.data.currentPage === 'resumeDetail') {
-                this.getPositionListNum().then(res => {
-                  if(!res.data.online) {
-                    this.setData({show: true})
-                  } else {
-                    this.shareChat()
-                  }
-                })
-              }
-            } else {
-              app.promptSwitch({
-                source: identity
+          let type = this.data.type
+          if ((identity !== 'RECRUITER' && type === 'position') || (identity === 'RECRUITER' && type === 'resume')) {
+            if(this.data.currentPage === 'resumeDetail') {
+              this.getPositionListNum().then(res => {
+                if(!res.data.online) {
+                  this.setData({show: true})
+                } else {
+                  this.shareChat()
+                }
               })
             }
-          })
+          } else {
+            app.promptSwitch({
+              source: identity
+            })
+          }
           break
         case 'job-hunting-waiting-interview':
           app.wxToast({title: '等待面试官安排面试'})
@@ -464,12 +462,10 @@ Component({
           break
         // 求职者接受约面
         case 'job-hunting-accept':
-          app.subscribeWechatMessage('receiveInterview').then(() => {
-            confirmInterviewApi({id: interviewInfos.data[0].interviewId}).then(res => {
-              app.wxToast({title: '已接受约面'})
-              // this.triggerEvent('resultevent', this.data.infos)
-              this.getInterviewStatus()
-            })
+          confirmInterviewApi({id: interviewInfos.data[0].interviewId}).then(res => {
+            app.wxToast({title: '已接受约面'})
+            // this.triggerEvent('resultevent', this.data.infos)
+            this.getInterviewStatus()
           })
           break
         // 求职端拒绝招聘官

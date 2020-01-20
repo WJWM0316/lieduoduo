@@ -109,7 +109,7 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad(options) {
+  onLoad: function (options) {
     directChat = ''
     if (app.loginInit) {
 			if (options.token && options.oauthCode) {
@@ -769,7 +769,7 @@ Page({
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady() {
+  onReady: function () {
     let step = this.data.step
     this.progress(step)
   },
@@ -976,7 +976,7 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow() {
+  onShow: function () {
     let avatar = wx.getStorageSync('avatar')
     let positionType = wx.getStorageSync('createPosition')
     let companyName = wx.getStorageSync('companyName')
@@ -1070,5 +1070,29 @@ Page({
   },
   formSubmit(e) {
     getApp().postFormId(e.detail.formId)
+  },
+
+  /**
+   * 生命周期函数--监听页面隐藏
+   */
+  onHide: function () {
+  },
+
+  /**
+   * 生命周期函数--监听页面卸载
+   */
+  onUnload: function () {
+  },
+
+  /**
+   * 页面相关事件处理函数--监听用户下拉动作
+   */
+  onPullDownRefresh: function () {
+  },
+
+  /**
+   * 页面上拉触底事件的处理函数
+   */
+  onReachBottom: function () {
   }
 })
