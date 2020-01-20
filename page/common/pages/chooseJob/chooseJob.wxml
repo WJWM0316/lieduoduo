@@ -149,8 +149,8 @@
     openPayPop="{{ openPayPop }}" 
     chargeData="{{ chargeData }}" 
     bindsubmit="submit" 
-    bindclose="closePayPop" 
-    title="{{ options.chattype === 'onekey' ? '邀请候选人约聊': '顾问约面服务' }}">
+    bindclose="closePayPop"
+    type="{{options.chattype === 'onekey' ? 1 : 2}}">
   </payPop>
   <downLoadApp id="downLoadApp" type="{{downLoadAppType}}"></downLoadApp>
 </view>

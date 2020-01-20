@@ -552,7 +552,7 @@
     chargeData="{{ chargeData }}" 
     bindsubmit="send" 
     bindclose="closePayPop" 
-    title="{{ !info.isAdvisor ? '邀请候选人约聊': '顾问约面服务' }}">
+    type="{{ !info.isAdvisor ? 1 : 2 }}">
   </payPop>
 
 </view>
