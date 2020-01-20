@@ -19,14 +19,14 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad(options) {
     this.setData({randomCopy: othersworkConTxtC()})
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
+  onShow() {
     let content = wx.getStorageSync('workContent')
     let nowInputNum = this.data.nowInputNum
     workContent = ''

@@ -1,6 +1,6 @@
 //app.js
 import {loginApi, checkSessionKeyApi, bindPhoneApi, uploginApi, getOauthUserApi} from 'api/pages/auth.js'
-import {formIdApi, shareStatistics, readyStatistics, getVersionListApi} from 'api/pages/common.js'
+import {formIdApi, shareStatistics, readyStatistics, getVersionListApi,getWechatConfigMiniProgramApi, subscribeWechatMessageApi} from 'api/pages/common.js'
 import {getPersonalResumeApi} from 'api/pages/center.js'
 import {getRecruiterDetailApi} from 'api/pages/recruiter.js'
 import {COMMON,RECRUITER,APPLICANT} from "config.js"
@@ -16,6 +16,7 @@ let formIdList = [],
 App({
   onLaunch: function (e) {
     // 获取导航栏高度
+    this.getWechatConfig()
     this.checkUpdateVersion()
     // this.getVersionList()
     this.globalData.startRoute = e
@@ -25,6 +26,7 @@ App({
         console.log(res, '系统信息')
         this.globalData.xs = res.windowWidth / 375 / 2
         this.globalData.navHeight = res.statusBarHeight + 44
+        this.globalData.platform = res.platform
         if (res.model.indexOf('iPhone X') !== -1) {
           this.globalData.isIphoneX = true
         }
@@ -87,7 +89,9 @@ App({
     systemInfo: wx.getSystemInfoSync(), // 系统信息
     xs: 0, // px 转化成 rpx 的 比例
     // 面试红点信息
-    redDotInfos: {}
+    redDotInfos: {},
+    subscribeConfig: {},
+    platform: ''
   },
   // 登录
   login() {
@@ -582,6 +586,7 @@ App({
   },
   // 切换身份
   toggleIdentity() {
+    this.getWechatConfig()
     let identity = wx.getStorageSync('choseType')
     if (identity === 'RECRUITER') {
       wx.setStorageSync('choseType', 'APPLICANT')
@@ -889,6 +894,50 @@ App({
     wx.loadFontFace({
       family: name,
       source: `url(${url})`
+    })
+  },
+  getWechatConfig() {
+    getWechatConfigMiniProgramApi().then(({ data }) => {
+      let { subscribeConfig } = data.miniProgram
+      this.globalData.subscribeConfig = subscribeConfig
+    })
+  },
+  subscribeWechatMessage(key) {
+    return new Promise((resolve, reject) => {
+      let that = this
+      let subscribeConfig = that.globalData.subscribeConfig[key]
+      if (this.globalData.platform == 'devtools' || !wx.requestSubscribeMessage || !subscribeConfig) {
+        resolve()
+        return
+      }
+      let tmplIds = subscribeConfig.map(v => v.templateId)
+      wx.requestSubscribeMessage({
+        tmplIds,
+        success (res) {
+          if (res[tmplIds[0]] == 'accept') {
+            subscribeWechatMessageApi({ tmplIds }).then(() => resolve())
+          } else {
+            resolve()
+          }
+        },
+        fail(err) {
+          console.log(err, 'fail')
+          if(err.errCode == 20004) {
+            that.wxConfirm({
+              title: '订阅消息',
+              content: `您关闭了“接受订阅消息”，请前往设置打开！`,
+              cancelText: '算了',
+              confirmText: '去设置',
+              confirmBack: () => {
+                wx.openSetting({})
+              },
+              cancelBack: () => {
+                resolve()
+              }
+            })
+          }
+        }
+      })
     })
   }
 })
