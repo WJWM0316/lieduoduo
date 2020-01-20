@@ -4,8 +4,8 @@
 
 // 环境切换
 // 0 是测试环境  1 是正式环境
-let environment = 0
-export let 	VERSION = 108,
+let environment = 1
+export let 	VERSION = 109,
 						APPLICANTHOST = '',
 						RECRUITERHOST = '',
 						PUBAPIHOST = '',
