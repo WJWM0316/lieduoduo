@@ -126,7 +126,7 @@ Component({
      * @return   {[type]}   [description]
      */
     deleteNotInterest(params) {
-      return deleteNotInterestApi({id: params.id, jobhunter: params.uid})
+      return deleteNotInterestApi({jobhunter: params.jobhunter})
     },
     /**
      * @Author   小书包

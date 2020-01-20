@@ -103,7 +103,7 @@ Page({
     switch(e.currentTarget.dataset.type) {
       case "loadApp":
         wx.navigateTo({
-          url: `${DOWNLOADAPPPATH}${encodeURIComponent(`&pageType=6`)}`
+          url: `${DOWNLOADAPPPATH}${encodeURIComponent(`&pageType=4`)}`
         })
         break
       case "settings":
