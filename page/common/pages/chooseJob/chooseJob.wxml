@@ -152,5 +152,5 @@
     bindclose="closePayPop"
     type="{{ options.chattype == 'onekey' ? 1 : 2 }}">
   </payPop>
-  <downLoadApp id="downLoadApp" type="{{downLoadAppType}}"></downLoadApp>
+  <downLoadApp id="downLoadApp" type="{{downLoadAppType}}" reback="{{ 1 }}"></downLoadApp>
 </view>

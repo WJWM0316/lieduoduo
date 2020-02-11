@@ -13,6 +13,10 @@ Component({
     popDesc: {
       type: String,
       value: ''
+    },
+    reback: {
+      type: String,
+      value: ''
     }
   },
 
@@ -30,7 +34,11 @@ Component({
    */
   methods: {
     close () {
-      this.setData({showPop: false})
+      this.setData({showPop: false}, () => {
+        if (this.data.reback) {
+          wx.navigateBack({delta: this.data.reback })
+        }
+      })
     },
     show () {
       this.setData({showPop: true})
