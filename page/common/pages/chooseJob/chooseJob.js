@@ -217,6 +217,10 @@ Page({
     let key = ''
     let result = {}
     let buttonClick = this.data.buttonClick
+    let data = {}
+    data.positionName = job.name
+    data.positionId = job.id
+
     // 给不合适或者直接与我约面加按钮状态 并且选中的按钮只能有一个
     if(typeof job.id === 'string') {
       key = `${job.id}Checked`
@@ -241,7 +245,6 @@ Page({
         params.jobhunter = options.jobhunterUid
         params.position = job.id
         params.status = job.status
-        console.log(params)
         this.setData({ params, buttonClick: true },() => {
           this.getRecommendCharge({ jobhunter: this.data.options.jobhunterUid, positionId: params.position })
         })

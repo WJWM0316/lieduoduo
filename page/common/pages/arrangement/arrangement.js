@@ -305,14 +305,16 @@ Page({
         // if(info.status === 41) {
         //   info.recruiterInfo = info.jobhunterInfo
         // }
-        if ((info.status === 12 || info.status === 21 || info.status === 32) && wx.getStorageSync('choseType') === 'RECRUITER') {
+        if ((info.status === 12 || info.status === 21 || info.status === 32 || info.status === 11) && wx.getStorageSync('choseType') === 'RECRUITER') {
           if (addressData) {
             info.addressId = addressData.address_id
             info.address = addressData.address
+            wx.removeStorageSync('createPosition')
           }
           if (positionData) {
             info.positionName = positionData.positionName
             info.positionId = positionData.positionId
+            wx.removeStorageSync('interviewData')
           }
         }
         this.setData({ info })

@@ -806,15 +806,15 @@
 			<view class="reason-ul">
 				<view
 					class="reason-item"
-					wx:for="{{ infos.chatInfo.reason }}"
+					wx:for="{{ infos.notSuitInfo.reason }}"
 					wx:key="item">
 					{{ item }}
 				</view>
 			</view>
-			<block wx:if="{{ infos.chatInfo.extraDesc }}">
+			<block wx:if="{{ infos.notSuitInfo.extraDesc }}">
 				<view class="title11">补充说明：</view>
 				<view class="content11">
-					<text>{{ infos.chatInfo.extraDesc }}</text>
+					<text>{{ infos.notSuitInfo.extraDesc }}</text>
 				</view>
 			</block>
 		</view>
