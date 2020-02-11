@@ -34,6 +34,7 @@ import {
 
 let app = getApp()
 let identity = ''
+let automatic = false
 Component({
   properties: {
     infos: {

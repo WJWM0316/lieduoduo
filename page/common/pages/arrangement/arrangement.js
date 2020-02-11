@@ -4,11 +4,21 @@ import {
   sureInterviewApi,
   setInterviewAttendApi,
   setInterviewCommentApi,
-  interviewRetractApi
+  interviewRetractApi,
+  confirmInterviewApi
 } from "../../../../api/pages/interview.js"
-import {COMMON,APPLICANT,RECRUITER, DOWNLOADAPPPATH} from "../../../../config.js"
-import {mobileReg} from "../../../../utils/fieldRegular.js"
-import {shareInterviewr} from '../../../../utils/shareWord.js'
+import {
+  COMMON,
+  APPLICANT,
+  RECRUITER,
+  DOWNLOADAPPPATH
+} from "../../../../config.js"
+import {
+  mobileReg
+} from "../../../../utils/fieldRegular.js"
+import {
+  shareInterviewr
+} from '../../../../utils/shareWord.js'
 
 import {
   getRecommendChargeChatApi,
@@ -30,7 +40,8 @@ Page({
       show: false,
       title: ''
     },
-    chargeData: {}
+    chargeData: {},
+    sourceType: [{value: 2, key: '电话聊'}, {value: 1, key: '见面聊'}]
   },
   // 获取扣点信息
   getRecommendCharge(params) {
@@ -108,6 +119,11 @@ Page({
       info.arrangementInfo.appointmentList.map((item, n) => {
         this.selectComponent(`#myPicker${n}`).init()
       })
+    })
+  },
+  confirmInterview() {
+    confirmInterviewApi({id: this.data.info.interviewId}).then(() => {
+      this.pageInit()
     })
   },
   changeVal(e) {
@@ -188,55 +204,54 @@ Page({
     this.setData({appointmentId})
   },
   send() {
-    app.subscribeWechatMessage('updateInterview').then(() => {
-      // 需要扣点
-      if (this.data.chargeData.needCharge && !this.data.openPayPop) {
-        this.setData({openPayPop: true})
-        return
-      }
-      let info = this.data.info
-      let dateList = []
-      if(!info.arrangementInfo.appointmentList || (info.arrangementInfo.appointmentList && info.arrangementInfo.appointmentList.length === 0)) {
-        app.wxToast({title: '请编辑面试时间'})
-        return
-      }
-      if (info.arrangementInfo) {
-        info.arrangementInfo.appointmentList.map((item, index) => {
-          dateList.push(item.appointmentTime)
-        })
-      }
-
-      let data = {
-        interviewId: this.data.options.id,
-        realname: info.recruiterInfo.realname,
-        mobile: info.recruiterInfo.mobile,
-        positionId: info.positionId,
-        addressId: info.addressId,
-        interviewTime: dateList.join(',')
-      }
-      let title = ''
-      if (!info.recruiterInfo.realname) {
-        title = '请填写面试联系人'
-      } else if (!info.recruiterInfo.mobile) {
-        title = '请填写面试联系电话'
-      } else if (info.recruiterInfo.mobile && !mobileReg.test(info.recruiterInfo.mobile)) {
-        title = '联系电话格式错误'
-      } else if (!data.interviewTime) {
-        title = '请至少添加一个约面时间'
-      }
-      if (title) {
-        app.wxToast({title})
-        return
-      }
-      setInterviewDetailApi(data).then(res => {
-        wx.removeStorageSync('interviewData')
-        wx.removeStorageSync('createPosition')
-        app.wxToast({
-          title: '发送成功',
-          icon: 'success'
-        })
-        this.pageInit()
+    // 需要扣点
+    if (this.data.chargeData.needCharge && !this.data.openPayPop) {
+      this.setData({openPayPop: true})
+      return
+    }
+    let info = this.data.info
+    let dateList = []
+    if(!info.arrangementInfo.appointmentList || (info.arrangementInfo.appointmentList && info.arrangementInfo.appointmentList.length === 0)) {
+      app.wxToast({title: '请编辑面试时间'})
+      return
+    }
+    if (info.arrangementInfo) {
+      info.arrangementInfo.appointmentList.map((item, index) => {
+        dateList.push(item.appointmentTime)
       })
+    }
+
+    let data = {
+      interviewId: this.data.options.id,
+      realname: info.recruiterInfo.realname,
+      mobile: info.recruiterInfo.mobile,
+      positionId: info.positionId,
+      addressId: info.addressId,
+      interviewTime: dateList.join(','),
+      source_type: info.sourceType
+    }
+    let title = ''
+    if (!info.recruiterInfo.realname) {
+      title = '请填写面试联系人'
+    } else if (!info.recruiterInfo.mobile) {
+      title = '请填写面试联系电话'
+    } else if (info.recruiterInfo.mobile && !mobileReg.test(info.recruiterInfo.mobile)) {
+      title = '联系电话格式错误'
+    } else if (!data.interviewTime) {
+      title = '请至少添加一个约面时间'
+    }
+    if (title) {
+      app.wxToast({title})
+      return
+    }
+    setInterviewDetailApi(data).then(res => {
+      wx.removeStorageSync('interviewData')
+      wx.removeStorageSync('createPosition')
+      app.wxToast({
+        title: '发送成功',
+        icon: 'success'
+      })
+      this.pageInit()
     })
   },
   closePayPop() {
@@ -437,5 +452,13 @@ Page({
       default:
         break
     }
+  },
+  getSuorceType(e) {
+    let { value } = e.detail
+    let sourceType = this.data.sourceType
+    let info = this.data.info
+    info.sourceType = sourceType[Number(value)].value    
+    info.sourceTypeDesc = sourceType[Number(value)].key
+    this.setData({ info })
   }
 })

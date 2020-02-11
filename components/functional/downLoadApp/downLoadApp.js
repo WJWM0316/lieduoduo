@@ -58,7 +58,7 @@ Component({
           }
           break
       }
-      wx.navigateTo({url})
+      wx.redirectTo({url})
       this.close()
     }
   }

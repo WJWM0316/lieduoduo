@@ -126,7 +126,7 @@
 }
 
 .interview-bar .first {
-  line-height: 1;
+  line-height: 1.1;
   margin-top: 20rpx;
 }
 
@@ -153,6 +153,7 @@
 	text-overflow: ellipsis;
 	white-space: nowrap;
 	max-width: 160rpx;
+	vertical-align: middle
 }
 
 .interview-bar .hunter-infos {
@@ -160,6 +161,7 @@
 	font-weight:500;
 	color:#929292;
 	display: inline-block;
+	vertical-align: middle
 }
 
 .interview-bar .strong {

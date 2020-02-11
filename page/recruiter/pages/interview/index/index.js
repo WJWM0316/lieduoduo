@@ -558,9 +558,9 @@ Page({
       case 12:
         wx.navigateTo({url: `${COMMON}resumeDetail/resumeDetail?uid=${params.jobhunteruid}`})
         break
-      case 11:
-        wx.navigateTo({url: `${COMMON}resumeDetail/resumeDetail?uid=${params.jobhunteruid}`})
-        break
+      // case 11:
+      //   wx.navigateTo({url: `${COMMON}resumeDetail/resumeDetail?uid=${params.jobhunteruid}`})
+      //   break
       case 51:
         wx.navigateTo({url: `${COMMON}arrangement/arrangement?id=${params.itemId}`})
         break

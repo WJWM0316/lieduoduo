@@ -145,12 +145,12 @@
     wx:if="{{options.type === 'confirm_chat' || options.type === 'reject_chat' || options.type === 'recruiter_chat'}}">
       <view bindtap="submit" class="button-submit {{buttonClick ? 'button-enable' : ''}}">确定</view>
   </view>
-  <payPop 
+  <payPop
     openPayPop="{{ openPayPop }}" 
     chargeData="{{ chargeData }}" 
     bindsubmit="submit" 
     bindclose="closePayPop"
-    type="{{options.chattype === 'onekey' ? 1 : 2}}">
+    type="{{ options.chattype == 'onekey' ? 1 : 2 }}">
   </payPop>
   <downLoadApp id="downLoadApp" type="{{downLoadAppType}}"></downLoadApp>
 </view>

@@ -36,7 +36,7 @@
     <view class="content">
       <view
         class="detail"
-        wx:if="{{ identity === 'RECRUITER' && (info.status === 21 || info.status === 32 || info.status === 55 || info.status === 53 ) }}">
+        wx:if="{{ identity === 'RECRUITER' && (info.status === 21 || info.status === 32 || info.status === 55 || info.status === 53 || info.status === 11 ) }}">
         <view class="title">
           <icon class="icon"></icon>面试信息
         </view>
@@ -78,16 +78,19 @@
           </view>
         </view>
         <view class="msgItem">
-          <view class="inner">
-            <view class="txt">
-              邀请
-            </view>
-            <view class="msg" data-type="jobList">
-              {{ info.sourceTypeDesc }}
-            </view>
+          <view class="inner">          
+            <picker bindchange="getSuorceType" range="{{ sourceType }}" value="{{ key }}" range-key="key" class="select-source-type">
+              <view class="txt">
+                邀请
+              </view>
+              <view class="msg" data-type="jobList" style="display: inline">
+                {{ info.sourceTypeDesc }}
+              </view>
+              <icon class="icon iconfont icon-xiangyou"></icon>
+            </picker>
           </view>
         </view>
-        <view class="msgItem jump" bindtap="jump" data-type="addressList">
+        <view class="msgItem jump" bindtap="jump" data-type="addressList" wx:if="{{ info.sourceType === 1}}">
           <view class="inner noborder">
             <view class="txt">
               面试地址
@@ -283,11 +286,11 @@
         <image src="{{ cdnImagePath }}clock_show.png" class="clock_show"></image>
       </view>
 
-      <view class="recruiter-waiting" wx:if="{{ identity === 'APPLICANT' && (info.status === 21) }}">
+      <!-- <view class="recruiter-waiting" wx:if="{{ identity === 'APPLICANT' && (info.status === 21) }}">
         <view class="h1">已接受邀请，待对方安排面试</view>
-        <!-- <view class="h2">候选人将收到你的面试邀请，请耐心等待</view> -->
+        <view class="h2">候选人将收到你的面试邀请，请耐心等待</view>
         <image src="{{ cdnImagePath }}clock_show.png" class="clock_show"></image>
-      </view>
+      </view> -->
 
       <!-- 求职者 暂不考虑 招聘官 7天C未处理，自动标记为求职者不考虑 -->
       <view class="recruiter-waiting" wx:if="{{ identity === 'RECRUITER' && (info.status === 54 || info.status === 55) }}">
@@ -435,14 +438,17 @@
       </view>
     </block>
     <block wx:else>
+      <!-- <view class="btnBox" wx:if="{{ info.status === 11 }}">
+        <button class="btn" bindtap="download"> 处理面试邀约 </button>
+      </view> -->
       <view class="btnBox" wx:if="{{ info.status === 12 || info.status === 41 }}">
         <button class="btn" bindtap="download"> 订阅面试反馈提醒 </button>
       </view>
-      <view class="btnBox1" wx:if="{{ info.status === 21 }}">
-        <button class="btn_01" bindtap="notsuitable">拒绝</button>
-        <button class="btn_02" bindtap="todoAction" data-action="revise">安排面试</button>
+      <view class="btnBox1" wx:if="{{ info.status === 11 }}">
+        <button class="btn_01" bindtap="todoAction" data-action="notsuitable">拒绝</button>
+        <button class="btn_02" bindtap="confirmInterview">安排面试</button>
       </view>
-      <view class="btnBox" wx:if="{{ info.status === 32 }}">
+      <view class="btnBox" wx:if="{{ info.status === 32 || info.status === 21 }}">
         <button class="btn" bindtap="send">
           <block wx:if="{{ info.isAdvisor }}">使用多多币发起邀请</block>
           <block wx:else>

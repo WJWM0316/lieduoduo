@@ -1,4 +1,4 @@
- 。<form bindsubmit="formSubmit" report-submit="{{ true }}">
+ <form bindsubmit="formSubmit" report-submit="{{ true }}">
 	<view class="interview-bar" wx:if="{{ !isOwerner }}">
 
 		<block wx:if="{{type === 'position'}}">
@@ -42,9 +42,9 @@
 			<!-- 不能对外显示职位的 end -->
 			<!-- 正常职位 start -->
 			<block wx:else>
-				<block wx:if="{{ infos.isRapidly === 1 }}">
+				<block wx:if="{{ infos.isRapidly }}">
 					<block wx:if="{{ !infos.chatInfo}}">
-						<block wx:if="{{ !infos.rapidlyInfo.applied && infos.rapidlyInfo.seatsNum - (infos.rapidlyInfo.applyNum + infos.rapidlyInfo.natureApplyNum) > 0 && ( !infos.interviewSummary.interviewInfo || infos.interviewSummary.interviewInfo.status === 11) }}">
+						<block wx:if="{{ infos.rapidlyInfo.applied === 0 && infos.rapidlyInfo.seatsNum - (infos.rapidlyInfo.applyNum + infos.rapidlyInfo.natureApplyNum) > 0 && ( !infos.interviewSummary.interviewInfo || infos.interviewSummary.interviewInfo.status === 11) }}">
 							<button
 								form-type="submit"
 								class="clear-style button-box button-box-color1 specailBtn"
@@ -180,7 +180,7 @@
 						<!-- 约聊有C端发起 start -->
 						<block wx:else>
 							<!-- 24h职位 start -->
-							<block wx:if="{{ infos.isRapidly === 1 }}">
+							<block wx:if="{{ infos.isRapidly }}">
 								<!-- 该24h职位未被申请 start -->
 								<block wx:if="{{ !infos.rapidlyInfo.applied}}">
 									<!-- 该24h职位未被申请且还具备被抢占 start -->
@@ -237,7 +237,7 @@
 					<!-- 没有约聊记录 start	 -->
 					<block wx:else>
 						<!-- 24h职位 start -->
-						<block wx:if="{{ infos.isRapidly === 1 }}">
+						<block wx:if="{{ infos.isRapidly }}">
 						
 						</block>
 						<!-- 24h职位 end -->
@@ -279,7 +279,7 @@
 						<!-- 约聊记录有B端发起 start	 -->
 						<block wx:if="{{ infos.chatInfo && infos.chatInfo.status === 501 }}">
 							<!-- 24h职位 start -->
-							<block wx:if="{{ infos.isRapidly === 1 }}">
+							<block wx:if="{{ infos.isRapidly }}">
 								<!-- 该操作是 顾问帮约 start -->
 								<block wx:if="{{ infos.chatInfo.imTopInterviewInfo.isAdvisor }}">
 									<view
@@ -317,7 +317,7 @@
 						<!-- 约聊记录有C端发起 start	 -->
 						<block wx:else>
 								<!-- 24h职位 start -->
-								<block wx:if="{{ infos.isRapidly === 1 }}">
+								<block wx:if="{{ infos.isRapidly }}">
 									<!-- 该24h职位未被申请 start -->
 									<block wx:if="{{ !infos.rapidlyInfo.applied}}">
 										<!-- 该24h职位未被申请且还具备被抢占 start -->
@@ -390,7 +390,7 @@
 					<!-- 没有约聊记录 start	 -->
 					<block wx:else>
 						<!-- 特殊职位判断 start -->
-						<block wx:if="{{ infos.isRapidly === 1 }}">
+						<block wx:if="{{ infos.isRapidly }}">
 							<!-- 该职位已经被申请 start -->
 							<block wx:if="{{ !infos.rapidlyInfo.applied }}">
 								<!-- 该24h职位未被申请且还具备被抢占 start -->
@@ -475,12 +475,23 @@
 			</view>
 			
 			<!-- 已生成面试记录 start -->
-			<block wx:if="{{ infos.interviewSummary && infos.interviewSummary.interviewId }}">
-				<view class="clear-style button-box button-box-color1">
-					<view bindtap="todoAction" data-action="keep-communicating">
-						继续聊
+			<block wx:if="{{ infos.interviewSummary.interviewInfo }}">
+				<block wx:if="{{ !infos.chatInfo}}">
+					<button
+						form-type="submit"
+						class="clear-style button-box button-box-color1"
+						bindtap="todoAction"
+						data-action="job-hunting-chat">
+						一键约聊
+					</button>
+				</block>
+				<block wx:else>
+					<view class="clear-style button-box button-box-color1">
+						<view bindtap="todoAction" data-action="keep-communicating">
+							继续聊
+						</view>
 					</view>
-				</view>
+				</block>
 			</block>
 			<!-- 已生成面试记录 end -->
 			<!-- 未生成面试记录 start -->
@@ -498,17 +509,17 @@
 				<!-- 求职者还没有发起开撩动作 end-->
 
 				<!-- 求职者已经发起开撩动作 start-->
-				<block wx:elif="{{ infos.chatInfo }}">
+				<block wx:else>
 					<view class="clear-style button-box button-box-color1">
-						<button
+						<!-- <button
 							form-type="submit"
 							class="clear-style button-box button-box-color1"
 							bindtap="todoAction"
 							wx:if="{{ infos.chatInfo.status === 316 || infos.chatInfo.status === 305 || infos.chatInfo.status === 315}}"
 							data-action="job-hunting-chat">
 							一键约聊
-						</button>
-						<view bindtap="todoAction" data-action="keep-communicating" wx:else>
+						</button> -->
+						<view bindtap="todoAction" data-action="keep-communicating">
 							继续聊
 						</view>
 					</view>
