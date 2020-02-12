@@ -3,7 +3,7 @@
 
 	<view class="fixed-dom" style="top: {{navH}}px">
 
-		<downloadBar className="style1"></downloadBar>
+		<downloadBar className="style3"></downloadBar>
 		<!-- 顶部tab栏 start-->
 		<view class="fixed-bar">
 			<view

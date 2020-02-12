@@ -2,7 +2,7 @@
 	<navbar title="面试"  background="#652791" color="#fff"></navbar>
 	
 	<view class="fixed-dom" style="top: {{navH}}px">
-		<downloadBar className="style1"></downloadBar>
+		<downloadBar className="style3"></downloadBar>
 		<!-- 一级导航栏 start -->
 		<view class="fixed-bar">
 			<view

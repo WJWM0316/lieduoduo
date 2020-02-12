@@ -23,7 +23,7 @@
     </view>
     <view class="col-right">
       <view class="btn">
-        开抢<i class="iconfont icon-xiangyou"></i>
+        开抢<i class="iconfont icon-disejiantou-you"></i>
       </view>
     </view>
   </view>

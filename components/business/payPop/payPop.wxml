@@ -2,7 +2,10 @@
   <view class="h22">{{ type == 1 ? '邀请候选人约聊': '顾问约面服务' }}</view>
   <view class="p22">向候选人发起约聊，需消耗<view class="strong22">{{ chargeData.charge }}</view>多多币</view>
   <view class="welfare-ul">
-    <view class="welfare-item" wx:for="{{ lists }}" wx:key="index" data-item="{{ item }}">{{item.text}}</view>
+    <view class="welfare-item" wx:for="{{ lists }}" wx:key="index" data-item="{{ item }}">
+      <image class="img-item" src="{{item.img}}"></image>
+      <!-- {{item.text}} -->
+    </view>
   </view>
   <block wx:if="{{ type == 1 }}">
     <view class="tips22">* 候选人7天内未接受邀请时，多多币将原路退回到你的账户</view>

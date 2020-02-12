@@ -75,6 +75,10 @@
   align-items: center;
   justify-content: center;
 }
+.avatar_right .icon-disejiantou-you {
+	font-size: 26rpx;
+	margin-left: 10rpx;
+}
 
 .avatar_right .icon {
 	width:24rpx;

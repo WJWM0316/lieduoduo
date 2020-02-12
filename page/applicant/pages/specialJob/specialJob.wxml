@@ -18,8 +18,8 @@
 			</view>
 		</view>
 		<view class="avatar_right {{isJobhunter ? 'go' : ''}}" data-from="{{7}}" data-btnType="{{1}}" bindtap="routeJump" data-index="{{0}}" data-route="{{!isJobhunter ? 'createUser' : 'toggleTab'}}">
-			<block wx:if="{{!isJobhunter}}"><text>领取资格</text><i class="icon iconfont icon-xiangyou"></i></block>
-			<block wx:else><text>抢占约面席位</text><i class="icon iconfont icon-xiangyou"></i></block>
+			<block wx:if="{{!isJobhunter}}"><text>领取资格</text><i class="iconfont icon-disejiantou-you"></i></block>
+			<block wx:else><text>抢占约面席位</text><i class="iconfont icon-disejiantou-you"></i></block>
 		</view>
 	</view>
 	

@@ -18,6 +18,7 @@
   top: 50%;
   transform: translateY(-50%);
   text-align: center;
+  text-indent: 10rpx;
 }
 
 .download-bar .icon_notice_v210 {
@@ -38,8 +39,18 @@
 }
 
 .download-bar.style1 {
+  background:#F7F4FA;
+  color:#282828;
+}
+
+.download-bar.style3 {
   background:#F0E9F5;
   color:#282828;
+}
+
+.download-bar.style3 .btn{
+  background:#FFFFFF;
+  color:#652791;
 }
 
 .download-bar.style1 .btn{
@@ -100,10 +111,12 @@
   top: 50%;
   transform: translate(-50%, -50%);
   color: #652791;
+  text-indent: 5rpx;
 }
 
 .guide-download .text1 {
   display: inline;
+  font-size: 26rpx;
 }
 
 .guide-download .img {
@@ -133,7 +146,7 @@
   width: 68rpx;
   vertical-align: middle;
   position: relative;
-  top: -3rpx;
+  top: -4rpx;
 }
 
 .guide-download.style1 {
@@ -166,4 +179,9 @@
 
 .guide-download.style2 .strong {
   color:#282828
+}
+
+.guide-download .icon-disejiantou-you{
+  font-size: 26rpx;
+  margin-left: 10rpx;
 }
