@@ -79,7 +79,7 @@
 	  </view>
 	  <view class="hotArea" wx:if="{{hotList.length}}">
 	  	<view class="title">热门搜索</view>
-	    <text class="record ellipsis" wx:for="{{hotList}}" wx:key="{{index}}" data-item="{{item}}" data-type="label" bindtap="choseKeyWord">{{item.word}}</text>
+	    <text class="record ellipsis" wx:for="{{hotList}}" wx:key="{{index}}" data-item="{{item}}" data-specialLabel="hotLabel" data-type="label" bindtap="choseKeyWord">{{item.word}}</text>
 	  </view>
   </view>
 </view>
