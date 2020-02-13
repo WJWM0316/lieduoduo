@@ -604,7 +604,7 @@
 
 .overlay2 .box {
 	background: white;
-	padding: 56rpx 50rpx 0 50rpx;
+	padding: 0 50rpx 0 50rpx;
 	border-radius: 18rpx;
 	position: absolute;
 	top: 50%;
@@ -658,7 +658,9 @@
 }
 
 .overlay2 image {
-	width: 440rpx;
-	height: 290rpx;
-	margin: 38rpx auto 32rpx auto;
+	width: 430rpx;
+	height: 326rpx;
+	/* margin: 38rpx auto 32rpx auto; */
+	position: relative;
+	top: -50rpx;
 }

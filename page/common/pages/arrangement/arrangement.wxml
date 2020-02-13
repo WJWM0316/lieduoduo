@@ -36,7 +36,7 @@
     <view class="content">
       <view
         class="detail"
-        wx:if="{{ identity === 'RECRUITER' && (info.status === 21 || info.status === 32 || info.status === 55 || info.status === 53 || info.status === 11 ) }}">
+        wx:if="{{ identity === 'RECRUITER' && (info.status === 21 || info.status === 32 || info.status === 55 || info.status === 53 || info.status === 11 || info.status === 54 || info.status === 52 ) }}">
         <view class="title">
           <icon class="icon"></icon>面试信息
         </view>
@@ -298,7 +298,7 @@
         <image src="{{ cdnImagePath }}img_sad_01.png" class="clock_show"></image>
       </view>
 
-      <view class="realDate inappropriate" wx:if="{{ info.status === 52 }}">
+      <view class="realDate inappropriate" wx:if="{{ identity !== 'RECRUITER' && info.status === 52 }}">
         <view class="txt1">面试已取消</view>
         <block wx:if="{{ identity === 'APPLICANT' }}">
           <view class="txt2">面试官标记为不合适，别灰心，还有大量机会等你发现</view>
@@ -386,7 +386,7 @@
         </view>
         <!-- 招聘官已好评求职者 end -->
       </view>
-      <view class="reason-box" wx:if="{{ identity === 'RECRUITER' && info.status === 53 }}">
+      <view class="reason-box" wx:if="{{ identity === 'RECRUITER' && (info.status === 53 || info.status === 52) }}">
         <view class="h11">
           不适合原因
         </view>

@@ -663,9 +663,11 @@
 }
 
 .limit-adviser-box {
-  max-height: 800rpx;
   overflow: hidden;
   overflow-y: scroll;
+  position: relative;
+  z-index: 20;
+  top: -45rpx;
 }
 
 .h11 {
@@ -681,6 +683,7 @@
 	font-size:26rpx;
 	color:rgba(102,102,110,1);
 	line-height:34rpx;
+  margin-top:6rpx
 }
 
 .reason-ul {
@@ -715,6 +718,7 @@
 	color:rgba(40,40,40,1);
 	line-height:36rpx;
 	padding-top: 40rpx;
+  margin-bottom: 16rpx
 }
 
 .content11 {

@@ -50,6 +50,7 @@
 .interviewMark .active{
 	border-color: #652791;
 	color: #652791;
+	font-weight: 700;
 }
 
 .interviewMark .li:nth-child(2n){
@@ -72,6 +73,7 @@
 	border-radius:16rpx;
 	border:1rpx solid rgba(239,233,244,1);
 	margin-bottom: 25rpx;
+	background: #EDF1F0;
 }
 
 .interviewMark .textarea {
@@ -83,6 +85,7 @@
 	height: calc(100% - 72rpx);
 	box-sizing: border-box;
 	padding: 24rpx;
+	background: transparent;
 }
 
 .interviewMark .sum {

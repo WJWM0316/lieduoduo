@@ -134,6 +134,11 @@
   padding-left: 60rpx;
 }
 
+.tips22 text {
+  text-decoration: underline;
+  color: #652791;
+  font-weight: 700;
+}
 .footer22 {
   height:88rpx;
   border-radius:44rpx;

@@ -403,10 +403,10 @@
 					"scene": null
 				},
 				{
-					"id": 47,
+					"id": 52,
 					"name": "面试安排",
 					"pathName": "page/common/pages/arrangement/arrangement",
-					"query": "id=157&identity=jobhunter",
+					"query": "id=4050",
 					"scene": null
 				},
 				{
