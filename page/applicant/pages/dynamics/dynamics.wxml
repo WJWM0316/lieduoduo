@@ -4,7 +4,7 @@
     <refreshStatus></refreshStatus>
   </view>
   <!-- <view class="tabBoxBg"></view> -->
-  <downloadBar className="style1"></downloadBar>
+  <downloadBar className="style3"></downloadBar>
   <view class="tabBox">
     <view class="tab-item" bindtap="jumpMy" data-type="myBrowse">
       <view class="inner">
