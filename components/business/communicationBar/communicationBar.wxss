@@ -659,7 +659,6 @@
 
 .overlay2 image {
 	width: 430rpx;
-	height: 326rpx;
 	/* margin: 38rpx auto 32rpx auto; */
 	position: relative;
 	top: -50rpx;

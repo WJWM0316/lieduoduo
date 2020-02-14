@@ -132,12 +132,12 @@
   color:rgba(188,190,192,1);
   line-height:36rpx;
   padding-left: 60rpx;
+  padding-right: 60rpx;
 }
 
 .tips22 text {
   text-decoration: underline;
   color: #652791;
-  font-weight: 700;
 }
 .footer22 {
   height:88rpx;

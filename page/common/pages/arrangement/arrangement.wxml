@@ -501,7 +501,7 @@
     openPop="{{ model.show }}" 
     bindclose="closeTips"
     class="adviser-model">
-    <view class="limit-adviser-box" wx:if="{{ model.show }}">
+    <scroll-view class="limit-adviser-box" wx:if="{{ model.show }}" scroll-y>
       <view class="p22">顾问服务</view>
       <view class="p33">为您提供约聊保障</view>
       <view class="ul">
@@ -550,7 +550,7 @@
           </view>
         </view>
       </view>
-    </view>
+    </scroll-view>
   </actionSheet>
 
   <payPop 

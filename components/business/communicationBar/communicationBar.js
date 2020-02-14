@@ -288,12 +288,13 @@ Component({
             if(this.data.type === 'recruiter') {
               // 招聘官没有在线职位或者招聘官没发布过职位
               if(!this.data.infos.positionNum) {
+                console.log(1, this.data.infos)
                 app.wxReportAnalytics('btn_report', {
                   isjobhunter: app.globalData.isJobhunter,
                   resume_perfection: app.globalData.resumeInfo.resumeCompletePercentage * 100,
                   btn_type: 'job-hunting-chat'
                 })
-                applyChatApi({recruiterUid: this.data.infos.uid}).then(res => successPop(res))
+                applyChatApi({recruiter: this.data.infos.uid}).then(res => successPop(res))
               } else {
                 wx.navigateTo({url: `${COMMON}chooseJob/chooseJob?type=job_hunting_chat&recruiterUid=${this.data.infos.uid}`})
               }

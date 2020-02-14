@@ -447,6 +447,8 @@
 .shoper-banner .swiper {
   width: 100%;
   height: 100%;
+  border-radius: 16rpx;
+  overflow: hidden;
 }
 
 .shoper-banner .swiper-item {

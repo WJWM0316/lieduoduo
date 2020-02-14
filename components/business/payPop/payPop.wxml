@@ -7,11 +7,11 @@
       <!-- {{item.text}} -->
     </view>
   </view>
-  <block wx:if="{{ type == 1 }}">
+  <!-- <block wx:if="{{ type == 1 }}">
     <view class="tips22">* 候选人7天内未接受邀请时，多多币将原路退回到你的账户</view>
     <view class="tips22">* 更多细则，欢迎联系客服 <text class="txt" bindtap="callPhone">{{ telePhone }}</text></view>
-  </block>
-  <block wx:else>
+  </block> -->
+  <block>
     <view class="tips22">* 邀约后，平台顾问将1V1跟进候选人处理&面试情况</view>
     <view class="tips22">* 候选人在48小时内未接受邀请，或未按约定时间到场面试时，多多币将原路退回到你的账户</view>
     <view class="tips22">* 更多细则，欢迎联系客服 <text class="txt" bindtap="callPhone">{{ telePhone }}</text></view>

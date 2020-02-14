@@ -534,6 +534,13 @@
 					"pathName": "page/recruiter/pages/interview/index/index",
 					"query": "tabIndex=1",
 					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "约面无职位",
+					"pathName": "page/common/pages/recruiterDetail/recruiterDetail",
+					"query": "uid=5035",
+					"scene": null
 				}
 			]
 		}
