@@ -23,7 +23,9 @@
     </view>
     <view class="col-right">
       <view class="btn">
-        开抢<i class="iconfont icon-disejiantou-you"></i>
+        开抢        
+        <i class="iconfont icon-disejiantou-you" wx:if="{{ stamp === 'stamp2' && className==='style2'}}"></i>
+        <i class="iconfont icon-xiangyou" wx:else></i>
       </view>
     </view>
   </view>

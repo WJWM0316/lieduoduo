@@ -35,7 +35,6 @@
 .download-bar .icon-xiangyou {
   position: relative;
   font-size: 28rpx;
-  top: 1rpx;
 }
 
 .download-bar.style1 {
@@ -72,7 +71,7 @@
   height:114rpx;
   box-shadow:0rpx 8rpx 40rpx 0rpx rgba(34,56,101,0.08);
   border-radius:16rpx;
-  margin: 30rpx;
+  margin: 20rpx 30rpx;
   display: flex;
   padding: 33rpx 0;
   position: relative;
@@ -127,11 +126,6 @@
   height: 100%;
 }
 
-.guide-download .icon-xiangyou {
-  position: relative;
-  top: 2rpx;
-}
-
 .guide-download .imglist {
   height: 66rpx;
   margin-top: 12rpx;
@@ -181,7 +175,14 @@
   color:#282828
 }
 
+.guide-download .icon-xiangyou{
+  font-size: 30rpx;
+  position: relative;
+  top: 2rpx;
+}
+
 .guide-download .icon-disejiantou-you{
   font-size: 26rpx;
   margin-left: 10rpx;
+  position: relative;
 }
