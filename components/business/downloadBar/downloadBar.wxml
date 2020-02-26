@@ -22,7 +22,7 @@
       <image class="imglist" mode="aspectFill" src="{{ cdnPath }}img_goapp_logos@3x.png"></image>
     </view>
     <view class="col-right">
-      <view class="btn">
+      <view class="btn {{ stamp === 'stamp2' && className==='style2' ? 'test1' : ''}}">
         开抢        
         <i class="iconfont icon-disejiantou-you" wx:if="{{ stamp === 'stamp2' && className==='style2'}}"></i>
         <i class="iconfont icon-xiangyou" wx:else></i>

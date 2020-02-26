@@ -25,6 +25,7 @@
   border-radius: 10rpx;
   box-shadow: 0rpx -5rpx 40rpx 0rpx rgba(22,39,77,0.05);
   background: #fff;
+  overflow: hidden;
 }
 .date {
   margin-top: 24rpx;

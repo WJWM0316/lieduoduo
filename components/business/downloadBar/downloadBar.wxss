@@ -110,6 +110,10 @@
   top: 50%;
   transform: translate(-50%, -50%);
   color: #652791;
+  text-indent: 20rpx;
+}
+
+.guide-download .btn.test1 {
   text-indent: 5rpx;
 }
 
@@ -179,10 +183,10 @@
   font-size: 30rpx;
   position: relative;
   top: 2rpx;
+  left: -8rpx;
 }
 
 .guide-download .icon-disejiantou-you{
   font-size: 26rpx;
-  margin-left: 10rpx;
   position: relative;
 }
