@@ -11,8 +11,6 @@ import {getCompanyIdentityInfosApi} from 'api/pages/company.js'
 import {getBottomRedDotApi} from 'api/pages/interview.js'
 
 let that = null
-let formIdList = [],
-    sendNum = 0 // formId 发送次数
 App({
   onLaunch: function (e) {
     // 获取导航栏高度
@@ -49,19 +47,10 @@ App({
     this.getFont('Number', 'https://attach.lieduoduo.com/font/DIN-Medium.ttf')
     // 这是一个官方api没有公布的方法，但又真实有效，慎用！
     wx.onAppRoute((res) => {
-      if (res.query.hasOwnProperty('identity')) {
-        that.identification(res.query)
-      }
+      if (res.query.hasOwnProperty('identity')) that.identification(res.query)
     })
   },
   onHide: function (e) {
-    // 切换后台 发送全部formId
-    if (formIdList.length > 0) {
-      formIdApi({form_id: formIdList}).then(res => {
-        sendNum = 0
-        formIdList = []
-      })
-    }
   },
   onError: function (e) {
     console.log('onError检测', e)
@@ -100,24 +89,8 @@ App({
       wx.login({
         success: function (res0) {
           if (!wx.getStorageSync('choseType')) wx.setStorageSync('choseType', 'APPLICANT')
-          let params = {}
-          let startRouteParams = that.globalData.startRoute.query
-          if (startRouteParams.scene) {
-            startRouteParams = that.getSceneParams(startRouteParams.scene)
-          }
-          if (startRouteParams.sourceType) {
-            params = {
-              sourceType: startRouteParams.sourceType,
-              sourcePath: `/${that.globalData.startRoute.path}?${that.splicingParams(startRouteParams)}`
-            }
-          } else {
-            params = {
-              sourceType: 'sch',
-              sourcePath: `/${that.globalData.startRoute.path}?${that.splicingParams(startRouteParams)}`
-            }
-          }
           wx.setStorageSync('code', res0.code)
-          loginApi({code: res0.code, ...params}).then(res => {
+          loginApi({code: res0.code}).then(res => {
             // 有token说明已经绑定过用户了
             if (res.data.token) {
               wx.setStorageSync('token', res.data.token)
@@ -732,27 +705,6 @@ App({
   // 收集formId
   postFormId(id) {
     console.log(`=======================收集到这个formId了 ${id}=========================`)
-    formIdList.push(id)
-    if (formIdList.length >= 50) formIdList = formIdList.slice(50, 100)
-    if (sendNum === 0) {
-      if (formIdList.length === 0) return
-    } else if (sendNum === 1) {
-      if (formIdList.length < 2) return
-    } else if (sendNum === 2) {
-      if (formIdList.length < 2) return
-    } else if (sendNum === 3) {
-      if (formIdList.length < 4) return
-    } else if (sendNum === 4) {
-      if (formIdList.length < 9) return
-    } else {
-      return
-    }
-    if (wx.getStorageSync('sessionToken') || wx.getStorageSync('token')) {
-      formIdApi({form_id: formIdList}).then(res => {
-        sendNum++
-        formIdList = []
-      })
-    }
   },
   // 获取二维码参数对象
   getSceneParams (scene) {
@@ -941,3 +893,4 @@ App({
     })
   }
 })
+

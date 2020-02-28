@@ -1,4 +1,5 @@
 import {APPLICANTHOST, RECRUITERHOST, PUBAPIHOST, NODEHOST, COMMON, RECRUITER, APPLICANT, VERSION} from '../config.js'
+import {appSourceType} from '../app.js'
 let loadNum = 0
 let BASEHOST = ''
 let noToastUrlArray = [
@@ -78,20 +79,20 @@ export const request = ({name = '', method = 'post', url, host, data = {}, needK
   } else {
     delete addHttpHead['Msg']
   }
-    
   // 渠道统计
-  if (data.sourceType && !data.isReload) {
-    addHttpHead['Channel-Code'] = data.sourceType
-    addHttpHead['Channel-Url'] = data.sourcePath
-  } else {
-    delete addHttpHead['Channel-Code']
-    delete addHttpHead['Channel-Url']
+  addHttpHead['Channel-Code'] = 'sch'
+  if (curRouteOptions.hasOwnProperty('sourceType')) {
+    addHttpHead['Channel-Code'] = curRouteOptions.sourceType
   }
+   if (curRouteOptions.hasOwnProperty('sourcePath')) {
+    addHttpHead['Channel-Url'] = curRouteOptions.sourcePath
+  }
+
+
 	delete data['from']
   delete data['sCode']
   delete data['isReload']
-  delete data['sourceType']
-  delete data['sourcePath']
+
 
   // header 传递token, sessionToken
   if (wx.getStorageSync('sessionToken') && !wx.getStorageSync('token')) {

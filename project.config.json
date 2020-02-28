@@ -25,7 +25,7 @@
 	},
 	"compileType": "miniprogram",
 	"libVersion": "2.7.1",
-	"appid": "wxde5ab3ef647fba86",
+	"appid": "wx225f017495e6e195",
 	"projectname": "lieduoduo",
 	"debugOptions": {
 		"hidedInDevtools": []
@@ -510,7 +510,7 @@
 					"id": 67,
 					"name": "page/common/pages/webView/webView",
 					"pathName": "page/common/pages/webView/webView",
-					"query": "type=wantYouC",
+					"query": "sourceType=hd_alliance_H5&sourceType=ad42&p=https%3A%2F%2Fh5.lieduoduo.com%2Falliance%3FsourceType%3Dhd_alliance_H5",
 					"scene": null
 				}
 			]
