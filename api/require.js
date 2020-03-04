@@ -1,5 +1,5 @@
 import {APPLICANTHOST, RECRUITERHOST, PUBAPIHOST, NODEHOST, COMMON, RECRUITER, APPLICANT, VERSION} from '../config.js'
-import {appSourceType} from '../app.js'
+
 let loadNum = 0
 let BASEHOST = ''
 let noToastUrlArray = [
@@ -35,9 +35,10 @@ let recruiterJump = (msg) => {
     }
   }
 }
-
+let addHttpHead = {
+  'Channel-Code': 'sch'
+}
 export const request = ({name = '', method = 'post', url, host, data = {}, needKey = true, hasLoading = true, loadingContent = '加载中...'}) => {
-  let addHttpHead = {}
   // baceHost 切换
   switch(host) {
     case 'PUBAPIHOST':
@@ -73,21 +74,17 @@ export const request = ({name = '', method = 'post', url, host, data = {}, needK
   }
 
   // msg_id
-  let curRouteOptions = getCurrentPages()[0] && getCurrentPages()[0].options || {}
+  let lastOne = getCurrentPages().length - 1
+  let curRouteOptions = getCurrentPages()[lastOne] && getCurrentPages()[lastOne].options || {}
   if (curRouteOptions.hasOwnProperty('msg_id')) {
     addHttpHead['Msg-Id'] = curRouteOptions.msg_id
   } else {
     delete addHttpHead['Msg']
   }
-  // 渠道统计
-  addHttpHead['Channel-Code'] = 'sch'
-  if (curRouteOptions.hasOwnProperty('sourceType')) {
-    addHttpHead['Channel-Code'] = curRouteOptions.sourceType
-  }
-   if (curRouteOptions.hasOwnProperty('sourcePath')) {
-    addHttpHead['Channel-Url'] = curRouteOptions.sourcePath
-  }
 
+  // 渠道统计
+  if (curRouteOptions.hasOwnProperty('sourceType')) addHttpHead['Channel-Code'] = curRouteOptions.sourceType
+  if (curRouteOptions.hasOwnProperty('sourcePath')) addHttpHead['Channel-Url'] = curRouteOptions.sourcePath
 
 	delete data['from']
   delete data['sCode']

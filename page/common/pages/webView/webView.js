@@ -1,6 +1,6 @@
 import {WEBVIEW} from '../../../../config.js'
 import { request } from '../../../../api/require.js'
-
+import {checkSessionKeyApi} from '../../../../api/pages/auth.js'
 const app = getApp()
 let wxShare = {},
     query = {}
@@ -19,6 +19,8 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
+    // 在此调用改接口只是为了触发request来设置sourceType，没有其它用途
+    checkSessionKeyApi({session_token: wx.getStorageSync('sessionToken')})
     query = options.scene ? app.getSceneParams(options.scene) : options
   },
   onShow() {
