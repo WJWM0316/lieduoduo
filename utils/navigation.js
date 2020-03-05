@@ -55,7 +55,7 @@ export const applicantList = [
     name: 'c_dynamics'
   },
   {
-    title: '急速约面',
+    title: '在线约面',
     flag: 'specialJob',
     iconPath: `${cdnImagePath}tab_24h.png`,
     selectedIconPath: `${cdnImagePath}tab_24h_pre.png`,

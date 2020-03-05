@@ -3,7 +3,7 @@ import {loginApi, checkSessionKeyApi, bindPhoneApi, uploginApi, getOauthUserApi}
 import {formIdApi, shareStatistics, readyStatistics, getVersionListApi,getWechatConfigMiniProgramApi, subscribeWechatMessageApi} from 'api/pages/common.js'
 import {getPersonalResumeApi} from 'api/pages/center.js'
 import {getRecruiterDetailApi} from 'api/pages/recruiter.js'
-import {COMMON,RECRUITER,APPLICANT} from "config.js"
+import {COMMON, RECRUITER, APPLICANT, CDNPATH} from "config.js"
 import {getUserRoleApi} from "api/pages/user.js"
 import {quickLoginApi} from 'api/pages/auth.js'
 import {shareC, shareB} from 'utils/shareWord.js'
@@ -66,7 +66,7 @@ App({
     userInfo: null, // 用户信息， 判断是否授权,
     officialId: 0, // 是否关注公众号
     navHeight: 0,
-    cdnImagePath: 'https://attach.lieduoduo.ziwork.com/front-assets/images/',
+    cdnImagePath: CDNPATH,
     companyInfo: {}, // 公司信息
     resumeInfo: {}, // 个人简历信息
     recruiterDetails: {}, // 招聘官详情信息

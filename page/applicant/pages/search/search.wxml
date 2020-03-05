@@ -46,7 +46,7 @@
 		  <view class="list-box" wx:if="{{recommendList.list.length}}">
 		    <waterfallFlow wx:key="recommendList"  my-class="waterfallFlow" id="recommendList" flowClass="recommendList" value="{{recommendList.list}}" page="{{recommendList.pageNum}}"></waterfallFlow>
 			    <bottomStatus hasMoreSlot="{{true}}" status="{{recommendList.onBottomStatus}}" hasImg="{{false}}" listData="{{recommendList.list}}" marginTop="{{30}}" desc="一大批优质机会即将上线">
-			    <view class="moreBtn" data-route="specialJob" bindtap="routeJump">去看看急速约面机会<i class="icon iconfont icon-disejiantou-you"></i></view>
+			    <view class="moreBtn" data-route="specialJob" bindtap="routeJump">去看看在线约面机会<i class="icon iconfont icon-disejiantou-you"></i></view>
 			  </bottomStatus>
 	  	</view>
 	  </view>

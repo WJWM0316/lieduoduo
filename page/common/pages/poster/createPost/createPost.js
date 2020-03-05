@@ -25,7 +25,7 @@ Page({
     switch (type) {
       case 'rapidlyViwe':
         getImgFun = getRapidlyViwePostApi
-        title = '急速约面'
+        title = '在线约面'
         break
       case 'position':
         getImgFun = getPositionPostApi

@@ -1,6 +1,6 @@
 import { request } from '../require.js'
 
-// 急速约面
+// 在线约面
 export const getRapidlyViwePostApi = (data, hasLoading) => {
   return request({
     method: 'get',

@@ -266,7 +266,7 @@ Component({
         let rapidlyInfo = this.data.infos.rapidlyInfo || {},
             detail = this.data.infos
 
-        // 是急速约面开撩
+        // 是在线约面开撩
         let isSpecail = detail.isRapidly === 1 
                         && !this.data.interviewInfos.applied
                         && detail.rapidlyInfo.applyNum + detail.rapidlyInfo.natureApplyNum < detail.rapidlyInfo.seatsNum
@@ -347,7 +347,7 @@ Component({
               applyInterviewApi(params).then(res => {
                 this.getInterviewStatus()
                 successPop(res)
-                // 未满急速约面开撩成功，需要记录一下返回时候重置一下数据
+                // 未满在线约面开撩成功，需要记录一下返回时候重置一下数据
                 if (isSpecail) {
                   this.triggerEvent('chatPosition', true)
                   wx.setStorageSync('chatSuccess', detail)

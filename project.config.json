@@ -161,7 +161,7 @@
 				},
 				{
 					"id": 1,
-					"name": "【C端】急速约面",
+					"name": "【C端】在线约面",
 					"pathName": "page/applicant/pages/specialJob/specialJob",
 					"query": "",
 					"scene": 1001
@@ -473,7 +473,7 @@
 				},
 				{
 					"id": -1,
-					"name": "急速约面",
+					"name": "在线约面",
 					"pathName": "page/applicant/pages/specialJob/specialJob",
 					"query": "",
 					"scene": null
