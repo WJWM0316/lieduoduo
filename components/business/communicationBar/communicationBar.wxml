@@ -345,6 +345,27 @@
 									</view>
 								</view>
 							</block>
+							<block wx:else>
+								<view class="btnBox">
+									<view
+										class="advisor-entering"
+										data-action="advisor-popup-help"
+										bindtap="todoAction">
+										<image
+											mode="aspectFill"
+											src="{{ cdnImagePath }}icon_guwenbangyue_head@3x.png"
+											class="icon">
+										</image>
+										顾问帮约
+									</view>
+									<view
+										class="btn-chat"
+										data-action="keep-communicating"
+										bindtap="todoAction">
+										继续聊
+									</view>
+								</view>
+							</block>
 						</block>
 						<!-- 已经发起约聊情况 end -->
 					</block>
