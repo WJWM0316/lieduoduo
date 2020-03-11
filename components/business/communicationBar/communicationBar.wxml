@@ -324,7 +324,7 @@
 								</view>
 							</block>
 							<!-- C主动约聊B，B接受约聊后，底部栏显示为【招聘官信息+继续聊】 end-->
-							<block wx:if="{{ infos.chatInfo.status === 501 }}">
+							<block wx:elif="{{ infos.chatInfo.status === 501 }}">
 								<view class="btnBox">
 									<view
 										class="advisor-entering"
