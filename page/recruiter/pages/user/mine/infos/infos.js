@@ -1,6 +1,6 @@
 import { getRecruiterOtherInfosApi } from '../../../../../../api/pages/recruiter.js'
 
-import {RECRUITER, COMMON, WEBVIEW, VERSION} from '../../../../../../config.js'
+import {RECRUITER, COMMON, DOWNLOADAPPPATH, VERSION} from '../../../../../../config.js'
 
 import {getUserRoleApi} from "../../../../../../api/pages/user.js"
 
@@ -78,9 +78,14 @@ Page({
    * @return   {[type]}     [description]
    */
   routeJump(e) {
-    const route = e.currentTarget.dataset.route
-    const pageInfos = this.data.pageInfos
+    let route = e.currentTarget.dataset.route
+    let pageInfos = this.data.pageInfos
     switch(route) {
+      case 'loadApp':
+        wx.navigateTo({
+          url: `${DOWNLOADAPPPATH}${encodeURIComponent(`&pageType=4`)}`
+        })
+        break
       case 'company':
         wx.navigateTo({url: `${RECRUITER}company/indexEdit/indexEdit`})
         break
@@ -195,7 +200,7 @@ Page({
    */
   viewIdentity() {
     
-    const pageInfos = this.data.pageInfos
+    let pageInfos = this.data.pageInfos
 
     //未认证
     if(!pageInfos.identityAuth && (pageInfos.identityStatus !== 0 && pageInfos.identityStatus !== 1 && pageInfos.identityStatus !== 2)) {

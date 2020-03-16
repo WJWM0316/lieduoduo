@@ -1,18 +1,9 @@
-import {uploginApi} from "../../../../api/pages/auth.js"
-import {COMMON,RECRUITER,APPLICANT} from '../../../../config.js'
+import {COMMON} from '../../../../config.js'
 let app = getApp()
 Page({
-
-  /**
-   * 页面的初始数据
-   */
   data: {
     identity: "面试官"
   },
-
-  /**
-   * 生命周期函数--监听页面加载
-   */
   onLoad(options) {
     if (wx.getStorageSync('choseType') === 'RECRUITER') {
       this.setData({identity: "求职者"})

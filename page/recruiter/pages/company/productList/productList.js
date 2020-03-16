@@ -21,10 +21,9 @@ Page({
    * @return   {[type]}   [description]
    */
   getCompanyProductLists(options) {
-  	getCompanyProductListsApi({id: options.companyId})
-  		.then(res => {
-  			this.setData({productList: res.data})
-  		})
+  	getCompanyProductListsApi({id: options.companyId}).then(res => {
+      this.setData({productList: res.data})
+    })
   },
   edit(e) {
     const productId = e.currentTarget.dataset.id

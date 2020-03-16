@@ -4,6 +4,7 @@
   "usingComponents": {
     "navbar": "../../../../components/business/navbar/navbar",
     "tabBar": "../../../../components/business/tabBar/tabBar",
-    "myCalendar": "../../../../components/functional/myCalendar/myCalendar"
+    "myCalendar": "../../../../components/functional/myCalendar/myCalendar",
+    "downloadBar": "../../../../../components/business/downloadBar/downloadBar"
   }
 }

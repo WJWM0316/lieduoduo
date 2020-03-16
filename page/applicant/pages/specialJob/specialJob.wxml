@@ -18,10 +18,13 @@
 			</view>
 		</view>
 		<view class="avatar_right {{isJobhunter ? 'go' : ''}}" data-from="{{7}}" data-btnType="{{1}}" bindtap="routeJump" data-index="{{0}}" data-route="{{!isJobhunter ? 'createUser' : 'toggleTab'}}">
-			<block wx:if="{{!isJobhunter}}"><text>领取资格</text><i class="icon iconfont icon-xiangyou"></i></block>
-			<block wx:else><text>抢占约面席位</text><i class="icon iconfont icon-xiangyou"></i></block>
+			<block wx:if="{{!isJobhunter}}"><text>领取资格</text><i class="iconfont icon-disejiantou-you"></i></block>
+			<block wx:else><text>抢占约面席位</text><i class="iconfont icon-disejiantou-you"></i></block>
 		</view>
 	</view>
+	
+	<downloadBar stamp="stamp2" className="style1"></downloadBar>
+
 	<view class="tab {{tabFixed ? 'fixed' : ''}}" style="top: {{navH}}px">
 		<view class="tab_item {{tabIndex === 0 ? 'active' : ''}}" bindtap="toggleTab" data-index="{{0}}">限时热抢</view>
 		<view class="tab_item {{tabIndex === 1 ? 'active' : ''}}" bindtap="toggleTab" data-index="{{1}}">近期精选</view>

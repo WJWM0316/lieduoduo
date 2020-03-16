@@ -10,7 +10,7 @@ import {companyNameReg} from '../../../../../../utils/fieldRegular.js'
 
 import {RECRUITER} from '../../../../../../config.js'
 
-const app = getApp()
+let app = getApp()
 
 Page({
   data: {
@@ -41,8 +41,8 @@ Page({
    * @return   {[type]}           [description]
    */
   onLoad(options) {
-    const storage = wx.getStorageSync('createdCompany')
-    const formData = this.data.formData
+    let storage = wx.getStorageSync('createdCompany')
+    let formData = this.data.formData
     let canClick = this.data.canClick
     canClick = storage.company_name ? true : false
     formData.company_name = storage.company_name
@@ -64,7 +64,7 @@ Page({
    * @return   {[type]}     [description]
    */
   bindInput(e) {
-    const name = e.detail.value
+    let name = e.detail.value
     this.debounce(this.getCompanyNameList, null, 300, name)
   },
   /**
@@ -74,11 +74,11 @@ Page({
    * @return   {[type]}     [description]
    */
   getCompanyNameList(name) {
-    const formData = this.data.formData
+    let formData = this.data.formData
     formData.company_name = name
     this.setData({formData, canClick: true}, () => this.bindButtonStatus())
     getCompanyNameListApi({name: name, ...app.getSource()}).then(res => {
-      const nameList = res.data
+      let nameList = res.data
       nameList.map(field => {
         field.html = field.companyName.replace(new RegExp(name,'g'),`<span style="color: #652791;">${name}</span>`)
         field.html = `<div>${field.html}</div>`
@@ -93,8 +93,8 @@ Page({
    * @return   {[type]}   [description]
    */
   selectCompany(e) {
-    const params = e.currentTarget.dataset
-    const formData = this.data.formData
+    let params = e.currentTarget.dataset
+    let formData = this.data.formData
     formData.company_name = params.name
     this.setData({canClick: true, formData, nameList: []})
   },

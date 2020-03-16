@@ -16,8 +16,8 @@ if (environment === 0) {
 	// 测试服口
 	APPLICANTHOST = 'https://qiuzhi-api.lieduoduo.ziwork.com'
 	RECRUITERHOST = 'https://zhaopin-api.lieduoduo.ziwork.com'
-	PUBAPIHOST = 'https://pub-api.lieduoduo.ziwork.com'
-	NODEHOST = 'https://node.lieduoduo.ziwork.com/frontEnd' //'http://192.168.5.159:3000/frontEnd' //
+	PUBAPIHOST 		= 'https://pub-api.lieduoduo.ziwork.com'
+	NODEHOST 			= 'https://node.lieduoduo.ziwork.com/frontEnd' //'http://192.168.5.159:3000/frontEnd' //
 	WEBVIEW = `https://h5.lieduoduo.ziwork.com/`
 	CDNPATH = 'https://attach.lieduoduo.ziwork.com/front-assets/images/'
 } else {
@@ -44,3 +44,6 @@ export const COMPONENTS = '/components/'
 
 // api
 export const API = '/api/'
+
+// downLoadApp
+export const DOWNLOADAPPPATH = `${COMMON}webView/webView?p=${encodeURIComponent(`${WEBVIEW}art/downLoadApp?sourceType=miniGuide`)}`

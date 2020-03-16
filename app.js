@@ -1,6 +1,6 @@
 //app.js
 import {loginApi, checkSessionKeyApi, bindPhoneApi, uploginApi, getOauthUserApi} from 'api/pages/auth.js'
-import {formIdApi, shareStatistics, readyStatistics, getVersionListApi,getWechatConfigMiniProgramApi, subscribeWechatMessageApi} from 'api/pages/common.js'
+import {formIdApi, shareStatistics, readyStatistics, getVersionListApi,getWechatConfigMiniProgramApi, subscribeWechatMessageApi, getCurEnvApi} from 'api/pages/common.js'
 import {getPersonalResumeApi} from 'api/pages/center.js'
 import {getRecruiterDetailApi} from 'api/pages/recruiter.js'
 import {COMMON, RECRUITER, APPLICANT, CDNPATH} from "config.js"
@@ -12,7 +12,7 @@ import {getBottomRedDotApi} from 'api/pages/interview.js'
 
 let that = null
 App({
-  onLaunch: function (e) {
+  onLaunch(e) {
     // 获取导航栏高度
     this.getWechatConfig()
     this.checkUpdateVersion()
@@ -43,12 +43,12 @@ App({
     this.pageInit = null
     this.getRoleInit = null
     this.login()
-    
-    this.getFont('Number', 'https://attach.lieduoduo.com/font/DIN-Medium.ttf')
+    this.getCurEnv()
     // 这是一个官方api没有公布的方法，但又真实有效，慎用！
     wx.onAppRoute((res) => {
       if (res.query.hasOwnProperty('identity')) that.identification(res.query)
     })
+    this.getFont('Number', 'https://attach.lieduoduo.com/font/DIN-Medium.ttf')
   },
   onHide: function (e) {
   },
@@ -77,10 +77,10 @@ App({
     telePhone: '400-065-5788',  // 联系电话
     systemInfo: wx.getSystemInfoSync(), // 系统信息
     xs: 0, // px 转化成 rpx 的 比例
-    // 面试红点信息
-    redDotInfos: {},
+    redDotInfos: {},// 面试红点信息
     subscribeConfig: {},
-    platform: ''
+    platform: '',
+    stg: 0 // 是否是预发布
   },
   // 登录
   login() {
@@ -346,6 +346,11 @@ App({
                     wx.reLaunch({
                       url: `${pageUrl}`
                     })
+                  }  else if (operType === 'redirectBack') {
+                    let lastRoute = _this.getCurrentPagePath(2)
+                    wx.redirectTo({
+                      url: lastRoute
+                    })
                   } else {
                     if (getCurrentPages().length > 1) {
                        wx.navigateBack({
@@ -403,6 +408,11 @@ App({
                 } else if (operType === 'bIndex') {
                   wx.reLaunch({
                     url: `${RECRUITER}index/index`
+                  })
+                } else if (operType === 'redirectBack') {
+                  let lastRoute = _this.getCurrentPagePath(2)
+                  wx.redirectTo({
+                    url: lastRoute
                   })
                 } else {
                   if (getCurrentPages().length > 1) {
@@ -796,7 +806,7 @@ App({
   // 获取当前页面完整链接
   getCurrentPagePath (index) {
     var pages = getCurrentPages() //获取加载的页面
-    if (!index && index !== 0) index = pages.length - 1
+    index = !index ? pages.length - 1 : pages.length - index
     let pageUrl = pages[index].route
     if (pages[index] && pages[index].options && this.splicingParams(pages[index].options)) {
       return `/${pageUrl}?${this.splicingParams(pages[index].options)}`
@@ -890,6 +900,11 @@ App({
           }
         }
       })
+    })
+  },
+  getCurEnv () {
+    getCurEnvApi().then(res => {
+      this.globalData.stg = res.data.stg
     })
   }
 })

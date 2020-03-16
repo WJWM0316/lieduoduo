@@ -4,15 +4,15 @@
 <navbar title="职位管理"></navbar>
 <view style="height: 98rpx"></view>
 <view class="office-status-bar" style="top:{{navH}}px">
-  <view class="item {{positionStatus === '1' ? 'active' : ''}}" bindtap="onClickTab" data-status="1">招聘中({{onLinePositionNum}})</view>
-  <view class="item {{positionStatus === '2' ? 'active' : ''}} {{redDotInfos.positionOfflineBar ? 'red-dot' : ''}}" bindtap="onClickTab" data-status="2">下线职位</view>
+  <view class="item {{positionStatus == '1' ? 'active' : ''}}" bindtap="onClickTab" data-status="1">招聘中({{onLinePositionNum}})</view>
+  <view class="item {{positionStatus == '2' ? 'active' : ''}} {{redDotInfos.positionOfflineBar ? 'red-dot' : ''}}" bindtap="onClickTab" data-status="2">下线职位</view>
   <view class="publish" data-action="add" bindtap="routeJump"><i class="icon iconfont icon-bianji"></i> 发布职位</view>
 </view>
 
 <view hidden="{{!hasReFresh}}">
 	<refreshStatus></refreshStatus>
 </view>
-<form bindsubmit="formSubmit" report-submit='{{true}}'>
+<form bindsubmit="formSubmit" report-submit='{{true}}' >
 <!--招聘中职位-->
 <view class="office-manager-list {{onLinePosition.list.length ? '' : 'nodata'}}" hidden="{{positionStatus === '2'}}">
 	<view class="li"

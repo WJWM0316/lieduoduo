@@ -39,8 +39,20 @@
       </block>
   	</view>
     <view class="createBox" wx:if='{{isMicroCard && !isJobhunter}}'>你与offer之间还差一份简历~<view class="btn" bindtap="completeResume">去创建<i class="icon iconfont icon-disejiantou-you"></i></view></view>
+    <view style="margin-top: 24rpx">
+      <downloadBar stamp="stamp2" className="style2"></downloadBar>
+    </view>    
     <!-- bottom -->
     <view class="entry-list">
+      <view class="li" bindtap="jump" data-type="loadApp">
+        <view>
+          <i class="icon iconfont icon-yueliao"></i>
+          <view class="text">约聊消息</view>
+        </view>
+        <view class='arrow-box'>
+          <i class="icon iconfont icon-xiangyou"></i>
+        </view>
+      </view>
   		<view class="li" bindtap="jump" data-type="scanCode" wx:if='{{hasLogin && isJobhunter}}'>
   			<view>
           <i class="icon iconfont icon-fujian"></i>

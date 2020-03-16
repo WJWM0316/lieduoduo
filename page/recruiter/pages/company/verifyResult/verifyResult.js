@@ -6,7 +6,7 @@ import {
 
 import {COMMON, RECRUITER} from "../../../../../config.js"
 
-const app = getApp()
+let app = getApp()
 
 Page({
   data: {
@@ -29,7 +29,7 @@ Page({
    */
   getApplyjoinInfos(hasLoading = true) {
     return new Promise((resolve, reject) => {
-      const params = {id: this.data.options.id, ...app.getSource()}
+      let params = {id: this.data.options.id, ...app.getSource()}
     	getApplyjoinInfosApi(params, hasLoading).then(res => {
     		this.setData({infos: res.data.applyInfo}, () => resolve(res))
     	})
@@ -41,8 +41,8 @@ Page({
    * @detail   不给予通过
    */
   failApplyjoin() {
-    const infos = this.data.infos
-    const that = this
+    let infos = this.data.infos
+    let that = this
     app.wxConfirm({
       title: '温馨提示',
       content: '确认该申请人不予加入组织？',
@@ -72,8 +72,8 @@ Page({
    * @detail   通过
    */
   passApplyjoin() {
-    const infos = this.data.infos
-    const that = this
+    let infos = this.data.infos
+    let that = this
     app.wxConfirm({
       title: '温馨提示',
       content: '确认该申请人加入组织？',

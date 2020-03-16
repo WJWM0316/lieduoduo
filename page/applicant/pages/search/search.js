@@ -52,11 +52,7 @@ Page({
     filterData: {},
     filterType: 'company'
   },
-
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
+  onLoad(options) {
     let init = () => {
       let searchRecord = wx.getStorageSync('searchRecord') || []
       let tabIndex = 0
@@ -90,7 +86,6 @@ Page({
     this.setData({hasFocus: true})
   },
   bindInput (e) {
-    console.log(e)
     keyword = e.detail.value.trim()
     if (lastWord === keyword) return
     lastWord = keyword
@@ -111,7 +106,6 @@ Page({
     let searchRecord = this.data.historyList || [],
         isRecordIndex= null
     // 判断该关键字是否已经存在，存在则位置提前，不存在则加到第一个
-    
     searchRecord.forEach((item, index) => { if (item.word === word) isRecordIndex = index })
     if (!isRecordIndex && isRecordIndex !== 0) {
       searchRecord.unshift({word, type: !this.data.tabIndex ? 1 : 2})
@@ -127,16 +121,20 @@ Page({
   },
   choseKeyWord (e) {
     let dataset = e.currentTarget.dataset,
-        word    = ''
+        word    = '',
+        areaType= null
     switch (dataset.type) {
       case 'searchList':
         word = dataset.word
+        areaType = 2
         break
       case 'searchBtn':
         word = keyword
+        areaType = 3
         break
       case 'label':
         word = dataset.item.word
+        if (dataset.specialLabel === 'hotLabel') areaType = 1
         let tabIndex = dataset.item.type === 1 ? 0 : 1
         this.setData({tabIndex})
         break
@@ -146,7 +144,7 @@ Page({
     this.resetList()
     this.updateHistory(keyword)
     this.setData({keyword, keyWordList: []}, () => {
-      this.getSearchData()
+      this.getSearchData(areaType)
     })
   },
   resetList () {
@@ -166,8 +164,7 @@ Page({
       }
     })
   },
-  getSearchData (hasLoading = true) {
-    console.log(this.data.keyword, 333333333333)
+  getSearchData (areaType) {
     let tabIndex     = this.data.tabIndex,
         keyword      = this.data.keyword,
         getRecommend = this.data.getRecommend,
@@ -188,8 +185,8 @@ Page({
     }
     // 加载完正常列表 再加载的推荐数据不需要传薪资条件
     if (this.data.getRecommend) delete params.emolumentIds
-
-    return listFun(params, hasLoading).then(res => {
+    if (listType === 'positionData' && areaType) params.areaType = areaType
+    return listFun(params).then(res => {
       let isRequire = 1
       let isLastPage = (res.data.length < params.count) || (res.meta && parseInt(res.meta.currentPage) === res.meta.lastPage) ? 1 : 0
       let onBottomStatus = isLastPage ? 2 : 0

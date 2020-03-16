@@ -160,6 +160,7 @@ Page({
     if (!this.data.detail.positionNum) return
     setTimeout(() => {
       getSelectorQuery('.tab-bar').then(res => {
+        if(!res) return
         let moveParams = this.data.moveParams
         moveParams.screenHalfWidth = res.width / 2
         this.setData({moveParams})
@@ -298,7 +299,6 @@ Page({
     } else {
       if (this.data.background !== 'transparent') this.setData({isFixed: false, background: 'transparent'})
     }
-    console.log(e.scrollTop ,'===', fixedDomPosition)
     if(e.scrollTop > fixedDomPosition) {
       if(!this.data.fixedDom) this.setData({fixedDom: true})
     } else {
@@ -408,7 +408,6 @@ Page({
     if(!data.otherUrl && !data.targetUrl) {
       return
     }
-    console.log(data)
     // let url = '/' + e.currentTarget.dataset.url
     if(data.otherUrl) {
       url = '/' + data.otherUrl

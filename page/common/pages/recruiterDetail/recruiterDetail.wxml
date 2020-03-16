@@ -116,14 +116,15 @@
     <!-- <view class="positionBtn" bindtap="scrollPs" hidden="{{!isShowBtn}}" wx:if="{{!isOwner && positionList.total > 0}}">{{positionList.total}}个热招职位<i class="icon iconfont icon-xiayi"></i></view> -->
     <block wx:if="{{info.uid}}"><canvasCard cardData="{{info}}" type="recruiter" bindgetCreatedImg="getCreatedImg"></canvasCard></block>
 
-    <interviewBar
+    <communicationBar
         id="interviewBar"
-        infos="{{info}}"
+        infos="{{ info }}"
         bindresultevent="getPositionDetail"
         type="recruiter"
         options="{{options}}"
+        bindreLoad="reload"
         wx:if="{{info.vkey && !isOwner}}">
-    </interviewBar>
+    </communicationBar>
     <shareBtn posterType="recruiter" id="shareBtn" shareBtn="{{false}}" params="{{info.uid}}" wx:if="{{isOwner && !showEdit}}"></shareBtn>
     <view class="foot-bar" wx:if="{{isOwner && !showEdit}}">
       <view class="button button-edit" bindtap="edit">编辑主页</view>

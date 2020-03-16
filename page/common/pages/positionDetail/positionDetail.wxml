@@ -119,6 +119,7 @@
 					<viwe class="imgBox" wx:if="{{findMore.companyLogos && findMore.companyLogos.length > 3}}" ><image class="img" src="{{cdnPath}}more.png"></image></viwe>
 				</view>
 			</view>
+			<downloadBar stamp="stamp2" className="style1"></downloadBar>
 		</block>
 		<!-- 正常职位 end-->
 
@@ -151,14 +152,15 @@
 		</block>
 
 		<block wx:if="{{detail.id}}"><canvasCard cardData="{{detail}}" type="position" bindgetCreatedImg="getCreatedImg"></canvasCard></block>
-		<interviewBar
+		<communicationBar
 			id="interviewBar"
 			infos="{{ detail }}"
 			bindresultevent="bindStatusChange"
 			bindchatPosition="chatPosition"
+			bindreLoad="reload"
 			type="position"
-			options="{{query}}"
-			wx:if="{{detail.vkey && !isOwner}}"></interviewBar>
+			options="{{ query }}"
+			wx:if="{{ detail.vkey && !isOwner }}"></communicationBar>
 		<auth wx:if="{{requireOAuth}}" bindauthSuccess="authSuccess"></auth>
 	</view>
 </form>

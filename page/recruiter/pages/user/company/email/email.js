@@ -102,11 +102,9 @@ Page({
     // 邮箱不正确
     if(!this.data.canClick) return
     if(this.data.step === 2) {
-      sendEmailApi(params)
-      .then(res => {
+      sendEmailApi(params).then(res => {
         this.setData({canResend: false }, this.killTime())
-      })
-      .catch(msg => {
+      }).catch(msg => {
 
         // 已经时招聘官
         if(msg.code === 307) {
@@ -133,11 +131,9 @@ Page({
         app.wxToast({ title: msg.msg })
       })
     } else {
-      sendEmailApi(params)
-      .then(res => {
+      sendEmailApi(params).then(res => {
         this.setData({step: 2, isFocus: true}, this.killTime())
-      })
-      .catch(msg => {
+      }).catch(msg => {
 
         if(msg.code === 307) {
           app.wxToast({
@@ -289,8 +285,7 @@ Page({
     // 已经进入倒计时
     if(!this.data.canResend) return;
     this.setData({canResend: false , isFocus: true})
-    sendEnterpriseEmailApi(params)
-    .then(res => {
+    sendEnterpriseEmailApi(params).then(res => {
       this.killTime()
     })
     .catch(err => {

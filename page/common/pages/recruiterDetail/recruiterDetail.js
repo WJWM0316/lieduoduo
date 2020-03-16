@@ -1,5 +1,5 @@
 import {getSelectorQuery} from "../../../../utils/util.js"
-import {getOthersRecruiterDetailApi, getRecruiterDetailApi, giveMecallApi, putLabelFavorApi, removeLabelFavorApi} from "../../../../api/pages/recruiter.js"
+import {getOthersRecruiterDetailApi, giveMecallApi, putLabelFavorApi, removeLabelFavorApi} from "../../../../api/pages/recruiter.js"
 import {getPositionListApi} from "../../../../api/pages/position.js"
 import {getMyCollectUserApi, deleteMyCollectUserApi} from "../../../../api/pages/collect.js"
 import {COMMON,RECRUITER,APPLICANT} from "../../../../config.js"
@@ -60,6 +60,9 @@ Page({
       urls: [this.data.info.avatar.url] // 需要预览的图片http链接列表
     })
   },
+  reload() {
+    this.getOthersInfo(false, true)
+  },
   getOthersInfo(hasLoading = true, isReload = false) {
     return new Promise((resolve, reject) => {
       getOthersRecruiterDetailApi({uid: this.data.options.uid, hasLoading, isReload, ...app.getSource()}).then(res => {
@@ -71,7 +74,6 @@ Page({
           info.hasDeleted = 0
         }
         this.setData({isOwner, info, realIsOwner: res.data.isOwner}, function() {
-          if(this.selectComponent('#interviewBar')) this.selectComponent('#interviewBar').init()
           // this.getDomNodePosition()
           if (this.data.isOwner) {
             app.globalData.recruiterDetails = res.data

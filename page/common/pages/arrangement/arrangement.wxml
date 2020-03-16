@@ -1,26 +1,55 @@
 <!-- 加载过滤器 -->
 <wxs src="../../../../utils/filters.wxs" module="filters" />
-<view class="arrangement" wx:if="{{info.interviewId}}">
-  <navbar title="面试详情" background="#FFFFFF" color="#22292C"></navbar>
-  <view hidden="{{!hasReFresh}}">
+<view class="arrangement" wx:if="{{ info.interviewId }}">
+
+  <navbar
+    title="面试详情"
+    background="#FFFFFF"
+    color="#22292C">
+  </navbar>
+
+  <view hidden="{{ !hasReFresh }}">
     <refreshStatus></refreshStatus>
   </view>
-  <view class="tip" wx:if="{{identity === 'RECRUITER' && info.status === 32}}">备选时间不合适，请联系候选人重新确定时间</view>
+
+  <view class="tip" wx:if="{{ identity === 'RECRUITER' && info.status === 32 }}">
+    备选时间不合适，请联系候选人重新确定时间
+  </view>
+
   <view class="headInfo">
     <view class="roleDetail" wx:if="{{info.interviewId}}">
-      <roleInfoCard wx:if="{{identity === 'RECRUITER'}}" cardData="{{info.jobhunterInfo}}" roleType="applicant" glass="{{info.glass}}"></roleInfoCard>
-      <roleInfoCard wx:if="{{identity === 'APPLICANT'}}" cardData="{{info.recruiterInfo}}" roleType="recruiter"></roleInfoCard>
+      <roleInfoCard
+        wx:if="{{identity === 'RECRUITER'}}"
+        cardData="{{info.jobhunterInfo}}"
+        roleType="applicant"
+        glass="{{info.glass}}">
+      </roleInfoCard>
+      <roleInfoCard
+        wx:if="{{identity === 'APPLICANT'}}"
+        cardData="{{info.recruiterInfo}}"
+        roleType="recruiter">
+      </roleInfoCard>
     </view>
   </view>
+
   <block>
     <view class="content">
-      <view class="detail" wx:if="{{identity === 'RECRUITER' && (info.status === 21 || info.status === 32)}}">
-        <view class="title"><icon class="icon"></icon>面试信息</view>
+      <view
+        class="detail"
+        wx:if="{{ identity === 'RECRUITER' && (info.status === 21 || info.status === 32 || info.status === 55 || info.status === 53 || info.status === 11 || info.status === 54 || info.status === 52 ) }}">
+        <view class="title">
+          <icon class="icon"></icon>面试信息
+        </view>
         <view class="msgItem">
           <view class="inner">
             <view class="txt">联系人</view>
             <view class="msg">
-              <input type="text" value="{{info.recruiterInfo.realname}}" bindblur="changeVal" data-type="name" placeholder="请填写联系人" />
+              <input
+                type="text"
+                value="{{ info.recruiterInfo.realname }}"
+                bindblur="changeVal"
+                data-type="name"
+                placeholder="请填写联系人" />
             </view>
           </view>
         </view>
@@ -28,62 +57,103 @@
           <view class="inner">
             <view class="txt">联系电话</view>
             <view class="msg">
-              <input type="text" value="{{info.recruiterInfo.mobile}}" bindblur="changeVal" data-type="phone" placeholder="请填写手机号或座机" />
+              <input
+                type="text"
+                value="{{ info.recruiterInfo.mobile }}"
+                bindblur="changeVal"
+                data-type="phone"
+                placeholder="请填写手机号或座机" />
             </view>
           </view>
         </view>
         <view class="msgItem jump" bindtap="jump" data-type="jobList">
           <view class="inner">
-            <view class="txt">面试职位</view>
-            <view class="msg" data-type="jobList">{{info.positionName}}</view>
+            <view class="txt">
+              面试职位
+            </view>
+            <view class="msg" data-type="jobList">
+              {{ info.positionName }}
+            </view>
             <icon class="icon iconfont icon-xiangyou"></icon>
           </view>
         </view>
-        <view class="msgItem jump" bindtap="jump" data-type="addressList">
+        <view class="msgItem">
+          <view class="inner">          
+            <picker bindchange="getSuorceType" range="{{ sourceType }}" value="{{ key }}" range-key="key" class="select-source-type">
+              <view class="txt">
+                邀请
+              </view>
+              <view class="msg" data-type="jobList" style="display: inline">
+                {{ info.sourceTypeDesc }}
+              </view>
+              <icon class="icon iconfont icon-xiangyou"></icon>
+            </picker>
+          </view>
+        </view>
+        <view class="msgItem jump" bindtap="jump" data-type="addressList" wx:if="{{ info.sourceType === 1}}">
           <view class="inner noborder">
-            <view class="txt">面试地址</view>
-            <view class="msg" data-type="addressList">{{info.address}}{{info.doorplate}}</view>
+            <view class="txt">
+              面试地址
+            </view>
+            <view class="msg" data-type="addressList">
+              {{ info.address }}{{ info.doorplate }}
+            </view>
             <icon class="icon iconfont icon-xiangyou"></icon>
           </view>
         </view>
       </view>
 
-      <view class="detail read" wx:if="{{identity === 'APPLICANT' || (identity === 'RECRUITER' && (info.status === 12 || info.status === 31 || info.status === 41 || info.status === 51 || info.status === 59 || info.status === 57 || info.status === 60 || info.status === 58 || info.status === 61))}}">
-        <view class="title"><icon class="icon"></icon>面试信息</view>
-        <view class="msgItem" bindtap="callPhone">
+      <view
+        class="detail read"
+        wx:if="{{ identity === 'APPLICANT' || (identity === 'RECRUITER' && (info.status === 12 || info.status === 31 || info.status === 41 || info.status === 51 || info.status === 59 || info.status === 57 || info.status === 60 || info.status === 58 || info.status === 61)) }}">
+        <view class="title">
+          <icon class="icon"></icon>面试信息
+        </view>
+        <view class="msgItem" bindtap="callPhone"> 
           <view class="inner">
             <i class="icon1 iconfont icon-mianshiguan"></i>
             <view class="msg">
-              <text>{{info.arrangementInfo.realname || info.recruiterRealname}} | <text class="phone">{{info.arrangementInfo.mobile || info.recruiterRealMobile}}</text></text>
+              {{ info.arrangementInfo.realname || info.recruiterRealname }} | 
+              <view class="phone">
+                {{ info.arrangementInfo.mobile || info.recruiterRealMobile }}
+              </view>
             </view>
             <i class="icon iconfont icon-xiangyou"></i>
           </view>
         </view>
-        <view class="msgItem" wx:if="{{info.positionName}}" bindtap="jump" data-type="position">
+        <view class="msgItem" wx:if="{{ info.positionName }}" bindtap="jump" data-type="position">
           <view class="inner">
             <i class="icon1 iconfont icon-mianshizhiwei"></i>
-            <view class="msg">{{info.positionName}}</view>
+            <view class="msg">{{ info.positionName }}</view>
             <i class="icon iconfont icon-xiangyou"></i>
           </view>
         </view>
-        <view class="msgItem jump" wx:if="{{info.address}}" bindtap="openMap">
+        <view class="msgItem">
+          <view class="inner">
+            <i class="icon1 iconfont icon-mianshizhiwei"></i>
+            <view class="msg">{{ info.sourceTypeDesc }}</view>
+          </view>
+        </view>
+        <view class="msgItem jump" wx:if="{{ info.address && info.sourceType === 1 }}" bindtap="openMap">
           <view class="inner noborder">
             <i class="icon1 iconfont icon-mianshidizhi"></i>
-            <view class="msg noWrap">{{info.address}}{{info.doorplate}}</view>
+            <view class="msg noWrap">
+              {{ info.address }}{{ info.doorplate }}
+            </view>
             <i class="icon iconfont icon-xiangyou"></i>
           </view>
         </view>
-        <view class="msgItem" wx:if="{{info.status > 50 && identity === 'RECRUITER'}}">
+        <view class="msgItem" wx:if="{{ info.status > 50 && identity === 'RECRUITER' }}">
           <view class="inner noborder">
             <i class="icon1 iconfont icon-shijian"></i>
-            <view class="msg noWrap">{{info.arrangementInfo.appointment}}</view>
+            <view class="msg noWrap">{{ info.arrangementInfo.appointment }}</view>
           </view>
         </view>
       </view>
 
-      <view class="date" wx:if="{{identity === 'RECRUITER' && (info.status === 21 || info.status === 31 || info.status === 32)}}">
+      <view class="date" wx:if="{{ identity === 'RECRUITER' && (info.status === 21 || info.status === 31 || info.status === 32) }}">
         <view class="title"><icon class="icon"></icon>约面时间</view>
-        <block wx:if="{{info.status === 21}}">
+        <block wx:if="{{ info.status === 21 }}">
           <view class="dateItem" wx:for="{{info.arrangementInfo.appointmentList}}" wx:key="{{index}}" wx:if="{{item.appointmentTime}}">
             <view class="inner">
               <view class="removeIcon" bindtap="removeDate" data-index="{{index}}">
@@ -94,38 +164,70 @@
             </view>
           </view>
         </block>
-        <block wx:if="{{info.status === 32}}">
-          <view class="dateItem" wx:for="{{info.arrangementInfo.appointmentList}}" wx:key="{{index}}">
+        <block wx:if="{{ info.status === 32 }}">
+          <view class="dateItem" wx:for="{{ info.arrangementInfo.appointmentList }}" wx:key="{{ index }}">
             <view class="inner">
-              <view class="removeIcon" bindtap="removeDate" data-index="{{index}}">
+              <view class="removeIcon" bindtap="removeDate" data-index="{{ index }}">
                 <view class="icon1"></view>
               </view>
-              <view class="dateDetail edit"><myPicker id="myPicker{{index}}" pickerType="dateTime" class="myPicker" data-time="{{item.appointmentTime}}" data-type="edit" data-index="{{index}}" setResult="{{filters.dateFormat(item.appointmentTime, 'YYYY-MM-DD hh:mm')}}" bindresultevent="getResult">
-              </myPicker></view>
+              <view class="dateDetail edit">
+                <myPicker
+                  id="myPicker{{ index }}"
+                  pickerType="dateTime"
+                  class="myPicker"
+                  data-time="{{ item.appointmentTime }}"
+                  data-type="edit"
+                  data-index="{{ index }}"
+                  setResult="{{ filters.dateFormat(item.appointmentTime, 'YYYY-MM-DD hh:mm') }}"
+                  bindresultevent="getResult">
+              </myPicker>
+              </view>
             </view>
           </view>
         </block>
-        <view wx:if="{{info.status === 31}}" class="dateItem" wx:for="{{info.arrangementInfo.appointmentList}}" wx:key="{{index}}">
+        <view wx:if="{{ info.status === 31 }}" class="dateItem" wx:for="{{ info.arrangementInfo.appointmentList }}" wx:key="{{ index }}">
           <view class="inner">
-            <view class="xuhao">时间{{index + 1}}</view>
-            <view class="dateDetail">{{filters.dateFormat(item.appointmentTime, 'YYYY-MM-DD hh:mm')}}</view>
+            <view class="xuhao">时间{{ index + 1 }}</view>
+            <view class="dateDetail">{{ filters.dateFormat(item.appointmentTime, 'YYYY-MM-DD hh:mm') }}</view>
           </view>
         </view>
-        <view class="dateItem" wx:if="{{                                                                                                             (!info.arrangementInfo.appointmentList || info.arrangementInfo.appointmentList.length < 3) && info.status !== 31}}">
+        <view class="dateItem" wx:if="{{(!info.arrangementInfo.appointmentList || info.arrangementInfo.appointmentList.length < 3) && info.status !== 31}}">
           <view class="inner noborder">
             <view class="txt">最多可添加3个时间供候选人选择</view>
-            <view class="msg"><myPicker pickerType="dateTime" class="myPicker" needSlot="{{true}}" bindresultevent="getResult"><text class="add">+</text>添加时间</myPicker></view>
+            <view class="msg">
+              <myPicker
+                pickerType="dateTime"
+                class="myPicker"
+                needSlot="{{ true }}"
+                bindresultevent="getResult"><text class="add">+</text>添加时间
+              </myPicker>
+            </view>
           </view>
         </view>
       </view>
 
-      <view class="realDate wait" wx:if="{{identity === 'APPLICANT' && (info.status === 21 || info.status === 32)}}">
-        <view class="txt1">等待面试官安排面试</view>
-        <view class="txt2">你也可以通过上方的电话，联系面试官确认时间~</view>
-        <image class="pic" src="{{cdnImagePath}}wait.png"></image>
+      <view
+        class="realDate wait"
+        wx:if="{{ identity === 'APPLICANT' && info.status === 21 }}">
+        <view class="txt1">
+          等待面试官安排面试
+        </view>
+        <view class="txt2">
+          你也可以通过上方的电话，联系面试官确认时间~
+        </view>
+        <image class="pic" src="{{ cdnImagePath }}wait.png"></image>
       </view>
 
-      <view class="date read" wx:if="{{identity === 'APPLICANT' && info.status === 31}}">
+      <view
+        class="realDate wait"
+        wx:if="{{ identity === 'APPLICANT' && info.status === 32 }}">
+        <view class="txt1">
+          时间不合适，等待重新安排
+        </view>
+        <image class="pic" src="{{ cdnImagePath }}clock_show.png"></image>
+      </view>
+
+      <!-- <view class="date read" wx:if="{{identity === 'APPLICANT' && info.status === 31}}">
         <view class="title"><icon class="icon"></icon>约面时间<text class="newTip">请选择一个时间接受面试</text></view>
         <radio-group class="radio-group dateItem" bindchange="radioChange">
           <label wx:for="{{info.arrangementInfo.appointmentList}}" wx:key="{{index}}">
@@ -147,53 +249,84 @@
             </view>
           </label>
         </radio-group>
+      </view> -->
+      
+      <view class="realDate" wx:if="{{ info.status === 41 }}">
+        <view class="txt1">面试时间已确认</view>
+        <view class="txt2" wx:if="{{ identity === 'RECRUITER' }}">
+          时间已添加到面试日程，准备迎接候选人吧~
+        </view>
+        <view class="txt2" wx:if="{{ identity === 'APPLICANT' }}">
+          时间已添加到面试日程，记得准时赴约噢~
+        </view>
+        <view class="txt3">
+          {{ filters.dateFormat(info.arrangementInfo.appointmentTime, 'YYYY-MM-DD hh:mm') }}
+        </view>
       </view>
       
-      <view class="realDate" wx:if="{{info.status === 41}}">
-        <view class="txt1">面试时间已确认</view>
-        <view class="txt2" wx:if="{{identity === 'RECRUITER'}}">时间已添加到面试日程，准备迎接候选人吧~</view>
-        <view class="txt2" wx:if="{{identity === 'APPLICANT'}}">时间已添加到面试日程，记得准时赴约噢~</view>
-        <view class="txt3">{{filters.dateFormat(info.arrangementInfo.appointmentTime, 'YYYY-MM-DD hh:mm')}}</view>
-      </view>
-      <view class="realDate" wx:if="{{(info.status === 51 || info.status === 60 || info.status === 57 || info.status === 58 || info.status === 59 || info.status === 61)  && identity === 'APPLICANT'}}">
+      <view
+        class="realDate"
+        wx:if="{{ (info.status === 51 || info.status === 60 || info.status === 57 || info.status === 58 || info.status === 59 || info.status === 61)  && identity === 'APPLICANT' }}">
         <view class="txt1">面试已结束</view>
-        <view class="txt3 end">{{filters.dateFormat(info.arrangementInfo.appointmentTime, 'YYYY-MM-DD hh:mm')}}</view>
+        <view class="txt3 end">
+          {{ filters.dateFormat(info.arrangementInfo.appointmentTime, 'YYYY-MM-DD hh:mm') }}
+        </view>
       </view>
       
       <!-- 招聘官主动发起开撩 求职者暂未同意 -->
-      <view class="recruiter-waiting" wx:if="{{identity === 'RECRUITER' && info.status === 12}}">
-        <view class="h1">等待候选人接受邀请</view>
+      <view class="recruiter-waiting" wx:if="{{ identity === 'RECRUITER' && (info.status === 12 || info.status === 31) }}">
+        <view class="h1">邀请已发出，等待对方处理</view>
         <view class="h2">候选人将收到你的面试邀请，请耐心等待</view>
-        <image src="{{cdnImagePath}}clock_show.png" class="clock_show"></image>
+        <image src="{{ cdnImagePath }}clock_show.png" class="clock_show"></image>
       </view>
 
+      <view class="recruiter-waiting" wx:if="{{ identity === 'APPLICANT' && (info.status === 11) }}">
+        <view class="h1">申请已发出，等待对方处理</view>
+        <!-- <view class="h2">候选人将收到你的面试邀请，请耐心等待</view> -->
+        <image src="{{ cdnImagePath }}clock_show.png" class="clock_show"></image>
+      </view>
 
-      <view class="realDate inappropriate" wx:if="{{info.status === 52}}">
+      <!-- <view class="recruiter-waiting" wx:if="{{ identity === 'APPLICANT' && (info.status === 21) }}">
+        <view class="h1">已接受邀请，待对方安排面试</view>
+        <view class="h2">候选人将收到你的面试邀请，请耐心等待</view>
+        <image src="{{ cdnImagePath }}clock_show.png" class="clock_show"></image>
+      </view> -->
+
+      <!-- 求职者 暂不考虑 招聘官 7天C未处理，自动标记为求职者不考虑 -->
+      <view class="recruiter-waiting" wx:if="{{ identity === 'RECRUITER' && (info.status === 54 || info.status === 55) }}">
+        <view class="h1">对方已经拒绝您的约面邀请</view>
+        <image src="{{ cdnImagePath }}img_sad_01.png" class="clock_show"></image>
+      </view>
+
+      <view class="realDate inappropriate" wx:if="{{ identity !== 'RECRUITER' && info.status === 52 }}">
         <view class="txt1">面试已取消</view>
-        <block wx:if="{{identity === 'APPLICANT'}}">
+        <block wx:if="{{ identity === 'APPLICANT' }}">
           <view class="txt2">面试官标记为不合适，别灰心，还有大量机会等你发现</view>
-          <image class="pic" src="{{cdnImagePath}}emptyState.png"></image>
+          <image class="pic" src="{{ cdnImagePath }}emptyState.png"></image>
           <view class="btn" bindtap="jump" data-type="careerChance">发现更多好机会</view>
         </block>
         <block wx:else>
-          <image class="pic" src="{{cdnImagePath}}emptyState.png"></image>
+          <image class="pic" src="{{ cdnImagePath }}emptyState.png"></image>
           <view class="txt2">已标记为不合适，别灰心，去看看其他候选人吧~</view>
         </block>
       </view>
 
       <!-- 面试结果 -->
-      <view class="interview-result-box" wx:if="{{(info.status === 51 || info.status === 59 || info.status === 57 || info.status === 60 || info.status === 58 || info.status === 61) && identity === 'RECRUITER'}}">
-        <view class="title"><icon class="icon"></icon>面试结果</view>
-
-        <view wx:if="{{info.status === 51}}">
+      <view
+        class="interview-result-box"
+        wx:if="{{ (info.status === 51 || info.status === 59 || info.status === 57 || info.status === 60 || info.status === 58 || info.status === 61) && identity === 'RECRUITER' }}">
+        <view class="title">
+          <icon class="icon"></icon>面试结果
+        </view>
+        <view wx:if="{{ info.status === 51 }}">
           <view class="arrive-status">候选人到场了吗 ？</view>
           <view class="btn-list_1">
             <view class="btn btn01" bindtap="todoAction" data-action="notArrive">
-              <view class="img"><image class="pic" src="{{cdnImagePath}}img_sad_01.png"></image></view>
+              <view class="img"><image class="pic" src="{{ cdnImagePath }}img_sad_01.png"></image></view>
               <view class="txt">候选人没来</view>
             </view>
             <view class="btn btn02" bindtap="todoAction" data-action="arrived">
-              <view class="img"><image class="pic" src="{{cdnImagePath}}img_smile_01.png"></image></view>
+              <view class="img"><image class="pic" src="{{ cdnImagePath }}img_smile_01.png"></image></view>
               <view class="txt">已到场面试</view>
             </view>
           </view>
@@ -201,15 +334,15 @@
         </view>
         
         <!-- 招聘官标记求职者已到场 start -->
-        <view wx:if="{{info.status === 57 || info.status === 58}}">
+        <view wx:if="{{ info.status === 57 || info.status === 58 }}">
           <view class="arrive-status">到场面试后感觉如何？评价一下吧～</view>
           <view class="btn-list_2">
             <view class="btn btn01" bindtap="todoAction" data-action="notsuitable">
-              <view class="img"><image class="pic" src="{{cdnImagePath}}img_sad_01.png"></image></view>
+              <view class="img"><image class="pic" src="{{ cdnImagePath }}img_sad_01.png"></image></view>
               <view class="txt">不合适</view>
             </view>
             <view class="btn btn02" bindtap="todoAction" data-action="good">
-              <view class="img"><image class="pic" src="{{cdnImagePath}}img_smile_01.png"></image></view>
+              <view class="img"><image class="pic" src="{{ cdnImagePath }}img_smile_01.png"></image></view>
               <view class="txt">感觉不错</view>
             </view>
           </view>
@@ -217,16 +350,22 @@
         <!-- 招聘官标记求职者已到场 end -->
 
         <!-- 求职者未到场 start -->
-        <view wx:if="{{info.status === 59}}">
-          <view class="sad-icon"><image class="pic" src="{{cdnImagePath}}img_sad_01.png"></image></view>
+        <view wx:if="{{ info.status === 59 }}">
+          <view class="sad-icon">
+            <image class="pic" src="{{cdnImagePath}}img_sad_01.png"></image>
+          </view>
           <view class="comment_1">候选人没来</view>
-          <view class="comment_2">挥别错的才能和对的相逢~ <text class="strong" bindtap="todoAction" data-action="interview">再次约面</text> </view>
+          <view class="comment_2">
+            挥别错的才能和对的相逢~ <text class="strong" bindtap="todoAction" data-action="interview">再次约面</text>
+          </view>
         </view>
         <!-- 求职者未到场 end -->
         
         <!-- 招聘官设置求职者不合适或者系统自动设置不合适 start -->
-        <view wx:if="{{info.status === 61}}">
-          <view class="sad-icon"><image class="pic" src="{{cdnImagePath}}img_sad_01.png"></image></view>
+        <view wx:if="{{ info.status === 61 }}">
+          <view class="sad-icon">
+            <image class="pic" src="{{ cdnImagePath }}img_sad_01.png"></image>
+          </view>
           <view class="comment_1">已到场面试，但不适合</view>
           <view class="comment_3">
             <text bindtap="todoAction" data-action="reason">查看原因</text>
@@ -237,7 +376,9 @@
         
         <!-- 招聘官已好评求职者 start -->
         <view wx:if="{{info.status === 60}}">
-          <view class="sad-icon"><image class="pic" src="{{cdnImagePath}}img_smile_01.png"></image></view>
+          <view class="sad-icon">
+            <image class="pic" src="{{cdnImagePath}}img_smile_01.png"></image>
+          </view>
           <view class="comment_1"> 已到场面试，感觉还不错！</view>
           <view class="comment_2">
             请联系候选人确认后续环节
@@ -245,24 +386,179 @@
         </view>
         <!-- 招聘官已好评求职者 end -->
       </view>
+      <view class="reason-box" wx:if="{{ identity === 'RECRUITER' && (info.status === 53 || info.status === 52) }}">
+        <view class="h11">
+          不适合原因
+        </view>
+        <view class="p11">
+          原因仅自己可见
+        </view>
+        <view class="reason-ul">
+          <view
+            class="reason-item"
+            wx:for="{{ info.interviewNotSuitComment.reason }}"
+            wx:key="item">
+            {{ item }}
+          </view>
+        </view>
+        <block wx:if="{{ info.interviewNotSuitComment.extraDesc }}">
+          <view class="title11">补充说明：</view>
+          <view class="content11">
+            <text>{{ info.interviewNotSuitComment.extraDesc }}</text>
+          </view>
+        </block>
+      </view>
+      <view
+        class="adviser-bar"
+        wx:if="{{ identity === 'RECRUITER' && info.isAdvisor }}"
+        bindtap="todoAction"
+        data-action="show-adviser-model">
+        <!-- <view class="img"></view> -->
+        <image
+          class="img"
+          src="{{ cdnImagePath }}icon_guwenbangyue_head@3x.png">
+        </image>
+        <view class="text">
+          此次面试将享受顾问约面跟进服务
+        </view>
+        <i class="iconfont icon-disejiantou-you"></i>
+      </view>
+
     </view>
 
-    <view class="btnBox" wx:if="{{identity === 'RECRUITER' && (info.status === 21 || info.status === 32)}}">
-      <button class="btn" bindtap="send">发送面试安排</button>
+    <block wx:if="{{ identity === 'APPLICANT' }}">
+      <view class="btnBox" wx:if="{{ info.status === 32 || info.status === 11 || info.status === 41 || info.status === 21 }}">
+        <button class="btn" bindtap="download"> 订阅面试反馈提醒 </button>
+      </view>
+      <view class="btnBox" wx:if="{{ info.status === 12 }}">
+        <button class="btn" bindtap="download"> 处理面试邀约 </button>
+      </view>
+      <view class="btnBox" wx:if="{{ info.status === 31 }}">
+        <button class="btn" bindtap="download"> 选择面试时间 </button>
+      </view>
+    </block>
+    <block wx:else>
+      <!-- <view class="btnBox" wx:if="{{ info.status === 11 }}">
+        <button class="btn" bindtap="download"> 处理面试邀约 </button>
+      </view> -->
+      <view class="btnBox" wx:if="{{ info.status === 12 || info.status === 41 }}">
+        <button class="btn" bindtap="download"> 订阅面试反馈提醒 </button>
+      </view>
+      <view class="btnBox1" wx:if="{{ info.status === 11 }}">
+        <button class="btn_01" bindtap="todoAction" data-action="notsuitable">拒绝</button>
+        <button class="btn_02" bindtap="confirmInterview">安排面试</button>
+      </view>
+      <view class="btnBox" wx:if="{{ info.status === 32 || info.status === 21 }}">
+        <button class="btn" bindtap="send">
+          <block wx:if="{{ info.isAdvisor }}">使用多多币发起邀请</block>
+          <block wx:else>
+            {{ info.sourceType === 1 ? '发送约见邀请' : '发送电话邀请' }}
+          </block>
+        </button>
+      </view>
+      <view class="btnBox" wx:if="{{ info.status === 31 }}">
+        <button class="btn" bindtap="revise"> 修改面试 </button>
+      </view>
+      <!-- <view class="btnBox" wx:if="{{mytype === '修改面试'}}">
+        <button class="btn" bindtap="send"> 重新发送邀请 </button>
+      </view> -->
+    </block>
+
+    <!-- <view
+      class="btnBox"
+      wx:if="{{identity === 'RECRUITER' && (info.status === 21 || info.status === 32)}}">
+      <button class="btn" bindtap="send">使用多多币发起邀请</button>
     </view>
+
     <view class="btnBox1" wx:if="{{identity === 'RECRUITER' && info.status === 31}}">
       <text class="txt">等待确认面试信息</text>
       <button class="btn_01" bindtap="revise">修改面试</button>
       <button class="btn_02" bindtap="todoAction" data-action="notsuitable">不合适</button>
     </view>
+
     <view class="btnBox" wx:if="{{identity === 'APPLICANT' && info.status === 31}}">
-      <button class="btn" bindtap="sureDate">确定接受面试</button>
+      <button class="btn" bindtap="download">选择面试时间</button>
     </view>
+
     <view class="btnBox" wx:if="{{identity === 'RECRUITER' && info.status === 41}}">
       <button class="btn" open-type="share">转发安排给其他同事</button>
     </view>
 
+    <view
+      class="btnBox"
+      wx:if="{{ info.status === 21 || info.status === 32 || info.status === 41 || info.status === 12 || info.status === 31 }}">
+      <button class="btn" bindtap="download">{{info.status === 12 && identity === 'APPLICANT' ? '处理面试邀约' : '订阅面试反馈提醒'}}</button>
+    </view> -->
+    
   </block>
 
-  <block wx:if="{{info.vkey && identity === 'RECRUITER' && info.status === 41}}"><canvasCard cardData="{{info}}" type="interview" bindgetCreatedImg="getCreatedImg"></canvasCard></block>
+  <block wx:if="{{ info.vkey && identity === 'RECRUITER' && info.status === 41 }}">
+    <canvasCard cardData="{{ info }}" type="interview" bindgetCreatedImg="getCreatedImg"></canvasCard>
+  </block>
+
+  <actionSheet 
+    title="{{ model.title }}"
+    openPop="{{ model.show }}" 
+    bindclose="closeTips"
+    class="adviser-model">
+    <scroll-view class="limit-adviser-box" wx:if="{{ model.show }}" scroll-y>
+      <view class="p22">顾问服务</view>
+      <view class="p33">为您提供约聊保障</view>
+      <view class="ul">
+        <view class="li">
+          <view class="key">
+            <view class="text">
+              <i class="iconfont icon-baidi-gou"></i>专业顾问
+            </view>
+            <view class="bg"></view>          
+          </view>
+          <view class="value">
+            平台招聘顾问团队平均从业经验5年+，拥有丰富的人力资源服务经验，为您提供更优质的招聘服务；
+          </view>
+        </view>
+        <view class="li">
+          <view class="key">
+            <view class="text">
+              <i class="iconfont icon-baidi-gou"></i>全程跟进
+            </view>
+            <view class="bg"></view>          
+          </view>
+          <view class="value">
+            招聘官使用约面服务后，顾问将人工协助招聘官邀约候选人，直到候选人到场面试，每一个环节都急您所需，为您提升约面效率；
+          </view>
+        </view>
+        <view class="li">
+          <view class="key">
+            <view class="text">
+              <i class="iconfont icon-baidi-gou"></i>进度可视
+            </view>
+            <view class="bg"></view>          
+          </view>
+          <view class="value">
+            候选人接受约面后，双方线上可以直接沟通，发起面试安排，还可以将日程一键转发给同事，实现协同；
+          </view>
+        </view>
+        <view class="li">
+          <view class="key">
+            <view class="text">
+              <i class="iconfont icon-baidi-gou"></i>保证到场
+            </view>
+            <view class="bg"></view>          
+          </view>
+          <view class="value">
+            使用顾问帮约服务后，若候选人最终未按招聘方要求，完成求职招聘相关的有效沟通时（包含但不限于到场、电话、视频等面试形式），多多币将会退回到招聘官的账户；
+          </view>
+        </view>
+      </view>
+    </scroll-view>
+  </actionSheet>
+
+  <payPop 
+    openPayPop="{{ openPayPop }}" 
+    chargeData="{{ chargeData }}" 
+    bindsubmit="send" 
+    bindclose="closePayPop" 
+    type="{{ !info.isAdvisor ? 1 : 2 }}">
+  </payPop>
+
 </view>

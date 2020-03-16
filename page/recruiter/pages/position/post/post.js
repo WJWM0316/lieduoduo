@@ -5,17 +5,13 @@ import {
 } from '../../../../../api/pages/position.js'
 
 import {
-  scanQrcodeApi,
-  scanLoginApi
-} from '../../../../../api/pages/common.js'
-
-import {
   applyInterviewApi
 } from '../../../../../api/pages/interview.js'
 
-import {realNameReg, emailReg, positionReg} from '../../../../../utils/fieldRegular.js'
-
-import {RECRUITER, COMMON} from '../../../../../config.js'
+import {
+  RECRUITER,
+  COMMON
+} from '../../../../../config.js'
 
 let app = getApp()
 Page({

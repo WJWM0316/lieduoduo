@@ -13,7 +13,7 @@ import {COMMON, RECRUITER} from '../../../../../config.js'
 
 import { reverseGeocoder } from '../../../../../utils/map.js'
 
-const app = getApp()
+let app = getApp()
 
 Page({
   data: {
@@ -47,10 +47,10 @@ Page({
   selectAddress() {
     let that = this
     // 获取权限
-    const getPermission = () => {
+    let getPermission = () => {
       wx.getSetting({
         success: rtn => {
-          const statu = rtn.authSetting
+          let statu = rtn.authSetting
           if(!statu['scope.userLocation']) {
             app.wxConfirm({
               title: '是否授权当前位置',
@@ -91,10 +91,10 @@ Page({
    * @return   {[type]}       [description]
    */
   reverseGeocoder(res) {
-    const storage = wx.getStorageSync('createPosition')
+    let storage = wx.getStorageSync('createPosition')
     reverseGeocoder(res)
       .then(rtn => {
-        const formData = {}
+        let formData = {}
         formData.address = `${rtn.result.address} ${rtn.result.address_reference.landmark_l2.title}`
         formData.area_id = rtn.result.ad_info.adcode
         formData.lat = rtn.result.ad_info.location.lat
@@ -110,14 +110,14 @@ Page({
    * @return   {[type]}   [description]
    */
   delete() {
-    const type = this.data.options.type === 'position' ? 'Position' : 'Company'
-    const action = `delete${type}Address`
-    const that = this
+    let type = this.data.options.type === 'position' ? 'Position' : 'Company'
+    let action = `delete${type}Address`
+    let that = this
     app.wxConfirm({
       title: '删除地址',
       content: '地址删除后将无法恢复，是否确定删除？',
       confirmBack() {
-        const storage = wx.getStorageSync('createPosition')
+        let storage = wx.getStorageSync('createPosition')
         // 如果删除的地址于之前选择的地址
         if(storage.address_id === that.data.id) {
           storage.address = ''
@@ -135,8 +135,8 @@ Page({
    * @return   {[type]}   [description]
    */
   edit() {
-    const type = this.data.options.type === 'position' ? 'Position' : 'Company'
-    const action = `edit${type}Address`
+    let type = this.data.options.type === 'position' ? 'Position' : 'Company'
+    let action = `edit${type}Address`
     this[action]()
   },
   /**
@@ -146,8 +146,8 @@ Page({
    * @return   {[type]}   [description]
    */
   post() {
-    const type = this.data.options.type === 'position' ? 'Position' : 'Company'
-    const action = `post${type}Address`
+    let type = this.data.options.type === 'position' ? 'Position' : 'Company'
+    let action = `post${type}Address`
     this[action]()
   },
   /**
@@ -157,8 +157,8 @@ Page({
    * @return   {[type]}   [description]
    */
   read(options) {
-    const type = this.data.options.type === 'position' ? 'Position' : 'Company'
-    const action = `get${type}AddressDetail`
+    let type = this.data.options.type === 'position' ? 'Position' : 'Company'
+    let action = `get${type}AddressDetail`
     this[action](options)
   },
   /**
@@ -169,8 +169,8 @@ Page({
    */
   getPositionAddressDetail(options) {
     getPositionAddressDetailApi({id: options.id}).then(res => {
-      const infos = res.data
-      const formData = {
+      let infos = res.data
+      let formData = {
         id: infos.id,
         area_id: infos.areaId,
         address: infos.address,
@@ -188,10 +188,10 @@ Page({
    * @return   {[type]}   [description]
    */
   getCompanyAddressDetail(options) {
-    const id = this.data.options.id
+    let id = this.data.options.id
     getCompanyAddressDetailApi({id}).then(res => {
-      const infos = res.data
-      const formData = {
+      let infos = res.data
+      let formData = {
         id: infos.id,
         area_id: infos.areaId,
         address: infos.address,
@@ -209,7 +209,7 @@ Page({
    * @return   {[type]}   [description]
    */
   submit() {
-    const action = this.data.options.id ? 'edit' : 'post'
+    let action = this.data.options.id ? 'edit' : 'post'
     this[action]()
   },
   /**
@@ -241,8 +241,8 @@ Page({
    * @return   {[type]}   [description]
    */
   postPositionAddress() {
-    const infos = this.data
-    const formData = {
+    let infos = this.data
+    let formData = {
       areaId: infos.area_id,
       address: infos.address,
       doorplate: infos.doorplate,
@@ -264,8 +264,8 @@ Page({
    * @return   {[type]}   [description]
    */
   postCompanyAddress() {
-    const infos = this.data
-    const formData = {
+    let infos = this.data
+    let formData = {
       area_id: infos.area_id,
       address: infos.address,
       doorplate: infos.doorplate,
@@ -288,8 +288,8 @@ Page({
    * @return   {[type]}   [description]
    */
   editPositionAddress() {
-    const infos = this.data
-    const formData = {
+    let infos = this.data
+    let formData = {
       id: infos.id,
       areaId: infos.area_id,
       address: infos.address,
@@ -298,7 +298,7 @@ Page({
       doorplate: infos.doorplate
     }
     editPositionAddressApi(formData).then(() => {
-      const storage = wx.getStorageSync('createPosition') || {}
+      let storage = wx.getStorageSync('createPosition') || {}
       storage.address_id = infos.id
       storage.address = infos.address
       wx.setStorageSync('createPosition', storage)
@@ -313,8 +313,8 @@ Page({
    * @return   {[type]}   [description]
    */
   editCompanyAddress() {
-    const infos = this.data
-    const formData = {
+    let infos = this.data
+    let formData = {
       id: infos.id,
       area_id: infos.area_id,
       address: infos.address,

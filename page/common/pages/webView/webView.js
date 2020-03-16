@@ -70,8 +70,9 @@ Page({
           path: `/page/common/pages/webView/webView?type=delicate&vkey=${options.vkey}`,
           imageUrl: `https://attach.lieduoduo.ziwork.com/front-assets/delicate/delicateShare.jpg`
         }
-        break
     }
+    console.log(pageUrl, 'H5链接')
+    this.setData({pageUrl})
     if (options.p) {
       let path = decodeURIComponent(options.p)
       if (options.t) {

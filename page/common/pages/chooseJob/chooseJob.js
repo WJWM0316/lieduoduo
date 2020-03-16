@@ -1,5 +1,4 @@
 import {
-  getPositionListApi,
   openPositionApi,
   getRecruiterPositionListApi,
   getfilterPositionListApi,
@@ -7,18 +6,28 @@ import {
 } from "../../../../api/pages/position.js"
 
 import {
-  applyInterviewApi,
   confirmInterviewApi,
-  refuseInterviewApi
+  refuseInterviewApi,
+  applyInterviewApi
 } from '../../../../api/pages/interview.js'
 
 import {
   getCompanyIdentityInfosApi
 } from '../../../../api/pages/company.js'
 
-import {getRecommendChargeApi} from '../../../../api/pages/recruiter.js'
+import {
+  applyChatApi
+} from '../../../../api/pages/chat.js'
 
-import {RECRUITER, COMMON} from '../../../../config.js'
+import {
+  getRecommendChargeChatApi,
+  getRecommendChargeInterviewApi
+} from '../../../../api/pages/recruiter.js'
+
+import {
+  RECRUITER,
+  COMMON
+} from '../../../../config.js'
 
 let app = getApp()
 
@@ -39,18 +48,18 @@ Page({
     unsuitableChecked: false,
     nowTab: 'online',
     buttonClick: false,
-    api: '',
+    api: 'getonLinePositionListB',
     identityInfos: {},
     openPayPop: false,
     chargeData: {}, // 扣点信息
     interviewStatus: null,
-    payTitle: ''
+    payTitle: '',
+    showDownloadModel: false,
+    downLoadAppType: 1
   },
   onLoad(options) {
     let api = ''
-    if(wx.getStorageSync('choseType') === 'RECRUITER') {
-      api = this.data.nowTab === 'online' ? 'getonLinePositionListB' : 'getoffLinePositionListB'
-      // 招聘端则判断个人身份是否已经认证 不然不能发布职位
+    if ( wx.getStorageSync('choseType') === 'RECRUITER' ) {
       this.getCompanyIdentityInfos()
     } else {
       api = 'getonLinePositionListC'
@@ -63,22 +72,11 @@ Page({
    * @detail   获取个人身份信息
    * @return   {[type]}   [description]
    */
-  getCompanyIdentityInfos(hasLoading = true) {
-    getCompanyIdentityInfosApi({hasLoading}).then(res => this.setData({identityInfos: res.data}))
+  getCompanyIdentityInfos() {
+    getCompanyIdentityInfosApi({hasLoading: false}).then(res => this.setData({identityInfos: res.data}))
   },
   onShow() {
-    let onLinePositionList = {list: [], pageNum: 1, count: 20, isLastPage: false, isRequire: false}
-    let storage = wx.getStorageSync('interviewChatLists')
-    let value = this.data.onLinePositionList
-    let interviewStatus = this.data.interviewStatus
-
-    // 这种情况是处理求职端的对条申请
-    if(storage && wx.getStorageSync('choseType') === 'RECRUITER') {
-      value.list = storage.data
-      interviewStatus = storage.interviewStatus
-      this.setData({onLinePositionList: value, interviewStatus})
-      return;
-    }
+    let onLinePositionList = { list: [], pageNum: 1, count: 20, isLastPage: false, isRequire: false }
     this.setData({onLinePositionList}, () => this.getLists())
   },
   /**
@@ -88,16 +86,14 @@ Page({
    * @return   {[type]}   [description]
    */
   getLists() {
-
     // 求职端
     if(wx.getStorageSync('choseType') !== 'RECRUITER') {
       return this.getonLinePositionListC()
     }
-
     getPositionListNumApi().then(res => {
       let api = ''
       let nowTab = this.data.nowTab
-      if(!res.data.online) {
+      if ( !res.data.online ) {
         api = 'getoffLinePositionListB'
         nowTab = 'offline'
       } else {
@@ -115,7 +111,6 @@ Page({
    */
   getonLinePositionListB(hasLoading = true) {
     return new Promise((resolve, reject) => {
-      let options = this.data.options
       let onLinePositionList = this.data.onLinePositionList
       let params = {
         is_online: 1,
@@ -124,7 +119,6 @@ Page({
         hasLoading
       }
       getRecruiterPositionListApi(params).then(res => {
-
         let onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
         let list = res.data || []
         list.map(field => field.active = false)
@@ -156,7 +150,6 @@ Page({
         hasLoading,
         recruiter: options.recruiterUid
       }
-
       getfilterPositionListApi(params).then(res => {
         let onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
         let list = res.data || []
@@ -207,9 +200,8 @@ Page({
   },
   // 获取扣点信息
   getRecommendCharge(params) {
-    getRecommendChargeApi(params).then(res => {
-      this.setData({chargeData: res.data})
-    })
+    let funcApi = this.data.options.chattype === 'onekey' ? getRecommendChargeChatApi : getRecommendChargeInterviewApi
+    return funcApi(params).then(({ data }) => this.setData({chargeData: data}))
   },
   /**
    * @Author   小书包
@@ -218,8 +210,6 @@ Page({
    * @return   {[type]}     [description]
    */
   onClick(e) {
-
-    let data = wx.getStorageSync('interviewData') || {}
     let job = e.currentTarget.dataset
     let params = {}
     let options = this.data.options
@@ -227,6 +217,7 @@ Page({
     let key = ''
     let result = {}
     let buttonClick = this.data.buttonClick
+    let data = {}
     data.positionName = job.name
     data.positionId = job.id
 
@@ -236,7 +227,6 @@ Page({
       items.list.map(field => field.active = false)
       this.setData({onLinePositionList: items, unsuitableChecked: false, [key]: true})
     } else {
-
       // 给列表判断选中的状态
       items.list.map((field, index) => {
         if(job.index === index) {
@@ -250,39 +240,29 @@ Page({
 
     switch(options.type) {
 
-      // 招聘官主动发起开撩
+      // 招聘官主动发起约聊
       case 'recruiter_chat':
-        params.jobhunterUid = options.jobhunterUid
-        params.positionId = job.id
+        params.jobhunter = options.jobhunterUid
+        params.position = job.id
         params.status = job.status
-        result = items.list.find((find, index) => job.index === index)
-        this.setData({params, buttonClick: result.active}, () => {
-          // 判断是否是精选简历需要先获取扣点信息
-          if (Number(this.data.options.sourceType) === 500) {
-            this.setData({payTitle: '顾问精选'}, () => this.getRecommendCharge(params))
-          }
-          if (Number(this.data.options.sourceType) === 100) {
-            this.setData({payTitle: '热门简历'}, () => this.getRecommendCharge(params))
-          }
+        this.setData({ params, buttonClick: true },() => {
+          this.getRecommendCharge({ jobhunter: this.data.options.jobhunterUid, positionId: params.position })
         })
         break
-
-      // 求职者 主动发起开撩
+      // 求职者 主动发起约聊
       case 'job_hunting_chat':
-        params.recruiterUid = this.data.options.recruiterUid
+        params.recruiter = this.data.options.recruiterUid
         if(job.id !== 'person') params.positionId = job.id
         this.applyInterview(params)
         break
-
-      // 招聘官确认开撩
+      // 招聘官确认约聊
       case 'confirm_chat':
         params.id = job.id
         params.status = job.status
         params.positionId = job.positionId
-        this.setData({params, buttonClick: true})
+        this.setData({ params, buttonClick: true })
         break
-
-      // 招聘官拒绝开撩
+      // 招聘官拒绝约聊
       case 'reject_chat':
         if(this.data.identity === 'APPLICANT' && job.id === 'unsuitable') {
           params.id = options.recruiterUid
@@ -310,7 +290,7 @@ Page({
   /**
    * @Author   小书包
    * @DateTime 2019-01-09
-   * @detail   开撩
+   * @detail   约聊
    * @return   {[type]}          [description]
    */
   applyInterview(params) {
@@ -320,31 +300,36 @@ Page({
         resume_perfection: app.globalData.resumeInfo.resumeCompletePercentage * 100,
         btn_type: 'job-hunting-chat'
       })
-      applyInterviewApi(params).then(res => {
+      let data = {}
+      let funcApi = ''
+      let that = this
+      if (this.data.options.chattype === 'onekey' || this.data.identity === 'APPLICANT') {
+        data = params
+        funcApi = applyChatApi
+      } else {
+        data = {
+          jobhunterUid: params.jobhunter,
+          positionId: params.position,
+          isAdvisor: 1
+        }
+        funcApi = applyInterviewApi
+      }
+      funcApi(data).then(res => {
         resolve(res)
         //  求职端返回上一页
         if(wx.getStorageSync('choseType') !== 'RECRUITER') {
           wx.navigateBack({
             delta: 1,
             success() {
-              if (app.globalData.resumeInfo.resumeCompletePercentage > 0.75) return
-              let timer = setTimeout(() => {
-                app.wxConfirm({
-                  title: '开撩成功',
-                  content: '你的简历竞争力只超过28%的求职者，建议你现在完善简历',
-                  cancelText: '暂不完善',
-                  confirmText: '马上完善',
-                  confirmBack () {
-                    app.wxReportAnalytics('btn_report', {
-                      btn_type: 'perfect_immediately'
-                    })
-                    wx.navigateTo({
-                      url: `${COMMON}resumeDetail/resumeDetail?uid=${app.globalData.resumeInfo.uid}`
-                    })
-                  }
+              if (app.globalData.resumeInfo.resumeCompletePercentage > 0.75) {
+                that.setData({downLoadAppType: 2}, () => {
+                  this.selectComponent('#downLoadApp').show()
                 })
-                clearTimeout(timer)
-              }, 1000)
+              } else {
+                that.setData({downLoadAppType: 1}, () => {
+                  this.selectComponent('#downLoadApp').show()
+                })
+              }
             }
           })
         }
@@ -370,7 +355,7 @@ Page({
   /**
    * @Author   小书包
    * @DateTime 2019-01-09
-   * @detail   拒绝开撩
+   * @detail   拒绝约聊
    * @return   {[type]}          [description]
    */
   refuseInterview(params) {
@@ -386,22 +371,16 @@ Page({
   /**
    * @Author   小书包
    * @DateTime 2019-02-01
-   * @detail   f布职位
+   * @detail   发布职位
    * @return   {[type]}   [description]
    */
   publicPosition() {
     let identityInfos = this.data.identityInfos
-
     // 跟后端协商  =1 则可以发布
-    if(identityInfos.identityAuth) {
+    if(identityInfos.identityAuth || identityInfos.status === 1) {
       wx.navigateTo({url: `${RECRUITER}position/post/post`})
       return;
     }
-
-    if(identityInfos.status === 1) {
-      wx.navigateTo({url: `${RECRUITER}position/post/post`})
-    }
-
     // 已经填写身份证 但是管理员还没有处理或者身份证信息不符合规范
     if(identityInfos.status === 0 || identityInfos.status === 2) {
       app.wxConfirm({
@@ -418,7 +397,6 @@ Page({
       })
       return;
     }
-
     // 没有填身份证 则没有验证
     if(!identityInfos.identityNum) {
       app.wxConfirm({
@@ -435,125 +413,135 @@ Page({
   /**
    * @Author   小书包
    * @DateTime 2019-03-14
-   * @detail   确认后提交
+   * @detail   确认面试
    */
-  submit() {
+  confirmChat() {
+    let params = this.data.params
+    let that = this
+    if(params.status === 0) {
+      app.wxConfirm({
+        title: '开放职位约面',
+        content: '确认开放该职位进行约面吗？',
+        showCancel: true,
+        cancelText: '再想想',
+        confirmText: '确定',
+        cancelColor: '#BCBCBC',
+        confirmColor: '#652791',
+        confirmBack: () => {
+          openPositionApi({id: params.positionId}).then(res => that.confirmInterview(params))
+        }
+      })
+    } else if(params.status === 3 || params.status === 4) {
+      app.wxToast({title: '该职位未开放，不可选择约面'})
+    } else {
+      this.confirmInterview(params)
+    }
+  },
+  /**
+   * @Author   小书包
+   * @DateTime 2019-03-14
+   * @detail   拒绝面试
+   */
+  rejectChat() {
+    let options = this.data.options
+    let params = this.data.params
+    let that = this
+    // 0已经关闭的职位
+    if( params.status === 0 ) {
+      app.wxConfirm({
+        title: '开放职位约面',
+        content: '确认开放该职位进行约面吗？',
+        showCancel: true,
+        cancelText: '再想想',
+        confirmText: '确定',
+        cancelColor: '#BCBCBC',
+        confirmColor: '#652791',
+        confirmBack: () => {
+          openPositionApi({id: params.positionId}).then(res => that.confirmInterview(params))
+        }
+      })
+    } else if(params.status === 3 || params.status === 4) {
+      app.wxToast({title: '该职位未开放，不可选择约面'})
+    } else {
+      // 都不合适 则直接拒绝
+      if(this.data.unsuitableChecked) {
+        wx.navigateTo({url: `${COMMON}interviewMark/interviewMark?type=pending&jobhunterUid=${params.id}&reBack=2&status=${params.status}`})
+        // this.refuseInterview(params)
+      } else {
+        // 用选中的面试记录发起约聊
+        this.confirmInterview(params)
+      }
+    }
+  },
+  /**
+   * @Author   小书包
+   * @DateTime 2019-03-14
+   * @detail   招聘官发起开聊
+   */
+  recruiterChat() {
     let options = this.data.options
     let params = this.data.params
     let that = this
     if(!this.data.buttonClick) return;
+    // 需要扣点
+    if (this.data.chargeData.needCharge && !this.data.openPayPop) {
+      this.setData({openPayPop: true})
+      return
+    }
+    if( params.status === 0 ) {
+      app.wxConfirm({
+        title: '开放职位约面',
+        content: '确认开放该职位进行约面吗？',
+        showCancel: true,
+        cancelText: '再想想',
+        confirmText: '确定',
+        cancelColor: '#BCBCBC',
+        confirmColor: '#652791',
+        confirmBack: () => {
+          openPositionApi({id: params.positionId}).then(res => {
+            that.applyInterview(params).then(res => that.setData({openPayPop: false, downLoadAppType: 9}, () => {
+              this.selectComponent('#downLoadApp').show()
+            }))
+          })
+        }
+      })
+    } else if(params.status === 3 || params.status === 4) {
+      app.wxToast({title: '该职位未开放，不可选择约面'})
+    } else {
+      this.applyInterview(params).then(res => that.setData({openPayPop: false, downLoadAppType: 9}, () => {
+        this.selectComponent('#downLoadApp').show()
+      }))
+    }
+  },
+  /**
+   * @Author   小书包
+   * @DateTime 2019-03-14
+   * @detail   确认后提交
+   */
+  submit() {
+    let options = this.data.options
+    if(!this.data.buttonClick) return;
     switch(options.type) {
-
-      // 确认开撩
+      // 确认约聊
       case 'confirm_chat':
-        // console.log(params);return
-        if(params.status === 0) {
-          app.wxConfirm({
-            title: '开放职位约面',
-            content: '确认开放该职位进行约面吗？',
-            showCancel: true,
-            cancelText: '再想想',
-            confirmText: '确定',
-            cancelColor: '#BCBCBC',
-            confirmColor: '#652791',
-            confirmBack: () => {
-              openPositionApi({id: params.positionId}).then(res => that.confirmInterview(params))
-            }
-          })
-        } else if(params.status === 3 || params.status === 4) {
-          app.wxToast({title: '该职位未开放，不可选择约面'})
-        } else {
-          this.confirmInterview(params)
-        }
+        this.confirmChat()
         break
-      // 招聘官拒绝开撩 需要判断职位的状态
       case 'reject_chat':
-        // 0已经关闭的职位
-        if(params.status === 0) {
-          app.wxConfirm({
-            title: '开放职位约面',
-            content: '确认开放该职位进行约面吗？',
-            showCancel: true,
-            cancelText: '再想想',
-            confirmText: '确定',
-            cancelColor: '#BCBCBC',
-            confirmColor: '#652791',
-            confirmBack: () => {
-              openPositionApi({id: params.positionId}).then(res => that.confirmInterview(params))
-            }
-          })
-        } else if(params.status === 3 || params.status === 4) {
-          app.wxToast({title: '该职位未开放，不可选择约面'})
-        } else {
-
-          // 都不合适 则直接拒绝
-          if(this.data.unsuitableChecked) {
-            wx.navigateTo({url: `${COMMON}interviewMark/interviewMark?type=pending&jobhunterUid=${params.id}&reBack=2&status=${params.status}`})
-            // this.refuseInterview(params)
-          } else {
-            // 用选中的面试记录发起开撩
-            this.confirmInterview(params)
-          }
-        }
+        this.rejectChat()
         break
-      // 招聘官发起开撩
       case 'recruiter_chat':
-        if(!this.data.buttonClick) {
-          app.wxConfirm({
-            title: '开放职位约面',
-            content: '确认开放该职位进行约面吗？',
-            showCancel: true,
-            cancelText: '再想想',
-            confirmText: '确定',
-            cancelColor: '#BCBCBC',
-            confirmColor: '#652791',
-            confirmBack: () => {
-              openPositionApi({id: params.positionId}).then(res => that.confirmInterview(params))
-            }
-          })
-        } else {
-          // 需要扣点
-          if (this.data.chargeData.needCharge && !this.data.openPayPop) {
-            this.setData({openPayPop: true})
-            return
-          }
-          if(params.status === 0) {
-            app.wxConfirm({
-              title: '开放职位约面',
-              content: '确认开放该职位进行约面吗？',
-              showCancel: true,
-              cancelText: '再想想',
-              confirmText: '确定',
-              cancelColor: '#BCBCBC',
-              confirmColor: '#652791',
-              confirmBack: () => {
-                openPositionApi({id: params.positionId}).then(res => {
-                  that.applyInterview(params).then(res => {
-                    if (Number(this.data.options.sourceType) === 500) {
-                      wx.redirectTo({url: `${COMMON}arrangement/arrangement?id=${res.data.interviewId}&adviser=true`})
-                    } else {
-                      wx.redirectTo({url: `${COMMON}arrangement/arrangement?id=${res.data.interviewId}`})
-                    }
-                  })
-                })
-              }
-            })
-          } else if(params.status === 3 || params.status === 4) {
-            app.wxToast({title: '该职位未开放，不可选择约面'})
-          } else {
-            this.applyInterview(params).then(res => {
-              if (Number(this.data.options.sourceType) === 500) {
-                wx.redirectTo({url: `${COMMON}arrangement/arrangement?id=${res.data.interviewId}&adviser=true`})
-              } else {
-                wx.redirectTo({url: `${COMMON}arrangement/arrangement?id=${res.data.interviewId}`})
-              }
-            })
-          }
-        }
+        this.recruiterChat()
+        break
       default:
         break
     }
   },
+  /**
+   * @Author   小书包
+   * @DateTime 2019-01-21
+   * @detail   关闭支付弹窗
+   * @return   {[type]}   [description]
+   */
   closePayPop () {
     this.setData({openPayPop: false})
   },
@@ -566,19 +554,25 @@ Page({
   onReachBottom() {
     let onLinePositionList = {}
     let storage = wx.getStorageSync('interviewChatLists')
-
     if(storage && wx.getStorageSync('choseType') === 'RECRUITER') {
       onLinePositionList = {list: [], pageNum: 1, count: 20, isLastPage: false, isRequire: false}
       onLinePositionList.list = storage.data
       this.setData({onLinePositionList})
       return;
     }
-
     onLinePositionList = this.data.onLinePositionList
-
     this.setData({onLinePositionList})
     if(!onLinePositionList.isLastPage) {
       this[this.data.api](false).then(() => this.setData({onBottomStatus: 1}))
     }
+  },
+  /**
+   * @Author   小书包
+   * @DateTime 2019-01-21
+   * @detail   关闭弹窗 直接回到简历详情
+   * @return   {[type]}   [description]
+   */
+  closeDownloadModel() {
+    this.setData({showDownloadModel: false})
   }
 })

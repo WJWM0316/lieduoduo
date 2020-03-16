@@ -12,8 +12,6 @@ import {
 
 import {RECRUITER, COMMON, APPLICANT} from '../../../../config.js'
 
-import {getSelectorQuery}  from '../../../../utils/util.js'
-
 import { getPositionListNumApi } from '../../../../api/pages/position.js'
 
 let app = getApp()
@@ -49,16 +47,15 @@ Page({
   getMyCollectUsers(hasLoading = true) {
     return new Promise((resolve, reject) => {
       let params = {count: this.data.pageCount, page: this.data.collectUsers.pageNum, ...app.getSource()}
-      getMyCollectUsersApi(params, hasLoading)
-        .then(res => {
-          let collectUsers = this.data.collectUsers
-          let onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
-          collectUsers.list = collectUsers.list.concat(res.data)
-          collectUsers.isLastPage = res.meta && res.meta.nextPageUrl ? false : true
-          collectUsers.pageNum = collectUsers.pageNum + 1
-          collectUsers.isRequire = true
-          this.setData({collectUsers, onBottomStatus}, () => resolve(res))
-        })
+      getMyCollectUsersApi(params, hasLoading).then(res => {
+        let collectUsers = this.data.collectUsers
+        let onBottomStatus = res.meta && res.meta.nextPageUrl ? 0 : 2
+        collectUsers.list = collectUsers.list.concat(res.data)
+        collectUsers.isLastPage = res.meta && res.meta.nextPageUrl ? false : true
+        collectUsers.pageNum = collectUsers.pageNum + 1
+        collectUsers.isRequire = true
+        this.setData({collectUsers, onBottomStatus}, () => resolve(res))
+      })
     })
   },
   /**
@@ -114,7 +111,6 @@ Page({
     let params = e.currentTarget.dataset
     // 可能会存在空对象
     if(!Object.keys(params).length) return;
-    // console.log(params)
     wx.navigateTo({url: `${COMMON}resumeDetail/resumeDetail?uid=${params.jobhunteruid}`})
   },
   formSubmit(e) {

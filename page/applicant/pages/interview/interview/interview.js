@@ -526,44 +526,47 @@ Page({
    */
   routeJump(e) {
     let params = e.currentTarget.dataset
+    if(!Object.keys(params).length) {
+      return
+    }
     // 不知道什么情款  有时候拿不到数据
-    if(!Object.keys(params).length) return
+    console.log(params)
     switch(params.status) {
-      case 12:
-        if(Number(params.positionid)) {
-          wx.navigateTo({url: `${COMMON}positionDetail/positionDetail?positionId=${params.positionid}`})
-        } else {
-          wx.navigateTo({url: `${COMMON}recruiterDetail/recruiterDetail?uid=${params.recruiteruid}`})
-        }
-        break
-      case 11:
-        if(Number(params.positionid)) {
-          wx.navigateTo({url: `${COMMON}positionDetail/positionDetail?positionId=${params.positionid}`})
-        } else {
-          wx.navigateTo({url: `${COMMON}recruiterDetail/recruiterDetail?uid=${params.recruiteruid}`})
-        }
-        break
-      case 21:
-        if(Number(params.positionid)) {
-          wx.navigateTo({url: `${COMMON}positionDetail/positionDetail?positionId=${params.positionid}`})
-        } else {
-          wx.navigateTo({url: `${COMMON}recruiterDetail/recruiterDetail?uid=${params.recruiteruid}`})
-        }
-        break
-      case 52:
-        if(Number(params.positionid)) {
-          wx.navigateTo({url: `${COMMON}positionDetail/positionDetail?positionId=${params.positionid}`})
-        } else {
-          wx.navigateTo({url: `${COMMON}recruiterDetail/recruiterDetail?uid=${params.recruiteruid}`})
-        }
-        break
-      case 53:
-        if(Number(params.positionid)) {
-          wx.navigateTo({url: `${COMMON}positionDetail/positionDetail?positionId=${params.positionid}`})
-        } else {
-          wx.navigateTo({url: `${COMMON}recruiterDetail/recruiterDetail?uid=${params.recruiteruid}`})
-        }
-        break
+      // case 12:
+        // if(Number(params.positionid)) {
+        //   wx.navigateTo({url: `${COMMON}positionDetail/positionDetail?positionId=${params.positionid}`})
+        // } else {
+        //   wx.navigateTo({url: `${COMMON}recruiterDetail/recruiterDetail?uid=${params.recruiteruid}`})
+        // }
+        // break
+      // case 11:
+      //   if(Number(params.positionid)) {
+      //     wx.navigateTo({url: `${COMMON}positionDetail/positionDetail?positionId=${params.positionid}`})
+      //   } else {
+      //     wx.navigateTo({url: `${COMMON}recruiterDetail/recruiterDetail?uid=${params.recruiteruid}`})
+      //   }
+      //   break
+      // case 21:
+      //   if(Number(params.positionid)) {
+      //     wx.navigateTo({url: `${COMMON}positionDetail/positionDetail?positionId=${params.positionid}`})
+      //   } else {
+      //     wx.navigateTo({url: `${COMMON}recruiterDetail/recruiterDetail?uid=${params.recruiteruid}`})
+      //   }
+      //   break
+      // case 52:
+      //   if(Number(params.positionid)) {
+      //     wx.navigateTo({url: `${COMMON}positionDetail/positionDetail?positionId=${params.positionid}`})
+      //   } else {
+      //     wx.navigateTo({url: `${COMMON}recruiterDetail/recruiterDetail?uid=${params.recruiteruid}`})
+      //   }
+      //   break
+      // case 53:
+      //   if(Number(params.positionid)) {
+      //     wx.navigateTo({url: `${COMMON}positionDetail/positionDetail?positionId=${params.positionid}`})
+      //   } else {
+      //     wx.navigateTo({url: `${COMMON}recruiterDetail/recruiterDetail?uid=${params.recruiteruid}`})
+      //   }
+      //   break
       case 54:
         if(Number(params.positionid)) {
           wx.navigateTo({url: `${COMMON}positionDetail/positionDetail?positionId=${params.positionid}`})
@@ -571,28 +574,28 @@ Page({
           wx.navigateTo({url: `${COMMON}recruiterDetail/recruiterDetail?uid=${params.recruiteruid}`})
         }
         break
-      case 55:
-        if(Number(params.positionid)) {
-          wx.navigateTo({url: `${COMMON}positionDetail/positionDetail?positionId=${params.positionid}`})
-        } else {
-          wx.navigateTo({url: `${COMMON}recruiterDetail/recruiterDetail?uid=${params.recruiteruid}`})
-        }
-        break  
-      case 57:
-        wx.navigateTo({url: `${COMMON}arrangement/arrangement?id=${params.itemId}`})
-        break
-      case 58:
-        wx.navigateTo({url: `${COMMON}arrangement/arrangement?id=${params.itemId}`})
-        break
-      case 59:
-        wx.navigateTo({url: `${COMMON}arrangement/arrangement?id=${params.itemId}`})
-        break
-      case 60:
-        wx.navigateTo({url: `${COMMON}arrangement/arrangement?id=${params.itemId}`})
-        break
-      case 61:
-        wx.navigateTo({url: `${COMMON}arrangement/arrangement?id=${params.itemId}`})
-        break
+      // case 55:
+      //   if(Number(params.positionid)) {
+      //     wx.navigateTo({url: `${COMMON}positionDetail/positionDetail?positionId=${params.positionid}`})
+      //   } else {
+      //     wx.navigateTo({url: `${COMMON}recruiterDetail/recruiterDetail?uid=${params.recruiteruid}`})
+      //   }
+      //   break  
+      // case 57:
+      //   wx.navigateTo({url: `${COMMON}arrangement/arrangement?id=${params.itemId}`})
+      //   break
+      // case 58:
+      //   wx.navigateTo({url: `${COMMON}arrangement/arrangement?id=${params.itemId}`})
+      //   break
+      // case 59:
+      //   wx.navigateTo({url: `${COMMON}arrangement/arrangement?id=${params.itemId}`})
+      //   break
+      // case 60:
+      //   wx.navigateTo({url: `${COMMON}arrangement/arrangement?id=${params.itemId}`})
+      //   break
+      // case 61:
+      //   wx.navigateTo({url: `${COMMON}arrangement/arrangement?id=${params.itemId}`})
+      //   break
       default:
         wx.navigateTo({url: `${COMMON}arrangement/arrangement?id=${params.itemId}`})
         break

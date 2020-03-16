@@ -66,21 +66,21 @@
 					"id": 1,
 					"name": "【公包】职位详情",
 					"pathName": "page/common/pages/positionDetail/positionDetail",
-					"query": "positionId=6786",
+					"query": "positionId=7268&fromType=guideCard&firstIndex=0&secondIndex=0",
 					"scene": 1001
 				},
 				{
 					"id": 2,
 					"name": "【公包】招聘官主页",
 					"pathName": "page/common/pages/recruiterDetail/recruiterDetail",
-					"query": "uid=3132",
+					"query": "uid=663",
 					"scene": 1001
 				},
 				{
-					"id": 5,
+					"id": 3,
 					"name": "【公包】简历详情",
 					"pathName": "page/common/pages/resumeDetail/resumeDetail",
-					"query": "uid=3799&hot=true",
+					"query": "uid=3396",
 					"scene": null
 				},
 				{
@@ -239,10 +239,11 @@
 					"query": ""
 				},
 				{
-					"id": 15,
+					"id": 27,
 					"name": "【B端】职位管理",
 					"pathName": "page/recruiter/pages/position/index/index",
-					"query": ""
+					"query": "positionStatus=2",
+					"scene": null
 				},
 				{
 					"id": 16,
@@ -402,10 +403,10 @@
 					"scene": null
 				},
 				{
-					"id": 47,
+					"id": 52,
 					"name": "面试安排",
 					"pathName": "page/common/pages/arrangement/arrangement",
-					"query": "id=157&identity=jobhunter",
+					"query": "id=4050",
 					"scene": null
 				},
 				{
@@ -511,6 +512,34 @@
 					"name": "page/common/pages/webView/webView",
 					"pathName": "page/common/pages/webView/webView",
 					"query": "sourceType=hd_alliance_H5&sourceType=ad42&p=https%3A%2F%2Fh5.lieduoduo.com%2Falliance%3FsourceType%3Dhd_alliance_H5",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "选择职位约面",
+					"pathName": "page/common/pages/chooseJob/chooseJob",
+					"query": "type=recruiter_chat&jobhunterUid=5029&recruiterUid=662&sourceType=null",
+					"scene": null
+				},
+				{
+					"id": 69,
+					"name": "约面",
+					"pathName": "page/common/pages/arrangement/arrangement",
+					"query": "id=4013",
+					"scene": null
+				},
+				{
+					"id": 70,
+					"name": "B端面试",
+					"pathName": "page/recruiter/pages/interview/index/index",
+					"query": "tabIndex=1",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "约面无职位",
+					"pathName": "page/common/pages/recruiterDetail/recruiterDetail",
+					"query": "uid=5035",
 					"scene": null
 				}
 			]

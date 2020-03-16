@@ -244,7 +244,6 @@ Page({
     let end = new Date(endTime.date).getTime()
     let timeStamp = end - start
     let day = Math.floor(timeStamp / 86400000)
-    console.log(day)
     return day > 30
   },
   /**
@@ -363,7 +362,6 @@ Page({
         this.setData({positionSelected: false})
       }
 
-      console.log(this.data)
       if((activeItem && activeItem.active && activeItem.id !== 1) || (startTime.active && endTime.active)) {
         this.setData({timeSelected: true})
       } else {

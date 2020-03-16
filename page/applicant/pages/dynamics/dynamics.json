@@ -7,6 +7,7 @@
     "choose": "../../../../components/business/choose/choose",
     "auth": "../../../../components/functional/auth/auth",
     "bindPhone": "../../../../components/functional/bindPhone/bindPhone",
-    "officerTab": "../../../../components/business/officerTab/officerTab"
+    "officerTab": "../../../../components/business/officerTab/officerTab",
+    "downloadBar": "../../../../components/business/downloadBar/downloadBar"
   }
 }

@@ -7,7 +7,9 @@
     "shareBtn": "../../../../components/layout/shareBtn/shareBtn",
     "shrinkText": "../../../../components/functional/shrinkText/shrinkText",
     "interviewBar": "../../../../components/business/interviewBar/interviewBar",
+    "communicationBar": "../../../../components/business/communicationBar/communicationBar",
     "actionSheet": "../../../../components/layout/actionSheet/actionSheet",
-    "notFound": "../../../../components/layout/notFound/notFound"
+    "notFound": "../../../../components/layout/notFound/notFound",
+    "payPop": "../../../../components/business/payPop/payPop"
   }
 }

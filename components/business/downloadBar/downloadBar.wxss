@@ -1,0 +1,192 @@
+@import '../../../iconfont.wxss';
+.download-bar {
+  height:60rpx;
+  padding: 19rpx 30rpx;
+  line-height: 60rpx;
+  font-size:28rpx;
+  position: relative;
+}
+
+.download-bar .btn {
+  width:126rpx;
+  height:60rpx;
+  border-radius:30rpx;
+  font-size:28rpx;
+  font-weight:700;
+  position: absolute;
+  right: 30rpx;
+  top: 50%;
+  transform: translateY(-50%);
+  text-align: center;
+  text-indent: 10rpx;
+}
+
+.download-bar .icon_notice_v210 {
+  position: relative;
+  font-size: 28rpx;
+  color: #652791;
+  width: calc(42rpx * .55);
+  height: calc(48rpx * .55);
+  display: inline-block;
+  vertical-align: middle;
+  top: -4rpx;
+}
+
+.download-bar .icon-xiangyou {
+  position: relative;
+  font-size: 28rpx;
+}
+
+.download-bar.style1 {
+  background:#F7F4FA;
+  color:#282828;
+}
+
+.download-bar.style3 {
+  background:#F0E9F5;
+  color:#282828;
+}
+
+.download-bar.style3 .btn{
+  background:#FFFFFF;
+  color:#652791;
+}
+
+.download-bar.style1 .btn{
+  background:#FFFFFF;
+  color:#652791;
+}
+
+.download-bar.style2 {
+  background:#F7F4FA;
+  color:#282828;
+}
+
+.download-bar.style2 .btn{
+  background:#FFDC29;
+  color:#652791;
+}
+
+.guide-download {
+  height:114rpx;
+  box-shadow:0rpx 8rpx 40rpx 0rpx rgba(34,56,101,0.08);
+  border-radius:16rpx;
+  margin: 20rpx 30rpx;
+  display: flex;
+  padding: 33rpx 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.guide-download .col-right {
+  width: 210rpx;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+
+.guide-download .col-left {
+  flex: 1;
+  padding-left: 40rpx;
+  z-index: 1;
+}
+
+.guide-download .head {
+  height:36rpx;
+  font-size:27rpx;
+  line-height:36rpx;
+}
+
+.guide-download .btn {
+  width:150rpx;
+  height:68rpx;
+  border-radius:34rpx;
+  font-size:28rpx;
+  font-weight:700;
+  text-align: center;
+  line-height: 68rpx;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  color: #652791;
+  text-indent: 20rpx;
+}
+
+.guide-download .btn.test1 {
+  text-indent: 5rpx;
+}
+
+.guide-download .text1 {
+  display: inline;
+  font-size: 26rpx;
+}
+
+.guide-download .img {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.guide-download .imglist {
+  height: 66rpx;
+  margin-top: 12rpx;
+  width: 416rpx;
+}
+
+.guide-download .strong {
+  display: inline-block;
+  padding-right: 5rpx;
+  font-weight: 700;
+  height: 28rpx;
+  width: 68rpx;
+  vertical-align: middle;
+  position: relative;
+  top: -4rpx;
+}
+
+.guide-download.style1 {
+  background:rgba(37,22,90,1);
+}
+
+.guide-download.style1 .btn {
+  background: white;
+}
+
+.guide-download.style1 .head {
+  color:rgba(255,255,255,1);
+}
+
+.guide-download.style1 .strong {
+  color:rgba(255,220,41,1);
+}
+
+.guide-download.style2 {
+  background:white;
+}
+
+.guide-download.style2 .btn {
+  background: #FFDC29;
+}
+
+.guide-download.style2 .head {
+  color:#282828
+}
+
+.guide-download.style2 .strong {
+  color:#282828
+}
+
+.guide-download .icon-xiangyou{
+  font-size: 30rpx;
+  position: relative;
+  top: 2rpx;
+  left: -8rpx;
+}
+
+.guide-download .icon-disejiantou-you{
+  font-size: 26rpx;
+  position: relative;
+}
