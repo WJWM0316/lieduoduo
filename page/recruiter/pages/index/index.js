@@ -157,12 +157,11 @@ Page({
     }
   },
   initDefaultBar() {
-    if (!this.data.detail.positionNum) return
+    // if (!this.data.detail.positionNum) return
     setTimeout(() => {
       getSelectorQuery('.tab-bar').then(res => {
-        if(!res) return
         let moveParams = this.data.moveParams
-        moveParams.screenHalfWidth = res.width / 2
+        moveParams.screenHalfWidth = res.width / 2 || 0
         this.setData({moveParams})
       })
     }, 1000)
@@ -200,9 +199,10 @@ Page({
    * @return   {[type]}   [description]
    */
   getDomNodePosition() {
-    if (!this.data.detail.positionNum) return
+    // if (!this.data.detail.positionNum) return
     setTimeout(() => {
       getSelectorQuery('.default').then(res => {
+        if(!res.top && !this.data.detail.positionNum) return
         if(!fixedDomPosition) fixedDomPosition = res.top - this.data.navH
       })
     }, 300)
