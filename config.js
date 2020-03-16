@@ -4,14 +4,14 @@
 
 // 环境切换
 // 0 是测试环境  1 是正式环境
-let environment = 0
-export let 	VERSION = 109,
-						APPLICANTHOST = '',
-						RECRUITERHOST = '',
-						PUBAPIHOST = '',
-						NODEHOST = '',
-						WEBVIEW = '',
-						CDNPATH = ''
+let environment = 1
+export let 	VERSION = 110,
+			APPLICANTHOST = '',
+			RECRUITERHOST = '',
+			PUBAPIHOST = '',
+			NODEHOST = '',
+			WEBVIEW = '',
+			CDNPATH = ''
 if (environment === 0) {
 	// 测试服口
 	APPLICANTHOST = 'https://qiuzhi-api.lieduoduo.ziwork.com'
