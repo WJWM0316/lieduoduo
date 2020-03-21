@@ -13,6 +13,7 @@ let recruiterCard = ''
 Page({
 	data: {
     recruiterInfo: {},
+    companyType: 1, // 1为普通公司 2为猎头公司
     isRecruiter: app.globalData.isRecruiter,
     cdnPath: app.globalData.cdnImagePath,
     navH: app.globalData.navHeight,
@@ -30,7 +31,7 @@ Page({
 		let init = () => {
 			let recruiterInfo = app.globalData.recruiterDetails
 			if (recruiterInfo.uid) {
-			  this.setData({recruiterInfo})
+			  this.setData({recruiterInfo, "companyType": app.globalData.companyType})
 			}
 		}
 		if (app.pageInit) {

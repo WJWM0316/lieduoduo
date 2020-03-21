@@ -174,21 +174,10 @@ App({
   getRoleInfo() {
     return new Promise((resolve, reject) => {
       getUserRoleApi().then(res0 => {
-        if (res0.data.isRecruiter) {
-          this.globalData.isRecruiter = 1
-        } else {
-          this.globalData.isRecruiter = 0
-        }
-        if (res0.data.isJobhunter) {
-          this.globalData.isJobhunter = 1
-        } else {
-          this.globalData.isJobhunter = 0
-        }
-        if (res0.data.hasCard) {
-          this.globalData.isMicroCard = 1
-        } else {
-          this.globalData.isMicroCard = 0
-        }
+        if (res0.data.isRecruiter) this.globalData.isRecruiter = res0.data.isRecruiter
+        if (res0.data.isJobhunter) this.globalData.isJobhunter = res0.data.isJobhunter
+        if (res0.data.hasCard) this.globalData.isMicroCard = res0.data.hasCard
+        if (res0.data.companyType) this.globalData.companyType = res0.data.companyType
         if (this.getRoleInit) { // 登陆初始化
           this.getRoleInit() //执行定义的回调函数
         }
