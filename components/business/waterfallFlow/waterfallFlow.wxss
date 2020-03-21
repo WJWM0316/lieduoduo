@@ -27,6 +27,15 @@
   background: url('https://attach.lieduoduo.ziwork.com/front-assets/images/jIcon.png') no-repeat;
   background-size: 100% 100%;
 }
+.icon.zhizhao {
+ 	width: 36rpx;
+  height: 54rpx;
+  position: absolute;
+  top: -4rpx;
+  left: 24rpx;
+	background: url('https://attach.lieduoduo.ziwork.com/front-assets/images/zzIcon.png') no-repeat;
+  background-size: 100% 100%;
+}
 .header {
 	padding: 16rpx 28rpx 16rpx;
 	background: #E9E9F5;

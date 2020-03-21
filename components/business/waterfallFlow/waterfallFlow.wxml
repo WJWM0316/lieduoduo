@@ -12,8 +12,8 @@
             data-secondindex="{{index}}"
             wx:key="{{item.id}}">
           <block wx:if="{{!item.cardType}}">
-            <view class="iconfont header {{item.isUrgency === 1 ? 'specail' : ''}} {{item.recruiterInfo.signature ? 'hasSignature' : ''}}">
-              <block wx:if="{{item.isUrgency !== 1}}">
+            <view class="iconfont header {{item.isUrgency === 1 || item.companyInfo.type === 1 ? 'specail' : ''}} {{item.recruiterInfo.signature ? 'hasSignature' : ''}}">
+              <block wx:if="{{item.isUrgency !== 1 && item.companyInfo.type !== 1}}">
               	<view class="people">
               		<image lazy-load class="avatar" src="{{item.recruiterInfo.avatar.smallUrl}}"></image>
               		<view class="detail">
@@ -22,7 +22,7 @@
               		</view>
               	</view>
               </block>
-              <block wx:if="{{item.isUrgency === 1}}">
+              <block wx:if="{{item.isUrgency === 1 || item.companyInfo.type === 1}}">
                 <view class="specailBox">
                   <view class="avatarBox"><image lazy-load class="avatar" src="{{item.recruiterInfo.avatar.smallUrl}}"></image></view>
                   <view class="name ellipsis">{{item.recruiterInfo.name}}</view>
@@ -31,7 +31,7 @@
               </block>
             	<view class="signature" wx:if="{{item.recruiterInfo.signature}}">{{item.recruiterInfo.signature}}</view>
             </view>
-            <view class="icon specail" wx:if="{{item.isUrgency === 1}}"></view>
+            <view class="icon {{item.companyInfo.type === 1 ? 'zhizhao' : ''}} {{item.isUrgency === 1 ? 'specail' : ''}} " wx:if="{{item.isUrgency === 1 || item.companyInfo.type === 1}}"></view>
             <view class="content">
             	<view class="positionName ellipsis">{{item.positionName}}</view>
             	<view class="salary">{{item.emolumentMin}}K~{{item.emolumentMax}}K<block wx:if="{{item.annualSalary > 12}}">·{{item.annualSalaryDesc}}</block></view>

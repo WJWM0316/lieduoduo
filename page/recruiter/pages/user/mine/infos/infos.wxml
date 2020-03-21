@@ -151,7 +151,7 @@
 		</view>		
 	</view>
 
-	<view class="toggleIdentity" bindtap="toggleIdentity">
+	<view class="toggleIdentity" bindtap="toggleIdentity" hidden="{{companyType === 2}}">
 		<i class="icon iconfont icon-qiehuanshenfen label-icon"></i>
 		<view class="text">切换身份</view>
 		<view class="text2 color-default">当前为面试官</view>

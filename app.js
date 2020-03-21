@@ -61,6 +61,7 @@ App({
     isMicroCard: 0, // 是否创建微名片
     isRecruiter: 0, // 是否认证成为招聘官
     isJobhunter: 0, // 是否注册成求职者
+    companyType: 1, // 公司类型 1普通 2猎头
     hasExpect: 0, // 有求职意向
     hasLogin: 0, // 判断是否登录
     userInfo: null, // 用户信息， 判断是否授权,
@@ -657,6 +658,10 @@ App({
     let content = ''
     if (source === 'RECRUITER') {
       jumpPath ? content = '检测到你是面试官，是否切换面试官' : content = '切换为求职者身份后可使用该功能'
+      if (this.globalData.companyType === 2 && !jumpPath) {
+        this.wxToast({title: '请更换求职者身份后再操作哦~'})
+        return
+      }
       this.wxConfirm({
         title: '提示',
         content,
