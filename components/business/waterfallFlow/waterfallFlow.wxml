@@ -22,7 +22,7 @@
               		</view>
               	</view>
               </block>
-              <block wx:if="{{item.isUrgency === 1 || item.companyInfo.type === 1}}">
+              <block wx:else>
                 <view class="specailBox">
                   <view class="avatarBox"><image lazy-load class="avatar" src="{{item.recruiterInfo.avatar.smallUrl}}"></image></view>
                   <view class="name ellipsis">{{item.recruiterInfo.name}}</view>
